@@ -9,7 +9,7 @@
 #include <string_view>
 #include <unordered_map>
 
-namespace core::textures {
+namespace core::api::graphics::textures {
     struct CORE_DLLEXPORT MaterialParams {
         std::optional<app::Vector4> uvs;
         std::optional<app::Vector4> scroll_rot;

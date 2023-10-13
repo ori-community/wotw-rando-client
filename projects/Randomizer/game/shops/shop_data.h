@@ -17,7 +17,7 @@ namespace randomizer::game::shops {
     struct SlotInfo {
         core::DynamicValue<std::string> name;
         core::DynamicValue<std::string> description;
-        std::shared_ptr<core::textures::TextureData> icon;
+        std::shared_ptr<core::api::graphics::textures::TextureData> icon;
     };
 
     struct ShopSlot {

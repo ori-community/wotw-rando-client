@@ -46,7 +46,7 @@ namespace {
         if (info.icon != nullptr) {
             info.icon->apply(renderer);
         } else {
-            core::textures::apply_default(renderer);
+            core::api::graphics::textures::apply_default(renderer);
             UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum::MainTexture, reinterpret_cast<app::Texture*>(this_ptr->fields.m_upgradeItem->fields.Icon));
         }
     }

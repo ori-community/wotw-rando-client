@@ -1373,7 +1373,7 @@ namespace randomizer::seed::legacy_parser {
     }
 
     bool parse_wheel_action(location_type const& location, std::span<std::string> parts, ParserData& data) { // NOLINT
-        if (parts.size() != 3) {
+        if (parts.size() <= 3) {
             return false;
         }
 
@@ -1496,25 +1496,26 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
+        auto next_parts = std::span<std::string>(parts.begin() + 1, parts.end());
         switch (wheel_type) {
             case 0:
-                return parse_wheel_name(parts, data);
+                return parse_wheel_name(next_parts, data);
             case 1:
-                return parse_wheel_description(parts, data);
+                return parse_wheel_description(next_parts, data);
             case 2:
-                return parse_wheel_texture(parts, data);
+                return parse_wheel_texture(next_parts, data);
             case 3:
-                return parse_wheel_color(parts, data);
+                return parse_wheel_color(next_parts, data);
             case 4:
-                return parse_wheel_action(location, parts, data);
+                return parse_wheel_action(location, next_parts, data);
             case 5:
-                return parse_wheel_sticky(parts, data);
+                return parse_wheel_sticky(next_parts, data);
             case 6:
-                return parse_wheel_active(parts, data);
+                return parse_wheel_active(next_parts, data);
             case 7:
-                return parse_wheel_clear_item(parts, data);
+                return parse_wheel_clear_item(next_parts, data);
             case 8:
-                return parse_wheel_clear_all(parts, data);
+                return parse_wheel_clear_all(next_parts, data);
             default:
                 break;
         }
@@ -1539,7 +1540,7 @@ namespace randomizer::seed::legacy_parser {
         caller->func = [shop_state, icon]() {
             auto slot = game::shops::shop_slot_from_state(shop_state);
             if (slot != nullptr) {
-                slot->normal.icon = core::textures::get_texture(icon);
+                slot->normal.icon = core::api::graphics::textures::get_texture(icon);
                 slot->locked.icon = slot->normal.icon;
             }
         };
@@ -1777,6 +1778,9 @@ namespace randomizer::seed::legacy_parser {
         int next_procedure_id = 0;
         std::string line;
         while (std::getline(seed_file, line)) {
+            data.info.content += line;
+            data.info.content += "\n";
+
             if (line.starts_with("//")) {
                 parse_config(line, data);
                 continue;

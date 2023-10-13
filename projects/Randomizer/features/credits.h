@@ -1,5 +1,5 @@
 #pragma once
 
-namespace credits {
+namespace randomizer::features::credits {
     void start();
 }

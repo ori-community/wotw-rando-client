@@ -23,14 +23,14 @@ namespace {
         ShrekState{ "file:assets/shrek/1.png", 8.f },
     };
 
-    std::unique_ptr<core::Sprite> shrek;
+    std::unique_ptr<core::api::graphics::Sprite> shrek;
     float time_to_reset_state = 0.f;
 
     void set_state(int index) {
         const auto state = states[index];
-        core::textures::MaterialParams params;
+        core::api::graphics::textures::MaterialParams params;
         params.uvs = std::optional<app::Vector4>({ 0.f, 0.f, 1.f, 1.f });
-        shrek->texture(core::textures::get_texture(state.texture_path), std::make_optional(params));
+        shrek->texture(core::api::graphics::textures::get_texture(state.texture_path), std::make_optional(params));
         shrek->local_scale(app::Vector3{ state.scale, state.scale, state.scale });
     }
 
@@ -70,7 +70,7 @@ namespace {
                     "headC1_base1_SKN" }
             );
 
-            shrek = std::make_unique<core::Sprite>();
+            shrek = std::make_unique<core::api::graphics::Sprite>();
 
             shrek->set_parent(head_c1_skn_go);
             shrek->local_position(app::Vector3{ 0.f, 3.f, -1.f });

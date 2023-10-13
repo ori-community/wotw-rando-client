@@ -12,7 +12,7 @@
 using namespace app::classes;
 using namespace app::classes::UnityEngine;
 
-namespace core::shaders {
+namespace core::api::graphics::shaders {
     app::Material* copy_material(app::Material* source) {
         auto instanced_material = types::Material::create();
         Material::ctor_2(instanced_material, source);
@@ -24,7 +24,7 @@ namespace core::shaders {
         auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(go, types::Renderer::get_class());
         for (auto renderer : renderers) {
             auto mat = UberShaderAPI::GetEditableMaterial(renderer);
-            il2cpp::invoke(renderer, "set_sharedMaterial", core::shaders::copy_material(mat));
+            il2cpp::invoke(renderer, "set_sharedMaterial", copy_material(mat));
         }
     }
 

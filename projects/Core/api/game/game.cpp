@@ -279,4 +279,18 @@ namespace core::api::game {
             types::DebugValues::get_class()->static_fields->DebugControlsEnabled = value;
         }
     }
+
+    auto on_map_opened = event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, [](auto, auto) {
+        auto it = containers.find(RandoContainer::MapIcons);
+        if (it != containers.end()) {
+            UnityEngine::GameObject::SetActive(it->second, true);
+        }
+    });
+
+    auto on_map_closed = event_bus().register_handler(GameEvent::CloseAreaMap, EventTiming::After, [](auto, auto) {
+        auto it = containers.find(RandoContainer::MapIcons);
+        if (it != containers.end()) {
+            UnityEngine::GameObject::SetActive(it->second, false);
+        }
+    });
 } // namespace core::api::game

@@ -36,6 +36,11 @@ namespace randomizer::seed {
             std::string name;
             int total_pickups = 0;
             std::unordered_map<GameArea, int> pickup_count_by_area;
+
+            std::string content;
+            std::string areas;
+            std::string locations;
+            std::string states;
         };
 
         struct Data {
@@ -62,6 +67,7 @@ namespace randomizer::seed {
         int total_pickups() const { return m_data.info.total_pickups; }
 
         void prevent_grants(bool value) { m_should_prevent_grants = value; }
+        std::string path() const { return m_last_path; }
 
     private:
         location_data::LocationCollection const& m_location_data;

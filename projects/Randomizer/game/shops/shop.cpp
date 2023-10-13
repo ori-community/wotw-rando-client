@@ -226,13 +226,13 @@ namespace randomizer::game::shops {
             slot->cost = cost;
             slot->normal.name.assign(text_id);
             slot->normal.description.assign(text_id + 1);
-            slot->normal.icon = core::textures::get_texture("shard:0");
+            slot->normal.icon = core::api::graphics::textures::get_texture("shard:0");
             slot->locked.name.assign(text_id + 2);
             slot->locked.description.assign(text_id + 3);
-            slot->locked.icon = core::textures::get_texture("shard:0");
+            slot->locked.icon = core::api::graphics::textures::get_texture("shard:0");
             slot->hidden.name.assign(text_id + 4);
             slot->hidden.description.assign(text_id + 5);
-            slot->hidden.icon = core::textures::get_texture("shard:0");
+            slot->hidden.icon = core::api::graphics::textures::get_texture("shard:0");
             // TODO: Change this to default to Hidden
             slot->visibility = SlotVisibility::Visible;
             slot->uses_energy = false;

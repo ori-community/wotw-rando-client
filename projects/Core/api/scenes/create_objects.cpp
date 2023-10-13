@@ -67,7 +67,7 @@ namespace core::api::scenes {
                         Transform::set_rotation(transform, quat);
                     }
 
-                    core::shaders::duplicate_materials(spawn->game_object);
+                    core::api::graphics::shaders::duplicate_materials(spawn->game_object);
                     if (spawn->on_loaded != nullptr)
                         spawn->on_loaded(scene_name, spawn->name, scene_root, spawn->game_object);
                 }

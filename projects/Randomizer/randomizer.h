@@ -4,8 +4,10 @@
 
 #include <Randomizer/online/multiplayer.h>
 #include <Randomizer/online/network.h>
+#include <Randomizer/location_data/location_collection.h>
 #include <Randomizer/seed/reach_check.h>
 #include <Randomizer/seed/seed.h>
+#include <Randomizer/state_data/state.h>
 
 namespace randomizer {
     enum class RandomizerEvent {
@@ -21,6 +23,7 @@ namespace randomizer {
     void queue_reach_check();
 
     common::TimedMultiEventBus<RandomizerEvent>& event_bus();
+    std::vector<state_data::State>& state_collection();
     location_data::LocationCollection& location_collection();
     seed::Seed& game_seed();
     seed::ReachCheckResult const& reach_check();

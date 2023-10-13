@@ -9,6 +9,7 @@ namespace randomizer::seed::items {
     class CreateIcon final : public BaseItem {
     public:
         int id;
+        std::string label;
         app::WorldMapIconType__Enum type;
         game::map::FilterFlag flags;
         app::Vector2 position;

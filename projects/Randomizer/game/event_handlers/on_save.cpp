@@ -48,19 +48,6 @@ namespace {
         core::api::game::event_bus().trigger_event(GameEvent::FinishedLoadingSave, EventTiming::Before);
         next::SaveGameController::OnFinishedLoading(this_ptr);
         core::api::game::event_bus().trigger_event(GameEvent::FinishedLoadingSave, EventTiming::After);
-
-        // TODO: Look if we do these?
-        // if (DidWeJustDie) {
-        //     MessageController.Clear();
-        //     UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
-        //     UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
-        //     UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
-        //     DidWeJustDie = false;
-        // } else {
-        //     ShopSlot.ResetSlotData();
-        //     WheelManager.ResetWheels();
-        //     PsuedoLocs.LOAD_SEED.Pickup().Grant();
-        // }
     }
 
     IL2CPP_INTERCEPT(SaveGameController, void, RestoreCheckpoint, (app::SaveGameController * this_ptr)) {

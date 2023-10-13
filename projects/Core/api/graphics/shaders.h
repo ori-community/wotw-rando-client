@@ -16,7 +16,7 @@
 #include <vector>
 #include <Core/macros.h>
 
-namespace core::shaders {
+namespace core::api::graphics::shaders {
     struct CORE_DLLEXPORT TextureBlock {
         std::vector<app::UberShaderProperties_TextureSuffixType__Enum> properties;
         app::Texture* texture;

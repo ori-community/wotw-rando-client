@@ -13,8 +13,8 @@ namespace core::animation {
 
         Layer layer;
         float aspect_ratio;
-        std::shared_ptr<textures::TextureData> texture;
-        std::optional<textures::MaterialParams> params;
+        std::shared_ptr<api::graphics::textures::TextureData> texture;
+        std::optional<api::graphics::textures::MaterialParams> params;
 
         float duration;
         float real_duration;
@@ -46,7 +46,7 @@ namespace core::animation {
         void apply();
 
         app::GameObject* m_root;
-        Sprite m_sprite;
+        api::graphics::Sprite m_sprite;
         app::Color m_color_modulate;
 
         bool m_stopped;

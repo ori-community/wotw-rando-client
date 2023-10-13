@@ -21,6 +21,10 @@ namespace randomizer::game::map {
         void label_visible(bool value);
         void opacity(float value);
 
+        std::string name() const { return m_name; }
+        void name(std::string value);
+        std::string label() const { return m_label.has_value() ? m_label.value() : ""; }
+        void label(std::string value);
         app::WorldMapIconType__Enum icon() const { return m_icon; }
         void icon(app::WorldMapIconType__Enum value);
         app::Vector2 position() const { return m_position; }
@@ -39,14 +43,19 @@ namespace randomizer::game::map {
         //core::DynamicValue<float> m_opacity;
         //core::DynamicValue<app::WorldMapIconType__Enum> m_icon;
 
+        std::string m_name;
+        std::optional<std::string> m_label;
         bool m_visible = false;
         bool m_label_visible = false;
+        float m_opacity;
         core::MoodGuid m_guid;
+        std::vector<app::Color> m_original_color;
         app::WorldMapIconType__Enum m_icon = app::WorldMapIconType__Enum::Keystone;
         app::Vector2 m_position;
         bool m_can_teleport = false;
         FilterFlag m_filter_mask = FilterFlag::InLogic | FilterFlag::Spoilers;
         app::GameObject* m_game_object = nullptr;
+        app::TextBox* m_text_box = nullptr;
         // TODO: Handle text.
     };
 } // namespace randomizer::game::map

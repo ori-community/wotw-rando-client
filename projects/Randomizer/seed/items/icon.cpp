@@ -12,6 +12,7 @@ namespace randomizer::seed::items {
         icon->icon(type);
         icon->position(position);
         icon->can_teleport(can_teleport);
+        icon->visible(true);
         icons[id] = icon;
     }
 

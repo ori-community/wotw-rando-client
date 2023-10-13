@@ -11,7 +11,6 @@
 #include <Modloader/app/types/AreaMapIconManager.h>
 #include <Modloader/app/types/GameWorld.h>
 #include <Modloader/app/types/PlayerUberStateGroup.h>
-#include <Modloader/app/types/RuntimeWorldMapIcon.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 
@@ -37,8 +36,9 @@ namespace randomizer::game::map {
                 if (base_icon->fields.Guid->fields.A == icon->fields.Guid->fields.A &&
                     base_icon->fields.Guid->fields.B == icon->fields.Guid->fields.B &&
                     base_icon->fields.Guid->fields.C == icon->fields.Guid->fields.C &&
-                    base_icon->fields.Guid->fields.D == icon->fields.Guid->fields.D)
+                    base_icon->fields.Guid->fields.D == icon->fields.Guid->fields.D) {
                     return base_icon->fields.Icon;
+                }
             }
 
             return app::WorldMapIconType__Enum::Keystone;
@@ -77,12 +77,14 @@ namespace randomizer::game::map {
         }
 
         IconVisibilityResult should_show_icon_with_current_filter(app::AreaMapIconManager* manager, app::RuntimeWorldMapIcon* icon) {
-            if (icon == nullptr)
+            if (icon == nullptr) {
                 return IconVisibilityResult::Hide;
+            }
 
             // Always show warps check
-            if (should_always_show(icon))
+            if (should_always_show(icon)) {
                 return IconVisibilityResult::Show;
+            }
 
             const auto filter = active_filter();
             // If we are in original filters then use the original function.
@@ -95,8 +97,9 @@ namespace randomizer::game::map {
         }
 
         void handle_show_toggle(app::RuntimeWorldMapIcon* icon, IconVisibilityResult result) {
-            if (icon == nullptr)
+            if (icon == nullptr) {
                 return;
+            }
 
             switch (result) {
                 case IconVisibilityResult::Show: {
@@ -153,7 +156,7 @@ namespace randomizer::game::map {
                         break;
                     case IconVisibilityResult::ShowTransparent:
                         icon->visible(true);
-                        icon->opacity(0.3);
+                        icon->opacity(core::settings::map_icon_transparency());
                         break;
                     case IconVisibilityResult::Hide:
                         icon->visible(false);
@@ -178,7 +181,7 @@ namespace randomizer::game::map {
         return icon;
     }
 
-    void remove_icon(std::shared_ptr<Icon> icon) {
+    void remove_icon(const std::shared_ptr<Icon>& icon) {
         for (auto& collection : icons) {
             collection.second.erase(icon);
         }
@@ -188,8 +191,8 @@ namespace randomizer::game::map {
         icons.clear();
     }
 
-    void add_icon_visibility_callback(std::shared_ptr<Icon> icon, icon_visibility_callback callback) {
-        visibility_callbacks[icon] = callback;
+    void add_icon_visibility_callback(const std::shared_ptr<Icon>& icon, icon_visibility_callback callback) {
+        visibility_callbacks[icon] = std::move(callback);
     }
 
     bool is_visited(app::GameWorldAreaID__Enum area, int index) {

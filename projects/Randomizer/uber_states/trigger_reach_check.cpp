@@ -31,7 +31,7 @@ namespace randomizer::uber_states {
                 auto& condition_part = parts[2];
                 if (parts.size() >= 4) {
                     condition_part += ">=";
-                    condition_part += parts[3];
+                    condition_part += parts[3].empty() ? "0" : parts[3];
                 }
 
                 UberStateCondition condition;

@@ -30,7 +30,7 @@
 using namespace app::classes;
 using namespace app::classes::UnityEngine;
 
-namespace core {
+namespace core::api::graphics {
     namespace {
         app::Vector2__Array* make_uvs(float x = 0, float y = 0, float w = 1, float h = 1) {
             return types::Vector2::create_array(
@@ -74,7 +74,7 @@ namespace core {
             }
 
             il2cpp::unity::set_active(icon, false);
-            core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, icon);
+            game::add_to_container(game::RandoContainer::GameObjects, icon);
             auto mesh = types::Mesh::create();
             il2cpp::invoke(mesh, ".ctor");
             il2cpp::invoke(icon, "set_name", il2cpp::string_new("rando_sprite"));
@@ -98,12 +98,12 @@ namespace core {
                 auto keywords = types::String::create_array(std::vector<app::String*>{ il2cpp::string_new("DISABLE_ALPHA_CUTOFF") });
                 il2cpp::invoke(mat, "set_shaderKeywords", keywords);
 
-                core::shaders::set_float(mat, "_UberShaderAlphaMask", 9);
-                core::shaders::set_float(mat, "_UberShaderCulling", 0);
-                core::shaders::set_vector(mat, "_DepthFlipScreen", { 0.008251436, 0, 0, 0 });
-                core::shaders::set_vector(mat, "_Screen", { 0, 0, 0, 1 });
-                core::shaders::set_vector(mat, "_UberShaderParams", { 0, 0, 1, 1 });
-                core::shaders::set_vector(mat, "_UberShaderParams2", { 1, 1, 0, 1 });
+                shaders::set_float(mat, "_UberShaderAlphaMask", 9);
+                shaders::set_float(mat, "_UberShaderCulling", 0);
+                shaders::set_vector(mat, "_DepthFlipScreen", { 0.008251436, 0, 0, 0 });
+                shaders::set_vector(mat, "_Screen", { 0, 0, 0, 1 });
+                shaders::set_vector(mat, "_UberShaderParams", { 0, 0, 1, 1 });
+                shaders::set_vector(mat, "_UberShaderParams2", { 1, 1, 0, 1 });
 
                 il2cpp::invoke(renderer, "set_sharedMaterial", mat);
             }
@@ -117,7 +117,7 @@ namespace core {
         m_renderer = il2cpp::unity::get_component<app::Renderer>(m_root, types::Renderer::get_class());
         il2cpp::unity::set_active(m_root, false);
         if (parent == nullptr)
-            core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, m_root);
+            game::add_to_container(game::RandoContainer::GameObjects, m_root);
         else
             il2cpp::unity::set_parent(m_root, parent);
     }

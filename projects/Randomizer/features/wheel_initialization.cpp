@@ -1,7 +1,11 @@
+#include <Core/api/game/player.h>
+#include <Core/api/graphics/textures.h>
 #include <Core/core.h>
 #include <Core/settings.h>
 
+#include <Randomizer/game/map/teleport_anywhere.h>
 #include <Randomizer/randomizer.h>
+#include <Randomizer/features/credits.h>
 #include <Randomizer/features/wheel.h>
 
 namespace randomizer::features::wheel {
@@ -39,35 +43,112 @@ namespace randomizer::features::wheel {
         initialize_item(9000, 1, "Show progress, with hints.", "Displays current goal mode progress and bought hints.", "file:assets/icons/wheel/progress_summary.blue.png",
                         [](auto, auto, auto) {  });
         initialize_item(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "file:assets/icons/wheel/warp_to_credits.blue.png",
-                        [](auto, auto, auto) {  });
+                        [](auto, auto, auto) {
+                            if (core::api::uber_states::UberState().get<bool>()) {
+                                features::credits::start();
+                            } else {
+                                core::message_controller().queue_central({
+                                    .text = "Credit warp not unlocked!",
+                                    .prioritized = true,
+                                });
+                            }
+                        });
         initialize_item(9000, 3, "Toggle keystones", "Toggle to always show the keystone ui.", "shard:1",
-                        [](auto, auto, auto) { core::settings::always_show_keystones(!core::settings::always_show_keystones()); });
+                        [](auto, auto, auto) {
+                            core::settings::always_show_keystones(!core::settings::always_show_keystones());
+                            core::message_controller().queue_central({
+                                .text = fmt::format("Always show keystones: {}", core::settings::always_show_keystones()),
+                                .prioritized = true,
+                            });
+                        });
         initialize_item(9000, 4, "Toggle cursor lock", "Toggle to confine the mouse cursor to the window.", "file:assets/icons/wheel/cursor_lock.blue.png",
-                        [](auto, auto, auto) { core::settings::cursor_locked(!core::settings::cursor_locked()); });
+                        [](auto, auto, auto) {
+                            core::settings::cursor_locked(!core::settings::cursor_locked());
+                            core::message_controller().queue_central({
+                                .text = fmt::format("Cursor locked: {}", core::settings::cursor_locked()),
+                                .prioritized = true,
+                            });
+                        });
         initialize_item(9000, 5, "Toggle autoaim", "Toggle autoaim for bow/shuriken.", "file:assets/icons/wheel/toggle_autoaim.blue.png",
-                        [](auto, auto, auto) { core::settings::autoaim(!core::settings::autoaim()); });
+                        [](auto, auto, auto) {
+                            core::settings::autoaim(!core::settings::autoaim());
+                            core::message_controller().queue_central({
+                                .text = fmt::format("Autoaim: {}", core::settings::autoaim()),
+                                .prioritized = true,
+                            });
+                        });
         initialize_item(9000, 10, "Reload", "Reloads the seed file", "file:assets/icons/wheel/reload_seed.blue.png",
                         [](auto, auto, auto) { randomizer::reload(); });
         initialize_item(9000, 11, "Next", "Go to next page of actions", "file:assets/icons/wheel/menu.blue.png",
                         [](auto, auto, auto) { set_active_wheel(9001); });
 
         initialize_item(9001, 0, "Toggle dev", "Toggles the dev flag.", "file:assets/icons/wheel/dev_mode.blue.png",
-                        [](auto, auto, auto) { core::settings::dev_mode(!core::settings::dev_mode()); }); // TODO: Send message
+                        [](auto, auto, auto) {
+                            core::settings::dev_mode(!core::settings::dev_mode());
+                            core::message_controller().queue_central({
+                                .text = fmt::format("Dev mode: {}", core::settings::dev_mode()),
+                                .prioritized = true,
+                            });
+                        });
         initialize_item(9001, 1, "Toggle debug", "Toggle debug controls", "file:assets/icons/wheel/toggle_debug.blue.png",
-                        [](auto, auto, auto) { core::api::game::debug_controls(!core::api::game::debug_controls()); });
+                        [](auto, auto, auto) {
+                            core::api::game::debug_controls(!core::api::game::debug_controls());
+                            core::message_controller().queue_central({
+                                .text = fmt::format("Debug: {}", core::api::game::debug_controls()),
+                                .prioritized = true,
+                            });
+                        });
         initialize_item(9001, 2, "Reload file textures", "Reloads all textures with the file: designation", "file:assets/icons/wheel/reload_file_textures.blue.png",
-                        [](auto, auto, auto) {});
+                        [](auto, auto, auto) {
+                            core::api::graphics::textures::reload_all_file_textures();
+                            core::message_controller().queue_central({
+                                .text = fmt::format("Texture files reloaded."),
+                                .prioritized = true,
+                            });
+                        });
         initialize_item(9001, 3, "Reload sprites", "Reloads all sprite animations", "file:assets/icons/wheel/reload_file_textures.blue.png",
                         [](auto, auto, auto) {});
         initialize_item(9001, 4, "Display coordinates", "Displays your current\ncoordinates as a message", "file:assets/icons/wheel/show_coordinates.blue.png",
-                        [](auto, auto, auto) {});
+                        [](auto, auto, auto) {
+                            auto position = core::api::game::player::get_position();
+                            core::message_controller().queue_central({
+                                .text = fmt::format("[ {}, {}, {} ]", position.x, position.y, position.z),
+                                .prioritized = true,
+                            });
+                        });
         initialize_item(9001, 5, "Teleport cheat", "Toggles cheat to teleport\nanywhere on the map", "file:assets/icons/wheel/teleport_cheat.blue.png",
-                        [](auto, auto, auto) {});
+                        [](auto, auto, auto) {
+                            if (game_seed().info().race_mode) {
+                                core::message_controller().queue_central({
+                                    .text = "Teleport anywhere is not available in race mode",
+                                    .prioritized = true,
+                                });
+                                return;
+                            }
+
+                            game::map::teleport_anywhere = !game::map::teleport_anywhere;
+                            core::message_controller().queue_central({
+                                .text = fmt::format("Teleport anywhere {}", game::map::teleport_anywhere ? "enabled" : "disabled"),
+                                .prioritized = true,
+                            });
+                        });
         initialize_item(9001, 6, "Unlock spoilers", "Unlock spoilers filter on the map", "file:assets/icons/wheel/unlock_spoilers.blue.png",
-                        [](auto, auto, auto) {});
+                        [](auto, auto, auto) {
+                            if (game_seed().info().race_mode) {
+                                core::message_controller().queue_central({
+                                    .text = "Unlock spoilers is not available in race mode",
+                                    .prioritized = true,
+                                });
+                                return;
+                            }
+
+                            core::api::uber_states::UberState(34543, 11226).set(1);
+                            core::message_controller().queue_central({
+                                .text = "Spoilers unlocked",
+                                .prioritized = true,
+                            });
+                        });
         initialize_item(9001, 7, "Toggle pickup names", "Sets the labels of pickups\non the spoiler/in logic filter\nto be the name of the pickup location.", "file:assets/icons/wheel/toggle_pickup_names.blue.png",
-                        [](auto, auto, auto) {});
-        initialize_item(9001, 8, "Reload credits", "Reloads the credits file", "file:assets/icons/wheel/reload_credits.blue.png",
                         [](auto, auto, auto) {});
         initialize_item(9001, 9, "Force Exit", "Forcibly exit the game.", "file:assets/icons/wheel/force_exit.blue.png",
                         [](auto, auto, auto) { modloader::shutdown(); });

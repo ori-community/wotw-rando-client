@@ -48,7 +48,7 @@ namespace core::input {
     app::Vector2 last_mouse_position;
 
     app::Vector2 real_mouse_position;
-    std::unique_ptr<core::Sprite> simulated_mouse_position_indicator;
+    std::unique_ptr<core::api::graphics::Sprite> simulated_mouse_position_indicator;
 
     constexpr float HIDE_MOUSE_IDLE_TIME = 2.f;
     float mouse_idle_time = 0.f;
@@ -233,12 +233,12 @@ namespace core::input {
             constexpr float indicator_position_offset = 0.5f * indicator_scale;
 
             if (simulated_mouse_position_indicator == nullptr) {
-                simulated_mouse_position_indicator = std::make_unique<core::Sprite>();
+                simulated_mouse_position_indicator = std::make_unique<core::api::graphics::Sprite>();
 
-                core::textures::MaterialParams params;
+                core::api::graphics::textures::MaterialParams params;
                 params.uvs = std::optional<app::Vector4>({ 0.f, 0.f, 1.f, 1.f });
 
-                simulated_mouse_position_indicator->texture(core::textures::get_texture("file:assets/icons/cursor.png"), std::make_optional(params));
+                simulated_mouse_position_indicator->texture(core::api::graphics::textures::get_texture("file:assets/icons/cursor.png"), std::make_optional(params));
                 simulated_mouse_position_indicator->set_parent(api::game::container(api::game::RandoContainer::Randomizer));
                 simulated_mouse_position_indicator->layer(Layer::UI);
 

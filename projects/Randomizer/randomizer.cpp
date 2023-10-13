@@ -1,16 +1,17 @@
-#include <features/wheel.h>
-#include <game/shops/shop.h>
-#include <online/network_monitor.h>
-#include <randomizer.h>
-#include <seed/legacy_parser/parser.h>
-#include <location_data/parser.h>
-#include <text_processors/ability.h>
-#include <text_processors/control.h>
-#include <text_processors/legacy.h>
-#include <text_processors/shard.h>
-#include <text_processors/uber_state.h>
-#include <timer.h>
-#include <uber_states/uber_state_intercepts.h>
+#include <Randomizer/features/wheel.h>
+#include <Randomizer/game/shops/shop.h>
+#include <Randomizer/online/network_monitor.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/seed/legacy_parser/parser.h>
+#include <Randomizer/location_data/parser.h>
+#include <Randomizer/state_data/parser.h>
+#include <Randomizer/text_processors/ability.h>
+#include <Randomizer/text_processors/control.h>
+#include <Randomizer/text_processors/legacy.h>
+#include <Randomizer/text_processors/shard.h>
+#include <Randomizer/text_processors/uber_state.h>
+#include <Randomizer/timer.h>
+#include <Randomizer/uber_states/uber_state_intercepts.h>
 
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
@@ -26,6 +27,7 @@
 namespace randomizer {
     namespace {
         location_data::LocationCollection randomizer_location_collection;
+        std::vector<state_data::State> randomizer_state_data;
         seed::Seed randomizer_seed(randomizer_location_collection);
         seed::ReachCheckResult reach_check_result;
         online::NetworkClient client;
@@ -117,17 +119,18 @@ namespace randomizer {
             });
         });
 
-        auto on_after_seed_load = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
-            // Clear all the things that seed sets on load.
+        void seed_loaded() {
             timer::clear_uber_state_timers();
             universe.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
             game::shops::reset_shop_data();
-
             randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::GameState, 1), 0);
             queue_reach_check();
-        });
+        }
+
+        auto on_after_seed_load = randomizer::event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto){ seed_loaded(); });
+        auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [](auto, auto){ seed_loaded(); });
 
         auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
             randomizer_seed.grant(params.state, params.value);
@@ -140,6 +143,8 @@ namespace randomizer {
                 std::stringstream seed_name_buffer;
                 seed_name_buffer << seed_name.rdbuf();
                 randomizer_location_collection.read(modloader::base_path() / "loc_data.csv", location_data::parse_location_data);
+                randomizer_state_data.clear();
+                state_data::parse_state_data(modloader::base_path() / "state_data.csv", randomizer_state_data);
                 randomizer_seed.read(seed_name_buffer.str(), seed::legacy_parser::parse, show_message);
             } else {
                 randomizer_seed.reload(show_message);
@@ -247,6 +252,10 @@ namespace randomizer {
 
     location_data::LocationCollection& location_collection() {
         return randomizer_location_collection;
+    }
+
+    std::vector<state_data::State>& state_collection() {
+        return randomizer_state_data;
     }
 
     seed::Seed& game_seed() {

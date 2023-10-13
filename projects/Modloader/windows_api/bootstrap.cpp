@@ -92,8 +92,8 @@ namespace modloader {
             loaded_libraries.clear();
         }
 
-        library_handle load_library(std::string_view dll) {
-            auto handle = LoadLibraryA(dll.data());
+        library_handle load_library(std::filesystem::path dll) {
+            auto handle = LoadLibraryA(dll.string().data());
             loaded_external_libraries.emplace(handle);
             return static_cast<library_handle>(handle);
         }

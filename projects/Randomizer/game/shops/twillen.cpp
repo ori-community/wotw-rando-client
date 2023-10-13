@@ -112,13 +112,13 @@ namespace {
             auto& info = slot->active_info();
             info.icon->apply(renderer);
         } else {
-            static std::unordered_map<app::SpiritShardType__Enum, std::shared_ptr<core::textures::TextureData>> shard_textures;
+            static std::unordered_map<app::SpiritShardType__Enum, std::shared_ptr<core::api::graphics::textures::TextureData>> shard_textures;
             auto it = shard_textures.find(type);
             if (it == shard_textures.end()) {
                 auto shard_icons = types::SpiritShardSettings::get_class()->static_fields->Instance->fields.Icons;
                 auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &type);
 
-                auto texture = core::textures::create_texture();
+                auto texture = core::api::graphics::textures::create_texture();
                 texture->set_texture(reinterpret_cast<app::Texture*>(icons->fields.InventoryIcon));
                 shard_textures[type] = texture;
                 it = shard_textures.find(type);
@@ -197,7 +197,7 @@ namespace {
             info.icon->apply(renderer);
         } else {
             auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
-            core::textures::apply_default(renderer);
+            core::api::graphics::textures::apply_default(renderer);
             next::SpiritShardUIItem::UpdateShardIcon(this_ptr);
         }
     }

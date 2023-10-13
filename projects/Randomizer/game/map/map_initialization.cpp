@@ -1,10 +1,15 @@
 #include <game/map/map.h>
 
 #include <Core/api/uber_states/uber_state_condition.h>
+#include <Core/settings.h>
 
+#include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/RuntimeGameWorldArea.h>
+#include <Modloader/app/types/MessageBox.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+
+#include <Randomizer/randomizer.h>
 
 #include <unordered_set>
 
@@ -28,21 +33,45 @@ namespace randomizer::game::map {
                 initialized_areas.emplace(area->fields.WorldMapAreaUniqueID);
                 for (auto i = 0; i < this_ptr->fields.Icons->fields._size; ++i) {
                     auto* item = this_ptr->fields.Icons->fields._items->vector[i];
+                    // TODO: Need to handle quests/wisps/shops
                     if (item->fields.IsCollectedState == nullptr) {
                         continue;
                     }
 
                     auto state = core::api::uber_states::UberState(item->fields.IsCollectedState);
+                    auto condition = core::api::uber_states::UberStateCondition{ state, BooleanOperator::Greater, 0 };
                     auto in_logic = add_icon(FilterFlag::InLogic);
+
                     in_logic->icon(item->fields.Icon);
                     in_logic->position(item->fields.Position);
-                    add_icon_visibility_callback(in_logic, [](auto) { return IconVisibilityResult::Show; }); // TODO: Add in logic check here.
-                    logics[{ state, BooleanOperator::Equals, 1.0f }] = in_logic;
+                    in_logic->name(fmt::format(
+                        "in_logic: ({}, {}) {} {}",
+                        static_cast<int>(condition.state.group()),
+                        condition.state.state(),
+                        static_cast<int>(condition.op),
+                        condition.value
+                    ));
+                    add_icon_visibility_callback(in_logic, [condition](auto) {
+                        // Don't show icon if it has been picked up.
+                        if (condition.resolve()) {
+                            return IconVisibilityResult::Hide;
+                        }
+
+                        // Show icon based on if it is reachable or not.
+                        return randomizer::reach_check().reachable(condition)
+                            ? IconVisibilityResult::Show
+                            : (
+                                eps_equals(core::settings::map_icon_transparency(), 0.f)
+                                      ? IconVisibilityResult::Hide
+                                      : IconVisibilityResult::ShowTransparent
+                            );
+                    });
+                    logics[condition] = in_logic;
 
                     auto spoiler = add_icon(FilterFlag::Spoilers);
                     spoiler->icon(item->fields.Icon);
                     spoiler->position(item->fields.Position);
-                    spoilers[{ state, BooleanOperator::Equals, 1.0f }] = spoiler;
+                    spoilers[{ state, BooleanOperator::Greater, 0 }] = spoiler;
                 }
             }
         }

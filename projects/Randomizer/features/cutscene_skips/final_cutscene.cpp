@@ -95,7 +95,7 @@ namespace {
             case Idle:
                 break;
             case StartCredits:
-                credits::start();
+                randomizer::features::credits::start();
                 next_frame_action = Idle;
                 break;
         }

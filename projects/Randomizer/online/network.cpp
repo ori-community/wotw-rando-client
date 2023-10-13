@@ -39,6 +39,7 @@ namespace randomizer::online {
         m_websocket.setPingInterval(30);
         m_websocket.start();
         m_reconnect_websocket = true;
+        modloader::trace(modloader::MessageType::Info, 0, "network_client", "Network client connected.");
     }
 
     bool NetworkClient::websocket_connected() const {
@@ -64,6 +65,7 @@ namespace randomizer::online {
         m_reopen_udp = false;
         m_websocket.stop();
         m_udp_socket.close();
+        modloader::trace(modloader::MessageType::Info, 0, "network_client", "Network client disconnected.");
     }
 
     void NetworkClient::websocket_handle_message(ix::WebSocketMessagePtr const& msg) {
@@ -219,20 +221,24 @@ namespace randomizer::online {
     }
 
     void NetworkClient::websocket_send(Network::Packet const& packet) {
+        if (!websocket_connected()) {
+           return;
+        }
+
         auto info = m_websocket.send(packet.SerializeAsString(), true);
         if (!info.success) {
             modloader::warn("network_client", "Failed to send websocket packet.");
             if (m_status_listener) {
                 m_status_listener({
                     .type = StatusType::WebsocketSendError,
-                    .info = "Failed to send websocket packet.",
+                    .info = fmt::format("Failed to send websocket packet."),
                 });
             }
         }
     }
 
     void NetworkClient::udp_send(Network::Packet const& packet) {
-        if (m_udp_key.empty()) {
+        if (m_udp_key.empty() || !udp_is_open()) {
             return;
         }
 

@@ -19,7 +19,7 @@
 
 using namespace app::classes;
 
-namespace credits {
+namespace randomizer::features::credits {
     namespace {
         constexpr char CREDITS_PATH_FMT[] = "{}\\credits";
         randomizer::messages::CreditsController credits;

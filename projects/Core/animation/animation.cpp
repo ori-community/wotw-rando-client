@@ -44,7 +44,7 @@ namespace core::animation {
                 frame_definition.duration = frame.value("duration", 1.0f);
                 anim->duration += frame_definition.duration;
                 frame_definition.real_duration = anim->duration;
-                frame_definition.texture = textures::get_texture(frame.value("texture", std::string("")));
+                frame_definition.texture = api::graphics::textures::get_texture(frame.value("texture", std::string("")));
                 app::Vector2 texture_size;
                 auto has_texture_size = frame.contains("texture_size");
                 if (has_texture_size) {
@@ -52,7 +52,7 @@ namespace core::animation {
                     frame_definition.aspect_ratio = texture_size.y / texture_size.x;
                 }
 
-                textures::MaterialParams mat_params;
+                api::graphics::textures::MaterialParams mat_params;
                 if (frame.contains("texture_params")) {
                     auto params = frame["texture_params"];
                     mat_params.color = params.value("color", app::Color{ 1.f, 1.f, 1.f, 1.f });
@@ -138,7 +138,7 @@ namespace core::animation {
 
         auto params = frame.params;
         if (!params.has_value())
-            params = textures::MaterialParams();
+            params = api::graphics::textures::MaterialParams();
 
         params->color = params->color.has_value()
             ? params->color.value() * m_color_modulate

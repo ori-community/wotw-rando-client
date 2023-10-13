@@ -66,7 +66,7 @@ namespace randomizer::features::wheel {
 
             std::string name = "";
             std::string description = "";
-            std::shared_ptr<core::textures::TextureData> texture_data = nullptr;
+            std::shared_ptr<core::api::graphics::textures::TextureData> texture_data = nullptr;
             app::Color color = { 1.0f, 1.0f, 1.0f, 1.0f };
             binding_action action = nullptr;
             std::array<wheel_callback, 3> callbacks = { nullptr, nullptr, nullptr };
@@ -345,13 +345,13 @@ namespace randomizer::features::wheel {
             if (custom_wheel_on) {
                 CustomWheelEntry* entry = this_ptr->fields.m_spell != nullptr ? get_wheel_entry(this_ptr->fields.m_spell->fields.m_type) : nullptr;
                 if (entry == nullptr) {
-                    core::textures::apply_default(renderer);
+                    core::api::graphics::textures::apply_default(renderer);
                     next::SpellUIItem::UpdateSpellIcon(this_ptr);
                     return;
                 }
 
                 if (entry->texture_data == nullptr) {
-                    entry->texture_data = core::textures::create_texture();
+                    entry->texture_data = core::api::graphics::textures::create_texture();
                     auto* spell_settings = types::SpellSettings::get_class();
                     auto* icons = spell_settings->static_fields->Instance->fields.Icons;
                     entry->texture_data->set_texture(reinterpret_cast<app::Texture*>(icons->fields._.Missing.InventoryIcon));
@@ -359,7 +359,7 @@ namespace randomizer::features::wheel {
 
                 entry->texture_data->apply(renderer);
             } else {
-                core::textures::apply_default(renderer);
+                core::api::graphics::textures::apply_default(renderer);
                 next::SpellUIItem::UpdateSpellIcon(this_ptr);
             }
         }
@@ -429,7 +429,7 @@ namespace randomizer::features::wheel {
             entry.name = name;
             entry.description = description;
             entry.enabled = true;
-            entry.texture_data = core::textures::get_texture(texture);
+            entry.texture_data = core::api::graphics::textures::get_texture(texture);
             entry.callbacks[0] = nullptr;
             entry.callbacks[1] = nullptr;
             entry.callbacks[2] = nullptr;
@@ -531,7 +531,7 @@ namespace randomizer::features::wheel {
         if (texture.empty())
             entry.texture_data = nullptr;
         else {
-            entry.texture_data = core::textures::get_texture(texture);
+            entry.texture_data = core::api::graphics::textures::get_texture(texture);
             if (entry.texture_data == nullptr) {
                 warn("wheel", fmt::format("failed to find texture {}", texture));
                 return false;

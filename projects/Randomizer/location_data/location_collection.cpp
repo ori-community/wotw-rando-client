@@ -65,7 +65,7 @@ namespace randomizer::location_data {
             for (auto i = 0; i < locations.size(); ++i) {
                 auto const& location = locations[i];
                 m_id_to_location[location.condition] = std::make_pair(area, i);
-                m_name_to_location[fmt::format("{}.{}", area_name, location.name)] = std::make_pair(area, i);
+                m_name_to_location[location.name] = std::make_pair(area, i);
             }
         }
     }

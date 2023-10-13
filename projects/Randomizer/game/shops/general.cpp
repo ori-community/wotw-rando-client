@@ -94,7 +94,7 @@ namespace {
         next::ShopkeeperUIDetails::UpdateDetails2(this_ptr);
     }
 
-    std::shared_ptr<core::textures::TextureData> shop_icon(app::ShopkeeperItem* item) {
+    std::shared_ptr<core::api::graphics::textures::TextureData> shop_icon(app::ShopkeeperItem* item) {
         if (is_in_shop(ShopType::Opher)) {
             auto opher_item = reinterpret_cast<app::WeaponmasterItem*>(item);
             auto key = std::make_pair(

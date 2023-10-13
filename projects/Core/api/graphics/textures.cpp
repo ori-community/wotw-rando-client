@@ -32,7 +32,7 @@ using namespace modloader;
 using namespace app::classes;
 using namespace app::classes::UnityEngine;
 
-namespace core::textures {
+namespace core::api::graphics::textures {
     namespace {
         std::unordered_map<std::string, gchandle> files;
         std::unordered_map<std::string, std::vector<std::weak_ptr<TextureData>>> file_instances;

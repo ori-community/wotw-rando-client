@@ -5,6 +5,7 @@
 #include <Core/core.h>
 
 #include <map>
+#include <fstream>
 
 namespace randomizer::seed {
 
@@ -17,6 +18,13 @@ namespace randomizer::seed {
         reload(show_message);
     }
 
+    std::string read_all(const std::filesystem::path& path) {
+        std::ifstream file(path.string());
+        std::stringstream buffer;
+        buffer << file.rdbuf();
+        return buffer.str();
+    }
+
     void Seed::reload(bool show_message) {
         if (!m_last_parser) {
             return;
@@ -24,6 +32,9 @@ namespace randomizer::seed {
 
         event_bus().trigger_event(RandomizerEvent::SeedLoaded, EventTiming::Before);
         clear();
+        m_data.info.areas = read_all(modloader::base_path() / "areas.wotw");
+        m_data.info.locations = read_all(modloader::base_path() / "loc_data.csv");
+        m_data.info.states = read_all(modloader::base_path() / "state_data.csv");
         m_last_parser(m_last_path, m_location_data, m_data);
 
         for (auto& [state, inner_locations] : m_data.locations) {

@@ -4,7 +4,7 @@
 #include <Core/macros.h>
 #include <Core/api/graphics/textures.h>
 
-namespace core {
+namespace core::api::graphics {
     class CORE_DLLEXPORT Sprite {
     public:
         explicit Sprite(app::GameObject* parent = nullptr);
