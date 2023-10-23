@@ -20,9 +20,9 @@
 #include <Common/csv.h>
 #include <Common/ext.h>
 #include <Common/settings_reader.h>
-#include <app/methods/GameController.h>
-#include <app/methods/UnityEngine/Application.h>
-#include <app/methods/UnityEngine/Cursor.h>
+#include <Modloader/app/methods/GameController.h>
+#include <Modloader/app/methods/UnityEngine/Application.h>
+#include <Modloader/app/methods/UnityEngine/Cursor.h>
 #include <INIReader.h>
 
 //---------------------------------------------------Globals-----------------------------------------------------

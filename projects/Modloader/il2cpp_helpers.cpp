@@ -3,20 +3,20 @@
 #include <windows_api/console.h>
 #include <windows_api/memory.h>
 
-#include <app/methods/System/String.h>
-#include <app/methods/System/Type.h>
-#include <app/methods/UnityEngine/Component.h>
-#include <app/methods/UnityEngine/GameObject.h>
-#include <app/methods/UnityEngine/Object.h>
-#include <app/methods/UnityEngine/Quaternion.h>
-#include <app/methods/UnityEngine/SceneManagement/Scene.h>
-#include <app/methods/UnityEngine/SceneManagement/SceneManager.h>
-#include <app/methods/UnityEngine/ScriptableObject.h>
-#include <app/methods/UnityEngine/Transform.h>
-#include <app/types/GameObject.h>
-#include <app/types/Component_1.h>
-#include <app/types/Quaternion.h>
-#include <app/types/Scene.h>
+#include <Modloader/app/methods/System/String.h>
+#include <Modloader/app/methods/System/Type.h>
+#include <Modloader/app/methods/UnityEngine/Component.h>
+#include <Modloader/app/methods/UnityEngine/GameObject.h>
+#include <Modloader/app/methods/UnityEngine/Object.h>
+#include <Modloader/app/methods/UnityEngine/Quaternion.h>
+#include <Modloader/app/methods/UnityEngine/SceneManagement/Scene.h>
+#include <Modloader/app/methods/UnityEngine/SceneManagement/SceneManager.h>
+#include <Modloader/app/methods/UnityEngine/ScriptableObject.h>
+#include <Modloader/app/methods/UnityEngine/Transform.h>
+#include <Modloader/app/types/GameObject.h>
+#include <Modloader/app/types/Component_1.h>
+#include <Modloader/app/types/Quaternion.h>
+#include <Modloader/app/types/Scene.h>
 
 #include <Common/ext.h>
 
