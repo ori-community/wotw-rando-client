@@ -43,12 +43,12 @@ struct RECT {
 #endif
 #undef IL2CPP_STRUCT_RECT_INITIALIZING
 #if !defined(IL2CPP_STRUCT_RECT_DEFINED) && !defined(IL2CPP_STRUCT_RECT_FWDDECL)
-#include <Modloader/app/structs/RECT.h>
+#include <Modloader/app/structs/Rect.h>
 #endif
 #else
 namespace app {
 #define IL2CPP_STRUCTS_INITIALIZING
-#include <Modloader/app/structs/RECT.h>
+#include <Modloader/app/structs/Rect.h>
 #undef IL2CPP_STRUCTS_INITIALIZING
 } // namespace app
 #endif

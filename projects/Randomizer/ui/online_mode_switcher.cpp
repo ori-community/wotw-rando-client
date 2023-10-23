@@ -6,7 +6,7 @@
 #include <Core/utils/event_bus.h>
 #include <Core/utils/misc.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
-#include <Modloader/app/types/XBoxLiveIdentityUI.h>
+#include <Modloader/app/types/XboxLiveIdentityUI.h>
 #include <Modloader/app/types/TextBox.h>
 #include <Modloader/common.h>
 

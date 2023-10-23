@@ -12,7 +12,7 @@
 #include <Modloader/app/methods/CameraTarget.h>
 #include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/methods/ScenesManager.h>
-#include <Modloader/app/methods/UnityEngine/RigidBody.h>
+#include <Modloader/app/methods/UnityEngine/Rigidbody.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Time.h>
 #include <Modloader/app/methods/FaderB.h>
@@ -20,7 +20,7 @@
 #include <Modloader/app/methods/Game/UI_Hints.h>
 #include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/app/types/GameController.h>
-#include <Modloader/app/types/RigidBody.h>
+#include <Modloader/app/types/Rigidbody.h>
 #include <Modloader/app/types/CapsuleCollider.h>
 #include <Modloader/common.h>
 #include <Modloader/interception_macros.h>

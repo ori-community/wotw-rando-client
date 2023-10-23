@@ -46,12 +46,12 @@ struct __declspec(align(8)) DataBase__Fields {
 #endif
 #undef IL2CPP_STRUCT_DataBase__Fields_INITIALIZING
 #if !defined(IL2CPP_STRUCT_DataBase__Fields_DEFINED) && !defined(IL2CPP_STRUCT_DataBase__Fields_FWDDECL)
-#include <Modloader/app/structs/DataBase__Fields.h>
+#include <Modloader/app/structs/Database__Fields.h>
 #endif
 #else
 namespace app {
 #define IL2CPP_STRUCTS_INITIALIZING
-#include <Modloader/app/structs/DataBase__Fields.h>
+#include <Modloader/app/structs/Database__Fields.h>
 #undef IL2CPP_STRUCTS_INITIALIZING
 } // namespace app
 #endif

@@ -39,12 +39,12 @@ struct DataBase__StaticFields {
 #endif
 #undef IL2CPP_STRUCT_DataBase__StaticFields_INITIALIZING
 #if !defined(IL2CPP_STRUCT_DataBase__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_DataBase__StaticFields_FWDDECL)
-#include <Modloader/app/structs/DataBase__StaticFields.h>
+#include <Modloader/app/structs/Database__StaticFields.h>
 #endif
 #else
 namespace app {
 #define IL2CPP_STRUCTS_INITIALIZING
-#include <Modloader/app/structs/DataBase__StaticFields.h>
+#include <Modloader/app/structs/Database__StaticFields.h>
 #undef IL2CPP_STRUCTS_INITIALIZING
 } // namespace app
 #endif
