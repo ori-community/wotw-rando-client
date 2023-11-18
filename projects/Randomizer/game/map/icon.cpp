@@ -9,9 +9,7 @@
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/types/AreaMapUI.h>
-#include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/Renderer.h>
-#include <Modloader/app/types/RuntimeWorldMapIcon.h>
 #include <Modloader/app/types/TextBox.h>
 
 #include <utility>
@@ -60,7 +58,7 @@ namespace randomizer::game::map {
             UnityEngine::Object::Instantiate_3(reinterpret_cast<app::Object_1*>(AreaMapIconManager::GetIcon(manager, m_icon)))
         );
 
-        m_text_box = il2cpp::unity::get_component_in_children<app::TextBox>(m_game_object, types::TextBox::get_class());
+        m_text_box = il2cpp::unity::get_component_in_children<app::TextBox>(m_game_object, types::TextBox::get_class(), true);
         if (m_text_box != nullptr && m_label.has_value()) {
             CatlikeCoding::TextBox::TextBox::SetText_2(m_text_box, il2cpp::string_new(m_label.value()));
             CatlikeCoding::TextBox::TextBox::RenderText(m_text_box);
@@ -102,7 +100,9 @@ namespace randomizer::game::map {
             initialize_game_object();
         }
 
-        UnityEngine::GameObject::set_active(m_game_object, value);
+        if (m_text_box != nullptr) {
+            UnityEngine::GameObject::set_active(il2cpp::unity::get_game_object(m_text_box), value);
+        }
     }
 
     void Icon::opacity(float value) {

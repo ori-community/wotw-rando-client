@@ -2,13 +2,16 @@
 #include <game/map/map.h>
 #include <online/multiplayer.h>
 
+#include <Core/api/game/ui.h>
 #include <Core/settings.h>
 
 #include <Modloader/app/methods/AreaMapIconManager.h>
+#include <Modloader/app/methods/GameMapUI.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
 #include <Modloader/app/methods/RuntimeWorldMapIcon.h>
 #include <Modloader/app/structs/Boolean__Boxed.h>
 #include <Modloader/app/types/AreaMapIconManager.h>
+#include <Modloader/app/types/GameMapUI.h>
 #include <Modloader/app/types/GameWorld.h>
 #include <Modloader/app/types/PlayerUberStateGroup.h>
 #include <Modloader/il2cpp_helpers.h>
@@ -51,6 +54,19 @@ namespace randomizer::game::map {
             }
 
             next::RuntimeWorldMapIcon::Show(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(AreaMapIconManager, void, UpdateLabelState, (app::AreaMapIconManager * this_ptr)) {
+            next::AreaMapIconManager::UpdateLabelState(this_ptr);
+            auto show_labels = core::api::game::ui::area_map_open() &&
+                GameMapUI::get_ShowIconLabels(types::GameMapUI::get_class()->static_fields->Instance);
+
+            for (auto filter : icons) {
+                auto active = filter.first == active_filter();
+                for (auto icon : filter.second) {
+                    icon->label_visible(active && show_labels);
+                }
+            }
         }
 
         bool should_always_show_teleporters() {

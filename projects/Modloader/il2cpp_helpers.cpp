@@ -364,8 +364,8 @@ namespace il2cpp {
             return components;
         }
 
-        app::Component_1* get_component_in_children_untyped(app::GameObject* game_object, Il2CppClass* klass) {
-            return reinterpret_cast<app::Component_1*>(UnityEngine::GameObject::GetComponentInChildren_2(game_object, get_runtime_type(klass)));
+        app::Component_1* get_component_in_children_untyped(app::GameObject* game_object, Il2CppClass* klass, bool include_inactive) {
+            return reinterpret_cast<app::Component_1*>(UnityEngine::GameObject::GetComponentInChildren_1(game_object, get_runtime_type(klass), include_inactive));
         }
 
         app::ScriptableObject* create_scriptable_object_untyped(Il2CppClass* klass) {

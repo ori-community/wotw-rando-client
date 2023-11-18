@@ -182,7 +182,7 @@ namespace il2cpp {
         IL2CPP_MODLOADER_DLLEXPORT app::Transform* get_transform(void* object);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* get_game_object(void* component);
         IL2CPP_MODLOADER_DLLEXPORT app::Component_1* add_component_untyped(app::GameObject* game_object, Il2CppClass* klass);
-        IL2CPP_MODLOADER_DLLEXPORT app::Component_1* get_component_in_children_untyped(app::GameObject* game_object, Il2CppClass* klass);
+        IL2CPP_MODLOADER_DLLEXPORT app::Component_1* get_component_in_children_untyped(app::GameObject* game_object, Il2CppClass* klass, bool include_inactive = false);
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::Component_1*> get_components_in_children_untyped(app::GameObject* game_object, Il2CppClass* klass);
         IL2CPP_MODLOADER_DLLEXPORT std::string get_path(void* object);
         IL2CPP_MODLOADER_DLLEXPORT std::vector<std::string> get_path_v(void* object);
@@ -285,13 +285,13 @@ namespace il2cpp {
         }
 
         template <typename Return = app::Component_1>
-        Return* get_component_in_children(app::GameObject* game_object, Il2CppClass* klass) {
-            return reinterpret_cast<Return*>(get_component_in_children_untyped(game_object, klass));
+        Return* get_component_in_children(app::GameObject* game_object, Il2CppClass* klass, bool include_inactive = false) {
+            return reinterpret_cast<Return*>(get_component_in_children_untyped(game_object, klass, include_inactive));
         }
 
         template <typename Return = app::Component_1>
-        Return* get_component_in_children(app::GameObject* game_object, void* klass) {
-            return get_component_in_children<Return>(game_object, reinterpret_cast<Il2CppClass*>(klass));
+        Return* get_component_in_children(app::GameObject* game_object, void* klass, bool include_inactive = false) {
+            return get_component_in_children<Return>(game_object, reinterpret_cast<Il2CppClass*>(klass), include_inactive);
         }
 
         template <typename Return = app::Component_1>
