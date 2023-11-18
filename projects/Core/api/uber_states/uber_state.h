@@ -56,6 +56,7 @@ namespace core::api::uber_states {
         [[nodiscard]] app::IUberState* ptr() const;
 
         [[nodiscard]] std::string string_value() const;
+         [[nodiscard]] UberStateType type() const;
 
     private:
         [[nodiscard]] double inner_get() const;

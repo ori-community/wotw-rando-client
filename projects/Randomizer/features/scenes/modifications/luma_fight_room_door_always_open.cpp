@@ -1,15 +1,13 @@
 #include <Modloader/app/types/NewSetupStateController.h>
 #include <Modloader/il2cpp_helpers.h>
 
-#include <Modloader/common.h>
 #include <Modloader/windows_api/console.h>
-#include <Core/utils/event_bus.h>
 #include <Core/api/scenes/scene_load.h>
 
 using namespace app::classes;
 
 namespace {
-    void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
+    auto on_scene_loade_handler = core::api::scenes::event_bus().register_handler([](auto metadata) {
         if (metadata->state != app::SceneState__Enum::Loaded) {
             return;
         }
@@ -38,11 +36,5 @@ namespace {
                 }
             }
         }
-    }
-
-    void initialize() {
-        scenes::event_bus().register_handler(&on_scene_load);
-    }
-
-    CALL_ON_INIT(initialize);
+    });
 } // namespace

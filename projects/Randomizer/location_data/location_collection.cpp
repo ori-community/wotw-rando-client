@@ -61,7 +61,6 @@ namespace randomizer::location_data {
         parser(path, emitter);
 
         for (auto& [area, locations] : m_area_to_locations) {
-            auto area_name = area_to_name(area);
             for (auto i = 0; i < locations.size(); ++i) {
                 auto const& location = locations[i];
                 m_id_to_location[location.condition] = std::make_pair(area, i);

@@ -24,6 +24,7 @@
 #include <Core/api/game/game.h>
 #include <Core/utils/stb_image.h>
 
+#include <filesystem>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -326,7 +327,7 @@ namespace core::api::graphics::textures {
                     return;
                 }
 
-                auto texture_path = (base_path / value).string();
+                auto texture_path = (base_path() / value).string();
 
                 int x;
                 int y;

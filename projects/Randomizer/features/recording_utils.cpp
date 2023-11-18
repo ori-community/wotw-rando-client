@@ -1,37 +1,28 @@
 #include <Common/ext.h>
-#include <Modloader/app/methods/CameraOffsetController.h>
-#include <Modloader/app/methods/CameraPostProcessing.h>
-#include <Modloader/app/methods/CameraTarget.h>
-#include <Modloader/app/methods/GameplayCamera.h>
-#include <Modloader/app/methods/GameController.h>
-#include <Modloader/app/methods/Moon/Rendering/ShaderTime.h>
-#include <Modloader/app/methods/UberPostProcess.h>
-#include <Modloader/app/methods/UnityEngine/Camera.h>
-#include <Modloader/app/methods/UnityEngine/Color.h>
-#include <Modloader/app/methods/UnityEngine/ScreenCapture.h>
-#include <Modloader/app/methods/CameraTarget.h>
-#include <Modloader/app/methods/TimeUtility.h>
-#include <Modloader/app/methods/ScenesManager.h>
-#include <Modloader/app/methods/UnityEngine/Rigidbody.h>
-#include <Modloader/app/methods/UnityEngine/GameObject.h>
-#include <Modloader/app/methods/UnityEngine/Time.h>
-#include <Modloader/app/methods/FaderB.h>
-#include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
-#include <Modloader/app/methods/Game/UI_Hints.h>
-#include <Modloader/app/types/UI_Cameras.h>
-#include <Modloader/app/types/GameController.h>
-#include <Modloader/app/types/Rigidbody.h>
-#include <Modloader/app/types/CapsuleCollider.h>
-#include <Modloader/common.h>
-#include <Modloader/interception_macros.h>
-#include <Modloader/modloader.h>
-#include <Modloader/windows_api/console.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
-#include <Core/uber_states/uber_state_interface.h>
-
-#include <unordered_set>
+#include <Modloader/app/methods/CameraOffsetController.h>
+#include <Modloader/app/methods/CameraPostProcessing.h>
+#include <Modloader/app/methods/CameraTarget.h>
+#include <Modloader/app/methods/FaderB.h>
+#include <Modloader/app/methods/Game/UI_Hints.h>
+#include <Modloader/app/methods/GameplayCamera.h>
+#include <Modloader/app/methods/Moon/Rendering/ShaderTime.h>
+#include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
+#include <Modloader/app/methods/ScenesManager.h>
+#include <Modloader/app/methods/UberPostProcess.h>
+#include <Modloader/app/methods/UnityEngine/Camera.h>
+#include <Modloader/app/methods/UnityEngine/GameObject.h>
+#include <Modloader/app/methods/UnityEngine/Rigidbody.h>
+#include <Modloader/app/methods/UnityEngine/ScreenCapture.h>
+#include <Modloader/app/methods/UnityEngine/Time.h>
+#include <Modloader/app/types/CapsuleCollider.h>
+#include <Modloader/app/types/Rigidbody.h>
+#include <Modloader/app/types/UI_Cameras.h>
+#include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
+#include <Modloader/windows_api/console.h>
 
 using namespace app::classes;
 using namespace modloader::win;
@@ -80,7 +71,7 @@ namespace {
     int load_step = 0;
     OrishotState orishot_state = OrishotState::None;
 
-    uber_states::UberState prevent_pickup_state(UberStateGroup::RandoConfig, 8);
+    core::api::uber_states::UberState prevent_pickup_state(UberStateGroup::RandoConfig, 8);
 
     IL2CPP_INTERCEPT(UberPostProcess, void, ApplySettings_2, (app::UberPostProcess * this_ptr, app::CameraSettings* settingsAsset)) {
         next::UberPostProcess::ApplySettings_2(this_ptr, settingsAsset);
@@ -308,7 +299,7 @@ namespace {
     void set_orishot_target_position(float x, float y) {
         camera_target_x = x;
         camera_target_y = y;
-        game::player::set_position(x, y);
+        core::api::game::player::set_position(x, y);
         auto const gameplay_camera = types::UI_Cameras::get_class()->static_fields->Current;
         GameplayCamera::MoveCameraToTargetInstantly(gameplay_camera, true);
     }
@@ -316,7 +307,7 @@ namespace {
     void position_ori_and_unload() {
         orishot_state = OrishotState::PositionOriAndUnload;
         set_orishot_target_position(current_x, current_y);
-        ScenesManager::UnloadAllUneededScenes(scenes::get_scenes_manager(), true);
+        ScenesManager::UnloadAllUneededScenes(core::api::scenes::get_scenes_manager(), true);
     }
 
     void start_orishot_command(std::string const& command, std::vector<console::CommandParam> const& params) {
@@ -324,7 +315,7 @@ namespace {
         row = 0;
 
         prevent_pickup_state.set(true);
-        game::save(false, game::SaveOptions(false, false, false, false));
+        core::api::game::save(false, core::api::game::SaveOptions(false, false, false, false));
 
         set_camera_ortho(true);
         set_camera_ortho_size(-9);
@@ -333,7 +324,7 @@ namespace {
         enable_vignette = false;
         update_vignette();
 
-        auto sein = game::player::sein();
+        auto sein = core::api::game::player::sein();
         il2cpp::unity::destroy_object(il2cpp::unity::find_child(sein, "ori3D"));
         il2cpp::unity::destroy_object(il2cpp::unity::find_child(sein, "mortality"));
         il2cpp::unity::set_active_recursively(il2cpp::unity::find_child(sein, "abilities"), false);
@@ -349,7 +340,7 @@ namespace {
         position_ori_and_unload();
     }
 
-    void on_before_unity_update(GameEvent event, EventTiming timing) {
+    auto before_unity_update = core::api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::Before, [](GameEvent event, EventTiming timing) {
         if (orishot_state != OrishotState::None) {
             // if (orishot_state == OrishotState::VisitScenes || orishot_state == OrishotState::RunScenes || orishot_state == OrishotState::UnsuspendForOneFrameAndContinueScreenshotting) {
             //     GameController::ResumeGameplay(types::GameController::get_class()->static_fields->Instance);
@@ -357,17 +348,17 @@ namespace {
             //     GameController::SuspendGameplay(types::GameController::get_class()->static_fields->Instance);
             // }
         }
-    }
+    });
 
-    void on_after_unity_update(GameEvent event, EventTiming timing) {
+    auto after_unity_update = core::api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](GameEvent event, EventTiming timing) {
         if (orishot_state != OrishotState::None) {
             auto delta = next::UnityEngine::Time::get_deltaTime();
 
-            game::player::set_position(current_x, current_y);
+            core::api::game::player::set_position(current_x, current_y);
             auto const gameplay_camera = types::UI_Cameras::get_class()->static_fields->Current;
             GameplayCamera::MoveCameraToTargetInstantly(gameplay_camera, true);
 
-            scenes::get_scenes_manager()->fields.m_currentCameraTargetPosition = { current_x, current_y };
+            core::api::scenes::get_scenes_manager()->fields.m_currentCameraTargetPosition = { current_x, current_y };
 
             switch (orishot_state) {
                 case OrishotState::PositionOriAndUnload: {
@@ -377,7 +368,7 @@ namespace {
                     break;
                 }
                 case OrishotState::LoadScenes: {
-                    if (ScenesManager::get_IsLoadingOrEnablingScenes(scenes::get_scenes_manager())) {
+                    if (ScenesManager::get_IsLoadingOrEnablingScenes(core::api::scenes::get_scenes_manager())) {
                         break;
                     }
 
@@ -413,7 +404,7 @@ namespace {
                     break;
                 }
                 case OrishotState::PrepareScreenshot: {
-                    if (!ScenesManager::get_IsLoadingOrEnablingScenes(scenes::get_scenes_manager())) {
+                    if (!ScenesManager::get_IsLoadingOrEnablingScenes(core::api::scenes::get_scenes_manager())) {
                         orishot_state = OrishotState::Screenshot;
                     }
                     break;
@@ -448,7 +439,7 @@ namespace {
                 }
             }
         }
-    }
+    });
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         auto camera = UnityEngine::Camera::get_main();
@@ -463,7 +454,5 @@ namespace {
         console::register_command({ "recording_utils", "set_camera_ortho_size" }, set_camera_ortho_size_command);
         console::register_command({ "recording_utils", "start_orishot_experimental" }, start_orishot_command, true);
 
-        game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::Before, on_before_unity_update);
-        game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, on_after_unity_update);
     });
 } // namespace

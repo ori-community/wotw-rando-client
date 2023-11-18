@@ -1,19 +1,16 @@
 #include <ipc/ipc.h>
 
 #include <Core/api/game/game.h>
-#include <uber_states/uber_state_interface.h>
 
 #include <Common/ext.h>
 
-#include <Modloader/common.h>
+#include <Modloader/modloader.h>
 
-#include <array>
 #include <memory>
 #include <mutex>
 #include <semaphore>
 #include <string>
 #include <vector>
-#include <chrono>
 #include <zmq.hpp>
 
 using namespace modloader;
@@ -41,7 +38,7 @@ namespace core::ipc {
                 try {
                     receive_result = socket->recv(msg);
                 } catch (const zmq::error_t& e) {
-                    modloader::warn("IPC", fmt::format("ZeroMQ recv Error: {} {}", e.num(), e.what()));
+                    warn("IPC", fmt::format("ZeroMQ recv Error: {} {}", e.num(), e.what()));
                     continue;
                 }
 
@@ -86,14 +83,14 @@ namespace core::ipc {
                     try {
                         socket->send(zmq_message, zmq::send_flags::none);
                     } catch (const zmq::error_t& e) {
-                        modloader::warn("IPC", fmt::format("ZeroMQ send Error: {} {}", e.num(), e.what()));
+                        warn("IPC", fmt::format("ZeroMQ send Error: {} {}", e.num(), e.what()));
                         continue;
                     }
                 }
             }
         }
 
-        void start_ipc_threads() {
+        auto start_ipc_threads = event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
             shutdown_ipc_thread = false;
 
             context = std::make_unique<zmq::context_t>();
@@ -108,9 +105,7 @@ namespace core::ipc {
             if (send_thread == nullptr) {
                 send_thread = std::make_unique<std::thread>(send_thread_fn);
             }
-        }
-
-        CALL_ON_INIT(start_ipc_threads);
+        });
 
         std::unordered_map<std::string, request_handler> handlers;
 
@@ -120,8 +115,8 @@ namespace core::ipc {
             // Copy messages into a local buffer so we can release the incoming_messages_mutex as early as possible
             {
                 std::scoped_lock lock(incoming_messages_mutex);
-                auto message_count = incoming_messages.size();
-                auto begin = std::make_move_iterator(incoming_messages.begin());
+                const auto message_count = incoming_messages.size();
+                const auto begin = std::make_move_iterator(incoming_messages.begin());
                 auto end = std::make_move_iterator(incoming_messages.begin() + message_count);
                 local_messages.insert(local_messages.end(), begin, end);
                 incoming_messages.erase(incoming_messages.begin(), incoming_messages.begin() + message_count);
@@ -129,10 +124,11 @@ namespace core::ipc {
 
             for (auto const &j: local_messages) {
                 auto it = handlers.find(j.at("method").get<std::string>());
-                if (it != handlers.end())
+                if (it != handlers.end()) {
                     it->second(j);
-                else
+                } else {
                     info("ipc", fmt::format("Received unknown action request: {}", j.dump()));
+                }
             }
         }
     } // namespace
@@ -176,11 +172,7 @@ namespace core::ipc {
         }
     }
 
-    void initialize() {
-        game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &update_pipe);
-        game::event_bus().register_handler(GameEvent::TASPausedUpdate, EventTiming::After, &update_pipe);
-        game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, &on_shutdown);
-    }
-
-    CALL_ON_INIT(initialize);
+    auto fixed_update = api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &update_pipe);
+    auto tas_paused_update = api::game::event_bus().register_handler(GameEvent::TASPausedUpdate, EventTiming::After, &update_pipe);
+    auto shutdown = api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, &on_shutdown);
 } // namespace core::ipc

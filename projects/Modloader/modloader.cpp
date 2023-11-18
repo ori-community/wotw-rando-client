@@ -1,7 +1,7 @@
-#include <app/methods/GameController.h>
-#include <app/methods/J2i/Net/XInputWrapper/XboxController.h>
-#include <app/methods/UnityEngine/Application.h>
-#include <app/methods/UnityEngine/Cursor.h>
+#include <Modloader/app/methods/J2i/Net/XInputWrapper/XboxController.h>
+#include <Modloader/app/methods/GameController.h>
+#include <Modloader/app/methods/UnityEngine/Application.h>
+#include <Modloader/app/methods/UnityEngine/Cursor.h>
 #include <constants.h>
 #include <il2cpp_helpers.h>
 #include <interception_macros.h>
@@ -9,8 +9,8 @@
 #include <modloader.h>
 #include <windows_api/bootstrap.h>
 #include <windows_api/common.h>
-#include <windows_api/console.h>
 
+#include <windows_api/console.h>
 #include <filesystem>
 #include <fstream>
 #include <functional>

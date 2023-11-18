@@ -115,7 +115,7 @@ bool load_dll(HANDLE process_handle, PTHREAD_START_ROUTINE load_function, const 
 int main() {
     find_base_path(base_path);
 
-    auto settings = read_utf16_ini((base_path / SETTINGS_NAME).string());
+    auto settings = read_utf8_ini((base_path / SETTINGS_NAME).string());
 
     auto use_win_store = settings->GetBoolean("Flags", "UseWinStore", false);
     auto inject_delay = settings->GetInteger("Values", "InjectDelay", 0);

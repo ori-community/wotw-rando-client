@@ -56,11 +56,12 @@ namespace randomizer::ipc {
         extern nlohmann::json visualize(void* obj, std::string name, bool verbose);
 
         template <class...>
-        constexpr bool always_false = false;
+        [[maybe_unused]] constexpr bool always_false = false;
 
         template <typename T>
         nlohmann::json visualize_struct(std::string_view name, T const& value) {
             static_assert(always_false<T>, "visualize struct not implemented for this type.");
+            return {};
         }
 
         template <>

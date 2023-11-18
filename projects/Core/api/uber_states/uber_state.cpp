@@ -28,8 +28,11 @@
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/types/BooleanUberState.h>
 #include <Modloader/app/types/ByteUberState.h>
+#include <Modloader/app/types/CountUberState.h>
+#include <Modloader/app/types/ConditionUberState.h>
 #include <Modloader/app/types/FloatUberState.h>
 #include <Modloader/app/types/IntUberState.h>
+#include <Modloader/app/types/PlayerUberStateDescriptor.h>
 #include <Modloader/app/types/SavePedestalUberState.h>
 #include <Modloader/app/types/SerializedBooleanUberState.h>
 #include <Modloader/app/types/SerializedByteUberState.h>
@@ -332,5 +335,44 @@ namespace core::api::uber_states {
         }
 
         return "Unknown";
+    }
+
+    UberStateType UberState::type() const {
+        const auto uber_state = ptr();
+        if (uber_state->klass == static_cast<void*>(types::BooleanUberState::get_class())) {
+            return UberStateType::BooleanUberState;
+        }
+        if (uber_state->klass == static_cast<void*>(types::ByteUberState::get_class())) {
+            return UberStateType::ByteUberState;
+        }
+        if (uber_state->klass == static_cast<void*>(types::IntUberState::get_class())) {
+            return UberStateType::IntUberState;
+        }
+        if (uber_state->klass == static_cast<void*>(types::SerializedBooleanUberState::get_class())) {
+            return UberStateType::SerializedBooleanUberState;
+        }
+        if (uber_state->klass == static_cast<void*>(types::SerializedFloatUberState::get_class())) {
+            return UberStateType::SerializedFloatUberState;
+        }
+        if (uber_state->klass == static_cast<void*>(types::SerializedIntUberState::get_class())) {
+            return UberStateType::SerializedIntUberState;
+        }
+        if (uber_state->klass == static_cast<void*>(types::SerializedByteUberState::get_class())) {
+            return UberStateType::SerializedByteUberState;
+        }
+        if (uber_state->klass == static_cast<void*>(types::CountUberState::get_class())) {
+            return UberStateType::CountUberState;
+        }
+        if (uber_state->klass == static_cast<void*>(types::SavePedestalUberState::get_class())) {
+            return UberStateType::SavePedestalUberState;
+        }
+        if (uber_state->klass == static_cast<void*>(types::ConditionUberState::get_class())) {
+            return UberStateType::ConditionUberState;
+        }
+        if (uber_state->klass == static_cast<void*>(types::PlayerUberStateDescriptor::get_class())) {
+            return UberStateType::PlayerUberStateDescriptor;
+        }
+
+        return UberStateType::Unknown;
     }
 } // namespace core::api::uber_states

@@ -13,7 +13,7 @@
 
 namespace randomizer::online {
     namespace {
-        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
+        auto on_injected = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
             ix::initNetSystem();
         });
 

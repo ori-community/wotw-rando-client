@@ -42,7 +42,8 @@ enum class UberStateType : uint8_t {
     CountUberState,
     SavePedestalUberState,
     ConditionUberState,
-    PlayerUberStateDescriptor
+    PlayerUberStateDescriptor,
+    Unknown
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(
@@ -59,6 +60,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(
             { UberStateType::SavePedestalUberState, "SavePedestalUberState" },
             { UberStateType::ConditionUberState, "ConditionUberState" },
             { UberStateType::PlayerUberStateDescriptor, "PlayerUberStateDescriptor" },
+            { UberStateType::Unknown, "Unknown" },
         }
 );
 

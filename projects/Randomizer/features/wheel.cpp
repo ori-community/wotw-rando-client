@@ -424,18 +424,6 @@ namespace randomizer::features::wheel {
             return wheel >= 0 && item >= 0 && item < 12;
         }
 
-        void add_wheel_item(int wheel, int item, std::string_view name, std::string_view description, std::string_view texture, CustomWheelEntry::binding_action action) {
-            auto& entry = wheels[wheel].entries[item];
-            entry.name = name;
-            entry.description = description;
-            entry.enabled = true;
-            entry.texture_data = core::api::graphics::textures::get_texture(texture);
-            entry.callbacks[0] = nullptr;
-            entry.callbacks[1] = nullptr;
-            entry.callbacks[2] = nullptr;
-            entry.action = action;
-        }
-
         void select_closest(app::CleverMenuItemSelectionManager* manager, const app::Vector2& axis) {
             auto magnitude = sqrtf(axis.x * axis.x + axis.y * axis.y);
             if (magnitude < 0.2f)
