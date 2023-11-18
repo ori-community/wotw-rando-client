@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings_DEFINED)
+#include <Modloader/app/structs/SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings_DEFINED
+struct SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings__Class;
+struct SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings {
+    struct SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings__Class* klass;
+    MonitorData* monitor;
+    struct SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings_FWDDECL)
+#define IL2CPP_STRUCT_SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings_FWDDECL
+#include <Modloader/app/structs/SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings_DEFINED) && !defined(IL2CPP_STRUCT_SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings_FWDDECL)
+#include <Modloader/app/structs/SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SpitterEnemyPlaceholder_ChargingSootEnemyPlaceholderSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

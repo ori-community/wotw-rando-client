@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getVersion_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getVersion_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getVersion_DEFINED)
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_getVersion__Fields.h>
+#if defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getVersion__Fields_DEFINED)
+#define IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getVersion_DEFINED
+struct BrowserNative_Calltype_zfb_getVersion__Class;
+struct BrowserNative_Calltype_zfb_getVersion {
+    struct BrowserNative_Calltype_zfb_getVersion__Class* klass;
+    MonitorData* monitor;
+    struct BrowserNative_Calltype_zfb_getVersion__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getVersion_FWDDECL)
+#define IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getVersion_FWDDECL
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_getVersion__Class.h>
+#endif
+#undef IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getVersion_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getVersion_DEFINED) && !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getVersion_FWDDECL)
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_getVersion.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_getVersion.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

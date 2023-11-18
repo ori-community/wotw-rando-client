@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberShaderCurveBake__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberShaderCurveBake__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderCurveBake__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_UberShaderCurveBake__StaticFields_DEFINED
+struct Dictionary_2_System_String_UberShaderCurveBake_CurveData_;
+struct Dictionary_2_System_String_UberShaderCurveBake_GradientData_;
+struct UberShaderCurveBake__StaticFields {
+    struct Dictionary_2_System_String_UberShaderCurveBake_CurveData_* s_curves;
+    struct Dictionary_2_System_String_UberShaderCurveBake_GradientData_* s_gradients;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_UberShaderCurveBake__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_UberShaderCurveBake__StaticFields_FWDDECL
+#include <Modloader/app/structs/Dictionary_2_System_String_UberShaderCurveBake_CurveData_.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_UberShaderCurveBake_GradientData_.h>
+#endif
+#undef IL2CPP_STRUCT_UberShaderCurveBake__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderCurveBake__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_UberShaderCurveBake__StaticFields_FWDDECL)
+#include <Modloader/app/structs/UberShaderCurveBake__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberShaderCurveBake__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

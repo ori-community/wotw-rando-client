@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerable_1_Moon_Timeline_FloatAnimator__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerable_1_Moon_Timeline_FloatAnimator__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_Moon_Timeline_FloatAnimator__DEFINED)
+#define IL2CPP_STRUCT_IEnumerable_1_Moon_Timeline_FloatAnimator__DEFINED
+struct IEnumerable_1_Moon_Timeline_FloatAnimator___Class;
+struct IEnumerable_1_Moon_Timeline_FloatAnimator_ {
+    struct IEnumerable_1_Moon_Timeline_FloatAnimator___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_Moon_Timeline_FloatAnimator__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerable_1_Moon_Timeline_FloatAnimator__FWDDECL
+#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_FloatAnimator___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerable_1_Moon_Timeline_FloatAnimator__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_Moon_Timeline_FloatAnimator__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerable_1_Moon_Timeline_FloatAnimator__FWDDECL)
+#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_FloatAnimator_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_FloatAnimator_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

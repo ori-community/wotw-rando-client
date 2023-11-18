@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Func_5_Object_Object_AsyncCallback_Object_IAsyncResult__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Func_5_Object_Object_AsyncCallback_Object_IAsyncResult__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Func_5_Object_Object_AsyncCallback_Object_IAsyncResult__DEFINED)
+#include <Modloader/app/structs/Func_5_Object_Object_AsyncCallback_Object_IAsyncResult___Fields.h>
+#if defined(IL2CPP_STRUCT_Func_5_Object_Object_AsyncCallback_Object_IAsyncResult___Fields_DEFINED)
+#define IL2CPP_STRUCT_Func_5_Object_Object_AsyncCallback_Object_IAsyncResult__DEFINED
+struct Func_5_Object_Object_AsyncCallback_Object_IAsyncResult___Class;
+struct Func_5_Object_Object_AsyncCallback_Object_IAsyncResult_ {
+    struct Func_5_Object_Object_AsyncCallback_Object_IAsyncResult___Class* klass;
+    MonitorData* monitor;
+    struct Func_5_Object_Object_AsyncCallback_Object_IAsyncResult___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Func_5_Object_Object_AsyncCallback_Object_IAsyncResult__FWDDECL)
+#define IL2CPP_STRUCT_Func_5_Object_Object_AsyncCallback_Object_IAsyncResult__FWDDECL
+#include <Modloader/app/structs/Func_5_Object_Object_AsyncCallback_Object_IAsyncResult___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Func_5_Object_Object_AsyncCallback_Object_IAsyncResult__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Func_5_Object_Object_AsyncCallback_Object_IAsyncResult__DEFINED) && !defined(IL2CPP_STRUCT_Func_5_Object_Object_AsyncCallback_Object_IAsyncResult__FWDDECL)
+#include <Modloader/app/structs/Func_5_Object_Object_AsyncCallback_Object_IAsyncResult_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Func_5_Object_Object_AsyncCallback_Object_IAsyncResult_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem__DEFINED)
+#define IL2CPP_STRUCT_TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem__DEFINED
+struct TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem___Class;
+struct TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem_ {
+    struct TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem__FWDDECL)
+#define IL2CPP_STRUCT_TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem__FWDDECL
+#include <Modloader/app/structs/TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem___Class.h>
+#endif
+#undef IL2CPP_STRUCT_TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem__DEFINED) && !defined(IL2CPP_STRUCT_TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem__FWDDECL)
+#include <Modloader/app/structs/TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TimelineSystem_1_Moon_Timeline_Systems_GameplayUISystem_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

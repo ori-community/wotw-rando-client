@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_UInt32_AkAudioInputManager_AudioSamplesDelegate__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_UInt32_AkAudioInputManager_AudioSamplesDelegate__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_UInt32_AkAudioInputManager_AudioSamplesDelegate__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_UInt32_AkAudioInputManager_AudioSamplesDelegate__DEFINED
+struct AkAudioInputManager_AudioSamplesDelegate;
+struct KeyValuePair_2_System_UInt32_AkAudioInputManager_AudioSamplesDelegate_ {
+    uint32_t key;
+    struct AkAudioInputManager_AudioSamplesDelegate* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_UInt32_AkAudioInputManager_AudioSamplesDelegate__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_UInt32_AkAudioInputManager_AudioSamplesDelegate__FWDDECL
+#include <Modloader/app/structs/AkAudioInputManager_AudioSamplesDelegate.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_UInt32_AkAudioInputManager_AudioSamplesDelegate__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_UInt32_AkAudioInputManager_AudioSamplesDelegate__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_UInt32_AkAudioInputManager_AudioSamplesDelegate__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_UInt32_AkAudioInputManager_AudioSamplesDelegate_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_UInt32_AkAudioInputManager_AudioSamplesDelegate_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

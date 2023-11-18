@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Array_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Array_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Array_DEFINED)
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_FloatValue.h>
+#if defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue_DEFINED)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Array_DEFINED
+struct UberShaderAnimatorStrategyExperimental_FloatValue__Array__Class;
+struct UberShaderAnimatorStrategyExperimental_FloatValue__Array {
+    struct UberShaderAnimatorStrategyExperimental_FloatValue__Array__Class* klass;
+    MonitorData* monitor;
+    Il2CppArrayBounds* bounds;
+    il2cpp_array_size_t max_length;
+    struct UberShaderAnimatorStrategyExperimental_FloatValue vector[32];
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Array_FWDDECL)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Array_FWDDECL
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_FloatValue__Array__Class.h>
+#endif
+#undef IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Array_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Array_DEFINED) && !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Array_FWDDECL)
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_FloatValue__Array.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_FloatValue__Array.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

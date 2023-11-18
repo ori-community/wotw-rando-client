@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Thread_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Thread_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Thread_DEFINED)
+#include <Modloader/app/structs/Thread__Fields.h>
+#if defined(IL2CPP_STRUCT_Thread__Fields_DEFINED)
+#define IL2CPP_STRUCT_Thread_DEFINED
+struct Thread__Class;
+struct Thread {
+    struct Thread__Class* klass;
+    MonitorData* monitor;
+    struct Thread__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Thread_FWDDECL)
+#define IL2CPP_STRUCT_Thread_FWDDECL
+#include <Modloader/app/structs/Thread__Class.h>
+#endif
+#undef IL2CPP_STRUCT_Thread_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Thread_DEFINED) && !defined(IL2CPP_STRUCT_Thread_FWDDECL)
+#include <Modloader/app/structs/Thread.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Thread.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GameController_WarmUpResourcesRoutine_d_191_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GameController_WarmUpResourcesRoutine_d_191_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GameController_WarmUpResourcesRoutine_d_191_DEFINED)
+#include <Modloader/app/structs/GameController_WarmUpResourcesRoutine_d_191__Fields.h>
+#if defined(IL2CPP_STRUCT_GameController_WarmUpResourcesRoutine_d_191__Fields_DEFINED)
+#define IL2CPP_STRUCT_GameController_WarmUpResourcesRoutine_d_191_DEFINED
+struct GameController_WarmUpResourcesRoutine_d_191__Class;
+struct GameController_WarmUpResourcesRoutine_d_191 {
+    struct GameController_WarmUpResourcesRoutine_d_191__Class* klass;
+    MonitorData* monitor;
+    struct GameController_WarmUpResourcesRoutine_d_191__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GameController_WarmUpResourcesRoutine_d_191_FWDDECL)
+#define IL2CPP_STRUCT_GameController_WarmUpResourcesRoutine_d_191_FWDDECL
+#include <Modloader/app/structs/GameController_WarmUpResourcesRoutine_d_191__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GameController_WarmUpResourcesRoutine_d_191_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GameController_WarmUpResourcesRoutine_d_191_DEFINED) && !defined(IL2CPP_STRUCT_GameController_WarmUpResourcesRoutine_d_191_FWDDECL)
+#include <Modloader/app/structs/GameController_WarmUpResourcesRoutine_d_191.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GameController_WarmUpResourcesRoutine_d_191.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

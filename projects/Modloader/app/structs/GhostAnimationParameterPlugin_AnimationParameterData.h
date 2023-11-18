@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GhostAnimationParameterPlugin_AnimationParameterData_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GhostAnimationParameterPlugin_AnimationParameterData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_AnimationParameterData_DEFINED)
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_AnimationParameterData__Fields.h>
+#if defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_AnimationParameterData__Fields_DEFINED)
+#define IL2CPP_STRUCT_GhostAnimationParameterPlugin_AnimationParameterData_DEFINED
+struct GhostAnimationParameterPlugin_AnimationParameterData__Class;
+struct GhostAnimationParameterPlugin_AnimationParameterData {
+    struct GhostAnimationParameterPlugin_AnimationParameterData__Class* klass;
+    MonitorData* monitor;
+    struct GhostAnimationParameterPlugin_AnimationParameterData__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_AnimationParameterData_FWDDECL)
+#define IL2CPP_STRUCT_GhostAnimationParameterPlugin_AnimationParameterData_FWDDECL
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_AnimationParameterData__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GhostAnimationParameterPlugin_AnimationParameterData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_AnimationParameterData_DEFINED) && !defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_AnimationParameterData_FWDDECL)
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_AnimationParameterData.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_AnimationParameterData.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

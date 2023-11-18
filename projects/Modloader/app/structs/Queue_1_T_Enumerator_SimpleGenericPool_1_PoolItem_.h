@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Queue_1_T_Enumerator_SimpleGenericPool_1_PoolItem__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Queue_1_T_Enumerator_SimpleGenericPool_1_PoolItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Queue_1_T_Enumerator_SimpleGenericPool_1_PoolItem__DEFINED)
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_.h>
+#if defined(IL2CPP_STRUCT_SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo__DEFINED)
+#define IL2CPP_STRUCT_Queue_1_T_Enumerator_SimpleGenericPool_1_PoolItem__DEFINED
+struct Queue_1_SimpleGenericPool_1_PoolItem_;
+struct Queue_1_T_Enumerator_SimpleGenericPool_1_PoolItem_ {
+    struct Queue_1_SimpleGenericPool_1_PoolItem_* _q;
+    int32_t _version;
+    int32_t _index;
+    struct SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_ _currentElement;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Queue_1_T_Enumerator_SimpleGenericPool_1_PoolItem__FWDDECL)
+#define IL2CPP_STRUCT_Queue_1_T_Enumerator_SimpleGenericPool_1_PoolItem__FWDDECL
+#include <Modloader/app/structs/Queue_1_SimpleGenericPool_1_PoolItem_.h>
+#endif
+#undef IL2CPP_STRUCT_Queue_1_T_Enumerator_SimpleGenericPool_1_PoolItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Queue_1_T_Enumerator_SimpleGenericPool_1_PoolItem__DEFINED) && !defined(IL2CPP_STRUCT_Queue_1_T_Enumerator_SimpleGenericPool_1_PoolItem__FWDDECL)
+#include <Modloader/app/structs/Queue_1_T_Enumerator_SimpleGenericPool_1_PoolItem_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Queue_1_T_Enumerator_SimpleGenericPool_1_PoolItem_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

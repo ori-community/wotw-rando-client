@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberInteractionModifier_GetBaseVertexTextureNames_d_66_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberInteractionModifier_GetBaseVertexTextureNames_d_66_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberInteractionModifier_GetBaseVertexTextureNames_d_66_DEFINED)
+#include <Modloader/app/structs/UberInteractionModifier_GetBaseVertexTextureNames_d_66__Fields.h>
+#if defined(IL2CPP_STRUCT_UberInteractionModifier_GetBaseVertexTextureNames_d_66__Fields_DEFINED)
+#define IL2CPP_STRUCT_UberInteractionModifier_GetBaseVertexTextureNames_d_66_DEFINED
+struct UberInteractionModifier_GetBaseVertexTextureNames_d_66__Class;
+struct UberInteractionModifier_GetBaseVertexTextureNames_d_66 {
+    struct UberInteractionModifier_GetBaseVertexTextureNames_d_66__Class* klass;
+    MonitorData* monitor;
+    struct UberInteractionModifier_GetBaseVertexTextureNames_d_66__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_UberInteractionModifier_GetBaseVertexTextureNames_d_66_FWDDECL)
+#define IL2CPP_STRUCT_UberInteractionModifier_GetBaseVertexTextureNames_d_66_FWDDECL
+#include <Modloader/app/structs/UberInteractionModifier_GetBaseVertexTextureNames_d_66__Class.h>
+#endif
+#undef IL2CPP_STRUCT_UberInteractionModifier_GetBaseVertexTextureNames_d_66_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberInteractionModifier_GetBaseVertexTextureNames_d_66_DEFINED) && !defined(IL2CPP_STRUCT_UberInteractionModifier_GetBaseVertexTextureNames_d_66_FWDDECL)
+#include <Modloader/app/structs/UberInteractionModifier_GetBaseVertexTextureNames_d_66.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberInteractionModifier_GetBaseVertexTextureNames_d_66.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberStateToWwiseData_UberStateToWWiseEntry__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberStateToWwiseData_UberStateToWWiseEntry__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberStateToWwiseData_UberStateToWWiseEntry__Fields_DEFINED)
+#define IL2CPP_STRUCT_UberStateToWwiseData_UberStateToWWiseEntry__Fields_DEFINED
+struct UberStateToWwiseData_UberStateConditions;
+struct State__Array;
+struct __declspec(align(8)) UberStateToWwiseData_UberStateToWWiseEntry__Fields {
+    struct UberStateToWwiseData_UberStateConditions* UberStateConditions;
+    struct State__Array* WwiseStatesToSet;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_UberStateToWwiseData_UberStateToWWiseEntry__Fields_FWDDECL)
+#define IL2CPP_STRUCT_UberStateToWwiseData_UberStateToWWiseEntry__Fields_FWDDECL
+#include <Modloader/app/structs/State__Array.h>
+#include <Modloader/app/structs/UberStateToWwiseData_UberStateConditions.h>
+#endif
+#undef IL2CPP_STRUCT_UberStateToWwiseData_UberStateToWWiseEntry__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberStateToWwiseData_UberStateToWWiseEntry__Fields_DEFINED) && !defined(IL2CPP_STRUCT_UberStateToWwiseData_UberStateToWWiseEntry__Fields_FWDDECL)
+#include <Modloader/app/structs/UberStateToWwiseData_UberStateToWWiseEntry__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberStateToWwiseData_UberStateToWWiseEntry__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

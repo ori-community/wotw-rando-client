@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Action_1_UnityEngine_Scripting_GarbageCollector_Mode__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Action_1_UnityEngine_Scripting_GarbageCollector_Mode__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_UnityEngine_Scripting_GarbageCollector_Mode__DEFINED)
+#include <Modloader/app/structs/Action_1_UnityEngine_Scripting_GarbageCollector_Mode___Fields.h>
+#if defined(IL2CPP_STRUCT_Action_1_UnityEngine_Scripting_GarbageCollector_Mode___Fields_DEFINED)
+#define IL2CPP_STRUCT_Action_1_UnityEngine_Scripting_GarbageCollector_Mode__DEFINED
+struct Action_1_UnityEngine_Scripting_GarbageCollector_Mode___Class;
+struct Action_1_UnityEngine_Scripting_GarbageCollector_Mode_ {
+    struct Action_1_UnityEngine_Scripting_GarbageCollector_Mode___Class* klass;
+    MonitorData* monitor;
+    struct Action_1_UnityEngine_Scripting_GarbageCollector_Mode___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Action_1_UnityEngine_Scripting_GarbageCollector_Mode__FWDDECL)
+#define IL2CPP_STRUCT_Action_1_UnityEngine_Scripting_GarbageCollector_Mode__FWDDECL
+#include <Modloader/app/structs/Action_1_UnityEngine_Scripting_GarbageCollector_Mode___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Action_1_UnityEngine_Scripting_GarbageCollector_Mode__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_UnityEngine_Scripting_GarbageCollector_Mode__DEFINED) && !defined(IL2CPP_STRUCT_Action_1_UnityEngine_Scripting_GarbageCollector_Mode__FWDDECL)
+#include <Modloader/app/structs/Action_1_UnityEngine_Scripting_GarbageCollector_Mode_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Action_1_UnityEngine_Scripting_GarbageCollector_Mode_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

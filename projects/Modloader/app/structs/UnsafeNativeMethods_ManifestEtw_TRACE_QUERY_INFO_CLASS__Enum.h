@@ -1,0 +1,28 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UnsafeNativeMethods_ManifestEtw_TRACE_QUERY_INFO_CLASS__Enum_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UnsafeNativeMethods_ManifestEtw_TRACE_QUERY_INFO_CLASS__Enum_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UnsafeNativeMethods_ManifestEtw_TRACE_QUERY_INFO_CLASS__Enum_DEFINED)
+#define IL2CPP_STRUCT_UnsafeNativeMethods_ManifestEtw_TRACE_QUERY_INFO_CLASS__Enum_DEFINED
+enum class UnsafeNativeMethods_ManifestEtw_TRACE_QUERY_INFO_CLASS__Enum : int32_t {
+    TraceGuidQueryList = 0x00000000,
+    TraceGuidQueryInfo = 0x00000001,
+    TraceGuidQueryProcess = 0x00000002,
+    TraceStackTracingInfo = 0x00000003,
+    MaxTraceSetInfoClass = 0x00000004,
+};
+#endif
+#if !defined(IL2CPP_STRUCT_UnsafeNativeMethods_ManifestEtw_TRACE_QUERY_INFO_CLASS__Enum_FWDDECL)
+#define IL2CPP_STRUCT_UnsafeNativeMethods_ManifestEtw_TRACE_QUERY_INFO_CLASS__Enum_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_UnsafeNativeMethods_ManifestEtw_TRACE_QUERY_INFO_CLASS__Enum_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UnsafeNativeMethods_ManifestEtw_TRACE_QUERY_INFO_CLASS__Enum_DEFINED) && !defined(IL2CPP_STRUCT_UnsafeNativeMethods_ManifestEtw_TRACE_QUERY_INFO_CLASS__Enum_FWDDECL)
+#include <Modloader/app/structs/UnsafeNativeMethods_ManifestEtw_TRACE_QUERY_INFO_CLASS__Enum.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UnsafeNativeMethods_ManifestEtw_TRACE_QUERY_INFO_CLASS__Enum.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

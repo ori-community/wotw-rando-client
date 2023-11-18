@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AsyncProtocolRequest_ProcessOperation_d_24__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AsyncProtocolRequest_ProcessOperation_d_24__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AsyncProtocolRequest_ProcessOperation_d_24__Boxed_DEFINED)
+#include <Modloader/app/structs/AsyncProtocolRequest_ProcessOperation_d_24.h>
+#if defined(IL2CPP_STRUCT_AsyncProtocolRequest_ProcessOperation_d_24_DEFINED)
+#define IL2CPP_STRUCT_AsyncProtocolRequest_ProcessOperation_d_24__Boxed_DEFINED
+struct AsyncProtocolRequest_ProcessOperation_d_24__Class;
+struct AsyncProtocolRequest_ProcessOperation_d_24__Boxed {
+    struct AsyncProtocolRequest_ProcessOperation_d_24__Class* klass;
+    MonitorData* monitor;
+    struct AsyncProtocolRequest_ProcessOperation_d_24 fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AsyncProtocolRequest_ProcessOperation_d_24__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_AsyncProtocolRequest_ProcessOperation_d_24__Boxed_FWDDECL
+#include <Modloader/app/structs/AsyncProtocolRequest_ProcessOperation_d_24__Class.h>
+#endif
+#undef IL2CPP_STRUCT_AsyncProtocolRequest_ProcessOperation_d_24__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AsyncProtocolRequest_ProcessOperation_d_24__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_AsyncProtocolRequest_ProcessOperation_d_24__Boxed_FWDDECL)
+#include <Modloader/app/structs/AsyncProtocolRequest_ProcessOperation_d_24__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AsyncProtocolRequest_ProcessOperation_d_24__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

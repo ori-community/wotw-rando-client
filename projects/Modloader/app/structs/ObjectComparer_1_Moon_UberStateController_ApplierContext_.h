@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ObjectComparer_1_Moon_UberStateController_ApplierContext__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ObjectComparer_1_Moon_UberStateController_ApplierContext__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ObjectComparer_1_Moon_UberStateController_ApplierContext__DEFINED)
+#define IL2CPP_STRUCT_ObjectComparer_1_Moon_UberStateController_ApplierContext__DEFINED
+struct ObjectComparer_1_Moon_UberStateController_ApplierContext___Class;
+struct ObjectComparer_1_Moon_UberStateController_ApplierContext_ {
+    struct ObjectComparer_1_Moon_UberStateController_ApplierContext___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ObjectComparer_1_Moon_UberStateController_ApplierContext__FWDDECL)
+#define IL2CPP_STRUCT_ObjectComparer_1_Moon_UberStateController_ApplierContext__FWDDECL
+#include <Modloader/app/structs/ObjectComparer_1_Moon_UberStateController_ApplierContext___Class.h>
+#endif
+#undef IL2CPP_STRUCT_ObjectComparer_1_Moon_UberStateController_ApplierContext__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ObjectComparer_1_Moon_UberStateController_ApplierContext__DEFINED) && !defined(IL2CPP_STRUCT_ObjectComparer_1_Moon_UberStateController_ApplierContext__FWDDECL)
+#include <Modloader/app/structs/ObjectComparer_1_Moon_UberStateController_ApplierContext_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ObjectComparer_1_Moon_UberStateController_ApplierContext_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

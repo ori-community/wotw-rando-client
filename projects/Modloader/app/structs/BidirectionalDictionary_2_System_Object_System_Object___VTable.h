@@ -1,0 +1,51 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_BidirectionalDictionary_2_System_Object_System_Object___VTable_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_BidirectionalDictionary_2_System_Object_System_Object___VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BidirectionalDictionary_2_System_Object_System_Object___VTable_DEFINED)
+#define IL2CPP_STRUCT_BidirectionalDictionary_2_System_Object_System_Object___VTable_DEFINED
+struct BidirectionalDictionary_2_System_Object_System_Object___VTable {
+    VirtualInvokeData Equals;
+    VirtualInvokeData Finalize;
+    VirtualInvokeData GetHashCode;
+    VirtualInvokeData ToString;
+    VirtualInvokeData get_FirstValues;
+    VirtualInvokeData get_SecondValues;
+    VirtualInvokeData Add;
+    VirtualInvokeData GetByFirst;
+    VirtualInvokeData GetBySecond;
+    VirtualInvokeData RemoveByFirst;
+    VirtualInvokeData RemoveBySecond;
+    VirtualInvokeData TryGetByFirst;
+    VirtualInvokeData TryGetBySecond;
+    VirtualInvokeData ContainsFirst;
+    VirtualInvokeData ContainsSecond;
+    VirtualInvokeData System_Collections_Generic_ICollection_Moon_BidirectionalValuePair_T1_T2___get_Count;
+    VirtualInvokeData System_Collections_Generic_ICollection_Moon_BidirectionalValuePair_T1_T2___get_IsReadOnly;
+    VirtualInvokeData System_Collections_Generic_ICollection_Moon_BidirectionalValuePair_T1_T2___Add;
+    VirtualInvokeData System_Collections_Generic_ICollection_Moon_BidirectionalValuePair_T1_T2___Clear;
+    VirtualInvokeData System_Collections_Generic_ICollection_Moon_BidirectionalValuePair_T1_T2___Contains;
+    VirtualInvokeData System_Collections_Generic_ICollection_Moon_BidirectionalValuePair_T1_T2___CopyTo;
+    VirtualInvokeData System_Collections_Generic_ICollection_Moon_BidirectionalValuePair_T1_T2___Remove;
+    VirtualInvokeData System_Collections_Generic_IEnumerable_Moon_BidirectionalValuePair_T1_T2___GetEnumerator;
+    VirtualInvokeData System_Collections_IEnumerable_GetEnumerator;
+    VirtualInvokeData System_Collections_ICollection_CopyTo;
+    VirtualInvokeData System_Collections_ICollection_get_Count;
+    VirtualInvokeData System_Collections_ICollection_get_SyncRoot;
+    VirtualInvokeData System_Collections_ICollection_get_IsSynchronized;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_BidirectionalDictionary_2_System_Object_System_Object___VTable_FWDDECL)
+#define IL2CPP_STRUCT_BidirectionalDictionary_2_System_Object_System_Object___VTable_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_BidirectionalDictionary_2_System_Object_System_Object___VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BidirectionalDictionary_2_System_Object_System_Object___VTable_DEFINED) && !defined(IL2CPP_STRUCT_BidirectionalDictionary_2_System_Object_System_Object___VTable_FWDDECL)
+#include <Modloader/app/structs/BidirectionalDictionary_2_System_Object_System_Object___VTable.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/BidirectionalDictionary_2_System_Object_System_Object___VTable.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

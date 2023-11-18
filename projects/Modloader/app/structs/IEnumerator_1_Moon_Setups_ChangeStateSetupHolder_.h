@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_Moon_Setups_ChangeStateSetupHolder__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_Setups_ChangeStateSetupHolder__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_Setups_ChangeStateSetupHolder__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_Setups_ChangeStateSetupHolder__DEFINED
+struct IEnumerator_1_Moon_Setups_ChangeStateSetupHolder___Class;
+struct IEnumerator_1_Moon_Setups_ChangeStateSetupHolder_ {
+    struct IEnumerator_1_Moon_Setups_ChangeStateSetupHolder___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_Setups_ChangeStateSetupHolder__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_Setups_ChangeStateSetupHolder__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_Moon_Setups_ChangeStateSetupHolder___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_Moon_Setups_ChangeStateSetupHolder__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_Setups_ChangeStateSetupHolder__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_Setups_ChangeStateSetupHolder__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_Moon_Setups_ChangeStateSetupHolder_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_Moon_Setups_ChangeStateSetupHolder_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

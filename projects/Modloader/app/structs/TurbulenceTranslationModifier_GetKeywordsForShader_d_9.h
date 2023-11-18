@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TurbulenceTranslationModifier_GetKeywordsForShader_d_9_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TurbulenceTranslationModifier_GetKeywordsForShader_d_9_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TurbulenceTranslationModifier_GetKeywordsForShader_d_9_DEFINED)
+#include <Modloader/app/structs/TurbulenceTranslationModifier_GetKeywordsForShader_d_9__Fields.h>
+#if defined(IL2CPP_STRUCT_TurbulenceTranslationModifier_GetKeywordsForShader_d_9__Fields_DEFINED)
+#define IL2CPP_STRUCT_TurbulenceTranslationModifier_GetKeywordsForShader_d_9_DEFINED
+struct TurbulenceTranslationModifier_GetKeywordsForShader_d_9__Class;
+struct TurbulenceTranslationModifier_GetKeywordsForShader_d_9 {
+    struct TurbulenceTranslationModifier_GetKeywordsForShader_d_9__Class* klass;
+    MonitorData* monitor;
+    struct TurbulenceTranslationModifier_GetKeywordsForShader_d_9__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TurbulenceTranslationModifier_GetKeywordsForShader_d_9_FWDDECL)
+#define IL2CPP_STRUCT_TurbulenceTranslationModifier_GetKeywordsForShader_d_9_FWDDECL
+#include <Modloader/app/structs/TurbulenceTranslationModifier_GetKeywordsForShader_d_9__Class.h>
+#endif
+#undef IL2CPP_STRUCT_TurbulenceTranslationModifier_GetKeywordsForShader_d_9_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TurbulenceTranslationModifier_GetKeywordsForShader_d_9_DEFINED) && !defined(IL2CPP_STRUCT_TurbulenceTranslationModifier_GetKeywordsForShader_d_9_FWDDECL)
+#include <Modloader/app/structs/TurbulenceTranslationModifier_GetKeywordsForShader_d_9.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TurbulenceTranslationModifier_GetKeywordsForShader_d_9.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

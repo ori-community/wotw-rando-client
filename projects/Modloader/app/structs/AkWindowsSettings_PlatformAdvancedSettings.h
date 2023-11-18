@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AkWindowsSettings_PlatformAdvancedSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AkWindowsSettings_PlatformAdvancedSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AkWindowsSettings_PlatformAdvancedSettings_DEFINED)
+#include <Modloader/app/structs/AkWindowsSettings_PlatformAdvancedSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_AkWindowsSettings_PlatformAdvancedSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_AkWindowsSettings_PlatformAdvancedSettings_DEFINED
+struct AkWindowsSettings_PlatformAdvancedSettings__Class;
+struct AkWindowsSettings_PlatformAdvancedSettings {
+    struct AkWindowsSettings_PlatformAdvancedSettings__Class* klass;
+    MonitorData* monitor;
+    struct AkWindowsSettings_PlatformAdvancedSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AkWindowsSettings_PlatformAdvancedSettings_FWDDECL)
+#define IL2CPP_STRUCT_AkWindowsSettings_PlatformAdvancedSettings_FWDDECL
+#include <Modloader/app/structs/AkWindowsSettings_PlatformAdvancedSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_AkWindowsSettings_PlatformAdvancedSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AkWindowsSettings_PlatformAdvancedSettings_DEFINED) && !defined(IL2CPP_STRUCT_AkWindowsSettings_PlatformAdvancedSettings_FWDDECL)
+#include <Modloader/app/structs/AkWindowsSettings_PlatformAdvancedSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AkWindowsSettings_PlatformAdvancedSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Newtonsoft_Json_Linq_JToken__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Newtonsoft_Json_Linq_JToken__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Newtonsoft_Json_Linq_JToken__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Newtonsoft_Json_Linq_JToken__DEFINED
+struct String;
+struct JToken;
+struct Dictionary_2_TKey_TValue_Entry_System_String_Newtonsoft_Json_Linq_JToken_ {
+    int32_t hashCode;
+    int32_t next;
+    struct String* key;
+    struct JToken* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Newtonsoft_Json_Linq_JToken__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Newtonsoft_Json_Linq_JToken__FWDDECL
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/String.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Newtonsoft_Json_Linq_JToken__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Newtonsoft_Json_Linq_JToken__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Newtonsoft_Json_Linq_JToken__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_String_Newtonsoft_Json_Linq_JToken_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_String_Newtonsoft_Json_Linq_JToken_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

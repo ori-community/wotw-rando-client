@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVROverlay_SetDashboardOverlaySceneProcess_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVROverlay_SetDashboardOverlaySceneProcess_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVROverlay_SetDashboardOverlaySceneProcess_DEFINED)
+#include <Modloader/app/structs/IVROverlay_SetDashboardOverlaySceneProcess__Fields.h>
+#if defined(IL2CPP_STRUCT_IVROverlay_SetDashboardOverlaySceneProcess__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVROverlay_SetDashboardOverlaySceneProcess_DEFINED
+struct IVROverlay_SetDashboardOverlaySceneProcess__Class;
+struct IVROverlay_SetDashboardOverlaySceneProcess {
+    struct IVROverlay_SetDashboardOverlaySceneProcess__Class* klass;
+    MonitorData* monitor;
+    struct IVROverlay_SetDashboardOverlaySceneProcess__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVROverlay_SetDashboardOverlaySceneProcess_FWDDECL)
+#define IL2CPP_STRUCT_IVROverlay_SetDashboardOverlaySceneProcess_FWDDECL
+#include <Modloader/app/structs/IVROverlay_SetDashboardOverlaySceneProcess__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVROverlay_SetDashboardOverlaySceneProcess_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVROverlay_SetDashboardOverlaySceneProcess_DEFINED) && !defined(IL2CPP_STRUCT_IVROverlay_SetDashboardOverlaySceneProcess_FWDDECL)
+#include <Modloader/app/structs/IVROverlay_SetDashboardOverlaySceneProcess.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVROverlay_SetDashboardOverlaySceneProcess.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

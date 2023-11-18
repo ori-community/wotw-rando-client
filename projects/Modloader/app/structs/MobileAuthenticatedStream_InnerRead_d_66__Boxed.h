@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MobileAuthenticatedStream_InnerRead_d_66__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MobileAuthenticatedStream_InnerRead_d_66__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MobileAuthenticatedStream_InnerRead_d_66__Boxed_DEFINED)
+#include <Modloader/app/structs/MobileAuthenticatedStream_InnerRead_d_66.h>
+#if defined(IL2CPP_STRUCT_MobileAuthenticatedStream_InnerRead_d_66_DEFINED)
+#define IL2CPP_STRUCT_MobileAuthenticatedStream_InnerRead_d_66__Boxed_DEFINED
+struct MobileAuthenticatedStream_InnerRead_d_66__Class;
+struct MobileAuthenticatedStream_InnerRead_d_66__Boxed {
+    struct MobileAuthenticatedStream_InnerRead_d_66__Class* klass;
+    MonitorData* monitor;
+    struct MobileAuthenticatedStream_InnerRead_d_66 fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MobileAuthenticatedStream_InnerRead_d_66__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_MobileAuthenticatedStream_InnerRead_d_66__Boxed_FWDDECL
+#include <Modloader/app/structs/MobileAuthenticatedStream_InnerRead_d_66__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MobileAuthenticatedStream_InnerRead_d_66__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MobileAuthenticatedStream_InnerRead_d_66__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_MobileAuthenticatedStream_InnerRead_d_66__Boxed_FWDDECL)
+#include <Modloader/app/structs/MobileAuthenticatedStream_InnerRead_d_66__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MobileAuthenticatedStream_InnerRead_d_66__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

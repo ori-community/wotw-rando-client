@@ -1,0 +1,39 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Enumerable_WhereSelectEnumerableIterator_2_UnityEngine_Rect_System_Single___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Enumerable_WhereSelectEnumerableIterator_2_UnityEngine_Rect_System_Single___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Enumerable_WhereSelectEnumerableIterator_2_UnityEngine_Rect_System_Single___Fields_DEFINED)
+#include <Modloader/app/structs/Enumerable_Iterator_1_System_Single___Fields.h>
+#if defined(IL2CPP_STRUCT_Enumerable_Iterator_1_System_Single___Fields_DEFINED)
+#define IL2CPP_STRUCT_Enumerable_WhereSelectEnumerableIterator_2_UnityEngine_Rect_System_Single___Fields_DEFINED
+struct IEnumerable_1_UnityEngine_Rect_;
+struct Func_2_UnityEngine_Rect_Boolean_;
+struct Func_2_UnityEngine_Rect_Single_;
+struct IEnumerator_1_UnityEngine_Rect_;
+struct Enumerable_WhereSelectEnumerableIterator_2_UnityEngine_Rect_System_Single___Fields {
+    struct Enumerable_Iterator_1_System_Single___Fields _;
+    struct IEnumerable_1_UnityEngine_Rect_* source;
+    struct Func_2_UnityEngine_Rect_Boolean_* predicate;
+    struct Func_2_UnityEngine_Rect_Single_* selector;
+    struct IEnumerator_1_UnityEngine_Rect_* enumerator;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Enumerable_WhereSelectEnumerableIterator_2_UnityEngine_Rect_System_Single___Fields_FWDDECL)
+#define IL2CPP_STRUCT_Enumerable_WhereSelectEnumerableIterator_2_UnityEngine_Rect_System_Single___Fields_FWDDECL
+#include <Modloader/app/structs/Func_2_UnityEngine_Rect_Boolean_.h>
+#include <Modloader/app/structs/Func_2_UnityEngine_Rect_Single_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Rect_.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Rect_.h>
+#endif
+#undef IL2CPP_STRUCT_Enumerable_WhereSelectEnumerableIterator_2_UnityEngine_Rect_System_Single___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Enumerable_WhereSelectEnumerableIterator_2_UnityEngine_Rect_System_Single___Fields_DEFINED) && !defined(IL2CPP_STRUCT_Enumerable_WhereSelectEnumerableIterator_2_UnityEngine_Rect_System_Single___Fields_FWDDECL)
+#include <Modloader/app/structs/Enumerable_WhereSelectEnumerableIterator_2_UnityEngine_Rect_System_Single___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Enumerable_WhereSelectEnumerableIterator_2_UnityEngine_Rect_System_Single___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

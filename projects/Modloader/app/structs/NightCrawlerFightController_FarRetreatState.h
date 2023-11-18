@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_NightCrawlerFightController_FarRetreatState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_NightCrawlerFightController_FarRetreatState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NightCrawlerFightController_FarRetreatState_DEFINED)
+#include <Modloader/app/structs/NightCrawlerFightController_FarRetreatState__Fields.h>
+#if defined(IL2CPP_STRUCT_NightCrawlerFightController_FarRetreatState__Fields_DEFINED)
+#define IL2CPP_STRUCT_NightCrawlerFightController_FarRetreatState_DEFINED
+struct NightCrawlerFightController_FarRetreatState__Class;
+struct NightCrawlerFightController_FarRetreatState {
+    struct NightCrawlerFightController_FarRetreatState__Class* klass;
+    MonitorData* monitor;
+    struct NightCrawlerFightController_FarRetreatState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_NightCrawlerFightController_FarRetreatState_FWDDECL)
+#define IL2CPP_STRUCT_NightCrawlerFightController_FarRetreatState_FWDDECL
+#include <Modloader/app/structs/NightCrawlerFightController_FarRetreatState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_NightCrawlerFightController_FarRetreatState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NightCrawlerFightController_FarRetreatState_DEFINED) && !defined(IL2CPP_STRUCT_NightCrawlerFightController_FarRetreatState_FWDDECL)
+#include <Modloader/app/structs/NightCrawlerFightController_FarRetreatState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/NightCrawlerFightController_FarRetreatState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

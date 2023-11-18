@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PlatformMovementEnvironmentForceController_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PlatformMovementEnvironmentForceController_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PlatformMovementEnvironmentForceController_DEFINED)
+#include <Modloader/app/structs/PlatformMovementEnvironmentForceController__Fields.h>
+#if defined(IL2CPP_STRUCT_PlatformMovementEnvironmentForceController__Fields_DEFINED)
+#define IL2CPP_STRUCT_PlatformMovementEnvironmentForceController_DEFINED
+struct PlatformMovementEnvironmentForceController__Class;
+struct PlatformMovementEnvironmentForceController {
+    struct PlatformMovementEnvironmentForceController__Class* klass;
+    MonitorData* monitor;
+    struct PlatformMovementEnvironmentForceController__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PlatformMovementEnvironmentForceController_FWDDECL)
+#define IL2CPP_STRUCT_PlatformMovementEnvironmentForceController_FWDDECL
+#include <Modloader/app/structs/PlatformMovementEnvironmentForceController__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PlatformMovementEnvironmentForceController_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PlatformMovementEnvironmentForceController_DEFINED) && !defined(IL2CPP_STRUCT_PlatformMovementEnvironmentForceController_FWDDECL)
+#include <Modloader/app/structs/PlatformMovementEnvironmentForceController.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PlatformMovementEnvironmentForceController.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

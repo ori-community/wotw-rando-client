@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality__DEFINED)
+#include <Modloader/app/structs/Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality___Fields.h>
+#if defined(IL2CPP_STRUCT_Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality___Fields_DEFINED)
+#define IL2CPP_STRUCT_Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality__DEFINED
+struct Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality___Class;
+struct Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality_ {
+    struct Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality___Class* klass;
+    MonitorData* monitor;
+    struct Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality__FWDDECL)
+#define IL2CPP_STRUCT_Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality__FWDDECL
+#include <Modloader/app/structs/Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality__DEFINED) && !defined(IL2CPP_STRUCT_Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality__FWDDECL)
+#include <Modloader/app/structs/Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Action_1_Moon_Rendering_MoonRenderPipelineDebugUI_Quality_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

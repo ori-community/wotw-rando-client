@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket__DEFINED
+struct IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket___Class;
+struct IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ {
+    struct IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

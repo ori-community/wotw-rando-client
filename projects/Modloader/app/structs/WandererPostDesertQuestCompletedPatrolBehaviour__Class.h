@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_WandererPostDesertQuestCompletedPatrolBehaviour__Class_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_WandererPostDesertQuestCompletedPatrolBehaviour__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_WandererPostDesertQuestCompletedPatrolBehaviour__Class_DEFINED)
+#include <Modloader/app/structs/WandererPostDesertQuestCompletedPatrolBehaviour__VTable.h>
+#if defined(IL2CPP_STRUCT_WandererPostDesertQuestCompletedPatrolBehaviour__VTable_DEFINED)
+#define IL2CPP_STRUCT_WandererPostDesertQuestCompletedPatrolBehaviour__Class_DEFINED
+struct WandererPostDesertQuestCompletedPatrolBehaviour__StaticFields;
+struct WandererPostDesertQuestCompletedPatrolBehaviour__Class {
+    Il2CppClass_0 _0;
+    Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+    struct WandererPostDesertQuestCompletedPatrolBehaviour__StaticFields* static_fields;
+    const Il2CppRGCTXData* rgctx_data;
+    Il2CppClass_1 _1;
+    struct WandererPostDesertQuestCompletedPatrolBehaviour__VTable vtable;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_WandererPostDesertQuestCompletedPatrolBehaviour__Class_FWDDECL)
+#define IL2CPP_STRUCT_WandererPostDesertQuestCompletedPatrolBehaviour__Class_FWDDECL
+#include <Modloader/app/structs/WandererPostDesertQuestCompletedPatrolBehaviour__StaticFields.h>
+#endif
+#undef IL2CPP_STRUCT_WandererPostDesertQuestCompletedPatrolBehaviour__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_WandererPostDesertQuestCompletedPatrolBehaviour__Class_DEFINED) && !defined(IL2CPP_STRUCT_WandererPostDesertQuestCompletedPatrolBehaviour__Class_FWDDECL)
+#include <Modloader/app/structs/WandererPostDesertQuestCompletedPatrolBehaviour__Class.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/WandererPostDesertQuestCompletedPatrolBehaviour__Class.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

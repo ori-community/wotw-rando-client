@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_X509CertificateCollection_X509CertificateEnumerator_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_X509CertificateCollection_X509CertificateEnumerator_INITIALIZING
+#if !defined(IL2CPP_STRUCT_X509CertificateCollection_X509CertificateEnumerator_DEFINED)
+#include <Modloader/app/structs/X509CertificateCollection_X509CertificateEnumerator__Fields.h>
+#if defined(IL2CPP_STRUCT_X509CertificateCollection_X509CertificateEnumerator__Fields_DEFINED)
+#define IL2CPP_STRUCT_X509CertificateCollection_X509CertificateEnumerator_DEFINED
+struct X509CertificateCollection_X509CertificateEnumerator__Class;
+struct X509CertificateCollection_X509CertificateEnumerator {
+    struct X509CertificateCollection_X509CertificateEnumerator__Class* klass;
+    MonitorData* monitor;
+    struct X509CertificateCollection_X509CertificateEnumerator__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_X509CertificateCollection_X509CertificateEnumerator_FWDDECL)
+#define IL2CPP_STRUCT_X509CertificateCollection_X509CertificateEnumerator_FWDDECL
+#include <Modloader/app/structs/X509CertificateCollection_X509CertificateEnumerator__Class.h>
+#endif
+#undef IL2CPP_STRUCT_X509CertificateCollection_X509CertificateEnumerator_INITIALIZING
+#if !defined(IL2CPP_STRUCT_X509CertificateCollection_X509CertificateEnumerator_DEFINED) && !defined(IL2CPP_STRUCT_X509CertificateCollection_X509CertificateEnumerator_FWDDECL)
+#include <Modloader/app/structs/X509CertificateCollection_X509CertificateEnumerator.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/X509CertificateCollection_X509CertificateEnumerator.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_10__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_10__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_10__Boxed_DEFINED)
+#include <Modloader/app/structs/_PrivateImplementationDetails_StaticArrayInitTypeSize_10.h>
+#if defined(IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_10_DEFINED)
+#define IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_10__Boxed_DEFINED
+struct _PrivateImplementationDetails_StaticArrayInitTypeSize_10__Class;
+struct _PrivateImplementationDetails_StaticArrayInitTypeSize_10__Boxed {
+    struct _PrivateImplementationDetails_StaticArrayInitTypeSize_10__Class* klass;
+    MonitorData* monitor;
+    struct _PrivateImplementationDetails_StaticArrayInitTypeSize_10 fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_10__Boxed_FWDDECL)
+#define IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_10__Boxed_FWDDECL
+#include <Modloader/app/structs/_PrivateImplementationDetails_StaticArrayInitTypeSize_10__Class.h>
+#endif
+#undef IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_10__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_10__Boxed_DEFINED) && !defined(IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_10__Boxed_FWDDECL)
+#include <Modloader/app/structs/_PrivateImplementationDetails_StaticArrayInitTypeSize_10__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/_PrivateImplementationDetails_StaticArrayInitTypeSize_10__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

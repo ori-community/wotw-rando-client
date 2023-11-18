@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Object_UberShaderCurveBake_GradientData__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Object_UberShaderCurveBake_GradientData__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Object_UberShaderCurveBake_GradientData__DEFINED)
+#include <Modloader/app/structs/UberShaderCurveBake_GradientData.h>
+#if defined(IL2CPP_STRUCT_UberShaderCurveBake_GradientData_DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Object_UberShaderCurveBake_GradientData__DEFINED
+struct Object;
+struct Dictionary_2_TKey_TValue_Entry_System_Object_UberShaderCurveBake_GradientData_ {
+    int32_t hashCode;
+    int32_t next;
+    struct Object* key;
+    struct UberShaderCurveBake_GradientData value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Object_UberShaderCurveBake_GradientData__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Object_UberShaderCurveBake_GradientData__FWDDECL
+#include <Modloader/app/structs/Object.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Object_UberShaderCurveBake_GradientData__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Object_UberShaderCurveBake_GradientData__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Object_UberShaderCurveBake_GradientData__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Object_UberShaderCurveBake_GradientData_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Object_UberShaderCurveBake_GradientData_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

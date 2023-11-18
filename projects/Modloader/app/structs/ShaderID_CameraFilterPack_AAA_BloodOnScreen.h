@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_BloodOnScreen_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_BloodOnScreen_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_BloodOnScreen_DEFINED)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_BloodOnScreen_DEFINED
+struct ShaderID_CameraFilterPack_AAA_BloodOnScreen__Class;
+struct ShaderID_CameraFilterPack_AAA_BloodOnScreen {
+    struct ShaderID_CameraFilterPack_AAA_BloodOnScreen__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_BloodOnScreen_FWDDECL)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_BloodOnScreen_FWDDECL
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_AAA_BloodOnScreen__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_BloodOnScreen_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_BloodOnScreen_DEFINED) && !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_BloodOnScreen_FWDDECL)
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_AAA_BloodOnScreen.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_AAA_BloodOnScreen.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

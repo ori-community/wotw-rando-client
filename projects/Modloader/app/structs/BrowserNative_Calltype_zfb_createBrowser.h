@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_BrowserNative_Calltype_zfb_createBrowser_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_BrowserNative_Calltype_zfb_createBrowser_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_createBrowser_DEFINED)
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_createBrowser__Fields.h>
+#if defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_createBrowser__Fields_DEFINED)
+#define IL2CPP_STRUCT_BrowserNative_Calltype_zfb_createBrowser_DEFINED
+struct BrowserNative_Calltype_zfb_createBrowser__Class;
+struct BrowserNative_Calltype_zfb_createBrowser {
+    struct BrowserNative_Calltype_zfb_createBrowser__Class* klass;
+    MonitorData* monitor;
+    struct BrowserNative_Calltype_zfb_createBrowser__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_createBrowser_FWDDECL)
+#define IL2CPP_STRUCT_BrowserNative_Calltype_zfb_createBrowser_FWDDECL
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_createBrowser__Class.h>
+#endif
+#undef IL2CPP_STRUCT_BrowserNative_Calltype_zfb_createBrowser_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_createBrowser_DEFINED) && !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_createBrowser_FWDDECL)
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_createBrowser.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_createBrowser.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

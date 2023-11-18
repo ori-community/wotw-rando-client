@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask___Fields_DEFINED)
+#include <Modloader/app/structs/ScenesManagerPrediction_UpdateExtrapolatedPositionTask.h>
+#if defined(IL2CPP_STRUCT_ScenesManagerPrediction_UpdateExtrapolatedPositionTask_DEFINED)
+#define IL2CPP_STRUCT_AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask___Fields_DEFINED
+struct String;
+struct __declspec(align(8)) AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask___Fields {
+    struct ScenesManagerPrediction_UpdateExtrapolatedPositionTask m_task;
+    bool m_isQueued;
+    struct String* _JobName_k__BackingField;
+    float _CustomTimeBudget_k__BackingField;
+    float _EnqueuedTime_k__BackingField;
+    float _AvailableBudget_k__BackingField;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask___Fields_FWDDECL)
+#define IL2CPP_STRUCT_AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask___Fields_FWDDECL
+#include <Modloader/app/structs/String.h>
+#endif
+#undef IL2CPP_STRUCT_AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask___Fields_DEFINED) && !defined(IL2CPP_STRUCT_AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask___Fields_FWDDECL)
+#include <Modloader/app/structs/AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

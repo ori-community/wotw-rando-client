@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_LaserShooterMinibossWaitWhileMovingBehaviour_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_LaserShooterMinibossWaitWhileMovingBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LaserShooterMinibossWaitWhileMovingBehaviour_DEFINED)
+#include <Modloader/app/structs/LaserShooterMinibossWaitWhileMovingBehaviour__Fields.h>
+#if defined(IL2CPP_STRUCT_LaserShooterMinibossWaitWhileMovingBehaviour__Fields_DEFINED)
+#define IL2CPP_STRUCT_LaserShooterMinibossWaitWhileMovingBehaviour_DEFINED
+struct LaserShooterMinibossWaitWhileMovingBehaviour__Class;
+struct LaserShooterMinibossWaitWhileMovingBehaviour {
+    struct LaserShooterMinibossWaitWhileMovingBehaviour__Class* klass;
+    MonitorData* monitor;
+    struct LaserShooterMinibossWaitWhileMovingBehaviour__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_LaserShooterMinibossWaitWhileMovingBehaviour_FWDDECL)
+#define IL2CPP_STRUCT_LaserShooterMinibossWaitWhileMovingBehaviour_FWDDECL
+#include <Modloader/app/structs/LaserShooterMinibossWaitWhileMovingBehaviour__Class.h>
+#endif
+#undef IL2CPP_STRUCT_LaserShooterMinibossWaitWhileMovingBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LaserShooterMinibossWaitWhileMovingBehaviour_DEFINED) && !defined(IL2CPP_STRUCT_LaserShooterMinibossWaitWhileMovingBehaviour_FWDDECL)
+#include <Modloader/app/structs/LaserShooterMinibossWaitWhileMovingBehaviour.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/LaserShooterMinibossWaitWhileMovingBehaviour.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

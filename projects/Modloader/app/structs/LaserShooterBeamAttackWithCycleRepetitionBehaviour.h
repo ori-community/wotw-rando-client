@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_LaserShooterBeamAttackWithCycleRepetitionBehaviour_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_LaserShooterBeamAttackWithCycleRepetitionBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LaserShooterBeamAttackWithCycleRepetitionBehaviour_DEFINED)
+#include <Modloader/app/structs/LaserShooterBeamAttackWithCycleRepetitionBehaviour__Fields.h>
+#if defined(IL2CPP_STRUCT_LaserShooterBeamAttackWithCycleRepetitionBehaviour__Fields_DEFINED)
+#define IL2CPP_STRUCT_LaserShooterBeamAttackWithCycleRepetitionBehaviour_DEFINED
+struct LaserShooterBeamAttackWithCycleRepetitionBehaviour__Class;
+struct LaserShooterBeamAttackWithCycleRepetitionBehaviour {
+    struct LaserShooterBeamAttackWithCycleRepetitionBehaviour__Class* klass;
+    MonitorData* monitor;
+    struct LaserShooterBeamAttackWithCycleRepetitionBehaviour__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_LaserShooterBeamAttackWithCycleRepetitionBehaviour_FWDDECL)
+#define IL2CPP_STRUCT_LaserShooterBeamAttackWithCycleRepetitionBehaviour_FWDDECL
+#include <Modloader/app/structs/LaserShooterBeamAttackWithCycleRepetitionBehaviour__Class.h>
+#endif
+#undef IL2CPP_STRUCT_LaserShooterBeamAttackWithCycleRepetitionBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LaserShooterBeamAttackWithCycleRepetitionBehaviour_DEFINED) && !defined(IL2CPP_STRUCT_LaserShooterBeamAttackWithCycleRepetitionBehaviour_FWDDECL)
+#include <Modloader/app/structs/LaserShooterBeamAttackWithCycleRepetitionBehaviour.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/LaserShooterBeamAttackWithCycleRepetitionBehaviour.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_VTable__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_VTable__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_VTable__Fields_DEFINED)
+#define IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_VTable__Fields_DEFINED
+struct ISteamMatchmakingServerListResponse_InternalServerResponded;
+struct ISteamMatchmakingServerListResponse_InternalServerFailedToRespond;
+struct ISteamMatchmakingServerListResponse_InternalRefreshComplete;
+struct __declspec(align(8)) ISteamMatchmakingServerListResponse_VTable__Fields {
+    struct ISteamMatchmakingServerListResponse_InternalServerResponded* m_VTServerResponded;
+    struct ISteamMatchmakingServerListResponse_InternalServerFailedToRespond* m_VTServerFailedToRespond;
+    struct ISteamMatchmakingServerListResponse_InternalRefreshComplete* m_VTRefreshComplete;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_VTable__Fields_FWDDECL)
+#define IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_VTable__Fields_FWDDECL
+#include <Modloader/app/structs/ISteamMatchmakingServerListResponse_InternalRefreshComplete.h>
+#include <Modloader/app/structs/ISteamMatchmakingServerListResponse_InternalServerFailedToRespond.h>
+#include <Modloader/app/structs/ISteamMatchmakingServerListResponse_InternalServerResponded.h>
+#endif
+#undef IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_VTable__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_VTable__Fields_DEFINED) && !defined(IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_VTable__Fields_FWDDECL)
+#include <Modloader/app/structs/ISteamMatchmakingServerListResponse_VTable__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ISteamMatchmakingServerListResponse_VTable__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

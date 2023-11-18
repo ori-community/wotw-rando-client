@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState_DEFINED
+struct PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState__Class;
+struct PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState {
+    struct PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

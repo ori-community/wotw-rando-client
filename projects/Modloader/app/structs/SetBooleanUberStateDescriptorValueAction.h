@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SetBooleanUberStateDescriptorValueAction_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SetBooleanUberStateDescriptorValueAction_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SetBooleanUberStateDescriptorValueAction_DEFINED)
+#include <Modloader/app/structs/SetBooleanUberStateDescriptorValueAction__Fields.h>
+#if defined(IL2CPP_STRUCT_SetBooleanUberStateDescriptorValueAction__Fields_DEFINED)
+#define IL2CPP_STRUCT_SetBooleanUberStateDescriptorValueAction_DEFINED
+struct SetBooleanUberStateDescriptorValueAction__Class;
+struct SetBooleanUberStateDescriptorValueAction {
+    struct SetBooleanUberStateDescriptorValueAction__Class* klass;
+    MonitorData* monitor;
+    struct SetBooleanUberStateDescriptorValueAction__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SetBooleanUberStateDescriptorValueAction_FWDDECL)
+#define IL2CPP_STRUCT_SetBooleanUberStateDescriptorValueAction_FWDDECL
+#include <Modloader/app/structs/SetBooleanUberStateDescriptorValueAction__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SetBooleanUberStateDescriptorValueAction_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SetBooleanUberStateDescriptorValueAction_DEFINED) && !defined(IL2CPP_STRUCT_SetBooleanUberStateDescriptorValueAction_FWDDECL)
+#include <Modloader/app/structs/SetBooleanUberStateDescriptorValueAction.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SetBooleanUberStateDescriptorValueAction.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

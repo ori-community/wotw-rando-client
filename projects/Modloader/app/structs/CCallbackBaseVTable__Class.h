@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CCallbackBaseVTable__Class_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CCallbackBaseVTable__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CCallbackBaseVTable__Class_DEFINED)
+#include <Modloader/app/structs/CCallbackBaseVTable__VTable.h>
+#if defined(IL2CPP_STRUCT_CCallbackBaseVTable__VTable_DEFINED)
+#define IL2CPP_STRUCT_CCallbackBaseVTable__Class_DEFINED
+struct CCallbackBaseVTable__StaticFields;
+struct CCallbackBaseVTable__Class {
+    Il2CppClass_0 _0;
+    Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+    struct CCallbackBaseVTable__StaticFields* static_fields;
+    const Il2CppRGCTXData* rgctx_data;
+    Il2CppClass_1 _1;
+    struct CCallbackBaseVTable__VTable vtable;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CCallbackBaseVTable__Class_FWDDECL)
+#define IL2CPP_STRUCT_CCallbackBaseVTable__Class_FWDDECL
+#include <Modloader/app/structs/CCallbackBaseVTable__StaticFields.h>
+#endif
+#undef IL2CPP_STRUCT_CCallbackBaseVTable__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CCallbackBaseVTable__Class_DEFINED) && !defined(IL2CPP_STRUCT_CCallbackBaseVTable__Class_FWDDECL)
+#include <Modloader/app/structs/CCallbackBaseVTable__Class.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CCallbackBaseVTable__Class.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

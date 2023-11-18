@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer__DEFINED
+struct IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer___Class;
+struct IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer_ {
+    struct IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_PlayFab_MultiplayerModels_MatchmakingPlayer_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

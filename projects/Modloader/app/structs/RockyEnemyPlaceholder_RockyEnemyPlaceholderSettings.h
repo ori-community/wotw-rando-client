@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings_DEFINED)
+#include <Modloader/app/structs/RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings_DEFINED
+struct RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings__Class;
+struct RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings {
+    struct RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings__Class* klass;
+    MonitorData* monitor;
+    struct RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings_FWDDECL)
+#define IL2CPP_STRUCT_RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings_FWDDECL
+#include <Modloader/app/structs/RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings_DEFINED) && !defined(IL2CPP_STRUCT_RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings_FWDDECL)
+#include <Modloader/app/structs/RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/RockyEnemyPlaceholder_RockyEnemyPlaceholderSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

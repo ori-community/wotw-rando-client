@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SceneManager__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SceneManager__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SceneManager__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_SceneManager__StaticFields_DEFINED
+struct UnityAction_2_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode_;
+struct UnityAction_1_UnityEngine_SceneManagement_Scene_;
+struct UnityAction_2_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene_;
+struct SceneManager__StaticFields {
+    struct UnityAction_2_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode_* sceneLoaded;
+    struct UnityAction_1_UnityEngine_SceneManagement_Scene_* sceneUnloaded;
+    struct UnityAction_2_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene_* activeSceneChanged;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_SceneManager__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_SceneManager__StaticFields_FWDDECL
+#include <Modloader/app/structs/UnityAction_1_UnityEngine_SceneManagement_Scene_.h>
+#include <Modloader/app/structs/UnityAction_2_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode_.h>
+#include <Modloader/app/structs/UnityAction_2_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene_.h>
+#endif
+#undef IL2CPP_STRUCT_SceneManager__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SceneManager__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_SceneManager__StaticFields_FWDDECL)
+#include <Modloader/app/structs/SceneManager__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SceneManager__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

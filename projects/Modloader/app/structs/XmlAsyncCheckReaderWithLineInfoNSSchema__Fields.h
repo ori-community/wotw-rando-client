@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XmlAsyncCheckReaderWithLineInfoNSSchema__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XmlAsyncCheckReaderWithLineInfoNSSchema__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XmlAsyncCheckReaderWithLineInfoNSSchema__Fields_DEFINED)
+#include <Modloader/app/structs/XmlAsyncCheckReaderWithLineInfoNS__Fields.h>
+#if defined(IL2CPP_STRUCT_XmlAsyncCheckReaderWithLineInfoNS__Fields_DEFINED)
+#define IL2CPP_STRUCT_XmlAsyncCheckReaderWithLineInfoNSSchema__Fields_DEFINED
+struct IXmlSchemaInfo;
+struct XmlAsyncCheckReaderWithLineInfoNSSchema__Fields {
+    struct XmlAsyncCheckReaderWithLineInfoNS__Fields _;
+    struct IXmlSchemaInfo* readerAsIXmlSchemaInfo;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_XmlAsyncCheckReaderWithLineInfoNSSchema__Fields_FWDDECL)
+#define IL2CPP_STRUCT_XmlAsyncCheckReaderWithLineInfoNSSchema__Fields_FWDDECL
+#include <Modloader/app/structs/IXmlSchemaInfo.h>
+#endif
+#undef IL2CPP_STRUCT_XmlAsyncCheckReaderWithLineInfoNSSchema__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XmlAsyncCheckReaderWithLineInfoNSSchema__Fields_DEFINED) && !defined(IL2CPP_STRUCT_XmlAsyncCheckReaderWithLineInfoNSSchema__Fields_FWDDECL)
+#include <Modloader/app/structs/XmlAsyncCheckReaderWithLineInfoNSSchema__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XmlAsyncCheckReaderWithLineInfoNSSchema__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

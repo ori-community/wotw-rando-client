@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters_DEFINED)
+#include <Modloader/app/structs/IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters__Fields.h>
+#if defined(IL2CPP_STRUCT_IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters_DEFINED
+struct IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters__Class;
+struct IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters {
+    struct IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters__Class* klass;
+    MonitorData* monitor;
+    struct IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters_FWDDECL)
+#define IL2CPP_STRUCT_IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters_FWDDECL
+#include <Modloader/app/structs/IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters_DEFINED) && !defined(IL2CPP_STRUCT_IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters_FWDDECL)
+#include <Modloader/app/structs/IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

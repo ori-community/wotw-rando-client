@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlFeedingGroundsPOwlController_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlFeedingGroundsPOwlController_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlFeedingGroundsPOwlController_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundsPOwlController__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlFeedingGroundsPOwlController__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlFeedingGroundsPOwlController_DEFINED
+struct PetrifiedOwlFeedingGroundsPOwlController__Class;
+struct PetrifiedOwlFeedingGroundsPOwlController {
+    struct PetrifiedOwlFeedingGroundsPOwlController__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlFeedingGroundsPOwlController__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlFeedingGroundsPOwlController_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlFeedingGroundsPOwlController_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundsPOwlController__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlFeedingGroundsPOwlController_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlFeedingGroundsPOwlController_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlFeedingGroundsPOwlController_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundsPOwlController.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundsPOwlController.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

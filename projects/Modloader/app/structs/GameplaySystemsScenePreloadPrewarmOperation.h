@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GameplaySystemsScenePreloadPrewarmOperation_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GameplaySystemsScenePreloadPrewarmOperation_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GameplaySystemsScenePreloadPrewarmOperation_DEFINED)
+#include <Modloader/app/structs/GameplaySystemsScenePreloadPrewarmOperation__Fields.h>
+#if defined(IL2CPP_STRUCT_GameplaySystemsScenePreloadPrewarmOperation__Fields_DEFINED)
+#define IL2CPP_STRUCT_GameplaySystemsScenePreloadPrewarmOperation_DEFINED
+struct GameplaySystemsScenePreloadPrewarmOperation__Class;
+struct GameplaySystemsScenePreloadPrewarmOperation {
+    struct GameplaySystemsScenePreloadPrewarmOperation__Class* klass;
+    MonitorData* monitor;
+    struct GameplaySystemsScenePreloadPrewarmOperation__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GameplaySystemsScenePreloadPrewarmOperation_FWDDECL)
+#define IL2CPP_STRUCT_GameplaySystemsScenePreloadPrewarmOperation_FWDDECL
+#include <Modloader/app/structs/GameplaySystemsScenePreloadPrewarmOperation__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GameplaySystemsScenePreloadPrewarmOperation_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GameplaySystemsScenePreloadPrewarmOperation_DEFINED) && !defined(IL2CPP_STRUCT_GameplaySystemsScenePreloadPrewarmOperation_FWDDECL)
+#include <Modloader/app/structs/GameplaySystemsScenePreloadPrewarmOperation.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GameplaySystemsScenePreloadPrewarmOperation.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

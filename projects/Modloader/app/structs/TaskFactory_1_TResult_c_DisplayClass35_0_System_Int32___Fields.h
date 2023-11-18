@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_0_System_Int32___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_0_System_Int32___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_0_System_Int32___Fields_DEFINED)
+#define IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_0_System_Int32___Fields_DEFINED
+struct Func_2_IAsyncResult_Int32_;
+struct Action_1_IAsyncResult_;
+struct Task_1_System_Int32_;
+struct __declspec(align(8)) TaskFactory_1_TResult_c_DisplayClass35_0_System_Int32___Fields {
+    struct Func_2_IAsyncResult_Int32_* endFunction;
+    struct Action_1_IAsyncResult_* endAction;
+    struct Task_1_System_Int32_* promise;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_0_System_Int32___Fields_FWDDECL)
+#define IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_0_System_Int32___Fields_FWDDECL
+#include <Modloader/app/structs/Action_1_IAsyncResult_.h>
+#include <Modloader/app/structs/Func_2_IAsyncResult_Int32_.h>
+#include <Modloader/app/structs/Task_1_System_Int32_.h>
+#endif
+#undef IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_0_System_Int32___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_0_System_Int32___Fields_DEFINED) && !defined(IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_0_System_Int32___Fields_FWDDECL)
+#include <Modloader/app/structs/TaskFactory_1_TResult_c_DisplayClass35_0_System_Int32___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TaskFactory_1_TResult_c_DisplayClass35_0_System_Int32___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

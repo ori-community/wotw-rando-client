@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ICollection_1_System_Linq_Expressions_LambdaExpression__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ICollection_1_System_Linq_Expressions_LambdaExpression__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ICollection_1_System_Linq_Expressions_LambdaExpression__DEFINED)
+#define IL2CPP_STRUCT_ICollection_1_System_Linq_Expressions_LambdaExpression__DEFINED
+struct ICollection_1_System_Linq_Expressions_LambdaExpression___Class;
+struct ICollection_1_System_Linq_Expressions_LambdaExpression_ {
+    struct ICollection_1_System_Linq_Expressions_LambdaExpression___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ICollection_1_System_Linq_Expressions_LambdaExpression__FWDDECL)
+#define IL2CPP_STRUCT_ICollection_1_System_Linq_Expressions_LambdaExpression__FWDDECL
+#include <Modloader/app/structs/ICollection_1_System_Linq_Expressions_LambdaExpression___Class.h>
+#endif
+#undef IL2CPP_STRUCT_ICollection_1_System_Linq_Expressions_LambdaExpression__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ICollection_1_System_Linq_Expressions_LambdaExpression__DEFINED) && !defined(IL2CPP_STRUCT_ICollection_1_System_Linq_Expressions_LambdaExpression__FWDDECL)
+#include <Modloader/app/structs/ICollection_1_System_Linq_Expressions_LambdaExpression_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ICollection_1_System_Linq_Expressions_LambdaExpression_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

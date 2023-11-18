@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ReflectionMethodsCache_Raycast2DCallback_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ReflectionMethodsCache_Raycast2DCallback_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ReflectionMethodsCache_Raycast2DCallback_DEFINED)
+#include <Modloader/app/structs/ReflectionMethodsCache_Raycast2DCallback__Fields.h>
+#if defined(IL2CPP_STRUCT_ReflectionMethodsCache_Raycast2DCallback__Fields_DEFINED)
+#define IL2CPP_STRUCT_ReflectionMethodsCache_Raycast2DCallback_DEFINED
+struct ReflectionMethodsCache_Raycast2DCallback__Class;
+struct ReflectionMethodsCache_Raycast2DCallback {
+    struct ReflectionMethodsCache_Raycast2DCallback__Class* klass;
+    MonitorData* monitor;
+    struct ReflectionMethodsCache_Raycast2DCallback__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ReflectionMethodsCache_Raycast2DCallback_FWDDECL)
+#define IL2CPP_STRUCT_ReflectionMethodsCache_Raycast2DCallback_FWDDECL
+#include <Modloader/app/structs/ReflectionMethodsCache_Raycast2DCallback__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ReflectionMethodsCache_Raycast2DCallback_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ReflectionMethodsCache_Raycast2DCallback_DEFINED) && !defined(IL2CPP_STRUCT_ReflectionMethodsCache_Raycast2DCallback_FWDDECL)
+#include <Modloader/app/structs/ReflectionMethodsCache_Raycast2DCallback.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ReflectionMethodsCache_Raycast2DCallback.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

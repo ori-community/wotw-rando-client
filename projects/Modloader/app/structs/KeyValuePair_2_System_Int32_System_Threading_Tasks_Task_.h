@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_Int32_System_Threading_Tasks_Task__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_System_Threading_Tasks_Task__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_System_Threading_Tasks_Task__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_System_Threading_Tasks_Task__DEFINED
+struct Task;
+struct KeyValuePair_2_System_Int32_System_Threading_Tasks_Task_ {
+    int32_t key;
+    struct Task* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_System_Threading_Tasks_Task__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_System_Threading_Tasks_Task__FWDDECL
+#include <Modloader/app/structs/Task.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_Int32_System_Threading_Tasks_Task__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_System_Threading_Tasks_Task__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_System_Threading_Tasks_Task__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_System_Threading_Tasks_Task_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_System_Threading_Tasks_Task_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

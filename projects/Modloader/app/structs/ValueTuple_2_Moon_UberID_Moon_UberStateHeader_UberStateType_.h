@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ValueTuple_2_Moon_UberID_Moon_UberStateHeader_UberStateType__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ValueTuple_2_Moon_UberID_Moon_UberStateHeader_UberStateType__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ValueTuple_2_Moon_UberID_Moon_UberStateHeader_UberStateType__DEFINED)
+#include <Modloader/app/structs/UberStateHeader_UberStateType__Enum.h>
+#if defined(IL2CPP_STRUCT_UberStateHeader_UberStateType__Enum_DEFINED)
+#define IL2CPP_STRUCT_ValueTuple_2_Moon_UberID_Moon_UberStateHeader_UberStateType__DEFINED
+struct UberID;
+struct ValueTuple_2_Moon_UberID_Moon_UberStateHeader_UberStateType_ {
+    struct UberID* Item1;
+    UberStateHeader_UberStateType__Enum Item2;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ValueTuple_2_Moon_UberID_Moon_UberStateHeader_UberStateType__FWDDECL)
+#define IL2CPP_STRUCT_ValueTuple_2_Moon_UberID_Moon_UberStateHeader_UberStateType__FWDDECL
+#include <Modloader/app/structs/UberID.h>
+#endif
+#undef IL2CPP_STRUCT_ValueTuple_2_Moon_UberID_Moon_UberStateHeader_UberStateType__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ValueTuple_2_Moon_UberID_Moon_UberStateHeader_UberStateType__DEFINED) && !defined(IL2CPP_STRUCT_ValueTuple_2_Moon_UberID_Moon_UberStateHeader_UberStateType__FWDDECL)
+#include <Modloader/app/structs/ValueTuple_2_Moon_UberID_Moon_UberStateHeader_UberStateType_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ValueTuple_2_Moon_UberID_Moon_UberStateHeader_UberStateType_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TimelineInterruptionAnimatorEntity__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TimelineInterruptionAnimatorEntity__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TimelineInterruptionAnimatorEntity__Fields_DEFINED)
+#include <Modloader/app/structs/TimelineEntity__Fields.h>
+#if defined(IL2CPP_STRUCT_TimelineEntity__Fields_DEFINED)
+#define IL2CPP_STRUCT_TimelineInterruptionAnimatorEntity__Fields_DEFINED
+struct MoonReference_1_Moon_Timeline_MoonTimeline_;
+struct MoonReferenceCache_1_Moon_Timeline_MoonTimeline_;
+struct TimelineInterruptionAnimatorEntity__Fields {
+    struct TimelineEntity__Fields _;
+    struct MoonReference_1_Moon_Timeline_MoonTimeline_* TargetTimeline;
+    struct MoonReferenceCache_1_Moon_Timeline_MoonTimeline_* m_resolvedTimeline;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TimelineInterruptionAnimatorEntity__Fields_FWDDECL)
+#define IL2CPP_STRUCT_TimelineInterruptionAnimatorEntity__Fields_FWDDECL
+#include <Modloader/app/structs/MoonReferenceCache_1_Moon_Timeline_MoonTimeline_.h>
+#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_MoonTimeline_.h>
+#endif
+#undef IL2CPP_STRUCT_TimelineInterruptionAnimatorEntity__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TimelineInterruptionAnimatorEntity__Fields_DEFINED) && !defined(IL2CPP_STRUCT_TimelineInterruptionAnimatorEntity__Fields_FWDDECL)
+#include <Modloader/app/structs/TimelineInterruptionAnimatorEntity__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TimelineInterruptionAnimatorEntity__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

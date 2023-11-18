@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry__DEFINED)
+#define IL2CPP_STRUCT_IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry__DEFINED
+struct IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry___Class;
+struct IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry_ {
+    struct IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry__FWDDECL)
+#define IL2CPP_STRUCT_IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry__FWDDECL
+#include <Modloader/app/structs/IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry__DEFINED) && !defined(IL2CPP_STRUCT_IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry__FWDDECL)
+#include <Modloader/app/structs/IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IOrderedEnumerable_1_SystemIntegration_Races_RaceEntry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

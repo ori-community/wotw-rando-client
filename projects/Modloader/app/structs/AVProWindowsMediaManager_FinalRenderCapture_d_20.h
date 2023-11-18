@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AVProWindowsMediaManager_FinalRenderCapture_d_20_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AVProWindowsMediaManager_FinalRenderCapture_d_20_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AVProWindowsMediaManager_FinalRenderCapture_d_20_DEFINED)
+#include <Modloader/app/structs/AVProWindowsMediaManager_FinalRenderCapture_d_20__Fields.h>
+#if defined(IL2CPP_STRUCT_AVProWindowsMediaManager_FinalRenderCapture_d_20__Fields_DEFINED)
+#define IL2CPP_STRUCT_AVProWindowsMediaManager_FinalRenderCapture_d_20_DEFINED
+struct AVProWindowsMediaManager_FinalRenderCapture_d_20__Class;
+struct AVProWindowsMediaManager_FinalRenderCapture_d_20 {
+    struct AVProWindowsMediaManager_FinalRenderCapture_d_20__Class* klass;
+    MonitorData* monitor;
+    struct AVProWindowsMediaManager_FinalRenderCapture_d_20__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AVProWindowsMediaManager_FinalRenderCapture_d_20_FWDDECL)
+#define IL2CPP_STRUCT_AVProWindowsMediaManager_FinalRenderCapture_d_20_FWDDECL
+#include <Modloader/app/structs/AVProWindowsMediaManager_FinalRenderCapture_d_20__Class.h>
+#endif
+#undef IL2CPP_STRUCT_AVProWindowsMediaManager_FinalRenderCapture_d_20_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AVProWindowsMediaManager_FinalRenderCapture_d_20_DEFINED) && !defined(IL2CPP_STRUCT_AVProWindowsMediaManager_FinalRenderCapture_d_20_FWDDECL)
+#include <Modloader/app/structs/AVProWindowsMediaManager_FinalRenderCapture_d_20.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AVProWindowsMediaManager_FinalRenderCapture_d_20.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

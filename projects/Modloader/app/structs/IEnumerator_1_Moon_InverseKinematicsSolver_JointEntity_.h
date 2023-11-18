@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity__DEFINED
+struct IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity___Class;
+struct IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity_ {
+    struct IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_Moon_InverseKinematicsSolver_JointEntity_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_Moon_UberStateVisualization_ListViewItem__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_UberStateVisualization_ListViewItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_UberStateVisualization_ListViewItem__DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_UberStateVisualization_ListViewItem__DEFINED
+struct List_1_Moon_UberStateVisualization_ListViewItem_;
+struct ListViewItem;
+struct List_1_T_Enumerator_Moon_UberStateVisualization_ListViewItem_ {
+    struct List_1_Moon_UberStateVisualization_ListViewItem_* list;
+    int32_t index;
+    int32_t version;
+    struct ListViewItem* current;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_UberStateVisualization_ListViewItem__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_UberStateVisualization_ListViewItem__FWDDECL
+#include <Modloader/app/structs/ListViewItem.h>
+#include <Modloader/app/structs/List_1_Moon_UberStateVisualization_ListViewItem_.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_Moon_UberStateVisualization_ListViewItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_UberStateVisualization_ListViewItem__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_UberStateVisualization_ListViewItem__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_UberStateVisualization_ListViewItem_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_UberStateVisualization_ListViewItem_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

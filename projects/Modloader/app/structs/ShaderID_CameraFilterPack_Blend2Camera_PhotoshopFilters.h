@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters_DEFINED)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters_DEFINED
+struct ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters__Class;
+struct ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters {
+    struct ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters_FWDDECL)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters_FWDDECL
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters_DEFINED) && !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters_FWDDECL)
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___Class_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___Class_DEFINED)
+#include <Modloader/app/structs/RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___VTable.h>
+#if defined(IL2CPP_STRUCT_RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___VTable_DEFINED)
+#define IL2CPP_STRUCT_RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___Class_DEFINED
+struct RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___StaticFields;
+struct RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___Class {
+    Il2CppClass_0 _0;
+    Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+    struct RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___StaticFields* static_fields;
+    const Il2CppRGCTXData* rgctx_data;
+    Il2CppClass_1 _1;
+    struct RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___VTable vtable;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___Class_FWDDECL)
+#define IL2CPP_STRUCT_RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___Class_FWDDECL
+#include <Modloader/app/structs/RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___StaticFields.h>
+#endif
+#undef IL2CPP_STRUCT_RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___Class_DEFINED) && !defined(IL2CPP_STRUCT_RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___Class_FWDDECL)
+#include <Modloader/app/structs/RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___Class.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/RuntimeDynamicDataLink_1_T_c_DisplayClass5_0_System_Char___Class.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

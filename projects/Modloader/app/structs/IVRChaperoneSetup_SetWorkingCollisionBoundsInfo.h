@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingCollisionBoundsInfo_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingCollisionBoundsInfo_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingCollisionBoundsInfo_DEFINED)
+#include <Modloader/app/structs/IVRChaperoneSetup_SetWorkingCollisionBoundsInfo__Fields.h>
+#if defined(IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingCollisionBoundsInfo__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingCollisionBoundsInfo_DEFINED
+struct IVRChaperoneSetup_SetWorkingCollisionBoundsInfo__Class;
+struct IVRChaperoneSetup_SetWorkingCollisionBoundsInfo {
+    struct IVRChaperoneSetup_SetWorkingCollisionBoundsInfo__Class* klass;
+    MonitorData* monitor;
+    struct IVRChaperoneSetup_SetWorkingCollisionBoundsInfo__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingCollisionBoundsInfo_FWDDECL)
+#define IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingCollisionBoundsInfo_FWDDECL
+#include <Modloader/app/structs/IVRChaperoneSetup_SetWorkingCollisionBoundsInfo__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingCollisionBoundsInfo_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingCollisionBoundsInfo_DEFINED) && !defined(IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingCollisionBoundsInfo_FWDDECL)
+#include <Modloader/app/structs/IVRChaperoneSetup_SetWorkingCollisionBoundsInfo.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRChaperoneSetup_SetWorkingCollisionBoundsInfo.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

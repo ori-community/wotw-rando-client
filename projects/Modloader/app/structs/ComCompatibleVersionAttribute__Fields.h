@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ComCompatibleVersionAttribute__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ComCompatibleVersionAttribute__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ComCompatibleVersionAttribute__Fields_DEFINED)
+#define IL2CPP_STRUCT_ComCompatibleVersionAttribute__Fields_DEFINED
+struct __declspec(align(8)) ComCompatibleVersionAttribute__Fields {
+    int32_t _major;
+    int32_t _minor;
+    int32_t _build;
+    int32_t _revision;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ComCompatibleVersionAttribute__Fields_FWDDECL)
+#define IL2CPP_STRUCT_ComCompatibleVersionAttribute__Fields_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_ComCompatibleVersionAttribute__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ComCompatibleVersionAttribute__Fields_DEFINED) && !defined(IL2CPP_STRUCT_ComCompatibleVersionAttribute__Fields_FWDDECL)
+#include <Modloader/app/structs/ComCompatibleVersionAttribute__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ComCompatibleVersionAttribute__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

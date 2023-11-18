@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DataViewSettingCollection_DataViewSettingsEnumerator_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DataViewSettingCollection_DataViewSettingsEnumerator_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DataViewSettingCollection_DataViewSettingsEnumerator_DEFINED)
+#include <Modloader/app/structs/DataViewSettingCollection_DataViewSettingsEnumerator__Fields.h>
+#if defined(IL2CPP_STRUCT_DataViewSettingCollection_DataViewSettingsEnumerator__Fields_DEFINED)
+#define IL2CPP_STRUCT_DataViewSettingCollection_DataViewSettingsEnumerator_DEFINED
+struct DataViewSettingCollection_DataViewSettingsEnumerator__Class;
+struct DataViewSettingCollection_DataViewSettingsEnumerator {
+    struct DataViewSettingCollection_DataViewSettingsEnumerator__Class* klass;
+    MonitorData* monitor;
+    struct DataViewSettingCollection_DataViewSettingsEnumerator__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_DataViewSettingCollection_DataViewSettingsEnumerator_FWDDECL)
+#define IL2CPP_STRUCT_DataViewSettingCollection_DataViewSettingsEnumerator_FWDDECL
+#include <Modloader/app/structs/DataViewSettingCollection_DataViewSettingsEnumerator__Class.h>
+#endif
+#undef IL2CPP_STRUCT_DataViewSettingCollection_DataViewSettingsEnumerator_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DataViewSettingCollection_DataViewSettingsEnumerator_DEFINED) && !defined(IL2CPP_STRUCT_DataViewSettingCollection_DataViewSettingsEnumerator_FWDDECL)
+#include <Modloader/app/structs/DataViewSettingCollection_DataViewSettingsEnumerator.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DataViewSettingCollection_DataViewSettingsEnumerator.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

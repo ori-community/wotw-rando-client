@@ -1,0 +1,23 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_EarlyUpdate_DispatchEventQueueEvents_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_EarlyUpdate_DispatchEventQueueEvents_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EarlyUpdate_DispatchEventQueueEvents_DEFINED)
+#define IL2CPP_STRUCT_EarlyUpdate_DispatchEventQueueEvents_DEFINED
+struct EarlyUpdate_DispatchEventQueueEvents {
+};
+#endif
+#if !defined(IL2CPP_STRUCT_EarlyUpdate_DispatchEventQueueEvents_FWDDECL)
+#define IL2CPP_STRUCT_EarlyUpdate_DispatchEventQueueEvents_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_EarlyUpdate_DispatchEventQueueEvents_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EarlyUpdate_DispatchEventQueueEvents_DEFINED) && !defined(IL2CPP_STRUCT_EarlyUpdate_DispatchEventQueueEvents_FWDDECL)
+#include <Modloader/app/structs/EarlyUpdate_DispatchEventQueueEvents.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/EarlyUpdate_DispatchEventQueueEvents.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

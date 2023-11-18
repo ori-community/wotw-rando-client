@@ -1,0 +1,26 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_RotatingMaceRoomCarryablePlaceholder__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_RotatingMaceRoomCarryablePlaceholder__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RotatingMaceRoomCarryablePlaceholder__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_RotatingMaceRoomCarryablePlaceholder__StaticFields_DEFINED
+struct GameObject;
+struct RotatingMaceRoomCarryablePlaceholder__StaticFields {
+    struct GameObject* PrefabInstance;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_RotatingMaceRoomCarryablePlaceholder__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_RotatingMaceRoomCarryablePlaceholder__StaticFields_FWDDECL
+#include <Modloader/app/structs/GameObject.h>
+#endif
+#undef IL2CPP_STRUCT_RotatingMaceRoomCarryablePlaceholder__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RotatingMaceRoomCarryablePlaceholder__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_RotatingMaceRoomCarryablePlaceholder__StaticFields_FWDDECL)
+#include <Modloader/app/structs/RotatingMaceRoomCarryablePlaceholder__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/RotatingMaceRoomCarryablePlaceholder__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRSystem_GetSortedTrackedDeviceIndicesOfClass_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRSystem_GetSortedTrackedDeviceIndicesOfClass_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRSystem_GetSortedTrackedDeviceIndicesOfClass_DEFINED)
+#include <Modloader/app/structs/IVRSystem_GetSortedTrackedDeviceIndicesOfClass__Fields.h>
+#if defined(IL2CPP_STRUCT_IVRSystem_GetSortedTrackedDeviceIndicesOfClass__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVRSystem_GetSortedTrackedDeviceIndicesOfClass_DEFINED
+struct IVRSystem_GetSortedTrackedDeviceIndicesOfClass__Class;
+struct IVRSystem_GetSortedTrackedDeviceIndicesOfClass {
+    struct IVRSystem_GetSortedTrackedDeviceIndicesOfClass__Class* klass;
+    MonitorData* monitor;
+    struct IVRSystem_GetSortedTrackedDeviceIndicesOfClass__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVRSystem_GetSortedTrackedDeviceIndicesOfClass_FWDDECL)
+#define IL2CPP_STRUCT_IVRSystem_GetSortedTrackedDeviceIndicesOfClass_FWDDECL
+#include <Modloader/app/structs/IVRSystem_GetSortedTrackedDeviceIndicesOfClass__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVRSystem_GetSortedTrackedDeviceIndicesOfClass_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRSystem_GetSortedTrackedDeviceIndicesOfClass_DEFINED) && !defined(IL2CPP_STRUCT_IVRSystem_GetSortedTrackedDeviceIndicesOfClass_FWDDECL)
+#include <Modloader/app/structs/IVRSystem_GetSortedTrackedDeviceIndicesOfClass.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRSystem_GetSortedTrackedDeviceIndicesOfClass.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

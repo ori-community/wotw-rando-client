@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_SceneMetaData_PlayerAbilityInfo__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_SceneMetaData_PlayerAbilityInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_SceneMetaData_PlayerAbilityInfo__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_SceneMetaData_PlayerAbilityInfo__DEFINED
+struct IEnumerator_1_SceneMetaData_PlayerAbilityInfo___Class;
+struct IEnumerator_1_SceneMetaData_PlayerAbilityInfo_ {
+    struct IEnumerator_1_SceneMetaData_PlayerAbilityInfo___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_SceneMetaData_PlayerAbilityInfo__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_SceneMetaData_PlayerAbilityInfo__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_SceneMetaData_PlayerAbilityInfo___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_SceneMetaData_PlayerAbilityInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_SceneMetaData_PlayerAbilityInfo__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_SceneMetaData_PlayerAbilityInfo__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_SceneMetaData_PlayerAbilityInfo_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_SceneMetaData_PlayerAbilityInfo_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

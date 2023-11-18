@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Task_1_SystemIntegration_Races_RaceRequestResultEntry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Task_1_SystemIntegration_Races_RaceRequestResultEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Task_1_SystemIntegration_Races_RaceRequestResultEntry__DEFINED)
+#include <Modloader/app/structs/Task_1_SystemIntegration_Races_RaceRequestResultEntry___Fields.h>
+#if defined(IL2CPP_STRUCT_Task_1_SystemIntegration_Races_RaceRequestResultEntry___Fields_DEFINED)
+#define IL2CPP_STRUCT_Task_1_SystemIntegration_Races_RaceRequestResultEntry__DEFINED
+struct Task_1_SystemIntegration_Races_RaceRequestResultEntry___Class;
+struct Task_1_SystemIntegration_Races_RaceRequestResultEntry_ {
+    struct Task_1_SystemIntegration_Races_RaceRequestResultEntry___Class* klass;
+    MonitorData* monitor;
+    struct Task_1_SystemIntegration_Races_RaceRequestResultEntry___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Task_1_SystemIntegration_Races_RaceRequestResultEntry__FWDDECL)
+#define IL2CPP_STRUCT_Task_1_SystemIntegration_Races_RaceRequestResultEntry__FWDDECL
+#include <Modloader/app/structs/Task_1_SystemIntegration_Races_RaceRequestResultEntry___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Task_1_SystemIntegration_Races_RaceRequestResultEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Task_1_SystemIntegration_Races_RaceRequestResultEntry__DEFINED) && !defined(IL2CPP_STRUCT_Task_1_SystemIntegration_Races_RaceRequestResultEntry__FWDDECL)
+#include <Modloader/app/structs/Task_1_SystemIntegration_Races_RaceRequestResultEntry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Task_1_SystemIntegration_Races_RaceRequestResultEntry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

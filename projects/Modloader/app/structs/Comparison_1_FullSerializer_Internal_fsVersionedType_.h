@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Comparison_1_FullSerializer_Internal_fsVersionedType__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Comparison_1_FullSerializer_Internal_fsVersionedType__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Comparison_1_FullSerializer_Internal_fsVersionedType__DEFINED)
+#include <Modloader/app/structs/Comparison_1_FullSerializer_Internal_fsVersionedType___Fields.h>
+#if defined(IL2CPP_STRUCT_Comparison_1_FullSerializer_Internal_fsVersionedType___Fields_DEFINED)
+#define IL2CPP_STRUCT_Comparison_1_FullSerializer_Internal_fsVersionedType__DEFINED
+struct Comparison_1_FullSerializer_Internal_fsVersionedType___Class;
+struct Comparison_1_FullSerializer_Internal_fsVersionedType_ {
+    struct Comparison_1_FullSerializer_Internal_fsVersionedType___Class* klass;
+    MonitorData* monitor;
+    struct Comparison_1_FullSerializer_Internal_fsVersionedType___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Comparison_1_FullSerializer_Internal_fsVersionedType__FWDDECL)
+#define IL2CPP_STRUCT_Comparison_1_FullSerializer_Internal_fsVersionedType__FWDDECL
+#include <Modloader/app/structs/Comparison_1_FullSerializer_Internal_fsVersionedType___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Comparison_1_FullSerializer_Internal_fsVersionedType__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Comparison_1_FullSerializer_Internal_fsVersionedType__DEFINED) && !defined(IL2CPP_STRUCT_Comparison_1_FullSerializer_Internal_fsVersionedType__FWDDECL)
+#include <Modloader/app/structs/Comparison_1_FullSerializer_Internal_fsVersionedType_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Comparison_1_FullSerializer_Internal_fsVersionedType_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

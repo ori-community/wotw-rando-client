@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState_DEFINED
+struct PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState__Class;
+struct PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState {
+    struct PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

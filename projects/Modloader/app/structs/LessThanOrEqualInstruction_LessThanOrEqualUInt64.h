@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualUInt64_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualUInt64_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualUInt64_DEFINED)
+#include <Modloader/app/structs/LessThanOrEqualInstruction_LessThanOrEqualUInt64__Fields.h>
+#if defined(IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualUInt64__Fields_DEFINED)
+#define IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualUInt64_DEFINED
+struct LessThanOrEqualInstruction_LessThanOrEqualUInt64__Class;
+struct LessThanOrEqualInstruction_LessThanOrEqualUInt64 {
+    struct LessThanOrEqualInstruction_LessThanOrEqualUInt64__Class* klass;
+    MonitorData* monitor;
+    struct LessThanOrEqualInstruction_LessThanOrEqualUInt64__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualUInt64_FWDDECL)
+#define IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualUInt64_FWDDECL
+#include <Modloader/app/structs/LessThanOrEqualInstruction_LessThanOrEqualUInt64__Class.h>
+#endif
+#undef IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualUInt64_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualUInt64_DEFINED) && !defined(IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualUInt64_FWDDECL)
+#include <Modloader/app/structs/LessThanOrEqualInstruction_LessThanOrEqualUInt64.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/LessThanOrEqualInstruction_LessThanOrEqualUInt64.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

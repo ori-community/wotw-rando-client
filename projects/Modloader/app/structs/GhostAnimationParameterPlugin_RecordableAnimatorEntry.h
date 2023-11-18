@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GhostAnimationParameterPlugin_RecordableAnimatorEntry_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GhostAnimationParameterPlugin_RecordableAnimatorEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_RecordableAnimatorEntry_DEFINED)
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_RecordableAnimatorEntry__Fields.h>
+#if defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_RecordableAnimatorEntry__Fields_DEFINED)
+#define IL2CPP_STRUCT_GhostAnimationParameterPlugin_RecordableAnimatorEntry_DEFINED
+struct GhostAnimationParameterPlugin_RecordableAnimatorEntry__Class;
+struct GhostAnimationParameterPlugin_RecordableAnimatorEntry {
+    struct GhostAnimationParameterPlugin_RecordableAnimatorEntry__Class* klass;
+    MonitorData* monitor;
+    struct GhostAnimationParameterPlugin_RecordableAnimatorEntry__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_RecordableAnimatorEntry_FWDDECL)
+#define IL2CPP_STRUCT_GhostAnimationParameterPlugin_RecordableAnimatorEntry_FWDDECL
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_RecordableAnimatorEntry__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GhostAnimationParameterPlugin_RecordableAnimatorEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_RecordableAnimatorEntry_DEFINED) && !defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_RecordableAnimatorEntry_FWDDECL)
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_RecordableAnimatorEntry.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_RecordableAnimatorEntry.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

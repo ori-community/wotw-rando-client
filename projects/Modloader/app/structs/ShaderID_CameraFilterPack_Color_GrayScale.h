@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Color_GrayScale_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Color_GrayScale_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Color_GrayScale_DEFINED)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Color_GrayScale_DEFINED
+struct ShaderID_CameraFilterPack_Color_GrayScale__Class;
+struct ShaderID_CameraFilterPack_Color_GrayScale {
+    struct ShaderID_CameraFilterPack_Color_GrayScale__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Color_GrayScale_FWDDECL)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Color_GrayScale_FWDDECL
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Color_GrayScale__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Color_GrayScale_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Color_GrayScale_DEFINED) && !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Color_GrayScale_FWDDECL)
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Color_GrayScale.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Color_GrayScale.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

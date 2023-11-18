@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue_DEFINED)
+#define IL2CPP_STRUCT_ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue_DEFINED
+struct ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue {
+    float TotalValue;
+    float TotalPersistantValue;
+    bool IsSet;
+    bool PersistantIsSet;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue_FWDDECL)
+#define IL2CPP_STRUCT_ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue_DEFINED) && !defined(IL2CPP_STRUCT_ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue_FWDDECL)
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

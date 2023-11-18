@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ICollection_1_StatisticsManager_RuntimeStatEntry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ICollection_1_StatisticsManager_RuntimeStatEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ICollection_1_StatisticsManager_RuntimeStatEntry__DEFINED)
+#define IL2CPP_STRUCT_ICollection_1_StatisticsManager_RuntimeStatEntry__DEFINED
+struct ICollection_1_StatisticsManager_RuntimeStatEntry___Class;
+struct ICollection_1_StatisticsManager_RuntimeStatEntry_ {
+    struct ICollection_1_StatisticsManager_RuntimeStatEntry___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ICollection_1_StatisticsManager_RuntimeStatEntry__FWDDECL)
+#define IL2CPP_STRUCT_ICollection_1_StatisticsManager_RuntimeStatEntry__FWDDECL
+#include <Modloader/app/structs/ICollection_1_StatisticsManager_RuntimeStatEntry___Class.h>
+#endif
+#undef IL2CPP_STRUCT_ICollection_1_StatisticsManager_RuntimeStatEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ICollection_1_StatisticsManager_RuntimeStatEntry__DEFINED) && !defined(IL2CPP_STRUCT_ICollection_1_StatisticsManager_RuntimeStatEntry__FWDDECL)
+#include <Modloader/app/structs/ICollection_1_StatisticsManager_RuntimeStatEntry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ICollection_1_StatisticsManager_RuntimeStatEntry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

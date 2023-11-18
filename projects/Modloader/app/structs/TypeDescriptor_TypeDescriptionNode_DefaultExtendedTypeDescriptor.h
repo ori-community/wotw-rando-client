@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TypeDescriptor_TypeDescriptionNode_DefaultExtendedTypeDescriptor_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TypeDescriptor_TypeDescriptionNode_DefaultExtendedTypeDescriptor_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TypeDescriptor_TypeDescriptionNode_DefaultExtendedTypeDescriptor_DEFINED)
+#define IL2CPP_STRUCT_TypeDescriptor_TypeDescriptionNode_DefaultExtendedTypeDescriptor_DEFINED
+struct TypeDescriptor_TypeDescriptionNode;
+struct Object;
+struct TypeDescriptor_TypeDescriptionNode_DefaultExtendedTypeDescriptor {
+    struct TypeDescriptor_TypeDescriptionNode* _node;
+    struct Object* _instance;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_TypeDescriptor_TypeDescriptionNode_DefaultExtendedTypeDescriptor_FWDDECL)
+#define IL2CPP_STRUCT_TypeDescriptor_TypeDescriptionNode_DefaultExtendedTypeDescriptor_FWDDECL
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TypeDescriptor_TypeDescriptionNode.h>
+#endif
+#undef IL2CPP_STRUCT_TypeDescriptor_TypeDescriptionNode_DefaultExtendedTypeDescriptor_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TypeDescriptor_TypeDescriptionNode_DefaultExtendedTypeDescriptor_DEFINED) && !defined(IL2CPP_STRUCT_TypeDescriptor_TypeDescriptionNode_DefaultExtendedTypeDescriptor_FWDDECL)
+#include <Modloader/app/structs/TypeDescriptor_TypeDescriptionNode_DefaultExtendedTypeDescriptor.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TypeDescriptor_TypeDescriptionNode_DefaultExtendedTypeDescriptor.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

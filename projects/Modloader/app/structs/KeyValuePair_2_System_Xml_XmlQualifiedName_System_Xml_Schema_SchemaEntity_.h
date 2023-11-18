@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaEntity__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaEntity__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaEntity__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaEntity__DEFINED
+struct XmlQualifiedName;
+struct SchemaEntity;
+struct KeyValuePair_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaEntity_ {
+    struct XmlQualifiedName* key;
+    struct SchemaEntity* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaEntity__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaEntity__FWDDECL
+#include <Modloader/app/structs/SchemaEntity.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaEntity__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaEntity__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaEntity__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaEntity_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaEntity_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

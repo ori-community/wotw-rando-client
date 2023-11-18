@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SpeechError__Enum_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SpeechError__Enum_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpeechError__Enum_DEFINED)
+#define IL2CPP_STRUCT_SpeechError__Enum_DEFINED
+enum class SpeechError__Enum : int32_t {
+    NoError = 0x00000000,
+    TopicLanguageNotSupported = 0x00000001,
+    GrammarLanguageMismatch = 0x00000002,
+    GrammarCompilationFailure = 0x00000003,
+    AudioQualityFailure = 0x00000004,
+    PauseLimitExceeded = 0x00000005,
+    TimeoutExceeded = 0x00000006,
+    NetworkFailure = 0x00000007,
+    MicrophoneUnavailable = 0x00000008,
+    UnknownError = 0x00000009,
+};
+#endif
+#if !defined(IL2CPP_STRUCT_SpeechError__Enum_FWDDECL)
+#define IL2CPP_STRUCT_SpeechError__Enum_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_SpeechError__Enum_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpeechError__Enum_DEFINED) && !defined(IL2CPP_STRUCT_SpeechError__Enum_FWDDECL)
+#include <Modloader/app/structs/SpeechError__Enum.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SpeechError__Enum.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

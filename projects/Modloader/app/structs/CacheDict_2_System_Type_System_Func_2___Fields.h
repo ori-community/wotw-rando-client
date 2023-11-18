@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_2___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_2___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_2___Fields_DEFINED)
+#define IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_2___Fields_DEFINED
+struct CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_2___Array;
+struct __declspec(align(8)) CacheDict_2_System_Type_System_Func_2___Fields {
+    int32_t _mask;
+    struct CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_2___Array* _entries;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_2___Fields_FWDDECL)
+#define IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_2___Fields_FWDDECL
+#include <Modloader/app/structs/CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_2___Array.h>
+#endif
+#undef IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_2___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_2___Fields_DEFINED) && !defined(IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_2___Fields_FWDDECL)
+#include <Modloader/app/structs/CacheDict_2_System_Type_System_Func_2___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CacheDict_2_System_Type_System_Func_2___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

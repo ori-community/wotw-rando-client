@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XblAchievementProgression_c__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XblAchievementProgression_c__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XblAchievementProgression_c__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_XblAchievementProgression_c__StaticFields_DEFINED
+struct XblAchievementProgression_c;
+struct Func_2_XGamingRuntime_Interop_XblAchievementRequirement_XGamingRuntime_XblAchievementRequirement_;
+struct XblAchievementProgression_c__StaticFields {
+    struct XblAchievementProgression_c* __9;
+    struct Func_2_XGamingRuntime_Interop_XblAchievementRequirement_XGamingRuntime_XblAchievementRequirement_* __9__0_0;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_XblAchievementProgression_c__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_XblAchievementProgression_c__StaticFields_FWDDECL
+#include <Modloader/app/structs/Func_2_XGamingRuntim_Intero_XblAchievementRequiremen_XGamingRunti_XblAchievementRequireme_.h>
+#include <Modloader/app/structs/XblAchievementProgression_c.h>
+#endif
+#undef IL2CPP_STRUCT_XblAchievementProgression_c__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XblAchievementProgression_c__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_XblAchievementProgression_c__StaticFields_FWDDECL)
+#include <Modloader/app/structs/XblAchievementProgression_c__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XblAchievementProgression_c__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_System_Linq_Expressions_Interpreter_ByRefUpdater__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_System_Linq_Expressions_Interpreter_ByRefUpdater__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_System_Linq_Expressions_Interpreter_ByRefUpdater__DEFINED)
+#include <Modloader/app/structs/List_1_System_Linq_Expressions_Interpreter_ByRefUpdater___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_System_Linq_Expressions_Interpreter_ByRefUpdater___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_System_Linq_Expressions_Interpreter_ByRefUpdater__DEFINED
+struct List_1_System_Linq_Expressions_Interpreter_ByRefUpdater___Class;
+struct List_1_System_Linq_Expressions_Interpreter_ByRefUpdater_ {
+    struct List_1_System_Linq_Expressions_Interpreter_ByRefUpdater___Class* klass;
+    MonitorData* monitor;
+    struct List_1_System_Linq_Expressions_Interpreter_ByRefUpdater___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_System_Linq_Expressions_Interpreter_ByRefUpdater__FWDDECL)
+#define IL2CPP_STRUCT_List_1_System_Linq_Expressions_Interpreter_ByRefUpdater__FWDDECL
+#include <Modloader/app/structs/List_1_System_Linq_Expressions_Interpreter_ByRefUpdater___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_System_Linq_Expressions_Interpreter_ByRefUpdater__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_System_Linq_Expressions_Interpreter_ByRefUpdater__DEFINED) && !defined(IL2CPP_STRUCT_List_1_System_Linq_Expressions_Interpreter_ByRefUpdater__FWDDECL)
+#include <Modloader/app/structs/List_1_System_Linq_Expressions_Interpreter_ByRefUpdater_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_System_Linq_Expressions_Interpreter_ByRefUpdater_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

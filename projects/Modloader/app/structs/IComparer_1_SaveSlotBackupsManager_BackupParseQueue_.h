@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IComparer_1_SaveSlotBackupsManager_BackupParseQueue__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IComparer_1_SaveSlotBackupsManager_BackupParseQueue__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IComparer_1_SaveSlotBackupsManager_BackupParseQueue__DEFINED)
+#define IL2CPP_STRUCT_IComparer_1_SaveSlotBackupsManager_BackupParseQueue__DEFINED
+struct IComparer_1_SaveSlotBackupsManager_BackupParseQueue___Class;
+struct IComparer_1_SaveSlotBackupsManager_BackupParseQueue_ {
+    struct IComparer_1_SaveSlotBackupsManager_BackupParseQueue___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IComparer_1_SaveSlotBackupsManager_BackupParseQueue__FWDDECL)
+#define IL2CPP_STRUCT_IComparer_1_SaveSlotBackupsManager_BackupParseQueue__FWDDECL
+#include <Modloader/app/structs/IComparer_1_SaveSlotBackupsManager_BackupParseQueue___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IComparer_1_SaveSlotBackupsManager_BackupParseQueue__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IComparer_1_SaveSlotBackupsManager_BackupParseQueue__DEFINED) && !defined(IL2CPP_STRUCT_IComparer_1_SaveSlotBackupsManager_BackupParseQueue__FWDDECL)
+#include <Modloader/app/structs/IComparer_1_SaveSlotBackupsManager_BackupParseQueue_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IComparer_1_SaveSlotBackupsManager_BackupParseQueue_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

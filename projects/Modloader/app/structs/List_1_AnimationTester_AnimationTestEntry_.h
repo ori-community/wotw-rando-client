@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_AnimationTester_AnimationTestEntry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_AnimationTester_AnimationTestEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_AnimationTester_AnimationTestEntry__DEFINED)
+#include <Modloader/app/structs/List_1_AnimationTester_AnimationTestEntry___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_AnimationTester_AnimationTestEntry___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_AnimationTester_AnimationTestEntry__DEFINED
+struct List_1_AnimationTester_AnimationTestEntry___Class;
+struct List_1_AnimationTester_AnimationTestEntry_ {
+    struct List_1_AnimationTester_AnimationTestEntry___Class* klass;
+    MonitorData* monitor;
+    struct List_1_AnimationTester_AnimationTestEntry___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_AnimationTester_AnimationTestEntry__FWDDECL)
+#define IL2CPP_STRUCT_List_1_AnimationTester_AnimationTestEntry__FWDDECL
+#include <Modloader/app/structs/List_1_AnimationTester_AnimationTestEntry___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_AnimationTester_AnimationTestEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_AnimationTester_AnimationTestEntry__DEFINED) && !defined(IL2CPP_STRUCT_List_1_AnimationTester_AnimationTestEntry__FWDDECL)
+#include <Modloader/app/structs/List_1_AnimationTester_AnimationTestEntry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_AnimationTester_AnimationTestEntry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

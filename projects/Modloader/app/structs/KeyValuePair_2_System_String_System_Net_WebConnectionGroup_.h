@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Net_WebConnectionGroup__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Net_WebConnectionGroup__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Net_WebConnectionGroup__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Net_WebConnectionGroup__DEFINED
+struct String;
+struct WebConnectionGroup;
+struct KeyValuePair_2_System_String_System_Net_WebConnectionGroup_ {
+    struct String* key;
+    struct WebConnectionGroup* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Net_WebConnectionGroup__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Net_WebConnectionGroup__FWDDECL
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WebConnectionGroup.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Net_WebConnectionGroup__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Net_WebConnectionGroup__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Net_WebConnectionGroup__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_String_System_Net_WebConnectionGroup_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_String_System_Net_WebConnectionGroup_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

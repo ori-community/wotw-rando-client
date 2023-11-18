@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SerializationSetupGroup_TargetSetupEntry_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SerializationSetupGroup_TargetSetupEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SerializationSetupGroup_TargetSetupEntry_DEFINED)
+#include <Modloader/app/structs/SerializationSetupGroup_TargetSetupEntry__Fields.h>
+#if defined(IL2CPP_STRUCT_SerializationSetupGroup_TargetSetupEntry__Fields_DEFINED)
+#define IL2CPP_STRUCT_SerializationSetupGroup_TargetSetupEntry_DEFINED
+struct SerializationSetupGroup_TargetSetupEntry__Class;
+struct SerializationSetupGroup_TargetSetupEntry {
+    struct SerializationSetupGroup_TargetSetupEntry__Class* klass;
+    MonitorData* monitor;
+    struct SerializationSetupGroup_TargetSetupEntry__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SerializationSetupGroup_TargetSetupEntry_FWDDECL)
+#define IL2CPP_STRUCT_SerializationSetupGroup_TargetSetupEntry_FWDDECL
+#include <Modloader/app/structs/SerializationSetupGroup_TargetSetupEntry__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SerializationSetupGroup_TargetSetupEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SerializationSetupGroup_TargetSetupEntry_DEFINED) && !defined(IL2CPP_STRUCT_SerializationSetupGroup_TargetSetupEntry_FWDDECL)
+#include <Modloader/app/structs/SerializationSetupGroup_TargetSetupEntry.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SerializationSetupGroup_TargetSetupEntry.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

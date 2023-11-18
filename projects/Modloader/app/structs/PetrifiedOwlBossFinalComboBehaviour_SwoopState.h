@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_SwoopState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_SwoopState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_SwoopState_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_SwoopState__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_SwoopState__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_SwoopState_DEFINED
+struct PetrifiedOwlBossFinalComboBehaviour_SwoopState__Class;
+struct PetrifiedOwlBossFinalComboBehaviour_SwoopState {
+    struct PetrifiedOwlBossFinalComboBehaviour_SwoopState__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossFinalComboBehaviour_SwoopState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_SwoopState_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_SwoopState_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_SwoopState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_SwoopState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_SwoopState_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_SwoopState_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_SwoopState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_SwoopState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

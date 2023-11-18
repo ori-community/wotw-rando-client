@@ -1,0 +1,35 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XblAchievement_c__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XblAchievement_c__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XblAchievement_c__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_XblAchievement_c__StaticFields_DEFINED
+struct XblAchievement_c;
+struct Func_2_XGamingRuntime_Interop_XblAchievementTitleAssociation_XGamingRuntime_XblAchievementTitleAssociation_;
+struct Func_2_XGamingRuntime_Interop_XblAchievementMediaAsset_XGamingRuntime_XblAchievementMediaAsset_;
+struct Func_2_XGamingRuntime_Interop_XblAchievementReward_XGamingRuntime_XblAchievementReward_;
+struct XblAchievement_c__StaticFields {
+    struct XblAchievement_c* __9;
+    struct Func_2_XGamingRuntime_Interop_XblAchievementTitleAssociation_XGamingRuntime_XblAchievementTitleAssociation_* __9__0_0;
+    struct Func_2_XGamingRuntime_Interop_XblAchievementMediaAsset_XGamingRuntime_XblAchievementMediaAsset_* __9__0_1;
+    struct Func_2_XGamingRuntime_Interop_XblAchievementReward_XGamingRuntime_XblAchievementReward_* __9__0_2;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_XblAchievement_c__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_XblAchievement_c__StaticFields_FWDDECL
+#include <Modloader/app/structs/Func_2_XGamingRunt_Inte_XblAchievementTitleAssociat_XGamingRun_XblAchievementTitleAssocia_.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntim_Intero_XblAchievementMediaAsse_XGamingRuntim_XblAchievementMediaAsse_.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementReward_XGamingRuntime_XblAchievementReward_.h>
+#include <Modloader/app/structs/XblAchievement_c.h>
+#endif
+#undef IL2CPP_STRUCT_XblAchievement_c__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XblAchievement_c__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_XblAchievement_c__StaticFields_FWDDECL)
+#include <Modloader/app/structs/XblAchievement_c__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XblAchievement_c__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

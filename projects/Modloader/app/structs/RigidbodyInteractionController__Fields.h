@@ -1,0 +1,40 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_RigidbodyInteractionController__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_RigidbodyInteractionController__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RigidbodyInteractionController__Fields_DEFINED)
+#include <Modloader/app/structs/MonoBehaviour__Fields.h>
+#include <Modloader/app/structs/RigidbodyInteractionController_InteractionInformation.h>
+#if defined(IL2CPP_STRUCT_MonoBehaviour__Fields_DEFINED) && defined(IL2CPP_STRUCT_RigidbodyInteractionController_InteractionInformation_DEFINED)
+#define IL2CPP_STRUCT_RigidbodyInteractionController__Fields_DEFINED
+struct RigidbodyInteractionController_InstanciationInteractionSettings__Array;
+struct RigidbodyInteractionController_SoundInteractionSettings__Array;
+struct RigidbodyInteractionController__Fields {
+    struct MonoBehaviour__Fields _;
+    float MinTimeBetweenInteractions;
+    struct RigidbodyInteractionController_InstanciationInteractionSettings__Array* CollisionEnterInstanciation;
+    struct RigidbodyInteractionController_InstanciationInteractionSettings__Array* CollisionExitInstanciation;
+    bool IncludeCollisionsOnChildren;
+    struct RigidbodyInteractionController_SoundInteractionSettings__Array* CollisionEnterSound;
+    struct RigidbodyInteractionController_SoundInteractionSettings__Array* CollisionExitSound;
+    float m_lastCollisionTime;
+    struct RigidbodyInteractionController_InteractionInformation m_lastInteraction;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_RigidbodyInteractionController__Fields_FWDDECL)
+#define IL2CPP_STRUCT_RigidbodyInteractionController__Fields_FWDDECL
+#include <Modloader/app/structs/RigidbodyInteractionController_InstanciationInteractionSettings__Array.h>
+#include <Modloader/app/structs/RigidbodyInteractionController_SoundInteractionSettings__Array.h>
+#endif
+#undef IL2CPP_STRUCT_RigidbodyInteractionController__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RigidbodyInteractionController__Fields_DEFINED) && !defined(IL2CPP_STRUCT_RigidbodyInteractionController__Fields_FWDDECL)
+#include <Modloader/app/structs/RigidbodyInteractionController__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/RigidbodyInteractionController__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

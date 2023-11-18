@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ServerPhysicalMaterial_PhysicalMaterialData__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ServerPhysicalMaterial_PhysicalMaterialData__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ServerPhysicalMaterial_PhysicalMaterialData__Boxed_DEFINED)
+#include <Modloader/app/structs/ServerPhysicalMaterial_PhysicalMaterialData.h>
+#if defined(IL2CPP_STRUCT_ServerPhysicalMaterial_PhysicalMaterialData_DEFINED)
+#define IL2CPP_STRUCT_ServerPhysicalMaterial_PhysicalMaterialData__Boxed_DEFINED
+struct ServerPhysicalMaterial_PhysicalMaterialData__Class;
+struct ServerPhysicalMaterial_PhysicalMaterialData__Boxed {
+    struct ServerPhysicalMaterial_PhysicalMaterialData__Class* klass;
+    MonitorData* monitor;
+    struct ServerPhysicalMaterial_PhysicalMaterialData fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ServerPhysicalMaterial_PhysicalMaterialData__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_ServerPhysicalMaterial_PhysicalMaterialData__Boxed_FWDDECL
+#include <Modloader/app/structs/ServerPhysicalMaterial_PhysicalMaterialData__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ServerPhysicalMaterial_PhysicalMaterialData__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ServerPhysicalMaterial_PhysicalMaterialData__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_ServerPhysicalMaterial_PhysicalMaterialData__Boxed_FWDDECL)
+#include <Modloader/app/structs/ServerPhysicalMaterial_PhysicalMaterialData__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ServerPhysicalMaterial_PhysicalMaterialData__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

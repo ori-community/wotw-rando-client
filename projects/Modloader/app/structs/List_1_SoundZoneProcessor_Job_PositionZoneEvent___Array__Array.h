@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array_INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array_DEFINED)
+#define IL2CPP_STRUCT_List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array_DEFINED
+struct List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array__Class;
+struct List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array;
+struct List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array {
+    struct List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array__Class* klass;
+    MonitorData* monitor;
+    Il2CppArrayBounds* bounds;
+    il2cpp_array_size_t max_length;
+    struct List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array* vector[32];
+};
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array_FWDDECL)
+#define IL2CPP_STRUCT_List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array_FWDDECL
+#include <Modloader/app/structs/List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array.h>
+#include <Modloader/app/structs/List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array__Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array_INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array_DEFINED) && !defined(IL2CPP_STRUCT_List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array_FWDDECL)
+#include <Modloader/app/structs/List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

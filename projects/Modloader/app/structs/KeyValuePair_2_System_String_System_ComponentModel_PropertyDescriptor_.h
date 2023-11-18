@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_String_System_ComponentModel_PropertyDescriptor__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_System_ComponentModel_PropertyDescriptor__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_System_ComponentModel_PropertyDescriptor__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_System_ComponentModel_PropertyDescriptor__DEFINED
+struct String;
+struct PropertyDescriptor;
+struct KeyValuePair_2_System_String_System_ComponentModel_PropertyDescriptor_ {
+    struct String* key;
+    struct PropertyDescriptor* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_System_ComponentModel_PropertyDescriptor__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_System_ComponentModel_PropertyDescriptor__FWDDECL
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/String.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_String_System_ComponentModel_PropertyDescriptor__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_System_ComponentModel_PropertyDescriptor__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_System_ComponentModel_PropertyDescriptor__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_String_System_ComponentModel_PropertyDescriptor_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_String_System_ComponentModel_PropertyDescriptor_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

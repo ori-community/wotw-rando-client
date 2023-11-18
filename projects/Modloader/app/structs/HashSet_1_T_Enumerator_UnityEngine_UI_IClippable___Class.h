@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___Class_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___Class_DEFINED)
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___VTable.h>
+#if defined(IL2CPP_STRUCT_HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___VTable_DEFINED)
+#define IL2CPP_STRUCT_HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___Class_DEFINED
+struct HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___StaticFields;
+struct HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___Class {
+    Il2CppClass_0 _0;
+    Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+    struct HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___StaticFields* static_fields;
+    const Il2CppRGCTXData* rgctx_data;
+    Il2CppClass_1 _1;
+    struct HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___VTable vtable;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___Class_FWDDECL)
+#define IL2CPP_STRUCT_HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___Class_FWDDECL
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___StaticFields.h>
+#endif
+#undef IL2CPP_STRUCT_HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___Class_DEFINED) && !defined(IL2CPP_STRUCT_HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___Class_FWDDECL)
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___Class.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_UnityEngine_UI_IClippable___Class.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

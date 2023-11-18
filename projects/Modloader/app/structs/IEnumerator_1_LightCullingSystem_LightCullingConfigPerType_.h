@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_LightCullingSystem_LightCullingConfigPerType__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_LightCullingSystem_LightCullingConfigPerType__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_LightCullingSystem_LightCullingConfigPerType__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_LightCullingSystem_LightCullingConfigPerType__DEFINED
+struct IEnumerator_1_LightCullingSystem_LightCullingConfigPerType___Class;
+struct IEnumerator_1_LightCullingSystem_LightCullingConfigPerType_ {
+    struct IEnumerator_1_LightCullingSystem_LightCullingConfigPerType___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_LightCullingSystem_LightCullingConfigPerType__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_LightCullingSystem_LightCullingConfigPerType__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_LightCullingSystem_LightCullingConfigPerType___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_LightCullingSystem_LightCullingConfigPerType__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_LightCullingSystem_LightCullingConfigPerType__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_LightCullingSystem_LightCullingConfigPerType__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_LightCullingSystem_LightCullingConfigPerType_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_LightCullingSystem_LightCullingConfigPerType_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

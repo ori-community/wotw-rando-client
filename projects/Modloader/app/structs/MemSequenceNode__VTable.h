@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MemSequenceNode__VTable_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MemSequenceNode__VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MemSequenceNode__VTable_DEFINED)
+#define IL2CPP_STRUCT_MemSequenceNode__VTable_DEFINED
+struct MemSequenceNode__VTable {
+    VirtualInvokeData Equals;
+    VirtualInvokeData Finalize;
+    VirtualInvokeData GetHashCode;
+    VirtualInvokeData ToString;
+    VirtualInvokeData Tick;
+    VirtualInvokeData Reset;
+    VirtualInvokeData AddChild;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_MemSequenceNode__VTable_FWDDECL)
+#define IL2CPP_STRUCT_MemSequenceNode__VTable_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_MemSequenceNode__VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MemSequenceNode__VTable_DEFINED) && !defined(IL2CPP_STRUCT_MemSequenceNode__VTable_FWDDECL)
+#include <Modloader/app/structs/MemSequenceNode__VTable.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MemSequenceNode__VTable.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

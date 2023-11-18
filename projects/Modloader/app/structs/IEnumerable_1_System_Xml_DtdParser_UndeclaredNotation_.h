@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation__DEFINED)
+#define IL2CPP_STRUCT_IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation__DEFINED
+struct IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation___Class;
+struct IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation_ {
+    struct IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation__FWDDECL
+#include <Modloader/app/structs/IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation__FWDDECL)
+#include <Modloader/app/structs/IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerable_1_System_Xml_DtdParser_UndeclaredNotation_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

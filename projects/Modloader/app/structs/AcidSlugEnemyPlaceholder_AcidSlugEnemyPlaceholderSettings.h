@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings_DEFINED)
+#include <Modloader/app/structs/AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings_DEFINED
+struct AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings__Class;
+struct AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings {
+    struct AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings__Class* klass;
+    MonitorData* monitor;
+    struct AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings_FWDDECL)
+#define IL2CPP_STRUCT_AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings_FWDDECL
+#include <Modloader/app/structs/AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings_DEFINED) && !defined(IL2CPP_STRUCT_AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings_FWDDECL)
+#include <Modloader/app/structs/AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AcidSlugEnemyPlaceholder_AcidSlugEnemyPlaceholderSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

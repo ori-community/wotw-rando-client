@@ -1,0 +1,23 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PreLateUpdate_ScriptRunBehaviourLateUpdate_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PreLateUpdate_ScriptRunBehaviourLateUpdate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PreLateUpdate_ScriptRunBehaviourLateUpdate_DEFINED)
+#define IL2CPP_STRUCT_PreLateUpdate_ScriptRunBehaviourLateUpdate_DEFINED
+struct PreLateUpdate_ScriptRunBehaviourLateUpdate {
+};
+#endif
+#if !defined(IL2CPP_STRUCT_PreLateUpdate_ScriptRunBehaviourLateUpdate_FWDDECL)
+#define IL2CPP_STRUCT_PreLateUpdate_ScriptRunBehaviourLateUpdate_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_PreLateUpdate_ScriptRunBehaviourLateUpdate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PreLateUpdate_ScriptRunBehaviourLateUpdate_DEFINED) && !defined(IL2CPP_STRUCT_PreLateUpdate_ScriptRunBehaviourLateUpdate_FWDDECL)
+#include <Modloader/app/structs/PreLateUpdate_ScriptRunBehaviourLateUpdate.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PreLateUpdate_ScriptRunBehaviourLateUpdate.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_WandererPostDesertQuestCompletedInteractionBehaviour_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_WandererPostDesertQuestCompletedInteractionBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_WandererPostDesertQuestCompletedInteractionBehaviour_DEFINED)
+#include <Modloader/app/structs/WandererPostDesertQuestCompletedInteractionBehaviour__Fields.h>
+#if defined(IL2CPP_STRUCT_WandererPostDesertQuestCompletedInteractionBehaviour__Fields_DEFINED)
+#define IL2CPP_STRUCT_WandererPostDesertQuestCompletedInteractionBehaviour_DEFINED
+struct WandererPostDesertQuestCompletedInteractionBehaviour__Class;
+struct WandererPostDesertQuestCompletedInteractionBehaviour {
+    struct WandererPostDesertQuestCompletedInteractionBehaviour__Class* klass;
+    MonitorData* monitor;
+    struct WandererPostDesertQuestCompletedInteractionBehaviour__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_WandererPostDesertQuestCompletedInteractionBehaviour_FWDDECL)
+#define IL2CPP_STRUCT_WandererPostDesertQuestCompletedInteractionBehaviour_FWDDECL
+#include <Modloader/app/structs/WandererPostDesertQuestCompletedInteractionBehaviour__Class.h>
+#endif
+#undef IL2CPP_STRUCT_WandererPostDesertQuestCompletedInteractionBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_WandererPostDesertQuestCompletedInteractionBehaviour_DEFINED) && !defined(IL2CPP_STRUCT_WandererPostDesertQuestCompletedInteractionBehaviour_FWDDECL)
+#include <Modloader/app/structs/WandererPostDesertQuestCompletedInteractionBehaviour.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/WandererPostDesertQuestCompletedInteractionBehaviour.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

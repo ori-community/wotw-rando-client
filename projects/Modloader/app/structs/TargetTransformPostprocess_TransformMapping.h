@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TargetTransformPostprocess_TransformMapping_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TargetTransformPostprocess_TransformMapping_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TargetTransformPostprocess_TransformMapping_DEFINED)
+#include <Modloader/app/structs/TargetTransformPostprocess_TransformMapping__Fields.h>
+#if defined(IL2CPP_STRUCT_TargetTransformPostprocess_TransformMapping__Fields_DEFINED)
+#define IL2CPP_STRUCT_TargetTransformPostprocess_TransformMapping_DEFINED
+struct TargetTransformPostprocess_TransformMapping__Class;
+struct TargetTransformPostprocess_TransformMapping {
+    struct TargetTransformPostprocess_TransformMapping__Class* klass;
+    MonitorData* monitor;
+    struct TargetTransformPostprocess_TransformMapping__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TargetTransformPostprocess_TransformMapping_FWDDECL)
+#define IL2CPP_STRUCT_TargetTransformPostprocess_TransformMapping_FWDDECL
+#include <Modloader/app/structs/TargetTransformPostprocess_TransformMapping__Class.h>
+#endif
+#undef IL2CPP_STRUCT_TargetTransformPostprocess_TransformMapping_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TargetTransformPostprocess_TransformMapping_DEFINED) && !defined(IL2CPP_STRUCT_TargetTransformPostprocess_TransformMapping_FWDDECL)
+#include <Modloader/app/structs/TargetTransformPostprocess_TransformMapping.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TargetTransformPostprocess_TransformMapping.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

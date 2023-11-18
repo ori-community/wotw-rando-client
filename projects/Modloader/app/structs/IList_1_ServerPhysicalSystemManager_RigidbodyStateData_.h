@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IList_1_ServerPhysicalSystemManager_RigidbodyStateData__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IList_1_ServerPhysicalSystemManager_RigidbodyStateData__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IList_1_ServerPhysicalSystemManager_RigidbodyStateData__DEFINED)
+#define IL2CPP_STRUCT_IList_1_ServerPhysicalSystemManager_RigidbodyStateData__DEFINED
+struct IList_1_ServerPhysicalSystemManager_RigidbodyStateData___Class;
+struct IList_1_ServerPhysicalSystemManager_RigidbodyStateData_ {
+    struct IList_1_ServerPhysicalSystemManager_RigidbodyStateData___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IList_1_ServerPhysicalSystemManager_RigidbodyStateData__FWDDECL)
+#define IL2CPP_STRUCT_IList_1_ServerPhysicalSystemManager_RigidbodyStateData__FWDDECL
+#include <Modloader/app/structs/IList_1_ServerPhysicalSystemManager_RigidbodyStateData___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IList_1_ServerPhysicalSystemManager_RigidbodyStateData__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IList_1_ServerPhysicalSystemManager_RigidbodyStateData__DEFINED) && !defined(IL2CPP_STRUCT_IList_1_ServerPhysicalSystemManager_RigidbodyStateData__FWDDECL)
+#include <Modloader/app/structs/IList_1_ServerPhysicalSystemManager_RigidbodyStateData_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IList_1_ServerPhysicalSystemManager_RigidbodyStateData_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

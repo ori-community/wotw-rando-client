@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Recorder_ResetRecorderAndComponents_d_59_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Recorder_ResetRecorderAndComponents_d_59_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Recorder_ResetRecorderAndComponents_d_59_DEFINED)
+#include <Modloader/app/structs/Recorder_ResetRecorderAndComponents_d_59__Fields.h>
+#if defined(IL2CPP_STRUCT_Recorder_ResetRecorderAndComponents_d_59__Fields_DEFINED)
+#define IL2CPP_STRUCT_Recorder_ResetRecorderAndComponents_d_59_DEFINED
+struct Recorder_ResetRecorderAndComponents_d_59__Class;
+struct Recorder_ResetRecorderAndComponents_d_59 {
+    struct Recorder_ResetRecorderAndComponents_d_59__Class* klass;
+    MonitorData* monitor;
+    struct Recorder_ResetRecorderAndComponents_d_59__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Recorder_ResetRecorderAndComponents_d_59_FWDDECL)
+#define IL2CPP_STRUCT_Recorder_ResetRecorderAndComponents_d_59_FWDDECL
+#include <Modloader/app/structs/Recorder_ResetRecorderAndComponents_d_59__Class.h>
+#endif
+#undef IL2CPP_STRUCT_Recorder_ResetRecorderAndComponents_d_59_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Recorder_ResetRecorderAndComponents_d_59_DEFINED) && !defined(IL2CPP_STRUCT_Recorder_ResetRecorderAndComponents_d_59_FWDDECL)
+#include <Modloader/app/structs/Recorder_ResetRecorderAndComponents_d_59.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Recorder_ResetRecorderAndComponents_d_59.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

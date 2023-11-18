@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MoonEffectEmissionRateModifier__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MoonEffectEmissionRateModifier__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonEffectEmissionRateModifier__Fields_DEFINED)
+#include <Modloader/app/structs/MoonEffectVariationModifier__Fields.h>
+#if defined(IL2CPP_STRUCT_MoonEffectVariationModifier__Fields_DEFINED)
+#define IL2CPP_STRUCT_MoonEffectEmissionRateModifier__Fields_DEFINED
+struct MoonEffectEmissionRateModifier__Fields {
+    struct MoonEffectVariationModifier__Fields _;
+    float EmissionMultiplier;
+    float MaxParticlesMultipler;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MoonEffectEmissionRateModifier__Fields_FWDDECL)
+#define IL2CPP_STRUCT_MoonEffectEmissionRateModifier__Fields_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_MoonEffectEmissionRateModifier__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonEffectEmissionRateModifier__Fields_DEFINED) && !defined(IL2CPP_STRUCT_MoonEffectEmissionRateModifier__Fields_FWDDECL)
+#include <Modloader/app/structs/MoonEffectEmissionRateModifier__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MoonEffectEmissionRateModifier__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

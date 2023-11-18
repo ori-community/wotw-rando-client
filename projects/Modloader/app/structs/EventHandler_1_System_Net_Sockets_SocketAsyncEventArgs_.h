@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs__INITIALIZING
+#if !defined(IL2CPP_STRUCT_EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs__DEFINED)
+#include <Modloader/app/structs/EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs___Fields.h>
+#if defined(IL2CPP_STRUCT_EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs___Fields_DEFINED)
+#define IL2CPP_STRUCT_EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs__DEFINED
+struct EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs___Class;
+struct EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs_ {
+    struct EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs___Class* klass;
+    MonitorData* monitor;
+    struct EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs__FWDDECL)
+#define IL2CPP_STRUCT_EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs__FWDDECL
+#include <Modloader/app/structs/EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs___Class.h>
+#endif
+#undef IL2CPP_STRUCT_EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs__INITIALIZING
+#if !defined(IL2CPP_STRUCT_EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs__DEFINED) && !defined(IL2CPP_STRUCT_EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs__FWDDECL)
+#include <Modloader/app/structs/EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

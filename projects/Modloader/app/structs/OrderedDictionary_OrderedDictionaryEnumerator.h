@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryEnumerator_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryEnumerator_INITIALIZING
+#if !defined(IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryEnumerator_DEFINED)
+#include <Modloader/app/structs/OrderedDictionary_OrderedDictionaryEnumerator__Fields.h>
+#if defined(IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryEnumerator__Fields_DEFINED)
+#define IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryEnumerator_DEFINED
+struct OrderedDictionary_OrderedDictionaryEnumerator__Class;
+struct OrderedDictionary_OrderedDictionaryEnumerator {
+    struct OrderedDictionary_OrderedDictionaryEnumerator__Class* klass;
+    MonitorData* monitor;
+    struct OrderedDictionary_OrderedDictionaryEnumerator__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryEnumerator_FWDDECL)
+#define IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryEnumerator_FWDDECL
+#include <Modloader/app/structs/OrderedDictionary_OrderedDictionaryEnumerator__Class.h>
+#endif
+#undef IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryEnumerator_INITIALIZING
+#if !defined(IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryEnumerator_DEFINED) && !defined(IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryEnumerator_FWDDECL)
+#include <Modloader/app/structs/OrderedDictionary_OrderedDictionaryEnumerator.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/OrderedDictionary_OrderedDictionaryEnumerator.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

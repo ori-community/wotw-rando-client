@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_HashSet_1_T_Enumerator_System_Linq_Expressions_ParameterExpression__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_HashSet_1_T_Enumerator_System_Linq_Expressions_ParameterExpression__INITIALIZING
+#if !defined(IL2CPP_STRUCT_HashSet_1_T_Enumerator_System_Linq_Expressions_ParameterExpression__DEFINED)
+#define IL2CPP_STRUCT_HashSet_1_T_Enumerator_System_Linq_Expressions_ParameterExpression__DEFINED
+struct HashSet_1_System_Linq_Expressions_ParameterExpression_;
+struct ParameterExpression;
+struct HashSet_1_T_Enumerator_System_Linq_Expressions_ParameterExpression_ {
+    struct HashSet_1_System_Linq_Expressions_ParameterExpression_* _set;
+    int32_t _index;
+    int32_t _version;
+    struct ParameterExpression* _current;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_HashSet_1_T_Enumerator_System_Linq_Expressions_ParameterExpression__FWDDECL)
+#define IL2CPP_STRUCT_HashSet_1_T_Enumerator_System_Linq_Expressions_ParameterExpression__FWDDECL
+#include <Modloader/app/structs/HashSet_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#endif
+#undef IL2CPP_STRUCT_HashSet_1_T_Enumerator_System_Linq_Expressions_ParameterExpression__INITIALIZING
+#if !defined(IL2CPP_STRUCT_HashSet_1_T_Enumerator_System_Linq_Expressions_ParameterExpression__DEFINED) && !defined(IL2CPP_STRUCT_HashSet_1_T_Enumerator_System_Linq_Expressions_ParameterExpression__FWDDECL)
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_System_Linq_Expressions_ParameterExpression_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_System_Linq_Expressions_ParameterExpression_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

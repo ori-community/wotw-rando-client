@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TargetInSpiderBossBehaviourZoneCondition_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TargetInSpiderBossBehaviourZoneCondition_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TargetInSpiderBossBehaviourZoneCondition_DEFINED)
+#include <Modloader/app/structs/TargetInSpiderBossBehaviourZoneCondition__Fields.h>
+#if defined(IL2CPP_STRUCT_TargetInSpiderBossBehaviourZoneCondition__Fields_DEFINED)
+#define IL2CPP_STRUCT_TargetInSpiderBossBehaviourZoneCondition_DEFINED
+struct TargetInSpiderBossBehaviourZoneCondition__Class;
+struct TargetInSpiderBossBehaviourZoneCondition {
+    struct TargetInSpiderBossBehaviourZoneCondition__Class* klass;
+    MonitorData* monitor;
+    struct TargetInSpiderBossBehaviourZoneCondition__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TargetInSpiderBossBehaviourZoneCondition_FWDDECL)
+#define IL2CPP_STRUCT_TargetInSpiderBossBehaviourZoneCondition_FWDDECL
+#include <Modloader/app/structs/TargetInSpiderBossBehaviourZoneCondition__Class.h>
+#endif
+#undef IL2CPP_STRUCT_TargetInSpiderBossBehaviourZoneCondition_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TargetInSpiderBossBehaviourZoneCondition_DEFINED) && !defined(IL2CPP_STRUCT_TargetInSpiderBossBehaviourZoneCondition_FWDDECL)
+#include <Modloader/app/structs/TargetInSpiderBossBehaviourZoneCondition.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TargetInSpiderBossBehaviourZoneCondition.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

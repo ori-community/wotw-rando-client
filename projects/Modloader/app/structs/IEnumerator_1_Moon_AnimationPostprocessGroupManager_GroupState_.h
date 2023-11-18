@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState__DEFINED
+struct IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState___Class;
+struct IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState_ {
+    struct IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_Moon_AnimationPostprocessGroupManager_GroupState_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

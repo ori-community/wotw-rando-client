@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MultiplayerServerCreateBuildInitiatedEventDataDoc_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MultiplayerServerCreateBuildInitiatedEventDataDoc_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MultiplayerServerCreateBuildInitiatedEventDataDoc_DEFINED)
+#include <Modloader/app/structs/MultiplayerServerCreateBuildInitiatedEventDataDoc__Fields.h>
+#if defined(IL2CPP_STRUCT_MultiplayerServerCreateBuildInitiatedEventDataDoc__Fields_DEFINED)
+#define IL2CPP_STRUCT_MultiplayerServerCreateBuildInitiatedEventDataDoc_DEFINED
+struct MultiplayerServerCreateBuildInitiatedEventDataDoc__Class;
+struct MultiplayerServerCreateBuildInitiatedEventDataDoc {
+    struct MultiplayerServerCreateBuildInitiatedEventDataDoc__Class* klass;
+    MonitorData* monitor;
+    struct MultiplayerServerCreateBuildInitiatedEventDataDoc__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MultiplayerServerCreateBuildInitiatedEventDataDoc_FWDDECL)
+#define IL2CPP_STRUCT_MultiplayerServerCreateBuildInitiatedEventDataDoc_FWDDECL
+#include <Modloader/app/structs/MultiplayerServerCreateBuildInitiatedEventDataDoc__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MultiplayerServerCreateBuildInitiatedEventDataDoc_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MultiplayerServerCreateBuildInitiatedEventDataDoc_DEFINED) && !defined(IL2CPP_STRUCT_MultiplayerServerCreateBuildInitiatedEventDataDoc_FWDDECL)
+#include <Modloader/app/structs/MultiplayerServerCreateBuildInitiatedEventDataDoc.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MultiplayerServerCreateBuildInitiatedEventDataDoc.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MultiplayerServerVmUnassignmentStartedEventDataDoc_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MultiplayerServerVmUnassignmentStartedEventDataDoc_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MultiplayerServerVmUnassignmentStartedEventDataDoc_DEFINED)
+#include <Modloader/app/structs/MultiplayerServerVmUnassignmentStartedEventDataDoc__Fields.h>
+#if defined(IL2CPP_STRUCT_MultiplayerServerVmUnassignmentStartedEventDataDoc__Fields_DEFINED)
+#define IL2CPP_STRUCT_MultiplayerServerVmUnassignmentStartedEventDataDoc_DEFINED
+struct MultiplayerServerVmUnassignmentStartedEventDataDoc__Class;
+struct MultiplayerServerVmUnassignmentStartedEventDataDoc {
+    struct MultiplayerServerVmUnassignmentStartedEventDataDoc__Class* klass;
+    MonitorData* monitor;
+    struct MultiplayerServerVmUnassignmentStartedEventDataDoc__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MultiplayerServerVmUnassignmentStartedEventDataDoc_FWDDECL)
+#define IL2CPP_STRUCT_MultiplayerServerVmUnassignmentStartedEventDataDoc_FWDDECL
+#include <Modloader/app/structs/MultiplayerServerVmUnassignmentStartedEventDataDoc__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MultiplayerServerVmUnassignmentStartedEventDataDoc_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MultiplayerServerVmUnassignmentStartedEventDataDoc_DEFINED) && !defined(IL2CPP_STRUCT_MultiplayerServerVmUnassignmentStartedEventDataDoc_FWDDECL)
+#include <Modloader/app/structs/MultiplayerServerVmUnassignmentStartedEventDataDoc.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MultiplayerServerVmUnassignmentStartedEventDataDoc.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

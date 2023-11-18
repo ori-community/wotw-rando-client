@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkBLoopState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkBLoopState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkBLoopState_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlSilentWoodsController_StalkBLoopState__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkBLoopState__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkBLoopState_DEFINED
+struct PetrifiedOwlSilentWoodsController_StalkBLoopState__Class;
+struct PetrifiedOwlSilentWoodsController_StalkBLoopState {
+    struct PetrifiedOwlSilentWoodsController_StalkBLoopState__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlSilentWoodsController_StalkBLoopState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkBLoopState_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkBLoopState_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlSilentWoodsController_StalkBLoopState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkBLoopState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkBLoopState_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkBLoopState_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlSilentWoodsController_StalkBLoopState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlSilentWoodsController_StalkBLoopState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

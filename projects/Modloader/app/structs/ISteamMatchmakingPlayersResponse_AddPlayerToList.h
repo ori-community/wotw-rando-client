@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_AddPlayerToList_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_AddPlayerToList_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_AddPlayerToList_DEFINED)
+#include <Modloader/app/structs/ISteamMatchmakingPlayersResponse_AddPlayerToList__Fields.h>
+#if defined(IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_AddPlayerToList__Fields_DEFINED)
+#define IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_AddPlayerToList_DEFINED
+struct ISteamMatchmakingPlayersResponse_AddPlayerToList__Class;
+struct ISteamMatchmakingPlayersResponse_AddPlayerToList {
+    struct ISteamMatchmakingPlayersResponse_AddPlayerToList__Class* klass;
+    MonitorData* monitor;
+    struct ISteamMatchmakingPlayersResponse_AddPlayerToList__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_AddPlayerToList_FWDDECL)
+#define IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_AddPlayerToList_FWDDECL
+#include <Modloader/app/structs/ISteamMatchmakingPlayersResponse_AddPlayerToList__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_AddPlayerToList_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_AddPlayerToList_DEFINED) && !defined(IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_AddPlayerToList_FWDDECL)
+#include <Modloader/app/structs/ISteamMatchmakingPlayersResponse_AddPlayerToList.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ISteamMatchmakingPlayersResponse_AddPlayerToList.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

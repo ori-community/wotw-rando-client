@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberPresetSerializedComponent_Vector4Dictionary__Class_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_Vector4Dictionary__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_Vector4Dictionary__Class_DEFINED)
+#include <Modloader/app/structs/UberPresetSerializedComponent_Vector4Dictionary__VTable.h>
+#if defined(IL2CPP_STRUCT_UberPresetSerializedComponent_Vector4Dictionary__VTable_DEFINED)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_Vector4Dictionary__Class_DEFINED
+struct UberPresetSerializedComponent_Vector4Dictionary__StaticFields;
+struct UberPresetSerializedComponent_Vector4Dictionary__Class {
+    Il2CppClass_0 _0;
+    Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+    struct UberPresetSerializedComponent_Vector4Dictionary__StaticFields* static_fields;
+    const Il2CppRGCTXData* rgctx_data;
+    Il2CppClass_1 _1;
+    struct UberPresetSerializedComponent_Vector4Dictionary__VTable vtable;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_Vector4Dictionary__Class_FWDDECL)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_Vector4Dictionary__Class_FWDDECL
+#include <Modloader/app/structs/UberPresetSerializedComponent_Vector4Dictionary__StaticFields.h>
+#endif
+#undef IL2CPP_STRUCT_UberPresetSerializedComponent_Vector4Dictionary__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_Vector4Dictionary__Class_DEFINED) && !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_Vector4Dictionary__Class_FWDDECL)
+#include <Modloader/app/structs/UberPresetSerializedComponent_Vector4Dictionary__Class.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberPresetSerializedComponent_Vector4Dictionary__Class.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

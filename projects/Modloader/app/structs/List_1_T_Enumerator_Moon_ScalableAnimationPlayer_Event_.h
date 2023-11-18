@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_Moon_ScalableAnimationPlayer_Event__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_ScalableAnimationPlayer_Event__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_ScalableAnimationPlayer_Event__DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_ScalableAnimationPlayer_Event__DEFINED
+struct List_1_Moon_ScalableAnimationPlayer_Event_;
+struct ScalableAnimationPlayer_Event;
+struct List_1_T_Enumerator_Moon_ScalableAnimationPlayer_Event_ {
+    struct List_1_Moon_ScalableAnimationPlayer_Event_* list;
+    int32_t index;
+    int32_t version;
+    struct ScalableAnimationPlayer_Event* current;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_ScalableAnimationPlayer_Event__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_ScalableAnimationPlayer_Event__FWDDECL
+#include <Modloader/app/structs/List_1_Moon_ScalableAnimationPlayer_Event_.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer_Event.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_Moon_ScalableAnimationPlayer_Event__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_ScalableAnimationPlayer_Event__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_ScalableAnimationPlayer_Event__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_ScalableAnimationPlayer_Event_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_ScalableAnimationPlayer_Event_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

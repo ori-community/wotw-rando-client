@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ICollection_1_RuntimeGuidMapping_CacheEntry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ICollection_1_RuntimeGuidMapping_CacheEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ICollection_1_RuntimeGuidMapping_CacheEntry__DEFINED)
+#define IL2CPP_STRUCT_ICollection_1_RuntimeGuidMapping_CacheEntry__DEFINED
+struct ICollection_1_RuntimeGuidMapping_CacheEntry___Class;
+struct ICollection_1_RuntimeGuidMapping_CacheEntry_ {
+    struct ICollection_1_RuntimeGuidMapping_CacheEntry___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ICollection_1_RuntimeGuidMapping_CacheEntry__FWDDECL)
+#define IL2CPP_STRUCT_ICollection_1_RuntimeGuidMapping_CacheEntry__FWDDECL
+#include <Modloader/app/structs/ICollection_1_RuntimeGuidMapping_CacheEntry___Class.h>
+#endif
+#undef IL2CPP_STRUCT_ICollection_1_RuntimeGuidMapping_CacheEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ICollection_1_RuntimeGuidMapping_CacheEntry__DEFINED) && !defined(IL2CPP_STRUCT_ICollection_1_RuntimeGuidMapping_CacheEntry__FWDDECL)
+#include <Modloader/app/structs/ICollection_1_RuntimeGuidMapping_CacheEntry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ICollection_1_RuntimeGuidMapping_CacheEntry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

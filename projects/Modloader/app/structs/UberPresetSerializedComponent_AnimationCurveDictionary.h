@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberPresetSerializedComponent_AnimationCurveDictionary_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_AnimationCurveDictionary_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_AnimationCurveDictionary_DEFINED)
+#include <Modloader/app/structs/UberPresetSerializedComponent_AnimationCurveDictionary__Fields.h>
+#if defined(IL2CPP_STRUCT_UberPresetSerializedComponent_AnimationCurveDictionary__Fields_DEFINED)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_AnimationCurveDictionary_DEFINED
+struct UberPresetSerializedComponent_AnimationCurveDictionary__Class;
+struct UberPresetSerializedComponent_AnimationCurveDictionary {
+    struct UberPresetSerializedComponent_AnimationCurveDictionary__Class* klass;
+    MonitorData* monitor;
+    struct UberPresetSerializedComponent_AnimationCurveDictionary__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_AnimationCurveDictionary_FWDDECL)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_AnimationCurveDictionary_FWDDECL
+#include <Modloader/app/structs/UberPresetSerializedComponent_AnimationCurveDictionary__Class.h>
+#endif
+#undef IL2CPP_STRUCT_UberPresetSerializedComponent_AnimationCurveDictionary_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_AnimationCurveDictionary_DEFINED) && !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_AnimationCurveDictionary_FWDDECL)
+#include <Modloader/app/structs/UberPresetSerializedComponent_AnimationCurveDictionary.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberPresetSerializedComponent_AnimationCurveDictionary.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

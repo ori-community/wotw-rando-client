@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MeleeComboMoveHammerChargeable_c_DisplayClass102_0__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MeleeComboMoveHammerChargeable_c_DisplayClass102_0__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MeleeComboMoveHammerChargeable_c_DisplayClass102_0__Fields_DEFINED)
+#define IL2CPP_STRUCT_MeleeComboMoveHammerChargeable_c_DisplayClass102_0__Fields_DEFINED
+struct MeleeComboMoveHammerChargeable;
+struct __declspec(align(8)) MeleeComboMoveHammerChargeable_c_DisplayClass102_0__Fields {
+    struct MeleeComboMoveHammerChargeable* __4__this;
+    bool isChargedHit;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_MeleeComboMoveHammerChargeable_c_DisplayClass102_0__Fields_FWDDECL)
+#define IL2CPP_STRUCT_MeleeComboMoveHammerChargeable_c_DisplayClass102_0__Fields_FWDDECL
+#include <Modloader/app/structs/MeleeComboMoveHammerChargeable.h>
+#endif
+#undef IL2CPP_STRUCT_MeleeComboMoveHammerChargeable_c_DisplayClass102_0__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MeleeComboMoveHammerChargeable_c_DisplayClass102_0__Fields_DEFINED) && !defined(IL2CPP_STRUCT_MeleeComboMoveHammerChargeable_c_DisplayClass102_0__Fields_FWDDECL)
+#include <Modloader/app/structs/MeleeComboMoveHammerChargeable_c_DisplayClass102_0__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MeleeComboMoveHammerChargeable_c_DisplayClass102_0__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

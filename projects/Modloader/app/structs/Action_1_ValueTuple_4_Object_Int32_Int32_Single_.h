@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Action_1_ValueTuple_4_Object_Int32_Int32_Single__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Action_1_ValueTuple_4_Object_Int32_Int32_Single__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_ValueTuple_4_Object_Int32_Int32_Single__DEFINED)
+#include <Modloader/app/structs/Action_1_ValueTuple_4_Object_Int32_Int32_Single___Fields.h>
+#if defined(IL2CPP_STRUCT_Action_1_ValueTuple_4_Object_Int32_Int32_Single___Fields_DEFINED)
+#define IL2CPP_STRUCT_Action_1_ValueTuple_4_Object_Int32_Int32_Single__DEFINED
+struct Action_1_ValueTuple_4_Object_Int32_Int32_Single___Class;
+struct Action_1_ValueTuple_4_Object_Int32_Int32_Single_ {
+    struct Action_1_ValueTuple_4_Object_Int32_Int32_Single___Class* klass;
+    MonitorData* monitor;
+    struct Action_1_ValueTuple_4_Object_Int32_Int32_Single___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Action_1_ValueTuple_4_Object_Int32_Int32_Single__FWDDECL)
+#define IL2CPP_STRUCT_Action_1_ValueTuple_4_Object_Int32_Int32_Single__FWDDECL
+#include <Modloader/app/structs/Action_1_ValueTuple_4_Object_Int32_Int32_Single___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Action_1_ValueTuple_4_Object_Int32_Int32_Single__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_ValueTuple_4_Object_Int32_Int32_Single__DEFINED) && !defined(IL2CPP_STRUCT_Action_1_ValueTuple_4_Object_Int32_Int32_Single__FWDDECL)
+#include <Modloader/app/structs/Action_1_ValueTuple_4_Object_Int32_Int32_Single_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Action_1_ValueTuple_4_Object_Int32_Int32_Single_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

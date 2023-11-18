@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler__Fields_DEFINED)
+#define IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler__Fields_DEFINED
+struct Dictionary_2_Moon_Profile_Metric_List_1_System_Single_;
+struct List_1_Moon_Profile_Metric_;
+struct __declspec(align(8)) GPUAutoProfiler_BaselineMeasurementHandler__Fields {
+    int32_t m_frameCount;
+    struct Dictionary_2_Moon_Profile_Metric_List_1_System_Single_* m_samples;
+    struct List_1_Moon_Profile_Metric_* m_metrics;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler__Fields_FWDDECL)
+#define IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler__Fields_FWDDECL
+#include <Modloader/app/structs/Dictionary_2_Moon_Profile_Metric_List_1_System_Single_.h>
+#include <Modloader/app/structs/List_1_Moon_Profile_Metric_.h>
+#endif
+#undef IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler__Fields_DEFINED) && !defined(IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler__Fields_FWDDECL)
+#include <Modloader/app/structs/GPUAutoProfiler_BaselineMeasurementHandler__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GPUAutoProfiler_BaselineMeasurementHandler__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

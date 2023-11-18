@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TitleProfileViewConstraintsChangedEventData_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TitleProfileViewConstraintsChangedEventData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TitleProfileViewConstraintsChangedEventData_DEFINED)
+#include <Modloader/app/structs/TitleProfileViewConstraintsChangedEventData__Fields.h>
+#if defined(IL2CPP_STRUCT_TitleProfileViewConstraintsChangedEventData__Fields_DEFINED)
+#define IL2CPP_STRUCT_TitleProfileViewConstraintsChangedEventData_DEFINED
+struct TitleProfileViewConstraintsChangedEventData__Class;
+struct TitleProfileViewConstraintsChangedEventData {
+    struct TitleProfileViewConstraintsChangedEventData__Class* klass;
+    MonitorData* monitor;
+    struct TitleProfileViewConstraintsChangedEventData__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TitleProfileViewConstraintsChangedEventData_FWDDECL)
+#define IL2CPP_STRUCT_TitleProfileViewConstraintsChangedEventData_FWDDECL
+#include <Modloader/app/structs/TitleProfileViewConstraintsChangedEventData__Class.h>
+#endif
+#undef IL2CPP_STRUCT_TitleProfileViewConstraintsChangedEventData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TitleProfileViewConstraintsChangedEventData_DEFINED) && !defined(IL2CPP_STRUCT_TitleProfileViewConstraintsChangedEventData_FWDDECL)
+#include <Modloader/app/structs/TitleProfileViewConstraintsChangedEventData.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TitleProfileViewConstraintsChangedEventData.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

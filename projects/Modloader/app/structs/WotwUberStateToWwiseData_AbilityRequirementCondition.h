@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_WotwUberStateToWwiseData_AbilityRequirementCondition_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_WotwUberStateToWwiseData_AbilityRequirementCondition_INITIALIZING
+#if !defined(IL2CPP_STRUCT_WotwUberStateToWwiseData_AbilityRequirementCondition_DEFINED)
+#include <Modloader/app/structs/WotwUberStateToWwiseData_AbilityRequirementCondition__Fields.h>
+#if defined(IL2CPP_STRUCT_WotwUberStateToWwiseData_AbilityRequirementCondition__Fields_DEFINED)
+#define IL2CPP_STRUCT_WotwUberStateToWwiseData_AbilityRequirementCondition_DEFINED
+struct WotwUberStateToWwiseData_AbilityRequirementCondition__Class;
+struct WotwUberStateToWwiseData_AbilityRequirementCondition {
+    struct WotwUberStateToWwiseData_AbilityRequirementCondition__Class* klass;
+    MonitorData* monitor;
+    struct WotwUberStateToWwiseData_AbilityRequirementCondition__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_WotwUberStateToWwiseData_AbilityRequirementCondition_FWDDECL)
+#define IL2CPP_STRUCT_WotwUberStateToWwiseData_AbilityRequirementCondition_FWDDECL
+#include <Modloader/app/structs/WotwUberStateToWwiseData_AbilityRequirementCondition__Class.h>
+#endif
+#undef IL2CPP_STRUCT_WotwUberStateToWwiseData_AbilityRequirementCondition_INITIALIZING
+#if !defined(IL2CPP_STRUCT_WotwUberStateToWwiseData_AbilityRequirementCondition_DEFINED) && !defined(IL2CPP_STRUCT_WotwUberStateToWwiseData_AbilityRequirementCondition_FWDDECL)
+#include <Modloader/app/structs/WotwUberStateToWwiseData_AbilityRequirementCondition.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/WotwUberStateToWwiseData_AbilityRequirementCondition.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

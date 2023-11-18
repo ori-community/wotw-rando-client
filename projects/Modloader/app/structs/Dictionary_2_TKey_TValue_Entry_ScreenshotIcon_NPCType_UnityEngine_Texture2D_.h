@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_ScreenshotIcon_NPCType_UnityEngine_Texture2D__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_ScreenshotIcon_NPCType_UnityEngine_Texture2D__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_ScreenshotIcon_NPCType_UnityEngine_Texture2D__DEFINED)
+#include <Modloader/app/structs/ScreenshotIcon_NPCType__Enum.h>
+#if defined(IL2CPP_STRUCT_ScreenshotIcon_NPCType__Enum_DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_ScreenshotIcon_NPCType_UnityEngine_Texture2D__DEFINED
+struct Texture2D;
+struct Dictionary_2_TKey_TValue_Entry_ScreenshotIcon_NPCType_UnityEngine_Texture2D_ {
+    int32_t hashCode;
+    int32_t next;
+    ScreenshotIcon_NPCType__Enum key;
+
+    struct Texture2D* value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_ScreenshotIcon_NPCType_UnityEngine_Texture2D__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_ScreenshotIcon_NPCType_UnityEngine_Texture2D__FWDDECL
+#include <Modloader/app/structs/Texture2D.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_ScreenshotIcon_NPCType_UnityEngine_Texture2D__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_ScreenshotIcon_NPCType_UnityEngine_Texture2D__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_ScreenshotIcon_NPCType_UnityEngine_Texture2D__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_ScreenshotIcon_NPCType_UnityEngine_Texture2D_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_ScreenshotIcon_NPCType_UnityEngine_Texture2D_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

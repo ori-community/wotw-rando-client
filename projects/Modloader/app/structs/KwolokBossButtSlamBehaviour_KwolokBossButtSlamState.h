@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KwolokBossButtSlamBehaviour_KwolokBossButtSlamState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KwolokBossButtSlamBehaviour_KwolokBossButtSlamState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossButtSlamBehaviour_KwolokBossButtSlamState_DEFINED)
+#include <Modloader/app/structs/KwolokBossButtSlamBehaviour_KwolokBossButtSlamState__Fields.h>
+#if defined(IL2CPP_STRUCT_KwolokBossButtSlamBehaviour_KwolokBossButtSlamState__Fields_DEFINED)
+#define IL2CPP_STRUCT_KwolokBossButtSlamBehaviour_KwolokBossButtSlamState_DEFINED
+struct KwolokBossButtSlamBehaviour_KwolokBossButtSlamState__Class;
+struct KwolokBossButtSlamBehaviour_KwolokBossButtSlamState {
+    struct KwolokBossButtSlamBehaviour_KwolokBossButtSlamState__Class* klass;
+    MonitorData* monitor;
+    struct KwolokBossButtSlamBehaviour_KwolokBossButtSlamState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KwolokBossButtSlamBehaviour_KwolokBossButtSlamState_FWDDECL)
+#define IL2CPP_STRUCT_KwolokBossButtSlamBehaviour_KwolokBossButtSlamState_FWDDECL
+#include <Modloader/app/structs/KwolokBossButtSlamBehaviour_KwolokBossButtSlamState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_KwolokBossButtSlamBehaviour_KwolokBossButtSlamState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossButtSlamBehaviour_KwolokBossButtSlamState_DEFINED) && !defined(IL2CPP_STRUCT_KwolokBossButtSlamBehaviour_KwolokBossButtSlamState_FWDDECL)
+#include <Modloader/app/structs/KwolokBossButtSlamBehaviour_KwolokBossButtSlamState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KwolokBossButtSlamBehaviour_KwolokBossButtSlamState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

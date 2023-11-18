@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob__DEFINED)
+#define IL2CPP_STRUCT_IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob__DEFINED
+struct IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob___Class;
+struct IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob_ {
+    struct IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob__FWDDECL)
+#define IL2CPP_STRUCT_IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob__FWDDECL
+#include <Modloader/app/structs/IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob__DEFINED) && !defined(IL2CPP_STRUCT_IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob__FWDDECL)
+#include <Modloader/app/structs/IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEqualityComparer_1_Moon_TimeSlicer_ITimeSlicedJob_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

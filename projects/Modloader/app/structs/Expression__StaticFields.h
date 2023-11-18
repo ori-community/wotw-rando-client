@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Expression__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Expression__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Expression__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_Expression__StaticFields_DEFINED
+struct CacheDict_2_System_Type_System_Reflection_MethodInfo_;
+struct CacheDict_2_System_Type_System_Func_5_;
+struct ConditionalWeakTable_2_System_Linq_Expressions_Expression_System_Linq_Expressions_Expression_ExtensionInfo_;
+struct Expression__StaticFields {
+    struct CacheDict_2_System_Type_System_Reflection_MethodInfo_* s_lambdaDelegateCache;
+    struct CacheDict_2_System_Type_System_Func_5_* s_lambdaFactories;
+    struct ConditionalWeakTable_2_System_Linq_Expressions_Expression_System_Linq_Expressions_Expression_ExtensionInfo_* s_legacyCtorSupportTable;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Expression__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_Expression__StaticFields_FWDDECL
+#include <Modloader/app/structs/CacheDict_2_System_Type_System_Func_5_.h>
+#include <Modloader/app/structs/CacheDict_2_System_Type_System_Reflection_MethodInfo_.h>
+#include <Modloader/app/structs/ConditionalWeakTable_2_Syste_Li_Expressio_Expressi_Syst_Li_Expressio_Expressi_ExtensionIn_.h>
+#endif
+#undef IL2CPP_STRUCT_Expression__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Expression__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_Expression__StaticFields_FWDDECL)
+#include <Modloader/app/structs/Expression__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Expression__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,145 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GroundMovingEntity__VTable_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GroundMovingEntity__VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GroundMovingEntity__VTable_DEFINED)
+#define IL2CPP_STRUCT_GroundMovingEntity__VTable_DEFINED
+struct GroundMovingEntity__VTable {
+    VirtualInvokeData Equals;
+    VirtualInvokeData Finalize;
+    VirtualInvokeData GetHashCode;
+    VirtualInvokeData ToString;
+    VirtualInvokeData get_Mask;
+    VirtualInvokeData set_Mask;
+    VirtualInvokeData get_IsSuspended;
+    VirtualInvokeData set_IsSuspended;
+    VirtualInvokeData Moon_IHitStopReceiver_get_gameObject;
+    VirtualInvokeData GetHitStopAutoSuspendables;
+    VirtualInvokeData OnHitStopStart;
+    VirtualInvokeData OnHitStopEnd;
+    VirtualInvokeData OnPoolSpawned;
+    VirtualInvokeData OnPoolDespawned;
+    VirtualInvokeData OnSceneRootPostEnable;
+    VirtualInvokeData GetResolverForType;
+    VirtualInvokeData get_BehaviourTree;
+    VirtualInvokeData ResolveDamage;
+    VirtualInvokeData get_UpdateType;
+    VirtualInvokeData OnUpdate;
+    VirtualInvokeData ShouldKillBubble;
+    VirtualInvokeData CreateTimelineParentEntity;
+    VirtualInvokeData get_AddChildren;
+    VirtualInvokeData get_InvalidateParentTimelineCache;
+    VirtualInvokeData set_InvalidateParentTimelineCache;
+    VirtualInvokeData get_ExternalID;
+    VirtualInvokeData get_TrackTranformChangesForRecording;
+    VirtualInvokeData get_TrackingExclusions;
+    VirtualInvokeData get_ParsingGroup;
+    VirtualInvokeData get_CameraTargetActive;
+    VirtualInvokeData get_CameraTargetPosition;
+    VirtualInvokeData get_CameraTargetPadding;
+    VirtualInvokeData get_CameraInfluencePosition;
+    VirtualInvokeData AdjustCameraTargetWeight;
+    VirtualInvokeData get_CameraInfluenceMinDist;
+    VirtualInvokeData get_CameraInfluenceMaxDist;
+    VirtualInvokeData get_CameraZoomFactor;
+    VirtualInvokeData get_TargetType;
+    VirtualInvokeData GetTargetData;
+    VirtualInvokeData IPortalVisitor_get_Position;
+    VirtualInvokeData IPortalVisitor_set_Position;
+    VirtualInvokeData IPortalVisitor_get_Speed;
+    VirtualInvokeData IPortalVisitor_set_Speed;
+    VirtualInvokeData OnGoThroughPortal;
+    VirtualInvokeData OnPortalOverlapEnter;
+    VirtualInvokeData OnPortalOverlapExit;
+    VirtualInvokeData Prewarm;
+    VirtualInvokeData get_IsSuspended_1;
+    VirtualInvokeData set_IsSuspended_1;
+    VirtualInvokeData get_CanOptimizeBehaviourTreeEvaluation;
+    VirtualInvokeData get_IsFacingTarget;
+    VirtualInvokeData get_IgnoreAllowedZonesIfFreed;
+    VirtualInvokeData get_ScreenPadding;
+    VirtualInvokeData IsBehaviourTreePaused;
+    VirtualInvokeData OnValidate;
+    VirtualInvokeData OnEnable;
+    VirtualInvokeData OnDisable;
+    VirtualInvokeData OnAwake;
+    VirtualInvokeData GetBehaviourTree;
+    VirtualInvokeData OnCacheSerializedComponents;
+    VirtualInvokeData UnserializedInitialization;
+    VirtualInvokeData Start;
+    VirtualInvokeData OnDestroy;
+    VirtualInvokeData MoonCleanup;
+    VirtualInvokeData OnUpdate_1;
+    VirtualInvokeData OnFixedUpdate;
+    VirtualInvokeData OnBeforeBehaviourTreeFixedUpdate;
+    VirtualInvokeData OnSuspendedStay;
+    VirtualInvokeData OnUpdate_2;
+    VirtualInvokeData EnterSpawningState;
+    VirtualInvokeData UpdateSpawningState;
+    VirtualInvokeData ExitSpawningState;
+    VirtualInvokeData EnterDecisionMakingState;
+    VirtualInvokeData UpdateDecisionMakingState;
+    VirtualInvokeData ExitDecisionMakingState;
+    VirtualInvokeData EnterReactionState;
+    VirtualInvokeData UpdateReactionState;
+    VirtualInvokeData ExitReactionState;
+    VirtualInvokeData EnterCinematicState;
+    VirtualInvokeData UpdateCinematicState;
+    VirtualInvokeData ExitCinematicState;
+    VirtualInvokeData GetActiveLocomotion;
+    VirtualInvokeData OnContactDamageDealt;
+    VirtualInvokeData OnHandleFireDamage;
+    VirtualInvokeData OnHandleIceDamage;
+    VirtualInvokeData OnDamageReceived;
+    VirtualInvokeData OnDamageBlocked;
+    VirtualInvokeData DeactivateDamageReceivers;
+    VirtualInvokeData InstantKill;
+    VirtualInvokeData OnDied;
+    VirtualInvokeData SpawnOrbs;
+    VirtualInvokeData OnDiedOutOfBounds;
+    VirtualInvokeData OnEndDeathBehaviour;
+    VirtualInvokeData OnPostRestoreCheckpoint;
+    VirtualInvokeData ResetEntity;
+    VirtualInvokeData GetHitStopAutoSuspendables_1;
+    VirtualInvokeData OnHitStopStart_1;
+    VirtualInvokeData OnHitStopEnd_1;
+    VirtualInvokeData OnPoolSpawned_1;
+    VirtualInvokeData IsFacingPoint;
+    VirtualInvokeData ResolveDamage_1;
+    VirtualInvokeData get_CameraTargetActive_1;
+    VirtualInvokeData get_CameraTargetPosition_1;
+    VirtualInvokeData get_CameraTargetPadding_1;
+    VirtualInvokeData get_CameraInfluenceMinDist_1;
+    VirtualInvokeData get_CameraInfluenceMaxDist_1;
+    VirtualInvokeData get_CameraZoomFactor_1;
+    VirtualInvokeData get_TargetType_1;
+    VirtualInvokeData AdjustCameraTargetWeight_1;
+    VirtualInvokeData get_IsAggroed;
+    VirtualInvokeData get_CanAttackTokenBeStolen;
+    VirtualInvokeData OnAttackTokenStolen;
+    VirtualInvokeData get_UsesHealthbar;
+    VirtualInvokeData get_ShouldApplySpawnPopFix;
+    VirtualInvokeData get_IsFlyingEnemy;
+    VirtualInvokeData get_UseDeathLoopTimeLimit;
+    VirtualInvokeData get_CanAttackTokenBeStolen_1;
+    VirtualInvokeData get_AutoResetSpotOriBool;
+    VirtualInvokeData TryGetPlatformMovement;
+    VirtualInvokeData ModifyKickbackForce;
+    VirtualInvokeData HandleFootstepEvents;
+    VirtualInvokeData get_ShouldPlayFootsteps;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_GroundMovingEntity__VTable_FWDDECL)
+#define IL2CPP_STRUCT_GroundMovingEntity__VTable_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_GroundMovingEntity__VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GroundMovingEntity__VTable_DEFINED) && !defined(IL2CPP_STRUCT_GroundMovingEntity__VTable_FWDDECL)
+#include <Modloader/app/structs/GroundMovingEntity__VTable.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GroundMovingEntity__VTable.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

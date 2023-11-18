@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Collection_1_Newtonsoft_Json_Serialization_JsonProperty__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Collection_1_Newtonsoft_Json_Serialization_JsonProperty__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Collection_1_Newtonsoft_Json_Serialization_JsonProperty__DEFINED)
+#include <Modloader/app/structs/Collection_1_Newtonsoft_Json_Serialization_JsonProperty___Fields.h>
+#if defined(IL2CPP_STRUCT_Collection_1_Newtonsoft_Json_Serialization_JsonProperty___Fields_DEFINED)
+#define IL2CPP_STRUCT_Collection_1_Newtonsoft_Json_Serialization_JsonProperty__DEFINED
+struct Collection_1_Newtonsoft_Json_Serialization_JsonProperty___Class;
+struct Collection_1_Newtonsoft_Json_Serialization_JsonProperty_ {
+    struct Collection_1_Newtonsoft_Json_Serialization_JsonProperty___Class* klass;
+    MonitorData* monitor;
+    struct Collection_1_Newtonsoft_Json_Serialization_JsonProperty___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Collection_1_Newtonsoft_Json_Serialization_JsonProperty__FWDDECL)
+#define IL2CPP_STRUCT_Collection_1_Newtonsoft_Json_Serialization_JsonProperty__FWDDECL
+#include <Modloader/app/structs/Collection_1_Newtonsoft_Json_Serialization_JsonProperty___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Collection_1_Newtonsoft_Json_Serialization_JsonProperty__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Collection_1_Newtonsoft_Json_Serialization_JsonProperty__DEFINED) && !defined(IL2CPP_STRUCT_Collection_1_Newtonsoft_Json_Serialization_JsonProperty__FWDDECL)
+#include <Modloader/app/structs/Collection_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Collection_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

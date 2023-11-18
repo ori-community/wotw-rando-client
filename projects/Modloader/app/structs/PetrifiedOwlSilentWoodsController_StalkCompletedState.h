@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkCompletedState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkCompletedState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkCompletedState_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlSilentWoodsController_StalkCompletedState__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkCompletedState__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkCompletedState_DEFINED
+struct PetrifiedOwlSilentWoodsController_StalkCompletedState__Class;
+struct PetrifiedOwlSilentWoodsController_StalkCompletedState {
+    struct PetrifiedOwlSilentWoodsController_StalkCompletedState__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlSilentWoodsController_StalkCompletedState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkCompletedState_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkCompletedState_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlSilentWoodsController_StalkCompletedState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkCompletedState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkCompletedState_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlSilentWoodsController_StalkCompletedState_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlSilentWoodsController_StalkCompletedState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlSilentWoodsController_StalkCompletedState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

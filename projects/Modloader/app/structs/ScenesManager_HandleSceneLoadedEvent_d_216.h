@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ScenesManager_HandleSceneLoadedEvent_d_216_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ScenesManager_HandleSceneLoadedEvent_d_216_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ScenesManager_HandleSceneLoadedEvent_d_216_DEFINED)
+#include <Modloader/app/structs/ScenesManager_HandleSceneLoadedEvent_d_216__Fields.h>
+#if defined(IL2CPP_STRUCT_ScenesManager_HandleSceneLoadedEvent_d_216__Fields_DEFINED)
+#define IL2CPP_STRUCT_ScenesManager_HandleSceneLoadedEvent_d_216_DEFINED
+struct ScenesManager_HandleSceneLoadedEvent_d_216__Class;
+struct ScenesManager_HandleSceneLoadedEvent_d_216 {
+    struct ScenesManager_HandleSceneLoadedEvent_d_216__Class* klass;
+    MonitorData* monitor;
+    struct ScenesManager_HandleSceneLoadedEvent_d_216__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ScenesManager_HandleSceneLoadedEvent_d_216_FWDDECL)
+#define IL2CPP_STRUCT_ScenesManager_HandleSceneLoadedEvent_d_216_FWDDECL
+#include <Modloader/app/structs/ScenesManager_HandleSceneLoadedEvent_d_216__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ScenesManager_HandleSceneLoadedEvent_d_216_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ScenesManager_HandleSceneLoadedEvent_d_216_DEFINED) && !defined(IL2CPP_STRUCT_ScenesManager_HandleSceneLoadedEvent_d_216_FWDDECL)
+#include <Modloader/app/structs/ScenesManager_HandleSceneLoadedEvent_d_216.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ScenesManager_HandleSceneLoadedEvent_d_216.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

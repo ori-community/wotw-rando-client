@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SequencePlatformB_SequencePlatformOnTouchSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SequencePlatformB_SequencePlatformOnTouchSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SequencePlatformB_SequencePlatformOnTouchSettings_DEFINED)
+#include <Modloader/app/structs/SequencePlatformB_SequencePlatformOnTouchSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_SequencePlatformB_SequencePlatformOnTouchSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_SequencePlatformB_SequencePlatformOnTouchSettings_DEFINED
+struct SequencePlatformB_SequencePlatformOnTouchSettings__Class;
+struct SequencePlatformB_SequencePlatformOnTouchSettings {
+    struct SequencePlatformB_SequencePlatformOnTouchSettings__Class* klass;
+    MonitorData* monitor;
+    struct SequencePlatformB_SequencePlatformOnTouchSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SequencePlatformB_SequencePlatformOnTouchSettings_FWDDECL)
+#define IL2CPP_STRUCT_SequencePlatformB_SequencePlatformOnTouchSettings_FWDDECL
+#include <Modloader/app/structs/SequencePlatformB_SequencePlatformOnTouchSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SequencePlatformB_SequencePlatformOnTouchSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SequencePlatformB_SequencePlatformOnTouchSettings_DEFINED) && !defined(IL2CPP_STRUCT_SequencePlatformB_SequencePlatformOnTouchSettings_FWDDECL)
+#include <Modloader/app/structs/SequencePlatformB_SequencePlatformOnTouchSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SequencePlatformB_SequencePlatformOnTouchSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

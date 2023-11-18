@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MultiplayerServerGameAssetDeletedEventPayload_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MultiplayerServerGameAssetDeletedEventPayload_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MultiplayerServerGameAssetDeletedEventPayload_DEFINED)
+#include <Modloader/app/structs/MultiplayerServerGameAssetDeletedEventPayload__Fields.h>
+#if defined(IL2CPP_STRUCT_MultiplayerServerGameAssetDeletedEventPayload__Fields_DEFINED)
+#define IL2CPP_STRUCT_MultiplayerServerGameAssetDeletedEventPayload_DEFINED
+struct MultiplayerServerGameAssetDeletedEventPayload__Class;
+struct MultiplayerServerGameAssetDeletedEventPayload {
+    struct MultiplayerServerGameAssetDeletedEventPayload__Class* klass;
+    MonitorData* monitor;
+    struct MultiplayerServerGameAssetDeletedEventPayload__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MultiplayerServerGameAssetDeletedEventPayload_FWDDECL)
+#define IL2CPP_STRUCT_MultiplayerServerGameAssetDeletedEventPayload_FWDDECL
+#include <Modloader/app/structs/MultiplayerServerGameAssetDeletedEventPayload__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MultiplayerServerGameAssetDeletedEventPayload_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MultiplayerServerGameAssetDeletedEventPayload_DEFINED) && !defined(IL2CPP_STRUCT_MultiplayerServerGameAssetDeletedEventPayload_FWDDECL)
+#include <Modloader/app/structs/MultiplayerServerGameAssetDeletedEventPayload.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MultiplayerServerGameAssetDeletedEventPayload.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

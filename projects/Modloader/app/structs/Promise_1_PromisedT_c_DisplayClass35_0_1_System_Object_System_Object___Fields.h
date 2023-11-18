@@ -1,0 +1,36 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Promise_1_PromisedT_c_DisplayClass35_0_1_System_Object_System_Object___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Promise_1_PromisedT_c_DisplayClass35_0_1_System_Object_System_Object___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Promise_1_PromisedT_c_DisplayClass35_0_1_System_Object_System_Object___Fields_DEFINED)
+#define IL2CPP_STRUCT_Promise_1_PromisedT_c_DisplayClass35_0_1_System_Object_System_Object___Fields_DEFINED
+struct Func_2_Object_ZenFulcrum_EmbeddedBrowser_IPromise_1_;
+struct Promise_1_System_Object_;
+struct Action_1_Exception_;
+struct Action_1_Object_;
+struct __declspec(align(8)) Promise_1_PromisedT_c_DisplayClass35_0_1_System_Object_System_Object___Fields {
+    struct Func_2_Object_ZenFulcrum_EmbeddedBrowser_IPromise_1_* onResolved;
+    struct Promise_1_System_Object_* resultPromise;
+    struct Action_1_Exception_* onRejected;
+    struct Action_1_Object_* __9__2;
+    struct Action_1_Exception_* __9__3;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Promise_1_PromisedT_c_DisplayClass35_0_1_System_Object_System_Object___Fields_FWDDECL)
+#define IL2CPP_STRUCT_Promise_1_PromisedT_c_DisplayClass35_0_1_System_Object_System_Object___Fields_FWDDECL
+#include <Modloader/app/structs/Action_1_Exception_.h>
+#include <Modloader/app/structs/Action_1_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_ZenFulcrum_EmbeddedBrowser_IPromise_1_.h>
+#include <Modloader/app/structs/Promise_1_System_Object_.h>
+#endif
+#undef IL2CPP_STRUCT_Promise_1_PromisedT_c_DisplayClass35_0_1_System_Object_System_Object___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Promise_1_PromisedT_c_DisplayClass35_0_1_System_Object_System_Object___Fields_DEFINED) && !defined(IL2CPP_STRUCT_Promise_1_PromisedT_c_DisplayClass35_0_1_System_Object_System_Object___Fields_FWDDECL)
+#include <Modloader/app/structs/Promise_1_PromisedT_c_DisplayClass35_0_1_System_Object_System_Object___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Promise_1_PromisedT_c_DisplayClass35_0_1_System_Object_System_Object___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

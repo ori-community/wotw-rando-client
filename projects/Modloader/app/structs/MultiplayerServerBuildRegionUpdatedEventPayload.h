@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MultiplayerServerBuildRegionUpdatedEventPayload_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MultiplayerServerBuildRegionUpdatedEventPayload_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MultiplayerServerBuildRegionUpdatedEventPayload_DEFINED)
+#include <Modloader/app/structs/MultiplayerServerBuildRegionUpdatedEventPayload__Fields.h>
+#if defined(IL2CPP_STRUCT_MultiplayerServerBuildRegionUpdatedEventPayload__Fields_DEFINED)
+#define IL2CPP_STRUCT_MultiplayerServerBuildRegionUpdatedEventPayload_DEFINED
+struct MultiplayerServerBuildRegionUpdatedEventPayload__Class;
+struct MultiplayerServerBuildRegionUpdatedEventPayload {
+    struct MultiplayerServerBuildRegionUpdatedEventPayload__Class* klass;
+    MonitorData* monitor;
+    struct MultiplayerServerBuildRegionUpdatedEventPayload__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MultiplayerServerBuildRegionUpdatedEventPayload_FWDDECL)
+#define IL2CPP_STRUCT_MultiplayerServerBuildRegionUpdatedEventPayload_FWDDECL
+#include <Modloader/app/structs/MultiplayerServerBuildRegionUpdatedEventPayload__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MultiplayerServerBuildRegionUpdatedEventPayload_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MultiplayerServerBuildRegionUpdatedEventPayload_DEFINED) && !defined(IL2CPP_STRUCT_MultiplayerServerBuildRegionUpdatedEventPayload_FWDDECL)
+#include <Modloader/app/structs/MultiplayerServerBuildRegionUpdatedEventPayload.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MultiplayerServerBuildRegionUpdatedEventPayload.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

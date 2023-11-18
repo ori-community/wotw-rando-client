@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IList_1_UberPoolGroupWarmer_PrewarmItem__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IList_1_UberPoolGroupWarmer_PrewarmItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IList_1_UberPoolGroupWarmer_PrewarmItem__DEFINED)
+#define IL2CPP_STRUCT_IList_1_UberPoolGroupWarmer_PrewarmItem__DEFINED
+struct IList_1_UberPoolGroupWarmer_PrewarmItem___Class;
+struct IList_1_UberPoolGroupWarmer_PrewarmItem_ {
+    struct IList_1_UberPoolGroupWarmer_PrewarmItem___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IList_1_UberPoolGroupWarmer_PrewarmItem__FWDDECL)
+#define IL2CPP_STRUCT_IList_1_UberPoolGroupWarmer_PrewarmItem__FWDDECL
+#include <Modloader/app/structs/IList_1_UberPoolGroupWarmer_PrewarmItem___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IList_1_UberPoolGroupWarmer_PrewarmItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IList_1_UberPoolGroupWarmer_PrewarmItem__DEFINED) && !defined(IL2CPP_STRUCT_IList_1_UberPoolGroupWarmer_PrewarmItem__FWDDECL)
+#include <Modloader/app/structs/IList_1_UberPoolGroupWarmer_PrewarmItem_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IList_1_UberPoolGroupWarmer_PrewarmItem_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

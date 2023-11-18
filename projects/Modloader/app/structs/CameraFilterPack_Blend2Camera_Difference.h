@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CameraFilterPack_Blend2Camera_Difference_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CameraFilterPack_Blend2Camera_Difference_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CameraFilterPack_Blend2Camera_Difference_DEFINED)
+#include <Modloader/app/structs/CameraFilterPack_Blend2Camera_Difference__Fields.h>
+#if defined(IL2CPP_STRUCT_CameraFilterPack_Blend2Camera_Difference__Fields_DEFINED)
+#define IL2CPP_STRUCT_CameraFilterPack_Blend2Camera_Difference_DEFINED
+struct CameraFilterPack_Blend2Camera_Difference__Class;
+struct CameraFilterPack_Blend2Camera_Difference {
+    struct CameraFilterPack_Blend2Camera_Difference__Class* klass;
+    MonitorData* monitor;
+    struct CameraFilterPack_Blend2Camera_Difference__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CameraFilterPack_Blend2Camera_Difference_FWDDECL)
+#define IL2CPP_STRUCT_CameraFilterPack_Blend2Camera_Difference_FWDDECL
+#include <Modloader/app/structs/CameraFilterPack_Blend2Camera_Difference__Class.h>
+#endif
+#undef IL2CPP_STRUCT_CameraFilterPack_Blend2Camera_Difference_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CameraFilterPack_Blend2Camera_Difference_DEFINED) && !defined(IL2CPP_STRUCT_CameraFilterPack_Blend2Camera_Difference_FWDDECL)
+#include <Modloader/app/structs/CameraFilterPack_Blend2Camera_Difference.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CameraFilterPack_Blend2Camera_Difference.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

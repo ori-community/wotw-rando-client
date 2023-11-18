@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TrackingValidationObjectDictionary__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TrackingValidationObjectDictionary__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TrackingValidationObjectDictionary__Fields_DEFINED)
+#include <Modloader/app/structs/StringDictionary__Fields.h>
+#if defined(IL2CPP_STRUCT_StringDictionary__Fields_DEFINED)
+#define IL2CPP_STRUCT_TrackingValidationObjectDictionary__Fields_DEFINED
+struct IDictionary_2_System_String_System_Object_;
+struct IDictionary_2_System_String_System_Net_TrackingValidationObjectDictionary_ValidateAndParseValue_;
+struct TrackingValidationObjectDictionary__Fields {
+    struct StringDictionary__Fields _;
+    struct IDictionary_2_System_String_System_Object_* internalObjects;
+    struct IDictionary_2_System_String_System_Net_TrackingValidationObjectDictionary_ValidateAndParseValue_* validators;
+    bool _IsChanged_k__BackingField;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TrackingValidationObjectDictionary__Fields_FWDDECL)
+#define IL2CPP_STRUCT_TrackingValidationObjectDictionary__Fields_FWDDECL
+#include <Modloader/app/structs/IDictionary_2_Syste_Strin_Syste_Ne_TrackingValidationObjectDictionar_ValidateAndParseValu_.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_Object_.h>
+#endif
+#undef IL2CPP_STRUCT_TrackingValidationObjectDictionary__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TrackingValidationObjectDictionary__Fields_DEFINED) && !defined(IL2CPP_STRUCT_TrackingValidationObjectDictionary__Fields_FWDDECL)
+#include <Modloader/app/structs/TrackingValidationObjectDictionary__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TrackingValidationObjectDictionary__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

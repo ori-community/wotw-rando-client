@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ICollection_1_SmartInput_ICachableInput__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ICollection_1_SmartInput_ICachableInput__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ICollection_1_SmartInput_ICachableInput__DEFINED)
+#define IL2CPP_STRUCT_ICollection_1_SmartInput_ICachableInput__DEFINED
+struct ICollection_1_SmartInput_ICachableInput___Class;
+struct ICollection_1_SmartInput_ICachableInput_ {
+    struct ICollection_1_SmartInput_ICachableInput___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ICollection_1_SmartInput_ICachableInput__FWDDECL)
+#define IL2CPP_STRUCT_ICollection_1_SmartInput_ICachableInput__FWDDECL
+#include <Modloader/app/structs/ICollection_1_SmartInput_ICachableInput___Class.h>
+#endif
+#undef IL2CPP_STRUCT_ICollection_1_SmartInput_ICachableInput__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ICollection_1_SmartInput_ICachableInput__DEFINED) && !defined(IL2CPP_STRUCT_ICollection_1_SmartInput_ICachableInput__FWDDECL)
+#include <Modloader/app/structs/ICollection_1_SmartInput_ICachableInput_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ICollection_1_SmartInput_ICachableInput_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_Moon_MoonAnimator_LayeredInstance__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_MoonAnimator_LayeredInstance__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_MoonAnimator_LayeredInstance__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_MoonAnimator_LayeredInstance__DEFINED
+struct IEnumerator_1_Moon_MoonAnimator_LayeredInstance___Class;
+struct IEnumerator_1_Moon_MoonAnimator_LayeredInstance_ {
+    struct IEnumerator_1_Moon_MoonAnimator_LayeredInstance___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_MoonAnimator_LayeredInstance__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_MoonAnimator_LayeredInstance__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_Moon_MoonAnimator_LayeredInstance___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_Moon_MoonAnimator_LayeredInstance__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_MoonAnimator_LayeredInstance__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_MoonAnimator_LayeredInstance__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_Moon_MoonAnimator_LayeredInstance_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_Moon_MoonAnimator_LayeredInstance_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

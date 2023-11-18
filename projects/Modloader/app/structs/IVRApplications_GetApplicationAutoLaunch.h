@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRApplications_GetApplicationAutoLaunch_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRApplications_GetApplicationAutoLaunch_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRApplications_GetApplicationAutoLaunch_DEFINED)
+#include <Modloader/app/structs/IVRApplications_GetApplicationAutoLaunch__Fields.h>
+#if defined(IL2CPP_STRUCT_IVRApplications_GetApplicationAutoLaunch__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVRApplications_GetApplicationAutoLaunch_DEFINED
+struct IVRApplications_GetApplicationAutoLaunch__Class;
+struct IVRApplications_GetApplicationAutoLaunch {
+    struct IVRApplications_GetApplicationAutoLaunch__Class* klass;
+    MonitorData* monitor;
+    struct IVRApplications_GetApplicationAutoLaunch__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVRApplications_GetApplicationAutoLaunch_FWDDECL)
+#define IL2CPP_STRUCT_IVRApplications_GetApplicationAutoLaunch_FWDDECL
+#include <Modloader/app/structs/IVRApplications_GetApplicationAutoLaunch__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVRApplications_GetApplicationAutoLaunch_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRApplications_GetApplicationAutoLaunch_DEFINED) && !defined(IL2CPP_STRUCT_IVRApplications_GetApplicationAutoLaunch_FWDDECL)
+#include <Modloader/app/structs/IVRApplications_GetApplicationAutoLaunch.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRApplications_GetApplicationAutoLaunch.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

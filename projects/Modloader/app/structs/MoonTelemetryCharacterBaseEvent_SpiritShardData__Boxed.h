@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MoonTelemetryCharacterBaseEvent_SpiritShardData__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MoonTelemetryCharacterBaseEvent_SpiritShardData__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonTelemetryCharacterBaseEvent_SpiritShardData__Boxed_DEFINED)
+#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_SpiritShardData.h>
+#if defined(IL2CPP_STRUCT_MoonTelemetryCharacterBaseEvent_SpiritShardData_DEFINED)
+#define IL2CPP_STRUCT_MoonTelemetryCharacterBaseEvent_SpiritShardData__Boxed_DEFINED
+struct MoonTelemetryCharacterBaseEvent_SpiritShardData__Class;
+struct MoonTelemetryCharacterBaseEvent_SpiritShardData__Boxed {
+    struct MoonTelemetryCharacterBaseEvent_SpiritShardData__Class* klass;
+    MonitorData* monitor;
+    struct MoonTelemetryCharacterBaseEvent_SpiritShardData fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MoonTelemetryCharacterBaseEvent_SpiritShardData__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_MoonTelemetryCharacterBaseEvent_SpiritShardData__Boxed_FWDDECL
+#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_SpiritShardData__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MoonTelemetryCharacterBaseEvent_SpiritShardData__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonTelemetryCharacterBaseEvent_SpiritShardData__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_MoonTelemetryCharacterBaseEvent_SpiritShardData__Boxed_FWDDECL)
+#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_SpiritShardData__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_SpiritShardData__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

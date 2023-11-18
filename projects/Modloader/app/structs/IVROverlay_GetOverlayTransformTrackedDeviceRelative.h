@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVROverlay_GetOverlayTransformTrackedDeviceRelative_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVROverlay_GetOverlayTransformTrackedDeviceRelative_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVROverlay_GetOverlayTransformTrackedDeviceRelative_DEFINED)
+#include <Modloader/app/structs/IVROverlay_GetOverlayTransformTrackedDeviceRelative__Fields.h>
+#if defined(IL2CPP_STRUCT_IVROverlay_GetOverlayTransformTrackedDeviceRelative__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVROverlay_GetOverlayTransformTrackedDeviceRelative_DEFINED
+struct IVROverlay_GetOverlayTransformTrackedDeviceRelative__Class;
+struct IVROverlay_GetOverlayTransformTrackedDeviceRelative {
+    struct IVROverlay_GetOverlayTransformTrackedDeviceRelative__Class* klass;
+    MonitorData* monitor;
+    struct IVROverlay_GetOverlayTransformTrackedDeviceRelative__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVROverlay_GetOverlayTransformTrackedDeviceRelative_FWDDECL)
+#define IL2CPP_STRUCT_IVROverlay_GetOverlayTransformTrackedDeviceRelative_FWDDECL
+#include <Modloader/app/structs/IVROverlay_GetOverlayTransformTrackedDeviceRelative__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVROverlay_GetOverlayTransformTrackedDeviceRelative_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVROverlay_GetOverlayTransformTrackedDeviceRelative_DEFINED) && !defined(IL2CPP_STRUCT_IVROverlay_GetOverlayTransformTrackedDeviceRelative_FWDDECL)
+#include <Modloader/app/structs/IVROverlay_GetOverlayTransformTrackedDeviceRelative.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVROverlay_GetOverlayTransformTrackedDeviceRelative.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

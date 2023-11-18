@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState_DEFINED
+struct PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState__Class;
+struct PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState {
+    struct PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossFight1FeatherFlurryBehaviour_LoopState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

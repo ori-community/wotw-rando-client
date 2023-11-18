@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__3__Class_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__3__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__3__Class_DEFINED)
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__3__VTable.h>
+#if defined(IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__3__VTable_DEFINED)
+#define IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__3__Class_DEFINED
+struct Comparison_1_System_Collections_Generic_KeyValuePair_2__3__StaticFields;
+struct Comparison_1_System_Collections_Generic_KeyValuePair_2__3__Class {
+    Il2CppClass_0 _0;
+    Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+    struct Comparison_1_System_Collections_Generic_KeyValuePair_2__3__StaticFields* static_fields;
+    const Il2CppRGCTXData* rgctx_data;
+    Il2CppClass_1 _1;
+    struct Comparison_1_System_Collections_Generic_KeyValuePair_2__3__VTable vtable;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__3__Class_FWDDECL)
+#define IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__3__Class_FWDDECL
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__3__StaticFields.h>
+#endif
+#undef IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__3__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__3__Class_DEFINED) && !defined(IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__3__Class_FWDDECL)
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__3__Class.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__3__Class.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

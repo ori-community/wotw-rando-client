@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DelegateSerializationHolder_DelegateEntry_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DelegateSerializationHolder_DelegateEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DelegateSerializationHolder_DelegateEntry_DEFINED)
+#include <Modloader/app/structs/DelegateSerializationHolder_DelegateEntry__Fields.h>
+#if defined(IL2CPP_STRUCT_DelegateSerializationHolder_DelegateEntry__Fields_DEFINED)
+#define IL2CPP_STRUCT_DelegateSerializationHolder_DelegateEntry_DEFINED
+struct DelegateSerializationHolder_DelegateEntry__Class;
+struct DelegateSerializationHolder_DelegateEntry {
+    struct DelegateSerializationHolder_DelegateEntry__Class* klass;
+    MonitorData* monitor;
+    struct DelegateSerializationHolder_DelegateEntry__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_DelegateSerializationHolder_DelegateEntry_FWDDECL)
+#define IL2CPP_STRUCT_DelegateSerializationHolder_DelegateEntry_FWDDECL
+#include <Modloader/app/structs/DelegateSerializationHolder_DelegateEntry__Class.h>
+#endif
+#undef IL2CPP_STRUCT_DelegateSerializationHolder_DelegateEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DelegateSerializationHolder_DelegateEntry_DEFINED) && !defined(IL2CPP_STRUCT_DelegateSerializationHolder_DelegateEntry_FWDDECL)
+#include <Modloader/app/structs/DelegateSerializationHolder_DelegateEntry.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DelegateSerializationHolder_DelegateEntry.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

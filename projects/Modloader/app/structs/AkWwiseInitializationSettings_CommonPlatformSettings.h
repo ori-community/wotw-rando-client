@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AkWwiseInitializationSettings_CommonPlatformSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AkWwiseInitializationSettings_CommonPlatformSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AkWwiseInitializationSettings_CommonPlatformSettings_DEFINED)
+#include <Modloader/app/structs/AkWwiseInitializationSettings_CommonPlatformSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_AkWwiseInitializationSettings_CommonPlatformSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_AkWwiseInitializationSettings_CommonPlatformSettings_DEFINED
+struct AkWwiseInitializationSettings_CommonPlatformSettings__Class;
+struct AkWwiseInitializationSettings_CommonPlatformSettings {
+    struct AkWwiseInitializationSettings_CommonPlatformSettings__Class* klass;
+    MonitorData* monitor;
+    struct AkWwiseInitializationSettings_CommonPlatformSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AkWwiseInitializationSettings_CommonPlatformSettings_FWDDECL)
+#define IL2CPP_STRUCT_AkWwiseInitializationSettings_CommonPlatformSettings_FWDDECL
+#include <Modloader/app/structs/AkWwiseInitializationSettings_CommonPlatformSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_AkWwiseInitializationSettings_CommonPlatformSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AkWwiseInitializationSettings_CommonPlatformSettings_DEFINED) && !defined(IL2CPP_STRUCT_AkWwiseInitializationSettings_CommonPlatformSettings_FWDDECL)
+#include <Modloader/app/structs/AkWwiseInitializationSettings_CommonPlatformSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AkWwiseInitializationSettings_CommonPlatformSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

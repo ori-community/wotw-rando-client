@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ThreadLocal_1_System_Object___StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ThreadLocal_1_System_Object___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ThreadLocal_1_System_Object___StaticFields_DEFINED)
+#define IL2CPP_STRUCT_ThreadLocal_1_System_Object___StaticFields_DEFINED
+struct ThreadLocal_1_T_LinkedSlotVolatile_System_Object___Array;
+struct ThreadLocal_1_T_FinalizationHelper_System_Object_;
+struct ThreadLocal_1_T_IdManager_System_Object_;
+struct ThreadLocal_1_System_Object___StaticFields {
+    struct ThreadLocal_1_T_LinkedSlotVolatile_System_Object___Array* ts_slotArray;
+    struct ThreadLocal_1_T_FinalizationHelper_System_Object_* ts_finalizationHelper;
+    struct ThreadLocal_1_T_IdManager_System_Object_* s_idManager;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ThreadLocal_1_System_Object___StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_ThreadLocal_1_System_Object___StaticFields_FWDDECL
+#include <Modloader/app/structs/ThreadLocal_1_T_FinalizationHelper_System_Object_.h>
+#include <Modloader/app/structs/ThreadLocal_1_T_IdManager_System_Object_.h>
+#include <Modloader/app/structs/ThreadLocal_1_T_LinkedSlotVolatile_System_Object___Array.h>
+#endif
+#undef IL2CPP_STRUCT_ThreadLocal_1_System_Object___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ThreadLocal_1_System_Object___StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_ThreadLocal_1_System_Object___StaticFields_FWDDECL)
+#include <Modloader/app/structs/ThreadLocal_1_System_Object___StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ThreadLocal_1_System_Object___StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

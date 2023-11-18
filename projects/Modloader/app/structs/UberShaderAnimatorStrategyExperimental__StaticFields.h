@@ -1,0 +1,37 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental__StaticFields_DEFINED
+struct UberShaderAnimatorStrategyExperimental_ColorValue__Array;
+struct UberShaderAnimatorStrategyExperimental_FloatValue__Array;
+struct UberShaderAnimatorStrategyExperimental_VectorValue__Array;
+struct Boolean__Array;
+struct UberShaderAnimatorStrategyExperimental__StaticFields {
+    struct UberShaderAnimatorStrategyExperimental_ColorValue__Array* m_colorBuffer;
+    struct UberShaderAnimatorStrategyExperimental_FloatValue__Array* m_floatBuffer;
+    struct UberShaderAnimatorStrategyExperimental_VectorValue__Array* m_vectorBuffer;
+    struct Boolean__Array* m_isColorAnimatable;
+    struct Boolean__Array* m_isFloatAnimatable;
+    struct Boolean__Array* m_isVectorAnimatable;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental__StaticFields_FWDDECL
+#include <Modloader/app/structs/Boolean__Array.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_ColorValue__Array.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_FloatValue__Array.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorValue__Array.h>
+#endif
+#undef IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental__StaticFields_FWDDECL)
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

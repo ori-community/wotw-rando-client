@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_LinkedList_1_T_Enumerator_System_Net_WebConnectionGroup_ConnectionState__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_LinkedList_1_T_Enumerator_System_Net_WebConnectionGroup_ConnectionState__INITIALIZING
+#if !defined(IL2CPP_STRUCT_LinkedList_1_T_Enumerator_System_Net_WebConnectionGroup_ConnectionState__DEFINED)
+#define IL2CPP_STRUCT_LinkedList_1_T_Enumerator_System_Net_WebConnectionGroup_ConnectionState__DEFINED
+struct LinkedList_1_System_Net_WebConnectionGroup_ConnectionState_;
+struct LinkedListNode_1_System_Net_WebConnectionGroup_ConnectionState_;
+struct WebConnectionGroup_ConnectionState;
+struct LinkedList_1_T_Enumerator_System_Net_WebConnectionGroup_ConnectionState_ {
+    struct LinkedList_1_System_Net_WebConnectionGroup_ConnectionState_* _list;
+    struct LinkedListNode_1_System_Net_WebConnectionGroup_ConnectionState_* _node;
+    int32_t _version;
+    struct WebConnectionGroup_ConnectionState* _current;
+    int32_t _index;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_LinkedList_1_T_Enumerator_System_Net_WebConnectionGroup_ConnectionState__FWDDECL)
+#define IL2CPP_STRUCT_LinkedList_1_T_Enumerator_System_Net_WebConnectionGroup_ConnectionState__FWDDECL
+#include <Modloader/app/structs/LinkedListNode_1_System_Net_WebConnectionGroup_ConnectionState_.h>
+#include <Modloader/app/structs/LinkedList_1_System_Net_WebConnectionGroup_ConnectionState_.h>
+#include <Modloader/app/structs/WebConnectionGroup_ConnectionState.h>
+#endif
+#undef IL2CPP_STRUCT_LinkedList_1_T_Enumerator_System_Net_WebConnectionGroup_ConnectionState__INITIALIZING
+#if !defined(IL2CPP_STRUCT_LinkedList_1_T_Enumerator_System_Net_WebConnectionGroup_ConnectionState__DEFINED) && !defined(IL2CPP_STRUCT_LinkedList_1_T_Enumerator_System_Net_WebConnectionGroup_ConnectionState__FWDDECL)
+#include <Modloader/app/structs/LinkedList_1_T_Enumerator_System_Net_WebConnectionGroup_ConnectionState_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/LinkedList_1_T_Enumerator_System_Net_WebConnectionGroup_ConnectionState_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

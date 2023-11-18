@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_DitherOffset_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_DitherOffset_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_DitherOffset_DEFINED)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_DitherOffset_DEFINED
+struct ShaderID_CameraFilterPack_Blur_DitherOffset__Class;
+struct ShaderID_CameraFilterPack_Blur_DitherOffset {
+    struct ShaderID_CameraFilterPack_Blur_DitherOffset__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_DitherOffset_FWDDECL)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_DitherOffset_FWDDECL
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Blur_DitherOffset__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_DitherOffset_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_DitherOffset_DEFINED) && !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_DitherOffset_FWDDECL)
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Blur_DitherOffset.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Blur_DitherOffset.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

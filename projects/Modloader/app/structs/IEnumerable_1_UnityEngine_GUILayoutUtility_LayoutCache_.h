@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache__DEFINED)
+#define IL2CPP_STRUCT_IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache__DEFINED
+struct IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache___Class;
+struct IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache_ {
+    struct IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache__FWDDECL
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache__FWDDECL)
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_GUILayoutUtility_LayoutCache_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

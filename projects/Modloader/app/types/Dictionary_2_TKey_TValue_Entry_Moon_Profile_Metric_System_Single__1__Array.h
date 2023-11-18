@@ -1,0 +1,24 @@
+#pragma once
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_Moon_Profile_Metric_System_Single__1__Array.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_Moon_Profile_Metric_System_Single__1__Array__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+
+namespace app::classes::types {
+    namespace Dictionary_2_TKey_TValue_Entry_Moon_Profile_Metric_System_Single__1__Array {
+        inline app::Dictionary_2_TKey_TValue_Entry_Moon_Profile_Metric_System_Single__1__Array__Class** type_info() {
+            static app::Dictionary_2_TKey_TValue_Entry_Moon_Profile_Metric_System_Single__1__Array__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Dictionary_2_TKey_TValue_Entry_Moon_Profile_Metric_System_Single__1__Array__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
+        }
+        inline app::Dictionary_2_TKey_TValue_Entry_Moon_Profile_Metric_System_Single__1__Array__Class* get_class() {
+            return il2cpp::get_class<app::Dictionary_2_TKey_TValue_Entry_Moon_Profile_Metric_System_Single__1__Array__Class>(type_info(), "System.Collections.Generic", "Dictionary`2[TKey,TValue]+Entry[Moon.Profile.Metric,System.Single[]][]");
+        }
+        inline app::Dictionary_2_TKey_TValue_Entry_Moon_Profile_Metric_System_Single__1__Array* create() {
+            return il2cpp::create_object<app::Dictionary_2_TKey_TValue_Entry_Moon_Profile_Metric_System_Single__1__Array>(get_class());
+        }
+    } // namespace Dictionary_2_TKey_TValue_Entry_Moon_Profile_Metric_System_Single__1__Array
+} // namespace app::classes::types

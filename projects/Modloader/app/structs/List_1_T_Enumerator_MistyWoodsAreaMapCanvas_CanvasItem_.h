@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_MistyWoodsAreaMapCanvas_CanvasItem__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_MistyWoodsAreaMapCanvas_CanvasItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_MistyWoodsAreaMapCanvas_CanvasItem__DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_MistyWoodsAreaMapCanvas_CanvasItem__DEFINED
+struct List_1_MistyWoodsAreaMapCanvas_CanvasItem_;
+struct MistyWoodsAreaMapCanvas_CanvasItem;
+struct List_1_T_Enumerator_MistyWoodsAreaMapCanvas_CanvasItem_ {
+    struct List_1_MistyWoodsAreaMapCanvas_CanvasItem_* list;
+    int32_t index;
+    int32_t version;
+    struct MistyWoodsAreaMapCanvas_CanvasItem* current;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_MistyWoodsAreaMapCanvas_CanvasItem__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_MistyWoodsAreaMapCanvas_CanvasItem__FWDDECL
+#include <Modloader/app/structs/List_1_MistyWoodsAreaMapCanvas_CanvasItem_.h>
+#include <Modloader/app/structs/MistyWoodsAreaMapCanvas_CanvasItem.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_MistyWoodsAreaMapCanvas_CanvasItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_MistyWoodsAreaMapCanvas_CanvasItem__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_MistyWoodsAreaMapCanvas_CanvasItem__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_MistyWoodsAreaMapCanvas_CanvasItem_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_MistyWoodsAreaMapCanvas_CanvasItem_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,26 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_EqualityComparer_1_UnityEngine_UI_Navigation___StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_EqualityComparer_1_UnityEngine_UI_Navigation___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EqualityComparer_1_UnityEngine_UI_Navigation___StaticFields_DEFINED)
+#define IL2CPP_STRUCT_EqualityComparer_1_UnityEngine_UI_Navigation___StaticFields_DEFINED
+struct EqualityComparer_1_UnityEngine_UI_Navigation_;
+struct EqualityComparer_1_UnityEngine_UI_Navigation___StaticFields {
+    struct EqualityComparer_1_UnityEngine_UI_Navigation_* defaultComparer;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_EqualityComparer_1_UnityEngine_UI_Navigation___StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_EqualityComparer_1_UnityEngine_UI_Navigation___StaticFields_FWDDECL
+#include <Modloader/app/structs/EqualityComparer_1_UnityEngine_UI_Navigation_.h>
+#endif
+#undef IL2CPP_STRUCT_EqualityComparer_1_UnityEngine_UI_Navigation___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EqualityComparer_1_UnityEngine_UI_Navigation___StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_EqualityComparer_1_UnityEngine_UI_Navigation___StaticFields_FWDDECL)
+#include <Modloader/app/structs/EqualityComparer_1_UnityEngine_UI_Navigation___StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/EqualityComparer_1_UnityEngine_UI_Navigation___StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

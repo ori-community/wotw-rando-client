@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_PlayFab_ServerModels_RevokeInventoryItem__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_PlayFab_ServerModels_RevokeInventoryItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_PlayFab_ServerModels_RevokeInventoryItem__DEFINED)
+#include <Modloader/app/structs/List_1_PlayFab_ServerModels_RevokeInventoryItem___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_PlayFab_ServerModels_RevokeInventoryItem___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_PlayFab_ServerModels_RevokeInventoryItem__DEFINED
+struct List_1_PlayFab_ServerModels_RevokeInventoryItem___Class;
+struct List_1_PlayFab_ServerModels_RevokeInventoryItem_ {
+    struct List_1_PlayFab_ServerModels_RevokeInventoryItem___Class* klass;
+    MonitorData* monitor;
+    struct List_1_PlayFab_ServerModels_RevokeInventoryItem___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_PlayFab_ServerModels_RevokeInventoryItem__FWDDECL)
+#define IL2CPP_STRUCT_List_1_PlayFab_ServerModels_RevokeInventoryItem__FWDDECL
+#include <Modloader/app/structs/List_1_PlayFab_ServerModels_RevokeInventoryItem___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_PlayFab_ServerModels_RevokeInventoryItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_PlayFab_ServerModels_RevokeInventoryItem__DEFINED) && !defined(IL2CPP_STRUCT_List_1_PlayFab_ServerModels_RevokeInventoryItem__FWDDECL)
+#include <Modloader/app/structs/List_1_PlayFab_ServerModels_RevokeInventoryItem_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_PlayFab_ServerModels_RevokeInventoryItem_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

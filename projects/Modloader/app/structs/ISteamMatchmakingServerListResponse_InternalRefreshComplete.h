@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_InternalRefreshComplete_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_InternalRefreshComplete_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_InternalRefreshComplete_DEFINED)
+#include <Modloader/app/structs/ISteamMatchmakingServerListResponse_InternalRefreshComplete__Fields.h>
+#if defined(IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_InternalRefreshComplete__Fields_DEFINED)
+#define IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_InternalRefreshComplete_DEFINED
+struct ISteamMatchmakingServerListResponse_InternalRefreshComplete__Class;
+struct ISteamMatchmakingServerListResponse_InternalRefreshComplete {
+    struct ISteamMatchmakingServerListResponse_InternalRefreshComplete__Class* klass;
+    MonitorData* monitor;
+    struct ISteamMatchmakingServerListResponse_InternalRefreshComplete__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_InternalRefreshComplete_FWDDECL)
+#define IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_InternalRefreshComplete_FWDDECL
+#include <Modloader/app/structs/ISteamMatchmakingServerListResponse_InternalRefreshComplete__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_InternalRefreshComplete_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_InternalRefreshComplete_DEFINED) && !defined(IL2CPP_STRUCT_ISteamMatchmakingServerListResponse_InternalRefreshComplete_FWDDECL)
+#include <Modloader/app/structs/ISteamMatchmakingServerListResponse_InternalRefreshComplete.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ISteamMatchmakingServerListResponse_InternalRefreshComplete.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

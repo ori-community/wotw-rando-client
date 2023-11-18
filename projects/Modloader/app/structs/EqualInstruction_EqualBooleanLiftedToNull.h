@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_EqualInstruction_EqualBooleanLiftedToNull_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_EqualInstruction_EqualBooleanLiftedToNull_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EqualInstruction_EqualBooleanLiftedToNull_DEFINED)
+#define IL2CPP_STRUCT_EqualInstruction_EqualBooleanLiftedToNull_DEFINED
+struct EqualInstruction_EqualBooleanLiftedToNull__Class;
+struct EqualInstruction_EqualBooleanLiftedToNull {
+    struct EqualInstruction_EqualBooleanLiftedToNull__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_EqualInstruction_EqualBooleanLiftedToNull_FWDDECL)
+#define IL2CPP_STRUCT_EqualInstruction_EqualBooleanLiftedToNull_FWDDECL
+#include <Modloader/app/structs/EqualInstruction_EqualBooleanLiftedToNull__Class.h>
+#endif
+#undef IL2CPP_STRUCT_EqualInstruction_EqualBooleanLiftedToNull_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EqualInstruction_EqualBooleanLiftedToNull_DEFINED) && !defined(IL2CPP_STRUCT_EqualInstruction_EqualBooleanLiftedToNull_FWDDECL)
+#include <Modloader/app/structs/EqualInstruction_EqualBooleanLiftedToNull.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/EqualInstruction_EqualBooleanLiftedToNull.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

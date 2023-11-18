@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput__DEFINED)
+#include <Modloader/app/structs/KeyCode__Enum.h>
+#if defined(IL2CPP_STRUCT_KeyCode__Enum_DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput__DEFINED
+struct KeyCodeButtonInput;
+struct KeyValuePair_2_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput_ {
+    KeyCode__Enum key;
+
+    struct KeyCodeButtonInput* value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput__FWDDECL
+#include <Modloader/app/structs/KeyCodeButtonInput.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XalService_XalPlatformStorageReadEventHandler_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XalService_XalPlatformStorageReadEventHandler_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XalService_XalPlatformStorageReadEventHandler_DEFINED)
+#include <Modloader/app/structs/XalService_XalPlatformStorageReadEventHandler__Fields.h>
+#if defined(IL2CPP_STRUCT_XalService_XalPlatformStorageReadEventHandler__Fields_DEFINED)
+#define IL2CPP_STRUCT_XalService_XalPlatformStorageReadEventHandler_DEFINED
+struct XalService_XalPlatformStorageReadEventHandler__Class;
+struct XalService_XalPlatformStorageReadEventHandler {
+    struct XalService_XalPlatformStorageReadEventHandler__Class* klass;
+    MonitorData* monitor;
+    struct XalService_XalPlatformStorageReadEventHandler__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_XalService_XalPlatformStorageReadEventHandler_FWDDECL)
+#define IL2CPP_STRUCT_XalService_XalPlatformStorageReadEventHandler_FWDDECL
+#include <Modloader/app/structs/XalService_XalPlatformStorageReadEventHandler__Class.h>
+#endif
+#undef IL2CPP_STRUCT_XalService_XalPlatformStorageReadEventHandler_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XalService_XalPlatformStorageReadEventHandler_DEFINED) && !defined(IL2CPP_STRUCT_XalService_XalPlatformStorageReadEventHandler_FWDDECL)
+#include <Modloader/app/structs/XalService_XalPlatformStorageReadEventHandler.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XalService_XalPlatformStorageReadEventHandler.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_UberID_Moon_UberStateVisualization_ListViewItem__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_UberID_Moon_UberStateVisualization_ListViewItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_UberID_Moon_UberStateVisualization_ListViewItem__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_UberID_Moon_UberStateVisualization_ListViewItem__DEFINED
+struct UberID;
+struct ListViewItem;
+struct Dictionary_2_TKey_TValue_Entry_Moon_UberID_Moon_UberStateVisualization_ListViewItem_ {
+    int32_t hashCode;
+    int32_t next;
+    struct UberID* key;
+    struct ListViewItem* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_UberID_Moon_UberStateVisualization_ListViewItem__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_UberID_Moon_UberStateVisualization_ListViewItem__FWDDECL
+#include <Modloader/app/structs/ListViewItem.h>
+#include <Modloader/app/structs/UberID.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_UberID_Moon_UberStateVisualization_ListViewItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_UberID_Moon_UberStateVisualization_ListViewItem__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_UberID_Moon_UberStateVisualization_ListViewItem__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_Moon_UberID_Moon_UberStateVisualization_ListViewItem_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_Moon_UberID_Moon_UberStateVisualization_ListViewItem_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

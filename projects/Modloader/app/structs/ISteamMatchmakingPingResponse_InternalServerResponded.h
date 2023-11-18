@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ISteamMatchmakingPingResponse_InternalServerResponded_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ISteamMatchmakingPingResponse_InternalServerResponded_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingPingResponse_InternalServerResponded_DEFINED)
+#include <Modloader/app/structs/ISteamMatchmakingPingResponse_InternalServerResponded__Fields.h>
+#if defined(IL2CPP_STRUCT_ISteamMatchmakingPingResponse_InternalServerResponded__Fields_DEFINED)
+#define IL2CPP_STRUCT_ISteamMatchmakingPingResponse_InternalServerResponded_DEFINED
+struct ISteamMatchmakingPingResponse_InternalServerResponded__Class;
+struct ISteamMatchmakingPingResponse_InternalServerResponded {
+    struct ISteamMatchmakingPingResponse_InternalServerResponded__Class* klass;
+    MonitorData* monitor;
+    struct ISteamMatchmakingPingResponse_InternalServerResponded__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingPingResponse_InternalServerResponded_FWDDECL)
+#define IL2CPP_STRUCT_ISteamMatchmakingPingResponse_InternalServerResponded_FWDDECL
+#include <Modloader/app/structs/ISteamMatchmakingPingResponse_InternalServerResponded__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ISteamMatchmakingPingResponse_InternalServerResponded_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingPingResponse_InternalServerResponded_DEFINED) && !defined(IL2CPP_STRUCT_ISteamMatchmakingPingResponse_InternalServerResponded_FWDDECL)
+#include <Modloader/app/structs/ISteamMatchmakingPingResponse_InternalServerResponded.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ISteamMatchmakingPingResponse_InternalServerResponded.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

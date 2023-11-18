@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MoonTelemetryPlayerSuspendScreenClosedEvent_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MoonTelemetryPlayerSuspendScreenClosedEvent_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonTelemetryPlayerSuspendScreenClosedEvent_DEFINED)
+#include <Modloader/app/structs/MoonTelemetryPlayerSuspendScreenClosedEvent__Fields.h>
+#if defined(IL2CPP_STRUCT_MoonTelemetryPlayerSuspendScreenClosedEvent__Fields_DEFINED)
+#define IL2CPP_STRUCT_MoonTelemetryPlayerSuspendScreenClosedEvent_DEFINED
+struct MoonTelemetryPlayerSuspendScreenClosedEvent__Class;
+struct MoonTelemetryPlayerSuspendScreenClosedEvent {
+    struct MoonTelemetryPlayerSuspendScreenClosedEvent__Class* klass;
+    MonitorData* monitor;
+    struct MoonTelemetryPlayerSuspendScreenClosedEvent__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MoonTelemetryPlayerSuspendScreenClosedEvent_FWDDECL)
+#define IL2CPP_STRUCT_MoonTelemetryPlayerSuspendScreenClosedEvent_FWDDECL
+#include <Modloader/app/structs/MoonTelemetryPlayerSuspendScreenClosedEvent__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MoonTelemetryPlayerSuspendScreenClosedEvent_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonTelemetryPlayerSuspendScreenClosedEvent_DEFINED) && !defined(IL2CPP_STRUCT_MoonTelemetryPlayerSuspendScreenClosedEvent_FWDDECL)
+#include <Modloader/app/structs/MoonTelemetryPlayerSuspendScreenClosedEvent.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MoonTelemetryPlayerSuspendScreenClosedEvent.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

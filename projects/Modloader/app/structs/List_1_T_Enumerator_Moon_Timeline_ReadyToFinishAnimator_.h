@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_Moon_Timeline_ReadyToFinishAnimator__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_Timeline_ReadyToFinishAnimator__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_Timeline_ReadyToFinishAnimator__DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_Timeline_ReadyToFinishAnimator__DEFINED
+struct List_1_Moon_Timeline_ReadyToFinishAnimator_;
+struct ReadyToFinishAnimator;
+struct List_1_T_Enumerator_Moon_Timeline_ReadyToFinishAnimator_ {
+    struct List_1_Moon_Timeline_ReadyToFinishAnimator_* list;
+    int32_t index;
+    int32_t version;
+    struct ReadyToFinishAnimator* current;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_Timeline_ReadyToFinishAnimator__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_Timeline_ReadyToFinishAnimator__FWDDECL
+#include <Modloader/app/structs/List_1_Moon_Timeline_ReadyToFinishAnimator_.h>
+#include <Modloader/app/structs/ReadyToFinishAnimator.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_Moon_Timeline_ReadyToFinishAnimator__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_Timeline_ReadyToFinishAnimator__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_Timeline_ReadyToFinishAnimator__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_ReadyToFinishAnimator_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_ReadyToFinishAnimator_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

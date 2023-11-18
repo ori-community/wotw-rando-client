@@ -1,0 +1,24 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3_DEFINED)
+#define IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3_DEFINED
+struct CameraProperties_layerCullDistances_FixedBuffer3 {
+    float FixedElementField;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3_FWDDECL)
+#define IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3_DEFINED) && !defined(IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3_FWDDECL)
+#include <Modloader/app/structs/CameraProperties_layerCullDistances_FixedBuffer3.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CameraProperties_layerCullDistances_FixedBuffer3.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

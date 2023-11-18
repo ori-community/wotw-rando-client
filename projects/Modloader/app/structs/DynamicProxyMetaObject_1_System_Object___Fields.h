@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DynamicProxyMetaObject_1_System_Object___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DynamicProxyMetaObject_1_System_Object___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DynamicProxyMetaObject_1_System_Object___Fields_DEFINED)
+#include <Modloader/app/structs/DynamicMetaObject__Fields.h>
+#if defined(IL2CPP_STRUCT_DynamicMetaObject__Fields_DEFINED)
+#define IL2CPP_STRUCT_DynamicProxyMetaObject_1_System_Object___Fields_DEFINED
+struct DynamicProxy_1_System_Object_;
+struct DynamicProxyMetaObject_1_System_Object___Fields {
+    struct DynamicMetaObject__Fields _;
+    struct DynamicProxy_1_System_Object_* _proxy;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_DynamicProxyMetaObject_1_System_Object___Fields_FWDDECL)
+#define IL2CPP_STRUCT_DynamicProxyMetaObject_1_System_Object___Fields_FWDDECL
+#include <Modloader/app/structs/DynamicProxy_1_System_Object_.h>
+#endif
+#undef IL2CPP_STRUCT_DynamicProxyMetaObject_1_System_Object___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DynamicProxyMetaObject_1_System_Object___Fields_DEFINED) && !defined(IL2CPP_STRUCT_DynamicProxyMetaObject_1_System_Object___Fields_FWDDECL)
+#include <Modloader/app/structs/DynamicProxyMetaObject_1_System_Object___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DynamicProxyMetaObject_1_System_Object___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

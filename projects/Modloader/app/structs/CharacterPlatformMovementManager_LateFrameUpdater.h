@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CharacterPlatformMovementManager_LateFrameUpdater_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CharacterPlatformMovementManager_LateFrameUpdater_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CharacterPlatformMovementManager_LateFrameUpdater_DEFINED)
+#include <Modloader/app/structs/CharacterPlatformMovementManager_LateFrameUpdater__Fields.h>
+#if defined(IL2CPP_STRUCT_CharacterPlatformMovementManager_LateFrameUpdater__Fields_DEFINED)
+#define IL2CPP_STRUCT_CharacterPlatformMovementManager_LateFrameUpdater_DEFINED
+struct CharacterPlatformMovementManager_LateFrameUpdater__Class;
+struct CharacterPlatformMovementManager_LateFrameUpdater {
+    struct CharacterPlatformMovementManager_LateFrameUpdater__Class* klass;
+    MonitorData* monitor;
+    struct CharacterPlatformMovementManager_LateFrameUpdater__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CharacterPlatformMovementManager_LateFrameUpdater_FWDDECL)
+#define IL2CPP_STRUCT_CharacterPlatformMovementManager_LateFrameUpdater_FWDDECL
+#include <Modloader/app/structs/CharacterPlatformMovementManager_LateFrameUpdater__Class.h>
+#endif
+#undef IL2CPP_STRUCT_CharacterPlatformMovementManager_LateFrameUpdater_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CharacterPlatformMovementManager_LateFrameUpdater_DEFINED) && !defined(IL2CPP_STRUCT_CharacterPlatformMovementManager_LateFrameUpdater_FWDDECL)
+#include <Modloader/app/structs/CharacterPlatformMovementManager_LateFrameUpdater.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CharacterPlatformMovementManager_LateFrameUpdater.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

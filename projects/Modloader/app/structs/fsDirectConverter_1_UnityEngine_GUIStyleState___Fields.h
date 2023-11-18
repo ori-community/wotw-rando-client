@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_GUIStyleState___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_GUIStyleState___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_GUIStyleState___Fields_DEFINED)
+#include <Modloader/app/structs/fsDirectConverter__Fields.h>
+#if defined(IL2CPP_STRUCT_fsDirectConverter__Fields_DEFINED)
+#define IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_GUIStyleState___Fields_DEFINED
+struct fsDirectConverter_1_UnityEngine_GUIStyleState___Fields {
+    struct fsDirectConverter__Fields _;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_GUIStyleState___Fields_FWDDECL)
+#define IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_GUIStyleState___Fields_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_GUIStyleState___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_GUIStyleState___Fields_DEFINED) && !defined(IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_GUIStyleState___Fields_FWDDECL)
+#include <Modloader/app/structs/fsDirectConverter_1_UnityEngine_GUIStyleState___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/fsDirectConverter_1_UnityEngine_GUIStyleState___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

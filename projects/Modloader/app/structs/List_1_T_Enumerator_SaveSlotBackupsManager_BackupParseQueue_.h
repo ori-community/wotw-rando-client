@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_SaveSlotBackupsManager_BackupParseQueue__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_SaveSlotBackupsManager_BackupParseQueue__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_SaveSlotBackupsManager_BackupParseQueue__DEFINED)
+#include <Modloader/app/structs/SaveSlotBackupsManager_BackupParseQueue.h>
+#if defined(IL2CPP_STRUCT_SaveSlotBackupsManager_BackupParseQueue_DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_SaveSlotBackupsManager_BackupParseQueue__DEFINED
+struct List_1_SaveSlotBackupsManager_BackupParseQueue_;
+struct List_1_T_Enumerator_SaveSlotBackupsManager_BackupParseQueue_ {
+    struct List_1_SaveSlotBackupsManager_BackupParseQueue_* list;
+    int32_t index;
+    int32_t version;
+    struct SaveSlotBackupsManager_BackupParseQueue current;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_SaveSlotBackupsManager_BackupParseQueue__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_SaveSlotBackupsManager_BackupParseQueue__FWDDECL
+#include <Modloader/app/structs/List_1_SaveSlotBackupsManager_BackupParseQueue_.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_SaveSlotBackupsManager_BackupParseQueue__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_SaveSlotBackupsManager_BackupParseQueue__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_SaveSlotBackupsManager_BackupParseQueue__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_SaveSlotBackupsManager_BackupParseQueue_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_SaveSlotBackupsManager_BackupParseQueue_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

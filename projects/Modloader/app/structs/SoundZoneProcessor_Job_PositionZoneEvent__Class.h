@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SoundZoneProcessor_Job_PositionZoneEvent__Class_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SoundZoneProcessor_Job_PositionZoneEvent__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SoundZoneProcessor_Job_PositionZoneEvent__Class_DEFINED)
+#include <Modloader/app/structs/SoundZoneProcessor_Job_PositionZoneEvent__VTable.h>
+#if defined(IL2CPP_STRUCT_SoundZoneProcessor_Job_PositionZoneEvent__VTable_DEFINED)
+#define IL2CPP_STRUCT_SoundZoneProcessor_Job_PositionZoneEvent__Class_DEFINED
+struct SoundZoneProcessor_Job_PositionZoneEvent__StaticFields;
+struct SoundZoneProcessor_Job_PositionZoneEvent__Class {
+    Il2CppClass_0 _0;
+    Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+    struct SoundZoneProcessor_Job_PositionZoneEvent__StaticFields* static_fields;
+    const Il2CppRGCTXData* rgctx_data;
+    Il2CppClass_1 _1;
+    struct SoundZoneProcessor_Job_PositionZoneEvent__VTable vtable;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SoundZoneProcessor_Job_PositionZoneEvent__Class_FWDDECL)
+#define IL2CPP_STRUCT_SoundZoneProcessor_Job_PositionZoneEvent__Class_FWDDECL
+#include <Modloader/app/structs/SoundZoneProcessor_Job_PositionZoneEvent__StaticFields.h>
+#endif
+#undef IL2CPP_STRUCT_SoundZoneProcessor_Job_PositionZoneEvent__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SoundZoneProcessor_Job_PositionZoneEvent__Class_DEFINED) && !defined(IL2CPP_STRUCT_SoundZoneProcessor_Job_PositionZoneEvent__Class_FWDDECL)
+#include <Modloader/app/structs/SoundZoneProcessor_Job_PositionZoneEvent__Class.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SoundZoneProcessor_Job_PositionZoneEvent__Class.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_NegateCheckedInstruction_NegateCheckedInt16_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_NegateCheckedInstruction_NegateCheckedInt16_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NegateCheckedInstruction_NegateCheckedInt16_DEFINED)
+#define IL2CPP_STRUCT_NegateCheckedInstruction_NegateCheckedInt16_DEFINED
+struct NegateCheckedInstruction_NegateCheckedInt16__Class;
+struct NegateCheckedInstruction_NegateCheckedInt16 {
+    struct NegateCheckedInstruction_NegateCheckedInt16__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_NegateCheckedInstruction_NegateCheckedInt16_FWDDECL)
+#define IL2CPP_STRUCT_NegateCheckedInstruction_NegateCheckedInt16_FWDDECL
+#include <Modloader/app/structs/NegateCheckedInstruction_NegateCheckedInt16__Class.h>
+#endif
+#undef IL2CPP_STRUCT_NegateCheckedInstruction_NegateCheckedInt16_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NegateCheckedInstruction_NegateCheckedInt16_DEFINED) && !defined(IL2CPP_STRUCT_NegateCheckedInstruction_NegateCheckedInt16_FWDDECL)
+#include <Modloader/app/structs/NegateCheckedInstruction_NegateCheckedInt16.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/NegateCheckedInstruction_NegateCheckedInt16.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

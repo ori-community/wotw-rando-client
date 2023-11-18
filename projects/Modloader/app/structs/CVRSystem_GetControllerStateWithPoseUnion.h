@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion_DEFINED)
+#define IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion_DEFINED
+struct IVRSystem_GetControllerStateWithPose;
+struct CVRSystem_GetControllerStateWithPosePacked;
+struct CVRSystem_GetControllerStateWithPoseUnion {
+    struct IVRSystem_GetControllerStateWithPose* pGetControllerStateWithPose;
+    struct CVRSystem_GetControllerStateWithPosePacked* pGetControllerStateWithPosePacked;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion_FWDDECL)
+#define IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion_FWDDECL
+#include <Modloader/app/structs/CVRSystem_GetControllerStateWithPosePacked.h>
+#include <Modloader/app/structs/IVRSystem_GetControllerStateWithPose.h>
+#endif
+#undef IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion_DEFINED) && !defined(IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion_FWDDECL)
+#include <Modloader/app/structs/CVRSystem_GetControllerStateWithPoseUnion.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CVRSystem_GetControllerStateWithPoseUnion.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

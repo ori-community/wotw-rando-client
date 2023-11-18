@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_WandererPostIntroductionInteractionBehaviour_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_WandererPostIntroductionInteractionBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_WandererPostIntroductionInteractionBehaviour_DEFINED)
+#include <Modloader/app/structs/WandererPostIntroductionInteractionBehaviour__Fields.h>
+#if defined(IL2CPP_STRUCT_WandererPostIntroductionInteractionBehaviour__Fields_DEFINED)
+#define IL2CPP_STRUCT_WandererPostIntroductionInteractionBehaviour_DEFINED
+struct WandererPostIntroductionInteractionBehaviour__Class;
+struct WandererPostIntroductionInteractionBehaviour {
+    struct WandererPostIntroductionInteractionBehaviour__Class* klass;
+    MonitorData* monitor;
+    struct WandererPostIntroductionInteractionBehaviour__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_WandererPostIntroductionInteractionBehaviour_FWDDECL)
+#define IL2CPP_STRUCT_WandererPostIntroductionInteractionBehaviour_FWDDECL
+#include <Modloader/app/structs/WandererPostIntroductionInteractionBehaviour__Class.h>
+#endif
+#undef IL2CPP_STRUCT_WandererPostIntroductionInteractionBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_WandererPostIntroductionInteractionBehaviour_DEFINED) && !defined(IL2CPP_STRUCT_WandererPostIntroductionInteractionBehaviour_FWDDECL)
+#include <Modloader/app/structs/WandererPostIntroductionInteractionBehaviour.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/WandererPostIntroductionInteractionBehaviour.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

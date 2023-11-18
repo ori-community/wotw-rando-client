@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_NativeContainerSupportsDeferredConvertListToArray_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_NativeContainerSupportsDeferredConvertListToArray_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NativeContainerSupportsDeferredConvertListToArray_DEFINED)
+#define IL2CPP_STRUCT_NativeContainerSupportsDeferredConvertListToArray_DEFINED
+struct NativeContainerSupportsDeferredConvertListToArray__Class;
+struct NativeContainerSupportsDeferredConvertListToArray {
+    struct NativeContainerSupportsDeferredConvertListToArray__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_NativeContainerSupportsDeferredConvertListToArray_FWDDECL)
+#define IL2CPP_STRUCT_NativeContainerSupportsDeferredConvertListToArray_FWDDECL
+#include <Modloader/app/structs/NativeContainerSupportsDeferredConvertListToArray__Class.h>
+#endif
+#undef IL2CPP_STRUCT_NativeContainerSupportsDeferredConvertListToArray_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NativeContainerSupportsDeferredConvertListToArray_DEFINED) && !defined(IL2CPP_STRUCT_NativeContainerSupportsDeferredConvertListToArray_FWDDECL)
+#include <Modloader/app/structs/NativeContainerSupportsDeferredConvertListToArray.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/NativeContainerSupportsDeferredConvertListToArray.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

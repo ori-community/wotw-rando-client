@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AnimatorOverrideController_OnOverrideControllerDirtyCallback__Class_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AnimatorOverrideController_OnOverrideControllerDirtyCallback__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AnimatorOverrideController_OnOverrideControllerDirtyCallback__Class_DEFINED)
+#include <Modloader/app/structs/AnimatorOverrideController_OnOverrideControllerDirtyCallback__VTable.h>
+#if defined(IL2CPP_STRUCT_AnimatorOverrideController_OnOverrideControllerDirtyCallback__VTable_DEFINED)
+#define IL2CPP_STRUCT_AnimatorOverrideController_OnOverrideControllerDirtyCallback__Class_DEFINED
+struct AnimatorOverrideController_OnOverrideControllerDirtyCallback__StaticFields;
+struct AnimatorOverrideController_OnOverrideControllerDirtyCallback__Class {
+    Il2CppClass_0 _0;
+    Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+    struct AnimatorOverrideController_OnOverrideControllerDirtyCallback__StaticFields* static_fields;
+    const Il2CppRGCTXData* rgctx_data;
+    Il2CppClass_1 _1;
+    struct AnimatorOverrideController_OnOverrideControllerDirtyCallback__VTable vtable;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AnimatorOverrideController_OnOverrideControllerDirtyCallback__Class_FWDDECL)
+#define IL2CPP_STRUCT_AnimatorOverrideController_OnOverrideControllerDirtyCallback__Class_FWDDECL
+#include <Modloader/app/structs/AnimatorOverrideController_OnOverrideControllerDirtyCallback__StaticFields.h>
+#endif
+#undef IL2CPP_STRUCT_AnimatorOverrideController_OnOverrideControllerDirtyCallback__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AnimatorOverrideController_OnOverrideControllerDirtyCallback__Class_DEFINED) && !defined(IL2CPP_STRUCT_AnimatorOverrideController_OnOverrideControllerDirtyCallback__Class_FWDDECL)
+#include <Modloader/app/structs/AnimatorOverrideController_OnOverrideControllerDirtyCallback__Class.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AnimatorOverrideController_OnOverrideControllerDirtyCallback__Class.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

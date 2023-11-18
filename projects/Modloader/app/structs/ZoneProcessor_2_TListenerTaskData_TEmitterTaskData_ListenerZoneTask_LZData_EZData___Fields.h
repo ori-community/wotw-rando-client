@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Fields_DEFINED)
+#include <Modloader/app/structs/AudioListenerZoneReference.h>
+#include <Modloader/app/structs/LZData.h>
+#if defined(IL2CPP_STRUCT_LZData_DEFINED) && defined(IL2CPP_STRUCT_AudioListenerZoneReference_DEFINED)
+#define IL2CPP_STRUCT_ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Fields_DEFINED
+struct __declspec(align(8)) ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Fields {
+    int32_t Id;
+    struct LZData _Data_k__BackingField;
+    int32_t _FrameQuantinization_k__BackingField;
+    struct AudioListenerZoneReference Zone;
+    bool _ForceFirstFrame_k__BackingField;
+    bool _IsBound_k__BackingField;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Fields_FWDDECL)
+#define IL2CPP_STRUCT_ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Fields_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Fields_DEFINED) && !defined(IL2CPP_STRUCT_ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Fields_FWDDECL)
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

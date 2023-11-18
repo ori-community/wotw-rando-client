@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_PlayFab_IPlayFabEmitEventRequest__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_PlayFab_IPlayFabEmitEventRequest__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_PlayFab_IPlayFabEmitEventRequest__DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_PlayFab_IPlayFabEmitEventRequest__DEFINED
+struct List_1_PlayFab_IPlayFabEmitEventRequest_;
+struct IPlayFabEmitEventRequest;
+struct List_1_T_Enumerator_PlayFab_IPlayFabEmitEventRequest_ {
+    struct List_1_PlayFab_IPlayFabEmitEventRequest_* list;
+    int32_t index;
+    int32_t version;
+    struct IPlayFabEmitEventRequest* current;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_PlayFab_IPlayFabEmitEventRequest__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_PlayFab_IPlayFabEmitEventRequest__FWDDECL
+#include <Modloader/app/structs/IPlayFabEmitEventRequest.h>
+#include <Modloader/app/structs/List_1_PlayFab_IPlayFabEmitEventRequest_.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_PlayFab_IPlayFabEmitEventRequest__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_PlayFab_IPlayFabEmitEventRequest__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_PlayFab_IPlayFabEmitEventRequest__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_PlayFab_IPlayFabEmitEventRequest_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_PlayFab_IPlayFabEmitEventRequest_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

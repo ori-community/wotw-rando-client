@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader__DEFINED)
+#include <Modloader/app/structs/Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader___Fields.h>
+#if defined(IL2CPP_STRUCT_Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader___Fields_DEFINED)
+#define IL2CPP_STRUCT_Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader__DEFINED
+struct Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader___Class;
+struct Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_ {
+    struct Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader___Class* klass;
+    MonitorData* monitor;
+    struct Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader__FWDDECL)
+#define IL2CPP_STRUCT_Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader__FWDDECL
+#include <Modloader/app/structs/Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader__DEFINED) && !defined(IL2CPP_STRUCT_Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader__FWDDECL)
+#include <Modloader/app/structs/Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

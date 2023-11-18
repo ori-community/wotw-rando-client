@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef__DEFINED)
+#define IL2CPP_STRUCT_ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef__DEFINED
+struct ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef___Class;
+struct ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef_ {
+    struct ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef__FWDDECL)
+#define IL2CPP_STRUCT_ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef__FWDDECL
+#include <Modloader/app/structs/ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef___Class.h>
+#endif
+#undef IL2CPP_STRUCT_ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef__DEFINED) && !defined(IL2CPP_STRUCT_ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef__FWDDECL)
+#include <Modloader/app/structs/ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ObjectEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

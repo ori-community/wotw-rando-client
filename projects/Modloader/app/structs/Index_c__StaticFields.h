@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Index_c__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Index_c__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Index_c__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_Index_c__StaticFields_DEFINED
+struct Index_c;
+struct Listeners_1_TElem_Func_2_DataViewListener_DataViewListener_System_Boolean_;
+struct Listeners_1_TElem_Action_4_DataViewListener_DataViewListener_System_ComponentModel_ListChangedEventArgs_System_Boolean_System_Boolean_;
+struct Index_c__StaticFields {
+    struct Index_c* __9;
+    struct Listeners_1_TElem_Func_2_DataViewListener_DataViewListener_System_Boolean_* __9__22_0;
+    struct Listeners_1_TElem_Action_4_DataViewListener_DataViewListener_System_ComponentModel_ListChangedEventArgs_System_Boolean_System_Boolean_* __9__85_0;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Index_c__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_Index_c__StaticFields_FWDDECL
+#include <Modloader/app/structs/Index_c.h>
+#include <Modloader/app/structs/Listeners_1_TElem_Func_2_DataViewListener_DataViewListener_System_Boolean_.h>
+#include <Modloader/app/structs/Listeners_1_T_Ac_4_DataViewList_DataViewList_Sy_ComponentM_ListChangedEvent_Sy_Boo_Sy_Boo_.h>
+#endif
+#undef IL2CPP_STRUCT_Index_c__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Index_c__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_Index_c__StaticFields_FWDDECL)
+#include <Modloader/app/structs/Index_c__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Index_c__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

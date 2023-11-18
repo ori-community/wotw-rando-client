@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CallSite_1_System_Func_3___StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CallSite_1_System_Func_3___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CallSite_1_System_Func_3___StaticFields_DEFINED)
+#define IL2CPP_STRUCT_CallSite_1_System_Func_3___StaticFields_DEFINED
+struct Func_3_System_Runtime_CompilerServices_CallSite_Object_Object_;
+struct CallSite_1_System_Func_3___StaticFields {
+    struct Func_3_System_Runtime_CompilerServices_CallSite_Object_Object_* s_cachedUpdate;
+    struct Func_3_System_Runtime_CompilerServices_CallSite_Object_Object_* s_cachedNoMatch;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_CallSite_1_System_Func_3___StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_CallSite_1_System_Func_3___StaticFields_FWDDECL
+#include <Modloader/app/structs/Func_3_System_Runtime_CompilerServices_CallSite_Object_Object_.h>
+#endif
+#undef IL2CPP_STRUCT_CallSite_1_System_Func_3___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CallSite_1_System_Func_3___StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_CallSite_1_System_Func_3___StaticFields_FWDDECL)
+#include <Modloader/app/structs/CallSite_1_System_Func_3___StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CallSite_1_System_Func_3___StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

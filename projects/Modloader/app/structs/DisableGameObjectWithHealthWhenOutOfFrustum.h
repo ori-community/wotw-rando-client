@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DisableGameObjectWithHealthWhenOutOfFrustum_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DisableGameObjectWithHealthWhenOutOfFrustum_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DisableGameObjectWithHealthWhenOutOfFrustum_DEFINED)
+#include <Modloader/app/structs/DisableGameObjectWithHealthWhenOutOfFrustum__Fields.h>
+#if defined(IL2CPP_STRUCT_DisableGameObjectWithHealthWhenOutOfFrustum__Fields_DEFINED)
+#define IL2CPP_STRUCT_DisableGameObjectWithHealthWhenOutOfFrustum_DEFINED
+struct DisableGameObjectWithHealthWhenOutOfFrustum__Class;
+struct DisableGameObjectWithHealthWhenOutOfFrustum {
+    struct DisableGameObjectWithHealthWhenOutOfFrustum__Class* klass;
+    MonitorData* monitor;
+    struct DisableGameObjectWithHealthWhenOutOfFrustum__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_DisableGameObjectWithHealthWhenOutOfFrustum_FWDDECL)
+#define IL2CPP_STRUCT_DisableGameObjectWithHealthWhenOutOfFrustum_FWDDECL
+#include <Modloader/app/structs/DisableGameObjectWithHealthWhenOutOfFrustum__Class.h>
+#endif
+#undef IL2CPP_STRUCT_DisableGameObjectWithHealthWhenOutOfFrustum_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DisableGameObjectWithHealthWhenOutOfFrustum_DEFINED) && !defined(IL2CPP_STRUCT_DisableGameObjectWithHealthWhenOutOfFrustum_FWDDECL)
+#include <Modloader/app/structs/DisableGameObjectWithHealthWhenOutOfFrustum.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DisableGameObjectWithHealthWhenOutOfFrustum.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_RaceSystem_StartRaceFromMainMenuCoroutine_d_147_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_RaceSystem_StartRaceFromMainMenuCoroutine_d_147_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RaceSystem_StartRaceFromMainMenuCoroutine_d_147_DEFINED)
+#include <Modloader/app/structs/RaceSystem_StartRaceFromMainMenuCoroutine_d_147__Fields.h>
+#if defined(IL2CPP_STRUCT_RaceSystem_StartRaceFromMainMenuCoroutine_d_147__Fields_DEFINED)
+#define IL2CPP_STRUCT_RaceSystem_StartRaceFromMainMenuCoroutine_d_147_DEFINED
+struct RaceSystem_StartRaceFromMainMenuCoroutine_d_147__Class;
+struct RaceSystem_StartRaceFromMainMenuCoroutine_d_147 {
+    struct RaceSystem_StartRaceFromMainMenuCoroutine_d_147__Class* klass;
+    MonitorData* monitor;
+    struct RaceSystem_StartRaceFromMainMenuCoroutine_d_147__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_RaceSystem_StartRaceFromMainMenuCoroutine_d_147_FWDDECL)
+#define IL2CPP_STRUCT_RaceSystem_StartRaceFromMainMenuCoroutine_d_147_FWDDECL
+#include <Modloader/app/structs/RaceSystem_StartRaceFromMainMenuCoroutine_d_147__Class.h>
+#endif
+#undef IL2CPP_STRUCT_RaceSystem_StartRaceFromMainMenuCoroutine_d_147_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RaceSystem_StartRaceFromMainMenuCoroutine_d_147_DEFINED) && !defined(IL2CPP_STRUCT_RaceSystem_StartRaceFromMainMenuCoroutine_d_147_FWDDECL)
+#include <Modloader/app/structs/RaceSystem_StartRaceFromMainMenuCoroutine_d_147.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/RaceSystem_StartRaceFromMainMenuCoroutine_d_147.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

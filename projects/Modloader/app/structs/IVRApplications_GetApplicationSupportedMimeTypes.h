@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRApplications_GetApplicationSupportedMimeTypes_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRApplications_GetApplicationSupportedMimeTypes_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRApplications_GetApplicationSupportedMimeTypes_DEFINED)
+#include <Modloader/app/structs/IVRApplications_GetApplicationSupportedMimeTypes__Fields.h>
+#if defined(IL2CPP_STRUCT_IVRApplications_GetApplicationSupportedMimeTypes__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVRApplications_GetApplicationSupportedMimeTypes_DEFINED
+struct IVRApplications_GetApplicationSupportedMimeTypes__Class;
+struct IVRApplications_GetApplicationSupportedMimeTypes {
+    struct IVRApplications_GetApplicationSupportedMimeTypes__Class* klass;
+    MonitorData* monitor;
+    struct IVRApplications_GetApplicationSupportedMimeTypes__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVRApplications_GetApplicationSupportedMimeTypes_FWDDECL)
+#define IL2CPP_STRUCT_IVRApplications_GetApplicationSupportedMimeTypes_FWDDECL
+#include <Modloader/app/structs/IVRApplications_GetApplicationSupportedMimeTypes__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVRApplications_GetApplicationSupportedMimeTypes_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRApplications_GetApplicationSupportedMimeTypes_DEFINED) && !defined(IL2CPP_STRUCT_IVRApplications_GetApplicationSupportedMimeTypes_FWDDECL)
+#include <Modloader/app/structs/IVRApplications_GetApplicationSupportedMimeTypes.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRApplications_GetApplicationSupportedMimeTypes.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

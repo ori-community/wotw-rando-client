@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Queue_1_T_Enumerator_System_ValueTuple_2__1__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Queue_1_T_Enumerator_System_ValueTuple_2__1__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Queue_1_T_Enumerator_System_ValueTuple_2__1__Boxed_DEFINED)
+#include <Modloader/app/structs/Queue_1_T_Enumerator_System_ValueTuple_2__1.h>
+#if defined(IL2CPP_STRUCT_Queue_1_T_Enumerator_System_ValueTuple_2__1_DEFINED)
+#define IL2CPP_STRUCT_Queue_1_T_Enumerator_System_ValueTuple_2__1__Boxed_DEFINED
+struct Queue_1_T_Enumerator_System_ValueTuple_2__1__Class;
+struct Queue_1_T_Enumerator_System_ValueTuple_2__1__Boxed {
+    struct Queue_1_T_Enumerator_System_ValueTuple_2__1__Class* klass;
+    MonitorData* monitor;
+    struct Queue_1_T_Enumerator_System_ValueTuple_2__1 fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Queue_1_T_Enumerator_System_ValueTuple_2__1__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_Queue_1_T_Enumerator_System_ValueTuple_2__1__Boxed_FWDDECL
+#include <Modloader/app/structs/Queue_1_T_Enumerator_System_ValueTuple_2__1__Class.h>
+#endif
+#undef IL2CPP_STRUCT_Queue_1_T_Enumerator_System_ValueTuple_2__1__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Queue_1_T_Enumerator_System_ValueTuple_2__1__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_Queue_1_T_Enumerator_System_ValueTuple_2__1__Boxed_FWDDECL)
+#include <Modloader/app/structs/Queue_1_T_Enumerator_System_ValueTuple_2__1__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Queue_1_T_Enumerator_System_ValueTuple_2__1__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

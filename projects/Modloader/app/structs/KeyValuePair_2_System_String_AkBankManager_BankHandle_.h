@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_String_AkBankManager_BankHandle__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_AkBankManager_BankHandle__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_AkBankManager_BankHandle__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_AkBankManager_BankHandle__DEFINED
+struct String;
+struct AkBankManager_BankHandle;
+struct KeyValuePair_2_System_String_AkBankManager_BankHandle_ {
+    struct String* key;
+    struct AkBankManager_BankHandle* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_AkBankManager_BankHandle__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_AkBankManager_BankHandle__FWDDECL
+#include <Modloader/app/structs/AkBankManager_BankHandle.h>
+#include <Modloader/app/structs/String.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_String_AkBankManager_BankHandle__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_AkBankManager_BankHandle__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_AkBankManager_BankHandle__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_String_AkBankManager_BankHandle_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_String_AkBankManager_BankHandle_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

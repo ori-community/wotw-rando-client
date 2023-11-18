@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_fsPortableReflection_AttributeQueryComparator_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_fsPortableReflection_AttributeQueryComparator_INITIALIZING
+#if !defined(IL2CPP_STRUCT_fsPortableReflection_AttributeQueryComparator_DEFINED)
+#define IL2CPP_STRUCT_fsPortableReflection_AttributeQueryComparator_DEFINED
+struct fsPortableReflection_AttributeQueryComparator__Class;
+struct fsPortableReflection_AttributeQueryComparator {
+    struct fsPortableReflection_AttributeQueryComparator__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_fsPortableReflection_AttributeQueryComparator_FWDDECL)
+#define IL2CPP_STRUCT_fsPortableReflection_AttributeQueryComparator_FWDDECL
+#include <Modloader/app/structs/fsPortableReflection_AttributeQueryComparator__Class.h>
+#endif
+#undef IL2CPP_STRUCT_fsPortableReflection_AttributeQueryComparator_INITIALIZING
+#if !defined(IL2CPP_STRUCT_fsPortableReflection_AttributeQueryComparator_DEFINED) && !defined(IL2CPP_STRUCT_fsPortableReflection_AttributeQueryComparator_FWDDECL)
+#include <Modloader/app/structs/fsPortableReflection_AttributeQueryComparator.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/fsPortableReflection_AttributeQueryComparator.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

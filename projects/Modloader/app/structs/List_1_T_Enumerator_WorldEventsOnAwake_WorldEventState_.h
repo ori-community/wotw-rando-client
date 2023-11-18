@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_WorldEventsOnAwake_WorldEventState__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_WorldEventsOnAwake_WorldEventState__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_WorldEventsOnAwake_WorldEventState__DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_WorldEventsOnAwake_WorldEventState__DEFINED
+struct List_1_WorldEventsOnAwake_WorldEventState_;
+struct WorldEventsOnAwake_WorldEventState;
+struct List_1_T_Enumerator_WorldEventsOnAwake_WorldEventState_ {
+    struct List_1_WorldEventsOnAwake_WorldEventState_* list;
+    int32_t index;
+    int32_t version;
+    struct WorldEventsOnAwake_WorldEventState* current;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_WorldEventsOnAwake_WorldEventState__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_WorldEventsOnAwake_WorldEventState__FWDDECL
+#include <Modloader/app/structs/List_1_WorldEventsOnAwake_WorldEventState_.h>
+#include <Modloader/app/structs/WorldEventsOnAwake_WorldEventState.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_WorldEventsOnAwake_WorldEventState__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_WorldEventsOnAwake_WorldEventState__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_WorldEventsOnAwake_WorldEventState__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_WorldEventsOnAwake_WorldEventState_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_WorldEventsOnAwake_WorldEventState_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

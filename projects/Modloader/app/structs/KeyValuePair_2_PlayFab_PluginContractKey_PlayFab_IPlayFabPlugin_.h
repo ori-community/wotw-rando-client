@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin__DEFINED)
+#include <Modloader/app/structs/PluginContractKey.h>
+#if defined(IL2CPP_STRUCT_PluginContractKey_DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin__DEFINED
+struct IPlayFabPlugin;
+struct KeyValuePair_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin_ {
+    struct PluginContractKey key;
+    struct IPlayFabPlugin* value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin__FWDDECL
+#include <Modloader/app/structs/IPlayFabPlugin.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

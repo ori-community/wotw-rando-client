@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__1_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__1_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__1_DEFINED)
+#define IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__1_DEFINED
+struct KeyValuePair_2_System_Object_System_Int32___Array;
+struct Buffer_1_System_Collections_Generic_KeyValuePair_2__1 {
+    struct KeyValuePair_2_System_Object_System_Int32___Array* items;
+    int32_t count;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__1_FWDDECL)
+#define IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__1_FWDDECL
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Int32___Array.h>
+#endif
+#undef IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__1_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__1_DEFINED) && !defined(IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__1_FWDDECL)
+#include <Modloader/app/structs/Buffer_1_System_Collections_Generic_KeyValuePair_2__1.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Buffer_1_System_Collections_Generic_KeyValuePair_2__1.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DeflateStreamNative_SafeDeflateStreamHandle_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DeflateStreamNative_SafeDeflateStreamHandle_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DeflateStreamNative_SafeDeflateStreamHandle_DEFINED)
+#include <Modloader/app/structs/DeflateStreamNative_SafeDeflateStreamHandle__Fields.h>
+#if defined(IL2CPP_STRUCT_DeflateStreamNative_SafeDeflateStreamHandle__Fields_DEFINED)
+#define IL2CPP_STRUCT_DeflateStreamNative_SafeDeflateStreamHandle_DEFINED
+struct DeflateStreamNative_SafeDeflateStreamHandle__Class;
+struct DeflateStreamNative_SafeDeflateStreamHandle {
+    struct DeflateStreamNative_SafeDeflateStreamHandle__Class* klass;
+    MonitorData* monitor;
+    struct DeflateStreamNative_SafeDeflateStreamHandle__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_DeflateStreamNative_SafeDeflateStreamHandle_FWDDECL)
+#define IL2CPP_STRUCT_DeflateStreamNative_SafeDeflateStreamHandle_FWDDECL
+#include <Modloader/app/structs/DeflateStreamNative_SafeDeflateStreamHandle__Class.h>
+#endif
+#undef IL2CPP_STRUCT_DeflateStreamNative_SafeDeflateStreamHandle_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DeflateStreamNative_SafeDeflateStreamHandle_DEFINED) && !defined(IL2CPP_STRUCT_DeflateStreamNative_SafeDeflateStreamHandle_FWDDECL)
+#include <Modloader/app/structs/DeflateStreamNative_SafeDeflateStreamHandle.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DeflateStreamNative_SafeDeflateStreamHandle.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

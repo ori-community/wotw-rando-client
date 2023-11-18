@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata__DEFINED
+struct IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata___Class;
+struct IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata_ {
+    struct IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_Moon_ReviewFramework_ReviewTargetMetadata_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

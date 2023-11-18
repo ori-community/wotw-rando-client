@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_Keyframe__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_Keyframe__INITIALIZING
+#if !defined(IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_Keyframe__DEFINED)
+#include <Modloader/app/structs/fsDirectConverter_1_UnityEngine_Keyframe___Fields.h>
+#if defined(IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_Keyframe___Fields_DEFINED)
+#define IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_Keyframe__DEFINED
+struct fsDirectConverter_1_UnityEngine_Keyframe___Class;
+struct fsDirectConverter_1_UnityEngine_Keyframe_ {
+    struct fsDirectConverter_1_UnityEngine_Keyframe___Class* klass;
+    MonitorData* monitor;
+    struct fsDirectConverter_1_UnityEngine_Keyframe___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_Keyframe__FWDDECL)
+#define IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_Keyframe__FWDDECL
+#include <Modloader/app/structs/fsDirectConverter_1_UnityEngine_Keyframe___Class.h>
+#endif
+#undef IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_Keyframe__INITIALIZING
+#if !defined(IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_Keyframe__DEFINED) && !defined(IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_Keyframe__FWDDECL)
+#include <Modloader/app/structs/fsDirectConverter_1_UnityEngine_Keyframe_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/fsDirectConverter_1_UnityEngine_Keyframe_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

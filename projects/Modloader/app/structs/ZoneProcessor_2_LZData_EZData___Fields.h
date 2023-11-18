@@ -1,0 +1,41 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ZoneProcessor_2_LZData_EZData___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ZoneProcessor_2_LZData_EZData___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ZoneProcessor_2_LZData_EZData___Fields_DEFINED)
+#include <Modloader/app/structs/ZoneProcessor__Fields.h>
+#if defined(IL2CPP_STRUCT_ZoneProcessor__Fields_DEFINED)
+#define IL2CPP_STRUCT_ZoneProcessor_2_LZData_EZData___Fields_DEFINED
+struct ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Array;
+struct ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_LZData_EZData___Array;
+struct List_1_Moon_Wwise_ZoneProcessor_2_ListenerZoneTask_;
+struct List_1_Moon_Wwise_ZoneProcessor_2_EmitterZoneTask_;
+struct ZoneProcessor_2_LZData_EZData___Fields {
+    struct ZoneProcessor__Fields _;
+    struct ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Array* m_listenerZoneTasks;
+    struct ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_LZData_EZData___Array* m_emitterZoneTasks;
+    int32_t m_validListenerZoneTasksSize;
+    int32_t m_validEmitterZoneTasksSize;
+    struct List_1_Moon_Wwise_ZoneProcessor_2_ListenerZoneTask_* m_listenerTasksToReset;
+    struct List_1_Moon_Wwise_ZoneProcessor_2_EmitterZoneTask_* m_emitterTasksToReset;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ZoneProcessor_2_LZData_EZData___Fields_FWDDECL)
+#define IL2CPP_STRUCT_ZoneProcessor_2_LZData_EZData___Fields_FWDDECL
+#include <Modloader/app/structs/List_1_Moon_Wwise_ZoneProcessor_2_EmitterZoneTask_.h>
+#include <Modloader/app/structs/List_1_Moon_Wwise_ZoneProcessor_2_ListenerZoneTask_.h>
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_LZData_EZData___Array.h>
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_LZData_EZData___Array.h>
+#endif
+#undef IL2CPP_STRUCT_ZoneProcessor_2_LZData_EZData___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ZoneProcessor_2_LZData_EZData___Fields_DEFINED) && !defined(IL2CPP_STRUCT_ZoneProcessor_2_LZData_EZData___Fields_FWDDECL)
+#include <Modloader/app/structs/ZoneProcessor_2_LZData_EZData___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ZoneProcessor_2_LZData_EZData___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

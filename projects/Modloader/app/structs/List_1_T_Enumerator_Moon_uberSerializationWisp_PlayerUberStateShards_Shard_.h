@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_Moon_uberSerializationWisp_PlayerUberStateShards_Shard__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_uberSerializationWisp_PlayerUberStateShards_Shard__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_uberSerializationWisp_PlayerUberStateShards_Shard__DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_uberSerializationWisp_PlayerUberStateShards_Shard__DEFINED
+struct List_1_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_;
+struct PlayerUberStateShards_Shard;
+struct List_1_T_Enumerator_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_ {
+    struct List_1_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_* list;
+    int32_t index;
+    int32_t version;
+    struct PlayerUberStateShards_Shard* current;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_uberSerializationWisp_PlayerUberStateShards_Shard__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_uberSerializationWisp_PlayerUberStateShards_Shard__FWDDECL
+#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_Moon_uberSerializationWisp_PlayerUberStateShards_Shard__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_uberSerializationWisp_PlayerUberStateShards_Shard__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_uberSerializationWisp_PlayerUberStateShards_Shard__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

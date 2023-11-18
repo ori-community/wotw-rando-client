@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_StartRollState__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_StartRollState__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_StartRollState__Fields_DEFINED)
+#include <Modloader/app/structs/TurtleShellRollAttackBehaviourNew_RollState__Fields.h>
+#include <Modloader/app/structs/Vector2.h>
+#if defined(IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_RollState__Fields_DEFINED) && defined(IL2CPP_STRUCT_Vector2_DEFINED)
+#define IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_StartRollState__Fields_DEFINED
+struct AnimationPlayer;
+struct TurtleShellRollAttackBehaviourNew_StartRollState__Fields {
+    struct TurtleShellRollAttackBehaviourNew_RollState__Fields _;
+    struct Vector2 m_directionToTarget;
+    bool m_bounce;
+    struct AnimationPlayer* startAnim;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_StartRollState__Fields_FWDDECL)
+#define IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_StartRollState__Fields_FWDDECL
+#include <Modloader/app/structs/AnimationPlayer.h>
+#endif
+#undef IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_StartRollState__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_StartRollState__Fields_DEFINED) && !defined(IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_StartRollState__Fields_FWDDECL)
+#include <Modloader/app/structs/TurtleShellRollAttackBehaviourNew_StartRollState__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TurtleShellRollAttackBehaviourNew_StartRollState__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

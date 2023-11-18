@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge__DEFINED
+struct HalfEdge;
+struct KeyValuePair_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge_ {
+    int32_t key;
+    struct HalfEdge* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge__FWDDECL
+#include <Modloader/app/structs/HalfEdge.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

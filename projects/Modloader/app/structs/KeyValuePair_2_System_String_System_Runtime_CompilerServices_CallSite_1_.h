@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Runtime_CompilerServices_CallSite_1__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Runtime_CompilerServices_CallSite_1__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Runtime_CompilerServices_CallSite_1__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Runtime_CompilerServices_CallSite_1__DEFINED
+struct String;
+struct CallSite_1_System_Func_3_;
+struct KeyValuePair_2_System_String_System_Runtime_CompilerServices_CallSite_1_ {
+    struct String* key;
+    struct CallSite_1_System_Func_3_* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Runtime_CompilerServices_CallSite_1__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Runtime_CompilerServices_CallSite_1__FWDDECL
+#include <Modloader/app/structs/CallSite_1_System_Func_3_.h>
+#include <Modloader/app/structs/String.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Runtime_CompilerServices_CallSite_1__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Runtime_CompilerServices_CallSite_1__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_System_Runtime_CompilerServices_CallSite_1__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_String_System_Runtime_CompilerServices_CallSite_1_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_String_System_Runtime_CompilerServices_CallSite_1_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

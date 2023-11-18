@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult__DEFINED)
+#include <Modloader/app/structs/Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult___Fields.h>
+#if defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult___Fields_DEFINED)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult__DEFINED
+struct Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult___Class;
+struct Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult_ {
+    struct Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult___Class* klass;
+    MonitorData* monitor;
+    struct Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult__FWDDECL)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult__FWDDECL
+#include <Modloader/app/structs/Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult__DEFINED) && !defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult__FWDDECL)
+#include <Modloader/app/structs/Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Action_1_PlayFab_ClientModels_ValidateAmazonReceiptResult_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

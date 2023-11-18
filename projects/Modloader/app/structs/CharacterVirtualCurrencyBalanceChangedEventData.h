@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CharacterVirtualCurrencyBalanceChangedEventData_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CharacterVirtualCurrencyBalanceChangedEventData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CharacterVirtualCurrencyBalanceChangedEventData_DEFINED)
+#include <Modloader/app/structs/CharacterVirtualCurrencyBalanceChangedEventData__Fields.h>
+#if defined(IL2CPP_STRUCT_CharacterVirtualCurrencyBalanceChangedEventData__Fields_DEFINED)
+#define IL2CPP_STRUCT_CharacterVirtualCurrencyBalanceChangedEventData_DEFINED
+struct CharacterVirtualCurrencyBalanceChangedEventData__Class;
+struct CharacterVirtualCurrencyBalanceChangedEventData {
+    struct CharacterVirtualCurrencyBalanceChangedEventData__Class* klass;
+    MonitorData* monitor;
+    struct CharacterVirtualCurrencyBalanceChangedEventData__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CharacterVirtualCurrencyBalanceChangedEventData_FWDDECL)
+#define IL2CPP_STRUCT_CharacterVirtualCurrencyBalanceChangedEventData_FWDDECL
+#include <Modloader/app/structs/CharacterVirtualCurrencyBalanceChangedEventData__Class.h>
+#endif
+#undef IL2CPP_STRUCT_CharacterVirtualCurrencyBalanceChangedEventData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CharacterVirtualCurrencyBalanceChangedEventData_DEFINED) && !defined(IL2CPP_STRUCT_CharacterVirtualCurrencyBalanceChangedEventData_FWDDECL)
+#include <Modloader/app/structs/CharacterVirtualCurrencyBalanceChangedEventData.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CharacterVirtualCurrencyBalanceChangedEventData.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

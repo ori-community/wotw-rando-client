@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_Object_SneezeSlugEntity_HitProtectionState__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Object_SneezeSlugEntity_HitProtectionState__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Object_SneezeSlugEntity_HitProtectionState__DEFINED)
+#include <Modloader/app/structs/SneezeSlugEntity_HitProtectionState__Enum.h>
+#if defined(IL2CPP_STRUCT_SneezeSlugEntity_HitProtectionState__Enum_DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Object_SneezeSlugEntity_HitProtectionState__DEFINED
+struct Object;
+struct KeyValuePair_2_System_Object_SneezeSlugEntity_HitProtectionState_ {
+    struct Object* key;
+    SneezeSlugEntity_HitProtectionState__Enum value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Object_SneezeSlugEntity_HitProtectionState__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Object_SneezeSlugEntity_HitProtectionState__FWDDECL
+#include <Modloader/app/structs/Object.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_Object_SneezeSlugEntity_HitProtectionState__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Object_SneezeSlugEntity_HitProtectionState__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Object_SneezeSlugEntity_HitProtectionState__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_SneezeSlugEntity_HitProtectionState_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_SneezeSlugEntity_HitProtectionState_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

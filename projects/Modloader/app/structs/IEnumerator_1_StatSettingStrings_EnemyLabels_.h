@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_StatSettingStrings_EnemyLabels__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_StatSettingStrings_EnemyLabels__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_StatSettingStrings_EnemyLabels__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_StatSettingStrings_EnemyLabels__DEFINED
+struct IEnumerator_1_StatSettingStrings_EnemyLabels___Class;
+struct IEnumerator_1_StatSettingStrings_EnemyLabels_ {
+    struct IEnumerator_1_StatSettingStrings_EnemyLabels___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_StatSettingStrings_EnemyLabels__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_StatSettingStrings_EnemyLabels__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_StatSettingStrings_EnemyLabels___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_StatSettingStrings_EnemyLabels__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_StatSettingStrings_EnemyLabels__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_StatSettingStrings_EnemyLabels__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_StatSettingStrings_EnemyLabels_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_StatSettingStrings_EnemyLabels_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

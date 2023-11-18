@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SynchronizationContextAwaitTaskContinuation_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SynchronizationContextAwaitTaskContinuation_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SynchronizationContextAwaitTaskContinuation_DEFINED)
+#include <Modloader/app/structs/SynchronizationContextAwaitTaskContinuation__Fields.h>
+#if defined(IL2CPP_STRUCT_SynchronizationContextAwaitTaskContinuation__Fields_DEFINED)
+#define IL2CPP_STRUCT_SynchronizationContextAwaitTaskContinuation_DEFINED
+struct SynchronizationContextAwaitTaskContinuation__Class;
+struct SynchronizationContextAwaitTaskContinuation {
+    struct SynchronizationContextAwaitTaskContinuation__Class* klass;
+    MonitorData* monitor;
+    struct SynchronizationContextAwaitTaskContinuation__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SynchronizationContextAwaitTaskContinuation_FWDDECL)
+#define IL2CPP_STRUCT_SynchronizationContextAwaitTaskContinuation_FWDDECL
+#include <Modloader/app/structs/SynchronizationContextAwaitTaskContinuation__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SynchronizationContextAwaitTaskContinuation_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SynchronizationContextAwaitTaskContinuation_DEFINED) && !defined(IL2CPP_STRUCT_SynchronizationContextAwaitTaskContinuation_FWDDECL)
+#include <Modloader/app/structs/SynchronizationContextAwaitTaskContinuation.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SynchronizationContextAwaitTaskContinuation.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

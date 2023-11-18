@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer_DEFINED)
+#define IL2CPP_STRUCT_XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer_DEFINED
+struct XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer__Class;
+struct XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer {
+    struct XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer_FWDDECL)
+#define IL2CPP_STRUCT_XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer_FWDDECL
+#include <Modloader/app/structs/XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer__Class.h>
+#endif
+#undef IL2CPP_STRUCT_XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer_DEFINED) && !defined(IL2CPP_STRUCT_XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer_FWDDECL)
+#include <Modloader/app/structs/XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

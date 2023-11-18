@@ -1,0 +1,28 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT__PrivateImplementationDetails__8__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT__PrivateImplementationDetails__8__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT__PrivateImplementationDetails__8__StaticFields_DEFINED)
+#include <Modloader/app/structs/_PrivateImplementationDetails_StaticArrayInitTypeSize_128_2.h>
+#if defined(IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_128_2_DEFINED)
+#define IL2CPP_STRUCT__PrivateImplementationDetails__8__StaticFields_DEFINED
+struct _PrivateImplementationDetails__8__StaticFields {
+    struct _PrivateImplementationDetails_StaticArrayInitTypeSize_128_2 AF107E8E5539AA04145F09728F7CE4E2B4AC5E72;
+    int32_t D3759F70F1732218F863B5A15ED41A79466DAF58;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT__PrivateImplementationDetails__8__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT__PrivateImplementationDetails__8__StaticFields_FWDDECL
+#endif
+#undef IL2CPP_STRUCT__PrivateImplementationDetails__8__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT__PrivateImplementationDetails__8__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT__PrivateImplementationDetails__8__StaticFields_FWDDECL)
+#include <Modloader/app/structs/_PrivateImplementationDetails__8__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/_PrivateImplementationDetails__8__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

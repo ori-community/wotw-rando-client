@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array_DEFINED)
+#define IL2CPP_STRUCT_CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array_DEFINED
+struct CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array__Class;
+struct CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5_;
+struct CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array {
+    struct CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array__Class* klass;
+    MonitorData* monitor;
+    Il2CppArrayBounds* bounds;
+    il2cpp_array_size_t max_length;
+    struct CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5_* vector[32];
+};
+#endif
+#if !defined(IL2CPP_STRUCT_CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array_FWDDECL)
+#define IL2CPP_STRUCT_CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array_FWDDECL
+#include <Modloader/app/structs/CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5_.h>
+#include <Modloader/app/structs/CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array__Class.h>
+#endif
+#undef IL2CPP_STRUCT_CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array_DEFINED) && !defined(IL2CPP_STRUCT_CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array_FWDDECL)
+#include <Modloader/app/structs/CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CacheDict_2_TKey_TValue_Entry_System_Type_System_Func_5___Array.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

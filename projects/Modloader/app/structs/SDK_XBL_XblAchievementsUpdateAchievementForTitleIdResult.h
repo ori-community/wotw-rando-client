@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult_DEFINED)
+#include <Modloader/app/structs/SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult__Fields.h>
+#if defined(IL2CPP_STRUCT_SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult__Fields_DEFINED)
+#define IL2CPP_STRUCT_SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult_DEFINED
+struct SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult__Class;
+struct SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult {
+    struct SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult__Class* klass;
+    MonitorData* monitor;
+    struct SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult_FWDDECL)
+#define IL2CPP_STRUCT_SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult_FWDDECL
+#include <Modloader/app/structs/SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult_DEFINED) && !defined(IL2CPP_STRUCT_SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult_FWDDECL)
+#include <Modloader/app/structs/SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

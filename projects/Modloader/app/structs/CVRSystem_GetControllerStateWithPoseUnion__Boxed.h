@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion__Boxed_DEFINED)
+#include <Modloader/app/structs/CVRSystem_GetControllerStateWithPoseUnion.h>
+#if defined(IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion_DEFINED)
+#define IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion__Boxed_DEFINED
+struct CVRSystem_GetControllerStateWithPoseUnion__Class;
+struct CVRSystem_GetControllerStateWithPoseUnion__Boxed {
+    struct CVRSystem_GetControllerStateWithPoseUnion__Class* klass;
+    MonitorData* monitor;
+    struct CVRSystem_GetControllerStateWithPoseUnion fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion__Boxed_FWDDECL
+#include <Modloader/app/structs/CVRSystem_GetControllerStateWithPoseUnion__Class.h>
+#endif
+#undef IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_CVRSystem_GetControllerStateWithPoseUnion__Boxed_FWDDECL)
+#include <Modloader/app/structs/CVRSystem_GetControllerStateWithPoseUnion__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CVRSystem_GetControllerStateWithPoseUnion__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

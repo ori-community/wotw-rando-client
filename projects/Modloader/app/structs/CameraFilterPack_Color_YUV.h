@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CameraFilterPack_Color_YUV_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CameraFilterPack_Color_YUV_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CameraFilterPack_Color_YUV_DEFINED)
+#include <Modloader/app/structs/CameraFilterPack_Color_YUV__Fields.h>
+#if defined(IL2CPP_STRUCT_CameraFilterPack_Color_YUV__Fields_DEFINED)
+#define IL2CPP_STRUCT_CameraFilterPack_Color_YUV_DEFINED
+struct CameraFilterPack_Color_YUV__Class;
+struct CameraFilterPack_Color_YUV {
+    struct CameraFilterPack_Color_YUV__Class* klass;
+    MonitorData* monitor;
+    struct CameraFilterPack_Color_YUV__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CameraFilterPack_Color_YUV_FWDDECL)
+#define IL2CPP_STRUCT_CameraFilterPack_Color_YUV_FWDDECL
+#include <Modloader/app/structs/CameraFilterPack_Color_YUV__Class.h>
+#endif
+#undef IL2CPP_STRUCT_CameraFilterPack_Color_YUV_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CameraFilterPack_Color_YUV_DEFINED) && !defined(IL2CPP_STRUCT_CameraFilterPack_Color_YUV_FWDDECL)
+#include <Modloader/app/structs/CameraFilterPack_Color_YUV.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CameraFilterPack_Color_YUV.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

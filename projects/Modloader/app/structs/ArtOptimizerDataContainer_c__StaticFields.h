@@ -1,0 +1,35 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ArtOptimizerDataContainer_c__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ArtOptimizerDataContainer_c__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ArtOptimizerDataContainer_c__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_ArtOptimizerDataContainer_c__StaticFields_DEFINED
+struct ArtOptimizerDataContainer_c;
+struct Func_2_Moon_ArtOptimization_SerializableUberShaderWrapper_System_Collections_Generic_IEnumerable_1_;
+struct Func_2_Moon_ArtOptimization_SerializableUberSaderModifierWrapper_Boolean_;
+struct ArtOptimizerDataContainer_c__StaticFields {
+    struct ArtOptimizerDataContainer_c* __9;
+    struct Func_2_Moon_ArtOptimization_SerializableUberShaderWrapper_System_Collections_Generic_IEnumerable_1_* __9__18_2;
+    struct Func_2_Moon_ArtOptimization_SerializableUberShaderWrapper_System_Collections_Generic_IEnumerable_1_* __9__18_3;
+    struct Func_2_Moon_ArtOptimization_SerializableUberShaderWrapper_System_Collections_Generic_IEnumerable_1_* __9__18_4;
+    struct Func_2_Moon_ArtOptimization_SerializableUberSaderModifierWrapper_Boolean_* __9__18_5;
+    struct Func_2_Moon_ArtOptimization_SerializableUberSaderModifierWrapper_Boolean_* __9__18_7;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ArtOptimizerDataContainer_c__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_ArtOptimizerDataContainer_c__StaticFields_FWDDECL
+#include <Modloader/app/structs/ArtOptimizerDataContainer_c.h>
+#include <Modloader/app/structs/Func_2_Moo_ArtOptimizatio_SerializableUberShaderWrappe_Syste_Collection_Gener_IEnumerab_1_.h>
+#include <Modloader/app/structs/Func_2_Moon_ArtOptimization_SerializableUberSaderModifierWrapper_Boolean_.h>
+#endif
+#undef IL2CPP_STRUCT_ArtOptimizerDataContainer_c__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ArtOptimizerDataContainer_c__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_ArtOptimizerDataContainer_c__StaticFields_FWDDECL)
+#include <Modloader/app/structs/ArtOptimizerDataContainer_c__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ArtOptimizerDataContainer_c__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

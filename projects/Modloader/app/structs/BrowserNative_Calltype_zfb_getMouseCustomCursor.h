@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getMouseCustomCursor_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getMouseCustomCursor_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getMouseCustomCursor_DEFINED)
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_getMouseCustomCursor__Fields.h>
+#if defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getMouseCustomCursor__Fields_DEFINED)
+#define IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getMouseCustomCursor_DEFINED
+struct BrowserNative_Calltype_zfb_getMouseCustomCursor__Class;
+struct BrowserNative_Calltype_zfb_getMouseCustomCursor {
+    struct BrowserNative_Calltype_zfb_getMouseCustomCursor__Class* klass;
+    MonitorData* monitor;
+    struct BrowserNative_Calltype_zfb_getMouseCustomCursor__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getMouseCustomCursor_FWDDECL)
+#define IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getMouseCustomCursor_FWDDECL
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_getMouseCustomCursor__Class.h>
+#endif
+#undef IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getMouseCustomCursor_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getMouseCustomCursor_DEFINED) && !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_getMouseCustomCursor_FWDDECL)
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_getMouseCustomCursor.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_getMouseCustomCursor.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

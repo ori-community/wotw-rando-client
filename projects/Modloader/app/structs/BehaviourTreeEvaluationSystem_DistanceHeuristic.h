@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_BehaviourTreeEvaluationSystem_DistanceHeuristic_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_BehaviourTreeEvaluationSystem_DistanceHeuristic_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BehaviourTreeEvaluationSystem_DistanceHeuristic_DEFINED)
+#include <Modloader/app/structs/BehaviourTreeEvaluationSystem_DistanceHeuristic__Fields.h>
+#if defined(IL2CPP_STRUCT_BehaviourTreeEvaluationSystem_DistanceHeuristic__Fields_DEFINED)
+#define IL2CPP_STRUCT_BehaviourTreeEvaluationSystem_DistanceHeuristic_DEFINED
+struct BehaviourTreeEvaluationSystem_DistanceHeuristic__Class;
+struct BehaviourTreeEvaluationSystem_DistanceHeuristic {
+    struct BehaviourTreeEvaluationSystem_DistanceHeuristic__Class* klass;
+    MonitorData* monitor;
+    struct BehaviourTreeEvaluationSystem_DistanceHeuristic__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_BehaviourTreeEvaluationSystem_DistanceHeuristic_FWDDECL)
+#define IL2CPP_STRUCT_BehaviourTreeEvaluationSystem_DistanceHeuristic_FWDDECL
+#include <Modloader/app/structs/BehaviourTreeEvaluationSystem_DistanceHeuristic__Class.h>
+#endif
+#undef IL2CPP_STRUCT_BehaviourTreeEvaluationSystem_DistanceHeuristic_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BehaviourTreeEvaluationSystem_DistanceHeuristic_DEFINED) && !defined(IL2CPP_STRUCT_BehaviourTreeEvaluationSystem_DistanceHeuristic_FWDDECL)
+#include <Modloader/app/structs/BehaviourTreeEvaluationSystem_DistanceHeuristic.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/BehaviourTreeEvaluationSystem_DistanceHeuristic.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

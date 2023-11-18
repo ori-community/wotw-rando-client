@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_System_MonoCustomAttrs_AttributeInfo__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_System_MonoCustomAttrs_AttributeInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_System_MonoCustomAttrs_AttributeInfo__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_System_MonoCustomAttrs_AttributeInfo__DEFINED
+struct Type;
+struct MonoCustomAttrs_AttributeInfo;
+struct Dictionary_2_TKey_TValue_Entry_System_Type_System_MonoCustomAttrs_AttributeInfo_ {
+    int32_t hashCode;
+    int32_t next;
+    struct Type* key;
+    struct MonoCustomAttrs_AttributeInfo* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_System_MonoCustomAttrs_AttributeInfo__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_System_MonoCustomAttrs_AttributeInfo__FWDDECL
+#include <Modloader/app/structs/MonoCustomAttrs_AttributeInfo.h>
+#include <Modloader/app/structs/Type.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_System_MonoCustomAttrs_AttributeInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_System_MonoCustomAttrs_AttributeInfo__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_System_MonoCustomAttrs_AttributeInfo__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Type_System_MonoCustomAttrs_AttributeInfo_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Type_System_MonoCustomAttrs_AttributeInfo_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

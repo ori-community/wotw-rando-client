@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_PlayFab_PlayStreamModels_BuildRegion__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_PlayFab_PlayStreamModels_BuildRegion__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_PlayFab_PlayStreamModels_BuildRegion__DEFINED)
+#include <Modloader/app/structs/List_1_PlayFab_PlayStreamModels_BuildRegion___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_PlayFab_PlayStreamModels_BuildRegion___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_PlayFab_PlayStreamModels_BuildRegion__DEFINED
+struct List_1_PlayFab_PlayStreamModels_BuildRegion___Class;
+struct List_1_PlayFab_PlayStreamModels_BuildRegion_ {
+    struct List_1_PlayFab_PlayStreamModels_BuildRegion___Class* klass;
+    MonitorData* monitor;
+    struct List_1_PlayFab_PlayStreamModels_BuildRegion___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_PlayFab_PlayStreamModels_BuildRegion__FWDDECL)
+#define IL2CPP_STRUCT_List_1_PlayFab_PlayStreamModels_BuildRegion__FWDDECL
+#include <Modloader/app/structs/List_1_PlayFab_PlayStreamModels_BuildRegion___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_PlayFab_PlayStreamModels_BuildRegion__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_PlayFab_PlayStreamModels_BuildRegion__DEFINED) && !defined(IL2CPP_STRUCT_List_1_PlayFab_PlayStreamModels_BuildRegion__FWDDECL)
+#include <Modloader/app/structs/List_1_PlayFab_PlayStreamModels_BuildRegion_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_PlayFab_PlayStreamModels_BuildRegion_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

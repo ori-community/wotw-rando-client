@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ArrayBuilder_1_System_Linq_Expressions_Expression___Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ArrayBuilder_1_System_Linq_Expressions_Expression___Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ArrayBuilder_1_System_Linq_Expressions_Expression___Boxed_DEFINED)
+#include <Modloader/app/structs/ArrayBuilder_1_System_Linq_Expressions_Expression_.h>
+#if defined(IL2CPP_STRUCT_ArrayBuilder_1_System_Linq_Expressions_Expression__DEFINED)
+#define IL2CPP_STRUCT_ArrayBuilder_1_System_Linq_Expressions_Expression___Boxed_DEFINED
+struct ArrayBuilder_1_System_Linq_Expressions_Expression___Class;
+struct ArrayBuilder_1_System_Linq_Expressions_Expression___Boxed {
+    struct ArrayBuilder_1_System_Linq_Expressions_Expression___Class* klass;
+    MonitorData* monitor;
+    struct ArrayBuilder_1_System_Linq_Expressions_Expression_ fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ArrayBuilder_1_System_Linq_Expressions_Expression___Boxed_FWDDECL)
+#define IL2CPP_STRUCT_ArrayBuilder_1_System_Linq_Expressions_Expression___Boxed_FWDDECL
+#include <Modloader/app/structs/ArrayBuilder_1_System_Linq_Expressions_Expression___Class.h>
+#endif
+#undef IL2CPP_STRUCT_ArrayBuilder_1_System_Linq_Expressions_Expression___Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ArrayBuilder_1_System_Linq_Expressions_Expression___Boxed_DEFINED) && !defined(IL2CPP_STRUCT_ArrayBuilder_1_System_Linq_Expressions_Expression___Boxed_FWDDECL)
+#include <Modloader/app/structs/ArrayBuilder_1_System_Linq_Expressions_Expression___Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ArrayBuilder_1_System_Linq_Expressions_Expression___Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

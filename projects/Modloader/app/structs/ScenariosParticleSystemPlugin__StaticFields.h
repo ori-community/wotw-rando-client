@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ScenariosParticleSystemPlugin__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ScenariosParticleSystemPlugin__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ScenariosParticleSystemPlugin__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_ScenariosParticleSystemPlugin__StaticFields_DEFINED
+struct List_1_UnityEngine_ParticleSystem_;
+struct Dictionary_2_UnityEngine_ParticleSystem_ScenariosParticleSystemPlugin_TrackingID_;
+struct ScenariosParticleSystemPlugin__StaticFields {
+    struct List_1_UnityEngine_ParticleSystem_* ParticleSystems;
+    struct Dictionary_2_UnityEngine_ParticleSystem_ScenariosParticleSystemPlugin_TrackingID_* ParticleSystemPuppetMap;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ScenariosParticleSystemPlugin__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_ScenariosParticleSystemPlugin__StaticFields_FWDDECL
+#include <Modloader/app/structs/Dictionary_2_UnityEngine_ParticleSystem_ScenariosParticleSystemPlugin_TrackingID_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_ParticleSystem_.h>
+#endif
+#undef IL2CPP_STRUCT_ScenariosParticleSystemPlugin__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ScenariosParticleSystemPlugin__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_ScenariosParticleSystemPlugin__StaticFields_FWDDECL)
+#include <Modloader/app/structs/ScenariosParticleSystemPlugin__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ScenariosParticleSystemPlugin__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

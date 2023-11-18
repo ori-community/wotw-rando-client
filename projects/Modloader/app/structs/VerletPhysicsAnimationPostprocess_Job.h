@@ -1,0 +1,23 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_Job_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_Job_INITIALIZING
+#if !defined(IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_Job_DEFINED)
+#define IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_Job_DEFINED
+struct VerletPhysicsAnimationPostprocess_Job {
+};
+#endif
+#if !defined(IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_Job_FWDDECL)
+#define IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_Job_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_Job_INITIALIZING
+#if !defined(IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_Job_DEFINED) && !defined(IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_Job_FWDDECL)
+#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess_Job.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess_Job.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MultiplayerServerBuildDeletedEventPayload_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MultiplayerServerBuildDeletedEventPayload_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MultiplayerServerBuildDeletedEventPayload_DEFINED)
+#include <Modloader/app/structs/MultiplayerServerBuildDeletedEventPayload__Fields.h>
+#if defined(IL2CPP_STRUCT_MultiplayerServerBuildDeletedEventPayload__Fields_DEFINED)
+#define IL2CPP_STRUCT_MultiplayerServerBuildDeletedEventPayload_DEFINED
+struct MultiplayerServerBuildDeletedEventPayload__Class;
+struct MultiplayerServerBuildDeletedEventPayload {
+    struct MultiplayerServerBuildDeletedEventPayload__Class* klass;
+    MonitorData* monitor;
+    struct MultiplayerServerBuildDeletedEventPayload__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MultiplayerServerBuildDeletedEventPayload_FWDDECL)
+#define IL2CPP_STRUCT_MultiplayerServerBuildDeletedEventPayload_FWDDECL
+#include <Modloader/app/structs/MultiplayerServerBuildDeletedEventPayload__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MultiplayerServerBuildDeletedEventPayload_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MultiplayerServerBuildDeletedEventPayload_DEFINED) && !defined(IL2CPP_STRUCT_MultiplayerServerBuildDeletedEventPayload_FWDDECL)
+#include <Modloader/app/structs/MultiplayerServerBuildDeletedEventPayload.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MultiplayerServerBuildDeletedEventPayload.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

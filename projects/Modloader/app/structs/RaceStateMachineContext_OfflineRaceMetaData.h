@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_RaceStateMachineContext_OfflineRaceMetaData_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_RaceStateMachineContext_OfflineRaceMetaData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RaceStateMachineContext_OfflineRaceMetaData_DEFINED)
+#include <Modloader/app/structs/RaceStateMachineContext_OfflineRaceMetaData__Fields.h>
+#if defined(IL2CPP_STRUCT_RaceStateMachineContext_OfflineRaceMetaData__Fields_DEFINED)
+#define IL2CPP_STRUCT_RaceStateMachineContext_OfflineRaceMetaData_DEFINED
+struct RaceStateMachineContext_OfflineRaceMetaData__Class;
+struct RaceStateMachineContext_OfflineRaceMetaData {
+    struct RaceStateMachineContext_OfflineRaceMetaData__Class* klass;
+    MonitorData* monitor;
+    struct RaceStateMachineContext_OfflineRaceMetaData__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_RaceStateMachineContext_OfflineRaceMetaData_FWDDECL)
+#define IL2CPP_STRUCT_RaceStateMachineContext_OfflineRaceMetaData_FWDDECL
+#include <Modloader/app/structs/RaceStateMachineContext_OfflineRaceMetaData__Class.h>
+#endif
+#undef IL2CPP_STRUCT_RaceStateMachineContext_OfflineRaceMetaData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RaceStateMachineContext_OfflineRaceMetaData_DEFINED) && !defined(IL2CPP_STRUCT_RaceStateMachineContext_OfflineRaceMetaData_FWDDECL)
+#include <Modloader/app/structs/RaceStateMachineContext_OfflineRaceMetaData.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/RaceStateMachineContext_OfflineRaceMetaData.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

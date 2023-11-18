@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_OpAssignMethodConversionBinaryExpression_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_OpAssignMethodConversionBinaryExpression_INITIALIZING
+#if !defined(IL2CPP_STRUCT_OpAssignMethodConversionBinaryExpression_DEFINED)
+#include <Modloader/app/structs/OpAssignMethodConversionBinaryExpression__Fields.h>
+#if defined(IL2CPP_STRUCT_OpAssignMethodConversionBinaryExpression__Fields_DEFINED)
+#define IL2CPP_STRUCT_OpAssignMethodConversionBinaryExpression_DEFINED
+struct OpAssignMethodConversionBinaryExpression__Class;
+struct OpAssignMethodConversionBinaryExpression {
+    struct OpAssignMethodConversionBinaryExpression__Class* klass;
+    MonitorData* monitor;
+    struct OpAssignMethodConversionBinaryExpression__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_OpAssignMethodConversionBinaryExpression_FWDDECL)
+#define IL2CPP_STRUCT_OpAssignMethodConversionBinaryExpression_FWDDECL
+#include <Modloader/app/structs/OpAssignMethodConversionBinaryExpression__Class.h>
+#endif
+#undef IL2CPP_STRUCT_OpAssignMethodConversionBinaryExpression_INITIALIZING
+#if !defined(IL2CPP_STRUCT_OpAssignMethodConversionBinaryExpression_DEFINED) && !defined(IL2CPP_STRUCT_OpAssignMethodConversionBinaryExpression_FWDDECL)
+#include <Modloader/app/structs/OpAssignMethodConversionBinaryExpression.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/OpAssignMethodConversionBinaryExpression.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

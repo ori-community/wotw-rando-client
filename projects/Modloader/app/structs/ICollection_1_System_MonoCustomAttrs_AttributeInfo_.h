@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ICollection_1_System_MonoCustomAttrs_AttributeInfo__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ICollection_1_System_MonoCustomAttrs_AttributeInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ICollection_1_System_MonoCustomAttrs_AttributeInfo__DEFINED)
+#define IL2CPP_STRUCT_ICollection_1_System_MonoCustomAttrs_AttributeInfo__DEFINED
+struct ICollection_1_System_MonoCustomAttrs_AttributeInfo___Class;
+struct ICollection_1_System_MonoCustomAttrs_AttributeInfo_ {
+    struct ICollection_1_System_MonoCustomAttrs_AttributeInfo___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ICollection_1_System_MonoCustomAttrs_AttributeInfo__FWDDECL)
+#define IL2CPP_STRUCT_ICollection_1_System_MonoCustomAttrs_AttributeInfo__FWDDECL
+#include <Modloader/app/structs/ICollection_1_System_MonoCustomAttrs_AttributeInfo___Class.h>
+#endif
+#undef IL2CPP_STRUCT_ICollection_1_System_MonoCustomAttrs_AttributeInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ICollection_1_System_MonoCustomAttrs_AttributeInfo__DEFINED) && !defined(IL2CPP_STRUCT_ICollection_1_System_MonoCustomAttrs_AttributeInfo__FWDDECL)
+#include <Modloader/app/structs/ICollection_1_System_MonoCustomAttrs_AttributeInfo_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ICollection_1_System_MonoCustomAttrs_AttributeInfo_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

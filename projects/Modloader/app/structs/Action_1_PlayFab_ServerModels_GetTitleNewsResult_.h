@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_GetTitleNewsResult__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_GetTitleNewsResult__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_GetTitleNewsResult__DEFINED)
+#include <Modloader/app/structs/Action_1_PlayFab_ServerModels_GetTitleNewsResult___Fields.h>
+#if defined(IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_GetTitleNewsResult___Fields_DEFINED)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_GetTitleNewsResult__DEFINED
+struct Action_1_PlayFab_ServerModels_GetTitleNewsResult___Class;
+struct Action_1_PlayFab_ServerModels_GetTitleNewsResult_ {
+    struct Action_1_PlayFab_ServerModels_GetTitleNewsResult___Class* klass;
+    MonitorData* monitor;
+    struct Action_1_PlayFab_ServerModels_GetTitleNewsResult___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_GetTitleNewsResult__FWDDECL)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_GetTitleNewsResult__FWDDECL
+#include <Modloader/app/structs/Action_1_PlayFab_ServerModels_GetTitleNewsResult___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_GetTitleNewsResult__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_GetTitleNewsResult__DEFINED) && !defined(IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_GetTitleNewsResult__FWDDECL)
+#include <Modloader/app/structs/Action_1_PlayFab_ServerModels_GetTitleNewsResult_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Action_1_PlayFab_ServerModels_GetTitleNewsResult_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

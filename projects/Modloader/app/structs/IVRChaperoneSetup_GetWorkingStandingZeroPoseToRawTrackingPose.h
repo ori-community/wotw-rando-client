@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose_DEFINED)
+#include <Modloader/app/structs/IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose__Fields.h>
+#if defined(IL2CPP_STRUCT_IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose_DEFINED
+struct IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose__Class;
+struct IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose {
+    struct IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose__Class* klass;
+    MonitorData* monitor;
+    struct IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose_FWDDECL)
+#define IL2CPP_STRUCT_IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose_FWDDECL
+#include <Modloader/app/structs/IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose_DEFINED) && !defined(IL2CPP_STRUCT_IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose_FWDDECL)
+#include <Modloader/app/structs/IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

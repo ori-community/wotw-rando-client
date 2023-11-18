@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ReduceSceneUnloadUtilityProfilingSetting_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ReduceSceneUnloadUtilityProfilingSetting_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ReduceSceneUnloadUtilityProfilingSetting_DEFINED)
+#include <Modloader/app/structs/ReduceSceneUnloadUtilityProfilingSetting__Fields.h>
+#if defined(IL2CPP_STRUCT_ReduceSceneUnloadUtilityProfilingSetting__Fields_DEFINED)
+#define IL2CPP_STRUCT_ReduceSceneUnloadUtilityProfilingSetting_DEFINED
+struct ReduceSceneUnloadUtilityProfilingSetting__Class;
+struct ReduceSceneUnloadUtilityProfilingSetting {
+    struct ReduceSceneUnloadUtilityProfilingSetting__Class* klass;
+    MonitorData* monitor;
+    struct ReduceSceneUnloadUtilityProfilingSetting__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ReduceSceneUnloadUtilityProfilingSetting_FWDDECL)
+#define IL2CPP_STRUCT_ReduceSceneUnloadUtilityProfilingSetting_FWDDECL
+#include <Modloader/app/structs/ReduceSceneUnloadUtilityProfilingSetting__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ReduceSceneUnloadUtilityProfilingSetting_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ReduceSceneUnloadUtilityProfilingSetting_DEFINED) && !defined(IL2CPP_STRUCT_ReduceSceneUnloadUtilityProfilingSetting_FWDDECL)
+#include <Modloader/app/structs/ReduceSceneUnloadUtilityProfilingSetting.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ReduceSceneUnloadUtilityProfilingSetting.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

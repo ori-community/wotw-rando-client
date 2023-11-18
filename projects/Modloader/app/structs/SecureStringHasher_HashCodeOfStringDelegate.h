@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SecureStringHasher_HashCodeOfStringDelegate_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SecureStringHasher_HashCodeOfStringDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SecureStringHasher_HashCodeOfStringDelegate_DEFINED)
+#include <Modloader/app/structs/SecureStringHasher_HashCodeOfStringDelegate__Fields.h>
+#if defined(IL2CPP_STRUCT_SecureStringHasher_HashCodeOfStringDelegate__Fields_DEFINED)
+#define IL2CPP_STRUCT_SecureStringHasher_HashCodeOfStringDelegate_DEFINED
+struct SecureStringHasher_HashCodeOfStringDelegate__Class;
+struct SecureStringHasher_HashCodeOfStringDelegate {
+    struct SecureStringHasher_HashCodeOfStringDelegate__Class* klass;
+    MonitorData* monitor;
+    struct SecureStringHasher_HashCodeOfStringDelegate__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SecureStringHasher_HashCodeOfStringDelegate_FWDDECL)
+#define IL2CPP_STRUCT_SecureStringHasher_HashCodeOfStringDelegate_FWDDECL
+#include <Modloader/app/structs/SecureStringHasher_HashCodeOfStringDelegate__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SecureStringHasher_HashCodeOfStringDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SecureStringHasher_HashCodeOfStringDelegate_DEFINED) && !defined(IL2CPP_STRUCT_SecureStringHasher_HashCodeOfStringDelegate_FWDDECL)
+#include <Modloader/app/structs/SecureStringHasher_HashCodeOfStringDelegate.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SecureStringHasher_HashCodeOfStringDelegate.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

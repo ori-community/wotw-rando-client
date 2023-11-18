@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice__DEFINED
+struct GameObject;
+struct SliceRenderSettings_Slice__Array;
+struct KeyValuePair_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice_ {
+    struct GameObject* key;
+    struct SliceRenderSettings_Slice__Array* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice__FWDDECL
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SliceRenderSettings_Slice__Array.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryKeyValueCollection_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryKeyValueCollection_INITIALIZING
+#if !defined(IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryKeyValueCollection_DEFINED)
+#include <Modloader/app/structs/OrderedDictionary_OrderedDictionaryKeyValueCollection__Fields.h>
+#if defined(IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryKeyValueCollection__Fields_DEFINED)
+#define IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryKeyValueCollection_DEFINED
+struct OrderedDictionary_OrderedDictionaryKeyValueCollection__Class;
+struct OrderedDictionary_OrderedDictionaryKeyValueCollection {
+    struct OrderedDictionary_OrderedDictionaryKeyValueCollection__Class* klass;
+    MonitorData* monitor;
+    struct OrderedDictionary_OrderedDictionaryKeyValueCollection__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryKeyValueCollection_FWDDECL)
+#define IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryKeyValueCollection_FWDDECL
+#include <Modloader/app/structs/OrderedDictionary_OrderedDictionaryKeyValueCollection__Class.h>
+#endif
+#undef IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryKeyValueCollection_INITIALIZING
+#if !defined(IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryKeyValueCollection_DEFINED) && !defined(IL2CPP_STRUCT_OrderedDictionary_OrderedDictionaryKeyValueCollection_FWDDECL)
+#include <Modloader/app/structs/OrderedDictionary_OrderedDictionaryKeyValueCollection.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/OrderedDictionary_OrderedDictionaryKeyValueCollection.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

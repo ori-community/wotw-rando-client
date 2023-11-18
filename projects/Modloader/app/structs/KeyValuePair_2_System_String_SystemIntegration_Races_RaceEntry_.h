@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_String_SystemIntegration_Races_RaceEntry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_SystemIntegration_Races_RaceEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_SystemIntegration_Races_RaceEntry__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_SystemIntegration_Races_RaceEntry__DEFINED
+struct String;
+struct RaceEntry;
+struct KeyValuePair_2_System_String_SystemIntegration_Races_RaceEntry_ {
+    struct String* key;
+    struct RaceEntry* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_SystemIntegration_Races_RaceEntry__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_SystemIntegration_Races_RaceEntry__FWDDECL
+#include <Modloader/app/structs/RaceEntry.h>
+#include <Modloader/app/structs/String.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_String_SystemIntegration_Races_RaceEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_SystemIntegration_Races_RaceEntry__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_SystemIntegration_Races_RaceEntry__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_String_SystemIntegration_Races_RaceEntry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_String_SystemIntegration_Races_RaceEntry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

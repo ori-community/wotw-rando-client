@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberShaderAtlasUtilities__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberShaderAtlasUtilities__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderAtlasUtilities__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_UberShaderAtlasUtilities__StaticFields_DEFINED
+struct Dictionary_2_System_String_UberShaderAtlasUtilities_TextureInfo_;
+struct UberShaderAtlasUtilities__StaticFields {
+    bool _DisableAtlas_k__BackingField;
+    struct Dictionary_2_System_String_UberShaderAtlasUtilities_TextureInfo_* s_texInfo;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_UberShaderAtlasUtilities__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_UberShaderAtlasUtilities__StaticFields_FWDDECL
+#include <Modloader/app/structs/Dictionary_2_System_String_UberShaderAtlasUtilities_TextureInfo_.h>
+#endif
+#undef IL2CPP_STRUCT_UberShaderAtlasUtilities__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderAtlasUtilities__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_UberShaderAtlasUtilities__StaticFields_FWDDECL)
+#include <Modloader/app/structs/UberShaderAtlasUtilities__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberShaderAtlasUtilities__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

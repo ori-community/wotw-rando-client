@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SpiderBossAttackCallMinions_DelayedSpawnInfo_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SpiderBossAttackCallMinions_DelayedSpawnInfo_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpiderBossAttackCallMinions_DelayedSpawnInfo_DEFINED)
+#include <Modloader/app/structs/SpiderBossAttackCallMinions_DelayedSpawnInfo__Fields.h>
+#if defined(IL2CPP_STRUCT_SpiderBossAttackCallMinions_DelayedSpawnInfo__Fields_DEFINED)
+#define IL2CPP_STRUCT_SpiderBossAttackCallMinions_DelayedSpawnInfo_DEFINED
+struct SpiderBossAttackCallMinions_DelayedSpawnInfo__Class;
+struct SpiderBossAttackCallMinions_DelayedSpawnInfo {
+    struct SpiderBossAttackCallMinions_DelayedSpawnInfo__Class* klass;
+    MonitorData* monitor;
+    struct SpiderBossAttackCallMinions_DelayedSpawnInfo__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SpiderBossAttackCallMinions_DelayedSpawnInfo_FWDDECL)
+#define IL2CPP_STRUCT_SpiderBossAttackCallMinions_DelayedSpawnInfo_FWDDECL
+#include <Modloader/app/structs/SpiderBossAttackCallMinions_DelayedSpawnInfo__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SpiderBossAttackCallMinions_DelayedSpawnInfo_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpiderBossAttackCallMinions_DelayedSpawnInfo_DEFINED) && !defined(IL2CPP_STRUCT_SpiderBossAttackCallMinions_DelayedSpawnInfo_FWDDECL)
+#include <Modloader/app/structs/SpiderBossAttackCallMinions_DelayedSpawnInfo.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SpiderBossAttackCallMinions_DelayedSpawnInfo.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

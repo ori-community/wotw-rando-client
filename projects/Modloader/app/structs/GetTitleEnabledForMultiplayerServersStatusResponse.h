@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GetTitleEnabledForMultiplayerServersStatusResponse_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GetTitleEnabledForMultiplayerServersStatusResponse_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GetTitleEnabledForMultiplayerServersStatusResponse_DEFINED)
+#include <Modloader/app/structs/GetTitleEnabledForMultiplayerServersStatusResponse__Fields.h>
+#if defined(IL2CPP_STRUCT_GetTitleEnabledForMultiplayerServersStatusResponse__Fields_DEFINED)
+#define IL2CPP_STRUCT_GetTitleEnabledForMultiplayerServersStatusResponse_DEFINED
+struct GetTitleEnabledForMultiplayerServersStatusResponse__Class;
+struct GetTitleEnabledForMultiplayerServersStatusResponse {
+    struct GetTitleEnabledForMultiplayerServersStatusResponse__Class* klass;
+    MonitorData* monitor;
+    struct GetTitleEnabledForMultiplayerServersStatusResponse__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GetTitleEnabledForMultiplayerServersStatusResponse_FWDDECL)
+#define IL2CPP_STRUCT_GetTitleEnabledForMultiplayerServersStatusResponse_FWDDECL
+#include <Modloader/app/structs/GetTitleEnabledForMultiplayerServersStatusResponse__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GetTitleEnabledForMultiplayerServersStatusResponse_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GetTitleEnabledForMultiplayerServersStatusResponse_DEFINED) && !defined(IL2CPP_STRUCT_GetTitleEnabledForMultiplayerServersStatusResponse_FWDDECL)
+#include <Modloader/app/structs/GetTitleEnabledForMultiplayerServersStatusResponse.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GetTitleEnabledForMultiplayerServersStatusResponse.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

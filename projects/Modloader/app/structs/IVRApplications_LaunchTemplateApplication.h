@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRApplications_LaunchTemplateApplication_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRApplications_LaunchTemplateApplication_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRApplications_LaunchTemplateApplication_DEFINED)
+#include <Modloader/app/structs/IVRApplications_LaunchTemplateApplication__Fields.h>
+#if defined(IL2CPP_STRUCT_IVRApplications_LaunchTemplateApplication__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVRApplications_LaunchTemplateApplication_DEFINED
+struct IVRApplications_LaunchTemplateApplication__Class;
+struct IVRApplications_LaunchTemplateApplication {
+    struct IVRApplications_LaunchTemplateApplication__Class* klass;
+    MonitorData* monitor;
+    struct IVRApplications_LaunchTemplateApplication__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVRApplications_LaunchTemplateApplication_FWDDECL)
+#define IL2CPP_STRUCT_IVRApplications_LaunchTemplateApplication_FWDDECL
+#include <Modloader/app/structs/IVRApplications_LaunchTemplateApplication__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVRApplications_LaunchTemplateApplication_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRApplications_LaunchTemplateApplication_DEFINED) && !defined(IL2CPP_STRUCT_IVRApplications_LaunchTemplateApplication_FWDDECL)
+#include <Modloader/app/structs/IVRApplications_LaunchTemplateApplication.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRApplications_LaunchTemplateApplication.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DynamicProxyMetaObject_1_T_c_System_Object___StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DynamicProxyMetaObject_1_T_c_System_Object___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DynamicProxyMetaObject_1_T_c_System_Object___StaticFields_DEFINED)
+#define IL2CPP_STRUCT_DynamicProxyMetaObject_1_T_c_System_Object___StaticFields_DEFINED
+struct DynamicProxyMetaObject_1_T_c_System_Object_;
+struct Func_2_System_Dynamic_DynamicMetaObject_System_Linq_Expressions_Expression_;
+struct DynamicProxyMetaObject_1_T_c_System_Object___StaticFields {
+    struct DynamicProxyMetaObject_1_T_c_System_Object_* __9;
+    struct Func_2_System_Dynamic_DynamicMetaObject_System_Linq_Expressions_Expression_* __9__18_0;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_DynamicProxyMetaObject_1_T_c_System_Object___StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_DynamicProxyMetaObject_1_T_c_System_Object___StaticFields_FWDDECL
+#include <Modloader/app/structs/DynamicProxyMetaObject_1_T_c_System_Object_.h>
+#include <Modloader/app/structs/Func_2_System_Dynamic_DynamicMetaObject_System_Linq_Expressions_Expression_.h>
+#endif
+#undef IL2CPP_STRUCT_DynamicProxyMetaObject_1_T_c_System_Object___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DynamicProxyMetaObject_1_T_c_System_Object___StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_DynamicProxyMetaObject_1_T_c_System_Object___StaticFields_FWDDECL)
+#include <Modloader/app/structs/DynamicProxyMetaObject_1_T_c_System_Object___StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DynamicProxyMetaObject_1_T_c_System_Object___StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XmlValidatingReaderImpl_ValidationEventHandling_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XmlValidatingReaderImpl_ValidationEventHandling_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XmlValidatingReaderImpl_ValidationEventHandling_DEFINED)
+#include <Modloader/app/structs/XmlValidatingReaderImpl_ValidationEventHandling__Fields.h>
+#if defined(IL2CPP_STRUCT_XmlValidatingReaderImpl_ValidationEventHandling__Fields_DEFINED)
+#define IL2CPP_STRUCT_XmlValidatingReaderImpl_ValidationEventHandling_DEFINED
+struct XmlValidatingReaderImpl_ValidationEventHandling__Class;
+struct XmlValidatingReaderImpl_ValidationEventHandling {
+    struct XmlValidatingReaderImpl_ValidationEventHandling__Class* klass;
+    MonitorData* monitor;
+    struct XmlValidatingReaderImpl_ValidationEventHandling__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_XmlValidatingReaderImpl_ValidationEventHandling_FWDDECL)
+#define IL2CPP_STRUCT_XmlValidatingReaderImpl_ValidationEventHandling_FWDDECL
+#include <Modloader/app/structs/XmlValidatingReaderImpl_ValidationEventHandling__Class.h>
+#endif
+#undef IL2CPP_STRUCT_XmlValidatingReaderImpl_ValidationEventHandling_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XmlValidatingReaderImpl_ValidationEventHandling_DEFINED) && !defined(IL2CPP_STRUCT_XmlValidatingReaderImpl_ValidationEventHandling_FWDDECL)
+#include <Modloader/app/structs/XmlValidatingReaderImpl_ValidationEventHandling.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XmlValidatingReaderImpl_ValidationEventHandling.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

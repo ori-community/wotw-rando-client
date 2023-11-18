@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_VerletStructure_SystemWithMonoBehaviour_Samplers_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_VerletStructure_SystemWithMonoBehaviour_Samplers_INITIALIZING
+#if !defined(IL2CPP_STRUCT_VerletStructure_SystemWithMonoBehaviour_Samplers_DEFINED)
+#define IL2CPP_STRUCT_VerletStructure_SystemWithMonoBehaviour_Samplers_DEFINED
+struct VerletStructure_SystemWithMonoBehaviour_Samplers__Class;
+struct VerletStructure_SystemWithMonoBehaviour_Samplers {
+    struct VerletStructure_SystemWithMonoBehaviour_Samplers__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_VerletStructure_SystemWithMonoBehaviour_Samplers_FWDDECL)
+#define IL2CPP_STRUCT_VerletStructure_SystemWithMonoBehaviour_Samplers_FWDDECL
+#include <Modloader/app/structs/VerletStructure_SystemWithMonoBehaviour_Samplers__Class.h>
+#endif
+#undef IL2CPP_STRUCT_VerletStructure_SystemWithMonoBehaviour_Samplers_INITIALIZING
+#if !defined(IL2CPP_STRUCT_VerletStructure_SystemWithMonoBehaviour_Samplers_DEFINED) && !defined(IL2CPP_STRUCT_VerletStructure_SystemWithMonoBehaviour_Samplers_FWDDECL)
+#include <Modloader/app/structs/VerletStructure_SystemWithMonoBehaviour_Samplers.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/VerletStructure_SystemWithMonoBehaviour_Samplers.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

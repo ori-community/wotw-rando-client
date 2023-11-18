@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MirroredSet_1_Moon_MoonAnimation__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MirroredSet_1_Moon_MoonAnimation__INITIALIZING
+#if !defined(IL2CPP_STRUCT_MirroredSet_1_Moon_MoonAnimation__DEFINED)
+#include <Modloader/app/structs/MirroredSet_1_Moon_MoonAnimation___Fields.h>
+#if defined(IL2CPP_STRUCT_MirroredSet_1_Moon_MoonAnimation___Fields_DEFINED)
+#define IL2CPP_STRUCT_MirroredSet_1_Moon_MoonAnimation__DEFINED
+struct MirroredSet_1_Moon_MoonAnimation___Class;
+struct MirroredSet_1_Moon_MoonAnimation_ {
+    struct MirroredSet_1_Moon_MoonAnimation___Class* klass;
+    MonitorData* monitor;
+    struct MirroredSet_1_Moon_MoonAnimation___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MirroredSet_1_Moon_MoonAnimation__FWDDECL)
+#define IL2CPP_STRUCT_MirroredSet_1_Moon_MoonAnimation__FWDDECL
+#include <Modloader/app/structs/MirroredSet_1_Moon_MoonAnimation___Class.h>
+#endif
+#undef IL2CPP_STRUCT_MirroredSet_1_Moon_MoonAnimation__INITIALIZING
+#if !defined(IL2CPP_STRUCT_MirroredSet_1_Moon_MoonAnimation__DEFINED) && !defined(IL2CPP_STRUCT_MirroredSet_1_Moon_MoonAnimation__FWDDECL)
+#include <Modloader/app/structs/MirroredSet_1_Moon_MoonAnimation_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MirroredSet_1_Moon_MoonAnimation_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,23 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PostLateUpdate_PhysicsSkinnedClothFinishUpdate_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PostLateUpdate_PhysicsSkinnedClothFinishUpdate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PostLateUpdate_PhysicsSkinnedClothFinishUpdate_DEFINED)
+#define IL2CPP_STRUCT_PostLateUpdate_PhysicsSkinnedClothFinishUpdate_DEFINED
+struct PostLateUpdate_PhysicsSkinnedClothFinishUpdate {
+};
+#endif
+#if !defined(IL2CPP_STRUCT_PostLateUpdate_PhysicsSkinnedClothFinishUpdate_FWDDECL)
+#define IL2CPP_STRUCT_PostLateUpdate_PhysicsSkinnedClothFinishUpdate_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_PostLateUpdate_PhysicsSkinnedClothFinishUpdate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PostLateUpdate_PhysicsSkinnedClothFinishUpdate_DEFINED) && !defined(IL2CPP_STRUCT_PostLateUpdate_PhysicsSkinnedClothFinishUpdate_FWDDECL)
+#include <Modloader/app/structs/PostLateUpdate_PhysicsSkinnedClothFinishUpdate.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PostLateUpdate_PhysicsSkinnedClothFinishUpdate.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

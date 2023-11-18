@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TypeDescriptor_AttributeProvider_AttributeTypeDescriptor__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TypeDescriptor_AttributeProvider_AttributeTypeDescriptor__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TypeDescriptor_AttributeProvider_AttributeTypeDescriptor__Fields_DEFINED)
+#include <Modloader/app/structs/CustomTypeDescriptor__Fields.h>
+#if defined(IL2CPP_STRUCT_CustomTypeDescriptor__Fields_DEFINED)
+#define IL2CPP_STRUCT_TypeDescriptor_AttributeProvider_AttributeTypeDescriptor__Fields_DEFINED
+struct Attribute__Array;
+struct TypeDescriptor_AttributeProvider_AttributeTypeDescriptor__Fields {
+    struct CustomTypeDescriptor__Fields _;
+    struct Attribute__Array* _attributeArray;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TypeDescriptor_AttributeProvider_AttributeTypeDescriptor__Fields_FWDDECL)
+#define IL2CPP_STRUCT_TypeDescriptor_AttributeProvider_AttributeTypeDescriptor__Fields_FWDDECL
+#include <Modloader/app/structs/Attribute__Array.h>
+#endif
+#undef IL2CPP_STRUCT_TypeDescriptor_AttributeProvider_AttributeTypeDescriptor__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TypeDescriptor_AttributeProvider_AttributeTypeDescriptor__Fields_DEFINED) && !defined(IL2CPP_STRUCT_TypeDescriptor_AttributeProvider_AttributeTypeDescriptor__Fields_FWDDECL)
+#include <Modloader/app/structs/TypeDescriptor_AttributeProvider_AttributeTypeDescriptor__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TypeDescriptor_AttributeProvider_AttributeTypeDescriptor__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ExecuteEvents_EventFunction_1_ISelectHandler__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ExecuteEvents_EventFunction_1_ISelectHandler__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ExecuteEvents_EventFunction_1_ISelectHandler__DEFINED)
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_ISelectHandler___Fields.h>
+#if defined(IL2CPP_STRUCT_ExecuteEvents_EventFunction_1_ISelectHandler___Fields_DEFINED)
+#define IL2CPP_STRUCT_ExecuteEvents_EventFunction_1_ISelectHandler__DEFINED
+struct ExecuteEvents_EventFunction_1_ISelectHandler___Class;
+struct ExecuteEvents_EventFunction_1_ISelectHandler_ {
+    struct ExecuteEvents_EventFunction_1_ISelectHandler___Class* klass;
+    MonitorData* monitor;
+    struct ExecuteEvents_EventFunction_1_ISelectHandler___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ExecuteEvents_EventFunction_1_ISelectHandler__FWDDECL)
+#define IL2CPP_STRUCT_ExecuteEvents_EventFunction_1_ISelectHandler__FWDDECL
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_ISelectHandler___Class.h>
+#endif
+#undef IL2CPP_STRUCT_ExecuteEvents_EventFunction_1_ISelectHandler__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ExecuteEvents_EventFunction_1_ISelectHandler__DEFINED) && !defined(IL2CPP_STRUCT_ExecuteEvents_EventFunction_1_ISelectHandler__FWDDECL)
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_ISelectHandler_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_ISelectHandler_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

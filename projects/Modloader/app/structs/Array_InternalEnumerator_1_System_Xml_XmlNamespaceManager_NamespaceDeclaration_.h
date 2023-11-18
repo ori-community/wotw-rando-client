@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Array_InternalEnumerator_1_System_Xml_XmlNamespaceManager_NamespaceDeclaration__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Array_InternalEnumerator_1_System_Xml_XmlNamespaceManager_NamespaceDeclaration__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Array_InternalEnumerator_1_System_Xml_XmlNamespaceManager_NamespaceDeclaration__DEFINED)
+#define IL2CPP_STRUCT_Array_InternalEnumerator_1_System_Xml_XmlNamespaceManager_NamespaceDeclaration__DEFINED
+struct Array;
+struct Array_InternalEnumerator_1_System_Xml_XmlNamespaceManager_NamespaceDeclaration_ {
+    struct Array* array;
+    int32_t idx;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Array_InternalEnumerator_1_System_Xml_XmlNamespaceManager_NamespaceDeclaration__FWDDECL)
+#define IL2CPP_STRUCT_Array_InternalEnumerator_1_System_Xml_XmlNamespaceManager_NamespaceDeclaration__FWDDECL
+#include <Modloader/app/structs/Array.h>
+#endif
+#undef IL2CPP_STRUCT_Array_InternalEnumerator_1_System_Xml_XmlNamespaceManager_NamespaceDeclaration__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Array_InternalEnumerator_1_System_Xml_XmlNamespaceManager_NamespaceDeclaration__DEFINED) && !defined(IL2CPP_STRUCT_Array_InternalEnumerator_1_System_Xml_XmlNamespaceManager_NamespaceDeclaration__FWDDECL)
+#include <Modloader/app/structs/Array_InternalEnumerator_1_System_Xml_XmlNamespaceManager_NamespaceDeclaration_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Array_InternalEnumerator_1_System_Xml_XmlNamespaceManager_NamespaceDeclaration_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

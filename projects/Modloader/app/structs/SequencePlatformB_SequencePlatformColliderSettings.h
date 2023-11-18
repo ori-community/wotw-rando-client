@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SequencePlatformB_SequencePlatformColliderSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SequencePlatformB_SequencePlatformColliderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SequencePlatformB_SequencePlatformColliderSettings_DEFINED)
+#include <Modloader/app/structs/SequencePlatformB_SequencePlatformColliderSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_SequencePlatformB_SequencePlatformColliderSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_SequencePlatformB_SequencePlatformColliderSettings_DEFINED
+struct SequencePlatformB_SequencePlatformColliderSettings__Class;
+struct SequencePlatformB_SequencePlatformColliderSettings {
+    struct SequencePlatformB_SequencePlatformColliderSettings__Class* klass;
+    MonitorData* monitor;
+    struct SequencePlatformB_SequencePlatformColliderSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SequencePlatformB_SequencePlatformColliderSettings_FWDDECL)
+#define IL2CPP_STRUCT_SequencePlatformB_SequencePlatformColliderSettings_FWDDECL
+#include <Modloader/app/structs/SequencePlatformB_SequencePlatformColliderSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SequencePlatformB_SequencePlatformColliderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SequencePlatformB_SequencePlatformColliderSettings_DEFINED) && !defined(IL2CPP_STRUCT_SequencePlatformB_SequencePlatformColliderSettings_FWDDECL)
+#include <Modloader/app/structs/SequencePlatformB_SequencePlatformColliderSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SequencePlatformB_SequencePlatformColliderSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

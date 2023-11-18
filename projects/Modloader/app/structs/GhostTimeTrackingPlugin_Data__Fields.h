@@ -1,0 +1,25 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GhostTimeTrackingPlugin_Data__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GhostTimeTrackingPlugin_Data__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostTimeTrackingPlugin_Data__Fields_DEFINED)
+#define IL2CPP_STRUCT_GhostTimeTrackingPlugin_Data__Fields_DEFINED
+struct __declspec(align(8)) GhostTimeTrackingPlugin_Data__Fields {
+    float Time;
+    bool _Executed_k__BackingField;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_GhostTimeTrackingPlugin_Data__Fields_FWDDECL)
+#define IL2CPP_STRUCT_GhostTimeTrackingPlugin_Data__Fields_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_GhostTimeTrackingPlugin_Data__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostTimeTrackingPlugin_Data__Fields_DEFINED) && !defined(IL2CPP_STRUCT_GhostTimeTrackingPlugin_Data__Fields_FWDDECL)
+#include <Modloader/app/structs/GhostTimeTrackingPlugin_Data__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GhostTimeTrackingPlugin_Data__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

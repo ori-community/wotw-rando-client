@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_BigFace_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_BigFace_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_BigFace_DEFINED)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_BigFace_DEFINED
+struct ShaderID_CameraFilterPack_Distortion_BigFace__Class;
+struct ShaderID_CameraFilterPack_Distortion_BigFace {
+    struct ShaderID_CameraFilterPack_Distortion_BigFace__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_BigFace_FWDDECL)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_BigFace_FWDDECL
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Distortion_BigFace__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_BigFace_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_BigFace_DEFINED) && !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_BigFace_FWDDECL)
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Distortion_BigFace.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Distortion_BigFace.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

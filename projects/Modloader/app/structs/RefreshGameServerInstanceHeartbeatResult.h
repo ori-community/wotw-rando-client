@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_RefreshGameServerInstanceHeartbeatResult_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_RefreshGameServerInstanceHeartbeatResult_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RefreshGameServerInstanceHeartbeatResult_DEFINED)
+#include <Modloader/app/structs/RefreshGameServerInstanceHeartbeatResult__Fields.h>
+#if defined(IL2CPP_STRUCT_RefreshGameServerInstanceHeartbeatResult__Fields_DEFINED)
+#define IL2CPP_STRUCT_RefreshGameServerInstanceHeartbeatResult_DEFINED
+struct RefreshGameServerInstanceHeartbeatResult__Class;
+struct RefreshGameServerInstanceHeartbeatResult {
+    struct RefreshGameServerInstanceHeartbeatResult__Class* klass;
+    MonitorData* monitor;
+    struct RefreshGameServerInstanceHeartbeatResult__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_RefreshGameServerInstanceHeartbeatResult_FWDDECL)
+#define IL2CPP_STRUCT_RefreshGameServerInstanceHeartbeatResult_FWDDECL
+#include <Modloader/app/structs/RefreshGameServerInstanceHeartbeatResult__Class.h>
+#endif
+#undef IL2CPP_STRUCT_RefreshGameServerInstanceHeartbeatResult_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RefreshGameServerInstanceHeartbeatResult_DEFINED) && !defined(IL2CPP_STRUCT_RefreshGameServerInstanceHeartbeatResult_FWDDECL)
+#include <Modloader/app/structs/RefreshGameServerInstanceHeartbeatResult.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/RefreshGameServerInstanceHeartbeatResult.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

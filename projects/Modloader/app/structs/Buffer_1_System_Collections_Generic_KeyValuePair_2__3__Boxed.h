@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Boxed_DEFINED)
+#include <Modloader/app/structs/Buffer_1_System_Collections_Generic_KeyValuePair_2__3.h>
+#if defined(IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__3_DEFINED)
+#define IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Boxed_DEFINED
+struct Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Class;
+struct Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Boxed {
+    struct Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Class* klass;
+    MonitorData* monitor;
+    struct Buffer_1_System_Collections_Generic_KeyValuePair_2__3 fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Boxed_FWDDECL
+#include <Modloader/app/structs/Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Class.h>
+#endif
+#undef IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Boxed_FWDDECL)
+#include <Modloader/app/structs/Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Buffer_1_System_Collections_Generic_KeyValuePair_2__3__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

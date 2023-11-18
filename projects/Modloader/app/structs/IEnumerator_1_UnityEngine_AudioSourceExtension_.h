@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_UnityEngine_AudioSourceExtension__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_UnityEngine_AudioSourceExtension__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_UnityEngine_AudioSourceExtension__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_UnityEngine_AudioSourceExtension__DEFINED
+struct IEnumerator_1_UnityEngine_AudioSourceExtension___Class;
+struct IEnumerator_1_UnityEngine_AudioSourceExtension_ {
+    struct IEnumerator_1_UnityEngine_AudioSourceExtension___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_UnityEngine_AudioSourceExtension__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_UnityEngine_AudioSourceExtension__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_AudioSourceExtension___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_UnityEngine_AudioSourceExtension__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_UnityEngine_AudioSourceExtension__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_UnityEngine_AudioSourceExtension__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_AudioSourceExtension_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_AudioSourceExtension_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

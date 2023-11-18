@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_HornbugBossHitReactionsBehaviour_Reaction__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_HornbugBossHitReactionsBehaviour_Reaction__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_HornbugBossHitReactionsBehaviour_Reaction__Boxed_DEFINED)
+#include <Modloader/app/structs/HornbugBossHitReactionsBehaviour_Reaction.h>
+#if defined(IL2CPP_STRUCT_HornbugBossHitReactionsBehaviour_Reaction_DEFINED)
+#define IL2CPP_STRUCT_HornbugBossHitReactionsBehaviour_Reaction__Boxed_DEFINED
+struct HornbugBossHitReactionsBehaviour_Reaction__Class;
+struct HornbugBossHitReactionsBehaviour_Reaction__Boxed {
+    struct HornbugBossHitReactionsBehaviour_Reaction__Class* klass;
+    MonitorData* monitor;
+    struct HornbugBossHitReactionsBehaviour_Reaction fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_HornbugBossHitReactionsBehaviour_Reaction__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_HornbugBossHitReactionsBehaviour_Reaction__Boxed_FWDDECL
+#include <Modloader/app/structs/HornbugBossHitReactionsBehaviour_Reaction__Class.h>
+#endif
+#undef IL2CPP_STRUCT_HornbugBossHitReactionsBehaviour_Reaction__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_HornbugBossHitReactionsBehaviour_Reaction__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_HornbugBossHitReactionsBehaviour_Reaction__Boxed_FWDDECL)
+#include <Modloader/app/structs/HornbugBossHitReactionsBehaviour_Reaction__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/HornbugBossHitReactionsBehaviour_Reaction__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif
