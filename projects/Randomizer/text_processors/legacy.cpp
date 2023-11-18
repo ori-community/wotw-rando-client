@@ -44,11 +44,21 @@ namespace randomizer::text_processors {
 
             return text;
         }
+
+        std::optional<std::string> text_database(std::string_view content) {
+            int id = 0;
+            if (std::from_chars(content.data(), content.data() + content.size(), id).ec != std::errc()) {
+                return std::nullopt;
+            }
+
+            return core::text::get_concatenated_text(id, "\n");
+        }
     } // namespace
 
     void LegacyProcessor::process(std::string& text) const {
         search_and_replace("$(", value, text, "(", ")"); // Interpolate seed.text(location)
         search_and_replace("$[(", seed_text, text, "[(", ")]"); // Interpolate seed.text(location)
         search_and_replace("$[", action, text, "[", "]"); // Interpolate seed action.
+        search_and_replace("${", text_database, text, "{", "}"); // Interpolate seed action.
     }
 } // namespace randomizer::text_processors
