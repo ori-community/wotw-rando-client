@@ -86,6 +86,10 @@ namespace core::api::game::player {
 
         void add_health(float value) {
             auto sein = game::player::sein();
+            if (sein == nullptr) {
+                return;
+            }
+
             if (value >= 0.0f) {
                 app::classes::SeinHealthController::GainHealth(sein->fields.Mortality->fields.Health, value, 4, false);
             } else if (get_health() + value < 0.0f) {
@@ -101,6 +105,10 @@ namespace core::api::game::player {
 
         void add_energy(float value) {
             auto sein = game::player::sein();
+            if (sein == nullptr) {
+                return;
+            }
+
             if (value >= 0.0f) {
                 app::classes::SeinEnergy::Gain(sein->fields.Energy, value);
             } else {

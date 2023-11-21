@@ -570,7 +570,7 @@ namespace randomizer::seed::legacy_parser {
     }
 
     bool parse_create_warp(std::span<std::string> parts, ParserData& data) {
-        if (parts.size() != 3) {
+        if (parts.size() != 4) {
             return false;
         }
 
@@ -579,7 +579,8 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        icon->flags = game::map::FilterFlag::All | game::map::FilterFlag::Teleports;
+        icon->label = parts[3];
+        icon->flags = game::map::FilterFlag::All | game::map::FilterFlag::Teleports | game::map::FilterFlag::InLogic | game::map::FilterFlag::Spoilers;
         icon->type = app::WorldMapIconType__Enum::SavePedestal;
         icon->can_teleport = true;
         data.location_data.items[data.next_location_id++] = icon;
