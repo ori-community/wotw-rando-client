@@ -98,7 +98,9 @@ namespace {
 
         auto show_cost = cost != 0 && slot->visibility == SlotVisibility::Visible;
         GameObject::SetActive(this_ptr->fields.CostGO, show_cost);
-        GameObject::SetActive(this_ptr->fields.SpiritLightGO, show_cost);
+        if (this_ptr->fields.SpiritLightGO != nullptr) {
+            GameObject::SetActive(this_ptr->fields.SpiritLightGO, show_cost);
+        }
 
         if (show_cost) {
             auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, types::TextBox::get_class());
