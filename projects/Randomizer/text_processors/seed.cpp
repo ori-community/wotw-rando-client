@@ -7,6 +7,8 @@
 
 namespace randomizer::text_processors {
     namespace {
+        core::api::uber_states::UberState current_map_area(UberStateGroup::GameState, 15);
+
         std::optional<std::string> total_pickup_count(core::text::ITextProcessor const& base_processor, std::string_view content) {
             return std::to_string(game_seed().info().total_pickups);
         }
@@ -73,7 +75,7 @@ namespace randomizer::text_processors {
             }
 
             auto const& relics = game_seed().relics();
-            const auto current_area = core::api::game::player::get_current_area();
+            const auto current_area = static_cast<GameArea>(current_map_area.get<int>());
             const auto relics_in_area = relics.relics_in_area(current_area);
             const auto total = relics_in_area.size();
             if (total == 0) {
