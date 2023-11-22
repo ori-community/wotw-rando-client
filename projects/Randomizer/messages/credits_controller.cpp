@@ -22,11 +22,10 @@ namespace randomizer::messages {
 
         ~TextProcessor() override = default;
 
-        void process(ITextProcessor const& base_processor, std::string& text) const {
+        void process(ITextProcessor const& base_processor, std::string& text) const override {
             auto new_text = text;
             std::sregex_iterator it(text.begin(), text.end(), collection_replacement);
-            std::sregex_iterator end;
-            for (; it != end; ++it) {
+            for (const std::sregex_iterator end; it != end; ++it) {
                 auto id = std::stoi(it->str().substr(2));
                 auto const& replacement = m_credits.m_string_collection[id];
                 new_text.replace(it->position(), it->size(), replacement[m_credits.m_random_value % replacement.size()]);

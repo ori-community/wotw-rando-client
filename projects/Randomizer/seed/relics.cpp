@@ -82,8 +82,8 @@ namespace randomizer::seed {
 
     int Relics::relic_count() const {
         int count = 0;
-        for (auto relics : m_relics | std::views::values) {
-            count += relics.size();
+        for (const auto& relics : m_relics | std::views::values) {
+            count += static_cast<int>(relics.size());
         }
 
         return count;

@@ -62,12 +62,12 @@ namespace core::api::messages {
         void update();
 
         [[nodiscard]] Visibility get_visibility();
-        void show(bool instant = false, bool play_sound = true);
-        void hide(bool instant = false);
+        void show(bool instant = false, bool play_sound = true) const;
+        void hide(bool instant = false) const;
 
-        void show_box(bool value);
-        [[nodiscard]] app::Rect text_bounds();
-        [[nodiscard]] app::Rect bounds();
+        void show_box(bool value) const;
+        [[nodiscard]] app::Rect text_bounds() const;
+        [[nodiscard]] app::Rect bounds() const;
 
         [[nodiscard]] DynamicValue<std::string>& text() { return m_text; }
         [[nodiscard]] DynamicValue<app::Vector3>& position() { return m_position; }

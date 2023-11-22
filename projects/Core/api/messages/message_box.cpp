@@ -99,17 +99,17 @@ namespace core::api::messages {
         m_message_box->fields.Visibility->fields.m_timeSpeed =
             -1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionOutDuration, FLT_EPSILON);
 
-        m_message_box->fields.MessageProvider = core::api::system::create_message_provider(" ");
+        m_message_box->fields.MessageProvider = system::create_message_provider(" ");
         app::classes::MessageBox::RefreshText_1(m_message_box);
 
-        auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(
+        const auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(
             m_game_object,
             types::SoundSource::get_class()
         );
         sound_source->fields.PlayAtStart = false;
         sound_source->fields.DestroyOnSoundEnd = false;
 
-        auto transform = il2cpp::unity::get_transform(m_game_object);
+        const auto transform = il2cpp::unity::get_transform(m_game_object);
         Transform::set_position(transform, m_position.get());
         GameObject::SetActive(m_game_object, true);
         ScaleToTextBox::UpdateSize(m_scaler);
@@ -131,7 +131,7 @@ namespace core::api::messages {
                 m_message_box->fields.TextBox->fields.alignment = value;
                 ScaleToTextBox::UpdateSize(m_scaler);
             },
-            [this]() {
+            [this] {
                 return m_message_box->fields.TextBox->fields.alignment;
             },
         });
@@ -140,7 +140,7 @@ namespace core::api::messages {
                 m_message_box->fields.TextBox->fields.horizontalAnchor = value;
                 ScaleToTextBox::UpdateSize(m_scaler);
             },
-            [this]() {
+            [this] {
                 return m_message_box->fields.TextBox->fields.horizontalAnchor;
             },
         });
@@ -149,7 +149,7 @@ namespace core::api::messages {
                 m_message_box->fields.TextBox->fields.verticalAnchor = value;
                 ScaleToTextBox::UpdateSize(m_scaler);
             },
-            [this]() {
+            [this] {
                 return m_message_box->fields.TextBox->fields.verticalAnchor;
             },
         });
@@ -158,7 +158,7 @@ namespace core::api::messages {
                 m_scaler->fields.TopLeftPadding.y = value;
                 ScaleToTextBox::UpdateSize(m_scaler);
             },
-            [this]() {
+            [this] {
                 return m_scaler->fields.TopLeftPadding.y;
             },
         });
@@ -167,7 +167,7 @@ namespace core::api::messages {
                 m_scaler->fields.BottomRightPadding.y = value;
                 ScaleToTextBox::UpdateSize(m_scaler);
             },
-            [this]() {
+            [this] {
                 return m_scaler->fields.BottomRightPadding.y;
             },
         });
@@ -176,7 +176,7 @@ namespace core::api::messages {
                 m_scaler->fields.TopLeftPadding.x = value;
                 ScaleToTextBox::UpdateSize(m_scaler);
             },
-            [this]() {
+            [this] {
                 return m_scaler->fields.TopLeftPadding.x;
             },
         });
@@ -185,7 +185,7 @@ namespace core::api::messages {
                 m_scaler->fields.BottomRightPadding.x = value;
                 ScaleToTextBox::UpdateSize(m_scaler);
             },
-            [this]() {
+            [this] {
                 return m_scaler->fields.BottomRightPadding.x;
             },
         });
@@ -206,12 +206,12 @@ namespace core::api::messages {
         }
     }
 
-    app::Rect MessageBox::text_bounds() {
+    app::Rect MessageBox::text_bounds() const {
         const auto text_box = m_message_box->fields.TextBox;
         return CatlikeCoding::TextBox::TextBox::GetRealTextBoxLocalRect(text_box);
     }
 
-    app::Rect MessageBox::bounds() {
+    app::Rect MessageBox::bounds() const {
         const auto text_box = m_message_box->fields.TextBox;
         return {
             text_box->fields.boundsLeft,
@@ -250,14 +250,17 @@ namespace core::api::messages {
         }
 
         if (m_screen_position.get().has_value()) {
-            app::Vector3 offset = get_screen_position(*m_screen_position.get());
+            const auto offset = get_screen_position(*m_screen_position.get());
             pos = pos + offset;
         }
 
-        auto transform = il2cpp::unity::get_transform(m_game_object);
+        const auto transform = il2cpp::unity::get_transform(m_game_object);
         Transform::set_position(transform, pos);
         // We don't want to automatically hide messages after we show them.
-        m_message_box->fields.Visibility->fields.m_delayTime = FLT_MAX;
+        if (m_message_box->fields.Visibility->fields.m_timeSpeed > 0) {
+            m_message_box->fields.Visibility->fields.m_delayTime = FLT_MAX;
+        }
+
         update_text();
     }
 
@@ -275,13 +278,13 @@ namespace core::api::messages {
         }
     }
 
-    void MessageBox::show(bool instant, bool play_sound) {
-        auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(
+    void MessageBox::show(const bool instant, const bool play_sound) const {
+        const auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(
             m_game_object,
             types::SoundSource::get_class()
         );
         if (play_sound) {
-            app::classes::SoundSource::Play_2(sound_source);
+            SoundSource::Play_2(sound_source);
         }
 
         m_message_box->fields.Visibility->fields.m_delayTime = FLT_MAX;
@@ -292,7 +295,7 @@ namespace core::api::messages {
         }
     }
 
-    void MessageBox::hide(bool instant) {
+    void MessageBox::hide(const bool instant) const {
         m_message_box->fields.Visibility->fields.m_timeSpeed =
             -1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionOutDuration, FLT_EPSILON);
         m_message_box->fields.Visibility->fields.m_delayTime = 0.0f;
@@ -301,9 +304,9 @@ namespace core::api::messages {
         }
     }
 
-    void MessageBox::show_box(bool value) {
-        auto transform = il2cpp::unity::get_transform(m_game_object);
-        auto background = il2cpp::unity::get_game_object(Transform::GetChild(transform, 2));
+    void MessageBox::show_box(const bool value) const {
+        const auto transform = il2cpp::unity::get_transform(m_game_object);
+        const auto background = il2cpp::unity::get_game_object(Transform::GetChild(transform, 2));
         GameObject::SetActive(background, value);
     }
 } // namespace core::api::messages
