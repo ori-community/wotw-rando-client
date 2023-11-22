@@ -49,7 +49,7 @@ namespace randomizer::input {
                 features::credits::start();
             } else {
                 core::message_controller().queue_central({
-                    .text = "Credit warp not unlocked!",
+                    .text = std::string("Credit warp not unlocked!"),
                     .prioritized = true,
                 });
             }
@@ -98,7 +98,7 @@ namespace randomizer::input {
         auto on_teleport_cheat_before = single_input_bus().register_handler(Action::TeleportCheat, EventTiming::Before, [](auto, auto) {
             if (game_seed().info().race_mode) {
                 core::message_controller().queue_central({
-                    .text = "Teleport anywhere is not available in race mode",
+                    .text = std::string("Teleport anywhere is not available in race mode"),
                     .prioritized = true,
                 });
                 return;
@@ -114,7 +114,7 @@ namespace randomizer::input {
         auto on_unlock_spoilers_before = single_input_bus().register_handler(Action::UnlockSpoilers, EventTiming::Before, [](auto, auto) {
             if (game_seed().info().race_mode) {
                 core::message_controller().queue_central({
-                    .text = "Unlock spoilers is not available in race mode",
+                    .text = std::string("Unlock spoilers is not available in race mode"),
                     .prioritized = true,
                 });
                 return;
@@ -122,7 +122,7 @@ namespace randomizer::input {
 
             core::api::uber_states::UberState(34543, 11226).set(1);
             core::message_controller().queue_central({
-                .text = "Spoilers unlocked",
+                .text = std::string("Spoilers unlocked"),
                 .prioritized = true,
             });
         });

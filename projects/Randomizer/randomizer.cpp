@@ -21,6 +21,7 @@
 #include <Core/settings.h>
 
 #include <Modloader/modloader.h>
+#include <text_processors/seed.h>
 
 #include <fstream>
 
@@ -114,7 +115,7 @@ namespace randomizer {
             });
 
             core::message_controller().queue_central({
-                .text = "*Good Luck! <3*",
+                .text = std::string("*Good Luck! <3*"),
                 .prioritized = true,
             });
         });
@@ -166,6 +167,7 @@ namespace randomizer {
             text_processor->compose(std::make_shared<text_processors::ControlProcessor>());
             text_processor->compose(std::make_shared<text_processors::AbilityProcessor>());
             text_processor->compose(std::make_shared<text_processors::ShardProcessor>());
+            text_processor->compose(std::make_shared<text_processors::SeedProcessor>());
             text_processor->compose(std::make_shared<text_processors::LegacyProcessor>());
 
             core::message_controller().central_display().text_processor(text_processor);

@@ -136,7 +136,7 @@ namespace core::messages {
             m_central_display.push(m_saved_message.value());
         } else {
             m_central_display.push({
-                .text = "No pickups collected yet, good Luck!",
+                .text = std::string("No pickups collected yet, good Luck!"),
                 .duration = 5.f,
                 .prioritized = true,
             });

@@ -4,15 +4,10 @@
 #include <Core/dynamic_value.h>
 #include <Core/enums/game_areas.h>
 
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/WorldMapIconType__Enum.h>
-
 #include <Randomizer/location_data/location_collection.h>
 #include <Randomizer/seed/item_data.h>
-#include <Randomizer/seed/items/item.h>
+#include <Randomizer/seed/relics.h>
 
-#include <memory>
-#include <string_view>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -45,6 +40,7 @@ namespace randomizer::seed {
 
         struct Data {
             SeedInfo info;
+            Relics relics;
             std::unordered_map<location_entry, inner_location_entries> locations;
             std::unordered_map<int, ItemData> procedures;
         };
@@ -68,6 +64,8 @@ namespace randomizer::seed {
 
         void prevent_grants(bool value) { m_should_prevent_grants = value; }
         std::string path() const { return m_last_path; }
+
+        Relics const& relics() const { return m_data.relics; }
 
     private:
         location_data::LocationCollection const& m_location_data;

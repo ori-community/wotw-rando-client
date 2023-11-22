@@ -74,7 +74,9 @@ namespace randomizer::seed {
 
     void Seed::clear() {
         m_data.info = {};
+        m_data.relics.clear();
         m_data.locations.clear();
+        m_data.procedures.clear();
     }
 
     app::WorldMapIconType__Enum Seed::icon(inner_location_entry location) {

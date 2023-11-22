@@ -9,6 +9,7 @@
 
 namespace randomizer::location_data {
     const std::string_view area_to_name(GameArea area);
+    const std::string_view area_to_short_name(GameArea area);
     GameArea name_to_area(std::string const& name);
 
     using location_data_emitter = std::function<void(Location location)>;

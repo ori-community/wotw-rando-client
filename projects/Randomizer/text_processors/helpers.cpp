@@ -22,4 +22,16 @@ namespace randomizer::text_processors {
             start = text.find(pattern, next);
         }
     }
+
+    void search_and_replace_full(core::text::ITextProcessor const& base_processor, std::string_view pattern, replacer func, std::string& text) {
+        for (auto i = text.find(pattern); i != std::wstring_view::npos; i = text.find(pattern, i + 1)) {
+            if (auto replacement = func(base_processor, {}); replacement.has_value()) {
+                text.replace(
+                    text.begin() + i,
+                    text.begin() + i + pattern.size(),
+                    replacement.value()
+                );
+            }
+        }
+    }
 } // namespace randomizer::text_processors

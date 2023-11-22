@@ -9,4 +9,5 @@
 namespace randomizer::text_processors {
     using replacer = std::optional<std::string> (*)(core::text::ITextProcessor const& base_processor, std::string_view content);
     void search_and_replace(core::text::ITextProcessor const& base_processor, std::string_view pattern, replacer func, std::string& text, std::string_view begin = "[", std::string_view end = ")]");
+    void search_and_replace_full(core::text::ITextProcessor const& base_processor, std::string_view pattern, replacer func, std::string& text);
 } // namespace randomizer::text_processors

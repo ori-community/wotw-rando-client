@@ -47,7 +47,7 @@ namespace core {
     template <typename To, typename From, bool FromCanSet>
     ReadonlyDynamicValue<To> wrap_readonly(dynamic_value::DynamicValue<From, FromCanSet, true> value) {
         return ReadonlyDynamicValue<To>(typename ReadonlyDynamicValue<To>::value_type(
-            [&value]() { return static_cast<To>(value.get()); }
+            [value]() { return static_cast<To>(value.get()); }
         ));
     }
 

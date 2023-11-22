@@ -46,12 +46,12 @@ namespace randomizer::seed::legacy_parser {
         int& next_location_id;
         int& next_procedure_id;
         bool should_add_to_always_granted;
-        void add_item(ItemData::item_entry entry) {
+        void add_item(ItemData::item_entry entry) const {
             auto& collection = should_add_to_always_granted
                 ? location_data.always_granted_items
                 : location_data.items;
 
-            collection[next_location_id++] = entry;
+            collection[next_location_id++] = std::move(entry);
         }
     };
 
@@ -121,14 +121,14 @@ namespace randomizer::seed::legacy_parser {
     void set_location(items::Message* message, location_type const& location) {
         auto const& location_data = current_location_data->location(location);
         if (location_data.has_value() && location_data.value().position.has_value()) {
-            const auto position = location_data.value().position.value();
-            message->info.pickup_position = app::Vector3{ position.x, position.y, 0 };
+            const auto [x, y] = location_data.value().position.value();
+            message->info.pickup_position = app::Vector3{ x, y, 0 };
         }
     }
 
     bool parse_action(location_type const& location, std::span<std::string> parts, ParserData& data);
 
-    void parse_parts(std::string_view str, std::vector<std::string>& parts) {
+    void parse_parts(const std::string_view str, std::vector<std::string>& parts) {
         enum class ReadMode {
             Normal,
             Ptr
@@ -168,7 +168,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto assigner = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
+        const auto assigner = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
         assigner->variable = core::api::game::player::spirit_light();
         assigner->value.set(spirit_light);
         data.add_item(assigner);
@@ -181,13 +181,13 @@ namespace randomizer::seed::legacy_parser {
         }
 
         const auto text = fmt::format("{} {}", spirit_light, currency);
-        auto message = std::make_shared<items::Message>();
+        const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
         message->info.text = text;
         data.add_item(message);
 
-        data.location_data.names.emplace_back().assign(message->info.text);
+        data.location_data.names.emplace_back() = core::wrap_readonly<std::string>(message->info.text);
         data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::Experience);
 
         return true;
@@ -203,25 +203,24 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto message = std::make_shared<items::Message>();
+        const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
-        const auto resource_type = static_cast<ResourceType>(resource_type_int);
-        switch (resource_type) {
+        switch (static_cast<ResourceType>(resource_type_int)) {
             case ResourceType::Health: {
-                auto adder = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
+                const auto adder = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
                 adder->variable = core::api::game::player::max_health();
                 adder->value.set(5);
                 data.add_item(adder);
-                auto refill = std::make_shared<items::Refill>();
+                const auto refill = std::make_shared<items::Refill>();
                 refill->type = items::Refill::RefillType::Health;
                 data.add_item(refill);
                 data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::HealthFragment);
-                message->info.text = "Health Fragment";
+                message->info.text = std::string("Health Fragment");
                 break;
             }
             case ResourceType::Energy: {
-                auto adder = std::make_shared<items::ValueModifier<float, items::ValueOperator::Add>>();
+                const auto adder = std::make_shared<items::ValueModifier<float, items::ValueOperator::Add>>();
                 adder->variable = core::api::game::player::max_energy();
                 adder->value.set(0.5f);
                 data.add_item(adder);
@@ -229,34 +228,34 @@ namespace randomizer::seed::legacy_parser {
                 refill->type = items::Refill::RefillType::Energy;
                 data.add_item(refill);
                 data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::EnergyFragment);
-                message->info.text = "Energy Fragment";
+                message->info.text = std::string("Energy Fragment");
                 break;
             }
             case ResourceType::Ore: {
-                auto adder = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
+                const auto adder = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
                 adder->variable = core::api::game::player::ore();
                 adder->value.set(1);
                 data.add_item(adder);
                 data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::Ore);
-                message->info.text = "Gorlek Ore";
+                message->info.text = std::string("Gorlek Ore");
                 break;
             }
             case ResourceType::Keystone: {
-                auto adder = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
+                const auto adder = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
                 adder->variable = core::api::game::player::keystones();
                 adder->value.set(1);
                 data.add_item(adder);
                 data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::Keystone);
-                message->info.text = "Keystone";
+                message->info.text = std::string("Keystone");
                 break;
             }
             case ResourceType::ShardSlot: {
-                auto adder = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
+                const auto adder = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
                 adder->variable = core::api::game::player::shard_slots();
                 adder->value.set(1);
                 data.add_item(adder);
                 data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::ShardSlotUpgrade);
-                message->info.text = "Shard Slot";
+                message->info.text = std::string("Shard Slot");
                 break;
             }
             default:
@@ -279,11 +278,11 @@ namespace randomizer::seed::legacy_parser {
 
         const auto should_add = !parts[0].starts_with("-");
         ability_type_int = should_add ? ability_type_int : -ability_type_int;
-        auto assigner = std::make_shared<items::ValueModifier<bool, items::ValueOperator::Assign>>();
+        const auto assigner = std::make_shared<items::ValueModifier<bool, items::ValueOperator::Assign>>();
         assigner->variable.assign(core::api::uber_states::UberState(6, 1000 + ability_type_int));
         assigner->value.set(should_add);
         data.add_item(assigner);
-        auto message = std::make_shared<items::Message>();
+        const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
         const auto text = should_add
@@ -309,12 +308,12 @@ namespace randomizer::seed::legacy_parser {
         const auto should_add = !parts[0].starts_with("-");
         shard_type_int = should_add ? shard_type_int : -shard_type_int;
         const auto shard_type = static_cast<app::SpiritShardType__Enum>(shard_type_int);
-        auto assigner = std::make_shared<items::ValueModifier<bool, items::ValueOperator::Assign>>();
+        const auto assigner = std::make_shared<items::ValueModifier<bool, items::ValueOperator::Assign>>();
         assigner->variable = core::api::game::player::shard(shard_type);
         assigner->value.set(should_add);
         data.add_item(assigner);
 
-        auto message = std::make_shared<items::Message>();
+        const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
         const auto text = should_add
@@ -335,7 +334,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto stop = std::make_shared<items::Empty>();
+        const auto stop = std::make_shared<items::Empty>();
         stop->stop.assign(core::api::uber_states::UberStateCondition{ { group, state }, op, value });
         data.add_item(stop);
         return true;
@@ -390,7 +389,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto sub_parts = std::span<std::string>(parts.begin() + 2, parts.end());
+        const auto sub_parts = std::span<std::string>(parts.begin() + 2, parts.end());
         return parse_grant_if_state(location, { group, state }, sub_parts, data, op);
     }
 
@@ -424,11 +423,11 @@ namespace randomizer::seed::legacy_parser {
         rect.m_Width -= rect.m_XMin;
         rect.m_Height -= rect.m_YMin;
 
-        auto skip = std::make_shared<items::Empty>();
+        const auto skip = std::make_shared<items::Empty>();
         data.add_item(skip);
         auto skip_value = data.next_location_id;
 
-        auto sub_parts = std::span<std::string>(parts.begin() + 1, parts.end());
+        const auto sub_parts = std::span<std::string>(parts.begin() + 1, parts.end());
         parse_action(location, sub_parts, data);
 
         skip_value = data.next_location_id - skip_value;
@@ -441,7 +440,7 @@ namespace randomizer::seed::legacy_parser {
     }
 
     bool parse_save(ParserData& data, bool checkpoint) {
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         if (checkpoint) {
             caller->func = []() {
                 if (core::api::game::can_save()) {
@@ -470,7 +469,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [position]() { game::teleport(position, true); };
         data.add_item(caller);
         return true;
@@ -488,7 +487,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         core::api::uber_states::UberState timer_state(group, state);
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [timer_state, start]() { timer::uber_state_timer(timer_state, start); };
         data.add_item(caller);
         return true;
@@ -506,7 +505,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         key.first = parts[0];
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [key, state]() { conditions::register_new_setup_redirect(key, state); };
         data.add_item(caller);
         return true;
@@ -533,7 +532,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [binding_type, equip_type]() { core::api::game::player::bind(binding_type, equip_type); };
         data.add_item(caller);
         return true;
@@ -554,7 +553,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [equip_type]() { core::api::game::player::unbind(equip_type); };
         data.add_item(caller);
         return true;
@@ -572,7 +571,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         core::api::uber_states::UberState sync_state(group, state);
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [sync_state, unsyncable]() { multiplayer_universe().uber_state_handler().set_unsyncable(sync_state, unsyncable); };
         data.add_item(caller);
         return true;
@@ -583,7 +582,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto icon = std::make_shared<items::CreateIcon>();
+        const auto icon = std::make_shared<items::CreateIcon>();
         if (!string_convert(parts[0], icon->id) || !string_convert(parts[1], icon->position.x) || !string_convert(parts[2], icon->position.y)) {
             return false;
         }
@@ -824,7 +823,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         data.add_item(assigner);
-        auto message = std::make_shared<items::Message>();
+        const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
         const auto text = should_add
@@ -838,14 +837,14 @@ namespace randomizer::seed::legacy_parser {
     }
 
     bool parse_message(location_type const& location, std::span<std::string> parts, ParserData& data) {
-        auto message = std::make_shared<items::Message>();
+        const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
         message->info.duration = 4;
+        std::string text;
         for (const auto& part : parts) {
             if (part.starts_with("f=")) {
-                int frames;
-                if (string_convert(part.substr(2), frames)) {
+                if (int frames; string_convert(part.substr(2), frames)) {
                     message->info.duration = static_cast<float>(frames) / 60.f;
                 }
             } else if (part.starts_with("p=")) {
@@ -861,16 +860,17 @@ namespace randomizer::seed::legacy_parser {
             } else if (part == "prepend") {
                 // Not used anymore.
             } else {
-                if (!message->info.text.empty()) {
-                    message->info.text += "|";
+                if (!text.empty()) {
+                    text += "|";
                 }
 
-                message->info.text += part;
+                text += part;
             }
         }
 
+        message->info.text = text;
         data.add_item(message);
-        data.location_data.names.emplace_back().assign(message->info.text);
+        data.location_data.names.emplace_back() = core::wrap_readonly<std::string>(message->info.text);
         return true;
     }
 
@@ -992,15 +992,14 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        int quest_event_int;
         // If we add more than one event, don't early out here.
-        if (!string_convert(parts[0], quest_event_int) || quest_event_int != 0) {
+        if (int quest_event_int; !string_convert(parts[0], quest_event_int) || quest_event_int != 0) {
             return false;
         }
 
         const auto should_add = !parts[0].starts_with("-");
 
-        auto assigner = std::make_shared<items::ValueModifier<bool, items::ValueOperator::Assign>>();
+        const auto assigner = std::make_shared<items::ValueModifier<bool, items::ValueOperator::Assign>>();
         assigner->value.set(should_add);
         assigner->variable.assign(core::api::uber_states::UberState(6, 2000));
         data.add_item(assigner);
@@ -1022,7 +1021,7 @@ namespace randomizer::seed::legacy_parser {
             ? fmt::format("{0}", quest_event)
             : fmt::format("Removed {0}", quest_event);
 
-        auto message = std::make_shared<items::Message>();
+        const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
         message->info.text = fmt::format("*{0}*", text);
@@ -1062,12 +1061,12 @@ namespace randomizer::seed::legacy_parser {
                 return false;
         }
 
-        auto item = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
+        const auto item = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
         item->variable.assign(core::api::uber_states::UberState(4, bonus_type_int));
         item->value.set(1);
         data.add_item(item);
 
-        auto message = std::make_shared<items::Message>();
+        const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
         message->info.text = fmt::format(R"(#{0}[if([state_int(4, {1})] > 1, x[state_int(4, {1})],)]#)", bonus_item, bonus_type_int);
@@ -1143,8 +1142,7 @@ namespace randomizer::seed::legacy_parser {
                 return false;
         }
 
-        auto message = std::make_shared<items::Message>();
-        set_location(message.get(), location);
+        const auto message = std::make_shared<items::Message>();
         message->should_save_as_last = true;
         message->info.text = fmt::format("#{0}#", upgrade);
         set_location(message.get(), location);
@@ -1156,13 +1154,29 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_relic(std::span<std::string> parts, ParserData& data) {
-        // return Relic.Build((ZoneType)pickupData.ParseToByte("BuildPickup.RelicZone"), extras.FirstOrElse(""));
-        // TODO: Implement
-        return false;
+    bool parse_relic(location_type const& location, std::span<std::string> parts, ParserData& data) {
+        if (parts.size() > 2) {
+            return false;
+        }
+
+        data.data.relics.add(location, parts.size() == 2 ? std::optional(parts[1]) : std::nullopt);
+        const auto message = std::make_shared<items::Message>();
+        message->should_save_as_last = true;
+        message->info.text.assign(core::dynamic_value::set_get<std::string>{
+            [](auto) {},
+            [&data, location]() { return std::format("{} Relic", std::string(data.data.relics.relic_name(location))); }
+        });
+
+        set_location(message.get(), location);
+        data.add_item(message);
+        data.location_data.names.emplace_back(core::dynamic_value::get<std::string>{
+            [&data, location]() { return std::string(data.data.relics.relic_name(location)); }
+        });
+
+        return true;
     }
 
-    bool parse_sys_message(std::span<std::string> parts, ParserData& data) {
+    bool parse_sys_message(const std::span<std::string> parts, ParserData& data) {
         int sys_message_type;
         if (!string_convert(parts[0], sys_message_type)) {
             return false;
@@ -1206,11 +1220,11 @@ namespace randomizer::seed::legacy_parser {
                 // return " (Relicless)";
                 return false;
             case 2: {
-                auto message = std::make_shared<items::Message>();
+                const auto message = std::make_shared<items::Message>();
                 message->should_save_as_last = true;
-                message->info.text = "[state_int(6, 2)]/[seed(pickup_count)]";
+                message->info.text = std::string("[state_int(6, 2)]/[seed(pickup_count)]");
                 data.add_item(message);
-                data.location_data.names.emplace_back().assign(message->info.text);
+                data.location_data.names.emplace_back() = core::wrap_readonly<std::string>(message->info.text);
                 break;
             }
             case 3:
@@ -1270,11 +1284,11 @@ namespace randomizer::seed::legacy_parser {
             }
             case 5: {
                 // WorldName
-                auto message = std::make_shared<items::Message>();
-                message->info.text = "[world(name)]";
+                const auto message = std::make_shared<items::Message>();
+                message->info.text = std::string("[world(name)]");
                 message->should_save_as_last = true;
                 data.add_item(message);
-                data.location_data.names.emplace_back().assign(message->info.text);
+                data.location_data.names.emplace_back() = core::wrap_readonly<std::string>(message->info.text);
                 break;
             }
             default:
@@ -1295,7 +1309,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         auto& name = parts[2];
         caller->func = [wheel, item, name]() {
             features::wheel::set_wheel_item_name(wheel, item, name);
@@ -1316,7 +1330,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         auto& description = parts[2];
         caller->func = [wheel, item, description]() {
             features::wheel::set_wheel_item_description(wheel, item, description);
@@ -1337,7 +1351,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         auto& texture = parts[2];
         caller->func = [wheel, item, texture]() {
             features::wheel::set_wheel_item_texture(wheel, item, texture);
@@ -1366,7 +1380,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [wheel, item, color]() {
             features::wheel::set_wheel_item_color(
                 wheel,
@@ -1412,7 +1426,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [wheel, item, binding_type, procedure_id]() {
             features::wheel::set_wheel_item_callback(wheel, item, binding_type, [procedure_id](auto, auto, auto) {
                 game_seed().call_procedure(procedure_id);
@@ -1435,7 +1449,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [wheel, sticky]() {
             features::wheel::set_wheel_sticky(wheel, sticky);
         };
@@ -1454,7 +1468,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [wheel]() {
             features::wheel::set_active_wheel(wheel);
         };
@@ -1474,7 +1488,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [wheel, item]() {
             features::wheel::clear_wheel_item(wheel, item);
         };
@@ -1488,7 +1502,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = []() {
             features::wheel::clear_wheels();
         };
@@ -1507,7 +1521,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto next_parts = std::span<std::string>(parts.begin() + 1, parts.end());
+        const auto next_parts = std::span<std::string>(parts.begin() + 1, parts.end());
         switch (wheel_type) {
             case 0:
                 return parse_wheel_name(next_parts, data);
@@ -1547,10 +1561,9 @@ namespace randomizer::seed::legacy_parser {
 
         auto icon = parts[2];
         auto shop_state = core::api::uber_states::UberState(group, state);
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [shop_state, icon]() {
-            auto slot = game::shops::shop_slot_from_state(shop_state);
-            if (slot != nullptr) {
+            if (const auto slot = game::shops::shop_slot_from_state(shop_state); slot != nullptr) {
                 slot->normal.icon = core::api::graphics::textures::get_texture(icon);
                 slot->locked.icon = slot->normal.icon;
             }
@@ -1573,10 +1586,9 @@ namespace randomizer::seed::legacy_parser {
 
         auto title = parts.size() == 3 ? parts[2] : " ";
         auto shop_state = core::api::uber_states::UberState(group, state);
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [shop_state, title]() {
-            auto slot = game::shops::shop_slot_from_state(shop_state);
-            if (slot != nullptr) {
+            if (const auto slot = game::shops::shop_slot_from_state(shop_state); slot != nullptr) {
                 slot->normal.name = title;
             }
         };
@@ -1598,10 +1610,9 @@ namespace randomizer::seed::legacy_parser {
 
         auto description = parts.size() == 3 ? parts[2] : " ";
         auto shop_state = core::api::uber_states::UberState(group, state);
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [shop_state, description]() {
-            auto slot = game::shops::shop_slot_from_state(shop_state);
-            if (slot != nullptr) {
+            if (const auto slot = game::shops::shop_slot_from_state(shop_state); slot != nullptr) {
                 slot->normal.description = description;
             }
         };
@@ -1623,10 +1634,9 @@ namespace randomizer::seed::legacy_parser {
         }
 
         auto shop_state = core::api::uber_states::UberState(group, state);
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [shop_state, locked]() {
-            auto slot = game::shops::shop_slot_from_state(shop_state);
-            if (slot != nullptr && slot->visibility != game::shops::SlotVisibility::Hidden) {
+            if (const auto slot = game::shops::shop_slot_from_state(shop_state); slot != nullptr && slot->visibility != game::shops::SlotVisibility::Hidden) {
                 slot->visibility = locked
                     ? game::shops::SlotVisibility::Locked
                     : game::shops::SlotVisibility::Visible;
@@ -1650,10 +1660,9 @@ namespace randomizer::seed::legacy_parser {
         }
 
         auto shop_state = core::api::uber_states::UberState(group, state);
-        auto caller = std::make_shared<items::Call>();
+        const auto caller = std::make_shared<items::Call>();
         caller->func = [shop_state, visible]() {
-            auto slot = game::shops::shop_slot_from_state(shop_state);
-            if (slot != nullptr) {
+            if (const auto slot = game::shops::shop_slot_from_state(shop_state); slot != nullptr) {
                 slot->visibility = visible
                     ? game::shops::SlotVisibility::Visible
                     : game::shops::SlotVisibility::Hidden;
@@ -1712,8 +1721,8 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto action_type = static_cast<ActionType>(action_type_int);
-        auto next_parts = std::span<std::string>(parts.begin() + 1, parts.end());
+        const auto action_type = static_cast<ActionType>(action_type_int);
+        const auto next_parts = std::span<std::string>(parts.begin() + 1, parts.end());
         switch (action_type) {
             case ActionType::SpiritLight:
                 return parse_spirit_light(location, next_parts, data);
@@ -1738,7 +1747,7 @@ namespace randomizer::seed::legacy_parser {
             case ActionType::WeaponUpgrade:
                 return parse_weapon_upgrade(location, next_parts, data);
             case ActionType::Relic:
-                return parse_relic(next_parts, data);
+                return parse_relic(location, next_parts, data);
             case ActionType::SysMessage:
                 return parse_sys_message(next_parts, data);
             case ActionType::Wheel:
@@ -1819,6 +1828,9 @@ namespace randomizer::seed::legacy_parser {
             line = line.substr(0, line.find("//"));
             if (line.starts_with("Flags:")) {
                 split_str(line.substr(6), data.info.flags, ',');
+                for (auto& flag : data.info.flags) {
+                    trim(flag);
+                }
             } else if (line.starts_with("Spawn:")) {
                 std::vector<std::string> coords;
                 split_str(line.substr(6), coords, ',');
@@ -1844,9 +1856,9 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    ItemData parse_action(std::string_view action) {
+    ItemData parse_action(const std::string_view action) {
         Seed::Data data;
-        location_type location{
+        const location_type location{
             { -1, -1 },
             BooleanOperator::Equals,
             0,

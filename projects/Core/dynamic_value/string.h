@@ -20,7 +20,7 @@ namespace core::dynamic_value {
         [[nodiscard]] std::string get() const
             requires(CanGet);
 
-        void set(std::string value)
+        void set(std::string v)
             requires(CanSet);
 
         value_type value;

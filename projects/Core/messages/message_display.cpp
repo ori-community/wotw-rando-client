@@ -127,7 +127,8 @@ namespace core::messages {
         const auto max_line_count = m_max_line_count.get();
         while (!m_messages.empty()) {
             auto& data = m_messages.front();
-            const auto message_lines = static_cast<int>(std::count(data.info.text.begin(), data.info.text.end(), '\n') + 1);
+            const auto text = data.info.text.get();
+            const auto message_lines = static_cast<int>(std::ranges::count(text, '\n') + 1);
             // Keep ourselves below the line count limit except if we are showing no messages.
             // If we get a message that exceeds the line count we still show it.
             if (max_line_count.has_value() && total_lines != 0 && total_lines + message_lines > max_line_count.value()) {
@@ -176,7 +177,8 @@ namespace core::messages {
     }
 
     void MessageDisplay::update_message_position(MessageData& data, int& total_lines, app::Vector3& cursor_position, float delta_time) {
-        const auto message_lines = static_cast<int>(std::count(data.info.text.begin(), data.info.text.end(), '\n') + 1);
+        const auto text = data.info.text.get();
+        const auto message_lines = static_cast<int>(std::ranges::count(text, '\n') + 1);
         auto display_message_in_game_world = false;
 
         if (data.info.use_world_space) {
@@ -193,7 +195,7 @@ namespace core::messages {
                 target_position = world_to_ui_position(data.info.pickup_position.value());
                 target_position = UnityEngine::Vector3::op_Subtraction(
                         target_position,
-                        core::api::messages::get_screen_position(m_screen_position.get().value_or(core::api::messages::ScreenPosition::TopCenter))
+                        get_screen_position(m_screen_position.get().value_or(core::api::messages::ScreenPosition::TopCenter))
                 );
             }
 
@@ -211,8 +213,8 @@ namespace core::messages {
             }
 
             // Add message box height and bottom padding/margin
-            const auto bounds = data.message->text_bounds();
-            cursor_position.y += bounds.m_Height;
+            const auto [m_XMin, m_YMin, m_Width, m_Height] = data.message->text_bounds();
+            cursor_position.y += m_Height;
             cursor_position.y -= data.info.margins.y;
             cursor_position.y -= data.info.padding.z;
 
@@ -227,8 +229,8 @@ namespace core::messages {
     ) {
         data.message = std::make_shared<api::messages::MessageBox>();
         data.message->show_box(data.info.show_box);
+        data.message->text() = data.info.text;
         data.message->text().text_processor(m_text_processor);
-        data.message->text().set(data.info.text);
         data.message->top_padding().set(data.info.padding.x);
         data.message->left_padding().set(data.info.padding.y);
         data.message->bottom_padding().set(data.info.padding.z);
@@ -240,7 +242,7 @@ namespace core::messages {
 
         update_message_position(data, total_lines, position, 0.f);
 
-        if (!data.info.text.empty()) {
+        if (!data.info.text.get().empty()) {
             data.message->show(false, data.info.play_sound);
         }
 

@@ -13,7 +13,7 @@
 
 namespace core::messages {
     struct MessageInfo {
-        std::string text;
+        DynamicValue<std::string> text;
         float duration = 3.f;
         bool show_box = true;
         bool instant_fade = false;
@@ -59,7 +59,7 @@ namespace core::messages {
         void update_message_queue(int& total_lines, app::Vector3& cursor_position);
         void update_message_position(MessageData& data, int& total_lines, app::Vector3& cursor_position, float delta_time);
         bool handle_active_message(MessageData& data, int& total_lines, app::Vector3& cursor_position, float fade_out, float delta_time);
-        void show_message_box(MessageData& data, int& total_lines, app::Vector3& cursor_position);
+        void show_message_box(MessageData& data, int& total_lines, app::Vector3& position);
 
         // TODO: Implement this.
         const float m_max_length_from_position = 20.f;

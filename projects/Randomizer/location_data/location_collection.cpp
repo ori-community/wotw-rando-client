@@ -39,9 +39,31 @@ namespace randomizer::location_data {
         { "Void", GameArea::Void },
     };
 
+    std::unordered_map<GameArea, std::string> area_to_short_name_map{
+        { GameArea::Marsh, "Marsh" },
+        { GameArea::Hollow, "Hollow" },
+        { GameArea::Glades, "Glades" },
+        { GameArea::Wellspring, "Wellspring" },
+        { GameArea::Pools, "Pools" },
+        { GameArea::Burrows, "Burrows" },
+        { GameArea::Reach, "Reach" },
+        { GameArea::Woods, "Woods" },
+        { GameArea::Depths, "Depths" },
+        { GameArea::Wastes, "Wastes" },
+        { GameArea::Ruins, "Ruins" },
+        { GameArea::Willow, "Willow" },
+        { GameArea::Shop, "Shop" },
+        { GameArea::Void, "Void" },
+    };
+
     const std::string_view area_to_name(GameArea area) {
         auto it = area_to_name_map.find(area);
         return it != area_to_name_map.end() ? it->second : unknown_area;
+    }
+
+    const std::string_view area_to_short_name(GameArea area) {
+        auto it = area_to_short_name_map.find(area);
+        return it != area_to_short_name_map.end() ? it->second : unknown_area;
     }
 
     GameArea name_to_area(std::string const& name) {

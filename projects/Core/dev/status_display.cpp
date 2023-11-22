@@ -27,17 +27,16 @@ namespace core::dev {
 
     void StatusDisplay::report(StatusType type, std::string const& message, float duration) {
         // Need to hold all the sync handles so we can check what the worst condition is.
-        auto const& entry = m_config.entries[type];
-        messages::MessageInfo info{
-            .text = fmt::format(fmt::runtime(entry.format), message),
+        const auto& [format, size, play_sound] = m_config.entries[type];
+        const messages::MessageInfo info{
+            .text = fmt::format("<s_{:.3}>{}</>", size, fmt::format(fmt::runtime(format), message)),
             .duration = duration,
             .show_box = false,
-            .play_sound = entry.play_sound,
+            .play_sound = play_sound,
             .margins = m_config.margins,
             .padding = m_config.padding,
         };
 
-        info.text = fmt::format("<s_{:.3}>{}</>", entry.size, info.text);
         m_display.push(info);
     }
 
