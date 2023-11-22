@@ -1,4 +1,5 @@
 #include <Common/ext.h>
+#include <randomizer.h>
 
 #include <Core/api/uber_states/uber_state.h>
 
@@ -49,6 +50,7 @@ namespace {
             auto it = tps_by_position.find(std::make_pair(static_cast<int>(position.x), static_cast<int>(position.y)));
             if (it != tps_by_position.end()) {
                 it->second.set<bool>(true);
+                randomizer::queue_reach_check();
             }
         }
 

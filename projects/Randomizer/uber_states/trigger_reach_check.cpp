@@ -12,6 +12,13 @@ namespace randomizer::uber_states {
 
         std::unordered_set<UberState> tracked_states;
 
+        auto on_after_respawn = core::api::game::event_bus().register_handler(
+            GameEvent::Respawn, EventTiming::After, [](auto, auto) { queue_reach_check(); });
+        auto on_after_checkpoint_loaded = core::api::game::event_bus().register_handler(
+            GameEvent::FinishedLoadingCheckpoint, EventTiming::After, [](auto, auto) { queue_reach_check(); });
+        auto on_after_save_loaded = core::api::game::event_bus().register_handler(
+            GameEvent::FinishedLoadingSave, EventTiming::After, [](auto, auto) { queue_reach_check(); });
+
         auto on_uber_state = notification_bus().register_handler([](auto params) {
             if (tracked_states.contains(params.state)) {
                 queue_reach_check();
@@ -21,6 +28,7 @@ namespace randomizer::uber_states {
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             std::ifstream state_data(modloader::base_path() / "state_data.csv");
             std::string line;
+            std::getline(state_data, line);
             while (std::getline(state_data, line)) {
                 std::vector<std::string> parts;
                 split_str(line, parts, ',');
@@ -28,15 +36,12 @@ namespace randomizer::uber_states {
                     trim(str);
                 }
 
-                auto& condition_part = parts[2];
-                if (parts.size() >= 4) {
-                    condition_part += ">=";
-                    condition_part += parts[3].empty() ? "0" : parts[3];
+                int group, state;
+                if (!string_convert(parts[1], group) || !string_convert(parts[2], state)) {
+                    continue;
                 }
 
-                UberStateCondition condition;
-                core::api::uber_states::parse_condition(std::span<std::string>(parts.begin() + 1, parts.begin() + 3), condition);
-                tracked_states.emplace(condition.state);
+                tracked_states.emplace(UberState(group, state));
             }
         });
     } // namespace

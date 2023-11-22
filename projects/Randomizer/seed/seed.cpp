@@ -153,6 +153,10 @@ namespace randomizer::seed {
                 break;
             }
         }
+
+        if (!to_grant.empty()) {
+            queue_reach_check();
+        }
     }
 
     void Seed::call_procedure(int id) {
