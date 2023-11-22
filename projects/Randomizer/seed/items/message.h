@@ -10,6 +10,13 @@ namespace randomizer::seed::items {
         core::messages::MessageInfo info;
         bool should_save_as_last = false;
 
-        void grant() final;
+        void grant();
+    };
+
+    class MapMessage final : public BaseItem {
+    public:
+        std::string message;
+
+        void grant();
     };
 } // namespace randomizer::seed::items

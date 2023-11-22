@@ -76,7 +76,8 @@ namespace core::api::messages {
 
         m_message_box->fields.Visibility->fields.TransitionInDuration = 0.5f;
         m_message_box->fields.Visibility->fields.TransitionOutDuration = 0.5f;
-        m_message_box->fields.Visibility->fields.WaitDuration = FLT_MAX;
+        m_message_box->fields.Visibility->fields.WaitDuration = 1.0f;
+        m_message_box->fields.Visibility->fields.m_delayTime = 0.0f;
         m_message_box->fields.Visibility->fields.DestroyOnHide = false;
 
         m_message_box->fields.StartId = 0;
@@ -98,7 +99,7 @@ namespace core::api::messages {
         m_message_box->fields.Visibility->fields.m_timeSpeed =
             -1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionOutDuration, FLT_EPSILON);
 
-        m_message_box->fields.MessageProvider = core::api::system::create_message_provider("");
+        m_message_box->fields.MessageProvider = core::api::system::create_message_provider(" ");
         app::classes::MessageBox::RefreshText_1(m_message_box);
 
         auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(
@@ -222,6 +223,12 @@ namespace core::api::messages {
 
     void MessageBox::update_text() {
         auto new_text = m_text.get();
+        replace_all(new_text, "\\n", "\n");
+        trim(new_text);
+        if (new_text.empty()) {
+            new_text = " ";
+        }
+
         if (m_processed_text != new_text) {
             m_processed_text = new_text;
             text_style::create_styles(m_message_box->fields.TextBox, m_processed_text);
@@ -288,6 +295,7 @@ namespace core::api::messages {
     void MessageBox::hide(bool instant) {
         m_message_box->fields.Visibility->fields.m_timeSpeed =
             -1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionOutDuration, FLT_EPSILON);
+        m_message_box->fields.Visibility->fields.m_delayTime = 0.0f;
         if (instant) {
             m_message_box->fields.Visibility->fields.m_time = 0.0f;
         }

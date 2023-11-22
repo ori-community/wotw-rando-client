@@ -120,15 +120,23 @@ namespace randomizer::seed {
         for (auto& [condition, data] : inner_locations) {
             auto already_granted = condition.resolve(previous_value);
             auto should_grant = condition.resolve();
-            if (!already_granted && should_grant) {
-                if (m_location_data.area(condition) != GameArea::Void) {
-                    auto pickups_collected = core::api::uber_states::UberState(6, 2);
-                    pickups_collected.set<int>(pickups_collected.get<int>() + 1);
-                }
+            if (!should_grant) {
+                continue;
+            }
 
+            if ((!already_granted || !data.always_granted_items.empty()) && m_location_data.area(condition) != GameArea::Void) {
+                auto pickups_collected = core::api::uber_states::UberState(6, 2);
+                pickups_collected.set<int>(pickups_collected.get<int>() + 1);
+            }
+
+            if (!already_granted) {
                 for (auto& [order, item] : data.items) {
                     to_grant[order] = item;
                 }
+            }
+
+            for (auto& [order, item] : data.always_granted_items) {
+                to_grant[order] = item;
             }
         }
 

@@ -60,7 +60,7 @@ namespace randomizer::text_processors {
             { app::SpiritShardType__Enum::ChainLightning, "$Arcing$" },
         };
 
-        std::optional<std::string> shard(std::string_view content) {
+        std::optional<std::string> shard(core::text::ITextProcessor const& base_processor, std::string_view content) {
             int shard_type_int;
             if (!string_convert(content, shard_type_int)) {
                 return std::nullopt;
@@ -70,7 +70,7 @@ namespace randomizer::text_processors {
             return it == shard_to_string.end() ? std::nullopt : std::optional(it->second);
         }
 
-        std::optional<std::string> shard_no_color(std::string_view content) {
+        std::optional<std::string> shard_no_color(core::text::ITextProcessor const& base_processor, std::string_view content) {
             int shard_type_int;
             if (!string_convert(content, shard_type_int)) {
                 return std::nullopt;
@@ -81,8 +81,8 @@ namespace randomizer::text_processors {
         }
     } // namespace
 
-    void ShardProcessor::process(std::string& text) const {
-        search_and_replace("[shard(", shard, text);
-        search_and_replace("[shard_no_color(", shard_no_color, text);
+    void ShardProcessor::process(ITextProcessor const& base_processor, std::string& text) const {
+        search_and_replace(base_processor, "[shard(", shard, text);
+        search_and_replace(base_processor, "[shard_no_color(", shard_no_color, text);
     }
 } // namespace randomizer::text_processors

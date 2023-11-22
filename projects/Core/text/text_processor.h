@@ -11,14 +11,17 @@ namespace core::text {
     class ITextProcessor {
     public:
         virtual ~ITextProcessor() = default;
-        virtual void process(std::string& text) const = 0;
+        virtual void process(ITextProcessor const& base_processor, std::string& text) const = 0;
+        void process(std::string& text) const {
+            process(*this, text);
+        }
     };
 
     class CORE_DLLEXPORT CompositeTextProcessor final : public ITextProcessor {
     public:
         ~CompositeTextProcessor() override = default;
 
-        void process(std::string& text) const final;
+        void process(ITextProcessor const& base_processor, std::string& text) const final;
         CompositeTextProcessor& compose(std::shared_ptr<ITextProcessor> const& processor);
 
         template <typename T, typename... Args>

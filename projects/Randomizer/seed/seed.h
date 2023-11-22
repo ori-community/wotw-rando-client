@@ -19,8 +19,8 @@
 namespace randomizer::seed {
     class Seed {
     public:
-        using inner_location_entries = std::unordered_map<core::api::uber_states::UberStateCondition, ItemData>;
         using inner_location_entry = core::api::uber_states::UberStateCondition;
+        using inner_location_entries = std::unordered_map<inner_location_entry, ItemData>;
         using location_entry = core::api::uber_states::UberState;
 
         struct SeedInfo {

@@ -93,6 +93,13 @@ static inline std::string& trim(std::string& s) {
 }
 
 // trim from start (copying)
+static inline std::string trim_copy(std::string s) {
+    ltrim(s);
+    rtrim(s);
+    return s;
+}
+
+// trim from start (copying)
 static inline std::string ltrim_copy(std::string s) {
     ltrim(s);
     return s;

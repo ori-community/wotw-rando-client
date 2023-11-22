@@ -22,7 +22,7 @@ namespace randomizer::messages {
 
         ~TextProcessor() override = default;
 
-        void process(std::string& text) const final {
+        void process(ITextProcessor const& base_processor, std::string& text) const {
             auto new_text = text;
             std::sregex_iterator it(text.begin(), text.end(), collection_replacement);
             std::sregex_iterator end;

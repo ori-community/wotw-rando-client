@@ -39,7 +39,7 @@ namespace randomizer::text_processors {
             { app::AbilityType__Enum::DamageUpgradeB, "#Ancestral Light#" },
         };
 
-        std::optional<std::string> ability(std::string_view content) {
+        std::optional<std::string> ability(core::text::ITextProcessor const& base_processor, std::string_view content) {
             int ability_type_int;
             if (!string_convert(content, ability_type_int)) {
                 return std::nullopt;
@@ -49,7 +49,7 @@ namespace randomizer::text_processors {
             return it == ability_to_string.end() ? std::nullopt : std::optional(it->second);
         }
 
-        std::optional<std::string> ability_no_color(std::string_view content) {
+        std::optional<std::string> ability_no_color(core::text::ITextProcessor const& base_processor, std::string_view content) {
             int ability_type_int;
             if (!string_convert(content, ability_type_int)) {
                 return std::nullopt;
@@ -60,8 +60,8 @@ namespace randomizer::text_processors {
         }
     } // namespace
 
-    void AbilityProcessor::process(std::string& text) const {
-        search_and_replace("[ability(", ability, text);
-        search_and_replace("[ability_no_color(", ability_no_color, text);
+    void AbilityProcessor::process(ITextProcessor const& base_processor, std::string& text) const {
+        search_and_replace(base_processor, "[ability(", ability, text);
+        search_and_replace(base_processor, "[ability_no_color(", ability_no_color, text);
     }
 } // namespace randomizer::text_processors

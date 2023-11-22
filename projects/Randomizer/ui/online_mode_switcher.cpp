@@ -6,7 +6,6 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/utils/misc.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
-#include <Modloader/app/types/XBoxLiveIdentityUI.h>
 #include <Modloader/app/types/TextBox.h>
 #include <Modloader/app/types/XboxLiveIdentityUI.h>
 #include <Modloader/modloader.h>

@@ -45,17 +45,17 @@ namespace core::api::uber_states {
         return a.value < b.value;
     }
 
-    CORE_DLLEXPORT bool parse_condition(std::string_view str, core::api::uber_states::UberStateCondition& condition) {
+    CORE_DLLEXPORT bool parse_condition(std::string_view str, UberStateCondition& condition) {
         std::vector<std::string> parts;
         split_str(str, parts, '|');
         return parse_condition(parts, condition);
     }
 
-    CORE_DLLEXPORT bool parse_condition(std::vector<std::string> const& parts, core::api::uber_states::UberStateCondition& condition) {
-        return parse_condition(std::span<std::string const>(parts.begin(), parts.end()), condition);
+    CORE_DLLEXPORT bool parse_condition(std::vector<std::string> const& parts, UberStateCondition& condition) {
+        return parse_condition(std::span(parts.begin(), parts.end()), condition);
     }
 
-    CORE_DLLEXPORT bool parse_condition(std::span<std::string const> parts, core::api::uber_states::UberStateCondition& condition) {
+    CORE_DLLEXPORT bool parse_condition(std::span<std::string const> parts, UberStateCondition& condition, bool* used_default_operator) {
         if (parts.size() < 2) {
             return false;
         }
@@ -76,6 +76,10 @@ namespace core::api::uber_states {
             }
         } else {
             condition.op = BooleanOperator::Greater;
+        }
+
+        if (used_default_operator != nullptr) {
+            *used_default_operator = !result.has_value();
         }
 
         int group;

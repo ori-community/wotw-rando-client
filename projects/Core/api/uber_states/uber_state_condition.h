@@ -31,9 +31,9 @@ namespace core::api::uber_states {
     CORE_DLLEXPORT bool operator==(UberStateCondition const& a, UberStateCondition const& b);
     CORE_DLLEXPORT bool operator<(UberStateCondition const& a, UberStateCondition const& b);
 
-    CORE_DLLEXPORT bool parse_condition(std::string_view str, core::api::uber_states::UberStateCondition& condition);
-    CORE_DLLEXPORT bool parse_condition(std::vector<std::string> const& parts, core::api::uber_states::UberStateCondition& condition);
-    CORE_DLLEXPORT bool parse_condition(std::span<std::string const> parts, core::api::uber_states::UberStateCondition& condition);
+    CORE_DLLEXPORT bool parse_condition(std::string_view str, UberStateCondition& condition);
+    CORE_DLLEXPORT bool parse_condition(std::vector<std::string> const& parts, UberStateCondition& condition);
+    CORE_DLLEXPORT bool parse_condition(std::span<std::string const> parts, UberStateCondition& condition, bool* used_default_operator = nullptr);
 } // namespace core::api::uber_states
 
 template <>

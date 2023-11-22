@@ -3,7 +3,7 @@
 #include <Common/ext.h>
 
 namespace randomizer::text_processors {
-    void search_and_replace(std::string_view pattern, replacer func, std::string& text, std::string_view begin, std::string_view end) {
+    void search_and_replace(core::text::ITextProcessor const& base_processor, std::string_view pattern, replacer func, std::string& text, std::string_view begin, std::string_view end) {
         const size_t search_pattern_size = pattern.size();
         auto start = text.find(pattern);
         while (start != std::string::npos) {
@@ -13,7 +13,7 @@ namespace randomizer::text_processors {
             }
 
             size_t next = start + search_pattern_size + static_cast<int>(contents.size()) + end.size();
-            auto value = func(contents);
+            auto value = func(base_processor, contents);
             if (value.has_value()) {
                 text.replace(start, next - start, value.value());
                 next = start + value.value().size();

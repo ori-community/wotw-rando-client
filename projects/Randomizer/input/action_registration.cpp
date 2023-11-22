@@ -33,7 +33,7 @@ namespace randomizer::input {
         });
 
         auto on_progress_hint_before = single_input_bus().register_handler(Action::ShowProgressWithHints, EventTiming::Before, [](auto, auto) {
-            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::GameState, 7), 0);
+            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::GameState, 8), 0);
         });
 
         auto on_reload_before = single_input_bus().register_handler(Action::Reload, EventTiming::Before, [](auto, auto) {

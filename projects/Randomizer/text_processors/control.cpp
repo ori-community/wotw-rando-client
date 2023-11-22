@@ -4,7 +4,7 @@
 
 namespace randomizer::text_processors {
     namespace {
-        std::optional<std::string> if_handler(std::string_view content) {
+        std::optional<std::string> if_handler(core::text::ITextProcessor const& base_processor, std::string_view content) {
             std::vector<std::string> parts;
             split_str(content, parts, ',');
 
@@ -13,23 +13,28 @@ namespace randomizer::text_processors {
             if (result.has_value()) {
                 double value_a;
                 double value_b;
-                if (!string_convert(result->prefix, value_a) || !string_convert(result->suffix, value_b)) {
+                auto first = std::string(result->prefix);
+                auto second = std::string(result->suffix);
+                base_processor.process(base_processor, first);
+                base_processor.process(base_processor, second);
+                if (!string_convert(first, value_a) || !string_convert(second, value_b)) {
                     return std::nullopt;
                 }
 
-                return common::resolve_operator(value_a, value_b, result->op) ? parts[1] : parts[2];
+                return common::resolve_operator(value_a, value_b, result->op) ? trim(parts[1]) : trim(parts[2]);
             } else {
                 double value;
+                base_processor.process(base_processor, condition);
                 if (!string_convert(condition, value)) {
                     return std::nullopt;
                 }
 
-                return value > 0 ? parts[1] : parts[2];
+                return value > 0 ? trim(parts[1]) : trim(parts[2]);
             }
         }
     } // namespace
 
-    void ControlProcessor::process(std::string& text) const {
-        search_and_replace("[if(", if_handler, text); // Interpolate seed.text(location)
+    void ControlProcessor::process(ITextProcessor const& base_processor, std::string& text) const {
+        search_and_replace(base_processor, "[if(", if_handler, text); // Interpolate seed.text(location)
     }
 } // namespace randomizer::text_processors
