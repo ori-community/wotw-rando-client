@@ -131,6 +131,8 @@ namespace core::api::game::player {
             if (sein && stats) {
                 stats->fields.m_maxHealth = value;
                 Moon::uberSerializationWisp::PlayerUberStateStats::RunSetDirtyCallback(stats);
+                sein->fields.Mortality->fields.Health->fields.m_baseMaxHealthDirty = true;
+                sein->fields.Mortality->fields.Health->fields.m_maxHealthDirty = true;
                 sein->fields.Mortality->fields.Health->fields.m_actualMaxHealthDirty = true;
             }
         }
@@ -146,6 +148,8 @@ namespace core::api::game::player {
             if (sein && stats) {
                 stats->fields.m_maxEnergy = value;
                 Moon::uberSerializationWisp::PlayerUberStateStats::RunSetDirtyCallback(stats);
+                sein->fields.Energy->fields.m_baseMaxEnergyDirty = true;
+                sein->fields.Energy->fields.m_maxEnergyDirty = true;
                 sein->fields.Energy->fields.m_actualMaxEnergyDirty = true;
             }
         }
