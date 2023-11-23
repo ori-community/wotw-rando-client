@@ -19,6 +19,7 @@
 #include <Modloader/app/structs/ActivateBasedOnCondition.h>
 #include <Modloader/app/structs/AmbienceZone.h>
 #include <Modloader/app/structs/Boolean__Boxed.h>
+#include <Modloader/app/structs/ChangeStateOnCondition.h>
 #include <Modloader/app/structs/DesiredUberStateGeneric.h>
 #include <Modloader/app/structs/HasAbilityCondition.h>
 #include <Modloader/app/structs/Int32__Boxed.h>
@@ -69,11 +70,14 @@ namespace randomizer::ipc {
             return {
                 { "name", name },
                 { "type", "vector_3" },
-                { "value", {
-                               { "x", value.x },
-                               { "y", value.y },
-                               { "z", value.z },
-                           } }
+                {
+                    "value",
+                    {
+                        { "x", value.x },
+                        { "y", value.y },
+                        { "z", value.z },
+                    },
+                },
             };
         }
 
@@ -82,10 +86,13 @@ namespace randomizer::ipc {
             return {
                 { "name", name },
                 { "type", "vector_2" },
-                { "value", {
-                               { "x", value.x },
-                               { "y", value.y },
-                           } }
+                {
+                    "value",
+                    {
+                        { "x", value.x },
+                        { "y", value.y },
+                    },
+                },
             };
         }
 
@@ -121,9 +128,11 @@ namespace randomizer::ipc {
         template <typename T>
         nlohmann::json visualize_list(std::string_view name, T& list, bool verbose) {
             auto arr = nlohmann::json::array();
-            if (il2cpp::unity::is_valid(list))
-                for (auto i = 0; i < list->fields._size; ++i)
+            if (il2cpp::unity::is_valid(list)) {
+                for (auto i = 0; i < list->fields._size; ++i) {
                     arr.push_back(visualize(list->fields._items->vector[i], std::to_string(i), verbose));
+                }
+            }
 
             return create_variable(name, "array", arr);
         }
@@ -131,9 +140,11 @@ namespace randomizer::ipc {
         template <typename T>
         nlohmann::json visualize_array(std::string_view name, T& list, bool verbose) {
             auto arr = nlohmann::json::array();
-            if (list != nullptr)
-                for (auto i = 0; i < list->max_length; ++i)
+            if (list != nullptr) {
+                for (auto i = 0; i < list->max_length; ++i) {
                     arr.push_back(visualize(list->vector[i], std::to_string(i), verbose));
+                }
+            }
 
             return create_variable(name, "array", arr);
         }
@@ -155,14 +166,18 @@ namespace randomizer::ipc {
 
         void visualize_translated_message_provider_message_item(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::TranslatedMessageProvider_MessageItem*>(obj);
-            j["value"] = nlohmann::json::array({ create_variable("english", "scalar", il2cpp::convert_csstring(cast->fields.English)) });
+            j["value"] = nlohmann::json::array({
+                create_variable("english", "scalar", il2cpp::convert_csstring(cast->fields.English)),
+            });
         }
 
         void visualize_translated_message_provider(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::TranslatedMessageProvider*>(obj);
             auto arr = nlohmann::json::array();
 
-            j["value"] = nlohmann::json::array({ visualize_list("messages", cast->fields.Messages, verbose) });
+            j["value"] = nlohmann::json::array({
+                visualize_list("messages", cast->fields.Messages, verbose),
+            });
         }
 
         void visualize_desired_uberstate_generic(nlohmann::json& j, void* obj, bool verbose) {
@@ -320,10 +335,12 @@ namespace randomizer::ipc {
                 : nullptr;
             auto moon_target_path = il2cpp::unity::get_path(target);
             auto target_path = il2cpp::unity::get_path(cast->fields.Target);
-            j["value"] = nlohmann::json::array({ create_variable("activate", "scalar", cast->fields.Activate),
-                                                 create_variable("condition", "game_object", condition_path),
-                                                 create_variable("moon_target", "game_object", moon_target_path),
-                                                 create_variable("target", "game_object", target_path) });
+            j["value"] = nlohmann::json::array({
+                create_variable("activate", "scalar", cast->fields.Activate),
+                create_variable("condition", "game_object", condition_path),
+                create_variable("moon_target", "game_object", moon_target_path),
+                create_variable("target", "game_object", target_path),
+            });
         }
 
         void visualize_sein_ability_condition(nlohmann::json& j, void* obj, bool verbose) {
@@ -344,10 +361,51 @@ namespace randomizer::ipc {
             });
         }
 
+        void visualize_change_state_on_condition(nlohmann::json& j, void* obj, bool verbose) {
+            auto cast = reinterpret_cast<app::ChangeStateOnCondition*>(obj);
+            j["value"] = nlohmann::json::array({
+                visualize(cast->fields.Condition, "condition", verbose),
+                create_variable("has_been_triggered", "scalar", cast->fields.m_hasBeenTriggered),
+                create_variable("has_been_upgraded", "scalar", cast->fields.m_hasBeenUpgraded),
+                visualize(cast->fields.StateChange, "state_change", verbose),
+                visualize(cast->fields.StateChangeOld, "state_change_old", verbose),
+                create_variable("create_checkpoint_on_state_change", "scalar", cast->fields.CreateCheckpointOnStateChange),
+            });
+        }
+
+        void visualize_change_state_setup_holder(nlohmann::json& j, void* obj, bool verbose) {
+            auto cast = reinterpret_cast<app::ChangeStateSetupHolder*>(obj);
+            j["value"] = nlohmann::json::array({
+                visualize_list("state_data", cast->fields._._.StateData, verbose),
+                visualize(cast->fields._._._.Mapping, "mapping", verbose),
+            });
+
+            if (cast->fields._._._.State != nullptr &&
+                il2cpp::invoke<app::Boolean__Boxed>(cast->fields._._._.State, "get_HasAReference")->fields &&
+                il2cpp::invoke<app::Boolean__Boxed>(cast->fields._._._.State, "CanResolve", 0)->fields) {
+                const auto target = il2cpp::invoke<Il2CppObject>(cast->fields._._._.State, "Resolve", 0);
+                j["value"].push_back(visualize(target, "uber_state", verbose));
+            }
+        }
+
+        void visualize_change_state_setup_data(nlohmann::json& j, void* obj, bool verbose) {
+            auto cast = reinterpret_cast<app::ChangeStateSetupData*>(obj);
+            j["value"] = nlohmann::json::array({
+                create_variable("desired_value", "scalar", cast->fields.m_desiredValue),
+            });
+        }
+
+        void visualize_state_change_definition(nlohmann::json& j, void* obj, bool verbose) {
+            auto cast = reinterpret_cast<app::StateChangeDefinition*>(obj);
+            j["value"] = nlohmann::json::array({ visualize(cast->fields.State, "desired_state", verbose) });
+        }
+
         void visualize_setup_state(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::SetupState*>(obj);
-            j["value"] = nlohmann::json::array({ create_variable("state_guid", "scalar", cast->fields.StateGUID),
-                                                 create_variable("state_name", "scalar", il2cpp::convert_csstring(cast->fields.StateName)) });
+            j["value"] = nlohmann::json::array({
+                create_variable("state_guid", "scalar", cast->fields.StateGUID),
+                create_variable("state_name", "scalar", il2cpp::convert_csstring(cast->fields.StateName)),
+            });
         }
 
         void visualize_setup_state_modifier(nlohmann::json& j, void* obj, bool verbose) {
@@ -355,8 +413,10 @@ namespace randomizer::ipc {
             auto game_object = il2cpp::invoke<app::Boolean__Boxed>(ssm->fields.Target, "CanResolve", 0)->fields
                 ? il2cpp::invoke<app::GameObject>(ssm->fields.Target, "Resolve", 0)
                 : nullptr;
-            j["value"] = nlohmann::json::array({ create_variable("modifier_guid", "scalar", ssm->fields.ModifierGUID),
-                                                 create_variable("game_object", "game_object", il2cpp::unity::get_path(game_object)) });
+            j["value"] = nlohmann::json::array({
+                create_variable("modifier_guid", "scalar", ssm->fields.ModifierGUID),
+                create_variable("game_object", "game_object", il2cpp::unity::get_path(game_object)),
+            });
         }
 
         void visualize_new_setup_state_controller(nlohmann::json& j, void* obj, bool verbose) {
@@ -486,6 +546,10 @@ namespace randomizer::ipc {
             { "SeinAbilityCondition", visualize_sein_ability_condition },
             { "HasAbilityCondition", visualize_has_ability_condition },
             { "UberStateConditionWrapper", visualize_uber_state_condition_wrapper },
+            { "Moon.Setups.ChangeStateOnCondition", visualize_change_state_on_condition },
+            { "Moon.Setups.ChangeStateSetupHolder", visualize_change_state_setup_holder },
+            { "Moon.Setups.ChangeStateSetupData", visualize_change_state_setup_data },
+            { "StateChangeDefinition", visualize_state_change_definition },
 
             //{ "UberStateBoolCondition", visualize_uber_state_bool_condition },
             //{ "UberStateValueCondition", visualize_uber_state_value_condition },
@@ -634,8 +698,9 @@ namespace randomizer::ipc {
             auto object_instance_id = get_optional_instance_id(j.at("payload").at("instance_id"));
             auto go = find_game_object(path, object_instance_id);
 
-            if (il2cpp::unity::is_valid(go))
+            if (il2cpp::unity::is_valid(go)) {
                 il2cpp::unity::destroy_object(go);
+            }
         }
 
         void set_game_object_active(const nlohmann::json& j) {
@@ -646,8 +711,9 @@ namespace randomizer::ipc {
             auto value = payload.value("value", true);
 
             auto go = find_game_object(path, object_instance_id);
-            if (il2cpp::unity::is_valid(go))
+            if (il2cpp::unity::is_valid(go)) {
                 il2cpp::unity::set_active(go, value);
+            }
         }
 
         void get_game_object(const nlohmann::json& j) {
@@ -661,7 +727,7 @@ namespace randomizer::ipc {
             auto path = j.at("payload").value("path", "");
             auto object_instance_id = get_optional_instance_id(j.at("payload").at("instance_id"));
 
-            if (path == "") {
+            if (path.empty()) {
                 report_roots(response, false);
             } else {
                 report_game_object(response, find_game_object(path, object_instance_id), false);
@@ -681,7 +747,7 @@ namespace randomizer::ipc {
             auto path = j.at("payload").value("path", "");
             auto object_instance_id = get_optional_instance_id(j.at("payload").at("instance_id"));
 
-            if (path == "") {
+            if (path.empty()) {
                 report_roots(response, true);
             } else {
                 report_game_object(response, find_game_object(path, object_instance_id), true);

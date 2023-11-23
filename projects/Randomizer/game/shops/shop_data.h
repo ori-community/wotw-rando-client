@@ -44,9 +44,9 @@ namespace randomizer::game::shops {
     template <typename T, class hasher = std::hash<T>>
     class ShopData {
     public:
-        ShopData(std::vector<T> keys) {
+        explicit ShopData(std::vector<T> keys) {
             for (auto key : keys) {
-                slots[key];
+                m_slots[key];
             }
         }
 
@@ -54,16 +54,25 @@ namespace randomizer::game::shops {
         ShopData(ShopData const&) = delete;
 
         ShopSlot* slot(T const& key) {
-            auto it = slots.find(key);
-            return it != slots.end() ? &it->second : nullptr;
+            auto it = m_slots.find(key);
+            return it != m_slots.end() ? &it->second : nullptr;
         }
 
         ShopSlot const* slot(T const& key) const {
-            auto it = slots.find(key);
-            return it != slots.end() ? &it->second : nullptr;
+            auto it = m_slots.find(key);
+            return it != m_slots.end() ? &it->second : nullptr;
+        }
+
+        std::vector<ShopSlot*> slots() {
+            std::vector<ShopSlot*> slots;
+            for (auto& slot : m_slots) {
+                slots.push_back(&slot.second);
+            }
+
+            return slots;
         }
 
     private:
-        std::unordered_map<T, ShopSlot, hasher> slots;
+        std::unordered_map<T, ShopSlot, hasher> m_slots;
     };
 } // namespace randomizer::game::shops

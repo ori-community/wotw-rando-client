@@ -27,7 +27,7 @@ namespace randomizer::game::shops {
 
     ShopData<opher_key, pair_hash>& opher_shop();
     ShopData<twillen_key>& twillen_shop();
-    ShopData<grom_key>& lupo_shop();
+    ShopData<lupo_key>& lupo_shop();
     ShopData<grom_key>& grom_shop();
     ShopData<tuley_key>& tuley_shop();
 

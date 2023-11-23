@@ -37,6 +37,15 @@ namespace common {
             return m_data.get_bus_data(ids...)->register_handler(handler);
         }
 
+        [[nodiscard]] std::vector<registration_handle> register_handlers(std::vector<identifier> ids, event_handler handler) {
+            std::vector<registration_handle> handles;
+            for (auto id : ids) {
+                handles.push_back(m_data.get_bus_data(id)->register_handler(handler));
+            }
+
+            return handles;
+        }
+
         void trigger_event(Identifiers... ids)
             requires(std::same_as<Return, void> && std::same_as<T, void>)
         {

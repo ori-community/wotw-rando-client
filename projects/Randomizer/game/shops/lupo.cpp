@@ -107,7 +107,7 @@ namespace {
             text_box->fields.color = can_purchase
                 ? this_ptr->fields.PurchasableColor
                 : this_ptr->fields.UnpurchaseableColor;
-            TextBox::SetText_2(text_box, il2cpp::string_new(owned ? std::to_string(cost) : ""));
+            TextBox::SetText_2(text_box, il2cpp::string_new(owned ? "" : std::to_string(cost)));
             TextBox::RenderText(text_box);
         }
 

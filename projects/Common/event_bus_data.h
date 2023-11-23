@@ -79,14 +79,17 @@ namespace common {
         }
 
         std::shared_ptr<event_bus_data> get_bus_data(Identifiers... id) {
-            auto key = std::make_tuple(id...);
-            if (!m_data.contains(key)) {
+            return get_bus_data(std::make_tuple(id...));
+        }
+
+        std::shared_ptr<event_bus_data> get_bus_data(identifier id) {
+            if (!m_data.contains(id)) {
                 auto event_bus = std::make_shared<event_bus_data>();
                 event_bus->self = event_bus;
-                m_data.emplace(key, event_bus);
+                m_data.emplace(id, event_bus);
             }
 
-            auto event_bus = m_data[key];
+            auto event_bus = m_data[id];
             return event_bus;
         }
 

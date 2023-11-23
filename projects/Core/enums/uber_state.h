@@ -25,6 +25,7 @@ enum class UberStateGroup {
     GromShop = 17,
     RandoGameModes = 18,
     ShrineStates = 19,
+    TuleyShop = 20,
 
     // Vanilla groups
     // TODO: Add all uberstate groups here and use four our uberstate methods.

@@ -51,7 +51,17 @@ namespace core::text {
 
         // Lupo shop slots
         for (auto slot = 0; slot < 3; ++slot) {
+            initialize_shop_slot(10000 + (slot * 10));
+        }
+
+        // Grom shop slots
+        for (auto slot = 0; slot < 7; ++slot) {
             initialize_shop_slot(11000 + (slot * 10));
+        }
+
+        // Tuley shop slots
+        for (auto slot = 0; slot < 6; ++slot) {
+            initialize_shop_slot(12000 + (slot * 10));
         }
 
         register_text(*static_text_entry::QuestReward, "Well, it's randomized");

@@ -1,23 +1,47 @@
 #include <game/shops/shop.h>
 
 #include <Core/api/game/player.h>
+#include <Core/api/game/ui.h>
+#include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state.h>
+#include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/text/text_database.h>
 
+#include <Modloader/app/methods/BuilderEntity.h>
 #include <Modloader/app/methods/BuilderItem.h>
 #include <Modloader/app/methods/BuilderScreen.h>
+#include <Modloader/app/methods/ShopkeeperScreen.h>
 #include <Modloader/app/methods/SpellUISeeds.h>
 #include <Modloader/app/methods/UISoundSettingsAsset.h>
 #include <Modloader/app/types/BuilderItem.h>
+#include <Modloader/app/types/SpellUISeeds.h>
+#include <Modloader/app/types/ChangeStateOnCondition.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
-
-#include <set>
 
 namespace {
     using namespace modloader;
     using namespace app::classes;
     using namespace randomizer::game::shops;
+
+    auto scene = core::api::scenes::single_event_bus().register_handler("wellspringGladesHubSetups", [](auto metadata, auto) {
+        auto projects = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, std::vector<std::string>{ "interactives", "builderProjects" });
+        auto huts_a = il2cpp::unity::find_child(projects, "mokiHutsSetup");
+        for (auto component : il2cpp::unity::get_components<app::ChangeStateOnCondition>(huts_a, reinterpret_cast<Il2CppClass*>(types::ChangeStateOnCondition::get_class()))) {
+            const auto state_data = component->fields.StateChange->fields._._.StateData->fields._items->vector[0];
+            if (state_data->fields.m_desiredValue < 2) {
+                il2cpp::unity::destroy_object(component);
+            }
+        }
+
+        auto huts_b = il2cpp::unity::find_child(projects, "mokiHutsBSetup");
+        for (auto component : il2cpp::unity::get_components<app::ChangeStateOnCondition>(huts_b, reinterpret_cast<Il2CppClass*>(types::ChangeStateOnCondition::get_class()))) {
+            const auto state_data = component->fields.StateChange->fields._._.StateData->fields._items->vector[0];
+            if (state_data->fields.m_desiredValue < 2) {
+                il2cpp::unity::destroy_object(component);
+            }
+        }
+    });
 
     // Why ores are treated as seeds, nobody knows.
     core::api::uber_states::UberState ore_spent(UberStateGroup::RandoState, 6);
@@ -67,11 +91,11 @@ namespace {
 
     IL2CPP_INTERCEPT(BuilderItem, bool, get_IsOwned, (app::BuilderItem * this_ptr)) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
-            auto slot = grom_shop().slot(this_ptr->fields.Project->fields.UberState);
-            return slot != nullptr && is_owned(*slot);
-        } else {
-            return next::BuilderItem::get_IsOwned(this_ptr);
+            const auto state = core::api::uber_states::UberState(this_ptr->fields.Project->fields.UberState);
+            return state.get<int>() >= 3;
         }
+
+        return next::BuilderItem::get_IsOwned(this_ptr);
     }
 
     bool show_hint(void* show_hint_action, app::UISoundSettingsAsset* sounds, app::MessageProvider* provider) {
@@ -83,8 +107,22 @@ namespace {
         return false;
     }
 
+    IL2CPP_INTERCEPT(BuilderItem, void, DoPurchase, (app::BuilderItem * this_ptr, app::PurchaseContext* context)) {
+        const auto cutscene_state = 200000 + this_ptr->fields.Project->fields.UberState->fields.m_value;
+        if (core::api::uber_states::UberState(UberStateGroup::GromShop, cutscene_state).get<bool>()) {
+            // The normal method calls a DelayedAction.Action
+            next::BuilderItem::DoPurchase(this_ptr, context);
+            return;
+        }
+
+        const auto cost = BuilderItem::GetCostForLevel(this_ptr, 1);
+        const auto seed_ui = core::api::game::ui::get()->static_fields->SeinUI->fields.SeedsUI;
+        SpellUISeeds::Spend(il2cpp::unity::get_component_in_children<app::SpellUISeeds>(seed_ui, types::SpellUISeeds::get_class()), cost);
+        core::api::uber_states::UberState(this_ptr->fields.Project->fields.UberState).set(2);
+    }
+
     IL2CPP_INTERCEPT(BuilderItem, bool, TryPurchase, (app::BuilderItem * this_ptr, app::Action_1_MessageProvider_* show_hint_action, app::UISoundSettingsAsset* sounds, app::ShopKeeperHints* hints)) {
-        if (BuilderItem::get_IsVisible(this_ptr)) {
+        if (!BuilderItem::get_IsVisible(this_ptr)) {
             return show_hint(show_hint_action, sounds, hints->fields.ShardNotDiscovered);
         } else if (BuilderItem::get_IsLocked(this_ptr)) {
             return show_hint(show_hint_action, sounds, hints->fields.IsLocked);
@@ -98,9 +136,16 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(BuilderScreen, void, CompletePurchase, (app::BuilderScreen * this_ptr)) {
-        // May want to call ShopkeeperScreen::CompletePurchase instead to prevent PurchasedProject being set on BuilderEntity.
-        // ShopkeeperScreen::CompletePurchase(reinterpret_cast<app::ShopkeeperScreen*>(this_ptr));
-        BuilderScreen::CompletePurchase(this_ptr);
+        const auto shopkeeper_screen = reinterpret_cast<app::ShopkeeperScreen*>(this_ptr);
+        const auto item = reinterpret_cast<app::BuilderItem*>(ShopkeeperScreen::get_SelectedUpgradeItem(shopkeeper_screen));
+        const auto cutscene_state = 200000 + item->fields.Project->fields.UberState->fields._.m_id->fields.m_id;
+        const auto should_play_cutscene = core::api::uber_states::UberState(UberStateGroup::GromShop, cutscene_state).get<bool>();
+        shopkeeper_screen->fields.HideScreenAfterPurchase = should_play_cutscene;
+        next::BuilderScreen::CompletePurchase(this_ptr);
+        if (!should_play_cutscene) {
+            BuilderEntity::get_Instance()->fields.PurchasedProject = false;
+            core::api::uber_states::UberState(item->fields.Project->fields.UberState).set(3);
+            ShopkeeperScreen::OnNewItemHighlighted(shopkeeper_screen, false);
+        }
     }
-
 } // namespace

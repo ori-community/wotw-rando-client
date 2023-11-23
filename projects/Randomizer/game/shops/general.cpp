@@ -1,4 +1,5 @@
 #include <game/shops/shop.h>
+#include <randomizer.h>
 
 #include <Core/api/game/game.h>
 #include <Core/enums/static_text_entries.h>

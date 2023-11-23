@@ -30,9 +30,7 @@ namespace randomizer::messages {
 
     void hide_map_message() {
         if (box != nullptr) {
-            box->hide(true);
-            // TODO: Currently need to destroy the box as the text doesn't fade for some reason, investigate.
-            box = nullptr;
+            box->hide(false);
         }
     }
 }
