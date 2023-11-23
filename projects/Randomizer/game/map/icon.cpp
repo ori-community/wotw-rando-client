@@ -8,6 +8,7 @@
 #include <Modloader/app/methods/UberShaderAPI.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
+#include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/types/AreaMapUI.h>
 #include <Modloader/app/types/Renderer.h>
 #include <Modloader/app/types/TextBox.h>
@@ -79,7 +80,7 @@ namespace randomizer::game::map {
         app::Vector3 position{ m_position.x, m_position.y, 0.0f };
         core::api::game::add_to_container(core::api::game::RandoContainer::MapIcons, m_game_object);
         auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
-        IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, m_game_object, position, m_can_teleport);
+        apply_scaler();
         visible(m_visible);
         label_visible(m_label_visible);
         opacity(m_opacity);
@@ -143,18 +144,26 @@ namespace randomizer::game::map {
 
     void Icon::position(app::Vector2 value) {
         m_position = value;
-        app::Vector3 position{ m_position.x, m_position.y, 0.0f };
-        if (m_game_object != nullptr) {
-            auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
-            IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, m_game_object, position, m_can_teleport);
-        }
+        apply_scaler();
     }
 
     void Icon::can_teleport(bool value) {
         m_can_teleport = value;
+        apply_scaler();
+    }
+
+    void Icon::remove_scaler() const {
         if (m_game_object != nullptr) {
-            app::Vector3 position{ m_position.x, m_position.y, 0.0f };
-            auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
+            const auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
+            IconPlacementScaler::RemoveIcon(area_map->fields._IconScaler_k__BackingField, m_game_object);
+            il2cpp::unity::set_local_scale(m_game_object, { 1, 1, 1 });
+        }
+    }
+
+    void Icon::apply_scaler() const {
+        if (m_game_object != nullptr) {
+            const app::Vector3 position{ m_position.x, m_position.y, 0.0f };
+            const auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
             IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, m_game_object, position, m_can_teleport);
         }
     }

@@ -32,6 +32,9 @@ namespace randomizer::game::map {
         bool can_teleport() const { return m_can_teleport; }
         void can_teleport(bool value);
 
+        void remove_scaler() const;
+        void apply_scaler() const;
+
         FilterFlag filter_mask() const { return m_filter_mask; }
         core::MoodGuid guid() const { return m_guid; }
 

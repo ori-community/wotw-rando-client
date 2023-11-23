@@ -6,6 +6,7 @@
 #include <Core/settings.h>
 
 #include <Modloader/app/methods/AreaMapIconManager.h>
+#include <Modloader/app/methods/AreaMapUI.h>
 #include <Modloader/app/methods/GameMapUI.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
 #include <Modloader/app/methods/RuntimeWorldMapIcon.h>
@@ -182,6 +183,35 @@ namespace randomizer::game::map {
 
             last_filter = active_filter();
         }
+
+        IL2CPP_INTERCEPT(AreaMapUI, void, OnInstantiate, (app::AreaMapUI* this_ptr)) {
+            next::AreaMapUI::OnInstantiate(this_ptr);
+            for (auto icon_set : icons | std::views::values) {
+                for (const auto icon : icon_set) {
+                    icon->apply_scaler();
+                }
+            }
+        }
+
+        IL2CPP_INTERCEPT(AreaMapUI, void, Init, (app::AreaMapUI* this_ptr)) {
+            next::AreaMapUI::Init(this_ptr);
+            for (auto icon_set : icons | std::views::values) {
+                for (const auto icon : icon_set) {
+                    icon->apply_scaler();
+                }
+            }
+        }
+
+        IL2CPP_INTERCEPT(AreaMapUI, void, OnDestroy, (app::AreaMapUI* this_ptr)) {
+            for (auto icon_set : icons | std::views::values) {
+                for (const auto icon : icon_set) {
+                    icon->remove_scaler();
+                }
+            }
+
+            next::AreaMapUI::OnDestroy(this_ptr);
+        }
+
     } // namespace
 
     std::shared_ptr<Icon> add_icon(FilterFlag filter_mask) {
