@@ -869,9 +869,9 @@ namespace randomizer::seed::legacy_parser {
         set_location(message.get(), location);
         message->should_save_as_last = true;
         const auto text = should_add
-            ? std::format("{0} TP", teleporter_name)
-            : std::format("Removed {0} TP", teleporter_name);
-        message->info.text = std::format("#{0}#", text);
+            ? std::format("#{0} TP#", teleporter_name)
+            : std::format("Removed #{0} TP#", teleporter_name);
+        message->info.text = text;
         data.add_item(message);
         data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::SavePedestal);
         data.location_data.names.emplace_back().assign(text);
@@ -1956,7 +1956,7 @@ namespace randomizer::seed::legacy_parser {
     ItemData parse_action(const std::string_view action) {
         Seed::Data data;
         const location_type location{
-            { -1, -1 },
+            { },
             BooleanOperator::Equals,
             0,
         };
