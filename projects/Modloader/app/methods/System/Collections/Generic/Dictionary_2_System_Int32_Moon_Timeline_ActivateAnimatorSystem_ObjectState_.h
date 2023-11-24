@@ -28,6 +28,7 @@ namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_
     IL2CPP_REGISTER_METHOD(0x02DB8340, bool, TryGetValue, (app::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_ * this_ptr, int32_t key, app::ActivateAnimatorSystem_ObjectState* value))
     IL2CPP_REGISTER_METHOD(0x02DB6430, void, set_Item, (app::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_ * this_ptr, int32_t key, app::ActivateAnimatorSystem_ObjectState value))
     IL2CPP_REGISTER_METHOD(0x02EB7BC0, bool, Remove, (app::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_ * this_ptr, int32_t key))
+    IL2CPP_REGISTER_METHOD(0x02EB7BC0, bool, Remove_With_MethodInfo, (app::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_ * this_ptr, int32_t key, Il2CppMethodInfo* method_info))
     IL2CPP_REGISTER_METHOD(0x02EB63E0, app::ActivateAnimatorSystem_ObjectState, get_Item, (app::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_ * this_ptr, int32_t key))
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor_1, (app::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02259DF0, void, ctor_2, (app::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_ * this_ptr, int32_t capacity))
