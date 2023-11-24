@@ -156,7 +156,7 @@ namespace randomizer::game::map {
             icon->icon(app::WorldMapIconType__Enum::Weaponmaster);
             icon->position({ -597.f, -4293.f });
             add_icon_visibility_callback(icon, [](auto) {
-                return core::api::uber_states::UberState(UberStateGroup::OpherWeapon, 20000).get() > 0.5f ? IconVisibilityResult::Show : IconVisibilityResult::Hide;
+                return core::api::uber_states::UberState(UberStateGroup::OpherShop, 20000).get() > 0.5f ? IconVisibilityResult::Show : IconVisibilityResult::Hide;
             });
 
             // Marsh Trial

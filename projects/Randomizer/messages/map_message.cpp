@@ -30,7 +30,7 @@ namespace randomizer::messages {
 
     void hide_map_message() {
         if (box != nullptr) {
-            box->hide(false);
+            box->hide(true);
         }
     }
 }

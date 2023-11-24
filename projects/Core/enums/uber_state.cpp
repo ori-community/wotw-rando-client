@@ -5,8 +5,8 @@
 namespace {
     std::unordered_map<UberStateGroup, std::string> group_names = {
         { UberStateGroup::Tree, "trees" },
-        { UberStateGroup::OpherWeapon, "opherWeapons" },
-        { UberStateGroup::TwillenShard, "twillenShards" },
+        { UberStateGroup::OpherShop, "opherWeapons" },
+        { UberStateGroup::TwillenShop, "twillenShards" },
         { UberStateGroup::GameState, "gameState" },
         { UberStateGroup::RandoUpgrade, "randoUpgrades" },
         { UberStateGroup::RandoState, "randoState" },
@@ -23,6 +23,7 @@ namespace {
         { UberStateGroup::RandoGameModes, "randoGameModes" },
         { UberStateGroup::ShrineStates, "shrineStates" },
         { UberStateGroup::TuleyShop, "tuleyShop" },
+        { UberStateGroup::GladesProjects, "gladesProjects" },
 
         { UberStateGroup::npcsStateGroup, "npcsStateGroup" }
     };

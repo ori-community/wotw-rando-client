@@ -6,6 +6,7 @@
 
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/MessageBox.h>
+#include <Modloader/app/methods/MessageBoxVisibility.h>
 #include <Modloader/app/methods/ScaleToTextBox.h>
 #include <Modloader/app/methods/SoundSource.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
@@ -199,9 +200,12 @@ namespace core::api::messages {
         if (get_visibility() == Visibility::Hidden) {
             il2cpp::unity::destroy_object(m_game_object);
         } else {
-            // We want messages to fade away gradually when deleted.
-            // If this is not desired then call hide(true) first.
-            hide();
+            if (m_message_box->fields.Visibility->fields.m_timeSpeed >= 0.0f) {
+                // We want messages to fade away gradually when deleted.
+                // If this is not desired then call hide(true) first.
+                hide();
+            }
+
             m_message_box->fields.Visibility->fields.DestroyOnHide = true;
         }
     }
@@ -235,6 +239,7 @@ namespace core::api::messages {
             m_message_box->fields.MessageProvider = core::api::system::create_message_provider(m_processed_text);
             app::classes::MessageBox::RefreshText_1(m_message_box);
             ScaleToTextBox::UpdateSize(m_scaler);
+            MessageBoxVisibility::Recache(m_message_box->fields.Visibility);
         }
     }
 
@@ -290,18 +295,15 @@ namespace core::api::messages {
         m_message_box->fields.Visibility->fields.m_delayTime = FLT_MAX;
         m_message_box->fields.Visibility->fields.m_timeSpeed =
             1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionInDuration, FLT_EPSILON);
-        if (instant) {
-            m_message_box->fields.Visibility->fields.m_time = 1.0f;
-        }
+        m_message_box->fields.Visibility->fields.m_time = instant ? 1.0f : 0.0f;
     }
 
     void MessageBox::hide(const bool instant) const {
         m_message_box->fields.Visibility->fields.m_timeSpeed =
             -1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionOutDuration, FLT_EPSILON);
         m_message_box->fields.Visibility->fields.m_delayTime = 0.0f;
-        if (instant) {
-            m_message_box->fields.Visibility->fields.m_time = 0.0f;
-        }
+        m_message_box->fields.Visibility->fields.m_time = instant ? 0.0f : 1.0f;
+        MessageBoxVisibility::set_IsSuspended(m_message_box->fields.Visibility, false);
     }
 
     void MessageBox::show_box(const bool value) const {

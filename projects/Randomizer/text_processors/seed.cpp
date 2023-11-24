@@ -66,7 +66,7 @@ namespace randomizer::text_processors {
                 output += std::format("{1}{0}{1}", relic, color);
             }
 
-            return output;
+            return output + "\n";
         }
 
         std::optional<std::string> map_relic_progress(core::text::ITextProcessor const& base_processor, std::string_view content) {
@@ -79,15 +79,15 @@ namespace randomizer::text_processors {
             const auto relics_in_area = relics.relics_in_area(current_area);
             const auto total = relics_in_area.size();
             if (total == 0) {
-                return "(Relicless)";
+                return "(Relicless)\n";
             }
 
             if (total == 1) {
-                return relics_in_area[0].resolve() ? "$(Relic found)$" : "(Relic not found)";
+                return std::format("{}\n", relics_in_area[0].resolve() ? "$(Relic found)$" : "(Relic not found)");
             }
 
             const auto found = relics.found_relics_in_area(current_area);
-            return std::format("{2}{0}/{1} Relics found{2}", found, total, found == total ? "$" : "");
+            return std::format("{2}{0}/{1} Relics found{2}\n", found, total, found == total ? "$" : "");
         }
     } // namespace
 

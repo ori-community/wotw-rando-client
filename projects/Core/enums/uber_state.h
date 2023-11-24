@@ -8,8 +8,8 @@ enum class UberStateGroup {
     Invalid = -1,
     // Rando groups
     Tree = 0,
-    OpherWeapon = 1,
-    TwillenShard = 2,
+    OpherShop = 1,
+    TwillenShop = 2,
     GameState = 3,
     RandoUpgrade = 4,
     RandoState = 6,
@@ -26,6 +26,7 @@ enum class UberStateGroup {
     RandoGameModes = 18,
     ShrineStates = 19,
     TuleyShop = 20,
+    GladesProjects = 21,
 
     // Vanilla groups
     // TODO: Add all uberstate groups here and use four our uberstate methods.

@@ -6,13 +6,13 @@
 #include <Modloader/modloader.h>
 
 namespace {
-    core::api::uber_states::UberState grom_spirit_well_built(UberStateGroup::GromShop, 16825);
-    core::api::uber_states::UberState grom_houses_a_built(UberStateGroup::GromShop, 51230);
-    core::api::uber_states::UberState grom_houses_b_built(UberStateGroup::GromShop, 23607);
-    core::api::uber_states::UberState grom_houses_c_built(UberStateGroup::GromShop, 40448);
-    core::api::uber_states::UberState grom_remove_thorns_built(UberStateGroup::GromShop, 18751);
-    core::api::uber_states::UberState grom_open_cave_built(UberStateGroup::GromShop, 16586);
-    core::api::uber_states::UberState grom_beautify_built(UberStateGroup::GromShop, 15068);
+    core::api::uber_states::UberState grom_spirit_well_built(UberStateGroup::GladesProjects, 16825);
+    core::api::uber_states::UberState grom_houses_a_built(UberStateGroup::GladesProjects, 51230);
+    core::api::uber_states::UberState grom_houses_b_built(UberStateGroup::GladesProjects, 23607);
+    core::api::uber_states::UberState grom_houses_c_built(UberStateGroup::GladesProjects, 40448);
+    core::api::uber_states::UberState grom_remove_thorns_built(UberStateGroup::GladesProjects, 18751);
+    core::api::uber_states::UberState grom_open_cave_built(UberStateGroup::GladesProjects, 16586);
+    core::api::uber_states::UberState grom_beautify_built(UberStateGroup::GladesProjects, 15068);
 
     auto uber_state_notify = core::api::uber_states::single_notification_bus().register_handlers(
         std::vector<std::tuple<core::api::uber_states::UberState>> {

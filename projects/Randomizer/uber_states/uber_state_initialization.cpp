@@ -131,61 +131,61 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "ancestralLightTreeA", static_cast<int>(app::AbilityType__Enum::DamageUpgradeA), false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "ancestralLightTreeB", static_cast<int>(app::AbilityType__Enum::DamageUpgradeB), false),
 
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "waterBreath", 23, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "spike", 74, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "spiritSmash", 98, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "fastTravel", 105, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "spiritStar", 106, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "blaze", 115, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "sentry", 116, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "explodingSpike", 1074, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "shockSmash", 1098, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "staticStar", 1106, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "chargeBlaze", 1115, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "rapidSentry", 1116, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "waterBreath", 23, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "spike", 74, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "spiritSmash", 98, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "fastTravel", 105, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "spiritStar", 106, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "blaze", 115, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "sentry", 116, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "explodingSpike", 1074, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "shockSmash", 1098, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "staticStar", 1106, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "chargeBlaze", 1115, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "rapidSentry", 1116, false),
 
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherWeapon, "waterBreathCost", 10023, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherWeapon, "spikeCost", 10074, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherWeapon, "spiritSmashCost", 10098, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherWeapon, "fastTravelCost", 10105, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherWeapon, "spiritStarCost", 10106, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherWeapon, "blazeCost", 10115, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherWeapon, "sentryCost", 10116, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherWeapon, "explodingSpikeCost", 11074, 300),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherWeapon, "shockSmashCost", 11098, 300),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherWeapon, "staticStarCost", 11106, 300),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherWeapon, "chargeBlazeCost", 11115, 300),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherWeapon, "rapidSentryCost", 11116, 300),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "waterBreathCost", 10023, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "spikeCost", 10074, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "spiritSmashCost", 10098, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "fastTravelCost", 10105, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "spiritStarCost", 10106, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "blazeCost", 10115, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "sentryCost", 10116, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "explodingSpikeCost", 11074, 300),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "shockSmashCost", 11098, 300),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "staticStarCost", 11106, 300),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "chargeBlazeCost", 11115, 300),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "rapidSentryCost", 11116, 300),
 
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "hasBoughtEverything", 20000, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "hasBoughtEverything", 20000, false),
 
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShard, "energy", 26, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShard, "vitality", 22, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShard, "overcharge", 1, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShard, "wingclip", 3, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShard, "tripleJump", 2, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShard, "finesse", 40, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShard, "swap", 5, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShard, "lightHarvest", 19, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShop, "energy", 26, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShop, "vitality", 22, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShop, "overcharge", 1, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShop, "wingclip", 3, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShop, "tripleJump", 2, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShop, "finesse", 40, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShop, "swap", 5, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShop, "lightHarvest", 19, false),
 
-                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShard, "energyCost", 126, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShard, "vitalityCost", 122, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShard, "overchargeCost", 101, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShard, "wingclipCost", 103, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShard, "tripleJumpCost", 102, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShard, "finesseCost", 140, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShard, "swapCost", 105, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShard, "lightHarvestCost", 119, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShop, "energyCost", 126, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShop, "vitalityCost", 122, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShop, "overchargeCost", 101, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShop, "wingclipCost", 103, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShop, "tripleJumpCost", 102, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShop, "finesseCost", 140, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShop, "swapCost", 105, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TwillenShop, "lightHarvestCost", 119, 0),
 
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShard, "hasBoughtEverything", 20000, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShop, "hasBoughtEverything", 20000, false),
 
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "spiritWellBuilt", 16825, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "housesABuilt", 51230, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "housesBBuilt", 23607, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "housesCBuilt", 40448, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "removeThornsBuilt", 18751, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "openCaveBuilt", 16586, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "beautifyBuilt", 15068, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "spiritWellBuilt", 16825, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "housesABuilt", 51230, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "housesBBuilt", 23607, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "housesCBuilt", 40448, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "removeThornsBuilt", 18751, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "openCaveBuilt", 16586, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "beautifyBuilt", 15068, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "spiritWellCost", 16826, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "housesACost", 51231, 0),
@@ -809,6 +809,78 @@ namespace randomizer {
                             static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 44578).get() > 1.5) +
                             static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 26394).get() > 1.5);
                     } })
+            );
+
+            // Grom shop states
+            register_virtual_state(
+                std::make_pair(UberStateGroup::GromShop, 16825),
+                "Spirit Well Bought",
+                core::DynamicValue<double>(core::set_get<double>{
+                    [](double x) { UberState(42178, 16825).set(x > 0.5 ? 1 : 3); },
+                    []() -> double {
+                        return UberState(42178, 16825).get<int>() >= 3 ? 1 : 0;
+                    }
+                })
+            );
+            register_virtual_state(
+                std::make_pair(UberStateGroup::GromShop, 51230),
+                "Houses A Bought",
+                core::DynamicValue<double>(core::set_get<double>{
+                    [](double x) { UberState(42178, 51230).set(x > 0.5 ? 1 : 3); },
+                    []() -> double {
+                        return UberState(42178, 51230).get<int>() >= 3 ? 1 : 0;
+                    }
+                })
+            );
+            register_virtual_state(
+                std::make_pair(UberStateGroup::GromShop, 23607),
+                "Houses B Bought",
+                core::DynamicValue<double>(core::set_get<double>{
+                    [](double x) { UberState(42178, 23607).set(x > 0.5 ? 1 : 3); },
+                    []() -> double {
+                        return UberState(42178, 23607).get<int>() >= 3 ? 1 : 0;
+                    }
+                })
+            );
+            register_virtual_state(
+                std::make_pair(UberStateGroup::GromShop, 40448),
+                "Houses C Bought",
+                core::DynamicValue<double>(core::set_get<double>{
+                    [](double x) { UberState(42178, 40448).set(x > 0.5 ? 1 : 3); },
+                    []() -> double {
+                        return UberState(42178, 40448).get<int>() >= 3 ? 1 : 0;
+                    }
+                })
+            );
+            register_virtual_state(
+                std::make_pair(UberStateGroup::GromShop, 18751),
+                "Remove Thorns Bought",
+                core::DynamicValue<double>(core::set_get<double>{
+                    [](double x) { UberState(42178, 18751).set(x > 0.5 ? 1 : 3); },
+                    []() -> double {
+                        return UberState(42178, 18751).get<int>() >= 3 ? 1 : 0;
+                    }
+                })
+            );
+            register_virtual_state(
+                std::make_pair(UberStateGroup::GromShop, 16586),
+                "Open Cave Bought",
+                core::DynamicValue<double>(core::set_get<double>{
+                    [](double x) { UberState(42178, 16586).set(x > 0.5 ? 1 : 3); },
+                    []() -> double {
+                        return UberState(42178, 16586).get<int>() >= 3 ? 1 : 0;
+                    }
+                })
+            );
+            register_virtual_state(
+                std::make_pair(UberStateGroup::GromShop, 15068),
+                "Beautify Bought",
+                core::DynamicValue<double>(core::set_get<double>{
+                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
+                    []() -> double {
+                        return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
+                    }
+                })
             );
 
             dev::print_time(start_time, "Virtual states initialized");
