@@ -58,9 +58,6 @@ target_include_directories(
 find_package(tclap)
 target_link_libraries(${PROJECT_NAME} tclap::tclap)
 
-find_package(fmt)
-target_link_libraries(${PROJECT_NAME} fmt::fmt)
-
 message(STATUS "Assigning source groups.")
 
 set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};")

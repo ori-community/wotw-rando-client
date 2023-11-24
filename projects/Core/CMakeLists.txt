@@ -203,9 +203,6 @@ target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
 find_package(magic_enum)
 target_link_libraries(${PROJECT_NAME} magic_enum::magic_enum)
 
-find_package(fmt)
-target_link_libraries(${PROJECT_NAME} fmt::fmt)
-
 find_package(inih)
 target_link_libraries(${PROJECT_NAME} inih::inih)
 

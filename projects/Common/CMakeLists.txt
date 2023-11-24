@@ -55,9 +55,6 @@ target_include_directories(
         ${WOTWR_BASE_INCLUDES}
 )
 
-find_package(fmt)
-target_link_libraries(${PROJECT_NAME} fmt::fmt)
-
 message(STATUS "Assigning source groups.")
 
 set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};")
