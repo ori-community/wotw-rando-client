@@ -1269,6 +1269,12 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
+    /**
+     * \brief
+     * \param parts Parts array including the sys_message_type as parts[0]
+     * \param data
+     * \return
+     */
     bool parse_sys_message(const std::span<std::string> parts, ParserData& data) {
         int sys_message_type;
         if (!string_convert(parts[0], sys_message_type)) {
@@ -1378,7 +1384,7 @@ namespace randomizer::seed::legacy_parser {
             case 5: {
                 // WorldName
                 const auto message = std::make_shared<items::Message>();
-                message->info.text = std::string("[world(name)]");
+                message->info.text = std::format("[world({})]", parts[1]);
                 message->should_save_as_last = true;
                 data.add_item(message);
                 data.location_data.names.emplace_back() = core::wrap_readonly<std::string>(message->info.text);
