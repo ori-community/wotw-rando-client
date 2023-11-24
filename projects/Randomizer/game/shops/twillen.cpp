@@ -19,9 +19,9 @@
 #include <Modloader/app/methods/SpiritShardUIShardBackdrop.h>
 #include <Modloader/app/methods/SpiritShardUIShardDetails.h>
 #include <Modloader/app/methods/SpiritShardsShopScreen.h>
+#include <Modloader/app/methods/SpiritShardsShopScreen___c.h>
 #include <Modloader/app/methods/UberShaderAPI.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
-#include <Modloader/app/methods/UpgradableShardItem.h>
 #include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Boxed.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/Renderer.h>
@@ -39,16 +39,8 @@ namespace {
     using namespace app::classes::UnityEngine;
     using namespace randomizer::game::shops;
 
-    const std::set<app::SpiritShardType__Enum> TWILLEN_SHARDS{
-        app::SpiritShardType__Enum::GlassCannon,
-        app::SpiritShardType__Enum::TripleJump,
-        app::SpiritShardType__Enum::AntiAir,
-        app::SpiritShardType__Enum::Swap,
-        app::SpiritShardType__Enum::SpiritLightLuck,
-        app::SpiritShardType__Enum::Vitality,
-        app::SpiritShardType__Enum::Energy,
-        app::SpiritShardType__Enum::CombatLuck
-    };
+    const std::set<app::SpiritShardType__Enum> TWILLEN_SHARDS{app::SpiritShardType__Enum::GlassCannon,     app::SpiritShardType__Enum::TripleJump, app::SpiritShardType__Enum::AntiAir, app::SpiritShardType__Enum::Swap,
+                                                              app::SpiritShardType__Enum::SpiritLightLuck, app::SpiritShardType__Enum::Vitality,   app::SpiritShardType__Enum::Energy,  app::SpiritShardType__Enum::CombatLuck};
 
     IL2CPP_INTERCEPT(PlayerSpiritShards, bool, HasShard, (app::PlayerSpiritShards * this_ptr, app::SpiritShardType__Enum shard_type)) {
         if (is_in_shop(ShopType::Twillen) && TWILLEN_SHARDS.find(shard_type) != TWILLEN_SHARDS.end()) {
@@ -79,6 +71,12 @@ namespace {
 
     bool overwrite_shard = false;
     app::PlayerUberStateShards_Shard* selected_shard;
+
+    // Prevent Twillen from cleaning up (sorting) his shop
+    IL2CPP_INTERCEPT(SpiritShardsShopScreen___c, int32_t, _PopulateInventoryCanvasWithShards_b__68_0, (app::SpiritShardsShopScreen_c * this_ptr, app::Object* x, app::Object* y)) {
+        return 0;
+    }
+
     IL2CPP_INTERCEPT(SpiritShardsShopScreen, void, UpdateContextCanvasShards, (app::SpiritShardsShopScreen * this_ptr)) {
         modloader::ScopedSetter setter(overwrite_shard, is_in_shop(ShopType::Twillen));
         selected_shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
@@ -111,7 +109,8 @@ namespace {
         if (overwrite_shard) {
             auto& info = slot->active_info();
             info.icon->apply(renderer);
-        } else {
+        }
+        else {
             static std::unordered_map<app::SpiritShardType__Enum, std::shared_ptr<core::api::graphics::textures::TextureData>> shard_textures;
             auto it = shard_textures.find(type);
             if (it == shard_textures.end()) {
@@ -134,10 +133,12 @@ namespace {
             auto& info = slot->active_info();
             name_box->fields.MessageProvider = info.name.get_provider();
             description_box->fields.MessageProvider = info.description.get_provider();
-        } else if (type == app::SpiritShardType__Enum::None) {
+        }
+        else if (type == app::SpiritShardType__Enum::None) {
             name_box->fields.MessageProvider = this_ptr->fields.LockedName;
             description_box->fields.MessageProvider = this_ptr->fields.LockedDescription;
-        } else {
+        }
+        else {
             name_box->fields.MessageProvider = description->fields.Name;
             auto* const property_levels = description->fields.UpgradablePropertyLevels;
             auto* const property_level = property_levels->fields._items->vector[item->fields.m_level];
@@ -162,7 +163,8 @@ namespace {
             this_ptr->fields.m_item = selected_shard;
             SpiritShardUIShardDetails::UpdateDetails(this_ptr);
             this_ptr->fields.m_item = nullptr;
-        } else {
+        }
+        else {
             next::SpiritShardUIShardDetails::ShowEmptyDetails(this_ptr);
         }
     }
@@ -195,16 +197,15 @@ namespace {
             GameObject::SetActive(this_ptr->fields.IconGO, is_visible);
             GameObject::SetActive(this_ptr->fields.LockedGO, is_locked);
             info.icon->apply(renderer);
-        } else {
+        }
+        else {
             auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
             core::api::graphics::textures::apply_default(renderer);
             next::SpiritShardUIItem::UpdateShardIcon(this_ptr);
         }
     }
 
-    IL2CPP_INTERCEPT(SpiritShardDescription, int, get_BuyCost, (app::SpiritShardDescription * this_ptr)) {
-        return twillen_shop().slot(static_cast<app::SpiritShardType__Enum>(this_ptr->fields.InitialBuyCost))->cost.get<int>();
-    }
+    IL2CPP_INTERCEPT(SpiritShardDescription, int, get_BuyCost, (app::SpiritShardDescription * this_ptr)) { return twillen_shop().slot(static_cast<app::SpiritShardType__Enum>(this_ptr->fields.InitialBuyCost))->cost.get<int>(); }
 
     IL2CPP_INTERCEPT(SpiritShardShopUIItem, void, UpdateShard, (app::SpiritShardShopUIItem * this_ptr, app::PlayerUberStateShards_Shard* shard)) {
         auto owned = true;
@@ -223,12 +224,13 @@ namespace {
             if (purchasable && affordable && !owned) {
                 UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.PurchasableColor);
                 UberShaderAPI::SetColor_1(background_renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.PurchasableColor);
-            } else {
+            }
+            else {
                 UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.UnpurchaseableColor);
                 UberShaderAPI::SetColor_1(background_renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.UnpurchaseableColor);
             }
 
-            app::MessageDescriptor descriptor = { 0 };
+            app::MessageDescriptor descriptor = {0};
             descriptor.Message = il2cpp::string_new(std::to_string(cost));
             auto empty = il2cpp::string_new("");
             MessageBox::SetMessage(il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.CostGO, types::MessageBox::get_class()), descriptor, empty, empty);
