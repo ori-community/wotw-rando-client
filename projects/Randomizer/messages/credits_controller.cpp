@@ -5,7 +5,7 @@
 #include <Common/ext.h>
 #include <Modloader/modloader.h>
 
-#include <fmt/core.h>
+#include <format>
 #include <fstream>
 #include <regex>
 

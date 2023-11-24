@@ -6,7 +6,7 @@
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 
-#include <fmt/core.h>
+#include <format>
 #include <unordered_map>
 
 namespace randomizer_tester {

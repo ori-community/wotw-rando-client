@@ -113,7 +113,7 @@ namespace randomizer::game {
                                 for (auto player: world.members()) {
                                     if (!player.raceready()) {
                                         if (displayed_waiting_for_players_count < MAX_DISPLAYED_WAITING_FOR_PLAYERS) {
-                                            text += fmt::format("\n{}", player.name());
+                                            text += std::format("\n{}", player.name());
 
                                             if (!player.has_connectedmultiverseid()) {
                                                 text += " <s_0.8>(not connected)</>";
@@ -130,7 +130,7 @@ namespace randomizer::game {
                     }
 
                     if (total_waiting_for_players_count > displayed_waiting_for_players_count) {
-                        text += fmt::format("\n...and {} more", total_waiting_for_players_count - displayed_waiting_for_players_count);
+                        text += std::format("\n...and {} more", total_waiting_for_players_count - displayed_waiting_for_players_count);
                     }
 
                     if (total_waiting_for_players_count == 0) {
@@ -181,17 +181,17 @@ namespace randomizer::game {
             }
 
             if (easy_mode_text_handle.has_value() && **easy_mode_text_handle != nullptr) {
-                (**easy_mode_text_handle)->fields.MessageProvider = core::api::system::create_message_provider(fmt::format("{}EASY MODE", prepend_to_difficulty));
+                (**easy_mode_text_handle)->fields.MessageProvider = core::api::system::create_message_provider(std::format("{}EASY MODE", prepend_to_difficulty));
                 MessageBox::RefreshText_1(**easy_mode_text_handle);
             }
 
             if (normal_mode_text_handle.has_value() && **normal_mode_text_handle != nullptr) {
-                (**normal_mode_text_handle)->fields.MessageProvider = core::api::system::create_message_provider(fmt::format("{}NORMAL MODE", prepend_to_difficulty));
+                (**normal_mode_text_handle)->fields.MessageProvider = core::api::system::create_message_provider(std::format("{}NORMAL MODE", prepend_to_difficulty));
                 MessageBox::RefreshText_1(**normal_mode_text_handle);
             }
 
             if (hard_mode_text_handle.has_value() && **hard_mode_text_handle != nullptr) {
-                (**hard_mode_text_handle)->fields.MessageProvider = core::api::system::create_message_provider(fmt::format("{}HARD MODE", prepend_to_difficulty));
+                (**hard_mode_text_handle)->fields.MessageProvider = core::api::system::create_message_provider(std::format("{}HARD MODE", prepend_to_difficulty));
                 MessageBox::RefreshText_1(**hard_mode_text_handle);
             }
         }
@@ -312,7 +312,7 @@ namespace randomizer::game {
                 auto slot_info = SaveSlotsManager::SlotByIndex(index);
 
                 if (slot_info == nullptr) {
-                    console_send(fmt::format("Selected empty index {}", index));
+                    console_send(std::format("Selected empty index {}", index));
 
                     auto save_slots_ui = get_save_slots_ui();
 
@@ -473,7 +473,7 @@ namespace randomizer::game {
     void teleport(app::Vector3 position, bool wait_for_load) {
         teleport_state = TeleportState::Teleport;
         teleport_position = position;
-        modloader::trace(MessageType::Info, 3, "teleport", fmt::format("Teleport to ({}, {}, {}) initiated", position.x, position.y, position.z));
+        modloader::trace(MessageType::Info, 3, "teleport", std::format("Teleport to ({}, {}, {}) initiated", position.x, position.y, position.z));
         if (wait_for_load) {
             ScenesManager::LoadScenesAtPosition(core::api::scenes::get_scenes_manager(), position, false, false, true, true, true);
         }

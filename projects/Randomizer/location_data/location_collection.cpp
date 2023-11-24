@@ -1,6 +1,6 @@
 #include <location_data/location_collection.h>
 
-#include <fmt/core.h>
+#include <format>
 #include <set>
 
 namespace randomizer::location_data {

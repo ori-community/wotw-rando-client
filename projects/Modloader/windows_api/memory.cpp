@@ -3,7 +3,7 @@
 #include "Modloader/windows_api/console.h"
 
 #include <Modloader/windows_api/windows.h>
-#include <fmt/core.h>
+#include <format>
 
 using namespace modloader::win;
 

@@ -4,7 +4,7 @@
 #include <Core/core.h>
 #include <Core/messages/message_controller.h>
 
-#include <fmt/core.h>
+#include <format>
 
 namespace randomizer::seed::items {
     void CountingMessage::grant() {

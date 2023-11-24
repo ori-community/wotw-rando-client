@@ -5,7 +5,7 @@
 
 #include <Core/api/game/death_listener.h>
 
-#include <fmt/core.h>
+#include <format>
 
 namespace core::api::death_listener {
     using namespace app::classes;

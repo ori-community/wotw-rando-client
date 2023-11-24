@@ -2,7 +2,7 @@
 #include "Modloader/modloader.h"
 #include "Modloader/windows_api/windows.h"
 #include <detours/detours.h>
-#include <fmt/core.h>
+#include <format>
 
 namespace modloader::win::detours {
     void start_transaction() {

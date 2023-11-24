@@ -4,7 +4,7 @@
 
 #include <modloader.h>
 
-#include <fmt/core.h>
+#include <format>
 #include <nlohmann/json.hpp>
 
 #include <filesystem>

@@ -3,7 +3,7 @@
 #include <Modloader/windows_api/windows.h>
 #include <modloader.h>
 
-#include <fmt/core.h>
+#include <format>
 #include <algorithm>
 #include <cctype>
 #include <future>
