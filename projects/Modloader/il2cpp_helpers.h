@@ -5,7 +5,7 @@
 #include <Modloader/app/structs/Scene.h>
 #include <Modloader/app/structs/ScriptableObject.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/List_1_System_Int32_.h>
 #include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Vector3.h>
 #include <Modloader/macros.h>
@@ -417,4 +417,37 @@ namespace il2cpp {
             return boxed_value;
         }
     }
+
+    template <typename ListType = app::List_1_System_Int32_>
+    struct ListIterator {
+        struct ListIteratorState {
+            using iterator_category = std::contiguous_iterator_tag;
+            using difference_type   = std::ptrdiff_t;
+            using value_type        = std::remove_reference_t<decltype(ListType::fields._items->vector[0])>;
+            using pointer           = value_type*;
+            using reference         = value_type&;
+
+            explicit ListIteratorState(pointer ptr) : ptr(ptr) {}
+
+            reference operator*() const { return *ptr; }
+            pointer operator->() { return ptr; }
+
+            // Prefix increment
+            ListIteratorState& operator++() { ++ptr; return *this; }
+
+            // Postfix increment
+            ListIteratorState operator++(int) { ListIteratorState tmp = *this; ++(*this); return tmp; }
+
+            friend bool operator== (const ListIteratorState& a, const ListIteratorState& b) { return a.ptr == b.ptr; };
+            friend bool operator!= (const ListIteratorState& a, const ListIteratorState& b) { return a.ptr != b.ptr; };
+        private:
+            pointer ptr;
+        };
+
+        ListType*& list;
+        ListIteratorState begin() { return ListIteratorState(&list->fields._items->vector[0]); }
+        ListIteratorState end() { return ListIteratorState(&list->fields._items->vector[list->fields._size]); }
+
+        explicit ListIterator(ListType*& list) : list(list) {}
+    };
 } // namespace il2cpp
