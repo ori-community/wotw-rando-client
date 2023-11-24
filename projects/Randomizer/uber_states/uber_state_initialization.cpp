@@ -179,13 +179,13 @@ namespace randomizer {
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::TwillenShard, "hasBoughtEverything", 20000, false),
 
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "spiritWellBuilt", 16825, true),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "spiritWellBuilt", 16825, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "housesABuilt", 51230, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "housesBBuilt", 23607, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "housesCBuilt", 40448, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "removeThornsBuilt", 18751, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "openCaveBuilt", 16586, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "beautifyBuilt", 15068, true),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "beautifyBuilt", 15068, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "spiritWellCost", 16826, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "housesACost", 51231, 0),
@@ -596,9 +596,7 @@ namespace randomizer {
                 );
             }
 
-            states.push_back(
-                add_state<app::SerializedIntUberState>(UberStateGroup::PlandoVars, "progress_helper", 999, 0)
-            );
+            states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::PlandoVars, "progress_helper", 999, 0));
 
             // Saved appliers.
             const int appliers_group_count = 50;
