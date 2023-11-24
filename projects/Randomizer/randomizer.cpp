@@ -63,16 +63,6 @@ namespace randomizer {
             return true;
         }
 
-        void initialize_new_game_uber_states() {
-            core::api::uber_states::UberState(48248, 16489).set(1); // npcsStateGroup.fastTravelEnabledUberState
-            core::api::uber_states::UberState(42178, 16825).set(3); // hubUberStateGroup.builderProjectSpiritWell
-            core::api::uber_states::UberState(42178, 15068).set(3); // hubUberStateGroup.builderProjectBeautify
-            core::api::uber_states::UberState(21786, 47458).set(true); // swampStateGroup.torchHolded
-            core::api::uber_states::UberState(937, 54318).set(true); // kwolokGroupDescriptor.risingPedestals
-            core::api::uber_states::UberState(9593, 3621).set(true); // inkwaterMarshStateGroup.mokiTorchPlayed
-            core::api::uber_states::UberState(21786, 50432).set(true); // swampStateGroup.leverA
-        }
-
         auto on_before_shutdown = core::api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::Before, [](auto, auto) {
             server_disconnect();
         });
@@ -105,7 +95,6 @@ namespace randomizer {
         });
 
         auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
-            initialize_new_game_uber_states();
             queue_input_unlocked_callback([]() {
                 randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::GameState, 0), 0);
                 randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::GameState, 1), 0);

@@ -25,7 +25,7 @@ namespace {
             grom_beautify_built,
         },
         [](auto state, auto) {
-            core::api::uber_states::UberState(42178, state.state.state() - 300000).apply();
+            core::api::uber_states::UberState(42178, state.state.state()).apply();
         }
     );
 
@@ -59,6 +59,14 @@ namespace {
             { -1683158848, 1457677579 },
             [](auto, auto, auto original_state, auto) -> int32_t {
                 return grom_spirit_well_built.get<bool>() ? 1457677579 : -1683158848;
+            }
+        );
+
+        randomizer::conditions::register_new_setup_intercept(
+            { "swampIntroTop/artSetups/interactives/savePedestalSetup" },
+            { 763396887, 800721598, -1090989360 },
+            [](auto, auto, auto original_state, auto) -> int32_t {
+                return grom_spirit_well_built.get<bool>() ? -1090989360 : 800721598;
             }
         );
     });

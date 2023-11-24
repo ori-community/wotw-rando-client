@@ -27,7 +27,12 @@ namespace {
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-        randomizer::conditions::register_condition_intercept("swampTorchIntroductionA/npcSetup", [](std::string_view path, void* obj) { return std::optional<bool>(true); });
+        randomizer::conditions::register_condition_intercept(
+            randomizer::conditions::ConditionType::HasAbilityCondition,
+            "swampTorchIntroductionA/npcSetup",
+            [](std::string_view path, void* obj) { return std::optional<bool>(true); }
+        );
+
         randomizer::conditions::register_condition_uber_state_intercept(has_sword, [](app::ConditionUberState* state) { return std::optional<bool>(true); });
     });
 } // namespace

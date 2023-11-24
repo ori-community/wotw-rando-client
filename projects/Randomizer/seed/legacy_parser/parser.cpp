@@ -925,8 +925,8 @@ namespace randomizer::seed::legacy_parser {
         if (std::regex_match(frag, results, ptr_regex)) {
             int group;
             int state;
-            string_convert(results[0].str(), group);
-            string_convert(results[1].str(), state);
+            string_convert(results[1].str(), group);
+            string_convert(results[2].str(), state);
             value.assign(core::api::uber_states::UberState(group, state));
         } else {
             double constant_value;
@@ -1891,7 +1891,7 @@ namespace randomizer::seed::legacy_parser {
         } else if (line.starts_with("// Target:")) {
         } else if (line.starts_with("// Generator Version:")) {
         } else if (line.starts_with("// Slug:")) {
-            data.info.slug = trim(line.substr(sizeof("Slug:")));
+            data.info.slug = trim_copy(line.substr(sizeof("Slug:")));
         } else if (line.starts_with("// Config:")) {
             auto j = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
             data.info.net_code_enabled = j.value("online", false);
@@ -1914,13 +1914,12 @@ namespace randomizer::seed::legacy_parser {
             data.info.content += line;
             data.info.content += "\n";
 
+            replace_all(line, "\\n", "\n");
+            replace_all(line, "\\t", "\t");
+
             if (line.starts_with("//")) {
                 parse_config(line, data);
                 continue;
-            }
-
-            if (line == "0|0|8|9|5|int|+1") {
-                trace(modloader::MessageType::Info, 3, "test", "Wohooo");
             }
 
             // Remove comments.

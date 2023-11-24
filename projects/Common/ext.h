@@ -93,25 +93,25 @@ static inline std::string& trim(std::string& s) {
 }
 
 // trim from start (copying)
-static inline std::string trim_copy(std::string s) {
+[[nodiscard]] static inline std::string trim_copy(std::string s) {
     ltrim(s);
     rtrim(s);
     return s;
 }
 
 // trim from start (copying)
-static inline std::string ltrim_copy(std::string s) {
+[[nodiscard]] static inline std::string ltrim_copy(std::string s) {
     ltrim(s);
     return s;
 }
 
 // trim from end (copying)
-static inline std::string rtrim_copy(std::string s) {
+[[nodiscard]] static inline std::string rtrim_copy(std::string s) {
     rtrim(s);
     return s;
 }
 
-static inline std::string_view ltrim(std::string_view s) {
+[[nodiscard]] static inline std::string_view ltrim_copy(std::string_view s) {
     while (!s.empty() && std::isspace(s.front())) {
         s.remove_prefix(1);
     }
@@ -119,7 +119,7 @@ static inline std::string_view ltrim(std::string_view s) {
     return s;
 }
 
-static inline std::string_view rtrim(std::string_view s) {
+[[nodiscard]] static inline std::string_view rtrim_copy(std::string_view s) {
     while (!s.empty() && std::isspace(s.back())) {
         s.remove_suffix(1);
     }
@@ -127,9 +127,9 @@ static inline std::string_view rtrim(std::string_view s) {
     return s;
 }
 
-static inline std::string_view trim(std::string_view s) {
-    s = ltrim(s);
-    s = rtrim(s);
+[[nodiscard]] static inline std::string_view trim_copy(std::string_view s) {
+    s = ltrim_copy(s);
+    s = rtrim_copy(s);
     return s;
 }
 

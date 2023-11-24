@@ -61,10 +61,10 @@ namespace randomizer::game::map {
                         return randomizer::reach_check().reachable(condition)
                             ? IconVisibilityResult::Show
                             : (
-                                eps_equals(core::settings::map_icon_transparency(), 0.f)
+                                  eps_equals(core::settings::map_icon_transparency(), 0.f)
                                       ? IconVisibilityResult::Hide
                                       : IconVisibilityResult::ShowTransparent
-                            );
+                              );
                     });
                     logics[condition] = in_logic;
 
@@ -256,8 +256,5 @@ namespace randomizer::game::map {
 
     std::shared_ptr<Icon> get_spoiler_icon(core::api::uber_states::UberStateCondition state) {
         return spoilers[state];
-    }
-
-    void show_location_on_labels(bool value) {
     }
 } // namespace randomizer::game::map

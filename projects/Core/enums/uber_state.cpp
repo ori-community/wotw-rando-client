@@ -22,6 +22,7 @@ namespace {
         { UberStateGroup::GromShop, "gromShop" },
         { UberStateGroup::RandoGameModes, "randoGameModes" },
         { UberStateGroup::ShrineStates, "shrineStates" },
+        { UberStateGroup::TuleyShop, "tuleyShop" },
 
         { UberStateGroup::npcsStateGroup, "npcsStateGroup" }
     };

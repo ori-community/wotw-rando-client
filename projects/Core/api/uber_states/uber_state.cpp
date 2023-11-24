@@ -134,22 +134,44 @@ namespace core::api::uber_states {
             uber_id.fields.m_id = id;
             return uber_id;
         }
+
+        bool collection_initialized() {
+            return UberStateCollection::get_Instance != nullptr && il2cpp::unity::is_valid(UberStateCollection::get_Instance());
+        }
+
+        constexpr bool VALIDATE_UBER_STATES_ON_CREATION = true;
     } // namespace
 
     UberState::UberState()
             : m_group(UberStateGroup::Invalid), m_state(0) {}
 
     UberState::UberState(int group, int state)
-            : m_group(static_cast<UberStateGroup>(group)), m_state(state) {}
+            : m_group(static_cast<UberStateGroup>(group)), m_state(state) {
+        if (VALIDATE_UBER_STATES_ON_CREATION && collection_initialized() && !valid()) {
+            trace(MessageType::Warning, 2, "uber_state", fmt::format("uber state ({}, {}) doesn't exist", static_cast<int>(m_group), m_state));
+        }
+    }
 
     UberState::UberState(app::IUberState* state)
-            : m_group(static_cast<UberStateGroup>(il2cpp::invoke<app::UberID>(state, "get_GroupID")->fields.m_id)), m_state(il2cpp::invoke<app::UberID>(state, "get_StateID")->fields.m_id) {}
+    : m_group(static_cast<UberStateGroup>(il2cpp::invoke<app::UberID>(state, "get_GroupID")->fields.m_id)), m_state(il2cpp::invoke<app::UberID>(state, "get_StateID")->fields.m_id) {
+        if (VALIDATE_UBER_STATES_ON_CREATION && collection_initialized() && !valid()) {
+            trace(MessageType::Warning, 2, "uber_state", fmt::format("uber state ({}, {}) doesn't exist", static_cast<int>(m_group), m_state));
+        }
+    }
 
     UberState::UberState(UberStateGroup group, int state)
-            : m_group(group), m_state(state) {}
+            : m_group(group), m_state(state)  {
+        if (VALIDATE_UBER_STATES_ON_CREATION && collection_initialized() && !valid()) {
+            trace(MessageType::Warning, 2, "uber_state", fmt::format("uber state ({}, {}) doesn't exist", static_cast<int>(m_group), m_state));
+        }
+    }
 
     UberState::UberState(UberStateGroup group, app::AbilityType__Enum state)
-            : m_group(group), m_state(static_cast<int>(state)) {}
+    : m_group(group), m_state(static_cast<int>(state))  {
+        if (VALIDATE_UBER_STATES_ON_CREATION && collection_initialized() && !valid()) {
+            trace(MessageType::Warning, 2, "uber    _state", fmt::format("uber state ({}, {}) doesn't exist", static_cast<int>(m_group), m_state));
+        }
+    }
 
     bool UberState::valid() const {
         if (m_group == UberStateGroup::Invalid || m_state < 0) {

@@ -178,15 +178,16 @@ namespace {
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-        randomizer::conditions::register_new_setup_intercept({ "swampTorchIntroductionA/*setups/*timesOfDay" }, { -1052258879, 1819061226 }, [](auto, auto, auto, auto) -> int32_t {
+        using namespace randomizer::conditions;
+        register_new_setup_intercept({ "swampTorchIntroductionA/*setups/*timesOfDay" }, { -1052258879, 1819061226 }, [](auto, auto, auto, auto) -> int32_t {
             return is_day() ? -1052258879 : 1819061226;
         });
 
-        randomizer::conditions::register_new_setup_intercept({ "swampIntroBottom/artSetups/dayNightSetup" }, { -1815347985, -1605692968 }, [](auto, auto, auto, auto) -> int32_t {
+        register_new_setup_intercept({ "swampIntroBottom/artSetups/dayNightSetup" }, { -1815347985, -1605692968 }, [](auto, auto, auto, auto) -> int32_t {
             return is_day() ? -1815347985 : -1605692968;
         });
 
-        randomizer::conditions::register_new_setup_intercept({
+        register_new_setup_intercept({
                                                                  "swampIntroTop/timelines/timesOfDayTransition",
                                                                  "shoreSearchShot/art/timesOfDayTransition",
                                                              },
@@ -195,7 +196,7 @@ namespace {
                                                                  return is_day() ? -598230906 : -1926205078;
                                                              });
 
-        randomizer::conditions::register_new_setup_intercept(
+        register_new_setup_intercept(
             { "willOfTheWispsLagoonConnection/artSetups/timesOfDayTransition" },
             { 1340727368, -76384365 },
             [](auto, auto, auto, auto) -> int32_t {
@@ -203,7 +204,7 @@ namespace {
             }
         );
 
-        randomizer::conditions::register_new_setup_intercept({
+        register_new_setup_intercept({
                                                                  "swampWalljumpChallengeA/*setups/*timesOfDay",
                                                                  "swampWalljumpChallengeB/*timesOfDay",
                                                                  "doubleJumpEscalationB__clone0/*timesOfDay",
@@ -213,7 +214,7 @@ namespace {
                                                                  return is_day() ? -1834135337 : -949591271;
                                                              });
 
-        randomizer::conditions::register_new_setup_intercept(
+        register_new_setup_intercept(
             { "swampNightcrawlerBshortcut/*setups/timesOfDayTransition" },
             { 1001861749, 787945376 },
             [](auto, auto, auto, auto) -> int32_t {
@@ -222,7 +223,7 @@ namespace {
         );
 
         // Sword Cutscene rain
-        randomizer::conditions::register_new_setup_intercept(
+        register_new_setup_intercept(
             { "swampGetSpiritBlade/timesOfDayController", "swampGetSpiritBlade/timesOfDayTransition" },
             { -480342150, 907153171 },
             [](auto, auto, auto, auto) -> int32_t {
@@ -231,23 +232,23 @@ namespace {
         );
 
         // Remove regen tree water and move day water around (288338807 : day, -1643391836 : night).
-        randomizer::conditions::register_new_setup_intercept({ "swampSaveRoomA/timesOfDayTransition" }, { 288338807, -1643391836 }, move_water);
+        register_new_setup_intercept({ "swampSaveRoomA/timesOfDayTransition" }, { 288338807, -1643391836 }, move_water);
 
         // Move howl between modifiers depending on if its day or night time. (-1375966924 : day, 1361521887 : night)
-        randomizer::conditions::register_new_setup_intercept({ "swampNightcrawlerA/artSetups/timesOfDayTransition" }, { -1375966924, 1361521887 }, move_howl);
+        register_new_setup_intercept({ "swampNightcrawlerA/artSetups/timesOfDayTransition" }, { -1375966924, 1361521887 }, move_howl);
 
-        randomizer::conditions::register_condition_intercept("swampNightcrawlerCavernD/enemies/enemyActivator", &is_day_condition);
-        randomizer::conditions::register_condition_intercept("swampNightcrawlerCavernA/interactives/enemies/enemyActivator", &is_day_condition);
-        randomizer::conditions::register_condition_intercept("swampNightcrawlerA/enemies/enemyActivator", &is_day_condition);
-        randomizer::conditions::register_condition_intercept("swampTorchIntroductionA/enemies/activateAfterSword/enemyActivator", &is_day_condition);
-        randomizer::conditions::register_condition_intercept("swampTorchIntroductionA/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
-        randomizer::conditions::register_condition_intercept("swampWalljumpChallengeA/enemies/activateAfterSword/enemyActivator", &is_day_condition);
-        randomizer::conditions::register_condition_intercept("swampWalljumpChallengeA/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
-        randomizer::conditions::register_condition_intercept("swampWalljumpChallengeB/enemies/activateAfterSword/enemyActivator", &is_day_condition);
-        randomizer::conditions::register_condition_intercept("swampWalljumpChallengeB/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
-        randomizer::conditions::register_condition_intercept("swampIntroBottom/interactives/enemies/enemyActivator", &is_day_condition);
-        randomizer::conditions::register_condition_intercept("swampIntroTop/enemies/activateBasedOnCondition/enemyActivator", &is_day_condition);
-        randomizer::conditions::register_condition_intercept("willOfTheWispsLagoonConnection/enemies/activateAfterSword/enemyActivator", &is_day_condition);
-        randomizer::conditions::register_condition_intercept("willOfTheWispsLagoonConnection/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
+        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampNightcrawlerCavernD/enemies/enemyActivator", &is_day_condition);
+        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampNightcrawlerCavernA/interactives/enemies/enemyActivator", &is_day_condition);
+        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampNightcrawlerA/enemies/enemyActivator", &is_day_condition);
+        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampTorchIntroductionA/enemies/activateAfterSword/enemyActivator", &is_day_condition);
+        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampTorchIntroductionA/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
+        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampWalljumpChallengeA/enemies/activateAfterSword/enemyActivator", &is_day_condition);
+        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampWalljumpChallengeA/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
+        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampWalljumpChallengeB/enemies/activateAfterSword/enemyActivator", &is_day_condition);
+        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampWalljumpChallengeB/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
+        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampIntroBottom/interactives/enemies/enemyActivator", &is_day_condition);
+        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampIntroTop/enemies/activateBasedOnCondition/enemyActivator", &is_day_condition);
+        register_condition_intercept(ConditionType::SeinAbilityCondition, "willOfTheWispsLagoonConnection/enemies/activateAfterSword/enemyActivator", &is_day_condition);
+        register_condition_intercept(ConditionType::SeinAbilityCondition, "willOfTheWispsLagoonConnection/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
     });
 } // namespace

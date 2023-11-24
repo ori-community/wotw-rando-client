@@ -596,6 +596,10 @@ namespace randomizer {
                 );
             }
 
+            states.push_back(
+                add_state<app::SerializedIntUberState>(UberStateGroup::PlandoVars, "progress_helper", 999, 0)
+            );
+
             // Saved appliers.
             const int appliers_group_count = 50;
             for (int i = 0; i < appliers_group_count; ++i) {

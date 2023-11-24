@@ -71,6 +71,7 @@ set(
         "game/behaviour_changes/trials_leaderboards.cpp"
         "game/condition_intercepts/day_night_logic.cpp"
         "game/condition_intercepts/good_hollow.cpp"
+        "game/condition_intercepts/grom_built_tps.cpp"
         "game/condition_intercepts/grom_projects.cpp"
         "game/condition_intercepts/tuley_switch.cpp"
         "game/condition_intercepts/water.cpp"

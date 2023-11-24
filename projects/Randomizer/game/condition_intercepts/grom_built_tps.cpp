@@ -1,0 +1,28 @@
+#include <Randomizer/conditions/condition_override.h>
+#include <Randomizer/constants.h>
+
+#include <Core/api/uber_states/uber_state_handlers.h>
+
+#include <Modloader/modloader.h>
+#include <conditions/condition_uber_state.h>
+
+namespace {
+    core::api::uber_states::UberState built_spirit_well(UberStateGroup::GromShop, 16825);
+    core::api::uber_states::UberState built_spirit_well_condition(42178, 3072);
+
+    [[maybe_unused]] auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        randomizer::conditions::register_condition_intercept(
+            randomizer::conditions::ConditionType::VisibleOnWorldMap,
+            "swampIntroTop/artSetups/interactives/savePedestalSetup/savePedestalParent/savePedestal",
+            [](std::string_view path, void* obj) { return std::optional<bool>(true); }
+        );
+
+        // Intercept for condition on RuntimeWorldMapIcon
+        randomizer::conditions::register_condition_uber_state_intercept(
+            built_spirit_well_condition,
+            [](app::ConditionUberState* state) {
+                return std::optional<bool>(built_spirit_well.get());
+            }
+        );
+    });
+} // namespace

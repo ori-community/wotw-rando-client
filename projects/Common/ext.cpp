@@ -48,8 +48,8 @@ namespace common {
             return std::nullopt;
         }
 
-        result.prefix = trim(str.substr(0, operator_start));
-        result.suffix = trim(str.substr(operator_end));
+        result.prefix = trim_copy(str.substr(0, operator_start));
+        result.suffix = trim_copy(str.substr(operator_end));
         return result;
     }
 } // namespace common
@@ -125,7 +125,7 @@ bool is_bool(std::string_view str, bool& value) {
 template <>
 bool string_convert(std::string_view str, int& value, std::size_t* position) {
     try {
-        trim(str);
+        str = trim_copy(str);
         bool bool_value = false;
         if (is_bool(str, bool_value)) {
             value = static_cast<int>(bool_value);
@@ -151,7 +151,7 @@ bool string_convert(std::string_view str, int& value, std::size_t* position) {
 template <>
 bool string_convert(std::string_view str, float& value, std::size_t* position) {
     try {
-        str = trim(str);
+        str = trim_copy(str);
         bool bool_value = false;
         if (is_bool(str, bool_value)) {
             value = static_cast<float>(bool_value);
@@ -177,7 +177,7 @@ bool string_convert(std::string_view str, float& value, std::size_t* position) {
 template <>
 bool string_convert(std::string_view str, double& value, std::size_t* position) {
     try {
-        trim(str);
+        str = trim_copy(str);
         bool bool_value = false;
         if (is_bool(str, bool_value)) {
             value = static_cast<double>(bool_value);
@@ -203,7 +203,7 @@ bool string_convert(std::string_view str, double& value, std::size_t* position) 
 template <>
 bool string_convert(std::string_view str, bool& value, std::size_t* position) {
     try {
-        trim(str);
+        str = trim_copy(str);
         if (is_bool(str, value)) {
             return true;
         }

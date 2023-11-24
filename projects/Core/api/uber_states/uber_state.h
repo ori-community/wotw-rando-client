@@ -44,6 +44,7 @@ namespace core::api::uber_states {
         }
 
         [[nodiscard]] UberStateGroup group() const { return m_group; }
+        [[nodiscard]] int group_int() const { return static_cast<int>(m_group); }
         [[nodiscard]] int state() const { return m_state; }
 
         [[nodiscard]] std::string group_name() const;
