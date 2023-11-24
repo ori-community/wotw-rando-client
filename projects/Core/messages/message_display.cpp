@@ -238,7 +238,7 @@ namespace core::messages {
             const auto pickup_ui_position = world_to_ui_position_2d(modloader::math::convert(pickup_positon)) - top_center;
             //pickup_ui_position.y = -pickup_ui_position.y;
             const auto distance_squared = modloader::math::distance2(pickup_ui_position, modloader::math::convert(message_position));
-            if (distance_squared < 25) {
+            if (distance_squared < 100) {
                 data.message->position().set(modloader::math::convert(pickup_ui_position));
             }
         }
