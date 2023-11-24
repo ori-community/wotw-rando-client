@@ -105,7 +105,7 @@ namespace core::messages {
             m_priority_message = std::nullopt;
         } else {
             auto& data = m_priority_message_data.value();
-            if (!handle_active_message(data, total_lines, cursor_position, 0.1f, delta_time)) {
+            if (!handle_active_message(data, total_lines, cursor_position, 0.5f, delta_time)) {
                 m_priority_message_data = std::nullopt;
             }
         }
