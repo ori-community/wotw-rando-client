@@ -30,23 +30,23 @@ namespace core::api::messages {
         // sometimes isn't initialized for all values we hardcode them.
         switch (position) {
             case ScreenPosition::TopLeft:
-                return { -5, 3, 0 };
+                return {-5, 3, 0};
             case ScreenPosition::TopCenter:
-                return { 0, 3, 0 };
+                return {0, 3, 0};
             case ScreenPosition::TopRight:
-                return { 5, 3, 0 };
+                return {5, 3, 0};
             case ScreenPosition::MiddleLeft:
-                return { -5, 0, 0 };
+                return {-5, 0, 0};
             case ScreenPosition::MiddleCenter:
-                return { 0, 0, 0 };
+                return {0, 0, 0};
             case ScreenPosition::MiddleRight:
-                return { 5, 0, 0 };
+                return {5, 0, 0};
             case ScreenPosition::BottomLeft:
-                return { -5, -3, 0 };
+                return {-5, -3, 0};
             case ScreenPosition::BottomCenter:
-                return { 0, -2.5, 0 };
+                return {0, -2.5, 0};
             case ScreenPosition::BottomRight:
-                return { 5, -3, 0 };
+                return {5, -3, 0};
         }
     }
 
@@ -57,21 +57,10 @@ namespace core::api::messages {
         // TODO: Change how alignment and anchors work for custom message boxes using this tag.
         GameObject::set_tag(m_game_object, il2cpp::string_new("rando_message"));
 
-        il2cpp::unity::destroy_object(
-            il2cpp::unity::get_component_in_children<app::DestroyOnRestoreCheckpoint>(
-                m_game_object,
-                types::DestroyOnRestoreCheckpoint::get_class()
-            )
-        );
+        il2cpp::unity::destroy_object(il2cpp::unity::get_component_in_children<app::DestroyOnRestoreCheckpoint>(m_game_object, types::DestroyOnRestoreCheckpoint::get_class()));
 
-        m_message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(
-            m_game_object,
-            types::MessageBox::get_class()
-        );
-        m_scaler = il2cpp::unity::get_component_in_children<app::ScaleToTextBox>(
-            m_game_object,
-            types::ScaleToTextBox::get_class()
-        );
+        m_message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(m_game_object, types::MessageBox::get_class());
+        m_scaler = il2cpp::unity::get_component_in_children<app::ScaleToTextBox>(m_game_object, types::ScaleToTextBox::get_class());
 
         m_message_box->fields.ShouldWriteOut = true;
 
@@ -90,23 +79,19 @@ namespace core::api::messages {
         m_message_box->fields.WrapText = true;
         m_message_box->fields.TextBox->fields.maxHeight = 500;
 
-        m_message_box->fields.TextBox->fields.color = app::Color{ 1.f, 1.f, 1.f, 1.f };
+        m_message_box->fields.TextBox->fields.color = app::Color{1.f, 1.f, 1.f, 1.f};
         m_message_box->fields.TextBox->fields.alignment = app::AlignmentMode__Enum::Center;
         m_message_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Middle;
         m_message_box->fields.TextBox->fields.horizontalAnchor = app::HorizontalAnchorMode__Enum::Center;
         m_message_box->fields.TextBox->fields.LineSpacing = 1.f;
         m_message_box->fields.TextBox->fields.m_initializeAfterEnabling = true;
 
-        m_message_box->fields.Visibility->fields.m_timeSpeed =
-            -1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionOutDuration, FLT_EPSILON);
+        m_message_box->fields.Visibility->fields.m_timeSpeed = -1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionOutDuration, FLT_EPSILON);
 
         m_message_box->fields.MessageProvider = system::create_message_provider(" ");
         app::classes::MessageBox::RefreshText_1(m_message_box);
 
-        const auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(
-            m_game_object,
-            types::SoundSource::get_class()
-        );
+        const auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(m_game_object, types::SoundSource::get_class());
         sound_source->fields.PlayAtStart = false;
         sound_source->fields.DestroyOnSoundEnd = false;
 
@@ -119,87 +104,74 @@ namespace core::api::messages {
         m_fade_out = DynamicValue<float>(&m_message_box->fields.Visibility->fields.TransitionOutDuration);
         m_color = DynamicValue<app::Color>(&m_message_box->fields.TextBox->fields.color);
         m_line_spacing = DynamicValue<float>(set_get<float>{
-            [this](float value) {
-                m_message_box->fields.TextBox->fields.LineSpacing = value;
-                ScaleToTextBox::UpdateSize(m_scaler);
-            },
-            [this]() {
-                return m_message_box->fields.TextBox->fields.LineSpacing;
-            },
+                [this](float value) {
+                    m_message_box->fields.TextBox->fields.LineSpacing = value;
+                    ScaleToTextBox::UpdateSize(m_scaler);
+                },
+                [this]() { return m_message_box->fields.TextBox->fields.LineSpacing; },
         });
         m_alignment = DynamicValue<app::AlignmentMode__Enum>(set_get<app::AlignmentMode__Enum>{
-            [this](app::AlignmentMode__Enum value) {
-                m_message_box->fields.TextBox->fields.alignment = value;
-                ScaleToTextBox::UpdateSize(m_scaler);
-            },
-            [this] {
-                return m_message_box->fields.TextBox->fields.alignment;
-            },
+                [this](app::AlignmentMode__Enum value) {
+                    m_message_box->fields.TextBox->fields.alignment = value;
+                    ScaleToTextBox::UpdateSize(m_scaler);
+                },
+                [this] { return m_message_box->fields.TextBox->fields.alignment; },
         });
         m_horizontal_anchor = DynamicValue<app::HorizontalAnchorMode__Enum>(set_get<app::HorizontalAnchorMode__Enum>{
-            [this](app::HorizontalAnchorMode__Enum value) {
-                m_message_box->fields.TextBox->fields.horizontalAnchor = value;
-                ScaleToTextBox::UpdateSize(m_scaler);
-            },
-            [this] {
-                return m_message_box->fields.TextBox->fields.horizontalAnchor;
-            },
+                [this](app::HorizontalAnchorMode__Enum value) {
+                    m_message_box->fields.TextBox->fields.horizontalAnchor = value;
+                    ScaleToTextBox::UpdateSize(m_scaler);
+                },
+                [this] { return m_message_box->fields.TextBox->fields.horizontalAnchor; },
         });
         m_vertical_anchor = DynamicValue<app::VerticalAnchorMode__Enum>(set_get<app::VerticalAnchorMode__Enum>{
-            [this](app::VerticalAnchorMode__Enum value) {
-                m_message_box->fields.TextBox->fields.verticalAnchor = value;
-                ScaleToTextBox::UpdateSize(m_scaler);
-            },
-            [this] {
-                return m_message_box->fields.TextBox->fields.verticalAnchor;
-            },
+                [this](app::VerticalAnchorMode__Enum value) {
+                    m_message_box->fields.TextBox->fields.verticalAnchor = value;
+                    ScaleToTextBox::UpdateSize(m_scaler);
+                },
+                [this] { return m_message_box->fields.TextBox->fields.verticalAnchor; },
         });
         m_top_padding = DynamicValue<float>(set_get<float>{
-            [this](float value) {
-                m_scaler->fields.TopLeftPadding.y = value;
-                ScaleToTextBox::UpdateSize(m_scaler);
-            },
-            [this] {
-                return m_scaler->fields.TopLeftPadding.y;
-            },
+                [this](float value) {
+                    m_scaler->fields.TopLeftPadding.y = value;
+                    ScaleToTextBox::UpdateSize(m_scaler);
+                },
+                [this] { return m_scaler->fields.TopLeftPadding.y; },
         });
         m_bottom_padding = DynamicValue<float>(set_get<float>{
-            [this](float value) {
-                m_scaler->fields.BottomRightPadding.y = value;
-                ScaleToTextBox::UpdateSize(m_scaler);
-            },
-            [this] {
-                return m_scaler->fields.BottomRightPadding.y;
-            },
+                [this](float value) {
+                    m_scaler->fields.BottomRightPadding.y = value;
+                    ScaleToTextBox::UpdateSize(m_scaler);
+                },
+                [this] { return m_scaler->fields.BottomRightPadding.y; },
         });
         m_left_padding = DynamicValue<float>(set_get<float>{
-            [this](float value) {
-                m_scaler->fields.TopLeftPadding.x = value;
-                ScaleToTextBox::UpdateSize(m_scaler);
-            },
-            [this] {
-                return m_scaler->fields.TopLeftPadding.x;
-            },
+                [this](float value) {
+                    m_scaler->fields.TopLeftPadding.x = value;
+                    ScaleToTextBox::UpdateSize(m_scaler);
+                },
+                [this] { return m_scaler->fields.TopLeftPadding.x; },
         });
         m_right_padding = DynamicValue<float>(set_get<float>{
-            [this](float value) {
-                m_scaler->fields.BottomRightPadding.x = value;
-                ScaleToTextBox::UpdateSize(m_scaler);
-            },
-            [this] {
-                return m_scaler->fields.BottomRightPadding.x;
-            },
+                [this](float value) {
+                    m_scaler->fields.BottomRightPadding.x = value;
+                    ScaleToTextBox::UpdateSize(m_scaler);
+                },
+                [this] { return m_scaler->fields.BottomRightPadding.x; },
         });
 
-        m_on_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) {
-            update();
-        });
+        m_on_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) { update(); });
+
+        // Move back the background glow a little bit so it doesn't go out of the near-plane
+        const auto glow_transform = Transform::GetChild(background_transform(), 0);
+        il2cpp::unity::set_local_position(glow_transform, app::Vector3 {0.5f, 0.4f, 0.f});  // Default value but with z = 0
     }
 
     MessageBox::~MessageBox() {
         if (get_visibility() == Visibility::Hidden) {
             il2cpp::unity::destroy_object(m_game_object);
-        } else {
+        }
+        else {
             if (m_message_box->fields.Visibility->fields.m_timeSpeed >= 0.0f) {
                 // We want messages to fade away gradually when deleted.
                 // If this is not desired then call hide(true) first.
@@ -218,10 +190,10 @@ namespace core::api::messages {
     app::Rect MessageBox::bounds() const {
         const auto text_box = m_message_box->fields.TextBox;
         return {
-            text_box->fields.boundsLeft,
-            text_box->fields.boundsBottom,
-            text_box->fields.boundsRight - text_box->fields.boundsLeft,
-            text_box->fields.boundsTop - text_box->fields.boundsBottom,
+                text_box->fields.boundsLeft,
+                text_box->fields.boundsBottom,
+                text_box->fields.boundsRight - text_box->fields.boundsLeft,
+                text_box->fields.boundsTop - text_box->fields.boundsBottom,
         };
     }
 
@@ -241,6 +213,11 @@ namespace core::api::messages {
             ScaleToTextBox::UpdateSize(m_scaler);
             MessageBoxVisibility::Recache(m_message_box->fields.Visibility);
         }
+    }
+
+    app::Transform* MessageBox::background_transform() const {
+        const auto transform = il2cpp::unity::get_transform(m_game_object);
+        return Transform::GetChild(transform, 2);
     }
 
     void MessageBox::update() {
@@ -272,43 +249,50 @@ namespace core::api::messages {
     MessageBox::Visibility MessageBox::get_visibility() {
         if (m_message_box == nullptr) { // NOLINT
             return Visibility::Hidden;
-        } else if (m_message_box->fields.Visibility->fields.m_time >= 1.0f) {
+        }
+        else if (m_message_box->fields.Visibility->fields.m_time >= 1.0f) {
             return Visibility::Visible;
-        } else if (m_message_box->fields.Visibility->fields.m_time <= 0.0f) {
+        }
+        else if (m_message_box->fields.Visibility->fields.m_time <= 0.0f) {
             return Visibility::Hidden;
-        } else if (m_message_box->fields.Visibility->fields.m_timeSpeed < 0.0f) {
+        }
+        else if (m_message_box->fields.Visibility->fields.m_timeSpeed < 0.0f) {
             return Visibility::FadingOut;
-        } else {
+        }
+        else {
             return Visibility::FadingIn;
         }
     }
 
     void MessageBox::show(const bool instant, const bool play_sound) const {
-        const auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(
-            m_game_object,
-            types::SoundSource::get_class()
-        );
+        const auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(m_game_object, types::SoundSource::get_class());
         if (play_sound) {
             SoundSource::Play_2(sound_source);
         }
 
         m_message_box->fields.Visibility->fields.m_delayTime = FLT_MAX;
-        m_message_box->fields.Visibility->fields.m_timeSpeed =
-            1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionInDuration, FLT_EPSILON);
+        m_message_box->fields.Visibility->fields.m_timeSpeed = 1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionInDuration, FLT_EPSILON);
         m_message_box->fields.Visibility->fields.m_time = instant ? 1.0f : 0.0f;
     }
 
     void MessageBox::hide(const bool instant) const {
-        m_message_box->fields.Visibility->fields.m_timeSpeed =
-            -1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionOutDuration, FLT_EPSILON);
+        m_message_box->fields.Visibility->fields.m_timeSpeed = -1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionOutDuration, FLT_EPSILON);
         m_message_box->fields.Visibility->fields.m_delayTime = 0.0f;
         m_message_box->fields.Visibility->fields.m_time = instant ? 0.0f : 1.0f;
         MessageBoxVisibility::set_IsSuspended(m_message_box->fields.Visibility, false);
     }
 
     void MessageBox::show_box(const bool value) const {
-        const auto transform = il2cpp::unity::get_transform(m_game_object);
-        const auto background = il2cpp::unity::get_game_object(Transform::GetChild(transform, 2));
-        GameObject::SetActive(background, value);
+        GameObject::SetActive(il2cpp::unity::get_game_object(background_transform()), value);
+    }
+
+    IL2CPP_INTERCEPT(ScaleToTextBox, void, UpdateSize, (app::ScaleToTextBox * this_ptr)) {
+        next::ScaleToTextBox::UpdateSize(this_ptr);
+
+        if (this_ptr->fields.Background != nullptr) {
+            auto position = il2cpp::unity::get_local_position(this_ptr->fields.Background);
+            position.z = -3.f;
+            il2cpp::unity::set_local_position(this_ptr->fields.Background, position);
+        }
     }
 } // namespace core::api::messages

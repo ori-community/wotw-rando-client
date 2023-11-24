@@ -87,6 +87,7 @@ namespace core::api::messages {
 
     private:
         void update_text();
+        app::Transform* background_transform() const;
 
         common::registration_handle m_on_update_handle;
         app::GameObject* m_game_object = nullptr;
