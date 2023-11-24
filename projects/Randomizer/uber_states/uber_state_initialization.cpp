@@ -710,7 +710,7 @@ namespace randomizer {
 
             register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 0), "Spirit Light", core::wrap<double>(core::api::game::player::spirit_light()));
             register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 1), "Gorlek Ore", core::wrap<double>(core::api::game::player::ore()));
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 1), "Keystones", core::wrap<double>(core::api::game::player::keystones()));
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 2), "Keystones", core::wrap<double>(core::api::game::player::keystones()));
             register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 10), "Max Health", core::wrap<double>(core::api::game::player::max_health()));
             register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 11), "Health", core::wrap<double>(core::api::game::player::health()));
             register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 12), "Max Energy", core::wrap<double>(core::api::game::player::max_energy()));
