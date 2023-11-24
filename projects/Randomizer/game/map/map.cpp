@@ -6,6 +6,7 @@
 #include <Core/settings.h>
 
 #include <Modloader/app/methods/AreaMapIconManager.h>
+#include <Modloader/app/methods/AreaMapNavigation.h>
 #include <Modloader/app/methods/AreaMapUI.h>
 #include <Modloader/app/methods/GameMapUI.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
@@ -184,7 +185,7 @@ namespace randomizer::game::map {
             last_filter = active_filter();
         }
 
-        IL2CPP_INTERCEPT(AreaMapUI, void, OnInstantiate, (app::AreaMapUI* this_ptr)) {
+        IL2CPP_INTERCEPT(AreaMapUI, void, OnInstantiate, (app::AreaMapUI * this_ptr)) {
             next::AreaMapUI::OnInstantiate(this_ptr);
             for (auto icon_set : icons | std::views::values) {
                 for (const auto icon : icon_set) {
@@ -193,7 +194,7 @@ namespace randomizer::game::map {
             }
         }
 
-        IL2CPP_INTERCEPT(AreaMapUI, void, Init, (app::AreaMapUI* this_ptr)) {
+        IL2CPP_INTERCEPT(AreaMapUI, void, Init, (app::AreaMapUI * this_ptr)) {
             next::AreaMapUI::Init(this_ptr);
             for (auto icon_set : icons | std::views::values) {
                 for (const auto icon : icon_set) {
@@ -202,7 +203,7 @@ namespace randomizer::game::map {
             }
         }
 
-        IL2CPP_INTERCEPT(AreaMapUI, void, OnDestroy, (app::AreaMapUI* this_ptr)) {
+        IL2CPP_INTERCEPT(AreaMapUI, void, OnDestroy, (app::AreaMapUI * this_ptr)) {
             for (auto icon_set : icons | std::views::values) {
                 for (const auto icon : icon_set) {
                     icon->remove_scaler();
@@ -210,6 +211,52 @@ namespace randomizer::game::map {
             }
 
             next::AreaMapUI::OnDestroy(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(GameMapUI, bool, IsCursorOverTeleporter, (app::GameMapUI * this_ptr, app::Vector2* target)) {
+            const auto cursor = GameMapUI::get_FocusLocation(this_ptr);
+            const auto cursor_world = AreaMapNavigation::MapToWorldPosition(
+                this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField,
+                cursor
+            );
+
+            // TODO: We might want to use a separate map for icons that can be teleported to.
+            //       Needs to handle icons changing that property.
+            const auto& current_icons = icons[active_filter()];
+            auto min_distance = 1.02 * 1.02;
+            std::shared_ptr<Icon> closest_icon;
+            for (const auto icon : current_icons) {
+                if (icon->can_teleport()) {
+                    const auto position = AreaMapNavigation::WorldToMapPosition(
+                        this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField,
+                        icon->position()
+                    );;
+                    const auto difference = cursor - app::Vector2{ position.x, position.y };
+                    const auto magnitude_squared = difference.x * difference.x + difference.y * difference.y;
+                    if (magnitude_squared < min_distance) {
+                        closest_icon = icon;
+                        *target = icon->position();
+                        min_distance = magnitude_squared;
+                    }
+                }
+            }
+
+            app::Vector2 original_target;
+            auto found = next::GameMapUI::IsCursorOverTeleporter(this_ptr, &original_target);
+            if (found) {
+                const auto position = AreaMapNavigation::WorldToMapPosition(
+                    this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField,
+                    original_target
+                );;
+                const auto difference = cursor - app::Vector2{ position.x, position.y };
+                const auto magnitude_squared = difference.x * difference.x + difference.y * difference.y;
+                if (magnitude_squared < min_distance) {
+                    *target = original_target;
+                    return true;
+                }
+            }
+
+            return closest_icon != nullptr;
         }
 
     } // namespace
