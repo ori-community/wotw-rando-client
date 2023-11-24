@@ -190,6 +190,8 @@ namespace randomizer::online {
     }
 
     void MultiplayerUniverse::handle_multiverse_info(Network::MultiverseInfoMessage const& message) {
+        core::api::game::event_bus().trigger_event(GameEvent::MultiverseUpdated, EventTiming::Before);
+
         m_last_multiverse_info = message;
         auto universe = find_universe_with_player(message, m_id);
         if (universe == nullptr) {
@@ -280,6 +282,8 @@ namespace randomizer::online {
             default:
                 break;
         }
+
+        core::api::game::event_bus().trigger_event(GameEvent::MultiverseUpdated, EventTiming::After);
     }
 
     void MultiplayerUniverse::handle_authenticated(Network::AuthenticatedMessage const& message) {
