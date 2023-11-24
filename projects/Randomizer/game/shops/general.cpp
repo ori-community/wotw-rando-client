@@ -55,6 +55,12 @@ namespace {
         next::ShopkeeperScreen::Show(this_ptr);
     }
 
+    // Don't sort by cost ever
+    IL2CPP_INTERCEPT(ShopkeeperScreen, void, PopulateInventoryCanvasWithUpgrades, (app::ShopkeeperScreen * this_ptr)) {
+        this_ptr->fields.SortedByCost = false;
+        next::ShopkeeperScreen::PopulateInventoryCanvasWithUpgrades(this_ptr);
+    }
+
     float stop_overwrite_time = 4.0f;
     IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
         next::GameController::FixedUpdate(this_ptr);
