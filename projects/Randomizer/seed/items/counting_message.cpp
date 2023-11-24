@@ -21,8 +21,8 @@ namespace randomizer::seed::items {
             if (target.resolve()) {
                 met.push_back(target);
                 if (show_items) {
-                    message += game_seed().text(target);
                     message += message.empty() ? ": " : ", ";
+                    message += game_seed().text(target);
                 }
             }
         }
