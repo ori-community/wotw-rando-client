@@ -3,6 +3,7 @@
 #include <Modloader/app/methods/FaderB.h>
 #include <Modloader/app/methods/Game/UI.h>
 #include <Modloader/app/methods/MenuScreenManager__PostFadeMenuOpen_d__100.h>
+#include <Modloader/app/methods/UberGCManager.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
@@ -17,7 +18,7 @@ namespace core::api {
         // Skip fade to black when opening menus
         bool skip_fade_to_black = false;
 
-        IL2CPP_INTERCEPT(FaderB, void, Fade, (app::FaderB * this_ptr, float fadeInDuration, float fadeStayDuration, float fadeOutDuration, app::Action* fadeInComplete, app::Action* fadeOutComplete, bool skipCameraMoveToTarget)) {
+        IL2CPP_INTERCEPT(FaderB, void, Fade, (app::FaderB * this_ptr, float fadeInDuration, float fadeStayDuration, float fadeOutDuration, app::Action *fadeInComplete, app::Action *fadeOutComplete, bool skipCameraMoveToTarget)) {
             if (!skip_fade_to_black) {
                 next::FaderB::Fade(this_ptr, fadeInDuration, fadeStayDuration, fadeOutDuration, fadeInComplete, fadeOutComplete, skipCameraMoveToTarget);
             }
@@ -33,32 +34,21 @@ namespace core::api {
             return next::MenuScreenManager__PostFadeMenuOpen_d__100::MoveNext(this_ptr);
         }
 
-    IL2CPP_INTERCEPT(FaderB, void, ExecuteGCIfNeeded, (app::FaderB* this_ptr)) {
-        if (Game::UI::get_Menu()->fields.m_isPaused) {
-            return;
-        }
-
-        next::FaderB::ExecuteGCIfNeeded(this_ptr);
-    }
-
-    /*
-    IL2CPP_INTERCEPT(Moon.Timeline, KeepSceneLoadedEntity, void, OnStartPlayback, (app::KeepSceneLoadedEntity* this_ptr, app::IContext* context)) {
-        auto scene_guid = this_ptr->fields.SceneMetaData->fields.SceneMoonGuid;
-
-            if (*scene_guid != *scenes::get_scene_metadata("kuFlyAway")->fields.SceneMoonGuid) {
-                KeepSceneLoadedEntity::OnStartPlayback(this_ptr, context);
+        IL2CPP_INTERCEPT(FaderB, void, ExecuteGCIfNeeded, (app::FaderB* this_ptr)) {
+            if (Game::UI::get_Menu()->fields.m_isPaused) {
+                return;
             }
 
-            console_send(il2cpp::convert_csstring(scene_guid->fields.m_guidString));
-            console_flush();
+            next::FaderB::ExecuteGCIfNeeded(this_ptr);
         }
 
-        IL2CPP_BINDING(, CleverMenuItemSelectionManager, void, set_IsActive, (app::CleverMenuItemSelectionManager* this_ptr, bool active))
-        IL2CPP_INTERCEPT(, TitleScreenManager, void, Start, (app::TitleScreenManager* this_ptr)) {
-            TitleScreenManager::Start(this_ptr);
-            CleverMenuItemSelectionManager::set_IsActive(this_ptr->fields.MainMenuScreen, true);
-            console_send("-- hohoho");
+        IL2CPP_INTERCEPT(UberGCManager, void, OnCleanupOutsideOfGameplay, (app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum trigger)) {
+            if (trigger == app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum::SpiritShardsScreen || trigger == app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum::GameMapUI ||
+                trigger == app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum::InventoryScreen2) {
+                return;
+            }
+
+            next::UberGCManager::OnCleanupOutsideOfGameplay(trigger);
         }
-        */
     } // namespace
 } // namespace core::api
