@@ -46,7 +46,7 @@ namespace randomizer::messages {
 
     void CreditsController::parse_text_entry(std::string const& line, int line_number, std::vector<std::string> const& parts) {
         if (parts.size() < 7 || parts.size() > 12) {
-            modloader::warn("credits_controller", fmt::format("malformed text entry on line '{}'", line_number));
+            modloader::warn("credits_controller", std::format("malformed text entry on line '{}'", line_number));
             return;
         }
 
@@ -97,7 +97,7 @@ namespace randomizer::messages {
 
     void CreditsController::parse_move_entry(std::string const& line, int line_number, std::vector<std::string> const& parts) {
         if (parts.size() != 8) {
-            modloader::warn("credits_controller", fmt::format("malformed move entry on line '{}'", line_number));
+            modloader::warn("credits_controller", std::format("malformed move entry on line '{}'", line_number));
             return;
         }
 
@@ -119,7 +119,7 @@ namespace randomizer::messages {
 
     void CreditsController::parse_collection_entry(std::string const& line, int line_number, std::vector<std::string> const& parts) {
         if (parts.size() < 3) {
-            modloader::warn("credits_controller", fmt::format("malformed collection entry on line '{}'", line_number));
+            modloader::warn("credits_controller", std::format("malformed collection entry on line '{}'", line_number));
             return;
         }
 
@@ -140,7 +140,7 @@ namespace randomizer::messages {
 
         unload();
         if (!std::filesystem::exists(path)) {
-            modloader::warn("credits_controller", fmt::format("Can't reload, '{}' file does not exist.", path));
+            modloader::warn("credits_controller", std::format("Can't reload, '{}' file does not exist.", path));
             return false;
         }
 
@@ -167,7 +167,7 @@ namespace randomizer::messages {
                     parse_collection_entry(line, line_number, parts);
                 }
                 default: {
-                    modloader::warn("credits_controller", fmt::format("Parsing credits, encountered invalid type in line '{}'", line_number));
+                    modloader::warn("credits_controller", std::format("Parsing credits, encountered invalid type in line '{}'", line_number));
                     break;
                 }
             }

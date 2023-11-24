@@ -28,9 +28,9 @@ namespace randomizer::seed::items {
         }
 
         if (met.empty()) {
-            message = fmt::format("0/{}", total_count);
+            message = std::format("0/{}", total_count);
         } else {
-            message = fmt::format(
+            message = std::format(
                 "{2}{0}/{1}{2}{3}",
                 met.size(),
                 total_count,

@@ -83,7 +83,7 @@ namespace randomizer::seed {
         }
 
         core::message_controller().queue_central({
-            .text = fmt::format("Loaded {}{}", info().name, flags),
+            .text = std::format("Loaded {}{}", info().name, flags),
             .show_box = true,
             .prioritized = true,
         });

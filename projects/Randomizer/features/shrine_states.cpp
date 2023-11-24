@@ -32,7 +32,7 @@ namespace {
         } else if (completed_state_group == 21786 && completed_state_id == 35598) {
             // Noop: swampStateGroup.enemyArenaComplete
         } else {
-            trace(MessageType::Error, 3, "shrine_states", fmt::format("Could not set up wave state. Unknown shrine state: {}|{}", completed_state_group, completed_state_id));
+            trace(MessageType::Error, 3, "shrine_states", std::format("Could not set up wave state. Unknown shrine state: {}|{}", completed_state_group, completed_state_id));
         }
     }
 } // namespace

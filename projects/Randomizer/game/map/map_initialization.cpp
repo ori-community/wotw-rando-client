@@ -44,7 +44,7 @@ namespace randomizer::game::map {
 
                     in_logic->icon(item->fields.Icon);
                     in_logic->position(item->fields.Position);
-                    in_logic->name(fmt::format(
+                    in_logic->name(std::format(
                         "in_logic: ({}, {}) {} {}",
                         static_cast<int>(condition.state.group()),
                         condition.state.state(),

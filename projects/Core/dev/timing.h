@@ -2,7 +2,7 @@
 
 #include <Core/macros.h>
 #include <Modloader/windows_api/console.h>
-#include <fmt/format.h>
+#include <format>
 #include <chrono>
 
 namespace dev {

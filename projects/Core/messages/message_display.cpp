@@ -188,28 +188,18 @@ namespace core::messages {
             cursor_position.y -= data.info.margins.x;
             cursor_position.y -= data.info.padding.x;
 
-            auto target_position = cursor_position;
-
-            // When this message is queued, stall it on the pickup position
-            if (data.handle->state == MessageHandle::MessageState::Queued && data.info.pickup_position.has_value()) {
-                target_position = world_to_ui_position(data.info.pickup_position.value());
-                target_position = UnityEngine::Vector3::op_Subtraction(
-                        target_position,
-                        get_screen_position(m_screen_position.get().value_or(core::api::messages::ScreenPosition::TopCenter))
-                );
-            }
-
             // Animate message box movement if the message is visible
             if (data.handle->state == MessageHandle::MessageState::Visible) {
+                // When this message is queued, stall it on the pickup position
                 data.message->position().set(
-                        modloader::math::lerp(
-                                data.message->position().get(),
-                                target_position,
-                                delta_time * 15.f * std::min(1.f, data.handle->active_time * 2.0f + 0.1f)
-                        )
+                    modloader::math::lerp(
+                        data.message->position().get(),
+                        cursor_position,
+                        delta_time * 15.f * std::min(1.f, data.handle->active_time * 2.0f + 0.1f)
+                    )
                 );
             } else {
-                data.message->position().set(target_position);
+                data.message->position().set(cursor_position);
             }
 
             // Add message box height and bottom padding/margin
@@ -241,6 +231,17 @@ namespace core::messages {
         data.message->screen_position().set(m_screen_position.get());
 
         update_message_position(data, total_lines, position, 0.f);
+        if (data.info.pickup_position.has_value()) {
+            const auto top_center = modloader::math::convert(api::messages::get_screen_position(api::messages::ScreenPosition::TopCenter));
+            const auto pickup_positon = data.info.pickup_position.value();
+            const auto message_position = data.message->position().get();
+            const auto pickup_ui_position = world_to_ui_position_2d(modloader::math::convert(pickup_positon)) - top_center;
+            //pickup_ui_position.y = -pickup_ui_position.y;
+            const auto distance_squared = modloader::math::distance2(pickup_ui_position, modloader::math::convert(message_position));
+            if (distance_squared < 25) {
+                data.message->position().set(modloader::math::convert(pickup_ui_position));
+            }
+        }
 
         if (!data.info.text.get().empty()) {
             data.message->show(false, data.info.play_sound);

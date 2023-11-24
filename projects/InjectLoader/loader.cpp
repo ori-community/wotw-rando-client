@@ -5,7 +5,7 @@
 #include <string>
 #include <semaphore>
 #include <functional>
-#include <fmt/format.h>
+#include <format>
 
 #include <Windows.h>
 
@@ -61,7 +61,7 @@ void load_modloader() {
         }, [&modloader_initialization_mutex](auto error_message) {
             MessageBoxA(
                     nullptr,
-                    (LPCSTR) fmt::format("Modloader initialization failed: {}", error_message).c_str(),
+                    (LPCSTR) std::format("Modloader initialization failed: {}", error_message).c_str(),
                     (LPCSTR) "Ori and the Will of the Wisps Modloader",
                     MB_ICONERROR | MB_OK
             );

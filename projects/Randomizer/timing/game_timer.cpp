@@ -14,7 +14,7 @@
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 #include <Randomizer/timing/game_timer.h>
-#include <fmt/format.h>
+#include <format>
 #include <stats/game_stats.h>
 
 #include <atomic>
@@ -202,14 +202,14 @@ namespace randomizer::timing {
                 time_to_next_debug_print -= delta;
                 if (time_to_next_debug_print <= 0.f) {
                     modloader::win::console::console_send("");
-                    modloader::win::console::console_send(fmt::format("time = {}, pickups = {}", save_stats->total_time, checkpoint_stats->total_pickups));
+                    modloader::win::console::console_send(std::format("time = {}, pickups = {}", save_stats->total_time, checkpoint_stats->total_pickups));
                     modloader::win::console::console_send(
-                            fmt::format("max_ppm = {}, at = {}", save_stats->max_ppm_over_timespan, save_stats->max_ppm_over_timespan_at)
+                            std::format("max_ppm = {}, at = {}", save_stats->max_ppm_over_timespan, save_stats->max_ppm_over_timespan_at)
                     );
                     modloader::win::console::console_send(
-                            fmt::format("time_lost_to_deaths = {}", save_stats->time_lost_to_deaths)
+                            std::format("time_lost_to_deaths = {}", save_stats->time_lost_to_deaths)
                     );
-                    modloader::win::console::console_send(fmt::format("got bash at = {}", save_stats->ability_timestamps.contains(app::AbilityType__Enum::Bash) ? save_stats->ability_timestamps.at(app::AbilityType__Enum::Bash) : -1.f));
+                    modloader::win::console::console_send(std::format("got bash at = {}", save_stats->ability_timestamps.contains(app::AbilityType__Enum::Bash) ? save_stats->ability_timestamps.at(app::AbilityType__Enum::Bash) : -1.f));
                     time_to_next_debug_print = 0.5f;
                 }
             }

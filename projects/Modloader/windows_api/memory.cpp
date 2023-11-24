@@ -16,12 +16,12 @@ namespace modloader::win::memory {
             if (!cache) {
                 auto handle = GetModuleHandleA(assembly_name.c_str());
                 if (handle == nullptr) {
-                    trace(MessageType::Error, 1, "initialize", fmt::format("Failed to get handle of {}", assembly_name));
+                    trace(MessageType::Error, 1, "initialize", std::format("Failed to get handle of {}", assembly_name));
                     return 0;
                 }
 
                 cache = reinterpret_cast<uint64_t>(handle);
-                console::console_send(fmt::format("{}: {:#18x}", assembly_name, cache));
+                console::console_send(std::format("{}: {:#18x}", assembly_name, cache));
             }
 
             return cache;

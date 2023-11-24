@@ -5,13 +5,14 @@
 
 #include <Core/api/uber_states/uber_state.h>
 
-#include <fmt/format.h>
+#include <format>
 
 namespace randomizer::text_processors {
     namespace {
         std::optional<core::api::uber_states::UberState> parse_state(std::string_view content) {
             std::vector<std::string> parts;
-            split_str(content, parts, '|');
+            std::array brackets{ std::make_pair('[', ']') };
+            split_str(content, parts, brackets, '|');
             if (parts.size() != 2) {
                 return std::nullopt;
             }
@@ -49,7 +50,7 @@ namespace randomizer::text_processors {
                 return std::nullopt;
             }
 
-            return fmt::format("{}.{}", state->group_name(), state->state_name());
+            return std::format("{}.{}", state->group_name(), state->state_name());
         }
 
         std::optional<std::string> boolean(core::text::ITextProcessor const& base_processor, std::string_view content) {

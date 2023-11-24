@@ -45,7 +45,7 @@ namespace core::api::scenes {
             auto scene_manager_scene = ScenesManager::GetFromCurrentScenes_1(scenes_manager, scene_meta);
 
             if (scene_loader_debug_logging) {
-                console::console_send(fmt::format("{} -> {}", scene_name, static_cast<int>(state)));
+                console::console_send(std::format("{} -> {}", scene_name, static_cast<int>(state)));
             }
 
             SceneLoadEventMetadata event{
@@ -332,7 +332,7 @@ namespace core::api::scenes {
             return;
         }
 
-        console::console_send(fmt::format("Debug logging {}", scene_loader_debug_logging ? "enabled" : "disabled"));
+        console::console_send(std::format("Debug logging {}", scene_loader_debug_logging ? "enabled" : "disabled"));
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {

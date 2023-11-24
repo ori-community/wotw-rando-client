@@ -67,7 +67,7 @@ namespace text_style {
 
     std::unordered_set<std::string> created_styles;
     app::TextStyle* create_color_style(std::unordered_set<std::string>& styles, std::string_view text) {
-        auto hex_style = fmt::format("hex_{}", text);
+        auto hex_style = std::format("hex_{}", text);
         auto it = styles.find(hex_style);
         if (it != styles.end() || text.size() != 8) {
             return nullptr;
@@ -92,7 +92,7 @@ namespace text_style {
     }
 
     app::TextStyle* create_size_style(std::unordered_set<std::string>& styles, std::string_view text) {
-        auto size_style = fmt::format("s_{}", text);
+        auto size_style = std::format("s_{}", text);
         auto it = styles.find(size_style);
         if (it != styles.end()) {
             return nullptr;

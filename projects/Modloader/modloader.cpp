@@ -82,7 +82,7 @@ namespace modloader {
         std::string sanitized_group = csv::sanitize_csv_field(group);
         std::string sanitized_message = csv::sanitize_csv_field(message);
 
-        std::string line = fmt::format(
+        std::string line = std::format(
             "{}, [{}], {}, {},",
             static_cast<int>(type),
             sanitized_group,
@@ -188,7 +188,7 @@ namespace modloader {
             auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());
             auto version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_version());
             auto unity_version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_unityVersion());
-            trace(MessageType::Info, 5, "initialize", fmt::format("Initializing Application {} ({})[{}].", product, version, unity_version));
+            trace(MessageType::Info, 5, "initialize", std::format("Initializing Application {} ({})[{}].", product, version, unity_version));
 
             trace(MessageType::Info, 5, "initialize", "Calling initialization callbacks.");
             event_bus().trigger_event(ModloaderEvent::GameReady);

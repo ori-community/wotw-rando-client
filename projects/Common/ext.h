@@ -1,14 +1,14 @@
 #pragma once
 
-#include <fmt/format.h>
 #include <algorithm>
 #include <array>
 #include <cctype>
 #include <optional>
+#include <span>
 #include <sstream>
 #include <string>
-#include <string_view>
 #include <tuple>
+#include <vector>
 
 enum class BooleanOperator {
     GreaterOrEquals,
@@ -145,6 +145,38 @@ void split_str(std::string_view str, Container& cont, char delim = ' ') {
     {
         cont.push_back("");
     }
+}
+
+template <class Container>
+void split_str(const std::string_view str, Container& cont, const std::span<std::pair<char, char>> brackets, const char delim = ' ') {
+    std::string part;
+    int inside_brackets = 0;
+    std::pair<char, char> last_bracket;
+    for (const auto c : str) {
+        if (inside_brackets > 0) {
+            if (c == last_bracket.first) {
+                ++inside_brackets;
+            } else if (c == last_bracket.second) {
+                --inside_brackets;
+            }
+        } else {
+            for (const auto bracket : brackets) {
+                if (c == bracket.first) {
+                    ++inside_brackets;
+                    last_bracket = bracket;
+                }
+            }
+        }
+
+        if (inside_brackets == 0 && c == delim) {
+            cont.push_back(part);
+            part = "";
+        } else {
+            cont.push_back(part);
+        }
+    }
+
+    cont.push_back(part);
 }
 
 std::string_view find_next_unbalanced(std::string_view text, std::string_view start, std::string_view end);

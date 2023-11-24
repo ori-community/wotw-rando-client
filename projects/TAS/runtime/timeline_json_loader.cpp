@@ -18,7 +18,7 @@ namespace tas::runtime::timeline {
 
                 switch (type) {
                     case TimelineEntryType::Invalid: {
-                        modloader::warn("TAS", fmt::format("Encountered unknown entry type '{}', ignoring entry", j_entry.at("type").get<std::string>()));
+                        modloader::warn("TAS", std::format("Encountered unknown entry type '{}', ignoring entry", j_entry.at("type").get<std::string>()));
                     } break;
 
                     case TimelineEntryType::Action: {
@@ -91,7 +91,7 @@ namespace tas::runtime::timeline {
 
             return true;
         } catch (std::exception& e) {
-            modloader::warn("TAS", fmt::format("Failed to load TAS timeline: {}", e.what()));
+            modloader::warn("TAS", std::format("Failed to load TAS timeline: {}", e.what()));
         }
 
         return false;

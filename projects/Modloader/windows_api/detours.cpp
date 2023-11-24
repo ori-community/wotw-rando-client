@@ -12,7 +12,7 @@ namespace modloader::win::detours {
     }
 
     void* do_intercept(const std::string& debug, void** original_pointer, void* intercept_pointer) {
-        trace(MessageType::Debug, 3, "initialize", fmt::format("Intercepting (il2cpp): {} @ {} -> {}", debug, reinterpret_cast<uint64_t>(*original_pointer), reinterpret_cast<uint64_t>(intercept_pointer)));
+        trace(MessageType::Debug, 3, "initialize", std::format("Intercepting (il2cpp): {} @ {} -> {}", debug, reinterpret_cast<uint64_t>(*original_pointer), reinterpret_cast<uint64_t>(intercept_pointer)));
         PDETOUR_TRAMPOLINE trampoline = nullptr;
         void* target = nullptr;
         void* detour = nullptr;
@@ -25,10 +25,10 @@ namespace modloader::win::detours {
         );
 
         if (result) {
-            trace(MessageType::Error, 3, "initialize", fmt::format("Error attaching {} : {}", debug, result));
+            trace(MessageType::Error, 3, "initialize", std::format("Error attaching {} : {}", debug, result));
             return nullptr;
         } else {
-            trace(MessageType::Debug, 3, "initialize", fmt::format("Attach success ({}, {}, {})", (void*)trampoline, target, detour));
+            trace(MessageType::Debug, 3, "initialize", std::format("Attach success ({}, {}, {})", (void*)trampoline, target, detour));
             return detour;
         }
     }
@@ -40,8 +40,8 @@ namespace modloader::win::detours {
     void commit(std::string_view what) {
         const auto result = DetourTransactionCommit();
         if (result)
-            trace(MessageType::Error, 3, "initialize", fmt::format("Error while committing '{}': {}", what, result));
+            trace(MessageType::Error, 3, "initialize", std::format("Error while committing '{}': {}", what, result));
         else
-            trace(MessageType::Debug, 3, "initialize", fmt::format("Completed commit: '{}'", what));
+            trace(MessageType::Debug, 3, "initialize", std::format("Completed commit: '{}'", what));
     }
 } // namespace modloader::win::detours

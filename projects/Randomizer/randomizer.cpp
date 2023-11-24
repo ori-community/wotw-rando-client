@@ -187,7 +187,7 @@ namespace randomizer {
             }
 
             core::message_controller().queue_central({
-                .text = fmt::format("v{} - Loaded {}{}", version, randomizer_seed.info().name, flags),
+                .text = std::format("v{} - Loaded {}{}", version, randomizer_seed.info().name, flags),
                 .show_box = true,
                 .prioritized = true,
             });
@@ -227,7 +227,7 @@ namespace randomizer {
         auto host = core::settings::host();
         auto udp_port = core::settings::udp_port();
 
-        std::string websocket_url = fmt::format("ws{}://{}/api/game_sync/", insecure ? "" : "s", host);
+        std::string websocket_url = std::format("ws{}://{}/api/game_sync/", insecure ? "" : "s", host);
         client.websocket_connect(websocket_url);
         client.udp_open(host, udp_port);
     }

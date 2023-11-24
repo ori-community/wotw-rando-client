@@ -50,9 +50,9 @@ namespace randomizer::conditions {
                 return;
 
             if (it->second.find(key.first) == it->second.end())
-                console::console_send(fmt::format("{} -> {}", key.second, key.first));
+                console::console_send(std::format("{} -> {}", key.second, key.first));
             else if (display_new_setup_debug == 2)
-                console::console_send(fmt::format("triggered {}:{}", key.second, key.first));
+                console::console_send(std::format("triggered {}:{}", key.second, key.first));
         }
 
         // Override this to check trees instead of abilities.

@@ -27,10 +27,10 @@ namespace modloader {
             bool cpp_bootstrap() {
                 bool failed = false;
                 for (auto dll : cpp_dlls) {
-                    trace(MessageType::Info, 5, "initialize", fmt::format("Loading dll '{}'", dll));
+                    trace(MessageType::Info, 5, "initialize", std::format("Loading dll '{}'", dll));
                     auto handle = LoadLibraryA(dll.c_str());
                     if (handle == nullptr) {
-                        trace(MessageType::Error, 1, "initialize", fmt::format("Failed to load library, aborting: {}", GetLastError()));
+                        trace(MessageType::Error, 1, "initialize", std::format("Failed to load library, aborting: {}", GetLastError()));
                         failed = true;
                         break;
                     } else {
@@ -62,7 +62,7 @@ namespace modloader {
                 try {
                     stream >> j;
                 } catch (nlohmann::json::parse_error& ex) {
-                    trace(MessageType::Debug, 3, "initialize", fmt::format("failed to parse '{}{}' error '{}' at byte '{}'", base_path().string(), modloader_config_path.string(), ex.id, ex.byte));
+                    trace(MessageType::Debug, 3, "initialize", std::format("failed to parse '{}{}' error '{}' at byte '{}'", base_path().string(), modloader_config_path.string(), ex.id, ex.byte));
                 }
 
                 if (j.contains("cpp") && j["cpp"].is_array()) {

@@ -27,7 +27,7 @@ namespace randomizer::features::credits {
         void credits_scene_loaded_callback(core::api::scenes::SceneLoadEventMetadata* metadata) {
             if (metadata->state == app::SceneState__Enum::Loaded && metadata->scene->fields.SceneRoot != nullptr) {
                 credits.reset();
-                credits.load(fmt::format(CREDITS_PATH_FMT, modloader::base_path().string()));
+                credits.load(std::format(CREDITS_PATH_FMT, modloader::base_path().string()));
                 auto credits_go = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, "credits");
                 auto cred_cont = il2cpp::unity::get_component<app::CreditsController>(credits_go, types::CreditsController::get_class());
                 auto timeline = cred_cont->fields.CreditsTimeline;

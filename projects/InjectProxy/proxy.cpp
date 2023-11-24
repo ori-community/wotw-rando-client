@@ -2,7 +2,7 @@
 #include <AtlBase.h>
 #include <InjectProxy/winhttp_proxy.h>
 #include <atlconv.h>
-#include <fmt/format.h>
+#include <format>
 #include <tclap/CmdLine.h>
 #include <windows.h>
 #include <winuser.h>
@@ -70,7 +70,7 @@ void inject() {
                 [&modloader_initialization_mutex](auto error_message) {
                     MessageBoxA(
                         nullptr,
-                        (LPCSTR)fmt::format("Modloader initialization failed: {}", error_message).c_str(),
+                        (LPCSTR)std::format("Modloader initialization failed: {}", error_message).c_str(),
                         (LPCSTR) "Ori and the Will of the Wisps Modloader",
                         MB_ICONERROR | MB_OK
                     );

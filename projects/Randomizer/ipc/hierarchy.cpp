@@ -50,7 +50,7 @@ namespace randomizer::ipc {
                 return cast->name;
             }
 
-            return fmt::format("{}.{}", cast->namespaze, cast->name);
+            return std::format("{}.{}", cast->namespaze, cast->name);
         }
 
         using visualizer = void (*)(nlohmann::json& j, void* obj, bool verbose);

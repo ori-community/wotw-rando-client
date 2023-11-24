@@ -29,7 +29,6 @@
 #include <Modloader/modloader.h>
 #include <seed/items/input.h>
 
-#include <cmath>
 #include <fstream>
 #include <magic_enum.hpp>
 #include <regex>
@@ -186,7 +185,7 @@ namespace randomizer::seed::legacy_parser {
             currency = core::text::get_random_text_with_hash(*static_text_entry::Currency, slug_hash ^ location_hash);
         }
 
-        const auto text = fmt::format("{} {}", spirit_light, currency);
+        const auto text = std::format("{} {}", spirit_light, currency);
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
@@ -304,8 +303,8 @@ namespace randomizer::seed::legacy_parser {
         set_location(message.get(), location);
         message->should_save_as_last = true;
         const auto text = should_add
-            ? fmt::format("[ability({0})]", ability_type_int)
-            : fmt::format("Removed [ability({0})]", ability_type_int);
+            ? std::format("[ability({0})]", ability_type_int)
+            : std::format("Removed [ability({0})]", ability_type_int);
         message->info.text = text;
         data.add_item(message);
         data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::AbilityPedestal);
@@ -339,8 +338,8 @@ namespace randomizer::seed::legacy_parser {
         set_location(message.get(), location);
         message->should_save_as_last = true;
         const auto text = should_add
-            ? fmt::format("[shard({0})]", shard_type_int)
-            : fmt::format("Removed [shard({0})]", shard_type_int);
+            ? std::format("[shard({0})]", shard_type_int)
+            : std::format("Removed [shard({0})]", shard_type_int);
         message->info.text = text;
         data.add_item(message);
         data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::AbilityPedestal);
@@ -870,9 +869,9 @@ namespace randomizer::seed::legacy_parser {
         set_location(message.get(), location);
         message->should_save_as_last = true;
         const auto text = should_add
-            ? fmt::format("{0} TP", teleporter_name)
-            : fmt::format("Removed {0} TP", teleporter_name);
-        message->info.text = fmt::format("#{0}#", text);
+            ? std::format("{0} TP", teleporter_name)
+            : std::format("Removed {0} TP", teleporter_name);
+        message->info.text = std::format("#{0}#", text);
         data.add_item(message);
         data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::SavePedestal);
         data.location_data.names.emplace_back().assign(text);
@@ -1064,13 +1063,13 @@ namespace randomizer::seed::legacy_parser {
 
         auto quest_event = "Clean Water";
         const auto text = should_add
-            ? fmt::format("{0}", quest_event)
-            : fmt::format("Removed {0}", quest_event);
+            ? std::format("{0}", quest_event)
+            : std::format("Removed {0}", quest_event);
 
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
-        message->info.text = fmt::format("*{0}*", text);
+        message->info.text = std::format("*{0}*", text);
         data.add_item(message);
 
         data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::QuestEnd);
@@ -1092,16 +1091,16 @@ namespace randomizer::seed::legacy_parser {
         std::string bonus_item;
         switch (bonus_type_int) {
             case 30:
-                bonus_item = "#Health Regeneration#";
+                bonus_item = "Health Regeneration";
                 break;
             case 31:
-                bonus_item = "#Energy Regeneration#";
+                bonus_item = "Energy Regeneration";
                 break;
             case 35:
-                bonus_item = "#Extra Double Jump#";
+                bonus_item = "Extra Double Jump";
                 break;
             case 36:
-                bonus_item = "#Extra Air Dash#";
+                bonus_item = "Extra Air Dash";
                 break;
             default:
                 return false;
@@ -1119,7 +1118,7 @@ namespace randomizer::seed::legacy_parser {
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
-        message->info.text = fmt::format(R"(#{0}[if([state_int(4, {1})] > 1, x[state_int(4, {1})],)]#)", bonus_item, bonus_type_int);
+        message->info.text = std::format(R"(#{0}[if([state_int(4|{1})] > 1,<> x[state_int(4|{1})],)]#)", bonus_item, bonus_type_int);
         data.add_item(message);
 
         data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::Seed);
@@ -1316,7 +1315,7 @@ namespace randomizer::seed::legacy_parser {
             case 2: {
                 const auto message = std::make_shared<items::Message>();
                 message->should_save_as_last = true;
-                message->info.text = std::string("[state_int(6, 2)]/[seed(pickup_count)]");
+                message->info.text = std::string("[state_int(6|2)]/[seed(pickup_count)]");
                 data.add_item(message);
                 data.location_data.names.emplace_back() = core::wrap_readonly<std::string>(message->info.text);
                 break;

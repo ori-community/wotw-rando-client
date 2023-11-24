@@ -220,17 +220,17 @@ namespace modloader::win::console {
 
         auto err = freopen_s(&console_file, "CONOUT$", "w", stdout);
         if (err != 0) {
-            trace(MessageType::Warning, 4, "initialize", fmt::format("failed to open console output 'stdout': {}", err));
+            trace(MessageType::Warning, 4, "initialize", std::format("failed to open console output 'stdout': {}", err));
         }
 
         err = freopen_s(&console_file, "CONOUT$", "w", stderr);
         if (err != 0) {
-            trace(MessageType::Warning, 4, "initialize", fmt::format("failed to open console output 'stderr': {}", err));
+            trace(MessageType::Warning, 4, "initialize", std::format("failed to open console output 'stderr': {}", err));
         }
 
         err = freopen_s(&console_file, "CONIN$", "r", stdin);
         if (err != 0) {
-            trace(MessageType::Warning, 4, "initialize", fmt::format("failed to open console input 'stdin': {}", err));
+            trace(MessageType::Warning, 4, "initialize", std::format("failed to open console input 'stdin': {}", err));
         }
 
         std::cout.clear();

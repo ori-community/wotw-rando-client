@@ -128,7 +128,7 @@ namespace il2cpp {
             path = get_object_name(transform);
             transform = get_parent(transform);
             while (il2cpp::unity::is_valid(transform)) {
-                path = fmt::format("{}/{}", get_object_name(transform), path);
+                path = std::format("{}/{}", get_object_name(transform), path);
                 transform = get_parent(transform);
             }
 
@@ -493,7 +493,7 @@ namespace il2cpp {
             }
 
             if (klass == nullptr)
-                trace(modloader::MessageType::Error, 1, "il2cpp", fmt::format("Failed to find klass {}", full_name));
+                trace(modloader::MessageType::Error, 1, "il2cpp", std::format("Failed to find klass {}", full_name));
 
             // Add it to resolved classes anyway to prevent trace spam and future lookups.
             resolved_classes[full_name] = klass;
@@ -524,7 +524,7 @@ namespace il2cpp {
             auto const& full_name = get_full_name(namezpace, name, nested);
             resolved_classes[full_name] = output;
             if (output == nullptr)
-                trace(modloader::MessageType::Error, 1, "il2cpp", fmt::format("Failed to find klass {}", full_name));
+                trace(modloader::MessageType::Error, 1, "il2cpp", std::format("Failed to find klass {}", full_name));
 
             return output;
         }
@@ -551,9 +551,9 @@ namespace il2cpp {
         //     for (auto j = 0; j < types->max_length; ++j)
         //     {
         //          auto klass = il2cpp_class_from_type(reinterpret_cast<Il2CppType*>(types->vector[j]));
-        //          auto full_name = std::string(fmt::format("{}.{}", klass->namespaze, klass->name));
+        //          auto full_name = std::string(std::format("{}.{}", klass->namespaze, klass->name));
         //          resolved_classes[full_name] = klass;
-        //          trace(modloader::MessageType::Info, 4, "il2cpp", fmt::format(" - {}", full_name));
+        //          trace(modloader::MessageType::Info, 4, "il2cpp", std::format(" - {}", full_name));
         //      }
         // }
     }
@@ -600,7 +600,7 @@ namespace il2cpp {
 
         auto method_overloads = resolved_klass_overloads.find(klass);
         for (const auto& info : method_overloads->second)
-            trace(modloader::MessageType::Error, 5, "il2cpp", fmt::format(" - {}.{}:{}", klass->name, info.name.data(), info.param_count));
+            trace(modloader::MessageType::Error, 5, "il2cpp", std::format(" - {}.{}:{}", klass->name, info.name.data(), info.param_count));
     }
 
     MethodOverloadInfo const* get_method_info_internal(Il2CppClass* klass, std::string_view method, int param_count) {
@@ -622,7 +622,7 @@ namespace il2cpp {
                     return info;
             }
 
-            trace(modloader::MessageType::Error, 1, "il2cpp", fmt::format("Could not find method '{}:{}' in klass '{}'", method.data(), param_count, klass->name));
+            trace(modloader::MessageType::Error, 1, "il2cpp", std::format("Could not find method '{}:{}' in klass '{}'", method.data(), param_count, klass->name));
             trace_overloads(klass);
             return nullptr;
         }
@@ -654,9 +654,9 @@ namespace il2cpp {
         });
 
         if (method_overload_info == methods.end()) {
-            trace(modloader::MessageType::Error, 1, "il2cpp", fmt::format("Method '{}' with params count {} in klass '{}.{}' does not exist", method.data(), param_count, klass->namespaze, klass->name));
+            trace(modloader::MessageType::Error, 1, "il2cpp", std::format("Method '{}' with params count {} in klass '{}.{}' does not exist", method.data(), param_count, klass->namespaze, klass->name));
             for (auto const& method_info : methods)
-                trace(modloader::MessageType::Info, 3, "il2cpp", fmt::format("- {}({})", method_info.name, method_info.param_count));
+                trace(modloader::MessageType::Info, 3, "il2cpp", std::format("- {}({})", method_info.name, method_info.param_count));
 
             return 0;
         }
@@ -670,13 +670,13 @@ namespace il2cpp {
             return nullptr;
 
         if (info->methods.size() <= overload) {
-            trace(modloader::MessageType::Error, 1, "il2cpp", fmt::format("Overload '{}' for '{}:{}' in klass '{}' does not exist", overload, method.data(), param_count, klass->name));
+            trace(modloader::MessageType::Error, 1, "il2cpp", std::format("Overload '{}' for '{}:{}' in klass '{}' does not exist", overload, method.data(), param_count, klass->name));
         }
 
         auto method_data = info->methods.at(overload);
         if (method == "Matches") {
             auto g = method_data->genericMethod->methodDefinition;
-            trace(modloader::MessageType::Info, 1, "il2cpp", fmt::format("Method is generic {}.{}({}): {}({})", klass->name, method.data(), param_count, g->name, g->parameters_count));
+            trace(modloader::MessageType::Info, 1, "il2cpp", std::format("Method is generic {}.{}({}): {}({})", klass->name, method.data(), param_count, g->name, g->parameters_count));
         }
         return method_data;
     }
@@ -743,7 +743,7 @@ namespace il2cpp {
             }
         }
 
-        trace(modloader::MessageType::Error, 3, "il2cpp", fmt::format("could not find a method overload for '{}:{}'in klass '{}' that matched parameters", method.data(), params.size(), klass->name));
+        trace(modloader::MessageType::Error, 3, "il2cpp", std::format("could not find a method overload for '{}:{}'in klass '{}' that matched parameters", method.data(), params.size(), klass->name));
         return nullptr;
     }
 
@@ -773,7 +773,7 @@ namespace il2cpp {
             }
         }
 
-        trace(modloader::MessageType::Error, 3, "il2cpp", fmt::format("could not find a method overload for '{}:{}'in klass '{}' that matched parameters", method.data(), params.size(), klass->name));
+        trace(modloader::MessageType::Error, 3, "il2cpp", std::format("could not find a method overload for '{}:{}'in klass '{}' that matched parameters", method.data(), params.size(), klass->name));
 
         trace(modloader::MessageType::Info, 3, "il2cpp", "valid parameters are:");
         for (auto method_info : info->methods) {
@@ -821,7 +821,7 @@ namespace il2cpp {
             }
         }
 
-        trace(modloader::MessageType::Error, 3, "il2cpp", fmt::format("could not find a method overload for '{}:{}'in klass '{}' that matched parameters", method.data(), params.size(), klass->name));
+        trace(modloader::MessageType::Error, 3, "il2cpp", std::format("could not find a method overload for '{}:{}'in klass '{}' that matched parameters", method.data(), params.size(), klass->name));
 
         trace(modloader::MessageType::Info, 3, "il2cpp", "valid parameters are:");
         for (auto method_info : info->methods) {
@@ -842,14 +842,14 @@ namespace il2cpp {
     Il2CppObject* invoke_v(void* obj, std::string_view method, std::vector<void*> params) {
         auto cast_obj = reinterpret_cast<Il2CppObject*>(obj);
         if (cast_obj == nullptr) {
-            trace(modloader::MessageType::Error, 1, "il2cpp", fmt::format("invoked '{}' with nullptr", method.data()));
+            trace(modloader::MessageType::Error, 1, "il2cpp", std::format("invoked '{}' with nullptr", method.data()));
             return nullptr;
         }
 
         Il2CppException* exc = nullptr;
         auto method_info = get_method_from_name_params(cast_obj->Il2CppClass.klass, method.data(), params);
         if (method_info == nullptr) {
-            trace(modloader::MessageType::Error, 1, "il2cpp", fmt::format("failed to find method '{}'", method.data()));
+            trace(modloader::MessageType::Error, 1, "il2cpp", std::format("failed to find method '{}'", method.data()));
             return nullptr;
         }
 
@@ -860,20 +860,20 @@ namespace il2cpp {
     Il2CppObject* invoke_virtual_v(void* obj, Il2CppClass* base, std::string_view method, std::vector<void*> params) {
         auto cast_obj = reinterpret_cast<Il2CppObject*>(obj);
         if (cast_obj == nullptr) {
-            trace(modloader::MessageType::Error, 1, "il2cpp", fmt::format("invoked '{}' with nullptr", method.data()));
+            trace(modloader::MessageType::Error, 1, "il2cpp", std::format("invoked '{}' with nullptr", method.data()));
             return nullptr;
         }
 
         Il2CppException* exc = nullptr;
         auto method_info = get_method_from_name_params(base, method.data(), params);
         if (method_info == nullptr) {
-            trace(modloader::MessageType::Error, 1, "il2cpp", fmt::format("failed to find method '{}'", method.data()));
+            trace(modloader::MessageType::Error, 1, "il2cpp", std::format("failed to find method '{}'", method.data()));
             return nullptr;
         }
 
         auto virtual_method_info = il2cpp_object_get_virtual_method(cast_obj, method_info);
         if (virtual_method_info == nullptr) {
-            trace(modloader::MessageType::Error, 1, "il2cpp", fmt::format("failed to find virtual method '{}'", method.data()));
+            trace(modloader::MessageType::Error, 1, "il2cpp", std::format("failed to find virtual method '{}'", method.data()));
             return nullptr;
         }
 

@@ -50,8 +50,8 @@ namespace core::api {
         int artificial_host_id = 1;
 
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-            modloader::info("sound", fmt::format("WWise version '{}.{}'", AkSoundEngine::GetMajorMinorVersion(), AkSoundEngine::GetSubminorBuildVersion()));
-            modloader::info("sound", fmt::format("WWise soundbank version '{}'", AkSoundEngine::get_AK_SOUNDBANK_VERSION()));
+            modloader::info("sound", std::format("WWise version '{}.{}'", AkSoundEngine::GetMajorMinorVersion(), AkSoundEngine::GetSubminorBuildVersion()));
+            modloader::info("sound", std::format("WWise soundbank version '{}'", AkSoundEngine::get_AK_SOUNDBANK_VERSION()));
 
             load_bank("WotwRando", modloader::base_path() / "assets/sounds/WotwRando.bnk");
         });

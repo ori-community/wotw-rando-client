@@ -108,7 +108,7 @@ namespace randomizer::online {
                 break;
             }
             case ix::WebSocketMessageType::Close: {
-                auto closed_reason = fmt::format("websocket closed '{}': {}", msg->closeInfo.code, msg->closeInfo.reason.c_str());
+                auto closed_reason = std::format("websocket closed '{}': {}", msg->closeInfo.code, msg->closeInfo.reason.c_str());
                 modloader::trace(
                     modloader::MessageType::Info,
                     2,
@@ -196,7 +196,7 @@ namespace randomizer::online {
         if (m_status_listener) {
             m_status_listener({
                 .type = StatusType::UdpError,
-                .info = fmt::format("Udp socket encountered error ({}), reconnecting.", error),
+                .info = std::format("Udp socket encountered error ({}), reconnecting.", error),
             });
         }
 
@@ -231,7 +231,7 @@ namespace randomizer::online {
             if (m_status_listener) {
                 m_status_listener({
                     .type = StatusType::WebsocketSendError,
-                    .info = fmt::format("Failed to send websocket packet."),
+                    .info = std::format("Failed to send websocket packet."),
                 });
             }
         }

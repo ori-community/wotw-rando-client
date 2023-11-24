@@ -29,7 +29,7 @@ namespace core::dev {
         // Need to hold all the sync handles so we can check what the worst condition is.
         const auto& [format, size, play_sound] = m_config.entries[type];
         const messages::MessageInfo info{
-            .text = fmt::format("<s_{:.3}>{}</>", size, fmt::format(fmt::runtime(format), message)),
+            .text = std::format("<s_{:.3}>{}</>", size, message),
             .duration = duration,
             .show_box = false,
             .play_sound = play_sound,

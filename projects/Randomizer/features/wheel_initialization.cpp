@@ -57,7 +57,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::settings::always_show_keystones(!core::settings::always_show_keystones());
                             core::message_controller().queue_central({
-                                .text = fmt::format("Always show keystones: {}", core::settings::always_show_keystones()),
+                                .text = std::format("Always show keystones: {}", core::settings::always_show_keystones()),
                                 .prioritized = true,
                             });
                         });
@@ -65,7 +65,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::settings::cursor_locked(!core::settings::cursor_locked());
                             core::message_controller().queue_central({
-                                .text = fmt::format("Cursor locked: {}", core::settings::cursor_locked()),
+                                .text = std::format("Cursor locked: {}", core::settings::cursor_locked()),
                                 .prioritized = true,
                             });
                         });
@@ -73,7 +73,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::settings::autoaim(!core::settings::autoaim());
                             core::message_controller().queue_central({
-                                .text = fmt::format("Autoaim: {}", core::settings::autoaim()),
+                                .text = std::format("Autoaim: {}", core::settings::autoaim()),
                                 .prioritized = true,
                             });
                         });
@@ -86,7 +86,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::settings::dev_mode(!core::settings::dev_mode());
                             core::message_controller().queue_central({
-                                .text = fmt::format("Dev mode: {}", core::settings::dev_mode()),
+                                .text = std::format("Dev mode: {}", core::settings::dev_mode()),
                                 .prioritized = true,
                             });
                         });
@@ -94,7 +94,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::api::game::debug_controls(!core::api::game::debug_controls());
                             core::message_controller().queue_central({
-                                .text = fmt::format("Debug: {}", core::api::game::debug_controls()),
+                                .text = std::format("Debug: {}", core::api::game::debug_controls()),
                                 .prioritized = true,
                             });
                         });
@@ -102,7 +102,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::api::graphics::textures::reload_all_file_textures();
                             core::message_controller().queue_central({
-                                .text = fmt::format("Texture files reloaded."),
+                                .text = std::format("Texture files reloaded."),
                                 .prioritized = true,
                             });
                         });
@@ -112,7 +112,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             auto position = core::api::game::player::get_position();
                             core::message_controller().queue_central({
-                                .text = fmt::format("[ {}, {}, {} ]", position.x, position.y, position.z),
+                                .text = std::format("[ {}, {}, {} ]", position.x, position.y, position.z),
                                 .prioritized = true,
                             });
                         });
@@ -128,7 +128,7 @@ namespace randomizer::features::wheel {
 
                             game::map::teleport_anywhere = !game::map::teleport_anywhere;
                             core::message_controller().queue_central({
-                                .text = fmt::format("Teleport anywhere {}", game::map::teleport_anywhere ? "enabled" : "disabled"),
+                                .text = std::format("Teleport anywhere {}", game::map::teleport_anywhere ? "enabled" : "disabled"),
                                 .prioritized = true,
                             });
                         });

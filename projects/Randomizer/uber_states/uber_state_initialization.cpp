@@ -203,12 +203,12 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "openCavePlayCutscene", 16588, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "beautifyPlayCutscene", 15070, false),
 
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TuleyShop, "bashPlants", 47651, 0),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TuleyShop, "flowers", 16254, 0),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TuleyShop, "grapplePlants", 33011, 0),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TuleyShop, "grass", 64583, 0),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TuleyShop, "springPlants", 38393, 0),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::TuleyShop, "tree", 40006, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "bashPlantsPlanted", 47651, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "flowersPlanted", 16254, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "grapplePlantsPlanted", 33011, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "grassPlanted", 64583, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "springPlantsPlanted", 38393, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "treePlanted", 40006, 0),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "bashPlantsCost", 47652, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "flowersCost", 16255, 0),
@@ -216,6 +216,13 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "grassCost", 64584, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "springPlantsCost", 38394, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "treeCost", 40007, 0),
+
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "bashPlantsPlayCutscene", 47653, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "flowersPlayCutscene", 16256, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "grapplePlantsPlayCutscene", 33013, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "grassPlayCutscene", 64585, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "springPlantsPlayCutscene", 38395, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "treePlayCutscene", 40008, 0),
 
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "hammerSpeedMultiplier", 0, 1),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "swordSpeedMultiplier", 1, 1),
@@ -555,19 +562,19 @@ namespace randomizer {
             const int game_modes_float_count = 5;
             for (int i = 0; i < game_modes_int_count; ++i) {
                 states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::RandoGameModes, fmt::format("{:04d}_int", i), game_modes_int_start + i, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::RandoGameModes, std::format("{:04d}_int", i), game_modes_int_start + i, 0)
                 );
             }
 
             for (int i = 0; i < game_modes_bool_count; ++i) {
                 states.push_back(
-                    add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoGameModes, fmt::format("{:04d}_bool", i), game_modes_bool_start + i, false)
+                    add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoGameModes, std::format("{:04d}_bool", i), game_modes_bool_start + i, false)
                 );
             }
 
             for (int i = 0; i < game_modes_float_count; ++i) {
                 states.push_back(
-                    add_state<app::SerializedFloatUberState>(UberStateGroup::RandoGameModes, fmt::format("{:04d}_float", i), game_modes_float_start + i, false)
+                    add_state<app::SerializedFloatUberState>(UberStateGroup::RandoGameModes, std::format("{:04d}_float", i), game_modes_float_start + i, false)
                 );
             }
 
@@ -580,19 +587,19 @@ namespace randomizer {
             const int plando_float_count = 25;
             for (int i = 0; i < plando_int_count; ++i) {
                 states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::PlandoVars, fmt::format("{:04d}_int", plando_int_start + i), plando_int_start + i, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::PlandoVars, std::format("{:04d}_int", plando_int_start + i), plando_int_start + i, 0)
                 );
             }
 
             for (int i = 0; i < plando_bool_count; ++i) {
                 states.push_back(
-                    add_state<app::SerializedBooleanUberState>(UberStateGroup::PlandoVars, fmt::format("{:04d}_bool", plando_bool_start + i), plando_bool_start + i, false)
+                    add_state<app::SerializedBooleanUberState>(UberStateGroup::PlandoVars, std::format("{:04d}_bool", plando_bool_start + i), plando_bool_start + i, false)
                 );
             }
 
             for (int i = 0; i < plando_float_count; ++i) {
                 states.push_back(
-                    add_state<app::SerializedFloatUberState>(UberStateGroup::PlandoVars, fmt::format("{:04d}_float", plando_float_start + i), plando_float_start + i, false)
+                    add_state<app::SerializedFloatUberState>(UberStateGroup::PlandoVars, std::format("{:04d}_float", plando_float_start + i), plando_float_start + i, false)
                 );
             }
 
@@ -602,11 +609,11 @@ namespace randomizer {
             const int appliers_group_count = 50;
             for (int i = 0; i < appliers_group_count; ++i) {
                 states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, fmt::format("{:04d}_id", i * 2), i * 2, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, std::format("{:04d}_id", i * 2), i * 2, 0)
                 );
 
                 states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, fmt::format("{:04d}_value", i * 2 + 1), i * 2 + 1, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, std::format("{:04d}_value", i * 2 + 1), i * 2 + 1, 0)
                 );
             }
 
@@ -614,7 +621,7 @@ namespace randomizer {
 
         for (int i = 0; i < 2000; ++i) {
             states.push_back(
-                    add_state<app::SerializedBooleanUberState>(UberStateGroup::MultiVars, fmt::format("{}_multi", i), i, false)
+                    add_state<app::SerializedBooleanUberState>(UberStateGroup::MultiVars, std::format("{}_multi", i), i, false)
             );
         }
 
@@ -875,6 +882,68 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GromShop, 15068),
                 "Beautify Bought",
+                core::DynamicValue<double>(core::set_get<double>{
+                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
+                    []() -> double {
+                        return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
+                    }
+                })
+            );
+
+            // Tuley shop states
+            register_virtual_state(
+                std::make_pair(UberStateGroup::TuleyShop, 47651),
+                "bashPlantsPlanted",
+                core::DynamicValue<double>(core::set_get<double>{
+                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
+                    []() -> double {
+                        return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
+                    }
+                })
+            );
+            register_virtual_state(
+                std::make_pair(UberStateGroup::TuleyShop, 16254),
+                "flowersPlanted",
+                core::DynamicValue<double>(core::set_get<double>{
+                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
+                    []() -> double {
+                        return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
+                    }
+                })
+            );
+            register_virtual_state(
+                std::make_pair(UberStateGroup::TuleyShop, 33011),
+                "grapplePlantsPlanted",
+                core::DynamicValue<double>(core::set_get<double>{
+                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
+                    []() -> double {
+                        return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
+                    }
+                })
+            );
+            register_virtual_state(
+                std::make_pair(UberStateGroup::TuleyShop, 64583),
+                "grassPlanted",
+                core::DynamicValue<double>(core::set_get<double>{
+                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
+                    []() -> double {
+                        return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
+                    }
+                })
+            );
+            register_virtual_state(
+                std::make_pair(UberStateGroup::TuleyShop, 38393),
+                "springPlantsPlanted",
+                core::DynamicValue<double>(core::set_get<double>{
+                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
+                    []() -> double {
+                        return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
+                    }
+                })
+            );
+            register_virtual_state(
+                std::make_pair(UberStateGroup::TuleyShop, 40006),
+                "treePlanted",
                 core::DynamicValue<double>(core::set_get<double>{
                     [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
                     []() -> double {

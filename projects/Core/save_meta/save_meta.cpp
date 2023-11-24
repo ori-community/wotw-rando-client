@@ -11,7 +11,7 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
-#include <fmt/format.h>
+#include <format>
 #include <unordered_map>
 
 using namespace app::classes;
@@ -116,16 +116,16 @@ namespace core::save_meta {
                 auto guid = stream.read<MoodGuid>();
                 auto slot_count = stream.read<int>();
 
-                console_send(fmt::format("Reading {} SaveMeta slots from save file {},{},{},{}", slot_count, guid.A, guid.B, guid.C, guid.D));
+                console_send(std::format("Reading {} SaveMeta slots from save file {},{},{},{}", slot_count, guid.A, guid.B, guid.C, guid.D));
 
                 for (int i = 0; i < slot_count; ++i) {
                     auto slot = stream.read<SaveMetaSlot>();
                     auto length = stream.read<unsigned long>();
 
-                    console_send(fmt::format("- Slot {}: length = {}", i, length));
+                    console_send(std::format("- Slot {}: length = {}", i, length));
 
                     if (!slots.contains(slot)) {
-                        console_send(fmt::format("  Tried to load SaveMeta slot {} but no handler was provided for this slot", static_cast<int>(slot)));
+                        console_send(std::format("  Tried to load SaveMeta slot {} but no handler was provided for this slot", static_cast<int>(slot)));
                         stream.skip(length);
                         continue;
                     }

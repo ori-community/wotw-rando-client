@@ -6,7 +6,7 @@
 #include <iostream>
 #include <sstream>
 
-#include <fmt/format.h>
+#include <format>
 
 namespace csv {
     namespace {
@@ -128,7 +128,7 @@ namespace csv {
         }
 
         str_replace(str, "\"", "\"\"");
-        return fmt::format("\"{}\"", str);
+        return std::format("\"{}\"", str);
     }
 
     void csv_save_file(CSV& csv) {

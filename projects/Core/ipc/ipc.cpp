@@ -38,7 +38,7 @@ namespace core::ipc {
                 try {
                     receive_result = socket->recv(msg);
                 } catch (const zmq::error_t& e) {
-                    warn("IPC", fmt::format("ZeroMQ recv Error: {} {}", e.num(), e.what()));
+                    warn("IPC", std::format("ZeroMQ recv Error: {} {}", e.num(), e.what()));
                     continue;
                 }
 
@@ -83,7 +83,7 @@ namespace core::ipc {
                     try {
                         socket->send(zmq_message, zmq::send_flags::none);
                     } catch (const zmq::error_t& e) {
-                        warn("IPC", fmt::format("ZeroMQ send Error: {} {}", e.num(), e.what()));
+                        warn("IPC", std::format("ZeroMQ send Error: {} {}", e.num(), e.what()));
                         continue;
                     }
                 }
@@ -127,7 +127,7 @@ namespace core::ipc {
                 if (it != handlers.end()) {
                     it->second(j);
                 } else {
-                    info("ipc", fmt::format("Received unknown action request: {}", j.dump()));
+                    info("ipc", std::format("Received unknown action request: {}", j.dump()));
                 }
             }
         }

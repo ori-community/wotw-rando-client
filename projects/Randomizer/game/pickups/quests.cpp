@@ -233,7 +233,7 @@ namespace game::pickups::quests {
                 // Display the GUID of the active quest
                 //
                 // modloader::win::console::console_send(
-                //         fmt::format(
+                //         std::format(
                 //                 "%d, %d, %d, %d",
                 //                 runtime_quest->fields.MoonGuid->fields.A,
                 //                 runtime_quest->fields.MoonGuid->fields.B,
@@ -256,7 +256,7 @@ namespace game::pickups::quests {
             auto group_id = state->fields.Group->fields._.m_id->fields.m_id;
             auto csgroup = il2cpp::invoke<app::String>(state->fields.Group, "get_GroupName");
             auto group_name = il2cpp::convert_csstring(csgroup);
-            console::console_send(fmt::format("quest: '{}' {{ {} }} '{}' {{ {} }} : {}", name, id, group_name, group_id, value));
+            console::console_send(std::format("quest: '{}' {{ {} }} '{}' {{ {} }} : {}", name, id, group_name, group_id, value));
         }
 
         bool quest_reporting = false;
@@ -290,7 +290,7 @@ namespace game::pickups::quests {
                 }
             }
 
-            console::console_send(fmt::format("quest_reporting set to {}.", value));
+            console::console_send(std::format("quest_reporting set to {}.", value));
             quest_reporting = value;
         }
 

@@ -21,7 +21,7 @@
 #include <Modloader/app/types/UI.h>
 #include <Modloader/modloader.h>
 
-#include <fmt/format.h>
+#include <format>
 
 using namespace modloader;
 using namespace app::classes;

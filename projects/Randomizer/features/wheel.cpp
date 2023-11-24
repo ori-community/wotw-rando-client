@@ -489,7 +489,7 @@ namespace randomizer::features::wheel {
 
     bool set_wheel_item_name(int wheel, int item, std::string const& name) {
         if (!is_valid_wheel_index(wheel, item)) {
-            warn("wheel", fmt::format("invalid wheel index [{}, {}] in command", wheel, item));
+            warn("wheel", std::format("invalid wheel index [{}, {}] in command", wheel, item));
             return false;
         }
 
@@ -500,7 +500,7 @@ namespace randomizer::features::wheel {
 
     bool set_wheel_item_description(int wheel, int item, std::string const& description) {
         if (!is_valid_wheel_index(wheel, item)) {
-            warn("wheel", fmt::format("invalid wheel index [{}, {}] in command", wheel, item));
+            warn("wheel", std::format("invalid wheel index [{}, {}] in command", wheel, item));
             return false;
         }
 
@@ -511,7 +511,7 @@ namespace randomizer::features::wheel {
 
     bool set_wheel_item_texture(int wheel, int item, std::string const& texture) {
         if (!is_valid_wheel_index(wheel, item)) {
-            warn("wheel", fmt::format("invalid wheel index [{}, {}] in command", wheel, item));
+            warn("wheel", std::format("invalid wheel index [{}, {}] in command", wheel, item));
             return false;
         }
 
@@ -521,7 +521,7 @@ namespace randomizer::features::wheel {
         else {
             entry.texture_data = core::api::graphics::textures::get_texture(texture);
             if (entry.texture_data == nullptr) {
-                warn("wheel", fmt::format("failed to find texture {}", texture));
+                warn("wheel", std::format("failed to find texture {}", texture));
                 return false;
             } else
                 entry.texture_data->set_color(entry.color);
@@ -533,12 +533,12 @@ namespace randomizer::features::wheel {
 
     bool set_wheel_item_color(int wheel, int item, int r, int g, int b, int a) {
         if (!is_valid_wheel_index(wheel, item)) {
-            warn("wheel", fmt::format("invalid wheel index [{}, {}] in command", wheel, item));
+            warn("wheel", std::format("invalid wheel index [{}, {}] in command", wheel, item));
             return false;
         }
 
         if (r < 0 || 255 < r || g < 0 || 255 < g || b < 0 || 255 < b || a < 0 || 255 < a) {
-            warn("wheel", fmt::format("invalid color passed to wheel [{}, {}]: ({}, {}, {}, {})", wheel, item, r, g, b, a));
+            warn("wheel", std::format("invalid color passed to wheel [{}, {}]: ({}, {}, {}, {})", wheel, item, r, g, b, a));
             r = std::max(std::min(r, 255), 0);
             g = std::max(std::min(g, 255), 0);
             b = std::max(std::min(b, 255), 0);
@@ -557,7 +557,7 @@ namespace randomizer::features::wheel {
 
     bool set_wheel_item_enabled(int wheel, int item, bool enabled) {
         if (!is_valid_wheel_index(wheel, item)) {
-            warn("wheel", fmt::format("invalid wheel index [{}, {}] in command", wheel, item));
+            warn("wheel", std::format("invalid wheel index [{}, {}] in command", wheel, item));
             return false;
         }
 
@@ -567,7 +567,7 @@ namespace randomizer::features::wheel {
 
     bool set_wheel_item_callback(int wheel, int item, app::SpellInventory_Binding__Enum binding, wheel_callback callback) {
         if (!is_valid_wheel_index(wheel, item)) {
-            warn("wheel", fmt::format("invalid wheel index [{}, {}] in command", wheel, item));
+            warn("wheel", std::format("invalid wheel index [{}, {}] in command", wheel, item));
             return false;
         }
 
@@ -579,7 +579,7 @@ namespace randomizer::features::wheel {
 
     bool clear_wheel_item(int wheel, int item) {
         if (!is_valid_wheel_index(wheel, item)) {
-            warn("wheel", fmt::format("invalid wheel index [{}, {}] in command", wheel, item));
+            warn("wheel", std::format("invalid wheel index [{}, {}] in command", wheel, item));
             return false;
         }
 
@@ -610,7 +610,7 @@ namespace randomizer::features::wheel {
     bool set_active_wheel(int wheel) {
         auto it = wheels.find(wheel);
         if (it == wheels.end()) {
-            warn("wheel", fmt::format("Wheel [{}] does not exist", wheel));
+            warn("wheel", std::format("Wheel [{}] does not exist", wheel));
             return false;
         }
 

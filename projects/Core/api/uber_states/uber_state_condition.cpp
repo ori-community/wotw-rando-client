@@ -1,7 +1,7 @@
 #include <api/uber_states/uber_state_condition.h>
 #include <Modloader/modloader.h>
 
-#include <fmt/format.h>
+#include <format>
 #include <Common/ext.h>
 
 namespace core::api::uber_states {
@@ -65,7 +65,7 @@ namespace core::api::uber_states {
         auto result = common::parse_operator(state_str);
         if (result.has_value()) {
             if (result->prefix.empty() || result->suffix.empty()) {
-                modloader::warn("uber_state_condition", fmt::format("Failed to parse {}: Invalid condition", state_str));
+                modloader::warn("uber_state_condition", std::format("Failed to parse {}: Invalid condition", state_str));
                 return false;
             }
 

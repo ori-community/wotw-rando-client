@@ -226,17 +226,17 @@ namespace {
         float b = 0.f;
 
         if (!console::try_get_float(params[0], r)) {
-            console::console_send(fmt::format("Invalid argument. Expected float, got '{}'", params[0].value.data()));
+            console::console_send(std::format("Invalid argument. Expected float, got '{}'", params[0].value.data()));
             return;
         }
 
         if (!console::try_get_float(params[1], g)) {
-            console::console_send(fmt::format("Invalid argument. Expected float, got '{}'", params[1].value.data()));
+            console::console_send(std::format("Invalid argument. Expected float, got '{}'", params[1].value.data()));
             return;
         }
 
         if (!console::try_get_float(params[2], b)) {
-            console::console_send(fmt::format("Invalid argument. Expected float, got '{}'", params[2].value.data()));
+            console::console_send(std::format("Invalid argument. Expected float, got '{}'", params[2].value.data()));
             return;
         }
 
@@ -253,7 +253,7 @@ namespace {
     void set_vignette_command(std::string const& command, std::vector<console::CommandParam> const& params) {
         if (read_single_bool_from_command(params, enable_vignette)) {
             update_vignette();
-            console::console_send(fmt::format("Vignette {}", enable_vignette ? "enabled" : "disabled"));
+            console::console_send(std::format("Vignette {}", enable_vignette ? "enabled" : "disabled"));
         }
     }
 
@@ -261,20 +261,20 @@ namespace {
         bool enable = false;
         if (read_single_bool_from_command(params, enable)) {
             Moon::Rendering::ShaderTime::set_freezeCameraSwaying(!enable);
-            console::console_send(fmt::format("Camera swaying {}", enable ? "enabled" : "disabled"));
+            console::console_send(std::format("Camera swaying {}", enable ? "enabled" : "disabled"));
         }
     }
 
     void set_camera_locked_command(std::string const& command, std::vector<console::CommandParam> const& params) {
         if (read_single_bool_from_command(params, camera_locked)) {
-            console::console_send(fmt::format("Camera {}", camera_locked ? "locked" : "unlocked"));
+            console::console_send(std::format("Camera {}", camera_locked ? "locked" : "unlocked"));
         }
     }
 
     void set_camera_ortho_command(std::string const& command, std::vector<console::CommandParam> const& params) {
         if (read_single_bool_from_command(params, camera_ortho)) {
             set_camera_ortho(camera_ortho);
-            console::console_send(fmt::format("Camera {}", camera_ortho ? "orthographic projection enabled" : "orthographic projection disabled"));
+            console::console_send(std::format("Camera {}", camera_ortho ? "orthographic projection enabled" : "orthographic projection disabled"));
         }
     }
 
@@ -287,7 +287,7 @@ namespace {
         float size = 0.f;
 
         if (!console::try_get_float(params[0], size)) {
-            console::console_send(fmt::format("Invalid argument. Expected float, got '{}'", params[0].value.data()));
+            console::console_send(std::format("Invalid argument. Expected float, got '{}'", params[0].value.data()));
             return;
         }
 
@@ -410,10 +410,10 @@ namespace {
                     break;
                 }
                 case OrishotState::Screenshot: {
-                    console::console_send(fmt::format("Capturing screenshot {}-{}", column, row));
+                    console::console_send(std::format("Capturing screenshot {}-{}", column, row));
 
                     UnityEngine::ScreenCapture::CaptureScreenshot_1(
-                            il2cpp::string_new(fmt::format(R"(C:\Users\Timo\orishots2\{}-{}.png)", column, row))
+                            il2cpp::string_new(std::format(R"(C:\Users\Timo\orishots2\{}-{}.png)", column, row))
                     );
 
                     column++;
