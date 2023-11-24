@@ -12,17 +12,16 @@ namespace randomizer::uber_states {
     namespace {
         using namespace core::api::uber_states;
 
-        UberState some_state(937, 34641);
+        UberState cleanse_wellspring(937, 34641);
         UberState find_ku_quest(14019, 34504);
 
         auto on_uber_state_interception = interception_bus().register_handler([](auto params) {
-            // TODO: Verify that this works correctly.
             if (disable_reverts() || !core::api::game::in_game()) {
                 return false;
             }
 
-            if ((params.state == some_state && some_state.get() < params.value) ||
-                (params.state == find_ku_quest && find_ku_quest.get() < 4)) {
+            if ((params.state == cleanse_wellspring && cleanse_wellspring.get() > params.value) ||
+                (params.state == find_ku_quest && params.value < 4)) {
                 return true;
             }
 
