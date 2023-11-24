@@ -108,7 +108,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(BuilderItem, void, DoPurchase, (app::BuilderItem * this_ptr, app::PurchaseContext* context)) {
-        const auto cutscene_state = 200000 + this_ptr->fields.Project->fields.UberState->fields.m_value;
+        const auto cutscene_state = 2 + this_ptr->fields.Project->fields.UberState->fields.m_value;
         if (core::api::uber_states::UberState(UberStateGroup::GromShop, cutscene_state).get<bool>()) {
             // The normal method calls a DelayedAction.Action
             next::BuilderItem::DoPurchase(this_ptr, context);

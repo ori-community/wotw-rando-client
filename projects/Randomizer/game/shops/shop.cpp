@@ -254,25 +254,25 @@ namespace randomizer::game::shops {
             { 14070, twillen.slot(twillen_keys[7]), { UberStateGroup::TwillenShard, 40 }, { UberStateGroup::TwillenShard, 140 } },
 
             // Lupo
-            { 10000, lupo.slot(lupo_keys[0]), { UberStateGroup::npcsStateGroup, 19396 }, { UberStateGroup::npcsStateGroup, 19397 } },
-            { 10010, lupo.slot(lupo_keys[1]), { UberStateGroup::npcsStateGroup, 57987 }, { UberStateGroup::npcsStateGroup, 57988 } },
-            { 10020, lupo.slot(lupo_keys[2]), { UberStateGroup::npcsStateGroup, 41666 }, { UberStateGroup::npcsStateGroup, 41667 } },
+            { 10000, lupo.slot(lupo_keys[0]), { UberStateGroup::npcsStateGroup, 19396 }, { UberStateGroup::npcsStateGroup, 19396 + 1 } },
+            { 10010, lupo.slot(lupo_keys[1]), { UberStateGroup::npcsStateGroup, 57987 }, { UberStateGroup::npcsStateGroup, 57987 + 1 } },
+            { 10020, lupo.slot(lupo_keys[2]), { UberStateGroup::npcsStateGroup, 41666 }, { UberStateGroup::npcsStateGroup, 41666 + 1 } },
 
             // Grom
-            { 11000, grom.slot(grom_keys[0]), { UberStateGroup::GromShop, 15068 }, { UberStateGroup::GromShop, 115068 } },
-            { 11010, grom.slot(grom_keys[1]), { UberStateGroup::GromShop, 51230 }, { UberStateGroup::GromShop, 151230 } },
-            { 11020, grom.slot(grom_keys[2]), { UberStateGroup::GromShop, 23607 }, { UberStateGroup::GromShop, 123607 } },
-            { 11030, grom.slot(grom_keys[3]), { UberStateGroup::GromShop, 40448 }, { UberStateGroup::GromShop, 140448 } },
-            { 11040, grom.slot(grom_keys[4]), { UberStateGroup::GromShop, 16586 }, { UberStateGroup::GromShop, 116586 } },
-            { 11050, grom.slot(grom_keys[5]), { UberStateGroup::GromShop, 18751 }, { UberStateGroup::GromShop, 118751 } },
-            { 11060, grom.slot(grom_keys[6]), { UberStateGroup::GromShop, 16825 }, { UberStateGroup::GromShop, 116825 } },
+            { 11000, grom.slot(grom_keys[0]), { UberStateGroup::GromShop, 15068 }, { UberStateGroup::GromShop, 15068 + 1 } },
+            { 11010, grom.slot(grom_keys[1]), { UberStateGroup::GromShop, 51230 }, { UberStateGroup::GromShop, 51230 + 1 } },
+            { 11020, grom.slot(grom_keys[2]), { UberStateGroup::GromShop, 23607 }, { UberStateGroup::GromShop, 23607 + 1 } },
+            { 11030, grom.slot(grom_keys[3]), { UberStateGroup::GromShop, 40448 }, { UberStateGroup::GromShop, 40448 + 1 } },
+            { 11040, grom.slot(grom_keys[4]), { UberStateGroup::GromShop, 16586 }, { UberStateGroup::GromShop, 16586 + 1 } },
+            { 11050, grom.slot(grom_keys[5]), { UberStateGroup::GromShop, 18751 }, { UberStateGroup::GromShop, 18751 + 1 } },
+            { 11060, grom.slot(grom_keys[6]), { UberStateGroup::GromShop, 16825 }, { UberStateGroup::GromShop, 16825 + 1 } },
 
-            { 12000, tuley.slot(tuley_keys[0]), { UberStateGroup::TuleyShop, 47651 }, { UberStateGroup::TuleyShop, 147651 } },
-            { 12010, tuley.slot(tuley_keys[1]), { UberStateGroup::TuleyShop, 16254 }, { UberStateGroup::TuleyShop, 116254 } },
-            { 12020, tuley.slot(tuley_keys[2]), { UberStateGroup::TuleyShop, 33011 }, { UberStateGroup::TuleyShop, 133011 } },
-            { 12030, tuley.slot(tuley_keys[3]), { UberStateGroup::TuleyShop, 64583 }, { UberStateGroup::TuleyShop, 164583 } },
-            { 12040, tuley.slot(tuley_keys[4]), { UberStateGroup::TuleyShop, 38393 }, { UberStateGroup::TuleyShop, 138393 } },
-            { 12050, tuley.slot(tuley_keys[5]), { UberStateGroup::TuleyShop, 40006 }, { UberStateGroup::TuleyShop, 140006 } },
+            { 12000, tuley.slot(tuley_keys[0]), { UberStateGroup::TuleyShop, 47651 }, { UberStateGroup::TuleyShop, 47651 + 1 } },
+            { 12010, tuley.slot(tuley_keys[1]), { UberStateGroup::TuleyShop, 16254 }, { UberStateGroup::TuleyShop, 16254 + 1 } },
+            { 12020, tuley.slot(tuley_keys[2]), { UberStateGroup::TuleyShop, 33011 }, { UberStateGroup::TuleyShop, 33011 + 1 } },
+            { 12030, tuley.slot(tuley_keys[3]), { UberStateGroup::TuleyShop, 64583 }, { UberStateGroup::TuleyShop, 64583 + 1 } },
+            { 12040, tuley.slot(tuley_keys[4]), { UberStateGroup::TuleyShop, 38393 }, { UberStateGroup::TuleyShop, 38393 + 1 } },
+            { 12050, tuley.slot(tuley_keys[5]), { UberStateGroup::TuleyShop, 40006 }, { UberStateGroup::TuleyShop, 40006 + 1 } },
         };
 
         for (auto& [text_id, slot, state, cost] : shop_data) {
