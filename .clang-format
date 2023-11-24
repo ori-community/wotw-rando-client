@@ -1,49 +1,51 @@
-# Commented out parameters are those with the same value as base LLVM style.
-# We can uncomment them if we want to change their value, or enforce the
-# chosen value in case the base style changes (last sync: Clang 14.0).
 ---
-### General config, applies to all languages ###
-
+Language: Cpp
 BasedOnStyle: LLVM
 AccessModifierOffset: -4
-AlignAfterOpenBracket: BlockIndent
-AlignOperands: DontAlign
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignOperands: true
 AlignTrailingComments: false
-AllowAllArgumentsOnNextLine: false
-AllowAllParametersOfDeclarationOnNextLine: false
-AllowShortFunctionsOnASingleLine: Inline
-AllowShortEnumsOnASingleLine: false
-BreakConstructorInitializers: BeforeComma
-
-ColumnLimit: 0
-ConstructorInitializerIndentWidth: 8
-ContinuationIndentWidth: 4
-Cpp11BracedListStyle: false
-NamespaceIndentation: All
-
-ConstructorInitializerAllOnOneLineOrOnePerLine: true
-
-IncludeCategories:
-  - Regex: '".*"'
-    Priority: 1
-  - Regex: '^<.*\.h>'
-    Priority: 2
+AlwaysBreakTemplateDeclarations: Yes
+BraceWrapping: 
+  AfterCaseLabel: false
+  AfterClass: false
+  AfterControlStatement: false
+  AfterEnum: false
+  AfterFunction: false
+  AfterNamespace: false
+  AfterStruct: false
+  AfterUnion: false
+  AfterExternBlock: false
+  BeforeCatch: true
+  BeforeElse: true
+  BeforeLambdaBody: false
+  BeforeWhile: true
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+BreakBeforeBraces: Custom
+BreakConstructorInitializers: AfterColon
+ColumnLimit: 240
+ContinuationIndentWidth: 8
+IncludeCategories: 
   - Regex: '^<.*'
+    Priority: 1
+  - Regex: '^".*'
+    Priority: 2
+  - Regex: '.*'
     Priority: 3
-
+IncludeIsMainRegex: '([-_](test|unittest))?$'
 IndentCaseLabels: true
 IndentWidth: 4
-KeepEmptyLinesAtTheStartOfBlocks: false
-PointerAlignment: Left
-SpacesInLineCommentPrefix:
-  Minimum: 1
-  Maximum: -1
-TabWidth: 4
-UseTab: Never
-BinPackArguments: false
-BinPackParameters: false
-InsertTrailingCommas: Wrapped
----
-### C++ specific config ###
-Language: Cpp
+InsertNewlineAtEOF: true
+MacroBlockBegin: ''
+MacroBlockEnd: ''
+MaxEmptyLinesToKeep: 2
+NamespaceIndentation: All
+SpaceAfterTemplateKeyword: false
+SpaceBeforeRangeBasedForLoopColon: false
+SpacesInAngles: false
 Standard: c++20
+TabWidth: 4
+...
