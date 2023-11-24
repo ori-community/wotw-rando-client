@@ -14,7 +14,7 @@ namespace {
         randomizer::conditions::register_condition_intercept(
             randomizer::conditions::ConditionType::VisibleOnWorldMap,
             "swampIntroTop/artSetups/interactives/savePedestalSetup/savePedestalParent/savePedestal",
-            [](std::string_view path, void* obj) { return std::optional<bool>(true); }
+            [](std::string_view path, void* obj) { return std::optional<bool>(built_spirit_well.get()); }
         );
 
         // Intercept for condition on RuntimeWorldMapIcon
