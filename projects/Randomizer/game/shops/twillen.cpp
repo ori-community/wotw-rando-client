@@ -188,12 +188,12 @@ namespace {
 
     IL2CPP_INTERCEPT(SpiritShardUIItem, void, UpdateShardIcon, (app::SpiritShardUIItem * this_ptr)) {
         if (is_in_shop(ShopType::Twillen)) {
-            auto slot = twillen_shop().slot(this_ptr->fields.m_spiritShard->fields.m_type);
+            auto slot = this_ptr->fields.m_spiritShard == nullptr ? nullptr : twillen_shop().slot(this_ptr->fields.m_spiritShard->fields.m_type);
             auto& info = slot->active_info();
 
             auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
-            auto is_visible = this_ptr->fields.m_spiritShard != nullptr && slot->visibility == SlotVisibility::Visible;
-            auto is_locked = this_ptr->fields.m_spiritShard == nullptr || slot->visibility == SlotVisibility::Locked;
+            auto is_visible = slot != nullptr && slot->visibility == SlotVisibility::Visible;
+            auto is_locked = slot == nullptr || slot->visibility == SlotVisibility::Locked;
             GameObject::SetActive(this_ptr->fields.IconGO, is_visible);
             GameObject::SetActive(this_ptr->fields.LockedGO, is_locked);
             info.icon->apply(renderer);

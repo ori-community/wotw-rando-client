@@ -1,11 +1,11 @@
-#include <game/pickups/pickups.h>
-
 #include <Modloader/app/methods/SeinInventory.h>
 #include <Modloader/interception_macros.h>
 
+#include <Core/api/game/player.h>
+
 namespace {
     IL2CPP_INTERCEPT(SeinInventory, void, set_Keystones, (app::SeinInventory * this_ptr, int32_t value)) {
-        if (game::pickups::should_collect_pickup()) {
+        if (!core::api::game::player::prevent_default_pickup_handlers) {
             next::SeinInventory::set_Keystones(this_ptr, value);
         }
     }

@@ -21,6 +21,7 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Modloader/app/methods/GameplayCamera.h>
 #include <Modloader/app/methods/ScenesManager.h>
+#include <Modloader/app/methods/SeinUI.h>
 #include <Modloader/app/types/GameWorld.h>
 #include <Modloader/app/types/UI_Cameras.h>
 #include <magic_enum.hpp>
@@ -29,7 +30,28 @@ using namespace modloader;
 using namespace app::classes;
 
 namespace core::api::game::player {
+
+    CORE_DLLEXPORT bool prevent_default_pickup_handlers;
+
     namespace {
+        IL2CPP_INTERCEPT(SeinUI, void, ShakeSpiritLight_1, (app::SeinUI * this_ptr)) {
+            if (!prevent_default_pickup_handlers || ui::is_manually_shaking_resource_ui()) {
+                next::SeinUI::ShakeSpiritLight_1(this_ptr);
+            }
+        }
+
+        IL2CPP_INTERCEPT(SeinUI, void, ShakeKeystones, (app::SeinUI * this_ptr)) {
+            if (!prevent_default_pickup_handlers || ui::is_manually_shaking_resource_ui()) {
+                next::SeinUI::ShakeKeystones(this_ptr);
+            }
+        }
+
+        IL2CPP_INTERCEPT(SeinUI, void, ShakeSeeds_1, (app::SeinUI * this_ptr)) {
+            if (!prevent_default_pickup_handlers || ui::is_manually_shaking_resource_ui()) {
+                next::SeinUI::ShakeSeeds_1(this_ptr);
+            }
+        }
+
         std::unordered_map<app::AbilityType__Enum, app::EquipmentType__Enum> ability_to_equip_map{
             { app::AbilityType__Enum::Bash, app::EquipmentType__Enum::Ability_Bash },
             { app::AbilityType__Enum::DoubleJump, app::EquipmentType__Enum::Ability_DoubleJump },
@@ -84,40 +106,59 @@ namespace core::api::game::player {
             return get_stats()->fields.m_energy;
         }
 
-        void add_health(float value) {
-            auto sein = game::player::sein();
+        void add_health(const float value) {
+            const auto sein = player::sein();
             if (sein == nullptr) {
                 return;
             }
 
+            ScopedSetter setter(prevent_default_pickup_handlers, false);
             if (value >= 0.0f) {
-                app::classes::SeinHealthController::GainHealth(sein->fields.Mortality->fields.Health, value, 4, false);
+                SeinHealthController::GainHealth(sein->fields.Mortality->fields.Health, value, 4, false);
             } else if (get_health() + value < 0.0f) {
-                app::classes::CapsuleCrushDetector::KillOri(sein->fields.Mortality->fields.CrushDetector);
+                CapsuleCrushDetector::KillOri(sein->fields.Mortality->fields.CrushDetector);
             } else {
-                app::classes::SeinHealthController::LoseHealth(sein->fields.Mortality->fields.Health, static_cast<int>(value), 4);
+                SeinHealthController::LoseHealth(sein->fields.Mortality->fields.Health, static_cast<int>(value), 4);
             }
         }
 
-        void set_health(float value) {
-            add_health(value - get_health());
-        }
-
-        void add_energy(float value) {
-            auto sein = game::player::sein();
+        void set_health(const float value) {
+            const auto sein = player::sein();
             if (sein == nullptr) {
                 return;
             }
 
+            ScopedSetter setter(prevent_default_pickup_handlers, false);
+            if (value < 0.0f) {
+                CapsuleCrushDetector::KillOri(sein->fields.Mortality->fields.CrushDetector);
+            }
+            else {
+                SeinHealthController::set_Amount(sein->fields.Mortality->fields.Health, value);
+            }
+        }
+
+        void add_energy(const float value) {
+            const auto sein = game::player::sein();
+            if (sein == nullptr) {
+                return;
+            }
+
+            ScopedSetter setter(prevent_default_pickup_handlers, false);
             if (value >= 0.0f) {
-                app::classes::SeinEnergy::Gain(sein->fields.Energy, value);
+                SeinEnergy::Gain(sein->fields.Energy, value);
             } else {
-                app::classes::SeinEnergy::Spend_1(sein->fields.Energy, std::max(value, -get_energy()));
+                SeinEnergy::Spend_1(sein->fields.Energy, std::max(value, -get_energy()));
             }
         }
 
         void set_energy(float value) {
-            add_energy(get_energy() - value);
+            const auto sein = game::player::sein();
+            if (sein == nullptr) {
+                return;
+            }
+
+            ScopedSetter setter(prevent_default_pickup_handlers, false);
+            SeinEnergy::set_Current(sein->fields.Energy, value);
         }
 
         int get_max_health() {
@@ -126,15 +167,13 @@ namespace core::api::game::player {
         }
 
         void set_max_health(int value) {
-            auto sein = core::api::game::player::sein();
-            auto stats = get_stats();
-            if (sein && stats) {
-                stats->fields.m_maxHealth = value;
-                Moon::uberSerializationWisp::PlayerUberStateStats::RunSetDirtyCallback(stats);
-                sein->fields.Mortality->fields.Health->fields.m_baseMaxHealthDirty = true;
-                sein->fields.Mortality->fields.Health->fields.m_maxHealthDirty = true;
-                sein->fields.Mortality->fields.Health->fields.m_actualMaxHealthDirty = true;
+            const auto sein = game::player::sein();
+            if (sein == nullptr) {
+                return;
             }
+
+            ScopedSetter setter(prevent_default_pickup_handlers, false);
+            SeinHealthController::set_BaseMaxHealth(sein->fields.Mortality->fields.Health, value);
         }
 
         float get_max_energy() {
@@ -143,15 +182,13 @@ namespace core::api::game::player {
         }
 
         void set_max_energy(float value) {
-            auto sein = core::api::game::player::sein();
-            auto stats = get_stats();
-            if (sein && stats) {
-                stats->fields.m_maxEnergy = value;
-                Moon::uberSerializationWisp::PlayerUberStateStats::RunSetDirtyCallback(stats);
-                sein->fields.Energy->fields.m_baseMaxEnergyDirty = true;
-                sein->fields.Energy->fields.m_maxEnergyDirty = true;
-                sein->fields.Energy->fields.m_actualMaxEnergyDirty = true;
+            const auto sein = game::player::sein();
+            if (sein == nullptr) {
+                return;
             }
+
+            ScopedSetter setter(prevent_default_pickup_handlers, false);
+            SeinEnergy::set_BaseMaxEnergy(sein->fields.Energy, value);
         }
 
         int get_spirit_light() {
@@ -282,12 +319,12 @@ namespace core::api::game::player {
     }
 
     app::Vector3 get_position() {
-        auto sein = game::player::sein();
+        auto sein = player::sein();
         return sein != nullptr ? SeinCharacter::get_Position(sein) : app::Vector3{ 0, 0, 0 };
     }
 
     app::Vector2 get_velocity() {
-        auto sein = game::player::sein();
+        auto sein = player::sein();
         if (sein != nullptr) {
             auto& speed = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed;
             return app::Vector2{ speed.x, speed.y };
@@ -301,7 +338,7 @@ namespace core::api::game::player {
     }
 
     void set_position(app::Vector3 value, bool wait_for_load) {
-        auto sein = game::player::sein();
+        auto sein = player::sein();
         if (sein != nullptr) {
             if (wait_for_load) {
                 ScenesManager::LoadScenesAtPosition(scenes::get_scenes_manager(), value, false, true, false, true, true);
@@ -312,7 +349,7 @@ namespace core::api::game::player {
     }
 
     void set_velocity(float x, float y) {
-        auto sein = game::player::sein();
+        auto sein = player::sein();
         if (sein != nullptr) {
             auto& speed = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed;
             speed.x = x;
@@ -343,16 +380,18 @@ namespace core::api::game::player {
     }
 
     void refill_health() {
-        auto sein = game::player::sein();
+        const auto sein = player::sein();
         if (sein != nullptr) {
-            app::classes::SeinHealthController::RestoreAllHealth(sein->fields.Mortality->fields.Health, 4);
+            ScopedSetter setter(prevent_default_pickup_handlers, false);
+            SeinHealthController::RestoreAllHealth(sein->fields.Mortality->fields.Health, 4);
         }
     }
 
     void refill_energy() {
-        auto sein = game::player::sein();
+        auto sein = player::sein();
         if (sein != nullptr) {
-            app::classes::SeinEnergy::RestoreAllEnergy(sein->fields.Energy);
+            ScopedSetter setter(prevent_default_pickup_handlers, false);
+            SeinEnergy::RestoreAllEnergy(sein->fields.Energy);
         }
     }
 

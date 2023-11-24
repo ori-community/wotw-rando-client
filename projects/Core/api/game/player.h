@@ -11,6 +11,8 @@
 #include <Modloader/app/structs/SpiritShardType__Enum.h>
 
 namespace core::api::game::player {
+    CORE_DLLEXPORT extern bool prevent_default_pickup_handlers;
+
     CORE_DLLEXPORT app::SeinCharacter* sein();
 
     CORE_DLLEXPORT bool has_ability(app::AbilityType__Enum ability);

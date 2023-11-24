@@ -1,4 +1,3 @@
-#include "pickups.h"
 #include <Common/ext.h>
 #include <Core/enums/static_text_entries.h>
 #include <Core/mood_guid.h>
