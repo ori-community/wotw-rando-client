@@ -169,7 +169,7 @@ namespace core::text {
         register_text(*static_text_entry::Currency, "Emeralds");
         register_text(*static_text_entry::Currency, "Notes");
         register_text(*static_text_entry::Currency, "Yen");
-        register_text(*static_text_entry::Currency, "Zloty");
+        register_text(*static_text_entry::Currency, "Złoty");
         register_text(*static_text_entry::Currency, "Likes");
         register_text(*static_text_entry::Currency, "Comments");
         register_text(*static_text_entry::Currency, "Subs");
