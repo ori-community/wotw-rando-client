@@ -152,27 +152,27 @@ void split_str(const std::string_view str, Container& cont, const std::span<std:
     std::string part;
     int inside_brackets = 0;
     std::pair<char, char> last_bracket;
-    for (const auto c : str) {
+    for (const auto character : str) {
         if (inside_brackets > 0) {
-            if (c == last_bracket.first) {
+            if (character == last_bracket.first) {
                 ++inside_brackets;
-            } else if (c == last_bracket.second) {
+            } else if (character == last_bracket.second) {
                 --inside_brackets;
             }
         } else {
             for (const auto bracket : brackets) {
-                if (c == bracket.first) {
+                if (character == bracket.first) {
                     ++inside_brackets;
                     last_bracket = bracket;
                 }
             }
         }
 
-        if (inside_brackets == 0 && c == delim) {
+        if (inside_brackets == 0 && character == delim) {
             cont.push_back(part);
             part = "";
         } else {
-            cont.push_back(part);
+            part.push_back(character);
         }
     }
 
