@@ -81,7 +81,7 @@ namespace core::api::scenes {
                 }
 
                 for (auto on_load_callback : pending_scene.scene_loading_callbacks) {
-                    on_load_callback(pending_scene.scene_name, state, scene_root_go);
+                    on_load_callback(&event);
                 }
             }
         }
@@ -195,7 +195,10 @@ namespace core::api::scenes {
             scene_manager_scene->fields.PreventUnloading = keep_preloaded;
 
             if (callback != nullptr) {
-                callback(scene, scene_manager_scene->fields.m_currentState, scene_root_go);
+                SceneLoadEventMetadata metadata {
+                    std::string(scene), scene_manager_scene->fields.m_currentState, scene_manager_scene,
+                };
+                callback(&metadata);
             }
         } else if (!ScenesManager::SceneIsLoading(scenes_manager, scene_meta->fields.SceneMoonGuid)) {
             ScenesManager::RequestAdditivelyLoadScene(scenes_manager, scene_meta, async, true, true, true, false);
@@ -312,10 +315,9 @@ namespace core::api::scenes {
         }
     }
 
-    void on_load_spawn(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root) {
-        if (state == app::SceneState__Enum::Loaded && scene_root != nullptr) {
-            auto root = il2cpp::unity::get_component<app::SceneRoot>(scene_root, types::SceneRoot::get_class());
-            initial_values_handle = il2cpp::gchandle_new(root->fields.MetaData->fields.InitialValuesWisp, false);
+    void on_load_spawn(SceneLoadEventMetadata* metadata) {
+        if (metadata->state == app::SceneState__Enum::Loaded && metadata->scene->fields.SceneRoot != nullptr) {
+            initial_values_handle = il2cpp::gchandle_new(metadata->scene->fields.SceneRoot->fields.MetaData->fields.InitialValuesWisp, false);
         }
     }
 

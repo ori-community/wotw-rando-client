@@ -35,6 +35,7 @@ namespace randomizer::online {
         app::Color local_player_color() const { return m_color; }
         std::optional<PlayerInfo> local_player() const;
         std::optional<Network::MultiverseInfoMessage> multiverse_info() const { return m_last_multiverse_info; }
+        void report_player_ready(bool ready) const;
 
         int player_count() const { return static_cast<int>(m_players.size()); }
 

@@ -24,11 +24,11 @@ namespace randomizer::features::credits {
         constexpr char CREDITS_PATH_FMT[] = "{}\\credits";
         randomizer::messages::CreditsController credits;
 
-        void credits_scene_loaded_callback(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root) {
-            if (state == app::SceneState__Enum::Loaded && scene_root != nullptr) {
+        void credits_scene_loaded_callback(core::api::scenes::SceneLoadEventMetadata* metadata) {
+            if (metadata->state == app::SceneState__Enum::Loaded && metadata->scene->fields.SceneRoot != nullptr) {
                 credits.reset();
                 credits.load(fmt::format(CREDITS_PATH_FMT, modloader::base_path().string()));
-                auto credits_go = il2cpp::unity::find_child(scene_root, "credits");
+                auto credits_go = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, "credits");
                 auto cred_cont = il2cpp::unity::get_component<app::CreditsController>(credits_go, types::CreditsController::get_class());
                 auto timeline = cred_cont->fields.CreditsTimeline;
                 il2cpp::invoke_virtual(timeline, reinterpret_cast<Il2CppClass*>(types::TimelineEntity::get_class()), "StartPlayback");
@@ -55,9 +55,9 @@ namespace randomizer::features::credits {
             }
         }
 
-        void ending_scene_loaded_callback(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root) {
-            if (state == app::SceneState__Enum::Loaded && scene_root != nullptr) {
-                auto master_timeline_go = il2cpp::unity::find_child(scene_root, "master2.0");
+        void ending_scene_loaded_callback(core::api::scenes::SceneLoadEventMetadata* metadata) {
+            if (metadata->state == app::SceneState__Enum::Loaded && metadata->scene->fields.SceneRoot != nullptr) {
+                auto master_timeline_go = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, "master2.0");
                 il2cpp::unity::destroy_object(master_timeline_go);
 
                 core::api::game::player::set_position(0.f, 0.f);

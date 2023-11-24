@@ -18,7 +18,7 @@ namespace core::api::scenes {
         app::SceneManagerScene* scene;
     };
 
-    using scene_loading_callback = void (*)(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root);
+    using scene_loading_callback = void (*)(SceneLoadEventMetadata* metadata);
 
     CORE_DLLEXPORT app::ScenesManager* get_scenes_manager();
 

@@ -44,12 +44,10 @@ namespace core::api::scenes {
         std::unordered_map<std::string, ObjectSpawn> object_spawns;
         std::unordered_map<std::string, std::unordered_set<ObjectSpawn*>> pending_object_spawns_by_scene;
 
-        void on_loading_callback(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root) {
-            if (state == app::SceneState__Enum::Loaded && scene_root != nullptr) {
-                auto scene_name_string = std::string(scene_name);
-
-                for (auto spawn : pending_object_spawns_by_scene[scene_name_string]) {
-                    auto prefab = il2cpp::unity::find_child(scene_root, spawn->path);
+        void on_loading_callback(SceneLoadEventMetadata* metadata) {
+            if (metadata->state == app::SceneState__Enum::Loaded && metadata->scene->fields.SceneRoot != nullptr) {
+                for (auto spawn : pending_object_spawns_by_scene[metadata->scene_name]) {
+                    auto prefab = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, spawn->path);
                     if (!il2cpp::unity::is_valid(prefab))
                         return;
 
@@ -69,10 +67,10 @@ namespace core::api::scenes {
 
                     core::api::graphics::shaders::duplicate_materials(spawn->game_object);
                     if (spawn->on_loaded != nullptr)
-                        spawn->on_loaded(scene_name, spawn->name, scene_root, spawn->game_object);
+                        spawn->on_loaded(metadata->scene_name, spawn->name, il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot), spawn->game_object);
                 }
 
-                pending_object_spawns_by_scene.erase(scene_name_string);
+                pending_object_spawns_by_scene.erase(metadata->scene_name);
             }
         }
 

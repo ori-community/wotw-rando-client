@@ -169,6 +169,12 @@ namespace randomizer::online {
         return it != m_players.end() ? it->second : std::optional<MultiplayerUniverse::PlayerInfo>();
     }
 
+    void MultiplayerUniverse::report_player_ready(const bool ready) const {
+        Network::ReportPlayerRaceReadyMessage message;
+        message.set_raceready(ready);
+        m_client->websocket_send(Network::Packet_PacketID_ReportPlayerRaceReadyMessage, message);
+    }
+
     Network::UniverseInfo const* find_universe_with_player(Network::MultiverseInfoMessage const& message, std::string_view id) {
         for (auto const& u : message.universes()) {
             for (auto const& w : u.worlds()) {

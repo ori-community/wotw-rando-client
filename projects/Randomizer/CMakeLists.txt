@@ -119,7 +119,7 @@ set(
         "game/shops/spirit_light_spent.cpp"
         "game/shops/tuley.cpp"
         "game/shops/twillen.cpp"
-        "game/spawning_preloading_teleporting.cpp"
+        "game/spawning_preloading_teleporting_and_race_lobby_yes_this_file_needs_to_be_split.cpp"
         "ghosts/plugins/update_active_animations_plugin.cpp"
         "ghosts/plugins.cpp"
         "ghosts.cpp"
