@@ -28,6 +28,7 @@
 #include <Modloader/app/types/SaveSlotsUI.h>
 #include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/app/types/WaitAction.h>
+#include <Modloader/app/types/FaderBFadeInAction.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
@@ -203,6 +204,7 @@ namespace randomizer::game {
                     { "titleScreen (new)", "startGameSequence", "05. Play External Timeline Action" },
                     { "titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "emptySlotPressed(newGame)", "03. Play Sound: mainMenuPressNewGameSoundProvider" },
                     { "titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "emptySlotPressed(newGame)", "06. Wait 2 seconds" },
+                    { "titleScreen (new)", "ui", "group", "actions", "usedSlotPressed (part2)", "05. Wait 1 second"},
                 };
 
                 for (const auto& path : game_objects_to_nuke) {
@@ -216,6 +218,15 @@ namespace randomizer::game {
                 auto empty_slot_pressed_wait_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "emptySlotPressed(newGame)", "04. Wait 1.5 seconds" });
                 empty_slot_pressed_wait = il2cpp::unity::get_component<app::WaitAction>(empty_slot_pressed_wait_go, types::WaitAction::get_class());
                 empty_slot_pressed_wait->fields.Duration = 0.4f;
+
+                // Make QTMs faster
+                auto qtm_fade_to_black_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "actions", "usedSlotPressed (part2)", "06. FadeToBlack over 5 seconds"} );
+                auto qtm_fade_to_black = il2cpp::unity::get_component<app::FaderBFadeInAction>(qtm_fade_to_black_go, types::FaderBFadeInAction::get_class());
+                qtm_fade_to_black->fields.FadeInDuration = 2.f;
+
+                auto qtm_wait_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "actions", "usedSlotPressed (part2)", "07. Wait 5 seconds"} );
+                auto qtm_wait = il2cpp::unity::get_component<app::WaitAction>(qtm_wait_go, types::WaitAction::get_class());
+                qtm_wait->fields.Duration = 2.f;
             }
         }
 
