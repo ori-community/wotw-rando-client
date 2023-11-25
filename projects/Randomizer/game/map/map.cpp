@@ -19,7 +19,6 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 
-#include <atomic>
 #include <random>
 #include <unordered_map>
 
@@ -60,12 +59,12 @@ namespace randomizer::game::map {
 
         IL2CPP_INTERCEPT(AreaMapIconManager, void, UpdateLabelState, (app::AreaMapIconManager * this_ptr)) {
             next::AreaMapIconManager::UpdateLabelState(this_ptr);
-            auto show_labels = core::api::game::ui::area_map_open() &&
+            const auto show_labels = core::api::game::ui::area_map_open() &&
                 GameMapUI::get_ShowIconLabels(types::GameMapUI::get_class()->static_fields->Instance);
 
-            for (auto filter : icons) {
+            for (auto const& filter : icons) {
                 auto active = filter.first == active_filter();
-                for (auto icon : filter.second) {
+                for (auto const& icon : filter.second) {
                     icon->label_visible(active && show_labels);
                 }
             }
@@ -79,7 +78,7 @@ namespace randomizer::game::map {
             return core::settings::always_show_keystone_doors() && (active_filter() > Filters::Collectibles);
         }
 
-        bool should_always_show(app::RuntimeWorldMapIcon* icon) {
+        bool should_always_show(const app::RuntimeWorldMapIcon* icon) {
             switch (icon->fields.Icon) {
                 case app::WorldMapIconType__Enum::SavePedestal:
                     return should_always_show_teleporters();
@@ -187,8 +186,8 @@ namespace randomizer::game::map {
 
         IL2CPP_INTERCEPT(AreaMapUI, void, OnInstantiate, (app::AreaMapUI * this_ptr)) {
             next::AreaMapUI::OnInstantiate(this_ptr);
-            for (auto icon_set : icons | std::views::values) {
-                for (const auto icon : icon_set) {
+            for (auto const& icon_set : icons | std::views::values) {
+                for (auto const& icon : icon_set) {
                     icon->apply_scaler();
                 }
             }
@@ -196,16 +195,16 @@ namespace randomizer::game::map {
 
         IL2CPP_INTERCEPT(AreaMapUI, void, Init, (app::AreaMapUI * this_ptr)) {
             next::AreaMapUI::Init(this_ptr);
-            for (auto icon_set : icons | std::views::values) {
-                for (const auto icon : icon_set) {
+            for (auto const& icon_set : icons | std::views::values) {
+                for (auto const& icon : icon_set) {
                     icon->apply_scaler();
                 }
             }
         }
 
         IL2CPP_INTERCEPT(AreaMapUI, void, OnDestroy, (app::AreaMapUI * this_ptr)) {
-            for (auto icon_set : icons | std::views::values) {
-                for (const auto icon : icon_set) {
+            for (auto const& icon_set : icons | std::views::values) {
+                for (auto const& icon : icon_set) {
                     icon->remove_scaler();
                 }
             }
@@ -215,17 +214,13 @@ namespace randomizer::game::map {
 
         IL2CPP_INTERCEPT(GameMapUI, bool, IsCursorOverTeleporter, (app::GameMapUI * this_ptr, app::Vector2* target)) {
             const auto cursor = GameMapUI::get_FocusLocation(this_ptr);
-            const auto cursor_world = AreaMapNavigation::MapToWorldPosition(
-                this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField,
-                cursor
-            );
 
             // TODO: We might want to use a separate map for icons that can be teleported to.
             //       Needs to handle icons changing that property.
             const auto& current_icons = icons[active_filter()];
             auto min_distance = 1.02 * 1.02;
             std::shared_ptr<Icon> closest_icon;
-            for (const auto icon : current_icons) {
+            for (auto const& icon : current_icons) {
                 if (icon->can_teleport()) {
                     const auto position = AreaMapNavigation::WorldToMapPosition(
                         this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField,
@@ -241,9 +236,8 @@ namespace randomizer::game::map {
                 }
             }
 
-            app::Vector2 original_target;
-            auto found = next::GameMapUI::IsCursorOverTeleporter(this_ptr, &original_target);
-            if (found) {
+            app::Vector2 original_target{};
+            if (next::GameMapUI::IsCursorOverTeleporter(this_ptr, &original_target)) {
                 const auto position = AreaMapNavigation::WorldToMapPosition(
                     this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField,
                     original_target
@@ -259,6 +253,9 @@ namespace randomizer::game::map {
             return closest_icon != nullptr;
         }
 
+        IL2CPP_INTERCEPT(GameMapUI, void, set_ShowObjective, (app::GameMapUI* this_ptr, app::GameMapShowObjective* objective)) {
+            // NOOP
+        }
     } // namespace
 
     std::shared_ptr<Icon> add_icon(FilterFlag filter_mask) {
@@ -289,12 +286,12 @@ namespace randomizer::game::map {
     }
 
     bool is_visited(app::GameWorldAreaID__Enum area, int index) {
-        auto player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;
+        const auto player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;
         if (!il2cpp::unity::is_valid(player_group)) {
             return false;
         }
 
-        auto area_map_info = player_group->fields.PlayerUberState->fields.m_state->fields.AreaMapInfo;
+        const auto area_map_info = player_group->fields.PlayerUberState->fields.m_state->fields.AreaMapInfo;
         return Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::GetAreaState(area_map_info, area, index) == app::WorldMapAreaState__Enum::Visited;
     }
 } // namespace randomizer::game::map
