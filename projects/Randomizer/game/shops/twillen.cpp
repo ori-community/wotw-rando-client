@@ -1,13 +1,8 @@
 #include <game/shops/shop.h>
 
-#include <Common/ext.h>
-
 #include <Core/api/game/player.h>
 #include <Core/api/graphics/textures.h>
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/shard_type.h>
-#include <Core/enums/static_text_entries.h>
-#include <Core/text/text_database.h>
 
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateShards_Shard.h>
@@ -25,12 +20,14 @@
 #include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Boxed.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/Renderer.h>
+#include <Modloader/app/types/SpellUIExperience.h>
 #include <Modloader/app/types/SpiritShardSettings.h>
+#include <Modloader/app/types/UI.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
-#include <functional>
+#include <Modloader/app/methods/SpellUIExperience.h>
 #include <set>
 
 namespace {
@@ -73,9 +70,7 @@ namespace {
     app::PlayerUberStateShards_Shard* selected_shard;
 
     // Prevent Twillen from cleaning up (sorting) his shop
-    IL2CPP_INTERCEPT(SpiritShardsShopScreen___c, int32_t, _PopulateInventoryCanvasWithShards_b__68_0, (app::SpiritShardsShopScreen_c * this_ptr, app::Object* x, app::Object* y)) {
-        return 0;
-    }
+    IL2CPP_INTERCEPT(SpiritShardsShopScreen___c, int32_t, _PopulateInventoryCanvasWithShards_b__68_0, (app::SpiritShardsShopScreen_c * this_ptr, app::Object* x, app::Object* y)) { return 0; }
 
     IL2CPP_INTERCEPT(SpiritShardsShopScreen, void, UpdateContextCanvasShards, (app::SpiritShardsShopScreen * this_ptr)) {
         modloader::ScopedSetter setter(overwrite_shard, is_in_shop(ShopType::Twillen));
@@ -88,6 +83,9 @@ namespace {
         auto sound = SpiritShardsShopScreen::get_PurchaseCompleteSound(this_ptr);
         il2cpp::invoke(this_ptr, "PlaySoundEvent", sound);
         il2cpp::invoke(core::api::game::player::sein()->fields.PlayerSpiritShards->fields.OnInventoryUpdated, "Invoke", shard);
+
+        auto ui_experience = il2cpp::unity::get_component_in_children<app::SpellUIExperience>(il2cpp::unity::get_game_object(types::UI::get_class()->static_fields->SeinUI), types::SpellUIExperience::get_class());
+        SpellUIExperience::Spend(ui_experience, twillen_shop().slot(shard->fields.m_type)->cost.get<int>());
 
         buy_item(*twillen_shop().slot(shard->fields.m_type));
         Moon::uberSerializationWisp::PlayerUberStateShards_Shard::RunSetDirtyCallback(shard);
