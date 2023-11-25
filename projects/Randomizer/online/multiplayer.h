@@ -4,10 +4,7 @@
 #include <Randomizer/online/player.h>
 #include <Randomizer/online/uber_state_handler.h>
 
-#include <Core/api/game/game.h>
 #include <Core/api/graphics/textures.h>
-#include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/game_event.h>
 #include <Core/messages/message_controller.h>
 
 #include <proto/packets.pb.h>
@@ -34,6 +31,7 @@ namespace randomizer::online {
 
         app::Color local_player_color() const { return m_color; }
         std::optional<PlayerInfo> local_player() const;
+        Network::WorldInfo const* get_world(int id) const;
         std::optional<Network::MultiverseInfoMessage> multiverse_info() const { return m_last_multiverse_info; }
         void report_player_ready(bool ready) const;
 
@@ -68,6 +66,8 @@ namespace randomizer::online {
         std::vector<common::registration_handle> m_bus_handles;
         Network::MultiverseInfoMessage::GameHandlerType m_game_type = Network::MultiverseInfoMessage_GameHandlerType_Normal;
         std::optional<Network::MultiverseInfoMessage> m_last_multiverse_info;
+        std::optional<Network::UniverseInfo const*> m_current_universe_info;
+        std::unordered_map<int, Network::WorldInfo const*> m_current_world_infos;
 
         std::unordered_map<std::string, PlayerInfo> m_players;
         std::unordered_map<std::string, std::unique_ptr<Player>> m_player_avatars;

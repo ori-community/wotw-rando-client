@@ -3,7 +3,9 @@
 
 #include <Core/api/game/game.h>
 #include <Core/core.h>
-#include <game/shops/shop.h>
+
+#include <Randomizer/game/shops/shop.h>
+#include <Randomizer/seed/items/icon.h>
 
 #include <fstream>
 #include <map>
@@ -94,6 +96,7 @@ namespace randomizer::seed {
         m_data.relics.clear();
         m_data.locations.clear();
         m_data.procedures.clear();
+        items::destroy_all_seed_icons();
     }
 
     app::WorldMapIconType__Enum Seed::icon(inner_location_entry location) {

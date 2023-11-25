@@ -1,3 +1,4 @@
+#include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/graphics/textures.h>
 #include <Core/core.h>

@@ -65,6 +65,8 @@ namespace core::api::messages {
         void show(bool instant = false, bool play_sound = true) const;
         void hide(bool instant = false) const;
 
+        void refresh_text() { m_should_refresh_text = true; } // Only relevant if dynamic_text is false.
+        void dynamic_text(const bool value) { m_dynamic_text = value; }
         void show_box(bool value) const;
         [[nodiscard]] app::Rect text_bounds() const;
         [[nodiscard]] app::Rect bounds() const;
@@ -94,6 +96,8 @@ namespace core::api::messages {
         app::MessageBox* m_message_box = nullptr;
         app::ScaleToTextBox* m_scaler = nullptr;
 
+        bool m_dynamic_text = false;
+        bool m_should_refresh_text = true; // Only used if dynamic_text is false
         std::string m_processed_text;
 
         DynamicValue<std::string> m_text;

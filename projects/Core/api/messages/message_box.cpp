@@ -198,6 +198,10 @@ namespace core::api::messages {
     }
 
     void MessageBox::update_text() {
+        if (!m_dynamic_text && !m_should_refresh_text) {
+            return;
+        }
+
         auto new_text = m_text.get();
         replace_all(new_text, "\\n", "\n");
         trim(new_text);

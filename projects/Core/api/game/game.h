@@ -5,9 +5,7 @@
 #include <Core/macros.h>
 
 #include <Modloader/app/structs/GameController.h>
-#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/GameStateMachine_State__Enum.h>
-#include <Modloader/app/structs/SaveGameController.h>
 
 namespace core::api::game {
     enum class RandoContainer {

@@ -169,6 +169,11 @@ namespace randomizer::online {
         return it != m_players.end() ? it->second : std::optional<MultiplayerUniverse::PlayerInfo>();
     }
 
+    Network::WorldInfo const* MultiplayerUniverse::get_world(const int id) const {
+        auto const& world = m_current_world_infos.find(id);
+        return world == m_current_world_infos.end() ? nullptr : world->second;
+    }
+
     void MultiplayerUniverse::report_player_ready(const bool ready) const {
         Network::ReportPlayerRaceReadyMessage message;
         message.set_raceready(ready);
@@ -193,13 +198,15 @@ namespace randomizer::online {
         core::api::game::event_bus().trigger_event(GameEvent::MultiverseUpdated, EventTiming::Before);
 
         m_last_multiverse_info = message;
-        auto universe = find_universe_with_player(message, m_id);
+        auto universe = find_universe_with_player(m_last_multiverse_info.value(), m_id);
         if (universe == nullptr) {
             return;
         }
 
+        m_current_universe_info = universe;
         std::unordered_map<std::string, PlayerInfo> info_players;
-        for (auto const& world : universe->worlds()) {
+        for (auto& world : universe->worlds()) {
+            m_current_world_infos[world.id()] = &world;
             for (auto const& member : world.members()) {
                 auto& player = info_players[member.id()];
                 player.universe_id = universe->id();

@@ -3,6 +3,7 @@
 #include <input/rando_bindings.h>
 #include <randomizer.h>
 
+#include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/core.h>
 #include <Core/settings.h>

@@ -4,11 +4,12 @@
 
 namespace randomizer::seed::items {
     namespace {
+        // TODO: Move this to some sort of structure that gets passed through grant requests.
         std::unordered_map<int, std::shared_ptr<game::map::Icon>> icons;
     }
 
     void CreateIcon::grant() {
-        auto icon = game::map::add_icon(flags);
+        const auto icon = add_icon(flags);
         icon->icon(type);
         icon->position(position);
         icon->can_teleport(can_teleport);
@@ -17,7 +18,15 @@ namespace randomizer::seed::items {
     }
 
     void DestroyIcon::grant() {
-        game::map::remove_icon(icons[id]);
+        remove_icon(icons[id]);
         icons.erase(id);
+    }
+
+    void destroy_all_seed_icons() {
+        for (auto& icon: icons | std::views::values) {
+            remove_icon(icon);
+        }
+
+        icons.clear();
     }
 } // namespace randomizer::seed::items

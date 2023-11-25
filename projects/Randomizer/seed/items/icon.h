@@ -3,8 +3,6 @@
 #include <Randomizer/game/map/map.h>
 #include <Randomizer/seed/items/item.h>
 
-#include <vector>
-
 namespace randomizer::seed::items {
     class CreateIcon final : public BaseItem {
     public:
@@ -24,4 +22,6 @@ namespace randomizer::seed::items {
 
         void grant() final;
     };
+
+    void destroy_all_seed_icons();
 } // namespace randomizer::seed::items
