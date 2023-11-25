@@ -188,21 +188,22 @@ namespace {
 
     IL2CPP_INTERCEPT(SpiritShardUIItem, void, UpdateShardIcon, (app::SpiritShardUIItem * this_ptr)) {
         if (is_in_shop(ShopType::Twillen)) {
-            auto slot = this_ptr->fields.m_spiritShard == nullptr ? nullptr : twillen_shop().slot(this_ptr->fields.m_spiritShard->fields.m_type);
-            auto& info = slot->active_info();
+            const auto slot = this_ptr->fields.m_spiritShard == nullptr ? nullptr : twillen_shop().slot(this_ptr->fields.m_spiritShard->fields.m_type);
+            if (slot == nullptr) {
+                const auto& info = slot->active_info();
+                const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
+                const auto is_visible = slot != nullptr && slot->visibility == SlotVisibility::Visible;
+                const auto is_locked = slot == nullptr || slot->visibility == SlotVisibility::Locked;
+                GameObject::SetActive(this_ptr->fields.IconGO, is_visible);
+                GameObject::SetActive(this_ptr->fields.LockedGO, is_locked);
+                info.icon->apply(renderer);
+                return;
+            }
+        }
 
-            auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
-            auto is_visible = slot != nullptr && slot->visibility == SlotVisibility::Visible;
-            auto is_locked = slot == nullptr || slot->visibility == SlotVisibility::Locked;
-            GameObject::SetActive(this_ptr->fields.IconGO, is_visible);
-            GameObject::SetActive(this_ptr->fields.LockedGO, is_locked);
-            info.icon->apply(renderer);
-        }
-        else {
-            auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
-            core::api::graphics::textures::apply_default(renderer);
-            next::SpiritShardUIItem::UpdateShardIcon(this_ptr);
-        }
+        const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
+        core::api::graphics::textures::apply_default(renderer);
+        next::SpiritShardUIItem::UpdateShardIcon(this_ptr);
     }
 
     IL2CPP_INTERCEPT(SpiritShardDescription, int, get_BuyCost, (app::SpiritShardDescription * this_ptr)) { return twillen_shop().slot(static_cast<app::SpiritShardType__Enum>(this_ptr->fields.InitialBuyCost))->cost.get<int>(); }
