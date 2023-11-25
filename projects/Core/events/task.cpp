@@ -30,7 +30,7 @@ namespace core::events {
                 ++it;
             }
 
-            tasks.insert(it.base(), Task{ timer + seconds, task });
+            tasks.insert(it.base(), Task{ seconds, task });
         }
     }
 

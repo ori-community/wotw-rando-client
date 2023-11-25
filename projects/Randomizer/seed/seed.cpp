@@ -134,8 +134,14 @@ namespace randomizer::seed {
     }
 
     void Seed::grant(const location_entry location, const double previous_value) {
-        if (m_should_prevent_grants || !core::api::game::in_game()) {
+        if (!core::api::game::in_game()) {
             return;
+        }
+
+        for (auto callback : m_prevent_grant_callbacks) {
+            if (callback()) {
+                return;
+            }
         }
 
         if (m_skip.contains(location)) {

@@ -1967,7 +1967,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    ItemData parse_action(const std::string_view action) {
+    std::optional<ItemData> parse_action(const std::string_view action) {
         Seed::Data data;
         const location_type location{
             { },
@@ -1991,7 +1991,6 @@ namespace randomizer::seed::legacy_parser {
             .should_add_default_messages = parts.back() != "mute"
         };
 
-        parse_action(location, parts, parser_data);
-        return location_data;
+        return parse_action(location, parts, parser_data) ? std::optional(location_data) : std::nullopt;
     }
 } // namespace randomizer::seed::legacy_parser

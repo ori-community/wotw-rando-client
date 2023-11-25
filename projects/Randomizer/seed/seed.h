@@ -62,10 +62,11 @@ namespace randomizer::seed {
         SeedInfo const& info() const { return m_data.info; }
         int total_pickups() const { return m_data.info.total_pickups; }
 
-        void prevent_grants(bool value) { m_should_prevent_grants = value; }
         std::string path() const { return m_last_path; }
 
         Relics const& relics() const { return m_data.relics; }
+
+        void prevent_grants(const std::function<bool()>& callback) { m_prevent_grant_callbacks.push_back(callback); }
 
     private:
         location_data::LocationCollection const& m_location_data;
@@ -73,6 +74,6 @@ namespace randomizer::seed {
         std::string m_last_path;
         Data m_data;
         std::unordered_set<location_entry> m_skip;
-        bool m_should_prevent_grants = false;
+        std::vector<std::function<bool()>> m_prevent_grant_callbacks;
     };
 } // namespace randomizer::seed

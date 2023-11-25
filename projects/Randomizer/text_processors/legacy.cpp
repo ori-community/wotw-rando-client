@@ -34,7 +34,11 @@ namespace randomizer::text_processors {
         std::optional<std::string> action(core::text::ITextProcessor const& base_processor, std::string_view content) {
             std::string text;
             auto item_data = seed::legacy_parser::parse_action(content);
-            for (auto const& name : item_data.names) {
+            if (!item_data.has_value()) {
+                return std::nullopt;
+            }
+
+            for (auto const& name : item_data->names) {
                 if (!text.empty()) {
                     text += "\n";
                 }
