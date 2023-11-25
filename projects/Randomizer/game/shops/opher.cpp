@@ -61,10 +61,13 @@ namespace {
         );
         SpellUIExperience::Spend(ui_experience, WeaponmasterItem::GetCostForLevel(this_ptr, level));
 
-        if (!Moon::ConditionUberState::EvaluateConditions(this_ptr->fields.Upgrade->fields.DiscountCondition)) {
-            context->ForceHideScreenOnPurchase = true;
-            context->Result = app::PurchaseResult__Enum::UsedUpDiscount;
-        }
+        // TODO: Make uber states for context->ForceHideScreenOnPurchase to be able to hide the screen after purchase via headers
+        // The commented code below is vanilla behavior and not suitable for rando.
+        //
+        // if (this_ptr->fields.Upgrade->fields.DiscountCondition != nullptr && !Moon::ConditionUberState::EvaluateConditions(this_ptr->fields.Upgrade->fields.DiscountCondition)) {
+        //     context->ForceHideScreenOnPurchase = true;
+        //     context->Result = app::PurchaseResult__Enum::UsedUpDiscount;
+        // }
 
         auto key = std::make_pair(
             this_ptr->fields.Upgrade->fields.AcquiredAbilityType,
