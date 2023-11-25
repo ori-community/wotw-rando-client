@@ -255,7 +255,6 @@ set(
 set(
         MISC_FILES
         "proto/packets.proto"
-        ".editorconfig"
         "CMakeLists.txt"
 )
 

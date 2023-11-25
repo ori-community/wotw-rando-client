@@ -19,7 +19,6 @@ set(
 
 set(
         MISC_FILES
-        ".editorconfig"
         "CMakeLists.txt"
 )
 

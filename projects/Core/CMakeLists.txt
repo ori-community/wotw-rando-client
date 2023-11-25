@@ -160,7 +160,6 @@ set(
 
 set(
         MISC_FILES
-        ".editorconfig"
         "CMakeLists.txt"
         enums/loading_state.h)
 

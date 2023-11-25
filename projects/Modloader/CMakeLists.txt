@@ -57,7 +57,6 @@ list(
 
 set(
         MISC_FILES
-        ".editorconfig"
         "CMakeLists.txt"
         "cpp.hint"
 )
