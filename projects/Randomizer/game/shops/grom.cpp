@@ -148,4 +148,25 @@ namespace {
             ShopkeeperScreen::OnNewItemHighlighted(shopkeeper_screen, false);
         }
     }
+
+    // Force project order because we disable SortByCost on shops
+    IL2CPP_INTERCEPT(BuilderScreen, void, Init, (app::BuilderScreen * this_ptr)) {
+        const auto project_teleporter = this_ptr->fields.Projects->vector[0];
+        const auto project_houses1 = this_ptr->fields.Projects->vector[1];
+        const auto project_houses2 = this_ptr->fields.Projects->vector[2];
+        const auto project_houses3 = this_ptr->fields.Projects->vector[3];
+        const auto project_cave = this_ptr->fields.Projects->vector[4];
+        const auto project_thorns = this_ptr->fields.Projects->vector[5];
+        const auto project_beautify = this_ptr->fields.Projects->vector[6];
+
+        this_ptr->fields.Projects->vector[0] = project_teleporter;
+        this_ptr->fields.Projects->vector[1] = project_houses1;
+        this_ptr->fields.Projects->vector[2] = project_thorns;
+        this_ptr->fields.Projects->vector[3] = project_houses2;
+        this_ptr->fields.Projects->vector[4] = project_cave;
+        this_ptr->fields.Projects->vector[5] = project_houses3;
+        this_ptr->fields.Projects->vector[6] = project_beautify;
+
+        next::BuilderScreen::Init(this_ptr);
+    }
 } // namespace
