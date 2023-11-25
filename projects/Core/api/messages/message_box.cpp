@@ -202,6 +202,7 @@ namespace core::api::messages {
             return;
         }
 
+        m_should_refresh_text = false;
         auto new_text = m_text.get();
         replace_all(new_text, "\\n", "\n");
         trim(new_text);
