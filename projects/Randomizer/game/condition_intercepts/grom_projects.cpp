@@ -45,7 +45,7 @@ namespace {
         );
     }
 
-    [[maybe_unused]] auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         create_build_intercept(grom_spirit_well_built, "wellspringGladesHubSetups/interactives/builderProjects/spiritWellSetup");
         create_build_intercept(grom_houses_a_built, "wellspringGladesHubSetups/interactives/builderProjects/mokiHutsSetup");
         create_build_intercept(grom_houses_b_built, "wellspringGladesHubSetups/interactives/builderProjects/mokiHutsBSetup");

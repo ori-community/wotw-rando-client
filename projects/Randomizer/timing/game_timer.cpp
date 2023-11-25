@@ -114,16 +114,16 @@ namespace randomizer::timing {
             stats_mutex.unlock();
         }
 
-        [[maybe_unused]] auto on_new_game = core::api::game::event_bus().register_handler(GameEvent::NewGame, EventTiming::Before, [](GameEvent event, EventTiming timing) {
+        auto on_new_game = core::api::game::event_bus().register_handler(GameEvent::NewGame, EventTiming::Before, [](GameEvent event, EventTiming timing) {
             reset_stats();
             loaded_any_save_file = true;
         });
 
-        [[maybe_unused]] auto on_finished_loading = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::Before, [](GameEvent event, EventTiming timing) {
+        auto on_finished_loading = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::Before, [](GameEvent event, EventTiming timing) {
             loaded_any_save_file = true;
         });
 
-        [[maybe_unused]] auto on_create_checkpoint = core::api::game::event_bus().register_handler(GameEvent::CreateCheckpoint, EventTiming::Before, [](GameEvent event, EventTiming timing) {
+        auto on_create_checkpoint = core::api::game::event_bus().register_handler(GameEvent::CreateCheckpoint, EventTiming::Before, [](GameEvent event, EventTiming timing) {
             if (!timer_should_run()) {
                 return;
             }
@@ -133,7 +133,7 @@ namespace randomizer::timing {
             stats_mutex.unlock();
         });
 
-        [[maybe_unused]] auto on_respawn = core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::Before, [](GameEvent event, EventTiming timing) {
+        auto on_respawn = core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::Before, [](GameEvent event, EventTiming timing) {
             if (!timer_should_run()) {
                 return;
             }
@@ -143,7 +143,7 @@ namespace randomizer::timing {
             stats_mutex.unlock();
         });
 
-        [[maybe_unused]] auto on_teleport = core::api::game::event_bus().register_handler(GameEvent::Teleport, EventTiming::Before, [](GameEvent event, EventTiming timing) {
+        auto on_teleport = core::api::game::event_bus().register_handler(GameEvent::Teleport, EventTiming::Before, [](GameEvent event, EventTiming timing) {
             if (!timer_should_run()) {
                 return;
             }
@@ -153,7 +153,7 @@ namespace randomizer::timing {
             stats_mutex.unlock();
         });
 
-        [[maybe_unused]] auto on_death = core::api::death_listener::player_death_event_bus().register_handler(EventTiming::Before, [](auto, auto) {
+        auto on_death = core::api::death_listener::player_death_event_bus().register_handler(EventTiming::Before, [](auto, auto) {
             if (!timer_should_run()) {
                 return;
             }
@@ -165,7 +165,7 @@ namespace randomizer::timing {
 
         float time_to_next_debug_print = 0.f;
 
-        [[maybe_unused]] auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+        auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
             // Only set these values when in game because the main menu sets some wonky states
             if (GameStateMachine::get_IsGame()) {
                 game_finished.store(game_finished_uber_state.get<bool>());
@@ -183,7 +183,7 @@ namespace randomizer::timing {
             timer_state_reporting_throttled_for -= TimeUtility::get_fixedDeltaTime();
         });
 
-        [[maybe_unused]] auto on_async_update = core::events::async_update_bus().register_handler([](float delta) {
+        auto on_async_update = core::events::async_update_bus().register_handler([](float delta) {
             if (!timer_should_run()) {
                 return;
             }
@@ -215,7 +215,7 @@ namespace randomizer::timing {
             }
         });
 
-        [[maybe_unused]] auto uber_state_notify = core::api::uber_states::notification_bus().register_handler([](auto params) {
+        auto uber_state_notify = core::api::uber_states::notification_bus().register_handler([](auto params) {
             if (params.state == game_finished_uber_state) {
                 stats_mutex.lock();
                 report_timer_state_to_external_services(save_stats->total_time, save_stats->get_total_loading_time(), false);
@@ -235,7 +235,7 @@ namespace randomizer::timing {
             }
         });
 
-        [[maybe_unused]] auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto){
+        auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto){
             reset_stats();
 
             core::ipc::register_request_handler("timer.get_stats", [](const nlohmann::json& j) {

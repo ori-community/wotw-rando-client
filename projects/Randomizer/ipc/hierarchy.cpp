@@ -57,7 +57,7 @@ namespace randomizer::ipc {
         extern nlohmann::json visualize(void* obj, std::string name, bool verbose);
 
         template <class...>
-        [[maybe_unused]] constexpr bool always_false = false;
+        constexpr bool always_false = false;
 
         template <typename T>
         nlohmann::json visualize_struct(std::string_view name, T const& value) {
