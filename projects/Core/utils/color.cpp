@@ -4,6 +4,8 @@ namespace utils {
     app::Color hex_string_to_color(std::string_view str) {
         if (str.starts_with("0x"))
             str.remove_prefix(2);
+        if (str.starts_with("#"))
+            str.remove_prefix(1);
 
         char* out = nullptr;
         auto color_channels = std::strtoul(str.data(), &out, 16);

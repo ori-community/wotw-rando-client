@@ -188,8 +188,13 @@ namespace randomizer::online {
         Network::UdpPacket udp_packet;
         udp_packet.ParseFromArray(msg.data(), static_cast<int>(msg.size()));
         auto& packet_ref = udp_packet.encryptedpacket();
-        std::vector<char> packet(packet_ref.begin(), packet_ref.end());
-        encrypt_decrypt(packet, m_udp_key);
+        std::vector<char> packet_data(packet_ref.begin(), packet_ref.end());
+        encrypt_decrypt(packet_data, m_udp_key);
+        Network::Packet packet;
+        packet.ParseFromArray(packet_data.data(), static_cast<int>(packet_data.size()));
+
+        std::lock_guard guard(m_packet_mutex);
+        m_packets.push_back(packet);
     }
 
     void NetworkClient::udp_handle_error(int error) {

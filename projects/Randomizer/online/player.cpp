@@ -15,6 +15,7 @@ namespace randomizer::online {
 
     Player::Player()
             : map_icon(std::make_unique<PlayerIcon>(PlayerIcon::Type::Moki)) {
+        map_icon->visible() = true;
     }
 
     Player::~Player() {
@@ -72,7 +73,7 @@ namespace randomizer::online {
     }
 
     void Player::set_visible_map(bool value) {
-        map_icon->visible() = true;
+        map_icon->visible() = value;
     }
 
     void Player::set_visible_world(bool value) {

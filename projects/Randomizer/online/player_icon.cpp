@@ -189,7 +189,7 @@ namespace randomizer::online {
             }
 
             m_icon_visible = should_be_visible;
-            il2cpp::unity::set_active(m_root, m_visible.get());
+            il2cpp::unity::set_active(m_root, m_icon_visible);
             for (auto& dot : m_dots) {
                 il2cpp::unity::set_active(dot.dot, m_icon_visible);
             }
@@ -212,7 +212,7 @@ namespace randomizer::online {
         auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
 
         auto& dot = m_dots[m_next_dot_index];
-        il2cpp::unity::set_active(dot.dot, m_visible.get());
+        il2cpp::unity::set_active(dot.dot, m_icon_visible);
         app::Vector3 pos{ m_map_position.x, m_map_position.y, 0.0f };
         IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, pos, false);
 
