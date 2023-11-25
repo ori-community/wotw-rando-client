@@ -11,6 +11,7 @@
 
 #define NO_MODLOADER
 
+#include <shared_memory.h>
 #include <Common/settings_reader.h>
 
 #undef NO_MODLOADER
@@ -113,6 +114,9 @@ bool load_dll(HANDLE process_handle, PTHREAD_START_ROUTINE load_function, const 
 }
 
 int main() {
+    shared_memory::SharedMemorySlot<bool> injector_running_memory_slot("OriWotWRandoInjectorRunning");
+    injector_running_memory_slot.set_value(true);
+
     find_base_path(base_path);
 
     auto settings = read_utf8_ini((base_path / SETTINGS_NAME).string());
@@ -181,5 +185,9 @@ int main() {
     }
 
     CloseHandle(process_handle);
+
+    // Wait 5 seconds to give others (like Community Patch) time to read from the shared memory slot
+    Sleep(5000);
+
     return 0;
 }
