@@ -96,11 +96,6 @@ namespace {
     }
     // ---------------------------------------------------
 
-    IL2CPP_INTERCEPT(ShopkeeperUIDetails, void, UpdateDetails2, (app::ShopkeeperUIDetails * this_ptr)) {
-        // TODO: Fix details panel on ophers shop.
-        next::ShopkeeperUIDetails::UpdateDetails2(this_ptr);
-    }
-
     std::shared_ptr<core::api::graphics::textures::TextureData> shop_icon(app::ShopkeeperItem* item) {
         if (is_in_shop(ShopType::Opher)) {
             auto opher_item = reinterpret_cast<app::WeaponmasterItem*>(item);
@@ -112,6 +107,15 @@ namespace {
             auto grom_item = reinterpret_cast<app::BuilderItem*>(item);
             return grom_shop().slot(grom_item->fields.Project->fields.UberState)->active_info().icon;
         }
+    }
+
+    IL2CPP_INTERCEPT(ShopkeeperUIDetails, void, UpdateDetails2, (app::ShopkeeperUIDetails * this_ptr)) {
+        // TODO: Fix details panel on ophers shop.
+        next::ShopkeeperUIDetails::UpdateDetails2(this_ptr);
+        const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
+        const auto texture_data = shop_icon(this_ptr->fields.m_item);
+        texture_data->apply(renderer);
+        GameObject::SetActive(this_ptr->fields.IconGO, this_ptr->fields.m_item != nullptr);
     }
 
     void set_providers(app::ShopkeeperItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider) {
