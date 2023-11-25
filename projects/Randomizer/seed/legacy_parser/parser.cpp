@@ -1512,12 +1512,6 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        bool should_always_grant = false;
-        core::api::uber_states::UberStateCondition trigger;
-        if (!parse_condition(std::span(parts.begin(), parts.begin() + 2), trigger, &should_always_grant)) {
-            return false;
-        }
-
         auto procedure_id = data.next_procedure_id++;
         auto& procedure = data.data.procedures[procedure_id];
         ParserData procedure_data{
@@ -1525,7 +1519,7 @@ namespace randomizer::seed::legacy_parser {
             .location_data = procedure,
             .next_location_id = data.next_location_id,
             .next_procedure_id = data.next_procedure_id,
-            .should_add_to_always_granted = should_always_grant,
+            .should_add_to_always_granted = false,
             .should_add_default_messages = parts.back() != "mute"
         };
 
