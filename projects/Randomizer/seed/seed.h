@@ -56,7 +56,6 @@ namespace randomizer::seed {
         app::WorldMapIconType__Enum icon(inner_location_entry location);
         std::string text(const inner_location_entry& location) const;
         void grant(location_entry location, double previous_value);
-        void skip_next(location_entry location) { m_skip.emplace(location); }
         void call_procedure(int id);
 
         SeedInfo const& info() const { return m_data.info; }
@@ -73,7 +72,6 @@ namespace randomizer::seed {
         seed_parser m_last_parser = nullptr;
         std::string m_last_path;
         Data m_data;
-        std::unordered_set<location_entry> m_skip;
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
     };
 } // namespace randomizer::seed

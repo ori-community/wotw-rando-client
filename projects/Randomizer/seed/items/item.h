@@ -14,9 +14,11 @@ namespace randomizer::seed::items {
         }
 
         virtual ~BaseItem() {}
-        virtual void grant()= 0;
+        virtual void grant() = 0;
+        virtual std::string to_string() = 0;
 
         core::DynamicValue<bool> stop;
         core::DynamicValue<uint32_t> skip;
+        std::string line;
     };
 } // namespace randomizer::seed::items

@@ -6,6 +6,8 @@
 
 namespace randomizer::seed::items {
 
+    extern bool prevent_grants_on_value_modify;
+
     enum class ValueOperator {
         Assign,
         Add,
@@ -21,10 +23,20 @@ namespace randomizer::seed::items {
         using value_type = core::DynamicValue<T>;
         value_type variable;
         value_type value;
+        bool should_skip_grants = false;
 
         void grant() final {
             const auto actual_value = value.get();
+            if (should_skip_grants) {
+                prevent_grants_on_value_modify = true;
+            }
+
             variable.set(actual_value);
+            prevent_grants_on_value_modify = false;
+        }
+
+        std::string to_string() override {
+            return std::format("{} = {}", core::dv_to_string<T>(variable), core::dv_to_string<T>(value));
         }
     };
 
@@ -34,10 +46,20 @@ namespace randomizer::seed::items {
         using value_type = core::DynamicValue<T>;
         value_type variable;
         value_type value;
+        bool should_skip_grants = false;
 
         void grant() final {
             const auto actual_value = value.get();
+            if (should_skip_grants) {
+                prevent_grants_on_value_modify = true;
+            }
+
             variable.add(actual_value);
+            prevent_grants_on_value_modify = false;
+        }
+
+        std::string to_string() override {
+            return std::format("{} += {}", core::dv_to_string<T>(variable), core::dv_to_string<T>(value));
         }
     };
 
@@ -47,10 +69,20 @@ namespace randomizer::seed::items {
         using value_type = core::DynamicValue<T>;
         value_type variable;
         value_type value;
+        bool should_skip_grants = false;
 
-        void grant() final {
+        void grant() override {
             const auto actual_value = -value.get();
+            if (should_skip_grants) {
+                prevent_grants_on_value_modify = true;
+            }
+
             variable.add(actual_value);
+            prevent_grants_on_value_modify = false;
+        }
+
+        std::string to_string() override {
+            return std::format("{} -= {}", core::dv_to_string<T>(variable), core::dv_to_string<T>(value));
         }
     };
 } // namespace randomizer::seed::items

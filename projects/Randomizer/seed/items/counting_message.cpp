@@ -39,6 +39,11 @@ namespace randomizer::seed::items {
             );
         }
 
+        general_text_processor()->process(*general_text_processor(), message);
         return message;
+    }
+
+    std::string CountingMessage::to_string() {
+        return std::format("counting message '{}'", message_text());
     }
 } // namespace randomizer::seed::items

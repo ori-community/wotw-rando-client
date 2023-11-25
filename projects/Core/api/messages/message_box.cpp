@@ -197,6 +197,11 @@ namespace core::api::messages {
         };
     }
 
+    void MessageBox::refresh_text() {
+        m_should_refresh_text = true;
+        update_text();
+    }
+
     void MessageBox::update_text() {
         if (!m_dynamic_text && !m_should_refresh_text) {
             return;

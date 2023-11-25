@@ -1,3 +1,4 @@
+#include <magic_enum.hpp>
 #include <seed/items/refill.h>
 
 #include <Core/api/game/player.h>
@@ -18,5 +19,9 @@ namespace randomizer::seed::items {
         if (actual_type != RefillType::Health) {
             core::api::game::player::refill_energy();
         }
+    }
+
+    std::string Refill::to_string() {
+        return std::format("refill {}", magic_enum::enum_name(type));
     }
 } // namespace randomizer::seed::items

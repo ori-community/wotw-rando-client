@@ -9,6 +9,7 @@ namespace randomizer::seed::items {
     public:
         core::api::uber_states::UberState state;
 
-        void grant() final;
+        void grant() override;
+        std::string to_string() override;
     };
 } // namespace randomizer::seed::items

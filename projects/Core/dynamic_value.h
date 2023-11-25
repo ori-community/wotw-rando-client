@@ -57,4 +57,21 @@ namespace core {
             [value](auto v) mutable { value.template set<To>(static_cast<From>(v)); }
         ));
     }
+
+    template<typename T>
+    std::string dv_to_string(DynamicValue<T> const& value) requires dynamic_value::is_uber_state<T> {
+        const auto is_uber_state = value.container().value.index();
+        if (is_uber_state == 1) {
+            auto const& state = std::get<1>(value.container().value);
+            return std::format("({}|{}): {}", state.group_int(), state.state(), value.get());
+        } else {
+            return std::format("{} ", value.get());
+        }
+    }
+
+
+    template<typename T>
+    std::string dv_to_string(DynamicValue<T> const& value) requires dynamic_value::is_not_uber_state<T> {
+        return std::format("{}", value.get());
+    }
 } // namespace core

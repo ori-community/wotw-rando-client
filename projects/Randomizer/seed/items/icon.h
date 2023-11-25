@@ -14,6 +14,7 @@ namespace randomizer::seed::items {
         bool can_teleport;
 
         void grant() final;
+        std::string to_string() override;
     };
 
     class DestroyIcon final : public BaseItem {
@@ -21,6 +22,7 @@ namespace randomizer::seed::items {
         int id;
 
         void grant() final;
+        std::string to_string() override;
     };
 
     void destroy_all_seed_icons();

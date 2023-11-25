@@ -25,6 +25,7 @@ namespace randomizer::messages {
         }
 
         box->text().set(text);
+        box->refresh_text();
         box->show(true);
     }
 

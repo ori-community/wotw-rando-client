@@ -14,5 +14,6 @@ namespace randomizer::seed::items {
         RefillType type;
 
         void grant() final;
+        std::string to_string() override;
     };
 } // namespace randomizer::seed::items

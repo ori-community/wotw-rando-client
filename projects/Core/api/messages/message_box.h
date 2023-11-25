@@ -65,7 +65,7 @@ namespace core::api::messages {
         void show(bool instant = false, bool play_sound = true) const;
         void hide(bool instant = false) const;
 
-        void refresh_text() { m_should_refresh_text = true; } // Only relevant if dynamic_text is false.
+        void refresh_text();
         void dynamic_text(const bool value) { m_dynamic_text = value; }
         void show_box(bool value) const;
         [[nodiscard]] app::Rect text_bounds() const;
@@ -86,7 +86,6 @@ namespace core::api::messages {
         [[nodiscard]] DynamicValue<float>& left_padding() { return m_left_padding; }
         [[nodiscard]] DynamicValue<float>& right_padding() { return m_right_padding; }
         [[nodiscard]] DynamicValue<std::optional<ScreenPosition>>& screen_position() { return m_screen_position; }
-
     private:
         void update_text();
         app::Transform* background_transform() const;

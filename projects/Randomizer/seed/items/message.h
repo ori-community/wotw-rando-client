@@ -10,13 +10,15 @@ namespace randomizer::seed::items {
         core::messages::MessageInfo info;
         bool should_save_as_last = false;
 
-        void grant();
+        void grant() override;
+        std::string to_string() override;
     };
 
     class MapMessage final : public BaseItem {
     public:
         std::string message;
 
-        void grant();
+        void grant() override;
+        std::string to_string() override;
     };
 } // namespace randomizer::seed::items

@@ -65,6 +65,7 @@ namespace core::dynamic_value {
         void text_processor(std::shared_ptr<text::ITextProcessor> const& text_processor)
             requires(std::is_same_v<T, std::string>);
 
+        DynamicValueContainer<T, CanSet, CanGet, EnableUberState> const& container() const { return m_container; }
     private:
         DynamicValueContainer<T, CanSet, CanGet, EnableUberState> m_container;
         bool m_locked = false;

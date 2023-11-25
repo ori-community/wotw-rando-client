@@ -2,10 +2,16 @@ namespace core::dynamic_value {
     template <typename T>
     struct is_uber_state_type { // NOLINT
         static bool const VALUE =
-            std::is_integral<T>::value ||
-            std::is_floating_point<T>::value ||
-            std::is_same<T, bool>::value;
+            std::is_integral_v<T> ||
+            std::is_floating_point_v<T> ||
+            std::is_same_v<T, bool>;
     };
+
+    template<typename T>
+    concept is_uber_state = is_uber_state_type<T>::VALUE;
+
+    template<typename T>
+    concept is_not_uber_state = !is_uber_state_type<T>::VALUE;
 
     template <typename T>
     struct DynamicValueType<T, true, true> {
