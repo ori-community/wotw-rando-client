@@ -183,6 +183,10 @@ namespace randomizer::input {
             add_bindings(this_ptr->fields.DialogueOption3, Action::DialogueOption3);
             add_bindings(this_ptr->fields.DialogueExit, Action::DialogueExit);
             add_bindings(this_ptr->fields.OpenMapsShardsInventory, Action::OpenMapsShardsInventory);
+            add_bindings(this_ptr->fields.OpenAreaMap, Action::OpenAreaMap);
+            add_bindings(this_ptr->fields.OpenInventory, Action::OpenInventory);
+            add_bindings(this_ptr->fields.OpenWorldMap, Action::OpenWorldMap);
+            add_bindings(this_ptr->fields.OpenShards, Action::OpenShards);
             add_bindings(this_ptr->fields.OpenWeaponWheel, Action::OpenWeaponWheel);
             add_bindings(this_ptr->fields.PauseScreen, Action::PauseScreen);
             add_bindings(this_ptr->fields.LiveSignIn, Action::LiveSignIn);
