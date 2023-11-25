@@ -69,8 +69,24 @@ namespace {
     bool overwrite_shard = false;
     app::PlayerUberStateShards_Shard* selected_shard;
 
+    const std::unordered_map<app::SpiritShardType__Enum, int> SHOP_ORDER = {
+        { app::SpiritShardType__Enum::Energy, 0 },
+        { app::SpiritShardType__Enum::Vitality, 1 },
+        { app::SpiritShardType__Enum::AntiAir, 2 },
+        { app::SpiritShardType__Enum::CombatLuck, 3 },
+        { app::SpiritShardType__Enum::SpiritLightLuck, 4 },
+        { app::SpiritShardType__Enum::GlassCannon, 5 },
+        { app::SpiritShardType__Enum::Swap, 6 },
+        { app::SpiritShardType__Enum::TripleJump, 7 },
+    };
+
     // Prevent Twillen from cleaning up (sorting) his shop
-    IL2CPP_INTERCEPT(SpiritShardsShopScreen___c, int32_t, _PopulateInventoryCanvasWithShards_b__68_0, (app::SpiritShardsShopScreen_c * this_ptr, app::Object* x, app::Object* y)) { return 0; }
+    IL2CPP_INTERCEPT(SpiritShardsShopScreen___c, int32_t, _PopulateInventoryCanvasWithShards_b__68_0, (app::SpiritShardsShopScreen_c * this_ptr, app::Object* a, app::Object* b)) {
+        const auto shard_a = reinterpret_cast<app::PlayerUberStateShards_Shard*>(a);
+        const auto shard_b = reinterpret_cast<app::PlayerUberStateShards_Shard*>(b);
+
+        return SHOP_ORDER.at(shard_a->fields.m_type) - SHOP_ORDER.at(shard_b->fields.m_type);
+    }
 
     IL2CPP_INTERCEPT(SpiritShardsShopScreen, void, UpdateContextCanvasShards, (app::SpiritShardsShopScreen * this_ptr)) {
         modloader::ScopedSetter setter(overwrite_shard, is_in_shop(ShopType::Twillen));
