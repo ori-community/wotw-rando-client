@@ -114,27 +114,71 @@ namespace randomizer::game::shops {
         return tuley;
     }
 
-    // Need to use core::api::uber_states::UberState directly because lupo, grom and tuley all use it
-    using universal_key = std::variant<opher_key, twillen_key, core::api::uber_states::UberState>;
-    std::unordered_map<core::api::uber_states::UberState, universal_key> state_to_key;
+    struct UniversalKey {
+        union {
+            opher_key opher;
+            twillen_key twillen;
+            lupo_key lupo;
+            grom_key grom;
+            tuley_key tuley;
+        };
 
+        int type;
+
+        static UniversalKey create_opher(app::AbilityType__Enum first, app::AbilityType__Enum second) {
+            return UniversalKey {
+                .opher = std::make_pair(first, second),
+                .type = 0
+            };
+        }
+
+        static UniversalKey create_twillen(app::SpiritShardType__Enum shard) {
+            return UniversalKey {
+                .twillen = shard,
+                .type = 1
+            };
+        }
+
+        static UniversalKey create_lupo(const core::api::uber_states::UberState state) {
+            return UniversalKey {
+                .lupo = state,
+                .type = 2
+            };
+        }
+
+        static UniversalKey create_grom(const core::api::uber_states::UberState state) {
+            return UniversalKey {
+                .grom = state,
+                .type = 3
+            };
+        }
+
+        static UniversalKey create_tuley(const core::api::uber_states::UberState state) {
+            return UniversalKey {
+                .tuley = state,
+                .type = 4
+            };
+        }
+    };
+
+    std::unordered_map<core::api::uber_states::UberState, UniversalKey> state_to_key;
     ShopSlot* shop_slot_from_state(const core::api::uber_states::UberState state) {
         const auto it = state_to_key.find(state);
         if (it == state_to_key.end()) {
             return nullptr;
         }
 
-        switch (it->second.index()) {
+        switch (it->second.type) {
             case 0:
-                return opher.slot(std::get<0>(it->second));
+                return opher.slot(it->second.opher);
             case 1:
-                return twillen.slot(std::get<1>(it->second));
+                return twillen.slot(it->second.twillen);
             case 2:
-                return lupo.slot(std::get<2>(it->second));
+                return lupo.slot(it->second.lupo);
             case 3:
-                return grom.slot(std::get<2>(it->second));
+                return grom.slot(it->second.grom);
             default:
-                return tuley.slot(std::get<2>(it->second));
+                return tuley.slot(it->second.tuley);
         }
     }
 
@@ -180,55 +224,56 @@ namespace randomizer::game::shops {
 
     // Resets all data to default before the seed changes them.
     void reset_shop_data() {
-        state_to_key = std::unordered_map<core::api::uber_states::UberState, universal_key>{
+        using namespace core::api::uber_states;
+        state_to_key = std::unordered_map<UberState, UniversalKey>{
             // Opher
-            { core::api::uber_states::UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::WaterBreath)), std::make_pair(app::AbilityType__Enum::WaterBreath, app::AbilityType__Enum::None) },
-            { core::api::uber_states::UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::SpiritSpearSpell)), std::make_pair(app::AbilityType__Enum::SpiritSpearSpell, app::AbilityType__Enum::None) },
-            { core::api::uber_states::UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::Hammer)), std::make_pair(app::AbilityType__Enum::Hammer, app::AbilityType__Enum::None) },
-            { core::api::uber_states::UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::TeleportSpell)), std::make_pair(app::AbilityType__Enum::None, app::AbilityType__Enum::None) },
-            { core::api::uber_states::UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::ChakramSpell)), std::make_pair(app::AbilityType__Enum::ChakramSpell, app::AbilityType__Enum::None) },
-            { core::api::uber_states::UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::Blaze)), std::make_pair(app::AbilityType__Enum::Blaze, app::AbilityType__Enum::None) },
-            { core::api::uber_states::UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::TurretSpell)), std::make_pair(app::AbilityType__Enum::TurretSpell, app::AbilityType__Enum::None) },
-            { core::api::uber_states::UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::SpiritSpearSpell)), std::make_pair(app::AbilityType__Enum::None, app::AbilityType__Enum::SpiritSpearSpell) },
-            { core::api::uber_states::UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::Hammer)), std::make_pair(app::AbilityType__Enum::None, app::AbilityType__Enum::Hammer) },
-            { core::api::uber_states::UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::ChakramSpell)), std::make_pair(app::AbilityType__Enum::None, app::AbilityType__Enum::ChakramSpell) },
-            { core::api::uber_states::UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::Blaze)), std::make_pair(app::AbilityType__Enum::None, app::AbilityType__Enum::Blaze) },
-            { core::api::uber_states::UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::TurretSpell)), std::make_pair(app::AbilityType__Enum::None, app::AbilityType__Enum::TurretSpell) },
+            { UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::WaterBreath)), UniversalKey::create_opher(app::AbilityType__Enum::WaterBreath, app::AbilityType__Enum::None) },
+            { UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::SpiritSpearSpell)), UniversalKey::create_opher(app::AbilityType__Enum::SpiritSpearSpell, app::AbilityType__Enum::None) },
+            { UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::Hammer)), UniversalKey::create_opher(app::AbilityType__Enum::Hammer, app::AbilityType__Enum::None) },
+            { UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::TeleportSpell)), UniversalKey::create_opher(app::AbilityType__Enum::None, app::AbilityType__Enum::None) },
+            { UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::ChakramSpell)), UniversalKey::create_opher(app::AbilityType__Enum::ChakramSpell, app::AbilityType__Enum::None) },
+            { UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::Blaze)), UniversalKey::create_opher(app::AbilityType__Enum::Blaze, app::AbilityType__Enum::None) },
+            { UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::TurretSpell)), UniversalKey::create_opher(app::AbilityType__Enum::TurretSpell, app::AbilityType__Enum::None) },
+            { UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::SpiritSpearSpell)), UniversalKey::create_opher(app::AbilityType__Enum::None, app::AbilityType__Enum::SpiritSpearSpell) },
+            { UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::Hammer)), UniversalKey::create_opher(app::AbilityType__Enum::None, app::AbilityType__Enum::Hammer) },
+            { UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::ChakramSpell)), UniversalKey::create_opher(app::AbilityType__Enum::None, app::AbilityType__Enum::ChakramSpell) },
+            { UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::Blaze)), UniversalKey::create_opher(app::AbilityType__Enum::None, app::AbilityType__Enum::Blaze) },
+            { UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::TurretSpell)), UniversalKey::create_opher(app::AbilityType__Enum::None, app::AbilityType__Enum::TurretSpell) },
 
             // Twillen
-            { core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::GlassCannon)), app::SpiritShardType__Enum::GlassCannon },
-            { core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::TripleJump)), app::SpiritShardType__Enum::TripleJump },
-            { core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::AntiAir)), app::SpiritShardType__Enum::AntiAir },
-            { core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::Swap)), app::SpiritShardType__Enum::Swap },
-            { core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::SpiritLightLuck)), app::SpiritShardType__Enum::SpiritLightLuck },
-            { core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::Vitality)), app::SpiritShardType__Enum::Vitality },
-            { core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::Energy)), app::SpiritShardType__Enum::Energy },
-            { core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::CombatLuck)), app::SpiritShardType__Enum::CombatLuck },
+            { UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::GlassCannon)), UniversalKey::create_twillen(app::SpiritShardType__Enum::GlassCannon) },
+            { UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::TripleJump)), UniversalKey::create_twillen(app::SpiritShardType__Enum::TripleJump) },
+            { UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::AntiAir)), UniversalKey::create_twillen(app::SpiritShardType__Enum::AntiAir) },
+            { UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::Swap)), UniversalKey::create_twillen(app::SpiritShardType__Enum::Swap) },
+            { UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::SpiritLightLuck)), UniversalKey::create_twillen(app::SpiritShardType__Enum::SpiritLightLuck) },
+            { UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::Vitality)), UniversalKey::create_twillen(app::SpiritShardType__Enum::Vitality) },
+            { UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::Energy)), UniversalKey::create_twillen(app::SpiritShardType__Enum::Energy) },
+            { UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::CombatLuck)), UniversalKey::create_twillen(app::SpiritShardType__Enum::CombatLuck) },
 
             // Lupo
-            { core::api::uber_states::UberState(UberStateGroup::npcsStateGroup, 19396), core::api::uber_states::UberState(UberStateGroup::npcsStateGroup, 19396) },
-            { core::api::uber_states::UberState(UberStateGroup::npcsStateGroup, 57987), core::api::uber_states::UberState(UberStateGroup::npcsStateGroup, 57987) },
-            { core::api::uber_states::UberState(UberStateGroup::npcsStateGroup, 41666), core::api::uber_states::UberState(UberStateGroup::npcsStateGroup, 41666) },
+            { UberState(UberStateGroup::npcsStateGroup, 19396), UniversalKey::create_lupo(UberState(UberStateGroup::npcsStateGroup, 19396)) },
+            { UberState(UberStateGroup::npcsStateGroup, 57987), UniversalKey::create_lupo(UberState(UberStateGroup::npcsStateGroup, 57987)) },
+            { UberState(UberStateGroup::npcsStateGroup, 41666), UniversalKey::create_lupo(UberState(UberStateGroup::npcsStateGroup, 41666)) },
 
             // Grom
-            { core::api::uber_states::UberState(core::api::uber_states::UberState(UberStateGroup::GromShop, 15068)), core::api::uber_states::UberState(42178, 15068) }, // Beautify
-            { core::api::uber_states::UberState(core::api::uber_states::UberState(UberStateGroup::GromShop, 51230)), core::api::uber_states::UberState(42178, 51230) }, // Houses
-            { core::api::uber_states::UberState(core::api::uber_states::UberState(UberStateGroup::GromShop, 23607)), core::api::uber_states::UberState(42178, 23607) }, // Houses B
-            { core::api::uber_states::UberState(core::api::uber_states::UberState(UberStateGroup::GromShop, 40448)), core::api::uber_states::UberState(42178, 40448) }, // Houses C
-            { core::api::uber_states::UberState(core::api::uber_states::UberState(UberStateGroup::GromShop, 16586)), core::api::uber_states::UberState(42178, 16586) }, // Open Cave
-            { core::api::uber_states::UberState(core::api::uber_states::UberState(UberStateGroup::GromShop, 18751)), core::api::uber_states::UberState(42178, 18751) }, // Remove Thorns
-            { core::api::uber_states::UberState(core::api::uber_states::UberState(UberStateGroup::GromShop, 16825)), core::api::uber_states::UberState(42178, 16825) }, // Spirit Well
+            { UberState(UberStateGroup::GromShop, 15068), UniversalKey::create_grom(UberState(42178, 15068)) }, // Beautify
+            { UberState(UberStateGroup::GromShop, 51230), UniversalKey::create_grom(UberState(42178, 51230)) }, // Houses
+            { UberState(UberStateGroup::GromShop, 23607), UniversalKey::create_grom(UberState(42178, 23607)) }, // Houses B
+            { UberState(UberStateGroup::GromShop, 40448), UniversalKey::create_grom(UberState(42178, 40448)) }, // Houses C
+            { UberState(UberStateGroup::GromShop, 16586), UniversalKey::create_grom(UberState(42178, 16586)) }, // Open Cave
+            { UberState(UberStateGroup::GromShop, 18751), UniversalKey::create_grom(UberState(42178, 18751)) }, // Remove Thorns
+            { UberState(UberStateGroup::GromShop, 16825), UniversalKey::create_grom(UberState(42178, 16825)) }, // Spirit Well
 
             // Tuley
-            { core::api::uber_states::UberState(core::api::uber_states::UberState(UberStateGroup::TuleyShop, 47651)), core::api::uber_states::UberState(42178, 47651) }, // Bash Plants
-            { core::api::uber_states::UberState(core::api::uber_states::UberState(UberStateGroup::TuleyShop, 16254)), core::api::uber_states::UberState(42178, 16254) }, // Flowers
-            { core::api::uber_states::UberState(core::api::uber_states::UberState(UberStateGroup::TuleyShop, 33011)), core::api::uber_states::UberState(42178, 33011) }, // Grapple Plants
-            { core::api::uber_states::UberState(core::api::uber_states::UberState(UberStateGroup::TuleyShop, 64583)), core::api::uber_states::UberState(42178, 64583) }, // Grass
-            { core::api::uber_states::UberState(core::api::uber_states::UberState(UberStateGroup::TuleyShop, 38393)), core::api::uber_states::UberState(42178, 38393) }, // Spring Plants
-            { core::api::uber_states::UberState(core::api::uber_states::UberState(UberStateGroup::TuleyShop, 40006)), core::api::uber_states::UberState(42178, 40006) }, // Tree
+            { UberState(UberStateGroup::TuleyShop, 47651), UniversalKey::create_tuley(UberState(42178, 47651)) }, // Bash Plants
+            { UberState(UberStateGroup::TuleyShop, 16254), UniversalKey::create_tuley(UberState(42178, 16254)) }, // Flowers
+            { UberState(UberStateGroup::TuleyShop, 33011), UniversalKey::create_tuley(UberState(42178, 33011)) }, // Grapple Plants
+            { UberState(UberStateGroup::TuleyShop, 64583), UniversalKey::create_tuley(UberState(42178, 64583)) }, // Grass
+            { UberState(UberStateGroup::TuleyShop, 38393), UniversalKey::create_tuley(UberState(42178, 38393)) }, // Spring Plants
+            { UberState(UberStateGroup::TuleyShop, 40006), UniversalKey::create_tuley(UberState(42178, 40006)) }, // Tree
         };
 
-        std::vector<std::tuple<int, ShopSlot*, core::api::uber_states::UberState, core::api::uber_states::UberState>> shop_data{
+        std::vector<std::tuple<int, ShopSlot*, UberState, UberState>> shop_data{
             // Opher
             { 13000, opher.slot(opher_keys[0]), { UberStateGroup::OpherShop, 23 }, { UberStateGroup::OpherShop, 10023 } },
             { 13010, opher.slot(opher_keys[1]), { UberStateGroup::OpherShop, 74 }, { UberStateGroup::OpherShop, 10074 } },

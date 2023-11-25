@@ -189,7 +189,7 @@ namespace {
     IL2CPP_INTERCEPT(SpiritShardUIItem, void, UpdateShardIcon, (app::SpiritShardUIItem * this_ptr)) {
         if (is_in_shop(ShopType::Twillen)) {
             const auto slot = this_ptr->fields.m_spiritShard == nullptr ? nullptr : twillen_shop().slot(this_ptr->fields.m_spiritShard->fields.m_type);
-            if (slot == nullptr) {
+            if (slot != nullptr) {
                 const auto& info = slot->active_info();
                 const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
                 const auto is_visible = slot != nullptr && slot->visibility == SlotVisibility::Visible;

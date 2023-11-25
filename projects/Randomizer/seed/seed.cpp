@@ -31,7 +31,7 @@ namespace randomizer::seed {
     void set_shop_slot_titles(Seed const& seed, std::vector<game::shops::ShopSlot*> const& slots) {
         for (auto& slot : slots) {
             const auto slot_text = seed.text(core::api::uber_states::UberStateCondition{ slot->state, BooleanOperator::Greater, 0 });
-            slot->normal.name.set(!slot_text.empty() ? slot_text : std::format("Empty {}", slot->state.state()));
+            slot->normal.name.set(!slot_text.empty() ? slot_text : "Empty");
         }
     }
 
