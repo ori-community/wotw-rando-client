@@ -1512,6 +1512,12 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
+        bool should_always_grant = false;
+        core::api::uber_states::UberStateCondition trigger;
+        if (!parse_condition(std::span(parts.begin(), parts.begin() + 2), trigger, &should_always_grant)) {
+            return false;
+        }
+
         auto procedure_id = data.next_procedure_id++;
         auto& procedure = data.data.procedures[procedure_id];
         ParserData procedure_data{
@@ -1519,6 +1525,8 @@ namespace randomizer::seed::legacy_parser {
             .location_data = procedure,
             .next_location_id = data.next_location_id,
             .next_procedure_id = data.next_procedure_id,
+            .should_add_to_always_granted = should_always_grant,
+            .should_add_default_messages = parts.back() != "mute"
         };
 
         if (!parse_action(location, std::span<std::string>(parts.begin() + 3, parts.end()), procedure_data)) {
@@ -1971,15 +1979,18 @@ namespace randomizer::seed::legacy_parser {
         int next_location_id = 0;
         int next_procedure_id = 0;
 
+        std::vector<std::string> parts;
+        parse_parts(action, parts);
+
         ParserData parser_data{
             .data = data,
             .location_data = location_data,
             .next_location_id = next_location_id,
-            .next_procedure_id = next_procedure_id
+            .next_procedure_id = next_procedure_id,
+            .should_add_to_always_granted = false,
+            .should_add_default_messages = parts.back() != "mute"
         };
 
-        std::vector<std::string> parts;
-        parse_parts(action, parts);
         parse_action(location, parts, parser_data);
         return location_data;
     }
