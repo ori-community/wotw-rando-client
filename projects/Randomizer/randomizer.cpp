@@ -8,6 +8,7 @@
 #include <Randomizer/text_processors/ability.h>
 #include <Randomizer/text_processors/control.h>
 #include <Randomizer/text_processors/legacy.h>
+#include <Randomizer/text_processors/multiplayer.h>
 #include <Randomizer/text_processors/shard.h>
 #include <Randomizer/text_processors/uber_state.h>
 #include <Randomizer/timer.h>
@@ -158,6 +159,7 @@ namespace randomizer {
             text_processor->compose(std::make_shared<text_processors::ShardProcessor>());
             text_processor->compose(std::make_shared<text_processors::SeedProcessor>());
             text_processor->compose(std::make_shared<text_processors::LegacyProcessor>());
+            text_processor->compose(std::make_shared<text_processors::MultiplayerProcessor>());
 
             core::message_controller().central_display().text_processor(text_processor);
             load_seed(false);

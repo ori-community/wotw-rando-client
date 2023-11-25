@@ -67,7 +67,7 @@ namespace randomizer::online {
         Network::MultiverseInfoMessage::GameHandlerType m_game_type = Network::MultiverseInfoMessage_GameHandlerType_Normal;
         std::optional<Network::MultiverseInfoMessage> m_last_multiverse_info;
         std::optional<Network::UniverseInfo const*> m_current_universe_info;
-        std::unordered_map<int, Network::WorldInfo const*> m_current_world_infos;
+        std::vector<Network::WorldInfo const*> m_current_world_infos;
 
         std::unordered_map<std::string, PlayerInfo> m_players;
         std::unordered_map<std::string, std::unique_ptr<Player>> m_player_avatars;

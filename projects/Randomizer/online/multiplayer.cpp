@@ -170,8 +170,7 @@ namespace randomizer::online {
     }
 
     Network::WorldInfo const* MultiplayerUniverse::get_world(const int id) const {
-        auto const& world = m_current_world_infos.find(id);
-        return world == m_current_world_infos.end() ? nullptr : world->second;
+        return id < 0 || id >= m_current_world_infos.size() ? nullptr : m_current_world_infos[id];
     }
 
     void MultiplayerUniverse::report_player_ready(const bool ready) const {
@@ -204,9 +203,10 @@ namespace randomizer::online {
         }
 
         m_current_universe_info = universe;
+        m_current_world_infos.clear();
         std::unordered_map<std::string, PlayerInfo> info_players;
         for (auto& world : universe->worlds()) {
-            m_current_world_infos[world.id()] = &world;
+            m_current_world_infos.push_back(&world);
             for (auto const& member : world.members()) {
                 auto& player = info_players[member.id()];
                 player.universe_id = universe->id();

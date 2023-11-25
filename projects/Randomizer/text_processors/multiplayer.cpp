@@ -13,7 +13,12 @@ namespace randomizer::text_processors {
                 return std::nullopt;
             }
 
-            return multiplayer_universe().get_world(id)->name();
+            const auto world = multiplayer_universe().get_world(id);
+            if (world == nullptr) {
+                return std::nullopt;
+            }
+
+            return world->name();
         }
     } // namespace
 
