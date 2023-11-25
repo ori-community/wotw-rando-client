@@ -190,8 +190,8 @@ namespace {
             if (slot != nullptr) {
                 const auto& info = slot->active_info();
                 const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
-                const auto is_visible = slot != nullptr && slot->visibility == SlotVisibility::Visible;
-                const auto is_locked = slot == nullptr || slot->visibility == SlotVisibility::Locked;
+                const auto is_visible = slot->visibility == SlotVisibility::Visible;
+                const auto is_locked = slot->visibility == SlotVisibility::Locked;
                 GameObject::SetActive(this_ptr->fields.IconGO, is_visible);
                 GameObject::SetActive(this_ptr->fields.LockedGO, is_locked);
                 info.icon->apply(renderer);
