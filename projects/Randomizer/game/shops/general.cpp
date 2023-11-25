@@ -57,7 +57,10 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(ShopkeeperScreen, void, PopulateInventoryCanvasWithUpgrades, (app::ShopkeeperScreen * this_ptr)) {
-        this_ptr->fields.SortedByCost = true; // This is needed to run the sort, but we override it with our custom sort function
+        if (!il2cpp::is_assignable(this_ptr, types::WeaponmasterScreen::get_class())) {
+            this_ptr->fields.SortedByCost = true; // This is needed to run the sort, but we override it with our custom sort function
+        }
+
         next::ShopkeeperScreen::PopulateInventoryCanvasWithUpgrades(this_ptr);
     }
 
