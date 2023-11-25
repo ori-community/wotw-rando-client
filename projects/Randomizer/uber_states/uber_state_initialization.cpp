@@ -700,6 +700,15 @@ namespace randomizer {
             );
 
             register_virtual_state(
+                std::make_pair(UberStateGroup::GameState, 7),
+                "On Restore Checkpoint",
+                core::DynamicValue<double>(core::set_get<double>{
+                    [](double x) {},
+                    []() { return 1; },
+                })
+            );
+
+            register_virtual_state(
                 std::make_pair(UberStateGroup::GameState, 8),
                 "On Progress Hint",
                 core::DynamicValue<double>(core::set_get<double>{

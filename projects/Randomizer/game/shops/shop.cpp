@@ -346,10 +346,6 @@ namespace randomizer::game::shops {
         initialized = true;
     }
 
-    auto on_before_seed_loaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::Before, [](auto, auto) {
-        reset_shop_data();
-    });
-
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         reset_shop_data();
     });

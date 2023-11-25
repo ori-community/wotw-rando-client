@@ -123,6 +123,10 @@ namespace randomizer {
         auto on_after_seed_load = randomizer::event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto){ seed_loaded(); });
         auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [](auto, auto){ seed_loaded(); });
 
+        auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
+            randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::GameState, 7), 0);
+        });
+
         auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
             randomizer_seed.grant(params.state, params.value);
         });

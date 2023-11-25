@@ -51,9 +51,9 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SaveGameController, void, RestoreCheckpoint, (app::SaveGameController * this_ptr)) {
-        core::api::game::event_bus().trigger_event(GameEvent::FinishedLoadingCheckpoint, EventTiming::Before);
+        core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::Before);
         next::SaveGameController::RestoreCheckpoint(this_ptr);
-        core::api::game::event_bus().trigger_event(GameEvent::FinishedLoadingCheckpoint, EventTiming::After);
+        core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::After);
     }
 
     IL2CPP_INTERCEPT(SeinHealthController, void, OnRespawn, (app::SeinHealthController * this_ptr)) {

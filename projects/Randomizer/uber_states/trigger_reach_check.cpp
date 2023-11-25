@@ -16,7 +16,7 @@ namespace randomizer::uber_states {
         auto on_after_respawn = core::api::game::event_bus().register_handler(
             GameEvent::Respawn, EventTiming::After, [](auto, auto) { queue_reach_check(); });
         auto on_after_checkpoint_loaded = core::api::game::event_bus().register_handler(
-            GameEvent::FinishedLoadingCheckpoint, EventTiming::After, [](auto, auto) { queue_reach_check(); });
+            GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) { queue_reach_check(); });
         auto on_after_save_loaded = core::api::game::event_bus().register_handler(
             GameEvent::FinishedLoadingSave, EventTiming::After, [](auto, auto) { queue_reach_check(); });
 

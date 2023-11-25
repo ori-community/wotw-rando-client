@@ -21,7 +21,7 @@ namespace randomizer::online {
         m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [this](auto, auto) { update(); }));
         m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [this](auto, auto) { request_full_sync(); }));
         m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [this](auto, auto) { request_full_sync(); }));
-        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingCheckpoint, EventTiming::After, [this](auto, auto) { request_full_sync(); }));
+        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [this](auto, auto) { request_full_sync(); }));
         m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [this](auto, auto) { on_load(); }));
         m_bus_handles.emplace_back(core::api::uber_states::notification_bus().register_handler(
             [this](auto params) {
