@@ -54,6 +54,7 @@ namespace randomizer::seed {
                     .prioritized = true,
                 }
             );
+            return;
         }
 
         for (auto &inner_locations: m_data.locations | std::views::values) {
