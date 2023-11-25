@@ -69,7 +69,7 @@ namespace {
     bool overwrite_shard = false;
     app::PlayerUberStateShards_Shard* selected_shard;
 
-    const std::unordered_map<app::SpiritShardType__Enum, int> SHOP_ORDER = {
+    const std::unordered_map<app::SpiritShardType__Enum, int> TWILLEN_SHOP_ORDER = {
         { app::SpiritShardType__Enum::Energy, 0 },
         { app::SpiritShardType__Enum::Vitality, 1 },
         { app::SpiritShardType__Enum::AntiAir, 2 },
@@ -85,7 +85,7 @@ namespace {
         const auto shard_a = reinterpret_cast<app::PlayerUberStateShards_Shard*>(a);
         const auto shard_b = reinterpret_cast<app::PlayerUberStateShards_Shard*>(b);
 
-        return SHOP_ORDER.at(shard_a->fields.m_type) - SHOP_ORDER.at(shard_b->fields.m_type);
+        return TWILLEN_SHOP_ORDER.at(shard_a->fields.m_type) - TWILLEN_SHOP_ORDER.at(shard_b->fields.m_type);
     }
 
     IL2CPP_INTERCEPT(SpiritShardsShopScreen, void, UpdateContextCanvasShards, (app::SpiritShardsShopScreen * this_ptr)) {

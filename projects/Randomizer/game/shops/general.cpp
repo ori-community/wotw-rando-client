@@ -2,7 +2,6 @@
 #include <randomizer.h>
 
 #include <Core/api/game/game.h>
-#include <Core/enums/static_text_entries.h>
 #include <Core/text/text_database.h>
 
 #include <Modloader/app/methods/BuilderItem.h>
@@ -11,6 +10,7 @@
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/ShopkeeperScreen.h>
+#include <Modloader/app/methods/ShopkeeperScreen___c.h>
 #include <Modloader/app/methods/ShopkeeperUIDetails.h>
 #include <Modloader/app/methods/ShopkeeperUIItem.h>
 #include <Modloader/app/methods/ShopkeeperUISubItem.h>
@@ -20,12 +20,14 @@
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/structs/Boolean__Boxed.h>
 #include <Modloader/app/structs/Int32__Boxed.h>
+#include <Modloader/app/types/BuilderItem.h>
 #include <Modloader/app/types/CleverMenuItem.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/Renderer.h>
 #include <Modloader/app/types/ShardUpgradeScreen.h>
 #include <Modloader/app/types/ShopkeeperUISubItem.h>
 #include <Modloader/app/types/TextBox.h>
+#include <Modloader/app/types/WeaponmasterItem.h>
 #include <Modloader/app/types/WeaponmasterScreen.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
@@ -45,8 +47,7 @@ namespace {
     bool stop_shop_overwrite = false;
     bool should_shop_overwrite = false;
     IL2CPP_INTERCEPT(ShopkeeperScreen, void, Show, (app::ShopkeeperScreen * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, types::WeaponmasterScreen::get_class()) ||
-            il2cpp::is_assignable(this_ptr, types::ShardUpgradeScreen::get_class())) {
+        if (il2cpp::is_assignable(this_ptr, types::WeaponmasterScreen::get_class()) || il2cpp::is_assignable(this_ptr, types::ShardUpgradeScreen::get_class())) {
             stop_shop_overwrite = false;
             should_shop_overwrite = true;
         }
@@ -55,9 +56,8 @@ namespace {
         next::ShopkeeperScreen::Show(this_ptr);
     }
 
-    // Don't sort by cost ever
     IL2CPP_INTERCEPT(ShopkeeperScreen, void, PopulateInventoryCanvasWithUpgrades, (app::ShopkeeperScreen * this_ptr)) {
-        this_ptr->fields.SortedByCost = false;
+        this_ptr->fields.SortedByCost = true; // This is needed to run the sort, but we override it with our custom sort function
         next::ShopkeeperScreen::PopulateInventoryCanvasWithUpgrades(this_ptr);
     }
 
@@ -104,10 +104,7 @@ namespace {
     std::shared_ptr<core::api::graphics::textures::TextureData> shop_icon(app::ShopkeeperItem* item) {
         if (is_in_shop(ShopType::Opher)) {
             auto opher_item = reinterpret_cast<app::WeaponmasterItem*>(item);
-            auto key = std::make_pair(
-                opher_item->fields.Upgrade->fields.AcquiredAbilityType,
-                opher_item->fields.Upgrade->fields.RequiredAbility
-            );
+            auto key = std::make_pair(opher_item->fields.Upgrade->fields.AcquiredAbilityType, opher_item->fields.Upgrade->fields.RequiredAbility);
 
             return opher_shop().slot(key)->active_info().icon;
         } else {
@@ -121,10 +118,7 @@ namespace {
         SlotInfo const* info = nullptr;
         if (is_in_shop(ShopType::Opher)) {
             const auto opher_item = reinterpret_cast<app::WeaponmasterItem*>(item);
-            const auto key = std::make_pair(
-                opher_item->fields.Upgrade->fields.AcquiredAbilityType,
-                opher_item->fields.Upgrade->fields.RequiredAbility
-            );
+            const auto key = std::make_pair(opher_item->fields.Upgrade->fields.AcquiredAbilityType, opher_item->fields.Upgrade->fields.RequiredAbility);
 
             info = &opher_shop().slot(key)->active_info();
         } else {
@@ -174,9 +168,7 @@ namespace {
         }
     }
 
-    bool should_special_handle_shop() {
-        return is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom);
-    }
+    bool should_special_handle_shop() { return is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom); }
 
     IL2CPP_INTERCEPT(ShopkeeperUISubItem, void, UpdateItem, (app::ShopkeeperUISubItem * this_ptr)) {
         if (should_special_handle_shop()) {
