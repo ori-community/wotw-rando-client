@@ -5,6 +5,7 @@
 #include <Common/ext.h>
 
 #include <Modloader/modloader.h>
+#include <Modloader/windows_api/sleep.h>
 
 #include <memory>
 #include <mutex>
@@ -17,8 +18,7 @@ using namespace modloader;
 
 namespace core::ipc {
     namespace {
-        std::unique_ptr<std::thread> send_thread;
-        std::unique_ptr<std::thread> receive_thread;
+        std::unique_ptr<std::thread> zmq_thread;
         std::mutex incoming_messages_mutex;
         std::mutex outgoing_messages_mutex;
         std::binary_semaphore outgoing_messages_semaphore(true);
@@ -29,64 +29,71 @@ namespace core::ipc {
         std::unique_ptr<zmq::context_t> context;
         std::unique_ptr<zmq::socket_t> socket;
 
-        void receive_thread_fn() {
-            while (!shutdown_ipc_thread) {
-                zmq::message_t msg;
+        void do_recieve() {
+            zmq::message_t msg;
 
-                std::optional<size_t> receive_result;
+            std::optional<size_t> receive_result;
+
+            try {
+                receive_result = socket->recv(msg, zmq::recv_flags::dontwait);
+            } catch (const zmq::error_t& e) {
+                warn("IPC", std::format("ZeroMQ recv Error: {} {}", e.num(), e.what()));
+                return;
+            }
+
+            if (!receive_result.has_value()) {
+                modloader::win::sleep(1000L);
+                return;
+            }
+
+            auto str = msg.to_string_view();
+
+            try {
+                auto message = nlohmann::json::parse(str);
+
+                std::scoped_lock lock(incoming_messages_mutex);
+                incoming_messages.push_back(std::move(message));
+            } catch (std::exception &ex) {
+                warn("ipc", "Error parsing ipc message.");
+                info("ipc", ex.what());
+            }
+        }
+
+        void do_send() {
+            outgoing_messages_semaphore.acquire();
+            std::vector<nlohmann::json> local_outgoing_messages;
+            outgoing_messages_mutex.lock();
+            local_outgoing_messages.insert(
+                    local_outgoing_messages.end(),
+                    outgoing_messages.begin(),
+                    outgoing_messages.end()
+            );
+            outgoing_messages.clear();
+            outgoing_messages_mutex.unlock();
+
+            for (const auto &message: local_outgoing_messages) {
+                if (shutdown_ipc_thread) {
+                    break;
+                }
+
+                zmq::message_t zmq_message(message.dump());
 
                 try {
-                    receive_result = socket->recv(msg);
+                    socket->send(zmq_message, zmq::send_flags::none);
                 } catch (const zmq::error_t& e) {
-                    warn("IPC", std::format("ZeroMQ recv Error: {} {}", e.num(), e.what()));
-                    continue;
-                }
-
-                if (!receive_result.has_value()) {
-                    continue;
-                }
-
-                auto str = msg.to_string_view();
-
-                try {
-                    auto message = nlohmann::json::parse(str);
-
-                    std::scoped_lock lock(incoming_messages_mutex);
-                    incoming_messages.push_back(std::move(message));
-                } catch (std::exception &ex) {
-                    warn("ipc", "Error parsing ipc message.");
-                    info("ipc", ex.what());
+                    warn("IPC", std::format("ZeroMQ send Error: {} {}", e.num(), e.what()));
                 }
             }
         }
 
-        void send_thread_fn() {
+        void zmq_thread_fn() {
+            socket = std::make_unique<zmq::socket_t>(*context, zmq::socket_type::dealer);
+            socket->connect("tcp://127.0.0.1:31414");
+
             while (!shutdown_ipc_thread) {
-                outgoing_messages_semaphore.acquire();
-                std::vector<nlohmann::json> local_outgoing_messages;
-                outgoing_messages_mutex.lock();
-                local_outgoing_messages.insert(
-                        local_outgoing_messages.end(),
-                        outgoing_messages.begin(),
-                        outgoing_messages.end()
-                );
-                outgoing_messages.clear();
-                outgoing_messages_mutex.unlock();
 
-                for (const auto &message: local_outgoing_messages) {
-                    if (shutdown_ipc_thread) {
-                        break;
-                    }
-
-                    zmq::message_t zmq_message(message.dump());
-
-                    try {
-                        socket->send(zmq_message, zmq::send_flags::none);
-                    } catch (const zmq::error_t& e) {
-                        warn("IPC", std::format("ZeroMQ send Error: {} {}", e.num(), e.what()));
-                        continue;
-                    }
-                }
+                do_recieve();
+                do_send();
             }
         }
 
@@ -94,16 +101,9 @@ namespace core::ipc {
             shutdown_ipc_thread = false;
 
             context = std::make_unique<zmq::context_t>();
-            socket = std::make_unique<zmq::socket_t>(*context, zmq::socket_type::dealer);
 
-            socket->connect("tcp://127.0.0.1:31414");
-
-            if (receive_thread == nullptr) {
-                receive_thread = std::make_unique<std::thread>(receive_thread_fn);
-            }
-
-            if (send_thread == nullptr) {
-                send_thread = std::make_unique<std::thread>(send_thread_fn);
+            if (zmq_thread == nullptr) {
+                zmq_thread = std::make_unique<std::thread>(zmq_thread_fn);
             }
         });
 
