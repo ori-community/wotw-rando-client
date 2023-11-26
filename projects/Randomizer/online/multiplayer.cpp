@@ -99,12 +99,23 @@ namespace randomizer::online {
 
         client.register_handler<Network::InitGameSyncMessage>(
             Network::Packet_PacketID_InitGameSyncMessage,
-            [this](auto const& message) { initialize_bingo(message); }
+            [this](auto const& message) { initialize_game_sync(message); }
         );
 
         client.register_handler<Network::SetSeedMessage>(
             Network::Packet_PacketID_SetSeedMessage,
             [this](auto const& message) { set_seed(message); }
+        );
+
+        client.register_handler<Network::SetBlockStartingNewGameMessage>(
+            Network::Packet_PacketID_SetBlockStartingNewGameMessage,
+            [this](auto const& message) {
+                if (m_should_block_starting_new_game != message.blockstartingnewgame()) {
+                    m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::Before);
+                    m_should_block_starting_new_game = message.blockstartingnewgame();
+                    m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::After);
+                }
+            }
         );
     }
 
@@ -193,111 +204,109 @@ namespace randomizer::online {
         return nullptr;
     }
 
-    void MultiplayerUniverse::handle_multiverse_info(Network::MultiverseInfoMessage const& message) {
-        core::api::game::event_bus().trigger_event(GameEvent::MultiverseUpdated, EventTiming::Before);
+    void MultiplayerUniverse::handle_multiverse_info(Network::MultiverseInfoMessage const&message) {
+        m_event_bus.trigger_event(Event::MultiverseUpdated, EventTiming::Before);
+        m_current_multiverse_info = std::make_shared<Network::MultiverseInfoMessage>(message);
 
-        m_last_multiverse_info = message;
-        auto universe = find_universe_with_player(m_last_multiverse_info.value(), m_id);
-        if (universe == nullptr) {
-            return;
-        }
+        auto universe = find_universe_with_player(*m_current_multiverse_info, m_id);
+        if (universe != nullptr) {
+            m_current_universe_info = universe;
+            m_current_world_infos.clear();
+            std::unordered_map<std::string, PlayerInfo> info_players;
+            for (auto&world: universe->worlds()) {
+                m_current_world_infos.push_back(&world);
+                for (auto const&member: world.members()) {
+                    auto&player = info_players[member.id()];
+                    player.universe_id = universe->id();
+                    player.world = world;
+                    player.user = member;
+                }
+            }
 
-        m_current_universe_info = universe;
-        m_current_world_infos.clear();
-        std::unordered_map<std::string, PlayerInfo> info_players;
-        for (auto& world : universe->worlds()) {
-            m_current_world_infos.push_back(&world);
-            for (auto const& member : world.members()) {
-                auto& player = info_players[member.id()];
-                player.universe_id = universe->id();
-                player.world = world;
-                player.user = member;
+            std::unordered_map<std::string, PlayerInfo> to_add;
+            for (auto&info_player: info_players) {
+                if (info_player.first == m_id) {
+                    continue;
+                }
+
+                if (!m_players.contains(info_player.first)) {
+                    to_add[info_player.first] = info_player.second;
+                }
+            }
+
+            std::unordered_map<std::string, PlayerInfo> to_remove;
+            for (auto&player: m_players) {
+                if (player.first == m_id) {
+                    continue;
+                }
+
+                if (!info_players.contains(player.first)) {
+                    to_remove[player.first] = player.second;
+                }
+            }
+
+            for (auto&player: to_remove) {
+                m_player_avatars.erase(player.first);
+            }
+
+            for (auto&player: to_add) {
+                m_player_avatars.try_emplace(player.first, std::make_unique<Player>());
+            }
+
+            m_players = info_players;
+
+            for (auto&player: m_players) {
+                if (player.first == m_id) {
+                    continue;
+                }
+
+                auto&player_avatar = m_player_avatars.find(player.first)->second;
+                player_avatar->set_online(player.second.user.has_connectedmultiverseid());
+                player_avatar->set_color(utils::hex_string_to_color(player.second.world.color()));
+            }
+
+            if (message.has_visibility()) {
+                handle_visibility(message.visibility());
+            }
+
+            auto area_map = app::classes::types::AreaMapUI::get_class()->static_fields->Instance;
+            if (area_map != nullptr && il2cpp::unity::is_valid(area_map->fields._PlayerPositionMarker_k__BackingField)) {
+                // TODO: Add this to some sort of init thing.
+                if (m_color.r < 0.99f || m_color.g < 0.99f || m_color.b < 0.99f || m_color.a < 0.99f) {
+                    utils::set_color(area_map->fields._PlayerPositionMarker_k__BackingField, m_color);
+                }
+            }
+
+            // TODO: clearGameHandlers();
+            m_game_type = message.handlertype();
+            switch (m_game_type) {
+                case Network::MultiverseInfoMessage_GameHandlerType_Normal:
+                    break;
+                case Network::MultiverseInfoMessage_GameHandlerType_HideAndSeek: {
+                    Network::HideAndSeekGameHandlerClientInfo handler;
+                    handler.ParseFromString(message.handlerinfo());
+                    // TODO: HideAndSeek.ParseHandlerInfo(info);
+                    break;
+                }
+                case Network::MultiverseInfoMessage_GameHandlerType_Infection: {
+                    Network::InfectionGameHandlerClientInfo handler;
+                    handler.ParseFromString(message.handlerinfo());
+                    // TODO: Infection.ParseHandlerInfo(info);
+                    break;
+                }
+                default:
+                    break;
             }
         }
 
-        std::unordered_map<std::string, PlayerInfo> to_add;
-        for (auto& info_player : info_players) {
-            if (info_player.first == m_id) {
-                continue;
-            }
-
-            if (!m_players.contains(info_player.first)) {
-                to_add[info_player.first] = info_player.second;
-            }
-        }
-
-        std::unordered_map<std::string, PlayerInfo> to_remove;
-        for (auto& player : m_players) {
-            if (player.first == m_id) {
-                continue;
-            }
-
-            if (!info_players.contains(player.first)) {
-                to_remove[player.first] = player.second;
-            }
-        }
-
-        for (auto& player : to_remove) {
-            m_player_avatars.erase(player.first);
-        }
-
-        for (auto& player : to_add) {
-            m_player_avatars.try_emplace(player.first, std::make_unique<Player>());
-        }
-
-        m_players = info_players;
-
-        for (auto& player : m_players) {
-            if (player.first == m_id) {
-                continue;
-            }
-
-            auto& player_avatar = m_player_avatars.find(player.first)->second;
-            player_avatar->set_online(player.second.user.has_connectedmultiverseid());
-            player_avatar->set_color(utils::hex_string_to_color(player.second.world.color()));
-        }
-
-        if (message.has_visibility()) {
-            handle_visibility(message.visibility());
-        }
-
-        auto area_map = app::classes::types::AreaMapUI::get_class()->static_fields->Instance;
-        if (area_map != nullptr && il2cpp::unity::is_valid(area_map->fields._PlayerPositionMarker_k__BackingField)) {
-            // TODO: Add this to some sort of init thing.
-            if (m_color.r < 0.99f || m_color.g < 0.99f || m_color.b < 0.99f || m_color.a < 0.99f) {
-                utils::set_color(area_map->fields._PlayerPositionMarker_k__BackingField, m_color);
-            }
-        }
-
-        // TODO: clearGameHandlers();
-        m_game_type = message.handlertype();
-        switch (m_game_type) {
-            case Network::MultiverseInfoMessage_GameHandlerType_Normal:
-                break;
-            case Network::MultiverseInfoMessage_GameHandlerType_HideAndSeek: {
-                Network::HideAndSeekGameHandlerClientInfo handler;
-                handler.ParseFromString(message.handlerinfo());
-                // TODO: HideAndSeek.ParseHandlerInfo(info);
-                break;
-            }
-            case Network::MultiverseInfoMessage_GameHandlerType_Infection: {
-                Network::InfectionGameHandlerClientInfo handler;
-                handler.ParseFromString(message.handlerinfo());
-                // TODO: Infection.ParseHandlerInfo(info);
-                break;
-            }
-            default:
-                break;
-        }
-
-        core::api::game::event_bus().trigger_event(GameEvent::MultiverseUpdated, EventTiming::After);
+        m_event_bus.trigger_event(Event::MultiverseUpdated, EventTiming::After);
     }
 
     void MultiplayerUniverse::handle_authenticated(Network::AuthenticatedMessage const& message) {
         m_id = message.user().id();
         m_name = message.user().name();
-        if (m_last_multiverse_info.has_value()) {
-            handle_multiverse_info(m_last_multiverse_info.value());
+        if (m_current_multiverse_info != nullptr) {
+            handle_multiverse_info(*m_current_multiverse_info);
         }
 
         core::events::schedule_task_for_next_update([this]() {
@@ -385,7 +394,7 @@ namespace randomizer::online {
             position.y = pos2.y();
         }
 
-        box->text() = message.text();
+        box->set_static_text(message.text());
         box->position() = position;
         box->screen_position() = static_cast<core::api::messages::ScreenPosition>(message.screenposition());
         box->alignment() = static_cast<app::AlignmentMode__Enum>(message.alignment());
@@ -423,13 +432,19 @@ namespace randomizer::online {
         });
     }
 
-    void MultiplayerUniverse::initialize_bingo(Network::InitGameSyncMessage const& message) {
+    void MultiplayerUniverse::initialize_game_sync(Network::InitGameSyncMessage const& message) {
         std::unordered_set<core::api::uber_states::UberState> states;
         for (auto& id : message.uberid()) {
             states.emplace(id.group(), id.state());
         }
 
         m_uber_state_handler.set_synced_states(std::move(states));
+
+        if (m_should_block_starting_new_game != message.blockstartingnewgame()) {
+            m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::Before);
+            m_should_block_starting_new_game = message.blockstartingnewgame();
+            m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::After);
+        }
     }
 
     void MultiplayerUniverse::set_seed(Network::SetSeedMessage const& message) {

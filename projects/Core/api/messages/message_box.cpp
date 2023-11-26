@@ -160,7 +160,7 @@ namespace core::api::messages {
                 [this] { return m_scaler->fields.BottomRightPadding.x; },
         });
 
-        m_on_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) { update(); });
+        m_on_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) { on_fixed_update(); });
 
         // Move back the background glow a little bit so it doesn't go out of the near-plane
         const auto glow_transform = Transform::GetChild(background_transform(), 0);
@@ -197,28 +197,40 @@ namespace core::api::messages {
         };
     }
 
-    void MessageBox::refresh_text() {
-        m_should_refresh_text = true;
-        update_text();
+    void MessageBox::set_static_text(const DynamicValue<std::string>& text) {
+        // Wrap in a new DynamicValue that holds the current value of the passed
+        // DynamicValue to make it static
+        m_text = DynamicValue<std::string>();
+        m_text.set(text.get());
     }
 
-    void MessageBox::update_text() {
-        if (!m_dynamic_text && !m_should_refresh_text) {
-            return;
-        }
+    void MessageBox::set_static_text(const std::string& text) {
+        m_text = DynamicValue<std::string>();
+        m_text.set(text);
+    }
 
-        m_should_refresh_text = false;
+    void MessageBox::set_static_text(const std::string_view& text) {
+        m_text = DynamicValue<std::string>();
+        m_text.set(text);
+    }
+
+    void MessageBox::set_live_text(const DynamicValue<std::string>& text) {
+        m_text = text;
+    }
+
+    void MessageBox::render_text_box() {
         auto new_text = m_text.get();
+
         replace_all(new_text, "\\n", "\n");
         trim(new_text);
         if (new_text.empty()) {
             new_text = " ";
         }
 
-        if (m_processed_text != new_text) {
-            m_processed_text = new_text;
-            text_style::create_styles(m_message_box->fields.TextBox, m_processed_text);
-            m_message_box->fields.MessageProvider = core::api::system::create_message_provider(m_processed_text);
+        if (m_cached_text != new_text) {
+            m_cached_text = new_text;
+            text_style::create_styles(m_message_box->fields.TextBox, m_cached_text);
+            m_message_box->fields.MessageProvider = core::api::system::create_message_provider(m_cached_text);
             app::classes::MessageBox::RefreshText_1(m_message_box);
             ScaleToTextBox::UpdateSize(m_scaler);
 
@@ -238,7 +250,7 @@ namespace core::api::messages {
         return Transform::GetChild(transform, 2);
     }
 
-    void MessageBox::update() {
+    void MessageBox::on_fixed_update() {
         if (get_visibility() == Visibility::Hidden) {
             // Nothing to update here.
             return;
@@ -261,7 +273,7 @@ namespace core::api::messages {
             m_message_box->fields.Visibility->fields.m_delayTime = FLT_MAX;
         }
 
-        update_text();
+        render_text_box();
     }
 
     MessageBox::Visibility MessageBox::get_visibility() {
@@ -282,7 +294,7 @@ namespace core::api::messages {
         }
     }
 
-    void MessageBox::show(const bool instant, const bool play_sound) const {
+    void MessageBox::show(const bool instant, const bool play_sound) {
         const auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(m_game_object, types::SoundSource::get_class());
         if (play_sound) {
             SoundSource::Play_2(sound_source);

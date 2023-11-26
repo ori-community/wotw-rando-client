@@ -21,11 +21,10 @@ namespace randomizer::messages {
             box->vertical_anchor() = app::VerticalAnchorMode__Enum::Bottom;
             box->use_world_coordinates() = false;
             box->show_box(false);
-            box->text().text_processor(general_text_processor());
         }
 
-        box->text().set(text);
-        box->refresh_text();
+        box->set_static_text(text);
+        box->get_text().text_processor(general_text_processor());
         box->show(true);
     }
 

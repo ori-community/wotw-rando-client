@@ -50,7 +50,7 @@ namespace randomizer::features {
                 message_box->position().set({ 0.0f, 1.0f, 0.0f });
             }
 
-            message_box->text().set(text);
+            message_box->set_static_text(text);
             message_box->show();
             if (current_message_box_timer < 0) {
                 timer::deregister_timer(current_message_box_timer);

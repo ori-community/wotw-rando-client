@@ -23,11 +23,11 @@ namespace randomizer_tester {
             [](auto test) {
                 test.data.message_box = std::make_shared<core::api::messages::MessageBox>();
                 test.data.message_box->position().set(app::classes::OnScreenPositions::get_MiddleCenter());
-                test.data.message_box->text().set(std::string("time: ") + std::to_string(test.total_time));
+                test.data.message_box->set_static_text(std::string("time: ") + std::to_string(test.total_time));
                 test.data.message_box->show();
             },
             [](auto test) {
-                test.data.message_box->text().set(std::string("time: ") + std::to_string(test.total_time));
+                test.data.message_box->set_static_text(std::string("time: ") + std::to_string(test.total_time));
             },
             [](auto test) {}
         );
@@ -42,7 +42,7 @@ namespace randomizer_tester {
             [](auto test) {
                 test.data.message_box = std::make_shared<core::api::messages::MessageBox>();
                 test.data.message_box->position().set(app::classes::OnScreenPositions::get_MiddleCenter());
-                test.data.message_box->text().set(std::string("time: ") + std::to_string(test.total_time));
+                test.data.message_box->set_static_text(std::string("time: ") + std::to_string(test.total_time));
             },
             [](auto test) {
                 if (test.data.message_box->get_visibility() == core::api::messages::MessageBox::Visibility::Visible) {
@@ -51,7 +51,7 @@ namespace randomizer_tester {
                     test.data.message_box->show();
                 }
 
-                test.data.message_box->text().set(std::string("time: ") + std::to_string(test.total_time));
+                test.data.message_box->set_static_text(std::string("time: ") + std::to_string(test.total_time));
             },
             [](auto test) {}
         );

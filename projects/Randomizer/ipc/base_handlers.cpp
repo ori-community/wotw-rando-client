@@ -127,7 +127,7 @@ namespace randomizer::ipc {
 
             auto message_box = message_registry.get(message_id);
             if (p.contains("text")) {
-                message_box->text().set(p.at("text").get<std::string>());
+                message_box->set_static_text(p.at("text").get<std::string>());
             }
 
             if (p.contains("position")) {

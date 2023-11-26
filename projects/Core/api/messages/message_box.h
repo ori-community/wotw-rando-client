@@ -59,19 +59,22 @@ namespace core::api::messages {
         ~MessageBox();
 
         // Called automatically.
-        void update();
+        void on_fixed_update();
 
         [[nodiscard]] Visibility get_visibility();
-        void show(bool instant = false, bool play_sound = true) const;
+        void show(bool instant = false, bool play_sound = true);
         void hide(bool instant = false) const;
 
-        void refresh_text();
-        void dynamic_text(const bool value) { m_dynamic_text = value; }
         void show_box(bool value) const;
         [[nodiscard]] app::Rect text_bounds() const;
         [[nodiscard]] app::Rect bounds() const;
 
-        [[nodiscard]] DynamicValue<std::string>& text() { return m_text; }
+        void set_static_text(const DynamicValue<std::string>& text);
+        void set_static_text(const std::string& text);
+        void set_static_text(const std::string_view& text);
+        void set_live_text(const DynamicValue<std::string>& text);
+        [[nodiscard]] DynamicValue<std::string>& get_text() { return m_text; }
+
         [[nodiscard]] DynamicValue<app::Vector3>& position() { return m_position; }
         [[nodiscard]] DynamicValue<bool>& use_world_coordinates() { return m_use_world_coordinates; }
         [[nodiscard]] DynamicValue<float>& fade_in() { return m_fade_in; }
@@ -87,7 +90,7 @@ namespace core::api::messages {
         [[nodiscard]] DynamicValue<float>& right_padding() { return m_right_padding; }
         [[nodiscard]] DynamicValue<std::optional<ScreenPosition>>& screen_position() { return m_screen_position; }
     private:
-        void update_text();
+        void render_text_box();
         app::Transform* background_transform() const;
 
         common::registration_handle m_on_update_handle;
@@ -95,9 +98,7 @@ namespace core::api::messages {
         app::MessageBox* m_message_box = nullptr;
         app::ScaleToTextBox* m_scaler = nullptr;
 
-        bool m_dynamic_text = false;
-        bool m_should_refresh_text = true; // Only used if dynamic_text is false
-        std::string m_processed_text;
+        std::string m_cached_text;
 
         DynamicValue<std::string> m_text;
         DynamicValue<app::Vector3> m_position;

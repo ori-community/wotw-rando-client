@@ -6,7 +6,7 @@
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/enums/game_event.h>
-#include <Core/task.h>
+#include <Core/events/task.h>
 
 #include <Common/ext.h>
 
@@ -60,7 +60,6 @@ namespace randomizer::game {
         constexpr int MAX_DISPLAYED_WAITING_FOR_PLAYERS = 8;
         const app::Vector3 ORIGINAL_START = {-798.797058f, -4310.119141f, 0.f};
         bool handling_start = false;
-        bool block_starting_new_game = false;
         bool is_in_lobby = false;
         bool is_starting_game = false;
         app::Vector3 start_position = ORIGINAL_START;
@@ -96,6 +95,9 @@ namespace randomizer::game {
                 lobby_status_text_box->horizontal_anchor() = app::HorizontalAnchorMode__Enum::Center;
                 lobby_status_text_box->vertical_anchor() = app::VerticalAnchorMode__Enum::Top;
                 lobby_status_text_box->position() = app::Vector3{0.f, 1.5f, 0.f};
+                lobby_status_text_box->fade_in() = false;
+                lobby_status_text_box->fade_out() = false;
+                lobby_status_text_box->show_box(false);
 
                 std::string text;
 
@@ -107,10 +109,12 @@ namespace randomizer::game {
                     int displayed_waiting_for_players_count = 0;
                     int total_waiting_for_players_count = 0;
 
-                    if (randomizer::multiplayer_universe().multiverse_info().has_value()) {
-                        for (auto universe: randomizer::multiplayer_universe().multiverse_info().value().universes()) {
-                            for (auto world: universe.worlds()) {
-                                for (auto player: world.members()) {
+                    if (randomizer::multiplayer_universe().multiverse_info() != nullptr) {
+                        auto u = randomizer::multiplayer_universe().multiverse_info();
+
+                        for (const auto& universe: randomizer::multiplayer_universe().multiverse_info()->universes()) {
+                            for (const auto& world: universe.worlds()) {
+                                for (const auto& player: world.members()) {
                                     if (!player.raceready()) {
                                         if (displayed_waiting_for_players_count < MAX_DISPLAYED_WAITING_FOR_PLAYERS) {
                                             text += std::format("\n{}", player.name());
@@ -140,8 +144,8 @@ namespace randomizer::game {
 
                 text += "\n\nPress [MenuBack] to leave";
 
-                lobby_status_text_box->text() = text;
                 lobby_status_text_box->show(true, false);
+                lobby_status_text_box->set_static_text(text);
             }
             else if (lobby_status_text_box != nullptr) {
                 lobby_status_text_box = nullptr;
@@ -163,6 +167,7 @@ namespace randomizer::game {
                     is_starting_game = true;
                     core::api::faderb::fade_in(0.4f);
                     core::events::schedule_task(0.4f, [action]() { ActionSequence::Perform_1(action); });
+                    update_lobby_ui();
                 }
             }
         }
@@ -176,7 +181,7 @@ namespace randomizer::game {
         void update_difficulty_text_boxes() {
             std::string prepend_to_difficulty = "";
 
-            if (block_starting_new_game) {
+            if (randomizer::multiplayer_universe().should_block_starting_new_game()) {
                 prepend_to_difficulty = "JOIN RACE in ";
             }
 
@@ -349,7 +354,7 @@ namespace randomizer::game {
             // If the player started a new empty save slot...
             if (empty_slot_pressed_action_sequence_handle.has_value() && reinterpret_cast<app::ActionMethod*>(this_ptr->fields.Action) == reinterpret_cast<app::ActionMethod*>(empty_slot_pressed_action_sequence_handle.value().ref()) &&
                 start_game_sequence_handle.has_value()) {
-                if (block_starting_new_game) {
+                if (randomizer::multiplayer_universe().should_block_starting_new_game()) {
                     is_in_lobby = true;
                     update_lobby_ui();
                     check_if_preloaded_and_report_ready();
@@ -463,11 +468,31 @@ namespace randomizer::game {
             scenes_to_preload.clear();
         }
 
+        common::registration_handle on_should_block_starting_new_game_changed;
+        common::registration_handle on_multiverse_updated;
         auto _1 = core::api::scenes::event_bus().register_handler(&on_scene_load);
         auto _2 = core::api::game::event_bus().register_handler(GameEvent::NewGame, EventTiming::After, &on_new_game);
         auto _3 = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, &on_finished_loading_save);
         auto _4 = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
-        auto _5 = core::api::game::event_bus().register_handler(GameEvent::MultiverseUpdated, EventTiming::After, [](auto, auto) { update_lobby_ui(); });
+        auto _5 = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+            on_should_block_starting_new_game_changed = randomizer::multiplayer_universe().event_bus().register_handler(online::MultiplayerUniverse::Event::ShouldBlockStartingNewGameChanged, EventTiming::After, [](auto, auto) {
+                core::events::schedule_task_for_next_update([]() {
+                    randomizer::game::update_difficulty_text_boxes();
+                });
+
+                modloader::win::console::console_send(std::format("Blocking new game: {}", randomizer::multiplayer_universe().should_block_starting_new_game() ? "True" : "False"));
+
+                if (!randomizer::multiplayer_universe().should_block_starting_new_game() && randomizer::game::is_in_lobby) {
+                    core::events::schedule_task_for_next_update([]() {
+                        randomizer::game::start_new_game();
+                    });
+                }
+            });
+
+            on_multiverse_updated = randomizer::multiplayer_universe().event_bus().register_handler(online::MultiplayerUniverse::Event::MultiverseUpdated, EventTiming::After, [](auto, auto) {
+                update_lobby_ui();
+            });
+        });
     } // namespace
 
     void teleport(app::Vector3 position, bool wait_for_load) {

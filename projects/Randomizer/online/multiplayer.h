@@ -8,6 +8,7 @@
 #include <Core/messages/message_controller.h>
 
 #include <proto/packets.pb.h>
+#include "C:\Users\Timo\w-client\cmake-build-debug\projects\Randomizer\proto\packets.pb.h"
 
 #include <string>
 #include <vector>
@@ -15,6 +16,11 @@
 namespace randomizer::online {
     class MultiplayerUniverse {
     public:
+        enum class Event {
+            ShouldBlockStartingNewGameChanged,
+            MultiverseUpdated,
+        };
+
         struct PlayerInfo {
             uint64_t universe_id;
             Network::WorldInfo world;
@@ -26,13 +32,16 @@ namespace randomizer::online {
         MultiplayerUniverse(MultiplayerUniverse const& other) = delete;
         ~MultiplayerUniverse() = default;
 
+        auto& event_bus() { return m_event_bus; };
+
         void register_packet_handlers(NetworkClient& client);
         void full_sync_states();
 
+        bool should_block_starting_new_game() const { return m_should_block_starting_new_game; }
         app::Color local_player_color() const { return m_color; }
         std::optional<PlayerInfo> local_player() const;
         Network::WorldInfo const* get_world(int id) const;
-        std::optional<Network::MultiverseInfoMessage> multiverse_info() const { return m_last_multiverse_info; }
+        auto multiverse_info() const { return m_current_multiverse_info; }
         void report_player_ready(bool ready) const;
 
         int player_count() const { return static_cast<int>(m_players.size()); }
@@ -60,12 +69,14 @@ namespace randomizer::online {
 
         void print_text(Network::PrintTextMessage const& message);
         static void print_pickup(Network::PrintPickupMessage const& message);
-        void initialize_bingo(Network::InitGameSyncMessage const& message);
+        void initialize_game_sync(Network::InitGameSyncMessage const& message);
         void set_seed(Network::SetSeedMessage const& message);
+
+        common::TimedMultiEventBus<Event> m_event_bus;
 
         std::vector<common::registration_handle> m_bus_handles;
         Network::MultiverseInfoMessage::GameHandlerType m_game_type = Network::MultiverseInfoMessage_GameHandlerType_Normal;
-        std::optional<Network::MultiverseInfoMessage> m_last_multiverse_info;
+        std::shared_ptr<Network::MultiverseInfoMessage> m_current_multiverse_info;
         std::optional<Network::UniverseInfo const*> m_current_universe_info;
         std::vector<Network::WorldInfo const*> m_current_world_infos;
 
@@ -78,5 +89,6 @@ namespace randomizer::online {
         std::string m_id;
         std::string m_name;
         app::Color m_color = { 1.f, 1.f, 1.f, 1.f };
+        bool m_should_block_starting_new_game = false;
     };
 } // namespace randomizer::online

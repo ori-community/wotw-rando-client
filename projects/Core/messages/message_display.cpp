@@ -219,8 +219,8 @@ namespace core::messages {
     ) {
         data.message = std::make_shared<api::messages::MessageBox>();
         data.message->show_box(data.info.show_box);
-        data.message->text() = data.info.text;
-        data.message->text().text_processor(m_text_processor);
+        data.message->set_static_text(data.info.text);
+        data.message->get_text().text_processor(m_text_processor);
         data.message->top_padding().set(data.info.padding.x);
         data.message->left_padding().set(data.info.padding.y);
         data.message->bottom_padding().set(data.info.padding.z);
