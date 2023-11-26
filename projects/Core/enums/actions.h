@@ -22,10 +22,6 @@ enum class Action {
     DialogueOption3,
     DialogueExit,
     OpenMapsShardsInventory,
-    OpenAreaMap,
-    OpenInventory,
-    OpenWorldMap,
-    OpenShards,
     OpenWeaponWheel,
     PauseScreen,
     LiveSignIn,
@@ -49,6 +45,10 @@ enum class Action {
     Right,
     Up,
     Down,
+    OpenAreaMap,
+    OpenInventory,
+    OpenWorldMap,
+    OpenShards,
 
     RANDO_ACTIONS_START,
 
