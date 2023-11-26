@@ -146,7 +146,7 @@ namespace randomizer::seed {
         return output;
     }
 
-    constexpr bool SHOULD_SHOW_VERBOSE_SEED_GRANT = false;
+    constexpr bool SHOULD_SHOW_VERBOSE_SEED_GRANT = true;
 
     void Seed::grant(const location_entry location, const double previous_value) {
         if (!core::api::game::in_game()) {

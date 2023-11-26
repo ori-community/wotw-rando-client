@@ -9,7 +9,7 @@ namespace randomizer::seed::items {
         auto copy = info;
         std::string text = copy.text.get();
         general_text_processor()->process(*general_text_processor(), text);
-        copy.text = text;
+        copy.text.assign(text);
         core::message_controller().queue_central(copy, should_save_as_last);
     }
 

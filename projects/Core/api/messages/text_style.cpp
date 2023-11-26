@@ -112,6 +112,26 @@ namespace text_style {
         return style;
     }
 
+    app::TextStyle* create_line_size_style(std::unordered_set<std::string>& styles, std::string_view text) {
+        auto line_size_style = std::format("ls_{}", text);
+        auto it = styles.find(line_size_style);
+        if (it != styles.end()) {
+            return nullptr;
+        }
+
+        char* out = nullptr;
+        auto line_scale = std::strtod(text.data(), &out);
+        if (out != text.data() + text.size()) {
+            return nullptr;
+        }
+
+        auto style = create_style(line_size_style);
+        style->fields.hasLineScale = true;
+        style->fields.lineScale = line_scale;
+
+        return style;
+    }
+
     void create_styles(app::TextBox* box, std::string_view text) {
         std::unordered_set<std::string> styles;
         auto style_array = box->fields.styleCollection->fields.styles;
@@ -127,6 +147,8 @@ namespace text_style {
                 style = create_color_style(styles, value);
             } else if (check_style(text, i, "<s_", value)) {
                 style = create_size_style(styles, value);
+            } else if (check_style(text, i, "<ls_", value)) {
+                style = create_line_size_style(styles, value);
             } else {
                 ++i;
             }
