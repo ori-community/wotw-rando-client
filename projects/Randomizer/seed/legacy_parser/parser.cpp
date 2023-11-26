@@ -29,6 +29,7 @@
 #include <seed/items/input.h>
 
 #include <fstream>
+#include <iostream>
 #include <magic_enum.hpp>
 #include <regex>
 #include <span>
@@ -1911,7 +1912,12 @@ namespace randomizer::seed::legacy_parser {
         return parse_action(trigger, std::span(parts.begin() + 2, parts.end() - parts_end_offset), parser_data);
     }
 
-    void parse_config(std::string_view line, Seed::Data &data) {
+    /**
+     * \brief Check if a line is a config line, and if yes, parse its contents into the seed data
+     * \param line The current line as raw string (escape sequences have NOT been replaced yet)
+     * \param data Seed data
+     */
+    void parse_config(std::string_view line, Seed::Data&data) {
         if (line.starts_with("// This World:")) {
             std::string str(line.substr(14));
             data.info.world_index = std::stoi(str);
@@ -1945,13 +1951,14 @@ namespace randomizer::seed::legacy_parser {
             data.info.content += line;
             data.info.content += "\n";
 
-            replace_all(line, "\\n", "\n");
-            replace_all(line, "\\t", "\t");
-
+            // Config needs to do its own escape handling (\n, \t etc)
             if (line.starts_with("//")) {
                 parse_config(line, data);
                 continue;
             }
+
+            replace_all(line, "\\n", "\n");
+            replace_all(line, "\\t", "\t");
 
             // Remove comments.
             line = line.substr(0, line.find("//"));
