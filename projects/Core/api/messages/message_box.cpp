@@ -221,6 +221,14 @@ namespace core::api::messages {
             m_message_box->fields.MessageProvider = core::api::system::create_message_provider(m_processed_text);
             app::classes::MessageBox::RefreshText_1(m_message_box);
             ScaleToTextBox::UpdateSize(m_scaler);
+
+            // Moon code alert!
+            // Recache also calls Cache, but it calls SetOpacity before calling Cache, and SetOpacity
+            // expects m_renderers to be initialized, but it is initialized by Cache. Fun!
+            if (m_message_box->fields.Visibility->fields.m_renderers == nullptr) {
+                MessageBoxVisibility::Cache(m_message_box->fields.Visibility);
+            }
+
             MessageBoxVisibility::Recache(m_message_box->fields.Visibility);
         }
     }
