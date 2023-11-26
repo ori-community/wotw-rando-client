@@ -8,7 +8,6 @@
 #include <Core/messages/message_controller.h>
 
 #include <proto/packets.pb.h>
-#include "C:\Users\Timo\w-client\cmake-build-debug\projects\Randomizer\proto\packets.pb.h"
 
 #include <string>
 #include <vector>

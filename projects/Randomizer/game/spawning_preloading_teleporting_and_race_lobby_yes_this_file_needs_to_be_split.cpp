@@ -62,7 +62,6 @@ namespace randomizer::game {
         bool handling_start = false;
         bool is_in_lobby = false;
         bool is_starting_game = false;
-        app::Vector3 start_position = ORIGINAL_START;
         TeleportState teleport_state = TeleportState::None;
         app::Vector3 teleport_position;
 
@@ -324,7 +323,7 @@ namespace randomizer::game {
                     if (save_slots_ui != nullptr) {
                         auto save_slot_ui = SaveSlotsUI::get_CurrentSaveSlot(save_slots_ui);
 
-                        auto scene_names = core::api::scenes::get_scenes_at_position(start_position);
+                        auto scene_names = core::api::scenes::get_scenes_at_position(randomizer::game_seed().info().start_position);
 
                         for (const auto& scene_name: scenes_to_preload) {
                             if (!scene_names.contains(scene_name)) {
