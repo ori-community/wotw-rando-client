@@ -199,6 +199,15 @@ namespace core::text {
         register_text(*static_text_entry::Currency, "Hugs");
         register_text(*static_text_entry::Currency, "Nobles");
         register_text(*static_text_entry::Currency, "Socks");
+
+        register_text(*static_text_entry::TrialTextReach, "Reach Trial Reward");
+        register_text(*static_text_entry::TrialTextDepths, "Depths Trial Reward");
+        register_text(*static_text_entry::TrialTextMarsh, "Marsh Trial Reward");
+        register_text(*static_text_entry::TrialTextHollow, "Hollow Trial Reward");
+        register_text(*static_text_entry::TrialTextPools, "Pools Trial Reward");
+        register_text(*static_text_entry::TrialTextWastes, "Wastes Trial Reward");
+        register_text(*static_text_entry::TrialTextWellspring, "Wellspring Trial Reward");
+        register_text(*static_text_entry::TrialTextWoods, "Woods Trial Reward");
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {

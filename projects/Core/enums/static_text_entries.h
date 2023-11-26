@@ -236,6 +236,16 @@ namespace core {
         MapHint = 90,
         ProgressHint = 91,
 
+        // Spirit Trial Texts (the ones that show up above the spirit trial start)
+        TrialTextReach = 100,
+        TrialTextHollow = 101,
+        TrialTextPools = 102,
+        TrialTextMarsh = 103,
+        TrialTextWoods = 104,
+        TrialTextDepths = 105,
+        TrialTextWastes = 106,
+        TrialTextWellspring = 107,
+
         STATIC_TEXT_ENTRY_END = 1000000
     };
 } // namespace core

@@ -51,6 +51,7 @@ set(
         "features/shrine_states.cpp"
         "features/trackers/ability_tracker.cpp"
         "features/trackers/goal_mode_check.cpp"
+        "features/trial_texts.cpp"
         "features/wheel.cpp"
         "features/wheel_initialization.cpp"
         "game/behaviour_changes/allow_blind_forest_abilities.cpp"
