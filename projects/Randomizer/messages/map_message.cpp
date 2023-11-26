@@ -20,7 +20,7 @@ namespace randomizer::messages {
             box->horizontal_anchor() = app::HorizontalAnchorMode__Enum::Center;
             box->vertical_anchor() = app::VerticalAnchorMode__Enum::Bottom;
             box->use_world_coordinates() = false;
-            box->show_box(true);
+            box->show_box(false);
             box->text().text_processor(general_text_processor());
         }
 
