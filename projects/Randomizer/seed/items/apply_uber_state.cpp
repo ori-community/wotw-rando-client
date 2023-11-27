@@ -5,7 +5,7 @@ namespace randomizer::seed::items {
         state.apply();
     }
 
-    std::string ApplyUberState::to_string() {
+    std::string ApplyUberState::to_string() const {
         return std::format("apply state [{}, {}]", state.group_int(), state.state());
     }
 } // namespace randomizer::seed::items

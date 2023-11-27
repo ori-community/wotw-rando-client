@@ -4,6 +4,7 @@
 #include <Core/api/game/game.h>
 #include <Core/core.h>
 
+#include <Randomizer/dev/seed_debugger.h>
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/seed/items/icon.h>
 
@@ -146,8 +147,6 @@ namespace randomizer::seed {
         return output;
     }
 
-    constexpr bool SHOULD_SHOW_VERBOSE_SEED_GRANT = true;
-
     void Seed::grant(const location_entry location, const double previous_value) {
         if (!core::api::game::in_game()) {
             return;
@@ -160,7 +159,7 @@ namespace randomizer::seed {
         }
 
         auto &inner_locations = m_data.locations[location];
-        std::map<int, std::tuple<std::shared_ptr<items::BaseItem>, core::api::uber_states::UberStateCondition>> to_grant;
+        std::map<int, std::tuple<std::shared_ptr<items::BaseItem>, core::api::uber_states::UberStateCondition, bool>> to_grant;
         auto value = location.get<double>();
         for (auto &[condition, data]: inner_locations) {
             const auto already_granted = condition.resolve(previous_value);
@@ -175,59 +174,70 @@ namespace randomizer::seed {
 
             if (!already_granted) {
                 for (auto &[order, item]: data.items) {
-                    to_grant[order] = {item, condition};
+                    to_grant[order] = {item, condition, false};
                 }
             }
 
             for (auto &[order, item]: data.always_granted_items) {
-                to_grant[order] = {item, condition};
+                to_grant[order] = {item, condition, true};
             }
         }
 
-        auto skip = 0u;
-        if (SHOULD_SHOW_VERBOSE_SEED_GRANT) {
-            modloader::info("verbose_grants", std::format("------ starting grant for ({}|{}) = {}", location.group_int(), location.state(), location.get()));
+        if (to_grant.empty()) {
+            return;
         }
 
-        for (const auto &[item, condition]: to_grant | std::views::values) {
+        const auto current_value = location.get<double>();
+        dev::seed_debugger::begin_grant(location, previous_value);
+
+        auto skip = 0u;
+        for (const auto &[item, condition, ignore_already_granted]: to_grant | std::views::values) {
             if (skip != 0) {
                 --skip;
                 continue;
             }
 
-            if (SHOULD_SHOW_VERBOSE_SEED_GRANT) {
-                modloader::info("verbose_grants", std::format("granting: {}", item->to_string()));
-                modloader::info("verbose_grants", std::format("         '{}'", item->line));
-            }
-
+            dev::seed_debugger::next_item(condition, ignore_already_granted, *item);
             item->grant();
             skip += item->skip.get();
+            dev::seed_debugger::skip(condition, ignore_already_granted, *item, skip);
             if (item->stop.get()) {
-                if (SHOULD_SHOW_VERBOSE_SEED_GRANT) {
-                    modloader::info("verbose_grants", std::format("#### stopping ({}|{}) early", location.group_int(), location.state()));
-                }
-
+                dev::seed_debugger::stop(condition, ignore_already_granted, *item);
                 break;
             }
         }
 
-        if (SHOULD_SHOW_VERBOSE_SEED_GRANT) {
-            modloader::info("verbose_grants", "------ stopping grant");
-        }
-
-        if (!to_grant.empty()) {
-            queue_reach_check();
-        }
+        dev::seed_debugger::end_grant(location, current_value, previous_value);
+        queue_reach_check();
     }
 
-    void Seed::call_procedure(const int id) {
+    void Seed::procedure_call(const int id) {
         auto it = m_data.procedures.find(id);
         if (it == m_data.procedures.end()) {
             return;
         }
 
+        auto skip = 0u;
+        const auto empty = core::api::uber_states::UberStateCondition();
+        dev::seed_debugger::procedure(id);
         for (const auto &item: it->second.items | std::views::values) {
+            dev::seed_debugger::next_item(empty, false, *item);
             item->grant();
+            skip += item->skip.get();
+            dev::seed_debugger::skip(empty, false, *item, skip);
+            if (item->stop.get()) {
+                dev::seed_debugger::stop(empty, false, *item);
+                break;
+            }
         }
+    }
+
+    std::optional<ItemData> Seed::procedure_data(const int id) {
+        const auto it = m_data.procedures.find(id);
+        if (it == m_data.procedures.end()) {
+            return std::nullopt;
+        }
+
+        return it->second;
     }
 } // namespace randomizer::seed

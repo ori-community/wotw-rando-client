@@ -102,6 +102,7 @@ namespace modloader {
     IL2CPP_MODLOADER_DLLEXPORT void trace(MessageType type, int level, std::string const& group, std::string const& message);
     IL2CPP_MODLOADER_DLLEXPORT void info(std::string const& group, std::string const& message);
     IL2CPP_MODLOADER_DLLEXPORT void warn(std::string const& group, std::string const& message);
+    IL2CPP_MODLOADER_DLLEXPORT void error(std::string const& group, std::string const& message);
     IL2CPP_MODLOADER_DLLEXPORT void debug(std::string const& group, std::string const& message);
     IL2CPP_MODLOADER_DLLEXPORT void send_trace(MessageType type, int level, std::string const& group, std::string const& message);
 

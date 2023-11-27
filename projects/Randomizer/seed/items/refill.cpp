@@ -21,7 +21,7 @@ namespace randomizer::seed::items {
         }
     }
 
-    std::string Refill::to_string() {
+    std::string Refill::to_string() const {
         return std::format("refill {}", magic_enum::enum_name(type));
     }
 } // namespace randomizer::seed::items

@@ -13,7 +13,7 @@ namespace randomizer::seed::items {
         bool show_items = true;
 
         void grant() final;
-        std::string message_text();
-        std::string to_string() override;
+        std::string message_text() const;
+        std::string to_string() const override;
     };
 } // namespace randomizer::seed::items

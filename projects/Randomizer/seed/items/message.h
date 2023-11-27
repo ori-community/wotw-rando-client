@@ -11,7 +11,7 @@ namespace randomizer::seed::items {
         bool should_save_as_last = false;
 
         void grant() override;
-        std::string to_string() override;
+        std::string to_string() const override;
     };
 
     class MapMessage final : public BaseItem {
@@ -19,6 +19,6 @@ namespace randomizer::seed::items {
         std::string message;
 
         void grant() override;
-        std::string to_string() override;
+        std::string to_string() const override;
     };
 } // namespace randomizer::seed::items

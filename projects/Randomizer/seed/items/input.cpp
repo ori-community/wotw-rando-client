@@ -8,7 +8,7 @@ namespace randomizer::seed::items {
         input::set_action(action, false);
     }
 
-    std::string Input::to_string() {
+    std::string Input::to_string() const {
         return std::format("trigger input {}", magic_enum::enum_name(action));
     }
 } // namespace randomizer::seed::items

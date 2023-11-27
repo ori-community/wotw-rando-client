@@ -13,7 +13,7 @@ namespace randomizer::seed::items {
         });
     }
 
-    std::string CountingMessage::message_text() {
+    std::string CountingMessage::message_text() const {
         std::string message;
         auto total_count = targets.size();
         std::vector<core::api::uber_states::UberStateCondition> met;
@@ -43,7 +43,7 @@ namespace randomizer::seed::items {
         return message;
     }
 
-    std::string CountingMessage::to_string() {
+    std::string CountingMessage::to_string() const {
         return std::format("counting message '{}'", message_text());
     }
 } // namespace randomizer::seed::items

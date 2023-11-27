@@ -63,9 +63,9 @@ namespace core {
         const auto is_uber_state = value.container().value.index();
         if (is_uber_state == 1) {
             auto const& state = std::get<1>(value.container().value);
-            return std::format("({}|{}): {}", state.group_int(), state.state(), value.get());
+            return state.to_string();
         } else {
-            return std::format("{} ", value.get());
+            return std::format("{}", value.get());
         }
     }
 

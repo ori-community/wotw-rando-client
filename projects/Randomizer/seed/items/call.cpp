@@ -5,7 +5,7 @@ namespace randomizer::seed::items {
         func();
     }
 
-    std::string Call::to_string() {
-        return std::format("call function");
+    std::string Call::to_string() const {
+        return std::format("call function '{}'", description);
     }
 } // namespace randomizer::seed::items

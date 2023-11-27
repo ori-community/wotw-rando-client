@@ -56,7 +56,8 @@ namespace randomizer::seed {
         app::WorldMapIconType__Enum icon(inner_location_entry location);
         std::string text(const inner_location_entry& location) const;
         void grant(location_entry location, double previous_value);
-        void call_procedure(int id);
+        void procedure_call(int id);
+        std::optional<ItemData> procedure_data(int id);
 
         SeedInfo const& info() const { return m_data.info; }
         int total_pickups() const { return m_data.info.total_pickups; }

@@ -110,6 +110,10 @@ namespace modloader {
         trace(MessageType::Warning, 3, group, message);
     }
 
+    void error(std::string const& group, std::string const& message) {
+        trace(MessageType::Error, 3, group, message);
+    }
+
     void debug(std::string const& group, std::string const& message) {
         trace(MessageType::Debug, 5, group, message);
     }

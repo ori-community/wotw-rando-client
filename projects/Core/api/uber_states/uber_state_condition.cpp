@@ -25,11 +25,47 @@ namespace core::api::uber_states {
         return common::resolve_operator(state_value, value, op);
     }
 
-    bool operator==(UberStateCondition const& a, UberStateCondition const& b) {
+    std::string UberStateCondition::to_string(bool use_names, std::optional<double> previous_value) const {
+        std::string op_string;
+        switch (op) {
+            case BooleanOperator::Equals:
+                op_string = "==";
+                break;
+            case BooleanOperator::NotEquals:
+                op_string = "!=";
+                break;
+            case BooleanOperator::GreaterOrEquals:
+                op_string = ">=";
+                break;
+            case BooleanOperator::Greater:
+                op_string = ">";
+                break;
+            case BooleanOperator::LesserOrEquals:
+                op_string = "<=";
+                break;
+            case BooleanOperator::Lesser:
+                op_string = "<";
+                break;
+            default:
+                break;
+        }
+
+        return std::format(
+            "({}|{}{}{}) = {}",
+            use_names ? state.group_name() : std::to_string(state.group_int()),
+            use_names ? state.state_name() : std::to_string(state.state()),
+            op_string,
+            op_string.empty() ? "" : std::format("{}", value),
+            state.get(),
+            previous_value.has_value() ? std::format(" (was {})", previous_value.value()) : ""
+        );
+    }
+
+    bool operator==(UberStateCondition const &a, UberStateCondition const &b) {
         return a.op == b.op && a.state == b.state && a.value == b.value;
     }
 
-    bool operator<(UberStateCondition const& a, UberStateCondition const& b) {
+    bool operator<(UberStateCondition const &a, UberStateCondition const &b) {
         if (a.state.group() != b.state.group()) {
             return a.state.group() < b.state.group();
         }
@@ -45,17 +81,17 @@ namespace core::api::uber_states {
         return a.value < b.value;
     }
 
-    CORE_DLLEXPORT bool parse_condition(std::string_view str, UberStateCondition& condition) {
+    CORE_DLLEXPORT bool parse_condition(std::string_view str, UberStateCondition &condition) {
         std::vector<std::string> parts;
         split_str(str, parts, '|');
         return parse_condition(parts, condition);
     }
 
-    CORE_DLLEXPORT bool parse_condition(std::vector<std::string> const& parts, UberStateCondition& condition) {
+    CORE_DLLEXPORT bool parse_condition(std::vector<std::string> const &parts, UberStateCondition &condition) {
         return parse_condition(std::span(parts.begin(), parts.end()), condition);
     }
 
-    CORE_DLLEXPORT bool parse_condition(std::span<std::string const> parts, UberStateCondition& condition, bool* used_default_operator) {
+    CORE_DLLEXPORT bool parse_condition(std::span<std::string const> parts, UberStateCondition &condition, bool *used_default_operator) {
         if (parts.size() < 2) {
             return false;
         }
@@ -74,7 +110,8 @@ namespace core::api::uber_states {
             if (!string_convert(result->suffix, value)) {
                 return false;
             }
-        } else {
+        }
+        else {
             condition.op = BooleanOperator::Greater;
         }
 
@@ -83,7 +120,7 @@ namespace core::api::uber_states {
         }
 
         int group;
-            if (!string_convert(parts[0], group)) {
+        if (!string_convert(parts[0], group)) {
             return false;
         }
 

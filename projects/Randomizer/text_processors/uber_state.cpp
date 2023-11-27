@@ -77,7 +77,7 @@ namespace randomizer::text_processors {
                 return std::nullopt;
             }
 
-            return std::to_string(state->get<double>());
+            return std::format("{}", state->get<double>());
         }
 
         std::optional<std::string> value(core::text::ITextProcessor const& base_processor, std::string_view content) {

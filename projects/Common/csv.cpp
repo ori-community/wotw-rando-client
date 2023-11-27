@@ -123,10 +123,6 @@ namespace csv {
     }
 
     std::string sanitize_csv_field(std::string str) {
-        if (str.find(',') == -1 && str.find('"') == -1) {
-            return str;
-        }
-
         str_replace(str, "\"", "\"\"");
         return std::format("\"{}\"", str);
     }

@@ -17,7 +17,7 @@ namespace randomizer::seed::items {
         icons[id] = icon;
     }
 
-    std::string CreateIcon::to_string() {
+    std::string CreateIcon::to_string() const {
         return std::format("create icon {} of type {} at ({}, {})", id, static_cast<int>(type), position.x, position.y);
     }
 
@@ -26,7 +26,7 @@ namespace randomizer::seed::items {
         icons.erase(id);
     }
 
-    std::string DestroyIcon::to_string() {
+    std::string DestroyIcon::to_string() const {
         return std::format("destroy icon {}", id);
     }
 

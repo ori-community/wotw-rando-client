@@ -10,6 +10,6 @@ namespace randomizer::seed::items {
         int procedure;
 
         void grant() final;
-        std::string to_string() override;
+        std::string to_string() const override;
     };
 } // namespace randomizer::seed::items

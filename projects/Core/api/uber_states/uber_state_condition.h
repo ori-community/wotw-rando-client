@@ -26,6 +26,8 @@ namespace core::api::uber_states {
         [[nodiscard]] bool resolve() const;
         [[nodiscard]] bool resolve(double state_value) const;
         [[nodiscard]] bool resolve(UberState compared_state, double state_value) const;
+
+        std::string to_string(bool use_names = false, std::optional<double> previous_value = std::nullopt) const;
     };
 
     CORE_DLLEXPORT bool operator==(UberStateCondition const& a, UberStateCondition const& b);

@@ -13,8 +13,8 @@ namespace randomizer::seed::items {
         core::message_controller().queue_central(copy, should_save_as_last);
     }
 
-    std::string Message::to_string() {
-        return std::format("show message {}", info.text.get());
+    std::string Message::to_string() const {
+        return std::format("show message '{}'", info.text.get());
     }
 
     void MapMessage::grant() {
@@ -25,7 +25,7 @@ namespace randomizer::seed::items {
         }
     }
 
-    std::string MapMessage::to_string() {
-        return std::format("show map message {}", message);
+    std::string MapMessage::to_string() const {
+        return std::format("show map message '{}'", message);
     }
 } // namespace randomizer::seed::items
