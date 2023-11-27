@@ -201,11 +201,11 @@ namespace randomizer::seed::legacy_parser {
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
-        message->info.text = text;
+        message->info.text.set(text);
 
         data.add_item(message);
-        data.location_data.names.emplace_back() = core::wrap_readonly<std::string>(message->info.text);
-        data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::Experience);
+        data.location_data.names.emplace_back(message->info.text);
+        data.location_data.icons.emplace_back(app::WorldMapIconType__Enum::Experience);
 
         return true;
     }
@@ -236,7 +236,7 @@ namespace randomizer::seed::legacy_parser {
                 refill->type = items::Refill::RefillType::Health;
                 data.add_item(refill);
                 icon = app::WorldMapIconType__Enum::HealthFragment;
-                message->info.text = std::string("Health Fragment");
+                message->info.text.set("Health Fragment");
                 break;
             }
             case ResourceType::Energy: {
@@ -248,7 +248,7 @@ namespace randomizer::seed::legacy_parser {
                 refill->type = items::Refill::RefillType::Energy;
                 data.add_item(refill);
                 icon = app::WorldMapIconType__Enum::EnergyFragment;
-                message->info.text = std::string("Energy Fragment");
+                message->info.text.set("Energy Fragment");
                 break;
             }
             case ResourceType::Ore: {
@@ -257,7 +257,7 @@ namespace randomizer::seed::legacy_parser {
                 adder->value.set(1);
                 data.add_item(adder);
                 icon = app::WorldMapIconType__Enum::Ore;
-                message->info.text = std::string("Gorlek Ore");
+                message->info.text.set("Gorlek Ore");
                 break;
             }
             case ResourceType::Keystone: {
@@ -266,7 +266,7 @@ namespace randomizer::seed::legacy_parser {
                 adder->value.set(1);
                 data.add_item(adder);
                 icon = app::WorldMapIconType__Enum::Keystone;
-                message->info.text = std::string("Keystone");
+                message->info.text.set("Keystone");
                 break;
             }
             case ResourceType::ShardSlot: {
@@ -275,7 +275,7 @@ namespace randomizer::seed::legacy_parser {
                 adder->value.set(1);
                 data.add_item(adder);
                 icon = app::WorldMapIconType__Enum::ShardSlotUpgrade;
-                message->info.text = std::string("Shard Slot");
+                message->info.text.set("Shard Slot");
                 break;
             }
             default:
@@ -287,8 +287,8 @@ namespace randomizer::seed::legacy_parser {
         }
 
         data.add_item(message);
-        data.location_data.names.emplace_back() = core::wrap_readonly<std::string>(message->info.text);
-        data.location_data.icons.emplace_back().assign(icon);
+        data.location_data.names.emplace_back(message->info.text);
+        data.location_data.icons.emplace_back(icon);
         return true;
     }
 
@@ -321,10 +321,10 @@ namespace randomizer::seed::legacy_parser {
         const auto text = should_add
             ? std::format("[ability({0})]", ability_type_int)
             : std::format("Removed [ability({0})]", ability_type_int);
-        message->info.text = text;
+        message->info.text.set(text);
         data.add_item(message);
-        data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::AbilityPedestal);
-        data.location_data.names.emplace_back().assign(text);
+        data.location_data.icons.emplace_back(app::WorldMapIconType__Enum::AbilityPedestal);
+        data.location_data.names.emplace_back(text);
         return true;
     }
 
@@ -358,10 +358,10 @@ namespace randomizer::seed::legacy_parser {
         const auto text = should_add
             ? std::format("[shard({0})]", shard_type_int)
             : std::format("Removed [shard({0})]", shard_type_int);
-        message->info.text = text;
+        message->info.text.set(text);
         data.add_item(message);
-        data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::AbilityPedestal);
-        data.location_data.names.emplace_back().assign(text);
+        data.location_data.icons.emplace_back(app::WorldMapIconType__Enum::AbilityPedestal);
+        data.location_data.names.emplace_back(text);
         return true;
     }
 
@@ -373,8 +373,13 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
+        const auto stop_condition = core::api::uber_states::UberStateCondition{{group, state}, op, value};
         const auto stop = std::make_shared<items::Empty>();
-        stop->stop.assign(core::api::uber_states::UberStateCondition{{group, state}, op, value});
+        stop->stop.assign(
+            [](auto) {},
+            [stop_condition]() { return stop_condition.resolve(); }
+        );
+
         data.add_item(stop);
         return true;
     }
@@ -903,10 +908,10 @@ namespace randomizer::seed::legacy_parser {
         set_location(message.get(), location);
         message->should_save_as_last = true;
         const auto text = should_add ? std::format("#{0} TP#", teleporter_name) : std::format("Removed #{0} TP#", teleporter_name);
-        message->info.text = text;
+        message->info.text.set(text);
         data.add_item(message);
-        data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::SavePedestal);
-        data.location_data.names.emplace_back().assign(text);
+        data.location_data.icons.emplace_back(app::WorldMapIconType__Enum::SavePedestal);
+        data.location_data.names.emplace_back(text);
         return true;
     }
 
@@ -949,16 +954,16 @@ namespace randomizer::seed::legacy_parser {
             }
         }
 
-        message->info.text = text;
+        message->info.text.set(text);
         data.add_item(message);
-        data.location_data.names.emplace_back() = core::wrap_readonly<std::string>(message->info.text);
+        data.location_data.names.emplace_back(text);
         return true;
     }
 
     std::regex ptr_regex(R"(\$\(([0-9]+)\|([0-9]+)\))");
     std::regex range_regex(R"(\[([^,\]]+),([^,\]]+)\])");
 
-    bool gen_from_frag(const std::string &frag, core::DynamicValue<double> &value) {
+    bool gen_from_frag(const std::string &frag, core::Property<double> &value) {
         std::smatch results;
         if (std::regex_match(frag, results, ptr_regex)) {
             int group;
@@ -1013,8 +1018,8 @@ namespace randomizer::seed::legacy_parser {
 
         const auto line = concatenate_parts(parts);
         if (std::smatch results; std::regex_match(parts[3], results, range_regex)) {
-            core::DynamicValue<double> start;
-            core::DynamicValue<double> end;
+            core::Property<double> start;
+            core::Property<double> end;
             gen_from_frag(results[0], start);
             gen_from_frag(results[1], end);
 
@@ -1121,11 +1126,11 @@ namespace randomizer::seed::legacy_parser {
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
-        message->info.text = std::format("*{0}*", text);
+        message->info.text.set_format("*{0}*", text);
         data.add_item(message);
 
-        data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::QuestEnd);
-        data.location_data.names.emplace_back().assign(text);
+        data.location_data.icons.emplace_back(app::WorldMapIconType__Enum::QuestEnd);
+        data.location_data.names.emplace_back().set_format("*{0}*", text);
 
         return true;
     }
@@ -1172,11 +1177,11 @@ namespace randomizer::seed::legacy_parser {
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
-        message->info.text = std::format(R"(#{0}[if([state_int(4|{1})] > 1,<> x[state_int(4|{1})],)]#)", bonus_item, bonus_type_int);
+        message->info.text.set_format(R"(#{0}[if([state_int(4|{1})] > 1,<> x[state_int(4|{1})],)]#)", bonus_item, bonus_type_int);
         data.add_item(message);
 
-        data.location_data.icons.emplace_back().assign(app::WorldMapIconType__Enum::Seed);
-        data.location_data.names.emplace_back().assign(bonus_item);
+        data.location_data.icons.emplace_back(app::WorldMapIconType__Enum::Seed);
+        data.location_data.names.emplace_back(bonus_item);
 
         return true;
     }
@@ -1289,11 +1294,11 @@ namespace randomizer::seed::legacy_parser {
 
         const auto message = std::make_shared<items::Message>();
         message->should_save_as_last = true;
-        message->info.text = name;
+        message->info.text.set(name);
         set_location(message.get(), location);
 
         data.add_item(message);
-        data.location_data.names.emplace_back().assign(name);
+        data.location_data.names.emplace_back(name);
 
         return true;
     }
@@ -1313,16 +1318,14 @@ namespace randomizer::seed::legacy_parser {
         message->should_save_as_last = true;
         auto &relics = data.data.relics;
         message->info.text.assign(
-            core::dynamic_value::set_get<std::string>{
-                [](auto) {
-                },
-                [&relics, location]() { return std::format("@{} Relic@", std::string(relics.relic_name(location))); }
-            }
+            [](auto) {
+            },
+            [&relics, location]() { return std::format("@{} Relic@", std::string(relics.relic_name(location))); }
         );
 
         set_location(message.get(), location);
         data.add_item(message);
-        data.location_data.names.emplace_back(core::dynamic_value::get<std::string>{[&relics, location]() { return std::string(relics.relic_name(location)); }});
+        data.location_data.names.emplace_back([](auto){}, [&relics, location]() { return std::string(relics.relic_name(location)); });
 
         return true;
     }
@@ -1379,9 +1382,9 @@ namespace randomizer::seed::legacy_parser {
             case 2: {
                 const auto message = std::make_shared<items::Message>();
                 message->should_save_as_last = true;
-                message->info.text = std::string("[state_int(6|2)]/[seed(pickup_count)]");
+                message->info.text.set("[state_int(6|2)]/[seed(pickup_count)]");
                 data.add_item(message);
-                data.location_data.names.emplace_back() = core::wrap_readonly<std::string>(message->info.text);
+                data.location_data.names.emplace_back(message->info.text);
                 break;
             }
             case 3:
@@ -1436,16 +1439,16 @@ namespace randomizer::seed::legacy_parser {
                 }
 
                 data.add_item(counter);
-                data.location_data.names.emplace_back().assign([counter]() { return counter->message_text(); });
+                data.location_data.names.emplace_back([](auto){}, [counter]() { return counter->message_text(); });
                 break;
             }
             case 5: {
                 // WorldName
                 const auto message = std::make_shared<items::Message>();
-                message->info.text = std::format("[world({})]", parts[1]);
+                message->info.text.set_format("[world({})]", parts[1]);
                 message->should_save_as_last = true;
                 data.add_item(message);
-                data.location_data.names.emplace_back() = core::wrap_readonly<std::string>(message->info.text);
+                data.location_data.names.emplace_back(message->info.text);
                 break;
             }
             default:
@@ -1741,9 +1744,9 @@ namespace randomizer::seed::legacy_parser {
         caller->description = std::format("shop '{}' set title {}", shop_state.to_string(), title);
         caller->func = [shop_state, title]() {
             if (const auto slot = game::shops::shop_slot_from_state(shop_state); slot != nullptr) {
-                slot->normal.name = title;
-                slot->locked.name = title;
-                slot->hidden.name = title;
+                slot->normal.name.set(title);
+                slot->locked.name.set(title);
+                slot->hidden.name.set(title);
             }
         };
 
@@ -1768,7 +1771,7 @@ namespace randomizer::seed::legacy_parser {
         caller->description = std::format("shop '{}' set description {}", shop_state.to_string(), description);
         caller->func = [shop_state, description]() {
             if (const auto slot = game::shops::shop_slot_from_state(shop_state); slot != nullptr) {
-                slot->normal.description = description;
+                slot->normal.description.set(description);
             }
         };
 

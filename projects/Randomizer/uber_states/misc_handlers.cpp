@@ -14,8 +14,8 @@ namespace randomizer::uber_states {
             UberState state(46462, 59806);
             if (!state.get<bool>()) {
                 state.set(true);
-                core::api::game::player::max_health() += 10;
-                core::api::game::player::max_energy() += 1;
+                core::api::game::player::max_health().add(10);
+                core::api::game::player::max_energy().add(1);
                 core::api::game::player::refill_health();
                 core::api::game::player::refill_energy();
                 core::api::game::save();

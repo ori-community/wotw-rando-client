@@ -49,7 +49,7 @@ namespace randomizer::features::wheel {
                                 features::credits::start();
                             } else {
                                 core::message_controller().queue_central({
-                                    .text = std::string("Credit warp not unlocked!"),
+                                    .text = core::Property<std::string>("Credit warp not unlocked!"),
                                     .prioritized = true,
                                 });
                             }
@@ -58,7 +58,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::settings::always_show_keystones(!core::settings::always_show_keystones());
                             core::message_controller().queue_central({
-                                .text = std::format("Always show keystones: {}", core::settings::always_show_keystones()),
+                                .text = core::Property<std::string>::format("Always show keystones: {}", core::settings::always_show_keystones()),
                                 .prioritized = true,
                             });
                         });
@@ -66,7 +66,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::settings::cursor_locked(!core::settings::cursor_locked());
                             core::message_controller().queue_central({
-                                .text = std::format("Cursor locked: {}", core::settings::cursor_locked()),
+                                .text = core::Property<std::string>::format("Cursor locked: {}", core::settings::cursor_locked()),
                                 .prioritized = true,
                             });
                         });
@@ -74,7 +74,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::settings::autoaim(!core::settings::autoaim());
                             core::message_controller().queue_central({
-                                .text = std::format("Autoaim: {}", core::settings::autoaim()),
+                                .text = core::Property<std::string>::format("Autoaim: {}", core::settings::autoaim()),
                                 .prioritized = true,
                             });
                         });
@@ -87,7 +87,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::settings::dev_mode(!core::settings::dev_mode());
                             core::message_controller().queue_central({
-                                .text = std::format("Dev mode: {}", core::settings::dev_mode()),
+                                .text = core::Property<std::string>::format("Dev mode: {}", core::settings::dev_mode()),
                                 .prioritized = true,
                             });
                         });
@@ -95,7 +95,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::api::game::debug_controls(!core::api::game::debug_controls());
                             core::message_controller().queue_central({
-                                .text = std::format("Debug: {}", core::api::game::debug_controls()),
+                                .text = core::Property<std::string>::format("Debug: {}", core::api::game::debug_controls()),
                                 .prioritized = true,
                             });
                         });
@@ -103,7 +103,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::api::graphics::textures::reload_all_file_textures();
                             core::message_controller().queue_central({
-                                .text = std::format("Texture files reloaded."),
+                                .text = core::Property<std::string>::format("Texture files reloaded."),
                                 .prioritized = true,
                             });
                         });
@@ -113,7 +113,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             auto position = core::api::game::player::get_position();
                             core::message_controller().queue_central({
-                                .text = std::format("[ {}, {}, {} ]", position.x, position.y, position.z),
+                                .text = core::Property<std::string>::format("[ {}, {}, {} ]", position.x, position.y, position.z),
                                 .prioritized = true,
                             });
                         });
@@ -121,7 +121,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             if (game_seed().info().race_mode) {
                                 core::message_controller().queue_central({
-                                    .text = std::string("Teleport anywhere is not available in race mode"),
+                                    .text = core::Property<std::string>("Teleport anywhere is not available in race mode"),
                                     .prioritized = true,
                                 });
                                 return;
@@ -129,7 +129,7 @@ namespace randomizer::features::wheel {
 
                             game::map::teleport_anywhere = !game::map::teleport_anywhere;
                             core::message_controller().queue_central({
-                                .text = std::format("Teleport anywhere {}", game::map::teleport_anywhere ? "enabled" : "disabled"),
+                                .text = core::Property<std::string>::format("Teleport anywhere {}", game::map::teleport_anywhere ? "enabled" : "disabled"),
                                 .prioritized = true,
                             });
                         });
@@ -137,7 +137,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             if (game_seed().info().race_mode) {
                                 core::message_controller().queue_central({
-                                    .text = std::string("Unlock spoilers is not available in race mode"),
+                                    .text = core::Property<std::string>("Unlock spoilers is not available in race mode"),
                                     .prioritized = true,
                                 });
                                 return;
@@ -145,7 +145,7 @@ namespace randomizer::features::wheel {
 
                             core::api::uber_states::UberState(34543, 11226).set(1);
                             core::message_controller().queue_central({
-                                .text = std::string("Spoilers unlocked"),
+                                .text = core::Property<std::string>("Spoilers unlocked"),
                                 .prioritized = true,
                             });
                         });

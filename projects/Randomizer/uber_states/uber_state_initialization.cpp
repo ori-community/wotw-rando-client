@@ -639,7 +639,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GameState, 0),
                 "On New Game",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) {},
                     []() { return 1; },
                 })
@@ -648,7 +648,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GameState, 1),
                 "On Load Seed",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) {},
                     []() { return 1; },
                 })
@@ -657,7 +657,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GameState, 2),
                 "On Binding 1",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) {},
                     []() { return 1; },
                 })
@@ -666,7 +666,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GameState, 3),
                 "On Binding 2",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) {},
                     []() { return 1; },
                 })
@@ -675,7 +675,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GameState, 4),
                 "On Binding 3",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) {},
                     []() { return 1; },
                 })
@@ -684,7 +684,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GameState, 5),
                 "On Binding 4",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) {},
                     []() { return 1; },
                 })
@@ -693,7 +693,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GameState, 6),
                 "On Binding 5",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) {},
                     []() { return 1; },
                 })
@@ -702,7 +702,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GameState, 7),
                 "On Restore Checkpoint",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) {},
                     []() { return 1; },
                 })
@@ -711,44 +711,44 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GameState, 8),
                 "On Progress Hint",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) {},
                     []() { return 1; },
                 })
             );
 
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 0), "Spirit Light", core::wrap<double>(core::api::game::player::spirit_light()));
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 1), "Gorlek Ore", core::wrap<double>(core::api::game::player::ore()));
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 2), "Keystones", core::wrap<double>(core::api::game::player::keystones()));
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 10), "Max Health", core::wrap<double>(core::api::game::player::max_health()));
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 11), "Health", core::wrap<double>(core::api::game::player::health()));
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 12), "Max Energy", core::wrap<double>(core::api::game::player::max_energy()));
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 13), "Energy", core::wrap<double>(core::api::game::player::energy()));
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 0), "Spirit Light", core::api::game::player::spirit_light().wrap<double>());
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 1), "Gorlek Ore", core::api::game::player::ore().wrap<double>());
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 2), "Keystones", core::api::game::player::keystones().wrap<double>());
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 10), "Max Health", core::api::game::player::max_health().wrap<double>());
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 11), "Health", core::api::game::player::health().wrap<double>());
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 12), "Max Energy", core::api::game::player::max_energy().wrap<double>());
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 13), "Energy", core::api::game::player::energy().wrap<double>());
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 100),
                 "Debug Enabled",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { core::api::game::debug_controls(x > 0.5); },
                     []() { return core::api::game::debug_controls() ? 1.0 : 0.0; } })
             );
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 110),
                 "Invert x axis",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { set_axis_inverted(true, x > 0.5); },
                     []() { return get_axis_inverted(true) ? 1.0 : 0.0; } })
             );
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 111),
                 "Invert y axis",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { set_axis_inverted(false, x > 0.5); },
                     []() -> double { return get_axis_inverted(false) ? 1.0 : 0.0; } })
             );
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 112),
                 "Player input active",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) {
                         auto player_input = types::PlayerInput::get_class()->static_fields->Instance;
                         player_input->fields.Active = x > 0.5;
@@ -761,28 +761,28 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 200),
                 "Area",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 200) is read only."); },
                     []() -> double { return static_cast<double>(core::api::game::player::get_current_area()); } })
             );
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 500),
                 "Total Relics",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 500) is read only."); },
                     []() -> double { return static_cast<double>(0 /*TODO: csharp_bridge::get_relic_count(true)*/); } })
             );
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 501),
                 "Current Relics",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 501) is read only."); },
                     []() -> double { return static_cast<double>(0 /*TODO: csharp_bridge::get_relic_count(false)*/); } })
             );
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 502),
                 "Current Trees",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 502) is read only."); },
                     []() -> double {
                         return UberState(UberStateGroup::Tree, app::AbilityType__Enum::Sword).get() + UberState(UberStateGroup::Tree, app::AbilityType__Enum::DoubleJump).get() + UberState(UberStateGroup::Tree, app::AbilityType__Enum::MeditateSpell).get() + UberState(UberStateGroup::Tree, app::AbilityType__Enum::Bow).get() + UberState(UberStateGroup::Tree, app::AbilityType__Enum::DashNew).get() + UberState(UberStateGroup::Tree, app::AbilityType__Enum::Bash).get() + UberState(UberStateGroup::Tree, app::AbilityType__Enum::SpiritLeash).get() + UberState(UberStateGroup::Tree, app::AbilityType__Enum::WaterDash).get() + UberState(UberStateGroup::Tree, app::AbilityType__Enum::GlowSpell).get() + UberState(UberStateGroup::Tree, app::AbilityType__Enum::Grenade).get() + UberState(UberStateGroup::Tree, app::AbilityType__Enum::Digging).get() + UberState(UberStateGroup::Tree, app::AbilityType__Enum::ChargeJump).get() + UberState(UberStateGroup::Tree, app::AbilityType__Enum::DamageUpgradeA).get() + UberState(UberStateGroup::Tree, app::AbilityType__Enum::DamageUpgradeB).get();
@@ -791,7 +791,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 503),
                 "Current Wisps",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 503) is read only."); },
                     []() -> double {
                         return UberState(static_cast<UberStateGroup>(28895), 25522).get() // Reach
@@ -804,7 +804,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 504),
                 "Current Quests",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 504) is read only."); },
                     []() -> double {
                         return static_cast<int>(UberState(static_cast<UberStateGroup>(937), 34641).get() > 3.5) +
@@ -831,7 +831,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GromShop, 16825),
                 "Spirit Well Bought",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { UberState(42178, 16825).set(x > 0.5 ? 1 : 3); },
                     []() -> double {
                         return UberState(42178, 16825).get<int>() >= 3 ? 1 : 0;
@@ -841,7 +841,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GromShop, 51230),
                 "Houses A Bought",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { UberState(42178, 51230).set(x > 0.5 ? 1 : 3); },
                     []() -> double {
                         return UberState(42178, 51230).get<int>() >= 3 ? 1 : 0;
@@ -851,7 +851,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GromShop, 23607),
                 "Houses B Bought",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { UberState(42178, 23607).set(x > 0.5 ? 1 : 3); },
                     []() -> double {
                         return UberState(42178, 23607).get<int>() >= 3 ? 1 : 0;
@@ -861,7 +861,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GromShop, 40448),
                 "Houses C Bought",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { UberState(42178, 40448).set(x > 0.5 ? 1 : 3); },
                     []() -> double {
                         return UberState(42178, 40448).get<int>() >= 3 ? 1 : 0;
@@ -871,7 +871,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GromShop, 18751),
                 "Remove Thorns Bought",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { UberState(42178, 18751).set(x > 0.5 ? 1 : 3); },
                     []() -> double {
                         return UberState(42178, 18751).get<int>() >= 3 ? 1 : 0;
@@ -881,7 +881,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GromShop, 16586),
                 "Open Cave Bought",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { UberState(42178, 16586).set(x > 0.5 ? 1 : 3); },
                     []() -> double {
                         return UberState(42178, 16586).get<int>() >= 3 ? 1 : 0;
@@ -891,7 +891,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::GromShop, 15068),
                 "Beautify Bought",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
                     []() -> double {
                         return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
@@ -903,7 +903,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::TuleyShop, 47651),
                 "bashPlantsPlanted",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
                     []() -> double {
                         return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
@@ -913,7 +913,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::TuleyShop, 16254),
                 "flowersPlanted",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
                     []() -> double {
                         return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
@@ -923,7 +923,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::TuleyShop, 33011),
                 "grapplePlantsPlanted",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
                     []() -> double {
                         return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
@@ -933,7 +933,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::TuleyShop, 64583),
                 "grassPlanted",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
                     []() -> double {
                         return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
@@ -943,7 +943,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::TuleyShop, 38393),
                 "springPlantsPlanted",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
                     []() -> double {
                         return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
@@ -953,7 +953,7 @@ namespace randomizer {
             register_virtual_state(
                 std::make_pair(UberStateGroup::TuleyShop, 40006),
                 "treePlanted",
-                core::DynamicValue<double>(core::set_get<double>{
+                core::Property<double>(core::set_get<double>{
                     [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
                     []() -> double {
                         return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;

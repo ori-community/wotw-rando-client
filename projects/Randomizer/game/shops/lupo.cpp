@@ -2,7 +2,7 @@
 
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/dynamic_value.h>
+#include <Core/property.h>
 #include <Core/enums/static_text_entries.h>
 #include <Core/text/text_database.h>
 

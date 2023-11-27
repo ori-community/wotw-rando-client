@@ -5,6 +5,8 @@
 
 #include <vector>
 
+using namespace app::classes;
+
 namespace {
     constexpr float ENERGY_REGENERATION_MODIFIER = 0.0168f;
 
@@ -15,7 +17,7 @@ namespace {
             return;
         }
 
-        auto regen = energy_regeneration.get();
+        const auto regen = energy_regeneration.get();
         if (regen > 0) {
             core::api::game::player::energy().add(regen * core::api::game::delta_time() * ENERGY_REGENERATION_MODIFIER);
         }

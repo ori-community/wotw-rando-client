@@ -2,7 +2,7 @@
 
 #include <Common/event_bus.h>
 
-#include <Core/api/messages/message_box.h>
+#include <Core/api/uber_states/uber_state_condition.h>
 
 #include <Randomizer/seed/items/item.h>
 

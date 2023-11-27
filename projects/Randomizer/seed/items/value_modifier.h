@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core/dynamic_value.h>
+#include <Core/property.h>
 
 #include <Randomizer/seed/items/item.h>
 
@@ -20,7 +20,7 @@ namespace randomizer::seed::items {
     template<typename T>
     class ValueModifier<T, ValueOperator::Assign> final : public BaseItem {
     public:
-        using value_type = core::DynamicValue<T>;
+        using value_type = core::Property<T>;
         value_type variable;
         value_type value;
         bool should_skip_grants = false;
@@ -38,8 +38,8 @@ namespace randomizer::seed::items {
         std::string to_string() const override {
             return std::format(
                 "{} set to {}{}",
-                core::dv_to_string<T>(variable),
-                core::dv_to_string<T>(value),
+                variable.to_string(),
+                value.to_string(),
                 should_skip_grants ? " skips grant" : ""
             );
         }
@@ -48,7 +48,7 @@ namespace randomizer::seed::items {
     template<typename T>
     class ValueModifier<T, ValueOperator::Add> final : public BaseItem {
     public:
-        using value_type = core::DynamicValue<T>;
+        using value_type = core::Property<T>;
         value_type variable;
         value_type value;
         bool should_skip_grants = false;
@@ -66,8 +66,8 @@ namespace randomizer::seed::items {
         std::string to_string() const override {
             return std::format(
                 "{} add {}{}",
-                core::dv_to_string<T>(variable),
-                core::dv_to_string<T>(value),
+                variable.to_string(),
+                value.to_string(),
                 should_skip_grants ? " skips grant" : ""
             );
         }
@@ -76,7 +76,7 @@ namespace randomizer::seed::items {
     template<typename T>
     class ValueModifier<T, ValueOperator::Sub> final : public BaseItem {
     public:
-        using value_type = core::DynamicValue<T>;
+        using value_type = core::Property<T>;
         value_type variable;
         value_type value;
         bool should_skip_grants = false;
@@ -94,8 +94,8 @@ namespace randomizer::seed::items {
         std::string to_string() const override {
             return std::format(
                 "{} subtract {}{}",
-                core::dv_to_string<T>(variable),
-                core::dv_to_string<T>(value),
+                variable.to_string(),
+                value.to_string(),
                 should_skip_grants ? " skips grant" : ""
             );
         }

@@ -90,12 +90,12 @@ namespace randomizer::game {
                     lobby_status_text_box = std::make_shared<core::api::messages::MessageBox>();
                 }
 
-                lobby_status_text_box->alignment() = app::AlignmentMode__Enum::Center;
-                lobby_status_text_box->horizontal_anchor() = app::HorizontalAnchorMode__Enum::Center;
-                lobby_status_text_box->vertical_anchor() = app::VerticalAnchorMode__Enum::Top;
-                lobby_status_text_box->position() = app::Vector3{0.f, 1.5f, 0.f};
-                lobby_status_text_box->fade_in() = false;
-                lobby_status_text_box->fade_out() = false;
+                lobby_status_text_box->alignment().set(app::AlignmentMode__Enum::Center);
+                lobby_status_text_box->horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Center);
+                lobby_status_text_box->vertical_anchor().set(app::VerticalAnchorMode__Enum::Top);
+                lobby_status_text_box->position().set(app::Vector3{0.f, 1.5f, 0.f});
+                lobby_status_text_box->fade_in().set(false);
+                lobby_status_text_box->fade_out().set(false);
                 lobby_status_text_box->show_box(false);
 
                 std::string text;
@@ -144,7 +144,7 @@ namespace randomizer::game {
                 text += "\n\nPress [MenuBack] to leave";
 
                 lobby_status_text_box->show(true, false);
-                lobby_status_text_box->set_static_text(text);
+                lobby_status_text_box->text().process_and_set(text);
             }
             else if (lobby_status_text_box != nullptr) {
                 lobby_status_text_box = nullptr;

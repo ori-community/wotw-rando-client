@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core/dynamic_value.h>
+#include <Core/property.h>
 #include <Core/enums/game_areas.h>
 #include <Core/macros.h>
 
@@ -37,16 +37,16 @@ namespace core::api::game::player {
     CORE_DLLEXPORT void refill_energy();
     CORE_DLLEXPORT void refill_health();
 
-    CORE_DLLEXPORT DynamicValue<float> health();
-    CORE_DLLEXPORT DynamicValue<int> max_health();
-    CORE_DLLEXPORT DynamicValue<float> energy();
-    CORE_DLLEXPORT DynamicValue<float> max_energy();
-    CORE_DLLEXPORT DynamicValue<int> spirit_light();
-    CORE_DLLEXPORT DynamicValue<int> keystones();
-    CORE_DLLEXPORT DynamicValue<int> ore();
-    CORE_DLLEXPORT DynamicValue<int> shard_slots();
+    CORE_DLLEXPORT Property<float> health();
+    CORE_DLLEXPORT Property<int> max_health();
+    CORE_DLLEXPORT Property<float> energy();
+    CORE_DLLEXPORT Property<float> max_energy();
+    CORE_DLLEXPORT Property<int> spirit_light();
+    CORE_DLLEXPORT Property<int> keystones();
+    CORE_DLLEXPORT Property<int> ore();
+    CORE_DLLEXPORT Property<int> shard_slots();
 
-    CORE_DLLEXPORT DynamicValue<bool> shard(app::SpiritShardType__Enum type);
+    CORE_DLLEXPORT Property<bool> shard(app::SpiritShardType__Enum type);
     CORE_DLLEXPORT bool is_shard_equipped(app::SpiritShardType__Enum type);
 
     CORE_DLLEXPORT GameArea get_current_area();

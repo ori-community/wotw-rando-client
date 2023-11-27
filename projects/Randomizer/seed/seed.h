@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Core/api/uber_states/uber_state_condition.h>
-#include <Core/dynamic_value.h>
+#include <Core/property.h>
 #include <Core/enums/game_areas.h>
 
 #include <Randomizer/location_data/location_collection.h>

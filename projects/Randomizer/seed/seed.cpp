@@ -50,7 +50,7 @@ namespace randomizer::seed {
         if (!m_last_parser(m_last_path, m_location_data, m_data)) {
             core::message_controller().queue_central(
                 {
-                    .text = std::format("Failed to load seed '{}'", m_last_path),
+                    .text = core::Property<std::string>::format("Failed to load seed '{}'", m_last_path),
                     .show_box = true,
                     .prioritized = true,
                 }
@@ -98,7 +98,7 @@ namespace randomizer::seed {
 
         core::message_controller().queue_central(
             {
-                .text = std::format("Loaded {}{}", info().name, flags),
+                .text = core::Property<std::string>::format("Loaded {}{}", info().name, flags),
                 .show_box = true,
                 .prioritized = true,
             }

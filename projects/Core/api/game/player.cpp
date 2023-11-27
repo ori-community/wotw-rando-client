@@ -395,47 +395,47 @@ namespace core::api::game::player {
         }
     }
 
-    DynamicValue<float> health() {
-        return { set_get<float>{ set_health, get_health } };
+    Property<float> health() {
+        return Property<float>(set_health, get_health);
     }
 
-    DynamicValue<int> max_health() {
-        return { set_get<float>{ set_max_health, get_max_health } };
+    Property<int> max_health() {
+        return Property<int>(set_max_health, get_max_health);
     }
 
-    DynamicValue<float> energy() {
-        return { set_get<float>{ set_energy, get_energy } };
+    Property<float> energy() {
+        return Property<float>(set_energy, get_energy);
     }
 
-    DynamicValue<float> max_energy() {
-        return { set_get<float>{ set_max_energy, get_max_energy } };
+    Property<float> max_energy() {
+        return Property<float>(set_max_energy, get_max_energy);
     }
 
-    DynamicValue<int> spirit_light() {
-        return { set_get<int>{ set_spirit_light, get_spirit_light } };
+    Property<int> spirit_light() {
+        return Property<int>(set_spirit_light, get_spirit_light);
     }
 
-    DynamicValue<int> keystones() {
-        return { set_get<int>{ set_keystones, get_keystones } };
+    Property<int> keystones() {
+        return Property<int>(set_keystones, get_keystones);
     }
 
-    DynamicValue<int> ore() {
-        return { set_get<int>{ set_ore, get_ore } };
+    Property<int> ore() {
+        return Property<int>(set_ore, get_ore);
     }
 
-    DynamicValue<int> shard_slots() {
-        return { set_get<int>{ set_shard_slots, get_shard_slots } };
+    Property<int> shard_slots() {
+        return Property<int>(set_shard_slots, get_shard_slots);
     }
 
-    DynamicValue<bool> shard(app::SpiritShardType__Enum type) {
-        return { set_get<bool>{
-            [type](bool value) { set_shard(type, value); },
-            [type]() { return has_shard(type); },
-        } };
+    Property<bool> shard(app::SpiritShardType__Enum type) {
+        return Property<bool>(
+            [type](const bool value) { set_shard(type, value); },
+            [type]() { return has_shard(type); }
+        );
     }
 
     bool is_shard_equipped(app::SpiritShardType__Enum type) {
-        auto shards = get_player_spirit_shards();
+        const auto shards = get_player_spirit_shards();
         return shards != nullptr && PlayerSpiritShards::IsGlobalShardEquipped_1(shards, type);
     }
 } // namespace core::api::game::player

@@ -4,7 +4,7 @@
 
 #include <Common/ext.h>
 
-#include <Core/dynamic_value.h>
+#include <Core/property.h>
 
 #include <Modloader/app/structs/Renderer.h>
 #include <Modloader/il2cpp_helpers.h>
@@ -32,10 +32,10 @@ namespace randomizer::online {
         void update_position(bool online, float x, float y);
         void recreate();
 
-        [[nodiscard]] core::DynamicValue<app::Color> color() { return m_dynamic_color; }
-        [[nodiscard]] core::DynamicValue<std::string> name() { return m_dynamic_name; }
-        [[nodiscard]] core::DynamicValue<bool> visible() { return m_visible; }
-        [[nodiscard]] core::DynamicValue<Type> type() { return m_dynamic_type; }
+        [[nodiscard]] core::Property<app::Color> color() { return m_dynamic_color; }
+        [[nodiscard]] core::Property<std::string> name() { return m_dynamic_name; }
+        [[nodiscard]] core::Property<bool> visible() { return m_visible; }
+        [[nodiscard]] core::Property<Type> type() { return m_dynamic_type; }
 
     private:
         bool initialize();
@@ -79,9 +79,9 @@ namespace randomizer::online {
         app::GameObject* m_text = nullptr;
         app::GameObject* m_icon = nullptr;
 
-        core::DynamicValue<bool> m_visible;
-        core::DynamicValue<app::Color> m_dynamic_color;
-        core::DynamicValue<std::string> m_dynamic_name;
-        core::DynamicValue<Type> m_dynamic_type;
+        core::Property<bool> m_visible;
+        core::Property<app::Color> m_dynamic_color;
+        core::Property<std::string> m_dynamic_name;
+        core::Property<Type> m_dynamic_type;
     };
 } // namespace randomizer::online

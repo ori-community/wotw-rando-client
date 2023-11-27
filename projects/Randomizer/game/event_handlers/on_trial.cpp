@@ -6,6 +6,8 @@
 
 bool is_in_trial = false;
 
+using namespace app::classes;
+
 namespace {
     auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         randomizer::game_seed().prevent_grants([]() {

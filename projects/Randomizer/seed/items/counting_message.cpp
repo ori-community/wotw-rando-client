@@ -9,7 +9,7 @@
 namespace randomizer::seed::items {
     void CountingMessage::grant() {
         core::message_controller().queue_central({
-            .text = message_text(),
+            .text = core::Property<std::string>(message_text()),
         });
     }
 

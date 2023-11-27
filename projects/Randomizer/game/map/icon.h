@@ -41,10 +41,10 @@ namespace randomizer::game::map {
     private:
         void initialize_game_object();
 
-        //core::DynamicValue<bool> m_visible;
-        //core::DynamicValue<bool> m_label_visible;
-        //core::DynamicValue<float> m_opacity;
-        //core::DynamicValue<app::WorldMapIconType__Enum> m_icon;
+        //core::Property<bool> m_visible;
+        //core::Property<bool> m_label_visible;
+        //core::Property<float> m_opacity;
+        //core::Property<app::WorldMapIconType__Enum> m_icon;
 
         std::string m_name;
         std::optional<std::string> m_label;

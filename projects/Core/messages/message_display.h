@@ -1,19 +1,19 @@
 #pragma once
 
-#include <Core/api/messages/message_box.h>
-#include <Core/messages/message_handle.h>
-
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector4.h>
 
+#include <Core/api/messages/message_box.h>
+#include <Core/messages/message_handle.h>
+#include <Core/text/text_processor.h>
+
 #include <memory>
 #include <optional>
-#include <string_view>
 #include <utility>
 
 namespace core::messages {
     struct MessageInfo {
-        DynamicValue<std::string> text;
+        Property<std::string> text;
         float duration = 3.f;
         bool show_box = true;
         bool instant_fade = false;
@@ -36,14 +36,14 @@ namespace core::messages {
 
         void update(float delta_time);
 
-        DynamicValue<app::Vector3>& position() { return m_position; };
-        DynamicValue<std::optional<int>>& max_line_count() { return m_max_line_count; };
-        DynamicValue<std::optional<int>>& max_in_queue() { return m_max_in_queue; };
+        Property<app::Vector3> position() { return m_position; };
+        Property<std::optional<int>> max_line_count() { return m_max_line_count; };
+        Property<std::optional<int>> max_in_queue() { return m_max_in_queue; };
 
-        DynamicValue<app::AlignmentMode__Enum>& alignment() { return m_alignment; }
-        DynamicValue<app::HorizontalAnchorMode__Enum>& horizontal_anchor() { return m_horizontal_anchor; }
-        DynamicValue<app::VerticalAnchorMode__Enum>& vertical_anchor() { return m_vertical_anchor; }
-        DynamicValue<std::optional<api::messages::ScreenPosition>>& screen_position() { return m_screen_position; }
+        Property<app::AlignmentMode__Enum> alignment() { return m_alignment; }
+        Property<app::HorizontalAnchorMode__Enum> horizontal_anchor() { return m_horizontal_anchor; }
+        Property<app::VerticalAnchorMode__Enum> vertical_anchor() { return m_vertical_anchor; }
+        Property<std::optional<api::messages::ScreenPosition>> screen_position() { return m_screen_position; }
 
     private:
         struct MessageData {
@@ -64,14 +64,14 @@ namespace core::messages {
         // TODO: Implement this.
         const float m_max_length_from_position = 20.f;
         bool m_showing_priority = false;
-        DynamicValue<app::Vector3> m_position;
-        DynamicValue<std::optional<int>> m_max_line_count;
-        DynamicValue<std::optional<int>> m_max_in_queue;
+        Property<app::Vector3> m_position;
+        Property<std::optional<int>> m_max_line_count;
+        Property<std::optional<int>> m_max_in_queue;
 
-        DynamicValue<app::AlignmentMode__Enum> m_alignment;
-        DynamicValue<app::HorizontalAnchorMode__Enum> m_horizontal_anchor;
-        DynamicValue<app::VerticalAnchorMode__Enum> m_vertical_anchor;
-        DynamicValue<std::optional<api::messages::ScreenPosition>> m_screen_position;
+        Property<app::AlignmentMode__Enum> m_alignment;
+        Property<app::HorizontalAnchorMode__Enum> m_horizontal_anchor;
+        Property<app::VerticalAnchorMode__Enum> m_vertical_anchor;
+        Property<std::optional<api::messages::ScreenPosition>> m_screen_position;
 
         std::optional<MessageData> m_last_message;
         std::optional<MessageData> m_priority_message;

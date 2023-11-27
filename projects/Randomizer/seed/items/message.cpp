@@ -6,11 +6,7 @@
 
 namespace randomizer::seed::items {
     void Message::grant() {
-        auto copy = info;
-        std::string text = copy.text.get();
-        general_text_processor()->process(*general_text_processor(), text);
-        copy.text.assign(text);
-        core::message_controller().queue_central(copy, should_save_as_last);
+        core::message_controller().queue_central(info, should_save_as_last);
     }
 
     std::string Message::to_string() const {

@@ -5,7 +5,7 @@
 
 #include <Core/api/uber_states/uber_state_condition.h>
 
-#include <Core/dynamic_value.h>
+#include <Core/property.h>
 
 namespace randomizer::text_processors {
     namespace {

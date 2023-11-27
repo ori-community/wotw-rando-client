@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Common/registration_handle.h>
-#include <Core/dynamic_value.h>
+#include <Core/property.h>
 #include <Core/macros.h>
 
 #include <Modloader/app/structs/Color.h>
@@ -69,26 +69,22 @@ namespace core::api::messages {
         [[nodiscard]] app::Rect text_bounds() const;
         [[nodiscard]] app::Rect bounds() const;
 
-        void set_static_text(const DynamicValue<std::string>& text);
-        void set_static_text(const std::string& text);
-        void set_static_text(const std::string_view& text);
-        void set_live_text(const DynamicValue<std::string>& text);
-        [[nodiscard]] DynamicValue<std::string>& get_text() { return m_text; }
+        [[nodiscard]] Property<std::string> text() { return m_text; }
 
-        [[nodiscard]] DynamicValue<app::Vector3>& position() { return m_position; }
-        [[nodiscard]] DynamicValue<bool>& use_world_coordinates() { return m_use_world_coordinates; }
-        [[nodiscard]] DynamicValue<float>& fade_in() { return m_fade_in; }
-        [[nodiscard]] DynamicValue<float>& fade_out() { return m_fade_out; }
-        [[nodiscard]] DynamicValue<app::Color>& color() { return m_color; }
-        [[nodiscard]] DynamicValue<float>& line_spacing() { return m_line_spacing; }
-        [[nodiscard]] DynamicValue<app::AlignmentMode__Enum>& alignment() { return m_alignment; }
-        [[nodiscard]] DynamicValue<app::HorizontalAnchorMode__Enum>& horizontal_anchor() { return m_horizontal_anchor; }
-        [[nodiscard]] DynamicValue<app::VerticalAnchorMode__Enum>& vertical_anchor() { return m_vertical_anchor; }
-        [[nodiscard]] DynamicValue<float>& top_padding() { return m_top_padding; }
-        [[nodiscard]] DynamicValue<float>& bottom_padding() { return m_bottom_padding; }
-        [[nodiscard]] DynamicValue<float>& left_padding() { return m_left_padding; }
-        [[nodiscard]] DynamicValue<float>& right_padding() { return m_right_padding; }
-        [[nodiscard]] DynamicValue<std::optional<ScreenPosition>>& screen_position() { return m_screen_position; }
+        [[nodiscard]] Property<app::Vector3> position() { return m_position; }
+        [[nodiscard]] Property<bool> use_world_coordinates() { return m_use_world_coordinates; }
+        [[nodiscard]] Property<float> fade_in() { return m_fade_in; }
+        [[nodiscard]] Property<float> fade_out() { return m_fade_out; }
+        [[nodiscard]] Property<app::Color> color() { return m_color; }
+        [[nodiscard]] Property<float> line_spacing() { return m_line_spacing; }
+        [[nodiscard]] Property<app::AlignmentMode__Enum> alignment() { return m_alignment; }
+        [[nodiscard]] Property<app::HorizontalAnchorMode__Enum> horizontal_anchor() { return m_horizontal_anchor; }
+        [[nodiscard]] Property<app::VerticalAnchorMode__Enum> vertical_anchor() { return m_vertical_anchor; }
+        [[nodiscard]] Property<float> top_padding() { return m_top_padding; }
+        [[nodiscard]] Property<float> bottom_padding() { return m_bottom_padding; }
+        [[nodiscard]] Property<float> left_padding() { return m_left_padding; }
+        [[nodiscard]] Property<float> right_padding() { return m_right_padding; }
+        [[nodiscard]] Property<std::optional<ScreenPosition>> screen_position() { return m_screen_position; }
     private:
         void render_text_box();
         app::Transform* background_transform() const;
@@ -100,20 +96,20 @@ namespace core::api::messages {
 
         std::string m_cached_text;
 
-        DynamicValue<std::string> m_text;
-        DynamicValue<app::Vector3> m_position;
-        DynamicValue<bool> m_use_world_coordinates;
-        DynamicValue<float> m_fade_in;
-        DynamicValue<float> m_fade_out;
-        DynamicValue<app::Color> m_color;
-        DynamicValue<float> m_line_spacing;
-        DynamicValue<app::AlignmentMode__Enum> m_alignment;
-        DynamicValue<app::HorizontalAnchorMode__Enum> m_horizontal_anchor;
-        DynamicValue<app::VerticalAnchorMode__Enum> m_vertical_anchor;
-        DynamicValue<float> m_top_padding;
-        DynamicValue<float> m_bottom_padding;
-        DynamicValue<float> m_left_padding;
-        DynamicValue<float> m_right_padding;
-        DynamicValue<std::optional<ScreenPosition>> m_screen_position;
+        Property<std::string> m_text;
+        Property<app::Vector3> m_position;
+        Property<bool> m_use_world_coordinates;
+        Property<float> m_fade_in;
+        Property<float> m_fade_out;
+        Property<app::Color> m_color;
+        Property<float> m_line_spacing;
+        Property<app::AlignmentMode__Enum> m_alignment;
+        Property<app::HorizontalAnchorMode__Enum> m_horizontal_anchor;
+        Property<app::VerticalAnchorMode__Enum> m_vertical_anchor;
+        Property<float> m_top_padding;
+        Property<float> m_bottom_padding;
+        Property<float> m_left_padding;
+        Property<float> m_right_padding;
+        Property<std::optional<ScreenPosition>> m_screen_position;
     };
 } // namespace core::api::messages

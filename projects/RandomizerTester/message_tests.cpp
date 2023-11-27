@@ -22,12 +22,12 @@ namespace randomizer_tester {
         return std::make_shared<Test<VisibilityToggleData>>(
             [](auto test) {
                 test.data.message_box = std::make_shared<core::api::messages::MessageBox>();
-                test.data.message_box->position().set(app::classes::OnScreenPositions::get_MiddleCenter());
-                test.data.message_box->set_static_text(std::string("time: ") + std::to_string(test.total_time));
+                test.data.message_box->position().set(OnScreenPositions::get_MiddleCenter());
+                test.data.message_box->text().set_format("time: {}", test.total_time);
                 test.data.message_box->show();
             },
             [](auto test) {
-                test.data.message_box->set_static_text(std::string("time: ") + std::to_string(test.total_time));
+                test.data.message_box->text().set_format("time: {}", test.total_time);
             },
             [](auto test) {}
         );
@@ -41,8 +41,8 @@ namespace randomizer_tester {
         return std::make_shared<Test<VisibilityToggleData>>(
             [](auto test) {
                 test.data.message_box = std::make_shared<core::api::messages::MessageBox>();
-                test.data.message_box->position().set(app::classes::OnScreenPositions::get_MiddleCenter());
-                test.data.message_box->set_static_text(std::string("time: ") + std::to_string(test.total_time));
+                test.data.message_box->position().set(OnScreenPositions::get_MiddleCenter());
+                test.data.message_box->text().set_format("time: {}", test.total_time);
             },
             [](auto test) {
                 if (test.data.message_box->get_visibility() == core::api::messages::MessageBox::Visibility::Visible) {
@@ -51,7 +51,7 @@ namespace randomizer_tester {
                     test.data.message_box->show();
                 }
 
-                test.data.message_box->set_static_text(std::string("time: ") + std::to_string(test.total_time));
+                test.data.message_box->text().set_format("time: {}", test.total_time);
             },
             [](auto test) {}
         );
@@ -72,13 +72,13 @@ namespace randomizer_tester {
             text += param.value;
         }
 
-        core::message_controller().queue_central({ .text = text, .duration = 10, .prioritized = command == "test.message_box.show_priority" });
+        core::message_controller().queue_central({ .text = core::Property<std::string>(text), .duration = 10, .prioritized = command == "test.message_box.show_priority" });
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         create_console_command({ "test", "message_box", "counter" }, "message_box_counter", counter_test);
         create_console_command({ "test", "message_box", "visibility_toggle" }, "message_box_visibility_toggle", visibility_toggle_test);
-        modloader::win::console::register_command({ "test", "message_box", "show" }, show_message, true);
-        modloader::win::console::register_command({ "test", "message_box", "show_priority" }, show_message, true);
+        register_command({ "test", "message_box", "show" }, show_message, true);
+        register_command({ "test", "message_box", "show_priority" }, show_message, true);
     });
 } // namespace randomizer_tester

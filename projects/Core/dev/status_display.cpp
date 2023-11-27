@@ -9,11 +9,11 @@ namespace core::dev {
             : m_display(config.max_line_count, std::nullopt)
             , m_config(config) {
         // TODO: Change position if header is enabled.
-        m_display.position() = m_config.position;
-        m_display.alignment() = m_config.alignment;
-        m_display.horizontal_anchor() = m_config.horizontal_anchor;
-        m_display.vertical_anchor() = m_config.vertical_anchor;
-        m_display.screen_position() = m_config.screen_position;
+        m_display.position().set(m_config.position);
+        m_display.alignment().set(m_config.alignment);
+        m_display.horizontal_anchor().set(m_config.horizontal_anchor);
+        m_display.vertical_anchor().set(m_config.vertical_anchor);
+        m_display.screen_position().set(m_config.screen_position);
         if (!m_config.entries.contains(StatusType::Warning)) {
             m_config.entries[StatusType::Warning].format = "<hex_ffc700ff>{}</>";
         }
@@ -29,7 +29,7 @@ namespace core::dev {
         // Need to hold all the sync handles so we can check what the worst condition is.
         const auto& [format, size, play_sound] = m_config.entries[type];
         const messages::MessageInfo info{
-            .text = std::format("<s_{:.3}>{}</>", size, message),
+            .text = Property<std::string>(std::format("<s_{:.3}>{}</>", size, message)),
             .duration = duration,
             .show_box = false,
             .play_sound = play_sound,

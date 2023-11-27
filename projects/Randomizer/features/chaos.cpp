@@ -44,13 +44,13 @@ namespace randomizer::features {
             current_message_box_timer = -1;
         }
 
-        void show_text(std::string_view text, float duration = 3.0f) {
+        void show_text(const std::string_view text, const float duration = 3.0f) {
             if (message_box == nullptr) {
                 message_box = std::make_unique<core::api::messages::MessageBox>();
                 message_box->position().set({ 0.0f, 1.0f, 0.0f });
             }
 
-            message_box->set_static_text(text);
+            message_box->text().process_and_set(text);
             message_box->show();
             if (current_message_box_timer < 0) {
                 timer::deregister_timer(current_message_box_timer);

@@ -22,7 +22,7 @@ namespace core::api::uber_states {
             using getter = double (*)();
 
             std::string name;
-            DynamicValue<double> value;
+            Property<double> value;
         };
 
         std::unordered_map<uber_id, VirtualUberState, pair_hash> virtual_states;
@@ -54,7 +54,7 @@ namespace core::api::uber_states {
         auto virtual_notifier = notification_bus().register_handler(virtual_notify_change);
     } // namespace
 
-    void register_virtual_state(const uber_id& uberId, std::string name, core::DynamicValue<double> value) {
+    void register_virtual_state(const uber_id& uberId, std::string name, Property<double> value) {
         virtual_states[uberId] = {
             .name = std::move(name),
             .value = std::move(value)

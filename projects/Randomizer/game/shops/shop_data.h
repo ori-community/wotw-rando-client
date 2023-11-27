@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Core/api/graphics/textures.h>
-#include <Core/dynamic_value.h>
+#include <Core/property.h>
 #include <Core/enums/static_text_entries.h>
 
 #include <memory>
@@ -15,8 +15,8 @@ namespace randomizer::game::shops {
     };
 
     struct SlotInfo {
-        core::DynamicValue<std::string> name;
-        core::DynamicValue<std::string> description;
+        core::Property<std::string> name;
+        core::Property<std::string> description;
         std::shared_ptr<core::api::graphics::textures::TextureData> icon;
     };
 

@@ -125,9 +125,9 @@ namespace randomizer::ipc {
                 }
             }
 
-            auto message_box = message_registry.get(message_id);
+            const auto message_box = message_registry.get(message_id);
             if (p.contains("text")) {
-                message_box->set_static_text(p.at("text").get<std::string>());
+                message_box->text().process_and_set(p.at("text").get<std::string>());
             }
 
             if (p.contains("position")) {
@@ -137,7 +137,7 @@ namespace randomizer::ipc {
                 position.x += pos.at("x").get<float>();
                 position.y += pos.at("y").get<float>();
                 position.z += pos.at("z").get<float>();
-                message_box->screen_position() = screen_position;
+                message_box->screen_position().set(screen_position);
                 message_box->use_world_coordinates().set(pos.at("use_in_game_coordinates").get<bool>());
             }
 

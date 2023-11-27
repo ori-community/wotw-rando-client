@@ -35,8 +35,6 @@ namespace core::api::uber_states {
 
         template <typename T = double>
         T get() const { return static_cast<T>(inner_get()); }
-        template <>
-        [[nodiscard]] bool get() const { return inner_get() > 0.5; }
 
         template <typename T>
         void set(T value, bool ignore_intercept = false, bool ignore_notify = false) const {
@@ -67,12 +65,15 @@ namespace core::api::uber_states {
         int m_state;
     };
 
+    template <>
+    [[nodiscard]] inline bool UberState::get() const { return inner_get() > 0.5; }
+
     CORE_DLLEXPORT bool operator==(UberState const& a, UberState const& b);
 } // namespace core::api::uber_states
 
 template <>
 struct std::hash<core::api::uber_states::UberState> {
-    std::size_t operator()(const core::api::uber_states::UberState& s) const {
+    std::size_t operator()(const core::api::uber_states::UberState& s) const noexcept {
         return hash<UberStateGroup>()(s.group()) ^ (hash<int>()(s.state()) << 1);
     }
 };

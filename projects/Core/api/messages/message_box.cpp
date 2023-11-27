@@ -100,65 +100,77 @@ namespace core::api::messages {
         GameObject::SetActive(m_game_object, true);
         ScaleToTextBox::UpdateSize(m_scaler);
 
-        m_fade_in = DynamicValue<float>(&m_message_box->fields.Visibility->fields.TransitionInDuration);
-        m_fade_out = DynamicValue<float>(&m_message_box->fields.Visibility->fields.TransitionOutDuration);
-        m_color = DynamicValue<app::Color>(&m_message_box->fields.TextBox->fields.color);
-        m_line_spacing = DynamicValue<float>(set_get<float>{
-                [this](float value) {
+        m_fade_in = Property<float>(
+            [this](auto value) { m_message_box->fields.Visibility->fields.TransitionInDuration = value; },
+            [this] { return m_message_box->fields.Visibility->fields.TransitionInDuration; }
+        );
+
+        m_fade_out = Property<float>(
+            [this](auto value) { m_message_box->fields.Visibility->fields.TransitionOutDuration = value; },
+            [this] { return m_message_box->fields.Visibility->fields.TransitionOutDuration; }
+        );
+
+        m_color = Property<app::Color>(
+            [this](auto value) { m_message_box->fields.TextBox->fields.color = value; },
+            [this] { return m_message_box->fields.TextBox->fields.color; }
+        );
+
+        m_line_spacing = Property<float>(
+                [this](auto value) {
                     m_message_box->fields.TextBox->fields.LineSpacing = value;
                     ScaleToTextBox::UpdateSize(m_scaler);
                 },
-                [this]() { return m_message_box->fields.TextBox->fields.LineSpacing; },
-        });
-        m_alignment = DynamicValue<app::AlignmentMode__Enum>(set_get<app::AlignmentMode__Enum>{
-                [this](app::AlignmentMode__Enum value) {
+                [this] { return m_message_box->fields.TextBox->fields.LineSpacing; }
+        );
+        m_alignment = Property<app::AlignmentMode__Enum>(
+                [this](auto value) {
                     m_message_box->fields.TextBox->fields.alignment = value;
                     ScaleToTextBox::UpdateSize(m_scaler);
                 },
-                [this] { return m_message_box->fields.TextBox->fields.alignment; },
-        });
-        m_horizontal_anchor = DynamicValue<app::HorizontalAnchorMode__Enum>(set_get<app::HorizontalAnchorMode__Enum>{
-                [this](app::HorizontalAnchorMode__Enum value) {
+                [this] { return m_message_box->fields.TextBox->fields.alignment; }
+        );
+        m_horizontal_anchor = Property<app::HorizontalAnchorMode__Enum>(
+                [this](auto value) {
                     m_message_box->fields.TextBox->fields.horizontalAnchor = value;
                     ScaleToTextBox::UpdateSize(m_scaler);
                 },
-                [this] { return m_message_box->fields.TextBox->fields.horizontalAnchor; },
-        });
-        m_vertical_anchor = DynamicValue<app::VerticalAnchorMode__Enum>(set_get<app::VerticalAnchorMode__Enum>{
-                [this](app::VerticalAnchorMode__Enum value) {
+                [this] { return m_message_box->fields.TextBox->fields.horizontalAnchor; }
+        );
+        m_vertical_anchor = Property<app::VerticalAnchorMode__Enum>(
+                [this](auto value) {
                     m_message_box->fields.TextBox->fields.verticalAnchor = value;
                     ScaleToTextBox::UpdateSize(m_scaler);
                 },
-                [this] { return m_message_box->fields.TextBox->fields.verticalAnchor; },
-        });
-        m_top_padding = DynamicValue<float>(set_get<float>{
-                [this](float value) {
+                [this] { return m_message_box->fields.TextBox->fields.verticalAnchor; }
+        );
+        m_top_padding = Property<float>(
+                [this](auto value) {
                     m_scaler->fields.TopLeftPadding.y = value;
                     ScaleToTextBox::UpdateSize(m_scaler);
                 },
-                [this] { return m_scaler->fields.TopLeftPadding.y; },
-        });
-        m_bottom_padding = DynamicValue<float>(set_get<float>{
-                [this](float value) {
+                [this] { return m_scaler->fields.TopLeftPadding.y; }
+        );
+        m_bottom_padding = Property<float>(
+                [this](auto value) {
                     m_scaler->fields.BottomRightPadding.y = value;
                     ScaleToTextBox::UpdateSize(m_scaler);
                 },
-                [this] { return m_scaler->fields.BottomRightPadding.y; },
-        });
-        m_left_padding = DynamicValue<float>(set_get<float>{
-                [this](float value) {
+                [this] { return m_scaler->fields.BottomRightPadding.y; }
+        );
+        m_left_padding = Property<float>(
+                [this](auto value) {
                     m_scaler->fields.TopLeftPadding.x = value;
                     ScaleToTextBox::UpdateSize(m_scaler);
                 },
-                [this] { return m_scaler->fields.TopLeftPadding.x; },
-        });
-        m_right_padding = DynamicValue<float>(set_get<float>{
-                [this](float value) {
+                [this] { return m_scaler->fields.TopLeftPadding.x; }
+        );
+        m_right_padding = Property<float>(
+                [this](auto value) {
                     m_scaler->fields.BottomRightPadding.x = value;
                     ScaleToTextBox::UpdateSize(m_scaler);
                 },
-                [this] { return m_scaler->fields.BottomRightPadding.x; },
-        });
+                [this] { return m_scaler->fields.BottomRightPadding.x; }
+        );
 
         m_on_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) { on_fixed_update(); });
 
@@ -195,27 +207,6 @@ namespace core::api::messages {
                 text_box->fields.boundsRight - text_box->fields.boundsLeft,
                 text_box->fields.boundsTop - text_box->fields.boundsBottom,
         };
-    }
-
-    void MessageBox::set_static_text(const DynamicValue<std::string>& text) {
-        // Wrap in a new DynamicValue that holds the current value of the passed
-        // DynamicValue to make it static
-        m_text = DynamicValue<std::string>();
-        m_text.set(text.get());
-    }
-
-    void MessageBox::set_static_text(const std::string& text) {
-        m_text = DynamicValue<std::string>();
-        m_text.set(text);
-    }
-
-    void MessageBox::set_static_text(const std::string_view& text) {
-        m_text = DynamicValue<std::string>();
-        m_text.set(text);
-    }
-
-    void MessageBox::set_live_text(const DynamicValue<std::string>& text) {
-        m_text = text;
     }
 
     void MessageBox::render_text_box() {

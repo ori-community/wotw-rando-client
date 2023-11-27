@@ -136,7 +136,7 @@ namespace core::messages {
             m_central_display.push(m_saved_message.value());
         } else {
             m_central_display.push({
-                .text = std::string("No pickups collected yet, good Luck!"),
+                .text = Property<std::string>(std::string("No pickups collected yet, good Luck!")),
                 .duration = 5.f,
                 .prioritized = true,
             });
@@ -157,7 +157,7 @@ namespace core::messages {
         }
 
         const auto text_box = m_current_hint_message_box->fields.TextBox;
-        return CatlikeCoding::TextBox::TextBox::GetRealTextBoxLocalRect(text_box);
+        return app::classes::CatlikeCoding::TextBox::TextBox::GetRealTextBoxLocalRect(text_box);
     }
 
     void MessageController::update(float delta_time) {
@@ -188,7 +188,7 @@ namespace core::messages {
             y_position -= test_map_offset; // Put it below the map text.
         }
 
-        m_central_display.position() = app::Vector3{ 0, y_position, 0 };
+        m_central_display.position().set(0, y_position, 0);
         m_central_display.update(delta_time);
     }
 } // namespace core::messages

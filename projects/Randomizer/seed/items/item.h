@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core/dynamic_value.h>
+#include <Core/property.h>
 
 #include <optional>
 #include <string_view>
@@ -8,20 +8,22 @@
 namespace randomizer::seed::items {
     class BaseItem {
     public:
-        BaseItem() {
-            stop = false;
-            skip = 0u;
-        }
+        BaseItem();
 
         virtual ~BaseItem() {}
         virtual void grant() = 0;
         virtual std::string to_string() const = 0;
 
-        core::DynamicValue<bool> stop;
-        core::DynamicValue<uint32_t> skip;
+        core::Property<bool> stop;
+        core::Property<uint32_t> skip;
 
         // Debug entries
         std::string seed_definition;
-        int seed_line_number;
+        int seed_line_number = 0;
     };
+
+    inline BaseItem::BaseItem() {
+        stop.set(false);
+        skip.set(0u);
+    }
 } // namespace randomizer::seed::items

@@ -81,16 +81,16 @@ namespace randomizer::messages {
             fade_out = std::stof(parts[11]);
         }
 
-        Text& text = m_message_boxes.try_emplace(id).first->second;
-        text.message_box.position().set(app::Vector3{ x, y, Z_VALUE });
-        text.message_box.set_static_text(parts[6]);
-        text.message_box.get_text().text_processor(m_text_processor);
-        text.message_box.alignment().set(alignment);
-        text.message_box.horizontal_anchor().set(horizontal);
-        text.message_box.vertical_anchor().set(vertical);
-        text.message_box.fade_in().set(fade_in);
-        text.message_box.fade_out().set(fade_out);
-        text.message_box.show_box(false);
+        auto& [initial_position, message_box] = m_message_boxes.try_emplace(id).first->second;
+        message_box.position().set(app::Vector3{ x, y, Z_VALUE });
+        message_box.text().text_processor(m_text_processor);
+        message_box.text().process_and_set(parts[6]);
+        message_box.alignment().set(alignment);
+        message_box.horizontal_anchor().set(horizontal);
+        message_box.vertical_anchor().set(vertical);
+        message_box.fade_in().set(fade_in);
+        message_box.fade_out().set(fade_out);
+        message_box.show_box(false);
 
         m_entries.push_back(std::make_shared<credit_entries::TextEntry>(start_time, length, id));
     }

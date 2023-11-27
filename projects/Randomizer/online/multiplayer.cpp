@@ -394,15 +394,15 @@ namespace randomizer::online {
             position.y = pos2.y();
         }
 
-        box->set_static_text(message.text());
-        box->position() = position;
-        box->screen_position() = static_cast<core::api::messages::ScreenPosition>(message.screenposition());
-        box->alignment() = static_cast<app::AlignmentMode__Enum>(message.alignment());
-        box->horizontal_anchor() = static_cast<app::HorizontalAnchorMode__Enum>(message.horizontalanchor());
-        box->vertical_anchor() = static_cast<app::VerticalAnchorMode__Enum>(message.verticalanchor());
-        box->use_world_coordinates() = message.useingamecoordinates();
-        box->fade_in() = message.fadeinlength();
-        box->fade_out() = message.fadeoutlength();
+        box->text().process_and_set(message.text());
+        box->position().set(position);
+        box->screen_position().set(static_cast<core::api::messages::ScreenPosition>(message.screenposition()));
+        box->alignment().set(static_cast<app::AlignmentMode__Enum>(message.alignment()));
+        box->horizontal_anchor().set(static_cast<app::HorizontalAnchorMode__Enum>(message.horizontalanchor()));
+        box->vertical_anchor().set(static_cast<app::VerticalAnchorMode__Enum>(message.verticalanchor()));
+        box->use_world_coordinates().set(message.useingamecoordinates());
+        box->fade_in().set(message.fadeinlength());
+        box->fade_out().set(message.fadeoutlength());
         box->show_box(message.withbox());
 
         if (is_constructed) {
@@ -425,7 +425,7 @@ namespace randomizer::online {
     void MultiplayerUniverse::print_pickup(Network::PrintPickupMessage const& message) {
         auto const& position = message.pickupposition();
         core::message_controller().queue_central({
-            .text = message.text(),
+            .text = core::Property<std::string>(message.text()),
             .duration = message.time(),
             .prioritized = message.prioritized(),
             .pickup_position = app::Vector3{ position.x(), position.y(), 0 },

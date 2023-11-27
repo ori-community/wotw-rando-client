@@ -79,7 +79,7 @@ namespace randomizer {
         });
 
         auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
-            core::api::game::player::shard_slots() = 3;
+            core::api::game::player::shard_slots().set(3);
         });
 
         std::vector<std::function<void()>> input_unlocked_callbacks;
@@ -105,7 +105,7 @@ namespace randomizer {
             });
 
             core::message_controller().queue_central({
-                .text = std::string("*Good Luck! <3*"),
+                .text = core::Property<std::string>("*Good Luck! <3*"),
                 .prioritized = true,
             });
         });
@@ -193,7 +193,7 @@ namespace randomizer {
             }
 
             core::message_controller().queue_central({
-                .text = std::format("v{} - Loaded {}{}", version, randomizer_seed.info().name, flags),
+                .text = core::Property<std::string>::format("v{} - Loaded {}{}", version, randomizer_seed.info().name, flags),
                 .show_box = true,
                 .prioritized = true,
             });

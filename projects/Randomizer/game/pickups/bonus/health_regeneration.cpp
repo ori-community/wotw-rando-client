@@ -11,7 +11,7 @@ namespace {
     // TODO: change the uberstate so regen rate is defined in header.
     core::api::uber_states::UberState health_regeneration(4, 30);
     auto update_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
-        if (!GameStateMachine::get_IsGame()) {
+        if (!app::classes::GameStateMachine::get_IsGame()) {
             return;
         }
 

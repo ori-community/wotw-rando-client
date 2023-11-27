@@ -219,8 +219,8 @@ namespace core::messages {
     ) {
         data.message = std::make_shared<api::messages::MessageBox>();
         data.message->show_box(data.info.show_box);
-        data.message->set_static_text(data.info.text);
-        data.message->get_text().text_processor(m_text_processor);
+        data.message->text().text_processor(m_text_processor);
+        data.message->text().process_and_set(data.info.text.get());
         data.message->top_padding().set(data.info.padding.x);
         data.message->left_padding().set(data.info.padding.y);
         data.message->bottom_padding().set(data.info.padding.z);
@@ -232,7 +232,7 @@ namespace core::messages {
 
         update_message_position(data, total_lines, position, 0.f);
         if (data.info.pickup_position.has_value()) {
-            const auto top_center = modloader::math::convert(api::messages::get_screen_position(api::messages::ScreenPosition::TopCenter));
+            const auto top_center = modloader::math::convert(get_screen_position(api::messages::ScreenPosition::TopCenter));
             const auto pickup_positon = data.info.pickup_position.value();
             const auto message_position = data.message->position().get();
             const auto pickup_ui_position = world_to_ui_position_2d(modloader::math::convert(pickup_positon)) - top_center;
