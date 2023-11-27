@@ -83,8 +83,8 @@ namespace randomizer::messages {
 
         auto& [initial_position, message_box] = m_message_boxes.try_emplace(id).first->second;
         message_box.position().set(app::Vector3{ x, y, Z_VALUE });
-        message_box.text().text_processor(m_text_processor);
-        message_box.text().process_and_set(parts[6]);
+        message_box.text_processor(m_text_processor);
+        message_box.text().set(parts[6]);
         message_box.alignment().set(alignment);
         message_box.horizontal_anchor().set(horizontal);
         message_box.vertical_anchor().set(vertical);

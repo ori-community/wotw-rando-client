@@ -70,6 +70,7 @@ namespace core::api::messages {
         [[nodiscard]] app::Rect bounds() const;
 
         [[nodiscard]] Property<std::string> text() { return m_text; }
+        void text_processor(std::shared_ptr<text::ITextProcessor> text_processor) { m_text.text_processor(text_processor); }
 
         [[nodiscard]] Property<app::Vector3> position() { return m_position; }
         [[nodiscard]] Property<bool> use_world_coordinates() { return m_use_world_coordinates; }

@@ -144,7 +144,7 @@ namespace randomizer::game {
                 text += "\n\nPress [MenuBack] to leave";
 
                 lobby_status_text_box->show(true, false);
-                lobby_status_text_box->text().process_and_set(text);
+                lobby_status_text_box->text().set(text);
             }
             else if (lobby_status_text_box != nullptr) {
                 lobby_status_text_box = nullptr;
