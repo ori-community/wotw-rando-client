@@ -186,6 +186,10 @@ namespace randomizer::seed::legacy_parser {
         assigner->value.set(spirit_light);
         data.add_item(assigner);
 
+        const auto collected = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
+        collected->variable = core::Property<int>(UberStateGroup::RandoState, 3);
+        collected->value.set(1);
+
         if (!data.should_add_default_messages) {
             return true;
         }
@@ -256,6 +260,10 @@ namespace randomizer::seed::legacy_parser {
                 adder->variable = core::api::game::player::ore();
                 adder->value.set(1);
                 data.add_item(adder);
+                const auto collected = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
+                collected->variable = core::Property<int>(UberStateGroup::RandoState, 5);
+                collected->value.set(1);
+                data.add_item(collected);
                 icon = app::WorldMapIconType__Enum::Ore;
                 message->info.text.set("Gorlek Ore");
                 break;
@@ -265,6 +273,10 @@ namespace randomizer::seed::legacy_parser {
                 adder->variable = core::api::game::player::keystones();
                 adder->value.set(1);
                 data.add_item(adder);
+                const auto collected = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
+                collected->variable = core::Property<int>(UberStateGroup::RandoState, 0);
+                collected->value.set(1);
+                data.add_item(collected);
                 icon = app::WorldMapIconType__Enum::Keystone;
                 message->info.text.set("Keystone");
                 break;

@@ -12,6 +12,9 @@ namespace {
         Network::Packet packet;
         packet.set_id(Network::Packet_PacketID_NotifyTeleport);
         randomizer::network_client().websocket_send(packet);
+        auto state = core::api::uber_states::UberState(UberStateGroup::GameState, 20);
+        state.set(1);
+        state.set(0);
 
         next::SavePedestalController::OnFinishedTeleportingStartAnimation();
     }

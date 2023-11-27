@@ -21,6 +21,10 @@ struct core::Property<T> {
         m_value = std::make_shared<T>(value);
     }
 
+    explicit Property(const UberStateGroup group, const int state) {
+        m_value = value_type(api::uber_states::UberState(group, state));
+    }
+
     explicit Property(const value_type& value) {
         m_value = value;
     }
