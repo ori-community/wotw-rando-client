@@ -61,7 +61,6 @@ set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "
 
 install(
         TARGETS ${PROJECT_NAME}
-        COMPONENT runtime
         RUNTIME DESTINATION "${WOTWR_INSTALL_DIR}"
         LIBRARY DESTINATION "${WOTWR_INSTALL_DIR}"
         ARCHIVE DESTINATION "${WOTWR_INSTALL_DIR}"
