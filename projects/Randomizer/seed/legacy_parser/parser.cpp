@@ -485,7 +485,8 @@ namespace randomizer::seed::legacy_parser {
 
     bool parse_save(std::span<std::string> parts, ParserData &data, bool checkpoint) {
         const auto caller = std::make_shared<items::Call>();
-        if (checkpoint) {
+        if (!checkpoint) {
+            caller->description = "do save";
             caller->func = []() {
                 if (core::api::game::can_save()) {
                     core::api::game::save();
@@ -493,6 +494,7 @@ namespace randomizer::seed::legacy_parser {
             };
         }
         else {
+            caller->description = "do checkpoint";
             caller->func = []() {
                 if (core::api::game::can_save()) {
                     core::api::game::checkpoint();
@@ -515,6 +517,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         const auto caller = std::make_shared<items::Call>();
+        caller->description = "warp player";
         caller->func = [position]() { game::teleport(position, true); };
         data.add_item(caller);
         return true;
@@ -533,6 +536,7 @@ namespace randomizer::seed::legacy_parser {
 
         core::api::uber_states::UberState timer_state(group, state);
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("register timer on {}", timer_state.to_string());
         caller->func = [timer_state, start]() { timer::uber_state_timer(timer_state, start); };
         data.add_item(caller);
         return true;
@@ -551,6 +555,7 @@ namespace randomizer::seed::legacy_parser {
 
         key.first = parts[0];
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("register redirect {}:{}", key.first, key.second);
         caller->func = [key, state]() { conditions::register_new_setup_redirect(key, state); };
         data.add_item(caller);
         return true;
@@ -578,6 +583,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("equip {} to binding {}", equip, binding);
         caller->func = [binding_type, equip_type]() { core::api::game::player::bind(binding_type, equip_type); };
         data.add_item(caller);
         return true;
@@ -599,6 +605,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("unbind {}", static_cast<int>(equip_type));
         caller->func = [equip_type]() { core::api::game::player::unbind(equip_type); };
         data.add_item(caller);
         return true;
@@ -617,6 +624,7 @@ namespace randomizer::seed::legacy_parser {
 
         core::api::uber_states::UberState sync_state(group, state);
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("set unsyncable {}", sync_state.to_string());
         caller->func = [sync_state, unsyncable]() { multiplayer_universe().uber_state_handler().set_unsyncable(sync_state, unsyncable); };
         data.add_item(caller);
         return true;
@@ -674,6 +682,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("{} text entry {} to {}", append ? "append to" : "set", id, text);
         caller->func = [append, id, text]() {
             std::string actual_text(append ? core::text::get_text(id) : "");
             actual_text += text;
@@ -1459,6 +1468,7 @@ namespace randomizer::seed::legacy_parser {
 
         const auto caller = std::make_shared<items::Call>();
         auto &name = parts[2];
+        caller->description = std::format("wheel item {}:{} set name {}", wheel, item, name);
         caller->func = [wheel, item, name]() { features::wheel::set_wheel_item_name(wheel, item, name); };
 
         data.add_item(caller);
@@ -1478,6 +1488,7 @@ namespace randomizer::seed::legacy_parser {
 
         const auto caller = std::make_shared<items::Call>();
         auto &description = parts[2];
+        caller->description = std::format("wheel item {}:{} set description {}", wheel, item, description);
         caller->func = [wheel, item, description]() { features::wheel::set_wheel_item_description(wheel, item, description); };
 
         data.add_item(caller);
@@ -1497,6 +1508,7 @@ namespace randomizer::seed::legacy_parser {
 
         const auto caller = std::make_shared<items::Call>();
         auto &texture = parts[2];
+        caller->description = std::format("wheel item {}:{} set texture {}", wheel, item, texture);
         caller->func = [wheel, item, texture]() { features::wheel::set_wheel_item_texture(wheel, item, texture); };
 
         data.add_item(caller);
@@ -1517,6 +1529,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("wheel item {}:{} set color ({}, {}, {}, {})", wheel, item, color.r, color.g, color.b, color.a);
         caller->func = [wheel, item, color]() {
             features::wheel::set_wheel_item_color(wheel, item, static_cast<int>(color.r), static_cast<int>(color.g), static_cast<int>(color.b), static_cast<int>(color.a));
         };
@@ -1555,11 +1568,13 @@ namespace randomizer::seed::legacy_parser {
             .should_add_default_messages = parts.back() != "mute"
         };
 
-        if (!parse_action(location, std::span<std::string>(parts.begin() + 3, parts.end()), procedure_data)) {
+        const auto action_parts = std::span(parts.begin() + 3, parts.end());
+        if (!parse_action(location, action_parts, procedure_data)) {
             return false;
         }
 
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("wheel item {}:{} set action '{}'", wheel, item, concatenate_parts(action_parts));
         caller->func = [wheel, item, binding_type, procedure_id]() {
             if (static_cast<int>(binding_type) == -1) {
                 features::wheel::set_wheel_item_callback(wheel, item, app::SpellInventory_Binding__Enum::ButtonX, [procedure_id](auto, auto, auto) { game_seed().procedure_call(procedure_id); });
@@ -1588,6 +1603,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("wheel {} set sticky {}", wheel, sticky);
         caller->func = [wheel, sticky]() { features::wheel::set_wheel_sticky(wheel, sticky); };
 
         data.add_item(caller);
@@ -1605,6 +1621,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("wheel {} set active", wheel);
         caller->func = [wheel]() { features::wheel::set_active_wheel(wheel); };
 
         data.add_item(caller);
@@ -1623,6 +1640,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("wheel {}:{} clear entry", wheel, item);
         caller->func = [wheel, item]() { features::wheel::clear_wheel_item(wheel, item); };
 
         data.add_item(caller);
@@ -1635,6 +1653,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         const auto caller = std::make_shared<items::Call>();
+        caller->description = "wheel clear all";
         caller->func = []() { features::wheel::clear_wheels(); };
 
         data.add_item(caller);
@@ -1652,7 +1671,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        const auto next_parts = std::span<std::string>(parts.begin() + 1, parts.end());
+        const auto next_parts = std::span(parts.begin() + 1, parts.end());
         switch (wheel_type) {
             case 0:
                 return parse_wheel_name(next_parts, data);
@@ -1693,6 +1712,7 @@ namespace randomizer::seed::legacy_parser {
         auto icon = parts[2];
         auto shop_state = core::api::uber_states::UberState(group, state);
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("shop '{}' set icon {}", shop_state.to_string(), icon);
         caller->func = [shop_state, icon]() {
             if (const auto slot = game::shops::shop_slot_from_state(shop_state); slot != nullptr) {
                 slot->normal.icon = core::api::graphics::textures::get_texture(icon);
@@ -1718,6 +1738,7 @@ namespace randomizer::seed::legacy_parser {
         auto title = parts.size() == 3 ? parts[2] : " ";
         auto shop_state = core::api::uber_states::UberState(group, state);
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("shop '{}' set title {}", shop_state.to_string(), title);
         caller->func = [shop_state, title]() {
             if (const auto slot = game::shops::shop_slot_from_state(shop_state); slot != nullptr) {
                 slot->normal.name = title;
@@ -1744,6 +1765,7 @@ namespace randomizer::seed::legacy_parser {
         auto description = parts.size() == 3 ? parts[2] : " ";
         auto shop_state = core::api::uber_states::UberState(group, state);
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("shop '{}' set description {}", shop_state.to_string(), description);
         caller->func = [shop_state, description]() {
             if (const auto slot = game::shops::shop_slot_from_state(shop_state); slot != nullptr) {
                 slot->normal.description = description;
@@ -1768,6 +1790,7 @@ namespace randomizer::seed::legacy_parser {
 
         auto shop_state = core::api::uber_states::UberState(group, state);
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("shop '{}' set locked {}", shop_state.to_string(), locked);
         caller->func = [shop_state, locked]() {
             if (const auto slot = game::shops::shop_slot_from_state(shop_state); slot != nullptr && slot->visibility != game::shops::SlotVisibility::Hidden) {
                 slot->visibility = locked ? game::shops::SlotVisibility::Locked : game::shops::SlotVisibility::Visible;
@@ -1792,6 +1815,7 @@ namespace randomizer::seed::legacy_parser {
 
         auto shop_state = core::api::uber_states::UberState(group, state);
         const auto caller = std::make_shared<items::Call>();
+        caller->description = std::format("shop '{}' set visible {}", shop_state.to_string(), visible);
         caller->func = [shop_state, visible]() {
             if (const auto slot = game::shops::shop_slot_from_state(shop_state); slot != nullptr) {
                 slot->visibility = visible ? game::shops::SlotVisibility::Visible : game::shops::SlotVisibility::Hidden;
