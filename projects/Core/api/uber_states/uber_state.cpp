@@ -43,6 +43,8 @@
 
 #include <vector>
 
+#include "property/reactivity.h"
+
 using namespace modloader;
 using namespace app::classes;
 using namespace app::classes::Moon;
@@ -240,6 +242,8 @@ namespace core::api::uber_states {
             }
         }
 
+        core::reactivity::notify_changed(reactivity::UberStateDependency { static_cast<int>(m_group), m_state });
+
         if (!ignore_notify) {
             UberStateCallbackParams params{
                 *this,
@@ -252,6 +256,8 @@ namespace core::api::uber_states {
     }
 
     double UberState::inner_get() const {
+        core::reactivity::notify_used(reactivity::UberStateDependency { static_cast<int>(m_group), m_state });
+
         if (is_virtual_state(m_group, m_state)) {
             return get_virtual_value(m_group, m_state);
         }

@@ -10,6 +10,8 @@
 
 #include <unordered_map>
 
+#include "property/reactivity.h"
+
 namespace core::text {
     struct TextEntry {
         std::vector<std::string> text;
@@ -221,6 +223,7 @@ namespace core::text {
     void register_text(text_id id, std::string_view text) {
         auto& entry = text_entries[id];
         entry.text.emplace_back(text);
+        core::reactivity::notify_changed(reactivity::TextDatabaseDependency { id });
     }
 
     void register_text(text_id id, std::wstring_view text) {
@@ -234,18 +237,23 @@ namespace core::text {
         if (provider != nullptr) {
             il2cpp::invoke(reinterpret_cast<app::TranslatedMessageProvider*>(provider)->fields.Messages, "Clear");
         }
+        core::reactivity::notify_changed(reactivity::TextDatabaseDependency { id });
     }
 
     bool has_text(text_id id) {
+        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
         return get_text_count(id) > 0;
     }
 
     int get_text_count(text_id id) {
+
+        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
         auto& entry = text_entries[id];
         return static_cast<int>(entry.text.size());
     }
 
     std::string_view get_text(text_id id, int i) {
+        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
         auto& entry = text_entries[id];
         if (entry.text.empty()) {
             return "";
@@ -255,6 +263,8 @@ namespace core::text {
     }
 
     std::wstring get_text_w(text_id id, int i) {
+        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
+
         // Can't return a wstring_view here as we are converting the data so it would get destroyed as we returned.
         auto& entry = text_entries[id];
         if (entry.text.empty()) {
@@ -265,11 +275,13 @@ namespace core::text {
     }
 
     std::vector<std::string> const& get_all_text(text_id id) {
+        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
         auto& entry = text_entries[id];
         return entry.text;
     }
 
     std::string get_concatenated_text(text_id id, std::string_view delimiter) {
+        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
         std::string text;
         auto& entry = text_entries[id];
         for (auto& text_entry : entry.text) {
@@ -284,6 +296,7 @@ namespace core::text {
     }
 
     std::string_view get_random_text(text_id id) {
+        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
         auto& entry = text_entries[id];
         if (entry.text.empty()) {
             return "";
@@ -294,6 +307,7 @@ namespace core::text {
     }
 
     std::string_view get_random_text_with_hash(text_id id, std::size_t hash) {
+        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
         auto& entry = text_entries[id];
         if (entry.text.empty()) {
             return "";
@@ -304,6 +318,7 @@ namespace core::text {
     }
 
     app::MessageProvider* get_provider(text_id id, int i) {
+        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
         auto& entry = text_entries[id];
         const auto text = entry.text.empty() ? "" : entry.text[i];
         return core::api::system::create_message_provider(text);
