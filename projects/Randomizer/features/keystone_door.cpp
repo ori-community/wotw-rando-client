@@ -21,12 +21,8 @@ namespace {
 
     // No it's not KeystoneDoor
     IL2CPP_INTERCEPT(MoonDoorWithSlots, bool, get_SeinInRange, (app::MoonDoorWithSlots * this_ptr)) {
-        // We could do something position based, but that would be actual work :>
-        this_ptr->fields.m_opensOnLeftSide = false;
-        bool right = next::MoonDoorWithSlots::get_SeinInRange(this_ptr);
-        this_ptr->fields.m_opensOnLeftSide = true;
-        bool left = next::MoonDoorWithSlots::get_SeinInRange(this_ptr);
-        return right || left;
+        // Allow open Keystone doors from both sides
+        return MoonDoorWithSlots::get_DistanceToSein(this_ptr) <= this_ptr->fields.Radius;
     }
 
     IL2CPP_INTERCEPT(MoonCustomDoorWithSlots, bool, get_CanPlayerTriggerAutomatically, (app::MoonCustomDoorWithSlots * this_ptr)) {
