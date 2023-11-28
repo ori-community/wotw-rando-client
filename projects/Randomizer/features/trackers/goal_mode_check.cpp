@@ -60,10 +60,10 @@ namespace {
             }
 
             next::SeinCharacter::FixedUpdate(this_ptr);
-            auto position = SeinCharacter::get_Position(this_ptr);
+            const auto position = SeinCharacter::get_Position(this_ptr);
             if (in_rect(goal_rect, position.x, position.y, position.z)) {
                 SeinCharacter::set_Position(this_ptr, goal_reset_position);
-                // TODO: Show goal mode messages.
+                core::api::uber_states::UberState(UberStateGroup::GameState, 8); // Trigger Progress Hint
                 set_camera_next_update = true;
             }
         } else {
