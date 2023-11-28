@@ -1193,7 +1193,7 @@ namespace randomizer::seed::legacy_parser {
         data.add_item(message);
 
         data.location_data.icons.emplace_back(app::WorldMapIconType__Enum::Seed);
-        data.location_data.names.emplace_back(bonus_item);
+        data.location_data.names.emplace_back(message->info.text.get());
 
         return true;
     }
