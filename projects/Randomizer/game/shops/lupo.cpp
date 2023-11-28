@@ -40,20 +40,21 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(MapmakerUISubItem, void, UpdateUpgradeIcon, (app::MapmakerUISubItem * this_ptr)) {
-        auto slot = lupo_shop().slot(this_ptr->fields.m_upgradeItem->fields.UberState);
-        auto& info = slot->active_info();
-        auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
-        if (info.icon != nullptr) {
-            info.icon->apply(renderer);
-        } else {
+        const auto slot = lupo_shop().slot(this_ptr->fields.m_upgradeItem->fields.UberState);
+        const auto &[name, description, icon] = slot->active_info();
+        const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
+        if (icon != nullptr) {
+            icon->apply(renderer);
+        }
+        else {
             core::api::graphics::textures::apply_default(renderer);
-            UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum::MainTexture, reinterpret_cast<app::Texture*>(this_ptr->fields.m_upgradeItem->fields.Icon));
+            UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum::MainTexture, reinterpret_cast<app::Texture *>(this_ptr->fields.m_upgradeItem->fields.Icon));
         }
     }
 
-    bool show_hint(app::MapmakerScreen* screen, app::MessageProvider* provider) {
-        auto klass = types::Input_Cmd::get_class();
-        auto selected = klass->static_fields->MenuSelect;
+    bool show_hint(app::MapmakerScreen *screen, app::MessageProvider *provider) {
+        const auto klass = types::Input_Cmd::get_class();
+        const auto selected = klass->static_fields->MenuSelect;
         if (!selected->fields.IsPressed && selected->fields.WasPressed && selected->fields.Used) {
             selected->fields.Used = true;
             MapmakerScreen::ShowHint(screen, provider);
@@ -64,11 +65,12 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(MapmakerScreen, bool, CanPurchase, (app::MapmakerScreen * this_ptr)) {
-        auto item = MapmakerScreen::get_SelectedUpgradeItem(this_ptr);
-        if (!il2cpp::unity::is_valid(item))
+        const auto item = MapmakerScreen::get_SelectedUpgradeItem(this_ptr);
+        if (!il2cpp::unity::is_valid(item)) {
             return false;
+        }
 
-        auto slot = lupo_shop().slot(item->fields.UberState);
+        const auto slot = lupo_shop().slot(item->fields.UberState);
         switch (slot->visibility) {
             case SlotVisibility::Hidden:
             case SlotVisibility::Locked:
@@ -78,7 +80,7 @@ namespace {
                     return show_hint(this_ptr, this_ptr->fields.Hints.MaxedOut);
                 }
 
-                if (item->fields.UberState->fields.m_value >= item->fields.MaxLevel) {
+                if (core::api::game::player::spirit_light().get() < MapmakerItem::GetCost(item)) {
                     return show_hint(this_ptr, this_ptr->fields.Hints.NotEnoughSpiritLight);
                 }
 
@@ -89,21 +91,21 @@ namespace {
     IL2CPP_INTERCEPT(MapmakerUISubItem, void, UpdateItem, (app::MapmakerUISubItem * this_ptr)) {
         MapmakerUISubItem::UpdateUpgradeIcon(this_ptr);
 
-        auto state = this_ptr->fields.m_upgradeItem->fields.UberState;
-        auto slot = lupo_shop().slot(state);
-        auto owned = state->fields.m_value >= this_ptr->fields.m_upgradeItem->fields.MaxLevel;
-        auto cost = MapmakerItem::GetCost(this_ptr->fields.m_upgradeItem);
-        auto can_afford = core::api::game::player::spirit_light().get() >= cost;
-        auto can_purchase = !owned && can_afford && slot->visibility == SlotVisibility::Visible;
+        const auto state = this_ptr->fields.m_upgradeItem->fields.UberState;
+        const auto slot = lupo_shop().slot(state);
+        const auto owned = state->fields.m_value >= this_ptr->fields.m_upgradeItem->fields.MaxLevel;
+        const auto cost = MapmakerItem::GetCost(this_ptr->fields.m_upgradeItem);
+        const auto can_afford = core::api::game::player::spirit_light().get() >= cost;
+        const auto can_purchase = !owned && can_afford && slot->visibility == SlotVisibility::Visible;
 
-        auto show_cost = cost != 0 && slot->visibility == SlotVisibility::Visible;
+        const auto show_cost = cost != 0 && slot->visibility == SlotVisibility::Visible;
         GameObject::SetActive(this_ptr->fields.CostGO, show_cost);
         if (this_ptr->fields.SpiritLightGO != nullptr) {
             GameObject::SetActive(this_ptr->fields.SpiritLightGO, show_cost);
         }
 
         if (show_cost) {
-            auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, types::TextBox::get_class());
+            const auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, types::TextBox::get_class());
             text_box->fields.color = can_purchase
                 ? this_ptr->fields.PurchasableColor
                 : this_ptr->fields.UnpurchaseableColor;
@@ -116,32 +118,33 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(MapmakerUIDetails, void, UpdateDetails, (app::MapmakerUIDetails * this_ptr)) {
-        auto item = this_ptr->fields.m_item;
-        auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
+        const auto item = this_ptr->fields.m_item;
+        const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
 
-        auto slot = lupo_shop().slot(item->fields.UberState);
-        auto& info = slot->active_info();
-        info.icon->apply(renderer);
+        const auto slot = lupo_shop().slot(item->fields.UberState);
+        const auto &[name, description, icon] = slot->active_info();
+        icon->apply(renderer);
 
         auto can_afford = false;
-        auto owned = item->fields.MaxLevel >= core::api::uber_states::UberState(item->fields.UberState).get<int>();
-        if (il2cpp::unity::is_valid(item->fields.UberState) && !owned)
+        const auto owned = item->fields.MaxLevel >= core::api::uber_states::UberState(item->fields.UberState).get<int>();
+        if (il2cpp::unity::is_valid(item->fields.UberState) && !owned) {
             can_afford = MapmakerItem::GetCost(item) <= core::api::game::player::spirit_light().get();
+        }
 
-        auto can_purchase = can_afford && slot->visibility == SlotVisibility::Visible;
-        auto color = can_purchase ? this_ptr->fields.PurchasableColor : this_ptr->fields.NotPurchasableColor;
+        const auto can_purchase = can_afford && slot->visibility == SlotVisibility::Visible;
+        const auto color = can_purchase ? this_ptr->fields.PurchasableColor : this_ptr->fields.NotPurchasableColor;
         UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, color);
 
-        auto name_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
-        auto name_text_component = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.NameGO, types::TextBox::get_class());
+        const auto name_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
+        const auto name_text_component = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.NameGO, types::TextBox::get_class());
         name_text_component->fields.color = color;
-        name_message_box->fields.MessageProvider = info.name.get_provider();
+        name_message_box->fields.MessageProvider = name.get_provider();
         MessageBox::RefreshText_1(name_message_box);
 
-        auto description_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
-        auto description_text_component = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.DescriptionGO, types::TextBox::get_class());
+        const auto description_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
+        const auto description_text_component = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.DescriptionGO, types::TextBox::get_class());
         description_text_component->fields.color = color;
-        description_message_box->fields.MessageProvider = info.description.get_provider();
+        description_message_box->fields.MessageProvider = description.get_provider();
         MessageBox::RefreshText_1(description_message_box);
 
         GameObject::SetActive(this_ptr->fields.PurchasableGO, !owned && can_purchase);
@@ -150,16 +153,16 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(MapmakerUIItem, void, UpdateMapmakerItem, (app::MapmakerUIItem * this_ptr, app::MapmakerItem* item)) {
-        auto slot = lupo_shop().slot(this_ptr->fields.m_upgradeItem->fields.UberState);
-        auto& info = slot->active_info();
+        const auto slot = lupo_shop().slot(this_ptr->fields.m_upgradeItem->fields.UberState);
+        const auto &[name, description, icon] = slot->active_info();
 
-        auto value = core::api::uber_states::UberState(this_ptr->fields.m_upgradeItem->fields.UberState).get<int>();
-        auto can_afford = il2cpp::unity::is_valid(item) && core::api::game::player::spirit_light().get() >= MapmakerItem::GetCost(item);
+        const auto value = core::api::uber_states::UberState(this_ptr->fields.m_upgradeItem->fields.UberState).get<int>();
+        const auto can_afford = il2cpp::unity::is_valid(item) && core::api::game::player::spirit_light().get() >= MapmakerItem::GetCost(item);
 
-        item->fields.Name = info.name.get_provider();
-        item->fields.Description = info.description.get_provider();
+        item->fields.Name = name.get_provider();
+        item->fields.Description = description.get_provider();
 
-        auto is_available = value < item->fields.MaxLevel && can_afford;
+        const auto is_available = value < item->fields.MaxLevel && can_afford;
         GameObject::SetActive(this_ptr->fields.AvailableToBuyGO, slot->visibility == SlotVisibility::Visible && is_available);
         GameObject::SetActive(this_ptr->fields.AlreadyOwnedGO, slot->visibility == SlotVisibility::Visible && item->fields.MaxLevel <= value);
         GameObject::SetActive(this_ptr->fields.TooExpensiveGO, slot->visibility == SlotVisibility::Visible && !can_afford);
