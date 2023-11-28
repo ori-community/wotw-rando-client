@@ -5,8 +5,19 @@
 #include <Modloader/app/methods/MoonDoorWithSlots.h>
 #include <Modloader/app/methods/SeinLogicCycle.h>
 #include <Modloader/app/methods/UberStateValueCondition.h>
+#include <Modloader/app/methods/UnityEngine/Rect.h>
+#include <Modloader/app/methods/Moon/Timeline/MoonTimeline.h>
+#include <Modloader/app/types/Rect.h>
+#include <Modloader/app/types/MoonCustomDoorWithSlots.h>
+#include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/app/structs/Boolean__Boxed.h>
 #include <Modloader/interception_macros.h>
+
+#include "conditions/condition_override.h"
+#include "Core/api/game/player.h"
+#include "Core/api/scenes/scene_load.h"
+#include "Modloader/modloader.h"
+#include "Modloader/windows_api/console.h"
 
 using namespace app::classes;
 
@@ -45,4 +56,77 @@ namespace {
 
         return next::UberStateValueCondition::Validate(this_ptr, context);
     }
+
+    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        randomizer::conditions::register_condition_intercept(randomizer::conditions::ConditionType::PlayerInsideZoneChecker, "kwoloksHollowEntrance/artSetups/frogHeadSetup/doorWithTwoSlots/doorWithTwoSlots/canUseKeystonesZone", [](auto, auto) {
+            const auto position = core::api::game::player::get_position();
+
+            auto x = UnityEngine::Rect::Contains_2(
+                types::Rect::box(app::Rect {-358.9f, -4235.f, 16.f, 11.f }), position
+            ) || UnityEngine::Rect::Contains_2(
+                types::Rect::box(app::Rect {-312.8f, -4239.8f, 19.f, 12.f }), position
+            );
+
+            modloader::win::console::console_send(x ? "YES" : "NO");
+
+            return x;
+        });
+    });
+
+    // Allow opening the Kwolok state door from behind
+    auto on_scene_load_handle = core::api::scenes::event_bus().register_handler([](core::api::scenes::SceneLoadEventMetadata* metadata) {
+        if (metadata->state != app::SceneState__Enum::Loaded) {
+            return;
+        }
+
+        if (metadata->scene_name == "kwoloksHollowEntrance") {
+            const auto door_go = il2cpp::unity::find_child(
+                metadata->scene->fields.SceneRoot,
+                std::vector<std::string>{
+                    "artSetups",
+                    "frogHeadSetup",
+                    "doorWithTwoSlots",
+                    "doorWithTwoSlots",
+                    "door"}
+            );
+
+            const auto open_door_timeline_go = il2cpp::unity::find_child(
+                metadata->scene->fields.SceneRoot,
+                std::vector<std::string>{
+                    "artSetups",
+                    "frogHeadSetup",
+                    "doorWithTwoSlots",
+                    "doorWithTwoSlots",
+                    "timelines",
+                    "doorOpeningTimeline",
+                    "openDoor"}
+            );
+
+            const auto open_door_cinematic_character_go = il2cpp::unity::find_child(
+                metadata->scene->fields.SceneRoot,
+                std::vector<std::string>{
+                    "artSetups",
+                    "frogHeadSetup",
+                    "doorWithTwoSlots",
+                    "doorWithTwoSlots",
+                    "timelines",
+                    "doorOpeningTimeline",
+                    "openDoor"}
+            );
+
+            if (il2cpp::unity::is_valid(door_go) && il2cpp::unity::is_valid(open_door_timeline_go)) {
+                const auto moon_custom_door_with_slots = il2cpp::unity::get_component<app::MoonCustomDoorWithSlots>(door_go, types::MoonCustomDoorWithSlots::get_class());
+                moon_custom_door_with_slots->fields._.Radius = 50.f;
+
+                // Skip eyestone animation sinece it doesn't make sense in this context and makes
+                // opening the door from the right look weird for a second
+                moon_custom_door_with_slots->fields._.OpenDoorTimeline = il2cpp::unity::get_component<app::MoonTimeline>(open_door_timeline_go, types::MoonTimeline::get_class());
+            }
+
+            // Destroy this entity to prevent Ori from staying in the air when opening the door
+            if (il2cpp::unity::is_valid(open_door_cinematic_character_go)) {
+                il2cpp::unity::destroy_object(open_door_cinematic_character_go);
+            }
+        }
+    });
 } // namespace

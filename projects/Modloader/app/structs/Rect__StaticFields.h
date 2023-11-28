@@ -35,12 +35,12 @@ struct RECT__StaticFields {
 #endif
 #undef IL2CPP_STRUCT_RECT__StaticFields_INITIALIZING
 #if !defined(IL2CPP_STRUCT_RECT__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_RECT__StaticFields_FWDDECL)
-#include <Modloader/app/structs/RECT__StaticFields.h>
+#include <Modloader/app/structs/Rect__StaticFields.h>
 #endif
 #else
 namespace app {
 #define IL2CPP_STRUCTS_INITIALIZING
-#include <Modloader/app/structs/RECT__StaticFields.h>
+#include <Modloader/app/structs/Rect__StaticFields.h>
 #undef IL2CPP_STRUCTS_INITIALIZING
 } // namespace app
 #endif

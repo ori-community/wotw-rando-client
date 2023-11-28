@@ -2,7 +2,7 @@
 #include <Modloader/interception_macros.h>
 
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/RECT.h>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/WindowManager.h>
 
 namespace app::classes::WindowManager {

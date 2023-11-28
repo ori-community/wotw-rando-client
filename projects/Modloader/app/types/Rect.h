@@ -33,9 +33,9 @@ namespace app::classes::types {
     } // namespace Rect
 } // namespace app::classes::types
 #pragma once
-#include <Modloader/app/structs/RECT.h>
-#include <Modloader/app/structs/RECT__Boxed.h>
-#include <Modloader/app/structs/RECT__Class.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Rect__Boxed.h>
+#include <Modloader/app/structs/Rect__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 

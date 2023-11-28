@@ -34,7 +34,7 @@ namespace app {
 #elif defined(IL2CPP_STRUCTS_INITIALIZING)
 #define IL2CPP_STRUCT_RECT__Boxed_INITIALIZING
 #if !defined(IL2CPP_STRUCT_RECT__Boxed_DEFINED)
-#include <Modloader/app/structs/RECT.h>
+#include <Modloader/app/structs/Rect.h>
 #if defined(IL2CPP_STRUCT_RECT_DEFINED)
 #define IL2CPP_STRUCT_RECT__Boxed_DEFINED
 struct RECT__Class;
@@ -47,16 +47,16 @@ struct RECT__Boxed {
 #endif
 #if !defined(IL2CPP_STRUCT_RECT__Boxed_FWDDECL)
 #define IL2CPP_STRUCT_RECT__Boxed_FWDDECL
-#include <Modloader/app/structs/RECT__Class.h>
+#include <Modloader/app/structs/Rect__Class.h>
 #endif
 #undef IL2CPP_STRUCT_RECT__Boxed_INITIALIZING
 #if !defined(IL2CPP_STRUCT_RECT__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_RECT__Boxed_FWDDECL)
-#include <Modloader/app/structs/RECT__Boxed.h>
+#include <Modloader/app/structs/Rect__Boxed.h>
 #endif
 #else
 namespace app {
 #define IL2CPP_STRUCTS_INITIALIZING
-#include <Modloader/app/structs/RECT__Boxed.h>
+#include <Modloader/app/structs/Rect__Boxed.h>
 #undef IL2CPP_STRUCTS_INITIALIZING
 } // namespace app
 #endif

@@ -1,9 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
-#include <Modloader/app/structs/RECT__Boxed.h>
+#include <Modloader/app/structs/Rect__Boxed.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/RECT.h>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::RECT {

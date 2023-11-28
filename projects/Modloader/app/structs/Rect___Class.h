@@ -37,7 +37,7 @@ namespace app {
 #elif defined(IL2CPP_STRUCTS_INITIALIZING)
 #define IL2CPP_STRUCT_RECT___Class_INITIALIZING
 #if !defined(IL2CPP_STRUCT_RECT___Class_DEFINED)
-#include <Modloader/app/structs/RECT___VTable.h>
+#include <Modloader/app/structs/Rect___VTable.h>
 #if defined(IL2CPP_STRUCT_RECT___VTable_DEFINED)
 #define IL2CPP_STRUCT_RECT___Class_DEFINED
 struct RECT___StaticFields;
@@ -53,16 +53,16 @@ struct RECT___Class {
 #endif
 #if !defined(IL2CPP_STRUCT_RECT___Class_FWDDECL)
 #define IL2CPP_STRUCT_RECT___Class_FWDDECL
-#include <Modloader/app/structs/RECT___StaticFields.h>
+#include <Modloader/app/structs/Rect___StaticFields.h>
 #endif
 #undef IL2CPP_STRUCT_RECT___Class_INITIALIZING
 #if !defined(IL2CPP_STRUCT_RECT___Class_DEFINED) && !defined(IL2CPP_STRUCT_RECT___Class_FWDDECL)
-#include <Modloader/app/structs/RECT___Class.h>
+#include <Modloader/app/structs/Rect___Class.h>
 #endif
 #else
 namespace app {
 #define IL2CPP_STRUCTS_INITIALIZING
-#include <Modloader/app/structs/RECT___Class.h>
+#include <Modloader/app/structs/Rect___Class.h>
 #undef IL2CPP_STRUCTS_INITIALIZING
 } // namespace app
 #endif

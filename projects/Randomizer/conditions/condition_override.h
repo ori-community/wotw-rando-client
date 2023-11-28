@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <optional>
 #include <string_view>
 
@@ -9,10 +10,11 @@ namespace randomizer {
             SeinAbilityCondition,
             HasAbilityCondition,
             UberStateConditionWrapper,
-            VisibleOnWorldMap
+            VisibleOnWorldMap,
+            PlayerInsideZoneChecker,
         };
 
-        using condition_intercept = std::optional<bool> (*)(std::string_view path, void* obj);
+        using condition_intercept = std::function<std::optional<bool>(std::string_view, void*)>;
         void register_condition_intercept(ConditionType type, std::string_view path, condition_intercept callback);
     } // namespace conditions
 } // namespace randomizer
