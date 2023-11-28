@@ -122,6 +122,7 @@ namespace {
                 // Skip eyestone animation sinece it doesn't make sense in this context and makes
                 // opening the door from the right look weird for a second
                 moon_custom_door_with_slots->fields._.OpenDoorTimeline = il2cpp::unity::get_component<app::MoonTimeline>(open_door_timeline_go, types::MoonTimeline::get_class());
+                moon_custom_door_with_slots->fields._.HintMessage = core::api::system::create_message_provider("Press [Interact] to insert #2 Keystones#.");
             }
 
             // Destroy this entity to prevent Ori from staying in the air when opening the door
