@@ -21,8 +21,6 @@ namespace {
         const auto state = core::api::uber_states::UberState(UberStateGroup::GameState, 20);
         state.set(1);
         state.set(0);
-        core::api::game::player::refill_health();
-        core::api::game::player::refill_energy();
         next::SavePedestalController::OnFinishedTeleportingStartAnimation();
     }
 } // namespace
