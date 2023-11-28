@@ -874,7 +874,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::GromShop, 16825),
                 "Spirit Well Bought",
                 core::Property<double>(
-                    [](double x) { UberState(42178, 16825).set(x > 0.5 ? 1 : 3); },
+                    [](double x) { UberState(42178, 16825).set(x > 0.5 ? 3 : 1); },
                     []() -> double {
                         return UberState(42178, 16825).get<int>() >= 3 ? 1 : 0;
                     }
@@ -884,7 +884,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::GromShop, 51230),
                 "Houses A Bought",
                 core::Property<double>(
-                    [](double x) { UberState(42178, 51230).set(x > 0.5 ? 1 : 3); },
+                    [](double x) { UberState(42178, 51230).set(x > 0.5 ? 3 : 1); },
                     []() -> double {
                         return UberState(42178, 51230).get<int>() >= 3 ? 1 : 0;
                     }
@@ -894,7 +894,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::GromShop, 23607),
                 "Houses B Bought",
                 core::Property<double>(
-                    [](double x) { UberState(42178, 23607).set(x > 0.5 ? 1 : 3); },
+                    [](double x) { UberState(42178, 23607).set(x > 0.5 ? 3 : 1); },
                     []() -> double {
                         return UberState(42178, 23607).get<int>() >= 3 ? 1 : 0;
                     }
@@ -904,7 +904,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::GromShop, 40448),
                 "Houses C Bought",
                 core::Property<double>(
-                    [](double x) { UberState(42178, 40448).set(x > 0.5 ? 1 : 3); },
+                    [](double x) { UberState(42178, 40448).set(x > 0.5 ? 3 : 1); },
                     []() -> double {
                         return UberState(42178, 40448).get<int>() >= 3 ? 1 : 0;
                     }
@@ -914,7 +914,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::GromShop, 18751),
                 "Remove Thorns Bought",
                 core::Property<double>(
-                    [](double x) { UberState(42178, 18751).set(x > 0.5 ? 1 : 3); },
+                    [](double x) { UberState(42178, 18751).set(x > 0.5 ? 3 : 1); },
                     []() -> double {
                         return UberState(42178, 18751).get<int>() >= 3 ? 1 : 0;
                     }
@@ -924,7 +924,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::GromShop, 16586),
                 "Open Cave Bought",
                 core::Property<double>(
-                    [](double x) { UberState(42178, 16586).set(x > 0.5 ? 1 : 3); },
+                    [](double x) { UberState(42178, 16586).set(x > 0.5 ? 3 : 1); },
                     []() -> double {
                         return UberState(42178, 16586).get<int>() >= 3 ? 1 : 0;
                     }
@@ -934,7 +934,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::GromShop, 15068),
                 "Beautify Bought",
                 core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
+                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); },
                     []() -> double {
                         return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
                     }
@@ -946,7 +946,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::TuleyShop, 47651),
                 "bashPlantsPlanted",
                 core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
+                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); },
                     []() -> double {
                         return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
                     }
@@ -956,7 +956,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::TuleyShop, 16254),
                 "flowersPlanted",
                 core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
+                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); },
                     []() -> double {
                         return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
                     }
@@ -966,7 +966,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::TuleyShop, 33011),
                 "grapplePlantsPlanted",
                 core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
+                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); },
                     []() -> double {
                         return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
                     }
@@ -976,7 +976,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::TuleyShop, 64583),
                 "grassPlanted",
                 core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
+                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); },
                     []() -> double {
                         return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
                     }
@@ -986,7 +986,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::TuleyShop, 38393),
                 "springPlantsPlanted",
                 core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
+                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); },
                     []() -> double {
                         return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
                     }
@@ -996,7 +996,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::TuleyShop, 40006),
                 "treePlanted",
                 core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 1 : 3); },
+                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); },
                     []() -> double {
                         return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
                     }
