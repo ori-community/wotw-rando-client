@@ -111,7 +111,8 @@ namespace {
                     "doorWithTwoSlots",
                     "timelines",
                     "doorOpeningTimeline",
-                    "openDoor"}
+                    "openDoor",
+                    "cinematicCharacter"}
             );
 
             if (il2cpp::unity::is_valid(door_go) && il2cpp::unity::is_valid(open_door_timeline_go)) {
