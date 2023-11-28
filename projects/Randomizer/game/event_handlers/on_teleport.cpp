@@ -4,6 +4,7 @@
 #include <Modloader/interception_macros.h>
 
 #include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
 
 namespace {
     IL2CPP_INTERCEPT(SavePedestalController, void, BeginTeleportation, (app::Vector2 position)) {
@@ -17,10 +18,11 @@ namespace {
         Network::Packet packet;
         packet.set_id(Network::Packet_PacketID_NotifyTeleport);
         randomizer::network_client().websocket_send(packet);
-        auto state = core::api::uber_states::UberState(UberStateGroup::GameState, 20);
+        const auto state = core::api::uber_states::UberState(UberStateGroup::GameState, 20);
         state.set(1);
         state.set(0);
-
+        core::api::game::player::refill_health();
+        core::api::game::player::refill_energy();
         next::SavePedestalController::OnFinishedTeleportingStartAnimation();
     }
 } // namespace
