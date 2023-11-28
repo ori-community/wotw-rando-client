@@ -1,5 +1,6 @@
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/game/shops/shop.h>
+#include <Randomizer/game/pickups/quests.h>
 #include <Randomizer/online/network_monitor.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/legacy_parser/parser.h>
@@ -9,6 +10,7 @@
 #include <Randomizer/text_processors/control.h>
 #include <Randomizer/text_processors/legacy.h>
 #include <Randomizer/text_processors/multiplayer.h>
+#include <Randomizer/text_processors/seed.h>
 #include <Randomizer/text_processors/shard.h>
 #include <Randomizer/text_processors/uber_state.h>
 #include <Randomizer/timer.h>
@@ -22,7 +24,6 @@
 #include <Core/settings.h>
 
 #include <Modloader/modloader.h>
-#include <text_processors/seed.h>
 
 #include <fstream>
 
@@ -108,6 +109,9 @@ namespace randomizer {
                 .text = core::Property<std::string>("*Good Luck! <3*"),
                 .prioritized = true,
             });
+
+
+            game::pickups::quests::clear_queued_quest_messages_on_next_update();
         });
 
         void seed_loaded() {

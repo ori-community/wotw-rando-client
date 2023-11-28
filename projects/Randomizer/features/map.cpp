@@ -112,11 +112,11 @@ namespace {
     bool allow_showing_description_ui = false;
     IL2CPP_INTERCEPT(QuestsUI, void, OptionPressedCallback, (app::QuestsUI * this_ptr)) {
         ScopedSetter setter(allow_showing_description_ui, true);
-        game::pickups::quests::set_allow_changing_active_quest(true);
+        randomizer::game::pickups::quests::set_allow_changing_active_quest(true);
         next::QuestsUI::OptionPressedCallback(this_ptr);
-        game::pickups::quests::set_allow_changing_active_quest(false);
+        randomizer::game::pickups::quests::set_allow_changing_active_quest(false);
 
-        auto quests_controller = game::pickups::quests::controller();
+        auto quests_controller = randomizer::game::pickups::quests::controller();
         auto quest = QuestsController::GetActiveQuest(quests_controller);
 
         QuestsUI::UpdateDescriptionUI_2(this_ptr, quest);
