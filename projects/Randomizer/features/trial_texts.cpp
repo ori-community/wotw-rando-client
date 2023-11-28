@@ -14,7 +14,7 @@
 using namespace app::classes;
 
 namespace {
-    enum SpiritTrialLocation {
+    enum class SpiritTrialLocation {
         Marsh,
         Depths,
         Wastes,
@@ -33,28 +33,47 @@ namespace {
         }
 
         switch (uber_state->fields._.m_id->fields.m_id) {
-            case 23661: return std::make_optional(SpiritTrialLocation::Reach);
-            case 30767: return std::make_optional(SpiritTrialLocation::Wastes);
-            case 45951: return std::make_optional(SpiritTrialLocation::Marsh);
-            case 25545: return std::make_optional(SpiritTrialLocation::Hollow);
-            case 54686: return std::make_optional(SpiritTrialLocation::Pools);
-            case 28552: return std::make_optional(SpiritTrialLocation::Depths);
-            case 22703: return std::make_optional(SpiritTrialLocation::Woods);
-            case 11512: return std::make_optional(SpiritTrialLocation::Wellspring);
-            default: return std::nullopt;
+            case 23661:
+                return std::make_optional(SpiritTrialLocation::Reach);
+            case 30767:
+                return std::make_optional(SpiritTrialLocation::Wastes);
+            case 45951:
+                return std::make_optional(SpiritTrialLocation::Marsh);
+            case 25545:
+                return std::make_optional(SpiritTrialLocation::Hollow);
+            case 54686:
+                return std::make_optional(SpiritTrialLocation::Pools);
+            case 28552:
+                return std::make_optional(SpiritTrialLocation::Depths);
+            case 22703:
+                return std::make_optional(SpiritTrialLocation::Woods);
+            case 11512:
+                return std::make_optional(SpiritTrialLocation::Wellspring);
+            default:
+                return std::nullopt;
         }
     }
 
     std::string_view get_text_for_spirit_trial(SpiritTrialLocation location) {
         switch (location) {
-            case Marsh: return core::text::get_text(*static_text_entry::TrialTextMarsh);
-            case Depths: return core::text::get_text(*static_text_entry::TrialTextDepths);
-            case Wastes: return core::text::get_text(*static_text_entry::TrialTextWastes);
-            case Pools: return core::text::get_text(*static_text_entry::TrialTextPools);
-            case Reach: return core::text::get_text(*static_text_entry::TrialTextReach);
-            case Woods: return core::text::get_text(*static_text_entry::TrialTextWoods);
-            case Hollow: return core::text::get_text(*static_text_entry::TrialTextHollow);
-            case Wellspring: return core::text::get_text(*static_text_entry::TrialTextWellspring);
+            case SpiritTrialLocation::Marsh:
+                return core::text::get_text(*static_text_entry::TrialTextMarsh);
+            case SpiritTrialLocation::Depths:
+                return core::text::get_text(*static_text_entry::TrialTextDepths);
+            case SpiritTrialLocation::Wastes:
+                return core::text::get_text(*static_text_entry::TrialTextWastes);
+            case SpiritTrialLocation::Pools:
+                return core::text::get_text(*static_text_entry::TrialTextPools);
+            case SpiritTrialLocation::Reach:
+                return core::text::get_text(*static_text_entry::TrialTextReach);
+            case SpiritTrialLocation::Woods:
+                return core::text::get_text(*static_text_entry::TrialTextWoods);
+            case SpiritTrialLocation::Hollow:
+                return core::text::get_text(*static_text_entry::TrialTextHollow);
+            case SpiritTrialLocation::Wellspring:
+                return core::text::get_text(*static_text_entry::TrialTextWellspring);
+            default:
+                throw std::exception("Unexpected trial location.");
         }
     }
 
@@ -69,30 +88,36 @@ namespace {
             return;
         }
 
-        auto text_go = il2cpp::unity::find_child(this_ptr, std::vector<std::string> {
-            "raceStart",
-            "ui",
-            "timeline",
-            "container",
-            "challenge",
-            "challengeText",
-            "text",
-        });
-
-        if (text_go != nullptr) {
-            auto icon_go = il2cpp::unity::find_child(this_ptr, std::vector<std::string> {
+        auto text_go = il2cpp::unity::find_child(
+            this_ptr,
+            std::vector<std::string>{
                 "raceStart",
                 "ui",
                 "timeline",
                 "container",
                 "challenge",
                 "challengeText",
-                "rewardIcon",
-            });
+                "text",
+            }
+        );
+
+        if (text_go != nullptr) {
+            auto icon_go = il2cpp::unity::find_child(
+                this_ptr,
+                std::vector<std::string>{
+                    "raceStart",
+                    "ui",
+                    "timeline",
+                    "container",
+                    "challenge",
+                    "challengeText",
+                    "rewardIcon",
+                }
+            );
 
             il2cpp::unity::destroy_object(icon_go);
 
-            il2cpp::unity::set_local_position(text_go, app::Vector3 { -1.f, 0.f, 0.3f });
+            il2cpp::unity::set_local_position(text_go, app::Vector3{-1.f, 0.f, 0.3f});
 
             auto message_box = il2cpp::unity::get_component<app::MessageBox>(text_go, types::MessageBox::get_class());
             message_box->fields.TextBox->fields.alignment = app::AlignmentMode__Enum::Center;
