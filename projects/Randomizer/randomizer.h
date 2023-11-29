@@ -13,6 +13,7 @@ namespace randomizer {
     enum class RandomizerEvent {
         LocationCollectionLoaded,
         SeedLoaded,
+        SeedLoadedPostGrant,
         ReachCheck,
     };
 

@@ -20,6 +20,7 @@
 #include <Modloader/interception_macros.h>
 
 #include <random>
+#include <randomizer.h>
 #include <unordered_map>
 
 using namespace modloader;
@@ -150,11 +151,11 @@ namespace randomizer::game::map {
 
         IL2CPP_INTERCEPT(AreaMapIconManager, void, ShowAreaIcons, (app::AreaMapIconManager * this_ptr)) {
             // Start ShowAreaIcons function.
-            auto world = types::GameWorld::get_class()->static_fields->Instance;
+            const auto world = types::GameWorld::get_class()->static_fields->Instance;
             for (auto i = 0; i < world->fields.RuntimeAreas->fields._size; ++i) {
-                auto runtime_area = world->fields.RuntimeAreas->fields._items->vector[i];
+                const auto runtime_area = world->fields.RuntimeAreas->fields._items->vector[i];
                 for (auto j = 0; j < runtime_area->fields.Icons->fields._size; ++j) {
-                    auto icon = runtime_area->fields.Icons->fields._items->vector[j];
+                    const auto icon = runtime_area->fields.Icons->fields._items->vector[j];
                     RuntimeWorldMapIcon::Hide(icon);
                 }
 
@@ -165,7 +166,7 @@ namespace randomizer::game::map {
                     }
 
                     for (auto j = 0; j < runtime_area->fields.Icons->fields._size; ++j) {
-                        auto icon = runtime_area->fields.Icons->fields._items->vector[j];
+                        const auto icon = runtime_area->fields.Icons->fields._items->vector[j];
                         handle_show_toggle(icon, should_show_icon_with_current_filter(this_ptr, icon));
                     }
                 }
@@ -173,18 +174,17 @@ namespace randomizer::game::map {
 
             if (last_filter != active_filter() && last_filter != Filters::COUNT) {
                 // Hide custom icons in old filter.
-                auto& collection = icons[last_filter];
+                const auto& collection = icons[last_filter];
                 for (auto& icon: collection) {
                     icon->visible(false);
                 }
             }
 
             // Resolve icons for active filter.
-            auto& collection = icons[active_filter()];
+            const auto& collection = icons[active_filter()];
             for (auto& icon: collection) {
                 const auto it = visibility_callbacks.find(icon);
-                const auto visibility = it == visibility_callbacks.end() ? IconVisibilityResult::Show : it->second(icon);
-                switch (visibility) {
+                switch (it == visibility_callbacks.end() ? IconVisibilityResult::Show : it->second(icon)) {
                     case IconVisibilityResult::Show:
                         icon->visible(true);
                         icon->opacity(1.0);
@@ -312,4 +312,22 @@ namespace randomizer::game::map {
         const auto area_map_info = player_group->fields.PlayerUberState->fields.m_state->fields.AreaMapInfo;
         return Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::GetAreaState(area_map_info, area, index) == app::WorldMapAreaState__Enum::Visited;
     }
+
+    auto on_load_seed = event_bus().register_handler(
+        RandomizerEvent::SeedLoadedPostGrant,
+        EventTiming::After,
+        [](auto, auto) {
+            if (!core::api::game::ui::area_map_open()) {
+                return;
+            }
+
+            const auto instance = types::GameMapUI::get_class()->static_fields->Instance;
+            if (instance == nullptr || instance->fields.m_areaMap == nullptr || instance->fields.m_areaMap->fields._IconManager_k__BackingField == nullptr) {
+                return;
+            }
+
+            const auto icon_manager = instance->fields.m_areaMap->fields._IconManager_k__BackingField;
+            AreaMapIconManager::ShowAreaIcons(icon_manager);
+        }
+    );
 } // namespace randomizer::game::map

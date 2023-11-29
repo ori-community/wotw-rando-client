@@ -148,9 +148,11 @@ namespace randomizer {
             game::shops::reset_shop_data();
             randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::GameState, 1), 0);
             queue_reach_check();
+            event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::Before);
+            event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
         }
 
-        auto on_after_seed_load = randomizer::event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) { seed_loaded(); });
+        auto on_after_seed_load = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) { seed_loaded(); });
         auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [](auto, auto) { seed_loaded(); });
 
         auto on_restore_checkpoint = core::api::game::event_bus().register_handler(

@@ -10,6 +10,8 @@ namespace randomizer::seed::items {
 
     void CreateIcon::grant() {
         const auto icon = add_icon(flags);
+        icon->name(std::format("custom_icon: {}", seed_definition));
+        icon->label(label);
         icon->icon(type);
         icon->position(position);
         icon->can_teleport(can_teleport);
