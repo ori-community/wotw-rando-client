@@ -237,14 +237,14 @@ namespace core {
         ProgressHint = 91,
 
         // Spirit Trial Texts (the ones that show up above the spirit trial start)
-        TrialTextReach = 100,
+        TrialTextMarsh = 100,
         TrialTextHollow = 101,
-        TrialTextPools = 102,
-        TrialTextMarsh = 103,
-        TrialTextWoods = 104,
+        TrialTextWellspring = 102,
+        TrialTextWoods = 103,
+        TrialTextReach = 104,
         TrialTextDepths = 105,
-        TrialTextWastes = 106,
-        TrialTextWellspring = 107,
+        TrialTextPools = 106,
+        TrialTextWastes = 107,
 
         STATIC_TEXT_ENTRY_END = 1000000
     };

@@ -582,7 +582,15 @@ namespace randomizer {
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 6), "On Binding 5");
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 7), "On Restore Checkpoint");
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 8), "On Progress Hint");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 100), "On Progress Hint");
+
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 100), "On request Marsh Trial Text");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 101), "On request Hollow Trial Text");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 102), "On request Wellspring Trial Text");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 103), "On request Woods Trial Text");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 104), "On request Reach Trial Text");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 105), "On request Depths Trial Text");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 106), "On request Pools Trial Text");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 107), "On request Wastes Trial Text");
 
             register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 0), "Spirit Light", core::api::game::player::spirit_light().wrap<double>());
             register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 1), "Gorlek Ore", core::api::game::player::ore().wrap<double>());
