@@ -24,7 +24,7 @@ namespace randomizer::text_processors {
 
         std::optional<std::string> seed_text(core::text::ITextProcessor const& base_processor, std::string_view content) {
             core::api::uber_states::UberStateCondition target;
-            if (!core::api::uber_states::parse_condition(content, target)) {
+            if (!parse_condition(content, target)) {
                 return std::nullopt;
             }
 
@@ -38,7 +38,7 @@ namespace randomizer::text_processors {
                 return std::nullopt;
             }
 
-            for (auto const& name : item_data->names) {
+            for (auto const& name: item_data->names) {
                 if (!text.empty()) {
                     text += "\n";
                 }

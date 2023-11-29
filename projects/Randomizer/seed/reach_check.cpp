@@ -33,7 +33,7 @@ namespace randomizer::seed {
             reach_check_callback callback;
         };
 
-        template <typename T>
+        template<typename T>
         struct RawVec {
             T* data;
             int length;
@@ -57,6 +57,7 @@ namespace randomizer::seed {
         };
 
         using rust_usable_function = void (*)(ReachCheckResult::Data* data, const char* string);
+
         struct Functions {
             rust_usable_function push_error;
             rust_usable_function push_reached;
@@ -109,7 +110,7 @@ namespace randomizer::seed {
                 auto request = requests.dequeue();
 
                 std::vector<const char*> nodes;
-                for (auto const& node : request.nodes) {
+                for (auto const& node: request.nodes) {
                     nodes.push_back(node.c_str());
                 }
 
@@ -120,10 +121,10 @@ namespace randomizer::seed {
                     .keystones = request.keystones,
                     .shard_slots = request.shard_slots,
                     .clean_water = request.clean_water,
-                    .skills = RawVec<int>{ request.skills.data(), static_cast<int>(request.skills.size()) },
-                    .teleporters = RawVec<int>{ request.teleporters.data(), static_cast<int>(request.teleporters.size()) },
-                    .shards = RawVec<int>{ request.shards.data(), static_cast<int>(request.shards.size()) },
-                    .nodes = RawVec<const char*>{ nodes.data(), static_cast<int>(nodes.size()) },
+                    .skills = RawVec<int>{request.skills.data(), static_cast<int>(request.skills.size())},
+                    .teleporters = RawVec<int>{request.teleporters.data(), static_cast<int>(request.teleporters.size())},
+                    .shards = RawVec<int>{request.shards.data(), static_cast<int>(request.shards.size())},
+                    .nodes = RawVec<const char*>{nodes.data(), static_cast<int>(nodes.size())},
                     .areas = request.areas.c_str(),
                     .locations = request.locations.c_str(),
                     .states = request.states.c_str(),
@@ -136,6 +137,7 @@ namespace randomizer::seed {
                     std::lock_guard<std::mutex> lock(results_mutex);
                     results.emplace_back(request.callback, result);
                 } else {
+
                 }
             }
 
@@ -144,15 +146,19 @@ namespace randomizer::seed {
         }
 
         std::thread request_thread(handle_requests);
-        auto on_before_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
-            if (auto lock = std::unique_lock(results_mutex, std::try_to_lock)) {
-                for (auto [callback, result] : results) {
-                    callback(result);
-                }
+        auto on_before_update = core::api::game::event_bus().register_handler(
+            GameEvent::FixedUpdate,
+            EventTiming::After,
+            [](auto, auto) {
+                if (auto lock = std::unique_lock(results_mutex, std::try_to_lock)) {
+                    for (auto [callback, result]: results) {
+                        callback(result);
+                    }
 
-                results.clear();
+                    results.clear();
+                }
             }
-        });
+        );
     } // namespace
 
     bool ReachCheckResult::reachable(core::api::uber_states::UberStateCondition location) const {
@@ -233,25 +239,25 @@ namespace randomizer::seed {
                 .callback = std::move(callback)
             };
 
-            for (auto ability : abilities) {
+            for (auto ability: abilities) {
                 if (core::api::game::player::has_ability(ability)) {
                     request.skills.push_back(static_cast<int>(ability));
                 }
             }
 
-            for (auto teleporter : teleporter_map()) {
+            for (auto teleporter: teleporter_map()) {
                 if (teleporter.second.get<bool>()) {
                     request.teleporters.push_back(static_cast<int>(teleporter.first));
                 }
             }
 
-            for (auto shard : shards) {
+            for (auto shard: shards) {
                 if (core::api::game::player::shard(shard).get()) {
                     request.shards.push_back(static_cast<int>(shard));
                 }
             }
 
-            for (auto const& state : randomizer::state_collection()) {
+            for (auto const& state: randomizer::state_collection()) {
                 if (state.condition.resolve()) {
                     request.nodes.push_back(state.name);
                 }

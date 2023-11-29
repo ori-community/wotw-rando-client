@@ -19,17 +19,26 @@ namespace randomizer::location_data {
             std::vector<std::string> parts;
             split_str(line, parts, ',');
 
-            for (auto &item: parts) {
+            for (auto& item: parts) {
                 trim(item);
             }
 
             if (parts[9] != "0" && parts[10] != "0") {
-                app::Vector2 position;
+                app::Vector2 position{};
                 if (!string_convert(parts[9], position.x) || !string_convert(parts[10], position.y)) {
                     continue;
                 }
 
                 location.position = position;
+            }
+
+            if (parts[11] != "0" && parts[12] != "0") {
+                app::Vector2 position{};
+                if (!string_convert(parts[11], position.x) || !string_convert(parts[12], position.y)) {
+                    continue;
+                }
+
+                location.map_position = position;
             }
 
             location.area = name_to_area(parts[1]);
@@ -45,7 +54,7 @@ namespace randomizer::location_data {
 
             location.type = type.value();
             auto success = core::api::uber_states::parse_condition(
-                { parts[5], parts[7] + (parts[8].empty() ? "" : ">=" + parts[8]) },
+                {parts[5], parts[7] + (parts[8].empty() ? "" : ">=" + parts[8])},
                 location.condition
             );
 

@@ -45,6 +45,7 @@ namespace il2cpp {
         std::unordered_map<Il2CppClass*, app::Type*> resolved_class_types;
 
         thread_local std::string buffer;
+
         std::string const& get_full_name(std::string_view namezpace, std::string_view name, std::string_view nested = "") {
             buffer.clear();
             buffer.reserve(32);
@@ -68,9 +69,13 @@ namespace il2cpp {
             void* it = nullptr;
             for (auto i = 0; i < klass->method_count; ++i) {
                 auto method = il2cpp_class_get_methods(klass, &it);
-                auto method_overload_info = std::find_if(overloads.begin(), overloads.end(), [method](MethodOverloadInfo const& info) -> bool {
-                    return info.name == method->name && info.param_count == method->parameters_count;
-                });
+                auto method_overload_info = std::find_if(
+                    overloads.begin(),
+                    overloads.end(),
+                    [method](MethodOverloadInfo const& info) -> bool {
+                        return info.name == method->name && info.param_count == method->parameters_count;
+                    }
+                );
 
                 if (method_overload_info == overloads.end()) {
                     MethodOverloadInfo info;
@@ -276,7 +281,7 @@ namespace il2cpp {
         }
 
         app::GameObject* find_child(void* obj, std::vector<std::string_view> const& path) {
-            for (auto const& name : path) {
+            for (auto const& name: path) {
                 if (obj == nullptr)
                     break;
 
@@ -287,7 +292,7 @@ namespace il2cpp {
         }
 
         app::GameObject* find_child(void* obj, std::vector<std::string> const& path) {
-            for (auto const& name : path) {
+            for (auto const& name: path) {
                 if (obj == nullptr)
                     break;
 
@@ -355,9 +360,9 @@ namespace il2cpp {
             return components;
         }
 
-        std::vector<app::Component_1*> get_components_in_children_untyped(app::GameObject* game_object, Il2CppClass* klass) {
+        std::vector<app::Component_1*> get_components_in_children_untyped(app::GameObject* game_object, Il2CppClass* klass, bool include_inactive) {
             std::vector<app::Component_1*> components;
-            auto c_array = UnityEngine::GameObject::GetComponentsInChildren_1(game_object, get_runtime_type(klass));
+            auto c_array = UnityEngine::GameObject::GetComponentsInChildren_2(game_object, get_runtime_type(klass), include_inactive);
             for (auto i = 0; i < c_array->max_length; ++i)
                 components.push_back(reinterpret_cast<app::Component_1*>(c_array->vector[i]));
 
@@ -501,8 +506,7 @@ namespace il2cpp {
             return klass;
         }
 
-        Il2CppClass* get_nested_class(std::string_view namezpace, std::string_view name, std::string_view nested) {
-            {
+        Il2CppClass* get_nested_class(std::string_view namezpace, std::string_view name, std::string_view nested) { {
                 auto const& full_name = get_full_name(namezpace, name, nested);
                 auto it = resolved_classes.find(full_name);
                 if (it != resolved_classes.end())
@@ -599,7 +603,7 @@ namespace il2cpp {
             trace_overloads(klass->parent);
 
         auto method_overloads = resolved_klass_overloads.find(klass);
-        for (const auto& info : method_overloads->second)
+        for (const auto& info: method_overloads->second)
             trace(modloader::MessageType::Error, 5, "il2cpp", std::format(" - {}.{}:{}", klass->name, info.name.data(), info.param_count));
     }
 
@@ -611,9 +615,13 @@ namespace il2cpp {
         }
 
         std::vector<MethodOverloadInfo> const& methods = method_overloads->second;
-        auto method_overload_info = std::find_if(methods.begin(), methods.end(), [&method, &param_count](MethodOverloadInfo const& info) -> bool {
-            return info.name == method && info.param_count == param_count;
-        });
+        auto method_overload_info = std::find_if(
+            methods.begin(),
+            methods.end(),
+            [&method, &param_count](MethodOverloadInfo const& info) -> bool {
+                return info.name == method && info.param_count == param_count;
+            }
+        );
 
         if (method_overload_info == methods.end()) {
             if (klass->parent != nullptr) {
@@ -649,13 +657,22 @@ namespace il2cpp {
         }
 
         std::vector<MethodOverloadInfo> const& methods = method_overloads->second;
-        auto method_overload_info = std::find_if(methods.begin(), methods.end(), [&method, &param_count](MethodOverloadInfo const& info) -> bool {
-            return info.name == method && info.param_count == param_count;
-        });
+        auto method_overload_info = std::find_if(
+            methods.begin(),
+            methods.end(),
+            [&method, &param_count](MethodOverloadInfo const& info) -> bool {
+                return info.name == method && info.param_count == param_count;
+            }
+        );
 
         if (method_overload_info == methods.end()) {
-            trace(modloader::MessageType::Error, 1, "il2cpp", std::format("Method '{}' with params count {} in klass '{}.{}' does not exist", method.data(), param_count, klass->namespaze, klass->name));
-            for (auto const& method_info : methods)
+            trace(
+                modloader::MessageType::Error,
+                1,
+                "il2cpp",
+                std::format("Method '{}' with params count {} in klass '{}.{}' does not exist", method.data(), param_count, klass->namespaze, klass->name)
+            );
+            for (auto const& method_info: methods)
                 trace(modloader::MessageType::Info, 3, "il2cpp", std::format("- {}({})", method_info.name, method_info.param_count));
 
             return 0;
@@ -689,7 +706,7 @@ namespace il2cpp {
         if (info->methods.size() == 1)
             return info->methods.front();
         else {
-            for (auto method_info : info->methods) {
+            for (auto method_info: info->methods) {
                 auto valid = true;
                 for (auto i = 0; valid && i < method_info->parameters_count; ++i) {
                     auto& param = method_info->parameters[i];
@@ -756,7 +773,7 @@ namespace il2cpp {
         if (info->methods.size() == 1) {
             return info->methods.front();
         } else {
-            for (auto method_info : info->methods) {
+            for (auto method_info: info->methods) {
                 auto valid = true;
                 for (auto i = 0; valid && i < method_info->parameters_count; ++i) {
                     auto& param = method_info->parameters[i];
@@ -776,7 +793,7 @@ namespace il2cpp {
         trace(modloader::MessageType::Error, 3, "il2cpp", std::format("could not find a method overload for '{}:{}'in klass '{}' that matched parameters", method.data(), params.size(), klass->name));
 
         trace(modloader::MessageType::Info, 3, "il2cpp", "valid parameters are:");
-        for (auto method_info : info->methods) {
+        for (auto method_info: info->methods) {
             std::string params = " - ";
             for (auto i = 0; i < method_info->parameters_count; ++i) {
                 auto& param = method_info->parameters[i];
@@ -800,7 +817,7 @@ namespace il2cpp {
         if (info->methods.size() == 1) {
             return info->methods.front();
         } else {
-            for (auto method_info : info->methods) {
+            for (auto method_info: info->methods) {
                 auto valid = true;
                 for (auto i = 0; valid && i < method_info->parameters_count; ++i) {
                     auto& param = method_info->parameters[i];
@@ -824,7 +841,7 @@ namespace il2cpp {
         trace(modloader::MessageType::Error, 3, "il2cpp", std::format("could not find a method overload for '{}:{}'in klass '{}' that matched parameters", method.data(), params.size(), klass->name));
 
         trace(modloader::MessageType::Info, 3, "il2cpp", "valid parameters are:");
-        for (auto method_info : info->methods) {
+        for (auto method_info: info->methods) {
             std::string str_params = " - ";
             for (auto i = 0; i < method_info->parameters_count; ++i) {
                 auto& param = method_info->parameters[i];

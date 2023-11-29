@@ -8,8 +8,10 @@
 #include <unordered_map>
 
 namespace randomizer::location_data {
-    const std::string_view area_to_name(GameArea area);
-    const std::string_view area_to_short_name(GameArea area);
+    std::string_view area_to_name(GameArea area);
+
+    std::string_view area_to_short_name(GameArea area);
+
     GameArea name_to_area(std::string const& name);
 
     using location_data_emitter = std::function<void(Location location)>;
@@ -22,10 +24,13 @@ namespace randomizer::location_data {
         void read(std::filesystem::path path, location_data_parser parser);
 
         GameArea area(location_id const& id) const;
+
         GameArea area(std::string const& name) const;
 
         std::optional<Location> location(location_id const& id) const;
+
         std::optional<Location> location(std::string const& name) const;
+
         std::vector<Location> const& locations(GameArea area) const;
 
     private:

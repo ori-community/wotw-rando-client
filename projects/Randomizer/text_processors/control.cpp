@@ -8,7 +8,7 @@ namespace randomizer::text_processors {
     namespace {
         std::optional<std::string> if_handler(core::text::ITextProcessor const& base_processor, std::string_view content) {
             std::vector<std::string> parts;
-            std::array brackets{ std::make_pair('[', ']') };
+            std::array brackets{std::make_pair('[', ']')};
             split_str(content, parts, brackets, ',');
             if (parts.size() != 3) {
                 return std::nullopt;
@@ -38,9 +38,20 @@ namespace randomizer::text_processors {
                 return value > 0 ? trim(parts[1]) : trim(parts[2]);
             }
         }
+
+        std::optional<std::string> no_color(core::text::ITextProcessor const& base_processor, const std::string_view content) {
+            // Fully process the string before replacing color symbols.
+            std::string output(content);
+            base_processor.process(output);
+            replace_all(output, "*", "");
+            replace_all(output, "#", "");
+            replace_all(output, "$", "");
+            return output;
+        }
     } // namespace
 
     void ControlProcessor::process(ITextProcessor const& base_processor, std::string& text) const {
-        search_and_replace(base_processor, "[if(", if_handler, text); // Interpolate seed.text(location)
+        search_and_replace(base_processor, "[if(", if_handler, text);
+        search_and_replace(base_processor, "[no_color(", no_color, text);
     }
 } // namespace randomizer::text_processors

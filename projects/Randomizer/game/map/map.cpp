@@ -62,11 +62,18 @@ namespace randomizer::game::map {
             const auto show_labels = core::api::game::ui::area_map_open() &&
                 GameMapUI::get_ShowIconLabels(types::GameMapUI::get_class()->static_fields->Instance);
 
-            for (auto const& filter : icons) {
-                auto active = filter.first == active_filter();
-                for (auto const& icon : filter.second) {
-                    icon->label_visible(active && show_labels);
+            for (auto const& [filter, collection]: icons) {
+                if (active_filter() == filter) {
+                    continue;
                 }
+
+                for (auto const& icon: collection) {
+                    icon->label_visible(false);
+                }
+            }
+
+            for (auto const& icon: icons[active_filter()]) {
+                icon->label_visible(show_labels);
             }
         }
 
@@ -78,15 +85,26 @@ namespace randomizer::game::map {
             return core::settings::always_show_keystone_doors() && (active_filter() > Filters::Collectibles);
         }
 
-        bool should_always_show(const app::RuntimeWorldMapIcon* icon) {
+        bool should_always_show(app::RuntimeWorldMapIcon* icon) {
             switch (icon->fields.Icon) {
                 case app::WorldMapIconType__Enum::SavePedestal:
                     return should_always_show_teleporters();
                 case app::WorldMapIconType__Enum::KeystoneDoorOpen:
                 case app::WorldMapIconType__Enum::KeystoneDoorTwo:
                 case app::WorldMapIconType__Enum::KeystoneDoorFour: {
-                    auto is_open = il2cpp::unity::is_valid(icon->fields.IsCollectedState) && icon->fields.IsCollectedState->fields.m_value;
-                    return !is_open && should_always_show_keystone_doors();
+                    if (icon->fields.IsCollectedState->fields._.m_id->fields.m_id == 64003) {
+                        // Kwolok Statue
+                        icon->fields.Position.x = -313.05f;
+                        icon->fields.Position.y = -4220.38f;
+                    }
+
+                    return should_always_show_keystone_doors();
+                }
+                case app::WorldMapIconType__Enum::BreakableWall:
+                case app::WorldMapIconType__Enum::BreakableWallBroken:
+                case app::WorldMapIconType__Enum::StompableFloor:
+                case app::WorldMapIconType__Enum::StompableFloorBroken: {
+                    return true;
                 }
                 default:
                     return false;
@@ -156,14 +174,14 @@ namespace randomizer::game::map {
             if (last_filter != active_filter() && last_filter != Filters::COUNT) {
                 // Hide custom icons in old filter.
                 auto& collection = icons[last_filter];
-                for (auto& icon : collection) {
+                for (auto& icon: collection) {
                     icon->visible(false);
                 }
             }
 
             // Resolve icons for active filter.
             auto& collection = icons[active_filter()];
-            for (auto& icon : collection) {
+            for (auto& icon: collection) {
                 const auto it = visibility_callbacks.find(icon);
                 const auto visibility = it == visibility_callbacks.end() ? IconVisibilityResult::Show : it->second(icon);
                 switch (visibility) {
@@ -186,8 +204,8 @@ namespace randomizer::game::map {
 
         IL2CPP_INTERCEPT(AreaMapUI, void, OnInstantiate, (app::AreaMapUI * this_ptr)) {
             next::AreaMapUI::OnInstantiate(this_ptr);
-            for (auto const& icon_set : icons | std::views::values) {
-                for (auto const& icon : icon_set) {
+            for (auto const& icon_set: icons | std::views::values) {
+                for (auto const& icon: icon_set) {
                     icon->apply_scaler();
                 }
             }
@@ -195,16 +213,16 @@ namespace randomizer::game::map {
 
         IL2CPP_INTERCEPT(AreaMapUI, void, Init, (app::AreaMapUI * this_ptr)) {
             next::AreaMapUI::Init(this_ptr);
-            for (auto const& icon_set : icons | std::views::values) {
-                for (auto const& icon : icon_set) {
+            for (auto const& icon_set: icons | std::views::values) {
+                for (auto const& icon: icon_set) {
                     icon->apply_scaler();
                 }
             }
         }
 
         IL2CPP_INTERCEPT(AreaMapUI, void, OnDestroy, (app::AreaMapUI * this_ptr)) {
-            for (auto const& icon_set : icons | std::views::values) {
-                for (auto const& icon : icon_set) {
+            for (auto const& icon_set: icons | std::views::values) {
+                for (auto const& icon: icon_set) {
                     icon->remove_scaler();
                 }
             }
@@ -220,13 +238,13 @@ namespace randomizer::game::map {
             const auto& current_icons = icons[active_filter()];
             auto min_distance = 1.02 * 1.02;
             std::shared_ptr<Icon> closest_icon;
-            for (auto const& icon : current_icons) {
+            for (auto const& icon: current_icons) {
                 if (icon->can_teleport()) {
                     const auto position = AreaMapNavigation::WorldToMapPosition(
                         this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField,
                         icon->position()
                     );;
-                    const auto difference = cursor - app::Vector2{ position.x, position.y };
+                    const auto difference = cursor - app::Vector2{position.x, position.y};
                     const auto magnitude_squared = difference.x * difference.x + difference.y * difference.y;
                     if (magnitude_squared < min_distance) {
                         closest_icon = icon;
@@ -242,7 +260,7 @@ namespace randomizer::game::map {
                     this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField,
                     original_target
                 );;
-                const auto difference = cursor - app::Vector2{ position.x, position.y };
+                const auto difference = cursor - app::Vector2{position.x, position.y};
                 const auto magnitude_squared = difference.x * difference.x + difference.y * difference.y;
                 if (magnitude_squared < min_distance) {
                     *target = original_target;
@@ -272,7 +290,7 @@ namespace randomizer::game::map {
     }
 
     void remove_icon(const std::shared_ptr<Icon>& icon) {
-        for (auto& collection : icons) {
+        for (auto& collection: icons) {
             collection.second.erase(icon);
         }
     }

@@ -28,9 +28,14 @@ namespace randomizer::text_processors {
                 goals.push_back(std::format("Quests: {}/17", core::api::uber_states::UberState(UberStateGroup::RandoVirtual, 504).get<int>()));
             }
 
-            auto output = std::accumulate(goals.begin(), goals.end(), std::string(), [](auto const& ss, auto const& s) -> decltype(auto) {
-               return ss.empty() ? s : ss + ", " + s;
-            });
+            auto output = std::accumulate(
+                goals.begin(),
+                goals.end(),
+                std::string(),
+                [](auto const& ss, auto const& s) -> decltype(auto) {
+                    return ss.empty() ? s : ss + ", " + s;
+                }
+            );
 
             return output.empty() ? output : output + "\n";
         }
@@ -44,19 +49,21 @@ namespace randomizer::text_processors {
             const auto current_area = core::api::game::player::get_current_area();
             std::string output = std::format("Relics ({}/{}): ", relics.found_relics(), relics.relic_count());
             std::vector<std::tuple<std::string, std::string>> relic_text;
-            for (auto value : relics.relics()) {
+            for (auto value: relics.relics()) {
                 const auto area = location_collection().area(value);
                 relic_text.emplace_back(
                     relics.relic_name(value),
-                    value.resolve() ? "$"
-                    : area == current_area ? "#"
+                    value.resolve()
+                    ? "$"
+                    : area == current_area
+                    ? "#"
                     : ""
                 );
             }
 
             bool start = true;
             std::ranges::sort(relic_text);
-            for (auto [relic, color] : relic_text) {
+            for (auto [relic, color]: relic_text) {
                 if (!start) {
                     output += ", ";
                 } else {
@@ -89,6 +96,15 @@ namespace randomizer::text_processors {
             const auto found = relics.found_relics_in_area(current_area);
             return std::format("{2}{0}/{1} Relics found{2}\n", found, total, found == total ? "$" : "");
         }
+
+        std::optional<std::string> pickup_text(core::text::ITextProcessor const& base_processor, std::string_view content) {
+            core::api::uber_states::UberStateCondition target;
+            if (!parse_condition(content, target)) {
+                return std::nullopt;
+            }
+
+            return game_seed().text(target);
+        }
     } // namespace
 
     void SeedProcessor::process(ITextProcessor const& base_processor, std::string& text) const {
@@ -96,5 +112,6 @@ namespace randomizer::text_processors {
         search_and_replace_full(base_processor, "[goal_mode_progress()]", goal_mode_progress, text);
         search_and_replace_full(base_processor, "[relic_progress()]", relic_progress, text);
         search_and_replace_full(base_processor, "[map_relic_progress()]", map_relic_progress, text);
+        search_and_replace(base_processor, "[pickup_text(", pickup_text, text);
     }
 } // namespace randomizer::text_processors

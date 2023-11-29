@@ -7,7 +7,7 @@ namespace randomizer::text_processors {
         const size_t search_pattern_size = pattern.size();
         auto start = text.find(pattern);
         while (start != std::string::npos) {
-            std::string contents(find_next_unbalanced({ text.begin() + static_cast<long long>(start + search_pattern_size), text.end() }, begin, end));
+            std::string contents(find_next_unbalanced({text.begin() + static_cast<long long>(start + search_pattern_size), text.end()}, begin, end));
             if (contents == text) {
                 return;
             }

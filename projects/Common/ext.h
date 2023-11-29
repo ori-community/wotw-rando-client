@@ -28,34 +28,38 @@ struct BooleanOperatorResult {
 namespace common {
     std::optional<BooleanOperatorResult> parse_operator(std::string_view str);
 
-    template <typename A, typename B>
-    bool resolve_operator(A a, B b, BooleanOperator op) {
+    template<typename A, typename B>
+    bool resolve_operator(A a, B b, const BooleanOperator op) requires std::is_same_v<A, B> {
         switch (op) {
             case BooleanOperator::GreaterOrEquals:
                 return a >= b;
             case BooleanOperator::LesserOrEquals:
                 return a <= b;
             case BooleanOperator::Equals:
-                return a == b;
+                return abs(a - b) <= std::numeric_limits<A>::epsilon();
             case BooleanOperator::NotEquals:
-                return a != b;
+                return abs(a - b) > std::numeric_limits<A>::epsilon();
             case BooleanOperator::Greater:
                 return a > b;
             case BooleanOperator::Lesser:
                 return a < b;
+            default:
+                throw std::exception("Unknown operator");
         }
     }
 }
 
-struct pair_hash { // NOLINT
-    template <class T1, class T2>
+struct pair_hash {
+    // NOLINT
+    template<class T1, class T2>
     std::size_t operator()(const std::pair<T1, T2>& pair) const {
         return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
     }
 };
 
-struct array_hash { // NOLINT
-    template <typename T, int N>
+struct array_hash {
+    // NOLINT
+    template<typename T, int N>
     std::size_t operator()(const std::array<T, N>& arr) const {
         static_assert(N > 0);
         auto hasher = std::hash<T>();
@@ -70,18 +74,31 @@ struct array_hash { // NOLINT
 
 // trim from start (in place)
 static inline std::string& ltrim(std::string& s) {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) {
+    s.erase(
+        s.begin(),
+        std::find_if(
+            s.begin(),
+            s.end(),
+            [](int ch) {
                 return !std::isspace(ch);
-            }));
+            }
+        )
+    );
     return s;
 }
 
 // trim from end (in place)
 static inline std::string& rtrim(std::string& s) {
-    s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) {
+    s.erase(
+        std::find_if(
+            s.rbegin(),
+            s.rend(),
+            [](int ch) {
                 return !std::isspace(ch);
-            }).base(),
-            s.end());
+            }
+        ).base(),
+        s.end()
+    );
     return s;
 }
 
@@ -133,26 +150,25 @@ static inline std::string& trim(std::string& s) {
     return s;
 }
 
-template <class Container>
+template<class Container>
 void split_str(std::string_view str, Container& cont, char delim = ' ') {
-    std::stringstream ss(std::string{ str });
+    std::stringstream ss(std::string{str});
     std::string token;
     while (std::getline(ss, token, delim)) {
         cont.push_back(token);
     }
 
-    if (str.ends_with(delim))
-    {
+    if (str.ends_with(delim)) {
         cont.push_back("");
     }
 }
 
-template <class Container>
+template<class Container>
 void split_str(const std::string_view str, Container& cont, const std::span<std::pair<char, char>> brackets, const char delim = ' ') {
     std::string part;
     int inside_brackets = 0;
     std::pair<char, char> last_bracket;
-    for (const auto character : str) {
+    for (const auto character: str) {
         if (inside_brackets > 0) {
             if (character == last_bracket.first) {
                 ++inside_brackets;
@@ -160,7 +176,7 @@ void split_str(const std::string_view str, Container& cont, const std::span<std:
                 --inside_brackets;
             }
         } else {
-            for (const auto bracket : brackets) {
+            for (const auto bracket: brackets) {
                 if (character == bracket.first) {
                     ++inside_brackets;
                     last_bracket = bracket;
@@ -181,33 +197,37 @@ void split_str(const std::string_view str, Container& cont, const std::span<std:
 
 std::string_view find_next_unbalanced(std::string_view text, std::string_view start, std::string_view end);
 
-template <typename T>
+template<typename T>
 bool string_convert(std::string_view str, T& value, std::size_t* position = nullptr);
 
-template <>
+template<>
 bool string_convert(std::string_view str, int& value, std::size_t* position);
 
-template <>
+template<>
 bool string_convert(std::string_view str, float& value, std::size_t* position);
 
-template <>
+template<>
 bool string_convert(std::string_view str, double& value, std::size_t* position);
 
 void replace_all(std::string& str, std::string_view find, std::string_view replace);
+
 void replace_all(std::wstring& str, std::wstring_view find, std::wstring_view replace);
+
 std::wstring convert_string_to_wstring(std::string_view str);
+
 std::string convert_wstring_to_string(std::wstring_view str);
 
 bool eps_equals(double a, double b, double eps = 0.001);
+
 bool eps_equals(float a, float b, float eps = 0.001f);
 
 namespace {
-    template <class T>
+    template<class T>
     inline void hash_combine(std::size_t& seed, T const& v) {
         seed ^= std::hash<T>()(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
     }
 
-    template <class Tuple, size_t Index = std::tuple_size<Tuple>::value - 1>
+    template<class Tuple, size_t Index = std::tuple_size<Tuple>::value - 1>
     struct HashValueImpl {
         static void apply(size_t& seed, Tuple const& tuple) {
             HashValueImpl<Tuple, Index - 1>::apply(seed, tuple);
@@ -215,7 +235,7 @@ namespace {
         }
     };
 
-    template <class Tuple>
+    template<class Tuple>
     struct HashValueImpl<Tuple, 0> {
         static void apply(size_t& seed, Tuple const& tuple) {
             hash_combine(seed, std::get<0>(tuple));
@@ -223,7 +243,7 @@ namespace {
     };
 } // namespace
 
-template <typename... TT>
+template<typename... TT>
 struct std::hash<std::tuple<TT...>> {
     size_t
     operator()(std::tuple<TT...> const& tt) const {

@@ -25,6 +25,40 @@ namespace core::api::uber_states {
         return common::resolve_operator(state_value, value, op);
     }
 
+    std::string UberStateCondition::serialize() const {
+        std::string op_string;
+        switch (op) {
+            case BooleanOperator::Equals:
+                op_string = "==";
+                break;
+            case BooleanOperator::NotEquals:
+                op_string = "!=";
+                break;
+            case BooleanOperator::GreaterOrEquals:
+                op_string = ">=";
+                break;
+            case BooleanOperator::Greater:
+                op_string = ">";
+                break;
+            case BooleanOperator::LesserOrEquals:
+                op_string = "<=";
+                break;
+            case BooleanOperator::Lesser:
+                op_string = "<";
+                break;
+            default:
+                break;
+        }
+
+        return std::format(
+            "{}|{}{}{}",
+            state.group_int(),
+            state.state(),
+            op_string,
+            op_string.empty() ? "" : std::format("{}", value)
+        );
+    }
+
     std::string UberStateCondition::to_string(bool use_names, std::optional<double> previous_value) const {
         std::string op_string;
         switch (op) {
@@ -61,11 +95,11 @@ namespace core::api::uber_states {
         );
     }
 
-    bool operator==(UberStateCondition const &a, UberStateCondition const &b) {
-        return a.op == b.op && a.state == b.state && a.value == b.value;
+    bool operator==(UberStateCondition const& a, UberStateCondition const& b) {
+        return a.op == b.op && a.state == b.state && abs(a.value - b.value) < std::numeric_limits<double>::epsilon();
     }
 
-    bool operator<(UberStateCondition const &a, UberStateCondition const &b) {
+    bool operator<(UberStateCondition const& a, UberStateCondition const& b) {
         if (a.state.group() != b.state.group()) {
             return a.state.group() < b.state.group();
         }
@@ -81,17 +115,17 @@ namespace core::api::uber_states {
         return a.value < b.value;
     }
 
-    CORE_DLLEXPORT bool parse_condition(std::string_view str, UberStateCondition &condition) {
+    CORE_DLLEXPORT bool parse_condition(std::string_view str, UberStateCondition& condition) {
         std::vector<std::string> parts;
         split_str(str, parts, '|');
         return parse_condition(parts, condition);
     }
 
-    CORE_DLLEXPORT bool parse_condition(std::vector<std::string> const &parts, UberStateCondition &condition) {
+    CORE_DLLEXPORT bool parse_condition(std::vector<std::string> const& parts, UberStateCondition& condition) {
         return parse_condition(std::span(parts.begin(), parts.end()), condition);
     }
 
-    CORE_DLLEXPORT bool parse_condition(std::span<std::string const> parts, UberStateCondition &condition, bool *used_default_operator) {
+    CORE_DLLEXPORT bool parse_condition(std::span<std::string const> parts, UberStateCondition& condition, bool* used_default_operator) {
         if (parts.size() < 2) {
             return false;
         }
@@ -110,8 +144,7 @@ namespace core::api::uber_states {
             if (!string_convert(result->suffix, value)) {
                 return false;
             }
-        }
-        else {
+        } else {
             condition.op = BooleanOperator::Greater;
         }
 

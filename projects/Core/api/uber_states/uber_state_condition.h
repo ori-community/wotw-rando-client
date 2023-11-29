@@ -24,21 +24,28 @@ namespace core::api::uber_states {
         double value;
 
         [[nodiscard]] bool resolve() const;
+
         [[nodiscard]] bool resolve(double state_value) const;
+
         [[nodiscard]] bool resolve(UberState compared_state, double state_value) const;
+
+        std::string serialize() const;
 
         std::string to_string(bool use_names = false, std::optional<double> previous_value = std::nullopt) const;
     };
 
     CORE_DLLEXPORT bool operator==(UberStateCondition const& a, UberStateCondition const& b);
+
     CORE_DLLEXPORT bool operator<(UberStateCondition const& a, UberStateCondition const& b);
 
     CORE_DLLEXPORT bool parse_condition(std::string_view str, UberStateCondition& condition);
+
     CORE_DLLEXPORT bool parse_condition(std::vector<std::string> const& parts, UberStateCondition& condition);
+
     CORE_DLLEXPORT bool parse_condition(std::span<std::string const> parts, UberStateCondition& condition, bool* used_default_operator = nullptr);
 } // namespace core::api::uber_states
 
-template <>
+template<>
 struct std::hash<core::api::uber_states::UberStateCondition> {
     std::size_t operator()(const core::api::uber_states::UberStateCondition& s) const {
         return hash<core::api::uber_states::UberState>()(s.state) ^ (hash<double>()(s.value) << 1) ^ (hash<int>()(static_cast<int>(s.op)) << 2);

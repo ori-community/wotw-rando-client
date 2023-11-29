@@ -19,11 +19,11 @@ struct core::Property<std::string> {
         m_value = std::make_shared<std::string>();
     }
 
-    explicit Property(const std::string &value) {
+    explicit Property(const std::string& value) {
         m_value = std::make_shared<std::string>(value);
     }
 
-    explicit Property(const value_type &value) {
+    explicit Property(const value_type& value) {
         m_value = value;
     }
 
@@ -31,16 +31,25 @@ struct core::Property<std::string> {
         m_value = std::make_tuple(set, get);
     }
 
-    Property(Property const &other) {
+    Property(Property const& other) {
         m_value = other.m_value;
     }
 
-    template<typename ...Types>
+    template<typename... Types>
     static Property format(const std::format_string<Types...> fmt, Types&&... args) {
         return Property(std::vformat(fmt.get(), std::make_format_args(args...)));
     }
 
     [[nodiscard]] std::string get() const {
+        std::string out = get_unprocessed();
+        if (m_text_processor != nullptr) {
+            m_text_processor->process(out);
+        }
+
+        return out;
+    }
+
+    [[nodiscard]] std::string get_unprocessed() const {
         std::string out;
         switch (m_value.index()) {
             case 0: {
@@ -59,10 +68,6 @@ struct core::Property<std::string> {
                 throw std::exception("Unhandled variant in Property");
         }
 
-        if (m_text_processor != nullptr) {
-            m_text_processor->process(out);
-        }
-
         return out;
     }
 
@@ -70,15 +75,15 @@ struct core::Property<std::string> {
         return api::system::create_message_provider(get());
     }
 
-    template<typename ...Types>
+    template<typename... Types>
     void set_format(const std::format_string<Types...> fmt, Types&&... args);
 
-    template<typename ...Types>
+    template<typename... Types>
     void process_and_set_format(const std::format_string<Types...> fmt, Types&&... args);
 
     // We do not want to make this const as we want to prevent setting the underlying value if we are const.
     // ReSharper disable once CppMemberFunctionMayBeConst
-    void set(std::string const &value) {
+    void set(std::string const& value) {
         switch (m_value.index()) {
             case 0: {
                 *std::get<0>(m_value) = value;
@@ -143,7 +148,7 @@ struct core::Property<std::string> {
         process_and_add(std::string(value));
     }
 
-    void assign(const value_type &value) {
+    void assign(const value_type& value) {
         m_value = value;
     }
 
@@ -155,12 +160,12 @@ struct core::Property<std::string> {
         return std::format("{}", get());
     }
 
-    Property &operator=(const Property &other) {
+    Property& operator=(const Property& other) {
         m_value = other.m_value;
         return *this;
     }
 
-    void text_processor(std::shared_ptr<text::ITextProcessor> const &text_processor) {
+    void text_processor(std::shared_ptr<text::ITextProcessor> const& text_processor) {
         m_text_processor = text_processor;
     }
 
@@ -182,12 +187,12 @@ private:
     value_type m_value = nullptr;
 };
 
-template<typename ... Types>
-void core::Property<std::string>::set_format(const std::format_string<Types...> fmt, Types &&... args) {
+template<typename... Types>
+void core::Property<std::string>::set_format(const std::format_string<Types...> fmt, Types&&... args) {
     set(std::vformat(fmt.get(), std::make_format_args(args...)));
 }
 
-template<typename ... Types>
-void core::Property<std::string>::process_and_set_format(const std::format_string<Types...> fmt, Types &&... args) {
+template<typename... Types>
+void core::Property<std::string>::process_and_set_format(const std::format_string<Types...> fmt, Types&&... args) {
     process_and_set(std::vformat(fmt.get(), std::make_format_args(args...)));
 }

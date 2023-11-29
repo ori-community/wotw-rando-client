@@ -11,6 +11,7 @@
 
 namespace randomizer {
     enum class RandomizerEvent {
+        LocationCollectionLoaded,
         SeedLoaded,
         ReachCheck,
     };
@@ -18,16 +19,23 @@ namespace randomizer {
     void reload();
 
     void server_connect();
+
     void server_disconnect();
 
     void queue_reach_check();
 
     common::TimedMultiEventBus<RandomizerEvent>& event_bus();
+
     std::vector<state_data::State>& state_collection();
+
     location_data::LocationCollection& location_collection();
+
     seed::Seed& game_seed();
+
     seed::ReachCheckResult const& reach_check();
+
     online::NetworkClient& network_client();
+
     online::MultiplayerUniverse& multiplayer_universe();
 
     std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor();

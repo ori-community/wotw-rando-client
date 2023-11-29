@@ -31,5 +31,6 @@ namespace randomizer::location_data {
         LocationType type;
         core::api::uber_states::UberStateCondition condition;
         std::optional<app::Vector2> position;
+        std::optional<app::Vector2> map_position;
     };
 } // namespace randomizer::location_data

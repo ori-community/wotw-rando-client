@@ -31,7 +31,8 @@ namespace randomizer::game::map {
         auto value = prev;
         do {
             value = (static_cast<int>(value) + 1) % static_cast<int32_t>(Filters::COUNT);
-        } while (!filter_enabled(static_cast<Filters>(value)) && value != prev);
+        }
+        while (!filter_enabled(static_cast<Filters>(value)) && value != prev);
         return static_cast<Filters>(value);
     }
 
@@ -52,14 +53,13 @@ namespace randomizer::game::map {
                 case Filters::Collectibles:
                     return !core::settings::hide_collectible_filter();
                 case Filters::InLogic:
-                    // TODO: Add the seedcontroller check here.
-                    return true;
+                    return !game_seed().info().logic_filter_disabled;
                 case Filters::Spoilers:
                     return core::api::uber_states::UberState(34543, 11226).get<bool>();
                 case Filters::Players:
                     // TODO: Change this to if we want a connection instead of if we are connected.
-                    return randomizer::network_client().websocket_connected() &&
-                        randomizer::multiplayer_universe().player_count() > 1;
+                    return network_client().websocket_connected() &&
+                        multiplayer_universe().player_count() > 1;
                 default:
                     return true;
             }
@@ -118,8 +118,7 @@ namespace randomizer::game::map {
             }
         }
 
-        IL2CPP_INTERCEPT(GameMapUI, void, NormalInput, (app::GameMapUI * this_ptr)) {
-            {
+        IL2CPP_INTERCEPT(GameMapUI, void, NormalInput, (app::GameMapUI * this_ptr)) { {
                 modloader::ScopedSetter set(ignore_filter_input, true);
                 next::GameMapUI::NormalInput(this_ptr);
             }
