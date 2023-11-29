@@ -316,17 +316,16 @@ namespace randomizer::timing {
 
             next::PlayerAbilities::SetAbility(this_ptr, ability, value);
         }
-
-
-        void notify_pickup_collected(const GameArea area, const std::string& location_name) {
-            if (!timer_should_run()) {
-                return;
-            }
-
-            stats_mutex.lock();
-            checkpoint_stats->report_pickup(area);
-            save_stats->report_pickup(area, location_name);
-            stats_mutex.unlock();
-        }
     } // namespace
+
+    void notify_pickup_collected(const GameArea area, const std::string& location_name) {
+        if (!timer_should_run()) {
+            return;
+        }
+
+        stats_mutex.lock();
+        checkpoint_stats->report_pickup(area);
+        save_stats->report_pickup(area, location_name);
+        stats_mutex.unlock();
+    }
 } // namespace randomizer::timing

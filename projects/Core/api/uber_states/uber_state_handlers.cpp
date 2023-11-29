@@ -59,79 +59,6 @@ namespace core::api::uber_states {
     void clear() {
         std::unordered_map<int, double> saved;
         auto position = core::api::game::player::get_position();
-
-        std::vector<int> stat_states{
-            0,
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12,
-            13,
-            20,
-            21,
-            22,
-            23,
-            24,
-            25,
-            26,
-            27,
-            28,
-            29,
-            30,
-            31,
-            32,
-            33,
-            40,
-            41,
-            42,
-            43,
-            44,
-            45,
-            46,
-            47,
-            48,
-            49,
-            50,
-            51,
-            52,
-            53,
-            60,
-            61,
-            62,
-            63,
-            64,
-            65,
-            66,
-            67,
-            68,
-            69,
-            70,
-            71,
-            72,
-            100,
-            101,
-            102,
-            103,
-            104,
-            105,
-            106,
-            107,
-            108,
-            109
-        };
-
-        for (auto state : stat_states) {
-            saved[state] = UberState(UberStateGroup::RandoStats, state).get<double>();
-        }
-
         core::api::game::player::unbind_all();
 
         auto instance = types::UberStateController::get_class()->static_fields->m_currentStateValueStore;
@@ -143,9 +70,6 @@ namespace core::api::uber_states {
         scenes::load_default_values();
         UberState(static_cast<UberStateGroup>(21786), 48748).set(1, true, false);
         core::api::game::player::set_position(position);
-        for (auto save : saved) {
-            UberState(UberStateGroup::RandoStats, save.first).set(save.second, true, true);
-        }
 
         apply_all();
     }

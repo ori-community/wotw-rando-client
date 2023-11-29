@@ -36,7 +36,7 @@ using namespace core::api::uber_states;
 
 namespace randomizer {
     namespace {
-        app::UberID *create_uber_id_ptr(int id) {
+        app::UberID* create_uber_id_ptr(int id) {
             auto uber_id = types::UberID::create();
             uber_id->fields.m_id = id;
             return uber_id;
@@ -44,61 +44,61 @@ namespace randomizer {
 
         // We cache the scriptable objects and use il2cpp::unity::instantiate_object to create instances from them
         // because that's a lot faster
-        std::unordered_map<Il2CppClass *, app::IUberState *> uber_state_so_cache;
-        app::UberStateGroup *group_so_cache = nullptr;
+        std::unordered_map<Il2CppClass*, app::IUberState*> uber_state_so_cache;
+        app::UberStateGroup* group_so_cache = nullptr;
 
         template<typename T>
-        Il2CppClass *get_klass();
+        Il2CppClass* get_klass();
 
         template<>
-        Il2CppClass *get_klass<app::SerializedBooleanUberState>() {
-            return reinterpret_cast<Il2CppClass *>(types::SerializedBooleanUberState::get_class());
+        Il2CppClass* get_klass<app::SerializedBooleanUberState>() {
+            return reinterpret_cast<Il2CppClass*>(types::SerializedBooleanUberState::get_class());
         }
 
         template<>
-        Il2CppClass *get_klass<app::SerializedByteUberState>() {
-            return reinterpret_cast<Il2CppClass *>(types::SerializedByteUberState::get_class());
+        Il2CppClass* get_klass<app::SerializedByteUberState>() {
+            return reinterpret_cast<Il2CppClass*>(types::SerializedByteUberState::get_class());
         }
 
         template<>
-        Il2CppClass *get_klass<app::SerializedIntUberState>() {
-            return reinterpret_cast<Il2CppClass *>(types::SerializedIntUberState::get_class());
+        Il2CppClass* get_klass<app::SerializedIntUberState>() {
+            return reinterpret_cast<Il2CppClass*>(types::SerializedIntUberState::get_class());
         }
 
         template<>
-        Il2CppClass *get_klass<app::SerializedFloatUberState>() {
-            return reinterpret_cast<Il2CppClass *>(types::SerializedFloatUberState::get_class());
+        Il2CppClass* get_klass<app::SerializedFloatUberState>() {
+            return reinterpret_cast<Il2CppClass*>(types::SerializedFloatUberState::get_class());
         }
 
         template<>
-        Il2CppClass *get_klass<app::BooleanUberState>() {
-            return reinterpret_cast<Il2CppClass *>(types::BooleanUberState::get_class());
+        Il2CppClass* get_klass<app::BooleanUberState>() {
+            return reinterpret_cast<Il2CppClass*>(types::BooleanUberState::get_class());
         }
 
         template<>
-        Il2CppClass *get_klass<app::ByteUberState>() {
-            return reinterpret_cast<Il2CppClass *>(types::ByteUberState::get_class());
+        Il2CppClass* get_klass<app::ByteUberState>() {
+            return reinterpret_cast<Il2CppClass*>(types::ByteUberState::get_class());
         }
 
         template<>
-        Il2CppClass *get_klass<app::IntUberState>() {
-            return reinterpret_cast<Il2CppClass *>(types::IntUberState::get_class());
+        Il2CppClass* get_klass<app::IntUberState>() {
+            return reinterpret_cast<Il2CppClass*>(types::IntUberState::get_class());
         }
 
         template<>
-        Il2CppClass *get_klass<app::FloatUberState>() {
-            return reinterpret_cast<Il2CppClass *>(types::FloatUberState::get_class());
+        Il2CppClass* get_klass<app::FloatUberState>() {
+            return reinterpret_cast<Il2CppClass*>(types::FloatUberState::get_class());
         }
 
         template<typename T, typename V>
-        app::IUberState *add_state(UberStateGroup group, const std::string &state_name, int state_id, V default_value) {
+        app::IUberState* add_state(UberStateGroup group, const std::string& state_name, int state_id, V default_value) {
             auto klass = get_klass<T>();
 
             if (!uber_state_so_cache.contains(klass)) {
-                uber_state_so_cache[klass] = reinterpret_cast<app::IUberState *>(il2cpp::unity::create_scriptable_object<T>(get_klass<T>()));
+                uber_state_so_cache[klass] = reinterpret_cast<app::IUberState*>(il2cpp::unity::create_scriptable_object<T>(get_klass<T>()));
             }
 
-            auto state = il2cpp::unity::instantiate_object<T>(reinterpret_cast<T *>(uber_state_so_cache[klass]));
+            auto state = il2cpp::unity::instantiate_object<T>(reinterpret_cast<T*>(uber_state_so_cache[klass]));
 
             if (group_so_cache == nullptr) {
                 group_so_cache = il2cpp::unity::create_scriptable_object<app::UberStateGroup>(types::UberStateGroup::get_class());
@@ -117,13 +117,13 @@ namespace randomizer {
             state->fields.NamedValues = nullptr;
             state->fields._VolitileGenericOverrideValue_k__BackingField.has_value = false;
 
-            return reinterpret_cast<app::IUberState *>(state);
+            return reinterpret_cast<app::IUberState*>(state);
         }
 
         IL2CPP_INTERCEPT(Moon::UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection * this_ptr)) {
             auto start_time = std::chrono::high_resolution_clock::now();
 
-            std::vector<app::IUberState *> states = {
+            std::vector<app::IUberState*> states = {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "swordTree", static_cast<int>(app::AbilityType__Enum::Sword), false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "doubleJumpTree", static_cast<int>(app::AbilityType__Enum::DoubleJump), false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "regenerateTree", static_cast<int>(app::AbilityType__Enum::MeditateSpell), false),
@@ -472,77 +472,6 @@ namespace randomizer {
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::MapFilter, "spoilerIconTag", 70, false),
 
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "marshTime", 0, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "hollowTime", 1, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "gladesTime", 2, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "wellspringTime", 3, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "burrowsTime", 4, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "woodsTime", 5, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "reachTime", 6, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "poolsTime", 7, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "depthsTime", 8, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "wastesTime", 9, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "ruinsTime", 10, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "willowTime", 11, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "shopTime", 12, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "voidTime", 13, 0),
-
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "marshDeaths", 20, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "hollowDeaths", 21, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "gladesDeaths", 22, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "wellspringDeaths", 23, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "burrowsDeaths", 24, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "woodsDeaths", 25, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "reachDeaths", 26, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "poolsDeaths", 27, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "depthsDeaths", 28, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "wastesDeaths", 29, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "ruinsDeaths", 30, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "willowDeaths", 31, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "shopDeaths", 32, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "voidDeaths", 33, 0),
-
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "marshPickups", 40, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "hollowPickups", 41, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "gladesPickups", 42, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "wellspringPickups", 43, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "burrowsPickups", 44, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "woodsPickups", 45, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "reachPickups", 46, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "poolsPickups", 47, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "depthsPickups", 48, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "wastesPickups", 49, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "ruinsPickups", 50, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "willowPickups", 51, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "shopPickups", 52, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoStats, "voidPickups", 53, 0),
-                // TODO: unclear to me that we need to track void pickups
-
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "totalMarshPickups", 60, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "totalHollowPickups", 61, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "totalGladesPickups", 62, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "totalWellspringPickups", 63, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "totalBurrowsPickups", 64, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "totalWoodsPickups", 65, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "totalReachPickups", 66, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "totalPoolsPickups", 67, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "totalDepthsPickups", 68, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "totalWastesPickups", 69, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "totalRuinsPickups", 70, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "totalWillowPickups", 71, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "totalShopPickups", 72, 0),
-
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "time", 100, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "deaths", 101, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "currentDrought", 102, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "longestDrought", 103, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "timeSinceLastCheckpoint", 104, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "timeLostToDeaths", 105, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "warpsUsed", 106, 0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoStats, "peakPpmTime", 107, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "peakPpmCount", 108, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "totalPickupCount", 109, 0),
-
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "marshMapCost", static_cast<int>(app::GameWorldAreaID__Enum::InkwaterMarsh), 200),
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "hollowMapCost", static_cast<int>(app::GameWorldAreaID__Enum::KwoloksHollow), 150),
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "wellspringMapCost", static_cast<int>(app::GameWorldAreaID__Enum::WaterMill), 150),
@@ -635,7 +564,7 @@ namespace randomizer {
 
             dev::print_time(start_time, "Built multi state list");
 
-            for (auto *state: states) {
+            for (auto* state: states) {
                 il2cpp::invoke(this_ptr->fields.m_descriptors, "Add", state);
             }
 
