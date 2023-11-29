@@ -316,30 +316,30 @@ namespace randomizer {
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "overflowPickupUpgrade", 150, false),
 
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "goalModesComplete", 11, false),
-                add_state<app::IntUberState>(UberStateGroup::GameState, "currentMapArea", 15, static_cast<int>(GameArea::TOTAL)),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "goalModesComplete", 11, false),
+                add_state<app::IntUberState>(UberStateGroup::RandoEvents, "currentMapArea", 15, static_cast<int>(GameArea::TOTAL)),
 
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onTeleport", 20, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onJump", 30, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onDoubleJump", 31, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onDash", 32, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onBash", 33, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onGlide", 34, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onSword", 35, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onHammer", 36, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onSpike", 37, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onSpiritStar", 38, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onLightBurst", 39, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onBow", 40, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onBlaze", 41, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onSentry", 42, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onFlash", 43, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onLaunch", 44, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onWallJump", 45, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onBurrow", 46, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onWaterDash", 47, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onFlap", 48, false),
-                add_state<app::BooleanUberState>(UberStateGroup::GameState, "onRegenerate", 49, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onTeleport", 20, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onJump", 30, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onDoubleJump", 31, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onDash", 32, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onBash", 33, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onGlide", 34, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onSword", 35, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onHammer", 36, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onSpike", 37, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onSpiritStar", 38, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onLightBurst", 39, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onBow", 40, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onBlaze", 41, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onSentry", 42, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onFlash", 43, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onLaunch", 44, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onWallJump", 45, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onBurrow", 46, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onWaterDash", 47, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onFlap", 48, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onRegenerate", 49, false),
                 // 100 max health
                 // 101 max energy
                 // 102 ore
@@ -573,95 +573,16 @@ namespace randomizer {
             trace(MessageType::Info, 5, "initialize", "Custom uber states initialized.");
             next::Moon::UberStateCollection::PrepareRuntimeDataType(this_ptr);
 
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GameState, 0),
-                "On New Game",
-                core::Property<double>(
-                    [](double x) {
-                    },
-                    []() { return 1; }
-                )
-            );
-
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GameState, 1),
-                "On Load Seed",
-                core::Property<double>(
-                    [](double x) {
-                    },
-                    []() { return 1; }
-                )
-            );
-
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GameState, 2),
-                "On Binding 1",
-                core::Property<double>(
-                    [](double x) {
-                    },
-                    []() { return 1; }
-                )
-            );
-
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GameState, 3),
-                "On Binding 2",
-                core::Property<double>(
-                    [](double x) {
-                    },
-                    []() { return 1; }
-                )
-            );
-
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GameState, 4),
-                "On Binding 3",
-                core::Property<double>(
-                    [](double x) {
-                    },
-                    []() { return 1; }
-                )
-            );
-
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GameState, 5),
-                "On Binding 4",
-                core::Property<double>(
-                    [](double x) {
-                    },
-                    []() { return 1; }
-                )
-            );
-
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GameState, 6),
-                "On Binding 5",
-                core::Property<double>(
-                    [](double x) {
-                    },
-                    []() { return 1; }
-                )
-            );
-
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GameState, 7),
-                "On Restore Checkpoint",
-                core::Property<double>(
-                    [](double x) {
-                    },
-                    []() { return 1; }
-                )
-            );
-
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GameState, 8),
-                "On Progress Hint",
-                core::Property<double>(
-                    [](double x) {
-                    },
-                    []() { return 1; }
-                )
-            );
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 0), "On New Game");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 1), "On Load Seed");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 2), "On Binding 1");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 3), "On Binding 2");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 4), "On Binding 3");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 5), "On Binding 4");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 6), "On Binding 5");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 7), "On Restore Checkpoint");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 8), "On Progress Hint");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 100), "On Progress Hint");
 
             register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 0), "Spirit Light", core::api::game::player::spirit_light().wrap<double>());
             register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 1), "Gorlek Ore", core::api::game::player::ore().wrap<double>());

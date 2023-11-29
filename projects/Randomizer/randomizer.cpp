@@ -120,8 +120,8 @@ namespace randomizer {
             [](auto, auto) {
                 queue_input_unlocked_callback(
                     []() {
-                        randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::GameState, 0), 0);
-                        randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::GameState, 1), 0);
+                        randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 0), 0);
+                        randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 1), 0);
                         core::api::game::save(true);
                         queue_reach_check();
                         uber_states::disable_reverts() = false;
@@ -146,7 +146,7 @@ namespace randomizer {
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
             game::shops::reset_shop_data();
-            randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::GameState, 1), 0);
+            randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 1), 0);
             queue_reach_check();
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::Before);
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
@@ -159,7 +159,7 @@ namespace randomizer {
             GameEvent::RestoreCheckpoint,
             EventTiming::After,
             [](auto, auto) {
-                randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::GameState, 7), 0);
+                randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 7), 0);
             }
         );
 

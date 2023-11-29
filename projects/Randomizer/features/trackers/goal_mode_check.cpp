@@ -44,7 +44,7 @@ namespace {
     };
 
     bool set_camera_next_update = false;
-    core::api::uber_states::UberState goal_modes_complete(UberStateGroup::GameState, 11);
+    core::api::uber_states::UberState goal_modes_complete(UberStateGroup::RandoEvents, 11);
     IL2CPP_INTERCEPT(SeinCharacter, void, FixedUpdate, (app::SeinCharacter * this_ptr)) {
         if (!goal_modes_complete.get<bool>()) {
             auto cameras = types::UI_Cameras::get_class();
@@ -63,7 +63,7 @@ namespace {
             const auto position = SeinCharacter::get_Position(this_ptr);
             if (in_rect(goal_rect, position.x, position.y, position.z)) {
                 SeinCharacter::set_Position(this_ptr, goal_reset_position);
-                core::api::uber_states::UberState(UberStateGroup::GameState, 8); // Trigger Progress Hint
+                core::api::uber_states::UberState(UberStateGroup::RandoEvents, 8); // Trigger Progress Hint
                 set_camera_next_update = true;
             }
         } else {

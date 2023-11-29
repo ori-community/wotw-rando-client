@@ -10,7 +10,7 @@ enum class UberStateGroup {
     Tree = 0,
     OpherShop = 1,
     TwillenShop = 2,
-    GameState = 3,
+    RandoEvents = 3,
     RandoUpgrade = 4,
     RandoState = 6,
     RandoConfig = 7,

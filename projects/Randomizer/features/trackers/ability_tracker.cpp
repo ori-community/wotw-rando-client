@@ -52,26 +52,26 @@ using namespace modloader;
 using namespace app::classes;
 
 namespace {
-    core::api::uber_states::UberState on_jump(UberStateGroup::GameState, 30);
-    core::api::uber_states::UberState on_double_jump(UberStateGroup::GameState, 31);
-    core::api::uber_states::UberState on_dash(UberStateGroup::GameState, 32);
-    core::api::uber_states::UberState on_bash(UberStateGroup::GameState, 33);
-    core::api::uber_states::UberState on_glide(UberStateGroup::GameState, 34);
-    core::api::uber_states::UberState on_sword(UberStateGroup::GameState, 35);
-    core::api::uber_states::UberState on_hammer(UberStateGroup::GameState, 36);
-    core::api::uber_states::UberState on_spear(UberStateGroup::GameState, 37);
-    core::api::uber_states::UberState on_shuriken(UberStateGroup::GameState, 38);
-    core::api::uber_states::UberState on_grenade(UberStateGroup::GameState, 39);
-    core::api::uber_states::UberState on_bow(UberStateGroup::GameState, 40);
-    core::api::uber_states::UberState on_blaze(UberStateGroup::GameState, 41);
-    core::api::uber_states::UberState on_sentry(UberStateGroup::GameState, 42);
-    core::api::uber_states::UberState on_flash(UberStateGroup::GameState, 43);
-    core::api::uber_states::UberState on_launch(UberStateGroup::GameState, 44);
-    core::api::uber_states::UberState on_wall_jump(UberStateGroup::GameState, 45);
-    core::api::uber_states::UberState on_burrow(UberStateGroup::GameState, 46);
-    core::api::uber_states::UberState on_water_dash(UberStateGroup::GameState, 47);
-    core::api::uber_states::UberState on_flap(UberStateGroup::GameState, 48);
-    core::api::uber_states::UberState on_regenerate(UberStateGroup::GameState, 49);
+    core::api::uber_states::UberState on_jump(UberStateGroup::RandoEvents, 30);
+    core::api::uber_states::UberState on_double_jump(UberStateGroup::RandoEvents, 31);
+    core::api::uber_states::UberState on_dash(UberStateGroup::RandoEvents, 32);
+    core::api::uber_states::UberState on_bash(UberStateGroup::RandoEvents, 33);
+    core::api::uber_states::UberState on_glide(UberStateGroup::RandoEvents, 34);
+    core::api::uber_states::UberState on_sword(UberStateGroup::RandoEvents, 35);
+    core::api::uber_states::UberState on_hammer(UberStateGroup::RandoEvents, 36);
+    core::api::uber_states::UberState on_spear(UberStateGroup::RandoEvents, 37);
+    core::api::uber_states::UberState on_shuriken(UberStateGroup::RandoEvents, 38);
+    core::api::uber_states::UberState on_grenade(UberStateGroup::RandoEvents, 39);
+    core::api::uber_states::UberState on_bow(UberStateGroup::RandoEvents, 40);
+    core::api::uber_states::UberState on_blaze(UberStateGroup::RandoEvents, 41);
+    core::api::uber_states::UberState on_sentry(UberStateGroup::RandoEvents, 42);
+    core::api::uber_states::UberState on_flash(UberStateGroup::RandoEvents, 43);
+    core::api::uber_states::UberState on_launch(UberStateGroup::RandoEvents, 44);
+    core::api::uber_states::UberState on_wall_jump(UberStateGroup::RandoEvents, 45);
+    core::api::uber_states::UberState on_burrow(UberStateGroup::RandoEvents, 46);
+    core::api::uber_states::UberState on_water_dash(UberStateGroup::RandoEvents, 47);
+    core::api::uber_states::UberState on_flap(UberStateGroup::RandoEvents, 48);
+    core::api::uber_states::UberState on_regenerate(UberStateGroup::RandoEvents, 49);
 
     IL2CPP_INTERCEPT(SeinJump, void, PerformJump, (app::SeinJump * this_ptr)) {
         auto is_ability = il2cpp::is_assignable(this_ptr, types::SeinJump::get_class());

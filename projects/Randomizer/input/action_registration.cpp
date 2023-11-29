@@ -14,27 +14,27 @@
 namespace randomizer::input {
     namespace {
         auto on_binding1_before = single_input_bus().register_handler(Action::Binding1, EventTiming::Before, [](auto, auto) {
-            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::GameState, 2), 0);
+            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 2), 0);
         });
 
         auto on_binding2_before = single_input_bus().register_handler(Action::Binding2, EventTiming::Before, [](auto, auto) {
-            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::GameState, 3), 0);
+            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 3), 0);
         });
 
         auto on_binding3_before = single_input_bus().register_handler(Action::Binding3, EventTiming::Before, [](auto, auto) {
-            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::GameState, 4), 0);
+            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 4), 0);
         });
 
         auto on_binding4_before = single_input_bus().register_handler(Action::Binding4, EventTiming::Before, [](auto, auto) {
-            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::GameState, 5), 0);
+            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 5), 0);
         });
 
         auto on_binding5_before = single_input_bus().register_handler(Action::Binding5, EventTiming::Before, [](auto, auto) {
-            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::GameState, 6), 0);
+            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 6), 0);
         });
 
         auto on_progress_hint_before = single_input_bus().register_handler(Action::ShowProgressWithHints, EventTiming::Before, [](auto, auto) {
-            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::GameState, 8), 0);
+            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 8), 0);
         });
 
         auto on_reload_before = single_input_bus().register_handler(Action::Reload, EventTiming::Before, [](auto, auto) {

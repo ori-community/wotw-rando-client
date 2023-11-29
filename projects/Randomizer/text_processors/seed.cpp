@@ -7,7 +7,7 @@
 
 namespace randomizer::text_processors {
     namespace {
-        core::api::uber_states::UberState current_map_area(UberStateGroup::GameState, 15);
+        core::api::uber_states::UberState current_map_area(UberStateGroup::RandoEvents, 15);
 
         std::optional<std::string> total_pickup_count(core::text::ITextProcessor const& base_processor, std::string_view content) {
             return std::to_string(game_seed().info().total_pickups);

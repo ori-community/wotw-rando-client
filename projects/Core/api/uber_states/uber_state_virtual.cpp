@@ -61,6 +61,16 @@ namespace core::api::uber_states {
         };
     }
 
+    void register_virtual_event_state(const uber_id&uberId, std::string name) {
+        register_virtual_state(
+            std::move(uberId),
+            std::move(name),
+            core::Property<double>(
+                [](auto) {},
+                []() { return 1; }
+            ));
+    }
+
     bool is_virtual_state(UberStateGroup group, int state) {
         return virtual_states.find(std::make_pair(group, state)) != virtual_states.end();
     }
