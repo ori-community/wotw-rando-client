@@ -17,6 +17,8 @@ namespace randomizer::text_processors {
             if (value.has_value()) {
                 text.replace(start, next - start, value.value());
                 next = std::max(start + value.value().size(), 1ull) - 1;
+            } else {
+                next = start + 1;
             }
 
             start = text.find(pattern, next);
