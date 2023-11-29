@@ -10,10 +10,11 @@
 
 #include <fstream>
 #include <map>
+#include <timing/game_timer.h>
 
 namespace randomizer::seed {
 
-    Seed::Seed(location_data::LocationCollection const &location_data) :
+    Seed::Seed(location_data::LocationCollection const& location_data) :
         m_location_data(location_data) {
     }
 
@@ -23,15 +24,15 @@ namespace randomizer::seed {
         reload(show_message);
     }
 
-    std::string read_all(const std::filesystem::path &path) {
+    std::string read_all(const std::filesystem::path& path) {
         const std::ifstream file(path.string());
         std::stringstream buffer;
         buffer << file.rdbuf();
         return buffer.str();
     }
 
-    void set_shop_slot_titles(Seed const &seed, std::vector<game::shops::ShopSlot *> const &slots) {
-        for (auto &slot: slots) {
+    void set_shop_slot_titles(Seed const& seed, std::vector<game::shops::ShopSlot*> const& slots) {
+        for (auto& slot: slots) {
             const auto slot_text = seed.text(core::api::uber_states::UberStateCondition{slot->state, BooleanOperator::Greater, 0});
             slot->normal.name.set(!slot_text.empty() ? slot_text : "Empty");
         }
@@ -58,8 +59,8 @@ namespace randomizer::seed {
             return;
         }
 
-        for (auto &inner_locations: m_data.locations | std::views::values) {
-            for (const auto &location: inner_locations | std::views::keys) {
+        for (auto& inner_locations: m_data.locations | std::views::values) {
+            for (const auto& location: inner_locations | std::views::keys) {
                 auto area = m_location_data.area(location);
                 ++m_data.info.pickup_count_by_area[area];
                 if (area != GameArea::Void) {
@@ -71,11 +72,10 @@ namespace randomizer::seed {
         m_data.info.name = std::filesystem::path(m_last_path).filename().string();
 
         std::string flags;
-        for (auto const &flag: info().flags) {
+        for (auto const& flag: info().flags) {
             if (flags.empty()) {
                 flags += "\nFlags: ";
-            }
-            else {
+            } else {
                 flags += ", ";
             }
 
@@ -124,9 +124,9 @@ namespace randomizer::seed {
         return icons.empty() ? app::WorldMapIconType__Enum::Invisible : icons.front().get();
     }
 
-    std::string Seed::text(const inner_location_entry &location) const {
+    std::string Seed::text(const inner_location_entry& location) const {
         std::string output;
-        const auto &locations_by_state = m_data.locations.find(location.state);
+        const auto& locations_by_state = m_data.locations.find(location.state);
         if (locations_by_state == m_data.locations.end()) {
             return "";
         }
@@ -136,7 +136,7 @@ namespace randomizer::seed {
             return "";
         }
 
-        for (auto const &name: location_data->second.names) {
+        for (auto const& name: location_data->second.names) {
             if (!output.empty()) {
                 output += '\n';
             }
@@ -152,19 +152,24 @@ namespace randomizer::seed {
             return;
         }
 
-        for (const auto &callback: m_prevent_grant_callbacks) {
+        for (const auto& callback: m_prevent_grant_callbacks) {
             if (callback()) {
                 return;
             }
         }
 
-        auto &inner_locations = m_data.locations[location];
+        auto& inner_locations = m_data.locations[location];
         std::map<int, std::tuple<std::shared_ptr<items::BaseItem>, core::api::uber_states::UberStateCondition, bool>> to_grant;
         auto value = location.get<double>();
-        for (auto &[condition, data]: inner_locations) {
+        for (auto& [condition, data]: inner_locations) {
             const auto already_granted = condition.resolve(previous_value);
             if (const auto should_grant = condition.resolve(); !should_grant) {
                 continue;
+            }
+
+            const auto location_data = location_collection().location(condition);
+            if (location_data.has_value()) {
+                timing::notify_pickup_collected(location_data->area, location_data->name);
             }
 
             if ((!already_granted || !data.always_granted_items.empty()) && m_location_data.area(condition) != GameArea::Void) {
@@ -173,12 +178,12 @@ namespace randomizer::seed {
             }
 
             if (!already_granted) {
-                for (auto &[order, item]: data.items) {
+                for (auto& [order, item]: data.items) {
                     to_grant[order] = {item, condition, false};
                 }
             }
 
-            for (auto &[order, item]: data.always_granted_items) {
+            for (auto& [order, item]: data.always_granted_items) {
                 to_grant[order] = {item, condition, true};
             }
         }
@@ -191,7 +196,7 @@ namespace randomizer::seed {
         dev::seed_debugger::begin_grant(location, previous_value);
 
         auto skip = 0u;
-        for (const auto &[item, condition, ignore_already_granted]: to_grant | std::views::values) {
+        for (const auto& [item, condition, ignore_already_granted]: to_grant | std::views::values) {
             if (skip != 0) {
                 --skip;
                 continue;
@@ -220,7 +225,7 @@ namespace randomizer::seed {
         auto skip = 0u;
         const auto empty = core::api::uber_states::UberStateCondition();
         dev::seed_debugger::procedure(id);
-        for (const auto &item: it->second.items | std::views::values) {
+        for (const auto& item: it->second.items | std::views::values) {
             dev::seed_debugger::next_item(empty, false, *item);
             item->grant();
             skip += item->skip.get();

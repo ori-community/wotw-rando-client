@@ -5,7 +5,7 @@
 #include <Randomizer/macros.h>
 
 namespace randomizer::timing {
-    RANDOMIZER_DLLEXPORT extern bool disable_ability_tracking;
-}
+    extern bool disable_ability_tracking;
 
-RANDOMIZER_C_DLLEXPORT void notify_pickup_collected(GameArea area, const char* location_name);
+    void notify_pickup_collected(GameArea area, const std::string& location_name);
+}
