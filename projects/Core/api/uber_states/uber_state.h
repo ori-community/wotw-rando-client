@@ -61,6 +61,8 @@ namespace core::api::uber_states {
     private:
         [[nodiscard]] double inner_get() const;
 
+        bool has_volatile_value() const;
+
         UberStateGroup m_group;
         int m_state;
     };

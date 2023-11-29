@@ -186,8 +186,12 @@ namespace core::api::uber_states {
 
     void UberState::set(double value, bool ignore_intercept, bool ignore_notify) const {
         // Prevent changes that don't change anything.
-        auto prev = inner_get();
-        if (prev == value) {
+        // If the uber state currently has a volatile value set, we always
+        // want to run the setter. Running the setter removes the volatile value.
+
+        const auto prev = inner_get();
+
+        if (prev == value && !has_volatile_value()) {
             return;
         }
 
@@ -212,9 +216,14 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (value != prev && settings::dev_mode()) {
-                const auto text = std::format("uber state ({}|{}) set to {} from {}", static_cast<int>(m_group), m_state, value, prev);
-                modloader::trace(MessageType::Info, 3, "uber_state", text);
+            if (settings::dev_mode()) {
+                if (prev != value) {
+                    const auto text = std::format("uber state ({}|{}) set to {} from {}", static_cast<int>(m_group), m_state, value, prev);
+                    modloader::trace(MessageType::Info, 3, "uber_state", text);
+                } else if (has_volatile_value()) {
+                    const auto text = std::format("uber state ({}|{}) set to {} because it had a volatile value set", static_cast<int>(m_group), m_state, value);
+                    modloader::trace(MessageType::Info, 3, "uber_state", text);
+                }
             }
 
             // TODO: Change this into something better then a series of if checks.
@@ -289,6 +298,36 @@ namespace core::api::uber_states {
 
         trace(MessageType::Warning, 2, "uber_state", std::format("unable to get value of uber state ({}|{})", static_cast<int>(m_group), m_state));
         return 0.0;
+    }
+
+    bool UberState::has_volatile_value() const {
+        if (is_virtual_state(m_group, m_state)) {
+            return false;
+        }
+
+        auto uber_state = ptr();
+        if (!il2cpp::unity::is_valid(uber_state)) {
+            trace(MessageType::Warning, 2, "uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
+            return 0.0;
+        } else if (il2cpp::is_assignable(uber_state, types::SerializedBooleanUberState::get_class())) {
+            return SerializedBooleanUberState::get_VolitileGenericOverrideValue(reinterpret_cast<app::SerializedBooleanUberState*>(uber_state)).has_value;
+        } else if (il2cpp::is_assignable(uber_state, types::SerializedByteUberState::get_class())) {
+            return SerializedByteUberState::get_VolitileGenericOverrideValue(reinterpret_cast<app::SerializedByteUberState*>(uber_state)).has_value;
+        } else if (il2cpp::is_assignable(uber_state, types::SerializedIntUberState::get_class())) {
+            return SerializedIntUberState::get_VolitileGenericOverrideValue(reinterpret_cast<app::SerializedIntUberState*>(uber_state)).has_value;
+        } else if (il2cpp::is_assignable(uber_state, types::SerializedFloatUberState::get_class())) {
+            return SerializedFloatUberState::get_VolitileGenericOverrideValue(reinterpret_cast<app::SerializedFloatUberState*>(uber_state)).has_value;
+        } else if (il2cpp::is_assignable(uber_state, types::BooleanUberState::get_class())) {
+            return BooleanUberState::get_VolitileGenericOverrideValue(reinterpret_cast<app::BooleanUberState*>(uber_state)).has_value;
+        } else if (il2cpp::is_assignable(uber_state, types::ByteUberState::get_class())) {
+            return ByteUberState::get_VolitileGenericOverrideValue(reinterpret_cast<app::ByteUberState*>(uber_state)).has_value;
+        } else if (il2cpp::is_assignable(uber_state, types::IntUberState::get_class())) {
+            return IntUberState::get_VolitileGenericOverrideValue(reinterpret_cast<app::IntUberState*>(uber_state)).has_value;
+        } else if (il2cpp::is_assignable(uber_state, types::FloatUberState::get_class())) {
+            return FloatUberState::get_VolitileGenericOverrideValue(reinterpret_cast<app::FloatUberState*>(uber_state)).has_value;
+        }
+
+        return false;
     }
 
     std::string UberState::state_name() const {
