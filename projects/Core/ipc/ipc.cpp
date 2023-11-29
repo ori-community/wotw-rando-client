@@ -14,6 +14,8 @@
 #include <vector>
 #include <zmq.hpp>
 
+#include "Modloader/windows_api/console.h"
+
 using namespace modloader;
 
 namespace core::ipc {
@@ -60,7 +62,10 @@ namespace core::ipc {
         }
 
         void do_send() {
-            outgoing_messages_semaphore.acquire();
+            if (!outgoing_messages_semaphore.try_acquire()) {
+                return;
+            }
+
             std::vector<nlohmann::json> local_outgoing_messages;
             outgoing_messages_mutex.lock();
             local_outgoing_messages.insert(
@@ -91,7 +96,6 @@ namespace core::ipc {
             socket->connect("tcp://127.0.0.1:31414");
 
             while (!shutdown_ipc_thread) {
-
                 do_recieve();
                 do_send();
             }
