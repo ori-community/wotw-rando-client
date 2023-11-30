@@ -92,20 +92,9 @@ namespace core::api::game {
             on_title_screen_loaded = nullptr;
         });
 
-        std::shared_ptr<reactivity::ReactiveEffect> effect;
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             auto simple_fps = types::SimpleFPS::get_class()->static_fields->Instance;
             UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(simple_fps), false);
-
-            effect = reactivity::watch_effect([] {
-                if (uber_states::UberState(0, 0).get<bool>()) {
-                    win::console::console_send("We have Bash tree");
-                } else if (uber_states::UberState(0, 97).get<bool>()) {
-                    win::console::console_send("We have Bow tree but not bash");
-                } else {
-                    win::console::console_send("We fucking broke");
-                }
-            });
         });
 
         IL2CPP_INTERCEPT(GameController, void, OnApplicationFocus, (app::GameController * this_ptr, bool focusStatus)) {
