@@ -10,6 +10,8 @@
 
 #include <Core/enums/static_text_entries.h>
 
+#include "Common/event_bus.h"
+
 namespace core::reactivity {
     struct UberStateDependency {
         int group;
@@ -24,9 +26,16 @@ namespace core::reactivity {
         auto operator<=>(const TextDatabaseDependency&) const = default;
     };
 
-    using Dependency = std::variant<
+    struct PropertyDependency {
+        unsigned int id;
+
+        auto operator<=>(const PropertyDependency&) const = default;
+    };
+
+    using dependency_t = std::variant<
         UberStateDependency,
-        TextDatabaseDependency
+        TextDatabaseDependency,
+        PropertyDependency
     >;
 }
 
@@ -44,10 +53,18 @@ template <>
     }
 };
 
+template <>
+    struct std::hash<core::reactivity::PropertyDependency> {
+    std::size_t operator()(const core::reactivity::PropertyDependency& value) const noexcept {
+        return value.id;
+    }
+};
+
 namespace core::reactivity {
     struct ReactiveEffect {
-        std::unordered_set<Dependency> dependencies;
+        std::unordered_set<dependency_t> dependencies;
         std::function<void()> effect_function;
+        common::EventBus<void> on_changed;
     };
 
     template<typename T>
@@ -67,13 +84,19 @@ namespace core::reactivity {
      * \brief Notify the reactivity systen that a dependency was used
      * \param dependency The Dependency being used
      */
-    CORE_DLLEXPORT void notify_used(const Dependency& dependency);
+    CORE_DLLEXPORT void notify_used(const dependency_t& dependency);
 
     /**
      * \brief Notify the reactivity system that a dependency changed
      * \param dependency The dependency that changed
      */
-    CORE_DLLEXPORT void notify_changed(const Dependency& dependency);
+    CORE_DLLEXPORT void notify_changed(const dependency_t& dependency);
+
+    /**
+     * \brief Reserves a unique ID for a Property<T>
+     * \return Reserved ID
+     */
+    CORE_DLLEXPORT unsigned int reserve_property_id();
 }
 
 struct WeakPtrCompare {

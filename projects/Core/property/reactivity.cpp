@@ -10,11 +10,12 @@
 
 namespace core::reactivity {
     struct TrackingContext {
-        std::unordered_set<Dependency> dependencies;
+        std::unordered_set<dependency_t> dependencies;
     };
 
+    unsigned int next_property_id = 0;
     std::vector<TrackingContext> active_tracking_contexts;
-    std::unordered_map<Dependency, std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare>> effects_by_dependency;
+    std::unordered_map<dependency_t, std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare>> effects_by_dependency;
 
     /**
      * \brief Start a new tracking context which tracks dependencies until `pop_tracking_context` is called.
@@ -49,7 +50,7 @@ namespace core::reactivity {
         return effect;
     }
 
-    void notify_used(const Dependency& dependency) {
+    void notify_used(const dependency_t& dependency) {
         if (active_tracking_contexts.empty()) {
             return;
         }
@@ -57,7 +58,7 @@ namespace core::reactivity {
         active_tracking_contexts.back().dependencies.emplace(dependency);
     }
 
-    void notify_changed(const Dependency& dependency) {
+    void notify_changed(const dependency_t& dependency) {
         const auto refs = effects_by_dependency[dependency];
         for (const auto & ref_ptr : refs) {
             if (!ref_ptr.expired()) {
@@ -66,8 +67,13 @@ namespace core::reactivity {
                 push_tracking_context();
                 effect->effect_function();
                 pop_tracking_context(effect);
+                effect->on_changed.trigger_event();
             }
         }
+    }
+
+    unsigned int reserve_property_id() {
+        return ++next_property_id;
     }
 
     /**

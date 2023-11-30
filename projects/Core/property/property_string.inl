@@ -7,6 +7,8 @@
 #include <Core/text/text_processor.h>
 #include <Core/api/system/message_provider.h>
 
+#include "reactivity.h"
+
 template<>
 struct core::Property<std::string> {
     using value_type = std::variant<
@@ -27,12 +29,12 @@ struct core::Property<std::string> {
         m_value = value;
     }
 
-    explicit Property(setter<std::string> set, getter<std::string> get) {
+    explicit Property(const setter<std::string>& set, const getter<std::string>& get) {
         m_value = std::make_tuple(set, get);
     }
 
     Property(Property const& other) {
-        m_value = other.m_value;
+        operator=(other);
     }
 
     template<typename... Types>
@@ -68,6 +70,8 @@ struct core::Property<std::string> {
                 throw std::exception("Unhandled variant in Property");
         }
 
+        reactivity::notify_used(reactivity::PropertyDependency(m_id));
+
         return out;
     }
 
@@ -76,10 +80,10 @@ struct core::Property<std::string> {
     }
 
     template<typename... Types>
-    void set_format(const std::format_string<Types...> fmt, Types&&... args);
+    void set_format(std::format_string<Types...> fmt, Types&&... args);
 
     template<typename... Types>
-    void process_and_set_format(const std::format_string<Types...> fmt, Types&&... args);
+    void process_and_set_format(std::format_string<Types...> fmt, Types&&... args);
 
     // We do not want to make this const as we want to prevent setting the underlying value if we are const.
     // ReSharper disable once CppMemberFunctionMayBeConst
@@ -102,6 +106,8 @@ struct core::Property<std::string> {
             default:
                 throw std::exception("Unhandled variant in Property");
         }
+
+        reactivity::notify_changed(reactivity::PropertyDependency(m_id));
     }
 
     void process_and_set(std::string value) {
@@ -150,10 +156,12 @@ struct core::Property<std::string> {
 
     void assign(const value_type& value) {
         m_value = value;
+        reactivity::notify_changed(reactivity::PropertyDependency(m_id));
     }
 
     void assign(setter<std::string> set, getter<std::string> get) {
         m_value = std::make_tuple(set, get);
+        reactivity::notify_changed(reactivity::PropertyDependency(m_id));
     }
 
     std::string to_string() const {
@@ -161,7 +169,13 @@ struct core::Property<std::string> {
     }
 
     Property& operator=(const Property& other) {
+        if (other.m_id == m_id) {
+            return *this;
+        }
+
         m_value = other.m_value;
+        m_text_processor = other.m_text_processor;
+        reactivity::notify_changed(reactivity::PropertyDependency(m_id));
         return *this;
     }
 
@@ -183,6 +197,7 @@ struct core::Property<std::string> {
     }
 
 private:
+    const unsigned int m_id = reactivity::reserve_property_id();
     std::shared_ptr<text::ITextProcessor> m_text_processor;
     value_type m_value = nullptr;
 };
