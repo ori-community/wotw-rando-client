@@ -177,7 +177,7 @@ namespace {
             );
 
             auto& box = trial_text_boxes.at(location.value());
-            box.reactive_effect = core::reactivity::watch_effect().on(
+            box.reactive_effect = core::reactivity::watch_effect(
                 [location] {
                     const auto ref_it = trial_text_boxes.find(location.value());
                     if (ref_it == trial_text_boxes.end()) {
@@ -192,7 +192,7 @@ namespace {
                         trial_text_boxes.erase(location.value());
                     }
                 }
-            ).finalize();
+            );
         }
     }
 }

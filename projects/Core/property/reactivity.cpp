@@ -39,36 +39,40 @@ namespace core::reactivity {
         active_tracking_contexts.pop_back();
     }
 
-    internal::Finalizer internal::Post::post(const std::function<void()>& func) const {
-        m_effect->post_function = func;
+    builder::FinalizeOnlyBuilder builder::AfterEffectBuilder::after(const std::function<void()>& func) const {
+        m_effect->after_function = func;
         func();
-        return Finalizer(m_effect);
+        return FinalizeOnlyBuilder(m_effect);
     }
 
-    internal::Post internal::Effect::on(const std::function<void()>& func) const {
+    builder::AfterEffectBuilder builder::EffectBuilder::effect(const std::function<void()>& func) const {
         m_effect->effect_function = func;
 
         push_tracking_context();
         func();
         pop_tracking_context(m_effect);
 
-        return Post(m_effect);
+        return AfterEffectBuilder(m_effect);
     }
 
-    internal::Post internal::Pre::on(const std::function<void()>& func) const {
-        return Effect(m_effect).on(func);
+    builder::AfterEffectBuilder builder::BeforeEffectBuilder::effect(const std::function<void()>& func) const {
+        return EffectBuilder(m_effect).effect(func);
     }
 
-    internal::Effect internal::Pre::pre(const std::function<void()>& func) const {
-        m_effect->pre_function = func;
+    builder::EffectBuilder builder::BeforeEffectBuilder::before(const std::function<void()>& func) const {
+        m_effect->before_function = func;
         func();
-        return Effect(m_effect);
+        return EffectBuilder(m_effect);
     }
 
-    internal::Pre watch_effect() {
-        internal::Pre pre;
+    builder::BeforeEffectBuilder watch_effect() {
+        builder::BeforeEffectBuilder pre;
         pre.m_effect = std::make_shared<ReactiveEffect>();
         return pre;
+    }
+
+    std::shared_ptr<ReactiveEffect> watch_effect(const std::function<void()>& func) {
+        return watch_effect().effect(func).finalize();
     }
 
     void notify_used(const dependency_t& dependency) {
@@ -85,11 +89,11 @@ namespace core::reactivity {
             if (!ref_ptr.expired()) {
                 auto effect = ref_ptr.lock();
 
-                effect->pre_function();
+                effect->before_function();
                 push_tracking_context();
                 effect->effect_function();
                 pop_tracking_context(effect);
-                effect->post_function();
+                effect->after_function();
             }
         }
     }

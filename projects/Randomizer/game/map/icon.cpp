@@ -166,7 +166,7 @@ namespace randomizer::game::map {
     void Icon::label(const std::string& value) {
         m_label.set(value.empty() ? " " : value);
         if (m_game_object != nullptr) {
-            m_text_reactive_effect = core::reactivity::watch_effect().on(
+            m_text_reactive_effect = core::reactivity::watch_effect().effect(
                 [&] {
                     m_map_icon->fields.m_labelBox->fields.MessageProvider = core::api::system::create_message_provider(m_label.get());
                     MessageBox::RefreshText_1(m_map_icon->fields.m_labelBox);

@@ -63,77 +63,78 @@ struct std::hash<core::reactivity::PropertyDependency> {
 namespace core::reactivity {
     struct ReactiveEffect {
         std::unordered_set<dependency_t> dependencies;
-        std::function<void()> pre_function;
+        std::function<void()> before_function;
         std::function<void()> effect_function;
-        std::function<void()> post_function;
+        std::function<void()> after_function;
     };
 
-    namespace internal {
-        class Pre;
-        class Effect;
-        class Post;
-        class Finalizer;
+    namespace builder {
+        class BeforeEffectBuilder;
+        class EffectBuilder;
+        class AfterEffectBuilder; // (c) Adobe Corporation
+        class FinalizeOnlyBuilder;
     }
 
-    CORE_DLLEXPORT internal::Pre watch_effect();
+    CORE_DLLEXPORT builder::BeforeEffectBuilder watch_effect();
+    CORE_DLLEXPORT std::shared_ptr<ReactiveEffect> watch_effect(const std::function<void()>& func);
 
-    namespace internal {
-        class CORE_DLLEXPORT Finalizer {
+    namespace builder {
+        class CORE_DLLEXPORT FinalizeOnlyBuilder {
         public:
-            friend class Post;
+            friend class AfterEffectBuilder;
 
             std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
 
         private:
-            explicit Finalizer(const std::shared_ptr<ReactiveEffect>& effect) :
+            explicit FinalizeOnlyBuilder(const std::shared_ptr<ReactiveEffect>& effect) :
                 m_effect(effect) {
             }
 
             std::shared_ptr<ReactiveEffect> m_effect;
         };
 
-        class CORE_DLLEXPORT Post {
+        class CORE_DLLEXPORT AfterEffectBuilder {
         public:
-            friend class Effect;
+            friend class EffectBuilder;
 
-            Finalizer post(const std::function<void()>& func) const;
+            FinalizeOnlyBuilder after(const std::function<void()>& func) const;
 
             std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
 
         private:
-            explicit Post(const std::shared_ptr<ReactiveEffect>& effect) :
+            explicit AfterEffectBuilder(const std::shared_ptr<ReactiveEffect>& effect) :
                 m_effect(effect) {
             }
 
             std::shared_ptr<ReactiveEffect> m_effect;
         };
 
-        class CORE_DLLEXPORT Effect {
+        class CORE_DLLEXPORT EffectBuilder {
         public:
-            friend class Pre;
+            friend class BeforeEffectBuilder;
 
-            Post on(const std::function<void()>& func) const;
+            AfterEffectBuilder effect(const std::function<void()>& func) const;
 
             std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
 
         private:
-            explicit Effect(const std::shared_ptr<ReactiveEffect>& effect) :
+            explicit EffectBuilder(const std::shared_ptr<ReactiveEffect>& effect) :
                 m_effect(effect) {
             }
 
             std::shared_ptr<ReactiveEffect> m_effect;
         };
 
-        class CORE_DLLEXPORT Pre {
+        class CORE_DLLEXPORT BeforeEffectBuilder {
         public:
-            friend Pre reactivity::watch_effect();
+            friend BeforeEffectBuilder reactivity::watch_effect();
 
-            Effect pre(const std::function<void()>& func) const;
+            EffectBuilder before(const std::function<void()>& func) const;
 
-            Post on(const std::function<void()>& func) const;
+            AfterEffectBuilder effect(const std::function<void()>& func) const;
 
         private:
-            Pre() {
+            BeforeEffectBuilder() {
             }
 
             std::shared_ptr<ReactiveEffect> m_effect;
