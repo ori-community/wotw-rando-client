@@ -395,8 +395,9 @@ namespace il2cpp {
     R* array_new(Clazz* element_class, const std::vector<T>& items) {
         auto arr = untyped::array_new(reinterpret_cast<Il2CppClass*>(element_class), items.size());
         auto elements = reinterpret_cast<T*>(arr->vector);
-        for (auto i = 0; i < items.size(); ++i)
+        for (auto i = 0; i < items.size(); ++i) {
             elements[i] = items[i];
+        }
 
         return reinterpret_cast<R*>(arr);
     }
@@ -494,15 +495,15 @@ namespace il2cpp {
             using reference = value_type&;
 
             explicit ListIteratorState(pointer ptr) :
-                ptr(ptr) {
+                m_ptr(ptr) {
             }
 
-            reference operator*() const { return *ptr; }
-            pointer operator->() { return ptr; }
+            reference operator*() const { return *m_ptr; }
+            pointer operator->() { return m_ptr; }
 
             // Prefix increment
             ListIteratorState& operator++() {
-                ++ptr;
+                ++m_ptr;
                 return *this;
             }
 
@@ -513,11 +514,11 @@ namespace il2cpp {
                 return tmp;
             }
 
-            friend bool operator==(const ListIteratorState& a, const ListIteratorState& b) { return a.ptr == b.ptr; };
-            friend bool operator!=(const ListIteratorState& a, const ListIteratorState& b) { return a.ptr != b.ptr; };
+            friend bool operator==(const ListIteratorState& a, const ListIteratorState& b) { return a.m_ptr == b.m_ptr; };
+            friend bool operator!=(const ListIteratorState& a, const ListIteratorState& b) { return a.m_ptr != b.m_ptr; };
 
         private:
-            pointer ptr;
+            pointer m_ptr;
         };
 
         ListType*& list;
@@ -526,6 +527,51 @@ namespace il2cpp {
 
         explicit ListIterator(ListType*& list) :
             list(list) {
+        }
+    };
+
+    template<typename ArrayType = app::Int32__Array>
+    struct ArrayIterator {
+        struct ArrayIteratorState {
+            using iterator_category = std::contiguous_iterator_tag;
+            using difference_type = std::ptrdiff_t;
+            using value_type = std::remove_reference_t<decltype(ArrayType::fields.vector[0])>;
+            using pointer = value_type*;
+            using reference = value_type&;
+
+            explicit ArrayIteratorState(pointer ptr) :
+                m_ptr(ptr) {
+            }
+
+            reference operator*() const { return *m_ptr; }
+            pointer operator->() { return m_ptr; }
+
+            // Prefix increment
+            ArrayIteratorState& operator++() {
+                ++m_ptr;
+                return *this;
+            }
+
+            // Postfix increment
+            ArrayIteratorState operator++(int) {
+                ArrayIteratorState tmp = *this;
+                ++(*this);
+                return tmp;
+            }
+
+            friend bool operator==(const ArrayIteratorState& a, const ArrayIteratorState& b) { return a.m_ptr == b.m_ptr; };
+            friend bool operator!=(const ArrayIteratorState& a, const ArrayIteratorState& b) { return a.m_ptr != b.m_ptr; };
+
+        private:
+            pointer m_ptr;
+        };
+
+        ArrayType*& arr;
+        ArrayIteratorState begin() { return ArrayIteratorState(&arr->vector[0]); }
+        ArrayIteratorState end() { return ArrayIteratorState(&arr->vector[arr->max_length]); }
+
+        explicit ArrayIterator(ArrayType*& arr) :
+            arr(arr) {
         }
     };
 } // namespace il2cpp

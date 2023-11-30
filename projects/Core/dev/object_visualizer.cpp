@@ -111,7 +111,7 @@ namespace dev::visualize {
                     indent(visualizer, 0, 1);
                     auto components = il2cpp::unity::get_components(game_object);
                     visualizer.stream << "components (" << components.size() << "):" << visualizer.new_line;
-                    for (auto component : components)
+                    for (auto component: components)
                         visualize_object_internal(visualizer, component);
 
                     visualize_object_internal(visualizer, obj, 1);
@@ -123,7 +123,7 @@ namespace dev::visualize {
                     visualizer.stream << "children (" << children.size() << "):" << visualizer.new_line;
                     if (visualizer.level > Visualizer::InfoLevel::Low && visualizer.current_state.depth > 0) {
                         visualizer.current_state.depth -= 1;
-                        for (auto child : children)
+                        for (auto child: children)
                             visualize_object_internal(visualizer, child);
                     }
                     break;
@@ -146,13 +146,13 @@ namespace dev::visualize {
         void visualize_vector4(Visualizer& visualizer, void* obj) {
             auto vec = reinterpret_cast<app::Vector4*>(obj);
             visualizer.stream << "{ " << vec->x << ", " << vec->y << ", " << vec->z << ", " << vec->w << " }"
-                              << visualizer.new_line;
+                << visualizer.new_line;
         }
 
         void visualize_color32(Visualizer& visualizer, void* obj) {
             auto color = reinterpret_cast<app::Color32*>(obj);
             visualizer.stream << "{ " << color->r << ", " << color->g << ", " << color->b << ", " << color->a << " }"
-                              << visualizer.new_line;
+                << visualizer.new_line;
         }
 
         void visualize_int(Visualizer& visualizer, void* obj) {
@@ -321,9 +321,11 @@ namespace dev::visualize {
             auto scene_root = reinterpret_cast<app::SceneRoot*>(obj);
             indent(visualizer, 0, 1);
             visualizer.stream << "objects (" << scene_root->fields.SceneResources->fields._size << "):"
-                              << visualizer.new_line;
-            for (auto i = 0; i < scene_root->fields.SceneResources->fields._size; ++i)
-                visualize_object_internal(visualizer, scene_root->fields.SceneResources->fields._items->vector[i]);
+                << visualizer.new_line;
+
+            for (const auto scene: il2cpp::ListIterator(scene_root->fields.SceneResources)) {
+                visualize_object_internal(visualizer, scene);
+            }
         }
 
         void visualize_new_setup_state_controller(Visualizer& visualizer, void* obj) {
@@ -336,8 +338,7 @@ namespace dev::visualize {
             indent(visualizer, 0, 1);
             visualizer.stream << "states:" << visualizer.new_line;
             auto all_states = NewSetupStateController::GetAllStateGUIDs(controller);
-            for (auto i = 0; i < all_states->max_length; ++i) {
-                auto guid = all_states->vector[i];
+            for (auto guid: il2cpp::ArrayIterator(all_states)) {
                 auto csname = NewSetupStateController::GetStateName(controller, guid);
                 auto name = il2cpp::convert_csstring(csname);
 
@@ -349,12 +350,12 @@ namespace dev::visualize {
                 visualizer.current_state.depth -= 1;
                 indent(visualizer, -1, 1);
                 visualizer.stream << "modifiers (" << controller->fields.StateHolder->fields.Modifiers->fields._size
-                                  << "):" << visualizer.new_line;
+                    << "):" << visualizer.new_line;
 
-                for (auto i = 0; i < controller->fields.StateHolder->fields.Modifiers->fields._size; ++i) {
-                    auto item = controller->fields.StateHolder->fields.Modifiers->fields._items->vector[i];
-                    if (item != nullptr)
+                for (auto item: il2cpp::ListIterator(controller->fields.StateHolder->fields.Modifiers)) {
+                    if (item != nullptr) {
                         visualize_object_internal(visualizer, item);
+                    }
                 }
             }
         }
@@ -366,8 +367,8 @@ namespace dev::visualize {
                 case 0: {
                     indent(visualizer, 0, 1);
                     visualizer.stream << get_full_name(obj) << " - " << std::showbase << std::hex
-                                      << item->fields.ModifierGUID
-                                      << std::noshowbase << std::dec << visualizer.new_line;
+                        << item->fields.ModifierGUID
+                        << std::noshowbase << std::dec << visualizer.new_line;
                     auto csname = il2cpp::invoke<app::String>(item, "get_Name");
                     auto name = il2cpp::convert_csstring(csname);
 
@@ -390,9 +391,11 @@ namespace dev::visualize {
                 case 1: {
                     indent(visualizer, 0, 1);
                     visualizer.stream << "modifier_data:" << visualizer.new_line;
-                    for (auto i = 0; i < item->fields.m_uberStateModifierDatas->fields._size; ++i)
-                        if (item != nullptr)
-                            visualize_object_internal(visualizer, item->fields.m_uberStateModifierDatas->fields._items->vector[i]);
+                    if (item != nullptr) {
+                        for (const auto data: il2cpp::ListIterator(item->fields.m_uberStateModifierDatas)) {
+                            visualize_object_internal(visualizer, data);
+                        }
+                    }
 
                     break;
                 }
@@ -403,7 +406,7 @@ namespace dev::visualize {
             auto item = reinterpret_cast<app::SetupStateModifierData*>(obj);
             indent(visualizer, 0, 1);
             visualizer.stream << get_full_name(obj) << " - " << std::showbase << std::hex << item->fields.ModifierGUID
-                              << std::noshowbase << std::dec << visualizer.new_line;
+                << std::noshowbase << std::dec << visualizer.new_line;
 
             // item->fields.m_modifierDataClassID.
         }
@@ -460,33 +463,37 @@ namespace dev::visualize {
                     visualizer.stream << get_full_name(obj) << visualizer.new_line;
                     indent(visualizer, 0, 1);
                     visualizer.stream << "bools: {" << item->fields.BoolRequirements->fields._size << "}"
-                                      << visualizer.new_line;
-                    for (auto i = 0; i < item->fields.BoolRequirements->fields._size; ++i)
-                        visualize_object_internal(visualizer, item->fields.BoolRequirements->fields._items->vector[i]);
+                        << visualizer.new_line;
+                    for (const auto requirement: il2cpp::ListIterator(item->fields.BoolRequirements)) {
+                        visualize_object_internal(visualizer, requirement);
+                    }
 
                     indent(visualizer, -1, 1);
                     visualizer.stream << "bytes: {" << item->fields.ByteRequirements->fields._size << "}"
-                                      << visualizer.new_line;
-                    for (auto i = 0; i < item->fields.ByteRequirements->fields._size; ++i)
-                        visualize_object_internal(visualizer, item->fields.ByteRequirements->fields._items->vector[i]);
+                        << visualizer.new_line;
+                    for (const auto requirement: il2cpp::ListIterator(item->fields.ByteRequirements)) {
+                        visualize_object_internal(visualizer, requirement);
+                    }
 
                     visualize_object_internal(visualizer, obj, 1);
                     break;
                 case 1:
                     indent(visualizer, -1, 1);
                     visualizer.stream << "floats: {" << item->fields.FloatRequirements->fields._size << "}"
-                                      << visualizer.new_line;
-                    for (auto i = 0; i < item->fields.FloatRequirements->fields._size; ++i)
-                        visualize_object_internal(visualizer, item->fields.FloatRequirements->fields._items->vector[i]);
+                        << visualizer.new_line;
+                    for (const auto requirement: il2cpp::ListIterator(item->fields.FloatRequirements)) {
+                        visualize_object_internal(visualizer, requirement);
+                    }
 
                     visualize_object_internal(visualizer, obj, 2);
                     break;
                 case 2:
                     indent(visualizer, -1, 1);
                     visualizer.stream << "ints: {" << item->fields.IntRequirements->fields._size << "}"
-                                      << visualizer.new_line;
-                    for (auto i = 0; i < item->fields.IntRequirements->fields._size; ++i)
-                        visualize_object_internal(visualizer, item->fields.IntRequirements->fields._items->vector[i]);
+                        << visualizer.new_line;
+                    for (const auto requirement: il2cpp::ListIterator(item->fields.IntRequirements)) {
+                        visualize_object_internal(visualizer, requirement);
+                    }
 
                     break;
             }
@@ -560,13 +567,13 @@ namespace dev::visualize {
                     visualizer.stream << "Respawner: {" << visualizer.new_line;
                     indent(visualizer, 1);
                     visualizer.stream << "min_distance_from_player: " << respawner->fields.MinDistanceFromPlayer
-                                      << visualizer.new_line;
+                        << visualizer.new_line;
                     indent(visualizer);
                     visualizer.stream << "respawn_on_timeout: " << respawner->fields.RespawnOnTimeout
-                                      << visualizer.new_line;
+                        << visualizer.new_line;
                     indent(visualizer);
                     visualizer.stream << "respawn_on_screen: " << respawner->fields.RespawnOnScreen
-                                      << visualizer.new_line;
+                        << visualizer.new_line;
                     indent(visualizer);
                     visualizer.stream << "respawn_time: " << respawner->fields.RespawnTime << visualizer.new_line;
                     indent(visualizer);
@@ -599,33 +606,33 @@ namespace dev::visualize {
         }
 
         std::unordered_map<std::string, visualize_func> visualizers = {
-            { "NewSetupStateController", visualize_new_setup_state_controller },
-            { "SetupStateModifier", visualize_setup_state_modifier },
-            { "StateCondition", visualize_state_condition },
+            {"NewSetupStateController", visualize_new_setup_state_controller},
+            {"SetupStateModifier", visualize_setup_state_modifier},
+            {"StateCondition", visualize_state_condition},
 
-            { "UberStateBoolCondition", visualize_uber_state_bool_condition },
-            { "UberStateValueCondition", visualize_uber_state_value_condition },
+            {"UberStateBoolCondition", visualize_uber_state_bool_condition},
+            {"UberStateValueCondition", visualize_uber_state_value_condition},
 
-            { "DesiredUberStateComposite", visualize_desired_uber_state_composite },
-            { "DesiredUberStateBool", visualize_desired_bool_uber_state },
-            { "DesiredUberStateFloat", visualize_desired_float_uber_state },
-            { "DesiredUberStateByte", visualize_desired_byte_uber_state },
-            { "DesiredUberStateInt", visualize_desired_int_uber_state },
+            {"DesiredUberStateComposite", visualize_desired_uber_state_composite},
+            {"DesiredUberStateBool", visualize_desired_bool_uber_state},
+            {"DesiredUberStateFloat", visualize_desired_float_uber_state},
+            {"DesiredUberStateByte", visualize_desired_byte_uber_state},
+            {"DesiredUberStateInt", visualize_desired_int_uber_state},
 
-            { "Moon.SerializedBooleanUberState", visualize_serialized_uber_state },
-            { "Moon.SerializedFloatUberState", visualize_serialized_uber_state },
-            { "Moon.SerializedByteUberState", visualize_serialized_uber_state },
-            { "Moon.SerializedIntUberState", visualize_serialized_uber_state },
+            {"Moon.SerializedBooleanUberState", visualize_serialized_uber_state},
+            {"Moon.SerializedFloatUberState", visualize_serialized_uber_state},
+            {"Moon.SerializedByteUberState", visualize_serialized_uber_state},
+            {"Moon.SerializedIntUberState", visualize_serialized_uber_state},
 
-            { "SceneRoot", visualize_scene_root },
-            { "UnityEngine.GameObject", visualize_game_object },
-            { "UnityEngine.Transform", visualize_transform },
-            { "UnityEngine.Object", visualize_unity_object },
-            { "UnityEngine.Mesh", visualize_unity_mesh },
-            { "UnityEngine.MeshFilter", visualize_unity_mesh_filter },
-            { "UnityEngine.Renderer", visualize_unity_renderer },
+            {"SceneRoot", visualize_scene_root},
+            {"UnityEngine.GameObject", visualize_game_object},
+            {"UnityEngine.Transform", visualize_transform},
+            {"UnityEngine.Object", visualize_unity_object},
+            {"UnityEngine.Mesh", visualize_unity_mesh},
+            {"UnityEngine.MeshFilter", visualize_unity_mesh_filter},
+            {"UnityEngine.Renderer", visualize_unity_renderer},
 
-            { "Respawner", visualize_respawner },
+            {"Respawner", visualize_respawner},
         };
     } // namespace
 
@@ -679,8 +686,8 @@ namespace dev::visualize {
                 indent(visualizer);
                 std::string full_name = get_full_name(current.first);
                 visualizer.stream << full_name << " - " << std::noshowbase << std::dec
-                                  << reinterpret_cast<uint64_t>(current.first->Il2CppClass.klass)
-                                  << visualizer.new_line;
+                    << reinterpret_cast<uint64_t>(current.first->Il2CppClass.klass)
+                    << visualizer.new_line;
             }
         }
     }

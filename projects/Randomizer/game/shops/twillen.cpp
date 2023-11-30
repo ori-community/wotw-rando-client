@@ -36,8 +36,10 @@ namespace {
     using namespace app::classes::UnityEngine;
     using namespace randomizer::game::shops;
 
-    const std::set<app::SpiritShardType__Enum> TWILLEN_SHARDS{app::SpiritShardType__Enum::GlassCannon,     app::SpiritShardType__Enum::TripleJump, app::SpiritShardType__Enum::AntiAir, app::SpiritShardType__Enum::Swap,
-                                                              app::SpiritShardType__Enum::SpiritLightLuck, app::SpiritShardType__Enum::Vitality,   app::SpiritShardType__Enum::Energy,  app::SpiritShardType__Enum::CombatLuck};
+    const std::set<app::SpiritShardType__Enum> TWILLEN_SHARDS{app::SpiritShardType__Enum::GlassCannon, app::SpiritShardType__Enum::TripleJump, app::SpiritShardType__Enum::AntiAir,
+                                                              app::SpiritShardType__Enum::Swap,
+                                                              app::SpiritShardType__Enum::SpiritLightLuck, app::SpiritShardType__Enum::Vitality, app::SpiritShardType__Enum::Energy,
+                                                              app::SpiritShardType__Enum::CombatLuck};
 
     IL2CPP_INTERCEPT(PlayerSpiritShards, bool, HasShard, (app::PlayerSpiritShards * this_ptr, app::SpiritShardType__Enum shard_type)) {
         if (is_in_shop(ShopType::Twillen) && TWILLEN_SHARDS.find(shard_type) != TWILLEN_SHARDS.end()) {
@@ -70,14 +72,14 @@ namespace {
     app::PlayerUberStateShards_Shard* selected_shard;
 
     const std::unordered_map<app::SpiritShardType__Enum, int> TWILLEN_SHOP_ORDER = {
-        { app::SpiritShardType__Enum::Energy, 0 },
-        { app::SpiritShardType__Enum::Vitality, 1 },
-        { app::SpiritShardType__Enum::AntiAir, 2 },
-        { app::SpiritShardType__Enum::CombatLuck, 3 },
-        { app::SpiritShardType__Enum::SpiritLightLuck, 4 },
-        { app::SpiritShardType__Enum::GlassCannon, 5 },
-        { app::SpiritShardType__Enum::Swap, 6 },
-        { app::SpiritShardType__Enum::TripleJump, 7 },
+        {app::SpiritShardType__Enum::Energy, 0},
+        {app::SpiritShardType__Enum::Vitality, 1},
+        {app::SpiritShardType__Enum::AntiAir, 2},
+        {app::SpiritShardType__Enum::CombatLuck, 3},
+        {app::SpiritShardType__Enum::SpiritLightLuck, 4},
+        {app::SpiritShardType__Enum::GlassCannon, 5},
+        {app::SpiritShardType__Enum::Swap, 6},
+        {app::SpiritShardType__Enum::TripleJump, 7},
     };
 
     // Prevent Twillen from cleaning up (sorting) his shop
@@ -100,7 +102,10 @@ namespace {
         il2cpp::invoke(this_ptr, "PlaySoundEvent", sound);
         il2cpp::invoke(core::api::game::player::sein()->fields.PlayerSpiritShards->fields.OnInventoryUpdated, "Invoke", shard);
 
-        auto ui_experience = il2cpp::unity::get_component_in_children<app::SpellUIExperience>(il2cpp::unity::get_game_object(types::UI::get_class()->static_fields->SeinUI), types::SpellUIExperience::get_class());
+        auto ui_experience = il2cpp::unity::get_component_in_children<app::SpellUIExperience>(
+            il2cpp::unity::get_game_object(types::UI::get_class()->static_fields->SeinUI),
+            types::SpellUIExperience::get_class()
+        );
         SpellUIExperience::Spend(ui_experience, twillen_shop().slot(shard->fields.m_type)->cost.get<int>());
 
         buy_item(*twillen_shop().slot(shard->fields.m_type));
@@ -123,8 +128,7 @@ namespace {
         if (overwrite_shard) {
             auto& info = slot->active_info();
             info.icon->apply(renderer);
-        }
-        else {
+        } else {
             static std::unordered_map<app::SpiritShardType__Enum, std::shared_ptr<core::api::graphics::textures::TextureData>> shard_textures;
             auto it = shard_textures.find(type);
             if (it == shard_textures.end()) {
@@ -147,12 +151,10 @@ namespace {
             auto& info = slot->active_info();
             name_box->fields.MessageProvider = info.name.get_provider();
             description_box->fields.MessageProvider = info.description.get_provider();
-        }
-        else if (type == app::SpiritShardType__Enum::None) {
+        } else if (type == app::SpiritShardType__Enum::None) {
             name_box->fields.MessageProvider = this_ptr->fields.LockedName;
             description_box->fields.MessageProvider = this_ptr->fields.LockedDescription;
-        }
-        else {
+        } else {
             name_box->fields.MessageProvider = description->fields.Name;
             auto* const property_levels = description->fields.UpgradablePropertyLevels;
             auto* const property_level = property_levels->fields._items->vector[item->fields.m_level];
@@ -177,8 +179,7 @@ namespace {
             this_ptr->fields.m_item = selected_shard;
             SpiritShardUIShardDetails::UpdateDetails(this_ptr);
             this_ptr->fields.m_item = nullptr;
-        }
-        else {
+        } else {
             next::SpiritShardUIShardDetails::ShowEmptyDetails(this_ptr);
         }
     }
@@ -188,12 +189,10 @@ namespace {
         auto sein = core::api::game::player::sein();
         if (sein != nullptr && sein->fields.PlayerSpiritShards != nullptr) {
             auto settings = types::SpiritShardSettings::get_class()->static_fields->Instance;
-            auto shards_to_buy = sein->fields.PlayerSpiritShards->fields.InventoryItemsAvailableToBuy;
-            for (int i = 0; i < shards_to_buy->fields._size; ++i) {
-                auto shard = shards_to_buy->fields._items->vector[i];
-                auto desc = il2cpp::invoke<app::SpiritShardDescription>(settings->fields.Descriptions, "GetValue", &shard);
+            for (auto shard: il2cpp::ListIterator(sein->fields.PlayerSpiritShards->fields.InventoryItemsAvailableToBuy)) {
+                const auto desc = il2cpp::invoke<app::SpiritShardDescription>(settings->fields.Descriptions, "GetValue", &shard);
                 // We overwrite get_BuyCost on SpiritShardDescription to use InitialBuyCost as the shard index into our shop.
-                desc->fields.InitialBuyCost = static_cast<int>(shards_to_buy->fields._items->vector[i]);
+                desc->fields.InitialBuyCost = static_cast<int>(shard);
             }
         }
 
@@ -220,7 +219,9 @@ namespace {
         next::SpiritShardUIItem::UpdateShardIcon(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SpiritShardDescription, int, get_BuyCost, (app::SpiritShardDescription * this_ptr)) { return twillen_shop().slot(static_cast<app::SpiritShardType__Enum>(this_ptr->fields.InitialBuyCost))->cost.get<int>(); }
+    IL2CPP_INTERCEPT(SpiritShardDescription, int, get_BuyCost, (app::SpiritShardDescription * this_ptr)) {
+        return twillen_shop().slot(static_cast<app::SpiritShardType__Enum>(this_ptr->fields.InitialBuyCost))->cost.get<int>();
+    }
 
     IL2CPP_INTERCEPT(SpiritShardShopUIItem, void, UpdateShard, (app::SpiritShardShopUIItem * this_ptr, app::PlayerUberStateShards_Shard* shard)) {
         auto owned = true;
@@ -239,8 +240,7 @@ namespace {
             if (purchasable && affordable && !owned) {
                 UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.PurchasableColor);
                 UberShaderAPI::SetColor_1(background_renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.PurchasableColor);
-            }
-            else {
+            } else {
                 UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.UnpurchaseableColor);
                 UberShaderAPI::SetColor_1(background_renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.UnpurchaseableColor);
             }

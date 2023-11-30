@@ -26,19 +26,19 @@ namespace {
         }
     };
 
-    std::vector<LagoonContactSwitchDoorRef> switch_door_refs;  // We save all active LagoonContactSwitchDoors and their physics GameObjects here
-    LagoonContactSwitchDoorRef* lagoon_contact_switch_door_ref_just_removed = nullptr;  // This pointer points to the LagoonContactSwitchDoors that is about to be janked
+    std::vector<LagoonContactSwitchDoorRef> switch_door_refs; // We save all active LagoonContactSwitchDoors and their physics GameObjects here
+    LagoonContactSwitchDoorRef* lagoon_contact_switch_door_ref_just_removed = nullptr; // This pointer points to the LagoonContactSwitchDoors that is about to be janked
     auto is_in_activate_animator_system_on_update = false;
 
     IL2CPP_INTERCEPT(LagoonContactSwitchDoors, void, Awake, (app::LagoonContactSwitchDoors* this_ptr)) {
         next::LagoonContactSwitchDoors::Awake(this_ptr);
 
         auto physics_go = il2cpp::unity::find_child(
-                il2cpp::unity::get_game_object(this_ptr),
-                std::vector<std::string>{
-                        "visuals",
-                        "physics",
-                }
+            il2cpp::unity::get_game_object(this_ptr),
+            std::vector<std::string>{
+                "visuals",
+                "physics",
+            }
         );
 
         if (il2cpp::unity::is_valid(physics_go)) {
@@ -47,40 +47,44 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(LagoonContactSwitchDoors, void, OnDestroy, (app::LagoonContactSwitchDoors* this_ptr)) {
-        std::erase_if(switch_door_refs, [&this_ptr](LagoonContactSwitchDoorRef& item) {
-            return !item.is_valid() || item.component.ref() == this_ptr;
-        });
+        std::erase_if(
+            switch_door_refs,
+            [&this_ptr](LagoonContactSwitchDoorRef& item) {
+                return !item.is_valid() || item.component.ref() == this_ptr;
+            }
+        );
 
         next::LagoonContactSwitchDoors::OnDestroy(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(System::Collections::Generic::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_, bool, Remove_With_MethodInfo, (app::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_* this_ptr, int32_t key, Il2CppMethodInfo* method_info)) {
-        if (is_in_activate_animator_system_on_update) {
-            for (int i = 0; i < this_ptr->fields.entries->max_length; ++i) {
-                auto entry = this_ptr->fields.entries->vector[i];
+    IL2CPP_INTERCEPT(
+        System::Collections::Generic::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_,
+        bool,
+        Remove_With_MethodInfo,
+        (app::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_* this_ptr, int32_t key, Il2CppMethodInfo* method_info)
+    ) {
+        if (!is_in_activate_animator_system_on_update) {
+            return next::System::Collections::Generic::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_::Remove_With_MethodInfo(this_ptr, key, method_info);
+        }
 
-                // Find the entry with the key we're about to remove
-                if (entry.key == key) {
+        for (auto entry: il2cpp::ArrayIterator(this_ptr->fields.entries)) {
+            // Find the entry with the key we're about to remove
+            if (entry.key != key) {
+                continue;
+            }
 
-                    // If found, check if the target GameObject is one of the stored LagoonContactSwitchDoors physics
-                    for (auto it = switch_door_refs.begin(); it != switch_door_refs.end();) {
-                        if (it->is_valid()) {
-                            if (it->physics.ref() == entry.value.GameObject) {
-
-                                // Store it so we can check the SetActive call in a bit
-                                lagoon_contact_switch_door_ref_just_removed = &*it;
-                                break;
-                            }
-                        } else {
-                            it = switch_door_refs.erase(it);
-                        }
-
-                        if (it == switch_door_refs.end()) {
-                            break;
-                        }
-
-                        ++it;
+            // If found, check if the target GameObject is one of the stored LagoonContactSwitchDoors physics
+            for (auto it = switch_door_refs.begin(); it != switch_door_refs.end();) {
+                if (it->is_valid()) {
+                    if (it->physics.ref() == entry.value.GameObject) {
+                        // Store it so we can check the SetActive call in a bit
+                        lagoon_contact_switch_door_ref_just_removed = &*it;
+                        break;
                     }
+
+                    ++it;
+                } else {
+                    it = switch_door_refs.erase(it);
                 }
             }
         }

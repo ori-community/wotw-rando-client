@@ -142,8 +142,7 @@ namespace {
         visualizer_setup(visualizer, params, 1, 1);
 
         auto list = uber_state_controller->static_fields->AllStateAppliers;
-        for (auto i = 0; i < list->fields._size; ++i) {
-            auto item = list->fields._items->vector[i];
+        for (auto item: il2cpp::ListIterator(list)) {
             if (Moon::UberStateController::ApplierIsAffectedByUberState(item, uber_state.ptr())) {
                 dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
             }
@@ -158,13 +157,14 @@ namespace {
         visualizer_setup(visualizer, params, 1, 1);
 
         console::console_send("start visualizing.");
+        auto count = 1;
         auto list = uber_state_controller->static_fields->AllStateAppliers;
-        for (auto i = 0; i < list->fields._size; ++i) {
-            console::console_send(std::format("visualizing applier ({} / {})", i + 1, list->fields._size));
+        for (const auto item: il2cpp::ListIterator(list)) {
+            console::console_send(std::format("visualizing applier ({} / {})", count, list->fields._size));
             console::console_flush();
 
-            auto item = list->fields._items->vector[i];
             dev::visualize::visualize_object(visualizer, item);
+            ++count;
         }
 
         console::console_send("finished visualizing, outputting.\n");
@@ -191,32 +191,32 @@ namespace {
 
     void dump_uber_states(std::vector<console::CommandParam> const& params) {
         auto collection = types::UberStateCollection::get_class()
-                              ->static_fields->m_instance->fields.m_descriptors->fields;
+            ->static_fields->m_instance->fields.m_descriptors;
 
         nlohmann::json j = nlohmann::json::object();
 
         j["groups"] = nlohmann::json::object();
 
-        for (auto i = 0; i < collection._size; ++i) {
-            core::api::uber_states::UberState uber_state(reinterpret_cast<app::IUberState*>(collection._items->vector[i]));
+        for (const auto state: il2cpp::ListIterator(collection)) {
+            core::api::uber_states::UberState uber_state(reinterpret_cast<app::IUberState*>(state));
 
-            auto group_key = std::to_string(static_cast<int>(uber_state.group()));
-            auto state_key = std::to_string(static_cast<int>(uber_state.state()));
+            const auto group_key = std::to_string(uber_state.group_int());
+            const auto state_key = std::to_string(uber_state.state());
 
             if (!j["groups"].contains(group_key)) {
                 j["groups"][group_key] = nlohmann::json::object(
                     {
-                        { "name", uber_state.group_name() },
-                        { "states", nlohmann::json::object() },
+                        {"name", uber_state.group_name()},
+                        {"states", nlohmann::json::object()},
                     }
                 );
             }
 
             j["groups"][group_key]["states"][state_key] = nlohmann::json::object(
                 {
-                    { "name", uber_state.state_name() },
-                    { "type", uber_state.type() },
-                    { "value", uber_state.get<double>() },
+                    {"name", uber_state.state_name()},
+                    {"type", uber_state.type()},
+                    {"value", uber_state.get<double>()},
                 }
             );
         }
@@ -225,16 +225,19 @@ namespace {
         console::console_send("Copied states to clipboard");
     }
 
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-        console::register_command({ "uber_state", "set_bool" }, set_us_bool);
-        console::register_command({ "uber_state", "set_int" }, set_us_int);
+    auto on_game_ready = modloader::event_bus().register_handler(
+        ModloaderEvent::GameReady,
+        [](auto) {
+            console::register_command({"uber_state", "set_bool"}, set_us_bool);
+            console::register_command({"uber_state", "set_int"}, set_us_int);
 
-        console::register_command({ "debug", "check_appliers" }, [](auto command, auto params) { check_appliers(params); }, true);
+            console::register_command({"debug", "check_appliers"}, [](auto command, auto params) { check_appliers(params); }, true);
 
-        console::register_command({ "debug", "check_all_appliers" }, [](auto command, auto params) { check_all_appliers(params); }, true);
+            console::register_command({"debug", "check_all_appliers"}, [](auto command, auto params) { check_all_appliers(params); }, true);
 
-        console::register_command({ "debug", "dump_scene" }, [](auto command, auto params) { dump_scene(params); }, true);
+            console::register_command({"debug", "dump_scene"}, [](auto command, auto params) { dump_scene(params); }, true);
 
-        console::register_command({ "debug", "dump_uber_states" }, [](auto command, auto params) { dump_uber_states(params); }, true);
-    });
+            console::register_command({"debug", "dump_uber_states"}, [](auto command, auto params) { dump_uber_states(params); }, true);
+        }
+    );
 } // namespace

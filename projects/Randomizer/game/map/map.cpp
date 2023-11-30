@@ -34,10 +34,8 @@ namespace randomizer::game::map {
         std::unordered_map<std::shared_ptr<Icon>, icon_visibility_callback> visibility_callbacks;
         Filters last_filter = Filters::COUNT;
 
-        app::WorldMapIconType__Enum get_base_icon(app::RuntimeWorldMapIcon* icon) {
-            auto base_icons = icon->fields.Area->fields.Area->fields.Icons;
-            for (auto i = 0; i < base_icons->fields._size; ++i) {
-                auto base_icon = base_icons->fields._items->vector[i];
+        app::WorldMapIconType__Enum get_base_icon(const app::RuntimeWorldMapIcon* icon) {
+            for (const auto base_icon: il2cpp::ListIterator(icon->fields.Area->fields.Area->fields.Icons)) {
                 if (base_icon->fields.Guid->fields.A == icon->fields.Guid->fields.A &&
                     base_icon->fields.Guid->fields.B == icon->fields.Guid->fields.B &&
                     base_icon->fields.Guid->fields.C == icon->fields.Guid->fields.C &&
@@ -152,10 +150,8 @@ namespace randomizer::game::map {
         IL2CPP_INTERCEPT(AreaMapIconManager, void, ShowAreaIcons, (app::AreaMapIconManager * this_ptr)) {
             // Start ShowAreaIcons function.
             const auto world = types::GameWorld::get_class()->static_fields->Instance;
-            for (auto i = 0; i < world->fields.RuntimeAreas->fields._size; ++i) {
-                const auto runtime_area = world->fields.RuntimeAreas->fields._items->vector[i];
-                for (auto j = 0; j < runtime_area->fields.Icons->fields._size; ++j) {
-                    const auto icon = runtime_area->fields.Icons->fields._items->vector[j];
+            for (const auto runtime_area: il2cpp::ListIterator(world->fields.RuntimeAreas)) {
+                for (const auto icon: il2cpp::ListIterator(runtime_area->fields.Icons)) {
                     RuntimeWorldMapIcon::Hide(icon);
                 }
 
@@ -165,8 +161,7 @@ namespace randomizer::game::map {
                         continue;
                     }
 
-                    for (auto j = 0; j < runtime_area->fields.Icons->fields._size; ++j) {
-                        const auto icon = runtime_area->fields.Icons->fields._items->vector[j];
+                    for (const auto icon: il2cpp::ListIterator(runtime_area->fields.Icons)) {
                         handle_show_toggle(icon, should_show_icon_with_current_filter(this_ptr, icon));
                     }
                 }

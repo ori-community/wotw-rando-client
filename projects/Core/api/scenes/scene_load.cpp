@@ -80,7 +80,7 @@ namespace core::api::scenes {
                     scenes_to_load.erase(scene_name);
                 }
 
-                for (auto on_load_callback : pending_scene.scene_loading_callbacks) {
+                for (auto on_load_callback: pending_scene.scene_loading_callbacks) {
                     on_load_callback(&event);
                 }
             }
@@ -195,7 +195,7 @@ namespace core::api::scenes {
             scene_manager_scene->fields.PreventUnloading = keep_preloaded;
 
             if (callback != nullptr) {
-                SceneLoadEventMetadata metadata {
+                SceneLoadEventMetadata metadata{
                     std::string(scene), scene_manager_scene->fields.m_currentState, scene_manager_scene,
                 };
                 callback(&metadata);
@@ -234,13 +234,11 @@ namespace core::api::scenes {
     }
 
     std::set<std::string> get_scenes_at_position(app::Vector3 position) {
-        auto scenes_manager = get_scenes_manager();
-
+        const auto scenes_manager = get_scenes_manager();
         auto scenes = ScenesManager::ListAllScenesAtPosition(scenes_manager, position);
         std::set<std::string> scene_names;
 
-        for (auto i = 0; i < scenes->fields._size; i++) {
-            auto scene_metadata = scenes->fields._items->vector[i];
+        for (const auto scene_metadata: il2cpp::ListIterator(scenes)) {
             scene_names.emplace(il2cpp::convert_csstring(scene_metadata->fields.Scene));
         }
 
@@ -256,7 +254,7 @@ namespace core::api::scenes {
             auto container = core::api::game::container(core::api::game::RandoContainer::Randomizer);
             auto scene = UnityEngine::GameObject::get_scene(container);
             auto dont_destroy_on_load = il2cpp::unity::get_root_game_objects(scene);
-            for (auto game_object : dont_destroy_on_load) {
+            for (auto game_object: dont_destroy_on_load) {
                 if (il2cpp::unity::get_object_name(game_object) == name) {
                     return game_object;
                 }
@@ -273,8 +271,7 @@ namespace core::api::scenes {
         std::vector<app::GameObject*> game_objects;
         const auto scenes = types::Scenes::get_class();
         auto manager = scenes->static_fields->Manager;
-        for (auto i = 0; i < manager->fields.ActiveScenes->fields._size; ++i) {
-            auto scene = manager->fields.ActiveScenes->fields._items->vector[i];
+        for (auto scene: il2cpp::ListIterator(manager->fields.ActiveScenes)) {
             game_objects.push_back(il2cpp::unity::get_game_object(scene->fields.SceneRoot));
         }
 
@@ -335,8 +332,11 @@ namespace core::api::scenes {
         console::console_send(std::format("Debug logging {}", scene_loader_debug_logging ? "enabled" : "disabled"));
     }
 
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-        force_load_scene("swampIntroTop", &on_load_spawn);
-        console::register_command({ "scenes", "set_debug" }, set_debug_logging);
-    });
+    auto on_game_ready = modloader::event_bus().register_handler(
+        ModloaderEvent::GameReady,
+        [](auto) {
+            force_load_scene("swampIntroTop", &on_load_spawn);
+            console::register_command({"scenes", "set_debug"}, set_debug_logging);
+        }
+    );
 } // namespace core::api::scenes

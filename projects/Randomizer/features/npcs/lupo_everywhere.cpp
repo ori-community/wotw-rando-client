@@ -16,23 +16,27 @@ namespace {
     core::api::uber_states::UberState has_sword(static_cast<UberStateGroup>(48248), 49214);
 
     IL2CPP_INTERCEPT(QuestNodeWisps, void, SelectInteraction, (app::QuestNodeWisps * this_ptr)) {
-        auto path = il2cpp::unity::get_path(this_ptr);
+        const auto path = il2cpp::unity::get_path(this_ptr);
         if (path == "swampTorchIntroductionA/npcSetup/mapMakerSetup/mapMakerEntity(Clone)/dialogs/questGraph") {
-            auto setup = this_ptr->fields.QuestSetup;
-            if (setup->fields.QuestInteractionSets->fields._size > 2)
-                il2cpp::invoke(setup->fields.QuestInteractionSets, "Remove", setup->fields.QuestInteractionSets->fields._items->vector[2]);
+            const auto interaction_sets = this_ptr->fields.QuestSetup->fields.QuestInteractionSets;
+            if (interaction_sets->fields._size > 2) {
+                il2cpp::invoke(interaction_sets, "Remove", interaction_sets->fields._items->vector[2]);
+            }
         }
 
         next::QuestNodeWisps::SelectInteraction(this_ptr);
     }
 
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-        randomizer::conditions::register_condition_intercept(
-            randomizer::conditions::ConditionType::HasAbilityCondition,
-            "swampTorchIntroductionA/npcSetup",
-            [](std::string_view path, void* obj) { return std::optional<bool>(true); }
-        );
+    auto on_game_ready = modloader::event_bus().register_handler(
+        ModloaderEvent::GameReady,
+        [](auto) {
+            randomizer::conditions::register_condition_intercept(
+                randomizer::conditions::ConditionType::HasAbilityCondition,
+                "swampTorchIntroductionA/npcSetup",
+                [](std::string_view path, void* obj) { return std::optional<bool>(true); }
+            );
 
-        randomizer::conditions::register_condition_uber_state_intercept(has_sword, [](app::ConditionUberState* state) { return std::optional<bool>(true); });
-    });
+            randomizer::conditions::register_condition_uber_state_intercept(has_sword, [](app::ConditionUberState* state) { return std::optional<bool>(true); });
+        }
+    );
 } // namespace

@@ -36,6 +36,7 @@ namespace randomizer::conditions {
         std::unordered_map<applier_key, int32_t, pair_hash> dynamic_applier_redirects;
 
         auto display_new_setup_debug = 1;
+
         void register_debug_show(applier_key key) {
             if (!key.first.empty())
                 debug_show[key.second].emplace(key.first);
@@ -57,17 +58,18 @@ namespace randomizer::conditions {
 
         // Override this to check trees instead of abilities.
         int32_t handle_player_state_map(app::PlayerStateMap* map, void* state) {
-            for (auto i = 0; i < map->fields._.Entries->fields._size; ++i) {
-                auto entry = map->fields._.Entries->fields._items->vector[i];
-                bool output = false;
-                core::api::uber_states::UberState tree(UberStateGroup::Tree, entry.m_ability);
-                if (tree.valid())
-                    output = core::api::uber_states::UberState(0, static_cast<int>(entry.m_ability)).get<bool>() ^ (entry.m_matchType != 0);
-                else
+            for (const auto entry: il2cpp::ListIterator(map->fields._.Entries)) {
+                auto output = false;
+                UberState tree(UberStateGroup::Tree, entry.m_ability);
+                if (tree.valid()) {
+                    output = UberState(0, static_cast<int>(entry.m_ability)).get<bool>() ^ (entry.m_matchType != 0);
+                } else {
                     output = il2cpp::invoke(types::PlayerStateMap_Mapping::box(entry), "", state);
+                }
 
-                if (output)
+                if (output) {
                     return entry.m_index;
+                }
             }
 
             return map->fields._.FallbackSetupStateIndex;
@@ -77,32 +79,31 @@ namespace randomizer::conditions {
             auto state = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "Resolve", 0);
             auto mapping = this_ptr->fields.StateHolder->fields._._.Mapping;
             int32_t mapping_result = 0;
-            if (il2cpp::is_assignable(mapping, types::PlayerStateMap::get_class()))
+            if (il2cpp::is_assignable(mapping, types::PlayerStateMap::get_class())) {
                 mapping_result = handle_player_state_map(reinterpret_cast<app::PlayerStateMap*>(mapping), state);
-            else
+            } else {
                 mapping_result = il2cpp::invoke<app::Int32__Boxed>(mapping, "Resolve", state)->fields;
+            }
 
             auto path = il2cpp::unity::get_path(this_ptr);
             auto key = std::make_pair(path, mapping_result);
-            display_debug_show(key);
-
-            {
+            display_debug_show(key); {
                 const auto it = applier_intercepts.find(key);
-                if (it != applier_intercepts.end())
+                if (it != applier_intercepts.end()) {
                     mapping_result = it->second(this_ptr, path, mapping_result, 0);
-            }
-            {
+                }
+            } {
                 const auto it = dynamic_applier_redirects.find(key);
-                if (it != dynamic_applier_redirects.end())
+                if (it != dynamic_applier_redirects.end()) {
                     mapping_result = it->second;
+                }
             }
 
             this_ptr->fields.m_activeStateIndex = mapping_result;
-            auto states = this_ptr->fields.StateHolder->fields.States;
-            for (auto i = 0; i < states->fields._size; ++i) {
-                auto state_item = states->fields._items->vector[i];
-                if (state_item->fields.StateGUID == mapping_result)
+            for (auto state_item: il2cpp::ListIterator(this_ptr->fields.StateHolder->fields.States)) {
+                if (state_item->fields.StateGUID == mapping_result) {
                     return state_item;
+                }
             }
 
             return nullptr;
@@ -169,14 +170,17 @@ namespace randomizer::conditions {
             }
         }
 
-        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-            console::register_command({ "debug", "intercept_state" }, intercept_state);
-            console::register_command({ "debug", "show_state" }, show_state);
-            console::register_command({ "debug", "show_state_paths" }, show_state_paths);
+        auto on_game_ready = modloader::event_bus().register_handler(
+            ModloaderEvent::GameReady,
+            [](auto) {
+                console::register_command({"debug", "intercept_state"}, intercept_state);
+                console::register_command({"debug", "show_state"}, show_state);
+                console::register_command({"debug", "show_state_paths"}, show_state_paths);
 
-            // Bubble spawner at entrance of pools.
-            register_new_setup_redirect(std::make_pair("lumaPoolsA/interactives/stateController", 631536139), 1230316956, false);
-        });
+                // Bubble spawner at entrance of pools.
+                register_new_setup_redirect(std::make_pair("lumaPoolsA/interactives/stateController", 631536139), 1230316956, false);
+            }
+        );
     } // namespace
 
     void register_new_setup_intercept(applier_key key, applier_intercept callback) {
@@ -188,15 +192,15 @@ namespace randomizer::conditions {
     }
 
     void register_new_setup_intercept(std::vector<applier_key> const& states, applier_intercept callback) {
-        for (auto state : states)
+        for (auto state: states)
             register_new_setup_intercept(state, callback);
     }
 
     void register_new_setup_intercept(std::vector<std::string_view> const& paths, std::vector<int32_t> const& states, applier_intercept callback) {
-        for (auto path : paths) {
+        for (auto path: paths) {
             std::string spath(path);
-            for (auto state : states)
-                register_new_setup_intercept({ spath, state }, callback);
+            for (auto state: states)
+                register_new_setup_intercept({spath, state}, callback);
         }
     }
 
@@ -214,12 +218,12 @@ namespace randomizer::conditions {
     }
 
     void register_new_setup_redirect(std::vector<std::pair<applier_key, int32_t>> const& states, bool dynamic) {
-        for (auto state : states)
+        for (auto state: states)
             register_new_setup_redirect(state.first, state.second, dynamic);
     }
 
     void register_new_setup_redirect(std::string_view view, std::pair<int32_t, int32_t> const& states, bool dynamic) {
-        register_new_setup_redirect({ std::string(view), states.first }, states.second, dynamic);
+        register_new_setup_redirect({std::string(view), states.first}, states.second, dynamic);
     }
 
     void apply_all_states() {

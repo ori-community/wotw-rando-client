@@ -193,20 +193,22 @@ namespace {
 
     IL2CPP_INTERCEPT(MapmakerScreen, void, CompletePurchase, (app::MapmakerScreen *this_ptr)) {
         const auto item = MapmakerScreen::get_SelectedUpgradeItem(this_ptr);
-        if (il2cpp::unity::is_valid(item)) {
-            const auto ui_experience = il2cpp::unity::get_component_in_children<app::SpellUIExperience>(
-                il2cpp::unity::get_game_object(core::api::game::ui::get()->static_fields->SeinUI),
-                types::SpellUIExperience::get_class()
-            );
-
-            SpellUIExperience::Spend(ui_experience, MapmakerItem::GetCost(item));
-            const auto state = core::api::uber_states::UberState(item->fields.UberState);
-            state.set(state.get<int>() + 1);
-            auto sound = MapmakerScreen::get_PurchaseCompleteSound(this_ptr);
-            MenuScreen::PlaySoundEvent(reinterpret_cast<app::MenuScreen*>(this_ptr), sound);
-            this_ptr->fields._PurchasedSkillUpgrade_k__BackingField = true;
-            MapmakerScreen::UpdateContextCanvasShards(this_ptr);
-            // MenuScreenManager::HideMenuScreen(UI::get_Menu(), false, true);
+        if (!il2cpp::unity::is_valid(item)) {
+            return;
         }
+
+        const auto ui_experience = il2cpp::unity::get_component_in_children<app::SpellUIExperience>(
+            il2cpp::unity::get_game_object(core::api::game::ui::get()->static_fields->SeinUI),
+            types::SpellUIExperience::get_class()
+        );
+
+        SpellUIExperience::Spend(ui_experience, MapmakerItem::GetCost(item));
+        const auto state = core::api::uber_states::UberState(item->fields.UberState);
+        state.set(state.get<int>() + 1);
+        const auto sound = MapmakerScreen::get_PurchaseCompleteSound(this_ptr);
+        MenuScreen::PlaySoundEvent(reinterpret_cast<app::MenuScreen*>(this_ptr), sound);
+        this_ptr->fields._PurchasedSkillUpgrade_k__BackingField = true;
+        MapmakerScreen::UpdateContextCanvasShards(this_ptr);
+        // MenuScreenManager::HideMenuScreen(UI::get_Menu(), false, true);
     }
 } // namespace

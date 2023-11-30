@@ -50,20 +50,23 @@ namespace {
 
     void find_day_night(app::List_1_SetupStateModifier___Fields& modifiers, app::GameObject*& day, app::GameObject*& night) {
         for (auto i = 0; i < modifiers._size && (day == nullptr || night == nullptr); ++i) {
-            auto item = modifiers._items->vector[i];
+            const auto item = modifiers._items->vector[i];
             // #nightTime
-            if (item->fields.ModifierGUID == 0x39b90803 && can_resolve(item))
+            if (item->fields.ModifierGUID == 0x39b90803 && can_resolve(item)) {
                 night = il2cpp::invoke<app::GameObject>(item->fields.Target, "Resolve", 0);
+            }
 
             // #dayTime
-            if (item->fields.ModifierGUID == 0xb4c1c837 && can_resolve(item))
+            if (item->fields.ModifierGUID == 0xb4c1c837 && can_resolve(item)) {
                 day = il2cpp::invoke<app::GameObject>(item->fields.Target, "Resolve", 0);
+            }
         }
     }
 
     int32_t move_water(app::NewSetupStateController* this_ptr, std::string const&, int32_t state, int32_t) {
-        if (!force_drain_regen_tree_water_state.get<bool>())
+        if (!force_drain_regen_tree_water_state.get<bool>()) {
             return state;
+        }
 
         state = is_day() ? 288338807 : -1643391836;
         auto& modifiers = this_ptr->fields.StateHolder->fields.Modifiers->fields;
@@ -73,7 +76,7 @@ namespace {
         if (day != nullptr && night != nullptr) {
             auto water_in_day = false;
             auto children = il2cpp::unity::get_children(day);
-            for (auto child : children) {
+            for (auto child: children) {
                 auto name = il2cpp::unity::get_object_name(child);
                 if (name == "waterCorrupted" ||
                     name == "waterClean" ||
@@ -87,7 +90,7 @@ namespace {
             if (water_in_day && state == -1643391836) {
                 // Remove undesired objects from night.
                 children = il2cpp::unity::get_children(night);
-                for (auto child : children) {
+                for (auto child: children) {
                     auto name = il2cpp::unity::get_object_name(child);
                     if (name != "radialGlow" &&
                         name != "glows" &&
@@ -98,15 +101,15 @@ namespace {
                 }
 
                 // Move desired from day.
-                auto night_transform = UnityEngine::GameObject::get_transform(night);
+                const auto night_transform = UnityEngine::GameObject::get_transform(night);
                 children = il2cpp::unity::get_children(day);
-                for (auto child : children) {
+                for (const auto child: children) {
                     auto name = il2cpp::unity::get_object_name(child);
                     if (name == "waterCorrupted" ||
                         name == "waterClean" ||
                         name == "waterfalls" ||
                         name == "foregroundBottom") {
-                        auto child_transform = UnityEngine::GameObject::get_transform(child);
+                        const auto child_transform = UnityEngine::GameObject::get_transform(child);
                         UnityEngine::Transform::SetParent_2(child_transform, night_transform, true);
                     }
                 }
@@ -116,13 +119,13 @@ namespace {
                 // Move desired from night.
                 auto day_transform = UnityEngine::GameObject::get_transform(day);
                 children = il2cpp::unity::get_children(night);
-                for (auto child : children) {
+                for (const auto child: children) {
                     auto name = il2cpp::unity::get_object_name(child);
                     if (name == "waterCorrupted" ||
                         name == "waterClean" ||
                         name == "waterfalls" ||
                         name == "foregroundBottom") {
-                        auto child_transform = UnityEngine::GameObject::get_transform(child);
+                        const auto child_transform = UnityEngine::GameObject::get_transform(child);
                         UnityEngine::Transform::SetParent_2(child_transform, day_transform, true);
                     }
                 }
@@ -136,14 +139,14 @@ namespace {
 
     int32_t move_howl(app::NewSetupStateController* this_ptr, std::string const&, int32_t state, int32_t) {
         state = is_day() ? -1375966924 : 1361521887;
-        auto setup = il2cpp::unity::get_game_object(il2cpp::unity::get_parent(il2cpp::unity::get_transform(this_ptr)));
-        auto moki = il2cpp::unity::find_child(setup, { std::string_view("#day"), "mokiNpcSetup" });
+        const auto setup = il2cpp::unity::get_game_object(il2cpp::unity::get_parent(il2cpp::unity::get_transform(this_ptr)));
+        const auto moki = il2cpp::unity::find_child(setup, {std::string_view("#day"), "mokiNpcSetup"});
         if (il2cpp::unity::is_valid(moki)) {
             il2cpp::unity::set_parent(moki, setup);
             il2cpp::unity::set_active(moki, true);
         }
 
-        auto howl = il2cpp::unity::find_child(setup, { std::string_view("#night"), "nightcrawlerChase" });
+        const auto howl = il2cpp::unity::find_child(setup, {std::string_view("#night"), "nightcrawlerChase"});
         if (il2cpp::unity::is_valid(howl)) {
             il2cpp::unity::set_parent(howl, setup);
             il2cpp::unity::set_active(howl, true);
@@ -177,78 +180,93 @@ namespace {
         return next::PlayerAbilities::HasAbility(this_ptr, ability);
     }
 
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-        using namespace randomizer::conditions;
-        register_new_setup_intercept({ "swampTorchIntroductionA/*setups/*timesOfDay" }, { -1052258879, 1819061226 }, [](auto, auto, auto, auto) -> int32_t {
-            return is_day() ? -1052258879 : 1819061226;
-        });
+    auto on_game_ready = modloader::event_bus().register_handler(
+        ModloaderEvent::GameReady,
+        [](auto) {
+            using namespace randomizer::conditions;
+            register_new_setup_intercept(
+                {"swampTorchIntroductionA/*setups/*timesOfDay"},
+                {-1052258879, 1819061226},
+                [](auto, auto, auto, auto) -> int32_t {
+                    return is_day() ? -1052258879 : 1819061226;
+                }
+            );
 
-        register_new_setup_intercept({ "swampIntroBottom/artSetups/dayNightSetup" }, { -1815347985, -1605692968 }, [](auto, auto, auto, auto) -> int32_t {
-            return is_day() ? -1815347985 : -1605692968;
-        });
+            register_new_setup_intercept(
+                {"swampIntroBottom/artSetups/dayNightSetup"},
+                {-1815347985, -1605692968},
+                [](auto, auto, auto, auto) -> int32_t {
+                    return is_day() ? -1815347985 : -1605692968;
+                }
+            );
 
-        register_new_setup_intercept({
-                                                                 "swampIntroTop/timelines/timesOfDayTransition",
-                                                                 "shoreSearchShot/art/timesOfDayTransition",
-                                                             },
-                                                             { -598230906, -1926205078 },
-                                                             [](auto, auto, auto, auto) -> int32_t {
-                                                                 return is_day() ? -598230906 : -1926205078;
-                                                             });
+            register_new_setup_intercept(
+                {
+                    "swampIntroTop/timelines/timesOfDayTransition",
+                    "shoreSearchShot/art/timesOfDayTransition",
+                },
+                {-598230906, -1926205078},
+                [](auto, auto, auto, auto) -> int32_t {
+                    return is_day() ? -598230906 : -1926205078;
+                }
+            );
 
-        register_new_setup_intercept(
-            { "willOfTheWispsLagoonConnection/artSetups/timesOfDayTransition" },
-            { 1340727368, -76384365 },
-            [](auto, auto, auto, auto) -> int32_t {
-                return is_day() ? 1340727368 : -76384365;
-            }
-        );
+            register_new_setup_intercept(
+                {"willOfTheWispsLagoonConnection/artSetups/timesOfDayTransition"},
+                {1340727368, -76384365},
+                [](auto, auto, auto, auto) -> int32_t {
+                    return is_day() ? 1340727368 : -76384365;
+                }
+            );
 
-        register_new_setup_intercept({
-                                                                 "swampWalljumpChallengeA/*setups/*timesOfDay",
-                                                                 "swampWalljumpChallengeB/*timesOfDay",
-                                                                 "doubleJumpEscalationB__clone0/*timesOfDay",
-                                                             },
-                                                             { -1834135337, -949591271 },
-                                                             [](auto, auto, auto, auto) -> int32_t {
-                                                                 return is_day() ? -1834135337 : -949591271;
-                                                             });
+            register_new_setup_intercept(
+                {
+                    "swampWalljumpChallengeA/*setups/*timesOfDay",
+                    "swampWalljumpChallengeB/*timesOfDay",
+                    "doubleJumpEscalationB__clone0/*timesOfDay",
+                },
+                {-1834135337, -949591271},
+                [](auto, auto, auto, auto) -> int32_t {
+                    return is_day() ? -1834135337 : -949591271;
+                }
+            );
 
-        register_new_setup_intercept(
-            { "swampNightcrawlerBshortcut/*setups/timesOfDayTransition" },
-            { 1001861749, 787945376 },
-            [](auto, auto, auto, auto) -> int32_t {
-                return is_day() ? 1001861749 : 787945376;
-            }
-        );
+            register_new_setup_intercept(
+                {"swampNightcrawlerBshortcut/*setups/timesOfDayTransition"},
+                {1001861749, 787945376},
+                [](auto, auto, auto, auto) -> int32_t {
+                    return is_day() ? 1001861749 : 787945376;
+                }
+            );
 
-        // Sword Cutscene rain
-        register_new_setup_intercept(
-            { "swampGetSpiritBlade/timesOfDayController", "swampGetSpiritBlade/timesOfDayTransition" },
-            { -480342150, 907153171 },
-            [](auto, auto, auto, auto) -> int32_t {
-                return is_day() ? 907153171 : -480342150;
-            }
-        );
+            // Sword Cutscene rain
+            register_new_setup_intercept(
+                {"swampGetSpiritBlade/timesOfDayController", "swampGetSpiritBlade/timesOfDayTransition"},
+                {-480342150, 907153171},
+                [](auto, auto, auto, auto) -> int32_t {
+                    return is_day() ? 907153171 : -480342150;
+                }
+            );
 
-        // Remove regen tree water and move day water around (288338807 : day, -1643391836 : night).
-        register_new_setup_intercept({ "swampSaveRoomA/timesOfDayTransition" }, { 288338807, -1643391836 }, move_water);
+            // Remove regen tree water and move day water around (288338807 : day, -1643391836 : night).
+            register_new_setup_intercept({"swampSaveRoomA/timesOfDayTransition"}, {288338807, -1643391836}, move_water);
 
-        // Move howl between modifiers depending on if its day or night time. (-1375966924 : day, 1361521887 : night)
-        register_new_setup_intercept({ "swampNightcrawlerA/artSetups/timesOfDayTransition" }, { -1375966924, 1361521887 }, move_howl);
+            // Move howl between modifiers depending on if its day or night time. (-1375966924 : day, 1361521887 : night)
+            register_new_setup_intercept({"swampNightcrawlerA/artSetups/timesOfDayTransition"}, {-1375966924, 1361521887}, move_howl);
 
-        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampNightcrawlerCavernD/enemies/enemyActivator", &is_day_condition);
-        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampNightcrawlerCavernA/interactives/enemies/enemyActivator", &is_day_condition);
-        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampNightcrawlerA/enemies/enemyActivator", &is_day_condition);
-        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampTorchIntroductionA/enemies/activateAfterSword/enemyActivator", &is_day_condition);
-        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampTorchIntroductionA/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
-        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampWalljumpChallengeA/enemies/activateAfterSword/enemyActivator", &is_day_condition);
-        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampWalljumpChallengeA/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
-        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampWalljumpChallengeB/enemies/activateAfterSword/enemyActivator", &is_day_condition);
-        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampWalljumpChallengeB/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
-        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampIntroBottom/interactives/enemies/enemyActivator", &is_day_condition);
-        register_condition_intercept(ConditionType::SeinAbilityCondition, "swampIntroTop/enemies/activateBasedOnCondition/enemyActivator", &is_day_condition);
-        register_condition_intercept(ConditionType::SeinAbilityCondition, "willOfTheWispsLagoonConnection/enemies/activateAfterSword/enemyActivator", &is_day_condition);
-        register_condition_intercept(ConditionType::SeinAbilityCondition, "willOfTheWispsLagoonConnection/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
-    });
+            register_condition_intercept(ConditionType::SeinAbilityCondition, "swampNightcrawlerCavernD/enemies/enemyActivator", &is_day_condition);
+            register_condition_intercept(ConditionType::SeinAbilityCondition, "swampNightcrawlerCavernA/interactives/enemies/enemyActivator", &is_day_condition);
+            register_condition_intercept(ConditionType::SeinAbilityCondition, "swampNightcrawlerA/enemies/enemyActivator", &is_day_condition);
+            register_condition_intercept(ConditionType::SeinAbilityCondition, "swampTorchIntroductionA/enemies/activateAfterSword/enemyActivator", &is_day_condition);
+            register_condition_intercept(ConditionType::SeinAbilityCondition, "swampTorchIntroductionA/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
+            register_condition_intercept(ConditionType::SeinAbilityCondition, "swampWalljumpChallengeA/enemies/activateAfterSword/enemyActivator", &is_day_condition);
+            register_condition_intercept(ConditionType::SeinAbilityCondition, "swampWalljumpChallengeA/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
+            register_condition_intercept(ConditionType::SeinAbilityCondition, "swampWalljumpChallengeB/enemies/activateAfterSword/enemyActivator", &is_day_condition);
+            register_condition_intercept(ConditionType::SeinAbilityCondition, "swampWalljumpChallengeB/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
+            register_condition_intercept(ConditionType::SeinAbilityCondition, "swampIntroBottom/interactives/enemies/enemyActivator", &is_day_condition);
+            register_condition_intercept(ConditionType::SeinAbilityCondition, "swampIntroTop/enemies/activateBasedOnCondition/enemyActivator", &is_day_condition);
+            register_condition_intercept(ConditionType::SeinAbilityCondition, "willOfTheWispsLagoonConnection/enemies/activateAfterSword/enemyActivator", &is_day_condition);
+            register_condition_intercept(ConditionType::SeinAbilityCondition, "willOfTheWispsLagoonConnection/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
+        }
+    );
 } // namespace

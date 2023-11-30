@@ -67,9 +67,9 @@ namespace randomizer::features::wheel {
             std::string name = "";
             std::string description = "";
             std::shared_ptr<core::api::graphics::textures::TextureData> texture_data = nullptr;
-            app::Color color = { 1.0f, 1.0f, 1.0f, 1.0f };
+            app::Color color = {1.0f, 1.0f, 1.0f, 1.0f};
             binding_action action = nullptr;
-            std::array<wheel_callback, 3> callbacks = { nullptr, nullptr, nullptr };
+            std::array<wheel_callback, 3> callbacks = {nullptr, nullptr, nullptr};
             bool enabled = true;
         };
 
@@ -111,6 +111,7 @@ namespace randomizer::features::wheel {
         }
 
         void update_wheel_position();
+
         IL2CPP_INTERCEPT(EquipmentWheel, void, Show, (app::EquipmentWheel * this_ptr)) {
             is_wheel_visible = true;
             next::EquipmentWheel::Show(this_ptr);
@@ -148,9 +149,9 @@ namespace randomizer::features::wheel {
 
             if (!is_wheel_visible &&
                 (Game::UI::get_MainMenuVisible() ||
-                 Game::UI::get_WorldMapVisible() ||
-                 Game::UI::get_ShardShopVisible() ||
-                 Game::UI::IsInventoryVisible()))
+                    Game::UI::get_WorldMapVisible() ||
+                    Game::UI::get_ShardShopVisible() ||
+                    Game::UI::IsInventoryVisible()))
                 return false;
 
             return !is_in_trial;
@@ -204,13 +205,21 @@ namespace randomizer::features::wheel {
             }
         }
 
-        auto on_open_rando_wheel_before = randomizer::input::single_input_bus().register_handler(Action::OpenRandoWheel, EventTiming::Before, [](auto, auto) {
-            handle_custom_wheel(true);
-        });
+        auto on_open_rando_wheel_before = randomizer::input::single_input_bus().register_handler(
+            Action::OpenRandoWheel,
+            EventTiming::Before,
+            [](auto, auto) {
+                handle_custom_wheel(true);
+            }
+        );
 
-        auto on_open_rando_wheel_after = randomizer::input::single_input_bus().register_handler(Action::OpenRandoWheel, EventTiming::After, [](auto, auto) {
-            handle_custom_wheel(false);
-        });
+        auto on_open_rando_wheel_after = randomizer::input::single_input_bus().register_handler(
+            Action::OpenRandoWheel,
+            EventTiming::After,
+            [](auto, auto) {
+                handle_custom_wheel(false);
+            }
+        );
 
         bool override_set_active = false;
         bool override_set_active_value = false;
@@ -300,8 +309,8 @@ namespace randomizer::features::wheel {
                     (cursor.y >= item_bounds.m_YMin + item_bounds.m_Height))
                     continue;
 
-                app::Vector3 cursor_v3{ cursor.x, cursor.y, 0.0f };
-                app::Vector3 center_v3{ item_bounds.m_XMin + item_bounds.m_Width / 2.0f, item_bounds.m_YMin + item_bounds.m_Height / 2.0f, 0.0f };
+                app::Vector3 cursor_v3{cursor.x, cursor.y, 0.0f};
+                app::Vector3 center_v3{item_bounds.m_XMin + item_bounds.m_Width / 2.0f, item_bounds.m_YMin + item_bounds.m_Height / 2.0f, 0.0f};
                 float new_distance = UnityEngine::Vector3::Distance(center_v3, cursor_v3);
                 if (new_distance < distance) {
                     item = current_item;
@@ -436,16 +445,16 @@ namespace randomizer::features::wheel {
             }
 
             auto line_p1 = UnityEngine::Transform::get_position(il2cpp::unity::get_transform(manager));
-            app::Vector3 line_p2{ line_p1.x + axis.x / magnitude, line_p1.y + axis.y / magnitude, 0.0f };
+            app::Vector3 line_p2{line_p1.x + axis.x / magnitude, line_p1.y + axis.y / magnitude, 0.0f};
             float distance = INFINITY;
             auto closest = -1;
             auto i = 0;
 
             for (; i < manager->fields.m_menuItems->fields._size; ++i) {
-                auto item = manager->fields.m_menuItems->fields._items->vector[i];
-                auto item_bounds = CleverMenuItem::get_Bounds(item);
-                app::Vector3 center_v3{ item_bounds.m_XMin + item_bounds.m_Width / 2.0f, item_bounds.m_YMin + item_bounds.m_Height / 2.0f, 0.0f };
-                auto i_distance = MoonMath_Line::DistancePointToLine2D(line_p1, line_p2, center_v3);
+                const auto item = manager->fields.m_menuItems->fields._items->vector[i];
+                const auto item_bounds = CleverMenuItem::get_Bounds(item);
+                const app::Vector3 center_v3{item_bounds.m_XMin + item_bounds.m_Width / 2.0f, item_bounds.m_YMin + item_bounds.m_Height / 2.0f, 0.0f};
+                const auto i_distance = MoonMath_Line::DistancePointToLine2D(line_p1, line_p2, center_v3);
                 if (i_distance < distance) {
                     closest = i;
                     distance = i_distance;
@@ -546,7 +555,7 @@ namespace randomizer::features::wheel {
         }
 
         auto& entry = wheels[wheel].entries[item];
-        entry.color = app::Color{ r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f };
+        entry.color = app::Color{r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f};
         if (entry.texture_data != nullptr) {
             entry.texture_data->set_color(entry.color);
         }

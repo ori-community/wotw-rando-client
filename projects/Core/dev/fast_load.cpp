@@ -81,9 +81,7 @@ namespace {
         return;
 
         if (!ScenesManagerSettings::get_DontUnloadScenes(this_ptr->fields.Settings)) {
-            for (int i = 0; i < this_ptr->fields.ActiveScenes->fields._size; ++i) {
-                auto scene = this_ptr->fields.ActiveScenes->fields._items->vector[i];
-
+            for (auto scene: il2cpp::ListIterator(this_ptr->fields.ActiveScenes)) {
                 switch (scene->fields.SceneRoot->fields.m_state) {
                     case app::SceneState__Enum::Loading:
                         ScenesManager::CancelScene(this_ptr, scene);

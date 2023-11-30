@@ -31,11 +31,10 @@ namespace {
 
     int count_grenades(app::SeinGrenadeAttack* this_ptr) {
         auto grenade_count = 0;
-        const auto count = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_grenades, "get_Count")->fields;
-        for (auto i = 0; i < count; ++i) {
-            auto* grenade = this_ptr->fields.m_grenades->fields._items->vector[i];
-            if (!SeinGrenadeAttack::IsFracturedPiece(this_ptr, grenade))
+        for (const auto grenade: il2cpp::ListIterator(this_ptr->fields.m_grenades)) {
+            if (!SeinGrenadeAttack::IsFracturedPiece(this_ptr, grenade)) {
                 ++grenade_count;
+            }
         }
 
         return grenade_count;
@@ -69,20 +68,28 @@ namespace {
         next::SeinGrenadeAttack::Start(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinGrenadeAttack, void, SpawnGrenadeInternal, (app::SeinGrenadeAttack * this_ptr, app::Vector2 velocity, bool bashable, float damage, app::Vector3 position, bool can_fracture, bool is_fractured_piece)) {
+    IL2CPP_INTERCEPT(
+        SeinGrenadeAttack,
+        void,
+        SpawnGrenadeInternal,
+        (app::SeinGrenadeAttack * this_ptr, app::Vector2 velocity, bool bashable, float damage, app::Vector3 position, bool can_fracture, bool is_fractured_piece)
+    ) {
         const auto air_bashable = charge_in_air.get<bool>();
-        if (!is_fractured_piece && air_bashable)
+        if (!is_fractured_piece && air_bashable) {
             bashable = is_charged;
+        }
 
         next::SeinGrenadeAttack::SpawnGrenadeInternal(this_ptr, velocity, bashable, damage, position, can_fracture, is_fractured_piece);
         const auto multi_grenade = grenade_multishot.get<int>();
         if (!is_fractured_piece && multi_grenade > 0) {
-            float angle_increment = 2 * PI / multi_grenade;
+            const float angle_increment = 2 * PI / multi_grenade;
             for (int i = 0; i < multi_grenade; ++i) {
-                float angle_offset = i * angle_increment;
-                app::Vector2 new_velocity;
-                new_velocity.x = velocity.x + MULTI_GRENADE_OFFSET_MAGNITUDE * cosf(angle_offset);
-                new_velocity.y = velocity.y + MULTI_GRENADE_OFFSET_MAGNITUDE * sinf(angle_offset);
+                const float angle_offset = i * angle_increment;
+                const app::Vector2 new_velocity{
+                    .x = velocity.x + MULTI_GRENADE_OFFSET_MAGNITUDE * cosf(angle_offset),
+                    .y = velocity.y + MULTI_GRENADE_OFFSET_MAGNITUDE * sinf(angle_offset)
+                };
+
                 next::SeinGrenadeAttack::SpawnGrenadeInternal(this_ptr, new_velocity, bashable, damage, position, can_fracture, is_fractured_piece);
             }
         }
@@ -96,14 +103,13 @@ namespace {
         const auto custom_explode = extra_grenades.get<bool>();
         if (custom_explode && explode) {
             std::vector<app::IGreanade*> grenades;
-            const auto grenade_count = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_grenades, "get_Count")->fields;
-            for (auto i = 0; i < grenade_count; ++i) {
-                auto* grenade = this_ptr->fields.m_grenades->fields._items->vector[i];
-                if (!SeinGrenadeAttack::IsFracturedPiece(this_ptr, grenade))
+            for (const auto grenade: il2cpp::ListIterator(this_ptr->fields.m_grenades)) {
+                if (!SeinGrenadeAttack::IsFracturedPiece(this_ptr, grenade)) {
                     grenades.push_back(grenade);
+                }
             }
 
-            for (auto grenade : grenades) {
+            for (const auto grenade: grenades) {
                 il2cpp::invoke(grenade, "Explode");
                 il2cpp::invoke(this_ptr->fields.m_grenades, "Remove", grenade);
             }
@@ -114,8 +120,9 @@ namespace {
             grenade_limit *= grenade_multishot.get<int>() + 1;
             const auto grenade_count = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_grenades, "get_Count")->fields;
             this_ptr->fields.m_explodeWithSecondButtonPress = grenade_count >= grenade_limit;
-        } else
+        } else {
             this_ptr->fields.m_explodeWithSecondButtonPress = !custom_explode;
+        }
 
         next::SeinGrenadeAttack::UpdateNormal(this_ptr);
         explode = false;
@@ -127,8 +134,9 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinCharacter, bool, get_IsOnGround, (app::SeinCharacter * this_ptr)) {
-        if (override_on_ground)
+        if (override_on_ground) {
             return true;
+        }
 
         return next::SeinCharacter::get_IsOnGround(this_ptr);
     }

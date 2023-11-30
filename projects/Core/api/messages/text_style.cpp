@@ -66,6 +66,7 @@ namespace text_style {
     }
 
     std::unordered_set<std::string> created_styles;
+
     app::TextStyle* create_color_style(std::unordered_set<std::string>& styles, std::string_view text) {
         auto hex_style = std::format("hex_{}", text);
         auto it = styles.find(hex_style);
@@ -135,8 +136,8 @@ namespace text_style {
     void create_styles(app::TextBox* box, std::string_view text) {
         std::unordered_set<std::string> styles;
         auto style_array = box->fields.styleCollection->fields.styles;
-        for (auto i = 0; i < style_array->max_length; ++i) {
-            styles.emplace(il2cpp::convert_csstring(style_array->vector[i]->fields.name));
+        for (auto style: il2cpp::ArrayIterator(style_array)) {
+            styles.emplace(il2cpp::convert_csstring(style.name));
         }
 
         std::vector<app::TextStyle*> new_styles;

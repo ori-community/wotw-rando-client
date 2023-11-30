@@ -28,17 +28,14 @@ namespace {
 
         // Damage
         const auto damage_id = Damage::GetNewDamageID();
-
         auto* const camera = types::UI_Cameras::get_class()->static_fields->Current;
-        auto* const colliders = UnityEngine::Physics::OverlapSphere_1(source_pos, range < 0 ? 150 : range, 0xfffffff, app::QueryTriggerInteraction__Enum::Collide);
-        for (auto i = 0; i < colliders->max_length; ++i) {
-            auto* const collider = colliders->vector[i];
+        auto* colliders = UnityEngine::Physics::OverlapSphere_1(source_pos, range < 0 ? 150 : range, 0xfffffff, app::QueryTriggerInteraction__Enum::Collide);
+        for (auto collider: il2cpp::ArrayIterator(colliders)) {
             auto* const go = il2cpp::unity::get_game_object(collider);
             auto* const transform = il2cpp::unity::get_transform(go);
             const auto pos = UnityEngine::Transform::get_position(transform);
-            if (range < 0) {
-                if (!GameplayCamera::IsOnScreen(camera, pos))
-                    continue;
+            if (range < 0 && !GameplayCamera::IsOnScreen(camera, pos)) {
+                continue;
             }
 
             const auto direction = modloader::math::direction(source_pos, pos);
@@ -46,7 +43,7 @@ namespace {
             Damage::ctor(
                 damage,
                 initial_damage,
-                app::Vector2{ direction.x, direction.y },
+                app::Vector2{direction.x, direction.y},
                 source_pos,
                 app::DamageType__Enum::Blaze,
                 app::AbilityType__Enum::Blaze,
@@ -59,8 +56,8 @@ namespace {
                 2.f,
                 false
             );
-            damage->fields.DamageLayerMask = app::DamageLayerMask__Enum::EnemyAndEnvironment;
 
+            damage->fields.DamageLayerMask = app::DamageLayerMask__Enum::EnemyAndEnvironment;
             Damage::DealToComponents_1(damage, go);
         }
     }

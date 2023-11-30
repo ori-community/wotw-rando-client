@@ -169,7 +169,7 @@ namespace core::api::graphics::textures {
 
         load_texture();
         auto& collection = file_instances[path];
-        for (auto data : collection)
+        for (auto data: collection)
             if (!data.expired())
                 data.lock()->texture = texture;
     }
@@ -219,6 +219,7 @@ namespace core::api::graphics::textures {
     app::GameObject* texture_holder = nullptr;
     constexpr int HOLDER_SIZE = 500;
     int texture_count_0 = 0;
+
     app::GameObject* get_or_create_texture_holder() {
         if (texture_holder != nullptr)
             return texture_holder;
@@ -237,8 +238,9 @@ namespace core::api::graphics::textures {
     void dont_unload_texture(app::Texture* texture) {
         auto go = get_or_create_texture_holder();
         auto holder = il2cpp::unity::get_component<app::SpiritShardUIShardBackdrop>(go, types::SpiritShardUIShardBackdrop::get_class());
-        if (texture_count_0 >= HOLDER_SIZE)
+        if (texture_count_0 >= HOLDER_SIZE) {
             return;
+        }
 
         holder->fields.Socket_0->vector[texture_count_0++] = texture;
     }
@@ -246,8 +248,9 @@ namespace core::api::graphics::textures {
     void clear_holder() {
         auto go = get_or_create_texture_holder();
         auto holder = il2cpp::unity::get_component<app::SpiritShardUIShardBackdrop>(go, types::SpiritShardUIShardBackdrop::get_class());
-        for (auto i = 0; i < HOLDER_SIZE; ++i)
+        for (auto i = 0; i < HOLDER_SIZE; ++i) {
             holder->fields.Socket_0->vector[i] = nullptr;
+        }
     }
 
     void TextureData::load_texture() {
@@ -256,8 +259,9 @@ namespace core::api::graphics::textures {
             auto separator = path.find(':', 0);
             auto type = std::string(path.substr(0, separator));
             auto value = std::string(path.substr(separator + 1));
-            if (type.empty())
+            if (type.empty()) {
                 return;
+            }
 
             if (type == "shard") {
                 auto actual_value = static_cast<app::SpiritShardType__Enum>(std::stoi(value));
@@ -430,7 +434,7 @@ namespace core::api::graphics::textures {
 
         files.clear();
 
-        for (auto collection : file_instances) {
+        for (auto collection: file_instances) {
             for (auto it = collection.second.begin(); it != collection.second.end(); ++it) {
                 if ((*it).expired()) {
                     continue;

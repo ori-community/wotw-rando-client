@@ -354,8 +354,9 @@ namespace il2cpp {
         std::vector<app::Component_1*> get_components_untyped(app::GameObject* game_object, Il2CppClass* klass) {
             std::vector<app::Component_1*> components;
             auto c_array = UnityEngine::GameObject::GetComponents_1(game_object, get_runtime_type(klass));
-            for (auto i = 0; i < c_array->max_length; ++i)
-                components.push_back(reinterpret_cast<app::Component_1*>(c_array->vector[i]));
+            for (auto component: ArrayIterator(c_array)) {
+                components.push_back(component);
+            }
 
             return components;
         }
@@ -363,14 +364,15 @@ namespace il2cpp {
         std::vector<app::Component_1*> get_components_in_children_untyped(app::GameObject* game_object, Il2CppClass* klass, bool include_inactive) {
             std::vector<app::Component_1*> components;
             auto c_array = UnityEngine::GameObject::GetComponentsInChildren_2(game_object, get_runtime_type(klass), include_inactive);
-            for (auto i = 0; i < c_array->max_length; ++i)
-                components.push_back(reinterpret_cast<app::Component_1*>(c_array->vector[i]));
+            for (auto component: ArrayIterator(c_array)) {
+                components.push_back(component);
+            }
 
             return components;
         }
 
         app::Component_1* get_component_in_children_untyped(app::GameObject* game_object, Il2CppClass* klass, bool include_inactive) {
-            return reinterpret_cast<app::Component_1*>(UnityEngine::GameObject::GetComponentInChildren_1(game_object, get_runtime_type(klass), include_inactive));
+            return UnityEngine::GameObject::GetComponentInChildren_1(game_object, get_runtime_type(klass), include_inactive);
         }
 
         app::ScriptableObject* create_scriptable_object_untyped(Il2CppClass* klass) {
@@ -435,8 +437,9 @@ namespace il2cpp {
             auto boxed = types::Scene::box(scene);
             if (UnityEngine::SceneManagement::Scene::get_isLoaded(boxed)) {
                 auto game_objects = UnityEngine::SceneManagement::Scene::GetRootGameObjects_1(boxed);
-                for (auto i = 0; i < game_objects->max_length; ++i)
-                    output.push_back(game_objects->vector[i]);
+                for (auto go: ArrayIterator(game_objects)) {
+                    output.push_back(go);
+                }
             }
 
             return output;
