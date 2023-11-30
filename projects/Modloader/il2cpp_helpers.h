@@ -535,7 +535,7 @@ namespace il2cpp {
         struct ArrayIteratorState {
             using iterator_category = std::contiguous_iterator_tag;
             using difference_type = std::ptrdiff_t;
-            using value_type = std::remove_reference_t<decltype(ArrayType::fields.vector[0])>;
+            using value_type = std::remove_reference_t<decltype(ArrayType::vector[0])>;
             using pointer = value_type*;
             using reference = value_type&;
 

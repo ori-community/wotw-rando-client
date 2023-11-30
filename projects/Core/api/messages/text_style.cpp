@@ -137,7 +137,7 @@ namespace text_style {
         std::unordered_set<std::string> styles;
         auto style_array = box->fields.styleCollection->fields.styles;
         for (auto style: il2cpp::ArrayIterator(style_array)) {
-            styles.emplace(il2cpp::convert_csstring(style.name));
+            styles.emplace(il2cpp::convert_csstring(style->fields.name));
         }
 
         std::vector<app::TextStyle*> new_styles;
