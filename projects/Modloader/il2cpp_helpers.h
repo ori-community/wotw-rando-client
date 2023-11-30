@@ -64,8 +64,6 @@ namespace il2cpp {
 
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
 
-    IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring_fast(app::String* str);
-
     namespace unity {
         IL2CPP_MODLOADER_DLLEXPORT bool is_valid(void* obj);
     }
