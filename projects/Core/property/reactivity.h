@@ -2,6 +2,8 @@
 
 #include <variant>
 #include <memory>
+#include <unordered_set>
+#include <functional>
 #include <xhash>
 
 #include <Core/macros.h>
@@ -22,53 +24,11 @@ namespace core::reactivity {
         auto operator<=>(const TextDatabaseDependency&) const = default;
     };
 
-    using OnChangedCallback = std::function<void()>;
     using Dependency = std::variant<
         UberStateDependency,
         TextDatabaseDependency
     >;
-
-    /**
-     * \brief Start a new tracking context which tracks dependencies until `pop_tracking_context` is called.
-     */
-    CORE_DLLEXPORT void push_tracking_context();
-
-
-    /**
-     * \brief Stop the current tracking context
-     * \param on_changed_callback Callback to run when any dependency changed
-     */
-    CORE_DLLEXPORT void pop_tracking_context(const std::shared_ptr<OnChangedCallback>& on_changed_callback);
-
-    /**
-     * \brief Notify the reactivity systen that a dependency was used
-     * \param dependency The Dependency being used
-     */
-    CORE_DLLEXPORT void notify_used(const Dependency& dependency);
-
-    /**
-     * \brief Notify the reactivity system that a dependency changed
-     * \param dependency The dependency that changed
-     */
-    CORE_DLLEXPORT void notify_changed(const Dependency& dependency);
 }
-
-struct WeakPtrCompare {
-    bool operator() (const std::weak_ptr<core::reactivity::OnChangedCallback> &lhs, const std::weak_ptr<core::reactivity::OnChangedCallback> &rhs)const {
-        const auto left_ptr = lhs.lock();
-        const auto right_ptr = rhs.lock();
-
-        if (!right_ptr) {
-            return false; // nothing after expired pointer
-        }
-
-        if (!left_ptr) {
-            return true; // every not expired after expired pointer
-        }
-
-        return &(*left_ptr) < &(*right_ptr);
-    }
-};
 
 template <>
     struct std::hash<core::reactivity::UberStateDependency> {
@@ -84,3 +44,51 @@ template <>
     }
 };
 
+namespace core::reactivity {
+    struct ReactiveEffect {
+        std::unordered_set<Dependency> dependencies;
+        std::function<void()> effect_function;
+    };
+
+    template<typename T>
+    std::pair<T, std::shared_ptr<ReactiveEffect>> watch_effect(const std::function<T()>& effect_function) {
+        T output;
+
+        std::shared_ptr<ReactiveEffect> ref = watch_effect([&output, &effect_function] {
+            output = watch_effect(effect_function);
+        });
+
+        return std::make_pair(output, ref);
+    }
+
+    CORE_DLLEXPORT std::shared_ptr<ReactiveEffect> watch_effect(const std::function<void()>& compute_function);
+
+    /**
+     * \brief Notify the reactivity systen that a dependency was used
+     * \param dependency The Dependency being used
+     */
+    CORE_DLLEXPORT void notify_used(const Dependency& dependency);
+
+    /**
+     * \brief Notify the reactivity system that a dependency changed
+     * \param dependency The dependency that changed
+     */
+    CORE_DLLEXPORT void notify_changed(const Dependency& dependency);
+}
+
+struct WeakPtrCompare {
+    bool operator()(const std::weak_ptr<core::reactivity::ReactiveEffect>&lhs, const std::weak_ptr<core::reactivity::ReactiveEffect>&rhs) const {
+        const auto left_ptr = lhs.lock();
+        const auto right_ptr = rhs.lock();
+
+        if (!right_ptr) {
+            return false; // nothing after expired pointer
+        }
+
+        if (!left_ptr) {
+            return true; // every not expired after expired pointer
+        }
+
+        return &(*left_ptr) < &(*right_ptr);
+    }
+};

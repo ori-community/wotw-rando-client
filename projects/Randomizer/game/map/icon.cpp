@@ -166,17 +166,10 @@ namespace randomizer::game::map {
     void Icon::label(const std::string& value) {
         m_label.set(value.empty() ? " " : value);
         if (m_game_object != nullptr) {
-            // TODO: Once we have added support for adding Property as dependencies, move this to initialize_game_object.
-            m_on_text_changed = std::make_shared<std::function<void()>>(
-                [&] {
-                    m_map_icon->fields.m_labelBox->fields.MessageProvider = core::api::system::create_message_provider(m_label.get());
-                    MessageBox::RefreshText_1(m_map_icon->fields.m_labelBox);
-                }
-            );
-
-            core::reactivity::push_tracking_context();
-            (*m_on_text_changed)();
-            core::reactivity::pop_tracking_context(m_on_text_changed);
+            m_text_reactive_effect = core::reactivity::watch_effect([&] {
+                m_map_icon->fields.m_labelBox->fields.MessageProvider = core::api::system::create_message_provider(m_label.get());
+                MessageBox::RefreshText_1(m_map_icon->fields.m_labelBox);
+            });
         }
     }
 

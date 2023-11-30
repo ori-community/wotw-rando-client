@@ -58,11 +58,10 @@ namespace {
     struct TrialMessageBoxRef {
         SpiritTrialLocation location;
         il2cpp::WeakGCRef<app::MessageBox> message_box;
-        std::shared_ptr<std::function<void()>> reactivity_callback;
+        std::shared_ptr<core::reactivity::ReactiveEffect> reactive_effect;
 
         void update_message_box() {
             randomizer::game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, get_event_uber_state_for_spirit_trial(location)), 0);
-
             const auto text = get_text_for_spirit_trial(location);
             text_style::create_styles((*message_box)->fields.TextBox, text);
             (*message_box)->fields.MessageProvider = core::api::system::create_message_provider(text);
@@ -168,29 +167,28 @@ namespace {
             message_box->fields.TextBox->fields.alignment = app::AlignmentMode__Enum::Center;
             message_box->fields.TextBox->fields.horizontalAnchor = app::HorizontalAnchorMode__Enum::Center;
 
+
+
             trial_text_boxes.insert_or_assign(location.value(), TrialMessageBoxRef {
                 .location = location.value(),
                 .message_box = il2cpp::WeakGCRef(message_box),
-                .reactivity_callback = std::make_shared<std::function<void()>>([location]() {
-                    const auto ref_it = trial_text_boxes.find(location.value());
-                    if (ref_it == trial_text_boxes.end()) {
-                        return;
-                    }
-
-                    auto ref = ref_it->second;
-
-                    if (ref.message_box.is_valid()) {
-                        ref.update_message_box();
-                    } else {
-                        trial_text_boxes.erase(location.value());
-                    }
-                })
             });
 
             auto& box = trial_text_boxes.at(location.value());
-            core::reactivity::push_tracking_context();
-            box.update_message_box();
-            core::reactivity::pop_tracking_context(box.reactivity_callback);
+            box.reactive_effect = core::reactivity::watch_effect([location] {
+                const auto ref_it = trial_text_boxes.find(location.value());
+                if (ref_it == trial_text_boxes.end()) {
+                    return;
+                }
+
+                auto ref = ref_it->second;
+
+                if (ref.message_box.is_valid()) {
+                    ref.update_message_box();
+                } else {
+                    trial_text_boxes.erase(location.value());
+                }
+            });
         }
     }
 }

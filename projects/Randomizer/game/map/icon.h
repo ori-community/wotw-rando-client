@@ -7,6 +7,8 @@
 
 #include <Randomizer/game/map/filter.h>
 
+#include "Core/property/reactivity.h"
+
 namespace randomizer::game::map {
     struct Icon {
         explicit Icon(FilterFlag filter_mask);
@@ -53,7 +55,7 @@ namespace randomizer::game::map {
     private:
         void initialize_game_object();
 
-        std::shared_ptr<std::function<void()>> m_on_text_changed;
+        std::shared_ptr<core::reactivity::ReactiveEffect> m_text_reactive_effect;
         core::Property<std::string> m_label;
 
         std::string m_name;

@@ -1,10 +1,12 @@
+#include <Core/property/reactivity.h>
 #include <functional>
 #include <set>
-#include <Core/property/reactivity.h>
 #include <unordered_set>
 
 #include <Modloader/app/methods/UberGCManager.h>
 #include <Modloader/interception_macros.h>
+
+#include "id_registry.h"
 
 namespace core::reactivity {
     struct TrackingContext {
@@ -12,20 +14,39 @@ namespace core::reactivity {
     };
 
     std::vector<TrackingContext> active_tracking_contexts;
-    std::unordered_map<Dependency, std::set<std::weak_ptr<OnChangedCallback>, WeakPtrCompare>> watchers;
+    std::unordered_map<Dependency, std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare>> effects_by_dependency;
 
+    /**
+     * \brief Start a new tracking context which tracks dependencies until `pop_tracking_context` is called.
+     */
     void push_tracking_context() {
         active_tracking_contexts.emplace_back();
     }
 
-    void pop_tracking_context(const std::shared_ptr<OnChangedCallback>& on_changed_callback) {
+    /**
+     * \brief Stop the current tracking context
+     * \param ref The ComputedRef dependencies should get inserted into
+     */
+    void pop_tracking_context(const std::shared_ptr<ReactiveEffect>& ref) {
         for (const auto& [dependencies] : active_tracking_contexts) {
             for (const auto& dependency : dependencies) {
-                watchers[dependency].emplace(std::weak_ptr(on_changed_callback));
+                effects_by_dependency[dependency].emplace(std::weak_ptr(ref));
+                ref->dependencies.insert(dependency);
             }
         }
 
         active_tracking_contexts.pop_back();
+    }
+
+    std::shared_ptr<ReactiveEffect> watch_effect(const std::function<void()>& compute_function) {
+        auto effect = std::make_shared<ReactiveEffect>();
+        effect->effect_function = compute_function;
+
+        push_tracking_context();
+        compute_function();
+        pop_tracking_context(effect);
+
+        return effect;
     }
 
     void notify_used(const Dependency& dependency) {
@@ -37,16 +58,14 @@ namespace core::reactivity {
     }
 
     void notify_changed(const Dependency& dependency) {
-        auto set = watchers[dependency];
-        for (auto it = set.begin(); it != set.end(); ++it) {
-            auto ptr = *it;
-
-            if (!ptr.expired()) {
-                auto callback = ptr.lock();
+        const auto refs = effects_by_dependency[dependency];
+        for (const auto & ref_ptr : refs) {
+            if (!ref_ptr.expired()) {
+                auto effect = ref_ptr.lock();
 
                 push_tracking_context();
-                (*callback)();
-                pop_tracking_context(callback);
+                effect->effect_function();
+                pop_tracking_context(effect);
             }
         }
     }
@@ -55,23 +74,23 @@ namespace core::reactivity {
      * \brief Garbage collect any expired callback and remove them from the watchers
      */
     void garbage_collect() {
-        auto watcher_it = watchers.begin();
+        auto effect_collection_it = effects_by_dependency.begin();
 
-        while (watcher_it != watchers.end()) {
-            auto set_it = watcher_it->second.begin();
+        while (effect_collection_it != effects_by_dependency.end()) {
+            auto effects_it = effect_collection_it->second.begin();
 
-            while (set_it != watcher_it->second.end()) {
-                if (set_it->expired()) {
-                    set_it = watcher_it->second.erase(set_it);
+            while (effects_it != effect_collection_it->second.end()) {
+                if (effects_it->expired()) {
+                    effects_it = effect_collection_it->second.erase(effects_it);
                 } else {
-                    ++set_it;
+                    ++effects_it;
                 }
             }
 
-            if (watcher_it->second.empty()) {
-                watcher_it = watchers.erase(watcher_it);
+            if (effect_collection_it->second.empty()) {
+                effect_collection_it = effects_by_dependency.erase(effect_collection_it);
             } else {
-                ++watcher_it;
+                ++effect_collection_it;
             }
         }
     }
