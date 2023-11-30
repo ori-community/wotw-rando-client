@@ -1,62 +1,76 @@
-#include <macros.h>
 #include <settings.h>
 
 #include <Common/settings_reader.h>
 
 #include <Modloader/modloader.h>
 
-#include <INIReader.h>
-#include <memory>
 #include <variant>
+#include <nlohmann/json.hpp>
 
 namespace core::settings {
     namespace {
-        std::unique_ptr<INIReader> reader = nullptr;
-
         using key = std::pair<std::string, std::string>;
         using values = std::variant<bool, int, float, std::string>;
         std::unordered_map<key, values, pair_hash> overrides;
 
-        INIReader& get_settings() {
-            if (reader == nullptr) {
-                reader = read_utf8_ini((modloader::base_path() / "settings.ini").string());
+        nlohmann::json const& get_settings(const bool force_reload = false) {
+            static nlohmann::json json;
+            if (force_reload || json.empty()) {
+                std::ifstream settings_file(modloader::base_path() / "settings.json");
+                if (settings_file.is_open()) {
+                    try {
+                        json = nlohmann::json::parse(settings_file);
+                    } catch (...) {
+                    }
+                }
             }
 
-            return *reader;
+            return json;
         }
 
         bool get_boolean(std::string_view section, std::string_view name, bool default_value) {
-            const auto it = overrides.find(key{ section, name });
-            return it == overrides.end()
-                ? get_settings().GetBoolean(section.data(), name.data(), default_value)
-                : std::get<bool>(it->second);
+            const auto it = overrides.find(key{section, name});
+            const nlohmann::json_pointer<std::string> path(std::format("/{}/{}", section, name));
+            return it != overrides.end()
+                ? std::get<bool>(it->second)
+                : get_settings().contains(path)
+                ? get_settings().at(path).get<bool>()
+                : default_value;
         }
 
         int get_int(std::string_view section, std::string_view name, int default_value) {
-            const auto it = overrides.find(key{ section, name });
-            return it == overrides.end()
-                ? get_settings().GetInteger(section.data(), name.data(), default_value)
-                : std::get<int>(it->second);
+            const auto it = overrides.find(key{section, name});
+            const nlohmann::json_pointer<std::string> path(std::format("/{}/{}", section, name));
+            return it != overrides.end()
+                ? std::get<int>(it->second)
+                : get_settings().contains(path)
+                ? get_settings().at(path).get<int>()
+                : default_value;
         }
 
         float get_float(std::string_view section, std::string_view name, float default_value) {
-            const auto it = overrides.find(key{ section, name });
-            return it == overrides.end()
-                ? get_settings().GetReal(section.data(), name.data(), default_value)
-                : std::get<float>(it->second);
+            const auto it = overrides.find(key{section, name});
+            const nlohmann::json_pointer<std::string> path(std::format("/{}/{}", section, name));
+            return it != overrides.end()
+                ? std::get<float>(it->second)
+                : get_settings().contains(path)
+                ? get_settings().at(path).get<float>()
+                : default_value;
         }
 
         std::string get_string(std::string_view section, std::string_view name, std::string const& default_value) {
-            const auto it = overrides.find(key{ section, name });
-            return it == overrides.end()
-                ? get_settings().GetString(section.data(), name.data(), default_value)
-                : std::get<std::string>(it->second);
+            const auto it = overrides.find(key{section, name});
+            const nlohmann::json_pointer<std::string> path(std::format("/{}/{}", section, name));
+            return it != overrides.end()
+                ? std::get<std::string>(it->second)
+                : get_settings().contains(path)
+                ? get_settings().at(path).get<std::string>()
+                : default_value;
         }
     } // namespace
 
     void reload() {
-        reader = nullptr;
-        get_settings();
+        get_settings(true);
     }
 
     bool dev_mode() {
@@ -110,12 +124,15 @@ namespace core::settings {
     bool burrow_mouse_control() {
         return get_boolean("Flags", "BurrowMouseControl", false);
     }
+
     bool grapple_mouse_control() {
         return get_boolean("Flags", "GrappleMouseControl", false);
     }
+
     bool water_dash_mouse_control() {
         return get_boolean("Flags", "WaterDashMouseControl", false);
     }
+
     bool invert_swim() {
         return get_boolean("Flags", "InvertSwim", false);
     }
@@ -157,104 +174,104 @@ namespace core::settings {
     }
 
     std::string ori_model_texture() {
-        return get_settings().GetString("Paths", "OriModelTexture", "");
+        return get_string("Paths", "OriModelTexture", "");
     }
 
     std::string ori_model_emissivity_mask_texture() {
-        return get_settings().GetString("Paths", "OriModelEmissivityMaskTexture", "");
+        return get_string("Paths", "OriModelEmissivityMaskTexture", "");
     }
 
     // Set overrides
 
     void dev_mode(bool value) {
-        overrides[key{ "Flags", "Dev" }] = value;
+        overrides[key{"Flags", "Dev"}] = value;
     }
 
     void cursor_locked(bool value) {
-        overrides[key{ "Flags", "CursorLock" }] = value;
+        overrides[key{"Flags", "CursorLock"}] = value;
     }
 
     void netcode_disabled(bool value) {
-        overrides[key{ "Flags", "DisableNetcode" }] = value;
+        overrides[key{"Flags", "DisableNetcode"}] = value;
     }
 
     void insecure(bool value) {
-        overrides[key{ "Flags", "Insecure" }] = value;
+        overrides[key{"Flags", "Insecure"}] = value;
     }
 
     void host(std::string value) {
-        overrides[key{ "Paths", "Host" }] = value;
+        overrides[key{"Paths", "Host"}] = value;
     }
 
     void udp_port(int value) {
-        overrides[key{ "Paths", "UdpPort" }] = value;
+        overrides[key{"Paths", "UdpPort"}] = value;
     }
 
     void start_in_logic_filter(bool value) {
-        overrides[key{ "Flags", "SelectInLogicFilterByDefault" }] = value;
+        overrides[key{"Flags", "SelectInLogicFilterByDefault"}] = value;
     }
 
     void hide_quest_filter(bool value) {
-        overrides[key{ "Flags", "HideQuestFilter" }] = value;
+        overrides[key{"Flags", "HideQuestFilter"}] = value;
     }
 
     void hide_warp_filter(bool value) {
-        overrides[key{ "Flags", "HideWarpFilter" }] = value;
+        overrides[key{"Flags", "HideWarpFilter"}] = value;
     }
 
     void hide_collectible_filter(bool value) {
-        overrides[key{ "Flags", "HideCollectableFilter" }] = value;
+        overrides[key{"Flags", "HideCollectableFilter"}] = value;
     }
 
     void burrow_mouse_control(bool value) {
-        overrides[key{ "Flags", "BurrowMouseControl" }] = value;
+        overrides[key{"Flags", "BurrowMouseControl"}] = value;
     }
 
     void grapple_mouse_control(bool value) {
-        overrides[key{ "Flags", "GrappleMouseControl" }] = value;
+        overrides[key{"Flags", "GrappleMouseControl"}] = value;
     }
 
     void water_dash_mouse_control(bool value) {
-        overrides[key{ "Flags", "WaterDashMouseControl" }] = value;
+        overrides[key{"Flags", "WaterDashMouseControl"}] = value;
     }
 
     void invert_swim(bool value) {
-        overrides[key{ "Flags", "InvertSwim" }] = value;
+        overrides[key{"Flags", "InvertSwim"}] = value;
     }
 
     void autoaim(bool value) {
-        overrides[key{ "Flags", "DisableAutoaim" }] = value;
+        overrides[key{"Flags", "DisableAutoaim"}] = value;
     }
 
     void show_secrets(bool value) {
-        overrides[key{ "Flags", "DisableShowSecrets" }] = !value;
+        overrides[key{"Flags", "DisableShowSecrets"}] = !value;
     }
 
     void always_show_warps(bool value) {
-        overrides[key{ "Flags", "AlwaysShowWarps" }] = value;
+        overrides[key{"Flags", "AlwaysShowWarps"}] = value;
     }
 
     void always_show_keystone_doors(bool value) {
-        overrides[key{ "Flags", "AlwaysShowKeystoneDoors" }] = value;
+        overrides[key{"Flags", "AlwaysShowKeystoneDoors"}] = value;
     }
 
     void always_show_keystones(bool value) {
-        overrides[key{ "Flags", "AlwaysShowKeystones" }] = value;
+        overrides[key{"Flags", "AlwaysShowKeystones"}] = value;
     }
 
     void world_map_enabled(bool value) {
-        overrides[key{ "Flags", "WorldMapEnabled" }] = value;
+        overrides[key{"Flags", "WorldMapEnabled"}] = value;
     }
 
     void map_icon_transparency(float value) {
-        overrides[key{ "Flags", "MapIconTransparency" }] = value;
+        overrides[key{"Flags", "MapIconTransparency"}] = value;
     }
 
     void camera_shake_intensity(float value) {
-        overrides[key{ "Flags", "CameraShakeIntensity" }] = value;
+        overrides[key{"Flags", "CameraShakeIntensity"}] = value;
     }
 
     void shriek_is_shrek(bool value) {
-        overrides[key{ "Flags", "ShriekIsShrek" }] = value;
+        overrides[key{"Flags", "ShriekIsShrek"}] = value;
     }
 } // namespace core::settings
