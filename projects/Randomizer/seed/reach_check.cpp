@@ -15,6 +15,8 @@
 
 namespace randomizer::seed {
     namespace {
+        const std::string seedgen_interop_dll_file = "seedgen_interop.dll";
+
         struct ReachCheckRequest {
             float health;
             float energy;
@@ -90,7 +92,7 @@ namespace randomizer::seed {
         }
 
         void handle_requests() {
-            auto handle = modloader::win::bootstrap::load_library(modloader::base_path() / "wotw_seedgen_c_interop.dll");
+            auto handle = modloader::win::bootstrap::load_library(modloader::base_path() / seedgen_interop_dll_file);
             if (!handle) {
                 return;
             }
