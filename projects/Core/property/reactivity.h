@@ -10,7 +10,7 @@
 
 #include <Core/enums/static_text_entries.h>
 
-#include "Common/event_bus.h"
+#include <Common/event_bus.h>
 
 namespace core::reactivity {
     struct UberStateDependency {
@@ -39,22 +39,22 @@ namespace core::reactivity {
     >;
 }
 
-template <>
-    struct std::hash<core::reactivity::UberStateDependency> {
+template<>
+struct std::hash<core::reactivity::UberStateDependency> {
     std::size_t operator()(const core::reactivity::UberStateDependency& value) const noexcept {
         return value.group * 1000000000 + value.state;
     }
 };
 
-template <>
-    struct std::hash<core::reactivity::TextDatabaseDependency> {
+template<>
+struct std::hash<core::reactivity::TextDatabaseDependency> {
     std::size_t operator()(const core::reactivity::TextDatabaseDependency& value) const noexcept {
         return value.id;
     }
 };
 
-template <>
-    struct std::hash<core::reactivity::PropertyDependency> {
+template<>
+struct std::hash<core::reactivity::PropertyDependency> {
     std::size_t operator()(const core::reactivity::PropertyDependency& value) const noexcept {
         return value.id;
     }
@@ -63,22 +63,82 @@ template <>
 namespace core::reactivity {
     struct ReactiveEffect {
         std::unordered_set<dependency_t> dependencies;
+        std::function<void()> pre_function;
         std::function<void()> effect_function;
-        common::TimedEventBus<void> on_change;
+        std::function<void()> post_function;
     };
 
-    template<typename T>
-    std::pair<T, std::shared_ptr<ReactiveEffect>> watch_effect(const std::function<T()>& effect_function) {
-        T output;
-
-        std::shared_ptr<ReactiveEffect> ref = watch_effect([&output, &effect_function] {
-            output = watch_effect(effect_function);
-        });
-
-        return std::make_pair(output, ref);
+    namespace internal {
+        class Pre;
+        class Effect;
+        class Post;
+        class Finalizer;
     }
 
-    CORE_DLLEXPORT std::shared_ptr<ReactiveEffect> watch_effect(const std::function<void()>& compute_function);
+    CORE_DLLEXPORT internal::Pre watch_effect();
+
+    namespace internal {
+        class CORE_DLLEXPORT Finalizer {
+        public:
+            friend class Post;
+
+            std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
+
+        private:
+            explicit Finalizer(const std::shared_ptr<ReactiveEffect>& effect) :
+                m_effect(effect) {
+            }
+
+            std::shared_ptr<ReactiveEffect> m_effect;
+        };
+
+        class CORE_DLLEXPORT Post {
+        public:
+            friend class Effect;
+
+            Finalizer post(const std::function<void()>& func) const;
+
+            std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
+
+        private:
+            explicit Post(const std::shared_ptr<ReactiveEffect>& effect) :
+                m_effect(effect) {
+            }
+
+            std::shared_ptr<ReactiveEffect> m_effect;
+        };
+
+        class CORE_DLLEXPORT Effect {
+        public:
+            friend class Pre;
+
+            Post on(const std::function<void()>& func) const;
+
+            std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
+
+        private:
+            explicit Effect(const std::shared_ptr<ReactiveEffect>& effect) :
+                m_effect(effect) {
+            }
+
+            std::shared_ptr<ReactiveEffect> m_effect;
+        };
+
+        class CORE_DLLEXPORT Pre {
+        public:
+            friend Pre reactivity::watch_effect();
+
+            Effect pre(const std::function<void()>& func) const;
+
+            Post on(const std::function<void()>& func) const;
+
+        private:
+            Pre() {
+            }
+
+            std::shared_ptr<ReactiveEffect> m_effect;
+        };
+    }
 
     /**
      * \brief Notify the reactivity systen that a dependency was used
@@ -100,7 +160,7 @@ namespace core::reactivity {
 }
 
 struct WeakPtrCompare {
-    bool operator()(const std::weak_ptr<core::reactivity::ReactiveEffect>&lhs, const std::weak_ptr<core::reactivity::ReactiveEffect>&rhs) const {
+    bool operator()(const std::weak_ptr<core::reactivity::ReactiveEffect>& lhs, const std::weak_ptr<core::reactivity::ReactiveEffect>& rhs) const {
         const auto left_ptr = lhs.lock();
         const auto right_ptr = rhs.lock();
 

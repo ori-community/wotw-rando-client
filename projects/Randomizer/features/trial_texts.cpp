@@ -168,27 +168,31 @@ namespace {
             message_box->fields.TextBox->fields.horizontalAnchor = app::HorizontalAnchorMode__Enum::Center;
 
 
-
-            trial_text_boxes.insert_or_assign(location.value(), TrialMessageBoxRef {
-                .location = location.value(),
-                .message_box = il2cpp::WeakGCRef(message_box),
-            });
+            trial_text_boxes.insert_or_assign(
+                location.value(),
+                TrialMessageBoxRef{
+                    .location = location.value(),
+                    .message_box = il2cpp::WeakGCRef(message_box),
+                }
+            );
 
             auto& box = trial_text_boxes.at(location.value());
-            box.reactive_effect = core::reactivity::watch_effect([location] {
-                const auto ref_it = trial_text_boxes.find(location.value());
-                if (ref_it == trial_text_boxes.end()) {
-                    return;
-                }
+            box.reactive_effect = core::reactivity::watch_effect().on(
+                [location] {
+                    const auto ref_it = trial_text_boxes.find(location.value());
+                    if (ref_it == trial_text_boxes.end()) {
+                        return;
+                    }
 
-                auto ref = ref_it->second;
+                    auto ref = ref_it->second;
 
-                if (ref.message_box.is_valid()) {
-                    ref.update_message_box();
-                } else {
-                    trial_text_boxes.erase(location.value());
+                    if (ref.message_box.is_valid()) {
+                        ref.update_message_box();
+                    } else {
+                        trial_text_boxes.erase(location.value());
+                    }
                 }
-            });
+            ).finalize();
         }
     }
 }

@@ -29,8 +29,8 @@ namespace core::reactivity {
      * \param ref The ComputedRef dependencies should get inserted into
      */
     void pop_tracking_context(const std::shared_ptr<ReactiveEffect>& ref) {
-        for (const auto& [dependencies] : active_tracking_contexts) {
-            for (const auto& dependency : dependencies) {
+        for (const auto& [dependencies]: active_tracking_contexts) {
+            for (const auto& dependency: dependencies) {
                 effects_by_dependency[dependency].emplace(std::weak_ptr(ref));
                 ref->dependencies.insert(dependency);
             }
@@ -39,15 +39,36 @@ namespace core::reactivity {
         active_tracking_contexts.pop_back();
     }
 
-    std::shared_ptr<ReactiveEffect> watch_effect(const std::function<void()>& compute_function) {
-        auto effect = std::make_shared<ReactiveEffect>();
-        effect->effect_function = compute_function;
+    internal::Finalizer internal::Post::post(const std::function<void()>& func) const {
+        m_effect->post_function = func;
+        func();
+        return Finalizer(m_effect);
+    }
+
+    internal::Post internal::Effect::on(const std::function<void()>& func) const {
+        m_effect->effect_function = func;
 
         push_tracking_context();
-        compute_function();
-        pop_tracking_context(effect);
+        func();
+        pop_tracking_context(m_effect);
 
-        return effect;
+        return Post(m_effect);
+    }
+
+    internal::Post internal::Pre::on(const std::function<void()>& func) const {
+        return Effect(m_effect).on(func);
+    }
+
+    internal::Effect internal::Pre::pre(const std::function<void()>& func) const {
+        m_effect->pre_function = func;
+        func();
+        return Effect(m_effect);
+    }
+
+    internal::Pre watch_effect() {
+        internal::Pre pre;
+        pre.m_effect = std::make_shared<ReactiveEffect>();
+        return pre;
     }
 
     void notify_used(const dependency_t& dependency) {
@@ -60,15 +81,15 @@ namespace core::reactivity {
 
     void notify_changed(const dependency_t& dependency) {
         const auto refs = effects_by_dependency[dependency];
-        for (const auto & ref_ptr : refs) {
+        for (const auto& ref_ptr: refs) {
             if (!ref_ptr.expired()) {
                 auto effect = ref_ptr.lock();
 
-                effect->on_change.trigger_event(EventTiming::Before);
+                effect->pre_function();
                 push_tracking_context();
                 effect->effect_function();
                 pop_tracking_context(effect);
-                effect->on_change.trigger_event(EventTiming::After);
+                effect->post_function();
             }
         }
     }
