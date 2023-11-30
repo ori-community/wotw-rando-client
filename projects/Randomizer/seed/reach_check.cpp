@@ -107,8 +107,12 @@ namespace randomizer::seed {
 
             thread_is_running = true;
             while (!modloader::shutdown_requested) {
-                auto request = requests.dequeue();
+                auto request_optional = requests.dequeue();
+                if (modloader::shutdown_requested) {
+                    break;
+                }
 
+                auto request = request_optional.value();
                 std::vector<const char*> nodes;
                 for (auto const& node: request.nodes) {
                     nodes.push_back(node.c_str());
@@ -266,4 +270,14 @@ namespace randomizer::seed {
             requests.enqueue(request);
         }
     }
+
+    auto on_shutdown = modloader::event_bus().register_handler(
+        ModloaderEvent::Shutdown,
+        [](auto) {
+            if (request_thread.joinable()) {
+                requests.interrupt();
+                request_thread.join();
+            }
+        }
+    );
 } // namespace randomizer::seed

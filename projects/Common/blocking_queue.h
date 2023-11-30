@@ -5,19 +5,23 @@
 #include <queue>
 
 namespace common {
-    template <class T>
+    template<class T>
     class BlockingQueue {
     public:
         void enqueue(T value) {
-            std::lock_guard<std::mutex> lock(m_mutex);
+            std::lock_guard lock(m_mutex);
             m_queue.push(value);
             m_condition.notify_one();
         }
 
-        T dequeue() {
-            std::unique_lock<std::mutex> lock(m_mutex);
+        std::optional<T> dequeue() {
+            std::unique_lock lock(m_mutex);
             while (m_queue.empty()) {
                 m_condition.wait(lock);
+                if (m_interrupted) {
+                    m_interrupted = false;
+                    return std::nullopt;
+                }
             }
 
             T value = m_queue.front();
@@ -25,9 +29,15 @@ namespace common {
             return value;
         }
 
+        void interrupt() {
+            m_interrupted = true;
+            m_condition.notify_all();
+        }
+
     private:
         std::queue<T> m_queue;
         mutable std::mutex m_mutex;
         std::condition_variable m_condition;
+        bool m_interrupted = false;
     };
 } // namespace common

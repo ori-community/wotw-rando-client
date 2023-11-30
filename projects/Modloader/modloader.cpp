@@ -148,15 +148,14 @@ namespace modloader {
         interception::interception_init();
 
         il2cpp::load_all_types();
-
         event_bus().trigger_event(ModloaderEvent::InjectionComplete);
-
         on_initialization_complete();
 
         while (!shutdown_requested) {
             win::console::console_poll();
         }
 
+        event_bus().trigger_event(ModloaderEvent::Shutdown);
         modloader::win::console::console_free();
         if (write_to_csv) {
             csv_file.close();
@@ -182,8 +181,9 @@ namespace modloader {
         app::classes::J2i::Net::XInputWrapper::XboxController::StopPolling();
         wait_for_exit.acquire();
         interception::interception_detach();
-        win::bootstrap::bootstrap_shutdown();
-        win::common::free_library_and_exit_thread("Modloader.dll");
+        // TODO: Make these not do weird things to our memory. (Crashes with a DEP violation)
+        //win::bootstrap::bootstrap_shutdown();
+        //win::common::free_library_and_exit_thread("Modloader.dll");
     }
 
     bool initialized = false;

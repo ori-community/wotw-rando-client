@@ -55,7 +55,7 @@ namespace core::ipc {
 
                 std::scoped_lock lock(incoming_messages_mutex);
                 incoming_messages.push_back(std::move(message));
-            } catch (std::exception &ex) {
+            } catch (std::exception& ex) {
                 warn("ipc", "Error parsing ipc message.");
                 info("ipc", ex.what());
             }
@@ -69,14 +69,14 @@ namespace core::ipc {
             std::vector<nlohmann::json> local_outgoing_messages;
             outgoing_messages_mutex.lock();
             local_outgoing_messages.insert(
-                    local_outgoing_messages.end(),
-                    outgoing_messages.begin(),
-                    outgoing_messages.end()
+                local_outgoing_messages.end(),
+                outgoing_messages.begin(),
+                outgoing_messages.end()
             );
             outgoing_messages.clear();
             outgoing_messages_mutex.unlock();
 
-            for (const auto &message: local_outgoing_messages) {
+            for (const auto& message: local_outgoing_messages) {
                 if (shutdown_ipc_thread) {
                     break;
                 }
@@ -101,15 +101,18 @@ namespace core::ipc {
             }
         }
 
-        auto start_ipc_threads = event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
-            shutdown_ipc_thread = false;
+        auto start_ipc_threads = event_bus().register_handler(
+            ModloaderEvent::InjectionComplete,
+            [](auto) {
+                shutdown_ipc_thread = false;
 
-            context = std::make_unique<zmq::context_t>();
+                context = std::make_unique<zmq::context_t>();
 
-            if (zmq_thread == nullptr) {
-                zmq_thread = std::make_unique<std::thread>(zmq_thread_fn);
+                if (zmq_thread == nullptr) {
+                    zmq_thread = std::make_unique<std::thread>(zmq_thread_fn);
+                }
             }
-        });
+        );
 
         std::unordered_map<std::string, request_handler> handlers;
 
@@ -126,7 +129,7 @@ namespace core::ipc {
                 incoming_messages.erase(incoming_messages.begin(), incoming_messages.begin() + message_count);
             }
 
-            for (auto const &j: local_messages) {
+            for (auto const& j: local_messages) {
                 auto it = handlers.find(j.at("method").get<std::string>());
                 if (it != handlers.end()) {
                     it->second(j);
@@ -137,7 +140,7 @@ namespace core::ipc {
         }
     } // namespace
 
-    void send_message(const nlohmann::json &message) {
+    void send_message(const nlohmann::json& message) {
         std::scoped_lock lock(outgoing_messages_mutex);
         outgoing_messages.push_back(message);
         outgoing_messages_semaphore.release();
@@ -147,7 +150,7 @@ namespace core::ipc {
         handlers[std::string(name)] = handler;
     }
 
-    nlohmann::json respond_to(const nlohmann::json &request) {
+    nlohmann::json respond_to(const nlohmann::json& request) {
         nlohmann::json response;
         response["type"] = "response";
         response["id"] = request.at("id").get<int>();
@@ -163,6 +166,8 @@ namespace core::ipc {
 
     void on_shutdown(GameEvent game_event, EventTiming timing) {
         shutdown_ipc_thread = true;
+        zmq_thread->join();
+        zmq_thread = nullptr;
 
         if (socket) {
             socket->set(zmq::sockopt::linger, 0);
