@@ -3,7 +3,6 @@
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/property.h>
-#include <Core/enums/static_text_entries.h>
 #include <Core/text/text_database.h>
 
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
@@ -13,7 +12,9 @@
 #include <Modloader/app/methods/MapmakerUIDetails.h>
 #include <Modloader/app/methods/MapmakerUIItem.h>
 #include <Modloader/app/methods/MapmakerUISubItem.h>
+#include <Modloader/app/methods/MenuScreen.h>
 #include <Modloader/app/methods/MessageBox.h>
+#include <Modloader/app/methods/SpellUIExperience.h>
 #include <Modloader/app/methods/UberShaderAPI.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/types/CleverMenuItem.h>
@@ -21,12 +22,13 @@
 #include <Modloader/app/types/MapmakerUISubItem.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/Renderer.h>
+#include <Modloader/app/types/SpellUIExperience.h>
 #include <Modloader/app/types/TextBox.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
-#include <unordered_map>
+#include <Core/api/game/ui.h>
 
 namespace {
     using namespace modloader;
@@ -41,18 +43,17 @@ namespace {
 
     IL2CPP_INTERCEPT(MapmakerUISubItem, void, UpdateUpgradeIcon, (app::MapmakerUISubItem * this_ptr)) {
         const auto slot = lupo_shop().slot(this_ptr->fields.m_upgradeItem->fields.UberState);
-        const auto &[name, description, icon] = slot->active_info();
+        const auto& [name, description, icon] = slot->active_info();
         const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
         if (icon != nullptr) {
             icon->apply(renderer);
-        }
-        else {
+        } else {
             core::api::graphics::textures::apply_default(renderer);
-            UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum::MainTexture, reinterpret_cast<app::Texture *>(this_ptr->fields.m_upgradeItem->fields.Icon));
+            UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum::MainTexture, reinterpret_cast<app::Texture*>(this_ptr->fields.m_upgradeItem->fields.Icon));
         }
     }
 
-    bool show_hint(app::MapmakerScreen *screen, app::MessageProvider *provider) {
+    bool show_hint(app::MapmakerScreen* screen, app::MessageProvider* provider) {
         const auto klass = types::Input_Cmd::get_class();
         const auto selected = klass->static_fields->MenuSelect;
         if (!selected->fields.IsPressed && selected->fields.WasPressed && selected->fields.Used) {
@@ -122,7 +123,7 @@ namespace {
         const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
 
         const auto slot = lupo_shop().slot(item->fields.UberState);
-        const auto &[name, description, icon] = slot->active_info();
+        const auto& [name, description, icon] = slot->active_info();
         icon->apply(renderer);
 
         auto can_afford = false;
@@ -154,7 +155,7 @@ namespace {
 
     IL2CPP_INTERCEPT(MapmakerUIItem, void, UpdateMapmakerItem, (app::MapmakerUIItem * this_ptr, app::MapmakerItem* item)) {
         const auto slot = lupo_shop().slot(this_ptr->fields.m_upgradeItem->fields.UberState);
-        const auto &[name, description, icon] = slot->active_info();
+        const auto& [name, description, icon] = slot->active_info();
 
         const auto value = core::api::uber_states::UberState(this_ptr->fields.m_upgradeItem->fields.UberState).get<int>();
         const auto can_afford = il2cpp::unity::is_valid(item) && core::api::game::player::spirit_light().get() >= MapmakerItem::GetCost(item);
@@ -188,5 +189,24 @@ namespace {
             item,
             nullptr
         );
+    }
+
+    IL2CPP_INTERCEPT(MapmakerScreen, void, CompletePurchase, (app::MapmakerScreen *this_ptr)) {
+        const auto item = MapmakerScreen::get_SelectedUpgradeItem(this_ptr);
+        if (il2cpp::unity::is_valid(item)) {
+            const auto ui_experience = il2cpp::unity::get_component_in_children<app::SpellUIExperience>(
+                il2cpp::unity::get_game_object(core::api::game::ui::get()->static_fields->SeinUI),
+                types::SpellUIExperience::get_class()
+            );
+
+            SpellUIExperience::Spend(ui_experience, MapmakerItem::GetCost(item));
+            const auto state = core::api::uber_states::UberState(item->fields.UberState);
+            state.set(state.get<int>() + 1);
+            auto sound = MapmakerScreen::get_PurchaseCompleteSound(this_ptr);
+            MenuScreen::PlaySoundEvent(reinterpret_cast<app::MenuScreen*>(this_ptr), sound);
+            this_ptr->fields._PurchasedSkillUpgrade_k__BackingField = true;
+            MapmakerScreen::UpdateContextCanvasShards(this_ptr);
+            // MenuScreenManager::HideMenuScreen(UI::get_Menu(), false, true);
+        }
     }
 } // namespace
