@@ -64,7 +64,7 @@ namespace core::reactivity {
     struct ReactiveEffect {
         std::unordered_set<dependency_t> dependencies;
         std::function<void()> effect_function;
-        common::EventBus<void> on_changed;
+        common::TimedEventBus<void> on_change;
     };
 
     template<typename T>

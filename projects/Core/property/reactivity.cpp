@@ -64,10 +64,11 @@ namespace core::reactivity {
             if (!ref_ptr.expired()) {
                 auto effect = ref_ptr.lock();
 
+                effect->on_change.trigger_event(EventTiming::Before);
                 push_tracking_context();
                 effect->effect_function();
                 pop_tracking_context(effect);
-                effect->on_changed.trigger_event();
+                effect->on_change.trigger_event(EventTiming::After);
             }
         }
     }
