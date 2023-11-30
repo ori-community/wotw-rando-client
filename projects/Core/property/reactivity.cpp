@@ -13,15 +13,22 @@ namespace core::reactivity {
         std::unordered_set<dependency_t> dependencies;
     };
 
-    unsigned int next_property_id = 0;
-    std::vector<TrackingContext> active_tracking_contexts;
-    std::unordered_map<dependency_t, std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare>> effects_by_dependency;
+    struct DependencyTracker {
+        unsigned int next_property_id = 0;
+        std::vector<TrackingContext> active_tracking_contexts;
+        std::unordered_map<dependency_t, std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare>> effects_by_dependency;
+    };
+
+    auto& dependency_tracker() {
+        static DependencyTracker tracker;
+        return tracker;
+    }
 
     /**
      * \brief Start a new tracking context which tracks dependencies until `pop_tracking_context` is called.
      */
     void push_tracking_context() {
-        active_tracking_contexts.emplace_back();
+        dependency_tracker().active_tracking_contexts.emplace_back();
     }
 
     /**
@@ -29,14 +36,14 @@ namespace core::reactivity {
      * \param ref The ComputedRef dependencies should get inserted into
      */
     void pop_tracking_context(const std::shared_ptr<ReactiveEffect>& ref) {
-        for (const auto& [dependencies]: active_tracking_contexts) {
+        for (const auto& [dependencies]: dependency_tracker().active_tracking_contexts) {
             for (const auto& dependency: dependencies) {
-                effects_by_dependency[dependency].emplace(std::weak_ptr(ref));
+                dependency_tracker().effects_by_dependency[dependency].emplace(std::weak_ptr(ref));
                 ref->dependencies.insert(dependency);
             }
         }
 
-        active_tracking_contexts.pop_back();
+        dependency_tracker().active_tracking_contexts.pop_back();
     }
 
     builder::FinalizeOnlyBuilder builder::AfterEffectBuilder::after(const std::function<void()>& func) const {
@@ -76,15 +83,21 @@ namespace core::reactivity {
     }
 
     void notify_used(const dependency_t& dependency) {
-        if (active_tracking_contexts.empty()) {
+        if (dependency_tracker().active_tracking_contexts.empty()) {
             return;
         }
 
-        active_tracking_contexts.back().dependencies.emplace(dependency);
+        dependency_tracker().active_tracking_contexts.back().dependencies.emplace(dependency);
     }
 
     void notify_changed(const dependency_t& dependency) {
-        const auto refs = effects_by_dependency[dependency];
+        const auto refs_it = dependency_tracker().effects_by_dependency.find(dependency);
+
+        if (refs_it == dependency_tracker().effects_by_dependency.end()) {
+            return;
+        }
+
+        const auto refs = refs_it->second;
         for (const auto& ref_ptr: refs) {
             if (!ref_ptr.expired()) {
                 auto effect = ref_ptr.lock();
@@ -99,16 +112,16 @@ namespace core::reactivity {
     }
 
     unsigned int reserve_property_id() {
-        return ++next_property_id;
+        return ++dependency_tracker().next_property_id;
     }
 
     /**
      * \brief Garbage collect any expired callback and remove them from the watchers
      */
     void garbage_collect() {
-        auto effect_collection_it = effects_by_dependency.begin();
+        auto effect_collection_it = dependency_tracker().effects_by_dependency.begin();
 
-        while (effect_collection_it != effects_by_dependency.end()) {
+        while (effect_collection_it != dependency_tracker().effects_by_dependency.end()) {
             auto effects_it = effect_collection_it->second.begin();
 
             while (effects_it != effect_collection_it->second.end()) {
@@ -120,7 +133,7 @@ namespace core::reactivity {
             }
 
             if (effect_collection_it->second.empty()) {
-                effect_collection_it = effects_by_dependency.erase(effect_collection_it);
+                effect_collection_it = dependency_tracker().effects_by_dependency.erase(effect_collection_it);
             } else {
                 ++effect_collection_it;
             }
