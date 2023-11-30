@@ -21,6 +21,7 @@ namespace core::settings {
                     try {
                         json = nlohmann::json::parse(settings_file);
                     } catch (...) {
+                        modloader::error("settings", "Failed to parse settings");
                     }
                 }
             }
@@ -33,7 +34,7 @@ namespace core::settings {
             const nlohmann::json_pointer<std::string> path(std::format("/{}/{}", section, name));
             return it != overrides.end()
                 ? std::get<bool>(it->second)
-                : get_settings().contains(path)
+                : get_settings().contains(path) && get_settings().at(path).is_boolean()
                 ? get_settings().at(path).get<bool>()
                 : default_value;
         }
@@ -43,7 +44,7 @@ namespace core::settings {
             const nlohmann::json_pointer<std::string> path(std::format("/{}/{}", section, name));
             return it != overrides.end()
                 ? std::get<int>(it->second)
-                : get_settings().contains(path)
+                : get_settings().contains(path) && get_settings().at(path).is_number_integer()
                 ? get_settings().at(path).get<int>()
                 : default_value;
         }
@@ -53,7 +54,7 @@ namespace core::settings {
             const nlohmann::json_pointer<std::string> path(std::format("/{}/{}", section, name));
             return it != overrides.end()
                 ? std::get<float>(it->second)
-                : get_settings().contains(path)
+                : get_settings().contains(path) && get_settings().at(path).is_number_float()
                 ? get_settings().at(path).get<float>()
                 : default_value;
         }
@@ -63,7 +64,7 @@ namespace core::settings {
             const nlohmann::json_pointer<std::string> path(std::format("/{}/{}", section, name));
             return it != overrides.end()
                 ? std::get<std::string>(it->second)
-                : get_settings().contains(path)
+                : get_settings().contains(path) && get_settings().at(path).is_string()
                 ? get_settings().at(path).get<std::string>()
                 : default_value;
         }
