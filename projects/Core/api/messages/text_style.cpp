@@ -1,10 +1,7 @@
 #include "text_style.h"
 
-#include <Core/api/game/player.h>
-#include <Core/macros.h>
 #include <Modloader/app/types/TextStyle.h>
 #include <Modloader/il2cpp_helpers.h>
-#include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
 #include <Common/ext.h>
@@ -121,7 +118,7 @@ namespace text_style {
         }
 
         char* out = nullptr;
-        auto line_scale = std::strtod(text.data(), &out);
+        auto line_scale = std::strtof(text.data(), &out);
         if (out != text.data() + text.size()) {
             return nullptr;
         }
