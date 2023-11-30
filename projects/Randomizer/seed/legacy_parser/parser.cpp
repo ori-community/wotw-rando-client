@@ -38,14 +38,14 @@
 namespace randomizer::seed::legacy_parser {
     using location_type = core::api::uber_states::UberStateCondition;
     // Hacky way to do it, but can't be bothered to pass it all the way down.
-    location_data::LocationCollection const *current_location_data = nullptr;
+    location_data::LocationCollection const* current_location_data = nullptr;
 
     struct ParserData {
-        Seed::Data &data;
-        ItemData &location_data;
+        Seed::Data& data;
+        ItemData& location_data;
         int items_added;
-        int &next_location_id;
-        int &next_procedure_id;
+        int& next_location_id;
+        int& next_procedure_id;
         bool should_add_to_always_granted;
         bool should_add_default_messages;
 
@@ -56,7 +56,7 @@ namespace randomizer::seed::legacy_parser {
             ++items_added;
             entry->seed_line_number = line_number;
             entry->seed_definition = item_definition;
-            auto &collection = should_add_to_always_granted ? location_data.always_granted_items : location_data.items;
+            auto& collection = should_add_to_always_granted ? location_data.always_granted_items : location_data.items;
             collection[next_location_id++] = std::move(entry);
         }
     };
@@ -118,28 +118,28 @@ namespace randomizer::seed::legacy_parser {
         AppendString = 30,
     };
 
-    void set_location(items::Message *message, location_type const &location) {
-        auto const &location_data = current_location_data->location(location);
+    void set_location(items::Message* message, location_type const& location) {
+        auto const& location_data = current_location_data->location(location);
         if (location_data.has_value() && location_data.value().position.has_value()) {
             const auto [x, y] = location_data.value().position.value();
             message->info.pickup_position = app::Vector3{x, y, 0};
         }
     }
 
-    bool parse_action(location_type const &location, std::span<std::string> parts, ParserData &data);
+    bool parse_action(location_type const& location, std::span<std::string> parts, ParserData& data);
 
-    std::string concatenate_parts(std::span<std::string> const &parts) {
+    std::string concatenate_parts(std::span<std::string> const& parts) {
         return std::accumulate(
             parts.begin(),
             parts.end(),
             std::string(),
-            [](std::string const &ss, std::string const &s) {
+            [](std::string const& ss, std::string const& s) {
                 return ss.empty() ? s : std::format("{}|{}", ss, s);
             }
         );
     }
 
-    void parse_parts(const std::string_view str, std::vector<std::string> &parts) {
+    void parse_parts(const std::string_view str, std::vector<std::string>& parts) {
         enum class ReadMode { Normal, Ptr };
 
         std::string next;
@@ -150,16 +150,13 @@ namespace randomizer::seed::legacy_parser {
             if (mode == ReadMode::Normal && c == '|') {
                 parts.push_back(next);
                 next.clear();
-            }
-            else if (mode == ReadMode::Normal && c == '$' && stream.peek() == '(') {
+            } else if (mode == ReadMode::Normal && c == '$' && stream.peek() == '(') {
                 mode = ReadMode::Ptr;
                 next += c;
-            }
-            else if (mode == ReadMode::Ptr && c == ')') {
+            } else if (mode == ReadMode::Ptr && c == ')') {
                 mode = ReadMode::Normal;
                 next += c;
-            }
-            else {
+            } else {
                 next += c;
             }
 
@@ -169,7 +166,7 @@ namespace randomizer::seed::legacy_parser {
         parts.push_back(next);
     }
 
-    bool parse_spirit_light(location_type const &location, std::span<std::string> parts, ParserData &data) {
+    bool parse_spirit_light(location_type const& location, std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -214,7 +211,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_resource(location_type const &location, std::span<std::string> parts, ParserData &data) {
+    bool parse_resource(location_type const& location, std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -304,7 +301,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_ability(location_type const &location, std::span<std::string> parts, ParserData &data) {
+    bool parse_ability(location_type const& location, std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -340,7 +337,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_shard(location_type const &location, std::span<std::string> parts, ParserData &data) {
+    bool parse_shard(location_type const& location, std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -377,7 +374,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_stop_if(std::span<std::string> parts, ParserData &data, BooleanOperator op) {
+    bool parse_stop_if(std::span<std::string> parts, ParserData& data, BooleanOperator op) {
         int group;
         int state;
         double value;
@@ -388,7 +385,8 @@ namespace randomizer::seed::legacy_parser {
         const auto stop_condition = core::api::uber_states::UberStateCondition{{group, state}, op, value};
         const auto stop = std::make_shared<items::Empty>();
         stop->stop.assign(
-            [](auto) {},
+            [](auto) {
+            },
             [stop_condition]() { return stop_condition.resolve(); }
         );
 
@@ -397,10 +395,10 @@ namespace randomizer::seed::legacy_parser {
     }
 
     bool parse_grant_if_state( // NOLINT
-        location_type const &location,
-        core::api::uber_states::UberState const &state,
+        location_type const& location,
+        core::api::uber_states::UberState const& state,
         std::span<std::string> parts,
-        ParserData &data,
+        ParserData& data,
         BooleanOperator op) {
         if (parts.size() < 2) {
             return false;
@@ -437,9 +435,9 @@ namespace randomizer::seed::legacy_parser {
     }
 
     bool parse_grant_if( // NOLINT
-        location_type const &location,
+        location_type const& location,
         std::span<std::string> parts,
-        ParserData &data,
+        ParserData& data,
         BooleanOperator op) {
         if (parts.size() < 2) {
             return false;
@@ -456,9 +454,9 @@ namespace randomizer::seed::legacy_parser {
     }
 
     bool parse_grant_if_bounds( // NOLINT
-        location_type const &location,
+        location_type const& location,
         std::span<std::string> parts,
-        ParserData &data) {
+        ParserData& data) {
         if (parts.size() < 4) {
             return false;
         }
@@ -500,7 +498,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_save(std::span<std::string> parts, ParserData &data, bool checkpoint) {
+    bool parse_save(std::span<std::string> parts, ParserData& data, bool checkpoint) {
         const auto caller = std::make_shared<items::Call>();
         if (!checkpoint) {
             caller->description = "do save";
@@ -509,8 +507,7 @@ namespace randomizer::seed::legacy_parser {
                     core::api::game::save();
                 }
             };
-        }
-        else {
+        } else {
             caller->description = "do checkpoint";
             caller->func = []() {
                 if (core::api::game::can_save()) {
@@ -523,7 +520,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_warp(std::span<std::string> parts, ParserData &data) {
+    bool parse_warp(std::span<std::string> parts, ParserData& data) {
         if (parts.size() < 2) {
             return false;
         }
@@ -540,7 +537,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_timer(std::span<std::string> parts, ParserData &data, bool start) {
+    bool parse_timer(std::span<std::string> parts, ParserData& data, bool start) {
         if (parts.size() < 2) {
             return false;
         }
@@ -559,7 +556,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_redirect_state(std::span<std::string> parts, ParserData &data) {
+    bool parse_redirect_state(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 3) {
             return false;
         }
@@ -578,7 +575,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_bind(std::span<std::string> parts, ParserData &data) {
+    bool parse_bind(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 2) {
             return false;
         }
@@ -606,7 +603,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_unbind(std::span<std::string> parts, ParserData &data) {
+    bool parse_unbind(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -628,7 +625,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_sync(std::span<std::string> parts, ParserData &data, bool unsyncable) {
+    bool parse_sync(std::span<std::string> parts, ParserData& data, bool unsyncable) {
         if (parts.size() != 2) {
             return false;
         }
@@ -647,7 +644,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_create_warp(std::span<std::string> parts, ParserData &data) {
+    bool parse_create_warp(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 4) {
             return false;
         }
@@ -665,7 +662,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_destroy_warp(std::span<std::string> parts, ParserData &data) {
+    bool parse_destroy_warp(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -679,7 +676,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_string(std::span<std::string> parts, ParserData &data, bool append) {
+    bool parse_string(std::span<std::string> parts, ParserData& data, bool append) {
         if (parts.size() < 2) {
             return false;
         }
@@ -711,7 +708,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_input_action(std::span<std::string> parts, ParserData &data) {
+    bool parse_input_action(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -727,7 +724,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_sys_command(location_type const &location, std::span<std::string> parts, ParserData &data) {
+    bool parse_sys_command(location_type const& location, std::span<std::string> parts, ParserData& data) {
         // NOLINT
         int sys_command_int;
         if (!string_convert(parts[0], sys_command_int)) {
@@ -810,7 +807,7 @@ namespace randomizer::seed::legacy_parser {
         }
     }
 
-    bool parse_teleporter(location_type const &location, std::span<std::string> parts, ParserData &data) {
+    bool parse_teleporter(location_type const& location, std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -866,7 +863,7 @@ namespace randomizer::seed::legacy_parser {
                 break;
             case 10:
                 assigner->variable.assign(core::api::uber_states::UberState(20120, 49994));
-                teleporter_name = "Central Wastes";
+                teleporter_name = "Wastes";
                 break;
             case 11:
                 assigner->variable.assign(core::api::uber_states::UberState(20120, 41398));
@@ -882,7 +879,7 @@ namespace randomizer::seed::legacy_parser {
                 break;
             case 2: {
                 assigner->variable.assign(core::api::uber_states::UberState(945, 58183));
-                teleporter_name = "Central Luma";
+                teleporter_name = "Central Pools";
                 if (should_add) {
                     auto lower_water = std::make_shared<items::ValueModifier<bool, items::ValueOperator::Assign>>();
                     lower_water->variable.assign(core::api::uber_states::UberState(5377, 63173));
@@ -893,7 +890,7 @@ namespace randomizer::seed::legacy_parser {
             }
             case 13:
                 assigner->variable.assign(core::api::uber_states::UberState(1370, 61594));
-                teleporter_name = "Luma Boss";
+                teleporter_name = "Pools Boss";
                 break;
             case 15:
                 assigner->variable.assign(core::api::uber_states::UberState(16155, 50867));
@@ -927,37 +924,30 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_message(location_type const &location, std::span<std::string> parts, ParserData &data) {
+    bool parse_message(location_type const& location, std::span<std::string> parts, ParserData& data) {
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
         message->info.duration = 4;
         std::string text;
-        for (const auto &part: parts) {
+        for (const auto& part: parts) {
             if (part.starts_with("f=")) {
                 if (int frames; string_convert(part.substr(2), frames)) {
                     message->info.duration = static_cast<float>(frames) / 60.f;
                 }
-            }
-            else if (part.starts_with("p=")) {
+            } else if (part.starts_with("p=")) {
                 // Not used anymore.
-            }
-            else if (part == "noclear") {
+            } else if (part == "noclear") {
                 // Not used anymore.
-            }
-            else if (part == "quiet") {
+            } else if (part == "quiet") {
                 message->info.play_sound = false;
-            }
-            else if (part == "instant" || part == "prioritized") {
+            } else if (part == "instant" || part == "prioritized") {
                 message->info.prioritized = true;
-            }
-            else if (part == "nofade") {
+            } else if (part == "nofade") {
                 message->info.instant_fade = true;
-            }
-            else if (part == "prepend") {
+            } else if (part == "prepend") {
                 // Not used anymore.
-            }
-            else {
+            } else {
                 if (!text.empty()) {
                     text += "|";
                 }
@@ -975,7 +965,7 @@ namespace randomizer::seed::legacy_parser {
     std::regex ptr_regex(R"(\$\(([0-9]+)\|([0-9]+)\))");
     std::regex range_regex(R"(\[([^,\]]+),([^,\]]+)\])");
 
-    bool gen_from_frag(const std::string &frag, core::Property<double> &value) {
+    bool gen_from_frag(const std::string& frag, core::Property<double>& value) {
         std::smatch results;
         if (std::regex_match(frag, results, ptr_regex)) {
             int group;
@@ -983,13 +973,11 @@ namespace randomizer::seed::legacy_parser {
             string_convert(results[1].str(), group);
             string_convert(results[2].str(), state);
             value.assign(core::api::uber_states::UberState(group, state));
-        }
-        else {
+        } else {
             double constant_value;
             if (string_convert(frag, constant_value)) {
                 value.set(constant_value);
-            }
-            else {
+            } else {
                 return false;
             }
         }
@@ -997,7 +985,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_uber_state(std::span<std::string> parts, ParserData &data) {
+    bool parse_uber_state(std::span<std::string> parts, ParserData& data) {
         if (parts.size() < 4 || parts.size() > 5) {
             return false;
         }
@@ -1054,40 +1042,35 @@ namespace randomizer::seed::legacy_parser {
                     setter->value.assign(setget);
                     setter->should_skip_grants = should_skip;
                     data.add_item(setter);
-                }
-                else {
+                } else {
                     auto setter = std::make_shared<items::ValueModifier<double, items::ValueOperator::Sub>>();
                     setter->variable.assign(core::api::uber_states::UberState(group, state));
                     setter->value.assign(setget);
                     setter->should_skip_grants = should_skip;
                     data.add_item(setter);
                 }
-            }
-            else {
+            } else {
                 auto setter = std::make_shared<items::ValueModifier<double, items::ValueOperator::Add>>();
                 setter->variable.assign(core::api::uber_states::UberState(group, state));
                 setter->value.assign(setget);
                 setter->should_skip_grants = should_skip;
                 data.add_item(setter);
             }
-        }
-        else if (is_modifier) {
+        } else if (is_modifier) {
             if (negative) {
                 auto setter = std::make_shared<items::ValueModifier<double, items::ValueOperator::Sub>>();
                 setter->should_skip_grants = should_skip;
                 setter->variable.assign(core::api::uber_states::UberState(group, state));
                 gen_from_frag(parts[3], setter->value);
                 data.add_item(setter);
-            }
-            else {
+            } else {
                 auto setter = std::make_shared<items::ValueModifier<double, items::ValueOperator::Add>>();
                 setter->should_skip_grants = should_skip;
                 setter->variable.assign(core::api::uber_states::UberState(group, state));
                 gen_from_frag(parts[3], setter->value);
                 data.add_item(setter);
             }
-        }
-        else {
+        } else {
             auto setter = std::make_shared<items::ValueModifier<double, items::ValueOperator::Assign>>();
             setter->should_skip_grants = should_skip;
             setter->variable.assign(core::api::uber_states::UberState(group, state));
@@ -1098,7 +1081,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_quest_event(location_type const &location, std::span<std::string> parts, ParserData &data) {
+    bool parse_quest_event(location_type const& location, std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -1147,7 +1130,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_bonus_item(location_type const &location, std::span<std::string> parts, ParserData &data) {
+    bool parse_bonus_item(location_type const& location, std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -1235,7 +1218,7 @@ namespace randomizer::seed::legacy_parser {
         }
     }
 
-    bool parse_weapon_upgrade(location_type const &location, std::span<std::string> parts, ParserData &data) {
+    bool parse_weapon_upgrade(location_type const& location, std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -1315,7 +1298,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_relic(location_type const &location, std::span<std::string> parts, ParserData &data) {
+    bool parse_relic(location_type const& location, std::span<std::string> parts, ParserData& data) {
         if (parts.size() > 2) {
             return false;
         }
@@ -1328,7 +1311,7 @@ namespace randomizer::seed::legacy_parser {
 
         const auto message = std::make_shared<items::Message>();
         message->should_save_as_last = true;
-        auto &relics = data.data.relics;
+        auto& relics = data.data.relics;
         message->info.text.assign(
             [](auto) {
             },
@@ -1337,7 +1320,11 @@ namespace randomizer::seed::legacy_parser {
 
         set_location(message.get(), location);
         data.add_item(message);
-        data.location_data.names.emplace_back([](auto){}, [&relics, location]() { return std::string(relics.relic_name(location)); });
+        data.location_data.names.emplace_back(
+            [](auto) {
+            },
+            [&relics, location]() { return std::string(relics.relic_name(location)); }
+        );
 
         return true;
     }
@@ -1348,7 +1335,7 @@ namespace randomizer::seed::legacy_parser {
      * \param data
      * \return
      */
-    bool parse_sys_message(const std::span<std::string> parts, ParserData &data) {
+    bool parse_sys_message(const std::span<std::string> parts, ParserData& data) {
         int sys_message_type;
         if (!string_convert(parts[0], sys_message_type)) {
             return false;
@@ -1446,12 +1433,16 @@ namespace randomizer::seed::legacy_parser {
 
                 auto counter = std::make_shared<items::CountingMessage>();
                 for (auto it = pieces.begin(); it != pieces.end(); it += 2) {
-                    auto &target = counter->targets.emplace_back();
+                    auto& target = counter->targets.emplace_back();
                     core::api::uber_states::parse_condition(std::span<std::string>(it, 2), target);
                 }
 
                 data.add_item(counter);
-                data.location_data.names.emplace_back([](auto){}, [counter]() { return counter->message_text(); });
+                data.location_data.names.emplace_back(
+                    [](auto) {
+                    },
+                    [counter]() { return counter->message_text(); }
+                );
                 break;
             }
             case 5: {
@@ -1470,7 +1461,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_wheel_name(std::span<std::string> parts, ParserData &data) {
+    bool parse_wheel_name(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 3) {
             return false;
         }
@@ -1482,7 +1473,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         const auto caller = std::make_shared<items::Call>();
-        auto &name = parts[2];
+        auto& name = parts[2];
         caller->description = std::format("wheel item {}:{} set name {}", wheel, item, name);
         caller->func = [wheel, item, name]() { features::wheel::set_wheel_item_name(wheel, item, name); };
 
@@ -1490,7 +1481,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_wheel_description(std::span<std::string> parts, ParserData &data) {
+    bool parse_wheel_description(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 3) {
             return false;
         }
@@ -1502,7 +1493,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         const auto caller = std::make_shared<items::Call>();
-        auto &description = parts[2];
+        auto& description = parts[2];
         caller->description = std::format("wheel item {}:{} set description {}", wheel, item, description);
         caller->func = [wheel, item, description]() { features::wheel::set_wheel_item_description(wheel, item, description); };
 
@@ -1510,7 +1501,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_wheel_texture(std::span<std::string> parts, ParserData &data) {
+    bool parse_wheel_texture(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 3) {
             return false;
         }
@@ -1522,7 +1513,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         const auto caller = std::make_shared<items::Call>();
-        auto &texture = parts[2];
+        auto& texture = parts[2];
         caller->description = std::format("wheel item {}:{} set texture {}", wheel, item, texture);
         caller->func = [wheel, item, texture]() { features::wheel::set_wheel_item_texture(wheel, item, texture); };
 
@@ -1530,7 +1521,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_wheel_color(std::span<std::string> parts, ParserData &data) {
+    bool parse_wheel_color(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 6) {
             return false;
         }
@@ -1553,7 +1544,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_wheel_action(location_type const &location, std::span<std::string> parts, ParserData &data) {
+    bool parse_wheel_action(location_type const& location, std::span<std::string> parts, ParserData& data) {
         // NOLINT
         if (parts.size() <= 3) {
             return false;
@@ -1572,7 +1563,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         auto procedure_id = data.next_procedure_id++;
-        auto &procedure = data.data.procedures[procedure_id];
+        auto& procedure = data.data.procedures[procedure_id];
         ParserData procedure_data{
             .data = data.data,
             .location_data = procedure,
@@ -1595,8 +1586,7 @@ namespace randomizer::seed::legacy_parser {
                 features::wheel::set_wheel_item_callback(wheel, item, app::SpellInventory_Binding__Enum::ButtonX, [procedure_id](auto, auto, auto) { game_seed().procedure_call(procedure_id); });
                 features::wheel::set_wheel_item_callback(wheel, item, app::SpellInventory_Binding__Enum::ButtonY, [procedure_id](auto, auto, auto) { game_seed().procedure_call(procedure_id); });
                 features::wheel::set_wheel_item_callback(wheel, item, app::SpellInventory_Binding__Enum::ButtonB, [procedure_id](auto, auto, auto) { game_seed().procedure_call(procedure_id); });
-            }
-            else {
+            } else {
                 features::wheel::set_wheel_item_callback(wheel, item, binding_type, [procedure_id](auto, auto, auto) { game_seed().procedure_call(procedure_id); });
             }
         };
@@ -1606,7 +1596,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_wheel_sticky(std::span<std::string> parts, ParserData &data) {
+    bool parse_wheel_sticky(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 2) {
             return false;
         }
@@ -1625,7 +1615,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_wheel_active(std::span<std::string> parts, ParserData &data) {
+    bool parse_wheel_active(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -1643,7 +1633,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_wheel_clear_item(std::span<std::string> parts, ParserData &data) {
+    bool parse_wheel_clear_item(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 2) {
             return false;
         }
@@ -1662,7 +1652,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_wheel_clear_all(std::span<std::string> parts, ParserData &data) {
+    bool parse_wheel_clear_all(std::span<std::string> parts, ParserData& data) {
         if (!parts.empty()) {
             return false;
         }
@@ -1675,7 +1665,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_wheel(location_type const &location, std::span<std::string> parts, ParserData &data) {
+    bool parse_wheel(location_type const& location, std::span<std::string> parts, ParserData& data) {
         // NOLINT
         if (parts.empty()) {
             return false;
@@ -1713,7 +1703,7 @@ namespace randomizer::seed::legacy_parser {
         return false;
     }
 
-    bool parse_shop_icon(std::span<std::string> parts, ParserData &data) {
+    bool parse_shop_icon(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 3) {
             return false;
         }
@@ -1739,7 +1729,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_shop_title(std::span<std::string> parts, ParserData &data) {
+    bool parse_shop_title(std::span<std::string> parts, ParserData& data) {
         if (parts.size() < 2 || parts.size() > 3) {
             return false;
         }
@@ -1766,7 +1756,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_shop_description(std::span<std::string> parts, ParserData &data) {
+    bool parse_shop_description(std::span<std::string> parts, ParserData& data) {
         if (parts.size() < 2 || parts.size() > 3) {
             return false;
         }
@@ -1791,7 +1781,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_shop_locked(std::span<std::string> parts, ParserData &data) {
+    bool parse_shop_locked(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 3) {
             return false;
         }
@@ -1816,7 +1806,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_shop_visible(std::span<std::string> parts, ParserData &data) {
+    bool parse_shop_visible(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 3) {
             return false;
         }
@@ -1841,7 +1831,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_shop(std::span<std::string> parts, ParserData &data) {
+    bool parse_shop(std::span<std::string> parts, ParserData& data) {
         if (parts.empty()) {
             return false;
         }
@@ -1870,15 +1860,16 @@ namespace randomizer::seed::legacy_parser {
         return false;
     }
 
-    bool parse_map_message(std::span<std::string> parts, ParserData &data) {
+    bool parse_map_message(std::span<std::string> parts, ParserData& data) {
         const auto map_message = std::make_shared<items::MapMessage>();
-        map_message->message = std::accumulate(parts.begin(), parts.end(), std::string(), [](auto const &ss, auto const &s) -> decltype(auto) { return ss.empty() ? s : ss + "|" + s; });
+        map_message->message = std::accumulate(parts.begin(), parts.end(), std::string(), [](auto const& ss, auto const& s) -> decltype(auto) { return ss.empty() ? s : ss + "|" + s; });
 
         data.add_item(map_message);
         return true;
     }
 
-    bool parse_action(location_type const &location, std::span<std::string> parts, ParserData &data) { // NOLINT(*-no-recursion)
+    bool parse_action(location_type const& location, std::span<std::string> parts, ParserData& data) {
+        // NOLINT(*-no-recursion)
         // NOLINT
         if (parts.empty()) {
             return false;
@@ -1929,7 +1920,7 @@ namespace randomizer::seed::legacy_parser {
         }
     }
 
-    bool parse_expression(int &next_location_id, int &next_procedure_id, std::span<std::string> parts, Seed::Data &data, int line_number) {
+    bool parse_expression(int& next_location_id, int& next_procedure_id, std::span<std::string> parts, Seed::Data& data, int line_number) {
         if (parts.size() < 3) {
             // Need at least the trigger and an action type.
             return false;
@@ -1941,7 +1932,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto &location_item_data = data.locations[trigger.state][trigger];
+        auto& location_item_data = data.locations[trigger.state][trigger];
         ParserData parser_data{
             .data = data,
             .location_data = location_item_data,
@@ -1963,19 +1954,15 @@ namespace randomizer::seed::legacy_parser {
      * \param line The current line as raw string (escape sequences have NOT been replaced yet)
      * \param data Seed data
      */
-    void parse_config(std::string_view line, Seed::Data&data) {
+    void parse_config(std::string_view line, Seed::Data& data) {
         if (line.starts_with("// This World:")) {
             std::string str(line.substr(14));
             data.info.world_index = std::stoi(str);
-        }
-        else if (line.starts_with("// Target:")) {
-        }
-        else if (line.starts_with("// Generator Version:")) {
-        }
-        else if (line.starts_with("// Slug:")) {
+        } else if (line.starts_with("// Target:")) {
+        } else if (line.starts_with("// Generator Version:")) {
+        } else if (line.starts_with("// Slug:")) {
             data.info.slug = trim_copy(line.substr(sizeof("Slug:")));
-        }
-        else if (line.starts_with("// Config:")) {
+        } else if (line.starts_with("// Config:")) {
             auto j = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
             data.info.net_code_enabled = j.value("online", false);
         }
@@ -1983,7 +1970,7 @@ namespace randomizer::seed::legacy_parser {
         // If we don't match anything here it's a comment, and we can ignore it.
     }
 
-    bool parse(std::string_view path, location_data::LocationCollection const &location_data, Seed::Data &data) {
+    bool parse(std::string_view path, location_data::LocationCollection const& location_data, Seed::Data& data) {
         std::ifstream seed_file(path.data());
         if (!seed_file.is_open()) {
             return false;
@@ -2011,11 +1998,10 @@ namespace randomizer::seed::legacy_parser {
             line = line.substr(0, line.find("//"));
             if (line.starts_with("Flags:")) {
                 split_str(line.substr(6), data.info.flags, ',');
-                for (auto &flag: data.info.flags) {
+                for (auto& flag: data.info.flags) {
                     trim(flag);
                 }
-            }
-            else if (line.starts_with("Spawn:")) {
+            } else if (line.starts_with("Spawn:")) {
                 std::vector<std::string> coords;
                 split_str(line.substr(6), coords, ',');
                 if (coords.size() != 2) {
@@ -2028,10 +2014,8 @@ namespace randomizer::seed::legacy_parser {
                 }
 
                 data.info.start_position = position;
-            }
-            else if (line.starts_with("timer:")) {
-            }
-            else if (!line.empty()) {
+            } else if (line.starts_with("timer:")) {
+            } else if (!line.empty()) {
                 std::vector<std::string> parts;
                 parse_parts(line, parts);
                 parse_expression(next_location_id, next_procedure_id, std::span(parts.begin(), parts.end()), data, line_number);
@@ -2052,7 +2036,7 @@ namespace randomizer::seed::legacy_parser {
             0,
         };
 
-        ItemData &location_data = data.locations[location.state][location];
+        ItemData& location_data = data.locations[location.state][location];
         int next_location_id = 0;
         int next_procedure_id = 0;
 
