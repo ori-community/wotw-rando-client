@@ -43,6 +43,8 @@ namespace randomizer::game::map {
                     return app::WorldMapIconType__Enum::Keystone;
                 case location_data::LocationType::Quest:
                     return app::WorldMapIconType__Enum::QuestItem;
+                case location_data::LocationType::Seed:
+                    return app::WorldMapIconType__Enum::Seed;
                 case location_data::LocationType::Ability:
                     return app::WorldMapIconType__Enum::AbilityPedestal;
                 case location_data::LocationType::Shop:

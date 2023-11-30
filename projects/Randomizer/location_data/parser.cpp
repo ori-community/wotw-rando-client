@@ -52,8 +52,12 @@ namespace randomizer::location_data {
                 continue;
             }
 
+            if (type.value() == LocationType::Quest && parts[3] == "Seed") {
+                type = LocationType::Seed;
+            }
+
             location.type = type.value();
-            auto success = core::api::uber_states::parse_condition(
+            auto success = parse_condition(
                 {parts[5], parts[7] + (parts[8].empty() ? "" : ">=" + parts[8])},
                 location.condition
             );
