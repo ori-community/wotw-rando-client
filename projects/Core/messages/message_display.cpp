@@ -12,18 +12,23 @@ namespace core::messages {
     namespace {
         // Hardcoded no-show switch until we have entered the title screen and faded out.
         bool global_can_show = false;
-        auto on_after_title_screen_startup = api::game::event_bus().register_handler(GameEvent::TitleScreenStartup, EventTiming::After, [](auto, auto) {
-            global_can_show = true;
-        });
+        auto on_after_title_screen_startup = api::game::event_bus().register_handler(
+            GameEvent::TitleScreenStartup,
+            EventTiming::After,
+            [](auto, auto) {
+                global_can_show = true;
+            }
+        );
     } // namespace
 
-    MessageDisplay::MessageDisplay(std::optional<int> max_line_count, std::optional<int> max_in_queue)
-            : m_max_line_count(max_line_count)
-            , m_max_in_queue(max_in_queue)
-            , m_alignment(app::AlignmentMode__Enum::Center)
-            , m_horizontal_anchor(app::HorizontalAnchorMode__Enum::Center)
-            , m_vertical_anchor(app::VerticalAnchorMode__Enum::Middle)
-            , m_screen_position(api::messages::ScreenPosition::MiddleCenter) {}
+    MessageDisplay::MessageDisplay(std::optional<int> max_line_count, std::optional<int> max_in_queue) :
+        m_max_line_count(max_line_count)
+        , m_max_in_queue(max_in_queue)
+        , m_alignment(app::AlignmentMode__Enum::Center)
+        , m_horizontal_anchor(app::HorizontalAnchorMode__Enum::Center)
+        , m_vertical_anchor(app::VerticalAnchorMode__Enum::Middle)
+        , m_screen_position(api::messages::ScreenPosition::MiddleCenter) {
+    }
 
     message_handle MessageDisplay::push(MessageInfo info) {
         auto handle = std::make_shared<message_handle_type>();
@@ -33,10 +38,12 @@ namespace core::messages {
                 .handle = handle,
             };
         } else {
-            m_messages.push_back({
-                .info = std::move(info),
-                .handle = handle,
-            });
+            m_messages.push_back(
+                {
+                    .info = std::move(info),
+                    .handle = handle,
+                }
+            );
         }
 
         return handle;
@@ -63,7 +70,7 @@ namespace core::messages {
         if (m_priority_message.has_value() || m_priority_message_data.has_value()) {
             if (!m_showing_priority) {
                 m_showing_priority = true;
-                for (auto& message : m_active_messages) {
+                for (auto& message: m_active_messages) {
                     message.message->hide(true);
                 }
             }
@@ -73,7 +80,7 @@ namespace core::messages {
             if (m_showing_priority) {
                 m_showing_priority = false;
                 bool first = true;
-                for (auto& message : m_active_messages) {
+                for (auto& message: m_active_messages) {
                     bool should_play = false;
                     if (first && message.info.play_sound) {
                         should_play = true;
@@ -127,7 +134,7 @@ namespace core::messages {
         const auto max_line_count = m_max_line_count.get();
         while (!m_messages.empty()) {
             auto& data = m_messages.front();
-            const auto text = data.info.text.get();
+            const auto text = trim_copy(data.info.text.get());
             const auto message_lines = static_cast<int>(std::ranges::count(text, '\n') + 1);
             // Keep ourselves below the line count limit except if we are showing no messages.
             // If we get a message that exceeds the line count we still show it.
@@ -177,7 +184,7 @@ namespace core::messages {
     }
 
     void MessageDisplay::update_message_position(MessageData& data, int& total_lines, app::Vector3& cursor_position, float delta_time) {
-        const auto text = data.info.text.get();
+        const auto text = trim_copy(data.info.text.get());
         const auto message_lines = static_cast<int>(std::ranges::count(text, '\n') + 1);
         auto display_message_in_game_world = false;
 
