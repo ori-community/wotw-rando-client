@@ -84,16 +84,36 @@ namespace core::ipc {
                 zmq::message_t zmq_message(message.dump());
 
                 try {
-                    socket->send(zmq_message, zmq::send_flags::none);
+                    if (*socket) {
+                        socket->send(zmq_message, zmq::send_flags::none);
+                    } else {
+                        warn("IPC", "ZeroMQ send Error: Socket not valid");
+                    }
                 } catch (const zmq::error_t& e) {
                     warn("IPC", std::format("ZeroMQ send Error: {} {}", e.num(), e.what()));
+                } catch (...) {
+                    warn("IPC", "ZeroMQ send Error: Unknown");
                 }
             }
         }
 
         void zmq_thread_fn() {
-            socket = std::make_unique<zmq::socket_t>(*context, zmq::socket_type::dealer);
-            socket->connect("tcp://127.0.0.1:31414");
+            bool first = true;
+            do {
+                if (first) {
+                    info("IPC", "ZeroMQ connecting");
+                } else {
+                    win::sleep(100);
+                    info("IPC", "ZeroMQ failed to connect, retrying...");
+                }
+
+                first = false;
+                try {
+                    socket = std::make_unique<zmq::socket_t>(*context, zmq::socket_type::dealer);
+                    socket->connect("tcp://127.0.0.1:31414");
+                } catch (...) {
+                }
+            } while (!*socket && !shutdown_ipc_thread);
 
             while (!shutdown_ipc_thread) {
                 do_recieve();
