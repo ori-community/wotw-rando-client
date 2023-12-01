@@ -10,13 +10,11 @@
 #include <Modloader/app/types/Byte.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
-#include <Modloader/windows_api/console.h>
 #include <format>
 #include <unordered_map>
 
 using namespace app::classes;
 using namespace modloader;
-using namespace modloader::win::console;
 
 namespace core::save_meta {
     /**
@@ -106,7 +104,10 @@ namespace core::save_meta {
          * @param exclude_persistences Whether to exclude persistence levels >= minimum_persistence instead of including
          * @return
          */
-        SaveMetaReadResult read_save_meta_from_byte_array(app::Byte__Array* data, bool load, SaveMetaSlotPersistence minimum_persistence = SaveMetaSlotPersistence::None, bool exclude_persistences = false) {
+        SaveMetaReadResult read_save_meta_from_byte_array(app::Byte__Array* data,
+            bool load,
+            SaveMetaSlotPersistence minimum_persistence = SaveMetaSlotPersistence::None,
+            bool exclude_persistences = false) {
             utils::ByteStream stream(data);
 
             if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
@@ -116,16 +117,16 @@ namespace core::save_meta {
                 auto guid = stream.read<MoodGuid>();
                 auto slot_count = stream.read<int>();
 
-                console_send(std::format("Reading {} SaveMeta slots from save file {},{},{},{}", slot_count, guid.A, guid.B, guid.C, guid.D));
+                info("save_meta", std::format("Reading {} SaveMeta slots from save file {},{},{},{}", slot_count, guid.A, guid.B, guid.C, guid.D));
 
                 for (int i = 0; i < slot_count; ++i) {
                     auto slot = stream.read<SaveMetaSlot>();
                     auto length = stream.read<unsigned long>();
 
-                    console_send(std::format("- Slot {}: length = {}", i, length));
+                    info("save_meta", std::format("- Slot {}: length = {}", i, length));
 
                     if (!slots.contains(slot)) {
-                        console_send(std::format("  Tried to load SaveMeta slot {} but no handler was provided for this slot", static_cast<int>(slot)));
+                        info("save_meta", std::format("  Tried to load SaveMeta slot {} but no handler was provided for this slot", static_cast<int>(slot)));
                         stream.skip(length);
                         continue;
                     }
@@ -160,7 +161,7 @@ namespace core::save_meta {
                     current_save_guid = guid;
                 }
             } else {
-                console_send("Save file did not start with magic byte. Skipping.");
+                info("save_meta", "Save file did not start with magic byte. Skipping.");
             }
 
             auto remaining_bytes = stream.peek_to_end();
@@ -179,13 +180,13 @@ namespace core::save_meta {
             stream.write<MoodGuid>(current_save_guid);
             stream.write<int>(slots.size());
 
-            for (auto& item : slots) {
+            for (auto& item: slots) {
                 stream.write<SaveMetaSlot>(item.first);
 
                 // Save previous data if this slot is not set to persist through death
                 auto data = (static_cast<int>(item.second.persistence) >= static_cast<int>(minimum_persistence) || !item.second.last_saved_data_initialized)
-                        ? item.second.handler->save()
-                        : item.second.last_saved_data;
+                    ? item.second.handler->save()
+                    : item.second.last_saved_data;
 
                 stream.write<unsigned long>(data.size());
                 stream.write(data);
@@ -250,7 +251,8 @@ namespace core::save_meta {
             auto save_slot_index = SaveSlotsManager::get_CurrentSlotIndex();
             auto backup_slot = SaveSlotsManager::get_BackupIndex();
 
-            if (backup_slot != -1) { // We're loading a backup...
+            if (backup_slot != -1) {
+                // We're loading a backup...
                 ScopedSetter setter(is_loading_backup, true);
 
                 // Load the backup...
@@ -288,8 +290,12 @@ namespace core::save_meta {
             next::DeathUberStateManager::OnDeath();
         }
 
-        auto on_new_game_handle = api::game::event_bus().register_handler(GameEvent::NewGame, EventTiming::After, [](auto, auto) {
-            current_save_guid = MoodGuid();
-        });
+        auto on_new_game_handle = api::game::event_bus().register_handler(
+            GameEvent::NewGame,
+            EventTiming::After,
+            [](auto, auto) {
+                current_save_guid = MoodGuid();
+            }
+        );
     } // namespace
 } // namespace core::save_meta
