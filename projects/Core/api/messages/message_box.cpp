@@ -316,7 +316,7 @@ namespace core::api::messages {
     void MessageBox::hide(const bool instant) const {
         m_message_box->fields.Visibility->fields.m_timeSpeed = -1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionOutDuration, FLT_EPSILON);
         m_message_box->fields.Visibility->fields.m_delayTime = 0.0f;
-        m_message_box->fields.Visibility->fields.m_time = instant ? 0.0f : 1.0f;
+        m_message_box->fields.Visibility->fields.m_time = instant ? 0.0f : std::min(m_message_box->fields.Visibility->fields.m_time, 1.0f);
         MessageBoxVisibility::set_IsSuspended(m_message_box->fields.Visibility, false);
     }
 
