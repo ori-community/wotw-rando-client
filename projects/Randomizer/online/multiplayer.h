@@ -81,7 +81,7 @@ namespace randomizer::online {
 
         std::unordered_map<std::string, PlayerInfo> m_players;
         std::unordered_map<std::string, std::unique_ptr<Player>> m_player_avatars;
-        std::unordered_map<int, message_handle> m_message_boxes;
+        std::unordered_map<int, message_handle_ptr_t> m_message_boxes;
 
         UberStateHandler m_uber_state_handler;
         NetworkClient* m_client = nullptr;

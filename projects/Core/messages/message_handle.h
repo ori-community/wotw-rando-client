@@ -21,5 +21,5 @@ namespace core::messages {
     };
 } // namespace core::messages
 
-using message_handle_type = core::messages::MessageHandle;
-using message_handle = std::shared_ptr<message_handle_type>;
+using message_handle_t = core::messages::MessageHandle;
+using message_handle_ptr_t = std::shared_ptr<message_handle_t>;

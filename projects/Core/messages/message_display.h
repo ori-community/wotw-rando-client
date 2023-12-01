@@ -29,7 +29,7 @@ namespace core::messages {
     public:
         MessageDisplay(std::optional<int> max_line_count, std::optional<int> max_in_queue);
 
-        message_handle push(MessageInfo info);
+        message_handle_ptr_t push(MessageInfo info);
         void clear();
 
         void text_processor(auto text_processor) { m_text_processor = std::move(text_processor); }
@@ -49,7 +49,7 @@ namespace core::messages {
         struct MessageData {
             std::shared_ptr<api::messages::MessageBox> message;
             MessageInfo info;
-            message_handle handle;
+            message_handle_ptr_t handle;
         };
 
         static void update_time(MessageData& data, float delta_time);

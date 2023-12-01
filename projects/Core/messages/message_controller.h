@@ -26,7 +26,7 @@ namespace core::messages {
         ~MessageController();
 
         // Handles showing / hiding the given messagebox based on info provided.
-        message_handle queue(std::shared_ptr<api::messages::MessageBox> message, IndependentMessageInfo info);
+        message_handle_ptr_t queue(std::shared_ptr<api::messages::MessageBox> message, IndependentMessageInfo info);
         void queue_central(MessageInfo info, bool should_save = false);
         void requeue_last_saved();
         void update(float delta_time);
@@ -38,13 +38,13 @@ namespace core::messages {
         struct MessageData {
             std::shared_ptr<api::messages::MessageBox> message;
             IndependentMessageInfo info;
-            message_handle handle;
+            message_handle_ptr_t handle;
         };
 
         class MessageQueue {
         public:
             void update(float delta_time);
-            message_handle add(std::shared_ptr<api::messages::MessageBox> message, IndependentMessageInfo info);
+            message_handle_ptr_t add(std::shared_ptr<api::messages::MessageBox> message, IndependentMessageInfo info);
 
         private:
             std::vector<MessageData> m_priority_data;

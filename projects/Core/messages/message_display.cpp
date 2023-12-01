@@ -30,8 +30,8 @@ namespace core::messages {
         , m_screen_position(api::messages::ScreenPosition::MiddleCenter) {
     }
 
-    message_handle MessageDisplay::push(MessageInfo info) {
-        auto handle = std::make_shared<message_handle_type>();
+    message_handle_ptr_t MessageDisplay::push(MessageInfo info) {
+        auto handle = std::make_shared<message_handle_t>();
         if (info.prioritized) {
             m_priority_message = {
                 .info = std::move(info),
@@ -64,7 +64,7 @@ namespace core::messages {
         const auto max_in_queue = m_max_in_queue.get();
         if (max_in_queue.has_value() && m_messages.size() > max_in_queue.value() && !m_active_messages.empty()) {
             m_active_messages.front().message->hide();
-            m_active_messages.front().handle->state = message_handle_type::MessageState::Finished;
+            m_active_messages.front().handle->state = message_handle_t::MessageState::Finished;
         }
 
         if (m_priority_message.has_value() || m_priority_message_data.has_value()) {
@@ -154,7 +154,7 @@ namespace core::messages {
 
     bool MessageDisplay::handle_active_message(MessageData& data, int& total_lines, app::Vector3& cursor_position, float fade_out, float delta_time) {
         update_time(data, delta_time);
-        if (data.handle->state != message_handle_type::MessageState::Finished) {
+        if (data.handle->state != message_handle_t::MessageState::Finished) {
             update_message_position(data, total_lines, cursor_position, delta_time);
             data.message->fade_out().set(fade_out);
             return true;
@@ -164,7 +164,7 @@ namespace core::messages {
     }
 
     void MessageDisplay::update_time(MessageData& data, float delta_time) {
-        if (data.handle->state == message_handle_type::MessageState::Visible) {
+        if (data.handle->state == message_handle_t::MessageState::Visible) {
             data.handle->active_time += delta_time;
         }
 
@@ -177,7 +177,7 @@ namespace core::messages {
             }
 
             if (*data.handle->time_left <= 0.f) {
-                data.handle->state = message_handle_type::MessageState::Finished;
+                data.handle->state = message_handle_t::MessageState::Finished;
                 data.handle->time_left = std::optional<float>();
             }
         }
@@ -254,8 +254,8 @@ namespace core::messages {
             data.message->show(false, data.info.play_sound);
         }
 
-        data.handle = std::make_shared<message_handle_type>();
-        data.handle->state = message_handle_type::MessageState::Visible;
+        data.handle = std::make_shared<message_handle_t>();
+        data.handle->state = message_handle_t::MessageState::Visible;
         data.handle->time_left = data.info.duration;
     }
 } // namespace core::messages

@@ -17,7 +17,7 @@ namespace core::messages {
     } // namespace
 
     void update_time(MessageController::MessageData& data, float delta_time) {
-        if (data.handle->state == message_handle_type::MessageState::Visible) {
+        if (data.handle->state == message_handle_t::MessageState::Visible) {
             data.handle->active_time += delta_time;
         }
 
@@ -30,7 +30,7 @@ namespace core::messages {
             }
 
             if (*data.handle->time_left <= 0.f) {
-                data.handle->state = message_handle_type::MessageState::Finished;
+                data.handle->state = message_handle_t::MessageState::Finished;
                 data.handle->time_left = std::optional<float>();
             }
         }
@@ -51,7 +51,7 @@ namespace core::messages {
             if (!m_current->info.prioritized && !m_priority_data.empty()) {
                 // Switch out normal message for prioritized, pausing it.
                 m_current->message->hide(true);
-                m_current->handle->state = message_handle_type::MessageState::InterruptedByPriorityMessage;
+                m_current->handle->state = message_handle_t::MessageState::InterruptedByPriorityMessage;
                 m_normal_data.insert(m_normal_data.begin(), *m_current);
                 m_current = m_priority_data.front();
                 m_priority_data.erase(m_priority_data.begin());
@@ -59,16 +59,16 @@ namespace core::messages {
 
             update_time(*m_current, delta_time);
             switch (m_current->handle->state) {
-                case message_handle_type::MessageState::InterruptedByPriorityMessage:
-                    m_current->handle->state = message_handle_type::MessageState::Visible;
+                case message_handle_t::MessageState::InterruptedByPriorityMessage:
+                    m_current->handle->state = message_handle_t::MessageState::Visible;
                     m_current->message->show(m_current->info.instant_fade, m_current->info.play_sound);
                     break;
-                case message_handle_type::MessageState::Queued:
+                case message_handle_t::MessageState::Queued:
                     m_current->handle->time_left = m_current->info.duration;
-                    m_current->handle->state = message_handle_type::MessageState::Visible;
+                    m_current->handle->state = message_handle_t::MessageState::Visible;
                     m_current->message->show(m_current->info.instant_fade, m_current->info.play_sound);
                     break;
-                case message_handle_type::MessageState::Finished:
+                case message_handle_t::MessageState::Finished:
                     // Clear m_current, so it gets set next time update is run.
                     m_current->message->hide(m_current->info.instant_fade);
                     m_current = std::optional<MessageData>();
@@ -79,9 +79,9 @@ namespace core::messages {
         }
     }
 
-    message_handle MessageController::MessageQueue::add(std::shared_ptr<api::messages::MessageBox> message, IndependentMessageInfo info) {
+    message_handle_ptr_t MessageController::MessageQueue::add(std::shared_ptr<api::messages::MessageBox> message, IndependentMessageInfo info) {
         auto& collection = info.prioritized ? m_priority_data : m_normal_data;
-        auto sync = std::make_shared<message_handle_type>();
+        auto sync = std::make_shared<message_handle_t>();
         sync->message = message;
         collection.push_back({
             std::move(message),
@@ -100,14 +100,14 @@ namespace core::messages {
 
     MessageController::~MessageController() = default;
 
-    message_handle MessageController::queue(std::shared_ptr<api::messages::MessageBox> message, IndependentMessageInfo info) {
-        message_handle sync;
+    message_handle_ptr_t MessageController::queue(std::shared_ptr<api::messages::MessageBox> message, IndependentMessageInfo info) {
+        message_handle_ptr_t sync;
         if (info.queue.has_value()) {
             auto& queue = m_queues[*info.queue];
             sync = queue.add(std::move(message), std::move(info));
         } else {
-            sync = std::make_shared<message_handle_type>();
-            sync->state = message_handle_type::MessageState::Visible;
+            sync = std::make_shared<message_handle_t>();
+            sync->state = message_handle_t::MessageState::Visible;
             sync->time_left = info.duration;
             sync->message = message;
             message->show(info.instant_fade, info.play_sound);
@@ -179,7 +179,7 @@ namespace core::messages {
 
         for (auto it = m_unqueued_messages.begin(); it != m_unqueued_messages.end();) {
             update_time(*it, delta_time);
-            if (it->handle->state == message_handle_type::MessageState::Finished) {
+            if (it->handle->state == message_handle_t::MessageState::Finished) {
                 it = m_unqueued_messages.erase(it);
             } else {
                 ++it;
