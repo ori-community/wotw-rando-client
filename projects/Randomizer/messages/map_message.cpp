@@ -23,7 +23,7 @@ namespace randomizer::messages {
         }
 
         box->text().process_and_set(text);
-        box->show(true);
+        box->show(true, false);
     }
 
     void hide_map_message() {
