@@ -24,24 +24,27 @@ namespace {
     using namespace app::classes;
     using namespace randomizer::game::shops;
 
-    auto scene = core::api::scenes::single_event_bus().register_handler("wellspringGladesHubSetups", [](auto metadata, auto) {
-        auto projects = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, std::vector<std::string>{ "interactives", "builderProjects" });
-        auto huts_a = il2cpp::unity::find_child(projects, "mokiHutsSetup");
-        for (auto component : il2cpp::unity::get_components<app::ChangeStateOnCondition>(huts_a, reinterpret_cast<Il2CppClass*>(types::ChangeStateOnCondition::get_class()))) {
-            const auto state_data = component->fields.StateChange->fields._._.StateData->fields._items->vector[0];
-            if (state_data->fields.m_desiredValue < 2) {
-                il2cpp::unity::destroy_object(component);
+    auto scene = core::api::scenes::single_event_bus().register_handler(
+        "wellspringGladesHubSetups",
+        [](auto metadata, auto) {
+            auto projects = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, std::vector<std::string>{"interactives", "builderProjects"});
+            auto huts_a = il2cpp::unity::find_child(projects, "mokiHutsSetup");
+            for (auto component: il2cpp::unity::get_components<app::ChangeStateOnCondition>(huts_a, reinterpret_cast<Il2CppClass*>(types::ChangeStateOnCondition::get_class()))) {
+                const auto state_data = component->fields.StateChange->fields._._.StateData->fields._items->vector[0];
+                if (state_data->fields.m_desiredValue < 2) {
+                    il2cpp::unity::destroy_object(component);
+                }
             }
-        }
 
-        auto huts_b = il2cpp::unity::find_child(projects, "mokiHutsBSetup");
-        for (auto component : il2cpp::unity::get_components<app::ChangeStateOnCondition>(huts_b, reinterpret_cast<Il2CppClass*>(types::ChangeStateOnCondition::get_class()))) {
-            const auto state_data = component->fields.StateChange->fields._._.StateData->fields._items->vector[0];
-            if (state_data->fields.m_desiredValue < 2) {
-                il2cpp::unity::destroy_object(component);
+            auto huts_b = il2cpp::unity::find_child(projects, "mokiHutsBSetup");
+            for (auto component: il2cpp::unity::get_components<app::ChangeStateOnCondition>(huts_b, reinterpret_cast<Il2CppClass*>(types::ChangeStateOnCondition::get_class()))) {
+                const auto state_data = component->fields.StateChange->fields._._.StateData->fields._items->vector[0];
+                if (state_data->fields.m_desiredValue < 2) {
+                    il2cpp::unity::destroy_object(component);
+                }
             }
         }
-    });
+    );
 
     // Why ores are treated as seeds, nobody knows.
     core::api::uber_states::UberState ore_spent(UberStateGroup::RandoState, 6);
@@ -147,6 +150,8 @@ namespace {
             core::api::uber_states::UberState(item->fields.Project->fields.UberState).set(3);
             ShopkeeperScreen::OnNewItemHighlighted(shopkeeper_screen, false);
         }
+
+        ShopkeeperScreen::UpdateContextCanvasShards(reinterpret_cast<app::ShopkeeperScreen*>(this_ptr));
     }
 
     // Force project order because we disable SortByCost on shops
