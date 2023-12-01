@@ -16,7 +16,7 @@ namespace modloader::win::memory {
             if (!cache) {
                 auto handle = GetModuleHandleA(assembly_name.c_str());
                 if (handle == nullptr) {
-                    trace(MessageType::Error, 1, "initialize", std::format("Failed to get handle of {}", assembly_name));
+                    error("initialize", std::format("Failed to get handle of {}", assembly_name));
                     return 0;
                 }
 

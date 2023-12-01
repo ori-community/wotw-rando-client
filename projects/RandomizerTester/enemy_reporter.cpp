@@ -22,7 +22,7 @@ namespace randomizer_tester {
             core::messages::MessageInfo info;
             info.text.set_format("Enemy died: {}", enemy_entity->klass->_0.name);
             core::message_controller().queue_central(info);
-            modloader::trace(modloader::MessageType::Info, 4, "death_listener", info.text.get());
+            modloader::info("death_listener", info.text.get());
         }
 
         auto enemy_stats_handle = core::api::death_listener::enemy_death_event_bus().register_handler(EventTiming::Before, handle_enemy_stats);

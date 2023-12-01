@@ -147,28 +147,28 @@ namespace core::api::uber_states {
     UberState::UberState(int group, int state)
             : m_group(static_cast<UberStateGroup>(group)), m_state(state) {
         if (VALIDATE_UBER_STATES_ON_CREATION && collection_initialized() && !valid()) {
-            trace(MessageType::Warning, 2, "uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
+            warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
         }
     }
 
     UberState::UberState(app::IUberState* state)
     : m_group(static_cast<UberStateGroup>(il2cpp::invoke<app::UberID>(state, "get_GroupID")->fields.m_id)), m_state(il2cpp::invoke<app::UberID>(state, "get_StateID")->fields.m_id) {
         if (VALIDATE_UBER_STATES_ON_CREATION && collection_initialized() && !valid()) {
-            trace(MessageType::Warning, 2, "uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
+            warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
         }
     }
 
     UberState::UberState(UberStateGroup group, int state)
             : m_group(group), m_state(state)  {
         if (VALIDATE_UBER_STATES_ON_CREATION && collection_initialized() && !valid()) {
-            trace(MessageType::Warning, 2, "uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
+            warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
         }
     }
 
     UberState::UberState(UberStateGroup group, app::AbilityType__Enum state)
     : m_group(group), m_state(static_cast<int>(state))  {
         if (VALIDATE_UBER_STATES_ON_CREATION && collection_initialized() && !valid()) {
-            trace(MessageType::Warning, 2, "uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
+            warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
         }
     }
 
@@ -212,17 +212,17 @@ namespace core::api::uber_states {
         } else {
             auto uber_state = ptr();
             if (!il2cpp::unity::is_valid(uber_state)) {
-                trace(MessageType::Warning, 2, "uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
+                warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
                 return;
             }
 
             if (settings::dev_mode()) {
                 if (prev != value) {
                     const auto text = std::format("uber state ({}|{}) set to {} from {}", static_cast<int>(m_group), m_state, value, prev);
-                    modloader::trace(MessageType::Info, 3, "uber_state", text);
+                    modloader::info("uber_state", text);
                 } else if (has_volatile_value()) {
                     const auto text = std::format("uber state ({}|{}) set to {} because it had a volatile value set", static_cast<int>(m_group), m_state, value);
-                    modloader::trace(MessageType::Info, 3, "uber_state", text);
+                    modloader::info("uber_state", text);
                 }
             }
 
@@ -246,7 +246,7 @@ namespace core::api::uber_states {
             } else if (il2cpp::is_assignable(uber_state, types::SavePedestalUberState::get_class())) {
                 next::Moon::uberSerializationWisp::SavePedestalUberState::set_IsTeleporterActive(reinterpret_cast<app::SavePedestalUberState*>(uber_state), value > 0.5);
             } else {
-                trace(MessageType::Warning, 2, "uber_state", std::format("unable to get value of uber state ({}|{})", static_cast<int>(m_group), m_state));
+                warn("uber_state", std::format("unable to get value of uber state ({}|{})", static_cast<int>(m_group), m_state));
                 return;
             }
         }
@@ -274,7 +274,7 @@ namespace core::api::uber_states {
         // TODO: Change this into something better then a series of if checks.
         auto uber_state = ptr();
         if (!il2cpp::unity::is_valid(uber_state)) {
-            trace(MessageType::Warning, 2, "uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
+            warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
             return 0.0;
         } else if (il2cpp::is_assignable(uber_state, types::SerializedBooleanUberState::get_class())) {
             return static_cast<double>(SerializedBooleanUberState::get_Value(reinterpret_cast<app::SerializedBooleanUberState*>(uber_state)));
@@ -296,7 +296,7 @@ namespace core::api::uber_states {
             return SavePedestalUberState::get_IsTeleporterActive(reinterpret_cast<app::SavePedestalUberState*>(uber_state)) ? 1.0 : 0.0;
         }
 
-        trace(MessageType::Warning, 2, "uber_state", std::format("unable to get value of uber state ({}|{})", static_cast<int>(m_group), m_state));
+        warn("uber_state", std::format("unable to get value of uber state ({}|{})", static_cast<int>(m_group), m_state));
         return 0.0;
     }
 
@@ -307,7 +307,7 @@ namespace core::api::uber_states {
 
         auto uber_state = ptr();
         if (!il2cpp::unity::is_valid(uber_state)) {
-            trace(MessageType::Warning, 2, "uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
+            warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
             return 0.0;
         } else if (il2cpp::is_assignable(uber_state, types::SerializedBooleanUberState::get_class())) {
             return SerializedBooleanUberState::get_VolitileGenericOverrideValue(reinterpret_cast<app::SerializedBooleanUberState*>(uber_state)).has_value;
@@ -376,7 +376,7 @@ namespace core::api::uber_states {
     std::string UberState::string_value() const {
         auto uber_state = ptr();
         if (!il2cpp::unity::is_valid(uber_state)) {
-            trace(MessageType::Warning, 2, "uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
+            warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
             return "Unknown";
         } else if (
             il2cpp::is_assignable(uber_state, types::SerializedBooleanUberState::get_class()) ||

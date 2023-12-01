@@ -80,7 +80,7 @@ namespace randomizer::seed {
 
         void push_error(ReachCheckResult::Data* data, const char* error) {
             // TODO: Show message
-            trace(modloader::MessageType::Error, 1, "reach_check", error);
+            error("reach_check", error);
         }
 
         void push_reached(ReachCheckResult::Data* data, const char* identifier) {

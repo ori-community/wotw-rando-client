@@ -269,7 +269,7 @@ namespace core::api::game::player {
             return PlayerAbilities::HasAbility(player->fields.PlayerAbilities, ability);
         }
 
-        trace(MessageType::Error, 3, "abilities", "Failed to check ability: couldn't find reference to sein!");
+        error("abilities", "Failed to check ability: couldn't find reference to sein!");
         return false;
     }
 
@@ -278,7 +278,7 @@ namespace core::api::game::player {
         if (player && player->fields.PlayerAbilities) {
             PlayerAbilities::SetAbility(player->fields.PlayerAbilities, ability, value);
         } else {
-            trace(MessageType::Error, 3, "abilities", "Failed to set ability: couldn't find reference to sein!");
+            error("abilities", "Failed to set ability: couldn't find reference to sein!");
         }
     }
 
@@ -287,7 +287,7 @@ namespace core::api::game::player {
         if (player && player->fields.PlayerSpells) {
             SpellInventory::AddNewSpellToInventory(player->fields.PlayerSpells, equip, value);
         } else {
-            trace(MessageType::Error, 3, "abilities", "Failed to set equipment: couldn't find reference to sein!");
+            error("abilities", "Failed to set equipment: couldn't find reference to sein!");
         }
     }
 

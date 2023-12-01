@@ -38,7 +38,7 @@ namespace modloader {
                 if (current->intercept_pointer) {
                     auto it = intercept_cache.find(*current->binding_pointer);
                     if (it != intercept_cache.end()) {
-                        trace(MessageType::Debug, 3, "initialize", std::format("Changing intercept address ({}, {})", *current->original_pointer, it->second));
+                        debug("initialize", std::format("Changing intercept address ({}, {})", *current->original_pointer, it->second));
                         *current->original_pointer = it->second;
                     }
 
@@ -79,8 +79,8 @@ namespace modloader {
             detours::commit("detach");
         }
 
-        binding::binding(uint64_t address, void** ptr, std::string_view s)
-                : name(s), offset(address), pointer(ptr), next(nullptr) {
+        binding::binding(uint64_t address, void** ptr, std::string_view s) :
+            name(s), offset(address), pointer(ptr), next(nullptr) {
             prev = last_binding;
             if (prev != nullptr) {
                 prev->next = prev;
@@ -92,8 +92,8 @@ namespace modloader {
             }
         }
 
-        intercept::intercept(void** binding_ptr, void** original, void* intercepted, std::string_view s)
-                : name(s), binding_pointer(binding_ptr), original_pointer(original), intercept_pointer(intercepted), next(nullptr) {
+        intercept::intercept(void** binding_ptr, void** original, void* intercepted, std::string_view s) :
+            name(s), binding_pointer(binding_ptr), original_pointer(original), intercept_pointer(intercepted), next(nullptr) {
             prev = last_intercept;
             if (prev != nullptr) {
                 prev->next = prev;

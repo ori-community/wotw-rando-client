@@ -497,7 +497,7 @@ namespace randomizer::game {
     void teleport(app::Vector3 position, bool wait_for_load) {
         teleport_state = TeleportState::Teleport;
         teleport_position = position;
-        modloader::trace(MessageType::Info, 3, "teleport", std::format("Teleport to ({}, {}, {}) initiated", position.x, position.y, position.z));
+        modloader::info("teleport", std::format("Teleport to ({}, {}, {}) initiated", position.x, position.y, position.z));
         if (wait_for_load) {
             ScenesManager::LoadScenesAtPosition(core::api::scenes::get_scenes_manager(), position, false, false, true, true, true);
         }

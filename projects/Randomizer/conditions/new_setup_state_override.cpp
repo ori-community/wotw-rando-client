@@ -185,7 +185,7 @@ namespace randomizer::conditions {
 
     void register_new_setup_intercept(applier_key key, applier_intercept callback) {
         if (applier_intercepts.find(key) != applier_intercepts.end())
-            trace(MessageType::Info, 3, "init", "registering same applier state twice, overwriting.");
+            info("init", "registering same applier state twice, overwriting.");
 
         applier_intercepts[key] = std::move(callback);
         register_debug_show(key);
@@ -210,7 +210,7 @@ namespace randomizer::conditions {
             register_debug_show(key);
         } else {
             if (applier_intercepts.find(key) != applier_intercepts.end())
-                trace(MessageType::Info, 3, "init", "registering same applier state twice, overwriting.");
+                info("init", "registering same applier state twice, overwriting.");
 
             applier_intercepts[key] = [new_state](auto, auto, auto, auto) -> int32_t { return new_state; };
             register_debug_show(key);

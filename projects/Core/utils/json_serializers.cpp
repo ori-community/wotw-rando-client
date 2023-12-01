@@ -73,11 +73,11 @@ bool load_json_file(std::string path, nlohmann::json& j) {
         try {
             stream >> j;
         } catch (nlohmann::json::parse_error& ex) {
-            trace(MessageType::Warning, 3, "util", std::format("failed to parse '{}{}' error '{}' at byte '{}'", base_path().string(), path, ex.id, ex.byte));
+            warn("util", std::format("failed to parse '{}{}' error '{}' at byte '{}'", base_path().string(), path, ex.id, ex.byte));
             return false;
         }
     } else {
-        trace(MessageType::Warning, 3, "util", std::format("failed to open '{}{}'", base_path().string(), path));
+        warn("util", std::format("failed to open '{}{}'", base_path().string(), path));
         return false;
     }
 

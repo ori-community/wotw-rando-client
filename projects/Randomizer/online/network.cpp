@@ -13,20 +13,27 @@
 
 namespace randomizer::online {
     namespace {
-        auto on_injected = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
-            ix::initNetSystem();
-        });
+        auto on_injected = modloader::event_bus().register_handler(
+            ModloaderEvent::InjectionComplete,
+            [](auto) {
+                ix::initNetSystem();
+            }
+        );
 
-        auto on_after_shutdown = core::api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, [](auto, auto) {
-            ix::uninitNetSystem();
-        });
+        auto on_after_shutdown = core::api::game::event_bus().register_handler(
+            GameEvent::Shutdown,
+            EventTiming::After,
+            [](auto, auto) {
+                ix::uninitNetSystem();
+            }
+        );
     } // namespace
 
-    NetworkClient::NetworkClient()
-            : m_udp_socket(1024)
-            , m_reconnect_websocket(false)
-            , m_reopen_udp(false)
-            , m_udp_id(-1) {
+    NetworkClient::NetworkClient() :
+        m_udp_socket(1024)
+        , m_reconnect_websocket(false)
+        , m_reopen_udp(false)
+        , m_udp_id(-1) {
         m_websocket.setOnMessageCallback([this](const auto& msg) { websocket_handle_message(msg); });
         m_udp_socket.set_packet_handler([this](auto const& data) { udp_handle_message(data); });
         m_udp_socket.set_error_handler([this](auto error) { udp_handle_error(error); });
@@ -39,7 +46,7 @@ namespace randomizer::online {
         m_websocket.setPingInterval(30);
         m_websocket.start();
         m_reconnect_websocket = true;
-        modloader::trace(modloader::MessageType::Info, 0, "network_client", "Network client connected.");
+        modloader::info("network_client", "Network client connected.");
     }
 
     bool NetworkClient::websocket_connected() const {
@@ -49,7 +56,7 @@ namespace randomizer::online {
     void NetworkClient::udp_open(std::string_view server, int port) {
         auto result = m_udp_socket.open(server, port);
         if (result != modloader::UDPSocket::UDPError::Ok) {
-            modloader::trace(modloader::MessageType::Warning, 0, "network_client", "Failed to open udp socket.");
+            modloader::warn("network_client", "Failed to open udp socket.");
         }
 
         m_reopen_udp = true;
@@ -65,7 +72,7 @@ namespace randomizer::online {
         m_reopen_udp = false;
         m_websocket.stop();
         m_udp_socket.close();
-        modloader::trace(modloader::MessageType::Info, 0, "network_client", "Network client disconnected.");
+        modloader::info("network_client", "Network client disconnected.");
     }
 
     void NetworkClient::websocket_handle_message(ix::WebSocketMessagePtr const& msg) {
@@ -88,7 +95,7 @@ namespace randomizer::online {
                 break;
             }
             case ix::WebSocketMessageType::Open: {
-                modloader::trace(modloader::MessageType::Info, 3, "network_client", "Connected to server");
+                modloader::info("network_client", "Connected to server");
                 // TODO: Get jwt from ipc with launcher.
                 std::ifstream jwt_file(modloader::base_path() / ".jwt");
                 std::stringstream output;
@@ -100,10 +107,12 @@ namespace randomizer::online {
                 auth.set_jwt(jwt);
                 websocket_send(Network::Packet_PacketID_AuthenticateMessage, auth);
                 if (m_status_listener) {
-                    m_status_listener({
-                        .type = StatusType::WebsocketConnected,
-                        .info = "Websocket connected",
-                    });
+                    m_status_listener(
+                        {
+                            .type = StatusType::WebsocketConnected,
+                            .info = "Websocket connected",
+                        }
+                    );
                 }
                 break;
             }
@@ -119,31 +128,40 @@ namespace randomizer::online {
                 if (m_reconnect_websocket) {
                     // If we are in here we did not expect this disconnect, underlying socket will auto reconnect.
                     if (m_status_listener) {
-                        m_status_listener({
-                            .type = StatusType::WebsocketClosedUnexpected,
-                            .info = closed_reason,
-                        });
+                        m_status_listener(
+                            {
+                                .type = StatusType::WebsocketClosedUnexpected,
+                                .info = closed_reason,
+                            }
+                        );
                     }
                 } else {
                     if (m_status_listener) {
-                        m_status_listener({
-                            .type = StatusType::WebsocketClosed,
-                            .info = closed_reason,
-                        });
+                        m_status_listener(
+                            {
+                                .type = StatusType::WebsocketClosed,
+                                .info = closed_reason,
+                            }
+                        );
                     }
                 }
                 break;
             }
             case ix::WebSocketMessageType::Error:
-                core::events::schedule_task(10.f, [this]() {
-                    websocket_connect(m_websocket.getUrl());
-                });
+                core::events::schedule_task(
+                    10.f,
+                    [this]() {
+                        websocket_connect(m_websocket.getUrl());
+                    }
+                );
 
                 if (m_status_listener) {
-                    m_status_listener({
-                        .type = StatusType::WebsocketError,
-                        .info = msg->errorInfo.reason,
-                    });
+                    m_status_listener(
+                        {
+                            .type = StatusType::WebsocketError,
+                            .info = msg->errorInfo.reason,
+                        }
+                    );
                 }
                 break;
             case ix::WebSocketMessageType::Ping:
@@ -154,16 +172,15 @@ namespace randomizer::online {
     }
 
     void NetworkClient::update() {
-        std::vector<Network::Packet> local_packets;
-        {
+        std::vector<Network::Packet> local_packets; {
             std::lock_guard guard(m_packet_mutex);
             local_packets.insert(local_packets.end(), m_packets.begin(), m_packets.end());
             m_packets.clear();
         }
 
-        for (auto const& packet : local_packets) {
+        for (auto const& packet: local_packets) {
             auto packet_callbacks = m_callbacks[packet.id()];
-            for (auto const& callback : packet_callbacks) {
+            for (auto const& callback: packet_callbacks) {
                 callback(packet.id(), packet.packet());
             }
         }
@@ -199,25 +216,33 @@ namespace randomizer::online {
 
     void NetworkClient::udp_handle_error(int error) {
         if (m_status_listener) {
-            m_status_listener({
-                .type = StatusType::UdpError,
-                .info = std::format("Udp socket encountered error ({}), reconnecting.", error),
-            });
+            m_status_listener(
+                {
+                    .type = StatusType::UdpError,
+                    .info = std::format("Udp socket encountered error ({}), reconnecting.", error),
+                }
+            );
         }
 
         if (m_reopen_udp) {
-            core::events::schedule_task(10.f, [this]() {
-                udp_open(m_udp_socket.get_server(), m_udp_socket.get_port());
-            });
+            core::events::schedule_task(
+                10.f,
+                [this]() {
+                    udp_open(m_udp_socket.get_server(), m_udp_socket.get_port());
+                }
+            );
         }
     }
 
     void NetworkClient::ping_udp() {
         if (udp_is_open()) {
             m_udp_socket.send({});
-            core::events::schedule_task(20.f, [this]() {
-                ping_udp();
-            });
+            core::events::schedule_task(
+                20.f,
+                [this]() {
+                    ping_udp();
+                }
+            );
         }
     }
 
@@ -227,17 +252,19 @@ namespace randomizer::online {
 
     void NetworkClient::websocket_send(Network::Packet const& packet) {
         if (!websocket_connected()) {
-           return;
+            return;
         }
 
         auto info = m_websocket.send(packet.SerializeAsString(), true);
         if (!info.success) {
             modloader::warn("network_client", "Failed to send websocket packet.");
             if (m_status_listener) {
-                m_status_listener({
-                    .type = StatusType::WebsocketSendError,
-                    .info = std::format("Failed to send websocket packet."),
-                });
+                m_status_listener(
+                    {
+                        .type = StatusType::WebsocketSendError,
+                        .info = std::format("Failed to send websocket packet."),
+                    }
+                );
             }
         }
     }
@@ -256,6 +283,6 @@ namespace randomizer::online {
         udp_packet.set_encryptedpacket(std::string(encrypted_packet.data(), encrypted_packet.size()));
 
         auto serialized_encrypted_packet = udp_packet.SerializeAsString();
-        m_udp_socket.send(std::span<char>{ serialized_encrypted_packet });
+        m_udp_socket.send(std::span<char>{serialized_encrypted_packet});
     }
 } // namespace randomizer::online

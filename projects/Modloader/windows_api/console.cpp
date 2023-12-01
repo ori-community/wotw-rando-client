@@ -48,16 +48,16 @@ namespace modloader::win::console {
 
     void register_command(std::vector<std::string> const& path, dev_command command, bool should_run_on_game_thread) {
         Command* current = &root;
-        for (const auto& entry : path) {
+        for (const auto& entry: path) {
             current = &current->sub_commands[entry];
         }
 
-        current->actions.push_back(Action{ should_run_on_game_thread, std::move(command) });
+        current->actions.push_back(Action{should_run_on_game_thread, std::move(command)});
     }
 
     Command* find_command(std::vector<std::string> const& path) {
         Command* current = &root;
-        for (const auto& entry : path) {
+        for (const auto& entry: path) {
             auto it = current->sub_commands.find(entry);
             if (it == current->sub_commands.end()) {
                 return nullptr;
@@ -84,7 +84,7 @@ namespace modloader::win::console {
         queued_commands.clear();
         command_mutex.unlock();
 
-        for (auto const& command : local) {
+        for (auto const& command: local) {
             std::get<2>(command)(std::get<0>(command), std::get<1>(command));
         }
     }
@@ -147,10 +147,12 @@ namespace modloader::win::console {
                     case State::Name:
                         if (std::isspace(unparsed.front())) {
                             state = State::Whitespace;
-                            params.push_back(CommandParam{
-                                .name = "",
-                                .value = name,
-                            });
+                            params.push_back(
+                                CommandParam{
+                                    .name = "",
+                                    .value = name,
+                                }
+                            );
                         } else if (unparsed.front() == '=') {
                             state = State::Value;
                             value = "";
@@ -163,10 +165,12 @@ namespace modloader::win::console {
                     case State::Value:
                         if (std::isspace(unparsed.front())) {
                             state = State::Whitespace;
-                            params.push_back(CommandParam{
-                                .name = name,
-                                .value = value,
-                            });
+                            params.push_back(
+                                CommandParam{
+                                    .name = name,
+                                    .value = value,
+                                }
+                            );
                         } else if (value.empty() && unparsed.front() == '"' && last != '\\') {
                             state = State::StringValue;
                         } else if (unparsed.front() != '\\' || last == '\\') {
@@ -188,13 +192,15 @@ namespace modloader::win::console {
             }
 
             if (state != State::Whitespace) {
-                params.push_back(CommandParam{
-                    .name = state == State::Value ? name : "",
-                    .value = state == State::Value ? value : name,
-                });
+                params.push_back(
+                    CommandParam{
+                        .name = state == State::Value ? name : "",
+                        .value = state == State::Value ? value : name,
+                    }
+                );
             }
 
-            for (auto const& action : command->actions) {
+            for (auto const& action: command->actions) {
                 if (action.should_run_on_main_thread) {
                     command_mutex.lock();
                     queued_commands.emplace_back(path_str, params, action.func);
@@ -220,17 +226,17 @@ namespace modloader::win::console {
 
         auto err = freopen_s(&console_file, "CONOUT$", "w", stdout);
         if (err != 0) {
-            trace(MessageType::Warning, 4, "initialize", std::format("failed to open console output 'stdout': {}", err));
+            warn("initialize", std::format("failed to open console output 'stdout': {}", err));
         }
 
         err = freopen_s(&console_file, "CONOUT$", "w", stderr);
         if (err != 0) {
-            trace(MessageType::Warning, 4, "initialize", std::format("failed to open console output 'stderr': {}", err));
+            warn("initialize", std::format("failed to open console output 'stderr': {}", err));
         }
 
         err = freopen_s(&console_file, "CONIN$", "r", stdin);
         if (err != 0) {
-            trace(MessageType::Warning, 4, "initialize", std::format("failed to open console input 'stdin': {}", err));
+            warn("initialize", std::format("failed to open console input 'stdin': {}", err));
         }
 
         std::cout.clear();
@@ -285,7 +291,7 @@ namespace modloader::win::console {
             }
 
             const int index = static_cast<int>(commands.size());
-            for (auto& sub_command : command->sub_commands) {
+            for (auto& sub_command: command->sub_commands) {
                 commands.insert(commands.begin() + index, std::make_tuple(std::get<0>(entry) + 1, sub_command.first, &sub_command.second));
             }
         }
@@ -331,7 +337,7 @@ namespace modloader::win::console {
             messages.clear();
             message_mutex.unlock();
 
-            for (auto const& message : messages_copy) {
+            for (auto const& message: messages_copy) {
                 std::cout << message << std::endl;
             }
         }

@@ -69,7 +69,7 @@ namespace modloader {
     };
 
     struct ScopedGCHandleUntyped {
-        ScopedGCHandleUntyped(void* obj) {
+        explicit ScopedGCHandleUntyped(void* obj) {
             m_handle = il2cpp::gchandle_new(obj);
         }
 
@@ -81,7 +81,7 @@ namespace modloader {
             il2cpp::gchandle_free(m_handle);
         }
 
-        void* get() {
+        [[nodiscard]] void* get() const {
             return il2cpp::gchandle_target(m_handle);
         }
 
@@ -91,31 +91,36 @@ namespace modloader {
 
     template<typename T>
     struct ScopedGCHandle {
-        ScopedGCHandle(T* obj) :
+        explicit ScopedGCHandle(T* obj) :
             m_handle(obj) {
         }
 
-        T* get() {
-            return reinterpret_cast<T*>(m_handle.get());
+        [[nodiscard]] T* get() {
+            return static_cast<T*>(m_handle.get());
         }
 
     private:
         ScopedGCHandleUntyped m_handle;
     };
 
+    class ILoggingHandler {
+    public:
+        virtual ~ILoggingHandler() = default;
+
+        virtual void write(MessageType type, std::string const& group, std::string const& message) = 0;
+    };
+
     IL2CPP_MODLOADER_DLLEXPORT common::EventBus<void, ModloaderEvent>& event_bus();
 
-    IL2CPP_MODLOADER_DLLEXPORT void trace(MessageType type, int level, std::string const& group, std::string const& message);
+    IL2CPP_MODLOADER_DLLEXPORT std::shared_ptr<ILoggingHandler> register_logging_handler(std::shared_ptr<ILoggingHandler> handler);
+
+    IL2CPP_MODLOADER_DLLEXPORT void debug(std::string const& group, std::string const& message);
 
     IL2CPP_MODLOADER_DLLEXPORT void info(std::string const& group, std::string const& message);
 
     IL2CPP_MODLOADER_DLLEXPORT void warn(std::string const& group, std::string const& message);
 
     IL2CPP_MODLOADER_DLLEXPORT void error(std::string const& group, std::string const& message);
-
-    IL2CPP_MODLOADER_DLLEXPORT void debug(std::string const& group, std::string const& message);
-
-    IL2CPP_MODLOADER_DLLEXPORT void send_trace(MessageType type, int level, std::string const& group, std::string const& message);
 
     IL2CPP_MODLOADER_DLLEXPORT bool cursor_lock();
 

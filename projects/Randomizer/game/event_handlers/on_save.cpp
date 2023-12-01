@@ -70,11 +70,11 @@ namespace {
 } // namespace
 
 RANDOMIZER_C_DLLEXPORT void save() {
-    trace(MessageType::Info, 3, "csharp_interop", "Save requested by c# code");
+    info("csharp_interop", "Save requested by c# code");
     core::api::game::save();
 }
 
 RANDOMIZER_C_DLLEXPORT void checkpoint() {
-    trace(MessageType::Info, 3, "csharp_interop", "Checkpoint requested by c# code");
+    info("csharp_interop", "Checkpoint requested by c# code");
     core::api::game::checkpoint();
 }

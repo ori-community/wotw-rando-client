@@ -26,28 +26,28 @@ namespace modloader {
 
             bool cpp_bootstrap() {
                 bool failed = false;
-                for (auto dll : cpp_dlls) {
-                    trace(MessageType::Info, 5, "initialize", std::format("Loading dll '{}'", dll));
+                for (auto dll: cpp_dlls) {
+                    info("initialize", std::format("Loading dll '{}'", dll));
                     auto handle = LoadLibraryA(dll.c_str());
                     if (handle == nullptr) {
-                        trace(MessageType::Error, 1, "initialize", std::format("Failed to load library, aborting: {}", GetLastError()));
+                        error("initialize", std::format("Failed to load library, aborting: {}", GetLastError()));
                         failed = true;
                         break;
                     } else {
-                        trace(MessageType::Info, 5, "initialize", "Load successful");
+                        info("initialize", "Load successful");
                         loaded_libraries.push_back(handle);
                     }
                 }
 
                 if (failed) {
-                    trace(MessageType::Error, 1, "initialize", "Cpp Mod Loading failed");
-                    for (auto handle : loaded_libraries) {
+                    error("initialize", "Cpp Mod Loading failed");
+                    for (auto handle: loaded_libraries) {
                         FreeLibrary(handle);
                     }
 
                     loaded_libraries.clear();
                 } else {
-                    trace(MessageType::Info, 5, "initialize", "Cpp Mod Loading successful");
+                    info("initialize", "Cpp Mod Loading successful");
                 }
 
                 return !failed;
@@ -62,7 +62,7 @@ namespace modloader {
                 try {
                     stream >> j;
                 } catch (nlohmann::json::parse_error& ex) {
-                    trace(MessageType::Debug, 3, "initialize", std::format("failed to parse '{}{}' error '{}' at byte '{}'", base_path().string(), modloader_config_path.string(), ex.id, ex.byte));
+                    debug("initialize", std::format("failed to parse '{}{}' error '{}' at byte '{}'", base_path().string(), modloader_config_path.string(), ex.id, ex.byte));
                 }
 
                 if (j.contains("cpp") && j["cpp"].is_array()) {
@@ -80,11 +80,11 @@ namespace modloader {
         }
 
         void bootstrap_shutdown() {
-            for (auto handle : loaded_libraries) {
+            for (auto handle: loaded_libraries) {
                 FreeLibrary(handle);
             }
 
-            for (auto handle : loaded_external_libraries) {
+            for (auto handle: loaded_external_libraries) {
                 FreeLibrary(handle);
             }
 

@@ -129,7 +129,7 @@ namespace randomizer::input {
             auto* player_input_rebinding_klass = types::PlayerInputRebinding::get_class();
             if (!bindings_read || !player_input_rebinding_klass->static_fields->USE_NEW_BINDINGS_TEST) {
                 // If we are here something weird is happening.
-                trace(MessageType::Error, 3, "input/controller_bindings", "Something weird is happening!!11");
+                error("input/controller_bindings", "Something weird is happening!!11");
                 next::PlayerInput::AddControllerControls(this_ptr);
                 return;
             }

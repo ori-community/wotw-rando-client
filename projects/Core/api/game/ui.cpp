@@ -20,22 +20,34 @@ namespace core::api::game::ui {
         bool is_area_map_open = false;
         bool manually_shaking_resource_ui = false;
 
-        auto on_after_open_area_map = game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, [](auto game_event, auto timing) {
-            is_area_map_open = true;
-        });
+        auto on_after_open_area_map = game::event_bus().register_handler(
+            GameEvent::OpenAreaMap,
+            EventTiming::After,
+            [](auto game_event, auto timing) {
+                is_area_map_open = true;
+            }
+        );
 
-        auto on_after_close_area_map = game::event_bus().register_handler(GameEvent::CloseAreaMap, EventTiming::After, [](auto game_event, auto timing) {
-            is_area_map_open = false;
-        });
+        auto on_after_close_area_map = game::event_bus().register_handler(
+            GameEvent::CloseAreaMap,
+            EventTiming::After,
+            [](auto game_event, auto timing) {
+                is_area_map_open = false;
+            }
+        );
 
         common::registration_handle on_after_faderb_fade_out_finished;
         IL2CPP_INTERCEPT(TitleScreenManager, void, Start, (app::TitleScreenManager * this_ptr)) {
             game::event_bus().trigger_event(GameEvent::TitleScreenStartup, EventTiming::Before);
             next::TitleScreenManager::Start(this_ptr);
-            on_after_faderb_fade_out_finished = game::event_bus().register_handler(GameEvent::FaderBFadeOutFinished, EventTiming::After, [](auto, auto) {
-                on_after_faderb_fade_out_finished = nullptr;
-                game::event_bus().trigger_event(GameEvent::TitleScreenStartup, EventTiming::After);
-            });
+            on_after_faderb_fade_out_finished = game::event_bus().register_handler(
+                GameEvent::FaderBFadeOutFinished,
+                EventTiming::After,
+                [](auto, auto) {
+                    on_after_faderb_fade_out_finished = nullptr;
+                    game::event_bus().trigger_event(GameEvent::TitleScreenStartup, EventTiming::After);
+                }
+            );
         }
     } // namespace
 
@@ -89,8 +101,8 @@ namespace core::api::game::ui {
 
     void shake_spirit_light() {
         ScopedSetter setter(manually_shaking_resource_ui, true);
-        if (game::ui::get()->static_fields->SeinUI == nullptr) {
-            trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
+        if (get()->static_fields->SeinUI == nullptr) {
+            error("game", "SeinUI is invalid!");
         } else {
             SeinUI::ShakeSpiritLight_1(game::ui::get()->static_fields->SeinUI);
         }
@@ -99,7 +111,7 @@ namespace core::api::game::ui {
     void shake_keystone() {
         ScopedSetter setter(manually_shaking_resource_ui, true);
         if (game::ui::get()->static_fields->SeinUI == nullptr) {
-            trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
+            error("game", "SeinUI is invalid!");
         } else {
             SeinUI::ShakeKeystones(game::ui::get()->static_fields->SeinUI);
         }
@@ -108,7 +120,7 @@ namespace core::api::game::ui {
     void shake_ore() {
         ScopedSetter setter(manually_shaking_resource_ui, true);
         if (game::ui::get()->static_fields->SeinUI == nullptr) {
-            trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
+            error("game", "SeinUI is invalid!");
         } else {
             SeinUI::ShakeSeeds_1(game::ui::get()->static_fields->SeinUI);
         }

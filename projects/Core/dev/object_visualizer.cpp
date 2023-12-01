@@ -84,7 +84,7 @@ namespace dev::visualize {
             auto it = visualizer.visualizer_queue.begin();
             auto index = visualizer.visualizer_queue.size() - visualizer.last_queue_size;
             if (index < 0)
-                trace(MessageType::Debug, 1, "deb", "queue size mismatch.");
+                debug("deb", "queue size mismatch.");
 
             if (index > 0)
                 it += index;

@@ -12,20 +12,12 @@
 
 #include <windows_api/console.h>
 #include <filesystem>
-#include <fstream>
 #include <functional>
-#include <utility>
-
-#include <mutex>
 #include <semaphore>
 
-#include <Common/csv.h>
-#include <Common/ext.h>
 #include <Common/settings_reader.h>
-#include <Modloader/app/methods/GameController.h>
-#include <Modloader/app/methods/UnityEngine/Application.h>
-#include <Modloader/app/methods/UnityEngine/Cursor.h>
 #include <INIReader.h>
+#include <file_logging_handler.h>
 
 //---------------------------------------------------Globals-----------------------------------------------------
 
@@ -50,101 +42,71 @@ namespace modloader {
     }
 
     namespace {
-        bool write_to_csv = true;
-        bool flush_after_every_line = true;
-        std::ofstream csv_file;
-        std::mutex csv_mutex;
-
-        void initialize_trace_file() {
-            if (!write_to_csv) {
-                return;
-            }
-
-            csv_file.open(base_path() / csv_path);
-            write_to_csv = csv_file.is_open();
-
-            if (write_to_csv) {
-                std::lock_guard guard(csv_mutex);
-                if (flush_after_every_line) {
-                    csv_file << "type, group, level, message," << std::endl;
-                } else {
-                    csv_file << "type, group, level, message,\n";
-                }
-            }
-        }
+        std::vector<std::weak_ptr<ILoggingHandler>> logging_handlers;
     } // namespace
 
-    void write_trace(MessageType type, int level, std::string const& group, std::string const& message) {
-        if (!write_to_csv) {
-            return;
-        }
+    std::shared_ptr<ILoggingHandler> register_logging_handler(std::shared_ptr<ILoggingHandler> handler) {
+        logging_handlers.push_back(handler);
+        return handler;
+    }
 
-        std::string sanitized_group = csv::sanitize_csv_field(group);
-        std::string sanitized_message = csv::sanitize_csv_field(message);
+    void write_trace(const MessageType type, std::string const& group, std::string const& message) {
+        for (auto it = logging_handlers.begin(); it != logging_handlers.end();) {
+            if (it->expired()) {
+                it = logging_handlers.erase(it);
+                continue;
+            }
 
-        std::string line = std::format(
-            "{}, [{}], {}, {},",
-            static_cast<int>(type),
-            sanitized_group,
-            level,
-            sanitized_message
-        );
-
-        std::lock_guard guard(csv_mutex);
-        if (flush_after_every_line) {
-            csv_file << line << std::endl;
-        } else {
-            csv_file << line << "\n";
+            it->lock()->write(type, group, message);
+            ++it;
         }
     }
 
-    void trace(MessageType type, int level, std::string const& group, std::string const& message) {
-        write_trace(type, level, group, message);
-    }
-
-    void info(std::string const& group, std::string const& message) {
-        trace(MessageType::Info, 4, group, message);
-    }
-
-    void warn(std::string const& group, std::string const& message) {
-        trace(MessageType::Warning, 3, group, message);
-    }
-
-    void error(std::string const& group, std::string const& message) {
-        trace(MessageType::Error, 3, group, message);
+    void trace(const MessageType type, std::string const& group, std::string const& message) {
+        write_trace(type, group, message);
     }
 
     void debug(std::string const& group, std::string const& message) {
-        trace(MessageType::Debug, 5, group, message);
+        trace(MessageType::Info, group, message);
+    }
+
+    void info(std::string const& group, std::string const& message) {
+        trace(MessageType::Info, group, message);
+    }
+
+    void warn(std::string const& group, std::string const& message) {
+        trace(MessageType::Warning, group, message);
+    }
+
+    void error(std::string const& group, std::string const& message) {
+        trace(MessageType::Error, group, message);
     }
 
     bool attached = false;
+    auto file_logger = register_logging_handler(std::make_shared<FileLoggingHandler>(base_path() / csv_path));
 
     std::binary_semaphore wait_for_exit(0);
     IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string const& path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
         inner_base_path = path;
-        trace(MessageType::Info, 5, "initialize", "Loading settings.");
+        trace(MessageType::Info, "initialize", "Loading settings.");
 
         auto settings = read_utf8_ini((base_path() / "settings.ini").string());
-
-        initialize_trace_file();
-        trace(MessageType::Info, 5, "initialize", "Mod Loader initialization.");
+        trace(MessageType::Info, "initialize", "Mod Loader initialization.");
 
         if (settings->GetBoolean("Flags", "Dev", false)) {
-            trace(MessageType::Info, 5, "initialize", "Initializing console.");
+            trace(MessageType::Info, "initialize", "Initializing console.");
             win::console::console_initialize();
         }
 
-        trace(MessageType::Info, 5, "initialize", "Loading mods.");
+        trace(MessageType::Info, "initialize", "Loading mods.");
         if (!win::bootstrap::bootstrap()) {
-            trace(MessageType::Info, 5, "initialize", "Failed to bootstrap, shutting down.");
-            csv_file.close();
+            trace(MessageType::Info, "initialize", "Failed to bootstrap, shutting down.");
             shutdown_requested = true;
             on_error("Failed to bootstrap, shutting down.");
             win::common::free_library_and_exit_thread("Modloader.dll");
         }
 
-        trace(MessageType::Info, 5, "initialize", "Performing intercepts.");
+        trace(MessageType::Info, "initialize", "Performing intercepts.");
         interception::interception_init();
 
         il2cpp::load_all_types();
@@ -156,11 +118,7 @@ namespace modloader {
         }
 
         event_bus().trigger_event(ModloaderEvent::Shutdown);
-        modloader::win::console::console_free();
-        if (write_to_csv) {
-            csv_file.close();
-        }
-
+        win::console::console_free();
         wait_for_exit.release();
     }
 
@@ -169,10 +127,11 @@ namespace modloader {
     }
 
     IL2CPP_MODLOADER_DLLEXPORT bool cursor_lock(bool value) {
-        auto state = app::classes::UnityEngine::Cursor::get_lockState();
+        const auto state = app::classes::UnityEngine::Cursor::get_lockState();
         app::classes::UnityEngine::Cursor::set_lockState(
             value ? app::CursorLockMode__Enum::Confined : app::CursorLockMode__Enum::None
         );
+
         return state == app::CursorLockMode__Enum::None;
     }
 
@@ -192,9 +151,9 @@ namespace modloader {
             auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());
             auto version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_version());
             auto unity_version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_unityVersion());
-            trace(MessageType::Info, 5, "initialize", std::format("Initializing Application {} ({})[{}].", product, version, unity_version));
+            trace(MessageType::Info, "initialize", std::format("Initializing Application {} ({})[{}].", product, version, unity_version));
 
-            trace(MessageType::Info, 5, "initialize", "Calling initialization callbacks.");
+            trace(MessageType::Info, "initialize", "Calling initialization callbacks.");
             event_bus().trigger_event(ModloaderEvent::GameReady);
             initialized = true;
         }

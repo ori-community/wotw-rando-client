@@ -45,15 +45,15 @@ namespace {
     };
 
     std::unordered_map<app::GameWorldAreaID__Enum, static_text_entry> text_overrides{
-        { app::GameWorldAreaID__Enum::InkwaterMarsh, static_text_entry::LupoMarshIntroduction },
-        { app::GameWorldAreaID__Enum::KwoloksHollow, static_text_entry::LupoHollowIntroduction },
-        { app::GameWorldAreaID__Enum::WaterMill, static_text_entry::LupoWellspringIntroduction },
-        { app::GameWorldAreaID__Enum::MidnightBurrow, static_text_entry::LupoBurrowIntroduction },
-        { app::GameWorldAreaID__Enum::BaursReach, static_text_entry::LupoReachIntroduction },
-        { app::GameWorldAreaID__Enum::LumaPools, static_text_entry::LupoPoolsIntroduction },
-        { app::GameWorldAreaID__Enum::MouldwoodDepths, static_text_entry::LupoDepthsIntroduction },
-        { app::GameWorldAreaID__Enum::WindsweptWastes, static_text_entry::LupoWastesIntroduction },
-        { app::GameWorldAreaID__Enum::WillowsEnd, static_text_entry::LupoWillowIntroduction },
+        {app::GameWorldAreaID__Enum::InkwaterMarsh, static_text_entry::LupoMarshIntroduction},
+        {app::GameWorldAreaID__Enum::KwoloksHollow, static_text_entry::LupoHollowIntroduction},
+        {app::GameWorldAreaID__Enum::WaterMill, static_text_entry::LupoWellspringIntroduction},
+        {app::GameWorldAreaID__Enum::MidnightBurrow, static_text_entry::LupoBurrowIntroduction},
+        {app::GameWorldAreaID__Enum::BaursReach, static_text_entry::LupoReachIntroduction},
+        {app::GameWorldAreaID__Enum::LumaPools, static_text_entry::LupoPoolsIntroduction},
+        {app::GameWorldAreaID__Enum::MouldwoodDepths, static_text_entry::LupoDepthsIntroduction},
+        {app::GameWorldAreaID__Enum::WindsweptWastes, static_text_entry::LupoWastesIntroduction},
+        {app::GameWorldAreaID__Enum::WillowsEnd, static_text_entry::LupoWillowIntroduction},
     };
 
     app::GameWorld* get_game_world() {
@@ -68,6 +68,7 @@ namespace {
     }
 
     using normal_function = app::MessageProvider* (*)(app::CartographerEntity*);
+
     app::MessageProvider* handle_lupo_message(app::CartographerEntity* this_ptr, LupoSelection selection, normal_function normal) {
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto text_override = *text_overrides[area->fields.WorldMapAreaUniqueID] + static_cast<int>(selection);
@@ -125,7 +126,7 @@ namespace {
         MessageBox::RefreshText_1(this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox);
 
         // Moon pls center the thing dammit
-        il2cpp::unity::set_local_position(this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox, app::Vector3{ 1.13f, -3.7f, 0.f });
+        il2cpp::unity::set_local_position(this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox, app::Vector3{1.13f, -3.7f, 0.f});
 
         il2cpp::unity::set_active(this_ptr->fields.m_questDetailsUI->fields.QuestRewardHeader, true);
         il2cpp::unity::set_active(this_ptr->fields.m_questDetailsUI->fields.Keystone, false);
@@ -275,15 +276,19 @@ namespace {
                 RuntimeGameWorldArea::DiscoverAllAreas(runtimeArea);
             }
 
-            trace(MessageType::Debug, 5, "game", "Map revealed");
+            debug("game", "Map revealed");
             return true;
         } else {
-            trace(MessageType::Warning, 3, "game", "Tried to discover all, but haven't found the GameWorld Instance yet :(");
+            warn("game", "Tried to discover all, but haven't found the GameWorld Instance yet :(");
             return false;
         }
     }
 
-    auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
-        discover_everything();
-    });
+    auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(
+        GameEvent::NewGameInitialized,
+        EventTiming::After,
+        [](auto, auto) {
+            discover_everything();
+        }
+    );
 } // namespace

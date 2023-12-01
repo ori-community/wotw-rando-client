@@ -570,7 +570,7 @@ namespace randomizer {
 
             dev::print_time(start_time, "Added states");
 
-            trace(MessageType::Info, 5, "initialize", "Custom uber states initialized.");
+            info("initialize", "Custom uber states initialized.");
             next::Moon::UberStateCollection::PrepareRuntimeDataType(this_ptr);
 
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 0), "On New Game");
@@ -641,7 +641,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::RandoVirtual, 200),
                 "Area",
                 core::Property<double>(
-                    [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 200) is read only."); },
+                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (15, 200) is read only."); },
                     []() -> double { return static_cast<double>(core::api::game::player::get_current_area()); }
                 )
             );
@@ -649,7 +649,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::RandoVirtual, 500),
                 "Total Relics",
                 core::Property<double>(
-                    [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 500) is read only."); },
+                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (15, 500) is read only."); },
                     []() -> double { return game_seed().relics().relic_count(); }
                 )
             );
@@ -657,7 +657,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::RandoVirtual, 501),
                 "Current Relics",
                 core::Property<double>(
-                    [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 501) is read only."); },
+                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (15, 501) is read only."); },
                     []() -> double { return game_seed().relics().found_relics(); }
                 )
             );
@@ -666,7 +666,7 @@ namespace randomizer {
                 "Current Trees",
                 core::Property<double>(
                     core::set_get<double>{
-                        [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 502) is read only."); },
+                        [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (15, 502) is read only."); },
                         []() -> double {
                             return UberState(UberStateGroup::Tree, app::AbilityType__Enum::Sword).get()
                                 + UberState(UberStateGroup::Tree, app::AbilityType__Enum::DoubleJump).get()
@@ -689,7 +689,7 @@ namespace randomizer {
                 std::make_pair(UberStateGroup::RandoVirtual, 503),
                 "Current Wisps",
                 core::Property<double>(
-                    [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 503) is read only."); },
+                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (15, 503) is read only."); },
                     []() -> double {
                         return UberState(static_cast<UberStateGroup>(28895), 25522).get() // Reach
                             + UberState(static_cast<UberStateGroup>(18793), 63291).get() // Mouldwood
@@ -704,7 +704,7 @@ namespace randomizer {
                 "Current Quests",
                 core::Property<double>(
                     core::set_get<double>{
-                        [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 504) is read only."); },
+                        [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (15, 504) is read only."); },
                         []() -> double {
                             return static_cast<int>(UberState(static_cast<UberStateGroup>(937), 34641).get() > 3.5) +
                                 static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 35399).get() > 2.5) +
