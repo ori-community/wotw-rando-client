@@ -727,6 +727,20 @@ namespace randomizer {
                 )
             );
 
+            register_virtual_state(
+                std::make_pair(UberStateGroup::RandoVirtual, 505),
+                "Current Area Has Uncollected Relic",
+                core::Property<double>(
+                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (15, 505) is read only."); },
+                    []() -> double {
+                        const auto area = core::api::game::player::get_current_area();
+                        return game_seed().relics().found_relics_in_area(area) < game_seed().relics().relic_count_in_area(area)
+                            ? 1.0
+                            : 0.0;
+                    }
+                )
+            );
+
             // Grom shop states
             register_virtual_state(
                 std::make_pair(UberStateGroup::GromShop, 16825),
