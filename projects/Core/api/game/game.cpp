@@ -141,12 +141,12 @@ namespace core::api::game {
             game_state() != app::GameStateMachine_State__Enum::StartScreen;
     }
 
-    app::GameController* controller() {
+    app::GameController* game_controller() {
         return types::GameController::get_class()->static_fields->Instance;
     }
 
     app::SaveGameController* save_controller() {
-        return controller()->fields.SaveGameController;
+        return game_controller()->fields.SaveGameController;
     }
 
     app::GameObject* container(RandoContainer c) {
@@ -171,7 +171,7 @@ namespace core::api::game {
     }
 
     bool can_save() {
-        return !controller()->fields.DisableCheckpoints &&
+        return !game_controller()->fields.DisableCheckpoints &&
             SaveGameController::CanPerformSave(save_controller());
     }
 
@@ -200,10 +200,10 @@ namespace core::api::game {
         }
 
         save_controller()->fields.m_lastSavedFrameIndex = -1;
-        GameController::CreateCheckpoint(game::controller(), options.to_disk, false);
+        GameController::CreateCheckpoint(game::game_controller(), options.to_disk, false);
 
         if (options.restore_instantly) {
-            GameController::RestoreCheckpointImmediate_2(game::controller(), options.to_disk);
+            GameController::RestoreCheckpointImmediate_2(game::game_controller(), options.to_disk);
         }
 
         if (options.refill && !options.refill_instantly) {
@@ -222,7 +222,7 @@ namespace core::api::game {
             SaveGameController::PerformLoad(game::save_controller());
         } else {
             SaveGameController::PerformLoadWithoutCheckpointRestore(game::save_controller());
-            GameController::RestoreCheckpointImmediate_1(game::controller());
+            GameController::RestoreCheckpointImmediate_1(game::game_controller());
         }
     }
 
@@ -230,7 +230,7 @@ namespace core::api::game {
      * Simulates a QTM
      */
     void reload_everything() {
-        auto game_controller = game::controller();
+        auto game_controller = game::game_controller();
         auto scenes_manager = scenes::get_scenes_manager();
 
         scenes_manager->fields.Settings->fields.AutoLoadingUnloading = false;

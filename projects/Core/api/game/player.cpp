@@ -311,7 +311,7 @@ namespace core::api::game::player {
     }
 
     bool can_move() {
-        auto game_controller = controller();
+        auto game_controller = game::game_controller();
         return !(GameController::get_InputLocked(game_controller) ||
                  GameController::get_LockInput(game_controller) ||
                  GameController::get_IsSuspended(game_controller)) &&

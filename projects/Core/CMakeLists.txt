@@ -17,7 +17,7 @@ set(
         "api/faderb.cpp"
         "api/game/death_listener.cpp"
         "api/game/game.cpp"
-        "api/game/loading_detection.cpp"
+        "api/game/in_game_timer.cpp"
         "api/game/player.cpp"
         "api/game/trials.cpp"
         "api/game/ui.cpp"
@@ -84,7 +84,7 @@ set(
         "api/faderb.h"
         "api/game/death_listener.h"
         "api/game/game.h"
-        "api/game/loading_detection.h"
+        "api/game/in_game_timer.h"
         "api/game/player.h"
         "api/game/trials.h"
         "api/game/ui.h"
@@ -122,7 +122,7 @@ set(
         "enums/game_event.h"
         "enums/layer.h"
         "enums/sound.h"
-        "enums/loading_state.h"
+        "enums/async_loading_state.h"
         "enums/save_meta_slot.h"
         "enums/save_meta_slot_persistence.h"
         "enums/shard_type.h"
@@ -157,8 +157,7 @@ set(
 
 set(
         MISC_FILES
-        "CMakeLists.txt"
-        enums/loading_state.h)
+        "CMakeLists.txt")
 
 add_library(
         ${PROJECT_NAME}

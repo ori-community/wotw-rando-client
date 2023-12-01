@@ -10,7 +10,7 @@
 
 #include <fstream>
 #include <map>
-#include <timing/game_timer.h>
+#include <timing/game_tracker.h>
 
 namespace randomizer::seed {
 

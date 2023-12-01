@@ -1,6 +1,6 @@
 #include <Core/api/game/death_listener.h>
 #include <Core/api/game/game.h>
-#include <Core/api/game/loading_detection.h>
+#include <Core/api/game/in_game_timer.h>
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/enums/world_events.h>
@@ -13,7 +13,7 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
-#include <Randomizer/timing/game_timer.h>
+#include <Randomizer/timing/game_tracker.h>
 #include <format>
 #include <stats/game_stats.h>
 
@@ -81,13 +81,13 @@ namespace randomizer::timing {
     }
 
     namespace {
-        void report_timer_state_to_external_services(float total_time, float loading_time, bool timer_should_run) {
+        void report_timer_state_to_external_services(float in_game_time, float async_loading_time, bool timer_should_run) {
             // TODO: Reimplent (Zre)
             //csharp_bridge::report_loading_time(loading_time);
 
             auto request = core::ipc::make_request("notify_timer_state_changed");
-            request["payload"]["total_time"] = total_time;
-            request["payload"]["loading_time"] = loading_time;
+            request["payload"]["in_game_time"] = in_game_time;
+            request["payload"]["async_loading_time"] = async_loading_time;
             request["payload"]["timer_should_run"] = timer_should_run;
             core::ipc::send_message(request);
         }
@@ -202,35 +202,17 @@ namespace randomizer::timing {
                     timer_state_reporting_throttled_for = LOADING_TIME_REPORTING_THROTTLE_SECONDS;
                     queue_timer_state_report = false;
                     stats_mutex.lock();
-                    report_timer_state_to_external_services(save_stats->total_time, save_stats->get_total_loading_time(), timer_should_run());
+                    report_timer_state_to_external_services(save_stats->in_game_time, save_stats->get_total_async_loading_time(), timer_should_run());
                     stats_mutex.unlock();
                 }
 
                 timer_state_reporting_throttled_for -= TimeUtility::get_fixedDeltaTime();
-            }
-        );
-
-        auto on_async_update = core::events::async_update_bus().register_handler(
-            [](float delta) {
-                if (!timer_should_run()) {
-                    return;
-                }
-
-                stats_mutex.lock();
-                auto loading_state = core::api::game::loading_detection::get_loading_state();
-                if (loading_state == LoadingState::NotLoading) {
-                    save_stats->report_time_spent(current_game_area.load(), delta);
-                } else {
-                    save_stats->report_loading_time(delta, loading_state);
-                    queue_timer_state_report = true;
-                }
-                stats_mutex.unlock();
 
                 if (ENABLE_DEBUG_LOGGING) {
-                    time_to_next_debug_print -= delta;
+                    time_to_next_debug_print -= TimeUtility::get_fixedDeltaTime();
                     if (time_to_next_debug_print <= 0.f) {
                         modloader::win::console::console_send("");
-                        modloader::win::console::console_send(std::format("time = {}, pickups = {}", save_stats->total_time, checkpoint_stats->total_pickups));
+                        modloader::win::console::console_send(std::format("time = {}, pickups = {}", save_stats->in_game_time, checkpoint_stats->total_pickups));
                         modloader::win::console::console_send(
                             std::format("max_ppm = {}, at = {}", save_stats->max_ppm_over_timespan, save_stats->max_ppm_over_timespan_at)
                         );
@@ -249,11 +231,28 @@ namespace randomizer::timing {
             }
         );
 
+        auto on_in_game_timer_time_step = core::api::game::in_game_timer::time_step_event_bus().register_handler([](auto step) {
+            if (!timer_should_run()) {
+                return;
+            }
+
+            stats_mutex.lock();
+            switch (step.type) {
+                case core::api::game::in_game_timer::TimeStepType::InGameTime:
+                    save_stats->report_in_game_time_spent(current_game_area.load(), step.time);
+                    break;
+                case core::api::game::in_game_timer::TimeStepType::AsyncLoadingTime:
+                    save_stats->report_async_loading_time_spent(step.time, core::api::game::in_game_timer::get_last_async_loading_state());
+                    break;
+            }
+            stats_mutex.unlock();
+        });
+
         auto uber_state_notify = core::api::uber_states::notification_bus().register_handler(
             [](auto params) {
                 if (params.state == game_finished_uber_state) {
                     stats_mutex.lock();
-                    report_timer_state_to_external_services(save_stats->total_time, save_stats->get_total_loading_time(), false);
+                    report_timer_state_to_external_services(save_stats->in_game_time, save_stats->get_total_async_loading_time(), false);
                     stats_mutex.unlock();
                     queue_timer_state_report = true;
                 }
@@ -296,8 +295,8 @@ namespace randomizer::timing {
                         auto response = core::ipc::respond_to(j);
 
                         stats_mutex.lock();
-                        response["payload"]["total_time"] = save_stats->total_time;
-                        response["payload"]["loading_time"] = save_stats->get_total_loading_time();
+                        response["payload"]["in_game_time"] = save_stats->in_game_time;
+                        response["payload"]["async_loading_time"] = save_stats->get_total_async_loading_time();
                         response["payload"]["timer_should_run"] = timer_should_run();
                         stats_mutex.unlock();
 

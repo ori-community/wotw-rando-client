@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Core/enums/game_areas.h>
-#include <Core/enums/loading_state.h>
+#include <Core/enums/async_loading_state.h>
 #include <Core/enums/world_events.h>
 #include <Core/mood_guid.h>
 #include <Core/save_meta/save_meta.h>
@@ -101,19 +101,19 @@ namespace randomizer::timing {
     public:
         struct AreaStats {
             int deaths = 0;
-            float time_spent = 0.f;
+            float in_game_time_spent = 0.f;
 
             NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
                 AreaStats,
                 deaths,
-                time_spent
+                in_game_time_spent
             );
         };
 
         // Tracking
         float time_since_last_checkpoint = 0.f;
-        float total_time = 0.f;
-        std::unordered_map<LoadingState, float> loading_times;
+        float in_game_time = 0.f;
+        std::unordered_map<AsyncLoadingState, float> async_loading_times;
 
         /**
          * Countdowns for recent pickups. For each pickup collected, a value of PPM_TIMESPAN
@@ -123,17 +123,17 @@ namespace randomizer::timing {
         std::vector<float> recent_pickup_timers;
 
         /**
-         * location_name -> collected_at
+         * location_name -> collected_at_in_game_time
          */
         std::map<std::string, float> collected_pickups;
 
         /**
-         * AbilityType -> collected_at
+         * AbilityType -> collected_at_in_game_time
          */
         std::map<app::AbilityType__Enum, float> ability_timestamps;
 
         /**
-         * WorldEvent -> collected_at
+         * WorldEvent -> collected_at_in_game_time
          */
         std::map<WorldEvent, float> world_event_timestamps;
 
@@ -149,8 +149,8 @@ namespace randomizer::timing {
         NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
             SaveFileGameStats,
             time_since_last_checkpoint,
-            total_time,
-            loading_times,
+            in_game_time,
+            async_loading_times,
             recent_pickup_timers,
             collected_pickups,
             ability_timestamps,
@@ -164,9 +164,9 @@ namespace randomizer::timing {
         );
 
         // Methods
-        void report_time_spent(GameArea area, float time);
+        void report_in_game_time_spent(GameArea area, float time);
 
-        void report_loading_time(float time, LoadingState reason);
+        void report_async_loading_time_spent(float time, AsyncLoadingState reason);
 
         void report_pickup(GameArea area, const std::string& location_name);
 
@@ -182,7 +182,7 @@ namespace randomizer::timing {
 
         void report_teleport();
 
-        float get_total_loading_time();
+        float get_total_async_loading_time();
 
         nlohmann::json json_serialize() override;
 

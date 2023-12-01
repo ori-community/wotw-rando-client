@@ -1,4 +1,6 @@
+#include <Core/api/game/in_game_timer.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/methods/Moon/Timeline/GameplayToCinematicEntity.h>
 #include <Modloader/app/types/SavePedestalController.h>
@@ -9,6 +11,7 @@ using namespace app::classes;
 namespace {
     constexpr float MINIMUM_TELEPORTATION_TIME = 2.0f;
 
+    // Fix for tree animation skips
     void unlock_cinematics() {
         auto const gameplay_camera = types::UI_Cameras::get_class()->static_fields->Current;
         auto const camera_controller = gameplay_camera->fields.Controller;
@@ -29,4 +32,8 @@ namespace {
         // 7.f is the default
         types::SavePedestalController::get_class()->static_fields->Instance->fields.m_startTime -= (7.f - MINIMUM_TELEPORTATION_TIME);
     }
+
+    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        core::api::game::in_game_timer::set_minimum_teleportation_time(MINIMUM_TELEPORTATION_TIME);
+    });
 }

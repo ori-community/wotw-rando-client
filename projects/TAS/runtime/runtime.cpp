@@ -12,7 +12,7 @@
 #include <Modloader/windows_api/memory.h>
 
 #include <Core/api/game/game.h>
-#include <Core/api/game/loading_detection.h>
+#include <Core/api/game/in_game_timer.h>
 #include <Core/api/game/player.h>
 #include <Core/events/async_update.h>
 #include <Core/input/simulator.h>
@@ -68,21 +68,21 @@ namespace tas::runtime {
          * This is a separate IPC call because it is called from a different
          * thread. get_loading_state() is atomic.
          */
-        void notify_loading_state_changed() {
-            auto request = core::ipc::make_request("notify_loading_state_changed");
-            request["payload"] = core::api::game::loading_detection::get_loading_state();
+        void notify_async_loading_state_changed() {
+            auto request = core::ipc::make_request("notify_async_loading_state_changed");
+            request["payload"] = core::api::game::in_game_timer::get_last_async_loading_state();
             core::ipc::send_message(request);
         }
 
         namespace loading_state_detection {
-            std::atomic<LoadingState> last_notified_loading_state = LoadingState::NotLoading;
+            std::atomic<AsyncLoadingState> last_notified_loading_state = AsyncLoadingState::NotLoading;
 
             auto on_async_update_handle = core::events::async_update_bus().register_handler([](float delta) {
-                auto current_state = core::api::game::loading_detection::get_loading_state();
+                auto current_state = core::api::game::in_game_timer::get_last_async_loading_state();
 
                 if (last_notified_loading_state != current_state) {
                     last_notified_loading_state = current_state;
-                    notify_loading_state_changed();
+                    notify_async_loading_state_changed();
                 }
             });
         } // namespace loading_state_detection
@@ -94,7 +94,7 @@ namespace tas::runtime {
             j["timeline_current_rng_state"] = state.current_timeline.get_state().current_rng_state;
             j["framestepping_enabled"] = state.framestepping_enabled;
 
-            loading_state_detection::last_notified_loading_state = core::api::game::loading_detection::get_loading_state();
+            loading_state_detection::last_notified_loading_state = core::api::game::in_game_timer::get_last_async_loading_state();
             j["loading_state"] = loading_state_detection::last_notified_loading_state;
 
             auto position = core::api::game::player::get_position();
@@ -184,7 +184,7 @@ namespace tas::runtime {
             }
 
             if (state.timeline_playback_active) {
-                if (core::api::game::loading_detection::get_loading_state() == LoadingState::NotLoading) {
+                if (core::api::game::in_game_timer::get_last_async_loading_state() == AsyncLoadingState::NotLoading) {
                     state.current_timeline.advance();
                 }
 

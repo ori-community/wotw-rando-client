@@ -191,7 +191,7 @@ namespace randomizer::game::shops {
     }
 
     bool is_in_shop(const ShopType type) {
-        const auto game_controller = core::api::game::controller();
+        const auto game_controller = core::api::game::game_controller();
         if (!game_controller || GameController::get_GameInTitleScreen(game_controller)) {
             return false;
         }

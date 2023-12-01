@@ -1,9 +1,9 @@
 #include <Randomizer/stats/game_stats.h>
 
 namespace randomizer::timing {
-    void SaveFileGameStats::report_time_spent(GameArea area, float time) {
-        this->area_stats[area].time_spent += time;
-        this->total_time += time;
+    void SaveFileGameStats::report_in_game_time_spent(GameArea area, float time) {
+        this->area_stats[area].in_game_time_spent += time;
+        this->in_game_time += time;
         this->time_since_last_checkpoint += time;
 
         auto it = recent_pickup_timers.begin();
@@ -18,13 +18,13 @@ namespace randomizer::timing {
             ++it;
         }
 
-        if (this->max_ppm_over_timespan_at == 0 && this->total_time >= PPM_TIMESPAN) {
+        if (this->max_ppm_over_timespan_at == 0 && this->in_game_time >= PPM_TIMESPAN) {
             this->recalculate_max_ppm_over_timespan();
         }
     }
 
-    void SaveFileGameStats::report_loading_time(float time, LoadingState reason) {
-        this->loading_times[reason] += time;
+    void SaveFileGameStats::report_async_loading_time_spent(float time, AsyncLoadingState reason) {
+        this->async_loading_times[reason] += time;
     }
 
     void SaveFileGameStats::report_death(GameArea area) {
@@ -57,7 +57,7 @@ namespace randomizer::timing {
     void SaveFileGameStats::report_pickup(GameArea area, const std::string& location_name) {
         if (!this->collected_pickups.contains(location_name)) {
             this->recent_pickup_timers.push_back(PPM_TIMESPAN);
-            this->collected_pickups[location_name] = this->total_time;
+            this->collected_pickups[location_name] = this->in_game_time;
 
             this->recalculate_max_ppm_over_timespan();
         }
@@ -65,13 +65,13 @@ namespace randomizer::timing {
 
     void SaveFileGameStats::report_ability_acquired(app::AbilityType__Enum ability) {
         if (!this->ability_timestamps.contains(ability)) {
-            this->ability_timestamps[ability] = this->total_time;
+            this->ability_timestamps[ability] = this->in_game_time;
         }
     }
 
     void SaveFileGameStats::report_world_event(WorldEvent event) {
         if (!this->world_event_timestamps.contains(event)) {
-            this->world_event_timestamps[event] = this->total_time;
+            this->world_event_timestamps[event] = this->in_game_time;
         }
     }
 
@@ -82,15 +82,15 @@ namespace randomizer::timing {
 
     void SaveFileGameStats::recalculate_max_ppm_over_timespan() {
         auto current_ppm_over_timespan = this->get_current_ppm_over_timespan();
-        if (current_ppm_over_timespan > this->max_ppm_over_timespan && this->total_time >= PPM_TIMESPAN) {
+        if (current_ppm_over_timespan > this->max_ppm_over_timespan && this->in_game_time >= PPM_TIMESPAN) {
             this->max_ppm_over_timespan = current_ppm_over_timespan;
-            this->max_ppm_over_timespan_at = this->total_time;
+            this->max_ppm_over_timespan_at = this->in_game_time;
         }
     }
 
-    float SaveFileGameStats::get_total_loading_time() {
+    float SaveFileGameStats::get_total_async_loading_time() {
         float total = 0.f;
-        for (const auto& item : this->loading_times) {
+        for (const auto& item : this->async_loading_times) {
             total += item.second;
         }
         return total;

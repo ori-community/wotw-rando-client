@@ -49,7 +49,7 @@ namespace {
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(wellspring_so_soggy_timeline.ptr));
         core::api::game::player::set_position(-763.04f, -4071.325f, true);
         core::api::game::player::snap_camera();
-        GameController::CreateCheckpoint(core::api::game::controller(), true, false);
+        GameController::CreateCheckpoint(core::api::game::game_controller(), true, false);
         core::api::faderb::fade_out(0.6f);
     }
 

@@ -49,7 +49,7 @@ namespace core::api::game {
 
     CORE_DLLEXPORT app::GameObject* container(RandoContainer c);
     CORE_DLLEXPORT void add_to_container(RandoContainer c, app::GameObject* go);
-    CORE_DLLEXPORT app::GameController* controller();
+    CORE_DLLEXPORT app::GameController* game_controller();
     CORE_DLLEXPORT app::SaveGameController* save_controller();
     CORE_DLLEXPORT bool is_paused();
 
