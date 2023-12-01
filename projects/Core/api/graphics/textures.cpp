@@ -38,6 +38,16 @@ namespace core::api::graphics::textures {
         std::unordered_map<std::string, gchandle> files;
         std::unordered_map<std::string, std::vector<std::weak_ptr<TextureData>>> file_instances;
         std::unordered_map<app::Renderer*, std::pair<gchandle, MaterialParams>> default_params;
+        // TODO: May need one for Twillen as his sorting got changed, and may be needed for Tuley as well.
+        std::unordered_map<int, int> grom_redirect{
+            {0, 2}, // project_teleporter -> project_teleporter
+            {1, 1}, // project_house1 -> project_house1
+            {2, 3}, // project_houses2 -> project_thorns
+            {3, 5}, // project_houses3 -> project_houses2
+            {4, 4}, // project_cave -> project_cave
+            {5, 2}, // project_thorns -> project_houses3
+            {6, 6}, // project_beautify -> project_beautify
+        };
     } // namespace
 
     TextureData::~TextureData() {
@@ -312,7 +322,7 @@ namespace core::api::graphics::textures {
                 if (screen != nullptr) {
                     auto items = screen->fields.BuilderItems;
                     if (actual_value >= 0 && actual_value < items->max_length) {
-                        texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Project->fields.Icon, true);
+                        texture = il2cpp::gchandle_new_weak(items->vector[grom_redirect[actual_value]]->fields.Project->fields.Icon, true);
                     }
                 }
             } else if (type == "tuley") {
