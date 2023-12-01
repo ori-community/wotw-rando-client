@@ -102,11 +102,17 @@ namespace core::reactivity {
             if (!ref_ptr.expired()) {
                 auto effect = ref_ptr.lock();
 
-                effect->before_function();
+                if (effect->before_function != nullptr) {
+                    effect->before_function();
+                };
+
                 push_tracking_context();
                 effect->effect_function();
                 pop_tracking_context(effect);
-                effect->after_function();
+
+                if (effect->after_function != nullptr) {
+                    effect->after_function();
+                }
             }
         }
     }

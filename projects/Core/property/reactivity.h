@@ -63,9 +63,9 @@ struct std::hash<core::reactivity::PropertyDependency> {
 namespace core::reactivity {
     struct ReactiveEffect {
         std::unordered_set<dependency_t> dependencies;
-        std::function<void()> before_function;
-        std::function<void()> effect_function;
-        std::function<void()> after_function;
+        std::function<void()> before_function = nullptr;
+        std::function<void()> effect_function = nullptr;
+        std::function<void()> after_function = nullptr;
     };
 
     namespace builder {
