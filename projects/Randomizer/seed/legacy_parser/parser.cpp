@@ -185,7 +185,8 @@ namespace randomizer::seed::legacy_parser {
 
         const auto collected = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
         collected->variable = core::Property<int>(UberStateGroup::RandoState, 3);
-        collected->value.set(1);
+        collected->value.set(spirit_light);
+        data.add_item(collected);
 
         if (!data.should_add_default_messages) {
             return true;
