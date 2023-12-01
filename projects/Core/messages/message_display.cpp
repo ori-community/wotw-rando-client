@@ -225,7 +225,7 @@ namespace core::messages {
         app::Vector3& position
     ) {
         data.message = std::make_shared<api::messages::MessageBox>();
-        data.message->show_box(data.info.show_box);
+        data.message->show_box().set(data.info.show_box);
         data.message->text_processor(m_text_processor);
         data.message->text().process_and_set(data.info.text.get());
         data.message->top_padding().set(data.info.padding.x);

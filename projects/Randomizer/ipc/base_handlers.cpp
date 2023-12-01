@@ -109,7 +109,7 @@ namespace randomizer::ipc {
                 message = std::make_shared<core::api::messages::MessageBox>();
                 message->fade_in().set(p.value("fadein", 0.5f));
                 message->fade_out().set(p.value("fadeout", 0.5f));
-                message->show_box(p.value("should_show_box", false));
+                message->show_box().set(p.value("should_show_box", false));
                 // bool should_play_sound = p.value("should_play_sound", false);
 
                 nlohmann::json response;

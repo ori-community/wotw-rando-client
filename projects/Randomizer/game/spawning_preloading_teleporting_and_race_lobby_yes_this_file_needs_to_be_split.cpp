@@ -96,7 +96,7 @@ namespace randomizer::game {
                 lobby_status_text_box->position().set(app::Vector3{0.f, 1.5f, 0.f});
                 lobby_status_text_box->fade_in().set(false);
                 lobby_status_text_box->fade_out().set(false);
-                lobby_status_text_box->show_box(false);
+                lobby_status_text_box->show_box().set(false);
 
                 std::string text;
 

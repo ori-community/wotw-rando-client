@@ -403,7 +403,7 @@ namespace randomizer::online {
         box->use_world_coordinates().set(message.useingamecoordinates());
         box->fade_in().set(message.fadeinlength());
         box->fade_out().set(message.fadeoutlength());
-        box->show_box(message.withbox());
+        box->show_box().set(message.withbox());
 
         if (is_constructed) {
             auto sync = core::message_controller().queue(

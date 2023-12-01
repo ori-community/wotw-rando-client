@@ -177,6 +177,10 @@ namespace core::api::messages {
         // Move back the background glow a little bit so it doesn't go out of the near-plane
         const auto glow_transform = Transform::GetChild(background_transform(), 0);
         il2cpp::unity::set_local_position(glow_transform, app::Vector3 {0.5f, 0.4f, 0.f});  // Default value but with z = 0
+
+        // Hide background initially to prevent the background being visible before
+        // the message box scaler has run. We're updating this in render_text_box()
+        GameObject::SetActive(il2cpp::unity::get_game_object(background_transform()), false);
     }
 
     MessageBox::~MessageBox() {
@@ -218,11 +222,24 @@ namespace core::api::messages {
             new_text = " ";
         }
 
+        auto should_recache = false;
+
+        const auto new_show_box = m_show_box.get();
+        if (m_cached_show_box != new_show_box) {
+            m_cached_show_box = new_show_box;
+            should_recache = true;
+            GameObject::SetActive(il2cpp::unity::get_game_object(background_transform()), new_show_box);
+        }
+
         if (m_cached_text != new_text) {
             m_cached_text = new_text;
             text_style::create_styles(m_message_box->fields.TextBox, m_cached_text);
             m_message_box->fields.MessageProvider = core::api::system::create_message_provider(m_cached_text);
             app::classes::MessageBox::RefreshText_1(m_message_box);
+            should_recache = true;
+        }
+
+        if (should_recache) {
             ScaleToTextBox::UpdateSize(m_scaler);
 
             // Moon code alert!
@@ -301,10 +318,6 @@ namespace core::api::messages {
         m_message_box->fields.Visibility->fields.m_delayTime = 0.0f;
         m_message_box->fields.Visibility->fields.m_time = instant ? 0.0f : 1.0f;
         MessageBoxVisibility::set_IsSuspended(m_message_box->fields.Visibility, false);
-    }
-
-    void MessageBox::show_box(const bool value) const {
-        GameObject::SetActive(il2cpp::unity::get_game_object(background_transform()), value);
     }
 
     IL2CPP_INTERCEPT(ScaleToTextBox, void, UpdateSize, (app::ScaleToTextBox * this_ptr)) {

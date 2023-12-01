@@ -65,7 +65,6 @@ namespace core::api::messages {
         void show(bool instant = false, bool play_sound = true);
         void hide(bool instant = false) const;
 
-        void show_box(bool value) const;
         [[nodiscard]] app::Rect text_bounds() const;
         [[nodiscard]] app::Rect bounds() const;
 
@@ -74,6 +73,7 @@ namespace core::api::messages {
 
         [[nodiscard]] Property<app::Vector3> position() { return m_position; }
         [[nodiscard]] Property<bool> use_world_coordinates() { return m_use_world_coordinates; }
+        [[nodiscard]] Property<bool> show_box() { return m_show_box; }
         [[nodiscard]] Property<float> fade_in() { return m_fade_in; }
         [[nodiscard]] Property<float> fade_out() { return m_fade_out; }
         [[nodiscard]] Property<app::Color> color() { return m_color; }
@@ -96,10 +96,12 @@ namespace core::api::messages {
         app::ScaleToTextBox* m_scaler = nullptr;
 
         std::string m_cached_text;
+        bool m_cached_show_box = false;
 
         Property<std::string> m_text;
         Property<app::Vector3> m_position;
         Property<bool> m_use_world_coordinates;
+        Property<bool> m_show_box = Property<bool>(true);
         Property<float> m_fade_in;
         Property<float> m_fade_out;
         Property<app::Color> m_color;
