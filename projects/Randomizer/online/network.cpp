@@ -118,9 +118,7 @@ namespace randomizer::online {
             }
             case ix::WebSocketMessageType::Close: {
                 auto closed_reason = std::format("websocket closed '{}': {}", msg->closeInfo.code, msg->closeInfo.reason.c_str());
-                modloader::trace(
-                    modloader::MessageType::Info,
-                    2,
+                modloader::warn(
                     "network_client",
                     closed_reason
                 );

@@ -78,9 +78,9 @@ namespace randomizer::seed {
         std::vector<std::tuple<reach_check_callback, ReachCheckResult>> results;
         std::mutex results_mutex;
 
-        void push_error(ReachCheckResult::Data* data, const char* error) {
+        void push_error(ReachCheckResult::Data* data, const char* error_message) {
             // TODO: Show message
-            error("reach_check", error);
+            modloader::error("reach_check", error_message);
         }
 
         void push_reached(ReachCheckResult::Data* data, const char* identifier) {
