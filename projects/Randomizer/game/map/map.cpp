@@ -102,7 +102,10 @@ namespace randomizer::game::map {
                 case app::WorldMapIconType__Enum::BreakableWall:
                 case app::WorldMapIconType__Enum::BreakableWallBroken:
                 case app::WorldMapIconType__Enum::StompableFloor:
-                case app::WorldMapIconType__Enum::StompableFloorBroken: {
+                case app::WorldMapIconType__Enum::StompableFloorBroken:
+                case app::WorldMapIconType__Enum::SmallDoor:
+                case app::WorldMapIconType__Enum::TempleDoor:
+                case app::WorldMapIconType__Enum::WatermillDoor: {
                     return true;
                 }
                 default:
