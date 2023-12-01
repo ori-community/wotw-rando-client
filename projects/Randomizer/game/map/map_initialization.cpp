@@ -111,7 +111,7 @@ namespace randomizer::game::map {
                 auto icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
                 icon->icon(app::WorldMapIconType__Enum::Weaponmaster);
                 icon->label("Opher");
-                icon->position({-597.f, -4293.f});
+                icon->position({-597.1f, -4291.3f});
                 add_icon_visibility_callback(
                     icon,
                     [](auto) {
@@ -137,7 +137,7 @@ namespace randomizer::game::map {
                 icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
                 icon->icon(app::WorldMapIconType__Enum::Shardtrader);
                 icon->label("Twillen");
-                icon->position({-281.f, -4239.f});
+                icon->position({-281.3f, -4236.4f});
                 add_icon_visibility_callback(
                     icon,
                     [](auto) {
@@ -163,7 +163,7 @@ namespace randomizer::game::map {
                 icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
                 icon->icon(app::WorldMapIconType__Enum::Weaponmaster);
                 icon->label("Opher");
-                icon->position({-204.f, -4147.f});
+                icon->position({-203.9f, -4146.4f});
                 add_icon_visibility_callback(
                     icon,
                     [](auto) {
@@ -189,7 +189,7 @@ namespace randomizer::game::map {
                 icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
                 icon->icon(app::WorldMapIconType__Enum::Mapmaker);
                 icon->label("Lupo");
-                icon->position({-209.f, -4163.f});
+                icon->position({-212.3f, -4158.8f});
                 add_icon_visibility_callback(
                     icon,
                     [](auto) {
@@ -215,7 +215,7 @@ namespace randomizer::game::map {
                 icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
                 icon->icon(app::WorldMapIconType__Enum::Shardtrader);
                 icon->label("Twillen");
-                icon->position({-410.f, -4162.f});
+                icon->position({-410.5f, -4158.9f});
                 add_icon_visibility_callback(
                     icon,
                     [](auto) {
@@ -241,7 +241,7 @@ namespace randomizer::game::map {
                 icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
                 icon->icon(app::WorldMapIconType__Enum::Weaponmaster);
                 icon->label("Opher");
-                icon->position({-1260.f, -3677.f});
+                icon->position({-1259.7f, -3675.5f});
                 add_icon_visibility_callback(
                     icon,
                     [](auto) {
