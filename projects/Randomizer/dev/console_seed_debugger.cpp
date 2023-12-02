@@ -3,6 +3,7 @@
 #include <Modloader/windows_api/console.h>
 #include <Randomizer/dev/seed_debugger.h>
 #include <seed/items/item.h>
+#include <thread>
 
 namespace randomizer::dev::seed_debugger {
     namespace {
