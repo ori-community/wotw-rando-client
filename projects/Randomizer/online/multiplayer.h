@@ -42,6 +42,7 @@ namespace randomizer::online {
         Network::WorldInfo const* get_world(int id) const;
         auto multiverse_info() const { return m_current_multiverse_info; }
         void report_player_ready(bool ready) const;
+        void report_in_game_time(float in_game_time, bool is_finished) const;
 
         int player_count() const { return static_cast<int>(m_players.size()); }
 

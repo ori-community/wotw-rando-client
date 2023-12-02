@@ -19,6 +19,7 @@
 
 #include <atomic>
 #include <mutex>
+#include <randomizer.h>
 #include <unordered_set>
 
 using namespace app::classes;
@@ -62,9 +63,12 @@ namespace randomizer::timing {
     auto current_game_area = GameArea::Void;
 
     // Loading time report throttling
-    constexpr float TIMER_STATE_REPORTING_THROTTLE_SECONDS = 0.1f;
-    bool queue_timer_state_report = false;
-    float timer_state_reporting_throttled_for = 0.f;
+    constexpr float TIMER_STATE_IPC_REPORTING_THROTTLE_SECONDS = 0.1f;
+    bool queue_timer_state_ipc_report = false;
+    float timer_state_ipc_reporting_throttled_for = 0.f;
+    constexpr float TIMER_STATE_SERVER_REPORTING_THROTTLE_SECONDS = 1.f;
+    bool queue_timer_state_server_report = false;
+    float timer_state_server_reporting_throttled_for = 0.f;
 
     // This is set to true by some rando routines which grant abilities temporarily
     bool disable_ability_tracking = false;
@@ -72,16 +76,20 @@ namespace randomizer::timing {
     // Used to prevent the timer from running when having started the game just now
     bool loaded_any_save_file = false;
 
-    std::mutex stats_mutex;
     std::shared_ptr<CheckpointGameStats> checkpoint_stats = std::make_shared<CheckpointGameStats>();
     std::shared_ptr<SaveFileGameStats> save_stats = std::make_shared<SaveFileGameStats>();
+
+    void queue_timer_state_report() {
+        queue_timer_state_ipc_report = true;
+        queue_timer_state_server_report = true;
+    }
 
     bool timer_should_run() {
         return loaded_any_save_file && !game_finished;
     }
 
     namespace {
-        void report_timer_state_to_external_services(float in_game_time, float async_loading_time, bool timer_should_run) {
+        void report_timer_state_to_ipc(float in_game_time, float async_loading_time, bool timer_should_run) {
             auto request = core::ipc::make_request("notify_timer_state_changed");
             request["payload"]["in_game_time"] = in_game_time;
             request["payload"]["async_loading_time"] = async_loading_time;
@@ -89,9 +97,11 @@ namespace randomizer::timing {
             core::ipc::send_message(request);
         }
 
-        void reset_stats() {
-            stats_mutex.lock();
+        void report_timer_state_to_server(float in_game_time, bool is_finished) {
+            multiplayer_universe().report_in_game_time(in_game_time, is_finished);
+        }
 
+        void reset_stats() {
             checkpoint_stats = std::make_shared<CheckpointGameStats>();
             save_stats = std::make_shared<SaveFileGameStats>();
 
@@ -106,9 +116,7 @@ namespace randomizer::timing {
                 save_stats
             );
 
-            queue_timer_state_report = true;
-
-            stats_mutex.unlock();
+            queue_timer_state_report();
         }
 
         auto on_new_game = core::api::game::event_bus().register_handler(
@@ -136,9 +144,7 @@ namespace randomizer::timing {
                     return;
                 }
 
-                stats_mutex.lock();
                 save_stats->report_checkpoint_created();
-                stats_mutex.unlock();
             }
         );
 
@@ -150,9 +156,7 @@ namespace randomizer::timing {
                     return;
                 }
 
-                stats_mutex.lock();
                 save_stats->report_respawn();
-                stats_mutex.unlock();
             }
         );
 
@@ -164,9 +168,7 @@ namespace randomizer::timing {
                     return;
                 }
 
-                stats_mutex.lock();
                 save_stats->report_teleport();
-                stats_mutex.unlock();
             }
         );
 
@@ -177,9 +179,7 @@ namespace randomizer::timing {
                     return;
                 }
 
-                stats_mutex.lock();
                 save_stats->report_death(core::api::game::player::get_current_area());
-                stats_mutex.unlock();
             }
         );
 
@@ -197,15 +197,20 @@ namespace randomizer::timing {
                     current_game_area = GameArea::Void;
                 }
 
-                if (queue_timer_state_report && timer_state_reporting_throttled_for <= 0.f) {
-                    timer_state_reporting_throttled_for = TIMER_STATE_REPORTING_THROTTLE_SECONDS;
-                    queue_timer_state_report = false;
-                    stats_mutex.lock();
-                    report_timer_state_to_external_services(save_stats->in_game_time, save_stats->get_total_async_loading_time(), timer_should_run());
-                    stats_mutex.unlock();
+                if (queue_timer_state_ipc_report && timer_state_ipc_reporting_throttled_for <= 0.f) {
+                    timer_state_ipc_reporting_throttled_for = TIMER_STATE_IPC_REPORTING_THROTTLE_SECONDS;
+                    queue_timer_state_ipc_report = false;
+                    report_timer_state_to_ipc(save_stats->in_game_time, save_stats->get_total_async_loading_time(), timer_should_run());
                 }
 
-                timer_state_reporting_throttled_for -= TimeUtility::get_fixedDeltaTime();
+                if (queue_timer_state_server_report && timer_state_server_reporting_throttled_for <= 0.f) {
+                    timer_state_server_reporting_throttled_for = TIMER_STATE_SERVER_REPORTING_THROTTLE_SECONDS;
+                    queue_timer_state_server_report = false;
+                    report_timer_state_to_server(save_stats->in_game_time, game_finished);
+                }
+
+                timer_state_ipc_reporting_throttled_for -= TimeUtility::get_fixedDeltaTime();
+                timer_state_server_reporting_throttled_for -= TimeUtility::get_fixedDeltaTime();
 
                 if (ENABLE_DEBUG_LOGGING) {
                     time_to_next_debug_print -= TimeUtility::get_fixedDeltaTime();
@@ -235,7 +240,6 @@ namespace randomizer::timing {
                 return;
             }
 
-            stats_mutex.lock();
             switch (step.type) {
                 case core::api::game::in_game_timer::TimeStepType::InGameTime:
                     save_stats->report_in_game_time_spent(current_game_area, step.time);
@@ -244,28 +248,19 @@ namespace randomizer::timing {
                     save_stats->report_async_loading_time_spent(step.time, core::api::game::in_game_timer::get_last_async_loading_state());
                     break;
             }
-            queue_timer_state_report = true;
-            stats_mutex.unlock();
+
+            queue_timer_state_report();
         });
 
         auto uber_state_notify = core::api::uber_states::notification_bus().register_handler(
             [](auto params) {
-                if (params.state == game_finished_uber_state) {
-                    stats_mutex.lock();
-                    report_timer_state_to_external_services(save_stats->in_game_time, save_stats->get_total_async_loading_time(), false);
-                    stats_mutex.unlock();
-                    queue_timer_state_report = true;
-                }
-
                 if (!params.state.template get<bool>() || game_finished_uber_state.get<bool>()) {
                     return;
                 }
 
                 auto world_event_it = TRACKED_WORLD_EVENTS.find(params.state);
                 if (world_event_it != TRACKED_WORLD_EVENTS.end()) {
-                    stats_mutex.lock();
                     save_stats->report_world_event(world_event_it->second);
-                    stats_mutex.unlock();
                 }
             }
         );
@@ -280,10 +275,8 @@ namespace randomizer::timing {
                     [](const nlohmann::json& j) {
                         auto response = core::ipc::respond_to(j);
 
-                        stats_mutex.lock();
                         response["payload"]["save"] = *save_stats;
                         response["payload"]["checkpoint"] = *checkpoint_stats;
-                        stats_mutex.unlock();
 
                         core::ipc::send_message(response);
                     }
@@ -294,11 +287,9 @@ namespace randomizer::timing {
                     [](const nlohmann::json& j) {
                         auto response = core::ipc::respond_to(j);
 
-                        stats_mutex.lock();
                         response["payload"]["in_game_time"] = save_stats->in_game_time;
                         response["payload"]["async_loading_time"] = save_stats->get_total_async_loading_time();
                         response["payload"]["timer_should_run"] = timer_should_run();
-                        stats_mutex.unlock();
 
                         core::ipc::send_message(response);
                     }
@@ -308,9 +299,7 @@ namespace randomizer::timing {
 
         IL2CPP_INTERCEPT(PlayerAbilities, void, SetAbility, (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability, bool value)) {
             if (value && !disable_ability_tracking && TRACKED_ABILITIES.contains(ability) && timer_should_run()) {
-                stats_mutex.lock();
                 save_stats->report_ability_acquired(ability);
-                stats_mutex.unlock();
             }
 
             next::PlayerAbilities::SetAbility(this_ptr, ability, value);
@@ -322,9 +311,7 @@ namespace randomizer::timing {
             return;
         }
 
-        stats_mutex.lock();
         checkpoint_stats->report_pickup(area);
         save_stats->report_pickup(area, location_name);
-        stats_mutex.unlock();
     }
 } // namespace randomizer::timing

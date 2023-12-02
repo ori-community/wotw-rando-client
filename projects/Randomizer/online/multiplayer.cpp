@@ -196,6 +196,13 @@ namespace randomizer::online {
         m_client->websocket_send(Network::Packet_PacketID_ReportPlayerRaceReadyMessage, message);
     }
 
+    void MultiplayerUniverse::report_in_game_time(const float in_game_time, const bool is_finished) const {
+        Network::ReportInGameTimeMessage message;
+        message.set_in_game_time(in_game_time);
+        message.set_is_finished(is_finished);
+        m_client->websocket_send(Network::Packet_PacketID_ReportInGameTimeMessage, message);
+    }
+
     Network::UniverseInfo const* find_universe_with_player(Network::MultiverseInfoMessage const& message, std::string_view id) {
         for (auto const& u : message.universes()) {
             for (auto const& w : u.worlds()) {

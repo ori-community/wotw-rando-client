@@ -29,7 +29,7 @@ message Packet {
     UpdatePlayerMapPositionMessage = 22;
     ResourceRequestMessage = 23;
     PlayerTeleportMessage = 24;
-    ReportLoadingTimeMessage = 25;
+    ReportInGameTimeMessage = 25;
     SetBlockStartingNewGameMessage = 26;
     ReportPlayerRaceReadyMessage = 27;
 
@@ -244,8 +244,9 @@ message ResourceRequestMessage {
 
 message PlayerTeleportMessage {}
 
-message ReportLoadingTimeMessage {
-  float loading_time = 1;
+message ReportInGameTimeMessage {
+  float in_game_time = 1;
+  bool is_finished = 2;
 }
 
 message SetBlockStartingNewGameMessage {

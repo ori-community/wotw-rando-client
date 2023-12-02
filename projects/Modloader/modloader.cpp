@@ -46,7 +46,7 @@ namespace modloader {
 
         class BufferingHandler final : public ILoggingHandler {
         public:
-            constexpr int MAX_MESSAGES = 1000;
+            static constexpr int MAX_MESSAGES = 1000;
 
             void write(MessageType type, std::string const& group, std::string const& message) override {
                 message_buffer.emplace_back(type, group, message);

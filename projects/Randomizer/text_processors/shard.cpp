@@ -36,7 +36,7 @@ namespace randomizer::text_processors {
             { app::SpiritShardType__Enum::VitalityLuck, "$Life Harvest$" },
             { app::SpiritShardType__Enum::SpiritWellShield_Deprecated, "$SpiritWellShield_Deprecated$" },
             { app::SpiritShardType__Enum::EnergyLuck, "$Energy Harvest$" },
-            { app::SpiritShardType__Enum::Energy, "$Energy$" },
+            { app::SpiritShardType__Enum::Energy, "$Energy (Shard)$" },
             { app::SpiritShardType__Enum::BloodPact, "$Life Pact$" },
             { app::SpiritShardType__Enum::LastResort, "$Last Stand$" },
             { app::SpiritShardType__Enum::HarvestOfLight_Deprecated, "$HarvestOfLight_Deprecated$" },
