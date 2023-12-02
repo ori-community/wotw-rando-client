@@ -211,6 +211,10 @@ namespace randomizer::online {
     void PlayerIcon::add_dot() {
         auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
 
+        if (area_map == nullptr) {
+            return;
+        }
+
         auto& dot = m_dots[m_next_dot_index];
         il2cpp::unity::set_active(dot.dot, m_icon_visible);
         app::Vector3 pos{ m_map_position.x, m_map_position.y, 0.0f };
