@@ -1,12 +1,6 @@
 @echo off
 title gen-win64
 echo Generating visual studio solution.
-mkdir build
-cd build
-mkdir win64
-cd win64
 
-cmake -DARCH=x64 -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=RelWithDebInfo -T ClangCL -DCMAKE_CXX_FLAGS="/MP"  ..\..
-cd ..
-cd ..
+cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_BUILD_TYPE=RelWithDebugInfo -G "Visual Studio 17 2022" -T ClangCL -B cmake-build-debug
 pause
