@@ -73,7 +73,7 @@ namespace randomizer::online {
 
         common::TimedMultiEventBus<Event> m_event_bus;
 
-        std::vector<common::registration_handle> m_bus_handles;
+        std::vector<common::registration_handle_t> m_bus_handles;
         Network::MultiverseInfoMessage::GameHandlerType m_game_type = Network::MultiverseInfoMessage_GameHandlerType_Normal;
         std::shared_ptr<Network::MultiverseInfoMessage> m_current_multiverse_info;
         std::optional<Network::UniverseInfo const*> m_current_universe_info;

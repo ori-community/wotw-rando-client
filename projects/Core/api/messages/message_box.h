@@ -90,7 +90,7 @@ namespace core::api::messages {
         void render_text_box();
         app::Transform* background_transform() const;
 
-        common::registration_handle m_on_update_handle;
+        common::registration_handle_t m_on_update_handle;
         app::GameObject* m_game_object = nullptr;
         app::MessageBox* m_message_box = nullptr;
         app::ScaleToTextBox* m_scaler = nullptr;

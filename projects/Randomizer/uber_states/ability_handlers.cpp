@@ -19,7 +19,7 @@ namespace randomizer::uber_states {
             }
         }
 
-        std::vector<common::registration_handle> handlers;
+        std::vector<common::registration_handle_t> handlers;
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             std::vector<std::tuple<UberState, app::AbilityType__Enum>> abilities = {
                 { UberState(6, 1000), app::AbilityType__Enum::Bash },

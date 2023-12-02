@@ -231,6 +231,7 @@ namespace randomizer::ipc {
             nlohmann::json request = core::ipc::make_request("notify_on_uber_state_changed");
             request["payload"]["group"] = static_cast<int>(event.state.group());
             request["payload"]["state"] = event.state.state();
+            request["payload"]["previous_value"] = event.previous_value;
             request["payload"]["value"] = event.value;
             core::ipc::send_message(request);
         });

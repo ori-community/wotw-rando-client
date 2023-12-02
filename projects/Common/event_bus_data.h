@@ -21,7 +21,7 @@ namespace common {
         bool currently_triggering = false;
         int next = 0;
 
-        [[nodiscard]] registration_handle register_handler(EventHandler handler) {
+        [[nodiscard]] registration_handle_t register_handler(EventHandler handler) {
             int id = next++;
             event_handlers[id] = handler;
             auto ptr = self;

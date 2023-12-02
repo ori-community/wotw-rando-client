@@ -254,9 +254,10 @@ namespace core::api::uber_states {
         core::reactivity::notify_changed(reactivity::UberStateDependency { static_cast<int>(m_group), m_state });
 
         if (!ignore_notify) {
-            UberStateCallbackParams params{
+            const UberStateCallbackParams params{
                 *this,
-                prev
+                prev,
+                value,
             };
 
             single_notification_bus().trigger_event(*this, params);

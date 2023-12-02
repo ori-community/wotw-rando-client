@@ -17,6 +17,7 @@
 namespace core::api::uber_states {
     struct UberStateCallbackParams {
         UberState state;
+        double previous_value;
         double value;
     };
 

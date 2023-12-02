@@ -87,7 +87,7 @@ namespace core::api::game {
             }
         }
 
-        common::registration_handle on_title_screen_loaded = scenes::single_event_bus().register_handler("wotwTitleScreen", [](auto, auto) {
+        common::registration_handle_t on_title_screen_loaded = scenes::single_event_bus().register_handler("wotwTitleScreen", [](auto, auto) {
             initialized = true;
             on_title_screen_loaded = nullptr;
         });

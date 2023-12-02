@@ -165,7 +165,7 @@ namespace randomizer {
 
         auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler(
             [](auto params) {
-                randomizer_seed.grant(params.state, params.value);
+                randomizer_seed.grant(params.state, params.previous_value);
             }
         );
 
@@ -215,7 +215,7 @@ namespace randomizer {
             }
         );
 
-        common::registration_handle on_title_screen_handler = core::api::scenes::single_event_bus().register_handler(
+        common::registration_handle_t on_title_screen_handler = core::api::scenes::single_event_bus().register_handler(
             "wotwTitleScreen",
             [](auto, auto) {
                 std::string flags;

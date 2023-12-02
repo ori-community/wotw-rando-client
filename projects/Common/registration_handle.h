@@ -22,5 +22,5 @@ namespace common {
         destructor_callback m_callback;
     };
 
-    using registration_handle = std::unique_ptr<RegistrationHandle>;
+    using registration_handle_t = std::unique_ptr<RegistrationHandle>;
 } // namespace common

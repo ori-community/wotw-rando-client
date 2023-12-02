@@ -428,7 +428,7 @@ namespace randomizer::game {
             }
         }
 
-        common::registration_handle on_new_game_late_initialization_handle;
+        common::registration_handle_t on_new_game_late_initialization_handle;
         void on_new_game_late_initialization(GameEvent, EventTiming) {
             if (!core::api::scenes::is_in_game()) {
                 return;
@@ -467,8 +467,8 @@ namespace randomizer::game {
             scenes_to_preload.clear();
         }
 
-        common::registration_handle on_should_block_starting_new_game_changed;
-        common::registration_handle on_multiverse_updated;
+        common::registration_handle_t on_should_block_starting_new_game_changed;
+        common::registration_handle_t on_multiverse_updated;
         auto _1 = core::api::scenes::event_bus().register_handler(&on_scene_load);
         auto _2 = core::api::game::event_bus().register_handler(GameEvent::NewGame, EventTiming::After, &on_new_game);
         auto _3 = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, &on_finished_loading_save);

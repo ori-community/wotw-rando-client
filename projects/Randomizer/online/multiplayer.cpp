@@ -25,7 +25,7 @@ namespace randomizer::online {
         m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [this](auto, auto) { on_load(); }));
         m_bus_handles.emplace_back(core::api::uber_states::notification_bus().register_handler(
             [this](auto params) {
-                if (!m_uber_state_handler.should_sync(params.state, params.value)) {
+                if (!m_uber_state_handler.should_sync(params.state, params.previous_value)) {
                     return;
                 }
 
@@ -122,11 +122,17 @@ namespace randomizer::online {
     void MultiplayerUniverse::full_sync_states() {
         Network::UberStateBatchUpdateMessage message;
         auto const& states = m_uber_state_handler.get_synced_states();
+
         for (auto state : states) {
-            auto update = message.mutable_updates()->Add();
+            const auto value = state.get();
+            if (!uber_state_handler().should_sync(state, value)) {
+                continue;
+            }
+
+            const auto update = message.mutable_updates()->Add();
             update->mutable_state()->set_group(static_cast<int>(state.group()));
             update->mutable_state()->set_state(state.state());
-            update->set_value(state.get());
+            update->set_value(value);
         }
 
         m_client->websocket_send(Network::Packet_PacketID_UberStateBatchUpdateMessage, message);
