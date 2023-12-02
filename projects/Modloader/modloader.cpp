@@ -42,10 +42,22 @@ namespace modloader {
 
     namespace {
         std::vector<std::weak_ptr<ILoggingHandler>> logging_handlers;
+            std::vector<std::tuple<MessageType, std::string, std::string>> message_buffer;
+
+        class BufferingHandler final : public ILoggingHandler {
+        public:
+            void write(MessageType type, std::string const& group, std::string const& message) override {
+                message_buffer.emplace_back(type, group, message);
+            }
+        };
     } // namespace
 
     std::shared_ptr<ILoggingHandler> register_logging_handler(std::shared_ptr<ILoggingHandler> handler) {
         logging_handlers.push_back(handler);
+        for (auto [type, group, message]: message_buffer) {
+            handler->write(type, group, message);
+        }
+
         return handler;
     }
 
@@ -83,6 +95,7 @@ namespace modloader {
 
     bool attached = false;
     auto file_logger = register_logging_handler(std::make_shared<FileLoggingHandler>(base_path() / csv_path));
+    auto buffered_handler = register_logging_handler(std::make_shared<BufferingHandler>());
 
     std::binary_semaphore wait_for_exit(0);
     IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string const& path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
@@ -107,6 +120,11 @@ namespace modloader {
 
         il2cpp::load_all_types();
         event_bus().trigger_event(ModloaderEvent::InjectionComplete);
+
+        // Clear out the message buffer as all loggers should be registered now.
+        buffered_handler = nullptr;
+        message_buffer.clear();
+
         on_initialization_complete();
 
         while (!shutdown_requested) {
