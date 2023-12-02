@@ -42,12 +42,17 @@ namespace modloader {
 
     namespace {
         std::vector<std::weak_ptr<ILoggingHandler>> logging_handlers;
-            std::vector<std::tuple<MessageType, std::string, std::string>> message_buffer;
+        std::vector<std::tuple<MessageType, std::string, std::string>> message_buffer;
 
         class BufferingHandler final : public ILoggingHandler {
         public:
+            constexpr int MAX_MESSAGES = 1000;
+
             void write(MessageType type, std::string const& group, std::string const& message) override {
                 message_buffer.emplace_back(type, group, message);
+                while (message_buffer.size() > MAX_MESSAGES) {
+                    message_buffer.erase(message_buffer.begin());
+                }
             }
         };
     } // namespace
@@ -120,10 +125,6 @@ namespace modloader {
 
         il2cpp::load_all_types();
         event_bus().trigger_event(ModloaderEvent::InjectionComplete);
-
-        // Clear out the message buffer as all loggers should be registered now.
-        buffered_handler = nullptr;
-        message_buffer.clear();
 
         on_initialization_complete();
 
