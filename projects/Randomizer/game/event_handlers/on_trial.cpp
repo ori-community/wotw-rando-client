@@ -28,10 +28,9 @@ namespace {
         if (in_progress) {
             // Make Reach trial keystones give you actual keystones
             in_trial_uber_state_changed_handle = core::api::uber_states::notification_bus().register_handler([](auto change) {
-                auto x = change;
                 if (change.state.group_int() == 28895) {  // Baur's Reach
-                     if (is_in<29898, 18358, 37444, 10823>(change.state.state()) && change.value > 0.5) {  // The 4 trial keystones
-                        core::api::game::player::keystones().add(1);
+                    if (is_in<29898, 18358, 37444, 10823>(change.state.state()) && change.value > 0.5) {  // The 4 trial keystones
+                       core::api::game::player::keystones().add(1);
                     }
                 }
             });
