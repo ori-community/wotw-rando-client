@@ -12,7 +12,7 @@
 #define NO_MODLOADER
 
 #include <shared_memory.h>
-#include <Common/settings_reader.h>
+#include <Common/settings.h>
 
 #undef NO_MODLOADER
 // clang-format on
@@ -21,7 +21,7 @@ std::filesystem::path base_path = R"(C:\moon\randomizer)";
 const std::string STEAM_PROCESS_NAME = "oriwotw.exe";
 const std::string STORE_PROCESS_NAME = "oriandthewillofthewisps-pc.exe";
 const std::string DLL_NAME = "InjectLoader.dll";
-const std::string SETTINGS_NAME = "settings.ini";
+const std::string SETTINGS_NAME = "settings.json";
 
 bool find_base_path(std::filesystem::path &output_path) {
     wchar_t path[MAX_PATH];
@@ -119,10 +119,9 @@ int main() {
 
     find_base_path(base_path);
 
-    auto settings = read_utf8_ini((base_path / SETTINGS_NAME).string());
-
-    auto use_win_store = settings->GetBoolean("Flags", "UseWinStore", false);
-    auto inject_delay = settings->GetInteger("Values", "InjectDelay", 0);
+    common::settings::Settings settings(base_path / SETTINGS_NAME);
+    auto use_win_store = settings.get_boolean("Flags", "UseWinStore", false);
+    auto inject_delay = settings.get_int("Values", "InjectDelay", 0);
 
     auto process_name = use_win_store ? STORE_PROCESS_NAME : STEAM_PROCESS_NAME;
 

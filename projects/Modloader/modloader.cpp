@@ -15,9 +15,8 @@
 #include <functional>
 #include <semaphore>
 
-#include <Common/settings_reader.h>
-#include <INIReader.h>
 #include <file_logging_handler.h>
+#include <Common/settings.h>
 
 //---------------------------------------------------Globals-----------------------------------------------------
 
@@ -90,11 +89,8 @@ namespace modloader {
         inner_base_path = path;
         trace(MessageType::Info, "initialize", "Loading settings.");
 
-        auto settings = read_utf8_ini((base_path() / "settings.ini").string());
-        trace(MessageType::Info, "initialize", "Mod Loader initialization.");
-
-        if (settings->GetBoolean("Flags", "Dev", false)) {
-            trace(MessageType::Info, "initialize", "Initializing console.");
+        common::settings::Settings settings(base_path() / "settings.json");
+        if (settings.get_boolean("Flags", "Dev", false)) {
             win::console::console_initialize();
         }
 

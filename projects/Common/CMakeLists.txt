@@ -11,6 +11,7 @@ set(
         SOURCE_FILES
         "csv.cpp"
         "ext.cpp"
+        "settings.cpp"
 )
 
 set(
@@ -21,7 +22,7 @@ set(
         "event_bus_data.h"
         "event_timing.h"
         "ext.h"
-        "settings_reader.h"
+        "settings.h"
 )
 
 set(
@@ -53,6 +54,9 @@ target_include_directories(
         SYSTEM
         ${WOTWR_BASE_INCLUDES}
 )
+
+find_package(nlohmann_json)
+target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
 
 message(STATUS "Assigning source groups.")
 

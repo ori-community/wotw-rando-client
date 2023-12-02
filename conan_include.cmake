@@ -11,7 +11,6 @@ conan_cmake_configure(
             zlib/1.2.13
             magic_enum/0.8.1
             nlohmann_json/3.11.2
-            inih/56
             ixwebsocket/11.4.3
             protobuf/3.21.9
             tclap/1.2.5

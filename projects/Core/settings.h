@@ -5,7 +5,6 @@
 
 namespace core::settings {
     CORE_DLLEXPORT void reload();
-
     CORE_DLLEXPORT bool dev_mode();
     CORE_DLLEXPORT bool cursor_locked();
     CORE_DLLEXPORT bool start_debug_enabled();
