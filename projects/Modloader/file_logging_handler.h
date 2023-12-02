@@ -4,6 +4,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <mutex>
 
 namespace modloader {
     class FileLoggingHandler final : public ILoggingHandler {
