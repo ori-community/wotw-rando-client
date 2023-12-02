@@ -141,7 +141,7 @@ namespace randomizer::seed {
                 output += '\n';
             }
 
-            output += name.get();
+            output += trim_copy(name.get());
         }
 
         return output;
