@@ -40,7 +40,7 @@ jobs:
         id: conan
         uses: turtlebrowser/get-conan@main
         with:
-          version: 1.59.0
+          version: 1.62.0
       - name: Conan version
         run: echo "${{ steps.conan.outputs.version }}"
       - name: Symlink build directory
@@ -60,7 +60,7 @@ jobs:
         shell: cmd
         working-directory: ${{ env.WORKDIR }}
         run: |
-          cmake --build .\build\win64 --target INSTALL_RUNTIME --config RelWithDebInfo -- -clp:ForceConsoleColor
+          cmake --build cmake-build-relwithdebinfo --target INSTALL_RUNTIME --config RelWithDebInfo -- -clp:ForceConsoleColor
           IF ERRORLEVEL 1 (
             echo BUILD FAILED
             exit 1
