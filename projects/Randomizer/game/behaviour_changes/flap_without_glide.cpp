@@ -1,5 +1,5 @@
 #include <Core/api/game/player.h>
-#include <Randomizer/timing/game_tracker.h>
+#include <Randomizer/tracking/game_tracker.h>
 #include <constants.h>
 
 #include <Modloader/app/methods/WindCollision.h>

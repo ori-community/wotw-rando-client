@@ -13,7 +13,7 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
-#include <Randomizer/timing/game_tracker.h>
+#include <Randomizer/tracking/game_tracker.h>
 #include <format>
 #include <stats/game_stats.h>
 
@@ -57,34 +57,31 @@ namespace randomizer::timing {
 
     const core::api::uber_states::UberState game_finished_uber_state(34543, 11226);
 
-    // Caches for values that are processed in multiple threads
-    std::atomic game_finished = false;
-    std::atomic current_game_area = GameArea::Void;
+    // Caches for some values that should not be read in the main menu
+    auto game_finished = false;
+    auto current_game_area = GameArea::Void;
 
     // Loading time report throttling
-    constexpr float LOADING_TIME_REPORTING_THROTTLE_SECONDS = 1.f;
-    std::atomic queue_timer_state_report = false;
+    constexpr float TIMER_STATE_REPORTING_THROTTLE_SECONDS = 0.1f;
+    bool queue_timer_state_report = false;
     float timer_state_reporting_throttled_for = 0.f;
 
     // This is set to true by some rando routines which grant abilities temporarily
     bool disable_ability_tracking = false;
 
     // Used to prevent the timer from running when having started the game just now
-    std::atomic<bool> loaded_any_save_file = false;
+    bool loaded_any_save_file = false;
 
     std::mutex stats_mutex;
     std::shared_ptr<CheckpointGameStats> checkpoint_stats = std::make_shared<CheckpointGameStats>();
     std::shared_ptr<SaveFileGameStats> save_stats = std::make_shared<SaveFileGameStats>();
 
     bool timer_should_run() {
-        return loaded_any_save_file.load() && !game_finished.load();
+        return loaded_any_save_file && !game_finished;
     }
 
     namespace {
         void report_timer_state_to_external_services(float in_game_time, float async_loading_time, bool timer_should_run) {
-            // TODO: Reimplent (Zre)
-            //csharp_bridge::report_loading_time(loading_time);
-
             auto request = core::ipc::make_request("notify_timer_state_changed");
             request["payload"]["in_game_time"] = in_game_time;
             request["payload"]["async_loading_time"] = async_loading_time;
@@ -194,12 +191,14 @@ namespace randomizer::timing {
             [](auto, auto) {
                 // Only set these values when in game because the main menu sets some wonky states
                 if (GameStateMachine::get_IsGame()) {
-                    game_finished.store(game_finished_uber_state.get<bool>());
-                    current_game_area.store(core::api::game::player::get_current_area());
+                    game_finished = game_finished_uber_state.get<bool>();
+                    current_game_area = core::api::game::player::get_current_area();
+                } else {
+                    current_game_area = GameArea::Void;
                 }
 
                 if (queue_timer_state_report && timer_state_reporting_throttled_for <= 0.f) {
-                    timer_state_reporting_throttled_for = LOADING_TIME_REPORTING_THROTTLE_SECONDS;
+                    timer_state_reporting_throttled_for = TIMER_STATE_REPORTING_THROTTLE_SECONDS;
                     queue_timer_state_report = false;
                     stats_mutex.lock();
                     report_timer_state_to_external_services(save_stats->in_game_time, save_stats->get_total_async_loading_time(), timer_should_run());
@@ -239,12 +238,13 @@ namespace randomizer::timing {
             stats_mutex.lock();
             switch (step.type) {
                 case core::api::game::in_game_timer::TimeStepType::InGameTime:
-                    save_stats->report_in_game_time_spent(current_game_area.load(), step.time);
+                    save_stats->report_in_game_time_spent(current_game_area, step.time);
                     break;
                 case core::api::game::in_game_timer::TimeStepType::AsyncLoadingTime:
                     save_stats->report_async_loading_time_spent(step.time, core::api::game::in_game_timer::get_last_async_loading_state());
                     break;
             }
+            queue_timer_state_report = true;
             stats_mutex.unlock();
         });
 

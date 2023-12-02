@@ -172,7 +172,7 @@ set(
         "text_processors/shard.cpp"
         "text_processors/uber_state.cpp"
         "timer.cpp"
-        "timing/game_tracker.cpp"
+        "tracking/game_tracker.cpp"
         "uber_states/ability_handlers.cpp"
         "uber_states/misc_handlers.cpp"
         "uber_states/trigger_reach_check.cpp"
@@ -255,7 +255,7 @@ set(
         "text_processors/shard.h"
         "text_processors/uber_state.h"
         "timer.h"
-        "timing/game_tracker.h"
+        "tracking/game_tracker.h"
 )
 
 set(
