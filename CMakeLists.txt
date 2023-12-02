@@ -13,19 +13,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 include(conan_include.cmake)
 
-set(ARCH "x64" CACHE STRING "Specifies the architecture for the build, [x64, win32].")
-set(
-    ARCHITECTURES
-    "x64"
-    "win32"
-)
-
-if (NOT (${ARCH} IN_LIST ARCHITECTURES))
-    message(STATUS "Invalid architecture '${ARCH}', defaulting to x64.")
-    set(ARCH "x64")
-endif ()
-message(STATUS "Architecture: ${ARCH}")
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc /nologo")
 set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} /PDBCompress")
 set(CMAKE_MODULE_LINKER_FLAGS  "${CMAKE_MODULE_LINKER_FLAGS} /PDBCompress")
@@ -38,7 +25,6 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BUILD_DIRECTORY}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BUILD_DIRECTORY}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BUILD_DIRECTORY}/bin)
 
-#set(WOTWR_INSTALL_DIR ${CMAKE_ROOT_DIRECTORY}/bin/wotw_randomizer/${ARCH})
 set(WOTWR_INSTALL_DIR C:/moon/randomizer)
 set(WOTWR_PROJECTS_DIR ${CMAKE_ROOT_DIRECTORY}/projects)
 set(WOTWR_LIB_INCLUDE_DIR ${CMAKE_ROOT_DIRECTORY}/ext/include)
