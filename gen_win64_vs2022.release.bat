@@ -1,3 +1,3 @@
 @echo off
-cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_BUILD_TYPE=RelWithDebugInfo -G "Visual Studio 17 2022" -T ClangCL -B cmake-build-debug
+cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "Visual Studio 17 2022" -T ClangCL -B cmake-build-debug
 pause
