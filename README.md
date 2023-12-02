@@ -1,15 +1,22 @@
-# OriWotwRandomizerClient
-repo for the ori wotw randomizer
+# Ori and the Will of the Wisps Randomizer Client
+
+This repository contains the client/modloader part of the Ori and the Will of the Wisps Randomizer.
+
 
 ## Wiki
+
 If you need help on how to install the randomizer, tutorials or other randomizer-related information, you can
 read the wiki: https://wiki.orirando.com/
 
+
 ## Discord links:
-orirando.com/discord for the main ori speedrunning discord
-https://discord.gg/tpn9WydSQz for the development discord
+
+Visit https://orirando.com/discord for the main ori speedrunning Discord
+https://discord.gg/tpn9WydSQz for the development Discord.
+
 
 ## Dev instructions
+
 
 ### NOTICE
 
