@@ -18,7 +18,7 @@ conan_cmake_configure(
         GENERATORS
             cmake_find_package
         OPTIONS
-            ixwebsocket:tls=openssl
+            ixwebsocket:tls=mbedtls
             zeromq:encryption=False
 )
 
