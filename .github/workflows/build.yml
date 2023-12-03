@@ -60,7 +60,7 @@ jobs:
         shell: cmd
         working-directory: ${{ env.WORKDIR }}
         run: |
-          cmake --build cmake-build-relwithdebinfo --target INSTALL_RUNTIME --config RelWithDebInfo -- -clp:ForceConsoleColor
+          cmake --build cmake-build-relwithdebinfo --target INSTALL_RUNTIME --config RelWithDebInfo
           IF ERRORLEVEL 1 (
             echo BUILD FAILED
             exit 1
