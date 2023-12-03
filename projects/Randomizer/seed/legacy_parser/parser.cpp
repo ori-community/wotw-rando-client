@@ -1310,22 +1310,14 @@ namespace randomizer::seed::legacy_parser {
             return true;
         }
 
+        const auto relic_name = std::format("@{} Relic@", std::string(data.data.relics.relic_name(location)));
         const auto message = std::make_shared<items::Message>();
         message->should_save_as_last = true;
-        auto& relics = data.data.relics;
-        message->info.text.assign(
-            [](auto) {
-            },
-            [&relics, location]() { return std::format("@{} Relic@", std::string(relics.relic_name(location))); }
-        );
+        message->info.text.set(relic_name);
 
         set_location(message.get(), location);
         data.add_item(message);
-        data.location_data.names.emplace_back(
-            [](auto) {
-            },
-            [&relics, location]() { return std::string(relics.relic_name(location)); }
-        );
+        data.location_data.names.emplace_back().set(relic_name);
 
         return true;
     }
