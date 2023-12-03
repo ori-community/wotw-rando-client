@@ -59,7 +59,7 @@ namespace randomizer::online {
 
         void handle_multiverse_info(Network::MultiverseInfoMessage const& message);
         void handle_authenticated(Network::AuthenticatedMessage const& message);
-        void handle_visibility(Network::VisibilityMessage const& message);
+        void handle_visibility(Network::VisibilityMessage const& message) const;
 
         void update_player_world_position(std::string_view player_id, float x, float y, std::string_view ghost_frame_data);
         void update_player_map_position(std::string_view player_id, float x, float y);
