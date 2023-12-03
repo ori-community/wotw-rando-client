@@ -61,15 +61,11 @@ namespace {
         randomizer::conditions::register_condition_intercept(randomizer::conditions::ConditionType::PlayerInsideZoneChecker, "kwoloksHollowEntrance/artSetups/frogHeadSetup/doorWithTwoSlots/doorWithTwoSlots/canUseKeystonesZone", [](auto, auto) {
             const auto position = core::api::game::player::get_position();
 
-            auto x = UnityEngine::Rect::Contains_2(
+            return UnityEngine::Rect::Contains_2(
                 types::Rect::box(app::Rect {-358.9f, -4235.f, 16.f, 11.f }), position
             ) || UnityEngine::Rect::Contains_2(
                 types::Rect::box(app::Rect {-312.8f, -4239.8f, 19.f, 12.f }), position
             );
-
-            modloader::win::console::console_send(x ? "YES" : "NO");
-
-            return x;
         });
     });
 
