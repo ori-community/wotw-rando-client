@@ -13,10 +13,13 @@ jobs:
 
     env:
       WORKDIR: D:/build
+      SCCACHE_GHA_ENABLED: "true"
 
     steps:
       - name: Enable Git support for long file paths
         run: git config --system core.longpaths true
+      - name: Run sccache-cache
+        uses: mozilla-actions/sccache-action@v0.0.3
       - name: Set up directories
         run: "md -Path 'C:\\moon\\randomizer'"
       - name: Extract tag
