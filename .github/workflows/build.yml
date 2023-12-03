@@ -29,16 +29,11 @@ jobs:
           tagRegex: "v?([^-]*)"
       - name: Check out repository code
         uses: actions/checkout@v3
+      - uses: seanmiddleditch/gha-setup-ninja@master
       - name: Install MSVC developer tools
         uses: microsoft/setup-msbuild@v1.1
         with:
           arch: x64
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 5.0.x
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.1
       - name: Install Conan
         id: conan
         uses: turtlebrowser/get-conan@main
