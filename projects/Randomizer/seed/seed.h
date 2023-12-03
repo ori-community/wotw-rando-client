@@ -65,6 +65,7 @@ namespace randomizer::seed {
         std::string path() const { return m_last_path; }
 
         Relics const& relics() const { return m_data.relics; }
+        bool finished_goals() const;
 
         void prevent_grants(const std::function<bool()>& callback) { m_prevent_grant_callbacks.push_back(callback); }
 

@@ -245,4 +245,29 @@ namespace randomizer::seed {
 
         return it->second;
     }
+
+    bool Seed::finished_goals() const {
+        auto const& flags = info().flags;
+        const auto is_relics = std::ranges::find(flags, "Relics") != flags.end();
+        const auto is_trees = std::ranges::find(flags, "All Trees") != flags.end();
+        const auto is_wisps = std::ranges::find(flags, "All Wisps") != flags.end();
+        const auto is_quests = std::ranges::find(flags, "All Quests") != flags.end();
+        if (is_trees && core::api::uber_states::UberState(UberStateGroup::RandoVirtual, 502).get<int>() != 14) {
+            return false;
+        }
+
+        if (is_wisps && core::api::uber_states::UberState(UberStateGroup::RandoVirtual, 503).get<int>() != 5) {
+            return false;
+        }
+
+        if (is_quests && core::api::uber_states::UberState(UberStateGroup::RandoVirtual, 504).get<int>() != 17) {
+            return false;
+        }
+
+        if (is_relics && relics().found_relics() != relics().relic_count()) {
+            return false;
+        }
+
+        return true;
+    }
 } // namespace randomizer::seed
