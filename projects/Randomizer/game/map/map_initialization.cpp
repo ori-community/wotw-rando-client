@@ -17,7 +17,7 @@ namespace randomizer::game::map {
 
         MapIcon select_icon(const location_data::Location& location) {
             if (location.name.ends_with("SpiritTrial")) {
-                return MapIcon::RaceStart;
+                return MapIcon::RaceEnd;
             }
 
             switch (location.type) {

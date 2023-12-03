@@ -92,7 +92,16 @@ namespace randomizer::game::map {
         core::reactivity::watch_effect()
             .effect(m_map_icon)
             .after([&]() {
-            if (il2cpp::unity::is_valid(m_map_icon.get()) && m_map_icon.get()->fields.AttentionMarker != nullptr) {
+            if (!il2cpp::unity::is_valid(m_map_icon.get())) {
+                return;
+            }
+
+            if (m_icon.get() == MapIcon::RaceStart) {
+                UnityEngine::GameObject::set_active(m_map_icon.get()->fields.MapIconActive, true);
+                UnityEngine::GameObject::set_active(m_map_icon.get()->fields.MapIconSpecial, false);
+            }
+
+            if (m_map_icon.get()->fields.AttentionMarker != nullptr) {
                 UnityEngine::GameObject::set_active(m_map_icon.get()->fields.AttentionMarker, false);
                 m_map_icon.get()->fields.AttentionMarkerState = nullptr;
                 m_map_icon.get()->fields.AttentionMarkerActiveConditions = nullptr;
@@ -122,10 +131,6 @@ namespace randomizer::game::map {
             }
 
             initialize_game_object();
-            if (m_icon.get() == MapIcon::RaceStart) {
-                UnityEngine::GameObject::set_active(m_map_icon.get()->fields.MapIconActive, true);
-                UnityEngine::GameObject::set_active(m_map_icon.get()->fields.MapIconSpecial, false);
-            }
         }).finalize(m_reactive_effects);
 
         m_reactive_effects.push_back(core::reactivity::watch_effect([&] { apply_scaler(m_position.get()); }));
