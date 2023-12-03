@@ -30,6 +30,7 @@ enum class GameEvent {
 
     OpenAreaMap,
     CloseAreaMap,
+    DestroyAreaMap,
 
     Teleport,
     TrialStart,

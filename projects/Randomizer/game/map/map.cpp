@@ -19,6 +19,7 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 
+#include <Core/api/game/game.h>
 #include <random>
 #include <randomizer.h>
 #include <unordered_map>
@@ -213,15 +214,13 @@ namespace randomizer::game::map {
             }
         }
 
-        IL2CPP_INTERCEPT(AreaMapUI, void, OnDestroy, (app::AreaMapUI * this_ptr)) {
+        auto on_area_map_destroyed = core::api::game::event_bus().register_handler(GameEvent::DestroyAreaMap, EventTiming::Before, [](auto, auto) {
             for (auto const& icon_set: icons | std::views::values) {
                 for (auto const& icon: icon_set) {
                     icon->remove_scaler();
                 }
             }
-
-            next::AreaMapUI::OnDestroy(this_ptr);
-        }
+        });
 
         IL2CPP_INTERCEPT(GameMapUI, bool, IsCursorOverTeleporter, (app::GameMapUI * this_ptr, app::Vector2* target)) {
             const auto cursor = GameMapUI::get_FocusLocation(this_ptr);

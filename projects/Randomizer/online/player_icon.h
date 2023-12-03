@@ -56,6 +56,7 @@ namespace randomizer::online {
         };
 
         std::vector<std::shared_ptr<core::reactivity::ReactiveEffect>> m_reactive_effects;
+        common::registration_handle_t m_on_area_map_destroyed;
 
         app::Vector2 m_previous_dot_position = { 0 };
         float m_time_until_next_dot = 0;

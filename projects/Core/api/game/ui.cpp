@@ -5,9 +5,9 @@
 #include <Modloader/app/methods/Game/UI.h>
 #include <Modloader/app/methods/MenuScreenManager.h>
 #include <Modloader/app/methods/SeinUI.h>
-#include <Modloader/app/methods/System/Action.h>
+#include <Modloader/app/methods/AreaMapUI.h>
 #include <Modloader/app/methods/TitleScreenManager.h>
-#include <Modloader/app/types/Action.h>
+#include <Modloader/app/types/AreaMapUI.h>
 #include <Modloader/app/types/UI.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
@@ -49,6 +49,12 @@ namespace core::api::game::ui {
                 }
             );
         }
+
+        IL2CPP_INTERCEPT(AreaMapUI, void, OnDestroy, (app::AreaMapUI * this_ptr)) {
+            event_bus().trigger_event(GameEvent::DestroyAreaMap, EventTiming::Before);
+            next::AreaMapUI::OnDestroy(this_ptr);
+            event_bus().trigger_event(GameEvent::DestroyAreaMap, EventTiming::After);
+        }
     } // namespace
 
     bool is_manually_shaking_resource_ui() {
@@ -57,6 +63,10 @@ namespace core::api::game::ui {
 
     app::UI__Class* get() {
         return types::UI::get_class();
+    }
+
+    app::AreaMapUI* area_map() {
+        return types::AreaMapUI::get_class()->static_fields->Instance;
     }
 
     bool area_map_open() {

@@ -7,8 +7,8 @@
 #include <Core/enums/layer.h>
 #include <Core/utils/misc.h>
 
-#include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/IconPlacementScaler.h>
+#include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/methods/UberShaderAPI.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
@@ -17,13 +17,12 @@
 #include <Modloader/app/types/AreaMapIcon.h>
 #include <Modloader/app/types/AreaMapUI.h>
 #include <Modloader/app/types/Renderer.h>
-#include <Modloader/app/types/TextBox.h>
+#include <Modloader/app/types/MessageBox.h>
 
 using namespace modloader;
 using namespace modloader::win;
 using namespace app::classes;
 using namespace app::classes::UnityEngine;
-using namespace app::classes::CatlikeCoding::TextBox;
 
 namespace randomizer::online {
     constexpr float MAP_SPRITE_SCALE = 0.6f;
@@ -34,10 +33,10 @@ namespace randomizer::online {
     constexpr float DOT_TIMEOUT = 0.25f;
     constexpr float DOT_MIN_DISTANCE = 2.0f;
 
-    void set_layer_recursive(app::GameObject* object, int layer) {
+    void set_layer_recursive(app::GameObject* object, const int layer) {
         std::vector<app::GameObject*> objects{ object };
         while (!objects.empty()) {
-            auto back = objects.back();
+            const auto back = objects.back();
             GameObject::set_layer(back, layer);
 
             objects.pop_back();
@@ -46,7 +45,14 @@ namespace randomizer::online {
         }
     }
 
-    PlayerIcon::PlayerIcon(Type type) {
+    PlayerIcon::PlayerIcon(const Type type) {
+        m_on_area_map_destroyed = core::api::game::event_bus().register_handler(GameEvent::DestroyAreaMap, EventTiming::Before, [&](auto, auto) {
+            const auto scaler = core::api::game::ui::area_map()->fields._IconScaler_k__BackingField;
+            for (const auto& dot: m_dots) {
+                IconPlacementScaler::RemoveIcon(scaler, dot.dot);
+            }
+        });
+
         m_reactive_effects.push_back(core::reactivity::watch_effect([&]() {
             if (m_icon_visible.get()) {
                 auto color = m_dynamic_color.get();
@@ -56,9 +62,9 @@ namespace randomizer::online {
 
         m_reactive_effects.push_back(core::reactivity::watch_effect([&]() {
             if (m_icon_visible.get()) {
-                const auto text_box = il2cpp::unity::get_component<app::TextBox>(m_text, types::TextBox::get_class());
-                TextBox::SetText_2(text_box, il2cpp::string_new(m_dynamic_name.get()));
-                TextBox::RenderText(text_box);
+                const auto message_box = il2cpp::unity::get_component<app::MessageBox>(m_text, types::MessageBox::get_class());
+                message_box->fields.MessageProvider = core::api::system::create_message_provider(m_dynamic_name.get());
+                MessageBox::RefreshText_1(message_box);
             }
         }));
 
