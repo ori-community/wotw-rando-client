@@ -42,14 +42,12 @@ namespace randomizer::online {
         bool initialize_icon();
         bool should_make_dot();
         void add_dot();
-        void update_dot_colors();
+        void update_dot_colors() const;
 
         void set_server_position_on_icon(float x, float y);
         void extrapolate_icon_position(float delta_time);
-        void apply_position();
-        void update_facing();
-
-        void update_string();
+        void apply_position() const;
+        void update_facing() const;
 
         struct Dot {
             app::GameObject* dot;
@@ -57,18 +55,16 @@ namespace randomizer::online {
             app::Renderer* renderer;
         };
 
+        std::vector<std::shared_ptr<core::reactivity::ReactiveEffect>> m_reactive_effects;
+
         app::Vector2 m_previous_dot_position = { 0 };
         float m_time_until_next_dot = 0;
         int m_next_dot_index = 0;
         std::vector<Dot> m_dots;
 
-        Type m_type;
         app::Vector2 m_map_position = { 0 };
         int m_facing = 1;
         float m_last_facing_pos = 0.0f;
-        bool m_icon_visible = false;
-        app::Color m_color = { 1.0f, 1.0f, 1.0f, 1.0f };
-        std::string m_name;
 
         // Used for interpolation
         app::Vector2 m_server_position = { 0 };
@@ -80,6 +76,7 @@ namespace randomizer::online {
         app::GameObject* m_icon = nullptr;
 
         core::Property<bool> m_visible;
+        core::Property<bool> m_icon_visible;
         core::Property<app::Color> m_dynamic_color;
         core::Property<std::string> m_dynamic_name;
         core::Property<Type> m_dynamic_type;
