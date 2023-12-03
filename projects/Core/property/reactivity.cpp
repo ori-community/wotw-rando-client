@@ -11,6 +11,7 @@
 
 namespace core::reactivity {
     struct TrackingContext {
+        ReactiveEffect& effect;
         std::unordered_set<dependency_t> dependencies;
     };
 
@@ -28,8 +29,8 @@ namespace core::reactivity {
     /**
      * \brief Start a new tracking context which tracks dependencies until `pop_tracking_context` is called.
      */
-    void push_tracking_context() {
-        dependency_tracker().active_tracking_contexts.emplace_back();
+    void push_tracking_context(const std::shared_ptr<ReactiveEffect>& ref) {
+        dependency_tracker().active_tracking_contexts.emplace_back(*ref);
     }
 
     /**
@@ -37,7 +38,7 @@ namespace core::reactivity {
      * \param ref The ComputedRef dependencies should get inserted into
      */
     void pop_tracking_context(const std::shared_ptr<ReactiveEffect>& ref) {
-        for (const auto& [dependencies]: dependency_tracker().active_tracking_contexts) {
+        for (const auto& [_, dependencies]: dependency_tracker().active_tracking_contexts) {
             for (const auto& dependency: dependencies) {
                 dependency_tracker().effects_by_dependency[dependency].emplace(std::weak_ptr(ref));
                 ref->dependencies.insert(dependency);
@@ -53,18 +54,24 @@ namespace core::reactivity {
         return FinalizeOnlyBuilder(m_effect);
     }
 
-    builder::AfterEffectBuilder builder::EffectBuilder::effect(const std::function<void()>& func) const {
+    builder::AfterEffectBuilder builder::EffectBuilder::effect(const std::function<void()>& func, const std::source_location& location) const {
         m_effect->effect_function = func;
+        m_effect->effect_register_location = location;
 
-        push_tracking_context();
-        func();
+        push_tracking_context(m_effect);
+        try {
+            func();
+        } catch (...) {
+            pop_tracking_context(m_effect);
+            throw;
+        }
         pop_tracking_context(m_effect);
 
         return AfterEffectBuilder(m_effect);
     }
 
-    builder::AfterEffectBuilder builder::BeforeEffectBuilder::effect(const std::function<void()>& func) const {
-        return EffectBuilder(m_effect).effect(func);
+    builder::AfterEffectBuilder builder::BeforeEffectBuilder::effect(const std::function<void()>& func, const std::source_location& location) const {
+        return EffectBuilder(m_effect).effect(func, location);
     }
 
     builder::EffectBuilder builder::BeforeEffectBuilder::before(const std::function<void()>& func) const {
@@ -79,8 +86,8 @@ namespace core::reactivity {
         return pre;
     }
 
-    std::shared_ptr<ReactiveEffect> watch_effect(const std::function<void()>& func) {
-        return watch_effect().effect(func).finalize();
+    std::shared_ptr<ReactiveEffect> watch_effect(const std::function<void()>& func, const std::source_location& location) {
+        return watch_effect().effect(func, location).finalize();
     }
 
     void notify_used(const dependency_t& dependency) {
@@ -92,6 +99,11 @@ namespace core::reactivity {
     }
 
     void notify_changed(const dependency_t& dependency) {
+        if (!dependency_tracker().active_tracking_contexts.empty()) {
+            auto active_contexts = dependency_tracker().active_tracking_contexts;
+            throw std::exception("Dependencies must not be changed inside a reactive effect");
+        }
+
         const auto refs_it = dependency_tracker().effects_by_dependency.find(dependency);
 
         if (refs_it == dependency_tracker().effects_by_dependency.end()) {
@@ -107,8 +119,13 @@ namespace core::reactivity {
                     effect->before_function();
                 };
 
-                push_tracking_context();
-                effect->effect_function();
+                push_tracking_context(effect);
+                try {
+                    effect->effect_function();
+                } catch (...) {
+                    pop_tracking_context(effect);
+                    throw;
+                }
                 pop_tracking_context(effect);
 
                 if (effect->after_function != nullptr) {

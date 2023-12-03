@@ -42,12 +42,12 @@ namespace core {
 
 namespace core::reactivity::builder {
     template<typename T>
-    AfterEffectBuilder EffectBuilder::effect(Property<T> const& property) const {
-        return effect([&property]{ [[maybe_unused]] auto out = property.get(); });
+    AfterEffectBuilder EffectBuilder::effect(Property<T> const& property, const std::source_location& location) const {
+        return effect([&property]{ [[maybe_unused]] auto out = property.get(); }, location);
     }
 
     template<typename T>
-    AfterEffectBuilder BeforeEffectBuilder::effect(Property<T> const& property) const {
-        return effect([&property]{ [[maybe_unused]] auto out = property.get(); });
+    AfterEffectBuilder BeforeEffectBuilder::effect(Property<T> const& property, const std::source_location& location) const {
+        return effect([&property]{ [[maybe_unused]] auto out = property.get(); }, location);
     }
 }

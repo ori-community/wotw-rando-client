@@ -4,7 +4,7 @@
 #include <memory>
 #include <unordered_set>
 #include <variant>
-#include <xhash>
+#include <source_location>
 
 #include <Core/macros.h>
 
@@ -67,6 +67,7 @@ struct std::hash<core::reactivity::PropertyDependency> {
 
 namespace core::reactivity {
     struct ReactiveEffect {
+        std::source_location effect_register_location;
         std::unordered_set<dependency_t> dependencies;
         std::function<void()> before_function = nullptr;
         std::function<void()> effect_function = nullptr;
@@ -81,7 +82,7 @@ namespace core::reactivity {
     }
 
     CORE_DLLEXPORT builder::BeforeEffectBuilder watch_effect();
-    CORE_DLLEXPORT std::shared_ptr<ReactiveEffect> watch_effect(const std::function<void()>& func);
+    CORE_DLLEXPORT std::shared_ptr<ReactiveEffect> watch_effect(const std::function<void()>& func, const std::source_location& location = std::source_location::current());
 
     namespace builder {
         class CORE_DLLEXPORT FinalizeOnlyBuilder {
@@ -125,8 +126,8 @@ namespace core::reactivity {
             friend class BeforeEffectBuilder;
 
             template<typename  T>
-            AfterEffectBuilder effect(Property<T> const& property) const;
-            AfterEffectBuilder effect(const std::function<void()>& func) const;
+            AfterEffectBuilder effect(Property<T> const& property, const std::source_location& location = std::source_location::current()) const;
+            AfterEffectBuilder effect(const std::function<void()>& func, const std::source_location& location = std::source_location::current()) const;
 
             std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
 
@@ -150,8 +151,8 @@ namespace core::reactivity {
             EffectBuilder before(const std::function<void()>& func) const;
 
             template<typename  T>
-            AfterEffectBuilder effect(Property<T> const& property) const;
-            AfterEffectBuilder effect(const std::function<void()>& func) const;
+            AfterEffectBuilder effect(Property<T> const& property, const std::source_location& location = std::source_location::current()) const;
+            AfterEffectBuilder effect(const std::function<void()>& func, const std::source_location& location = std::source_location::current()) const;
 
         private:
             BeforeEffectBuilder() {
