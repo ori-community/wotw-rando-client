@@ -231,9 +231,10 @@ namespace randomizer::online {
                 player_avatar->set_color(utils::hex_string_to_color(player.world.color(), true));
             }
 
-            if (message.has_visibility()) {
-                handle_visibility(message.visibility());
-            }
+            // Currently broken as the server never sends it.
+            // if (message.has_visibility()) {
+            //     handle_visibility(message.visibility());
+            // }
 
             auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
             if (area_map != nullptr && il2cpp::unity::is_valid(area_map->fields._PlayerPositionMarker_k__BackingField)) {
@@ -279,8 +280,8 @@ namespace randomizer::online {
     }
 
     void MultiplayerUniverse::handle_visibility(Network::VisibilityMessage const& message) const {
-        auto& hidden_in_world = message.hidden_in_world();
-        auto& hidden_on_map = message.hidden_on_map();
+        auto const& hidden_in_world = message.hidden_in_world();
+        auto const& hidden_on_map = message.hidden_on_map();
         for (const auto& [name, avatar]: m_player_avatars) {
             auto world = std::ranges::find(hidden_in_world, name);
             avatar->set_visible_world(world == hidden_in_world.end());
