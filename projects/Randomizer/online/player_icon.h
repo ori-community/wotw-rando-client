@@ -46,8 +46,8 @@ namespace randomizer::online {
 
         void set_server_position_on_icon(float x, float y);
         void extrapolate_icon_position(float delta_time);
-        void apply_position() const;
-        void update_facing() const;
+        void apply_position();
+        void update_facing();
 
         struct Dot {
             app::GameObject* dot;
@@ -72,9 +72,9 @@ namespace randomizer::online {
         app::Vector2 m_extrapolate_velocity = { 0 };
         float m_time_since_server_position_update = 0;
 
-        app::GameObject* m_root = nullptr;
-        app::GameObject* m_text = nullptr;
-        app::GameObject* m_icon = nullptr;
+        il2cpp::WeakGCRef<app::GameObject> m_root;
+        il2cpp::WeakGCRef<app::GameObject> m_text;
+        il2cpp::WeakGCRef<app::GameObject> m_icon;
 
         core::Property<bool> m_visible;
         core::Property<bool> m_icon_visible;
