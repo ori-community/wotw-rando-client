@@ -94,7 +94,7 @@ static inline std::string& rtrim(std::string& s) {
             s.rbegin(),
             s.rend(),
             [](int ch) {
-                return !std::isspace(ch);
+                return !std::isspace(static_cast<unsigned char>(ch));
             }
         ).base(),
         s.end()

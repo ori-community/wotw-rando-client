@@ -15,8 +15,7 @@
 namespace randomizer::seed {
 
     Seed::Seed(location_data::LocationCollection const& location_data) :
-        m_location_data(location_data) {
-    }
+        m_location_data(location_data) {}
 
     void Seed::read(const std::string_view path, const seed_parser parser, const bool show_message) {
         m_last_parser = parser;
@@ -49,13 +48,11 @@ namespace randomizer::seed {
         m_data.info.locations = read_all(modloader::base_path() / "loc_data.csv");
         m_data.info.states = read_all(modloader::base_path() / "state_data.csv");
         if (!m_last_parser(m_last_path, m_location_data, m_data)) {
-            core::message_controller().queue_central(
-                {
-                    .text = core::Property<std::string>::format("Failed to load seed '{}'", m_last_path),
-                    .show_box = true,
-                    .prioritized = true,
-                }
-            );
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>::format("Failed to load seed '{}'", m_last_path),
+                .show_box = true,
+                .prioritized = true,
+            });
             return;
         }
 
@@ -96,13 +93,11 @@ namespace randomizer::seed {
             return;
         }
 
-        core::message_controller().queue_central(
-            {
-                .text = core::Property<std::string>::format("Loaded {}{}", info().name, flags),
-                .show_box = true,
-                .prioritized = true,
-            }
-        );
+        core::message_controller().queue_central({
+            .text = core::Property<std::string>::format("Loaded {}{}", info().name, flags),
+            .show_box = true,
+            .prioritized = true,
+        });
     }
 
     void Seed::clear() {
@@ -121,7 +116,11 @@ namespace randomizer::seed {
             return MapIcon::QuestItem;
         }
 
-        return icons.empty() ? MapIcon::QuestItem : icons.front().get();
+        if (!icons.empty()) {
+            return icons.front().get();
+        }
+
+        return items.size() > 0 ? MapIcon::QuestItem : MapIcon::Invisible;
     }
 
     std::string Seed::text(const inner_location_entry& location) const {

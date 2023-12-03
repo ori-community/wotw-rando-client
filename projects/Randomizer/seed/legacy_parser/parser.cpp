@@ -129,14 +129,9 @@ namespace randomizer::seed::legacy_parser {
     bool parse_action(location_type const& location, std::span<std::string> parts, ParserData& data);
 
     std::string concatenate_parts(std::span<std::string> const& parts) {
-        return std::accumulate(
-            parts.begin(),
-            parts.end(),
-            std::string(),
-            [](std::string const& ss, std::string const& s) {
-                return ss.empty() ? s : std::format("{}|{}", ss, s);
-            }
-        );
+        return std::accumulate(parts.begin(), parts.end(), std::string(), [](std::string const& ss, std::string const& s) {
+            return ss.empty() ? s : std::format("{}|{}", ss, s);
+        });
     }
 
     void parse_parts(const std::string_view str, std::vector<std::string>& parts) {
@@ -328,9 +323,7 @@ namespace randomizer::seed::legacy_parser {
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
-        const auto text = should_add
-            ? std::format("[ability({0})]", ability_type_int)
-            : std::format("Removed [ability({0})]", ability_type_int);
+        const auto text = should_add ? std::format("[ability({0})]", ability_type_int) : std::format("Removed [ability({0})]", ability_type_int);
         message->info.text.set(text);
         data.add_item(message);
         data.location_data.icons.emplace_back(MapIcon::AbilityPedestal);
@@ -365,9 +358,7 @@ namespace randomizer::seed::legacy_parser {
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
-        const auto text = should_add
-            ? std::format("[shard({0})]", shard_type_int)
-            : std::format("Removed [shard({0})]", shard_type_int);
+        const auto text = should_add ? std::format("[shard({0})]", shard_type_int) : std::format("Removed [shard({0})]", shard_type_int);
         message->info.text.set(text);
         data.add_item(message);
         data.location_data.icons.emplace_back(MapIcon::SpiritShard);
@@ -385,11 +376,7 @@ namespace randomizer::seed::legacy_parser {
 
         const auto stop_condition = core::api::uber_states::UberStateCondition{{group, state}, op, value};
         const auto stop = std::make_shared<items::Empty>();
-        stop->stop.assign(
-            [](auto) {
-            },
-            [stop_condition]() { return stop_condition.resolve(); }
-        );
+        stop->stop.assign([](auto) {}, [stop_condition]() { return stop_condition.resolve(); });
 
         data.add_item(stop);
         return true;
@@ -400,7 +387,8 @@ namespace randomizer::seed::legacy_parser {
         core::api::uber_states::UberState const& state,
         std::span<std::string> parts,
         ParserData& data,
-        BooleanOperator op) {
+        BooleanOperator op
+    ) {
         if (parts.size() < 2) {
             return false;
         }
@@ -422,15 +410,10 @@ namespace randomizer::seed::legacy_parser {
         parse_action(location, sub_parts, data);
 
         skip_value = data.items_added - skip_value;
-        skip->skip.assign(
-            core::set_get<int>{
-                [](int) {
-                },
-                [condition, skip_value] {
-                    return condition.resolve() ? 0 : skip_value;
-                },
-            }
-        );
+        skip->skip.assign(core::set_get<int>{
+            [](int) {},
+            [condition, skip_value] { return condition.resolve() ? 0 : skip_value; },
+        });
 
         return true;
     }
@@ -439,7 +422,8 @@ namespace randomizer::seed::legacy_parser {
         location_type const& location,
         std::span<std::string> parts,
         ParserData& data,
-        BooleanOperator op) {
+        BooleanOperator op
+    ) {
         if (parts.size() < 2) {
             return false;
         }
@@ -457,13 +441,15 @@ namespace randomizer::seed::legacy_parser {
     bool parse_grant_if_bounds( // NOLINT
         location_type const& location,
         std::span<std::string> parts,
-        ParserData& data) {
+        ParserData& data
+    ) {
         if (parts.size() < 4) {
             return false;
         }
 
         app::Rect rect{};
-        if (!string_convert(parts[0], rect.m_XMin) || !string_convert(parts[1], rect.m_YMin) || !string_convert(parts[2], rect.m_Width) || !string_convert(parts[3], rect.m_Height)) {
+        if (!string_convert(parts[0], rect.m_XMin) || !string_convert(parts[1], rect.m_YMin) || !string_convert(parts[2], rect.m_Width) ||
+            !string_convert(parts[3], rect.m_Height)) {
             return false;
         }
 
@@ -488,13 +474,10 @@ namespace randomizer::seed::legacy_parser {
         parse_action(location, sub_parts, data);
 
         skip_value = data.items_added - skip_value;
-        skip->skip.assign(
-            core::set_get<int>{
-                [](int value) {
-                },
-                [rect, skip_value]() { return modloader::math::in_rect(core::api::game::player::get_position(), rect) ? 0 : skip_value; },
-            }
-        );
+        skip->skip.assign(core::set_get<int>{
+            [](int value) {},
+            [rect, skip_value]() { return modloader::math::in_rect(core::api::game::player::get_position(), rect) ? 0 : skip_value; },
+        });
 
         return true;
     }
@@ -697,10 +680,12 @@ namespace randomizer::seed::legacy_parser {
         }
 
         auto caller = std::make_shared<items::Call>();
-        caller->description = std::format("{} text entry {} to {}", append ? "append to" : "set", id, text);
+        caller->description = append ? std::format("append \"{}\" to text entry {}", text, id) : std::format("set text entry {} to \"{}\"", id, text);
         caller->func = [append, id, text]() {
+            auto mutable_text = text;
+            general_text_processor()->process(*general_text_processor(), mutable_text);
             std::string actual_text(append ? core::text::get_text(id) : "");
-            actual_text += text;
+            actual_text += mutable_text;
             core::text::clear_text(id);
             core::text::register_text(id, actual_text);
         };
@@ -1025,15 +1010,14 @@ namespace randomizer::seed::legacy_parser {
             gen_from_frag(results[1], end);
 
             auto setget = core::set_get<double>{
-                [](auto value) {
-                },
+                [](auto value) {},
                 [start, end, negative]() {
-                    const auto lower = start.get();
-                    const auto upper = end.get();
-                    const auto random_value = core::random();
-                    const auto sign = negative ? -1.f : 1.f;
-                    return sign * random_value * (upper - lower) + lower;
-                },
+                const auto lower = start.get();
+                const auto upper = end.get();
+                const auto random_value = core::random();
+                const auto sign = negative ? -1.f : 1.f;
+                return sign * random_value * (upper - lower) + lower;
+            },
             };
 
             if (is_modifier) {
@@ -1235,13 +1219,10 @@ namespace randomizer::seed::legacy_parser {
             case 0:
             case 1:
                 item->variable.assign(core::api::uber_states::UberState(4, weapon_upgrade_int));
-                item->value.assign(
-                    core::set_get<float>{
-                        [](auto value) {
-                        },
-                        [weapon_upgrade_int]() { return std::powf(1.25f, core::api::uber_states::UberState(4, 50 + weapon_upgrade_int).get<float>()); },
-                    }
-                );
+                item->value.assign(core::set_get<float>{
+                    [](auto value) {},
+                    [weapon_upgrade_int]() { return std::powf(1.25f, core::api::uber_states::UberState(4, 50 + weapon_upgrade_int).get<float>()); },
+                });
                 break;
             case 2:
             case 3:
@@ -1252,13 +1233,10 @@ namespace randomizer::seed::legacy_parser {
             case 8:
             case 9:
                 item->variable.assign(core::api::uber_states::UberState(4, weapon_upgrade_int));
-                item->value.assign(
-                    core::set_get<float>{
-                        [](auto value) {
-                        },
-                        [weapon_upgrade_int]() { return std::powf(0.5f, core::api::uber_states::UberState(4, 50 + weapon_upgrade_int).get<float>()); },
-                    }
-                );
+                item->value.assign(core::set_get<float>{
+                    [](auto value) {},
+                    [weapon_upgrade_int]() { return std::powf(0.5f, core::api::uber_states::UberState(4, 50 + weapon_upgrade_int).get<float>()); },
+                });
                 break;
             case 45:
                 item->variable.assign(core::api::uber_states::UberState(3440, 5687));
@@ -1431,11 +1409,7 @@ namespace randomizer::seed::legacy_parser {
                 }
 
                 data.add_item(counter);
-                data.location_data.names.emplace_back(
-                    [](auto) {
-                    },
-                    [counter]() { return counter->message_text(); }
-                );
+                data.location_data.names.emplace_back([](auto) {}, [counter]() { return counter->message_text(); });
                 break;
             }
             case 5: {
@@ -1522,15 +1496,17 @@ namespace randomizer::seed::legacy_parser {
         int wheel;
         int item;
         app::Color color{};
-        if (!string_convert(parts[0], wheel) || !string_convert(parts[1], item) || !string_convert(parts[2], color.r) || !string_convert(parts[3], color.g) || !string_convert(parts[4], color.b) ||
-            !string_convert(parts[5], color.a)) {
+        if (!string_convert(parts[0], wheel) || !string_convert(parts[1], item) || !string_convert(parts[2], color.r) || !string_convert(parts[3], color.g) ||
+            !string_convert(parts[4], color.b) || !string_convert(parts[5], color.a)) {
             return false;
         }
 
         const auto caller = std::make_shared<items::Call>();
         caller->description = std::format("wheel item {}:{} set color ({}, {}, {}, {})", wheel, item, color.r, color.g, color.b, color.a);
         caller->func = [wheel, item, color]() {
-            features::wheel::set_wheel_item_color(wheel, item, static_cast<int>(color.r), static_cast<int>(color.g), static_cast<int>(color.b), static_cast<int>(color.a));
+            features::wheel::set_wheel_item_color(
+                wheel, item, static_cast<int>(color.r), static_cast<int>(color.g), static_cast<int>(color.b), static_cast<int>(color.a)
+            );
         };
 
         data.add_item(caller);
@@ -1576,11 +1552,19 @@ namespace randomizer::seed::legacy_parser {
         caller->description = std::format("wheel item {}:{} set action '{}'", wheel, item, concatenate_parts(action_parts));
         caller->func = [wheel, item, binding_type, procedure_id]() {
             if (static_cast<int>(binding_type) == -1) {
-                features::wheel::set_wheel_item_callback(wheel, item, app::SpellInventory_Binding__Enum::ButtonX, [procedure_id](auto, auto, auto) { game_seed().procedure_call(procedure_id); });
-                features::wheel::set_wheel_item_callback(wheel, item, app::SpellInventory_Binding__Enum::ButtonY, [procedure_id](auto, auto, auto) { game_seed().procedure_call(procedure_id); });
-                features::wheel::set_wheel_item_callback(wheel, item, app::SpellInventory_Binding__Enum::ButtonB, [procedure_id](auto, auto, auto) { game_seed().procedure_call(procedure_id); });
+                features::wheel::set_wheel_item_callback(wheel, item, app::SpellInventory_Binding__Enum::ButtonX, [procedure_id](auto, auto, auto) {
+                    game_seed().procedure_call(procedure_id);
+                });
+                features::wheel::set_wheel_item_callback(wheel, item, app::SpellInventory_Binding__Enum::ButtonY, [procedure_id](auto, auto, auto) {
+                    game_seed().procedure_call(procedure_id);
+                });
+                features::wheel::set_wheel_item_callback(wheel, item, app::SpellInventory_Binding__Enum::ButtonB, [procedure_id](auto, auto, auto) {
+                    game_seed().procedure_call(procedure_id);
+                });
             } else {
-                features::wheel::set_wheel_item_callback(wheel, item, binding_type, [procedure_id](auto, auto, auto) { game_seed().procedure_call(procedure_id); });
+                features::wheel::set_wheel_item_callback(wheel, item, binding_type, [procedure_id](auto, auto, auto) {
+                    game_seed().procedure_call(procedure_id);
+                });
             }
         };
 
@@ -1855,7 +1839,9 @@ namespace randomizer::seed::legacy_parser {
 
     bool parse_map_message(std::span<std::string> parts, ParserData& data) {
         const auto map_message = std::make_shared<items::MapMessage>();
-        map_message->message = std::accumulate(parts.begin(), parts.end(), std::string(), [](auto const& ss, auto const& s) -> decltype(auto) { return ss.empty() ? s : ss + "|" + s; });
+        map_message->message = std::accumulate(parts.begin(), parts.end(), std::string(), [](auto const& ss, auto const& s) -> decltype(auto) {
+            return ss.empty() ? s : ss + "|" + s;
+        });
 
         data.add_item(map_message);
         return true;
@@ -1981,6 +1967,7 @@ namespace randomizer::seed::legacy_parser {
             // Config needs to do its own escape handling (\n, \t etc)
             if (line.starts_with("//")) {
                 parse_config(line, data);
+                ++line_number;
                 continue;
             }
 
@@ -1998,11 +1985,13 @@ namespace randomizer::seed::legacy_parser {
                 std::vector<std::string> coords;
                 split_str(line.substr(6), coords, ',');
                 if (coords.size() != 2) {
+                    ++line_number;
                     continue;
                 }
 
                 app::Vector3 position{};
                 if (!string_convert(coords[0], position.x) || !string_convert(coords[1], position.y)) {
+                    ++line_number;
                     continue;
                 }
 

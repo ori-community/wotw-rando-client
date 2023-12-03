@@ -34,7 +34,7 @@ namespace common {
             operator_end = operator_start + 2;
         } else if ((operator_start = str.find("!=")) != std::string::npos) {
             result.op = BooleanOperator::NotEquals;
-            operator_end = operator_start + 1;
+            operator_end = operator_start + 2;
         } else if ((operator_start = str.find('=')) != std::string::npos) {
             result.op = BooleanOperator::Equals;
             operator_end = operator_start + 1;
