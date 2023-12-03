@@ -391,6 +391,10 @@ namespace il2cpp {
             UnityEngine::Object::Destroy_2(reinterpret_cast<app::Object_1*>(object));
         }
 
+        void destroy_object_immediately(void* object) {
+            UnityEngine::Object::DestroyImmediate_2(reinterpret_cast<app::Object_1*>(object));
+        }
+
         app::GameObject* get_game_object(void* component) {
             return convert(component);
         }

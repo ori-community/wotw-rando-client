@@ -84,6 +84,12 @@ namespace il2cpp {
             return reinterpret_cast<T*>(il2cpp::gchandle_target(handle));
         }
 
+        GCRef& operator=(const GCRef& other) {
+            free();
+            handle = other.handle;
+            return *this;
+        }
+
         void free() {
             il2cpp::gchandle_free(handle);
         }
@@ -107,6 +113,12 @@ namespace il2cpp {
 
         T* operator*() {
             return ref();
+        }
+
+        WeakGCRef& operator=(const WeakGCRef& other) {
+            free();
+            handle = other.handle;
+            return *this;
         }
 
         void free() {
@@ -206,6 +218,8 @@ namespace il2cpp {
         IL2CPP_MODLOADER_DLLEXPORT void* instantiate_object_untyped(void* object);
 
         IL2CPP_MODLOADER_DLLEXPORT void destroy_object(void* object);
+
+        IL2CPP_MODLOADER_DLLEXPORT void destroy_object_immediately(void* object);
 
         IL2CPP_MODLOADER_DLLEXPORT app::Transform* get_parent(void* object);
 
