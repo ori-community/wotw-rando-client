@@ -12,6 +12,7 @@ set(
         "csv.cpp"
         "ext.cpp"
         "settings.cpp"
+        "math_utils.cpp"
 )
 
 set(
@@ -22,6 +23,7 @@ set(
         "event_bus_data.h"
         "event_timing.h"
         "ext.h"
+        "math_utils.h"
         "settings.h"
 )
 
