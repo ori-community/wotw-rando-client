@@ -1,6 +1,6 @@
 #include "il2cpp_api_addresses.h"
 #include <Modloader/windows_api/memory.h>
-#include <Modloader/macros.h>
+#include <Modloader/app/il2cpp_internals.h>
 
 #define IL2CPP_API_BINDING_NO_RETURN(r, n, p) IL2CPP_API_BINDING(r,n,p)
 

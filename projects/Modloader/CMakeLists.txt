@@ -110,23 +110,6 @@ target_link_libraries(
 find_package(nlohmann_json)
 target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
 
-target_precompile_headers(
-        ${PROJECT_NAME}
-        PRIVATE <cstdint>
-        PUBLIC <${PROJECT_NAME}/app/il2cpp_internals.h>
-)
-
-target_precompile_headers(
-        ${PROJECT_NAME}
-        PUBLIC <${PROJECT_NAME}/app/il2cpp_api.h>
-)
-
-set_source_files_properties(windows_api/console.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
-set_source_files_properties(windows_api/memory.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
-set_source_files_properties(windows_api/bootstrap.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
-set_source_files_properties(windows_api/detours.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
-set_source_files_properties(windows_api/modloader.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
-
 message(STATUS "Assigning source groups.")
 
 message(STATUS "test ${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};${INTERNAL_IL2CPP_HEADERS}")
@@ -137,16 +120,6 @@ set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "
 # source_group(TREE ${PROJECT_DIR} FILES ${METHODS})
 
 message(STATUS "TESTING ${PROJECT_BINARY_DIR}")
-
-source_group(
-        "_precompiled_headers"
-        FILES
-        ${PROJECT_BINARY_DIR}/CMakeFiles/Modloader.dir/Debug/cmake_pch.hxx
-        ${PROJECT_BINARY_DIR}/CMakeFiles/Modloader.dir/MinSizeRel/cmake_pch.hxx
-        ${PROJECT_BINARY_DIR}/CMakeFiles/Modloader.dir/RelWithDebInfo/cmake_pch.hxx
-        ${PROJECT_BINARY_DIR}/CMakeFiles/Modloader.dir/Release/cmake_pch.hxx
-        ${PROJECT_BINARY_DIR}/CMakeFiles/Modloader.dir/cmake_pch.cxx
-)
 
 install(
         TARGETS ${PROJECT_NAME}

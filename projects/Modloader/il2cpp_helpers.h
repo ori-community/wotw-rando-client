@@ -9,6 +9,8 @@
 #include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Vector3.h>
 #include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+#include <Modloader/app/il2cpp_api.h>
 
 #include <string_view>
 #include <vector>

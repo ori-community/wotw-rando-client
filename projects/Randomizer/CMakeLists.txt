@@ -331,15 +331,6 @@ message(STATUS "Assigning source groups.")
 set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES}")
 set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
 
-source_group("_precompiled_headers"
-        FILES
-        ${PROJECT_BINARY_DIR}/CMakeFiles/Randomizer.dir/Debug/cmake_pch.hxx
-        ${PROJECT_BINARY_DIR}/CMakeFiles/Randomizer.dir/MinSizeRel/cmake_pch.hxx
-        ${PROJECT_BINARY_DIR}/CMakeFiles/Randomizer.dir/RelWithDebInfo/cmake_pch.hxx
-        ${PROJECT_BINARY_DIR}/CMakeFiles/Randomizer.dir/Release/cmake_pch.hxx
-        ${PROJECT_BINARY_DIR}/CMakeFiles/Randomizer.dir/cmake_pch.cxx
-        )
-
 install(
         TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION "${WOTWR_INSTALL_DIR}"

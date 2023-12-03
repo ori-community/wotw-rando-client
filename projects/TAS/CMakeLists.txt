@@ -101,15 +101,6 @@ set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "
 
 message(STATUS "TESTING ${PROJECT_BINARY_DIR}")
 
-source_group("_precompiled_headers"
-        FILES
-        ${PROJECT_BINARY_DIR}/CMakeFiles/TAS.dir/Debug/cmake_pch.hxx
-        ${PROJECT_BINARY_DIR}/CMakeFiles/TAS.dir/MinSizeRel/cmake_pch.hxx
-        ${PROJECT_BINARY_DIR}/CMakeFiles/TAS.dir/RelWithDebInfo/cmake_pch.hxx
-        ${PROJECT_BINARY_DIR}/CMakeFiles/TAS.dir/Release/cmake_pch.hxx
-        ${PROJECT_BINARY_DIR}/CMakeFiles/TAS.dir/cmake_pch.cxx
-        )
-
 install(
         TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION "${WOTWR_INSTALL_DIR}"
