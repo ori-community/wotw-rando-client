@@ -46,6 +46,7 @@ jobs:
         run: |
           $path = Resolve-Path .
           New-Item -Path ${{ env.WORKDIR }} -ItemType SymbolicLink -Value $path
+      - uses: ilammy/msvc-dev-cmd@v1
       - name: Generate solution
         shell: cmd
         working-directory: ${{ env.WORKDIR }}
