@@ -1,8 +1,7 @@
 #pragma once
 
+#include <Core/enums/map_icon.h>
 #include <Core/property.h>
-
-#include <Modloader/app/structs/WorldMapIconType__Enum.h>
 
 #include <Randomizer/seed/items/item.h>
 
@@ -13,7 +12,7 @@
 namespace randomizer::seed {
     struct ItemData {
         using name_entry = core::Property<std::string>;
-        using icon_entry = core::Property<app::WorldMapIconType__Enum>;
+        using icon_entry = core::Property<MapIcon>;
         using item_entry = std::shared_ptr<items::BaseItem>;
 
         // The int here is used internally to order grants that satisfy multiple inner_location_entries.

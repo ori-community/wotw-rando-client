@@ -207,7 +207,7 @@ namespace randomizer::seed::legacy_parser {
 
         data.add_item(message);
         data.location_data.names.emplace_back(message->info.text);
-        data.location_data.icons.emplace_back(app::WorldMapIconType__Enum::Experience);
+        data.location_data.icons.emplace_back(MapIcon::Experience);
 
         return true;
     }
@@ -227,7 +227,7 @@ namespace randomizer::seed::legacy_parser {
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
-        app::WorldMapIconType__Enum icon;
+        MapIcon icon;
         switch (static_cast<ResourceType>(resource_type_int)) {
             case ResourceType::Health: {
                 const auto adder = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
@@ -237,7 +237,7 @@ namespace randomizer::seed::legacy_parser {
                 const auto refill = std::make_shared<items::Refill>();
                 refill->type = items::Refill::RefillType::Health;
                 data.add_item(refill);
-                icon = app::WorldMapIconType__Enum::HealthFragment;
+                icon = MapIcon::HealthFragment;
                 message->info.text.set("Health Fragment");
                 break;
             }
@@ -249,7 +249,7 @@ namespace randomizer::seed::legacy_parser {
                 const auto refill = std::make_shared<items::Refill>();
                 refill->type = items::Refill::RefillType::Energy;
                 data.add_item(refill);
-                icon = app::WorldMapIconType__Enum::EnergyFragment;
+                icon = MapIcon::EnergyFragment;
                 message->info.text.set("Energy Fragment");
                 break;
             }
@@ -262,7 +262,7 @@ namespace randomizer::seed::legacy_parser {
                 collected->variable = core::Property<int>(UberStateGroup::RandoState, 5);
                 collected->value.set(1);
                 data.add_item(collected);
-                icon = app::WorldMapIconType__Enum::Ore;
+                icon = MapIcon::Ore;
                 message->info.text.set("Gorlek Ore");
                 break;
             }
@@ -275,7 +275,7 @@ namespace randomizer::seed::legacy_parser {
                 collected->variable = core::Property<int>(UberStateGroup::RandoState, 0);
                 collected->value.set(1);
                 data.add_item(collected);
-                icon = app::WorldMapIconType__Enum::Keystone;
+                icon = MapIcon::Keystone;
                 message->info.text.set("Keystone");
                 break;
             }
@@ -284,7 +284,7 @@ namespace randomizer::seed::legacy_parser {
                 adder->variable = core::api::game::player::shard_slots();
                 adder->value.set(1);
                 data.add_item(adder);
-                icon = app::WorldMapIconType__Enum::ShardSlotUpgrade;
+                icon = MapIcon::ShardSlotUpgrade;
                 message->info.text.set("Shard Slot");
                 break;
             }
@@ -333,7 +333,7 @@ namespace randomizer::seed::legacy_parser {
             : std::format("Removed [ability({0})]", ability_type_int);
         message->info.text.set(text);
         data.add_item(message);
-        data.location_data.icons.emplace_back(app::WorldMapIconType__Enum::AbilityPedestal);
+        data.location_data.icons.emplace_back(MapIcon::AbilityPedestal);
         data.location_data.names.emplace_back(text);
         return true;
     }
@@ -370,7 +370,7 @@ namespace randomizer::seed::legacy_parser {
             : std::format("Removed [shard({0})]", shard_type_int);
         message->info.text.set(text);
         data.add_item(message);
-        data.location_data.icons.emplace_back(app::WorldMapIconType__Enum::AbilityPedestal);
+        data.location_data.icons.emplace_back(MapIcon::SpiritShard);
         data.location_data.names.emplace_back(text);
         return true;
     }
@@ -657,7 +657,7 @@ namespace randomizer::seed::legacy_parser {
 
         icon->label = parts[3];
         icon->flags = game::map::FilterFlag::All | game::map::FilterFlag::Teleports | game::map::FilterFlag::InLogic | game::map::FilterFlag::Spoilers;
-        icon->type = app::WorldMapIconType__Enum::SavePedestal;
+        icon->type = MapIcon::SavePedestal;
         icon->can_teleport = true;
         data.add_item(icon);
         return true;
@@ -668,7 +668,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto icon = std::make_shared<items::DestroyIcon>();
+        const auto icon = std::make_shared<items::DestroyIcon>();
         if (!string_convert(parts[0], icon->id)) {
             return false;
         }
@@ -920,7 +920,7 @@ namespace randomizer::seed::legacy_parser {
         const auto text = should_add ? std::format("#{0} TP#", teleporter_name) : std::format("Removed #{0} TP#", teleporter_name);
         message->info.text.set(text);
         data.add_item(message);
-        data.location_data.icons.emplace_back(app::WorldMapIconType__Enum::SavePedestal);
+        data.location_data.icons.emplace_back(MapIcon::MapstonePickup);
         data.location_data.names.emplace_back(text);
         return true;
     }
@@ -1125,7 +1125,7 @@ namespace randomizer::seed::legacy_parser {
         message->info.text.set_format("*{0}*", text);
         data.add_item(message);
 
-        data.location_data.icons.emplace_back(app::WorldMapIconType__Enum::QuestEnd);
+        data.location_data.icons.emplace_back(MapIcon::CleanWater);
         data.location_data.names.emplace_back().set_format("*{0}*", text);
 
         return true;
@@ -1176,7 +1176,7 @@ namespace randomizer::seed::legacy_parser {
         message->info.text.set_format(R"(#{0}[if([state_int(4|{1})] > 1,<> x[state_int(4|{1})],)]#)", bonus_item, bonus_type_int);
         data.add_item(message);
 
-        data.location_data.icons.emplace_back(app::WorldMapIconType__Enum::Seed);
+        data.location_data.icons.emplace_back(MapIcon::QuestItem);
         data.location_data.names.emplace_back(message->info.text.get());
 
         return true;

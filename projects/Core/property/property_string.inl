@@ -7,7 +7,7 @@
 #include <Core/text/text_processor.h>
 #include <Core/api/system/message_provider.h>
 
-#include "reactivity.h"
+#include <Core/property/reactivity.h>
 
 template<>
 struct core::Property<std::string> {
@@ -70,8 +70,7 @@ struct core::Property<std::string> {
                 throw std::exception("Unhandled variant in Property");
         }
 
-        reactivity::notify_used(reactivity::PropertyDependency(m_id));
-
+        notify_used(reactivity::PropertyDependency(m_id));
         return out;
     }
 
@@ -107,7 +106,7 @@ struct core::Property<std::string> {
                 throw std::exception("Unhandled variant in Property");
         }
 
-        reactivity::notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed(reactivity::PropertyDependency(m_id));
     }
 
     void process_and_set(std::string value) {
@@ -197,7 +196,7 @@ struct core::Property<std::string> {
     }
 
 private:
-    const unsigned int m_id = reactivity::reserve_property_id();
+    const unsigned int m_id = core::reactivity::reserve_property_id();
     std::shared_ptr<text::ITextProcessor> m_text_processor;
     value_type m_value = nullptr;
 };

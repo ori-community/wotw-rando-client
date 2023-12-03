@@ -10,12 +10,11 @@ namespace randomizer::seed::items {
 
     void CreateIcon::grant() {
         const auto icon = add_icon(flags);
-        icon->name(std::format("custom_icon: {}", seed_definition));
-        icon->label(label);
-        icon->icon(type);
-        icon->position(position);
-        icon->can_teleport(can_teleport);
-        icon->visible(true);
+        icon->name().set(std::format("custom_icon: {}", seed_definition));
+        icon->label().set(label);
+        icon->icon().set(type);
+        icon->position().set(position);
+        icon->can_teleport().set(can_teleport);
         icons[id] = icon;
     }
 

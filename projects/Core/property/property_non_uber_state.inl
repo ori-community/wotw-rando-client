@@ -6,6 +6,8 @@
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
 
+#include <Core/property/reactivity.h>
+
 template<typename T> requires core::is_not_uber_state<T>
 struct core::Property<T> {
     using value_type = std::variant<
@@ -36,10 +38,10 @@ struct core::Property<T> {
     [[nodiscard]] T get() const {
         switch (m_value.index()) {
             case 0:
-                reactivity::notify_used(reactivity::PropertyDependency(m_id));
+                notify_used(reactivity::PropertyDependency(m_id));
                 return *std::get<0>(m_value);
             case 1:
-                reactivity::notify_used(reactivity::PropertyDependency(m_id));
+                notify_used(reactivity::PropertyDependency(m_id));
                 return std::get<1>(std::get<1>(m_value))();
             default:
                 throw std::exception("Unhandled variant in Property");
@@ -60,7 +62,7 @@ struct core::Property<T> {
                 throw std::exception("Unhandled variant in Property");
         }
 
-        reactivity::notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed(reactivity::PropertyDependency(m_id));
     }
 
     void set(const float x, const float y) requires std::is_same_v<T, app::Vector2> {
@@ -77,12 +79,12 @@ struct core::Property<T> {
 
     void assign(value_type value) {
         m_value = value;
-        reactivity::notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed(reactivity::PropertyDependency(m_id));
     }
 
     void assign(setter<T> set, getter<T> get) {
         m_value = std::make_tuple(set, get);
-        reactivity::notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed(reactivity::PropertyDependency(m_id));
     }
 
     std::string to_string() const {
@@ -91,7 +93,7 @@ struct core::Property<T> {
 
     Property &operator=(const Property &other) {
         m_value = other.m_value;
-        reactivity::notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed(reactivity::PropertyDependency(m_id));
         return *this;
     }
 

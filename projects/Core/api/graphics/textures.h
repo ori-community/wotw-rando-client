@@ -26,6 +26,7 @@ namespace core::api::graphics::textures {
 
         ~TextureData();
 
+        void apply(app::GameObject* go);
         void apply(app::Material* mat);
         void apply(app::Renderer* renderer, MaterialParams* extra = nullptr);
         void apply_texture(app::Renderer* renderer);

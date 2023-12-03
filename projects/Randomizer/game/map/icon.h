@@ -1,13 +1,13 @@
 #pragma once
 
+#include <Core/enums/map_icon.h>
 #include <Core/mood_guid.h>
 #include <Core/property.h>
+#include <Core/property/reactivity.h>
 
 #include <Modloader/app/structs/RuntimeWorldMapIcon.h>
 
 #include <Randomizer/game/map/filter.h>
-
-#include "Core/property/reactivity.h"
 
 namespace randomizer::game::map {
     struct Icon {
@@ -19,56 +19,44 @@ namespace randomizer::game::map {
 
         ~Icon();
 
-        void visible(bool value);
-
-        void label_visible(bool value);
-
-        void opacity(float value);
-
-        std::string name() const { return m_name; }
-
-        void name(std::string value);
-
+        core::Property<std::string> name() const { return m_name; }
         core::Property<std::string> label() const { return m_label; }
-
-        void label(const std::string& value);
-
-        app::WorldMapIconType__Enum icon() const;
-
-        void icon(app::WorldMapIconType__Enum value);
-
-        app::Vector2 position() const { return m_position; }
-
-        void position(app::Vector2 value);
-
-        bool can_teleport() const;
-
-        void can_teleport(bool value);
+        core::Property<MapIcon>& icon() { return m_icon; }
+        core::Property<app::Vector2>& position() { return m_position; }
+        core::Property<bool>& visible() { return m_visible; }
+        core::Property<bool>& label_visible() { return m_label_visible; }
+        core::Property<float>& opacity() { return m_opacity; }
+        core::Property<bool>& can_teleport() { return m_can_teleport; }
 
         void remove_scaler() const;
-
-        void apply_scaler() const;
+        void apply_scaler(app::Vector2 const& position) const;
 
         FilterFlag filter_mask() const { return m_filter_mask; }
         core::MoodGuid guid() const { return m_guid; }
 
     private:
         void initialize_game_object();
+        void initialize_reactives();
+        void update_opacity(float opacity) const;
 
-        std::shared_ptr<core::reactivity::ReactiveEffect> m_text_reactive_effect;
+        std::vector<std::shared_ptr<core::reactivity::ReactiveEffect>> m_reactive_effects;
+
+        core::Property<std::string> m_name;
         core::Property<std::string> m_label;
+        core::Property<MapIcon> m_icon;
+        core::Property<app::Vector2> m_position;
+        core::Property<float> m_opacity;
+        core::Property<bool> m_visible;
+        core::Property<bool> m_label_visible;
+        core::Property<bool> m_can_teleport;
 
-        std::string m_name;
-        bool m_visible = false;
-        bool m_label_visible = false;
-        float m_opacity;
+        core::Property<app::GameObject*> m_game_object;
+        core::Property<app::AreaMapIcon*> m_map_icon;
+
+        MapIcon m_current_icon = MapIcon::Keystone;
         core::MoodGuid m_guid;
         std::vector<app::Color> m_original_color;
-        app::WorldMapIconType__Enum m_icon = app::WorldMapIconType__Enum::Keystone;
-        app::Vector2 m_position;
-        bool m_can_teleport = false;
         FilterFlag m_filter_mask = FilterFlag::InLogic | FilterFlag::Spoilers;
-        app::GameObject* m_game_object = nullptr;
-        app::AreaMapIcon* m_map_icon = nullptr;
+        bool m_initialized = false;
     };
 } // namespace randomizer::game::map

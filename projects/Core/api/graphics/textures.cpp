@@ -11,6 +11,7 @@
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/GardenerScreen.h>
 #include <Modloader/app/types/MapmakerScreen.h>
+#include <Modloader/app/types/Renderer.h>
 #include <Modloader/app/types/SpellSettings.h>
 #include <Modloader/app/types/SpiritShardSettings.h>
 #include <Modloader/app/types/SpiritShardUIShardBackdrop.h>
@@ -51,6 +52,13 @@ namespace core::api::graphics::textures {
         mparams.scroll_rot = UberShaderAPI::GetTextureScrollRotData(renderer, app::UberShaderProperty_Texture__Enum::MainTexture);
         mparams.color = UberShaderAPI::GetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor);
         default_params[renderer] = std::make_pair(texture, mparams);
+    }
+
+    void TextureData::apply(app::GameObject* go) {
+        const auto renderers = il2cpp::unity::get_components<app::Renderer>(go, reinterpret_cast<Il2CppClass*>(types::Renderer::get_class()));
+        for (const auto renderer: renderers) {
+            apply(renderer);
+        }
     }
 
     void TextureData::apply(app::Material* mat) {

@@ -113,15 +113,15 @@ namespace randomizer::seed {
         items::destroy_all_seed_icons();
     }
 
-    app::WorldMapIconType__Enum Seed::icon(inner_location_entry location) {
+    MapIcon Seed::icon(inner_location_entry location) {
         std::string output;
         const auto [always_granted_items, items, names, icons] = m_data.locations[location.state][location];
         // Since we can only show one icon, if we have multiple show a preset one.
         if (icons.size() > 1) {
-            return app::WorldMapIconType__Enum::QuestItem;
+            return MapIcon::QuestItem;
         }
 
-        return icons.empty() ? app::WorldMapIconType__Enum::Invisible : icons.front().get();
+        return icons.empty() ? MapIcon::QuestItem : icons.front().get();
     }
 
     std::string Seed::text(const inner_location_entry& location) const {

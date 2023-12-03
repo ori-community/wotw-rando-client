@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/api/uber_states/uber_state.h>
+#include <Core/property/reactivity.h>
 
 #include <functional>
 
@@ -38,3 +39,15 @@ namespace core {
 #include <Core/property/property_string.inl>
 #include <Core/property/property_uber_state.inl>
 #include <Core/property/property_non_uber_state.inl>
+
+namespace core::reactivity::builder {
+    template<typename T>
+    AfterEffectBuilder EffectBuilder::effect(Property<T> const& property) const {
+        return effect([&property]{ [[maybe_unused]] auto out = property.get(); });
+    }
+
+    template<typename T>
+    AfterEffectBuilder BeforeEffectBuilder::effect(Property<T> const& property) const {
+        return effect([&property]{ [[maybe_unused]] auto out = property.get(); });
+    }
+}

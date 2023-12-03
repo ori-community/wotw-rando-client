@@ -36,10 +36,8 @@ namespace randomizer::game::map {
 
         app::WorldMapIconType__Enum get_base_icon(const app::RuntimeWorldMapIcon* icon) {
             for (const auto base_icon: il2cpp::ListIterator(icon->fields.Area->fields.Area->fields.Icons)) {
-                if (base_icon->fields.Guid->fields.A == icon->fields.Guid->fields.A &&
-                    base_icon->fields.Guid->fields.B == icon->fields.Guid->fields.B &&
-                    base_icon->fields.Guid->fields.C == icon->fields.Guid->fields.C &&
-                    base_icon->fields.Guid->fields.D == icon->fields.Guid->fields.D) {
+                if (base_icon->fields.Guid->fields.A == icon->fields.Guid->fields.A && base_icon->fields.Guid->fields.B == icon->fields.Guid->fields.B &&
+                    base_icon->fields.Guid->fields.C == icon->fields.Guid->fields.C && base_icon->fields.Guid->fields.D == icon->fields.Guid->fields.D) {
                     return base_icon->fields.Icon;
                 }
             }
@@ -67,22 +65,18 @@ namespace randomizer::game::map {
                 }
 
                 for (auto const& icon: collection) {
-                    icon->label_visible(false);
+                    icon->label_visible().set(false);
                 }
             }
 
             for (auto const& icon: icons[active_filter()]) {
-                icon->label_visible(show_labels);
+                icon->label_visible().set(show_labels);
             }
         }
 
-        bool should_always_show_teleporters() {
-            return core::settings::always_show_warps() && (active_filter() > Filters::Collectibles);
-        }
+        bool should_always_show_teleporters() { return core::settings::always_show_warps() && (active_filter() > Filters::Collectibles); }
 
-        bool should_always_show_keystone_doors() {
-            return core::settings::always_show_keystone_doors() && (active_filter() > Filters::Collectibles);
-        }
+        bool should_always_show_keystone_doors() { return core::settings::always_show_keystone_doors() && (active_filter() > Filters::Collectibles); }
 
         bool should_always_show(app::RuntimeWorldMapIcon* icon) {
             switch (icon->fields.Icon) {
@@ -123,10 +117,11 @@ namespace randomizer::game::map {
                 return IconVisibilityResult::Show;
             }
 
-            const auto filter = active_filter();
             // If we are in original filters then use the original function.
-            if (filter <= Filters::Collectibles) {
-                return AreaMapIconManager::IsIconShownByFilter(icon->fields.Icon, manager->fields.Filter) ? IconVisibilityResult::Show : IconVisibilityResult::Hide;
+            if (active_filter() <= Filters::Collectibles) {
+                return AreaMapIconManager::IsIconShownByFilter(icon->fields.Icon, manager->fields.Filter) //
+                    ? IconVisibilityResult::Show
+                    : IconVisibilityResult::Hide;
             }
 
             // Hide normal icons when in a rando filter.
@@ -174,7 +169,7 @@ namespace randomizer::game::map {
                 // Hide custom icons in old filter.
                 const auto& collection = icons[last_filter];
                 for (auto& icon: collection) {
-                    icon->visible(false);
+                    icon->visible().set(false);
                 }
             }
 
@@ -184,15 +179,15 @@ namespace randomizer::game::map {
                 const auto it = visibility_callbacks.find(icon);
                 switch (it == visibility_callbacks.end() ? IconVisibilityResult::Show : it->second(icon)) {
                     case IconVisibilityResult::Show:
-                        icon->visible(true);
-                        icon->opacity(1.0);
+                        icon->visible().set(true);
+                        icon->opacity().set(1.0);
                         break;
                     case IconVisibilityResult::ShowTransparent:
-                        icon->visible(true);
-                        icon->opacity(core::settings::map_icon_transparency());
+                        icon->visible().set(true);
+                        icon->opacity().set(core::settings::map_icon_transparency());
                         break;
                     case IconVisibilityResult::Hide:
-                        icon->visible(false);
+                        icon->visible().set(false);
                         break;
                 }
             }
@@ -204,7 +199,7 @@ namespace randomizer::game::map {
             next::AreaMapUI::OnInstantiate(this_ptr);
             for (auto const& icon_set: icons | std::views::values) {
                 for (auto const& icon: icon_set) {
-                    icon->apply_scaler();
+                    icon->apply_scaler(icon->position().get());
                 }
             }
         }
@@ -213,7 +208,7 @@ namespace randomizer::game::map {
             next::AreaMapUI::Init(this_ptr);
             for (auto const& icon_set: icons | std::views::values) {
                 for (auto const& icon: icon_set) {
-                    icon->apply_scaler();
+                    icon->apply_scaler(icon->position().get());
                 }
             }
         }
@@ -237,16 +232,16 @@ namespace randomizer::game::map {
             auto min_distance = 1.02 * 1.02;
             std::shared_ptr<Icon> closest_icon;
             for (auto const& icon: current_icons) {
-                if (icon->can_teleport()) {
+                if (icon->can_teleport().get()) {
                     const auto position = AreaMapNavigation::WorldToMapPosition(
-                        this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField,
-                        icon->position()
-                    );;
+                        this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField, icon->position().get()
+                    );
+                    ;
                     const auto difference = cursor - app::Vector2{position.x, position.y};
                     const auto magnitude_squared = difference.x * difference.x + difference.y * difference.y;
                     if (magnitude_squared < min_distance) {
                         closest_icon = icon;
-                        *target = icon->position();
+                        *target = icon->position().get();
                         min_distance = magnitude_squared;
                     }
                 }
@@ -254,10 +249,8 @@ namespace randomizer::game::map {
 
             app::Vector2 original_target{};
             if (next::GameMapUI::IsCursorOverTeleporter(this_ptr, &original_target)) {
-                const auto position = AreaMapNavigation::WorldToMapPosition(
-                    this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField,
-                    original_target
-                );;
+                const auto position = AreaMapNavigation::WorldToMapPosition(this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField, original_target);
+                ;
                 const auto difference = cursor - app::Vector2{position.x, position.y};
                 const auto magnitude_squared = difference.x * difference.x + difference.y * difference.y;
                 if (magnitude_squared < min_distance) {
@@ -269,7 +262,7 @@ namespace randomizer::game::map {
             return closest_icon != nullptr;
         }
 
-        IL2CPP_INTERCEPT(GameMapUI, void, set_ShowObjective, (app::GameMapUI* this_ptr, app::GameMapShowObjective* objective)) {
+        IL2CPP_INTERCEPT(GameMapUI, void, set_ShowObjective, (app::GameMapUI * this_ptr, app::GameMapShowObjective* objective)) {
             // NOOP
         }
     } // namespace
@@ -293,9 +286,7 @@ namespace randomizer::game::map {
         }
     }
 
-    void clear_icons() {
-        icons.clear();
-    }
+    void clear_icons() { icons.clear(); }
 
     void add_icon_visibility_callback(const std::shared_ptr<Icon>& icon, icon_visibility_callback callback) {
         visibility_callbacks[icon] = std::move(callback);
@@ -308,24 +299,21 @@ namespace randomizer::game::map {
         }
 
         const auto area_map_info = player_group->fields.PlayerUberState->fields.m_state->fields.AreaMapInfo;
-        return Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::GetAreaState(area_map_info, area, index) == app::WorldMapAreaState__Enum::Visited;
+        return Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::GetAreaState(area_map_info, area, index) ==
+            app::WorldMapAreaState__Enum::Visited;
     }
 
-    auto on_load_seed = event_bus().register_handler(
-        RandomizerEvent::SeedLoadedPostGrant,
-        EventTiming::After,
-        [](auto, auto) {
-            if (!core::api::game::ui::area_map_open()) {
-                return;
-            }
-
-            const auto instance = types::GameMapUI::get_class()->static_fields->Instance;
-            if (instance == nullptr || instance->fields.m_areaMap == nullptr || instance->fields.m_areaMap->fields._IconManager_k__BackingField == nullptr) {
-                return;
-            }
-
-            const auto icon_manager = instance->fields.m_areaMap->fields._IconManager_k__BackingField;
-            AreaMapIconManager::ShowAreaIcons(icon_manager);
+    auto on_load_seed = event_bus().register_handler(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After, [](auto, auto) {
+        if (!core::api::game::ui::area_map_open()) {
+            return;
         }
-    );
+
+        const auto instance = types::GameMapUI::get_class()->static_fields->Instance;
+        if (instance == nullptr || instance->fields.m_areaMap == nullptr || instance->fields.m_areaMap->fields._IconManager_k__BackingField == nullptr) {
+            return;
+        }
+
+        const auto icon_manager = instance->fields.m_areaMap->fields._IconManager_k__BackingField;
+        AreaMapIconManager::ShowAreaIcons(icon_manager);
+    });
 } // namespace randomizer::game::map

@@ -1,12 +1,13 @@
-#include <Core/property/reactivity.h>
 #include <functional>
 #include <set>
 #include <unordered_set>
 
+#include <Core/id_registry.h>
+#include <Core/property.h>
+#include <Core/property/reactivity.h>
+
 #include <Modloader/app/methods/UberGCManager.h>
 #include <Modloader/interception_macros.h>
-
-#include "id_registry.h"
 
 namespace core::reactivity {
     struct TrackingContext {

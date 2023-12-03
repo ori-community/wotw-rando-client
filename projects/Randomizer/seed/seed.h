@@ -53,7 +53,7 @@ namespace randomizer::seed {
         void reload(bool show_message = true);
         void clear();
 
-        app::WorldMapIconType__Enum icon(inner_location_entry location);
+        MapIcon icon(inner_location_entry location);
         std::string text(const inner_location_entry& location) const;
         void grant(location_entry location, double previous_value);
         void procedure_call(int id);

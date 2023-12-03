@@ -1,9 +1,9 @@
 #pragma once
 
-#include <variant>
+#include <functional>
 #include <memory>
 #include <unordered_set>
-#include <functional>
+#include <variant>
 #include <xhash>
 
 #include <Core/macros.h>
@@ -11,6 +11,11 @@
 #include <Core/enums/static_text_entries.h>
 
 #include <Common/event_bus.h>
+
+namespace core {
+    template<typename T>
+    struct Property;
+}
 
 namespace core::reactivity {
     struct UberStateDependency {
@@ -85,6 +90,9 @@ namespace core::reactivity {
 
             std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
 
+            template<typename Container>
+            void finalize(Container& c) { return c.push_back(m_effect); }
+
         private:
             explicit FinalizeOnlyBuilder(const std::shared_ptr<ReactiveEffect>& effect) :
                 m_effect(effect) {
@@ -101,6 +109,9 @@ namespace core::reactivity {
 
             std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
 
+            template<typename Container>
+            void finalize(Container& c) { return c.push_back(m_effect); }
+
         private:
             explicit AfterEffectBuilder(const std::shared_ptr<ReactiveEffect>& effect) :
                 m_effect(effect) {
@@ -113,9 +124,16 @@ namespace core::reactivity {
         public:
             friend class BeforeEffectBuilder;
 
+            template<typename  T>
+            AfterEffectBuilder effect(Property<T> const& property) const;
             AfterEffectBuilder effect(const std::function<void()>& func) const;
 
             std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
+
+            template<typename Container>
+            void finalize(Container& c) {
+                return c.push_back(m_effect);
+            }
 
         private:
             explicit EffectBuilder(const std::shared_ptr<ReactiveEffect>& effect) :
@@ -131,6 +149,8 @@ namespace core::reactivity {
 
             EffectBuilder before(const std::function<void()>& func) const;
 
+            template<typename  T>
+            AfterEffectBuilder effect(Property<T> const& property) const;
             AfterEffectBuilder effect(const std::function<void()>& func) const;
 
         private:

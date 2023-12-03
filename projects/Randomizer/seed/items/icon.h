@@ -8,7 +8,7 @@ namespace randomizer::seed::items {
     public:
         int id;
         std::string label;
-        app::WorldMapIconType__Enum type;
+        MapIcon type;
         game::map::FilterFlag flags;
         app::Vector2 position;
         bool can_teleport;
