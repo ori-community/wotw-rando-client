@@ -228,14 +228,14 @@ namespace randomizer::online {
                 const auto& player_avatar = m_player_avatars.find(id)->second;
                 player_avatar->set_name(player.user.name());
                 player_avatar->set_online(player.user.has_connectedmultiverseid());
-                player_avatar->set_color(utils::hex_string_to_color(player.world.color()));
+                player_avatar->set_color(utils::hex_string_to_color(player.world.color(), true));
             }
 
             if (message.has_visibility()) {
                 handle_visibility(message.visibility());
             }
 
-            auto area_map = app::classes::types::AreaMapUI::get_class()->static_fields->Instance;
+            auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
             if (area_map != nullptr && il2cpp::unity::is_valid(area_map->fields._PlayerPositionMarker_k__BackingField)) {
                 // TODO: Add this to some sort of init thing.
                 if (m_color.r < 0.99f || m_color.g < 0.99f || m_color.b < 0.99f || m_color.a < 0.99f) {
