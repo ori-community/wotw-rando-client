@@ -1,12 +1,16 @@
-#include <randomizer.h>
+
+#include <Common/is_in.h>
+
+#include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
 
 #include <Modloader/app/methods/RaceBaseState.h>
 #include <Modloader/app/methods/RaceHandler.h>
 #include <Modloader/app/methods/RaceSystem.h>
 #include <Modloader/app/types/RaceSystem.h>
-#include <Common/is_in.h>
-#include <Core/api/game/player.h>
+
+#include <Randomizer/randomizer.h>
+#include <Randomizer/conditions/new_setup_state_override.h>
 
 bool is_in_trial = false;
 
@@ -19,6 +23,13 @@ namespace {
 
     auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         randomizer::game_seed().prevent_grants(&is_running_race);
+        randomizer::conditions::register_new_setup_intercept(
+            {"getDigAbilityRoom__clone0/interactives/spellPickup/spellPickupSetup"},
+            {-239885777, -934455551},
+            [](auto, auto, auto original_state, auto) -> int32_t {
+                return is_running_race() ? -239885777 : original_state;
+            }
+        );
     });
 
     common::registration_handle_t in_trial_uber_state_changed_handle;
