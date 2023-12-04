@@ -126,7 +126,9 @@ namespace randomizer {
             std::vector<app::IUberState*> states = {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "swordTree", static_cast<int>(app::AbilityType__Enum::Sword), false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "doubleJumpTree", static_cast<int>(app::AbilityType__Enum::DoubleJump), false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "regenerateTree", static_cast<int>(app::AbilityType__Enum::MeditateSpell), false),
+                add_state<app::SerializedBooleanUberState>(
+                    UberStateGroup::Tree, "regenerateTree", static_cast<int>(app::AbilityType__Enum::MeditateSpell), false
+                ),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "bowTree", static_cast<int>(app::AbilityType__Enum::Bow), false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "dashTree", static_cast<int>(app::AbilityType__Enum::DashNew), false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "bashTree", static_cast<int>(app::AbilityType__Enum::Bash), false),
@@ -136,8 +138,12 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "grenadeTree", static_cast<int>(app::AbilityType__Enum::Grenade), false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "burrowTree", static_cast<int>(app::AbilityType__Enum::Digging), false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "launchTree", static_cast<int>(app::AbilityType__Enum::ChargeJump), false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "ancestralLightTreeA", static_cast<int>(app::AbilityType__Enum::DamageUpgradeA), false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "ancestralLightTreeB", static_cast<int>(app::AbilityType__Enum::DamageUpgradeB), false),
+                add_state<app::SerializedBooleanUberState>(
+                    UberStateGroup::Tree, "ancestralLightTreeA", static_cast<int>(app::AbilityType__Enum::DamageUpgradeA), false
+                ),
+                add_state<app::SerializedBooleanUberState>(
+                    UberStateGroup::Tree, "ancestralLightTreeB", static_cast<int>(app::AbilityType__Enum::DamageUpgradeB), false
+                ),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "waterBreath", 23, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "spike", 74, false),
@@ -472,15 +478,31 @@ namespace randomizer {
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::MapFilter, "spoilerIconTag", 70, false),
 
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "marshMapCost", static_cast<int>(app::GameWorldAreaID__Enum::InkwaterMarsh), 200),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "hollowMapCost", static_cast<int>(app::GameWorldAreaID__Enum::KwoloksHollow), 150),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "wellspringMapCost", static_cast<int>(app::GameWorldAreaID__Enum::WaterMill), 150),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "burrowMapCost", static_cast<int>(app::GameWorldAreaID__Enum::MidnightBurrow), 50),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "reachMapCost", static_cast<int>(app::GameWorldAreaID__Enum::BaursReach), 150),
+                add_state<app::SerializedIntUberState>(
+                    UberStateGroup::LupoGroup, "marshMapCost", static_cast<int>(app::GameWorldAreaID__Enum::InkwaterMarsh), 200
+                ),
+                add_state<app::SerializedIntUberState>(
+                    UberStateGroup::LupoGroup, "hollowMapCost", static_cast<int>(app::GameWorldAreaID__Enum::KwoloksHollow), 150
+                ),
+                add_state<app::SerializedIntUberState>(
+                    UberStateGroup::LupoGroup, "wellspringMapCost", static_cast<int>(app::GameWorldAreaID__Enum::WaterMill), 150
+                ),
+                add_state<app::SerializedIntUberState>(
+                    UberStateGroup::LupoGroup, "burrowMapCost", static_cast<int>(app::GameWorldAreaID__Enum::MidnightBurrow), 50
+                ),
+                add_state<app::SerializedIntUberState>(
+                    UberStateGroup::LupoGroup, "reachMapCost", static_cast<int>(app::GameWorldAreaID__Enum::BaursReach), 150
+                ),
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "poolsMapCost", static_cast<int>(app::GameWorldAreaID__Enum::LumaPools), 150),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "depthsMapCost", static_cast<int>(app::GameWorldAreaID__Enum::MouldwoodDepths), 150),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "wastesMapCost", static_cast<int>(app::GameWorldAreaID__Enum::WindsweptWastes), 150),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "willowsEndMapCost", static_cast<int>(app::GameWorldAreaID__Enum::WillowsEnd), 50),
+                add_state<app::SerializedIntUberState>(
+                    UberStateGroup::LupoGroup, "depthsMapCost", static_cast<int>(app::GameWorldAreaID__Enum::MouldwoodDepths), 150
+                ),
+                add_state<app::SerializedIntUberState>(
+                    UberStateGroup::LupoGroup, "wastesMapCost", static_cast<int>(app::GameWorldAreaID__Enum::WindsweptWastes), 150
+                ),
+                add_state<app::SerializedIntUberState>(
+                    UberStateGroup::LupoGroup, "willowsEndMapCost", static_cast<int>(app::GameWorldAreaID__Enum::WillowsEnd), 50
+                ),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::npcsStateGroup, "hcMapIconCost", 19397, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::npcsStateGroup, "ecMapIconCost", 57988, 0),
@@ -529,15 +551,15 @@ namespace randomizer {
             }
 
             for (int i = 0; i < plando_bool_count; ++i) {
-                states.push_back(
-                    add_state<app::SerializedBooleanUberState>(UberStateGroup::PlandoVars, std::format("{:04d}_bool", plando_bool_start + i), plando_bool_start + i, false)
-                );
+                states.push_back(add_state<app::SerializedBooleanUberState>(
+                    UberStateGroup::PlandoVars, std::format("{:04d}_bool", plando_bool_start + i), plando_bool_start + i, false
+                ));
             }
 
             for (int i = 0; i < plando_float_count; ++i) {
-                states.push_back(
-                    add_state<app::SerializedFloatUberState>(UberStateGroup::PlandoVars, std::format("{:04d}_float", plando_float_start + i), plando_float_start + i, false)
-                );
+                states.push_back(add_state<app::SerializedFloatUberState>(
+                    UberStateGroup::PlandoVars, std::format("{:04d}_float", plando_float_start + i), plando_float_start + i, false
+                ));
             }
 
             states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::PlandoVars, "progress_helper", 999, 0));
@@ -545,21 +567,15 @@ namespace randomizer {
             // Saved appliers.
             const int appliers_group_count = 50;
             for (int i = 0; i < appliers_group_count; ++i) {
-                states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, std::format("{:04d}_id", i * 2), i * 2, 0)
-                );
+                states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, std::format("{:04d}_id", i * 2), i * 2, 0));
 
-                states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, std::format("{:04d}_value", i * 2 + 1), i * 2 + 1, 0)
-                );
+                states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, std::format("{:04d}_value", i * 2 + 1), i * 2 + 1, 0));
             }
 
             dev::print_time(start_time, "Built custom state list");
 
             for (int i = 0; i < 2000; ++i) {
-                states.push_back(
-                    add_state<app::SerializedBooleanUberState>(UberStateGroup::MultiVars, std::format("{}_multi", i), i, false)
-                );
+                states.push_back(add_state<app::SerializedBooleanUberState>(UberStateGroup::MultiVars, std::format("{}_multi", i), i, false));
             }
 
             dev::print_time(start_time, "Built multi state list");
@@ -592,50 +608,49 @@ namespace randomizer {
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 106), "On request Pools Trial Text");
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 107), "On request Wastes Trial Text");
 
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 0), "Spirit Light", core::api::game::player::spirit_light().wrap<double>());
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 1), "Gorlek Ore", core::api::game::player::ore().wrap<double>());
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 2), "Keystones", core::api::game::player::keystones().wrap<double>());
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 10), "Max Health", core::api::game::player::max_health().wrap<double>());
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 11), "Health", core::api::game::player::health().wrap<double>());
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 12), "Max Energy", core::api::game::player::max_energy().wrap<double>());
-            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 13), "Energy", core::api::game::player::energy().wrap<double>());
+            register_virtual_state(
+                std::make_pair(UberStateGroup::RandoVirtual, 0), "Spirit Light", core::api::game::player::spirit_light().wrap<double>(), true
+            );
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 1), "Gorlek Ore", core::api::game::player::ore().wrap<double>(), true);
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 2), "Keystones", core::api::game::player::keystones().wrap<double>(), true);
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 10), "Max Health", core::api::game::player::max_health().wrap<double>(), true);
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 11), "Health", core::api::game::player::health().wrap<double>(), true);
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 12), "Max Energy", core::api::game::player::max_energy().wrap<double>(), true);
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 13), "Energy", core::api::game::player::energy().wrap<double>(), true);
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 100),
                 "Debug Enabled",
                 core::Property<double>(
-                    [](double x) { core::api::game::debug_controls(x > 0.5); },
-                    []() { return core::api::game::debug_controls() ? 1.0 : 0.0; }
-                )
+                    [](double x) { core::api::game::debug_controls(x > 0.5); }, []() { return core::api::game::debug_controls() ? 1.0 : 0.0; }
+                ),
+                true
             );
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 110),
                 "Invert x axis",
-                core::Property<double>(
-                    [](double x) { set_axis_inverted(true, x > 0.5); },
-                    []() { return get_axis_inverted(true) ? 1.0 : 0.0; }
-                )
+                core::Property<double>([](double x) { set_axis_inverted(true, x > 0.5); }, []() { return get_axis_inverted(true) ? 1.0 : 0.0; }),
+                true
             );
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 111),
                 "Invert y axis",
-                core::Property<double>(
-                    [](double x) { set_axis_inverted(false, x > 0.5); },
-                    []() -> double { return get_axis_inverted(false) ? 1.0 : 0.0; }
-                )
+                core::Property<double>([](double x) { set_axis_inverted(false, x > 0.5); }, []() -> double { return get_axis_inverted(false) ? 1.0 : 0.0; }),
+                true
             );
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 112),
                 "Player input active",
                 core::Property<double>(
                     [](double x) {
-                        auto player_input = types::PlayerInput::get_class()->static_fields->Instance;
-                        player_input->fields.Active = x > 0.5;
-                    },
+                const auto player_input = types::PlayerInput::get_class()->static_fields->Instance;
+                player_input->fields.Active = x > 0.5;
+            },
                     []() -> double {
-                        auto player_input = types::PlayerInput::get_class()->static_fields->Instance;
-                        return player_input->fields.Active;
-                    }
-                )
+                const auto player_input = types::PlayerInput::get_class()->static_fields->Instance;
+                return player_input->fields.Active;
+            }
+                ),
+                true
             );
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 200),
@@ -643,7 +658,8 @@ namespace randomizer {
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (15, 200) is read only."); },
                     []() -> double { return static_cast<double>(core::api::game::player::get_current_area()); }
-                )
+                ),
+                true
             );
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 500),
@@ -651,7 +667,8 @@ namespace randomizer {
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (15, 500) is read only."); },
                     []() -> double { return game_seed().relics().relic_count(); }
-                )
+                ),
+                true
             );
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 501),
@@ -659,73 +676,57 @@ namespace randomizer {
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (15, 501) is read only."); },
                     []() -> double { return game_seed().relics().found_relics(); }
-                )
+                ),
+                true
             );
-            register_virtual_state(
-                std::make_pair(UberStateGroup::RandoVirtual, 502),
-                "Current Trees",
-                core::Property<double>(
-                    core::set_get<double>{
-                        [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (15, 502) is read only."); },
-                        []() -> double {
-                            return UberState(UberStateGroup::Tree, app::AbilityType__Enum::Sword).get()
-                                + UberState(UberStateGroup::Tree, app::AbilityType__Enum::DoubleJump).get()
-                                + UberState(UberStateGroup::Tree, app::AbilityType__Enum::MeditateSpell).get()
-                                + UberState(UberStateGroup::Tree, app::AbilityType__Enum::Bow).get()
-                                + UberState(UberStateGroup::Tree, app::AbilityType__Enum::DashNew).get()
-                                + UberState(UberStateGroup::Tree, app::AbilityType__Enum::Bash).get()
-                                + UberState(UberStateGroup::Tree, app::AbilityType__Enum::SpiritLeash).get()
-                                + UberState(UberStateGroup::Tree, app::AbilityType__Enum::WaterDash).get()
-                                + UberState(UberStateGroup::Tree, app::AbilityType__Enum::GlowSpell).get()
-                                + UberState(UberStateGroup::Tree, app::AbilityType__Enum::Grenade).get()
-                                + UberState(UberStateGroup::Tree, app::AbilityType__Enum::Digging).get()
-                                + UberState(UberStateGroup::Tree, app::AbilityType__Enum::ChargeJump).get()
-                                + UberState(UberStateGroup::Tree, app::AbilityType__Enum::DamageUpgradeA).get()
-                                + UberState(UberStateGroup::Tree, app::AbilityType__Enum::DamageUpgradeB).get();
-                        }}
-                )
-            );
-            register_virtual_state(
-                std::make_pair(UberStateGroup::RandoVirtual, 503),
-                "Current Wisps",
-                core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (15, 503) is read only."); },
-                    []() -> double {
-                        return UberState(static_cast<UberStateGroup>(28895), 25522).get() // Reach
-                            + UberState(static_cast<UberStateGroup>(18793), 63291).get() // Mouldwood
-                            + UberState(static_cast<UberStateGroup>(945), 49747).get() // Pools
-                            + UberState(static_cast<UberStateGroup>(10289), 22102).get() // Wastes
-                            + UberState(static_cast<UberStateGroup>(46462), 59806).get(); // Hollow
-                    }
-                )
-            );
-            register_virtual_state(
-                std::make_pair(UberStateGroup::RandoVirtual, 504),
-                "Current Quests",
-                core::Property<double>(
-                    core::set_get<double>{
-                        [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (15, 504) is read only."); },
-                        []() -> double {
-                            return static_cast<int>(UberState(static_cast<UberStateGroup>(937), 34641).get() > 3.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 35399).get() > 2.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 35087).get() > 2.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 45931).get() > 2.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 8973).get() > 2.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(48248), 51645).get() > 2.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(48248), 18458).get() > 3.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 20667).get() > 2.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 15983).get() > 2.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 27804).get() > 3.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 59708).get() > 2.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 61011).get() > 4.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 26318).get() > 10.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 33776).get() > 2.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 50597).get() > 3.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 44578).get() > 1.5) +
-                                static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 26394).get() > 1.5);
-                        }}
-                )
-            );
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 502), "Current Trees", core::Property<double>([](double x) {
+                error("uber_state_virtual", "Invalid operation: uberstate (15, 502) is read only.");
+            }, []() -> double {
+                return UberState(UberStateGroup::Tree, app::AbilityType__Enum::Sword).get() +
+                    UberState(UberStateGroup::Tree, app::AbilityType__Enum::DoubleJump).get() +
+                    UberState(UberStateGroup::Tree, app::AbilityType__Enum::MeditateSpell).get() +
+                    UberState(UberStateGroup::Tree, app::AbilityType__Enum::Bow).get() +
+                    UberState(UberStateGroup::Tree, app::AbilityType__Enum::DashNew).get() +
+                    UberState(UberStateGroup::Tree, app::AbilityType__Enum::Bash).get() +
+                    UberState(UberStateGroup::Tree, app::AbilityType__Enum::SpiritLeash).get() +
+                    UberState(UberStateGroup::Tree, app::AbilityType__Enum::WaterDash).get() +
+                    UberState(UberStateGroup::Tree, app::AbilityType__Enum::GlowSpell).get() +
+                    UberState(UberStateGroup::Tree, app::AbilityType__Enum::Grenade).get() +
+                    UberState(UberStateGroup::Tree, app::AbilityType__Enum::Digging).get() +
+                    UberState(UberStateGroup::Tree, app::AbilityType__Enum::ChargeJump).get() +
+                    UberState(UberStateGroup::Tree, app::AbilityType__Enum::DamageUpgradeA).get() +
+                    UberState(UberStateGroup::Tree, app::AbilityType__Enum::DamageUpgradeB).get();
+            }));
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 503), "Current Wisps", core::Property<double>([](double x) {
+                error("uber_state_virtual", "Invalid operation: uberstate (15, 503) is read only.");
+            }, []() -> double {
+                return UberState(static_cast<UberStateGroup>(28895), 25522).get() // Reach
+                    + UberState(static_cast<UberStateGroup>(18793), 63291).get() // Mouldwood
+                    + UberState(static_cast<UberStateGroup>(945), 49747).get() // Pools
+                    + UberState(static_cast<UberStateGroup>(10289), 22102).get() // Wastes
+                    + UberState(static_cast<UberStateGroup>(46462), 59806).get(); // Hollow
+            }));
+            register_virtual_state(std::make_pair(UberStateGroup::RandoVirtual, 504), "Current Quests", core::Property<double>([](double x) {
+                error("uber_state_virtual", "Invalid operation: uberstate (15, 504) is read only.");
+            }, []() -> double {
+                return static_cast<int>(UberState(static_cast<UberStateGroup>(937), 34641).get() > 3.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 35399).get() > 2.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 35087).get() > 2.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 45931).get() > 2.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 8973).get() > 2.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(48248), 51645).get() > 2.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(48248), 18458).get() > 3.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 20667).get() > 2.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 15983).get() > 2.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 27804).get() > 3.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 59708).get() > 2.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 61011).get() > 4.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 26318).get() > 10.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 33776).get() > 2.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 50597).get() > 3.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 44578).get() > 1.5) +
+                    static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 26394).get() > 1.5);
+            }));
 
             register_virtual_state(
                 std::make_pair(UberStateGroup::RandoVirtual, 505),
@@ -733,147 +734,55 @@ namespace randomizer {
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (15, 505) is read only."); },
                     []() -> double {
-                        const auto area = core::api::game::player::get_current_area();
-                        return game_seed().relics().found_relics_in_area(area) < game_seed().relics().relic_count_in_area(area)
-                            ? 1.0
-                            : 0.0;
-                    }
-                )
+                const auto area = core::api::game::player::get_current_area();
+                return game_seed().relics().found_relics_in_area(area) < game_seed().relics().relic_count_in_area(area) ? 1.0 : 0.0;
+            }
+                ),
+                true
             );
 
             // Grom shop states
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GromShop, 16825),
-                "Spirit Well Bought",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 16825).set(x > 0.5 ? 3 : 1); },
-                    []() -> double {
-                        return UberState(42178, 16825).get<int>() >= 3 ? 1 : 0;
-                    }
-                )
-            );
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GromShop, 51230),
-                "Houses A Bought",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 51230).set(x > 0.5 ? 3 : 1); },
-                    []() -> double {
-                        return UberState(42178, 51230).get<int>() >= 3 ? 1 : 0;
-                    }
-                )
-            );
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GromShop, 23607),
-                "Houses B Bought",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 23607).set(x > 0.5 ? 3 : 1); },
-                    []() -> double {
-                        return UberState(42178, 23607).get<int>() >= 3 ? 1 : 0;
-                    }
-                )
-            );
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GromShop, 40448),
-                "Houses C Bought",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 40448).set(x > 0.5 ? 3 : 1); },
-                    []() -> double {
-                        return UberState(42178, 40448).get<int>() >= 3 ? 1 : 0;
-                    }
-                )
-            );
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GromShop, 18751),
-                "Remove Thorns Bought",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 18751).set(x > 0.5 ? 3 : 1); },
-                    []() -> double {
-                        return UberState(42178, 18751).get<int>() >= 3 ? 1 : 0;
-                    }
-                )
-            );
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GromShop, 16586),
-                "Open Cave Bought",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 16586).set(x > 0.5 ? 3 : 1); },
-                    []() -> double {
-                        return UberState(42178, 16586).get<int>() >= 3 ? 1 : 0;
-                    }
-                )
-            );
-            register_virtual_state(
-                std::make_pair(UberStateGroup::GromShop, 15068),
-                "Beautify Bought",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); },
-                    []() -> double {
-                        return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
-                    }
-                )
-            );
+            register_virtual_state(std::make_pair(UberStateGroup::GromShop, 16825), "Spirit Well Bought", core::Property<double>([](double x) {
+                UberState(42178, 16825).set(x > 0.5 ? 3 : 1);
+            }, []() -> double { return UberState(42178, 16825).get<int>() >= 3 ? 1 : 0; }));
+            register_virtual_state(std::make_pair(UberStateGroup::GromShop, 51230), "Houses A Bought", core::Property<double>([](double x) {
+                UberState(42178, 51230).set(x > 0.5 ? 3 : 1);
+            }, []() -> double { return UberState(42178, 51230).get<int>() >= 3 ? 1 : 0; }));
+            register_virtual_state(std::make_pair(UberStateGroup::GromShop, 23607), "Houses B Bought", core::Property<double>([](double x) {
+                UberState(42178, 23607).set(x > 0.5 ? 3 : 1);
+            }, []() -> double { return UberState(42178, 23607).get<int>() >= 3 ? 1 : 0; }));
+            register_virtual_state(std::make_pair(UberStateGroup::GromShop, 40448), "Houses C Bought", core::Property<double>([](double x) {
+                UberState(42178, 40448).set(x > 0.5 ? 3 : 1);
+            }, []() -> double { return UberState(42178, 40448).get<int>() >= 3 ? 1 : 0; }));
+            register_virtual_state(std::make_pair(UberStateGroup::GromShop, 18751), "Remove Thorns Bought", core::Property<double>([](double x) {
+                UberState(42178, 18751).set(x > 0.5 ? 3 : 1);
+            }, []() -> double { return UberState(42178, 18751).get<int>() >= 3 ? 1 : 0; }));
+            register_virtual_state(std::make_pair(UberStateGroup::GromShop, 16586), "Open Cave Bought", core::Property<double>([](double x) {
+                UberState(42178, 16586).set(x > 0.5 ? 3 : 1);
+            }, []() -> double { return UberState(42178, 16586).get<int>() >= 3 ? 1 : 0; }));
+            register_virtual_state(std::make_pair(UberStateGroup::GromShop, 15068), "Beautify Bought", core::Property<double>([](double x) {
+                UberState(42178, 15068).set(x > 0.5 ? 3 : 1);
+            }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
 
             // Tuley shop states
-            register_virtual_state(
-                std::make_pair(UberStateGroup::TuleyShop, 47651),
-                "bashPlantsPlanted",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); },
-                    []() -> double {
-                        return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
-                    }
-                )
-            );
-            register_virtual_state(
-                std::make_pair(UberStateGroup::TuleyShop, 16254),
-                "flowersPlanted",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); },
-                    []() -> double {
-                        return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
-                    }
-                )
-            );
-            register_virtual_state(
-                std::make_pair(UberStateGroup::TuleyShop, 33011),
-                "grapplePlantsPlanted",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); },
-                    []() -> double {
-                        return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
-                    }
-                )
-            );
-            register_virtual_state(
-                std::make_pair(UberStateGroup::TuleyShop, 64583),
-                "grassPlanted",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); },
-                    []() -> double {
-                        return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
-                    }
-                )
-            );
-            register_virtual_state(
-                std::make_pair(UberStateGroup::TuleyShop, 38393),
-                "springPlantsPlanted",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); },
-                    []() -> double {
-                        return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
-                    }
-                )
-            );
-            register_virtual_state(
-                std::make_pair(UberStateGroup::TuleyShop, 40006),
-                "treePlanted",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); },
-                    []() -> double {
-                        return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0;
-                    }
-                )
-            );
+            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 47651), "bashPlantsPlanted", core::Property<double>([](double x) {
+                UberState(42178, 15068).set(x > 0.5 ? 3 : 1);
+            }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
+            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 16254), "flowersPlanted", core::Property<double>([](double x) {
+                UberState(42178, 15068).set(x > 0.5 ? 3 : 1);
+            }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
+            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 33011), "grapplePlantsPlanted", core::Property<double>([](double x) {
+                UberState(42178, 15068).set(x > 0.5 ? 3 : 1);
+            }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
+            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 64583), "grassPlanted", core::Property<double>([](double x) {
+                UberState(42178, 15068).set(x > 0.5 ? 3 : 1);
+            }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
+            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 38393), "springPlantsPlanted", core::Property<double>([](double x) {
+                UberState(42178, 15068).set(x > 0.5 ? 3 : 1);
+            }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
+            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 40006), "treePlanted", core::Property<double>([](double x) {
+                UberState(42178, 15068).set(x > 0.5 ? 3 : 1);
+            }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
 
             dev::print_time(start_time, "Virtual states initialized");
 

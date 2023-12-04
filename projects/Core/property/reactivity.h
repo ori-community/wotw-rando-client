@@ -90,6 +90,7 @@ namespace core::reactivity {
             friend class AfterEffectBuilder;
 
             std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
+            void finalize_inplace(std::shared_ptr<ReactiveEffect>& ptr) const { ptr = m_effect; }
 
             template<typename Container>
             void finalize(Container& c) { return c.push_back(m_effect); }
@@ -109,6 +110,7 @@ namespace core::reactivity {
             FinalizeOnlyBuilder after(const std::function<void()>& func) const;
 
             std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
+            void finalize_inplace(std::shared_ptr<ReactiveEffect>& ptr) const { ptr = m_effect; }
 
             template<typename Container>
             void finalize(Container& c) { return c.push_back(m_effect); }
@@ -130,6 +132,7 @@ namespace core::reactivity {
             AfterEffectBuilder effect(const std::function<void()>& func, const std::source_location& location = std::source_location::current()) const;
 
             std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
+            void finalize_inplace(std::shared_ptr<ReactiveEffect>& ptr) const { ptr = m_effect; }
 
             template<typename Container>
             void finalize(Container& c) {
