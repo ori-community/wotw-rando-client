@@ -1,4 +1,4 @@
-#include <online/network_monitor.h>
+#include <Randomizer/online/network_monitor.h>
 
 namespace randomizer::online {
     void NetworkMonitor::report(StatusCondition const& condition) {

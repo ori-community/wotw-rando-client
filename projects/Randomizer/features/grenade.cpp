@@ -4,7 +4,7 @@
 #include <Modloader/app/structs/Int32__Boxed.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Randomizer/macros.h>
-#include <constants.h>
+#include <Randomizer/constants.h>
 
 #include <Core/api/uber_states/uber_state.h>
 #include <Modloader/interception_macros.h>

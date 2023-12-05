@@ -1,4 +1,4 @@
-#include <text/text_processor.h>
+#include <Core/text/text_processor.h>
 
 namespace core::text {
     void CompositeTextProcessor::process(ITextProcessor const& base_processor, std::string& text) const {

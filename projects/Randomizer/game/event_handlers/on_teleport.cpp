@@ -1,4 +1,4 @@
-#include <randomizer.h>
+#include <Randomizer/randomizer.h>
 
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/interception_macros.h>

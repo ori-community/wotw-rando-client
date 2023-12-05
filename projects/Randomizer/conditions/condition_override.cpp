@@ -1,4 +1,4 @@
-#include <conditions/condition_override.h>
+#include <Randomizer/conditions/condition_override.h>
 
 #include <Modloader/app/methods/HasAbilityCondition.h>
 #include <Modloader/app/methods/SeinAbilityCondition.h>

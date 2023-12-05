@@ -1,4 +1,4 @@
-#include <online/network.h>
+#include <Randomizer/online/network.h>
 
 #include <Common/ext.h>
 #include <Core/api/game/game.h>
@@ -6,7 +6,6 @@
 #include <Modloader/modloader.h>
 
 #include <ixwebsocket/IXNetSystem.h>
-#include <ixwebsocket/IXUserAgent.h>
 #include <ixwebsocket/IXWebSocket.h>
 
 #include <fstream>

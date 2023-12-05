@@ -1,6 +1,6 @@
-#include <constants.h>
-#include <features/controls/mouse_control.h>
-#include <randomizer.h>
+#include <Randomizer/constants.h>
+#include <Randomizer/features/controls/mouse_control.h>
+#include <Randomizer/randomizer.h>
 
 #include <Common/ext.h>
 

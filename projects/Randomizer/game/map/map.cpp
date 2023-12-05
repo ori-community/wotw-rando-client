@@ -1,10 +1,6 @@
-#include <game/map/filter.h>
-#include <game/map/map.h>
-#include <online/multiplayer.h>
-
+#include <Core/api/game/game.h>
 #include <Core/api/game/ui.h>
 #include <Core/settings.h>
-
 #include <Modloader/app/methods/AreaMapIconManager.h>
 #include <Modloader/app/methods/AreaMapNavigation.h>
 #include <Modloader/app/methods/AreaMapUI.h>
@@ -12,16 +8,16 @@
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
 #include <Modloader/app/methods/RuntimeWorldMapIcon.h>
 #include <Modloader/app/structs/Boolean__Boxed.h>
-#include <Modloader/app/types/AreaMapIconManager.h>
 #include <Modloader/app/types/GameMapUI.h>
 #include <Modloader/app/types/GameWorld.h>
 #include <Modloader/app/types/PlayerUberStateGroup.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
-
-#include <Core/api/game/game.h>
+#include <Randomizer/game/map/filter.h>
+#include <Randomizer/game/map/map.h>
+#include <Randomizer/online/multiplayer.h>
+#include <Randomizer/randomizer.h>
 #include <random>
-#include <randomizer.h>
 #include <unordered_map>
 
 using namespace modloader;

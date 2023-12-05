@@ -2,7 +2,6 @@
 #include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/il2cpp_helpers.h>
 
-#include "custom_cutscene_skips.h"
 #include <Common/event_bus.h>
 #include <Core/api/faderb.h>
 #include <Core/api/game/game.h>
@@ -10,7 +9,8 @@
 #include <Core/enums/game_event.h>
 #include <Core/utils/misc.h>
 #include <Modloader/modloader.h>
-#include <features/credits.h>
+#include <Randomizer/features/credits.h>
+#include <Randomizer/features/cutscene_skips/custom_cutscene_skips.h>
 
 using namespace utils;
 using namespace app::classes;

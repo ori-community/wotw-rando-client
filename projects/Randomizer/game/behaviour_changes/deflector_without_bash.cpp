@@ -1,6 +1,6 @@
 #include <Core/api/game/player.h>
 #include <Randomizer/tracking/game_tracker.h>
-#include <constants.h>
+#include <Randomizer/constants.h>
 
 #include <Modloader/app/methods/Projectile.h>
 #include <Modloader/interception.h>

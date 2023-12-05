@@ -1,5 +1,4 @@
-#include <macros.h>
-#include <messages/credits_controller.h>
+#include <Randomizer/messages/credits_controller.h>
 
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>

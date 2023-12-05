@@ -1,4 +1,4 @@
-#include <game/map/teleport_anywhere.h>
+#include <Randomizer/game/map/teleport_anywhere.h>
 
 #include <Modloader/app/methods/RuntimeWorldMapIcon.h>
 #include <Modloader/interception_macros.h>

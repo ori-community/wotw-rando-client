@@ -1,6 +1,6 @@
-#include <randomizer.h>
-#include <text_processors/control.h>
-#include <text_processors/helpers.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/text_processors/control.h>
+#include <Randomizer/text_processors/helpers.h>
 
 #include <array>
 

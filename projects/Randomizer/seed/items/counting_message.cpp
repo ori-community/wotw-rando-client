@@ -1,5 +1,5 @@
-#include <randomizer.h>
-#include <seed/items/counting_message.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/seed/items/counting_message.h>
 
 #include <Core/core.h>
 #include <Core/messages/message_controller.h>

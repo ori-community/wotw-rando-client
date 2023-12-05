@@ -1,12 +1,10 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/ui.h>
-#include <Core/utils/position_converter.h>
-#include <messages/message_controller.h>
+#include <Core/messages/message_controller.h>
 
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/Game/UI_Hints.h>
 #include <Modloader/app/types/UI_Hints.h>
-#include <Modloader/il2cpp_math.h>
 
 namespace core::messages {
     namespace {

@@ -1,8 +1,6 @@
-#include <windows_api/bootstrap.h>
-
-#include <windows_api/windows.h>
-
-#include <modloader.h>
+#include <Modloader/modloader.h>
+#include <Modloader/windows_api/bootstrap.h>
+#include <Modloader/windows_api/windows.h>
 
 #include <format>
 #include <nlohmann/json.hpp>

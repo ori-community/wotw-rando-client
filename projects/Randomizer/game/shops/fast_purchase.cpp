@@ -1,4 +1,4 @@
-#include <input/rando_bindings.h>
+#include <Randomizer/input/rando_bindings.h>
 
 #include <Modloader/app/methods/PurchaseThingScreen.h>
 #include <Modloader/interception_macros.h>

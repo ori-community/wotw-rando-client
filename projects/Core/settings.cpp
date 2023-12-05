@@ -1,4 +1,4 @@
-#include <settings.h>
+#include <Core/settings.h>
 
 #include <Common/settings.h>
 #include <Modloader/modloader.h>

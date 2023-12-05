@@ -1,6 +1,6 @@
-#include <randomizer.h>
-#include <text_processors/helpers.h>
-#include <text_processors/multiplayer.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/text_processors/helpers.h>
+#include <Randomizer/text_processors/multiplayer.h>
 
 #include <Common/ext.h>
 #include <Core/api/game/player.h>

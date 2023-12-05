@@ -1,5 +1,5 @@
-#include <core.h>
-#include <api/game/game.h>
+#include <Core/core.h>
+#include <Core/api/game/game.h>
 
 #include <random>
 

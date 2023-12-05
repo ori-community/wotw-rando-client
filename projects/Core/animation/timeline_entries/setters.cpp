@@ -1,5 +1,5 @@
-#include <animation/timeline.h>
-#include <animation/timeline_entries/setters.h>
+#include <Core/animation/timeline.h>
+#include <Core/animation/timeline_entries/setters.h>
 
 #include <Modloader/app/methods/UnityEngine/Quaternion.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>

@@ -1,6 +1,8 @@
 #include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
 #include <Core/api/game/ui.h>
 #include <Core/api/scenes/scene_load.h>
+#include <Core/property/reactivity.h>
 
 #include <Modloader/app/methods/Game/Characters.h>
 #include <Modloader/app/methods/GameController.h>
@@ -28,10 +30,7 @@
 #include <Modloader/windows_api/console.h>
 #include <Modloader/windows_api/common.h>
 
-#include "player.h"
 #include <magic_enum.hpp>
-
-#include "property/reactivity.h"
 
 using namespace modloader;
 using namespace app::classes;

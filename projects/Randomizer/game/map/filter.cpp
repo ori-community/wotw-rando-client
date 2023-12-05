@@ -1,11 +1,7 @@
-#include <game/map/filter.h>
-
 #include <Core/api/game/game.h>
 #include <Core/api/system/message_provider.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/settings.h>
-#include <randomizer.h>
-
 #include <Modloader/app/methods/AreaMapUI.h>
 #include <Modloader/app/methods/GameMapUI.h>
 #include <Modloader/app/types/AreaMapIconFilterFooterLabel.h>
@@ -14,25 +10,22 @@
 #include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
-
-#include <atomic>
+#include <Randomizer/game/map/filter.h>
+#include <Randomizer/randomizer.h>
 
 namespace randomizer::game::map {
     namespace {
         bool filter_enabled(Filters filter);
     }
 
-    FilterFlag operator|(FilterFlag lhs, FilterFlag rhs) {
-        return static_cast<FilterFlag>(static_cast<uint8_t>(lhs) | static_cast<uint8_t>(rhs));
-    }
+    FilterFlag operator|(FilterFlag lhs, FilterFlag rhs) { return static_cast<FilterFlag>(static_cast<uint8_t>(lhs) | static_cast<uint8_t>(rhs)); }
 
     Filters increment(Filters flag) {
         auto prev = static_cast<int>(flag);
         auto value = prev;
         do {
             value = (static_cast<int>(value) + 1) % static_cast<int32_t>(Filters::COUNT);
-        }
-        while (!filter_enabled(static_cast<Filters>(value)) && value != prev);
+        } while (!filter_enabled(static_cast<Filters>(value)) && value != prev);
         return static_cast<Filters>(value);
     }
 
@@ -58,8 +51,7 @@ namespace randomizer::game::map {
                     return core::api::uber_states::UberState(34543, 11226).get<bool>();
                 case Filters::Players:
                     // TODO: Change this to if we want a connection instead of if we are connected.
-                    return network_client().websocket_connected() &&
-                        multiplayer_universe().player_count() > 1;
+                    return network_client().websocket_connected() && multiplayer_universe().player_count() > 1;
                 default:
                     return true;
             }
@@ -81,7 +73,8 @@ namespace randomizer::game::map {
         }
 
         void check_and_initialize_filter_labels(app::AreaMapIconManager* icon_manager) {
-            if (il2cpp::is_assignable(icon_manager, types::AreaMapIconManager::get_class()) && icon_manager->fields.Labels->max_length < static_cast<int>(Filters::COUNT)) {
+            if (il2cpp::is_assignable(icon_manager, types::AreaMapIconManager::get_class()) &&
+                icon_manager->fields.Labels->max_length < static_cast<int>(Filters::COUNT)) {
                 auto arr = types::AreaMapIconFilterFooterLabel::create_array(static_cast<int>(Filters::COUNT));
                 for (auto i = 0; i < static_cast<int>(app::AreaMapIconFilter__Enum::COUNT); ++i) {
                     arr->vector[i] = icon_manager->fields.Labels->vector[i];
@@ -118,7 +111,8 @@ namespace randomizer::game::map {
             }
         }
 
-        IL2CPP_INTERCEPT(GameMapUI, void, NormalInput, (app::GameMapUI * this_ptr)) { {
+        IL2CPP_INTERCEPT(GameMapUI, void, NormalInput, (app::GameMapUI * this_ptr)) {
+            {
                 modloader::ScopedSetter set(ignore_filter_input, true);
                 next::GameMapUI::NormalInput(this_ptr);
             }
@@ -146,15 +140,11 @@ namespace randomizer::game::map {
             dirty_filter = true;
         }
 
-        void on_new_game(GameEvent game_event, EventTiming timing) {
-            start_in_logic_filter_done_since_new_game = false;
-        }
+        void on_new_game(GameEvent game_event, EventTiming timing) { start_in_logic_filter_done_since_new_game = false; }
 
         auto on_area_map_open_handle = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, &on_area_map_open);
         auto on_new_game_handle = core::api::game::event_bus().register_handler(GameEvent::NewGame, EventTiming::Before, &on_new_game);
     } // namespace
 
-    Filters active_filter() {
-        return current_filter;
-    }
+    Filters active_filter() { return current_filter; }
 } // namespace randomizer::game::map

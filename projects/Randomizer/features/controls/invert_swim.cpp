@@ -1,7 +1,6 @@
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
-#include <features/controls/invert_swim.h>
-
+#include <Randomizer/features/controls/invert_swim.h>
 #include <Core/settings.h>
 #include <Modloader/app/methods/NewGameAction.h>
 #include <Modloader/app/methods/SaveGameController.h>

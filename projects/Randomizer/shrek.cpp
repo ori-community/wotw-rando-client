@@ -2,7 +2,7 @@
 #include <Modloader/app/methods/PetrifiedOwlBossEntity.h>
 #include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/il2cpp_helpers.h>
-#include <constants.h>
+#include <Randomizer/constants.h>
 
 #include <Core/api/graphics/sprite.h>
 #include <Core/api/scenes/scene_load.h>

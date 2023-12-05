@@ -1,8 +1,7 @@
-#include <constants.h>
+#include <Randomizer/constants.h>
 
 #include <Modloader/app/methods/BlockableLaser.h>
 #include <Modloader/app/methods/Damage.h>
-#include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/types/Damage.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>

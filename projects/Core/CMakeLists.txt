@@ -189,10 +189,8 @@ set_target_properties(
 target_include_directories(
         ${PROJECT_NAME}
         PRIVATE
-        .
         ${CMAKE_CONFIG_DIRECTORY}
         ${CONFIG_DIRECTORY}
-        ${CMAKE_ENGINE_DIRECTORY}
         ${WOTWR_LIB_INCLUDE_DIR}
         ${WOTWR_BASE_INCLUDES}
 )

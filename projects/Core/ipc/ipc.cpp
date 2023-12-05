@@ -1,10 +1,8 @@
-#include <ipc/ipc.h>
-
+#include <Core/ipc/ipc.h>
 #include <Core/api/game/game.h>
 
-#include <Common/ext.h>
-
 #include <Modloader/modloader.h>
+#include <Modloader/windows_api/console.h>
 #include <Modloader/windows_api/sleep.h>
 
 #include <memory>
@@ -13,8 +11,6 @@
 #include <string>
 #include <vector>
 #include <zmq.hpp>
-
-#include "Modloader/windows_api/console.h"
 
 using namespace modloader;
 

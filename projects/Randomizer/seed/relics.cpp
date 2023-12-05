@@ -1,5 +1,5 @@
 #include <Randomizer/seed/relics.h>
-#include <randomizer.h>
+#include <Randomizer/randomizer.h>
 
 namespace randomizer::seed {
     void Relics::add(relic_location const& location, const std::optional<std::string>& flavor_name) {

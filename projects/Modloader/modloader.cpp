@@ -2,20 +2,20 @@
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/UnityEngine/Application.h>
 #include <Modloader/app/methods/UnityEngine/Cursor.h>
-#include <constants.h>
-#include <il2cpp_helpers.h>
-#include <interception_macros.h>
-#include <macros.h>
-#include <modloader.h>
-#include <windows_api/bootstrap.h>
-#include <windows_api/common.h>
+#include <Modloader/constants.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/interception_macros.h>
+#include <Modloader/macros.h>
+#include <Modloader/modloader.h>
+#include <Modloader/windows_api/bootstrap.h>
+#include <Modloader/windows_api/common.h>
+#include <Modloader/windows_api/console.h>
+#include <Modloader/file_logging_handler.h>
 
-#include <windows_api/console.h>
 #include <filesystem>
 #include <functional>
 #include <semaphore>
 
-#include <file_logging_handler.h>
 #include <Common/settings.h>
 
 //---------------------------------------------------Globals-----------------------------------------------------

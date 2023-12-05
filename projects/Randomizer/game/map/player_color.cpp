@@ -1,5 +1,5 @@
-#include <online/multiplayer.h>
-#include <randomizer.h>
+#include <Randomizer/online/multiplayer.h>
+#include <Randomizer/randomizer.h>
 
 #include <Core/api/game/game.h>
 #include <Core/utils/misc.h>

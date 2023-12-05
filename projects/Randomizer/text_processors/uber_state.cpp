@@ -1,5 +1,5 @@
-#include <text_processors/helpers.h>
-#include <text_processors/uber_state.h>
+#include <Randomizer/text_processors/helpers.h>
+#include <Randomizer/text_processors/uber_state.h>
 
 #include <Common/ext.h>
 

@@ -1,5 +1,5 @@
-#include <input/controller_bindings.h>
-#include <input/helpers.h>
+#include <Randomizer/input/controller_bindings.h>
+#include <Randomizer/input/helpers.h>
 
 #include <Core/enums/actions.h>
 #include <Core/enums/buttons.h>

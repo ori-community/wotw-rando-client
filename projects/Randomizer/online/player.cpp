@@ -1,9 +1,8 @@
-#include <online/player.h>
+#include <Randomizer/online/player.h>
 
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/enums/layer.h>
-#include <Core/utils/color.h>
 
 #include <Common/ext.h>
 

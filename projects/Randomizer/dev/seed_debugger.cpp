@@ -1,7 +1,7 @@
 #include <magic_enum.hpp>
-#include <randomizer.h>
+#include <Randomizer/randomizer.h>
 #include <Randomizer/dev/seed_debugger.h>
-#include <seed/items/item.h>
+#include <Randomizer/seed/items/item.h>
 
 namespace randomizer::dev::seed_debugger {
     namespace {

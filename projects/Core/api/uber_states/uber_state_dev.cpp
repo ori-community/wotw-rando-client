@@ -1,5 +1,5 @@
-#include <api/uber_states/uber_state.h>
-#include <dev/object_visualizer.h>
+#include <Core/api/uber_states/uber_state.h>
+#include <Core/dev/object_visualizer.h>
 
 #include <Common/ext.h>
 #include <Modloader/app/methods/GameController.h>

@@ -1,6 +1,6 @@
-#include <animation/animation.h>
-#include <animation/timeline.h>
-#include <animation/timeline_entries/objects.h>
+#include <Core/animation/animation.h>
+#include <Core/animation/timeline.h>
+#include <Core/animation/timeline_entries/objects.h>
 
 namespace core::animation::timeline_entries {
     void Animation::parse(TimelineState& state, nlohmann::json const& j) {

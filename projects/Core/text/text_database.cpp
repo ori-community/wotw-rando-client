@@ -1,7 +1,8 @@
-#include <api/system/message_provider.h>
-#include <core.h>
-#include <enums/static_text_entries.h>
-#include <text/text_database.h>
+#include <Core/api/system/message_provider.h>
+#include <Core/core.h>
+#include <Core/enums/static_text_entries.h>
+#include <Core/text/text_database.h>
+#include <Core/property/reactivity.h>
 
 #include <Common/ext.h>
 
@@ -9,8 +10,6 @@
 #include <Modloader/modloader.h>
 
 #include <unordered_map>
-
-#include "property/reactivity.h"
 
 namespace core::text {
     struct TextEntry {

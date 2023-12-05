@@ -1,5 +1,5 @@
-#include <conditions/new_setup_state_override.h>
-#include <constants.h>
+#include <Randomizer/conditions/new_setup_state_override.h>
+#include <Randomizer/constants.h>
 
 #include <Core/api/uber_states/uber_state_handlers.h>
 

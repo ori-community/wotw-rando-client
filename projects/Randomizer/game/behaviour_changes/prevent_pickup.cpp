@@ -1,5 +1,4 @@
 #include <Core/api/uber_states/uber_state.h>
-#include <constants.h>
 
 #include <Modloader/app/methods/PickupBase.h>
 #include <Modloader/interception_macros.h>

@@ -1,4 +1,4 @@
-#include <seed/items/apply_uber_state.h>
+#include <Randomizer/seed/items/apply_uber_state.h>
 
 namespace randomizer::seed::items {
     void ApplyUberState::grant() {

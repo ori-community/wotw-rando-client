@@ -1,9 +1,8 @@
-#include <Common/ext.h>
-#include <modloader.h>
+#include <Modloader/modloader.h>
 
-#include <interception.h>
-#include <windows_api/detours.h>
-#include <windows_api/memory.h>
+#include <Modloader/interception.h>
+#include <Modloader/windows_api/detours.h>
+#include <Modloader/windows_api/memory.h>
 
 #include <unordered_map>
 

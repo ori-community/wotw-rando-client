@@ -1,6 +1,6 @@
-#include <api/faderb.h>
-#include <api/game/game.h>
-#include <enums/game_event.h>
+#include <Core/api/faderb.h>
+#include <Core/api/game/game.h>
+#include <Core/enums/game_event.h>
 
 #include <Modloader/app/methods/FaderB.h>
 #include <Modloader/app/types/UI.h>

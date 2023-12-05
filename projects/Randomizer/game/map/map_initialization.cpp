@@ -1,10 +1,8 @@
-#include <game/map/map.h>
 
 #include <Core/api/uber_states/uber_state_condition.h>
 #include <Core/settings.h>
 
-#include <Modloader/modloader.h>
-
+#include <Randomizer/game/map/map.h>
 #include <Randomizer/randomizer.h>
 
 namespace randomizer::game::map {

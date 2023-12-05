@@ -1,4 +1,4 @@
-#include <features/controls/mouse_control.h>
+#include <Randomizer/features/controls/mouse_control.h>
 
 #include <Core/api/game/player.h>
 #include <Core/settings.h>

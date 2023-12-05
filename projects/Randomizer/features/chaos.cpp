@@ -1,5 +1,5 @@
-#include <constants.h>
-#include <timer.h>
+#include <Randomizer/constants.h>
+#include <Randomizer/timer.h>
 
 #include <Common/ext.h>
 
@@ -10,7 +10,6 @@
 
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/TimeUtility.h>
-#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 

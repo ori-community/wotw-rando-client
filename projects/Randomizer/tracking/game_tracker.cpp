@@ -14,12 +14,12 @@
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 #include <Randomizer/tracking/game_tracker.h>
-#include <format>
-#include <stats/game_stats.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/stats/game_stats.h>
 
+#include <format>
 #include <atomic>
 #include <mutex>
-#include <randomizer.h>
 #include <unordered_set>
 
 using namespace app::classes;

@@ -1,5 +1,5 @@
 #include <Modloader/modloader.h>
-#include <randomizer.h>
+#include <Randomizer/randomizer.h>
 
 #include <Randomizer/seed/items/value_modifier.h>
 

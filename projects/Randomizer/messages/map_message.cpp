@@ -1,9 +1,8 @@
-#include <Randomizer/messages/map_message.h>
-#include <randomizer.h>
-
 #include <Core/core.h>
 #include <Core/messages/message_controller.h>
-#include <text_processors/ability.h>
+#include <Randomizer/messages/map_message.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/text_processors/ability.h>
 
 namespace randomizer::messages {
     std::shared_ptr<core::api::messages::MessageBox> box;
@@ -31,4 +30,4 @@ namespace randomizer::messages {
             box->hide(true);
         }
     }
-}
+} // namespace randomizer::messages

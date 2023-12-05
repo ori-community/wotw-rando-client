@@ -1,5 +1,5 @@
-#include <game/pickups/quests.h>
-#include <macros.h>
+#include <Randomizer/game/pickups/quests.h>
+#include <Randomizer/macros.h>
 
 #include <Core/api/game/game.h>
 #include <Core/api/uber_states/uber_state.h>

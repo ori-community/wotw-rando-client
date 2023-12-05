@@ -1,7 +1,7 @@
-#include <features/credits.h>
-#include <game/map/teleport_anywhere.h>
-#include <input/rando_bindings.h>
-#include <randomizer.h>
+#include <Randomizer/features/credits.h>
+#include <Randomizer/game/map/teleport_anywhere.h>
+#include <Randomizer/input/rando_bindings.h>
+#include <Randomizer/randomizer.h>
 
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>

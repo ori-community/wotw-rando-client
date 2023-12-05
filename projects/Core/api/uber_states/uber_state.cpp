@@ -1,11 +1,12 @@
-#include <api/game/player.h>
-#include <api/scenes/scene_load.h>
-#include <api/uber_states/uber_state.h>
-#include <api/uber_states/uber_state_handlers.h>
-#include <api/uber_states/uber_state_virtual.h>
-#include <core.h>
-#include <enums/uber_state.h>
-#include <settings.h>
+#include <Core/api/game/player.h>
+#include <Core/api/scenes/scene_load.h>
+#include <Core/api/uber_states/uber_state.h>
+#include <Core/api/uber_states/uber_state_handlers.h>
+#include <Core/api/uber_states/uber_state_virtual.h>
+#include <Core/core.h>
+#include <Core/enums/uber_state.h>
+#include <Core/property/reactivity.h>
+#include <Core/settings.h>
 
 #include <Modloader/app/methods/GameMapSavePedestal.h>
 #include <Modloader/app/methods/Moon/BooleanUberState.h>
@@ -26,8 +27,8 @@
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/types/BooleanUberState.h>
 #include <Modloader/app/types/ByteUberState.h>
-#include <Modloader/app/types/CountUberState.h>
 #include <Modloader/app/types/ConditionUberState.h>
+#include <Modloader/app/types/CountUberState.h>
 #include <Modloader/app/types/FloatUberState.h>
 #include <Modloader/app/types/IntUberState.h>
 #include <Modloader/app/types/PlayerUberStateDescriptor.h>
@@ -42,8 +43,6 @@
 #include <Modloader/modloader.h>
 
 #include <vector>
-
-#include "property/reactivity.h"
 
 using namespace modloader;
 using namespace app::classes;
@@ -96,7 +95,12 @@ namespace core::api::uber_states {
             // NOOP
         }
 
-        IL2CPP_INTERCEPT(Moon::uberSerializationWisp::SavePedestalUberState, void, set_IsTeleporterActive, (app::SavePedestalUberState * this_ptr, bool value)) {
+        IL2CPP_INTERCEPT(
+            Moon::uberSerializationWisp::SavePedestalUberState,
+            void,
+            set_IsTeleporterActive,
+            (app::SavePedestalUberState * this_ptr, bool value)
+        ) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr));
             uber_state.set(value ? 1.0 : 0.0);
         }
@@ -106,22 +110,42 @@ namespace core::api::uber_states {
             SavePedestalController::OnTeleporterActivationStateChanged();
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateVisualization::SerializedBoolUberStateWrapper, void, SetValue, (app::SerializedBoolUberStateWrapper * this_ptr, bool value)) {
+        IL2CPP_INTERCEPT(
+            Moon::UberStateVisualization::SerializedBoolUberStateWrapper,
+            void,
+            SetValue,
+            (app::SerializedBoolUberStateWrapper * this_ptr, bool value)
+        ) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateVisualization::SerializedByteUberStateWrapper, void, SetValue, (app::SerializedByteUberStateWrapper * this_ptr, uint8_t value)) {
+        IL2CPP_INTERCEPT(
+            Moon::UberStateVisualization::SerializedByteUberStateWrapper,
+            void,
+            SetValue,
+            (app::SerializedByteUberStateWrapper * this_ptr, uint8_t value)
+        ) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateVisualization::SerializedFloatUberStateWrapper, void, SetValue, (app::SerializedFloatUberStateWrapper * this_ptr, float value)) {
+        IL2CPP_INTERCEPT(
+            Moon::UberStateVisualization::SerializedFloatUberStateWrapper,
+            void,
+            SetValue,
+            (app::SerializedFloatUberStateWrapper * this_ptr, float value)
+        ) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateVisualization::SerializedIntUberStateWrapper, void, SetValue, (app::SerializedIntUberStateWrapper * this_ptr, int value)) {
+        IL2CPP_INTERCEPT(
+            Moon::UberStateVisualization::SerializedIntUberStateWrapper,
+            void,
+            SetValue,
+            (app::SerializedIntUberStateWrapper * this_ptr, int value)
+        ) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state));
             uber_state.set(value);
         }
@@ -134,39 +158,42 @@ namespace core::api::uber_states {
             return uber_id;
         }
 
-        bool collection_initialized() {
-            return UberStateCollection::get_Instance != nullptr && il2cpp::unity::is_valid(UberStateCollection::get_Instance());
-        }
+        bool collection_initialized() { return UberStateCollection::get_Instance != nullptr && il2cpp::unity::is_valid(UberStateCollection::get_Instance()); }
 
         constexpr bool VALIDATE_UBER_STATES_ON_CREATION = true;
     } // namespace
 
-    UberState::UberState()
-            : m_group(UberStateGroup::Invalid), m_state(0) {}
+    UberState::UberState() :
+        m_group(UberStateGroup::Invalid),
+        m_state(0) {}
 
-    UberState::UberState(int group, int state)
-            : m_group(static_cast<UberStateGroup>(group)), m_state(state) {
+    UberState::UberState(int group, int state) :
+        m_group(static_cast<UberStateGroup>(group)),
+        m_state(state) {
         if (VALIDATE_UBER_STATES_ON_CREATION && collection_initialized() && !valid()) {
             warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
         }
     }
 
-    UberState::UberState(app::IUberState* state)
-    : m_group(static_cast<UberStateGroup>(il2cpp::invoke<app::UberID>(state, "get_GroupID")->fields.m_id)), m_state(il2cpp::invoke<app::UberID>(state, "get_StateID")->fields.m_id) {
+    UberState::UberState(app::IUberState* state) :
+        m_group(static_cast<UberStateGroup>(il2cpp::invoke<app::UberID>(state, "get_GroupID")->fields.m_id)),
+        m_state(il2cpp::invoke<app::UberID>(state, "get_StateID")->fields.m_id) {
         if (VALIDATE_UBER_STATES_ON_CREATION && collection_initialized() && !valid()) {
             warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
         }
     }
 
-    UberState::UberState(UberStateGroup group, int state)
-            : m_group(group), m_state(state)  {
+    UberState::UberState(UberStateGroup group, int state) :
+        m_group(group),
+        m_state(state) {
         if (VALIDATE_UBER_STATES_ON_CREATION && collection_initialized() && !valid()) {
             warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
         }
     }
 
-    UberState::UberState(UberStateGroup group, app::AbilityType__Enum state)
-    : m_group(group), m_state(static_cast<int>(state))  {
+    UberState::UberState(UberStateGroup group, app::AbilityType__Enum state) :
+        m_group(group),
+        m_state(static_cast<int>(state)) {
         if (VALIDATE_UBER_STATES_ON_CREATION && collection_initialized() && !valid()) {
             warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
         }
@@ -196,10 +223,7 @@ namespace core::api::uber_states {
         }
 
         if (!ignore_intercept) {
-            UberStateCallbackParams params{
-                *this,
-                value
-            };
+            UberStateCallbackParams params{*this, value};
 
             auto result = interception_bus().trigger_event(params);
             if (std::find(result.begin(), result.end(), true) != result.end()) {
@@ -221,7 +245,9 @@ namespace core::api::uber_states {
                     const auto text = std::format("uber state ({}|{}) set to {} from {}", static_cast<int>(m_group), m_state, value, prev);
                     info("uber_state", text);
                 } else if (has_volatile_value()) {
-                    const auto text = std::format("uber state ({}|{}) set to {} because it had a volatile value set", static_cast<int>(m_group), m_state, value);
+                    const auto text = std::format(
+                        "uber state ({}|{}) set to {} because it had a volatile value set", static_cast<int>(m_group), m_state, value
+                    );
                     info("uber_state", text);
                 }
             }
@@ -244,14 +270,16 @@ namespace core::api::uber_states {
             } else if (il2cpp::is_assignable(uber_state, types::FloatUberState::get_class())) {
                 next::Moon::FloatUberState::set_Value(reinterpret_cast<app::FloatUberState*>(uber_state), static_cast<float>(value));
             } else if (il2cpp::is_assignable(uber_state, types::SavePedestalUberState::get_class())) {
-                next::Moon::uberSerializationWisp::SavePedestalUberState::set_IsTeleporterActive(reinterpret_cast<app::SavePedestalUberState*>(uber_state), value > 0.5);
+                next::Moon::uberSerializationWisp::SavePedestalUberState::set_IsTeleporterActive(
+                    reinterpret_cast<app::SavePedestalUberState*>(uber_state), value > 0.5
+                );
             } else {
                 warn("uber_state", std::format("unable to get value of uber state ({}|{})", static_cast<int>(m_group), m_state));
                 return;
             }
         }
 
-        notify_changed(reactivity::UberStateDependency { static_cast<int>(m_group), m_state });
+        notify_changed(reactivity::UberStateDependency{static_cast<int>(m_group), m_state});
 
         if (!ignore_notify) {
             const UberStateCallbackParams params{
@@ -266,7 +294,7 @@ namespace core::api::uber_states {
     }
 
     double UberState::inner_get() const {
-        core::reactivity::notify_used(reactivity::UberStateDependency { static_cast<int>(m_group), m_state });
+        core::reactivity::notify_used(reactivity::UberStateDependency{static_cast<int>(m_group), m_state});
 
         if (is_virtual_state(m_group, m_state)) {
             return get_virtual_value(m_group, m_state);
@@ -360,9 +388,7 @@ namespace core::api::uber_states {
         return il2cpp::convert_csstring(csstring);
     }
 
-    void UberState::apply() const {
-        UberStateController::Apply_2(ptr(), app::UberStateApplyContext__Enum::ValueChanged);
-    }
+    void UberState::apply() const { UberStateController::Apply_2(ptr(), app::UberStateApplyContext__Enum::ValueChanged); }
 
     app::IUberState* UberState::ptr() const {
         auto group_id = create_uber_id(static_cast<int>(m_group));
@@ -370,32 +396,18 @@ namespace core::api::uber_states {
         return UberStateCollection::GetState(&group_id, &state_id);
     }
 
-    bool operator==(UberState const& a, UberState const& b) {
-        return a.state() == b.state() && a.group() == b.group();
-    }
+    bool operator==(UberState const& a, UberState const& b) { return a.state() == b.state() && a.group() == b.group(); }
 
     std::string UberState::string_value() const {
         auto uber_state = ptr();
         if (!il2cpp::unity::is_valid(uber_state)) {
             warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
             return "Unknown";
-        } else if (
-            il2cpp::is_assignable(uber_state, types::SerializedBooleanUberState::get_class()) ||
-            il2cpp::is_assignable(uber_state, types::BooleanUberState::get_class()) ||
-            il2cpp::is_assignable(uber_state, types::SavePedestalUberState::get_class())
-        ) {
+        } else if (il2cpp::is_assignable(uber_state, types::SerializedBooleanUberState::get_class()) || il2cpp::is_assignable(uber_state, types::BooleanUberState::get_class()) || il2cpp::is_assignable(uber_state, types::SavePedestalUberState::get_class())) {
             return get() > 0.5 ? "true" : "false";
-        } else if (
-            il2cpp::is_assignable(uber_state, types::SerializedByteUberState::get_class()) ||
-            il2cpp::is_assignable(uber_state, types::SerializedIntUberState::get_class()) ||
-            il2cpp::is_assignable(uber_state, types::ByteUberState::get_class()) ||
-            il2cpp::is_assignable(uber_state, types::IntUberState::get_class())
-        ) {
+        } else if (il2cpp::is_assignable(uber_state, types::SerializedByteUberState::get_class()) || il2cpp::is_assignable(uber_state, types::SerializedIntUberState::get_class()) || il2cpp::is_assignable(uber_state, types::ByteUberState::get_class()) || il2cpp::is_assignable(uber_state, types::IntUberState::get_class())) {
             return std::to_string(get<int>());
-        } else if (
-            il2cpp::is_assignable(uber_state, types::SerializedFloatUberState::get_class()) ||
-            il2cpp::is_assignable(uber_state, types::FloatUberState::get_class())
-        ) {
+        } else if (il2cpp::is_assignable(uber_state, types::SerializedFloatUberState::get_class()) || il2cpp::is_assignable(uber_state, types::FloatUberState::get_class())) {
             return std::format("{}", get<double>());
         }
 

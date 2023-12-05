@@ -1,6 +1,6 @@
-#include <input/rando_bindings.h>
-#include <ipc/base_handlers.h>
-#include <randomizer.h>
+#include <Randomizer/input/rando_bindings.h>
+#include <Randomizer/ipc/base_handlers.h>
+#include <Randomizer/randomizer.h>
 
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>

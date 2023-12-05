@@ -1,8 +1,8 @@
-#include <api/game/game.h>
-#include <api/messages/message_box.h>
-#include <api/messages/text_style.h>
-#include <api/system/message_provider.h>
-#include <utils/position_converter.h>
+#include <Core/api/game/game.h>
+#include <Core/api/messages/message_box.h>
+#include <Core/api/messages/text_style.h>
+#include <Core/api/system/message_provider.h>
+#include <Core/utils/position_converter.h>
 
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/MessageBox.h>

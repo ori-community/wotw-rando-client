@@ -1,4 +1,4 @@
-#include <game/shops/shop.h>
+#include <Randomizer/game/shops/shop.h>
 
 #include <Core/api/game/player.h>
 

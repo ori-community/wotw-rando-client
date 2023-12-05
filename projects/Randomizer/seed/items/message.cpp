@@ -1,8 +1,8 @@
-#include <randomizer.h>
-#include <seed/items/message.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/seed/items/message.h>
 
 #include <Core/core.h>
-#include <messages/map_message.h>
+#include <Randomizer/messages/map_message.h>
 
 namespace randomizer::seed::items {
     void Message::grant() {

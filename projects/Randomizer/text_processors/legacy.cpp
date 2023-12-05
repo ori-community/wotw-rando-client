@@ -1,7 +1,7 @@
-#include <randomizer.h>
-#include <seed/legacy_parser/parser.h>
-#include <text_processors/helpers.h>
-#include <text_processors/legacy.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/seed/legacy_parser/parser.h>
+#include <Randomizer/text_processors/helpers.h>
+#include <Randomizer/text_processors/legacy.h>
 
 #include <Core/api/uber_states/uber_state_condition.h>
 

@@ -1,5 +1,5 @@
-#include <randomizer.h>
-#include <seed/items/call_procedure.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/seed/items/call_procedure.h>
 
 namespace randomizer::seed::items {
     void CallProcedure::grant() {

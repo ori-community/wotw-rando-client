@@ -2,16 +2,13 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/cached_loader.h>
 #include <Core/utils/json_serializers.h>
-#include <animation/timeline.h>
-#include <animation/timeline_entries/base.h>
-#include <animation/timeline_entries/lerpers.h>
-#include <animation/timeline_entries/objects.h>
-#include <animation/timeline_entries/setters.h>
-
-#include <Common/ext.h>
+#include <Core/animation/timeline.h>
+#include <Core/animation/timeline_entries/base.h>
+#include <Core/animation/timeline_entries/lerpers.h>
+#include <Core/animation/timeline_entries/objects.h>
+#include <Core/animation/timeline_entries/setters.h>
 
 #include <Modloader/app/methods/UnityEngine/Quaternion.h>
-#include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/il2cpp_math.h>
 #include <Modloader/modloader.h>

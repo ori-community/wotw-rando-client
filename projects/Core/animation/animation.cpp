@@ -1,5 +1,4 @@
-#include <animation/animation.h>
-
+#include <Core/animation/animation.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/graphics/sprite.h>
@@ -7,7 +6,7 @@
 #include <Core/dirty_value.h>
 #include <Core/utils/json_serializers.h>
 #include <Core/utils/operations.h>
-#include <dev/object_visualizer.h>
+#include <Core/dev/object_visualizer.h>
 
 #include <Common/ext.h>
 

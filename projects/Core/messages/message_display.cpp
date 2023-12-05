@@ -1,7 +1,7 @@
-#include <api/game/game.h>
-#include <api/game/player.h>
-#include <messages/message_display.h>
-#include <utils/position_converter.h>
+#include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
+#include <Core/messages/message_display.h>
+#include <Core/utils/position_converter.h>
 
 #include <Modloader/app/methods/UnityEngine/Vector3.h>
 #include <Modloader/il2cpp_math.h>

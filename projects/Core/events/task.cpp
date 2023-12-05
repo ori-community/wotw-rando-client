@@ -1,5 +1,5 @@
-#include <api/game/game.h>
-#include <events/task.h>
+#include <Core/api/game/game.h>
+#include <Core/events/task.h>
 
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/interception_macros.h>

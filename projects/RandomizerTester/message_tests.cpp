@@ -1,4 +1,4 @@
-#include <test_runner.h>
+#include <RandomizerTester/test_runner.h>
 
 #include <Core/api/game/game.h>
 #include <Core/api/messages/message_box.h>

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <ghosts.h>
-#include <online/player_icon.h>
+#include <Randomizer/ghosts.h>
+#include <Randomizer/online/player_icon.h>
 
 #include <algorithm>
 #include <unordered_map>

@@ -1,5 +1,5 @@
-#include <game/shops/shop.h>
-#include <randomizer.h>
+#include <Randomizer/game/shops/shop.h>
+#include <Randomizer/randomizer.h>
 
 #include <Core/api/game/game.h>
 

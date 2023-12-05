@@ -1,6 +1,6 @@
-#include <api/game/game.h>
-#include <api/game/ui.h>
-#include <events/action.h>
+#include <Core/api/game/game.h>
+#include <Core/api/game/ui.h>
+#include <Core/events/action.h>
 
 #include <Modloader/app/methods/Game/UI.h>
 #include <Modloader/app/methods/MenuScreenManager.h>

@@ -1,7 +1,7 @@
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Randomizer/macros.h>
-#include <features/controls/ability_overrides.h>
+#include <Randomizer/features/controls/ability_overrides.h>
 
 #include <Modloader/app/methods/SeinBlazeSpell.h>
 #include <Modloader/app/methods/SeinFeatherFlap.h>
@@ -11,7 +11,6 @@
 #include <Modloader/app/methods/SeinLogicCycle.h>
 #include <Modloader/app/methods/SeinMeditateSpell.h>
 #include <Modloader/app/methods/SeinTurretSpell.h>
-#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 

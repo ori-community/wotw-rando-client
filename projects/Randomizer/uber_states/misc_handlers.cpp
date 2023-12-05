@@ -1,5 +1,5 @@
-#include <game/map/map.h>
-#include <randomizer.h>
+#include <Randomizer/game/map/map.h>
+#include <Randomizer/randomizer.h>
 
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>

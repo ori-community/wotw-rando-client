@@ -1,4 +1,4 @@
-#include <messages/credit_entries/base_entry.h>
+#include <Randomizer/messages/credit_entries/base_entry.h>
 
 namespace randomizer::messages::credit_entries {
     BaseEntry::BaseEntry(float time, float timeout)

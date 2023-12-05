@@ -1,5 +1,5 @@
-#include <mood_guid.h>
-#include <utils/misc.h>
+#include <Core/mood_guid.h>
+#include <Core/utils/misc.h>
 
 #include <random>
 

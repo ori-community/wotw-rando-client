@@ -1,8 +1,7 @@
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
-#include <constants.h>
-
 #include <Core/utils/misc.h>
+
 #include <Modloader/app/methods/MeleeComboMoveHammerStomp.h>
 #include <Modloader/app/methods/Portal.h>
 #include <Modloader/app/methods/SeinController.h>

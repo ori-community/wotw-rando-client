@@ -1,18 +1,18 @@
-#include <conditions/new_setup_state_override.h>
-#include <features/wheel.h>
-#include <game/shops/shop.h>
-#include <game/teleport.h>
-#include <randomizer.h>
-#include <seed/items/apply_uber_state.h>
-#include <seed/items/call.h>
-#include <seed/items/counting_message.h>
-#include <seed/items/empty.h>
-#include <seed/items/icon.h>
-#include <seed/items/message.h>
-#include <seed/items/refill.h>
-#include <seed/items/value_modifier.h>
-#include <seed/legacy_parser/parser.h>
-#include <timer.h>
+#include <Randomizer/conditions/new_setup_state_override.h>
+#include <Randomizer/features/wheel.h>
+#include <Randomizer/game/shops/shop.h>
+#include <Randomizer/game/teleport.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/seed/items/apply_uber_state.h>
+#include <Randomizer/seed/items/call.h>
+#include <Randomizer/seed/items/counting_message.h>
+#include <Randomizer/seed/items/empty.h>
+#include <Randomizer/seed/items/icon.h>
+#include <Randomizer/seed/items/message.h>
+#include <Randomizer/seed/items/refill.h>
+#include <Randomizer/seed/items/value_modifier.h>
+#include <Randomizer/seed/legacy_parser/parser.h>
+#include <Randomizer/timer.h>
 
 #include <Common/ext.h>
 
@@ -26,7 +26,7 @@
 
 #include <Modloader/il2cpp_math.h>
 #include <Modloader/modloader.h>
-#include <seed/items/input.h>
+#include <Randomizer/seed/items/input.h>
 
 #include <fstream>
 #include <iostream>

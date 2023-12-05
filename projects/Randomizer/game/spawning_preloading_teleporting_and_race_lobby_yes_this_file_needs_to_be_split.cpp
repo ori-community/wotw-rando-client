@@ -1,5 +1,5 @@
-#include <game/teleport.h>
-#include <randomizer.h>
+#include <Randomizer/game/teleport.h>
+#include <Randomizer/randomizer.h>
 
 #include <Core/api/faderb.h>
 #include <Core/api/game/game.h>

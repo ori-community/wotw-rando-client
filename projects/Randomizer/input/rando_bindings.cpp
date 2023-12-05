@@ -1,8 +1,8 @@
-#include <input/controller_bindings.h>
-#include <input/helpers.h>
-#include <input/rando_bindings.h>
-#include <macros.h>
-#include <randomizer.h>
+#include <Randomizer/input/controller_bindings.h>
+#include <Randomizer/input/helpers.h>
+#include <Randomizer/input/rando_bindings.h>
+#include <Randomizer/macros.h>
+#include <Randomizer/randomizer.h>
 
 #include <Core/api/game/game.h>
 #include <Core/input/simulator.h>

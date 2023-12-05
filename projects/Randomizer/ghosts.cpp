@@ -42,9 +42,8 @@
 #include <Modloader/app/types/SkinnedMeshRenderer.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Randomizer/ghosts/plugins.h>
-#include <constants.h>
-
-#include "ghosts.h"
+#include <Randomizer/constants.h>
+#include <Randomizer/ghosts.h>
 
 #include <Core/utils/misc.h>
 #include <Modloader/interception_macros.h>

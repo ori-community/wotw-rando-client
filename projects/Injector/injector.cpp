@@ -11,7 +11,7 @@
 
 #define NO_MODLOADER
 
-#include <shared_memory.h>
+#include <Injector/shared_memory.h>
 #include <Common/settings.h>
 
 #undef NO_MODLOADER

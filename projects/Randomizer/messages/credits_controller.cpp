@@ -1,6 +1,6 @@
-#include <messages/credit_entries/move_entry.h>
-#include <messages/credit_entries/text_entry.h>
-#include <messages/credits_controller.h>
+#include <Randomizer/messages/credit_entries/move_entry.h>
+#include <Randomizer/messages/credit_entries/text_entry.h>
+#include <Randomizer/messages/credits_controller.h>
 
 #include <Common/ext.h>
 #include <Modloader/modloader.h>

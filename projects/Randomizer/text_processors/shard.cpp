@@ -1,5 +1,5 @@
-#include <text_processors/helpers.h>
-#include <text_processors/shard.h>
+#include <Randomizer/text_processors/helpers.h>
+#include <Randomizer/text_processors/shard.h>
 
 #include <Common/ext.h>
 

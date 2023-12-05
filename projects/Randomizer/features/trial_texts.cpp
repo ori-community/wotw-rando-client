@@ -1,20 +1,20 @@
-#include <functional>
-#include <memory>
+#include <Randomizer/randomizer.h>
+
+#include <Core/api/messages/text_style.h>
+#include <Core/api/system/message_provider.h>
+#include <Core/enums/uber_state.h>
+#include <Core/property/reactivity.h>
+#include <Core/text/text_database.h>
+
+#include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/Moon/Race/RaceData.h>
 #include <Modloader/app/types/MessageBox.h>
-#include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/interception_macros.h>
+
+#include <functional>
+#include <memory>
 #include <optional>
-
 #include <unordered_map>
-
-
-#include "randomizer.h"
-#include "Core/api/messages/text_style.h"
-#include "Core/api/system/message_provider.h"
-#include "Core/enums/uber_state.h"
-#include "Core/property/reactivity.h"
-#include "Core/text/text_database.h"
 
 using namespace app::classes;
 
@@ -123,7 +123,7 @@ namespace {
 
     // TODO: Update text when text database content changes
 
-    IL2CPP_INTERCEPT(Moon::Race::RaceData, void, Awake, (app::RaceData* this_ptr)) {
+    IL2CPP_INTERCEPT(Moon::Race::RaceData, void, Awake, (app::RaceData * this_ptr)) {
         next::Moon::Race::RaceData::Awake(this_ptr);
 
         auto location = determine_trial_location_from_trial_state(this_ptr->fields.m_raceState);
@@ -177,22 +177,20 @@ namespace {
             );
 
             auto& box = trial_text_boxes.at(location.value());
-            box.reactive_effect = core::reactivity::watch_effect(
-                [location] {
-                    const auto ref_it = trial_text_boxes.find(location.value());
-                    if (ref_it == trial_text_boxes.end()) {
-                        return;
-                    }
-
-                    auto ref = ref_it->second;
-
-                    if (ref.message_box.is_valid()) {
-                        ref.update_message_box();
-                    } else {
-                        trial_text_boxes.erase(location.value());
-                    }
+            box.reactive_effect = core::reactivity::watch_effect([location] {
+                const auto ref_it = trial_text_boxes.find(location.value());
+                if (ref_it == trial_text_boxes.end()) {
+                    return;
                 }
-            );
+
+                auto ref = ref_it->second;
+
+                if (ref.message_box.is_valid()) {
+                    ref.update_message_box();
+                } else {
+                    trial_text_boxes.erase(location.value());
+                }
+            });
         }
     }
-}
+} // namespace

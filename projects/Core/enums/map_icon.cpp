@@ -8,7 +8,8 @@
 #include <Modloader/app/types/AreaMapIcon.h>
 #include <Modloader/app/types/AreaMapUI.h>
 #include <Modloader/app/types/Renderer.h>
-#include <api/graphics/textures.h>
+
+#include <Core/api/graphics/textures.h>
 
 using namespace app::classes;
 
@@ -30,7 +31,7 @@ CORE_DLLEXPORT app::GameObject* map_icon_to_game_object(MapIcon icon) {
     }
 
     const auto texture = icon_textures.find(icon);
-    if (texture == icon_textures.end()) {
+    if (texture == icon_textures.end() || !il2cpp::unity::is_valid(texture->second->get())) {
         return nullptr;
     }
 

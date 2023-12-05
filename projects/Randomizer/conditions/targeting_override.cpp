@@ -1,13 +1,10 @@
-#include <conditions/targeting_override.h>
+#include <Randomizer/conditions/targeting_override.h>
 
 #include <Common/ext.h>
 
 #include <Modloader/app/methods/EntityTargetting.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
-
-#include <Modloader/app/structs/AbilityType__Enum.h>
-#include <Modloader/app/structs/IAttackable.h>
 
 #include <optional>
 #include <unordered_map>

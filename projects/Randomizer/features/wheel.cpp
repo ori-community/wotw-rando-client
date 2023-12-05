@@ -1,5 +1,5 @@
-#include <features/wheel.h>
-#include <input/rando_bindings.h>
+#include <Randomizer/features/wheel.h>
+#include <Randomizer/input/rando_bindings.h>
 
 #include <Core/settings.h>
 #include <Core/api/graphics/shaders.h>

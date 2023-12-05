@@ -1,5 +1,5 @@
-#include <randomizer.h>
-#include <seed/seed.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/seed/seed.h>
 
 #include <Core/api/game/game.h>
 #include <Core/core.h>
@@ -7,10 +7,10 @@
 #include <Randomizer/dev/seed_debugger.h>
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/seed/items/icon.h>
+#include <Randomizer/tracking/game_tracker.h>
 
 #include <fstream>
 #include <map>
-#include <tracking/game_tracker.h>
 
 namespace randomizer::seed {
 
