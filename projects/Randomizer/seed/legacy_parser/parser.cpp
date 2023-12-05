@@ -712,31 +712,41 @@ namespace randomizer::seed::legacy_parser {
         data.add_item(input);
         return true;
     }
-    bool parse_set_icon_override(location_type const& location, const std::span<std::string> parts, ParserData& data) {
-        if (parts.size() != 1) {
+    bool parse_set_icon_override(const std::span<std::string> parts, ParserData& data) {
+        if (parts.size() != 3) {
             return false;
         }
 
-        const auto icon = magic_enum::enum_cast<MapIcon>(parts[0]);
+        core::api::uber_states::UberStateCondition location;
+        if (!parse_condition(std::span(parts.begin(), parts.begin() + 2), location)) {
+            return false;
+        }
+
+        const auto icon = magic_enum::enum_cast<MapIcon>(parts[2]);
         if (!icon.has_value()) {
             return false;
         }
 
         const auto item = std::make_shared<items::SetIconOverride>();
-        item->data = &data.location_data;
+        item->data = &data.data;
         item->location = location;
         item->icon = icon.value();
         data.add_item(item);
         return true;
     }
 
-    bool parse_clear_icon_override(location_type const& location, const std::span<std::string> parts, ParserData& data) {
-        if (parts.size() != 0) {
+    bool parse_clear_icon_override(const std::span<std::string> parts, ParserData& data) {
+        if (parts.size() != 2) {
+            return false;
+        }
+
+        core::api::uber_states::UberStateCondition location;
+        if (!parse_condition(std::span(parts.begin(), parts.begin() + 2), location)) {
             return false;
         }
 
         const auto item = std::make_shared<items::ClearIconOverride>();
-        item->data = &data.location_data;
+        item->data = &data.data;
         item->location = location;
         data.add_item(item);
         return true;

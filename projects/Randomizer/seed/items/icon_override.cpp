@@ -3,7 +3,7 @@
 
 namespace randomizer::seed::items {
     void SetIconOverride::grant() {
-        data->icon_override = core::Property<MapIcon>(icon);
+        data->locations[location.state][location].icon_override = core::Property<MapIcon>(icon);
     }
 
     std::string SetIconOverride::to_string() const {
@@ -11,7 +11,7 @@ namespace randomizer::seed::items {
     };
 
     void ClearIconOverride::grant() {
-        data->icon_override = std::nullopt;
+        data->locations[location.state][location].icon_override = std::nullopt;
     }
 
     std::string ClearIconOverride::to_string() const {
