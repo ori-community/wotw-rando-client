@@ -813,9 +813,9 @@ namespace randomizer::seed::legacy_parser {
             case SystemCommand::InputAction:
                 return parse_input_action(next_parts, data);
             case SystemCommand::SetIconOverride:
-                return parse_set_icon_override(location, next_parts, data);
+                return parse_set_icon_override(next_parts, data);
             case SystemCommand::ClearIconOverride:
-                return parse_clear_icon_override(location, next_parts, data);
+                return parse_clear_icon_override(next_parts, data);
             case SystemCommand::SetHealth:
                 modloader::warn("legacy_parser", "Use of deprecated command SystemCommand.SetHealth use virtual uber states instead.");
                 return false;
