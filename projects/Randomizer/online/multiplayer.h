@@ -7,7 +7,7 @@
 #include <Core/api/graphics/textures.h>
 #include <Core/messages/message_controller.h>
 
-#include <proto/packets.pb.h>
+#include <packets.pb.h>
 
 #include <string>
 #include <vector>

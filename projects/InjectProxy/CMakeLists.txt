@@ -47,13 +47,12 @@ target_include_directories(
         ${PROJECT_NAME}
         PRIVATE
         ${CMAKE_CONFIG_DIRECTORY}
-        ${WOTWR_LIB_INCLUDE_DIR}
         SYSTEM
         ${WOTWR_BASE_INCLUDES}
 )
 
-find_package(tclap)
-target_link_libraries(${PROJECT_NAME} tclap::tclap)
+find_path(TCLAP_INCLUDE_DIRS "tclap/Arg.h")
+target_include_directories(${PROJECT_NAME} PRIVATE ${TCLAP_INCLUDE_DIRS})
 
 message(STATUS "Assigning source groups.")
 

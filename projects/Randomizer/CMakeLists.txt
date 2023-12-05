@@ -8,7 +8,6 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
 set(
         SOURCE_FILES
-        "collision.cpp"
         "conditions/condition_override.cpp"
         "conditions/condition_uber_state.cpp"
         "conditions/new_setup_state_override.cpp"
@@ -186,7 +185,6 @@ set(
 
 set(
         PUBLIC_HEADER_FILES
-        "collision.h"
         "conditions/condition_override.h"
         "conditions/condition_uber_state.h"
         "conditions/new_setup_state_override.h"
@@ -263,13 +261,12 @@ set(
 
 set(
         MISC_FILES
-        "proto/packets.proto"
         "CMakeLists.txt"
 )
 
-find_package(Protobuf REQUIRED)
-
-protobuf_generate_cpp(PROTO_SRC PROTO_HDR proto/packets.proto)
+find_package(Protobuf CONFIG REQUIRED)
+protobuf_generate_cpp(PROTO_SRC PROTO_HEADERS proto/packets.proto)
+set_source_files_properties(${PROTO_SRC} ${PROTO_HEADERS} PROPERTIES GENERATED TRUE)
 
 add_library(
         ${PROJECT_NAME}
@@ -278,11 +275,8 @@ add_library(
         ${PUBLIC_HEADER_FILES}
         ${MISC_FILES}
         ${PROTO_SRC}
-        ${PROTO_HDR}
+        ${PROTO_HEADERS}
 )
-
-target_link_libraries(${PROJECT_NAME} ${Protobuf_LIBRARIES})
-set_source_files_properties(${PROTO_SRC} ${PROTO_HDR} PROPERTIES GENERATED TRUE)
 
 target_compile_definitions(
         ${PROJECT_NAME}
@@ -302,7 +296,6 @@ target_include_directories(
         PRIVATE
         ${CMAKE_CONFIG_DIRECTORY}
         ${CONFIG_DIRECTORY}
-        ${WOTWR_LIB_INCLUDE_DIR}
         ${WOTWR_BASE_INCLUDES}
         ${PROJECT_BINARY_DIR}
         ${protobuf_INCLUDE_DIR}
@@ -313,7 +306,6 @@ target_link_libraries(
         Common
         Modloader
         Core
-        protobuf::protobuf
 )
 
 find_package(nlohmann_json REQUIRED)
@@ -324,6 +316,8 @@ target_link_libraries(${PROJECT_NAME} magic_enum::magic_enum)
 
 find_package(ixwebsocket REQUIRED)
 target_link_libraries(${PROJECT_NAME} ixwebsocket::ixwebsocket)
+
+target_link_libraries(${PROJECT_NAME} protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
 
 message(STATUS "Assigning source groups.")
 

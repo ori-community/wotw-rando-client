@@ -7,7 +7,7 @@
 #include <ixwebsocket/IXWebSocket.h>
 #include <ixwebsocket/IXWebSocketMessage.h>
 
-#include <proto/packets.pb.h>
+#include <packets.pb.h>
 
 #include <Modloader/udp_socket.h>
 

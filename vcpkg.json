@@ -1,0 +1,32 @@
+{
+  "name" : "wotw-rando-client",
+  "version-string" : "1.0.0",
+  "builtin-baseline" : "72010900b7cee36cea77aebb97695095c9358eaf",
+  "dependencies" : [ {
+    "name" : "stb",
+    "version>=" : "2023-04-11#1"
+  }, {
+    "name" : "magic-enum",
+    "version>=" : "0.9.3"
+  }, {
+    "name" : "nlohmann-json",
+    "version>=" : "3.11.2"
+  }, {
+    "name" : "ixwebsocket",
+    "version>=" : "11.4.4#2",
+    "default-features" : false,
+    "features" : [ "mbedtls" ]
+  }, {
+    "name" : "tclap",
+    "version>=" : "1.2.5"
+  }, {
+    "name" : "cppzmq",
+    "version>=" : "4.10.0"
+  }, {
+    "name" : "detours",
+    "version>=" : "4.0.1#8"
+  }, {
+    "name" : "protobuf",
+    "version>=" : "3.21.12"
+  } ]
+}

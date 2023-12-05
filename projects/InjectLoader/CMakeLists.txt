@@ -45,7 +45,6 @@ target_include_directories(
         ${PROJECT_NAME}
         PRIVATE
         ${CMAKE_CONFIG_DIRECTORY}
-        ${WOTWR_LIB_INCLUDE_DIR}
         SYSTEM
         ${WOTWR_BASE_INCLUDES}
 )

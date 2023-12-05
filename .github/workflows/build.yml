@@ -51,7 +51,7 @@ jobs:
         shell: cmd
         working-directory: ${{ env.WORKDIR }}
         run: |
-          gen_win64_vs2022.release.bat
+          generate-cmake.release-ninja.bat
           IF ERRORLEVEL 1 (
             echo GENERATING FAILED
             exit 1

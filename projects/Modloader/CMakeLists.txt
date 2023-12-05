@@ -92,32 +92,28 @@ target_include_directories(
         PRIVATE
         ${CMAKE_CONFIG_DIRECTORY}
         ${CONFIG_DIRECTORY}
-        ${WOTWR_LIB_INCLUDE_DIR}
         SYSTEM
         ${WOTWR_BASE_INCLUDES}
 )
 
 target_link_libraries(
         ${PROJECT_NAME}
-        "${WOTWR_LIB_DIR}/detours.lib"
         Common
         wsock32
         ws2_32
 )
 
-find_package(nlohmann_json)
+find_package(nlohmann_json CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
 
+find_path(DETOURS_INCLUDE_DIRS "detours/detours.h")
+find_library(DETOURS_LIBRARY detours REQUIRED)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${DETOURS_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} ${DETOURS_LIBRARY})
+
+
 message(STATUS "Assigning source groups.")
-
-message(STATUS "test ${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};${INTERNAL_IL2CPP_HEADERS}")
-set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};${INTERNAL_IL2CPP_HEADERS}")
-set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
-
-# message(STATUS "Resolving il2cpp methods.")
-# source_group(TREE ${PROJECT_DIR} FILES ${METHODS})
-
-message(STATUS "TESTING ${PROJECT_BINARY_DIR}")
 
 install(
         TARGETS ${PROJECT_NAME}

@@ -191,7 +191,6 @@ target_include_directories(
         PRIVATE
         ${CMAKE_CONFIG_DIRECTORY}
         ${CONFIG_DIRECTORY}
-        ${WOTWR_LIB_INCLUDE_DIR}
         ${WOTWR_BASE_INCLUDES}
 )
 
@@ -207,8 +206,8 @@ target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
 find_package(magic_enum)
 target_link_libraries(${PROJECT_NAME} magic_enum::magic_enum)
 
-find_package(cppzmq)
-target_link_libraries(${PROJECT_NAME} cppzmq::cppzmq)
+find_package(cppzmq CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} cppzmq cppzmq-static)
 
 message(STATUS "Assigning source groups.")
 
