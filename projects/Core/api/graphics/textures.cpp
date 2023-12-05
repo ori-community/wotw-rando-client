@@ -347,8 +347,14 @@ namespace core::api::graphics::textures {
                 stbi_set_flip_vertically_on_load(true);
                 unsigned char* png_data = stbi_load(texture_path.c_str(), &x, &y, &n, STBI_rgb_alpha);
                 if (png_data == nullptr) {
+                    const auto instance = types::SpiritShardSettings::get_class()->static_fields->Instance;
+                    if (instance == nullptr) {
+                        initialized = false;
+                        return;
+                    }
+
                     auto icon = 0;
-                    auto shard_icons = types::SpiritShardSettings::get_class()->static_fields->Instance->fields.Icons;
+                    auto shard_icons = instance->fields.Icons;
                     auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &icon);
                     texture = il2cpp::gchandle_new_weak(icons->fields.InventoryIcon, true);
                     modloader::warn("textures", std::format("failed to load texture {} ({}).", texture_path, stbi_failure_reason()));
