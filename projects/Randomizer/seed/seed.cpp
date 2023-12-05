@@ -110,8 +110,12 @@ namespace randomizer::seed {
 
     MapIcon Seed::icon(inner_location_entry location) {
         std::string output;
-        const auto [always_granted_items, items, names, icons] = m_data.locations[location.state][location];
+        const auto [always_granted_items, items, names, icons,icon_override] = m_data.locations[location.state][location];
         // Since we can only show one icon, if we have multiple show a preset one.
+        if (icon_override.has_value()) {
+            return icon_override.value().get();
+        }
+
         if (icons.size() > 1) {
             return MapIcon::QuestItem;
         }

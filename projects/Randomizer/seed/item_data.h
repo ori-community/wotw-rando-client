@@ -20,5 +20,6 @@ namespace randomizer::seed {
         std::unordered_map<int, item_entry> items;
         std::vector<name_entry> names;
         std::vector<icon_entry> icons;
+        std::optional<icon_entry> icon_override;
     };
 } // namespace randomizer::seed

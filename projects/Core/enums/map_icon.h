@@ -75,6 +75,8 @@ enum class MapIcon {
 
     // Rando Icons
     CleanWater = 76,
+    BonusItem = 77,
+    LaunchFragment = 78,
 };
 
 CORE_DLLEXPORT app::GameObject* map_icon_to_game_object(MapIcon icon);

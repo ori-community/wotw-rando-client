@@ -19,6 +19,8 @@ namespace {
     auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         icon_textures = {
             {MapIcon::CleanWater, core::api::graphics::textures::get_texture("file:assets/map_icons/clean_water.png")},
+            {MapIcon::BonusItem, core::api::graphics::textures::get_texture("file:assets/map_icons/bonus_item.png")},
+            {MapIcon::LaunchFragment, core::api::graphics::textures::get_texture("file:assets/map_icons/launch_fragment.png")},
         };
     });
 }
