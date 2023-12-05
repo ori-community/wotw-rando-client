@@ -1,7 +1,7 @@
 {
   "name" : "wotw-rando-client",
   "version-string" : "1.0.0",
-  "builtin-baseline" : "72010900b7cee36cea77aebb97695095c9358eaf",
+  "builtin-baseline" : "cd5e746ec203c8c3c61647e0886a8df8c1e78e41",
   "dependencies" : [ {
     "name" : "stb",
     "version>=" : "2023-04-11#1"
