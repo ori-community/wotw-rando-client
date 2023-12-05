@@ -28,7 +28,7 @@ namespace modloader {
 
     std::filesystem::path inner_base_path = "C:\\moon\\";
     std::filesystem::path modloader_config_path = "modloader_config.json";
-    std::filesystem::path csv_path = "inject_log.csv";
+    std::filesystem::path csv_path = "randomizer/inject_log.csv";
     std::atomic<bool> shutdown_requested = false;
 
     std::filesystem::path base_path() {
