@@ -28,6 +28,7 @@
 #include <Modloader/modloader.h>
 #include <Randomizer/seed/items/input.h>
 
+#include <Randomizer/seed/items/icon_override.h>
 #include <fstream>
 #include <iostream>
 #include <magic_enum.hpp>
@@ -116,6 +117,8 @@ namespace randomizer::seed::legacy_parser {
         Unbind = 28,
         SaveString = 29,
         AppendString = 30,
+        SetIconOverride = 31,
+        ClearIconOverride = 32
     };
 
     void set_location(items::Message* message, location_type const& location) {
@@ -694,19 +697,48 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_input_action(std::span<std::string> parts, ParserData& data) {
+    bool parse_input_action(const std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
 
-        const auto input = std::make_shared<items::Input>();
         const auto action = magic_enum::enum_cast<Action>(parts[0]);
         if (!action.has_value()) {
             return false;
         }
 
+        const auto input = std::make_shared<items::Input>();
         input->action = action.value();
         data.add_item(input);
+        return true;
+    }
+    bool parse_set_icon_override(location_type const& location, const std::span<std::string> parts, ParserData& data) {
+        if (parts.size() != 1) {
+            return false;
+        }
+
+        const auto icon = magic_enum::enum_cast<MapIcon>(parts[0]);
+        if (!icon.has_value()) {
+            return false;
+        }
+
+        const auto item = std::make_shared<items::SetIconOverride>();
+        item->data = &data.location_data;
+        item->location = location;
+        item->icon = icon.value();
+        data.add_item(item);
+        return true;
+    }
+
+    bool parse_clear_icon_override(location_type const& location, const std::span<std::string> parts, ParserData& data) {
+        if (parts.size() != 0) {
+            return false;
+        }
+
+        const auto item = std::make_shared<items::ClearIconOverride>();
+        item->data = &data.location_data;
+        item->location = location;
+        data.add_item(item);
         return true;
     }
 
@@ -770,6 +802,10 @@ namespace randomizer::seed::legacy_parser {
                 return parse_string(next_parts, data, true);
             case SystemCommand::InputAction:
                 return parse_input_action(next_parts, data);
+            case SystemCommand::SetIconOverride:
+                return parse_set_icon_override(location, next_parts, data);
+            case SystemCommand::ClearIconOverride:
+                return parse_clear_icon_override(location, next_parts, data);
             case SystemCommand::SetHealth:
                 modloader::warn("legacy_parser", "Use of deprecated command SystemCommand.SetHealth use virtual uber states instead.");
                 return false;
@@ -1160,7 +1196,7 @@ namespace randomizer::seed::legacy_parser {
         message->info.text.set_format(R"(#{0}[if([state_int(4|{1})] > 1,<> x[state_int(4|{1})],)]#)", bonus_item, bonus_type_int);
         data.add_item(message);
 
-        data.location_data.icons.emplace_back(MapIcon::QuestItem);
+        data.location_data.icons.emplace_back(MapIcon::BonusItem);
         data.location_data.names.emplace_back(message->info.text.get());
 
         return true;
@@ -1273,6 +1309,8 @@ namespace randomizer::seed::legacy_parser {
 
         data.add_item(message);
         data.location_data.names.emplace_back(name);
+        // TODO: Maybe add specific icons for the vanilla opher upgrades?
+        data.location_data.icons.emplace_back(MapIcon::BonusItem);
 
         return true;
     }
