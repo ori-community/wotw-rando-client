@@ -14,6 +14,7 @@ jobs:
     env:
       WORKDIR: D:/build
       SCCACHE_GHA_ENABLED: "true"
+      VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
 
     steps:
       - name: Enable Git support for long file paths
@@ -31,6 +32,11 @@ jobs:
           tagRegex: "v?([^-]*)"
       - name: Check out repository code
         uses: actions/checkout@v3
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
+            core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
       - name: Install MSVC developer tools
         uses: microsoft/setup-msbuild@v1.1
         with:
