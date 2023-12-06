@@ -26,7 +26,7 @@ namespace randomizer::seed {
             int world_index = 0;
             bool race_mode = false;
             bool logic_filter_disabled = false;
-            bool net_code_enabled = true; // TODO: Remove this.
+            bool net_code_enabled = false; // TODO: Remove this.
 
             std::string name;
             int total_pickups = 0;
