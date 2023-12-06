@@ -453,6 +453,7 @@ namespace randomizer::game {
     void teleport(app::Vector3 position) {
         SeinCharacter::set_Position(core::api::game::player::sein(), position);
 
+        // We do this because InstantLoadScenesController::LoadScenesAtPosition uses it as the target position
         const auto scenes_manager = core::api::scenes::get_scenes_manager();
         scenes_manager->fields.m_currentCameraTargetPosition.x = position.x;
         scenes_manager->fields.m_currentCameraTargetPosition.y = position.y;
