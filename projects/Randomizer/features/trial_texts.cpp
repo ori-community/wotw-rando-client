@@ -61,7 +61,6 @@ namespace {
         std::shared_ptr<core::reactivity::ReactiveEffect> reactive_effect;
 
         void update_message_box() {
-            randomizer::game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, get_event_uber_state_for_spirit_trial(location)), 0);
             const auto text = get_text_for_spirit_trial(location);
             text_style::create_styles((*message_box)->fields.TextBox, text);
             (*message_box)->fields.MessageProvider = core::api::system::create_message_provider(text);
@@ -177,20 +176,25 @@ namespace {
             );
 
             auto& box = trial_text_boxes.at(location.value());
-            box.reactive_effect = core::reactivity::watch_effect([location] {
-                const auto ref_it = trial_text_boxes.find(location.value());
-                if (ref_it == trial_text_boxes.end()) {
-                    return;
-                }
+            box.reactive_effect = core::reactivity::watch_effect()
+                .before([location]() {
+                    randomizer::game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, get_event_uber_state_for_spirit_trial(location.value())), 0);
+                })
+                .effect([location] {
+                    const auto ref_it = trial_text_boxes.find(location.value());
+                    if (ref_it == trial_text_boxes.end()) {
+                        return;
+                    }
 
-                auto ref = ref_it->second;
+                    auto ref = ref_it->second;
 
-                if (ref.message_box.is_valid()) {
-                    ref.update_message_box();
-                } else {
-                    trial_text_boxes.erase(location.value());
-                }
-            });
+                    if (ref.message_box.is_valid()) {
+                        ref.update_message_box();
+                    } else {
+                        trial_text_boxes.erase(location.value());
+                    }
+                })
+                .finalize();
         }
     }
 } // namespace
