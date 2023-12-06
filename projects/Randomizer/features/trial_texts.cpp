@@ -38,9 +38,9 @@ namespace {
                 return 100;
             case SpiritTrialLocation::Hollow:
                 return 101;
-            case SpiritTrialLocation::Woods:
-                return 102;
             case SpiritTrialLocation::Wellspring:
+                return 102;
+            case SpiritTrialLocation::Woods:
                 return 103;
             case SpiritTrialLocation::Reach:
                 return 104;
