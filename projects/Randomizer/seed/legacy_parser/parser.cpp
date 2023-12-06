@@ -871,7 +871,7 @@ namespace randomizer::seed::legacy_parser {
                 break;
             case 4:
                 assigner->variable.assign(core::api::uber_states::UberState(28895, 54235));
-                teleporter_name = "Baurs Reach";
+                teleporter_name = "Baur's Reach";
                 break;
             case 5:
                 assigner->variable.assign(core::api::uber_states::UberState(937, 26601));
@@ -895,7 +895,7 @@ namespace randomizer::seed::legacy_parser {
                 break;
             case 10:
                 assigner->variable.assign(core::api::uber_states::UberState(20120, 49994));
-                teleporter_name = "Wastes";
+                teleporter_name = "Central Wastes";
                 break;
             case 11:
                 assigner->variable.assign(core::api::uber_states::UberState(20120, 41398));
@@ -911,7 +911,7 @@ namespace randomizer::seed::legacy_parser {
                 break;
             case 2: {
                 assigner->variable.assign(core::api::uber_states::UberState(945, 58183));
-                teleporter_name = "Central Pools";
+                teleporter_name = "Central Luma";
                 if (should_add) {
                     auto lower_water = std::make_shared<items::ValueModifier<bool, items::ValueOperator::Assign>>();
                     lower_water->variable.assign(core::api::uber_states::UberState(5377, 63173));
@@ -922,7 +922,7 @@ namespace randomizer::seed::legacy_parser {
             }
             case 13:
                 assigner->variable.assign(core::api::uber_states::UberState(1370, 61594));
-                teleporter_name = "Pools Boss";
+                teleporter_name = "Luma Boss";
                 break;
             case 15:
                 assigner->variable.assign(core::api::uber_states::UberState(16155, 50867));
