@@ -262,7 +262,7 @@ namespace {
         if (game_world) {
             // 15 is the max value of app::GameWorldAreaID__Enum when this was written.
             for (int32_t i = 0; i <= 15; i++) {
-                auto area = GameWorld::GetArea(game_world, static_cast<app::GameWorldAreaID__Enum>(i));
+                const auto area = GameWorld::GetArea(game_world, static_cast<app::GameWorldAreaID__Enum>(i));
                 if (!area) {
                     // Areas: None, WeepingRidge, GorlekMines, Riverlands would crash the game
                     continue;

@@ -35,11 +35,13 @@
 #include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/QuestsUI.h>
+#include <Modloader/app/types/InstantLoadScenesController.h>
 #include <Modloader/app/types/SaveSlotsUI.h>
 #include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/app/types/WaitAction.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/methods/InstantLoadScenesController.h>
 #include <Modloader/windows_api/console.h>
 
 
@@ -51,19 +53,10 @@ using modloader::win::console::console_send;
 
 namespace randomizer::game {
     namespace {
-        enum class TeleportState {
-            None,
-            Teleport,
-            PostTeleport,
-        };
-
         constexpr int MAX_DISPLAYED_WAITING_FOR_PLAYERS = 8;
-        const app::Vector3 ORIGINAL_START = {-798.797058f, -4310.119141f, 0.f};
         bool handling_start = false;
         bool is_in_lobby = false;
         bool is_starting_game = false;
-        TeleportState teleport_state = TeleportState::None;
-        app::Vector3 teleport_position;
 
         std::set<std::string> pending_scenes_to_preload;
         std::set<std::string> scenes_to_preload;
@@ -214,51 +207,7 @@ namespace randomizer::game {
             }
         }
 
-        IL2CPP_INTERCEPT(SeinCharacter, void, FixedUpdate, (app::SeinCharacter * this_ptr)) {
-            // Don't teleport during cutscene skips, causes crashes.
-            if (teleport_state == TeleportState::Teleport) {
-                SeinCharacter::set_Position(this_ptr, teleport_position);
-                teleport_state = TeleportState::PostTeleport;
-            }
-            else if (teleport_state == TeleportState::PostTeleport) {
-                core::api::game::player::snap_camera();
-
-                ScenesManager::EnableDisabledScenesAtPosition(core::api::scenes::get_scenes_manager(), false, false);
-                SeinCharacter::set_Position(this_ptr, teleport_position);
-
-                if (handling_start) {
-                    handling_start = false;
-                    core::api::faderb::fade_out(0.3f);
-                }
-
-                teleport_state = TeleportState::None;
-
-                auto area_map_ui = types::AreaMapUI::get_class()->static_fields->Instance;
-                auto quests_ui = types::QuestsUI::get_class()->static_fields->Instance;
-                AreaMapNavigation::SetLocationPlayer(area_map_ui->fields._Navigation_k__BackingField);
-                QuestsUI::UpdateDescriptionUI_2(quests_ui, nullptr);
-            }
-
-            next::SeinCharacter::FixedUpdate(this_ptr);
-        }
-
         core::api::uber_states::UberState intro_cutscene(static_cast<UberStateGroup>(21786), 48748);
-
-        IL2CPP_INTERCEPT(Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation, void, SetAreaState,
-                         (app::PlayerUberStateAreaMapInformation * this_ptr, app::GameWorldAreaID__Enum area_id, int index, app::WorldMapAreaState__Enum state, app::Vector3 position)) {
-            if (handling_start && state == app::WorldMapAreaState__Enum::Visited)
-                state = app::WorldMapAreaState__Enum::Discovered;
-
-            next::Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::SetAreaState(this_ptr, area_id, index, state, position);
-        }
-
-        // Dont cancel loads during teleportation.
-        IL2CPP_INTERCEPT(ScenesManager, bool, CancelScene, (app::ScenesManager * this_ptr, app::SceneManagerScene* scene)) {
-            if (teleport_state != TeleportState::Teleport)
-                return next::ScenesManager::CancelScene(this_ptr, scene);
-
-            return false;
-        }
 
         // The game calls set_CurrentSlotIndex on startup. We set this variable to true
         // for this to not start preloading too early.
@@ -351,7 +300,7 @@ namespace randomizer::game {
 
         IL2CPP_INTERCEPT(RunActionOnce, void, Perform, (app::RunActionOnce * this_ptr, app::IContext* context)) {
             // If the player started a new empty save slot...
-            if (empty_slot_pressed_action_sequence_handle.has_value() && reinterpret_cast<app::ActionMethod*>(this_ptr->fields.Action) == reinterpret_cast<app::ActionMethod*>(empty_slot_pressed_action_sequence_handle.value().ref()) &&
+            if (empty_slot_pressed_action_sequence_handle.has_value() && this_ptr->fields.Action == reinterpret_cast<app::ActionMethod*>(empty_slot_pressed_action_sequence_handle.value().ref()) &&
                 start_game_sequence_handle.has_value()) {
                 if (randomizer::multiplayer_universe().should_block_starting_new_game()) {
                     is_in_lobby = true;
@@ -452,11 +401,18 @@ namespace randomizer::game {
                 core::api::scenes::force_load_scene(scene_name, nullptr, true, false);
             }
 
-            teleport(game_seed().info().start_position, true);
+            teleport(game_seed().info().start_position);
             on_new_game_late_initialization_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, on_new_game_late_initialization);
 
             GameStateMachine::SetToGame(game_state_machine);
             core::api::game::player::set_ability(app::AbilityType__Enum::SpiritMagnet, false);
+
+            core::api::game::player::snap_camera();
+
+            if (handling_start) {
+                handling_start = false;
+                core::api::faderb::fade_out(0.3f);
+            }
         }
 
         void on_finished_loading_save(GameEvent event, EventTiming timing) {
@@ -494,12 +450,19 @@ namespace randomizer::game {
         });
     } // namespace
 
-    void teleport(app::Vector3 position, bool wait_for_load) {
-        teleport_state = TeleportState::Teleport;
-        teleport_position = position;
-        modloader::info("teleport", std::format("Teleport to ({}, {}, {}) initiated", position.x, position.y, position.z));
-        if (wait_for_load) {
-            ScenesManager::LoadScenesAtPosition(core::api::scenes::get_scenes_manager(), position, false, false, true, true, true);
-        }
+    void teleport(app::Vector3 position) {
+        SeinCharacter::set_Position(core::api::game::player::sein(), position);
+
+        const auto scenes_manager = core::api::scenes::get_scenes_manager();
+        scenes_manager->fields.m_currentCameraTargetPosition.x = position.x;
+        scenes_manager->fields.m_currentCameraTargetPosition.y = position.y;
+
+        const auto instant_load_scenes_controller = types::InstantLoadScenesController::get_class()->static_fields->Instance;
+        InstantLoadScenesController::LoadScenesAtPosition(instant_load_scenes_controller, nullptr, false, false);
+
+        auto area_map_ui = types::AreaMapUI::get_class()->static_fields->Instance;
+        auto quests_ui = types::QuestsUI::get_class()->static_fields->Instance;
+        AreaMapNavigation::SetLocationPlayer(area_map_ui->fields._Navigation_k__BackingField);
+        QuestsUI::UpdateDescriptionUI_2(quests_ui, nullptr);
     }
 } // namespace randomizer::game

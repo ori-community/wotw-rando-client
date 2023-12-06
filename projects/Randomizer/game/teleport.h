@@ -8,5 +8,5 @@
 #include <optional>
 
 namespace randomizer::game {
-    void teleport(app::Vector3 position, bool wait_for_load);
+    void teleport(app::Vector3 position);
 } // namespace randomizer::game

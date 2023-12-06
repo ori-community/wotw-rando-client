@@ -519,7 +519,7 @@ namespace randomizer::seed::legacy_parser {
 
         const auto caller = std::make_shared<items::Call>();
         caller->description = "warp player";
-        caller->func = [position]() { game::teleport(position, true); };
+        caller->func = [position]() { game::teleport(position); };
         data.add_item(caller);
         return true;
     }
