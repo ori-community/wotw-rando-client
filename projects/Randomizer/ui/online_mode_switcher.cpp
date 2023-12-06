@@ -29,7 +29,7 @@ namespace randomizer::online_indicator {
         std::unique_ptr<core::api::graphics::Sprite> sprite;
 
         core::Property<std::string> name_property;
-        core::Property<std::string> status_property(" ");
+        core::Property<std::string> status_property("Offline");
         core::Property<std::string> description_property;
 
         void set_text(app::MessageBox* box, std::string const& text) {
@@ -87,7 +87,9 @@ namespace randomizer::online_indicator {
                     // "Press X to sign in/out" hints at the bottom left of the screen, we don't need these
                     il2cpp::unity::destroy_object(il2cpp::unity::find_child(online_ui_go, "onlineHint"));
                     il2cpp::unity::destroy_object(il2cpp::unity::find_child(online_ui_go, "offlineHint"));
+                    il2cpp::unity::destroy_object(il2cpp::unity::find_child(online_group, std::vector<std::string> {"onlineStatus", "sharedCircleGlowB"}));
                     il2cpp::unity::destroy_object(il2cpp::unity::find_child(online_group, "UserBackground"));
+
                     const auto handle_textbox_go = il2cpp::unity::find_child(online_group, "handle");
                     name_message_box = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(handle_textbox_go, types::MessageBox::get_class()));
 
@@ -101,6 +103,13 @@ namespace randomizer::online_indicator {
                         il2cpp::unity::get_component<app::MessageBox>(switch_profile_textbox_go, types::MessageBox::get_class())
                     );
 
+                    // Move separator, online status and description down a bit
+                    const auto separator_go = il2cpp::unity::find_child(online_group, "separator");
+                    const auto online_status_container_go = il2cpp::unity::find_child(online_group, "onlineStatus");
+                    il2cpp::unity::set_local_position(online_status_container_go, app::Vector3 {-85.5f, -39.6f, -0.5f});
+                    il2cpp::unity::set_local_position(separator_go, app::Vector3 {-69.8f, -32.4f, 0.3f});
+                    il2cpp::unity::set_local_position(switch_profile_textbox_go, app::Vector3 {-74.3f, -32.6f, -0.5f});
+
                     (*description_message_box)->fields.TextBox->fields.maxHeight = 9999999;
                     set_text(*name_message_box, name_property.get());
                     set_text(*status_message_box, status_property.get());
@@ -108,7 +117,7 @@ namespace randomizer::online_indicator {
 
                     sprite = std::make_unique<core::api::graphics::Sprite>(online_group);
                     sprite->enabled(true);
-                    sprite->local_scale({12, 20, 1});
+                    sprite->local_scale({24, 20, 1});
                     sprite->local_position({-72, -40, 0});
 
                     sprite->texture(core::api::graphics::textures::get_texture("file:assets/textures/gradient_transparent_dark.png"));
