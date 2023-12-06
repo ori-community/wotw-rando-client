@@ -308,6 +308,9 @@ target_link_libraries(
         Core
 )
 
+find_path(NEARGYE_SEMVER_INCLUDE_DIRS "neargye/semver.hpp")
+target_include_directories(${PROJECT_NAME} PRIVATE ${NEARGYE_SEMVER_INCLUDE_DIRS})
+
 find_package(nlohmann_json REQUIRED)
 target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
 

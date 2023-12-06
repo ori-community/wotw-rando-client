@@ -48,8 +48,13 @@ namespace randomizer::seed {
         m_data.info.locations = read_all(modloader::base_path() / "loc_data.csv");
         m_data.info.states = read_all(modloader::base_path() / "state_data.csv");
         if (!m_last_parser(m_last_path, m_location_data, m_data)) {
+            auto error_message = std::format("Failed to load seed '{}'", m_last_path);
+            if (!m_data.info.parser_error.empty()) {
+                error_message = m_data.info.parser_error;
+            }
+
             core::message_controller().queue_central({
-                .text = core::Property<std::string>::format("Failed to load seed '{}'", m_last_path),
+                .text = core::Property<std::string>(error_message),
                 .show_box = true,
                 .prioritized = true,
             });

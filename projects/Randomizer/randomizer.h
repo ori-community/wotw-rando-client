@@ -9,6 +9,8 @@
 #include <Randomizer/seed/seed.h>
 #include <Randomizer/state_data/state.h>
 
+#include <neargye/semver.hpp>
+
 namespace randomizer {
     enum class RandomizerEvent {
         LocationCollectionLoaded,
@@ -43,5 +45,5 @@ namespace randomizer {
 
     void queue_input_unlocked_callback(std::function<void()> const& callback);
 
-    std::string randomizer_version();
+    semver::version randomizer_version();
 } // namespace randomizer

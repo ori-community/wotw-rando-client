@@ -1983,9 +1983,9 @@ namespace randomizer::seed::legacy_parser {
      */
     void parse_config(std::string_view line, Seed::Data& data) {
         if (line.starts_with("// This World:")) {
-            std::string str(line.substr(14));
+            const std::string str(line.substr(14));
             data.info.world_index = std::stoi(str);
-        } else if (line.starts_with("// Target:")) {
+        } else if (line.starts_with("// Format Version:")) {
         } else if (line.starts_with("// Generator Version:")) {
         } else if (line.starts_with("// Slug:")) {
             data.info.slug = trim_copy(line.substr(sizeof("Slug:")));
@@ -1995,6 +1995,10 @@ namespace randomizer::seed::legacy_parser {
         }
 
         // If we don't match anything here it's a comment, and we can ignore it.
+    }
+
+    bool is_seed_version_supported(semver::version version) {
+        return semver::range::satisfies(version, ">=1.0.0 <=1.0.0");
     }
 
     bool parse(std::string_view path, location_data::LocationCollection const& location_data, Seed::Data& data) {
@@ -2007,7 +2011,27 @@ namespace randomizer::seed::legacy_parser {
         int next_location_id = 0;
         int next_procedure_id = 0;
         int line_number = 0;
+
         std::string line;
+        while (std::getline(seed_file, line)) {
+            if (line.starts_with("// Format Version: ")) {
+                const auto version = trim_copy(line.substr(19));
+                const auto parsed = semver::from_string_noexcept(version);
+                if (parsed.has_value()) {
+                    data.info.version = parsed.value();
+                }
+
+                break;
+            }
+        }
+
+        if (!is_seed_version_supported(data.info.version)) {
+            modloader::warn("legacy_seed_parser", "Failed to load seed due to incompatible version");
+            data.info.parser_error = std::format("Failed to load seed '{}'\ndue to version incompatibility", path);
+            return false;
+        }
+
+        seed_file.seekg(0);
         while (std::getline(seed_file, line)) {
             data.info.content += line;
             data.info.content += "\n";

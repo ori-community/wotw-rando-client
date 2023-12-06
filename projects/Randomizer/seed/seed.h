@@ -9,7 +9,7 @@
 #include <Randomizer/seed/relics.h>
 
 #include <unordered_map>
-#include <unordered_set>
+#include <neargye/semver.hpp>
 
 namespace randomizer::seed {
     class Seed {
@@ -19,10 +19,12 @@ namespace randomizer::seed {
         using location_entry = core::api::uber_states::UberState;
 
         struct SeedInfo {
+            std::string parser_error;
             std::vector<std::string> flags;
             app::Vector3 start_position = { -798.797058f, -4310.119141f, 0.f };
             std::string slug;
 
+            semver::version version = semver::version(0, 0, 0);
             int world_index = 0;
             bool race_mode = false;
             bool logic_filter_disabled = false;
