@@ -163,7 +163,7 @@ namespace randomizer::online_indicator {
         void on_network_status(const online::NetworkClient::State state) {
             if (state == online::NetworkClient::State::Closed) {
                 status_property.set("Offline");
-            } else if (state == online::NetworkClient::State::Authenticating && last_state != online::NetworkClient::State::Connected) {
+            } else if (state == online::NetworkClient::State::Authenticating) {
                 status_property.set("Authenticating");
             } else if (state == online::NetworkClient::State::Reconnecting) {
                 status_property.set("Reconnecting");
