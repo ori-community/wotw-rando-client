@@ -203,7 +203,7 @@ namespace randomizer::timing {
                     report_timer_state_to_ipc(save_stats->in_game_time, save_stats->get_total_async_loading_time(), timer_should_run());
                 }
 
-                if (queue_timer_state_server_report && timer_state_server_reporting_throttled_for <= 0.f) {
+                if (queue_timer_state_server_report && timer_state_server_reporting_throttled_for <= 0.f && save_stats->in_game_time > 0.f) {
                     timer_state_server_reporting_throttled_for = TIMER_STATE_SERVER_REPORTING_THROTTLE_SECONDS;
                     queue_timer_state_server_report = false;
                     report_timer_state_to_server(save_stats->in_game_time, game_finished);
