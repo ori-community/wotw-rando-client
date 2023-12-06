@@ -38,6 +38,29 @@ namespace randomizer::online_indicator {
             MessageBox::RefreshText_1(box);
         }
 
+        void update_text() {
+            auto const& player = multiplayer_universe().local_player();
+            if (player.has_value()) {
+                name_property.set(player.value().user.name());
+            } else {
+                name_property.set("You");
+            }
+
+            std::string description;
+            if (player.has_value()) {
+                description += std::format("Game: {}\n", multiplayer_universe().multiverse_info()->id());
+                description += std::format("Universe: {}\n", player->universe.name());
+            }
+
+            description += std::format("Seed: {}\n", game_seed().info().name);
+            description += "Flags:";
+            for (auto flag: game_seed().info().flags) {
+                description += std::format("\n   - {}", flag);
+            }
+
+            description_property.set(description);
+        }
+
         void on_ready(ModloaderEvent) {
             core::reactivity::watch_effect()
                 .effect(name_property)
@@ -123,6 +146,7 @@ namespace randomizer::online_indicator {
                     sprite->texture(core::api::graphics::textures::get_texture("file:assets/textures/gradient_transparent_dark.png"));
 
                     is_in_main_menu = true;
+                    update_text();
                     break;
                 }
                 case app::SceneState__Enum::Disabling:
@@ -134,29 +158,6 @@ namespace randomizer::online_indicator {
                 default: {
                 }
             }
-        }
-
-        void update_text() {
-            auto const& player = multiplayer_universe().local_player();
-            if (player.has_value()) {
-                name_property.set(player.value().user.name());
-            } else {
-                name_property.set("You");
-            }
-
-            std::string description;
-            if (player.has_value()) {
-                description += std::format("Game: {}\n", multiplayer_universe().multiverse_info()->id());
-                description += std::format("Universe: {}\n", player->universe.name());
-            }
-
-            description += std::format("Seed: {}\n", game_seed().info().name);
-            description += "Flags:";
-            for (auto flag: game_seed().info().flags) {
-                description += std::format("\n   - {}", flag);
-            }
-
-            description_property.set(description);
         }
 
         auto last_state = online::NetworkClient::State::Closed;
