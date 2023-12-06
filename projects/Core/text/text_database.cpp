@@ -222,7 +222,7 @@ namespace core::text {
     void register_text(text_id id, std::string_view text) {
         auto& entry = text_entries[id];
         entry.text.emplace_back(text);
-        core::reactivity::notify_changed(reactivity::TextDatabaseDependency { id });
+        notify_changed(reactivity::TextDatabaseDependency { id });
     }
 
     void register_text(text_id id, std::wstring_view text) {
@@ -236,23 +236,23 @@ namespace core::text {
         if (provider != nullptr) {
             il2cpp::invoke(reinterpret_cast<app::TranslatedMessageProvider*>(provider)->fields.Messages, "Clear");
         }
-        core::reactivity::notify_changed(reactivity::TextDatabaseDependency { id });
+        notify_changed(reactivity::TextDatabaseDependency { id });
     }
 
     bool has_text(text_id id) {
-        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
+        notify_used(reactivity::TextDatabaseDependency { id });
         return get_text_count(id) > 0;
     }
 
     int get_text_count(text_id id) {
 
-        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
+        notify_used(reactivity::TextDatabaseDependency { id });
         auto& entry = text_entries[id];
         return static_cast<int>(entry.text.size());
     }
 
     std::string_view get_text(text_id id, int i) {
-        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
+        notify_used(reactivity::TextDatabaseDependency { id });
         auto& entry = text_entries[id];
         if (entry.text.empty()) {
             return "";
@@ -262,7 +262,7 @@ namespace core::text {
     }
 
     std::wstring get_text_w(text_id id, int i) {
-        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
+        notify_used(reactivity::TextDatabaseDependency { id });
 
         // Can't return a wstring_view here as we are converting the data so it would get destroyed as we returned.
         auto& entry = text_entries[id];
@@ -274,13 +274,13 @@ namespace core::text {
     }
 
     std::vector<std::string> const& get_all_text(text_id id) {
-        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
+        notify_used(reactivity::TextDatabaseDependency { id });
         auto& entry = text_entries[id];
         return entry.text;
     }
 
     std::string get_concatenated_text(text_id id, std::string_view delimiter) {
-        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
+        notify_used(reactivity::TextDatabaseDependency { id });
         std::string text;
         auto& entry = text_entries[id];
         for (auto& text_entry : entry.text) {
@@ -295,18 +295,18 @@ namespace core::text {
     }
 
     std::string_view get_random_text(text_id id) {
-        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
+        notify_used(reactivity::TextDatabaseDependency { id });
         auto& entry = text_entries[id];
         if (entry.text.empty()) {
             return "";
         }
 
-        int index = core::random(0, static_cast<int>(entry.text.size() - 1));
+        int index = random(0, static_cast<int>(entry.text.size() - 1));
         return entry.text[index];
     }
 
     std::string_view get_random_text_with_hash(text_id id, std::size_t hash) {
-        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
+        notify_used(reactivity::TextDatabaseDependency { id });
         auto& entry = text_entries[id];
         if (entry.text.empty()) {
             return "";
@@ -317,15 +317,15 @@ namespace core::text {
     }
 
     app::MessageProvider* get_provider(text_id id, int i) {
-        core::reactivity::notify_used(reactivity::TextDatabaseDependency { id });
-        auto& entry = text_entries[id];
+        notify_used(reactivity::TextDatabaseDependency{id});
+        const auto& entry = text_entries[id];
         const auto text = entry.text.empty() ? "" : entry.text[i];
-        return core::api::system::create_message_provider(text);
+        return api::system::create_message_provider(text);
     }
 
     app::MessageProvider* get_random_provider(text_id id) {
         auto& entry = text_entries[id];
-        int index = entry.text.empty() ? 0 : core::random(0, static_cast<int>(entry.text.size() - 1));
+        int index = entry.text.empty() ? 0 : random(0, static_cast<int>(entry.text.size() - 1));
         return get_provider(id, index);
     }
 
@@ -334,11 +334,11 @@ namespace core::text {
     }
 
     void clear_dynamic() {
-        for (auto i = static_cast<text_id>(core::StaticTextEntry::STATIC_TEXT_ENTRY_END) + 1; i < next_text_id; ++i) {
+        for (auto i = static_cast<text_id>(StaticTextEntry::STATIC_TEXT_ENTRY_END) + 1; i < next_text_id; ++i) {
             clear_text(i);
         }
 
         dynamic_to_index.clear();
-        next_text_id = static_cast<int>(core::StaticTextEntry::STATIC_TEXT_ENTRY_END) + 1;
+        next_text_id = static_cast<int>(StaticTextEntry::STATIC_TEXT_ENTRY_END) + 1;
     }
 } // namespace core::text

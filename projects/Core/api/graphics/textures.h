@@ -11,9 +11,9 @@
 
 namespace core::api::graphics::textures {
     struct CORE_DLLEXPORT MaterialParams {
-        std::optional<app::Vector4> uvs;
-        std::optional<app::Vector4> scroll_rot;
-        std::optional<app::Color> color;
+        std::optional<app::Vector4> uvs = std::nullopt;
+        std::optional<app::Vector4> scroll_rot = std::nullopt;
+        std::optional<app::Color> color = std::nullopt;
     };
 
     CORE_C_DLLEXPORT void reload_all_file_textures();

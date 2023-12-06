@@ -42,4 +42,6 @@ namespace randomizer {
     std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor();
 
     void queue_input_unlocked_callback(std::function<void()> const& callback);
+
+    std::string randomizer_version();
 } // namespace randomizer

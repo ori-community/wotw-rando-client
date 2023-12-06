@@ -46,8 +46,9 @@ namespace core::api::graphics {
         bool custom_shader = false;
         app::GameObject* find_prefab() {
             static app::GameObject* icon = nullptr;
-            if (il2cpp::unity::is_valid(icon))
+            if (il2cpp::unity::is_valid(icon)) {
                 return icon;
+            }
 
             app::Renderer* renderer = nullptr;
             app::MeshFilter* mesh_filter = nullptr;
@@ -116,10 +117,12 @@ namespace core::api::graphics {
         m_root = reinterpret_cast<app::GameObject*>(il2cpp::unity::instantiate_object(find_prefab()));
         m_renderer = il2cpp::unity::get_component<app::Renderer>(m_root, types::Renderer::get_class());
         il2cpp::unity::set_active(m_root, false);
-        if (parent == nullptr)
-            game::add_to_container(game::RandoContainer::GameObjects, m_root);
-        else
+        if (parent == nullptr) {
+            add_to_container(game::RandoContainer::GameObjects, m_root);
+        }
+        else {
             il2cpp::unity::set_parent(m_root, parent);
+        }
     }
 
     Sprite::~Sprite() {
@@ -129,46 +132,51 @@ namespace core::api::graphics {
         }
     }
 
-    void Sprite::layer(Layer l) {
+    void Sprite::layer(Layer l) const {
         GameObject::set_layer(m_root, static_cast<int>(l));
     }
 
-    void Sprite::local_position(app::Vector3 p) {
+    void Sprite::local_position(app::Vector3 p) const {
         Transform::set_localPosition(il2cpp::unity::get_transform(m_root), p);
     }
 
-    void Sprite::local_scale(app::Vector3 s) {
+    void Sprite::local_scale(app::Vector3 s) const {
         Transform::set_localScale(il2cpp::unity::get_transform(m_root), s);
     }
 
-    void Sprite::local_rotation(float r) {
-        auto angle = r;
-        auto rotation = Quaternion::Euler_1(0, 0, angle);
+    void Sprite::local_rotation(float r) const {
+        const auto angle = r;
+        const auto rotation = Quaternion::Euler_1(0, 0, angle);
         Transform::set_localRotation(il2cpp::unity::get_transform(m_root), rotation);
     }
 
-    bool Sprite::enabled() {
+    bool Sprite::enabled() const {
         return il2cpp::unity::get_active(m_root);
     }
 
-    void Sprite::enabled(bool value) {
+    void Sprite::enabled(const bool value) const {
         il2cpp::unity::set_active(m_root, value);
     }
 
-    void Sprite::texture(std::shared_ptr<textures::TextureData> texture_data, std::optional<textures::MaterialParams> params) {
-        if (texture_data == nullptr)
+    void Sprite::texture(const std::shared_ptr<textures::TextureData>& texture_data, std::optional<textures::MaterialParams> params) {
+        if (texture_data == nullptr) {
             return;
+        }
 
         if (m_texture_data != texture_data) {
             texture_data->apply_texture(m_renderer);
             m_texture_data = texture_data;
         }
 
+        if (!params.has_value()) {
+            params = textures::MaterialParams{ .uvs = std::make_optional<app::Vector4>({ 0, 0, 1, 1 }) };
+        }
+
         m_texture_params = params;
-        texture_data->apply_params(m_renderer, params.has_value() ? &params.value() : nullptr);
+        texture_data->apply_params(m_renderer, &params.value());
     }
 
-    void Sprite::set_parent(app::GameObject* parent) {
+    void Sprite::set_parent(app::GameObject* parent) const {
         il2cpp::unity::set_parent(m_root, parent);
     }
 } // namespace core

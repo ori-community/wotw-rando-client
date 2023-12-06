@@ -214,41 +214,19 @@ namespace randomizer {
                 }
             }
         );
-
-        common::registration_handle_t on_title_screen_handler = core::api::scenes::single_event_bus().register_handler(
-            "wotwTitleScreen",
-            [](auto, auto) {
-                std::string flags;
-                for (auto const& flag: randomizer_seed.info().flags) {
-                    if (flags.empty()) {
-                        flags += "\nFlags: ";
-                    } else {
-                        flags += ", ";
-                    }
-
-                    flags += flag;
-                }
-
-                std::string version = "0.0.0";
-                std::ifstream version_file(modloader::base_path() / "VERSION");
-                if (version_file.is_open()) {
-                    std::stringstream version_buffer;
-                    version_buffer << version_file.rdbuf();
-                    version = version_buffer.str();
-                }
-
-                core::message_controller().queue_central(
-                    {
-                        .text = core::Property<std::string>::format("v{} - Loaded {}{}", version, randomizer_seed.info().name, flags),
-                        .show_box = true,
-                        .prioritized = true,
-                    }
-                );
-
-                on_title_screen_handler = nullptr;
-            }
-        );
     } // namespace
+
+    std::string randomizer_version() {
+        std::string version = "0.0.0";
+        const std::ifstream version_file(modloader::base_path() / "VERSION");
+        if (version_file.is_open()) {
+            std::stringstream version_buffer;
+            version_buffer << version_file.rdbuf();
+            version = version_buffer.str();
+        }
+
+        return version;
+    }
 
     void reload() {
         if (network_client().wants_connection()) {

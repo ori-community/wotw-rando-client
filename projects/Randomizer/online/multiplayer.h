@@ -23,6 +23,7 @@ namespace randomizer::online {
         struct PlayerInfo {
             uint64_t universe_id;
             Network::WorldInfo world;
+            Network::UniverseInfo universe;
             Network::UserInfo user;
         };
 

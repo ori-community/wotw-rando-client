@@ -12,16 +12,16 @@ namespace core::api::graphics {
 
         Sprite(Sprite const&) = delete;
 
-        void layer(Layer l);
-        void local_position(app::Vector3 p);
-        void local_scale(app::Vector3 s);
-        void local_rotation(float r);
+        void layer(Layer l) const;
+        void local_position(app::Vector3 p) const;
+        void local_scale(app::Vector3 s) const;
+        void local_rotation(float r) const;
 
-        bool enabled();
-        void enabled(bool value);
+        bool enabled() const;
+        void enabled(bool value) const;
 
-        void texture(std::shared_ptr<textures::TextureData> texture_data, std::optional<textures::MaterialParams> params);
-        void set_parent(app::GameObject* parent);
+        void texture(const std::shared_ptr<textures::TextureData>& texture_data, std::optional<textures::MaterialParams> params = std::nullopt);
+        void set_parent(app::GameObject* parent) const;
 
     private:
         app::GameObject* m_root;

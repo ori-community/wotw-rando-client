@@ -7,6 +7,7 @@
 #include <ixwebsocket/IXWebSocket.h>
 #include <ixwebsocket/IXWebSocketMessage.h>
 
+#include <Common/event_bus.h>
 #include <packets.pb.h>
 
 #include <Modloader/udp_socket.h>
@@ -14,6 +15,13 @@
 namespace randomizer::online {
     class NetworkClient {
     public:
+        enum class State {
+            Connected,
+            Authenticating,
+            Reconnecting,
+            Closed,
+        };
+
         enum class StatusType {
             WebsocketConnected,
             WebsocketClosedUnexpected,
@@ -80,6 +88,8 @@ namespace randomizer::online {
             m_status_listener = std::move(callback);
         }
 
+        common::EventBus<State>& event_bus() { return m_event_bus; }
+
     private:
         void websocket_handle_message(ix::WebSocketMessagePtr const& msg);
         void udp_handle_message(std::vector<char> const& msg);
@@ -92,6 +102,7 @@ namespace randomizer::online {
         ix::WebSocket m_websocket;
         modloader::UDPSocket m_udp_socket;
         status_callback m_status_listener;
+        common::EventBus<State> m_event_bus;
 
         bool m_reconnect_websocket;
         bool m_reopen_udp;

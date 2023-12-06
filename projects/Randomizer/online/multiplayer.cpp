@@ -185,6 +185,7 @@ namespace randomizer::online {
                     auto& player = info_players[member.id()];
                     player.universe_id = universe->id();
                     player.world = world;
+                    player.universe = *universe;
                     player.user = member;
                 }
             }

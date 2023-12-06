@@ -4,6 +4,7 @@
 
 #include <Modloader/app/methods/UberShaderAPI.h>
 #include <Modloader/app/methods/UnityEngine/Material.h>
+#include <Modloader/app/methods/UnityEngine/Texture.h>
 #include <Modloader/app/methods/UnityEngine/Texture2D.h>
 #include <Modloader/app/structs/SpellIconsCollection_Icons__Boxed.h>
 #include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Boxed.h>
@@ -25,6 +26,7 @@
 #include <Core/api/game/game.h>
 #include <Core/utils/stb_image.h>
 
+#include <Modloader/app/structs/WrapMode__Enum.h>
 #include <filesystem>
 #include <string>
 #include <unordered_map>
@@ -367,6 +369,7 @@ namespace core::api::graphics::textures {
                 Texture2D::ctor_4(texture_ptr, x, y, format, false, false);
                 Texture2D::LoadRawTextureData_1(texture_ptr, png_data, x * y * n);
                 Texture2D::Apply_1(texture_ptr, true, false);
+                Texture::set_wrapMode(reinterpret_cast<app::Texture*>(texture_ptr), app::TextureWrapMode__Enum::Clamp);
                 stbi_image_free(png_data);
                 texture = il2cpp::gchandle_new(texture_ptr, false);
                 files[path] = texture.value();

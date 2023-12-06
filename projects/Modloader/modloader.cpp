@@ -117,7 +117,7 @@ namespace modloader {
             trace(MessageType::Info, "initialize", "Failed to bootstrap, shutting down.");
             shutdown_requested = true;
             on_error("Failed to bootstrap, shutting down.");
-            win::common::free_library_and_exit_thread("Modloader.dll");
+            win::common::force_exit(0);
         }
 
         trace(MessageType::Info, "initialize", "Performing intercepts.");
