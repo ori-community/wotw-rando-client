@@ -168,7 +168,7 @@ namespace randomizer::online_indicator {
             } else if (state == online::NetworkClient::State::Reconnecting) {
                 status_property.set("Reconnecting");
             } else if (state == online::NetworkClient::State::Connected) {
-                status_property.set("Online");
+                status_property.set("Connected");
             }
 
             last_state = state;
