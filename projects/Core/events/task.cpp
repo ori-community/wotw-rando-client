@@ -26,7 +26,7 @@ namespace core::events {
             seconds += timer;
             auto it = tasks.rbegin();
             // We use a reverse iterator as we assume later tasks take a longer time then earlier ones.
-            while (it != tasks.rend() && it->seconds < seconds) {
+            while (it != tasks.rend() && it->seconds <= seconds) {
                 ++it;
             }
 
