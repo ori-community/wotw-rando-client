@@ -17,9 +17,9 @@ namespace randomizer::seed {
     Seed::Seed(location_data::LocationCollection const& location_data) :
         m_location_data(location_data) {}
 
-    void Seed::read(const std::string_view path, const seed_parser parser, const bool show_message) {
+    void Seed::read(const std::filesystem::path& path, const seed_parser parser, const bool show_message) {
         m_last_parser = parser;
-        m_last_path = std::string(path);
+        m_last_path = path;
         reload(show_message);
     }
 
@@ -48,7 +48,7 @@ namespace randomizer::seed {
         m_data.info.locations = read_all(modloader::base_path() / "loc_data.csv");
         m_data.info.states = read_all(modloader::base_path() / "state_data.csv");
         if (!m_last_parser(m_last_path, m_location_data, m_data)) {
-            auto error_message = std::format("Failed to load seed '{}'", m_last_path);
+            auto error_message = std::format("Failed to load seed '{}'", m_last_path.string());
             if (!m_data.info.parser_error.empty()) {
                 error_message = m_data.info.parser_error;
             }
@@ -277,5 +277,13 @@ namespace randomizer::seed {
         }
 
         return true;
+    }
+
+    nlohmann::json SeedMetaData::json_serialize() {
+        return nlohmann::json(path);
+    }
+
+    void SeedMetaData::json_deserialize(nlohmann::json& j) {
+        j.get_to(path);
     }
 } // namespace randomizer::seed

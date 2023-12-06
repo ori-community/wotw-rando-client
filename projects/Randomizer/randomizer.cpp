@@ -18,13 +18,14 @@
 
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
-#include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/core.h>
 #include <Core/settings.h>
 
 #include <Modloader/modloader.h>
+#include <Modloader/app/methods/TitleScreenManager.h>
 
+#include <Core/api/game/ui.h>
 #include <fstream>
 
 namespace randomizer {
@@ -46,6 +47,8 @@ namespace randomizer {
                 .screen_position = core::api::messages::ScreenPosition::TopCenter,
             }
         );
+
+        std::shared_ptr<seed::SeedMetaData> seed_save_data;
 
         bool reach_check_queued = false;
         bool reach_check_in_progress = false;
@@ -152,8 +155,31 @@ namespace randomizer {
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
         }
 
+        void load_seed(const bool read_seed_name, const bool show_message) {
+            // TODO: Check if we need to download/receive the seed from the server.
+            event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::Before);
+            randomizer_location_collection.read(modloader::base_path() / "loc_data.csv", location_data::parse_location_data);
+            event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::After);
+
+            randomizer_state_data.clear();
+            parse_state_data(modloader::base_path() / "state_data.csv", randomizer_state_data);
+
+            if (read_seed_name) {
+                const std::ifstream seed_path_file(modloader::base_path() / ".currentseedpath");
+                if (seed_path_file.is_open()) {
+                    std::stringstream seed_path_buffer;
+                    seed_path_buffer << seed_path_file.rdbuf();
+                    seed_save_data->path = seed_path_buffer.str();
+                }
+            }
+
+            randomizer_seed.read(seed_save_data->path, seed::legacy_parser::parse, show_message);
+        }
+
         auto on_after_seed_load = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) { seed_loaded(); });
-        auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [](auto, auto) { seed_loaded(); });
+        auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [](auto, auto) {
+            load_seed(false, false);
+        });
 
         auto on_restore_checkpoint = core::api::game::event_bus().register_handler(
             GameEvent::RestoreCheckpoint,
@@ -168,23 +194,6 @@ namespace randomizer {
                 randomizer_seed.grant(params.state, params.previous_value);
             }
         );
-
-        void load_seed(bool show_message) {
-            // TODO: Check if we need to download/receive the seed from the server.
-            std::ifstream seed_name(modloader::base_path() / ".currentseedpath");
-            if (seed_name.is_open()) {
-                std::stringstream seed_name_buffer;
-                seed_name_buffer << seed_name.rdbuf();
-                event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::Before);
-                randomizer_location_collection.read(modloader::base_path() / "loc_data.csv", location_data::parse_location_data);
-                event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::After);
-                randomizer_state_data.clear();
-                state_data::parse_state_data(modloader::base_path() / "state_data.csv", randomizer_state_data);
-                randomizer_seed.read(seed_name_buffer.str(), seed::legacy_parser::parse, show_message);
-            } else {
-                randomizer_seed.reload(show_message);
-            }
-        }
 
         auto on_game_ready = modloader::event_bus().register_handler(
             ModloaderEvent::GameReady,
@@ -208,12 +217,17 @@ namespace randomizer {
                 text_processor->compose(std::make_shared<text_processors::MultiplayerProcessor>());
 
                 core::message_controller().central_display().text_processor(text_processor);
-                load_seed(false);
+                seed_save_data = std::make_unique<seed::SeedMetaData>();
+                load_seed(true, false);
                 if (!core::settings::netcode_disabled() && randomizer_seed.info().net_code_enabled) {
                     server_connect();
                 }
             }
         );
+
+        IL2CPP_INTERCEPT(TitleScreenManager, void, OnReturnToTitleScreen, ()) {
+            load_seed(true, false);
+        }
     } // namespace
 
     semver::version randomizer_version() {
@@ -237,7 +251,7 @@ namespace randomizer {
         }
 
         core::settings::reload();
-        load_seed(true);
+        load_seed(TitleScreenManager::get_MainMenuActive(), true);
         if (!core::settings::netcode_disabled() && randomizer_seed.info().net_code_enabled) {
             server_connect();
         }

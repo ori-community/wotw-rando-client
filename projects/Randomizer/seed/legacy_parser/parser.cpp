@@ -2001,8 +2001,8 @@ namespace randomizer::seed::legacy_parser {
         return semver::range::satisfies(version, ">=1.0.0 <=1.0.0");
     }
 
-    bool parse(std::string_view path, location_data::LocationCollection const& location_data, Seed::Data& data) {
-        std::ifstream seed_file(path.data());
+    bool parse(const std::filesystem::path& path, location_data::LocationCollection const& location_data, Seed::Data& data) {
+        std::ifstream seed_file(path);
         if (!seed_file.is_open()) {
             return false;
         }
@@ -2027,7 +2027,7 @@ namespace randomizer::seed::legacy_parser {
 
         if (!is_seed_version_supported(data.info.version)) {
             modloader::warn("legacy_seed_parser", "Failed to load seed due to incompatible version");
-            data.info.parser_error = std::format("Failed to load seed '{}'\ndue to version incompatibility", path);
+            data.info.parser_error = std::format("Failed to load seed '{}'\ndue to version incompatibility", path.string());
             return false;
         }
 

@@ -3,6 +3,6 @@
 #include <Randomizer/seed/seed.h>
 
 namespace randomizer::seed::legacy_parser {
-    bool parse(std::string_view path, location_data::LocationCollection const& location_data, Seed::Data& data);
+    bool parse(const std::filesystem::path& path, location_data::LocationCollection const& location_data, Seed::Data& data);
     std::optional<ItemData> parse_action(std::string_view action);
 } // namespace randomizer::seed::legacy_parser

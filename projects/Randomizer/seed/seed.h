@@ -8,8 +8,9 @@
 #include <Randomizer/seed/item_data.h>
 #include <Randomizer/seed/relics.h>
 
-#include <unordered_map>
+#include <Core/save_meta/save_meta.h>
 #include <neargye/semver.hpp>
+#include <unordered_map>
 
 namespace randomizer::seed {
     class Seed {
@@ -47,11 +48,11 @@ namespace randomizer::seed {
             std::unordered_map<int, ItemData> procedures;
         };
 
-        using seed_parser = bool (*)(std::string_view path, location_data::LocationCollection const& location_data, Data& data);
+        using seed_parser = bool (*)(const std::filesystem::path& path, location_data::LocationCollection const& location_data, Data& data);
 
         Seed(location_data::LocationCollection const& location_data);
 
-        void read(std::string_view path, seed_parser parser, bool show_message = true);
+        void read(const std::filesystem::path& path, seed_parser parser, bool show_message = true);
         void reload(bool show_message = true);
         void clear();
 
@@ -64,7 +65,7 @@ namespace randomizer::seed {
         SeedInfo const& info() const { return m_data.info; }
         int total_pickups() const { return m_data.info.total_pickups; }
 
-        std::string path() const { return m_last_path; }
+        std::filesystem::path path() const { return m_last_path; }
 
         Relics const& relics() const { return m_data.relics; }
         bool finished_goals() const;
@@ -74,8 +75,17 @@ namespace randomizer::seed {
     private:
         location_data::LocationCollection const& m_location_data;
         seed_parser m_last_parser = nullptr;
-        std::string m_last_path;
+        std::filesystem::path m_last_path;
         Data m_data;
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
+    };
+
+
+    class SeedMetaData final : public core::save_meta::JsonSaveMetaSerializable {
+    public:
+        std::filesystem::path path;
+
+        nlohmann::json json_serialize() override;
+        void json_deserialize(nlohmann::json& j) override;
     };
 } // namespace randomizer::seed
