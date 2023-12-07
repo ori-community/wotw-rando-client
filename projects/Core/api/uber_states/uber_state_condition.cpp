@@ -1,10 +1,23 @@
 #include <Core/api/uber_states/uber_state_condition.h>
 #include <Modloader/modloader.h>
 
-#include <format>
 #include <Common/ext.h>
+#include <format>
 
 namespace core::api::uber_states {
+    UberStateCondition::UberStateCondition() : UberStateCondition(UberState()) {}
+
+    UberStateCondition::UberStateCondition(const UberState& state, const BooleanOperator op, const double value) :
+        state(state),
+        op(op),
+        value(value) {}
+
+    UberStateCondition::UberStateCondition(const int group, const int state, const BooleanOperator op, const double value) :
+        UberStateCondition(UberState(group, state), op, value) {}
+
+    UberStateCondition::UberStateCondition(const UberStateGroup group, const int state, const BooleanOperator op, const double value) :
+        UberStateCondition(UberState(group, state), op, value) {}
+
     bool UberStateCondition::resolve() const {
         if (!state.valid()) {
             return false;
@@ -13,9 +26,7 @@ namespace core::api::uber_states {
         return resolve(state, state.get<double>());
     }
 
-    bool UberStateCondition::resolve(double state_value) const {
-        return resolve(state, state_value);
-    }
+    bool UberStateCondition::resolve(double state_value) const { return resolve(state, state_value); }
 
     bool UberStateCondition::resolve(UberState compared_state, double state_value) const {
         if (!state.valid() || !compared_state.valid() || state != compared_state) {
@@ -50,13 +61,7 @@ namespace core::api::uber_states {
                 break;
         }
 
-        return std::format(
-            "{}|{}{}{}",
-            state.group_int(),
-            state.state(),
-            op_string,
-            op_string.empty() ? "" : std::format("{}", value)
-        );
+        return std::format("{}|{}{}{}", state.group_int(), state.state(), op_string, op_string.empty() ? "" : std::format("{}", value));
     }
 
     std::string UberStateCondition::to_string(bool use_names, std::optional<double> previous_value) const {

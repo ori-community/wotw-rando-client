@@ -3,11 +3,11 @@
 #include <Core/settings.h>
 
 #include <Randomizer/game/map/map.h>
+#include <Randomizer/game/shops/shop.h>
 #include <Randomizer/randomizer.h>
 
 namespace randomizer::game::map {
     namespace {
-
         std::string icon_label(const std::optional<location_data::Location>& location, const core::api::uber_states::UberStateCondition& condition) {
             auto name = location.has_value() && !location->name.empty() ? location->name : " ";
             return std::format("[no_color([if([state_bool(34543|11226)],[pickup_text({0})],{1})])]", condition.serialize(), name);
@@ -32,7 +32,6 @@ namespace randomizer::game::map {
                 case location_data::LocationType::ShardSlot:
                     return MapIcon::ShardSlotUpgrade;
                 case location_data::LocationType::Keystone:
-                    return MapIcon::Keystone;
                 case location_data::LocationType::Eyestone:
                     return MapIcon::Keystone;
                 case location_data::LocationType::Quest:
@@ -50,6 +49,38 @@ namespace randomizer::game::map {
                 default:
                     throw std::exception("Unknown location type");
             }
+        }
+
+        IconVisibilityResult check_shop(std::vector<shops::ShopSlot*> const& slots) {
+            if (active_filter() == Filters::Spoilers) {
+                return IconVisibilityResult::Show;
+            }
+
+            bool in_logic = false;
+            bool all_bought = true;
+            for (auto const& slot: slots) {
+                if (all_bought && !slot->state.get<bool>()) {
+                    all_bought = false;
+                }
+
+                if (!in_logic && reach_check().reachable(core::api::uber_states::UberStateCondition(slot->state))) {
+                    in_logic = true;
+                }
+
+                if (in_logic && !all_bought) {
+                    break;
+                }
+            }
+
+            if (all_bought) {
+                return IconVisibilityResult::Hide;
+            }
+
+            return in_logic //
+                ? IconVisibilityResult::Show
+                : eps_equals(core::settings::map_icon_transparency(), 0.f) //
+                    ? IconVisibilityResult::Hide
+                    : IconVisibilityResult::ShowTransparent;
         }
 
         auto initialized = false;
@@ -105,17 +136,7 @@ namespace randomizer::game::map {
             icon->name().set("MarshPastOpher.Opher");
             icon->position().set({-597.1f, -4291.3f});
             add_icon_visibility_callback(icon, [](auto) {
-                if (active_filter() == Filters::Spoilers) {
-                    return IconVisibilityResult::Show;
-                }
-
-                const auto is_reachable = reach_check().reachable({
-                    core::api::uber_states::UberState(UberStateGroup::OpherShop, 23),
-                    BooleanOperator::Greater,
-                    0,
-                });
-
-                return is_reachable ? IconVisibilityResult::Show : IconVisibilityResult::ShowTransparent;
+                return check_shop(shops::opher_shop().slots());
             });
 
             icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
@@ -124,17 +145,7 @@ namespace randomizer::game::map {
             icon->name().set("WestHollow.Twillen");
             icon->position().set({-281.3f, -4236.4f});
             add_icon_visibility_callback(icon, [](auto) {
-                if (active_filter() == Filters::Spoilers) {
-                    return IconVisibilityResult::Show;
-                }
-
-                const auto is_reachable = reach_check().reachable({
-                    core::api::uber_states::UberState(UberStateGroup::TwillenShop, 26),
-                    BooleanOperator::Greater,
-                    0,
-                });
-
-                return is_reachable ? IconVisibilityResult::Show : IconVisibilityResult::ShowTransparent;
+                return check_shop(shops::twillen_shop().slots());
             });
 
             icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
@@ -143,17 +154,7 @@ namespace randomizer::game::map {
             icon->name().set("GladesTown.Opher");
             icon->position().set({-203.9f, -4146.4f});
             add_icon_visibility_callback(icon, [](auto) {
-                if (active_filter() == Filters::Spoilers) {
-                    return IconVisibilityResult::Show;
-                }
-
-                const auto is_reachable = reach_check().reachable({
-                    core::api::uber_states::UberState(UberStateGroup::OpherShop, 23),
-                    BooleanOperator::Greater,
-                    0,
-                });
-
-                return is_reachable ? IconVisibilityResult::Show : IconVisibilityResult::ShowTransparent;
+                return check_shop(shops::opher_shop().slots());
             });
 
             icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
@@ -162,17 +163,7 @@ namespace randomizer::game::map {
             icon->name().set("GladesTown.Lupo");
             icon->position().set({-212.3f, -4158.8f});
             add_icon_visibility_callback(icon, [](auto) {
-                if (active_filter() == Filters::Spoilers) {
-                    return IconVisibilityResult::Show;
-                }
-
-                const auto is_reachable = reach_check().reachable({
-                    core::api::uber_states::UberState(UberStateGroup::npcsStateGroup, 19397),
-                    BooleanOperator::Greater,
-                    0,
-                });
-
-                return is_reachable ? IconVisibilityResult::Show : IconVisibilityResult::ShowTransparent;
+                return check_shop(shops::lupo_shop().slots());
             });
 
             // Glades Twillen
@@ -182,17 +173,27 @@ namespace randomizer::game::map {
             icon->name().set("GladesTown.Twillen");
             icon->position().set({-410.5f, -4158.9f});
             add_icon_visibility_callback(icon, [](auto) {
-                if (active_filter() == Filters::Spoilers) {
-                    return IconVisibilityResult::Show;
-                }
+                return check_shop(shops::twillen_shop().slots());
+            });
 
-                const auto is_reachable = reach_check().reachable({
-                    core::api::uber_states::UberState(UberStateGroup::TwillenShop, 26),
-                    BooleanOperator::Greater,
-                    0,
-                });
+            // Glades Grom
+            icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
+            icon->icon().set(MapIcon::Builder);
+            icon->label().set("Grom");
+            icon->name().set("GladesTown.Grom");
+            icon->position().set({-319.1f, -4150.1f});
+            add_icon_visibility_callback(icon, [](auto) {
+                return check_shop(shops::grom_shop().slots());
+            });
 
-                return is_reachable ? IconVisibilityResult::Show : IconVisibilityResult::ShowTransparent;
+            // Glades Tuley
+            icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
+            icon->icon().set(MapIcon::Gardener);
+            icon->label().set("Tuley");
+            icon->name().set("GladesTown.Tuley");
+            icon->position().set({-170.0f, -4137.7f});
+            add_icon_visibility_callback(icon, [](auto) {
+                return check_shop(shops::tuley_shop().slots());
             });
 
             // Wellspring Opher
@@ -202,17 +203,7 @@ namespace randomizer::game::map {
             icon->name().set("InnerWellspring.Opher");
             icon->position().set({-1259.7f, -3675.5f});
             add_icon_visibility_callback(icon, [](auto) {
-                if (active_filter() == Filters::Spoilers) {
-                    return IconVisibilityResult::Show;
-                }
-
-                const auto is_reachable = reach_check().reachable({
-                    core::api::uber_states::UberState(UberStateGroup::OpherShop, 23),
-                    BooleanOperator::Greater,
-                    0,
-                });
-
-                return is_reachable ? IconVisibilityResult::Show : IconVisibilityResult::ShowTransparent;
+                return check_shop(shops::opher_shop().slots());
             });
         });
     } // namespace

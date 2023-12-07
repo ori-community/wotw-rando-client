@@ -129,7 +129,7 @@ namespace il2cpp {
             auto transform = get_transform(go);
             path = get_object_name(transform);
             transform = get_parent(transform);
-            while (il2cpp::unity::is_valid(transform)) {
+            while (is_valid(transform)) {
                 path = std::format("{}/{}", get_object_name(transform), path);
                 transform = get_parent(transform);
             }
@@ -144,7 +144,7 @@ namespace il2cpp {
                 return path;
 
             auto transform = get_transform(go);
-            while (il2cpp::unity::is_valid(transform)) {
+            while (is_valid(transform)) {
                 path.push_back(get_object_name(transform));
                 transform = get_parent(transform);
             }
@@ -419,7 +419,7 @@ namespace il2cpp {
 
         std::string get_object_name(void* object) {
             const auto cast_object = static_cast<app::Object_1*>(object);
-            if (is_valid(cast_object)) {
+            if (!is_valid(cast_object)) {
                 return "nullptr";
             }
 
@@ -428,7 +428,7 @@ namespace il2cpp {
 
         app::String* get_object_csname(void* object) {
             const auto cast_object = static_cast<app::Object_1*>(object);
-            if (is_valid(cast_object)) {
+            if (!is_valid(cast_object)) {
                 return nullptr;
             }
 

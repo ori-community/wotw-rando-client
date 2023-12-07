@@ -18,7 +18,11 @@
 
 namespace core::api::uber_states {
     struct CORE_DLLEXPORT UberStateCondition {
-    public:
+        UberStateCondition();
+        explicit UberStateCondition(const UberState& state, BooleanOperator op = BooleanOperator::Greater, double value = 0.0f);
+        explicit UberStateCondition(int group, int state, BooleanOperator op = BooleanOperator::Greater, double value = 0.0f);
+        explicit UberStateCondition(UberStateGroup group, int state, BooleanOperator op = BooleanOperator::Greater, double value = 0.0f);
+
         UberState state;
         BooleanOperator op;
         double value;
