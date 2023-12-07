@@ -74,8 +74,9 @@ namespace il2cpp {
                     info.param_count = method->parameters_count;
                     info.methods.push_back(method);
                     overloads.push_back(std::move(info));
-                } else
+                } else {
                     method_overload_info->methods.push_back(method);
+                }
             }
 
             it = nullptr;
@@ -102,14 +103,19 @@ namespace il2cpp {
         }
 
         app::GameObject* convert(void* obj) {
-            if (!il2cpp::unity::is_valid(obj))
+            if (!unity::is_valid(obj)) {
                 return nullptr;
-            if (il2cpp::is_assignable(obj, "UnityEngine", "GameObject"))
-                return reinterpret_cast<app::GameObject*>(obj);
-            else if (il2cpp::is_assignable(obj, "UnityEngine", "Component"))
-                return UnityEngine::Component::get_gameObject(reinterpret_cast<app::Component_1*>(obj));
-            else
-                return nullptr;
+            }
+
+            if (is_assignable(obj, "UnityEngine", "GameObject")) {
+                return static_cast<app::GameObject*>(obj);
+            }
+
+            if (is_assignable(obj, "UnityEngine", "Component")) {
+                return UnityEngine::Component::get_gameObject(static_cast<app::Component_1*>(obj));
+            }
+
+            return nullptr;
         }
     } // namespace
 
@@ -205,49 +211,68 @@ namespace il2cpp {
         app::Transform* get_parent(void* object) { return UnityEngine::Transform::get_parent(get_transform(object)); }
 
         void set_parent(void* child, void* parent, bool keep_local) {
-            auto child_transform = get_transform(child);
+            if (!is_valid(child)) {
+                return;
+            }
+
+            const auto child_transform = get_transform(child);
             if (keep_local) {
-                auto pos = get_local_position(child_transform);
-                auto rot = UnityEngine::Transform::get_localRotation(child_transform);
-                auto scale = get_local_scale(child_transform);
+                const auto pos = get_local_position(child_transform);
+                const auto rot = UnityEngine::Transform::get_localRotation(child_transform);
+                const auto scale = get_local_scale(child_transform);
                 UnityEngine::Transform::set_parent(get_transform(child), get_transform(parent));
                 set_local_position(child_transform, pos);
                 UnityEngine::Transform::set_localRotation(child_transform, rot);
                 set_local_scale(child_transform, scale);
-            } else
+            } else {
                 UnityEngine::Transform::set_parent(get_transform(child), get_transform(parent));
+            }
         }
 
         bool get_active(void* object) {
-            auto go = get_game_object(object);
-            return UnityEngine::GameObject::get_active(go);
+            const auto go = get_game_object(object);
+            return is_valid(go) ? UnityEngine::GameObject::get_active(go) : false;
         }
 
         bool get_active_self(void* object) {
-            auto go = get_game_object(object);
-            return UnityEngine::GameObject::get_activeSelf(go);
+            const auto go = get_game_object(object);
+            return is_valid(go) ? UnityEngine::GameObject::get_activeSelf(go) : false;
         }
 
         void set_active(void* object, bool value) {
-            auto go = get_game_object(object);
-            UnityEngine::GameObject::SetActive(go, value);
+            const auto go = get_game_object(object);
+            if (is_valid(go)) {
+                UnityEngine::GameObject::SetActive(go, value);
+            }
         }
 
         void set_active_recursively(void* object, bool value) {
             auto go = get_game_object(object);
-            UnityEngine::GameObject::SetActiveRecursively(go, value);
+            if (is_valid(go)) {
+                UnityEngine::GameObject::SetActiveRecursively(go, value);
+            }
         }
 
         app::Transform* get_transform(void* object) {
+            if (!is_valid(object)) {
+                return nullptr;
+            }
+
             app::GameObject* go = nullptr;
-            if (il2cpp::is_assignable(object, "UnityEngine", "Transform"))
-                return reinterpret_cast<app::Transform*>(object);
-            else if (il2cpp::is_assignable(object, "UnityEngine", "GameObject"))
-                go = reinterpret_cast<app::GameObject*>(object);
-            else if (il2cpp::is_assignable(object, "UnityEngine", "Component"))
+            if (is_assignable(object, "UnityEngine", "Transform")) {
+                return static_cast<app::Transform*>(object);
+            }
+
+            if (is_assignable(object, "UnityEngine", "GameObject")) {
+                go = static_cast<app::GameObject*>(object);
+            }
+            else if (is_assignable(object, "UnityEngine", "Component")) {
                 go = get_game_object(object);
-            else
+            }
+            else {
                 modloader::error("il2cpp", "Tried to get transform of non gameobject/component class");
+                return nullptr;
+            }
 
             return UnityEngine::GameObject::get_transform(go);
         }
@@ -282,23 +307,22 @@ namespace il2cpp {
 
         app::GameObject* find_child(void* obj, std::vector<std::string> const& path) {
             for (auto const& name: path) {
-                if (obj == nullptr)
+                if (obj == nullptr) {
                     break;
+                }
 
                 obj = find_child(obj, name);
             }
 
-            return reinterpret_cast<app::GameObject*>(obj);
+            return static_cast<app::GameObject*>(obj);
         }
 
         std::vector<app::GameObject*> find_children(void* obj, std::string_view name) {
             std::vector<app::GameObject*> children;
-
-            auto transform = get_transform(obj);
-            auto child_count = UnityEngine::Transform::get_childCount(transform);
-
+            const auto transform = get_transform(obj);
+            const auto child_count = UnityEngine::Transform::get_childCount(transform);
             for (int i = 0; i < child_count; i++) {
-                if (il2cpp::convert_csstring(UnityEngine::Object::get_name(reinterpret_cast<app::Object_1*>(UnityEngine::Transform::GetChild(transform, i)))) ==
+                if (convert_csstring(UnityEngine::Object::get_name(reinterpret_cast<app::Object_1*>(UnityEngine::Transform::GetChild(transform, i)))) ==
                     name) {
                     children.push_back(get_game_object(transform));
                 }
@@ -309,8 +333,9 @@ namespace il2cpp {
 
         std::vector<app::GameObject*> find_children(void* obj, std::vector<std::string_view> const& path) {
             for (auto segment = path.begin(); segment != std::prev(path.end()); segment++) {
-                if (obj == nullptr)
+                if (obj == nullptr) {
                     return {};
+                }
 
                 obj = find_child(obj, *segment);
             }
@@ -320,8 +345,9 @@ namespace il2cpp {
 
         std::vector<app::GameObject*> find_children(void* obj, std::vector<std::string> const& path) {
             for (auto segment = path.begin(); segment != std::prev(path.end()); segment++) {
-                if (obj == nullptr)
+                if (obj == nullptr) {
                     return {};
+                }
 
                 obj = find_child(obj, *segment);
             }
@@ -369,11 +395,21 @@ namespace il2cpp {
             return UnityEngine::ScriptableObject::CreateInstance_1(resolved_class_types[klass]);
         }
 
-        void* instantiate_object_untyped(void* object) { return UnityEngine::Object::Instantiate_3(reinterpret_cast<app::Object_1*>(object)); }
+        void* instantiate_object_untyped(void* object) {
+            return is_valid(object) ? UnityEngine::Object::Instantiate_3(static_cast<app::Object_1*>(object)) : nullptr;
+        }
 
-        void destroy_object(void* object) { UnityEngine::Object::Destroy_2(reinterpret_cast<app::Object_1*>(object)); }
+        void destroy_object(void* object) {
+            if (is_valid(object)) {
+                UnityEngine::Object::Destroy_2(static_cast<app::Object_1*>(object));
+            }
+        }
 
-        void destroy_object_immediately(void* object) { UnityEngine::Object::DestroyImmediate_2(reinterpret_cast<app::Object_1*>(object)); }
+        void destroy_object_immediately(void* object) {
+            if (is_valid(object)) {
+                UnityEngine::Object::DestroyImmediate_2(static_cast<app::Object_1*>(object));
+            }
+        }
 
         app::GameObject* get_game_object(void* component) { return convert(component); }
 
@@ -382,18 +418,19 @@ namespace il2cpp {
         }
 
         std::string get_object_name(void* object) {
-            auto cast_object = static_cast<app::Object_1*>(object);
-            if (cast_object == nullptr)
+            const auto cast_object = static_cast<app::Object_1*>(object);
+            if (is_valid(cast_object)) {
                 return "nullptr";
+            }
 
-            auto csstr = UnityEngine::Object::get_name(cast_object);
-            return convert_csstring(csstr);
+            return convert_csstring(UnityEngine::Object::get_name(cast_object));
         }
 
         app::String* get_object_csname(void* object) {
-            auto cast_object = static_cast<app::Object_1*>(object);
-            if (cast_object == nullptr)
+            const auto cast_object = static_cast<app::Object_1*>(object);
+            if (is_valid(cast_object)) {
                 return nullptr;
+            }
 
             return UnityEngine::Object::get_name(cast_object);
         }
@@ -408,7 +445,7 @@ namespace il2cpp {
 
         std::vector<app::GameObject*> get_root_game_objects(app::Scene& scene) {
             std::vector<app::GameObject*> output;
-            auto boxed = types::Scene::box(scene);
+            const auto boxed = types::Scene::box(scene);
             if (UnityEngine::SceneManagement::Scene::get_isLoaded(boxed)) {
                 auto game_objects = UnityEngine::SceneManagement::Scene::GetRootGameObjects_1(boxed);
                 for (auto go: ArrayIterator(game_objects)) {
@@ -419,24 +456,25 @@ namespace il2cpp {
             return output;
         }
 
-        std::string get_scene_name(app::Scene& scene) {
-            auto boxed = types::Scene::box(scene);
-            auto csstring = UnityEngine::SceneManagement::Scene::get_name(boxed);
+        std::string get_scene_name(const app::Scene& scene) {
+            const auto boxed = types::Scene::box(scene);
+            const auto csstring = UnityEngine::SceneManagement::Scene::get_name(boxed);
             return convert_csstring(csstring);
         }
 
-        std::string get_scene_path(app::Scene& scene) {
-            auto boxed = box_value<app::Scene__Boxed>(get_class("UnityEngine.SceneManagement", "Scene"), scene);
-            auto csstring = UnityEngine::SceneManagement::Scene::get_path(boxed);
+        std::string get_scene_path(const app::Scene& scene) {
+            const auto boxed = box_value<app::Scene__Boxed>(get_class("UnityEngine.SceneManagement", "Scene"), scene);
+            const auto csstring = UnityEngine::SceneManagement::Scene::get_path(boxed);
             return convert_csstring(csstring);
         }
     } // namespace unity
 
     namespace untyped {
         Il2CppObject* create_object(std::string_view namezpace, std::string_view klass, std::string_view nested) {
-            auto actual_klass = get_nested_class(namezpace, klass, nested);
-            if (actual_klass == nullptr)
+            const auto actual_klass = get_nested_class(namezpace, klass, nested);
+            if (actual_klass == nullptr) {
                 return nullptr;
+            }
 
             return create_object(actual_klass);
         }

@@ -43,14 +43,14 @@ namespace randomizer::seed {
         }
 
         event_bus().trigger_event(RandomizerEvent::SeedLoaded, EventTiming::Before);
-        clear();
-        m_data.info.areas = read_all(modloader::base_path() / "areas.wotw");
-        m_data.info.locations = read_all(modloader::base_path() / "loc_data.csv");
-        m_data.info.states = read_all(modloader::base_path() / "state_data.csv");
-        if (!m_last_parser(m_last_path, m_location_data, m_data)) {
+        Data data;
+        data.info.areas = read_all(modloader::base_path() / "areas.wotw");
+        data.info.locations = read_all(modloader::base_path() / "loc_data.csv");
+        data.info.states = read_all(modloader::base_path() / "state_data.csv");
+        if (!m_last_parser(m_last_path, m_location_data, data)) {
             auto error_message = std::format("Failed to load seed '{}'", m_last_path.string());
             if (!m_data.info.parser_error.empty()) {
-                error_message = m_data.info.parser_error;
+                error_message = data.info.parser_error;
             }
 
             core::message_controller().queue_central({
@@ -61,6 +61,8 @@ namespace randomizer::seed {
             return;
         }
 
+        clear();
+        m_data = data;
         for (auto& inner_locations: m_data.locations | std::views::values) {
             for (const auto& location: inner_locations | std::views::keys) {
                 auto area = m_location_data.area(location);

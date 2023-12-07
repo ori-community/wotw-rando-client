@@ -74,9 +74,12 @@ enum class MapIcon {
     Siira = 75,
 
     // Rando Icons
-    CleanWater = 76,
-    BonusItem = 77,
-    LaunchFragment = 78,
+    TeleporterInactive = 76,
+    RaceStartUnfinished = 77,
+
+    CleanWater = 100,
+    BonusItem = 101,
+    LaunchFragment = 102,
 };
 
 CORE_DLLEXPORT app::GameObject* map_icon_to_game_object(MapIcon icon);

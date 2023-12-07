@@ -299,9 +299,9 @@ namespace il2cpp {
 
         IL2CPP_MODLOADER_DLLEXPORT std::string get_object_name(void* object);
 
-        IL2CPP_MODLOADER_DLLEXPORT std::string get_scene_name(app::Scene& scene);
+        IL2CPP_MODLOADER_DLLEXPORT std::string get_scene_name(const app::Scene& scene);
 
-        IL2CPP_MODLOADER_DLLEXPORT std::string get_scene_path(app::Scene& scene);
+        IL2CPP_MODLOADER_DLLEXPORT std::string get_scene_path(const app::Scene& scene);
 
         template<typename T>
         T* instantiate_object(T* object) {

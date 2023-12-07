@@ -96,11 +96,6 @@ namespace randomizer::game::map {
                 return;
             }
 
-            if (m_icon.get() == MapIcon::RaceStart) {
-                UnityEngine::GameObject::set_active(m_map_icon.get()->fields.MapIconActive, true);
-                UnityEngine::GameObject::set_active(m_map_icon.get()->fields.MapIconSpecial, false);
-            }
-
             if (m_map_icon.get()->fields.AttentionMarker != nullptr) {
                 UnityEngine::GameObject::set_active(m_map_icon.get()->fields.AttentionMarker, false);
                 m_map_icon.get()->fields.AttentionMarkerState = nullptr;

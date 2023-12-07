@@ -2,6 +2,7 @@
 Language: Cpp
 BasedOnStyle: LLVM
 AccessModifierOffset: -4
+AlignArrayOfStructures: Left
 AlignAfterOpenBracket: BlockIndent
 AlignConsecutiveAssignments:
   Enabled: false
