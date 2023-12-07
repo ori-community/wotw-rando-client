@@ -26,6 +26,7 @@
 #include <Modloader/app/methods/TitleScreenManager.h>
 
 #include <Core/api/game/ui.h>
+#include <Core/api/scenes/scene_load.h>
 #include <fstream>
 
 namespace randomizer {
@@ -218,7 +219,7 @@ namespace randomizer {
 
                 core::message_controller().central_display().text_processor(text_processor);
                 seed_save_data = std::make_unique<seed::SeedMetaData>();
-                register_slot(SaveMetaSlot::SeedFilePath, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, seed_save_data);
+                register_slot(SaveMetaSlot::SeedFilePath, SaveMetaSlotPersistence::None, seed_save_data);
                 load_seed(true, false);
                 if (!core::settings::netcode_disabled() && randomizer_seed.info().net_code_enabled) {
                     server_connect();
@@ -226,10 +227,11 @@ namespace randomizer {
             }
         );
 
-        IL2CPP_INTERCEPT(TitleScreenManager, void, OnReturnToTitleScreen, ()) {
-            next::TitleScreenManager::OnReturnToTitleScreen();
-            load_seed(true, false);
-        }
+        auto on_title_screen_loaded = core::api::scenes::single_event_bus().register_handler("wotwTitleScreen", [](const auto meta_data, auto) {
+            if (meta_data->state == app::SceneState__Enum::Loaded) {
+                load_seed(true, false);
+            }
+        });
     } // namespace
 
     semver::version randomizer_version() {
