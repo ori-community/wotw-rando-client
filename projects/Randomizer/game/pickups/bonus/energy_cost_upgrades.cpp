@@ -1,11 +1,10 @@
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
-#include <Randomizer/macros.h>
-
-#include <Modloader/interception_macros.h>
 
 #include <unordered_map>
 #include <vector>
+#include <Core/api/game/game.h>
+#include <Modloader/modloader.h>
 
 using namespace modloader;
 
@@ -69,7 +68,7 @@ namespace {
         sentry->fields.BalancingData->fields.EnergyCost = cost[0] * modifier;
     }
 
-    void update_spike(float modifier) {
+    void update_spear(float modifier) {
         auto& cost = initial_costs[app::AbilityType__Enum::SpiritSpearSpell];
         auto* sein = core::api::game::player::sein();
         if (sein == nullptr) {
@@ -190,16 +189,47 @@ namespace {
             }
         }
     }
-} // namespace
 
-// TODO: Change this into an uberstate notifier.
-RANDOMIZER_C_DLLEXPORT void refresh_ability_energy_modifiers() {
-    update_blaze(blaze_cost.get<float>());
-    update_spike(spear_cost.get<float>());
-    update_shuriken(shuriken_cost.get<float>());
-    update_sentry(sentry_cost.get<float>());
-    update_bow(bow_cost.get<float>());
-    update_regeneration(regeneration_cost.get<float>());
-    update_flash(flash_cost.get<float>());
-    update_grenade(grenade_cost.get<float>());
-}
+    std::vector<std::shared_ptr<core::reactivity::ReactiveEffect>> effects;
+    auto _ = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        core::reactivity::watch_effect()
+                .effect([&] { blaze_cost.get(); })
+                .after([&] { update_blaze(blaze_cost.get<float>()); })
+                .finalize(effects);
+
+        core::reactivity::watch_effect()
+                .effect([&] { spear_cost.get(); })
+                .after([&] { update_spear(spear_cost.get<float>()); })
+                .finalize(effects);
+
+        core::reactivity::watch_effect()
+                .effect([&] { shuriken_cost.get(); })
+                .after([&] { update_shuriken(shuriken_cost.get<float>()); })
+                .finalize(effects);
+
+        core::reactivity::watch_effect()
+                .effect([&] { sentry_cost.get(); })
+                .after([&] { update_sentry(sentry_cost.get<float>()); })
+                .finalize(effects);
+
+        core::reactivity::watch_effect()
+                .effect([&] { bow_cost.get(); })
+                .after([&] { update_bow(bow_cost.get<float>()); })
+                .finalize(effects);
+
+        core::reactivity::watch_effect()
+                .effect([&] { regeneration_cost.get(); })
+                .after([&] { update_regeneration(regeneration_cost.get<float>()); })
+                .finalize(effects);
+
+        core::reactivity::watch_effect()
+                .effect([&] { flash_cost.get(); })
+                .after([&] { update_flash(flash_cost.get<float>()); })
+                .finalize(effects);
+
+        core::reactivity::watch_effect()
+                .effect([&] { grenade_cost.get(); })
+                .after([&] { update_grenade(grenade_cost.get<float>()); })
+                .finalize(effects);
+    });
+} // namespace
