@@ -46,6 +46,8 @@ namespace randomizer::game::map {
                     return MapIcon::QuestItem;
                 case location_data::LocationType::Unknown:
                     return MapIcon::Eyestone; // Invisible
+                case location_data::LocationType::MapShop:
+                    return MapIcon::Mapmaker;
                 default:
                     throw std::exception("Unknown location type");
             }
@@ -93,18 +95,20 @@ namespace randomizer::game::map {
             initialized = true;
             for (auto i = 0; i < static_cast<int>(GameArea::TOTAL); ++i) {
                 const auto area = static_cast<GameArea>(i);
-                if (area == GameArea::Void || area == GameArea::Shop) {
+                if (area == GameArea::Void) {
                     continue;
                 }
 
                 for (const auto& location: location_collection().locations(area)) {
-                    if (!location.map_position.has_value()) {
+                    if (!location.map_position.has_value() || location.type == location_data::LocationType::Shop) {
                         continue;
                     }
 
                     const auto icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
-                    icon->icon().assign([](auto) {}, [location, game_finished] {
-                        return game_finished.get<bool>() ? game_seed().icon(location.condition) : select_icon(location);
+                    const auto condition = location.condition;
+                    icon->icon().assign([](auto) {}, [condition, game_finished] {
+                        const auto new_location = location_collection().location(condition);
+                        return !new_location.has_value() || game_finished.get<bool>() ? game_seed().icon(condition) : select_icon(new_location.value());
                     });
 
                     icon->position().set(location.map_position.value());

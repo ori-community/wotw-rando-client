@@ -22,6 +22,7 @@ namespace randomizer::location_data {
         Shop = 10,
         Wisp = 11,
         Seed = 12,
+        MapShop = 13,
         Unknown = 15
     };
 

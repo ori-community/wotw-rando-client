@@ -56,6 +56,10 @@ namespace randomizer::location_data {
                 type = LocationType::Seed;
             }
 
+            if (type.value() == LocationType::Shop && parts[3] == "LupoZoneMap") {
+                type = LocationType::MapShop;
+            }
+
             location.type = type.value();
             auto success = parse_condition(
                 {parts[5], parts[7] + (parts[8].empty() ? "" : ">=" + parts[8])},

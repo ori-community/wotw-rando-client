@@ -81,6 +81,14 @@ namespace core::reactivity {
         class FinalizeOnlyBuilder;
     }
 
+    class CORE_DLLEXPORT ScopedTrackingBlocker {
+    public:
+        ScopedTrackingBlocker();
+        ~ScopedTrackingBlocker();
+    private:
+        size_t m_index;
+    };
+
     CORE_DLLEXPORT builder::BeforeEffectBuilder watch_effect();
     CORE_DLLEXPORT std::shared_ptr<ReactiveEffect> watch_effect(const std::function<void()>& func, const std::source_location& location = std::source_location::current());
 

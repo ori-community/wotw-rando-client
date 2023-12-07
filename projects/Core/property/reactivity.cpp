@@ -18,12 +18,23 @@ namespace core::reactivity {
     struct DependencyTracker {
         unsigned int next_property_id = 0;
         std::vector<TrackingContext> active_tracking_contexts;
+        std::multiset<size_t> tracking_blockers;
         std::unordered_map<dependency_t, std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare>> effects_by_dependency;
     };
 
     auto& dependency_tracker() {
         static DependencyTracker tracker;
         return tracker;
+    }
+
+    ScopedTrackingBlocker::ScopedTrackingBlocker()
+        : m_index(dependency_tracker().active_tracking_contexts.size()) {
+        dependency_tracker().tracking_blockers.emplace(m_index);
+    }
+
+    ScopedTrackingBlocker::~ScopedTrackingBlocker() {
+        auto& tracking_blockers = dependency_tracker().tracking_blockers;
+        tracking_blockers.erase(tracking_blockers.find(m_index));
     }
 
     /**
@@ -46,6 +57,10 @@ namespace core::reactivity {
         }
 
         dependency_tracker().active_tracking_contexts.pop_back();
+        auto const& tracking_blockers = dependency_tracker().tracking_blockers;
+        if (!tracking_blockers.empty() && *dependency_tracker().tracking_blockers.rbegin() > dependency_tracker().active_tracking_contexts.size()) {
+            throw std::exception("Popped tracking context past blocker, ScopedTrackingBlocker kept alive past scope.");
+        }
     }
 
     builder::FinalizeOnlyBuilder builder::AfterEffectBuilder::after(const std::function<void()>& func) const {
@@ -95,13 +110,23 @@ namespace core::reactivity {
             return;
         }
 
+        auto const& tracking_blockers = dependency_tracker().tracking_blockers;
+        if (!tracking_blockers.empty() && *dependency_tracker().tracking_blockers.rbegin() == dependency_tracker().active_tracking_contexts.size()) {
+            return;
+        }
+
         dependency_tracker().active_tracking_contexts.back().dependencies.emplace(dependency);
     }
 
     void notify_changed(const dependency_t& dependency) {
-        if (!dependency_tracker().active_tracking_contexts.empty()) {
-            auto active_contexts = dependency_tracker().active_tracking_contexts;
-            throw std::exception("Dependencies must not be changed inside a reactive effect");
+        auto const& tracking_blockers = dependency_tracker().tracking_blockers;
+        auto const& active_contexts = dependency_tracker().active_tracking_contexts;
+        if (!tracking_blockers.empty() && *tracking_blockers.rbegin() == active_contexts.size()) {
+            return;
+        }
+
+        if (!active_contexts.empty()) {
+            throw std::exception("Dependencies must not be changed inside a non-blocked reactive effect");
         }
 
         const auto refs_it = dependency_tracker().effects_by_dependency.find(dependency);

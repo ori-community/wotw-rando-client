@@ -2109,6 +2109,7 @@ namespace randomizer::seed::legacy_parser {
             .item_definition = std::string(action)
         };
 
+        core::reactivity::ScopedTrackingBlocker blocker;
         return parse_action(location, parts, parser_data) ? std::optional(location_data) : std::nullopt;
     }
 } // namespace randomizer::seed::legacy_parser
