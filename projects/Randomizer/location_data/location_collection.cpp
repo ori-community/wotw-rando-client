@@ -5,11 +5,11 @@
 namespace randomizer::location_data {
     std::string unknown_area = "Unknown";
     std::unordered_map<GameArea, std::string> area_to_name_map{
-        {GameArea::Marsh, "Inkwater Marsh"},
+        {GameArea::Inkwater, "Inkwater Marsh"},
         {GameArea::Hollow, "Kwoloks Hollow"},
         {GameArea::Glades, "Wellspring Glades"},
         {GameArea::Wellspring, "The Wellspring"},
-        {GameArea::Pools, "Luma Pools"},
+        {GameArea::Luma, "Luma Pools"},
         {GameArea::Burrows, "Midnight Burrows"},
         {GameArea::Reach, "Baurs Reach"},
         {GameArea::Woods, "Silent Woods"},
@@ -22,11 +22,11 @@ namespace randomizer::location_data {
     };
 
     std::unordered_map<std::string, GameArea> name_to_area_map{
-        {"Inkwater Marsh", GameArea::Marsh},
+        {"Inkwater Marsh", GameArea::Inkwater},
         {"Kwoloks Hollow", GameArea::Hollow},
         {"Wellspring Glades", GameArea::Glades},
         {"The Wellspring", GameArea::Wellspring},
-        {"Luma Pools", GameArea::Pools},
+        {"Luma Pools", GameArea::Luma},
         {"Midnight Burrows", GameArea::Burrows},
         {"Baurs Reach", GameArea::Reach},
         {"Silent Woods", GameArea::Woods},
@@ -39,11 +39,11 @@ namespace randomizer::location_data {
     };
 
     std::unordered_map<GameArea, std::string> area_to_short_name_map{
-        {GameArea::Marsh, "Marsh"},
+        {GameArea::Inkwater, "Inkwater"},
         {GameArea::Hollow, "Hollow"},
         {GameArea::Glades, "Glades"},
         {GameArea::Wellspring, "Wellspring"},
-        {GameArea::Pools, "Pools"},
+        {GameArea::Luma, "Luma"},
         {GameArea::Burrows, "Burrows"},
         {GameArea::Reach, "Reach"},
         {GameArea::Woods, "Woods"},

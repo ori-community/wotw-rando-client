@@ -7,7 +7,7 @@ GameArea convert_to_game_area(app::GameWorldAreaID__Enum area) {
         case app::GameWorldAreaID__Enum::GorlekMines: // Double sadge
             return GameArea::Void;
         case app::GameWorldAreaID__Enum::InkwaterMarsh:
-            return GameArea::Marsh;
+            return GameArea::Inkwater;
         case app::GameWorldAreaID__Enum::KwoloksHollow:
             return GameArea::Hollow;
         case app::GameWorldAreaID__Enum::WellspringGlades:
@@ -22,7 +22,7 @@ GameArea convert_to_game_area(app::GameWorldAreaID__Enum area) {
         case app::GameWorldAreaID__Enum::BaursReach:
             return GameArea::Reach;
         case app::GameWorldAreaID__Enum::LumaPools:
-            return GameArea::Pools;
+            return GameArea::Luma;
         case app::GameWorldAreaID__Enum::MouldwoodDepths:
             return GameArea::Depths;
         case app::GameWorldAreaID__Enum::WindsweptWastes:
