@@ -52,6 +52,8 @@ namespace randomizer::online {
 
         UberStateHandler& uber_state_handler() { return m_uber_state_handler; }
 
+        const std::optional<core::MoodGuid>& restrict_to_save_guid() const { return m_restrict_to_save_guid; };
+
     private:
         struct MessageBoxStorage {
             std::optional<float> time;
@@ -73,8 +75,13 @@ namespace randomizer::online {
 
         void print_text(Network::PrintTextMessage const& message);
         static void print_pickup(Network::PrintPickupMessage const& message);
+
+        void process_set_save_guid_restrictions_message(const Network::SetSaveGuidRestrictionsMessage& restrictions);
+
         void initialize_game_sync(Network::InitGameSyncMessage const& message);
         void set_seed(Network::SetSeedMessage const& message);
+
+        bool is_in_incorrect_save_file() const;
 
         common::TimedMultiEventBus<Event> m_event_bus;
 
@@ -94,6 +101,9 @@ namespace randomizer::online {
         std::string m_name;
         app::Color m_color = { 1.f, 1.f, 1.f, 1.f };
         bool m_should_block_starting_new_game = false;
+
+        std::optional<core::MoodGuid> m_restrict_to_save_guid = std::nullopt;
+        bool m_should_restrict_to_save_guid = false;
         std::optional<core::MoodGuid> m_report_player_save_guid = std::nullopt;
     };
 } // namespace randomizer::online

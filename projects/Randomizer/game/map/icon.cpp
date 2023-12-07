@@ -158,7 +158,11 @@ namespace randomizer::game::map {
         if (il2cpp::unity::is_valid(m_game_object.get())) {
             visible().set(false);
             const auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
-            IconPlacementScaler::RemoveIcon(area_map->fields._IconScaler_k__BackingField, m_game_object.get());
+
+            if (il2cpp::unity::is_valid(area_map)) {
+                IconPlacementScaler::RemoveIcon(area_map->fields._IconScaler_k__BackingField, m_game_object.get());
+            }
+
             il2cpp::unity::destroy_object(m_game_object.get());
             m_map_icon.set(nullptr);
             m_game_object.set(nullptr);

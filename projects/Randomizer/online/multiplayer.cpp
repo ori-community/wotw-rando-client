@@ -25,7 +25,7 @@ namespace randomizer::online {
         m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [this](auto, auto) { request_full_sync(); }));
         m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [this](auto, auto) { on_load(); }));
         m_bus_handles.emplace_back(core::api::uber_states::notification_bus().register_handler([this](auto params) {
-            if (!m_uber_state_handler.should_sync(params.state, params.previous_value)) {
+            if (is_in_incorrect_save_file() || !m_uber_state_handler.should_sync(params.state, params.previous_value)) {
                 return;
             }
 
@@ -77,9 +77,17 @@ namespace randomizer::online {
                 m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::After);
             }
         });
+
+        client.register_handler<Network::SetSaveGuidRestrictionsMessage>(Network::Packet_PacketID_SetSaveGuidRestrictionsMessage, [this](auto const& message) {
+            process_set_save_guid_restrictions_message(message);
+        });
     }
 
     void MultiplayerUniverse::full_sync_states() {
+        if (is_in_incorrect_save_file()) {
+            return;
+        }
+
         Network::UberStateBatchUpdateMessage message;
         auto const& states = m_uber_state_handler.get_synced_states();
 
@@ -143,9 +151,21 @@ namespace randomizer::online {
         core::events::schedule_task_for_next_update([this]() { full_sync_states(); });
     }
 
+    void show_incorrect_save_message() {
+        core::message_controller().queue_central({
+            .text = core::Property<std::string>("The save file you have loaded is not associated with this multiplayer game.\nPlease exit to the main menu and create a new save file\nor load the correct one."),
+            .duration = 8.f,
+            .prioritized = true,
+        });
+    }
+
     void MultiplayerUniverse::on_load() {
         for (auto& player: m_player_avatars) {
             player.second->recreate();
+        }
+
+        if (is_in_incorrect_save_file()) {
+            show_incorrect_save_message();
         }
 
         request_full_sync();
@@ -295,8 +315,6 @@ namespace randomizer::online {
         if (m_current_multiverse_info != nullptr) {
             handle_multiverse_info(*m_current_multiverse_info);
         }
-
-        core::events::schedule_task_for_next_update([this]() { full_sync_states(); });
     }
 
     void MultiplayerUniverse::handle_visibility(Network::VisibilityMessage const& message) const {
@@ -410,7 +428,25 @@ namespace randomizer::online {
         });
     }
 
+    void MultiplayerUniverse::process_set_save_guid_restrictions_message(const Network::SetSaveGuidRestrictionsMessage& message) {
+        m_should_restrict_to_save_guid = message.shouldrestrictsaveguid();
+
+        if (m_should_restrict_to_save_guid) {
+            if (message.has_playersaveguid()) {
+                const auto& save_guid = message.playersaveguid();
+                core::MoodGuid guid(save_guid.a(), save_guid.b(), save_guid.c(), save_guid.d());
+                m_restrict_to_save_guid = guid;
+            }
+
+            if (is_in_incorrect_save_file()) {
+                show_incorrect_save_message();
+            }
+        }
+    }
+
     void MultiplayerUniverse::initialize_game_sync(Network::InitGameSyncMessage const& message) {
+        process_set_save_guid_restrictions_message(message.saveguidrestrictions());
+
         std::unordered_set<core::api::uber_states::UberState> states;
         for (auto& id: message.uberid()) {
             states.emplace(id.group(), id.state());
@@ -423,11 +459,29 @@ namespace randomizer::online {
             m_should_block_starting_new_game = message.blockstartingnewgame();
             m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::After);
         }
+
+        request_full_sync();
     }
 
     void MultiplayerUniverse::set_seed(Network::SetSeedMessage const& message) {
         // csharp_bridge::set_seed(message.seed());
         // UberStateQueue.Add(new UberStateController.SetSeedCommand(seedMessage));
+    }
+
+    bool MultiplayerUniverse::is_in_incorrect_save_file() const {
+        if (!m_should_restrict_to_save_guid) {
+            return false;
+        }
+
+        if (!GameStateMachine::get_IsGame()) {
+            return false;
+        }
+
+        if (!m_restrict_to_save_guid.has_value()) {
+            return true;
+        }
+
+        return m_restrict_to_save_guid.value() != core::save_meta::get_current_save_guid();
     }
 
     // void MultiplayerUniverse::player_used_catch(Network::PlayerUsedCatchingAbility const& message) {

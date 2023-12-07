@@ -157,7 +157,8 @@ namespace randomizer::online {
                     }
                 );
 
-                m_event_bus.trigger_event(State::Reconnecting);
+                core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Reconnecting); });
+
                 if (m_status_listener) {
                     m_status_listener(
                         {

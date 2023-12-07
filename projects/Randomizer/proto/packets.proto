@@ -33,6 +33,7 @@ message Packet {
     SetBlockStartingNewGameMessage = 26;
     ReportPlayerRaceReadyMessage = 27;
     SetPlayerSaveGuidMessage = 28;
+    SetSaveGuidRestrictionsMessage = 29;
 
     TrackerUpdate = 100;
     ResetTracker = 101;
@@ -69,10 +70,15 @@ message MoodGuid {
   int32 d = 4;
 }
 
+message SetSaveGuidRestrictionsMessage {
+  optional MoodGuid playerSaveGuid = 1;
+  bool shouldRestrictSaveGuid = 2;
+}
+
 message InitGameSyncMessage {
   repeated UberId uberId = 1;
   bool blockStartingNewGame = 2;
-  optional MoodGuid playerSaveGuid = 3;
+  SetSaveGuidRestrictionsMessage saveGuidRestrictions = 3;
 }
 
 message SetPlayerSaveGuidMessage {
