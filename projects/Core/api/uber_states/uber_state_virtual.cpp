@@ -93,6 +93,11 @@ namespace core::api::uber_states {
         it->second.value.set(value);
     }
 
+    std::vector<uber_id_t> get_virtual_uber_ids() {
+        auto keys = virtual_states | std::views::keys;
+        return { keys.begin(), keys.end() };
+    }
+
     void virtual_notify_change(UberStateCallbackParams const& params) {
         if (!is_virtual_state(params.state.group(), params.state.state())) {
             return;

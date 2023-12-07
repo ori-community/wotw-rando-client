@@ -15,6 +15,8 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 
+#include "uber_state_virtual.h"
+
 using namespace modloader;
 using namespace modloader::win;
 using namespace app::classes;
@@ -197,9 +199,7 @@ namespace {
 
         j["groups"] = nlohmann::json::object();
 
-        for (const auto state: il2cpp::ListIterator(collection)) {
-            core::api::uber_states::UberState uber_state(reinterpret_cast<app::IUberState*>(state));
-
+        auto collect_uber_state = [&](const core::api::uber_states::UberState& uber_state) {
             const auto group_key = std::to_string(uber_state.group_int());
             const auto state_key = std::to_string(uber_state.state());
 
@@ -219,6 +219,16 @@ namespace {
                     {"value", uber_state.get<double>()},
                 }
             );
+        };
+
+        for (const auto state: il2cpp::ListIterator(collection)) {
+            core::api::uber_states::UberState uber_state(reinterpret_cast<app::IUberState*>(state));
+            collect_uber_state(uber_state);
+        }
+
+        for (const auto uber_id: core::api::uber_states::get_virtual_uber_ids()) {
+            core::api::uber_states::UberState uber_state(uber_id.first, uber_id.second);
+            collect_uber_state(uber_state);
         }
 
         modloader::win::copy_text_to_clipboard(j.dump(2));

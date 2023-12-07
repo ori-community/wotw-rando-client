@@ -415,6 +415,10 @@ namespace core::api::uber_states {
     }
 
     UberStateType UberState::type() const {
+        if (is_virtual_state(m_group, m_state)) {
+            return UberStateType::VirtualUberState;
+        }
+
         const auto uber_state = ptr();
         if (uber_state->klass == static_cast<void*>(types::BooleanUberState::get_class())) {
             return UberStateType::BooleanUberState;
