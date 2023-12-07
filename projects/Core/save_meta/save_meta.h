@@ -1,12 +1,11 @@
 #pragma once
 
-#include <Common/event_bus.h>
+#include <Core/mood_guid.h>
 #include <Core/enums/save_meta_slot.h>
 #include <Core/enums/save_meta_slot_persistence.h>
 #include <Core/utils/byte_stream.h>
 #include <memory>
 #include <nlohmann/json.hpp>
-#include <string>
 #include <vector>
 
 namespace core::save_meta {

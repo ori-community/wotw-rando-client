@@ -1,5 +1,4 @@
 #include <Core/api/game/game.h>
-#include <Core/mood_guid.h>
 #include <Core/save_meta/save_meta.h>
 #include <Core/utils/byte_stream.h>
 #include <Modloader/app/methods/DeathUberStateManager.h>
