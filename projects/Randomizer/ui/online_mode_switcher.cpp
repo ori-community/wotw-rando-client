@@ -152,6 +152,7 @@ namespace randomizer::online_indicator {
                 case app::SceneState__Enum::Disabling:
                 case app::SceneState__Enum::Disabled:
                 case app::SceneState__Enum::Unloading: {
+                    sprite = nullptr;
                     is_in_main_menu = false;
                     break;
                 }
