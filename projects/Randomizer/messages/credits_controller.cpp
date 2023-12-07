@@ -62,7 +62,7 @@ namespace randomizer::messages {
         auto fade_out = 0.01f;
 
         if (parts.size() > 7) {
-            alignment = static_cast<app::AlignmentMode__Enum>(std::stoi(parts[6]));
+            alignment = static_cast<app::AlignmentMode__Enum>(std::stoi(parts[7]));
         }
 
         if (parts.size() > 8) {
