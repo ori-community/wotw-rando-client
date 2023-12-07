@@ -282,10 +282,10 @@ namespace randomizer::seed {
     }
 
     nlohmann::json SeedMetaData::json_serialize() {
-        return nlohmann::json(path);
+        return nlohmann::json(*this);
     }
 
     void SeedMetaData::json_deserialize(nlohmann::json& j) {
-        j.get_to(path);
+        j.get_to(*this);
     }
 } // namespace randomizer::seed

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <Core/api/uber_states/uber_state_condition.h>
-#include <Core/property.h>
 #include <Core/enums/game_areas.h>
+#include <Core/property.h>
 
 #include <Randomizer/location_data/location_collection.h>
 #include <Randomizer/seed/item_data.h>
@@ -10,6 +10,7 @@
 
 #include <Core/save_meta/save_meta.h>
 #include <neargye/semver.hpp>
+#include <nlohmann/json.hpp>
 #include <unordered_map>
 
 namespace randomizer::seed {
@@ -22,7 +23,7 @@ namespace randomizer::seed {
         struct SeedInfo {
             std::string parser_error;
             std::vector<std::string> flags;
-            app::Vector3 start_position = { -798.797058f, -4310.119141f, 0.f };
+            app::Vector3 start_position = {-798.797058f, -4310.119141f, 0.f};
             std::string slug;
 
             semver::version version = semver::version(0, 0, 0);
@@ -84,6 +85,8 @@ namespace randomizer::seed {
     class SeedMetaData final : public core::save_meta::JsonSaveMetaSerializable {
     public:
         std::filesystem::path path;
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(SeedMetaData, path);
 
         nlohmann::json json_serialize() override;
         void json_deserialize(nlohmann::json& j) override;

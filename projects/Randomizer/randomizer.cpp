@@ -218,6 +218,7 @@ namespace randomizer {
 
                 core::message_controller().central_display().text_processor(text_processor);
                 seed_save_data = std::make_unique<seed::SeedMetaData>();
+                register_slot(SaveMetaSlot::SeedFilePath, seed_save_data);
                 load_seed(true, false);
                 if (!core::settings::netcode_disabled() && randomizer_seed.info().net_code_enabled) {
                     server_connect();
@@ -226,6 +227,7 @@ namespace randomizer {
         );
 
         IL2CPP_INTERCEPT(TitleScreenManager, void, OnReturnToTitleScreen, ()) {
+            OnReturnToTitleScreen();
             load_seed(true, false);
         }
     } // namespace
