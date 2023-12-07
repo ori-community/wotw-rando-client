@@ -54,7 +54,7 @@ namespace core::messages {
 
         static void update_time(MessageData& data, float delta_time);
 
-        void update_priority_message(float delta_time);
+        void update_priority_message(int& total_lines, app::Vector3& cursor_position, float delta_time);
         void update_active_messages(int& total_lines, app::Vector3& cursor_position, float delta_time);
         void update_message_queue(int& total_lines, app::Vector3& cursor_position);
         void update_message_position(MessageData& data, int& total_lines, app::Vector3& cursor_position, float delta_time);
@@ -63,7 +63,6 @@ namespace core::messages {
 
         // TODO: Implement this.
         const float m_max_length_from_position = 20.f;
-        bool m_showing_priority = false;
         Property<app::Vector3> m_position;
         Property<std::optional<int>> m_max_line_count;
         Property<std::optional<int>> m_max_in_queue;

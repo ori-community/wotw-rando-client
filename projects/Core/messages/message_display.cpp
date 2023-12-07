@@ -67,40 +67,35 @@ namespace core::messages {
             m_active_messages.front().handle->state = message_handle_t::MessageState::Finished;
         }
 
+        int total_lines = 0;
+        auto cursor_position = m_position.get();
         if (m_priority_message.has_value() || m_priority_message_data.has_value()) {
-            if (!m_showing_priority) {
-                m_showing_priority = true;
-                for (auto& message: m_active_messages) {
-                    message.message->hide(true);
-                }
-            }
-
-            update_priority_message(delta_time);
-        } else {
-            if (m_showing_priority) {
-                m_showing_priority = false;
-                bool first = true;
-                for (auto& message: m_active_messages) {
-                    bool should_play = false;
-                    if (first && message.info.play_sound) {
-                        should_play = true;
-                        first = false;
+            update_priority_message(total_lines, cursor_position, delta_time);
+            const auto max_line_count = m_max_line_count.get();
+            int total_lines_temp = total_lines;
+            for (auto it = m_active_messages.begin(); it != m_active_messages.end(); ++it) {
+                const auto text = trim_copy(it->info.text.get());
+                total_lines_temp += static_cast<int>(std::ranges::count(text, '\n') + 1);
+                if (max_line_count.has_value() && total_lines_temp >= max_line_count.value()) {
+                    for (auto jit = it; jit != m_active_messages.end(); ++jit) {
+                        jit->info.duration = std::max(jit->handle->active_time, 1.0f);
+                        jit->handle->state = message_handle_t::MessageState::Finished;
+                        jit->handle->time_left = std::optional<float>();
+                        jit->message->hide(jit->info.instant_fade);
                     }
 
-                    message.message->show(false, should_play);
+                    m_messages.insert(m_messages.begin(), it, m_active_messages.end());
+                    m_active_messages.erase(it, m_active_messages.end());
+                    break;
                 }
             }
-
-            auto total_lines = 0;
-            auto cursor_position = m_position.get();
-            update_active_messages(total_lines, cursor_position, delta_time);
-            update_message_queue(total_lines, cursor_position);
         }
+
+        update_active_messages(total_lines, cursor_position, delta_time);
+        update_message_queue(total_lines, cursor_position);
     }
 
-    void MessageDisplay::update_priority_message(float delta_time) {
-        int total_lines = 0;
-        app::Vector3 cursor_position = m_position.get();
+    void MessageDisplay::update_priority_message(int& total_lines, app::Vector3& cursor_position, float delta_time) {
         if (m_priority_message.has_value()) {
             if (m_priority_message_data.has_value()) {
                 m_priority_message_data->message->hide(true);

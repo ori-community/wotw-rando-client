@@ -128,6 +128,15 @@ namespace core::messages {
     }
 
     void MessageController::requeue_last_saved() {
+        for (int i = 0; i < 20; ++i) {
+            m_central_display.push({
+               .text = Property<std::string>(std::string("Test Message!")),
+               .duration = 5.f,
+           });
+        }
+
+        return;
+
         if (m_saved_message.has_value()) {
             m_saved_message->pickup_position = std::nullopt;
             m_saved_message->prioritized = true;
