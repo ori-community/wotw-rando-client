@@ -143,7 +143,7 @@ namespace randomizer::seed {
                     std::lock_guard<std::mutex> lock(results_mutex);
                     results.emplace_back(request.callback, result);
                 } else {
-
+                    modloader::warn("reach_check", "Reach check failed");
                 }
             }
 
