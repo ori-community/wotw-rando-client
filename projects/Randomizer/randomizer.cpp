@@ -227,7 +227,7 @@ namespace randomizer {
         );
 
         IL2CPP_INTERCEPT(TitleScreenManager, void, OnReturnToTitleScreen, ()) {
-            OnReturnToTitleScreen();
+            next::TitleScreenManager::OnReturnToTitleScreen();
             load_seed(true, false);
         }
     } // namespace
