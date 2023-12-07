@@ -49,7 +49,7 @@ namespace randomizer::seed {
         data.info.states = read_all(modloader::base_path() / "state_data.csv");
         if (!m_last_parser(m_last_path, m_location_data, data)) {
             auto error_message = std::format("Failed to load seed '{}'", m_last_path.string());
-            if (!m_data.info.parser_error.empty()) {
+            if (!data.info.parser_error.empty()) {
                 error_message = data.info.parser_error;
             }
 
