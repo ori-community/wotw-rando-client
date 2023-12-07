@@ -91,7 +91,7 @@ namespace core::messages {
     }
 
     MessageController::MessageController()
-            : m_central_display(5, 5) {
+            : m_central_display(7, 5) {
         m_central_display.vertical_anchor().set(app::VerticalAnchorMode__Enum::Top);
         m_central_display.screen_position().set(api::messages::ScreenPosition::TopCenter);
     }
