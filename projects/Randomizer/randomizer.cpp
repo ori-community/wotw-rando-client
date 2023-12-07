@@ -24,6 +24,8 @@
 
 #include <Modloader/modloader.h>
 #include <Modloader/app/methods/TitleScreenManager.h>
+#include <Modloader/app/methods/Game/UI_Hints.h>
+#include <Modloader/app/types/UI_Hints.h>
 
 #include <Core/api/game/ui.h>
 #include <Core/api/scenes/scene_load.h>
@@ -136,11 +138,11 @@ namespace randomizer {
                     }
                 );
 
-                core::message_controller().queue_central(
-                    {
-                        .text = core::Property<std::string>("*Good Luck! <3*"),
-                        .prioritized = true,
-                    }
+                Game::UI_Hints::Show(
+                    core::api::system::create_message_provider("*Good Luck! <3*"),
+                    app::HintLayer__Enum::Gameplay,
+                    3.f,
+                    app::Vector3{0.f, 0.f, 0.f}
                 );
 
 
