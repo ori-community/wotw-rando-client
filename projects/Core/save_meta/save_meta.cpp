@@ -12,6 +12,7 @@
 #include <Modloader/modloader.h>
 #include <format>
 #include <unordered_map>
+#include <utility>
 
 using namespace app::classes;
 using namespace modloader;
@@ -35,7 +36,7 @@ namespace core::save_meta {
 
     void register_slot(SaveMetaSlot slot, SaveMetaSlotPersistence persistence, std::shared_ptr<SaveMetaHandler> handler) {
         slots[slot] = {
-            handler,
+            std::move(handler),
             persistence,
             {}
         };
@@ -87,7 +88,7 @@ namespace core::save_meta {
             }
 
             // Non-rando save, return random GUID
-            return MoodGuid();
+            return {};
         }
 
         struct SaveMetaReadResult {
@@ -104,10 +105,12 @@ namespace core::save_meta {
          * @param exclude_persistences Whether to exclude persistence levels >= minimum_persistence instead of including
          * @return
          */
-        SaveMetaReadResult read_save_meta_from_byte_array(app::Byte__Array* data,
+        SaveMetaReadResult read_save_meta_from_byte_array(
+            app::Byte__Array* data,
             bool load,
             SaveMetaSlotPersistence minimum_persistence = SaveMetaSlotPersistence::None,
-            bool exclude_persistences = false) {
+            bool exclude_persistences = false
+        ) {
             utils::ByteStream stream(data);
 
             if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
@@ -292,10 +295,14 @@ namespace core::save_meta {
 
         auto on_new_game_handle = api::game::event_bus().register_handler(
             GameEvent::NewGame,
-            EventTiming::After,
+            EventTiming::Before,
             [](auto, auto) {
                 current_save_guid = MoodGuid();
             }
         );
     } // namespace
+
+    const MoodGuid& get_current_save_guid() {
+        return current_save_guid;
+    }
 } // namespace core::save_meta

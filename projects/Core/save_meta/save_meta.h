@@ -46,4 +46,5 @@ namespace core::save_meta {
 
     CORE_DLLEXPORT void register_slot(SaveMetaSlot slot, SaveMetaSlotPersistence persistence, std::shared_ptr<SaveMetaHandler> handler);
     CORE_DLLEXPORT void clear_slot(SaveMetaSlot slot);
+    CORE_DLLEXPORT const MoodGuid& get_current_save_guid();
 } // namespace core::save_meta
