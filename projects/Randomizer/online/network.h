@@ -47,14 +47,14 @@ namespace randomizer::online {
         void websocket_connect(std::string_view url);
         bool websocket_want_connection() const { return m_reconnect_websocket; }
         bool websocket_connected() const;
-        void websocket_send(Network::Packet const& packet);
+        bool websocket_send(Network::Packet const& packet);
 
         template <typename T>
-        void websocket_send(Network::Packet_PacketID id, T const& data) {
+        bool websocket_send(Network::Packet_PacketID id, T const& data) {
             Network::Packet packet;
             packet.set_id(id);
             packet.set_packet(data.SerializeAsString());
-            websocket_send(packet);
+            return websocket_send(packet);
         }
 
         void udp_open(std::string_view server, int port);

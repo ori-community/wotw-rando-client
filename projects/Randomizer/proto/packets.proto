@@ -32,6 +32,7 @@ message Packet {
     ReportInGameTimeMessage = 25;
     SetBlockStartingNewGameMessage = 26;
     ReportPlayerRaceReadyMessage = 27;
+    SetPlayerSaveGuidMessage = 28;
 
     TrackerUpdate = 100;
     ResetTracker = 101;
@@ -61,9 +62,21 @@ message UberId {
   int32 state = 2;
 }
 
+message MoodGuid {
+  int32 a = 1;
+  int32 b = 2;
+  int32 c = 3;
+  int32 d = 4;
+}
+
 message InitGameSyncMessage {
   repeated UberId uberId = 1;
   bool blockStartingNewGame = 2;
+  optional MoodGuid playerSaveGuid = 3;
+}
+
+message SetPlayerSaveGuidMessage {
+  MoodGuid playerSaveGuid = 1;
 }
 
 message Vector2 {

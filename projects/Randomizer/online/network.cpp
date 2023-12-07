@@ -253,9 +253,9 @@ namespace randomizer::online {
         m_callbacks[type].push_back(handler);
     }
 
-    void NetworkClient::websocket_send(Network::Packet const& packet) {
+    bool NetworkClient::websocket_send(Network::Packet const& packet) {
         if (!websocket_connected()) {
-            return;
+            return false;
         }
 
         auto info = m_websocket.send(packet.SerializeAsString(), true);
@@ -269,7 +269,11 @@ namespace randomizer::online {
                     }
                 );
             }
+
+            return false;
         }
+
+        return true;
     }
 
     void NetworkClient::udp_send(Network::Packet const& packet) {

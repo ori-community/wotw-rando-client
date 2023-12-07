@@ -15,6 +15,7 @@
 
 #include <algorithm>
 #include <unordered_map>
+#include <Core/save_meta/save_meta.h>
 
 namespace randomizer::online {
     MultiplayerUniverse::MultiplayerUniverse() {
@@ -118,6 +119,20 @@ namespace randomizer::online {
         m_client->udp_send(Network::Packet_PacketID_PlayerPositionMessage, message);
 
         m_uber_state_handler.update();
+
+        if (m_report_player_save_guid.has_value() && m_client->websocket_connected()) {
+            Network::SetPlayerSaveGuidMessage guid_message;
+            guid_message.mutable_playersaveguid()->set_a(m_report_player_save_guid.value().A);
+            guid_message.mutable_playersaveguid()->set_b(m_report_player_save_guid.value().B);
+            guid_message.mutable_playersaveguid()->set_c(m_report_player_save_guid.value().C);
+            guid_message.mutable_playersaveguid()->set_d(m_report_player_save_guid.value().D);
+
+            const auto did_send = m_client->websocket_send(Network::Packet_PacketID_SetPlayerSaveGuidMessage, guid_message);
+
+            if (did_send) {
+                m_report_player_save_guid = std::nullopt;
+            }
+        }
     }
 
     void MultiplayerUniverse::request_full_sync() {
@@ -154,6 +169,10 @@ namespace randomizer::online {
         message.set_in_game_time(in_game_time);
         message.set_is_finished(is_finished);
         m_client->websocket_send(Network::Packet_PacketID_ReportInGameTimeMessage, message);
+    }
+
+    void MultiplayerUniverse::report_player_save_guid(core::MoodGuid save_guid) {
+        m_report_player_save_guid = save_guid;
     }
 
     Network::UniverseInfo const* find_universe_with_player(Network::MultiverseInfoMessage const& message, std::string_view id) {

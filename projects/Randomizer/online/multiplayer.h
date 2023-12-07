@@ -11,6 +11,7 @@
 
 #include <string>
 #include <vector>
+#include <Core/mood_guid.h>
 
 namespace randomizer::online {
     class MultiplayerUniverse {
@@ -46,6 +47,8 @@ namespace randomizer::online {
         void report_in_game_time(float in_game_time, bool is_finished) const;
 
         int player_count() const { return static_cast<int>(m_players.size()); }
+
+        void report_player_save_guid(core::MoodGuid save_guid);
 
         UberStateHandler& uber_state_handler() { return m_uber_state_handler; }
 
@@ -91,5 +94,6 @@ namespace randomizer::online {
         std::string m_name;
         app::Color m_color = { 1.f, 1.f, 1.f, 1.f };
         bool m_should_block_starting_new_game = false;
+        std::optional<core::MoodGuid> m_report_player_save_guid = std::nullopt;
     };
 } // namespace randomizer::online

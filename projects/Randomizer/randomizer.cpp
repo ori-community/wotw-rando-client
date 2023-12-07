@@ -129,6 +129,10 @@ namespace randomizer {
                         core::api::game::save(true);
                         queue_reach_check();
                         uber_states::disable_reverts() = false;
+
+                        if (randomizer_seed.info().net_code_enabled) {
+                            multiplayer_universe().report_player_save_guid(core::save_meta::get_current_save_guid());
+                        }
                     }
                 );
 
