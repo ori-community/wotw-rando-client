@@ -172,7 +172,7 @@ namespace {
 
                     if (should_show_hint && !was_showing_hint) {
                         std::shared_ptr<core::text::ITextProcessor> processor = randomizer::general_text_processor();
-                        std::string hint_text("[goal_mode_progress()]");
+                        std::string hint_text("[goal_mode_progress()] [relic_progress()]");
                         processor->process(hint_text);
                         trim(hint_text);
 
