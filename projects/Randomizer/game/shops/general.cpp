@@ -115,10 +115,12 @@ namespace {
     IL2CPP_INTERCEPT(ShopkeeperUIDetails, void, UpdateDetails2, (app::ShopkeeperUIDetails * this_ptr)) {
         // TODO: Fix details panel on ophers shop.
         next::ShopkeeperUIDetails::UpdateDetails2(this_ptr);
-        const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
-        const auto texture_data = shop_icon(this_ptr->fields.m_item);
-        texture_data->apply(renderer);
-        GameObject::SetActive(this_ptr->fields.IconGO, this_ptr->fields.m_item != nullptr);
+        if (is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom)) {
+            const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
+            const auto texture_data = shop_icon(this_ptr->fields.m_item);
+            texture_data->apply(renderer);
+            GameObject::SetActive(this_ptr->fields.IconGO, this_ptr->fields.m_item != nullptr);
+        }
     }
 
     void set_providers(app::ShopkeeperItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider) {
@@ -140,6 +142,7 @@ namespace {
 
     IL2CPP_INTERCEPT(ShopkeeperUIDetails, void, UpdateDetails, (app::ShopkeeperUIDetails * this_ptr)) {
         if (!is_in_shop(ShopType::Opher) && !is_in_shop(ShopType::Grom)) {
+            next::ShopkeeperUIDetails::UpdateDetails(this_ptr);
             return;
         }
 
@@ -175,10 +178,8 @@ namespace {
         }
     }
 
-    bool should_special_handle_shop() { return is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom); }
-
     IL2CPP_INTERCEPT(ShopkeeperUISubItem, void, UpdateItem, (app::ShopkeeperUISubItem * this_ptr)) {
-        if (should_special_handle_shop()) {
+        if (is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom)) {
             const auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsVisible")->fields;
             const auto is_owned = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsOwned")->fields;
             const auto is_affordable = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsAffordable")->fields;
@@ -248,7 +249,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(ShopkeeperUIItem, void, UpdateItem, (app::ShopkeeperUIItem * this_ptr, app::ShopkeeperItem* item)) {
-        if (should_special_handle_shop()) {
+        if (is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom)) {
             const auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsVisible")->fields;
             const auto is_owned = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsOwned")->fields;
             const auto is_affordable = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsAffordable")->fields;
