@@ -37,6 +37,16 @@ namespace {
     using namespace app::classes::CatlikeCoding::TextBox;
     using namespace randomizer::game::shops;
 
+    IL2CPP_INTERCEPT(MapmakerScreen, void, Init, (app::MapmakerScreen * this_ptr)) {
+        next::MapmakerScreen::Init(this_ptr);
+
+        for (const auto item: il2cpp::ArrayIterator(this_ptr->fields.Purchases)) {
+            const auto previous_state_id = item->fields.UberState->fields._.m_id->fields.m_id;
+            const auto target_uber_state = core::api::uber_states::UberState(UberStateGroup::LupoShop, previous_state_id);
+            item->fields.UberState = reinterpret_cast<app::SerializedByteUberState*>(target_uber_state.ptr());
+        }
+    }
+
     IL2CPP_INTERCEPT(MapmakerItem, int32_t, GetCost, (app::MapmakerItem * this_ptr)) {
         return lupo_shop().slot(this_ptr->fields.UberState)->cost.get<int>();
     }

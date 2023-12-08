@@ -473,11 +473,11 @@ namespace randomizer {
                 ),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::LupoShop, "hcMapIcons", 19396, false),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoShop, "hcMapIconsCost", 19397, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::LupoShop, "hcMapIconsCost", 19397, 0),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::LupoShop, "ecMapIcons", 57987, false),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoShop, "ecMapIconsCost", 57988, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::LupoShop, "ecMapIconsCost", 57988, 0),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::LupoShop, "shardMapIcons", 41666, false),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoShop, "shardMapIconsCost", 41667, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::LupoShop, "shardMapIconsCost", 41667, 0),
             };
 
             dev::print_time(start_time, "Built state list");
