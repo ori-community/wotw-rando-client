@@ -80,9 +80,6 @@ namespace core::api::uber_states {
         return it->second.name;
     }
 
-    // TODO: Use a map for this if we add more then 1 virtual group.
-    std::string get_virtual_group_name(UberStateGroup group) { return std::string(uber_state_group_name(UberStateGroup::RandoVirtual)); }
-
     double get_virtual_value(UberStateGroup group, int state) {
         auto it = virtual_states.find(std::make_pair(group, state));
         return it->second.value.get();

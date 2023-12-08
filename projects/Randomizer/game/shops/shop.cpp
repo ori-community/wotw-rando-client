@@ -44,9 +44,9 @@ namespace randomizer::game::shops {
     };
 
     std::vector<lupo_key> lupo_keys = {
-        core::api::uber_states::UberState(UberStateGroup::npcsStateGroup, 19396),
-        core::api::uber_states::UberState(UberStateGroup::npcsStateGroup, 57987),
-        core::api::uber_states::UberState(UberStateGroup::npcsStateGroup, 41666),
+        core::api::uber_states::UberState(UberStateGroup::LupoShop, 19396),
+        core::api::uber_states::UberState(UberStateGroup::LupoShop, 57987),
+        core::api::uber_states::UberState(UberStateGroup::LupoShop, 41666),
     };
 
     std::vector<grom_key> grom_keys = {
@@ -251,9 +251,9 @@ namespace randomizer::game::shops {
             { UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::CombatLuck)), UniversalKey::create_twillen(app::SpiritShardType__Enum::CombatLuck) },
 
             // Lupo
-            { UberState(UberStateGroup::npcsStateGroup, 19396), UniversalKey::create_lupo(UberState(UberStateGroup::npcsStateGroup, 19396)) },
-            { UberState(UberStateGroup::npcsStateGroup, 57987), UniversalKey::create_lupo(UberState(UberStateGroup::npcsStateGroup, 57987)) },
-            { UberState(UberStateGroup::npcsStateGroup, 41666), UniversalKey::create_lupo(UberState(UberStateGroup::npcsStateGroup, 41666)) },
+            { UberState(UberStateGroup::LupoShop, 19396), UniversalKey::create_lupo(UberState(UberStateGroup::LupoShop, 19396)) },
+            { UberState(UberStateGroup::LupoShop, 57987), UniversalKey::create_lupo(UberState(UberStateGroup::LupoShop, 57987)) },
+            { UberState(UberStateGroup::LupoShop, 41666), UniversalKey::create_lupo(UberState(UberStateGroup::LupoShop, 41666)) },
 
             // Grom
             { UberState(UberStateGroup::GromShop, 15068), UniversalKey::create_grom(UberState(42178, 15068)) }, // Beautify
@@ -299,9 +299,9 @@ namespace randomizer::game::shops {
             { 14070, twillen.slot(twillen_keys[7]), { UberStateGroup::TwillenShop, 40 }, { UberStateGroup::TwillenShop, 140 } },
 
             // Lupo
-            { 10000, lupo.slot(lupo_keys[0]), { UberStateGroup::npcsStateGroup, 19396 }, { UberStateGroup::npcsStateGroup, 19396 + 1 } },
-            { 10010, lupo.slot(lupo_keys[1]), { UberStateGroup::npcsStateGroup, 57987 }, { UberStateGroup::npcsStateGroup, 57987 + 1 } },
-            { 10020, lupo.slot(lupo_keys[2]), { UberStateGroup::npcsStateGroup, 41666 }, { UberStateGroup::npcsStateGroup, 41666 + 1 } },
+            { 10000, lupo.slot(lupo_keys[0]), { UberStateGroup::LupoShop, 19396 }, { UberStateGroup::LupoShop, 19396 + 1 } },
+            { 10010, lupo.slot(lupo_keys[1]), { UberStateGroup::LupoShop, 57987 }, { UberStateGroup::LupoShop, 57987 + 1 } },
+            { 10020, lupo.slot(lupo_keys[2]), { UberStateGroup::LupoShop, 41666 }, { UberStateGroup::LupoShop, 41666 + 1 } },
 
             // Grom
             { 11000, grom.slot(grom_keys[0]), { UberStateGroup::GromShop, 15068 }, { UberStateGroup::GromShop, 15068 + 1 } },

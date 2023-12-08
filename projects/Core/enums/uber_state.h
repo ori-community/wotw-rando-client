@@ -12,25 +12,20 @@ enum class UberStateGroup {
     TwillenShop = 2,
     RandoEvents = 3,
     RandoUpgrade = 4,
+    Player = 5,
     RandoState = 6,
     RandoConfig = 7,
-    MapFilter = 8,
-    PlandoVars = 9,
+    Custom = 9,  // Space for userland variables
     BingoState = 10,
     Appliers = 11,
-    MultiVars = 12,
+    Multiworld = 12,
     RandoStats = 14,
-    RandoVirtual = 15,
-    LupoGroup = 16,
+    LupoShop = 15,
+    LupoMapCosts = 16,
     GromShop = 17,
-    RandoGameModes = 18,
-    ShrineStates = 19,
+    Shrines = 19,
     TuleyShop = 20,
     GladesProjects = 21,
-
-    // Vanilla groups
-    // TODO: Add all uberstate groups here and use four our uberstate methods.
-    npcsStateGroup = 48248
 };
 
 enum class UberStateType : uint8_t {
@@ -68,4 +63,4 @@ NLOHMANN_JSON_SERIALIZE_ENUM(
         }
 );
 
-CORE_DLLEXPORT std::string uber_state_group_name(UberStateGroup group);
+CORE_DLLEXPORT std::optional<std::string> custom_uber_state_group_name(UberStateGroup group);

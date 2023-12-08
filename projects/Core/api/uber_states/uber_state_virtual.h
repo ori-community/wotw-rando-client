@@ -15,7 +15,6 @@ namespace core::api::uber_states {
     CORE_DLLEXPORT void virtual_notify_change(UberStateCallbackParams const& params);
     CORE_DLLEXPORT bool is_virtual_state(UberStateGroup group, int state);
     CORE_DLLEXPORT std::string get_virtual_name(UberStateGroup group, int state);
-    CORE_DLLEXPORT std::string get_virtual_group_name(UberStateGroup group);
     CORE_DLLEXPORT double get_virtual_value(UberStateGroup group, int state);
     CORE_DLLEXPORT void set_virtual_value(UberStateGroup group, int state, double value);
     CORE_DLLEXPORT std::vector<uber_id_t> get_virtual_uber_ids();

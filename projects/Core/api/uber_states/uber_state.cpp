@@ -37,6 +37,7 @@
 #include <Modloader/app/types/SerializedByteUberState.h>
 #include <Modloader/app/types/SerializedFloatUberState.h>
 #include <Modloader/app/types/SerializedIntUberState.h>
+#include <Modloader/app/types/UberStateCollection.h>
 #include <Modloader/app/types/UberID.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
@@ -375,16 +376,17 @@ namespace core::api::uber_states {
 
     std::string UberState::group_name() const {
         if (is_virtual_state(m_group, m_state)) {
-            return get_virtual_group_name(m_group);
+            return custom_uber_state_group_name(m_group).value_or(std::string("unknownVirtual"));
         }
 
-        auto uber_state = ptr();
+        const auto uber_state = ptr();
+
         if (uber_state == nullptr) {
             return "Null";
         }
 
-        auto group = il2cpp::invoke<app::IUberStateGroup>(uber_state, "get_UberStateGroup");
-        auto csstring = il2cpp::invoke<app::String>(group, "get_GroupName");
+        const auto group = il2cpp::invoke<app::IUberStateGroup>(uber_state, "get_UberStateGroup");
+        const auto csstring = il2cpp::invoke<app::String>(group, "get_GroupName");
         return il2cpp::convert_csstring(csstring);
     }
 

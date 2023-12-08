@@ -64,7 +64,7 @@ namespace {
         this_ptr->fields.MapQuestCompletedMapCostModifier = 1.f;
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
-        return core::api::uber_states::UberState(UberStateGroup::LupoGroup, id).get<int>();
+        return core::api::uber_states::UberState(UberStateGroup::LupoMapCosts, id).get<int>();
     }
 
     using normal_function = app::MessageProvider* (*)(app::CartographerEntity*);
@@ -78,7 +78,7 @@ namespace {
     IL2CPP_INTERCEPT(CartographerEntity, app::MessageProvider*, get_IntroMessageProvider, (app::CartographerEntity * this_ptr)) {
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
-        auto cost = core::api::uber_states::UberState(UberStateGroup::LupoGroup, id).get<int>();
+        auto cost = core::api::uber_states::UberState(UberStateGroup::LupoMapCosts, id).get<int>();
         area->fields.LupoData.AreaMapSpiritLevelCost = cost;
         area->fields.LupoDataOnCondition.AreaMapSpiritLevelCost = cost;
         return handle_lupo_message(this_ptr, LupoSelection::Intro, next::CartographerEntity::get_IntroMessageProvider);

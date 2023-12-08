@@ -18,15 +18,15 @@ namespace {
         auto completed_state_group = this_ptr->fields.CompletedState->fields.Group->fields._.m_id->fields.m_id;
 
         if (completed_state_group == 44310 && completed_state_id == 58796) {
-            this_ptr->fields.OptionalWaveState = core::api::uber_states::UberState(UberStateGroup::ShrineStates, 0).ptr<app::IntUberState>();
+            this_ptr->fields.OptionalWaveState = core::api::uber_states::UberState(UberStateGroup::Shrines, 0).ptr<app::IntUberState>();
         } else if (completed_state_group == 21786 && completed_state_id == 2869) {
-            this_ptr->fields.OptionalWaveState = core::api::uber_states::UberState(UberStateGroup::ShrineStates, 1).ptr<app::IntUberState>();
+            this_ptr->fields.OptionalWaveState = core::api::uber_states::UberState(UberStateGroup::Shrines, 1).ptr<app::IntUberState>();
         } else if (completed_state_group == 24922 && completed_state_id == 45011) {
-            this_ptr->fields.OptionalWaveState = core::api::uber_states::UberState(UberStateGroup::ShrineStates, 2).ptr<app::IntUberState>();
+            this_ptr->fields.OptionalWaveState = core::api::uber_states::UberState(UberStateGroup::Shrines, 2).ptr<app::IntUberState>();
         } else if (completed_state_group == 18793 && completed_state_id == 12512) {
-            this_ptr->fields.OptionalWaveState = core::api::uber_states::UberState(UberStateGroup::ShrineStates, 3).ptr<app::IntUberState>();
+            this_ptr->fields.OptionalWaveState = core::api::uber_states::UberState(UberStateGroup::Shrines, 3).ptr<app::IntUberState>();
         } else if (completed_state_group == 58674 && completed_state_id == 56043) {
-            this_ptr->fields.OptionalWaveState = core::api::uber_states::UberState(UberStateGroup::ShrineStates, 4).ptr<app::IntUberState>();
+            this_ptr->fields.OptionalWaveState = core::api::uber_states::UberState(UberStateGroup::Shrines, 4).ptr<app::IntUberState>();
         } else if (completed_state_group == 9593 && completed_state_id == 59418) {
             // Noop: inkwaterMarshStateGroup.enemyRoom
         } else if (completed_state_group == 21786 && completed_state_id == 35598) {

@@ -3,33 +3,34 @@
 #include <unordered_map>
 
 namespace {
-    std::unordered_map<UberStateGroup, std::string> group_names = {
+    std::unordered_map<UberStateGroup, std::string> custom_group_names = {
         { UberStateGroup::Tree, "trees" },
-        { UberStateGroup::OpherShop, "opherWeapons" },
-        { UberStateGroup::TwillenShop, "twillenShards" },
+        { UberStateGroup::OpherShop, "opherShop" },
+        { UberStateGroup::TwillenShop, "twillenShop" },
         { UberStateGroup::RandoEvents, "randoEvents" },
         { UberStateGroup::RandoUpgrade, "randoUpgrades" },
+        { UberStateGroup::Player, "player" },
         { UberStateGroup::RandoState, "randoState" },
         { UberStateGroup::RandoConfig, "randoConfig" },
-        { UberStateGroup::MapFilter, "mapFilter" },
-        { UberStateGroup::PlandoVars, "plandoVars" },
+        { UberStateGroup::Custom, "custom" },
         { UberStateGroup::BingoState, "bingoState" },
-        { UberStateGroup::Appliers, "appliersSerialization" },
-        { UberStateGroup::MultiVars, "multiVars" },
+        { UberStateGroup::Appliers, "appliers" },
+        { UberStateGroup::Multiworld, "multiworld" },
         { UberStateGroup::RandoStats, "randoStats" },
-        { UberStateGroup::RandoVirtual, "randoVirtual" },
-        { UberStateGroup::LupoGroup, "lupo" },
+        { UberStateGroup::LupoMapCosts, "lupoMapCosts" },
         { UberStateGroup::GromShop, "gromShop" },
-        { UberStateGroup::RandoGameModes, "randoGameModes" },
-        { UberStateGroup::ShrineStates, "shrineStates" },
+        { UberStateGroup::Shrines, "shrines" },
         { UberStateGroup::TuleyShop, "tuleyShop" },
         { UberStateGroup::GladesProjects, "gladesProjects" },
-
-        { UberStateGroup::npcsStateGroup, "npcsStateGroup" }
     };
 }
 
-std::string uber_state_group_name(UberStateGroup group) {
-    auto it = group_names.find(group);
-    return it != group_names.end() ? it->second : "unknown";
+std::optional<std::string> custom_uber_state_group_name(UberStateGroup group) {
+    const auto it = custom_group_names.find(group);
+
+    if (it != custom_group_names.end()) {
+        return it->second;
+    }
+
+    return std::nullopt;
 }
