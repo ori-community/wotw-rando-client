@@ -123,40 +123,40 @@ namespace randomizer::game::shops {
             tuley_key tuley;
         };
 
-        int type;
+        ShopType type;
 
         static UniversalKey create_opher(app::AbilityType__Enum first, app::AbilityType__Enum second) {
             return UniversalKey {
                 .opher = std::make_pair(first, second),
-                .type = 0
+                .type = ShopType::Opher,
             };
         }
 
         static UniversalKey create_twillen(app::SpiritShardType__Enum shard) {
             return UniversalKey {
                 .twillen = shard,
-                .type = 1
+                .type = ShopType::Twillen,
             };
         }
 
         static UniversalKey create_lupo(const core::api::uber_states::UberState state) {
             return UniversalKey {
                 .lupo = state,
-                .type = 2
+                .type = ShopType::Lupo,
             };
         }
 
         static UniversalKey create_grom(const core::api::uber_states::UberState state) {
             return UniversalKey {
                 .grom = state,
-                .type = 3
+                .type = ShopType::Grom,
             };
         }
 
         static UniversalKey create_tuley(const core::api::uber_states::UberState state) {
             return UniversalKey {
                 .tuley = state,
-                .type = 4
+                .type = ShopType::Tuley,
             };
         }
     };
@@ -169,17 +169,19 @@ namespace randomizer::game::shops {
         }
 
         switch (it->second.type) {
-            case 0:
+            case ShopType::Opher:
                 return opher.slot(it->second.opher);
-            case 1:
+            case ShopType::Twillen:
                 return twillen.slot(it->second.twillen);
-            case 2:
+            case ShopType::Lupo:
                 return lupo.slot(it->second.lupo);
-            case 3:
+            case ShopType::Grom:
                 return grom.slot(it->second.grom);
-            default:
+            case ShopType::Tuley:
                 return tuley.slot(it->second.tuley);
         }
+
+        throw std::exception("Invalid shop type");
     }
 
     bool is_owned(ShopSlot const& slot) {

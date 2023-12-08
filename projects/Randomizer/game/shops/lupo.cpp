@@ -24,6 +24,7 @@
 #include <Modloader/app/types/Renderer.h>
 #include <Modloader/app/types/SpellUIExperience.h>
 #include <Modloader/app/types/TextBox.h>
+#include <Modloader/app/types/SerializedByteUberState.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
@@ -38,13 +39,13 @@ namespace {
     using namespace randomizer::game::shops;
 
     IL2CPP_INTERCEPT(MapmakerScreen, void, Init, (app::MapmakerScreen * this_ptr)) {
-        next::MapmakerScreen::Init(this_ptr);
-
         for (const auto item: il2cpp::ArrayIterator(this_ptr->fields.Purchases)) {
             const auto previous_state_id = item->fields.UberState->fields._.m_id->fields.m_id;
             const auto target_uber_state = core::api::uber_states::UberState(UberStateGroup::LupoShop, previous_state_id);
             item->fields.UberState = reinterpret_cast<app::SerializedByteUberState*>(target_uber_state.ptr());
         }
+
+        next::MapmakerScreen::Init(this_ptr);
     }
 
     IL2CPP_INTERCEPT(MapmakerItem, int32_t, GetCost, (app::MapmakerItem * this_ptr)) {
