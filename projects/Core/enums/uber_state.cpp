@@ -17,6 +17,7 @@ namespace {
         { UberStateGroup::Appliers, "appliers" },
         { UberStateGroup::Multiworld, "multiworld" },
         { UberStateGroup::RandoStats, "randoStats" },
+        { UberStateGroup::LupoShop, "lupoShop" },
         { UberStateGroup::LupoMapCosts, "lupoMapCosts" },
         { UberStateGroup::GromShop, "gromShop" },
         { UberStateGroup::Shrines, "shrines" },
