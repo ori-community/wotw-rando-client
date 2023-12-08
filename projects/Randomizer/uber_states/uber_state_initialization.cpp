@@ -351,7 +351,6 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "spiritLightSpent", 4, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "oreCollected", 5, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "oreSpent", 6, 0),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoState, "goalModesComplete", 11, false),
                 add_state<app::IntUberState>(UberStateGroup::RandoState, "currentMapArea", 15, static_cast<int>(GameArea::TOTAL)),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "tuleyExists", 300, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "rainLiftedInMarsh", 401, false),
