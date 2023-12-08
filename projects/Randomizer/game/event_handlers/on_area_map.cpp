@@ -8,7 +8,7 @@
 #include <Modloader/interception_macros.h>
 
 namespace {
-    core::api::uber_states::UberState current_map_area(UberStateGroup::RandoEvents, 15);
+    core::api::uber_states::UberState current_map_area(UberStateGroup::RandoState, 15);
 
     IL2CPP_INTERCEPT(AreaMapUI, void, Show, (app::AreaMapUI * this_ptr, bool set_menu_audio_state)) {
         core::api::game::event_bus().trigger_event(GameEvent::OpenAreaMap, EventTiming::Before);

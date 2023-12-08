@@ -9,6 +9,7 @@
 #include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/MapmakerItem.h>
 #include <Modloader/app/methods/MapmakerScreen.h>
+#include <Modloader/app/methods/MapmakerScreen___c.h>
 #include <Modloader/app/methods/MapmakerUIDetails.h>
 #include <Modloader/app/methods/MapmakerUIItem.h>
 #include <Modloader/app/methods/MapmakerUISubItem.h>
@@ -24,7 +25,6 @@
 #include <Modloader/app/types/Renderer.h>
 #include <Modloader/app/types/SpellUIExperience.h>
 #include <Modloader/app/types/TextBox.h>
-#include <Modloader/app/types/SerializedByteUberState.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
@@ -62,6 +62,20 @@ namespace {
             core::api::graphics::textures::apply_default(renderer);
             UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum::MainTexture, reinterpret_cast<app::Texture*>(this_ptr->fields.m_upgradeItem->fields.Icon));
         }
+    }
+
+    const std::unordered_map<int, int> LUPO_SHOP_ORDER = {
+        {19396, 0},  // hcMapIcons
+        {57987, 1},  // ecMapIcons
+        {41666, 2},  // shardMapIcons
+    };
+
+    // Prevent Twillen from cleaning up (sorting) his shop
+    IL2CPP_INTERCEPT(MapmakerScreen___c, int32_t, _PopulateInventoryCanvasWithUpgrades_b__59_0, (app::MapmakerScreen_c * this_ptr, app::Object* a, app::Object* b)) {
+        const auto item_a = reinterpret_cast<app::MapmakerItem*>(a);
+        const auto item_b = reinterpret_cast<app::MapmakerItem*>(b);
+
+        return LUPO_SHOP_ORDER.at(item_a->fields.UberState->fields._.m_id->fields.m_id) - LUPO_SHOP_ORDER.at(item_b->fields.UberState->fields._.m_id->fields.m_id);
     }
 
     bool show_hint(app::MapmakerScreen* screen, app::MessageProvider* provider) {

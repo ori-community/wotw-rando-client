@@ -491,21 +491,21 @@ namespace randomizer {
             for (int i = 0; i < CUSTOM_INT_COUNT; ++i) {
                 auto id = next_id++;
                 states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::Custom, std::format("int{:04d}", id), id, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::Custom, std::format("int{:04d}", i), id, 0)
                 );
             }
 
             for (int i = 0; i < CUSTOM_BOOL_COUNT; ++i) {
                 auto id = next_id++;
                 states.push_back(add_state<app::SerializedBooleanUberState>(
-                    UberStateGroup::Custom, std::format("bool{:04d}",id),id, false
+                    UberStateGroup::Custom, std::format("bool{:04d}",i),id, false
                 ));
             }
 
             for (int i = 0; i < CUSTOM_FLOAT_COUNT; ++i) {
                 auto id = next_id++;
                 states.push_back(add_state<app::SerializedFloatUberState>(
-                    UberStateGroup::Custom, std::format("float{:04d}", id), id, false
+                    UberStateGroup::Custom, std::format("float{:04d}", i), id, false
                 ));
             }
 
