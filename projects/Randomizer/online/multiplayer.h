@@ -54,6 +54,8 @@ namespace randomizer::online {
 
         const std::optional<core::MoodGuid>& restrict_to_save_guid() const { return m_restrict_to_save_guid; };
 
+        bool is_in_incorrect_save_file() const;
+
     private:
         struct MessageBoxStorage {
             std::optional<float> time;
@@ -80,8 +82,6 @@ namespace randomizer::online {
 
         void initialize_game_sync(Network::InitGameSyncMessage const& message);
         void set_seed(Network::SetSeedMessage const& message);
-
-        bool is_in_incorrect_save_file() const;
 
         common::TimedMultiEventBus<Event> m_event_bus;
 
