@@ -5,8 +5,8 @@
 
 namespace randomizer::messages::credit_entries {
 
-    TextEntry::TextEntry(float time, float timeout, int id)
-            : BaseEntry(time, timeout)
+    TextEntry::TextEntry(float start_time, float duration, int id)
+            : BaseEntry(start_time, duration)
             , m_id(id) {}
 
     bool TextEntry::resolve(CreditsController* credits, float time) {

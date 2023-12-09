@@ -7,7 +7,7 @@ namespace randomizer::messages {
 namespace randomizer::messages::credit_entries {
     struct BaseEntry {
     protected:
-        BaseEntry(float time, float timeout);
+        BaseEntry(float start_time, float duration);
         virtual ~BaseEntry() = default;
 
     public:
@@ -15,7 +15,7 @@ namespace randomizer::messages::credit_entries {
         virtual bool resolve(CreditsController* credits, float t);
         virtual void reset(CreditsController* credits) = 0;
 
-        const float time;
-        const float timeout;
+        const float m_start_time;
+        const float m_duration;
     };
 } // namespace randomizer::messages::credit_entries

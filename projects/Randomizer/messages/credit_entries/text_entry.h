@@ -10,7 +10,7 @@ namespace randomizer::messages::credit_entries {
 
     struct TextEntry : public BaseEntry {
     public:
-        TextEntry(float time, float timeout, int id);
+        TextEntry(float start_time, float duration, int id);
         ~TextEntry() override = default;
 
         bool resolve(CreditsController* credits, float time) override;

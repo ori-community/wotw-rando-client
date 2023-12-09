@@ -177,7 +177,7 @@ namespace randomizer::messages {
         }
 
         std::sort(m_entries.begin(), m_entries.end(), [](auto const& a, auto const& b) {
-            return a->time < b->time;
+            return a->m_start_time < b->m_start_time;
         });
 
         return true;
