@@ -109,10 +109,10 @@ namespace core::api::messages {
         Property<app::AlignmentMode__Enum> m_alignment;
         Property<app::HorizontalAnchorMode__Enum> m_horizontal_anchor;
         Property<app::VerticalAnchorMode__Enum> m_vertical_anchor;
-        Property<float> m_top_padding;
-        Property<float> m_bottom_padding;
-        Property<float> m_left_padding;
-        Property<float> m_right_padding;
+        Property<float> m_top_padding { 0.f };
+        Property<float> m_bottom_padding { 0.f };
+        Property<float> m_left_padding { 1.f };
+        Property<float> m_right_padding { 1.f };
         Property<std::optional<ScreenPosition>> m_screen_position;
     };
 } // namespace core::api::messages

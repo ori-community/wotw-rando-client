@@ -10,7 +10,7 @@
 #include <regex>
 
 namespace randomizer::messages {
-    constexpr float Z_VALUE = 20.0f;
+    constexpr float Z_VALUE = 20.f;
     constexpr int RANDOM_SEED = 0;
 
     std::regex collection_replacement("#([-+]?\\d*)");
@@ -159,12 +159,15 @@ namespace randomizer::messages {
             switch (type) {
                 case 1: {
                     parse_text_entry(line, line_number, parts);
+                    break;
                 }
                 case 2: {
                     parse_move_entry(line, line_number, parts);
+                    break;
                 }
                 case 3: {
                     parse_collection_entry(line, line_number, parts);
+                    break;
                 }
                 default: {
                     modloader::warn("credits_controller", std::format("Parsing credits, encountered invalid type in line '{}'", line_number));

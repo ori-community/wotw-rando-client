@@ -12,7 +12,7 @@ namespace randomizer::messages::credit_entries {
             , m_end(end) {}
 
     bool MoveEntry::resolve(CreditsController* credits, float t) {
-        credits->message_box(m_id).position().set(modloader::math::lerp(m_start, m_end, (time - t) / timeout));
+        credits->message_box(m_id).position().set(modloader::math::lerp(m_start, m_end, (t - time) / timeout));
         return BaseEntry::resolve(credits, t);
     }
 
