@@ -1283,10 +1283,10 @@ namespace randomizer::seed::legacy_parser {
             case 7:
             case 8:
             case 9:
-                item->variable.assign(core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, 50 + weapon_upgrade_int));
+                item->variable.assign(core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, weapon_upgrade_int));
                 item->value.assign(core::set_get<float>{
                     [](auto value) {},
-                    [weapon_upgrade_int]() { return std::powf(0.5f, core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, weapon_upgrade_int).get<float>()); },
+                    [weapon_upgrade_int]() { return std::powf(0.5f, core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, 50 + weapon_upgrade_int).get<float>()); },
                 });
                 break;
             case 45:

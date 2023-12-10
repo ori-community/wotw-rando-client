@@ -249,7 +249,7 @@ namespace {
             );
 
             // Remove regen tree water and move day water around (288338807 : day, -1643391836 : night).
-            register_new_setup_intercept({"swampSaveRoomA/timesOfDayTransition"}, {288338807, -1643391836}, move_water);
+            //register_new_setup_intercept({"swampSaveRoomA/timesOfDayTransition"}, {288338807, -1643391836}, move_water);
 
             // Move howl between modifiers depending on if its day or night time. (-1375966924 : day, 1361521887 : night)
             register_new_setup_intercept({"swampNightcrawlerA/artSetups/timesOfDayTransition"}, {-1375966924, 1361521887}, move_howl);

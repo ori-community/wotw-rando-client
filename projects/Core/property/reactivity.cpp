@@ -87,8 +87,24 @@ namespace core::reactivity {
         return AfterEffectBuilder(m_effect);
     }
 
+    builder::AfterEffectBuilder builder::EffectBuilder::effect(std::vector<api::uber_states::UberState> const& states, const std::source_location& location) const {
+        return effect([states]() {
+            for (auto state: states) {
+                [[maybe_unused]] auto x = state.get();
+            }
+        }, location);
+    }
+
     builder::AfterEffectBuilder builder::BeforeEffectBuilder::effect(const std::function<void()>& func, const std::source_location& location) const {
         return EffectBuilder(m_effect).effect(func, location);
+    }
+
+    builder::AfterEffectBuilder builder::BeforeEffectBuilder::effect(std::vector<api::uber_states::UberState> const& states, const std::source_location& location) const {
+        return effect([states]() {
+            for (auto state: states) {
+                [[maybe_unused]] auto x = state.get();
+            }
+        }, location);
     }
 
     builder::EffectBuilder builder::BeforeEffectBuilder::before(const std::function<void()>& func) const {

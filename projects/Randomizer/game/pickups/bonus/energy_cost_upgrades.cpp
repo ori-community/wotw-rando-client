@@ -201,51 +201,51 @@ namespace {
     }
 
     std::vector<std::shared_ptr<core::reactivity::ReactiveEffect>> effects;
-    auto _ = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto _ = event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         core::reactivity::watch_effect()
-                .effect([&] { blaze_cost.get(); })
+                .effect({blaze, blaze_cost})
                 .after([&] { update_blaze(blaze_cost.get<float>()); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect([&] { spear_cost.get(); })
+                .effect({spear, spear_cost})
                 .after([&] { update_spear(spear_cost.get<float>()); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect([&] { shuriken_cost.get(); })
+                .effect({shuriken, shuriken_cost})
                 .after([&] { update_shuriken(shuriken_cost.get<float>()); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect([&] { sentry_cost.get(); })
+                .effect({sentry, sentry_cost})
                 .after([&] { update_sentry(sentry_cost.get<float>()); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect([&] { bow_cost.get(); })
+                .effect({bow, bow_cost})
                 .after([&] { update_bow(bow_cost.get<float>()); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect([&] { regeneration_cost.get(); })
+                .effect({regenerate, regeneration_cost})
                 .after([&] { update_regeneration(regeneration_cost.get<float>()); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect([&] { flash_cost.get(); })
+                .effect({flash, flash_cost})
                 .after([&] { update_flash(flash_cost.get<float>()); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect([&] { grenade_cost.get(); })
+                .effect({grenade, grenade_cost})
                 .after([&] { update_grenade(grenade_cost.get<float>()); })
                 .trigger_on_load()
                 .finalize(effects);
