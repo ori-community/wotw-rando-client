@@ -1192,7 +1192,7 @@ namespace randomizer::seed::legacy_parser {
         const auto line = concatenate_parts(parts);
 
         const auto item = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
-        item->variable.assign(core::api::uber_states::UberState(4, bonus_type_int));
+        item->variable.assign(core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, bonus_type_int));
         item->value.set(1);
         data.add_item(item);
 

@@ -45,7 +45,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) { game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 8), 0); });
         initialize_item(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "file:assets/icons/wheel/warp_to_credits.blue.png",
                         [](auto, auto, auto) {
-                            if (core::api::uber_states::UberState().get<bool>()) {
+                            if (core::api::uber_states::UberState(34543, 11226).get<bool>()) {
                                 features::credits::start();
                             } else {
                                 core::message_controller().queue_central({

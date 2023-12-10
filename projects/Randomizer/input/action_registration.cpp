@@ -46,7 +46,7 @@ namespace randomizer::input {
         });
 
         auto on_warp_credits_before = single_input_bus().register_handler(Action::WarpCredits, EventTiming::Before, [](auto, auto) {
-            if (core::api::uber_states::UberState().get<bool>()) {
+            if (core::api::uber_states::UberState(34543, 11226).get<bool>()) {
                 features::credits::start();
             } else {
                 core::message_controller().queue_central({

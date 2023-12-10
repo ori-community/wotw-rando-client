@@ -39,7 +39,7 @@ namespace randomizer::messages {
     };
 
     CreditsController::CreditsController() { // NOLINT(MSC51-CPP)
-        auto text_processor = std::make_shared<core::text::CompositeTextProcessor>();
+        const auto text_processor = std::make_shared<core::text::CompositeTextProcessor>();
         text_processor->compose<CreditsController::TextProcessor>(*this);
         m_text_processor = text_processor;
     }
@@ -50,11 +50,11 @@ namespace randomizer::messages {
             return;
         }
 
-        auto start_time = std::stof(parts[1]);
-        auto length = std::stof(parts[2]);
-        auto id = std::stoi(parts[3]);
-        auto x = std::stof(parts[4]);
-        auto y = std::stof(parts[5]);
+        const auto start_time = std::stof(parts[1]);
+        const auto length = std::stof(parts[2]);
+        const auto id = std::stoi(parts[3]);
+        const auto x = std::stof(parts[4]);
+        const auto y = std::stof(parts[5]);
         auto alignment = app::AlignmentMode__Enum::Center;
         auto horizontal = app::HorizontalAnchorMode__Enum::Center;
         auto vertical = app::VerticalAnchorMode__Enum::Middle;
@@ -101,13 +101,13 @@ namespace randomizer::messages {
             return;
         }
 
-        auto start_time = std::stof(parts[1]);
-        auto length = std::stof(parts[2]);
-        auto id = std::stoi(parts[3]);
-        auto start_x = std::stof(parts[4]);
-        auto start_y = std::stof(parts[5]);
-        auto end_x = std::stof(parts[6]);
-        auto end_y = std::stof(parts[7]);
+        const auto start_time = std::stof(parts[1]);
+        const auto length = std::stof(parts[2]);
+        const auto id = std::stoi(parts[3]);
+        const auto start_x = std::stof(parts[4]);
+        const auto start_y = std::stof(parts[5]);
+        const auto end_x = std::stof(parts[6]);
+        const auto end_y = std::stof(parts[7]);
         m_entries.push_back(std::make_shared<credit_entries::MoveEntry>(
             start_time,
             length,
@@ -123,7 +123,7 @@ namespace randomizer::messages {
             return;
         }
 
-        auto id = std::stoi(parts[1]);
+        const auto id = std::stoi(parts[1]);
         auto& str = m_string_collection[id].emplace_back();
         str = *(parts.begin() + 2);
         for (auto it = parts.begin() + 3; it != parts.end(); ++it) {
@@ -155,7 +155,7 @@ namespace randomizer::messages {
 
             std::vector<std::string> parts;
             split_str(line, parts, '|');
-            auto type = std::stoi(parts.front());
+            const auto type = std::stoi(parts.front());
             switch (type) {
                 case 1: {
                     parse_text_entry(line, line_number, parts);
@@ -207,9 +207,9 @@ namespace randomizer::messages {
     void CreditsController::reset() {
         m_random_generator.seed(RANDOM_SEED);
         m_active_entries.clear();
-        for (auto& text : m_message_boxes) {
-            text.second.message_box.hide(true);
-            text.second.message_box.position().set(text.second.initial_position);
+        for (auto& entry: m_message_boxes | std::views::values) {
+            entry.message_box.hide(true);
+            entry.message_box.position().set(entry.initial_position);
         }
 
         m_current_index = 0;
