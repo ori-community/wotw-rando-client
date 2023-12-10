@@ -195,41 +195,49 @@ namespace {
         core::reactivity::watch_effect()
                 .effect([&] { blaze_cost.get(); })
                 .after([&] { update_blaze(blaze_cost.get<float>()); })
+                .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
                 .effect([&] { spear_cost.get(); })
                 .after([&] { update_spear(spear_cost.get<float>()); })
+                .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
                 .effect([&] { shuriken_cost.get(); })
                 .after([&] { update_shuriken(shuriken_cost.get<float>()); })
+                .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
                 .effect([&] { sentry_cost.get(); })
                 .after([&] { update_sentry(sentry_cost.get<float>()); })
+                .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
                 .effect([&] { bow_cost.get(); })
                 .after([&] { update_bow(bow_cost.get<float>()); })
+                .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
                 .effect([&] { regeneration_cost.get(); })
                 .after([&] { update_regeneration(regeneration_cost.get<float>()); })
+                .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
                 .effect([&] { flash_cost.get(); })
                 .after([&] { update_flash(flash_cost.get<float>()); })
+                .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
                 .effect([&] { grenade_cost.get(); })
                 .after([&] { update_grenade(grenade_cost.get<float>()); })
+                .trigger_on_load()
                 .finalize(effects);
     });
 } // namespace

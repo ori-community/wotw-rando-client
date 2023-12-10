@@ -4,6 +4,7 @@
 
 #include <Core/id_registry.h>
 #include <Core/property.h>
+#include <Core/api/game/game.h>
 #include <Core/property/reactivity.h>
 
 #include <Modloader/app/methods/UberGCManager.h>
@@ -20,6 +21,7 @@ namespace core::reactivity {
         std::vector<TrackingContext> active_tracking_contexts;
         std::multiset<size_t> tracking_blockers;
         std::unordered_map<dependency_t, std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare>> effects_by_dependency;
+        std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare> trigger_on_load_effects;
     };
 
     auto& dependency_tracker() {
@@ -105,6 +107,12 @@ namespace core::reactivity {
         return watch_effect().effect(func, location).finalize();
     }
 
+    void builder::HasEffect::register_trigger_on_load() const {
+        if (m_effect->trigger_on_load) {
+            dependency_tracker().trigger_on_load_effects.emplace(std::weak_ptr(m_effect));
+        }
+    }
+
     void notify_used(const dependency_t& dependency) {
         if (dependency_tracker().active_tracking_contexts.empty()) {
             return;
@@ -118,27 +126,10 @@ namespace core::reactivity {
         dependency_tracker().active_tracking_contexts.back().dependencies.emplace(dependency);
     }
 
-    void notify_changed(const dependency_t& dependency) {
-        auto const& tracking_blockers = dependency_tracker().tracking_blockers;
-        auto const& active_contexts = dependency_tracker().active_tracking_contexts;
-        if (!tracking_blockers.empty() && *tracking_blockers.rbegin() == active_contexts.size()) {
-            return;
-        }
-
-        if (!active_contexts.empty()) {
-            throw std::exception("Dependencies must not be changed inside a non-blocked reactive effect");
-        }
-
-        const auto refs_it = dependency_tracker().effects_by_dependency.find(dependency);
-
-        if (refs_it == dependency_tracker().effects_by_dependency.end()) {
-            return;
-        }
-
-        const auto refs = refs_it->second;
-        for (const auto& ref_ptr: refs) {
-            if (!ref_ptr.expired()) {
-                auto effect = ref_ptr.lock();
+    void run_effects(const std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare>& effects) {
+        for (const auto& effect_ptr: effects) {
+            if (!effect_ptr.expired()) {
+                auto effect = effect_ptr.lock();
 
                 if (effect->before_function != nullptr) {
                     effect->before_function();
@@ -158,6 +149,27 @@ namespace core::reactivity {
                 }
             }
         }
+    }
+
+    void notify_changed(const dependency_t& dependency) {
+        auto const& tracking_blockers = dependency_tracker().tracking_blockers;
+        auto const& active_contexts = dependency_tracker().active_tracking_contexts;
+        if (!tracking_blockers.empty() && *tracking_blockers.rbegin() == active_contexts.size()) {
+            return;
+        }
+
+        if (!active_contexts.empty()) {
+            throw std::exception("Dependencies must not be changed inside a non-blocked reactive effect");
+        }
+
+        const auto effects_it = dependency_tracker().effects_by_dependency.find(dependency);
+
+        if (effects_it == dependency_tracker().effects_by_dependency.end()) {
+            return;
+        }
+
+        const auto effects = effects_it->second;
+        run_effects(effects);
     }
 
     unsigned int reserve_property_id() {
@@ -187,10 +199,24 @@ namespace core::reactivity {
                 ++effect_collection_it;
             }
         }
+
+        auto trigger_on_load_effects_it = dependency_tracker().trigger_on_load_effects.begin();
+
+        while (trigger_on_load_effects_it != dependency_tracker().trigger_on_load_effects.end()) {
+            if (trigger_on_load_effects_it->expired()) {
+                trigger_on_load_effects_it = dependency_tracker().trigger_on_load_effects.erase(trigger_on_load_effects_it);
+            } else {
+                ++trigger_on_load_effects_it;
+            }
+        }
     }
 
     IL2CPP_INTERCEPT(UberGCManager, void, RunGC, (bool is_debug)) {
         next::UberGCManager::RunGC(is_debug);
         garbage_collect();
     }
+
+    auto on_load = api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [](auto, auto) {
+        run_effects(dependency_tracker().trigger_on_load_effects);
+    });
 }

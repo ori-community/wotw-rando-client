@@ -72,6 +72,7 @@ namespace core::reactivity {
         std::function<void()> before_function = nullptr;
         std::function<void()> effect_function = nullptr;
         std::function<void()> after_function = nullptr;
+        bool trigger_on_load = false;
     };
 
     namespace builder {
@@ -93,71 +94,122 @@ namespace core::reactivity {
     CORE_DLLEXPORT std::shared_ptr<ReactiveEffect> watch_effect(const std::function<void()>& func, const std::source_location& location = std::source_location::current());
 
     namespace builder {
-        class CORE_DLLEXPORT FinalizeOnlyBuilder {
+        class CORE_DLLEXPORT HasEffect {
+        protected:
+            explicit HasEffect(const std::shared_ptr<ReactiveEffect>& effect) :
+                m_effect(effect) {
+            }
+
+            /**
+             * \brief Registers this effect with the trigger_on_load system if enabled
+             */
+            void register_trigger_on_load() const;
+
+            HasEffect() {}
+
+            std::shared_ptr<ReactiveEffect> m_effect;
+        };
+
+        class CORE_DLLEXPORT FinalizeOnlyBuilder : public HasEffect {
         public:
             friend class AfterEffectBuilder;
 
+            FinalizeOnlyBuilder& trigger_on_load() {
+                m_effect->trigger_on_load = true;
+                return *this;
+            }
+
             std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
-            void finalize_inplace(std::shared_ptr<ReactiveEffect>& ptr) const { ptr = m_effect; }
+            void finalize_inplace(std::shared_ptr<ReactiveEffect>& ptr) const {
+                register_trigger_on_load();
+                ptr = m_effect;
+            }
 
             template<typename Container>
-            void finalize(Container& c) { return c.push_back(m_effect); }
+            void finalize(Container& c) {
+                register_trigger_on_load();
+                return c.push_back(m_effect);
+            }
 
         private:
             explicit FinalizeOnlyBuilder(const std::shared_ptr<ReactiveEffect>& effect) :
-                m_effect(effect) {
-            }
-
-            std::shared_ptr<ReactiveEffect> m_effect;
+                HasEffect(effect) {}
         };
 
-        class CORE_DLLEXPORT AfterEffectBuilder {
+        class CORE_DLLEXPORT AfterEffectBuilder : public HasEffect {
         public:
             friend class EffectBuilder;
 
+            AfterEffectBuilder& trigger_on_load() {
+                m_effect->trigger_on_load = true;
+                return *this;
+            }
+
             FinalizeOnlyBuilder after(const std::function<void()>& func) const;
 
-            std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
-            void finalize_inplace(std::shared_ptr<ReactiveEffect>& ptr) const { ptr = m_effect; }
+            std::shared_ptr<ReactiveEffect> finalize() {
+                register_trigger_on_load();
+                return m_effect;
+            }
+            void finalize_inplace(std::shared_ptr<ReactiveEffect>& ptr) const {
+                register_trigger_on_load();
+                ptr = m_effect;
+            }
 
             template<typename Container>
-            void finalize(Container& c) { return c.push_back(m_effect); }
+            void finalize(Container& c) {
+                register_trigger_on_load();
+                return c.push_back(m_effect);
+            }
 
         private:
             explicit AfterEffectBuilder(const std::shared_ptr<ReactiveEffect>& effect) :
-                m_effect(effect) {
+                HasEffect(effect) {
             }
-
-            std::shared_ptr<ReactiveEffect> m_effect;
         };
 
-        class CORE_DLLEXPORT EffectBuilder {
+        class CORE_DLLEXPORT EffectBuilder : public HasEffect {
         public:
             friend class BeforeEffectBuilder;
+
+            EffectBuilder& trigger_on_load() {
+                m_effect->trigger_on_load = true;
+                return *this;
+            }
 
             template<typename  T>
             AfterEffectBuilder effect(Property<T> const& property, const std::source_location& location = std::source_location::current()) const;
             AfterEffectBuilder effect(const std::function<void()>& func, const std::source_location& location = std::source_location::current()) const;
 
-            std::shared_ptr<ReactiveEffect> finalize() { return m_effect; }
-            void finalize_inplace(std::shared_ptr<ReactiveEffect>& ptr) const { ptr = m_effect; }
+            std::shared_ptr<ReactiveEffect> finalize() {
+                register_trigger_on_load();
+                return m_effect;
+            }
+            void finalize_inplace(std::shared_ptr<ReactiveEffect>& ptr) const {
+                register_trigger_on_load();
+                ptr = m_effect;
+            }
 
             template<typename Container>
             void finalize(Container& c) {
+                register_trigger_on_load();
                 return c.push_back(m_effect);
             }
 
         private:
             explicit EffectBuilder(const std::shared_ptr<ReactiveEffect>& effect) :
-                m_effect(effect) {
+                HasEffect(effect) {
             }
-
-            std::shared_ptr<ReactiveEffect> m_effect;
         };
 
-        class CORE_DLLEXPORT BeforeEffectBuilder {
+        class CORE_DLLEXPORT BeforeEffectBuilder : public HasEffect {
         public:
             friend BeforeEffectBuilder reactivity::watch_effect();
+
+            BeforeEffectBuilder& trigger_on_load() {
+                m_effect->trigger_on_load = true;
+                return *this;
+            }
 
             EffectBuilder before(const std::function<void()>& func) const;
 
@@ -166,10 +218,7 @@ namespace core::reactivity {
             AfterEffectBuilder effect(const std::function<void()>& func, const std::source_location& location = std::source_location::current()) const;
 
         private:
-            BeforeEffectBuilder() {
-            }
-
-            std::shared_ptr<ReactiveEffect> m_effect;
+            BeforeEffectBuilder() {}
         };
     }
 
