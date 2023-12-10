@@ -50,8 +50,8 @@ namespace {
             randomizer::multiplayer_universe().uber_state_handler().start_queueing_changes();
 
             // Prevent outgoing changes
-            in_trial_should_sync_handle = randomizer::multiplayer_universe().uber_state_handler().should_sync_event_bus().register_handler([](auto) {
-                return false;
+            in_trial_should_sync_handle = randomizer::multiplayer_universe().uber_state_handler().should_sync_event_bus().register_handler([](auto change) {
+                return change.state.group_int() == 44964;  // Trials group; only sync trials
             });
         } else {
             in_trial_uber_state_changed_handle = nullptr;
