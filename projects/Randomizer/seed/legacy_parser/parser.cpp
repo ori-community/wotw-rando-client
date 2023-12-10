@@ -1215,7 +1215,7 @@ namespace randomizer::seed::legacy_parser {
     std::string weapon_upgrade_name(const int id) {
         switch (id) {
             case 0:
-                return "#Rapid Smash#";
+                return "#Rapid Hammer#";
             case 1:
                 return "#Rapid Sword#";
             case 2:
@@ -1235,15 +1235,15 @@ namespace randomizer::seed::legacy_parser {
             case 9:
                 return "#Grenade Efficiency#";
             case 45:
-                return "#Shock Smash#";
+                return "#Hammer Shockwave#";
             case 46:
-                return "#Static Star#";
+                return "#Static Shuriken#";
             case 47:
                 return "#Sentry Speed#";
             case 48:
                 return "#Charge Blaze#";
             case 49:
-                return "#Exploding Spike#";
+                return "#Exploding Spear#";
             default:
                 return "Unknown";
         }
