@@ -219,4 +219,8 @@ namespace core::reactivity {
     auto on_load = api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [](auto, auto) {
         run_effects(dependency_tracker().trigger_on_load_effects);
     });
+
+    auto on_new_game_initialized = api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+        run_effects(dependency_tracker().trigger_on_load_effects);
+    });
 }
