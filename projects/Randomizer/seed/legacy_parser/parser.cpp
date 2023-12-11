@@ -951,7 +951,7 @@ namespace randomizer::seed::legacy_parser {
         const auto text = should_add ? std::format("#{0} TP#", teleporter_name) : std::format("Removed #{0} TP#", teleporter_name);
         message->info.text.set(text);
         data.add_item(message);
-        data.location_data.icons.emplace_back(MapIcon::MapstonePickup);
+        data.location_data.icons.emplace_back(MapIcon::TeleporterInactive);
         data.location_data.names.emplace_back(text);
         return true;
     }
