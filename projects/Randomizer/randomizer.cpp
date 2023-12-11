@@ -1,10 +1,23 @@
+#include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
+#include <Core/api/game/ui.h>
+#include <Core/api/scenes/scene_load.h>
+#include <Core/api/uber_states/uber_state_handlers.h>
+#include <Core/core.h>
+#include <Core/settings.h>
+#include <Modloader/app/methods/Game/UI_Hints.h>
+#include <Modloader/app/methods/GameController.h>
+#include <Modloader/app/methods/TitleScreenManager.h>
+#include <Modloader/app/types/GameController.h>
+#include <Modloader/app/types/UI_Hints.h>
+#include <Modloader/modloader.h>
 #include <Randomizer/features/wheel.h>
-#include <Randomizer/game/shops/shop.h>
 #include <Randomizer/game/pickups/quests.h>
+#include <Randomizer/game/shops/shop.h>
+#include <Randomizer/location_data/parser.h>
 #include <Randomizer/online/network_monitor.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/legacy_parser/parser.h>
-#include <Randomizer/location_data/parser.h>
 #include <Randomizer/state_data/parser.h>
 #include <Randomizer/text_processors/ability.h>
 #include <Randomizer/text_processors/control.h>
@@ -15,20 +28,6 @@
 #include <Randomizer/text_processors/uber_state.h>
 #include <Randomizer/timer.h>
 #include <Randomizer/uber_states/uber_state_intercepts.h>
-
-#include <Core/api/game/game.h>
-#include <Core/api/game/player.h>
-#include <Core/api/uber_states/uber_state_handlers.h>
-#include <Core/core.h>
-#include <Core/settings.h>
-
-#include <Modloader/modloader.h>
-#include <Modloader/app/methods/TitleScreenManager.h>
-#include <Modloader/app/methods/Game/UI_Hints.h>
-#include <Modloader/app/types/UI_Hints.h>
-
-#include <Core/api/game/ui.h>
-#include <Core/api/scenes/scene_load.h>
 #include <fstream>
 
 namespace randomizer {
@@ -42,14 +41,12 @@ namespace randomizer {
         std::shared_ptr<core::text::CompositeTextProcessor> text_processor;
 
         online::NetworkMonitor monitor;
-        core::dev::StatusDisplay status(
-            {
-                .position = app::Vector3{-1.4f, 0.2f, 0},
-                .margins = {-0.09f, -0.09f},
-                .alignment = app::AlignmentMode__Enum::Left,
-                .screen_position = core::api::messages::ScreenPosition::TopCenter,
-            }
-        );
+        core::dev::StatusDisplay status({
+            .position = app::Vector3{-1.4f, 0.2f, 0},
+            .margins = {-0.09f, -0.09f},
+            .alignment = app::AlignmentMode__Enum::Left,
+            .screen_position = core::api::messages::ScreenPosition::TopCenter,
+        });
 
         std::shared_ptr<seed::SeedMetaData> seed_save_data;
 
@@ -73,82 +70,57 @@ namespace randomizer {
             return true;
         }
 
-        auto on_before_shutdown = core::api::game::event_bus().register_handler(
-            GameEvent::Shutdown,
-            EventTiming::Before,
-            [](auto, auto) {
-                server_disconnect();
-            }
-        );
+        auto on_before_shutdown = core::api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::Before, [](auto, auto) {
+            server_disconnect();
+        });
 
-        auto on_update = core::api::game::event_bus().register_handler(
-            GameEvent::FixedUpdate,
-            EventTiming::Before,
-            [](auto, auto) {
-                if (reach_check_queued && do_reach_check()) {
-                    reach_check_queued = false;
-                }
-
-                const float delta_time = core::api::game::fixed_delta_time();
-                monitor.update(delta_time);
-                status.update(delta_time);
+        auto on_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, [](auto, auto) {
+            if (reach_check_queued && do_reach_check()) {
+                reach_check_queued = false;
             }
-        );
 
-        auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(
-            GameEvent::NewGameInitialized,
-            EventTiming::Before,
-            [](auto, auto) {
-                core::api::game::player::shard_slots().set(3);
-            }
-        );
+            const float delta_time = core::api::game::fixed_delta_time();
+            monitor.update(delta_time);
+            status.update(delta_time);
+        });
+
+        auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
+            core::api::game::player::shard_slots().set(3);
+        });
 
         std::vector<std::function<void()>> input_unlocked_callbacks;
-        auto on_input_locked_handler = core::api::game::event_bus().register_handler(
-            GameEvent::FixedUpdate,
-            EventTiming::After,
-            [](auto, auto) {
-                if (!core::api::game::player::can_move()) {
-                    return;
-                }
-
-                for (auto const& callback: input_unlocked_callbacks) {
-                    callback();
-                }
-
-                input_unlocked_callbacks.clear();
+        auto on_input_locked_handler = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+            if (!core::api::game::player::can_move()) {
+                return;
             }
-        );
 
-        auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(
-            GameEvent::NewGameInitialized,
-            EventTiming::After,
-            [](auto, auto) {
-                queue_input_unlocked_callback(
-                    []() {
-                        randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 0), 0);
-                        randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 1), 0);
-                        core::api::game::save(true);
-                        queue_reach_check();
-                        uber_states::disable_reverts() = false;
-
-                        if (randomizer_seed.info().net_code_enabled) {
-                            multiplayer_universe().report_player_save_guid(core::save_meta::get_current_save_guid());
-                        }
-                    }
-                );
-
-                Game::UI_Hints::Show(
-                    core::api::system::create_message_provider("*Good Luck! <3*"),
-                    app::HintLayer__Enum::Gameplay,
-                    3.f,
-                    app::Vector3{0.f, 0.f, 0.f}
-                );
-
-
-                game::pickups::quests::clear_queued_quest_messages_on_next_update();
+            for (auto const& callback: input_unlocked_callbacks) {
+                callback();
             }
-        );
+
+            input_unlocked_callbacks.clear();
+        });
+
+        auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+            queue_input_unlocked_callback([]() {
+                randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 0), 0);
+                randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 1), 0);
+                core::api::game::save(true);
+                queue_reach_check();
+                uber_states::disable_reverts() = false;
+
+                if (randomizer_seed.info().net_code_enabled) {
+                    multiplayer_universe().report_player_save_guid(core::save_meta::get_current_save_guid());
+                }
+            });
+
+            Game::UI_Hints::Show(
+                core::api::system::create_message_provider("*Good Luck! <3*"), app::HintLayer__Enum::Gameplay, 3.f, app::Vector3{0.f, 0.f, 0.f}
+            );
+
+
+            game::pickups::quests::clear_queued_quest_messages_on_next_update();
+        });
 
         void seed_loaded() {
             timer::clear_uber_state_timers();
@@ -184,54 +156,51 @@ namespace randomizer {
         }
 
         auto on_after_seed_load = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) { seed_loaded(); });
-        auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [](auto, auto) {
-            load_seed(false, false);
+        auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(
+            GameEvent::FinishedLoadingSave,
+            EventTiming::After,
+            [](auto, auto) { load_seed(false, false); }
+        );
+
+        auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
+            randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 7), 0);
         });
 
-        auto on_restore_checkpoint = core::api::game::event_bus().register_handler(
-            GameEvent::RestoreCheckpoint,
-            EventTiming::After,
-            [](auto, auto) {
-                randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 7), 0);
+        auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
+            randomizer_seed.grant(params.state, params.previous_value);
+        });
+
+        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+            monitor.display(&status);
+            monitor.network_client(&client);
+
+            universe.register_packet_handlers(client);
+
+            // TODO: Don't just do this on game ready.
+            modloader::cursor_lock(core::settings::cursor_locked());
+
+            text_processor = std::make_shared<core::text::CompositeTextProcessor>();
+            text_processor->compose(std::make_shared<text_processors::UberStateProcessor>());
+            text_processor->compose(std::make_shared<text_processors::ControlProcessor>());
+            text_processor->compose(std::make_shared<text_processors::AbilityProcessor>());
+            text_processor->compose(std::make_shared<text_processors::ShardProcessor>());
+            text_processor->compose(std::make_shared<text_processors::SeedProcessor>());
+            text_processor->compose(std::make_shared<text_processors::LegacyProcessor>());
+            text_processor->compose(std::make_shared<text_processors::MultiplayerProcessor>());
+
+            core::message_controller().central_display().text_processor(text_processor);
+            seed_save_data = std::make_unique<seed::SeedMetaData>();
+            register_slot(SaveMetaSlot::SeedFilePath, SaveMetaSlotPersistence::None, seed_save_data);
+            load_seed(true, false);
+            if (!core::settings::netcode_disabled() && randomizer_seed.info().net_code_enabled) {
+                server_connect();
             }
-        );
+        });
 
-        auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler(
-            [](auto params) {
-                randomizer_seed.grant(params.state, params.previous_value);
-            }
-        );
-
-        auto on_game_ready = modloader::event_bus().register_handler(
-            ModloaderEvent::GameReady,
-            [](auto) {
-                monitor.display(&status);
-                monitor.network_client(&client);
-
-                universe.register_packet_handlers(client);
-
-                // TODO: Don't just do this on game ready.
-                modloader::cursor_lock(core::settings::cursor_locked());
-                core::api::game::debug_controls(core::settings::start_debug_enabled());
-
-                text_processor = std::make_shared<core::text::CompositeTextProcessor>();
-                text_processor->compose(std::make_shared<text_processors::UberStateProcessor>());
-                text_processor->compose(std::make_shared<text_processors::ControlProcessor>());
-                text_processor->compose(std::make_shared<text_processors::AbilityProcessor>());
-                text_processor->compose(std::make_shared<text_processors::ShardProcessor>());
-                text_processor->compose(std::make_shared<text_processors::SeedProcessor>());
-                text_processor->compose(std::make_shared<text_processors::LegacyProcessor>());
-                text_processor->compose(std::make_shared<text_processors::MultiplayerProcessor>());
-
-                core::message_controller().central_display().text_processor(text_processor);
-                seed_save_data = std::make_unique<seed::SeedMetaData>();
-                register_slot(SaveMetaSlot::SeedFilePath, SaveMetaSlotPersistence::None, seed_save_data);
-                load_seed(true, false);
-                if (!core::settings::netcode_disabled() && randomizer_seed.info().net_code_enabled) {
-                    server_connect();
-                }
-            }
-        );
+        IL2CPP_INTERCEPT(GameController, void, ParseCommandLineArgs, (app::GameController * this_ptr)) {
+            next::GameController::ParseCommandLineArgs(this_ptr);
+            core::api::game::debug_controls(core::settings::start_debug_enabled());
+        }
 
         auto on_title_screen_loaded = core::api::scenes::single_event_bus().register_handler("wotwTitleScreen", [](const auto meta_data, auto) {
             if (meta_data->state == app::SceneState__Enum::Loaded) {
@@ -246,7 +215,8 @@ namespace randomizer {
         if (version_file.is_open()) {
             std::stringstream version_buffer;
             version_buffer << version_file.rdbuf();
-            const auto parsed = semver::from_string_noexcept(trim_copy(version_buffer.str()));;
+            const auto parsed = semver::from_string_noexcept(trim_copy(version_buffer.str()));
+            ;
             if (parsed.has_value()) {
                 version = parsed.value();
             }
@@ -267,9 +237,7 @@ namespace randomizer {
         }
     }
 
-    void queue_input_unlocked_callback(std::function<void()> const& callback) {
-        input_unlocked_callbacks.push_back(callback);
-    }
+    void queue_input_unlocked_callback(std::function<void()> const& callback) { input_unlocked_callbacks.push_back(callback); }
 
     void queue_reach_check() {
         if (!do_reach_check()) {
@@ -291,40 +259,24 @@ namespace randomizer {
         client.udp_open(host, udp_port);
     }
 
-    void server_disconnect() {
-        client.disconnect();
-    }
+    void server_disconnect() { client.disconnect(); }
 
     common::TimedMultiEventBus<RandomizerEvent>& event_bus() {
         static common::TimedMultiEventBus<RandomizerEvent> randomizer_event_bus;
         return randomizer_event_bus;
     }
 
-    location_data::LocationCollection& location_collection() {
-        return randomizer_location_collection;
-    }
+    location_data::LocationCollection& location_collection() { return randomizer_location_collection; }
 
-    std::vector<state_data::State>& state_collection() {
-        return randomizer_state_data;
-    }
+    std::vector<state_data::State>& state_collection() { return randomizer_state_data; }
 
-    seed::Seed& game_seed() {
-        return randomizer_seed;
-    }
+    seed::Seed& game_seed() { return randomizer_seed; }
 
-    seed::ReachCheckResult const& reach_check() {
-        return reach_check_result;
-    }
+    seed::ReachCheckResult const& reach_check() { return reach_check_result; }
 
-    online::NetworkClient& network_client() {
-        return client;
-    }
+    online::NetworkClient& network_client() { return client; }
 
-    online::MultiplayerUniverse& multiplayer_universe() {
-        return universe;
-    }
+    online::MultiplayerUniverse& multiplayer_universe() { return universe; }
 
-    std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor() {
-        return text_processor;
-    }
+    std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor() { return text_processor; }
 } // namespace randomizer
