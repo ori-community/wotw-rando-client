@@ -122,7 +122,11 @@ namespace randomizer {
             game::pickups::quests::clear_queued_quest_messages_on_next_update();
         });
 
-        void seed_loaded() {
+        auto on_respawn = core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [](auto, auto) {
+            core::message_controller().clear_central();
+        });
+
+        auto on_after_seed_load = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
             timer::clear_uber_state_timers();
             universe.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
@@ -132,7 +136,7 @@ namespace randomizer {
             queue_reach_check();
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::Before);
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
-        }
+        });
 
         void load_seed(const bool read_seed_name, const bool show_message) {
             // TODO: Check if we need to download/receive the seed from the server.
@@ -155,7 +159,6 @@ namespace randomizer {
             randomizer_seed.read(seed_save_data->path, seed::legacy_parser::parse, show_message);
         }
 
-        auto on_after_seed_load = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) { seed_loaded(); });
         auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(
             GameEvent::FinishedLoadingSave,
             EventTiming::After,
