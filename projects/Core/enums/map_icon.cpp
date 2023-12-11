@@ -97,28 +97,32 @@ namespace {
     };
 
     struct IconData {
-        IconData(const MapIcon icon, const std::string_view texture_path) :
+        IconData(const MapIcon icon, const std::string_view texture_path, const float scale) :
             base_icon(icon),
-            texture(core::api::graphics::textures::get_texture(texture_path)) {}
+            texture(core::api::graphics::textures::get_texture(texture_path)),
+            scale(scale) {}
 
         MapIcon base_icon;
         std::shared_ptr<core::api::graphics::textures::TextureData> texture;
+        float scale;
     };
 
     std::unordered_map<MapIcon, IconData> custom_icons;
     auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         custom_icons = {
-            {MapIcon::CleanWater,      IconData(MapIcon::HealthFragment, "file:assets/map_icons/clean_water.png")      },
-            {MapIcon::BonusItem,       IconData(MapIcon::HealthFragment, "file:assets/map_icons/bonus_item.png")       },
-            {MapIcon::LaunchFragment,  IconData(MapIcon::HealthFragment, "file:assets/map_icons/launch_fragment.png")  },
-            {MapIcon::PurpleFloor,     IconData(MapIcon::StompableFloor, "file:assets/map_icons/purple_floor.png")     },
-            {MapIcon::PurpleWall,      IconData(MapIcon::BreakableWall,  "file:assets/map_icons/purple_wall.png")      },
-            {MapIcon::YellowWall,      IconData(MapIcon::BreakableWall,  "file:assets/map_icons/yellow_wall.png")      },
-            {MapIcon::OneWayWallLeft,  IconData(MapIcon::BreakableWall,  "file:assets/map_icons/oneway_wall_left.png") },
-            {MapIcon::OneWayWallRight, IconData(MapIcon::BreakableWall,  "file:assets/map_icons/oneway_wall_right.png")},
-            {MapIcon::IceFloor, IconData(MapIcon::StompableFloor,  "file:assets/map_icons/ice_floor.png")},
-            {MapIcon::IceWall, IconData(MapIcon::BreakableWall,  "file:assets/map_icons/ice_wall.png")},
-            {MapIcon::Lever, IconData(MapIcon::BreakableWall,  "file:assets/map_icons/lever.png")},
+            {MapIcon::CleanWater,      IconData(MapIcon::HealthFragment, "file:assets/map_icons/clean_water.png",       1.f) },
+            {MapIcon::BonusItem,       IconData(MapIcon::HealthFragment, "file:assets/map_icons/bonus_item.png",        1.f) },
+            {MapIcon::LaunchFragment,  IconData(MapIcon::HealthFragment, "file:assets/map_icons/launch_fragment.png",   1.f) },
+            {MapIcon::PurpleFloor,     IconData(MapIcon::StompableFloor, "file:assets/map_icons/purple_floor.png",      0.8f)},
+            {MapIcon::PurpleWall,      IconData(MapIcon::BreakableWall,  "file:assets/map_icons/purple_wall.png",       0.8f)},
+            {MapIcon::YellowWall,      IconData(MapIcon::BreakableWall,  "file:assets/map_icons/yellow_wall.png",       0.8f)},
+            {MapIcon::OneWayWallLeft,  IconData(MapIcon::BreakableWall,  "file:assets/map_icons/oneway_wall_left.png",  0.8f)},
+            {MapIcon::OneWayWallRight, IconData(MapIcon::BreakableWall,  "file:assets/map_icons/oneway_wall_right.png", 0.8f)},
+            {MapIcon::IceFloor,        IconData(MapIcon::StompableFloor, "file:assets/map_icons/ice_floor.png",         0.8f)},
+            {MapIcon::IceWall,         IconData(MapIcon::BreakableWall,  "file:assets/map_icons/ice_wall.png",          0.8f)},
+            {MapIcon::VerticalDoor,    IconData(MapIcon::BreakableWall,  "file:assets/map_icons/blocked_wall.png",      0.8f)},
+            {MapIcon::HorizontalDoor,  IconData(MapIcon::StompableFloor, "file:assets/map_icons/blocked_floor.png",     0.8f)},
+            {MapIcon::Lever,           IconData(MapIcon::BreakableWall,  "file:assets/map_icons/lever.png",             0.6f)},
         };
     });
 
@@ -182,7 +186,7 @@ CORE_DLLEXPORT app::GameObject* map_icon_to_game_object(const MapIcon icon) {
     il2cpp::unity::set_active(area_map_icon->fields.MapIconInactive, false);
     il2cpp::unity::set_active(area_map_icon->fields.MapIconSpecial, false);
     const auto icon_game_object = area_map_icon->fields.MapIconActive;
-    il2cpp::unity::set_local_scale(icon_game_object, app::Vector3(0.4, 0.4, 0.3));
+    il2cpp::unity::set_local_scale(icon_game_object, app::Vector3(0.4f * custom_icon->second.scale, 0.4f * custom_icon->second.scale, 0.3f));
     const auto filter = il2cpp::unity::get_component<app::MeshFilter>(icon_game_object, types::MeshFilter::get_class());
     const auto mesh = types::Mesh::create();
     const auto vertices = types::Vector3::create_array({

@@ -97,7 +97,7 @@ namespace randomizer::game::map {
                 case app::WorldMapIconType__Enum::SmallDoor:
                 case app::WorldMapIconType__Enum::TempleDoor:
                 case app::WorldMapIconType__Enum::WatermillDoor: {
-                    return true;
+                    return active_filter() != Filters::Players;
                 }
                 default:
                     return false;
@@ -311,4 +311,14 @@ namespace randomizer::game::map {
         const auto icon_manager = instance->fields.m_areaMap->fields._IconManager_k__BackingField;
         AreaMapIconManager::ShowAreaIcons(icon_manager);
     });
+
+    void refresh() {
+        const auto instance = types::GameMapUI::get_class()->static_fields->Instance;
+        if (instance == nullptr || instance->fields.m_areaMap == nullptr || instance->fields.m_areaMap->fields._IconManager_k__BackingField == nullptr) {
+            return;
+        }
+
+        const auto icon_manager = instance->fields.m_areaMap->fields._IconManager_k__BackingField;
+        AreaMapIconManager::ShowAreaIcons(icon_manager);
+    }
 } // namespace randomizer::game::map
