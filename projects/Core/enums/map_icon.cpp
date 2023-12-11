@@ -110,14 +110,14 @@ namespace {
     std::unordered_map<MapIcon, IconData> custom_icons;
     auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         custom_icons = {
-            {MapIcon::CleanWater, IconData(MapIcon::HealthFragment, "file:assets/map_icons/clean_water.png")},
-            {MapIcon::BonusItem, IconData(MapIcon::HealthFragment, "file:assets/map_icons/bonus_item.png")},
-            {MapIcon::LaunchFragment, IconData(MapIcon::HealthFragment, "file:assets/map_icons/launch_fragment.png")},
-            {MapIcon::PurpleFloor, IconData(MapIcon::StompableFloor, "file:assets/map_icons/purple_floor.png", {0, 0.25})},
-            {MapIcon::PurpleWall, IconData(MapIcon::BreakableWall, "file:assets/map_icons/purple_wall.png", {0.25, 0})},
-            {MapIcon::YellowWall, IconData(MapIcon::BreakableWall, "file:assets/map_icons/yellow_wall.png", {0.25, 0})},
-            {MapIcon::OneWayWallLeft, IconData(MapIcon::BreakableWall, "file:assets/map_icons/oneway_wall_left.png", {0.25, 0})},
-            {MapIcon::OneWayWallRight, IconData(MapIcon::BreakableWall, "file:assets/map_icons/oneway_wall_right.png", {0.25, 0})},
+            {MapIcon::CleanWater, IconData(MapIcon::HealthFragment, "file:assets/yellow.png")},
+            {MapIcon::BonusItem, IconData(MapIcon::HealthFragment, "file:assets/yellow.png")},
+            {MapIcon::LaunchFragment, IconData(MapIcon::HealthFragment, "file:assets/yellow.png")},
+            {MapIcon::PurpleFloor, IconData(MapIcon::StompableFloor, "file:assets/yellow.png", {0, 0.25})},
+            {MapIcon::PurpleWall, IconData(MapIcon::BreakableWall, "file:assets/yellow.png", {0.25, 0})},
+            {MapIcon::YellowWall, IconData(MapIcon::BreakableWall, "file:assets/yellow.png", {0.25, 0})},
+            {MapIcon::OneWayWallLeft, IconData(MapIcon::BreakableWall, "file:assets/yellow.png", {0.25, 0})},
+            {MapIcon::OneWayWallRight, IconData(MapIcon::BreakableWall, "file:assets/yellow.png", {0.25, 0})},
         };
     });
 
@@ -202,13 +202,16 @@ CORE_DLLEXPORT app::GameObject* map_icon_to_game_object(const MapIcon icon) {
 
 
     const auto renderer = il2cpp::unity::get_component<app::Renderer>(icon_game_object, types::Renderer::get_class());
-    auto scale_and_offset = UberShaderAPI::GetVector(renderer, app::UberShaderProperty_Vector__Enum::MainTexScaleAndOffset);
-    const auto uv = types::Vector2::create_array({
-        {0.f + custom_icon->second.uv_offset.x, 0.f + custom_icon->second.uv_offset.y},
-        {1.f - custom_icon->second.uv_offset.x, 0.f + custom_icon->second.uv_offset.y},
-        {0.f + custom_icon->second.uv_offset.x, 1.f - custom_icon->second.uv_offset.y},
-        {1.f - custom_icon->second.uv_offset.x, 1.f - custom_icon->second.uv_offset.y},
-    });
+    const auto atlas_scroll_rot = UberShaderAPI::GetTextureAtlasScrollRotData(renderer, app::UberShaderProperty_Texture__Enum::MainTexture);
+
+    const auto uvs = std::vector<app::Vector2>{
+        {atlas_scroll_rot.x, atlas_scroll_rot.y},
+        {atlas_scroll_rot.x + atlas_scroll_rot.z, atlas_scroll_rot.y},
+        {atlas_scroll_rot.x, atlas_scroll_rot.y + atlas_scroll_rot.w},
+        {atlas_scroll_rot.x + atlas_scroll_rot.z, atlas_scroll_rot.y + atlas_scroll_rot.w},
+    };
+
+    const auto uv = types::Vector2::create_array(uvs);
 
     UnityEngine::Mesh::ctor(mesh);
     UnityEngine::Mesh::set_vertices(mesh, vertices);
