@@ -61,8 +61,8 @@ namespace core::messages {
         bool handle_active_message(MessageData& data, int& total_lines, app::Vector3& cursor_position, float fade_out, float delta_time);
         void show_message_box(MessageData& data, int& total_lines, app::Vector3& position);
 
-        // TODO: Implement this.
-        const float m_max_length_from_position = 20.f;
+        // Max distance between player and pickup where the message position animation should be played
+        const float m_max_distance_squared_for_message_position_animation = std::powf(10.f, 2.f);
         Property<app::Vector3> m_position;
         Property<std::optional<int>> m_max_line_count;
         Property<std::optional<int>> m_max_in_queue;
