@@ -80,6 +80,11 @@ enum class MapIcon {
     CleanWater = 100,
     BonusItem = 101,
     LaunchFragment = 102,
+    PurpleFloor = 103,
+    PurpleWall = 104,
+    YellowWall = 105,
+    OneWayWallLeft = 106,
+    OneWayWallRight = 107,
 };
 
 CORE_DLLEXPORT app::GameObject* map_icon_to_game_object(MapIcon icon);

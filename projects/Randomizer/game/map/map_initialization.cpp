@@ -85,6 +85,73 @@ namespace randomizer::game::map {
                     : IconVisibilityResult::ShowTransparent;
         }
 
+        std::shared_ptr<Icon> make_icon(
+            const MapIcon map_icon,
+            std::string const& label,
+            std::string const& name,
+            const app::Vector2 position,
+            const std::optional<core::api::uber_states::UberState> state = std::nullopt
+        ) {
+            auto icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
+            icon->icon().set(map_icon);
+            icon->label().set(label);
+            icon->name().set(name);
+            icon->position().set(position);
+            if (state.has_value()) {
+                add_icon_visibility_callback(icon, [state](auto) {
+                    return state.value().get<bool>() ? IconVisibilityResult::Hide : IconVisibilityResult::Show;
+                });
+            }
+
+            return icon;
+        }
+
+        void npc_icons() {
+            auto icon = make_icon(MapIcon::Weaponmaster, "Opher", "MarshPastOpher.Opher", {-597.1f, -4291.3f});
+            add_icon_visibility_callback(icon, [](auto) { return check_shop(shops::opher_shop().slots()); });
+
+            icon = make_icon(MapIcon::Shardtrader, "Twillen", "WestHollow.Twillen", {-281.3f, -4236.4f});
+            add_icon_visibility_callback(icon, [](auto) { return check_shop(shops::twillen_shop().slots()); });
+
+            icon = make_icon(MapIcon::Weaponmaster, "Opher", "GladesTown.Opher", {-203.9f, -4146.4f});
+            add_icon_visibility_callback(icon, [](auto) { return check_shop(shops::opher_shop().slots()); });
+
+            icon = make_icon(MapIcon::Mapmaker, "Lupo", "GladesTown.Lupo", {-212.3f, -4158.8f});
+            add_icon_visibility_callback(icon, [](auto) { return check_shop(shops::lupo_shop().slots()); });
+
+            icon = make_icon(MapIcon::Shardtrader, "Twillen", "GladesTown.Twillen", {-410.5f, -4158.9f});
+            add_icon_visibility_callback(icon, [](auto) { return check_shop(shops::twillen_shop().slots()); });
+
+            icon = make_icon(MapIcon::Builder, "Grom", "GladesTown.Grom", {-319.1f, -4150.1f});
+            add_icon_visibility_callback(icon, [](auto) { return check_shop(shops::grom_shop().slots()); });
+
+            icon = make_icon(MapIcon::Gardener, "Tuley", "GladesTown.Tuley", {-170.0f, -4137.7f});
+            add_icon_visibility_callback(icon, [](auto) { return check_shop(shops::tuley_shop().slots()); });
+
+            icon = make_icon(MapIcon::Weaponmaster, "Opher", "InnerWellspring.Opher", {-1259.7f, -3675.5f});
+            add_icon_visibility_callback(icon, [](auto) { return check_shop(shops::opher_shop().slots()); });
+        }
+
+        void one_way_walls() {}
+
+        void purple_walls() {
+            make_icon(MapIcon::PurpleWall, "Purple Wall", "EastHollow.GladesApproachOrePurpleWall", {-105.57f, -4188.93f});
+            make_icon(MapIcon::PurpleWall, "Purple Wall", "Glades.GromsPurpleWall", {-161.21f, -4153.89f});
+            make_icon(MapIcon::PurpleFloor, "Purple Wall", "EastHollow.AboveBashPurpleFloor", {-5.76f, -4267.23f});
+            make_icon(MapIcon::PurpleFloor, "Purple Wall", "EastPools.LupoAreaPurpleFloor", {-1415.27f, -4165.21f});
+            make_icon(MapIcon::PurpleWall, "Purple Wall", "EastPools.PurpleWallHCPurpleWall", {-1285.69f, -4086.48f});
+            make_icon(MapIcon::PurpleWall, "Purple Wall", "LowerWastes.PurpleWallEXPurpleWall", {1543.66f, -3996.14f});
+            make_icon(MapIcon::PurpleWall, "Purple Wall", "LowerWastes.LastStandShardPurpleWall", {1826.43f, -3934.01f});
+            make_icon(MapIcon::PurpleWall, "Purple Wall", "UpperWastes.PurpleWallEXPurpleWall", {1994.33f, -3829.12f});
+            make_icon(MapIcon::PurpleWall, "Purple Wall", "UpperWastes.LeverPurpleWall", {2016.79f, -3790.23f});
+            make_icon(MapIcon::PurpleWall, "Purple Wall", "UpperWastes.PurpleWallHCPurpleWall", {2038.27f, -3840.74f});
+        }
+
+        void yellow_walls() {
+            make_icon(MapIcon::YellowWall, "Yellow Wall", "WoodsMain.YellowWallEXYellowWall", {1066.15f, -4098.06f});
+            make_icon(MapIcon::YellowWall, "Yellow Wall", "WoodsMain.FourKeystoneRoomYellowWall", {900.41f, -4144.29f});
+        }
+
         auto initialized = false;
         auto on_ready = event_bus().register_handler(RandomizerEvent::LocationCollectionLoaded, EventTiming::After, [](auto, auto) {
             if (initialized) {
@@ -134,81 +201,10 @@ namespace randomizer::game::map {
                 }
             }
 
-            auto icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
-            icon->icon().set(MapIcon::Weaponmaster);
-            icon->label().set("Opher");
-            icon->name().set("MarshPastOpher.Opher");
-            icon->position().set({-597.1f, -4291.3f});
-            add_icon_visibility_callback(icon, [](auto) {
-                return check_shop(shops::opher_shop().slots());
-            });
-
-            icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
-            icon->icon().set(MapIcon::Shardtrader);
-            icon->label().set("Twillen");
-            icon->name().set("WestHollow.Twillen");
-            icon->position().set({-281.3f, -4236.4f});
-            add_icon_visibility_callback(icon, [](auto) {
-                return check_shop(shops::twillen_shop().slots());
-            });
-
-            icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
-            icon->icon().set(MapIcon::Weaponmaster);
-            icon->label().set("Opher");
-            icon->name().set("GladesTown.Opher");
-            icon->position().set({-203.9f, -4146.4f});
-            add_icon_visibility_callback(icon, [](auto) {
-                return check_shop(shops::opher_shop().slots());
-            });
-
-            icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
-            icon->icon().set(MapIcon::Mapmaker);
-            icon->label().set("Lupo");
-            icon->name().set("GladesTown.Lupo");
-            icon->position().set({-212.3f, -4158.8f});
-            add_icon_visibility_callback(icon, [](auto) {
-                return check_shop(shops::lupo_shop().slots());
-            });
-
-            // Glades Twillen
-            icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
-            icon->icon().set(MapIcon::Shardtrader);
-            icon->label().set("Twillen");
-            icon->name().set("GladesTown.Twillen");
-            icon->position().set({-410.5f, -4158.9f});
-            add_icon_visibility_callback(icon, [](auto) {
-                return check_shop(shops::twillen_shop().slots());
-            });
-
-            // Glades Grom
-            icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
-            icon->icon().set(MapIcon::Builder);
-            icon->label().set("Grom");
-            icon->name().set("GladesTown.Grom");
-            icon->position().set({-319.1f, -4150.1f});
-            add_icon_visibility_callback(icon, [](auto) {
-                return check_shop(shops::grom_shop().slots());
-            });
-
-            // Glades Tuley
-            icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
-            icon->icon().set(MapIcon::Gardener);
-            icon->label().set("Tuley");
-            icon->name().set("GladesTown.Tuley");
-            icon->position().set({-170.0f, -4137.7f});
-            add_icon_visibility_callback(icon, [](auto) {
-                return check_shop(shops::tuley_shop().slots());
-            });
-
-            // Wellspring Opher
-            icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
-            icon->icon().set(MapIcon::Weaponmaster);
-            icon->label().set("Opher");
-            icon->name().set("InnerWellspring.Opher");
-            icon->position().set({-1259.7f, -3675.5f});
-            add_icon_visibility_callback(icon, [](auto) {
-                return check_shop(shops::opher_shop().slots());
-            });
+            npc_icons();
+            one_way_walls();
+            purple_walls();
+            yellow_walls();
         });
     } // namespace
 } // namespace randomizer::game::map
