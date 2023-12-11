@@ -17,4 +17,7 @@ namespace randomizer::game::map {
     void add_icon_visibility_callback(const std::shared_ptr<Icon>& icon, icon_visibility_callback callback);
 
     bool is_visited(app::GameWorldAreaID__Enum area, int index);
+
+    void refresh();
+    core::Property<bool>& show_interactible_icons();
 } // namespace randomizer::game::map

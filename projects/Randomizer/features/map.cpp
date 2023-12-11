@@ -1,12 +1,8 @@
-#include <Randomizer/game/pickups/quests.h>
-#include <Randomizer/macros.h>
-
 #include <Core/api/game/game.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/enums/static_text_entries.h>
 #include <Core/settings.h>
 #include <Core/text/text_database.h>
-
 #include <Modloader/app/methods/AK/Wwise/State.h>
 #include <Modloader/app/methods/AreaMapNavigation.h>
 #include <Modloader/app/methods/AreaMapUI.h>
@@ -29,36 +25,30 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
-
+#include <Randomizer/game/map/filter.h>
+#include <Randomizer/game/map/map.h>
+#include <Randomizer/game/pickups/quests.h>
 #include <unordered_map>
 
 using namespace modloader;
 using namespace app::classes;
 
 namespace {
-    enum class LupoSelection {
-        Intro = 0,
-        SalesPitch = 1,
-        NoSale = 2,
-        Broke = 3,
-        Thanks = 4
-    };
+    enum class LupoSelection { Intro = 0, SalesPitch = 1, NoSale = 2, Broke = 3, Thanks = 4 };
 
     std::unordered_map<app::GameWorldAreaID__Enum, static_text_entry> text_overrides{
-        {app::GameWorldAreaID__Enum::InkwaterMarsh, static_text_entry::LupoMarshIntroduction},
-        {app::GameWorldAreaID__Enum::KwoloksHollow, static_text_entry::LupoHollowIntroduction},
-        {app::GameWorldAreaID__Enum::WaterMill, static_text_entry::LupoWellspringIntroduction},
-        {app::GameWorldAreaID__Enum::MidnightBurrow, static_text_entry::LupoBurrowIntroduction},
-        {app::GameWorldAreaID__Enum::BaursReach, static_text_entry::LupoReachIntroduction},
-        {app::GameWorldAreaID__Enum::LumaPools, static_text_entry::LupoPoolsIntroduction},
-        {app::GameWorldAreaID__Enum::MouldwoodDepths, static_text_entry::LupoDepthsIntroduction},
-        {app::GameWorldAreaID__Enum::WindsweptWastes, static_text_entry::LupoWastesIntroduction},
-        {app::GameWorldAreaID__Enum::WillowsEnd, static_text_entry::LupoWillowIntroduction},
+        {app::GameWorldAreaID__Enum::InkwaterMarsh,   static_text_entry::LupoMarshIntroduction     },
+        {app::GameWorldAreaID__Enum::KwoloksHollow,   static_text_entry::LupoHollowIntroduction    },
+        {app::GameWorldAreaID__Enum::WaterMill,       static_text_entry::LupoWellspringIntroduction},
+        {app::GameWorldAreaID__Enum::MidnightBurrow,  static_text_entry::LupoBurrowIntroduction    },
+        {app::GameWorldAreaID__Enum::BaursReach,      static_text_entry::LupoReachIntroduction     },
+        {app::GameWorldAreaID__Enum::LumaPools,       static_text_entry::LupoPoolsIntroduction     },
+        {app::GameWorldAreaID__Enum::MouldwoodDepths, static_text_entry::LupoDepthsIntroduction    },
+        {app::GameWorldAreaID__Enum::WindsweptWastes, static_text_entry::LupoWastesIntroduction    },
+        {app::GameWorldAreaID__Enum::WillowsEnd,      static_text_entry::LupoWillowIntroduction    },
     };
 
-    app::GameWorld* get_game_world() {
-        return types::GameWorld::get_class()->static_fields->Instance;
-    }
+    app::GameWorld* get_game_world() { return types::GameWorld::get_class()->static_fields->Instance; }
 
     IL2CPP_INTERCEPT(CartographerEntity, int, get_MapCost, (app::CartographerEntity * this_ptr)) {
         this_ptr->fields.MapQuestCompletedMapCostModifier = 1.f;
@@ -100,9 +90,7 @@ namespace {
         return handle_lupo_message(this_ptr, LupoSelection::Thanks, next::CartographerEntity::get_ThanksMessage);
     }
 
-    IL2CPP_INTERCEPT(RuntimeWorldMapIcon, bool, IsVisible, (app::RuntimeWorldMapIcon * this_ptr, app::AreaMapUI* areaMap)) {
-        return true;
-    }
+    IL2CPP_INTERCEPT(RuntimeWorldMapIcon, bool, IsVisible, (app::RuntimeWorldMapIcon * this_ptr, app::AreaMapUI* areaMap)) { return true; }
 
     // region Quest List UI
 
@@ -122,7 +110,9 @@ namespace {
 
         QuestsUI::UpdateDescriptionUI_2(this_ptr, quest);
 
-        this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox->fields.MessageProvider = core::text::get_random_provider(*static_text_entry::QuestReward);
+        this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox->fields.MessageProvider = core::text::get_random_provider(
+            *static_text_entry::QuestReward
+        );
         MessageBox::RefreshText_1(this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox);
 
         // Moon pls center the thing dammit
@@ -183,9 +173,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(GameMapUI, bool, CanSelectQuest, (app::GameMapUI * this_ptr)) {
-        return false;
-    }
+    IL2CPP_INTERCEPT(GameMapUI, bool, CanSelectQuest, (app::GameMapUI * this_ptr)) { return false; }
 
     IL2CPP_INTERCEPT(AreaMapNavigation, void, UpdateMapTarget, (app::AreaMapNavigation * this_ptr)) {
         next::AreaMapNavigation::UpdateMapTarget(this_ptr);
@@ -205,24 +193,45 @@ namespace {
      * calculate distance from the cursor instead of screen center).
      */
     IL2CPP_INTERCEPT(GameMapUI, void, NormalInput, (app::GameMapUI * this_ptr)) {
-        auto focus_objective_button = types::Input_Cmd::get_class()->static_fields->MapFocusObjective;
+        const auto focus_ori_button = types::Input_Cmd::get_class()->static_fields->MapFocusOri;
+        const auto focus_ori_button_pressed = focus_ori_button->fields.IsPressed && !focus_ori_button->fields.WasPressed &&
+            !focus_ori_button->fields.Used;
 
-        auto focus_objective_button_pressed = focus_objective_button->fields.IsPressed && !focus_objective_button->fields.WasPressed && !focus_objective_button->fields.Used;
-        if (focus_objective_button_pressed) {
-            focus_objective_button->fields.Used = true;
-        }
+        const auto focus_objective_button = types::Input_Cmd::get_class()->static_fields->MapFocusObjective;
+        const auto focus_objective_button_pressed = focus_objective_button->fields.IsPressed && !focus_objective_button->fields.WasPressed &&
+            !focus_objective_button->fields.Used;
 
+        focus_ori_button->fields.Used = focus_ori_button_pressed;
+        focus_objective_button->fields.Used = focus_objective_button_pressed;
         next::GameMapUI::NormalInput(this_ptr);
 
-        this_ptr->fields.LeftStickMessageBox->fields.MessageProvider = this_ptr->fields.FocusOnObjectiveMessageProvider;
-        MessageBox::RefreshText_1(this_ptr->fields.LeftStickMessageBox);
+        const auto filter = randomizer::game::map::active_filter();
+        const auto should_toggle_interactibles = filter == randomizer::game::map::Filters::InLogic || filter == randomizer::game::map::Filters::Spoilers;
+        if (should_toggle_interactibles) {
+            this_ptr->fields.LeftStickMessageBox->fields.MessageProvider = core::api::system::create_message_provider(
+                randomizer::game::map::show_interactible_icons().get() ? "[MapFocusObjective] Hide interactibles" : "[MapFocusObjective] Show interactibles"
+            );
+        } else {
+            this_ptr->fields.LeftStickMessageBox->fields.MessageProvider = this_ptr->fields.FocusOnObjectiveMessageProvider;
+        }
 
+        MessageBox::RefreshText_1(this_ptr->fields.LeftStickMessageBox);
         if (focus_objective_button_pressed) {
-            QuestsUI::ScrollToQuest(this_ptr->fields.m_questsUI);
+            if (should_toggle_interactibles) {
+                randomizer::game::map::show_interactible_icons().toggle();
+                randomizer::game::map::refresh();
+            } else {
+                QuestsUI::ScrollToQuest(this_ptr->fields.m_questsUI);
+            }
         }
     }
 
-    IL2CPP_INTERCEPT(Moon::Timeline::DiscoverAreasEntity, void, ChangeState, (app::DiscoverAreasEntity * this_ptr, app::DiscoverAreasEntity_State__Enum value)) {
+    IL2CPP_INTERCEPT(
+        Moon::Timeline::DiscoverAreasEntity,
+        void,
+        ChangeState,
+        (app::DiscoverAreasEntity * this_ptr, app::DiscoverAreasEntity_State__Enum value)
+    ) {
         // Since we don't want the map to show up, lets speedrun the timeline entity.
         if (value == app::DiscoverAreasEntity_State__Enum::Start) {
             auto menu = Game::UI::get_Menu();
@@ -284,11 +293,7 @@ namespace {
         }
     }
 
-    auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(
-        GameEvent::NewGameInitialized,
-        EventTiming::After,
-        [](auto, auto) {
-            discover_everything();
-        }
-    );
+    auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+        discover_everything();
+    });
 } // namespace

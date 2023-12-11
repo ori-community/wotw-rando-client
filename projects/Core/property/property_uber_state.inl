@@ -61,6 +61,10 @@ struct core::Property<T> {
         set(get() + value);
     }
 
+    void toggle() requires std::is_same_v<T, bool> {
+        set(!get());
+    }
+
     void assign(value_type value) {
         m_value = value;
         notify_changed(reactivity::PropertyDependency(m_id));
