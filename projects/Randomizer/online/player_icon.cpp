@@ -112,7 +112,7 @@ namespace randomizer::online {
             dot.dot = reinterpret_cast<app::GameObject*>(Object::Instantiate_3(reinterpret_cast<app::Object_1*>(area_map->fields.TrailPrefab)));
             dot.transform = il2cpp::unity::get_transform(dot.dot);
             dot.renderer = il2cpp::unity::get_component<app::Renderer>(il2cpp::unity::get_children(dot.dot)[0], types::Renderer::get_class());
-            il2cpp::unity::set_active(dot.dot, m_visible.get());
+            il2cpp::unity::set_active(dot.dot, m_icon_visible.get());
             const app::Vector3 dot_pos{m_map_position.x, m_map_position.y, 0.0f};
             IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, dot_pos, false);
         }
@@ -148,6 +148,7 @@ namespace randomizer::online {
 
         il2cpp::invoke(*m_root, "set_name", il2cpp::string_new("player_map_icon"));
         il2cpp::unity::set_active(*m_text, true);
+        il2cpp::unity::set_active(*m_root, m_icon_visible.get());
         const auto area_map_icon = il2cpp::unity::get_component(*m_root, types::AreaMapIcon::get_class());
         if (area_map_icon != nullptr) {
             il2cpp::unity::destroy_object(area_map_icon);
@@ -167,6 +168,12 @@ namespace randomizer::online {
     }
 
     void PlayerIcon::update(bool online) {
+        if (!m_root.is_valid()) {
+            if (!initialize()) {
+                return;
+            }
+        }
+
         update_facing();
         apply_position();
 
@@ -176,12 +183,6 @@ namespace randomizer::online {
 
         const bool should_be_visible = online && core::api::game::ui::area_map_open() && m_visible.get();
         if (should_be_visible != m_icon_visible.get()) {
-            if (*m_root == nullptr) {
-                if (!initialize()) {
-                    return;
-                }
-            }
-
             m_icon_visible.set(should_be_visible);
             il2cpp::unity::set_active(*m_root, m_icon_visible.get());
             for (const auto& dot: m_dots) {
