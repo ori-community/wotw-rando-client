@@ -132,13 +132,50 @@ namespace randomizer::game::map {
             add_icon_visibility_callback(icon, [](auto) { return check_shop(shops::opher_shop().slots()); });
         }
 
-        void one_way_walls() {}
+        void one_way_walls() {
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "WestPools.RightKwolokOneWayWall", {-1589.13f, -4141.08f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "EastPools.NextToLupoOreWall", {-1380.37f, -4162.27f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "PoolsApproach.MarshBreakableWallWall", {-819.22f, -4184.47f});
+            make_icon(MapIcon::OneWayWallLeft, "Oneway Wall", "OuterWellspring.LifeHarvestEntryWall", {-974.01f, -4041.36f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "OuterWellspring.RightWallECWall", {-739.64f, -3987.75f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "InnerWellspring.DrainAreaExitWall", {-1089.87f, -3951.63f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "InnerWellspring.AboveSpinArenaEXWall", {-1226.80f, -3738.14f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "LowerReach.BreakWallEXWall", {-199.48f, -4042.06f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "LowerReach.EastFurnaceWall", {-74.44f, -3983.53f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "WestHollow.HiddenECWall", {-221.31f, -4301.87f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "WindtornRuins.LowerExit", {1930.13f, -4003.15f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "WindtornRuins.LowerExit", {1930.13f, -4003.15f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "UpperDepths.SwimECWall", {124.58f, -4424.03f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "LowerDepths.CombatShrineWall", {248.78f, -4511.68f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "LowerDepths.CentralUpperWall", {535.04f, -4505.11f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "UpperDepths.LightcatcherSeedWall", {473.51f, -4432.10f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "UpperDepths.OutsideMoraFightWall", {556.82f, -4374.07f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "MarshPastOpher.PoolsPathMiddleWall", {-736.73f, -4165.99f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "MarshPastOpher.PoolsPathMiddleWall", {-736.73f, -4165.99f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "MarshPastOpher.SpiritTrialStartWall", {-573.51f, -4312.59f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "MarshPastOpher.SpiritTrialFinishWall", {-468.80f, -4322.70f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "MarshPastOpher.SpiritTrialFinishWall", {-468.80f, -4322.70f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "MarshSpawn.PathToOpherWall", {-674.98f, -4307.18f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "MarshSpawn.BelowBridgeWall", {-736.80f, -4333.24f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "MarshSpawn.LefTokkEXWall", {-749.05f, -4422.41f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "MarshSpawn.FightRoomEXWall", {-786.33f, -4451.45f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "MarshSpawn.RecklessShardWall", {-492.91f, -4409.03f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "HowlsDen.AboveBoneBridgeWall", {-447.81f, -4434.10f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "HowlsDen.UpperLoopEntranceWall", {-405.72f, -4433.38f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "HowlsDen.UpperLoopExitWall", {-403.44f, -4450.41f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "HowlsDen.SwordTreeLeftWall", {-351.03f, -4484.47f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "HowlsDen.SwordTreeRightWall", {-269.59f, -4477.27f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "HowlsDen.SwordTreeUpperLeftWall", {-245.13f, -4438.78f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "HowlsDen.SwordTreeUpperRightWall", {-296.10f, -4440.34f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "HowlsDen.AboveTPEXWall", {-382.45f, -4501.86f});
+            make_icon(MapIcon::OneWayWallRight, "Oneway Wall", "MidnightBurrows.DenConnectionWall", {-575.90,-4544.80});
+        }
 
         void purple_walls() {
             make_icon(MapIcon::PurpleWall, "Purple Wall", "EastHollow.GladesApproachOrePurpleWall", {-105.57f, -4188.93f});
             make_icon(MapIcon::PurpleWall, "Purple Wall", "Glades.GromsPurpleWall", {-161.21f, -4153.89f});
-            make_icon(MapIcon::PurpleFloor, "Purple Wall", "EastHollow.AboveBashPurpleFloor", {-5.76f, -4267.23f});
-            make_icon(MapIcon::PurpleFloor, "Purple Wall", "EastPools.LupoAreaPurpleFloor", {-1415.27f, -4165.21f});
+            make_icon(MapIcon::PurpleFloor, "Purple Floor", "EastHollow.AboveBashPurpleFloor", {-5.76f, -4267.23f});
+            make_icon(MapIcon::PurpleFloor, "Purple Floor", "EastPools.LupoAreaPurpleFloor", {-1415.27f, -4165.21f});
             make_icon(MapIcon::PurpleWall, "Purple Wall", "EastPools.PurpleWallHCPurpleWall", {-1285.69f, -4086.48f});
             make_icon(MapIcon::PurpleWall, "Purple Wall", "LowerWastes.PurpleWallEXPurpleWall", {1543.66f, -3996.14f});
             make_icon(MapIcon::PurpleWall, "Purple Wall", "LowerWastes.LastStandShardPurpleWall", {1826.43f, -3934.01f});
@@ -150,6 +187,39 @@ namespace randomizer::game::map {
         void yellow_walls() {
             make_icon(MapIcon::YellowWall, "Yellow Wall", "WoodsMain.YellowWallEXYellowWall", {1066.15f, -4098.06f});
             make_icon(MapIcon::YellowWall, "Yellow Wall", "WoodsMain.FourKeystoneRoomYellowWall", {900.41f, -4144.29f});
+        }
+
+        void ice_walls() {
+            make_icon(MapIcon::IceWall, "Ice Wall", "LowerReach.MeltIceEXWall", {-332.48f, -4033.75f});
+            make_icon(MapIcon::IceWall, "Ice Wall", "LowerReach.SnowballWall", {-131.94f, -4000.67f});
+            make_icon(MapIcon::IceWall, "Ice Wall", "LowerReach.TeleporterWall", {-288.84f, -3961.02f});
+            make_icon(MapIcon::IceFloor, "Ice Floor", "UpperReach.TreeRoomFloor", {-149.95f, -3915.99f});
+            make_icon(MapIcon::IceWall, "Ice Wall", "UpperReach.TreeRoomWall", {-138.69f, -3929.32f});
+        }
+
+        void levers() {
+            make_icon(MapIcon::Lever, "Lever", "UpperPools.RightBubbleSpamRoomLever", {-1556.88f, -3979.03f});
+            make_icon(MapIcon::Lever, "Lever", "EastPools.LeverRoomLever", {-1226.78f,-4106.47f});
+            make_icon(MapIcon::Lever, "Lever", "OuterWellspring.LifeHarvestEntryLever", {-1045.24f,-4078.18f});
+            make_icon(MapIcon::Lever, "Lever", "InnerWellspring.BelowDrainLeverLever", {-1117.76f,-3877.37f});
+            make_icon(MapIcon::Lever, "Lever", "InnerWellspring.ShortcutLeverLever", {-1264.12f,-3906.45f});
+            make_icon(MapIcon::Lever, "Lever", "InnerWellspring.SpinPuzzleLever1", {-1128.94f,-3818.37f});
+            make_icon(MapIcon::Lever, "Lever", "InnerWellspring.SpinPuzzleLever2", {-1128.94f,-3818.37f});
+            make_icon(MapIcon::Lever, "Lever", "InnerWellspring.SpinPuzzleLever3", {-1161.77f,-3815.72f});
+            make_icon(MapIcon::Lever, "Lever", "LowerReach.AboveEntryLever", {-392.37f,-3975.24f});
+            make_icon(MapIcon::Lever, "Lever", "MidnightBurrows.LeverRoomLever", {-681.11f,-4616.88f});
+            make_icon(MapIcon::Lever, "Lever", "HowlsDen.TeleporterLever", {-400.58f,-4549.77f});
+            make_icon(MapIcon::Lever, "Lever", "MarshSpawn.CaveEntranceLever", {-584.78f,-4370.61f});
+            make_icon(MapIcon::Lever, "Lever", "MarshPastOpher.BowAreaLever", {-322.66f,-4193.15f});
+            make_icon(MapIcon::Lever, "Lever", "EastHollow.AboveBashLever", {-2.45f,-4264.41f});
+            make_icon(MapIcon::Lever, "Lever", "WestHollow.InFrontPurpleDoorLever", {-166.30f,-4214.26f});
+            make_icon(MapIcon::Lever, "Lever", "WestHollow.FarLeftRoomUpperLever", {-393.86f,-4271.03f});
+            make_icon(MapIcon::Lever, "Lever", "WestHollow.FarLeftRoomLowerLever", {-399.11f,-4295.54f});
+            make_icon(MapIcon::Lever, "Lever", "WestHollow.DashApproachLever", {-99.75f,-4439.03f});
+            make_icon(MapIcon::Lever, "Lever", "DepthsShrineLever", {249.19f,-4531.24f});
+            make_icon(MapIcon::Lever, "Lever", "LowerWastes.LeverAreaLever", {1868.59f,-3933.08f});
+            make_icon(MapIcon::Lever, "Lever", "UpperWastes.MissilePuzzleMiddleLever", {2021.90f,-3791.81f});
+            make_icon(MapIcon::Lever, "Lever", "WindtornRuins.UpperRuinsDoorLever", {2191.75f,-3868.96f});
         }
 
         auto initialized = false;
@@ -205,6 +275,8 @@ namespace randomizer::game::map {
             one_way_walls();
             purple_walls();
             yellow_walls();
+            ice_walls();
+            levers();
         });
     } // namespace
 } // namespace randomizer::game::map

@@ -85,6 +85,9 @@ enum class MapIcon {
     YellowWall = 105,
     OneWayWallLeft = 106,
     OneWayWallRight = 107,
+    IceWall = 107,
+    IceFloor = 108,
+    Lever = 109,
 };
 
 CORE_DLLEXPORT app::GameObject* map_icon_to_game_object(MapIcon icon);
