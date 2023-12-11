@@ -147,27 +147,27 @@ namespace randomizer {
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "waterBreath", 23, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "spear", 74, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "spiritSmash", 98, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "hammer", 98, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "fastTravel", 105, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "spiritStar", 106, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "shuriken", 106, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "blaze", 115, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "sentry", 116, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "explodingSpear", 1074, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "shockSmash", 1098, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "staticStar", 1106, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "hammerShockwave", 1098, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "staticShuriken", 1106, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "chargeBlaze", 1115, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "rapidSentry", 1116, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "waterBreathCost", 10023, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "spearCost", 10074, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "spiritSmashCost", 10098, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "hammerCost", 10098, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "fastTravelCost", 10105, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "spiritStarCost", 10106, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "shurikenCost", 10106, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "blazeCost", 10115, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "sentryCost", 10116, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "explodingSpearCost", 11074, 300),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "shockSmashCost", 11098, 300),
-                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "staticStarCost", 11106, 300),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "hammerShockwaveCost", 11098, 300),
+                add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "staticShurikenCost", 11106, 300),
                 add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "chargeBlazeCost", 11115, 300),
                 add_state<app::SerializedIntUberState>(UberStateGroup::OpherShop, "rapidSentryCost", 11116, 300),
 
@@ -213,26 +213,26 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "openCavePlayCutscene", 16588, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "beautifyPlayCutscene", 15070, false),
 
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "bashPlantsPlanted", 47651, 0),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "flowersPlanted", 16254, 0),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "grapplePlantsPlanted", 33011, 0),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "grassPlanted", 64583, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "lightcatchersPlanted", 47651, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "selaFlowersPlanted", 16254, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "blueMoonPlanted", 33011, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "stickyGrassPlanted", 64583, 0),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "springPlantsPlanted", 38393, 0),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "treePlanted", 40006, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "lastTreePlanted", 40006, 0),
 
-                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "bashPlantsCost", 47652, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "flowersCost", 16255, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "grapplePlantsCost", 33012, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "grassCost", 64584, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "lightcatchersCost", 47652, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "selaFlowersCost", 16255, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "blueMoonCost", 33012, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "stickyGrassCost", 64584, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "springPlantsCost", 38394, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "treeCost", 40007, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "lastTreeCost", 40007, 0),
 
-                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "bashPlantsPlayCutscene", 47653, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "flowersPlayCutscene", 16256, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "grapplePlantsPlayCutscene", 33013, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "grassPlayCutscene", 64585, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "lightcatchersPlayCutscene", 47653, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "selaFlowersPlayCutscene", 16256, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "blueMoonPlayCutscene", 33013, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "stickyGrassPlayCutscene", 64585, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "springPlantsPlayCutscene", 38395, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "treePlayCutscene", 40008, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "lastTreePlayCutscene", 40008, 0),
 
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "hammerSpeedMultiplier", 0, 1),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "swordSpeedMultiplier", 1, 1),
@@ -288,7 +288,7 @@ namespace randomizer {
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "burrowSpeed", 83, 1.0),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "burrowDashSpeed", 84, 1.0),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "swimSpeed", 85, 1.0),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "swimDashSpeed", 86, 1.0),
+                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "waterDashSpeed", 86, 1.0),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "jumpHeight", 87, 1.0),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "wallJumpStrength", 88, 1.0),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "doubleJumpStrength", 89, 1.0),
@@ -296,20 +296,20 @@ namespace randomizer {
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "regenerateSpeed", 91, 1.0),
 
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "explodingSpear", 95, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "shockSmash", 96, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "staticStar", 97, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "hammer", 96, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "staticShuriken", 97, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "chargeBlaze", 98, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "rapidSentry", 99, 0),
 
                 // What are these doing here??
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "marshRelic", 100, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "inkwaterRelic", 100, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "hollowRelic", 101, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "gladesRelic", 102, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "wellspringRelic", 103, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "burrowsRelic", 104, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "woodsRelic", 105, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "reachRelic", 106, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "poolsRelic", 107, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "lumaRelic", 107, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "depthsRelic", 108, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "wastesRelic", 109, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "willowRelic", 111, 0),
@@ -325,7 +325,7 @@ namespace randomizer {
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onSword", 35, false),
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onHammer", 36, false),
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onSpear", 37, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onSpiritStar", 38, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onShuriken", 38, false),
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onGrenade", 39, false),
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onBow", 40, false),
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onBlaze", 41, false),
@@ -339,13 +339,13 @@ namespace randomizer {
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onRegenerate", 49, false),
 
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "gladesWave", 0, 0),
-                add_state<app::IntUberState>(UberStateGroup::Shrines, "marshWave", 1, 0),
+                add_state<app::IntUberState>(UberStateGroup::Shrines, "inkwaterWave", 1, 0),
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "howlsDenWave", 2, 0),
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "depthsWave", 3, 0),
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "woodsWave", 4, 0),
 
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "collectedKeystones", 0, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "purchasedKeystones", 1, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "keystonesCollected", 0, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "keystonesPurchased", 1, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "pickupsCollected", 2, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "spiritLightCollected", 3, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "spiritLightSpent", 4, 0),
@@ -353,7 +353,7 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "oreSpent", 6, 0),
                 add_state<app::IntUberState>(UberStateGroup::RandoState, "currentMapArea", 15, static_cast<int>(GameArea::TOTAL)),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "tuleyExists", 300, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "rainLiftedInMarsh", 401, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "rainLiftedInInkwater", 401, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "forceDrainRegenTreeWater", 402, true),
 
                 // skills
@@ -393,14 +393,14 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "weaponCharge", 1119, false),
 
                 // LOOK IT'S FINE
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "marshKeyItemHint", 10000, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "inkwaterKeyItemHint", 10000, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "hollowKeyItemHint", 10001, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "gladesKeyItemHint", 10002, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "wellspringKeyItemHint", 10003, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "burrowsKeyItemHint", 10004, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "woodsKeyItemHint", 10005, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "reachKeyItemHint", 10006, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "poolsKeyItemHint", 10007, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "lumaKeyItemHint", 10007, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "depthsKeyItemHint", 10008, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "wastesKeyItemHint", 10009, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "willowKeyItemHint", 10011, 0),
@@ -446,7 +446,7 @@ namespace randomizer {
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoConfig, "chaosTriggerMax", CHAOS_TRIGGER_MAX_ID, 60.f),
 
                 add_state<app::SerializedIntUberState>(
-                    UberStateGroup::LupoMapCosts, "marsh", static_cast<int>(app::GameWorldAreaID__Enum::InkwaterMarsh), 200
+                    UberStateGroup::LupoMapCosts, "inkwater", static_cast<int>(app::GameWorldAreaID__Enum::InkwaterMarsh), 200
                 ),
                 add_state<app::SerializedIntUberState>(
                     UberStateGroup::LupoMapCosts, "hollow", static_cast<int>(app::GameWorldAreaID__Enum::KwoloksHollow), 150
@@ -455,12 +455,12 @@ namespace randomizer {
                     UberStateGroup::LupoMapCosts, "wellspring", static_cast<int>(app::GameWorldAreaID__Enum::WaterMill), 150
                 ),
                 add_state<app::SerializedIntUberState>(
-                    UberStateGroup::LupoMapCosts, "burrow", static_cast<int>(app::GameWorldAreaID__Enum::MidnightBurrow), 50
+                    UberStateGroup::LupoMapCosts, "burrows", static_cast<int>(app::GameWorldAreaID__Enum::MidnightBurrow), 50
                 ),
                 add_state<app::SerializedIntUberState>(
                     UberStateGroup::LupoMapCosts, "reach", static_cast<int>(app::GameWorldAreaID__Enum::BaursReach), 150
                 ),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "poolsMapCost", static_cast<int>(app::GameWorldAreaID__Enum::LumaPools), 150),
+                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "luma", static_cast<int>(app::GameWorldAreaID__Enum::LumaPools), 150),
                 add_state<app::SerializedIntUberState>(
                     UberStateGroup::LupoMapCosts, "depths", static_cast<int>(app::GameWorldAreaID__Enum::MouldwoodDepths), 150
                 ),
@@ -468,7 +468,7 @@ namespace randomizer {
                     UberStateGroup::LupoMapCosts, "wastes", static_cast<int>(app::GameWorldAreaID__Enum::WindsweptWastes), 150
                 ),
                 add_state<app::SerializedIntUberState>(
-                    UberStateGroup::LupoMapCosts, "willowsEnd", static_cast<int>(app::GameWorldAreaID__Enum::WillowsEnd), 50
+                    UberStateGroup::LupoMapCosts, "willow", static_cast<int>(app::GameWorldAreaID__Enum::WillowsEnd), 50
                 ),
 
                 add_state<app::SerializedByteUberState>(UberStateGroup::LupoShop, "hcMapIcons", 19396, 0),
@@ -543,13 +543,13 @@ namespace randomizer {
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 7), "onRestoreCheckpoint");
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 8), "onProgressHint");
 
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 100), "onRequestMarshTrialText");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 100), "onRequestInkwaterTrialText");
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 101), "onRequestHollowTrialText");
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 102), "onRequestWellspringTrialText");
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 103), "onRequestWoodsTrialText");
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 104), "onRequestReachTrialText");
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 105), "onRequestDepthsTrialText");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 106), "onRequestPoolsTrialText");
+            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 106), "onRequestLumaTrialText");
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 107), "onRequestWastesTrialText");
 
             register_virtual_state(std::make_pair(UberStateGroup::Player, 0), "spiritLight", core::api::game::player::spirit_light().wrap<double>(), true);
@@ -609,8 +609,8 @@ namespace randomizer {
                 error("uber_state_virtual", "Invalid operation: uberstate (6, 503) is read only.");
             }, []() -> double {
                 return UberState(static_cast<UberStateGroup>(28895), 25522).get() // Reach
-                    + UberState(static_cast<UberStateGroup>(18793), 63291).get() // Mouldwood
-                    + UberState(static_cast<UberStateGroup>(945), 49747).get() // Pools
+                    + UberState(static_cast<UberStateGroup>(18793), 63291).get() // Depths
+                    + UberState(static_cast<UberStateGroup>(945), 49747).get() // Luma
                     + UberState(static_cast<UberStateGroup>(10289), 22102).get() // Wastes
                     + UberState(static_cast<UberStateGroup>(46462), 59806).get(); // Hollow
             }));
@@ -673,22 +673,22 @@ namespace randomizer {
             }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
 
             // Tuley shop states
-            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 47651), "bashPlantsPlanted", core::Property<double>([](double x) {
+            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 47651), "lightcatchers", core::Property<double>([](double x) {
                 UberState(42178, 15068).set(x > 0.5 ? 3 : 1);
             }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
-            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 16254), "flowersPlanted", core::Property<double>([](double x) {
+            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 16254), "selaFlowers", core::Property<double>([](double x) {
                 UberState(42178, 15068).set(x > 0.5 ? 3 : 1);
             }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
-            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 33011), "grapplePlantsPlanted", core::Property<double>([](double x) {
+            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 33011), "blueMoon", core::Property<double>([](double x) {
                 UberState(42178, 15068).set(x > 0.5 ? 3 : 1);
             }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
-            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 64583), "grassPlanted", core::Property<double>([](double x) {
+            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 64583), "stickyGrass", core::Property<double>([](double x) {
                 UberState(42178, 15068).set(x > 0.5 ? 3 : 1);
             }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
-            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 38393), "springPlantsPlanted", core::Property<double>([](double x) {
+            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 38393), "springPlants", core::Property<double>([](double x) {
                 UberState(42178, 15068).set(x > 0.5 ? 3 : 1);
             }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
-            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 40006), "treePlanted", core::Property<double>([](double x) {
+            register_virtual_state(std::make_pair(UberStateGroup::TuleyShop, 40006), "lastTree", core::Property<double>([](double x) {
                 UberState(42178, 15068).set(x > 0.5 ? 3 : 1);
             }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
 
