@@ -16,7 +16,7 @@
 #include <Modloader/app/types/ByteUberState.h>
 #include <Modloader/app/types/FloatUberState.h>
 #include <Modloader/app/types/IntUberState.h>
-#include <Modloader/app/types/PlayerInput.h>
+#include <Modloader/app/types/GameWorld.h>
 #include <Modloader/app/types/SerializedBooleanUberState.h>
 #include <Modloader/app/types/SerializedByteUberState.h>
 #include <Modloader/app/types/SerializedFloatUberState.h>
@@ -26,9 +26,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
-#include <Modloader/windows_api/console.h>
 
 #include <chrono>
+#include <Randomizer/features/area_segment_states.h>
 
 using namespace modloader;
 using namespace app::classes;
@@ -692,6 +692,7 @@ namespace randomizer {
                 UberState(42178, 15068).set(x > 0.5 ? 3 : 1);
             }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }));
 
+            randomizer::area_segment_states::register_virtual_uber_states();
             dev::print_time(start_time, "Virtual states initialized");
 
             dev::print_time(start_time, "Uber states initialized");

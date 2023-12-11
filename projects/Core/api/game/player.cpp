@@ -438,4 +438,14 @@ namespace core::api::game::player {
         const auto shards = get_player_spirit_shards();
         return shards != nullptr && PlayerSpiritShards::IsGlobalShardEquipped_1(shards, type);
     }
+
+    app::PlayerUberStateAreaMapInformation* get_area_map_information() {
+        const auto player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;
+
+        if (player_group == nullptr) {
+            return nullptr;
+        }
+
+        return player_group->fields.PlayerUberState->fields.m_state->fields.AreaMapInfo;
+    }
 } // namespace core::api::game::player

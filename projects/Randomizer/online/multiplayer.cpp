@@ -440,6 +440,8 @@ namespace randomizer::online {
 
             if (is_in_incorrect_save_file()) {
                 show_incorrect_save_message();
+            } else {
+                request_full_sync();
             }
         }
     }
