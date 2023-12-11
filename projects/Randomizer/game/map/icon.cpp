@@ -126,7 +126,9 @@ namespace randomizer::game::map {
             }
 
             initialize_game_object();
-        }).finalize(m_reactive_effects);
+        })
+            .trigger_on_load()
+            .finalize(m_reactive_effects);
 
         m_reactive_effects.push_back(core::reactivity::watch_effect([&] { apply_scaler(m_position.get()); }));
 
