@@ -209,7 +209,7 @@ namespace {
         const auto should_toggle_interactibles = filter == randomizer::game::map::Filters::InLogic || filter == randomizer::game::map::Filters::Spoilers;
         if (should_toggle_interactibles) {
             this_ptr->fields.LeftStickMessageBox->fields.MessageProvider = core::api::system::create_message_provider(
-                randomizer::game::map::show_interactible_icons().get() ? "[MapFocusObjective] Hide interactibles" : "[MapFocusObjective] Show interactibles"
+                randomizer::game::map::show_interactible_icons().get() ? "[MapFocusObjective] Hide Interactibles" : "[MapFocusObjective] Show Interactibles"
             );
         } else {
             this_ptr->fields.LeftStickMessageBox->fields.MessageProvider = this_ptr->fields.FocusOnObjectiveMessageProvider;
