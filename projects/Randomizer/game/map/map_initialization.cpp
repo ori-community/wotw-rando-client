@@ -204,6 +204,7 @@ namespace randomizer::game::map {
             npc_icons();
             one_way_walls();
             purple_walls();
+            yellow_walls();
         });
     } // namespace
 } // namespace randomizer::game::map

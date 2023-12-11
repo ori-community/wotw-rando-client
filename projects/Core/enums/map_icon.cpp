@@ -97,27 +97,25 @@ namespace {
     };
 
     struct IconData {
-        IconData(const MapIcon icon, const std::string_view texture_path, const app::Vector2 uv_offset = {0, 0}) :
+        IconData(const MapIcon icon, const std::string_view texture_path) :
             base_icon(icon),
-            texture(core::api::graphics::textures::get_texture(texture_path)),
-            uv_offset(uv_offset) {}
+            texture(core::api::graphics::textures::get_texture(texture_path)) {}
 
         MapIcon base_icon;
-        app::Vector2 uv_offset;
         std::shared_ptr<core::api::graphics::textures::TextureData> texture;
     };
 
     std::unordered_map<MapIcon, IconData> custom_icons;
     auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         custom_icons = {
-            {MapIcon::CleanWater, IconData(MapIcon::HealthFragment, "file:assets/yellow.png")},
-            {MapIcon::BonusItem, IconData(MapIcon::HealthFragment, "file:assets/yellow.png")},
-            {MapIcon::LaunchFragment, IconData(MapIcon::HealthFragment, "file:assets/yellow.png")},
-            {MapIcon::PurpleFloor, IconData(MapIcon::StompableFloor, "file:assets/yellow.png", {0, 0.25})},
-            {MapIcon::PurpleWall, IconData(MapIcon::BreakableWall, "file:assets/yellow.png", {0.25, 0})},
-            {MapIcon::YellowWall, IconData(MapIcon::BreakableWall, "file:assets/yellow.png", {0.25, 0})},
-            {MapIcon::OneWayWallLeft, IconData(MapIcon::BreakableWall, "file:assets/yellow.png", {0.25, 0})},
-            {MapIcon::OneWayWallRight, IconData(MapIcon::BreakableWall, "file:assets/yellow.png", {0.25, 0})},
+            {MapIcon::CleanWater,      IconData(MapIcon::HealthFragment, "file:assets/clean_water.png")      },
+            {MapIcon::BonusItem,       IconData(MapIcon::HealthFragment, "file:assets/bonus_item.png")       },
+            {MapIcon::LaunchFragment,  IconData(MapIcon::HealthFragment, "file:assets/launch_fragment.png")  },
+            {MapIcon::PurpleFloor,     IconData(MapIcon::StompableFloor, "file:assets/purple_floor.png")     },
+            {MapIcon::PurpleWall,      IconData(MapIcon::BreakableWall,  "file:assets/purple_wall.png")      },
+            {MapIcon::YellowWall,      IconData(MapIcon::BreakableWall,  "file:assets/yellow_wall.png")      },
+            {MapIcon::OneWayWallLeft,  IconData(MapIcon::BreakableWall,  "file:assets/oneway_wall_left.png") },
+            {MapIcon::OneWayWallRight, IconData(MapIcon::BreakableWall,  "file:assets/oneway_wall_right.png")},
         };
     });
 
@@ -200,15 +198,13 @@ CORE_DLLEXPORT app::GameObject* map_icon_to_game_object(const MapIcon icon) {
         1,
     });
 
-
     const auto renderer = il2cpp::unity::get_component<app::Renderer>(icon_game_object, types::Renderer::get_class());
-    const auto atlas_scroll_rot = UberShaderAPI::GetTextureAtlasScrollRotData(renderer, app::UberShaderProperty_Texture__Enum::MainTexture);
-
+    const auto [x, y, z, w] = UberShaderAPI::GetTextureAtlasScrollRotData(renderer, app::UberShaderProperty_Texture__Enum::MainTexture);
     const auto uvs = std::vector<app::Vector2>{
-        {atlas_scroll_rot.x, atlas_scroll_rot.y},
-        {atlas_scroll_rot.x + atlas_scroll_rot.z, atlas_scroll_rot.y},
-        {atlas_scroll_rot.x, atlas_scroll_rot.y + atlas_scroll_rot.w},
-        {atlas_scroll_rot.x + atlas_scroll_rot.z, atlas_scroll_rot.y + atlas_scroll_rot.w},
+        {x,     y    },
+        {x + z, y    },
+        {x,     y + w},
+        {x + z, y + w},
     };
 
     const auto uv = types::Vector2::create_array(uvs);
