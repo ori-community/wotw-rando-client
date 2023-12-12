@@ -216,28 +216,18 @@ namespace {
                 // SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr->fields.Backdrop, value, max_level);
             }
 
-            auto cost = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "GetCostForLevel", &value)->fields;
-            if (cost == 0) {
-                if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO)) {
-                    GameObject::SetActive(this_ptr->fields.SpiritLightGO, false);
-                }
-
-                if (il2cpp::unity::is_valid(this_ptr->fields.OreGO)) {
-                    GameObject::SetActive(this_ptr->fields.OreGO, false);
-                }
-            } else {
-                if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO)) {
-                    GameObject::SetActive(this_ptr->fields.SpiritLightGO, !this_ptr->fields.ShowOre);
-                }
-
-                if (il2cpp::unity::is_valid(this_ptr->fields.OreGO)) {
-                    GameObject::SetActive(this_ptr->fields.OreGO, this_ptr->fields.ShowOre);
-                }
+            if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO)) {
+                GameObject::SetActive(this_ptr->fields.SpiritLightGO, !this_ptr->fields.ShowOre);
             }
 
+            if (il2cpp::unity::is_valid(this_ptr->fields.OreGO)) {
+                GameObject::SetActive(this_ptr->fields.OreGO, this_ptr->fields.ShowOre);
+            }
+
+            const auto cost = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "GetCostForLevel", &value)->fields;
             if (il2cpp::unity::is_valid(this_ptr->fields.CostGO) && GameObject::get_activeSelf(this_ptr->fields.CostGO)) {
-                auto text = il2cpp::string_new(std::to_string(cost));
-                auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, types::TextBox::get_class());
+                const auto text = il2cpp::string_new(std::to_string(cost));
+                const auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, types::TextBox::get_class());
                 TextBox::SetText_2(text_box, text);
                 TextBox::RenderText(text_box);
             }

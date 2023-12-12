@@ -227,16 +227,16 @@ namespace {
         auto owned = true;
         auto visible = false;
         if (shard != nullptr) {
-            auto slot = twillen_shop().slot(this_ptr->fields.Shard->fields.m_spiritShard->fields.m_type);
+            const auto slot = twillen_shop().slot(this_ptr->fields.Shard->fields.m_spiritShard->fields.m_type);
             SpiritShardUIItem::UpdateShardIcon(this_ptr->fields.Shard);
             owned = is_owned(*slot);
             visible = Moon::uberSerializationWisp::PlayerUberStateShards_Shard::get_VisibleInShop(shard);
-            auto cost = slot->cost.get<int>();
-            auto purchasable = slot->visibility == SlotVisibility::Visible;
+            const auto cost = slot->cost.get<int>();
+            const auto purchasable = slot->visibility == SlotVisibility::Visible;
 
-            auto affordable = core::api::game::player::spirit_light().get() >= cost;
-            auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.IconGO, types::Renderer::get_class());
-            auto background_renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.Background, types::Renderer::get_class());
+            const auto affordable = core::api::game::player::spirit_light().get() >= cost;
+            const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.IconGO, types::Renderer::get_class());
+            const auto background_renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.Background, types::Renderer::get_class());
             if (purchasable && affordable && !owned) {
                 UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.PurchasableColor);
                 UberShaderAPI::SetColor_1(background_renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.PurchasableColor);
@@ -247,10 +247,10 @@ namespace {
 
             app::MessageDescriptor descriptor = {0};
             descriptor.Message = il2cpp::string_new(std::to_string(cost));
-            auto empty = il2cpp::string_new("");
+            const auto empty = il2cpp::string_new("");
             MessageBox::SetMessage(il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.CostGO, types::MessageBox::get_class()), descriptor, empty, empty);
 
-            auto enabled = purchasable && !owned && affordable;
+            const auto enabled = purchasable && !owned && affordable;
             GameObject::SetActive(this_ptr->fields.PurchasableGO, visible && enabled);
             GameObject::SetActive(this_ptr->fields.NotPurchasableGO, visible && !enabled);
         }
