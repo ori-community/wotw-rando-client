@@ -12,15 +12,21 @@ namespace {
         next::SavePedestalController::BeginTeleportation(position);
     }
 
+    IL2CPP_INTERCEPT(SavePedestalController, void, OnFadedToBlack, (app::SavePedestalController* this_ptr)) {
+        // We want the grant to happen before the checkpoint.
+        const auto state = core::api::uber_states::UberState(UberStateGroup::RandoEvents, 20);
+        state.set(1);
+        state.set(0);
+
+        next::SavePedestalController::OnFadedToBlack(this_ptr);
+    }
+
     IL2CPP_INTERCEPT(SavePedestalController, void, OnFinishedTeleportingStartAnimation, ()) {
         core::api::game::event_bus().trigger_event(GameEvent::Teleport, EventTiming::After);
 
         Network::Packet packet;
         packet.set_id(Network::Packet_PacketID_NotifyTeleport);
         randomizer::network_client().websocket_send(packet);
-        const auto state = core::api::uber_states::UberState(UberStateGroup::RandoEvents, 20);
-        state.set(1);
-        state.set(0);
         next::SavePedestalController::OnFinishedTeleportingStartAnimation();
     }
 } // namespace
