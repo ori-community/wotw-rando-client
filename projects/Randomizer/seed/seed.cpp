@@ -43,14 +43,14 @@ namespace randomizer::seed {
         }
 
         event_bus().trigger_event(RandomizerEvent::SeedLoaded, EventTiming::Before);
-        Data data;
-        data.info.areas = read_all(modloader::base_path() / "areas.wotw");
-        data.info.locations = read_all(modloader::base_path() / "loc_data.csv");
-        data.info.states = read_all(modloader::base_path() / "state_data.csv");
+        std::shared_ptr<Data> data;
+        data->info.areas = read_all(modloader::base_path() / "areas.wotw");
+        data->info.locations = read_all(modloader::base_path() / "loc_data.csv");
+        data->info.states = read_all(modloader::base_path() / "state_data.csv");
         if (!m_last_parser(m_last_path, m_location_data, data)) {
             auto error_message = std::format("Failed to load seed '{}'", m_last_path.string());
-            if (!data.info.parser_error.empty()) {
-                error_message = data.info.parser_error;
+            if (!data->info.parser_error.empty()) {
+                error_message = data->info.parser_error;
             }
 
             core::message_controller().queue_central({
@@ -63,17 +63,17 @@ namespace randomizer::seed {
 
         clear();
         m_data = data;
-        for (auto& inner_locations: m_data.locations | std::views::values) {
+        for (auto& inner_locations: m_data->locations | std::views::values) {
             for (const auto& location: inner_locations | std::views::keys) {
                 auto area = m_location_data.area(location);
-                ++m_data.info.pickup_count_by_area[area];
+                ++m_data->info.pickup_count_by_area[area];
                 if (area != GameArea::Void) {
-                    ++m_data.info.total_pickups;
+                    ++m_data->info.total_pickups;
                 }
             }
         }
 
-        m_data.info.meta.name = std::filesystem::path(m_last_path).filename().string();
+        m_data->info.meta.name = std::filesystem::path(m_last_path).filename().string();
         std::string flags;
         for (auto const& flag: info().meta.flags) {
             if (flags.empty()) {
@@ -107,16 +107,16 @@ namespace randomizer::seed {
     }
 
     void Seed::clear() {
-        m_data.info = {};
-        m_data.relics.clear();
-        m_data.locations.clear();
-        m_data.procedures.clear();
+        m_data->info = {};
+        m_data->relics.clear();
+        m_data->locations.clear();
+        m_data->procedures.clear();
         items::destroy_all_seed_icons();
     }
 
     MapIcon Seed::icon(inner_location_entry location) {
         std::string output;
-        const auto& [always_granted_items, items, names, icons,icon_override] = m_data.locations[location.state][location];
+        const auto& [always_granted_items, items, names, icons,icon_override] = m_data->locations[location.state][location];
         // Since we can only show one icon, if we have multiple show a preset one.
         if (icon_override.has_value()) {
             return icon_override.value().get();
@@ -135,8 +135,8 @@ namespace randomizer::seed {
 
     std::string Seed::text(const inner_location_entry& location) const {
         std::string output;
-        const auto& locations_by_state = m_data.locations.find(location.state);
-        if (locations_by_state == m_data.locations.end()) {
+        const auto& locations_by_state = m_data->locations.find(location.state);
+        if (locations_by_state == m_data->locations.end()) {
             return "";
         }
 
@@ -167,7 +167,7 @@ namespace randomizer::seed {
             }
         }
 
-        auto& inner_locations = m_data.locations[location];
+        auto& inner_locations = m_data->locations[location];
         std::map<int, std::tuple<std::shared_ptr<items::BaseItem>, core::api::uber_states::UberStateCondition, bool>> to_grant;
         auto value = location.get<double>();
         for (auto& [condition, data]: inner_locations) {
@@ -226,8 +226,8 @@ namespace randomizer::seed {
     }
 
     void Seed::procedure_call(const int id) {
-        auto it = m_data.procedures.find(id);
-        if (it == m_data.procedures.end()) {
+        auto it = m_data->procedures.find(id);
+        if (it == m_data->procedures.end()) {
             return;
         }
 
@@ -247,8 +247,8 @@ namespace randomizer::seed {
     }
 
     std::optional<ItemData> Seed::procedure_data(const int id) {
-        const auto it = m_data.procedures.find(id);
-        if (it == m_data.procedures.end()) {
+        const auto it = m_data->procedures.find(id);
+        if (it == m_data->procedures.end()) {
             return std::nullopt;
         }
 

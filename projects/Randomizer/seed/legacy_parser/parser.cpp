@@ -42,7 +42,7 @@ namespace randomizer::seed::legacy_parser {
     location_data::LocationCollection const* current_location_data = nullptr;
 
     struct ParserData {
-        Seed::Data& data;
+        std::shared_ptr<Seed::Data> data;
         ItemData& location_data;
         int items_added;
         int& next_location_id;
@@ -192,7 +192,7 @@ namespace randomizer::seed::legacy_parser {
 
         std::string currency = "Spirit Light";
         if (!core::settings::use_default_currency_name()) {
-            const auto slug_hash = std::hash<std::string>()(data.data.info.meta.slug);
+            const auto slug_hash = std::hash<std::string>()(data.data->info.meta.slug);
             const auto location_hash = std::hash<location_type>()(location);
             currency = core::text::get_random_text_with_hash(*static_text_entry::Currency, slug_hash ^ location_hash);
         }
@@ -728,7 +728,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         const auto item = std::make_shared<items::SetIconOverride>();
-        item->data = &data.data;
+        item->data = data.data;
         item->location = location;
         item->icon = icon.value();
         data.add_item(item);
@@ -746,7 +746,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         const auto item = std::make_shared<items::ClearIconOverride>();
-        item->data = &data.data;
+        item->data = data.data;
         item->location = location;
         data.add_item(item);
         return true;
@@ -1335,13 +1335,13 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        data.data.relics.add(location, parts.size() == 2 ? std::optional(parts[1]) : std::nullopt);
+        data.data->relics.add(location, parts.size() == 2 ? std::optional(parts[1]) : std::nullopt);
 
         if (!data.should_add_default_messages) {
             return true;
         }
 
-        const auto relic_name = std::format("@{} Relic@", std::string(data.data.relics.relic_name(location)));
+        const auto relic_name = std::format("@{} Relic@", std::string(data.data->relics.relic_name(location)));
         const auto message = std::make_shared<items::Message>();
         message->should_save_as_last = true;
         message->info.text.set(relic_name);
@@ -1585,7 +1585,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         auto procedure_id = data.next_procedure_id++;
-        auto& procedure = data.data.procedures[procedure_id];
+        auto& procedure = data.data->procedures[procedure_id];
         ParserData procedure_data{
             .data = data.data,
             .location_data = procedure,
@@ -1952,7 +1952,7 @@ namespace randomizer::seed::legacy_parser {
         }
     }
 
-    bool parse_expression(int& next_location_id, int& next_procedure_id, std::span<std::string> parts, Seed::Data& data, int line_number) {
+    bool parse_expression(int& next_location_id, int& next_procedure_id, std::span<std::string> parts, std::shared_ptr<Seed::Data> data, int line_number) {
         if (parts.size() < 3) {
             // Need at least the trigger and an action type.
             return false;
@@ -1964,7 +1964,7 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto& location_item_data = data.locations[trigger.state][trigger];
+        auto& location_item_data = data->locations[trigger.state][trigger];
         ParserData parser_data{
             .data = data,
             .location_data = location_item_data,
@@ -1986,17 +1986,17 @@ namespace randomizer::seed::legacy_parser {
      * \param line The current line as raw string (escape sequences have NOT been replaced yet)
      * \param data Seed data
      */
-    void parse_config(std::string_view line, Seed::Data& data) {
+    void parse_config(std::string_view line, std::shared_ptr<Seed::Data> data) {
         if (line.starts_with("// This World:")) {
             const std::string str(line.substr(14));
-            data.info.meta.world_index = std::stoi(str);
+            data->info.meta.world_index = std::stoi(str);
         } else if (line.starts_with("// Format Version:")) {
         } else if (line.starts_with("// Generator Version:")) {
         } else if (line.starts_with("// Slug:")) {
-            data.info.meta.slug = trim_copy(line.substr(sizeof("Slug:")));
+            data->info.meta.slug = trim_copy(line.substr(sizeof("Slug:")));
         } else if (line.starts_with("// Config:")) {
             auto j = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
-            data.info.meta.net_code_enabled = j.value("online", false);
+            data->info.meta.net_code_enabled = j.value("online", false);
         }
 
         // If we don't match anything here it's a comment, and we can ignore it.
@@ -2060,7 +2060,7 @@ namespace randomizer::seed::legacy_parser {
         return meta;
     }
 
-    bool parse(const std::filesystem::path& path, location_data::LocationCollection const& location_data, Seed::Data& data) {
+    bool parse(const std::filesystem::path& path, location_data::LocationCollection const& location_data, std::shared_ptr<Seed::Data> data) {
         std::ifstream seed_file(path);
         if (!seed_file.is_open()) {
             return false;
@@ -2077,23 +2077,23 @@ namespace randomizer::seed::legacy_parser {
                 const auto version = trim_copy(line.substr(19));
                 const auto parsed = semver::from_string_noexcept(version);
                 if (parsed.has_value()) {
-                    data.info.meta.version = parsed.value();
+                    data->info.meta.version = parsed.value();
                 }
 
                 break;
             }
         }
 
-        if (!is_seed_version_supported(data.info.meta.version)) {
+        if (!is_seed_version_supported(data->info.meta.version)) {
             modloader::warn("legacy_seed_parser", "Failed to load seed due to incompatible version");
-            data.info.parser_error = std::format("Failed to load seed '{}'\ndue to version incompatibility", path.string());
+            data->info.parser_error = std::format("Failed to load seed '{}'\ndue to version incompatibility", path.string());
             return false;
         }
 
         seed_file.seekg(0);
         while (std::getline(seed_file, line)) {
-            data.info.content += line;
-            data.info.content += "\n";
+            data->info.content += line;
+            data->info.content += "\n";
 
             // Config needs to do its own escape handling (\n, \t etc)
             if (line.starts_with("//")) {
@@ -2108,8 +2108,8 @@ namespace randomizer::seed::legacy_parser {
             // Remove comments.
             line = line.substr(0, line.find("//"));
             if (line.starts_with("Flags:")) {
-                split_str(line.substr(6), data.info.meta.flags, ',');
-                for (auto& flag: data.info.meta.flags) {
+                split_str(line.substr(6), data->info.meta.flags, ',');
+                for (auto& flag: data->info.meta.flags) {
                     trim(flag);
                 }
             } else if (line.starts_with("Spawn:")) {
@@ -2126,7 +2126,7 @@ namespace randomizer::seed::legacy_parser {
                     continue;
                 }
 
-                data.info.meta.start_position = position;
+                data->info.meta.start_position = position;
             } else if (line.starts_with("timer:")) {
             } else if (!line.empty()) {
                 std::vector<std::string> parts;
@@ -2142,14 +2142,14 @@ namespace randomizer::seed::legacy_parser {
     }
 
     std::optional<ItemData> parse_action(const std::string_view action) {
-        Seed::Data data;
+        auto data = std::make_shared<Seed::Data>();
         const location_type location{
             {},
             BooleanOperator::Equals,
             0,
         };
 
-        ItemData& location_data = data.locations[location.state][location];
+        ItemData& location_data = data->locations[location.state][location];
         int next_location_id = 0;
         int next_procedure_id = 0;
 

@@ -9,7 +9,7 @@ namespace randomizer::seed::items {
     class SetIconOverride final : public BaseItem {
     public:
         core::api::uber_states::UberStateCondition location;
-        Seed::Data* data;
+        std::shared_ptr<Seed::Data> data;
         MapIcon icon;
 
         void grant() override;
@@ -19,7 +19,7 @@ namespace randomizer::seed::items {
     class ClearIconOverride final : public BaseItem {
     public:
         core::api::uber_states::UberStateCondition location;
-        Seed::Data* data;
+        std::shared_ptr<Seed::Data> data;
 
         void grant() override;
         std::string to_string() const override;

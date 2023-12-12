@@ -52,7 +52,7 @@ namespace randomizer::seed {
             std::unordered_map<int, ItemData> procedures;
         };
 
-        using seed_parser = bool (*)(const std::filesystem::path& path, location_data::LocationCollection const& location_data, Data& data);
+        using seed_parser = bool (*)(const std::filesystem::path& path, location_data::LocationCollection const& location_data, std::shared_ptr<Data> data);
 
         Seed(location_data::LocationCollection const& location_data);
 
@@ -66,12 +66,12 @@ namespace randomizer::seed {
         void procedure_call(int id);
         std::optional<ItemData> procedure_data(int id);
 
-        SeedInfo const& info() const { return m_data.info; }
-        int total_pickups() const { return m_data.info.total_pickups; }
+        SeedInfo const& info() const { return m_data->info; }
+        int total_pickups() const { return m_data->info.total_pickups; }
 
         std::filesystem::path path() const { return m_last_path; }
 
-        Relics const& relics() const { return m_data.relics; }
+        Relics const& relics() const { return m_data->relics; }
         bool finished_goals() const;
 
         void prevent_grants(const std::function<bool()>& callback) { m_prevent_grant_callbacks.push_back(callback); }
@@ -80,7 +80,7 @@ namespace randomizer::seed {
         location_data::LocationCollection const& m_location_data;
         seed_parser m_last_parser = nullptr;
         std::filesystem::path m_last_path;
-        Data m_data;
+        std::shared_ptr<Data> m_data;
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
     };
 
