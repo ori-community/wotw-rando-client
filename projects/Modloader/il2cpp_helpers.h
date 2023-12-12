@@ -388,7 +388,7 @@ namespace il2cpp {
 
                 return output;
             } else if (is_assignable(il2cpp_object, internal::get_component_class()))
-                return get_components_in_children<Return>(get_game_object(obj), klass);
+                return get_components_in_children<Return>(get_game_object(obj), klass, include_inactive);
             else
                 return {};
         }
