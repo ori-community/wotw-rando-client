@@ -278,15 +278,24 @@ namespace il2cpp {
         }
 
         std::vector<app::GameObject*> get_children(void* obj) {
-            auto transform = get_transform(obj);
+            const auto transform = get_transform(obj);
             std::vector<app::GameObject*> children;
-            auto count = UnityEngine::Transform::GetChildCount(transform);
-            for (auto i = 0; i < count; ++i)
+            const auto count = UnityEngine::Transform::GetChildCount(transform);
+            for (auto i = 0; i < count; ++i) {
                 children.push_back(get_game_object(UnityEngine::Transform::GetChild(transform, i)));
+            }
 
             return children;
         }
 
+        app::GameObject* get_child(void* obj, const int index) {
+            const auto transform = get_transform(obj);
+            if (transform == nullptr) {
+                return nullptr;
+            }
+
+            return get_game_object(UnityEngine::Transform::GetChild(transform, index));
+        }
         app::GameObject* find_child(void* obj, std::string_view name) {
             auto transform = get_transform(obj);
             auto str = il2cpp::string_new(name);
