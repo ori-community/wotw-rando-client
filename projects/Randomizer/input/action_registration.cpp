@@ -97,7 +97,7 @@ namespace randomizer::input {
         });
 
         auto on_teleport_cheat_before = single_input_bus().register_handler(Action::TeleportCheat, EventTiming::Before, [](auto, auto) {
-            if (game_seed().info().race_mode) {
+            if (game_seed().info().meta.race_mode) {
                 core::message_controller().queue_central({
                     .text = core::Property<std::string>(std::string("Teleport anywhere is not available in race mode")),
                     .prioritized = true,
@@ -113,7 +113,7 @@ namespace randomizer::input {
         });
 
         auto on_unlock_spoilers_before = single_input_bus().register_handler(Action::UnlockSpoilers, EventTiming::Before, [](auto, auto) {
-            if (game_seed().info().race_mode) {
+            if (game_seed().info().meta.race_mode) {
                 core::message_controller().queue_central({
                     .text = core::Property<std::string>("Unlock spoilers is not available in race mode"),
                     .prioritized = true,

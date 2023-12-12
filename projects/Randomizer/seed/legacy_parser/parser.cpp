@@ -192,7 +192,7 @@ namespace randomizer::seed::legacy_parser {
 
         std::string currency = "Spirit Light";
         if (!core::settings::use_default_currency_name()) {
-            const auto slug_hash = std::hash<std::string>()(data.data.info.slug);
+            const auto slug_hash = std::hash<std::string>()(data.data.info.meta.slug);
             const auto location_hash = std::hash<location_type>()(location);
             currency = core::text::get_random_text_with_hash(*static_text_entry::Currency, slug_hash ^ location_hash);
         }
@@ -1989,14 +1989,14 @@ namespace randomizer::seed::legacy_parser {
     void parse_config(std::string_view line, Seed::Data& data) {
         if (line.starts_with("// This World:")) {
             const std::string str(line.substr(14));
-            data.info.world_index = std::stoi(str);
+            data.info.meta.world_index = std::stoi(str);
         } else if (line.starts_with("// Format Version:")) {
         } else if (line.starts_with("// Generator Version:")) {
         } else if (line.starts_with("// Slug:")) {
-            data.info.slug = trim_copy(line.substr(sizeof("Slug:")));
+            data.info.meta.slug = trim_copy(line.substr(sizeof("Slug:")));
         } else if (line.starts_with("// Config:")) {
             auto j = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
-            data.info.net_code_enabled = j.value("online", false);
+            data.info.meta.net_code_enabled = j.value("online", false);
         }
 
         // If we don't match anything here it's a comment, and we can ignore it.
@@ -2004,6 +2004,56 @@ namespace randomizer::seed::legacy_parser {
 
     bool is_seed_version_supported(semver::version version) {
         return semver::range::satisfies(version, ">=1.0.0 <=1.0.0");
+    }
+
+    std::optional<Seed::SeedMetaData> parse_meta_data(const std::filesystem::path& path) {
+        std::ifstream seed_file(path);
+        if (!seed_file.is_open()) {
+            return std::nullopt;
+        }
+
+        Seed::SeedMetaData meta;
+        meta.name = path.filename().string();
+        std::string line;
+        while (std::getline(seed_file, line)) {
+            if (line.starts_with("// Format Version: ")) {
+                const auto version = trim_copy(line.substr(19));
+                const auto parsed = semver::from_string_noexcept(version);
+                if (parsed.has_value()) {
+                    meta.version = parsed.value();
+                }
+            }
+            else if (line.starts_with("// This World:")) {
+                const std::string str(line.substr(14));
+                meta.world_index = std::stoi(str);
+            } else if (line.starts_with("// Slug:")) {
+                meta.slug = trim_copy(line.substr(sizeof("Slug:")));
+            } else if (line.starts_with("// Config:")) {
+                auto j = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
+                meta.net_code_enabled = j.value("online", false);
+            } else if (line.starts_with("Flags:")) {
+                split_str(line.substr(6), meta.flags, ',');
+                for (auto& flag: meta.flags) {
+                    trim(flag);
+                }
+            } else if (line.starts_with("Spawn:")) {
+                std::vector<std::string> coords;
+                split_str(line.substr(6), coords, ',');
+                if (coords.size() != 2) {
+                    continue;
+                }
+
+                app::Vector3 position{};
+                if (!string_convert(coords[0], position.x) || !string_convert(coords[1], position.y)) {
+                    continue;
+                }
+
+                meta.start_position = position;
+            }
+        }
+
+        seed_file.close();
+        return meta;
     }
 
     bool parse(const std::filesystem::path& path, location_data::LocationCollection const& location_data, Seed::Data& data) {
@@ -2023,14 +2073,14 @@ namespace randomizer::seed::legacy_parser {
                 const auto version = trim_copy(line.substr(19));
                 const auto parsed = semver::from_string_noexcept(version);
                 if (parsed.has_value()) {
-                    data.info.version = parsed.value();
+                    data.info.meta.version = parsed.value();
                 }
 
                 break;
             }
         }
 
-        if (!is_seed_version_supported(data.info.version)) {
+        if (!is_seed_version_supported(data.info.meta.version)) {
             modloader::warn("legacy_seed_parser", "Failed to load seed due to incompatible version");
             data.info.parser_error = std::format("Failed to load seed '{}'\ndue to version incompatibility", path.string());
             return false;
@@ -2054,8 +2104,8 @@ namespace randomizer::seed::legacy_parser {
             // Remove comments.
             line = line.substr(0, line.find("//"));
             if (line.starts_with("Flags:")) {
-                split_str(line.substr(6), data.info.flags, ',');
-                for (auto& flag: data.info.flags) {
+                split_str(line.substr(6), data.info.meta.flags, ',');
+                for (auto& flag: data.info.meta.flags) {
                     trim(flag);
                 }
             } else if (line.starts_with("Spawn:")) {
@@ -2072,7 +2122,7 @@ namespace randomizer::seed::legacy_parser {
                     continue;
                 }
 
-                data.info.start_position = position;
+                data.info.meta.start_position = position;
             } else if (line.starts_with("timer:")) {
             } else if (!line.empty()) {
                 std::vector<std::string> parts;

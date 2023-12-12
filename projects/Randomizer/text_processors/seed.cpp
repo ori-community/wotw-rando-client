@@ -15,7 +15,7 @@ namespace randomizer::text_processors {
 
         std::optional<std::string> goal_mode_progress(core::text::ITextProcessor const& base_processor, std::string_view content) {
             std::vector<std::string> goals;
-            auto const& flags = game_seed().info().flags;
+            auto const& flags = game_seed().info().meta.flags;
             if (std::ranges::find(flags, "All Trees") != flags.end()) {
                 goals.push_back(std::format("Trees: {}/14", core::api::uber_states::UberState(UberStateGroup::RandoState, 502).get<int>()));
             }
@@ -41,7 +41,7 @@ namespace randomizer::text_processors {
         }
 
         std::optional<std::string> relic_progress(core::text::ITextProcessor const& base_processor, std::string_view content) {
-            if (auto const& flags = game_seed().info().flags; std::ranges::find(flags, "Relics") == flags.end()) {
+            if (auto const& flags = game_seed().info().meta.flags; std::ranges::find(flags, "Relics") == flags.end()) {
                 return "";
             }
 
@@ -77,7 +77,7 @@ namespace randomizer::text_processors {
         }
 
         std::optional<std::string> map_relic_progress(core::text::ITextProcessor const& base_processor, std::string_view content) {
-            if (auto const& flags = game_seed().info().flags; std::ranges::find(flags, "Relics") == flags.end()) {
+            if (auto const& flags = game_seed().info().meta.flags; std::ranges::find(flags, "Relics") == flags.end()) {
                 return "";
             }
 

@@ -34,7 +34,7 @@ namespace randomizer::ipc {
             nlohmann::json response;
             response["type"] = "response";
             response["id"] = j.at("id").get<int>();
-            response["payload"] = game_seed().info().flags;
+            response["payload"] = game_seed().info().meta.flags;
             send_message(response);
         }
 

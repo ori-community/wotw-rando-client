@@ -52,9 +52,9 @@ namespace randomizer::online_indicator {
                 description += std::format("Universe: {}\n", player->universe.name());
             }
 
-            description += std::format("Seed: {}\n", game_seed().info().name);
+            description += std::format("Seed: {}\n", game_seed().info().meta.name);
             description += "Flags:";
-            for (auto flag: game_seed().info().flags) {
+            for (auto flag: game_seed().info().meta.flags) {
                 description += std::format("\n   - {}", flag);
             }
 

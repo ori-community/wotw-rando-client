@@ -73,10 +73,9 @@ namespace randomizer::seed {
             }
         }
 
-        m_data.info.name = std::filesystem::path(m_last_path).filename().string();
-
+        m_data.info.meta.name = std::filesystem::path(m_last_path).filename().string();
         std::string flags;
-        for (auto const& flag: info().flags) {
+        for (auto const& flag: info().meta.flags) {
             if (flags.empty()) {
                 flags += "\nFlags: ";
             } else {
@@ -101,7 +100,7 @@ namespace randomizer::seed {
         }
 
         core::message_controller().queue_central({
-            .text = core::Property<std::string>::format("Loaded {}{}", info().name, flags),
+            .text = core::Property<std::string>::format("Loaded {}{}", info().meta.name, flags),
             .show_box = true,
             .prioritized = true,
         });
@@ -257,7 +256,7 @@ namespace randomizer::seed {
     }
 
     bool Seed::finished_goals() const {
-        auto const& flags = info().flags;
+        auto const& flags = info().meta.flags;
         const auto is_relics = std::ranges::find(flags, "Relics") != flags.end();
         const auto is_trees = std::ranges::find(flags, "All Trees") != flags.end();
         const auto is_wisps = std::ranges::find(flags, "All Wisps") != flags.end();
