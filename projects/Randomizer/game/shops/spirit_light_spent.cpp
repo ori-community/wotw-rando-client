@@ -5,7 +5,7 @@
 #include <Modloader/modloader.h>
 
 namespace {
-    core::api::uber_states::UberState spirit_light_spent(UberStateGroup::RandoState, 4);
+    core::api::uber_states::UberState spirit_light_spent(UberStateGroup::RandoStats, 4);
     IL2CPP_INTERCEPT(SpellUIExperience, bool, Spend, (app::SpellUIExperience * this_ptr, int amount)) {
         bool worked = next::SpellUIExperience::Spend(this_ptr, amount);
         if (worked)

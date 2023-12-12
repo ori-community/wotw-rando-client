@@ -183,7 +183,7 @@ namespace randomizer::seed {
             }
 
             if ((!already_granted || !data.always_granted_items.empty()) && m_location_data.area(condition) != GameArea::Void) {
-                auto pickups_collected = core::api::uber_states::UberState(6, 2);
+                auto pickups_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 2);
                 pickups_collected.set<int>(pickups_collected.get<int>() + 1);
             }
 

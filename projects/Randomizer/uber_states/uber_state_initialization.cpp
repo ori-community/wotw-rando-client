@@ -301,19 +301,6 @@ namespace randomizer {
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "chargeBlaze", 98, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "rapidSentry", 99, 0),
 
-                // What are these doing here??
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "inkwaterRelic", 100, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "hollowRelic", 101, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "gladesRelic", 102, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "wellspringRelic", 103, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "burrowsRelic", 104, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "woodsRelic", 105, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "reachRelic", 106, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "lumaRelic", 107, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "depthsRelic", 108, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "wastesRelic", 109, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "willowRelic", 111, 0),
-
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "overflowPickupUpgrade", 150, false),
 
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onTeleport", 20, false),
@@ -344,13 +331,13 @@ namespace randomizer {
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "depthsWave", 3, 0),
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "woodsWave", 4, 0),
 
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "keystonesCollected", 0, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "keystonesPurchased", 1, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "pickupsCollected", 2, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "spiritLightCollected", 3, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "spiritLightSpent", 4, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "oreCollected", 5, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "oreSpent", 6, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "keystonesCollected", 0, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollected", 2, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "spiritLightCollected", 3, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "spiritLightSpent", 4, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "oreCollected", 5, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "oreSpent", 6, 0),
+
                 add_state<app::IntUberState>(UberStateGroup::RandoState, "currentMapArea", 15, static_cast<int>(GameArea::TOTAL)),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "tuleyExists", 300, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "rainLiftedInInkwater", 401, false),
@@ -391,19 +378,6 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "bowCharge", 1109, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "spiritMagnet", 1112, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "weaponCharge", 1119, false),
-
-                // LOOK IT'S FINE
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "inkwaterKeyItemHint", 10000, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "hollowKeyItemHint", 10001, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "gladesKeyItemHint", 10002, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "wellspringKeyItemHint", 10003, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "burrowsKeyItemHint", 10004, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "woodsKeyItemHint", 10005, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "reachKeyItemHint", 10006, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "lumaKeyItemHint", 10007, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "depthsKeyItemHint", 10008, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "wastesKeyItemHint", 10009, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoState, "willowKeyItemHint", 10011, 0),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "squares", 0, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "lines", 1, 0),

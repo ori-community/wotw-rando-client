@@ -182,7 +182,7 @@ namespace randomizer::seed::legacy_parser {
         data.add_item(assigner);
 
         const auto collected = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
-        collected->variable = core::Property<int>(UberStateGroup::RandoState, 3);
+        collected->variable = core::Property<int>(UberStateGroup::RandoStats, 3);
         collected->value.set(spirit_light);
         data.add_item(collected);
 
@@ -257,7 +257,7 @@ namespace randomizer::seed::legacy_parser {
                 adder->value.set(1);
                 data.add_item(adder);
                 const auto collected = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
-                collected->variable = core::Property<int>(UberStateGroup::RandoState, 5);
+                collected->variable = core::Property<int>(UberStateGroup::RandoStats, 5);
                 collected->value.set(1);
                 data.add_item(collected);
                 icon = MapIcon::Ore;
@@ -270,7 +270,7 @@ namespace randomizer::seed::legacy_parser {
                 adder->value.set(1);
                 data.add_item(adder);
                 const auto collected = std::make_shared<items::ValueModifier<int, items::ValueOperator::Add>>();
-                collected->variable = core::Property<int>(UberStateGroup::RandoState, 0);
+                collected->variable = core::Property<int>(UberStateGroup::RandoStats, 0);
                 collected->value.set(1);
                 data.add_item(collected);
                 icon = MapIcon::Keystone;

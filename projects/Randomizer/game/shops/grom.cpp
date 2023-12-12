@@ -51,7 +51,7 @@ namespace {
     });
 
     // Why ores are treated as seeds, nobody knows.
-    core::api::uber_states::UberState ore_spent(UberStateGroup::RandoState, 6);
+    core::api::uber_states::UberState ore_spent(UberStateGroup::RandoStats, 6);
     IL2CPP_INTERCEPT(SpellUISeeds, bool, Spend, (app::SpellUISeeds * this_ptr, int amount)) {
         bool worked = next::SpellUISeeds::Spend(this_ptr, amount);
         if (worked) {
