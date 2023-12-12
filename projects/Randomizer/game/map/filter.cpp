@@ -147,16 +147,17 @@ namespace randomizer::game::map {
 
         std::shared_ptr<core::reactivity::ReactiveEffect> inlogic_toggle_reactive;
         auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-            inlogic_toggle_reactive = core::reactivity::watch_effect()
-                                          .effect({inlogic_toggle})
-                                          .trigger_on_load()
-                                          .after([] {
-                                              if (!inlogic_toggle.get<bool>() && active_filter() == Filters::InLogic) {
-                                                  const auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
-                                                  AreaMapUI::CycleFilter(area_map);
-                                              }
-                                          })
-                                          .finalize();
+            inlogic_toggle_reactive = //
+                core::reactivity::watch_effect()
+                    .effect({inlogic_toggle})
+                    .trigger_on_load()
+                    .after([] {
+                        if (!inlogic_toggle.get<bool>() && active_filter() == Filters::InLogic) {
+                            const auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
+                            AreaMapUI::CycleFilter(area_map);
+                        }
+                    })
+                    .finalize();
         });
 
         auto on_area_map_open_handle = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, &on_area_map_open);
