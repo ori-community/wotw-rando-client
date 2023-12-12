@@ -43,7 +43,7 @@ namespace randomizer::seed {
         }
 
         event_bus().trigger_event(RandomizerEvent::SeedLoaded, EventTiming::Before);
-        std::shared_ptr<Data> data;
+        auto data = std::make_shared<Data>();
         data->info.areas = read_all(modloader::base_path() / "areas.wotw");
         data->info.locations = read_all(modloader::base_path() / "loc_data.csv");
         data->info.states = read_all(modloader::base_path() / "state_data.csv");
