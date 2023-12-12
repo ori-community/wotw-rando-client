@@ -354,7 +354,7 @@ namespace randomizer {
                 add_state<app::IntUberState>(UberStateGroup::RandoState, "currentMapArea", 15, static_cast<int>(GameArea::TOTAL)),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "tuleyExists", 300, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "rainLiftedInInkwater", 401, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "regenTreeDrained", 402, true),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "regenTreeDrained", 402, false),
 
                 // skills
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "bash", 1000, false),
