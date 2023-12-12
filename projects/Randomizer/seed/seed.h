@@ -80,7 +80,7 @@ namespace randomizer::seed {
         location_data::LocationCollection const& m_location_data;
         seed_parser m_last_parser = nullptr;
         std::filesystem::path m_last_path;
-        std::shared_ptr<Data> m_data;
+        std::shared_ptr<Data> m_data = std::make_shared<Data>();
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
     };
 
