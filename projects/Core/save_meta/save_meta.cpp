@@ -33,6 +33,8 @@ namespace core::save_meta {
 
     std::unordered_map<SaveMetaSlot, SaveMetaSlotConfiguration> slots;
 
+    common::EventBus<app::Byte__Array*> _before_uber_value_store_loaded_event_bus;
+
     void register_slot(SaveMetaSlot slot, SaveMetaSlotPersistence persistence, std::shared_ptr<SaveMetaHandler> handler) {
         slots[slot] = {
             std::move(handler),
@@ -223,10 +225,12 @@ namespace core::save_meta {
         }
 
         IL2CPP_INTERCEPT(Moon::UberStateValueStore, void, ctor_2, (app::UberStateValueStore * this_ptr, app::Byte__Array* data)) {
+            _before_uber_value_store_loaded_event_bus.trigger_event(data);
             next::Moon::UberStateValueStore::ctor_2(this_ptr, read_save_meta_from_byte_array_with_current_parameters(data).vanilla_data);
         }
 
         IL2CPP_INTERCEPT(Moon::UberStateValueStore, void, ctor_3, (app::UberStateValueStore * this_ptr, app::Byte__Array* data, int actual_size)) {
+            _before_uber_value_store_loaded_event_bus.trigger_event(data);
             auto result = read_save_meta_from_byte_array_with_current_parameters(data);
             next::Moon::UberStateValueStore::ctor_3(this_ptr, result.vanilla_data, result.vanilla_data_size);
         }
@@ -300,6 +304,51 @@ namespace core::save_meta {
             }
         );
     } // namespace
+
+    common::EventBus<app::Byte__Array*>& before_uber_value_store_loaded_event_bus() {
+        return _before_uber_value_store_loaded_event_bus;
+    }
+
+    std::unordered_set<SaveMetaSlot> read_save_meta_slots_from_byte_array(
+        app::Byte__Array* data,
+        const std::unordered_map<SaveMetaSlot, std::shared_ptr<SaveMetaHandler>>&slots_to_read
+    ) {
+        std::unordered_set<SaveMetaSlot> successfully_read_slots;
+        utils::ByteStream stream(data);
+
+        if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
+            stream.skip<int>();
+            stream.skip<int>(); // VERSION unused for now
+
+            auto guid = stream.read<MoodGuid>();
+            auto slot_count = stream.read<int>();
+
+            info("save_meta", std::format("Reading {} SaveMeta slots from save file {},{},{},{}", slot_count, guid.A, guid.B, guid.C, guid.D));
+
+            for (int i = 0; i < slot_count; ++i) {
+                auto slot = stream.read<SaveMetaSlot>();
+                auto length = stream.read<unsigned long>();
+
+                info("save_meta", std::format("- Slot {}: length = {}", i, length));
+
+                if (!slots_to_read.contains(slot)) {
+                    stream.skip(length);
+                    continue;
+                }
+
+                const auto buffer = stream.read(length);
+
+                utils::ByteStream slot_data(buffer);
+                slots_to_read.at(slot)->load(slot_data);
+
+                successfully_read_slots.emplace(slot);
+            }
+        } else {
+            info("save_meta", "Save file did not start with magic byte. Skipping.");
+        }
+
+        return successfully_read_slots;
+    }
 
     const MoodGuid& get_current_save_guid() {
         return current_save_guid;

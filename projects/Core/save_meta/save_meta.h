@@ -4,9 +4,12 @@
 #include <Core/enums/save_meta_slot.h>
 #include <Core/enums/save_meta_slot_persistence.h>
 #include <Core/utils/byte_stream.h>
+#include <Common/event_bus.h>
 #include <memory>
 #include <nlohmann/json.hpp>
 #include <vector>
+#include <unordered_map>
+#include <unordered_set>
 
 namespace core::save_meta {
     /**
@@ -43,6 +46,8 @@ namespace core::save_meta {
         virtual void json_deserialize(nlohmann::json& j) = 0;
     };
 
+    CORE_DLLEXPORT common::EventBus<app::Byte__Array*>& before_uber_value_store_loaded_event_bus();
+    CORE_DLLEXPORT std::unordered_set<SaveMetaSlot> read_save_meta_slots_from_byte_array(app::Byte__Array* data, const std::unordered_map<SaveMetaSlot, std::shared_ptr<SaveMetaHandler>>&slots_to_read);
     CORE_DLLEXPORT void register_slot(SaveMetaSlot slot, SaveMetaSlotPersistence persistence, std::shared_ptr<SaveMetaHandler> handler);
     CORE_DLLEXPORT void clear_slot(SaveMetaSlot slot);
     CORE_DLLEXPORT const MoodGuid& get_current_save_guid();

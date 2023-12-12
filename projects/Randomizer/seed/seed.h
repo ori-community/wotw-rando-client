@@ -85,11 +85,11 @@ namespace randomizer::seed {
     };
 
 
-    class SeedMetaData final : public core::save_meta::JsonSaveMetaSerializable {
+    class SaveSlotSeedMetaData final : public core::save_meta::JsonSaveMetaSerializable {
     public:
         std::filesystem::path path;
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(SeedMetaData, path);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(SaveSlotSeedMetaData, path);
 
         nlohmann::json json_serialize() override;
         void json_deserialize(nlohmann::json& j) override;

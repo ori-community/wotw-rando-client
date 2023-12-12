@@ -280,11 +280,11 @@ namespace randomizer::seed {
         return true;
     }
 
-    nlohmann::json SeedMetaData::json_serialize() {
+    nlohmann::json SaveSlotSeedMetaData::json_serialize() {
         return nlohmann::json(*this);
     }
 
-    void SeedMetaData::json_deserialize(nlohmann::json& j) {
+    void SaveSlotSeedMetaData::json_deserialize(nlohmann::json& j) {
         j.get_to(*this);
     }
 } // namespace randomizer::seed

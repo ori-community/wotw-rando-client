@@ -181,7 +181,7 @@ set(
         "uber_states/uber_state_initialization.cpp"
         "uber_states/uber_state_intercepts.cpp"
         "ui/always_show_keystones.cpp"
-        "ui/online_mode_switcher.cpp"
+        "ui/main_menu_seed_info.cpp"
 )
 
 set(

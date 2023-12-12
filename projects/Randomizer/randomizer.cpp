@@ -48,7 +48,7 @@ namespace randomizer {
             .screen_position = core::api::messages::ScreenPosition::TopCenter,
         });
 
-        std::shared_ptr<seed::SeedMetaData> seed_save_data;
+        std::shared_ptr<seed::SaveSlotSeedMetaData> seed_save_data;
 
         bool reach_check_queued = false;
         bool reach_check_in_progress = false;
@@ -192,8 +192,8 @@ namespace randomizer {
             text_processor->compose(std::make_shared<text_processors::MultiplayerProcessor>());
 
             core::message_controller().central_display().text_processor(text_processor);
-            seed_save_data = std::make_unique<seed::SeedMetaData>();
-            register_slot(SaveMetaSlot::SeedFilePath, SaveMetaSlotPersistence::None, seed_save_data);
+            seed_save_data = std::make_unique<seed::SaveSlotSeedMetaData>();
+            register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::None, seed_save_data);
             load_seed(true, false);
             if (!core::settings::netcode_disabled() && randomizer_seed.info().meta.net_code_enabled) {
                 server_connect();

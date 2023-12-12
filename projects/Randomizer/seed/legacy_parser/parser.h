@@ -6,7 +6,6 @@ namespace randomizer::seed::legacy_parser {
     enum class ParserError {
         FileNotFound,
         WrongVersion,
-
     };
 
     std::variant<Seed::SeedMetaData, ParserError> parse_meta_data(const std::filesystem::path& path);

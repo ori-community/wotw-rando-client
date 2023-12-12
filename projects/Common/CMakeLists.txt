@@ -25,6 +25,7 @@ set(
         "ext.h"
         "math_utils.h"
         "settings.h"
+        "variant_cast.h"
 )
 
 set(
