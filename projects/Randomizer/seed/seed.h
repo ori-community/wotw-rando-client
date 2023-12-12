@@ -29,7 +29,6 @@ namespace randomizer::seed {
             semver::version version = semver::version(0, 0, 0);
             int world_index = 0;
             bool race_mode = false;
-            bool logic_filter_disabled = false;
             bool net_code_enabled = false; // TODO: Remove this.
 
             std::string name;

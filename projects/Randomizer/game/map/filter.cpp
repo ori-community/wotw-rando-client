@@ -10,6 +10,7 @@
 #include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Randomizer/constants.h>
 #include <Randomizer/game/map/filter.h>
 #include <Randomizer/randomizer.h>
 
@@ -34,6 +35,8 @@ namespace randomizer::game::map {
     using namespace app::classes;
 
     namespace {
+        core::api::uber_states::UberState inlogic_toggle(UberStateGroup::RandoConfig, IN_LOGIC_FILTER_ENABLED_ID);
+
         Filters current_filter = Filters::All;
         bool start_in_logic_filter_done_since_new_game = false;
 
@@ -46,7 +49,7 @@ namespace randomizer::game::map {
                 case Filters::Collectibles:
                     return !core::settings::hide_collectible_filter();
                 case Filters::InLogic:
-                    return !game_seed().info().logic_filter_disabled;
+                    return inlogic_toggle.get<bool>();
                 case Filters::Spoilers:
                     return core::api::uber_states::UberState(34543, 11226).get<bool>();
                 case Filters::Players:
@@ -141,6 +144,21 @@ namespace randomizer::game::map {
         }
 
         void on_new_game(GameEvent game_event, EventTiming timing) { start_in_logic_filter_done_since_new_game = false; }
+
+        std::shared_ptr<core::reactivity::ReactiveEffect> inlogic_toggle_reactive;
+        auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+            // clang-format off
+            inlogic_toggle_reactive = core::reactivity::watch_effect()
+                .effect({inlogic_toggle})
+                .trigger_on_load()
+                .after([] {
+                if (!inlogic_toggle.get<bool>() && active_filter() == Filters::InLogic) {
+                    const auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
+                    AreaMapUI::CycleFilter(area_map);
+                }
+            }).finalize();
+            // clang-format on
+        });
 
         auto on_area_map_open_handle = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, &on_area_map_open);
         auto on_new_game_handle = core::api::game::event_bus().register_handler(GameEvent::NewGame, EventTiming::Before, &on_new_game);

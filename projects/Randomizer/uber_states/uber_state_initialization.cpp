@@ -439,6 +439,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "stompThroughPortals", STOMP_THROUGH_PORTALS_ID, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "stompIntoWater", STOMP_INTO_WATER_ID, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "goodHollow", GOOD_HOLLOW_ID, true),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "inLogicFilterEnabled", IN_LOGIC_FILTER_ENABLED_ID, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoConfig, "forceNoAirDecelerationFlag", FORCE_AIR_NO_DECELERATION_ID, 0),
 
