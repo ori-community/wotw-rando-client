@@ -2023,7 +2023,9 @@ namespace randomizer::seed::legacy_parser {
                     meta.version = parsed.value();
                 }
 
-                return ParserError::WrongVersion;
+                if (!is_seed_version_supported(meta.version)) {
+                    return ParserError::WrongVersion;
+                }
             }
             else if (line.starts_with("// This World:")) {
                 const std::string str(line.substr(14));
