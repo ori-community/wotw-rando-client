@@ -2006,10 +2006,10 @@ namespace randomizer::seed::legacy_parser {
         return semver::range::satisfies(version, ">=1.0.0 <=1.0.0");
     }
 
-    std::optional<Seed::SeedMetaData> parse_meta_data(const std::filesystem::path& path) {
+    std::variant<Seed::SeedMetaData, ParserError> parse_meta_data(const std::filesystem::path& path) {
         std::ifstream seed_file(path);
         if (!seed_file.is_open()) {
-            return std::nullopt;
+            return ParserError::FileNotFound;
         }
 
         Seed::SeedMetaData meta;
@@ -2022,6 +2022,8 @@ namespace randomizer::seed::legacy_parser {
                 if (parsed.has_value()) {
                     meta.version = parsed.value();
                 }
+
+                return ParserError::WrongVersion;
             }
             else if (line.starts_with("// This World:")) {
                 const std::string str(line.substr(14));
