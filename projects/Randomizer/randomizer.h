@@ -22,28 +22,21 @@ namespace randomizer {
     void reload();
 
     void server_connect();
-
+    void server_reconnect();
     void server_disconnect();
 
+    semver::version randomizer_version();
+
     void queue_reach_check();
-
-    common::TimedMultiEventBus<RandomizerEvent>& event_bus();
-
-    std::vector<state_data::State>& state_collection();
-
-    location_data::LocationCollection& location_collection();
-
-    seed::Seed& game_seed();
-
     seed::ReachCheckResult const& reach_check();
 
+    common::TimedMultiEventBus<RandomizerEvent>& event_bus();
+    std::vector<state_data::State>& state_collection();
+    location_data::LocationCollection& location_collection();
+    seed::Seed& game_seed();
     online::NetworkClient& network_client();
-
     online::MultiplayerUniverse& multiplayer_universe();
-
     std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor();
 
     void queue_input_unlocked_callback(std::function<void()> const& callback);
-
-    semver::version randomizer_version();
 } // namespace randomizer

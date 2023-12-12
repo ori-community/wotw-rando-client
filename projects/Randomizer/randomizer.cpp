@@ -248,18 +248,30 @@ namespace randomizer {
         }
     }
 
-    void server_connect() {
+    void server_reconnect() {
+        if (network_client().wants_connection()) {
+            server_disconnect();
+        }
+
         if (core::settings::netcode_disabled()) {
             return;
         }
 
-        auto insecure = core::settings::insecure();
-        auto host = core::settings::host();
-        auto udp_port = core::settings::udp_port();
+        const auto insecure = core::settings::insecure();
+        const auto host = core::settings::host();
+        const auto udp_port = core::settings::udp_port();
 
-        std::string websocket_url = std::format("ws{}://{}/api/game_sync/", insecure ? "" : "s", host);
+        const std::string websocket_url = std::format("ws{}://{}/api/game_sync/", insecure ? "" : "s", host);
         client.websocket_connect(websocket_url);
         client.udp_open(host, udp_port);
+    }
+
+    void server_connect() {
+        if (core::settings::netcode_disabled() || network_client().wants_connection()) {
+            return;
+        }
+
+        server_reconnect();
     }
 
     void server_disconnect() { client.disconnect(); }
