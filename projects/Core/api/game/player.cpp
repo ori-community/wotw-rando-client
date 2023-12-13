@@ -262,7 +262,7 @@ namespace core::api::game::player {
             return false;
         }
 
-        void set_ability(const app::AbilityType__Enum ability, const bool value) {
+        void set_ability(app::AbilityType__Enum ability, const bool value) {
             const auto player = sein();
             if (player && player->fields.PlayerAbilities) {
                 const auto equip = ability_to_equip_type(ability);
@@ -278,6 +278,36 @@ namespace core::api::game::player {
                 error("abilities", "Failed to set ability: couldn't find reference to sein!");
             }
         }
+
+        std::pair<app::AbilityType__Enum, Property<bool>> create_ability_property(app::AbilityType__Enum type) {
+            return std::make_pair(type, Property<bool>([type](const bool value) { set_ability(type, value); }, [type]() { return has_ability(type); }));
+        }
+
+        std::unordered_map<app::AbilityType__Enum, Property<bool>> ability_properties{
+            create_ability_property(app::AbilityType__Enum::Bash),
+            create_ability_property(app::AbilityType__Enum::DoubleJump),
+            create_ability_property(app::AbilityType__Enum::ChargeJump),
+            create_ability_property(app::AbilityType__Enum::Glide),
+            create_ability_property(app::AbilityType__Enum::WaterBreath),
+            create_ability_property(app::AbilityType__Enum::Grenade),
+            create_ability_property(app::AbilityType__Enum::SpiritLeash),
+            create_ability_property(app::AbilityType__Enum::GlowSpell),
+            create_ability_property(app::AbilityType__Enum::SpiritSpearSpell),
+            create_ability_property(app::AbilityType__Enum::MeditateSpell),
+            create_ability_property(app::AbilityType__Enum::Bow),
+            create_ability_property(app::AbilityType__Enum::Hammer),
+            create_ability_property(app::AbilityType__Enum::Sword),
+            create_ability_property(app::AbilityType__Enum::Digging),
+            create_ability_property(app::AbilityType__Enum::DashNew),
+            create_ability_property(app::AbilityType__Enum::WaterDash),
+            create_ability_property(app::AbilityType__Enum::ChakramSpell),
+            create_ability_property(app::AbilityType__Enum::GoldenSein),
+            create_ability_property(app::AbilityType__Enum::Blaze),
+            create_ability_property(app::AbilityType__Enum::FeatherFlap),
+            create_ability_property(app::AbilityType__Enum::TurretSpell),
+            create_ability_property(app::AbilityType__Enum::DamageUpgradeA),
+            create_ability_property(app::AbilityType__Enum::DamageUpgradeB),
+        };
     } // namespace
 
     app::SeinCharacter* sein() { return types::Characters::get_class()->static_fields->m_sein; }
@@ -301,8 +331,7 @@ namespace core::api::game::player {
 
     bool can_move() {
         const auto controller = game_controller();
-        return !(GameController::get_InputLocked(controller) || GameController::get_LockInput(controller) ||
-                 GameController::get_IsSuspended(controller)) &&
+        return !(GameController::get_InputLocked(controller) || GameController::get_LockInput(controller) || GameController::get_IsSuspended(controller)) &&
             GameController::get_SecondaryMapAndInventoryCanBeOpened(controller);
     }
 
@@ -404,8 +433,8 @@ namespace core::api::game::player {
         return shards != nullptr && PlayerSpiritShards::IsGlobalShardEquipped_1(shards, type);
     }
 
-    Property<bool> ability(app::AbilityType__Enum type) {
-        return Property<bool>([type](const bool value) { set_ability(type, value); }, [type]() { return has_ability(type); });
+    Property<bool>& ability(app::AbilityType__Enum type) {
+        return ability_properties[type];
     }
 
     app::PlayerUberStateAreaMapInformation* get_area_map_information() {

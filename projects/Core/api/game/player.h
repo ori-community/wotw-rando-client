@@ -45,7 +45,7 @@ namespace core::api::game::player {
     CORE_DLLEXPORT Property<bool> shard(app::SpiritShardType__Enum type);
     CORE_DLLEXPORT bool is_shard_equipped(app::SpiritShardType__Enum type);
 
-    CORE_DLLEXPORT Property<bool> ability(app::AbilityType__Enum type);
+    CORE_DLLEXPORT Property<bool>& ability(app::AbilityType__Enum type);
 
     CORE_DLLEXPORT GameArea get_current_area();
     CORE_DLLEXPORT app::PlayerUberStateAreaMapInformation* get_area_map_information();
