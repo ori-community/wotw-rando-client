@@ -67,7 +67,10 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(GeneralDebugMenuPage, void, SetAbility, (app::GeneralDebugMenuPage * this_ptr, app::AbilityType__Enum ability, bool value)) {
-        dash_state.set(value ? 1.0 : 0.0);
+        if (ability == app::AbilityType__Enum::DashNew) {
+            dash_state.set(value ? 1.0 : 0.0);
+        }
+
         next::GeneralDebugMenuPage::SetAbility(this_ptr, ability, value);
     }
 

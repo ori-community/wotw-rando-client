@@ -401,6 +401,9 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoShop, "shardMapIconsCost", 41667, 0),
 
                 add_state<app::IntUberState>(UberStateGroup::Player, "currentMapArea", 51, static_cast<int>(GameArea::TOTAL)),
+
+                // Dash has special handling, see burrow_and_waterdash_without_dash.cpp
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::Skills, "dash", static_cast<int>(app::AbilityType__Enum::DashNew), false),
             };
 
             dev::print_time(start_time, "Built state list");
@@ -668,7 +671,6 @@ namespace randomizer {
                 std::make_tuple(app::AbilityType__Enum::Torch, "torch"),
                 std::make_tuple(app::AbilityType__Enum::Sword, "sword"),
                 std::make_tuple(app::AbilityType__Enum::Digging, "burrow"),
-                std::make_tuple(app::AbilityType__Enum::DashNew, "dash"),
                 std::make_tuple(app::AbilityType__Enum::WaterDash, "waterDash"),
                 std::make_tuple(app::AbilityType__Enum::ChakramSpell, "shuriken"),
                 std::make_tuple(app::AbilityType__Enum::GoldenSein, "sein"),
@@ -684,6 +686,7 @@ namespace randomizer {
                 std::make_tuple(app::AbilityType__Enum::BowCharge, "bowCharge"),
                 std::make_tuple(app::AbilityType__Enum::SpiritMagnet, "spiritMagnet"),
                 std::make_tuple(app::AbilityType__Enum::WeaponCharge, "weaponCharge"),
+                // Dash has special handling, see burrow_and_waterdash_without_dash.cpp
             };
 
             for (const auto& [type, name]: skills) {
