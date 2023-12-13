@@ -322,12 +322,14 @@ namespace randomizer::game::map {
             }
 
             npc_icons();
-            one_way_walls();
-            purple_walls();
-            yellow_walls();
-            ice_walls();
-            interactive_doors();
-            levers();
+
+            // TODO: Add conditions and then enable this again
+            // one_way_walls();
+            // purple_walls();
+            // yellow_walls();
+            // ice_walls();
+            // interactive_doors();
+            // levers();
         });
     } // namespace
 } // namespace randomizer::game::map
