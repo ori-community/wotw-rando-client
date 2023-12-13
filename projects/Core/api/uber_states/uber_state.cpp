@@ -18,6 +18,8 @@
 #include <Modloader/app/methods/Moon/SerializedIntUberState.h>
 #include <Modloader/app/methods/Moon/UberStateCollection.h>
 #include <Modloader/app/methods/Moon/UberStateController.h>
+#include <Modloader/app/methods/Moon/CountUberState.h>
+#include <Modloader/app/methods/Moon/ConditionUberState.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/SerializedBoolUberStateWrapper.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/SerializedByteUberStateWrapper.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/SerializedFloatUberStateWrapper.h>
@@ -363,7 +365,9 @@ namespace core::api::uber_states {
             case UberStateType::SavePedestalUberState:
                 return SavePedestalUberState::get_IsTeleporterActive(reinterpret_cast<app::SavePedestalUberState*>(ptr())) ? 1.0 : 0.0;
             case UberStateType::CountUberState:
+                return CountUberState::get_Value(reinterpret_cast<app::CountUberState*>(ptr()));
             case UberStateType::ConditionUberState:
+                return ConditionUberState::get_Value(reinterpret_cast<app::ConditionUberState*>(ptr()));
             case UberStateType::PlayerUberStateDescriptor:
             case UberStateType::Unknown:
             default:

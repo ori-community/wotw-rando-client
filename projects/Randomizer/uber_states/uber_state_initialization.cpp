@@ -490,7 +490,7 @@ namespace randomizer {
                 },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentArea (5, 50) is read only."); },
-                    []() -> double { return static_cast<double>(core::api::game::player::get_current_area()); }
+                    []() -> double { return static_cast<double>(get_current_area()); }
                 )
             );
             register_virtual_state(
