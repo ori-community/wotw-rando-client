@@ -1,8 +1,8 @@
 #pragma once
 
-#include <string>
 #include <Core/macros.h>
 #include <nlohmann/json.hpp>
+#include <string>
 
 enum class UberStateGroup {
     Invalid = -1,
@@ -15,7 +15,7 @@ enum class UberStateGroup {
     Player = 5,
     RandoState = 6,
     RandoConfig = 7,
-    Custom = 9,  // Space for userland variables
+    Custom = 9, // Space for userland variables
     BingoState = 10,
     Appliers = 11,
     Multiworld = 12,
@@ -58,23 +58,34 @@ enum class ValueType : uint8_t {
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(
-        UberStateType,
-        {
-            { UberStateType::BooleanUberState, "BooleanUberState" },
-            { UberStateType::ByteUberState, "ByteUberState" },
-            { UberStateType::IntUberState, "IntUberState" },
-            { UberStateType::FloatUberState, "FloatUberState" },
-            { UberStateType::SerializedBooleanUberState, "SerializedBooleanUberState" },
-            { UberStateType::SerializedFloatUberState, "SerializedFloatUberState" },
-            { UberStateType::SerializedIntUberState, "SerializedIntUberState" },
-            { UberStateType::SerializedByteUberState, "SerializedByteUberState" },
-            { UberStateType::CountUberState, "CountUberState" },
-            { UberStateType::SavePedestalUberState, "SavePedestalUberState" },
-            { UberStateType::ConditionUberState, "ConditionUberState" },
-            { UberStateType::PlayerUberStateDescriptor, "PlayerUberStateDescriptor" },
-            { UberStateType::VirtualUberState, "VirtualUberState" },
-            { UberStateType::Unknown, "Unknown" },
-        }
+    UberStateType,
+    {
+        {UberStateType::BooleanUberState,           "BooleanUberState"          },
+        {UberStateType::ByteUberState,              "ByteUberState"             },
+        {UberStateType::IntUberState,               "IntUberState"              },
+        {UberStateType::FloatUberState,             "FloatUberState"            },
+        {UberStateType::SerializedBooleanUberState, "SerializedBooleanUberState"},
+        {UberStateType::SerializedFloatUberState,   "SerializedFloatUberState"  },
+        {UberStateType::SerializedIntUberState,     "SerializedIntUberState"    },
+        {UberStateType::SerializedByteUberState,    "SerializedByteUberState"   },
+        {UberStateType::CountUberState,             "CountUberState"            },
+        {UberStateType::SavePedestalUberState,      "SavePedestalUberState"     },
+        {UberStateType::ConditionUberState,         "ConditionUberState"        },
+        {UberStateType::PlayerUberStateDescriptor,  "PlayerUberStateDescriptor" },
+        {UberStateType::VirtualUberState,           "VirtualUberState"          },
+        {UberStateType::Unknown,                    "Unknown"                   },
+}
+);
+
+NLOHMANN_JSON_SERIALIZE_ENUM(
+    ValueType,
+    {
+        {ValueType::Boolean, "Boolean"},
+        {ValueType::Byte,    "Byte"   },
+        {ValueType::Integer, "Integer"},
+        {ValueType::Float,   "Float"  },
+        {ValueType::Unknown, "Unknown"},
+}
 );
 
 CORE_DLLEXPORT std::optional<std::string> custom_uber_state_group_name(UberStateGroup group);
