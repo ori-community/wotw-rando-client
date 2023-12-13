@@ -34,14 +34,14 @@ namespace core::api::game::player {
     CORE_DLLEXPORT void refill_health();
 
     // TODO: Make these reactive.
-    CORE_DLLEXPORT Property<float> health();
-    CORE_DLLEXPORT Property<int> max_health();
-    CORE_DLLEXPORT Property<float> energy();
-    CORE_DLLEXPORT Property<float> max_energy();
-    CORE_DLLEXPORT Property<int> spirit_light();
-    CORE_DLLEXPORT Property<int> keystones();
-    CORE_DLLEXPORT Property<int> ore();
-    CORE_DLLEXPORT Property<int> shard_slots();
+    CORE_DLLEXPORT const Property<float>& health();
+    CORE_DLLEXPORT const Property<int>& max_health();
+    CORE_DLLEXPORT const Property<float>& energy();
+    CORE_DLLEXPORT const Property<float>& max_energy();
+    CORE_DLLEXPORT const Property<int>& spirit_light();
+    CORE_DLLEXPORT const Property<int>& keystones();
+    CORE_DLLEXPORT const Property<int>& ore();
+    CORE_DLLEXPORT const Property<int>& shard_slots();
 
     CORE_DLLEXPORT const Property<bool>& shard(app::SpiritShardType__Enum type);
     CORE_DLLEXPORT bool is_shard_equipped(app::SpiritShardType__Enum type);

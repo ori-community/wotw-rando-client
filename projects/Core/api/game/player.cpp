@@ -362,6 +362,15 @@ namespace core::api::game::player {
             create_shard_property(app::SpiritShardType__Enum::Fracture),
             create_shard_property(app::SpiritShardType__Enum::ChainLightning),
         };
+
+        Property<float> health_property(set_health, get_health);
+        Property<int> max_health_property(set_max_health, get_max_health);
+        Property<float> energy_property(set_energy, get_energy);
+        Property<float> max_energy_property(set_max_energy, get_max_energy);
+        Property<int> spirit_light_property(set_spirit_light, get_spirit_light);
+        Property<int> keystones_property(set_keystones, get_keystones);
+        Property<int> ore_property(set_ore, get_ore);
+        Property<int> shard_slots_property(set_shard_slots, get_shard_slots);
     } // namespace
 
     app::SeinCharacter* sein() { return types::Characters::get_class()->static_fields->m_sein; }
@@ -462,21 +471,14 @@ namespace core::api::game::player {
         }
     }
 
-    Property<float> health() { return Property<float>(set_health, get_health); }
-
-    Property<int> max_health() { return Property<int>(set_max_health, get_max_health); }
-
-    Property<float> energy() { return Property<float>(set_energy, get_energy); }
-
-    Property<float> max_energy() { return Property<float>(set_max_energy, get_max_energy); }
-
-    Property<int> spirit_light() { return Property<int>(set_spirit_light, get_spirit_light); }
-
-    Property<int> keystones() { return Property<int>(set_keystones, get_keystones); }
-
-    Property<int> ore() { return Property<int>(set_ore, get_ore); }
-
-    Property<int> shard_slots() { return Property<int>(set_shard_slots, get_shard_slots); }
+    const Property<float>& health() { return health_property; }
+    const Property<int>& max_health() { return max_health_property; }
+    const Property<float>& energy() { return energy_property; }
+    const Property<float>& max_energy() { return max_energy_property; }
+    const Property<int>& spirit_light() { return spirit_light_property; }
+    const Property<int>& keystones() { return keystones_property; }
+    const Property<int>& ore() { return ore_property; }
+    const Property<int>& shard_slots() { return shard_slots_property; }
 
     const Property<bool>& shard(const app::SpiritShardType__Enum type) { return shard_properties[type]; }
 
