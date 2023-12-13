@@ -80,12 +80,5 @@ namespace randomizer::uber_states {
                 UberState(945, 26601).set(true);
             }
         });
-
-        auto on_sword_tree = single_notification_bus().register_handler(UberState(0, 100), [](auto params, auto) {
-            if (params.state.template get<bool>()) {
-                // Lift the rain.
-                UberState(6, 401).set(true);
-            }
-        });
     } // namespace
 } // namespace randomizer::uber_states
