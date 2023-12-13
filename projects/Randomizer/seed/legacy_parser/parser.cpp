@@ -315,7 +315,7 @@ namespace randomizer::seed::legacy_parser {
         const auto should_add = !parts[0].starts_with("-");
         ability_type_int = should_add ? ability_type_int : -ability_type_int;
         const auto assigner = std::make_shared<items::ValueModifier<bool, items::ValueOperator::Assign>>();
-        assigner->variable.assign(core::api::uber_states::UberState(6, 1000 + ability_type_int));
+        assigner->variable.assign(core::api::uber_states::UberState(UberStateGroup::Skills, ability_type_int));
         assigner->value.set(should_add);
         data.add_item(assigner);
 

@@ -23,6 +23,10 @@ namespace {
         { UberStateGroup::Shrines, "shrines" },
         { UberStateGroup::TuleyShop, "tuleyShop" },
         { UberStateGroup::GladesProjects, "gladesProjects" },
+        { UberStateGroup::MapSegments, "mapSegments" },
+        { UberStateGroup::Information, "information" },
+        { UberStateGroup::Skills, "skills" },
+        { UberStateGroup::Shards, "shards" },
     };
 }
 

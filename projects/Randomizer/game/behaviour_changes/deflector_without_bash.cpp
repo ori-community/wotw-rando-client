@@ -10,13 +10,13 @@
 namespace {
     IL2CPP_INTERCEPT(Projectile, bool, HandleMirrorStrike, (app::Projectile * this_ptr, app::Damage* damage)) {
         bool ret = false;
-        if (core::api::game::player::has_ability(app::AbilityType__Enum::Bash))
+        if (core::api::game::player::ability(app::AbilityType__Enum::Bash).get())
             ret = next::Projectile::HandleMirrorStrike(this_ptr, damage);
         else {
             modloader::ScopedSetter setter(randomizer::timing::disable_ability_tracking, true);
-            core::api::game::player::set_ability(app::AbilityType__Enum::Bash, true);
+            core::api::game::player::ability(app::AbilityType__Enum::Bash).set(true);
             ret = next::Projectile::HandleMirrorStrike(this_ptr, damage);
-            core::api::game::player::set_ability(app::AbilityType__Enum::Bash, false);
+            core::api::game::player::ability(app::AbilityType__Enum::Bash).set(false);
         }
 
         return ret;

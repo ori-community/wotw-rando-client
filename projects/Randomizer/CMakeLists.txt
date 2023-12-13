@@ -175,7 +175,6 @@ set(
         "text_processors/uber_state.cpp"
         "timer.cpp"
         "tracking/game_tracker.cpp"
-        "uber_states/ability_handlers.cpp"
         "uber_states/misc_handlers.cpp"
         "uber_states/trigger_reach_check.cpp"
         "uber_states/uber_state_initialization.cpp"

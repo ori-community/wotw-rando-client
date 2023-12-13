@@ -15,10 +15,6 @@ namespace core::api::game::player {
 
     CORE_DLLEXPORT app::SeinCharacter* sein();
 
-    CORE_DLLEXPORT bool has_ability(app::AbilityType__Enum ability);
-    CORE_DLLEXPORT void set_ability(app::AbilityType__Enum ability, bool value);
-    CORE_DLLEXPORT void set_equipment(app::EquipmentType__Enum equip, bool value);
-
     CORE_DLLEXPORT std::optional<app::EquipmentType__Enum> ability_to_equip_type(app::AbilityType__Enum ability);
     CORE_DLLEXPORT void bind(app::SpellInventory_Binding__Enum slot, app::EquipmentType__Enum equip_type);
     CORE_DLLEXPORT void unbind(app::EquipmentType__Enum equip_type);
@@ -48,6 +44,8 @@ namespace core::api::game::player {
 
     CORE_DLLEXPORT Property<bool> shard(app::SpiritShardType__Enum type);
     CORE_DLLEXPORT bool is_shard_equipped(app::SpiritShardType__Enum type);
+
+    CORE_DLLEXPORT Property<bool> ability(app::AbilityType__Enum type);
 
     CORE_DLLEXPORT GameArea get_current_area();
     CORE_DLLEXPORT app::PlayerUberStateAreaMapInformation* get_area_map_information();

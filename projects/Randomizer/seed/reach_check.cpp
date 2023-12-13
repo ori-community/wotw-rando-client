@@ -246,7 +246,7 @@ namespace randomizer::seed {
             };
 
             for (auto ability: abilities) {
-                if (core::api::game::player::has_ability(ability)) {
+                if (core::api::game::player::ability(ability).get()) {
                     request.skills.push_back(static_cast<int>(ability));
                 }
             }

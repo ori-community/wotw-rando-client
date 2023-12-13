@@ -10,7 +10,7 @@
 using namespace app::classes;
 
 namespace {
-    core::api::uber_states::UberState dash_state(6, 1000 + static_cast<int>(app::AbilityType__Enum::DashNew));
+    core::api::uber_states::UberState dash_state(UberStateGroup::Skills, app::AbilityType__Enum::DashNew);
 
     void update_dash_state(app::PlayerUberStateAbilities* this_ptr);
 

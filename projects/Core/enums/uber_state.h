@@ -27,6 +27,9 @@ enum class UberStateGroup {
     TuleyShop = 20,
     GladesProjects = 21,
     MapSegments = 22,
+    Information = 23,
+    Skills = 24,
+    Shards = 25,
 };
 
 enum class UberStateType : uint8_t {

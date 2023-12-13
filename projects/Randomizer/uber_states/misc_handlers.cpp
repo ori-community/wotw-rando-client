@@ -11,7 +11,7 @@ namespace randomizer::uber_states {
 
         void give_voice() {
             // this is really questionable!!
-            UberState state(46462, 59806);
+            const UberState state(46462, 59806);
             if (!state.get<bool>()) {
                 state.set(true);
                 core::api::game::player::max_health().add(10);
