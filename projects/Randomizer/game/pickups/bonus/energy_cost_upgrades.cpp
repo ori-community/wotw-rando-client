@@ -19,14 +19,14 @@ namespace {
     core::api::uber_states::UberState flash_cost(UberStateGroup::RandoUpgrade, 8);
     core::api::uber_states::UberState grenade_cost(UberStateGroup::RandoUpgrade, 9);
 
-    core::api::uber_states::UberState blaze(UberStateGroup::RandoState, 1115);
-    core::api::uber_states::UberState spear(UberStateGroup::RandoState, 1074);
-    core::api::uber_states::UberState shuriken(UberStateGroup::RandoState, 1106);
-    core::api::uber_states::UberState sentry(UberStateGroup::RandoState, 1116);
-    core::api::uber_states::UberState bow(UberStateGroup::RandoState, 1097);
-    core::api::uber_states::UberState regenerate(UberStateGroup::RandoState, 1077);
-    core::api::uber_states::UberState flash(UberStateGroup::RandoState, 1062);
-    core::api::uber_states::UberState grenade(UberStateGroup::RandoState, 1051);
+    core::api::uber_states::UberState blaze(UberStateGroup::Skills, 115);
+    core::api::uber_states::UberState spear(UberStateGroup::Skills, 74);
+    core::api::uber_states::UberState shuriken(UberStateGroup::Skills, 106);
+    core::api::uber_states::UberState sentry(UberStateGroup::Skills, 116);
+    core::api::uber_states::UberState bow(UberStateGroup::Skills, 97);
+    core::api::uber_states::UberState regenerate(UberStateGroup::Skills, 77);
+    core::api::uber_states::UberState flash(UberStateGroup::Skills, 62);
+    core::api::uber_states::UberState grenade(UberStateGroup::Skills, 51);
 
 
     void update_blaze(float modifier) {

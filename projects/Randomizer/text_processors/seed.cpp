@@ -17,15 +17,15 @@ namespace randomizer::text_processors {
             std::vector<std::string> goals;
             auto const& flags = game_seed().info().meta.flags;
             if (std::ranges::find(flags, "All Trees") != flags.end()) {
-                goals.push_back(std::format("Trees: {}/14", core::api::uber_states::UberState(UberStateGroup::RandoState, 502).get<int>()));
+                goals.push_back(std::format("Trees: {}/14", core::api::uber_states::UberState(UberStateGroup::Goals, 502).get<int>()));
             }
 
             if (std::ranges::find(flags, "All Wisps") != flags.end()) {
-                goals.push_back(std::format("Wisps: {}/5", core::api::uber_states::UberState(UberStateGroup::RandoState, 503).get<int>()));
+                goals.push_back(std::format("Wisps: {}/5", core::api::uber_states::UberState(UberStateGroup::Goals, 503).get<int>()));
             }
 
             if (std::ranges::find(flags, "All Quests") != flags.end()) {
-                goals.push_back(std::format("Quests: {}/17", core::api::uber_states::UberState(UberStateGroup::RandoState, 504).get<int>()));
+                goals.push_back(std::format("Quests: {}/17", core::api::uber_states::UberState(UberStateGroup::Goals, 504).get<int>()));
             }
 
             auto output = std::accumulate(

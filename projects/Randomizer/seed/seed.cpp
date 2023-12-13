@@ -261,15 +261,15 @@ namespace randomizer::seed {
         const auto is_trees = std::ranges::find(flags, "All Trees") != flags.end();
         const auto is_wisps = std::ranges::find(flags, "All Wisps") != flags.end();
         const auto is_quests = std::ranges::find(flags, "All Quests") != flags.end();
-        if (is_trees && core::api::uber_states::UberState(UberStateGroup::RandoState, 502).get<int>() != 14) {
+        if (is_trees && core::api::uber_states::UberState(UberStateGroup::Goals, 502).get<int>() != 14) {
             return false;
         }
 
-        if (is_wisps && core::api::uber_states::UberState(UberStateGroup::RandoState, 503).get<int>() != 5) {
+        if (is_wisps && core::api::uber_states::UberState(UberStateGroup::Goals, 503).get<int>() != 5) {
             return false;
         }
 
-        if (is_quests && core::api::uber_states::UberState(UberStateGroup::RandoState, 504).get<int>() != 17) {
+        if (is_quests && core::api::uber_states::UberState(UberStateGroup::Goals, 504).get<int>() != 17) {
             return false;
         }
 

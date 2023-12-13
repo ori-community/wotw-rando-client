@@ -4,11 +4,10 @@
 
 #include <Modloader/app/structs/AbilityType__Enum.h>
 
-const std::set<app::AbilityType__Enum> tree_abilities{
+const std::set tree_abilities{
     app::AbilityType__Enum::Bash,
     app::AbilityType__Enum::DoubleJump,
     app::AbilityType__Enum::ChargeJump,
-    app::AbilityType__Enum::WaterBreath, // Why is this here??
     app::AbilityType__Enum::Grenade,
     app::AbilityType__Enum::SpiritLeash,
     app::AbilityType__Enum::GlowSpell,
@@ -19,7 +18,6 @@ const std::set<app::AbilityType__Enum> tree_abilities{
     app::AbilityType__Enum::DashNew,
     app::AbilityType__Enum::Launch,
     app::AbilityType__Enum::WaterDash,
-    app::AbilityType__Enum::Regenerate, // Why is this here??
     app::AbilityType__Enum::DamageUpgradeA,
     app::AbilityType__Enum::DamageUpgradeB,
 };

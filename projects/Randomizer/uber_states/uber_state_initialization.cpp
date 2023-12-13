@@ -688,7 +688,7 @@ namespace randomizer {
                 std::make_tuple(app::AbilityType__Enum::SpiritLeash, std::string_view("grapple")),
                 std::make_tuple(app::AbilityType__Enum::GlowSpell, std::string_view("flash")),
                 std::make_tuple(app::AbilityType__Enum::SpiritSpearSpell, std::string_view("spear")),
-                std::make_tuple(app::AbilityType__Enum::Regenerate, std::string_view("regenerate")),
+                std::make_tuple(app::AbilityType__Enum::MeditateSpell, std::string_view("regenerate")),
                 std::make_tuple(app::AbilityType__Enum::Bow, std::string_view("bow")),
                 std::make_tuple(app::AbilityType__Enum::Hammer, std::string_view("hammer")),
                 std::make_tuple(app::AbilityType__Enum::Torch, std::string_view("torch")),

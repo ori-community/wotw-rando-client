@@ -63,6 +63,7 @@ namespace core::api::uber_states {
 
         bool has_volatile_value() const;
 
+        mutable std::optional<UberStateType> m_type;
         UberStateGroup m_group;
         int m_state;
     };
