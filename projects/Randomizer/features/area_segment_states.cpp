@@ -1105,8 +1105,8 @@ namespace randomizer::area_segment_states {
             auto area_id = static_cast<app::GameWorldAreaID__Enum>(state_id / 10000);
             auto face_id = state_id % 10000;
 
-            register_virtual_state(
-                core::api::uber_states::VirtualStateType::Byte,
+            core::api::uber_states::register_virtual_state(
+                ValueType::Byte,
                 std::make_pair(UberStateGroup::MapSegments, state_id),
                 std::format("segment{}", state_id),
                 core::Property<double>(
