@@ -24,7 +24,7 @@ namespace {
         { UberStateGroup::TuleyShop, "tuleyShop" },
         { UberStateGroup::GladesProjects, "gladesProjects" },
         { UberStateGroup::MapSegments, "mapSegments" },
-        { UberStateGroup::Information, "information" },
+        { UberStateGroup::Goals, "goals" },
         { UberStateGroup::Skills, "skills" },
         { UberStateGroup::Shards, "shards" },
     };

@@ -406,7 +406,7 @@ namespace randomizer {
                 add_state<app::SerializedByteUberState>(UberStateGroup::LupoShop, "shardMapIcons", 41666, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoShop, "shardMapIconsCost", 41667, 0),
 
-                add_state<app::IntUberState>(UberStateGroup::Information, "currentMapArea", 15, static_cast<int>(GameArea::TOTAL)),
+                add_state<app::IntUberState>(UberStateGroup::Goals, "currentMapArea", 51, static_cast<int>(GameArea::TOTAL)),
             };
 
             dev::print_time(start_time, "Built state list");
@@ -485,37 +485,37 @@ namespace randomizer {
             register_virtual_state(std::make_pair(UberStateGroup::Player, 13), "energy", core::api::game::player::energy().wrap<double>(), true);
 
             register_virtual_state(
-                std::make_pair(UberStateGroup::Information, 200),
+                std::make_pair(UberStateGroup::Player, 50),
                 "currentArea",
                 core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (6, 200) is read only."); },
+                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentArea (5, 50) is read only."); },
                     []() -> double { return static_cast<double>(core::api::game::player::get_current_area()); }
                 ),
                 true
             );
             register_virtual_state(
-                std::make_pair(UberStateGroup::Information, 500),
+                std::make_pair(UberStateGroup::Goals, 500),
                 "totalRelicCount",
                 core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (6, 500) is read only."); },
+                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate totalRelicCount (23, 500) is read only."); },
                     []() -> double { return game_seed().relics().relic_count(); }
                 ),
                 true
             );
             register_virtual_state(
-                std::make_pair(UberStateGroup::Information, 501),
+                std::make_pair(UberStateGroup::Goals, 501),
                 "currentRelicCount",
                 core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (6, 501) is read only."); },
+                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentRelicCount (23, 501) is read only."); },
                     []() -> double { return game_seed().relics().found_relics(); }
                 ),
                 true
             );
             register_virtual_state(
-                std::make_pair(UberStateGroup::Information, 502),
+                std::make_pair(UberStateGroup::Goals, 502),
                 "currentTreeCount",
                 core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (6, 502) is read only."); },
+                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentTreeCount (23, 502) is read only."); },
                     []() -> double {
                         return UberState(UberStateGroup::Tree, app::AbilityType__Enum::Sword).get() +
                             UberState(UberStateGroup::Tree, app::AbilityType__Enum::DoubleJump).get() +
@@ -535,10 +535,10 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
-                std::make_pair(UberStateGroup::Information, 503),
+                std::make_pair(UberStateGroup::Goals, 503),
                 "currentWispCount",
                 core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (6, 503) is read only."); },
+                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentWispCount (23, 503) is read only."); },
                     []() -> double {
                         return UberState(static_cast<UberStateGroup>(28895), 25522).get() // Reach
                             + UberState(static_cast<UberStateGroup>(18793), 63291).get() // Depths
@@ -549,10 +549,10 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
-                std::make_pair(UberStateGroup::Information, 504),
+                std::make_pair(UberStateGroup::Goals, 504),
                 "currentQuestCount",
                 core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (6, 504) is read only."); },
+                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentQuestCount (23, 504) is read only."); },
                     []() -> double {
                         return static_cast<int>(UberState(static_cast<UberStateGroup>(937), 34641).get() > 3.5) +
                             static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 35399).get() > 2.5) +
@@ -576,10 +576,10 @@ namespace randomizer {
             );
 
             register_virtual_state(
-                std::make_pair(UberStateGroup::Information, 505),
+                std::make_pair(UberStateGroup::Goals, 505),
                 "currentAreaHasUncollectedRelic",
                 core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate (6, 505) is read only."); },
+                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentAreaHasUncollectedRelic (23, 505) is read only."); },
                     []() -> double {
                         const auto area = core::api::game::player::get_current_area();
                         return game_seed().relics().found_relics_in_area(area) < game_seed().relics().relic_count_in_area(area) ? 1.0 : 0.0;
