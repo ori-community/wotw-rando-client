@@ -236,6 +236,11 @@ namespace core::api::uber_states {
     }
 
     void UberState::set(double value, bool ignore_intercept, bool ignore_notify) const {
+        if (type() == UberStateType::Unknown) {
+            warn("uber_state", std::format("uber state ({}|{}) doesn't exist or is an unknown type", static_cast<int>(m_group), m_state));
+            return;
+        }
+
         if (readonly()) {
             warn("uber_state", std::format("tried to set readonly uber state ({}|{}) to '{}'", static_cast<int>(m_group), m_state, value));
             return;
@@ -262,11 +267,6 @@ namespace core::api::uber_states {
             set_virtual_value(m_group, m_state, value);
         } else {
             const auto uber_state = ptr();
-            if (!il2cpp::unity::is_valid(uber_state)) {
-                warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
-                return;
-            }
-
             if (settings::dev_mode()) {
                 if (prev != value) {
                     const auto text = std::format("uber state ({}|{}) set to {} from {}", static_cast<int>(m_group), m_state, value, prev);
@@ -335,42 +335,36 @@ namespace core::api::uber_states {
     }
 
     double UberState::inner_get() const {
-        notify_used(reactivity::UberStateDependency{static_cast<int>(m_group), m_state});
-
-        if (is_virtual_state(m_group, m_state)) {
-            return get_virtual_value(m_group, m_state);
-        }
-
-        // TODO: Change this into something better then a series of if checks.
-        const auto uber_state = ptr();
-        if (!il2cpp::unity::is_valid(uber_state)) {
-            warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
+        if (type() == UberStateType::Unknown) {
+            warn("uber_state", std::format("uber state ({}|{}) doesn't exist or is an unknown type", static_cast<int>(m_group), m_state));
             return 0.0;
         }
 
+        notify_used(reactivity::UberStateDependency{static_cast<int>(m_group), m_state});
         switch (type()) {
+            case UberStateType::VirtualUberState:
+                return get_virtual_value(m_group, m_state);
             case UberStateType::BooleanUberState:
-                return BooleanUberState::get_Value(reinterpret_cast<app::BooleanUberState*>(uber_state));
+                return BooleanUberState::get_Value(reinterpret_cast<app::BooleanUberState*>(ptr()));
             case UberStateType::ByteUberState:
-                return ByteUberState::get_Value(reinterpret_cast<app::ByteUberState*>(uber_state));
+                return ByteUberState::get_Value(reinterpret_cast<app::ByteUberState*>(ptr()));
             case UberStateType::IntUberState:
-                return IntUberState::get_Value(reinterpret_cast<app::IntUberState*>(uber_state));
+                return IntUberState::get_Value(reinterpret_cast<app::IntUberState*>(ptr()));
             case UberStateType::FloatUberState:
-                return FloatUberState::get_Value(reinterpret_cast<app::FloatUberState*>(uber_state));
+                return FloatUberState::get_Value(reinterpret_cast<app::FloatUberState*>(ptr()));
             case UberStateType::SerializedBooleanUberState:
-                return SerializedBooleanUberState::get_Value(reinterpret_cast<app::SerializedBooleanUberState*>(uber_state));
+                return SerializedBooleanUberState::get_Value(reinterpret_cast<app::SerializedBooleanUberState*>(ptr()));
             case UberStateType::SerializedFloatUberState:
-                return SerializedFloatUberState::get_Value(reinterpret_cast<app::SerializedFloatUberState*>(uber_state));
+                return SerializedFloatUberState::get_Value(reinterpret_cast<app::SerializedFloatUberState*>(ptr()));
             case UberStateType::SerializedIntUberState:
-                return SerializedIntUberState::get_Value(reinterpret_cast<app::SerializedIntUberState*>(uber_state));
+                return SerializedIntUberState::get_Value(reinterpret_cast<app::SerializedIntUberState*>(ptr()));
             case UberStateType::SerializedByteUberState:
-                return SerializedByteUberState::get_Value(reinterpret_cast<app::SerializedByteUberState*>(uber_state));
+                return SerializedByteUberState::get_Value(reinterpret_cast<app::SerializedByteUberState*>(ptr()));
             case UberStateType::SavePedestalUberState:
-                return SavePedestalUberState::get_IsTeleporterActive(reinterpret_cast<app::SavePedestalUberState*>(uber_state)) ? 1.0 : 0.0;
+                return SavePedestalUberState::get_IsTeleporterActive(reinterpret_cast<app::SavePedestalUberState*>(ptr())) ? 1.0 : 0.0;
             case UberStateType::CountUberState:
             case UberStateType::ConditionUberState:
             case UberStateType::PlayerUberStateDescriptor:
-            case UberStateType::VirtualUberState:
             case UberStateType::Unknown:
             default:
                 warn("uber_state", std::format("unable to get value of uber state ({}|{})", static_cast<int>(m_group), m_state));
@@ -458,30 +452,20 @@ namespace core::api::uber_states {
     bool operator==(UberState const& a, UberState const& b) { return a.state() == b.state() && a.group() == b.group(); }
 
     std::string UberState::string_value() const {
-        const auto uber_state = ptr();
-        if (!il2cpp::unity::is_valid(uber_state)) {
-            warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
+        if (type() == UberStateType::Unknown) {
+            warn("uber_state", std::format("uber state ({}|{}) doesn't exist or is an unknown type", static_cast<int>(m_group), m_state));
             return "Unknown";
         }
 
-        switch (type()) {
-            case UberStateType::FloatUberState:
-            case UberStateType::SerializedFloatUberState:
-                return std::format("{}", get<double>());
-            case UberStateType::ByteUberState:
-            case UberStateType::IntUberState:
-            case UberStateType::SerializedIntUberState:
-            case UberStateType::SerializedByteUberState:
-                return std::to_string(get<int>());
-            case UberStateType::BooleanUberState:
-            case UberStateType::SerializedBooleanUberState:
-            case UberStateType::SavePedestalUberState:
+        switch (value_type()) {
+            case ValueType::Boolean:
                 return get() > 0.5 ? "true" : "false";
-            case UberStateType::CountUberState:
-            case UberStateType::ConditionUberState:
-            case UberStateType::PlayerUberStateDescriptor:
-            case UberStateType::VirtualUberState:
-            case UberStateType::Unknown:
+            case ValueType::Byte:
+            case ValueType::Integer:
+                return std::to_string(get<int>());
+            case ValueType::Float:
+                return std::format("{}", get<double>());
+            case ValueType::Unknown:
             default:
                 warn("uber_state", std::format("unable to get value of uber state ({}|{})", static_cast<int>(m_group), m_state));
                 return "Unknown";
@@ -489,8 +473,19 @@ namespace core::api::uber_states {
     }
 
     UberStateType UberState::type() const {
-        if (!m_type.has_value()) {
-            m_type = std::make_optional(is_virtual_state(m_group, m_state) ? UberStateType::VirtualUberState : class_to_type(ptr()->klass));
+        if (m_type.has_value()) {
+            return m_type.value();
+        }
+
+        if (is_virtual_state(m_group, m_state)) {
+            m_type = UberStateType::VirtualUberState;
+        } else {
+            const auto uber_state = ptr();
+            if (il2cpp::unity::is_valid(uber_state) && collection_initialized()) {
+                m_type = class_to_type(uber_state->klass);
+            } else {
+                return UberStateType::Unknown;
+            }
         }
 
         return m_type.value();
@@ -523,6 +518,10 @@ namespace core::api::uber_states {
     }
 
     bool UberState::readonly() const {
+        if (!collection_initialized()) {
+            return false;
+        }
+
         switch (type()) {
             case UberStateType::VirtualUberState:
                 return get_virtual_readonly(m_group, m_state);

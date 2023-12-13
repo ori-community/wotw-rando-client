@@ -400,7 +400,7 @@ namespace randomizer {
                 add_state<app::SerializedByteUberState>(UberStateGroup::LupoShop, "shardMapIcons", 41666, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoShop, "shardMapIconsCost", 41667, 0),
 
-                add_state<app::IntUberState>(UberStateGroup::Goals, "currentMapArea", 51, static_cast<int>(GameArea::TOTAL)),
+                add_state<app::IntUberState>(UberStateGroup::Player, "currentMapArea", 51, static_cast<int>(GameArea::TOTAL)),
             };
 
             dev::print_time(start_time, "Built state list");
