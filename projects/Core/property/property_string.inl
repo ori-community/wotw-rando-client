@@ -79,14 +79,14 @@ struct core::Property<std::string> {
     }
 
     template<typename... Types>
-    void set_format(std::format_string<Types...> fmt, Types&&... args);
+    void set_format(std::format_string<Types...> fmt, Types&&... args) const;
 
     template<typename... Types>
-    void process_and_set_format(std::format_string<Types...> fmt, Types&&... args);
+    void process_and_set_format(std::format_string<Types...> fmt, Types&&... args) const;
 
     // We do not want to make this const as we want to prevent setting the underlying value if we are const.
     // ReSharper disable once CppMemberFunctionMayBeConst
-    void set(std::string const& value) {
+    void set(std::string const& value) const {
         switch (m_value.index()) {
             case 0: {
                 *std::get<0>(m_value) = value;
@@ -109,7 +109,7 @@ struct core::Property<std::string> {
         notify_changed(reactivity::PropertyDependency(m_id));
     }
 
-    void process_and_set(std::string value) {
+    void process_and_set(std::string value) const {
         if (m_text_processor != nullptr) {
             m_text_processor->process(value);
         }
@@ -117,31 +117,31 @@ struct core::Property<std::string> {
         set(value);
     }
 
-    void set(const std::string_view value) {
+    void set(const std::string_view value) const {
         set(std::string(value));
     }
 
-    void process_and_set(const std::string_view value) {
+    void process_and_set(const std::string_view value) const {
         process_and_set(std::string(value));
     }
 
-    void set(const char* value) {
+    void set(const char* value) const {
         set(std::string(value));
     }
 
-    void process_and_set(const char* value) {
+    void process_and_set(const char* value) const {
         process_and_set(std::string(value));
     }
 
-    void add(std::string const& value) {
+    void add(std::string const& value) const {
         set(get() + value);
     }
 
-    void add(const std::string_view value) {
+    void add(const std::string_view value) const {
         set(get() + std::string(value));
     }
 
-    void process_and_add(std::string value) {
+    void process_and_add(std::string value) const {
         if (m_text_processor != nullptr) {
             m_text_processor->process(value);
         }
@@ -149,7 +149,7 @@ struct core::Property<std::string> {
         process_and_set(get() + value);
     }
 
-    void process_and_add(const std::string_view value) {
+    void process_and_add(const std::string_view value) const {
         process_and_add(std::string(value));
     }
 
@@ -187,11 +187,10 @@ struct core::Property<std::string> {
     }
 
     template<typename K>
-    Property<K> wrap() {
-        auto copy = *this;
+    Property<K> wrap() const {
         return Property<K>(
-            [copy](auto value) mutable { copy.set(value); },
-            [copy]() { return copy.get(); }
+            [&](auto value) mutable { set(value); },
+            [&] { return get(); }
         );
     }
 
@@ -202,11 +201,11 @@ private:
 };
 
 template<typename... Types>
-void core::Property<std::string>::set_format(const std::format_string<Types...> fmt, Types&&... args) {
+void core::Property<std::string>::set_format(const std::format_string<Types...> fmt, Types&&... args) const {
     set(std::vformat(fmt.get(), std::make_format_args(args...)));
 }
 
 template<typename... Types>
-void core::Property<std::string>::process_and_set_format(const std::format_string<Types...> fmt, Types&&... args) {
+void core::Property<std::string>::process_and_set_format(const std::format_string<Types...> fmt, Types&&... args) const {
     process_and_set(std::vformat(fmt.get(), std::make_format_args(args...)));
 }

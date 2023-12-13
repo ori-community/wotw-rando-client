@@ -283,7 +283,7 @@ namespace core::api::game::player {
             return std::make_pair(type, Property<bool>([type](const bool value) { set_ability(type, value); }, [type]() { return has_ability(type); }));
         }
 
-        std::unordered_map<app::AbilityType__Enum, Property<bool>> ability_properties{
+        std::unordered_map ability_properties{
             create_ability_property(app::AbilityType__Enum::Bash),
             create_ability_property(app::AbilityType__Enum::DoubleJump),
             create_ability_property(app::AbilityType__Enum::ChargeJump),
@@ -307,6 +307,60 @@ namespace core::api::game::player {
             create_ability_property(app::AbilityType__Enum::TurretSpell),
             create_ability_property(app::AbilityType__Enum::DamageUpgradeA),
             create_ability_property(app::AbilityType__Enum::DamageUpgradeB),
+        };
+
+        std::pair<app::SpiritShardType__Enum, Property<bool>> create_shard_property(app::SpiritShardType__Enum type) {
+            return std::make_pair(type, Property<bool>([type](const bool value) { set_shard(type, value); }, [type]() { return has_shard(type); }));
+        }
+
+        std::unordered_map shard_properties{
+            create_shard_property(app::SpiritShardType__Enum::GlassCannon),
+            create_shard_property(app::SpiritShardType__Enum::TripleJump),
+            create_shard_property(app::SpiritShardType__Enum::AntiAir),
+            create_shard_property(app::SpiritShardType__Enum::Focus),
+            create_shard_property(app::SpiritShardType__Enum::Swap),
+            create_shard_property(app::SpiritShardType__Enum::CrescentShot_Deprecated),
+            create_shard_property(app::SpiritShardType__Enum::Pierce),
+            create_shard_property(app::SpiritShardType__Enum::SpiritMagnet),
+            create_shard_property(app::SpiritShardType__Enum::Splinter),
+            create_shard_property(app::SpiritShardType__Enum::Blaze_Deprecated),
+            create_shard_property(app::SpiritShardType__Enum::Frost_Deprecated),
+            create_shard_property(app::SpiritShardType__Enum::LifeLeech_Deprecated),
+            create_shard_property(app::SpiritShardType__Enum::Reckless),
+            create_shard_property(app::SpiritShardType__Enum::Frenzy),
+            create_shard_property(app::SpiritShardType__Enum::Explosive_Deprecated),
+            create_shard_property(app::SpiritShardType__Enum::Ricochet),
+            create_shard_property(app::SpiritShardType__Enum::Climb_Deprecated),
+            create_shard_property(app::SpiritShardType__Enum::Barrier),
+            create_shard_property(app::SpiritShardType__Enum::SpiritLightLuck),
+            create_shard_property(app::SpiritShardType__Enum::Compass_Deprecated),
+            create_shard_property(app::SpiritShardType__Enum::Waterbreathing_Deprecated),
+            create_shard_property(app::SpiritShardType__Enum::Vitality),
+            create_shard_property(app::SpiritShardType__Enum::VitalityLuck),
+            create_shard_property(app::SpiritShardType__Enum::SpiritWellShield_Deprecated),
+            create_shard_property(app::SpiritShardType__Enum::EnergyLuck),
+            create_shard_property(app::SpiritShardType__Enum::Energy),
+            create_shard_property(app::SpiritShardType__Enum::BloodPact),
+            create_shard_property(app::SpiritShardType__Enum::LastResort),
+            create_shard_property(app::SpiritShardType__Enum::HarvestOfLight_Deprecated),
+            create_shard_property(app::SpiritShardType__Enum::Sense),
+            create_shard_property(app::SpiritShardType__Enum::UnderwaterEfficiency_Deprecated),
+            create_shard_property(app::SpiritShardType__Enum::UltraBash),
+            create_shard_property(app::SpiritShardType__Enum::UltraLeash),
+            create_shard_property(app::SpiritShardType__Enum::Recycler),
+            create_shard_property(app::SpiritShardType__Enum::Counterstrike),
+            create_shard_property(app::SpiritShardType__Enum::HollowEnergy),
+            create_shard_property(app::SpiritShardType__Enum::Supressor),
+            create_shard_property(app::SpiritShardType__Enum::Aggressor),
+            create_shard_property(app::SpiritShardType__Enum::Glue),
+            create_shard_property(app::SpiritShardType__Enum::CombatLuck),
+            create_shard_property(app::SpiritShardType__Enum::SpiritPower),
+            create_shard_property(app::SpiritShardType__Enum::Overcharge_Deprecated),
+            create_shard_property(app::SpiritShardType__Enum::Untouchable),
+            create_shard_property(app::SpiritShardType__Enum::MirrorStrike),
+            create_shard_property(app::SpiritShardType__Enum::Stinger),
+            create_shard_property(app::SpiritShardType__Enum::Fracture),
+            create_shard_property(app::SpiritShardType__Enum::ChainLightning),
         };
     } // namespace
 
@@ -424,18 +478,14 @@ namespace core::api::game::player {
 
     Property<int> shard_slots() { return Property<int>(set_shard_slots, get_shard_slots); }
 
-    Property<bool> shard(app::SpiritShardType__Enum type) {
-        return Property<bool>([type](const bool value) { set_shard(type, value); }, [type]() { return has_shard(type); });
-    }
+    const Property<bool>& shard(const app::SpiritShardType__Enum type) { return shard_properties[type]; }
 
-    bool is_shard_equipped(app::SpiritShardType__Enum type) {
+    bool is_shard_equipped(const app::SpiritShardType__Enum type) {
         const auto shards = get_player_spirit_shards();
         return shards != nullptr && PlayerSpiritShards::IsGlobalShardEquipped_1(shards, type);
     }
 
-    Property<bool>& ability(app::AbilityType__Enum type) {
-        return ability_properties[type];
-    }
+    const Property<bool>& ability(const app::AbilityType__Enum type) { return ability_properties[type]; }
 
     app::PlayerUberStateAreaMapInformation* get_area_map_information() {
         const auto player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;

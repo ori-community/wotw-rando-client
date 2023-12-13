@@ -33,6 +33,7 @@ namespace core::api::game::player {
     CORE_DLLEXPORT void refill_energy();
     CORE_DLLEXPORT void refill_health();
 
+    // TODO: Make these reactive.
     CORE_DLLEXPORT Property<float> health();
     CORE_DLLEXPORT Property<int> max_health();
     CORE_DLLEXPORT Property<float> energy();
@@ -42,10 +43,10 @@ namespace core::api::game::player {
     CORE_DLLEXPORT Property<int> ore();
     CORE_DLLEXPORT Property<int> shard_slots();
 
-    CORE_DLLEXPORT Property<bool> shard(app::SpiritShardType__Enum type);
+    CORE_DLLEXPORT const Property<bool>& shard(app::SpiritShardType__Enum type);
     CORE_DLLEXPORT bool is_shard_equipped(app::SpiritShardType__Enum type);
 
-    CORE_DLLEXPORT Property<bool>& ability(app::AbilityType__Enum type);
+    CORE_DLLEXPORT const Property<bool>& ability(app::AbilityType__Enum type);
 
     CORE_DLLEXPORT GameArea get_current_area();
     CORE_DLLEXPORT app::PlayerUberStateAreaMapInformation* get_area_map_information();

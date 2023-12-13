@@ -34,7 +34,7 @@ struct core::Property<T> {
         }
     }
 
-    void set(T const& value) {
+    void set(T const& value) const {
         switch (m_value.index()) {
             case 0: {
                 *std::get<0>(m_value) = value;
@@ -55,13 +55,13 @@ struct core::Property<T> {
         notify_changed(reactivity::PropertyDependency(m_id));
     }
 
-    void add(T const& value)
+    void add(T const& value) const
         requires can_add<T>
     {
         set(get() + value);
     }
 
-    void toggle() requires std::is_same_v<T, bool> {
+    void toggle() const requires std::is_same_v<T, bool> {
         set(!get());
     }
 
@@ -90,12 +90,11 @@ struct core::Property<T> {
         return *this;
     }
 
-    Property make_shallow_copy() { return Property(get()); }
+    Property make_shallow_copy() const { return Property(get()); }
 
     template<typename K>
-    Property<K> wrap() {
-        auto copy = *this;
-        return Property<K>([copy](auto value) mutable { copy.set(value); }, [copy]() { return copy.get(); });
+    Property<K> wrap() const {
+        return Property<K>([&](auto value) mutable { set(value); }, [&]() { return get(); });
     }
 
 private:
