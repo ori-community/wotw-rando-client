@@ -406,22 +406,22 @@ namespace randomizer {
             dev::print_time(start_time, "Built state list");
 
             // Custom states for userland variables
-            constexpr int CUSTOM_INT_COUNT = 100;
-            constexpr int CUSTOM_BOOL_COUNT = 50;
-            constexpr int CUSTOM_FLOAT_COUNT = 25;
+            constexpr int custom_int_count = 100;
+            constexpr int custom_bool_count = 50;
+            constexpr int custom_float_count = 25;
 
             auto next_id = 0;
-            for (int i = 0; i < CUSTOM_INT_COUNT; ++i) {
+            for (int i = 0; i < custom_int_count; ++i) {
                 const auto id = next_id++;
                 states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Custom, std::format("int{:04d}", i), id, 0));
             }
 
-            for (int i = 0; i < CUSTOM_BOOL_COUNT; ++i) {
+            for (int i = 0; i < custom_bool_count; ++i) {
                 const auto id = next_id++;
                 states.push_back(add_state<app::SerializedBooleanUberState>(UberStateGroup::Custom, std::format("bool{:04d}", i), id, false));
             }
 
-            for (int i = 0; i < CUSTOM_FLOAT_COUNT; ++i) {
+            for (int i = 0; i < custom_float_count; ++i) {
                 const auto id = next_id++;
                 states.push_back(add_state<app::SerializedFloatUberState>(UberStateGroup::Custom, std::format("float{:04d}", i), id, false));
             }
@@ -451,85 +451,84 @@ namespace randomizer {
             info("initialize", "Custom uber states initialized.");
             next::Moon::UberStateCollection::PrepareRuntimeDataType(this_ptr);
 
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 0), "onNewGame");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 1), "onLoadSeed");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 2), "onBinding1");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 3), "onBinding2");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 4), "onBinding3");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 5), "onBinding4");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 6), "onBinding5");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 7), "onRestoreCheckpoint");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 8), "onProgressHint");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 0, "onNewGame");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 1, "onLoadSeed");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 2, "onBinding1");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 3, "onBinding2");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 4, "onBinding3");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 5, "onBinding4");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 6, "onBinding5");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 7, "onRestoreCheckpoint");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 8, "onProgressHint");
 
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 100), "onRequestInkwaterTrialText");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 101), "onRequestHollowTrialText");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 102), "onRequestWellspringTrialText");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 103), "onRequestWoodsTrialText");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 104), "onRequestReachTrialText");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 105), "onRequestDepthsTrialText");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 106), "onRequestLumaTrialText");
-            register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 107), "onRequestWastesTrialText");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 100, "onRequestInkwaterTrialText");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 101, "onRequestHollowTrialText");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 102, "onRequestWellspringTrialText");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 103, "onRequestWoodsTrialText");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 104, "onRequestReachTrialText");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 105, "onRequestDepthsTrialText");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 106, "onRequestLumaTrialText");
+            register_virtual_event_state(UberStateGroup::RandoEvents, 107, "onRequestWastesTrialText");
 
-            register_virtual_state(
-                ValueType::Integer,
-                std::make_pair(UberStateGroup::Player, 0),
-                "spiritLight",
-                core::api::game::player::spirit_light().wrap<double>(),
-                true
-            );
-            register_virtual_state(
-                ValueType::Integer, std::make_pair(UberStateGroup::Player, 1), "gorlekOre", core::api::game::player::ore().wrap<double>(), true
-            );
-            register_virtual_state(
-                ValueType::Integer, std::make_pair(UberStateGroup::Player, 2), "keystones", core::api::game::player::keystones().wrap<double>(), true
-            );
-            register_virtual_state(
-                ValueType::Integer, std::make_pair(UberStateGroup::Player, 10), "maxHealth", core::api::game::player::max_health().wrap<double>(), true
-            );
-            register_virtual_state(
-                ValueType::Float, std::make_pair(UberStateGroup::Player, 11), "health", core::api::game::player::health().wrap<double>(), true
-            );
-            register_virtual_state(
-                ValueType::Float, std::make_pair(UberStateGroup::Player, 12), "maxEnergy", core::api::game::player::max_energy().wrap<double>(), true
-            );
-            register_virtual_state(
-                ValueType::Float, std::make_pair(UberStateGroup::Player, 13), "energy", core::api::game::player::energy().wrap<double>(), true
-            );
+            using namespace core::api::game::player;
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 0, "spiritLight", .polled = true}, spirit_light().wrap<double>());
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 1, "gorlekOre", .polled = true}, ore().wrap<double>());
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 2, "keystones", .polled = true}, keystones().wrap<double>());
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 10, "maxHealth", .polled = true}, max_health().wrap<double>());
+            register_virtual_state({ValueType::Float, UberStateGroup::Player, 11, "health", .polled = true}, health().wrap<double>());
+            register_virtual_state({ValueType::Float, UberStateGroup::Player, 12, "maxEnergy", .polled = true}, max_energy().wrap<double>());
+            register_virtual_state({ValueType::Float, UberStateGroup::Player, 13, "energy", .polled = true}, energy().wrap<double>());
 
             register_virtual_state(
-                ValueType::Byte,
-                std::make_pair(UberStateGroup::Player, 50),
-                "currentArea",
+                {
+                    .type = ValueType::Byte,
+                    .group = UberStateGroup::Player,
+                    .state = 50,
+                    .name = "currentArea",
+                    .polled = true,
+                    .readonly = true,
+                },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentArea (5, 50) is read only."); },
                     []() -> double { return static_cast<double>(core::api::game::player::get_current_area()); }
-                ),
-                true
+                )
             );
             register_virtual_state(
-                ValueType::Byte,
-                std::make_pair(UberStateGroup::Goals, 500),
-                "totalRelicCount",
+                {
+                    .type = ValueType::Byte,
+                    .group = UberStateGroup::Goals,
+                    .state = 500,
+                    .name = "totalRelicCount",
+                    .polled = true,
+                    .readonly = true,
+                },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate totalRelicCount (23, 500) is read only."); },
                     []() -> double { return game_seed().relics().relic_count(); }
-                ),
-                true
+                )
             );
             register_virtual_state(
-                ValueType::Byte,
-                std::make_pair(UberStateGroup::Goals, 501),
-                "currentRelicCount",
+                {
+                    .type = ValueType::Byte,
+                    .group = UberStateGroup::Goals,
+                    .state = 501,
+                    .name = "currentRelicCount",
+                    .polled = true,
+                    .readonly = true,
+                },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentRelicCount (23, 501) is read only."); },
                     []() -> double { return game_seed().relics().found_relics(); }
-                ),
-                true
+                )
             );
             register_virtual_state(
-                ValueType::Byte,
-                std::make_pair(UberStateGroup::Goals, 502),
-                "currentTreeCount",
+                {
+                    .type = ValueType::Byte,
+                    .group = UberStateGroup::Goals,
+                    .state = 502,
+                    .name = "currentTreeCount",
+                    .readonly = true,
+                },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentTreeCount (23, 502) is read only."); },
                     []() -> double {
@@ -551,9 +550,13 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
-                ValueType::Byte,
-                std::make_pair(UberStateGroup::Goals, 503),
-                "currentWispCount",
+                {
+                    .type = ValueType::Byte,
+                    .group = UberStateGroup::Goals,
+                    .state = 503,
+                    .name = "currentWispCount",
+                    .readonly = true,
+                },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentWispCount (23, 503) is read only."); },
                     []() -> double {
@@ -566,9 +569,13 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
-                ValueType::Byte,
-                std::make_pair(UberStateGroup::Goals, 504),
-                "currentQuestCount",
+                {
+                    .type = ValueType::Byte,
+                    .group = UberStateGroup::Goals,
+                    .state = 504,
+                    .name = "currentQuestCount",
+                    .readonly = true,
+                },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentQuestCount (23, 504) is read only."); },
                     []() -> double {
@@ -594,232 +601,167 @@ namespace randomizer {
             );
 
             register_virtual_state(
-                ValueType::Boolean,
-                std::make_pair(UberStateGroup::Goals, 505),
-                "currentAreaHasUncollectedRelic",
+                {
+                    .type = ValueType::Boolean,
+                    .group = UberStateGroup::Goals,
+                    .state = 505,
+                    .name = "currentAreaHasUncollectedRelic",
+                    .polled = true,
+                    .readonly = true,
+                },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentAreaHasUncollectedRelic (23, 505) is read only."); },
                     []() -> double {
                         const auto area = core::api::game::player::get_current_area();
                         return game_seed().relics().found_relics_in_area(area) < game_seed().relics().relic_count_in_area(area) ? 1.0 : 0.0;
                     }
-                ),
-                true
-            );
-
-            // Grom shop states
-            register_virtual_state(
-                ValueType::Boolean,
-                std::make_pair(UberStateGroup::GromShop, 16825),
-                "spiritWellBought",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 16825).set(x > 0.5 ? 3 : 1); }, []() -> double { return UberState(42178, 16825).get<int>() >= 3 ? 1 : 0; }
-                )
-            );
-            register_virtual_state(
-                ValueType::Boolean,
-                std::make_pair(UberStateGroup::GromShop, 51230),
-                "housesABought",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 51230).set(x > 0.5 ? 3 : 1); }, []() -> double { return UberState(42178, 51230).get<int>() >= 3 ? 1 : 0; }
-                )
-            );
-            register_virtual_state(
-                ValueType::Boolean,
-                std::make_pair(UberStateGroup::GromShop, 23607),
-                "housesBBought",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 23607).set(x > 0.5 ? 3 : 1); }, []() -> double { return UberState(42178, 23607).get<int>() >= 3 ? 1 : 0; }
-                )
-            );
-            register_virtual_state(
-                ValueType::Boolean,
-                std::make_pair(UberStateGroup::GromShop, 40448),
-                "housesCBought",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 40448).set(x > 0.5 ? 3 : 1); }, []() -> double { return UberState(42178, 40448).get<int>() >= 3 ? 1 : 0; }
-                )
-            );
-            register_virtual_state(
-                ValueType::Boolean,
-                std::make_pair(UberStateGroup::GromShop, 18751),
-                "removeThornsBought",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 18751).set(x > 0.5 ? 3 : 1); }, []() -> double { return UberState(42178, 18751).get<int>() >= 3 ? 1 : 0; }
-                )
-            );
-            register_virtual_state(
-                ValueType::Boolean,
-                std::make_pair(UberStateGroup::GromShop, 16586),
-                "openCaveBought",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 16586).set(x > 0.5 ? 3 : 1); }, []() -> double { return UberState(42178, 16586).get<int>() >= 3 ? 1 : 0; }
-                )
-            );
-            register_virtual_state(
-                ValueType::Boolean,
-                std::make_pair(UberStateGroup::GromShop, 15068),
-                "beautifyBought",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }
                 )
             );
 
-            // Tuley shop states
-            register_virtual_state(
-                ValueType::Boolean,
-                std::make_pair(UberStateGroup::TuleyShop, 47651),
-                "lightcatchers",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }
-                )
-            );
-            register_virtual_state(
-                ValueType::Boolean,
-                std::make_pair(UberStateGroup::TuleyShop, 16254),
-                "selaFlowers",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }
-                )
-            );
-            register_virtual_state(
-                ValueType::Boolean,
-                std::make_pair(UberStateGroup::TuleyShop, 33011),
-                "blueMoon",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }
-                )
-            );
-            register_virtual_state(
-                ValueType::Boolean,
-                std::make_pair(UberStateGroup::TuleyShop, 64583),
-                "stickyGrass",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }
-                )
-            );
-            register_virtual_state(
-                ValueType::Boolean,
-                std::make_pair(UberStateGroup::TuleyShop, 38393),
-                "springPlants",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }
-                )
-            );
-            register_virtual_state(
-                ValueType::Boolean,
-                std::make_pair(UberStateGroup::TuleyShop, 40006),
-                "lastTree",
-                core::Property<double>(
-                    [](double x) { UberState(42178, 15068).set(x > 0.5 ? 3 : 1); }, []() -> double { return UberState(42178, 15068).get<int>() >= 3 ? 1 : 0; }
-                )
-            );
+            std::array shop_data{
+                // Grom
+                std::make_tuple(UberStateGroup::GromShop, 16825, "spiritWellBought"),
+                std::make_tuple(UberStateGroup::GromShop, 51230, "housesABought"),
+                std::make_tuple(UberStateGroup::GromShop, 23607, "housesBBought"),
+                std::make_tuple(UberStateGroup::GromShop, 40448, "housesCBought"),
+                std::make_tuple(UberStateGroup::GromShop, 18751, "removeThornsBought"),
+                std::make_tuple(UberStateGroup::GromShop, 16586, "openCaveBought"),
+                std::make_tuple(UberStateGroup::GromShop, 15068, "beautifyBought"),
+                // Tuley
+                std::make_tuple(UberStateGroup::TuleyShop, 47651, "lightcatchers"),
+                std::make_tuple(UberStateGroup::TuleyShop, 16254, "selaFlowers"),
+                std::make_tuple(UberStateGroup::TuleyShop, 33011, "blueMoon"),
+                std::make_tuple(UberStateGroup::TuleyShop, 64583, "stickyGrass"),
+                std::make_tuple(UberStateGroup::TuleyShop, 38393, "springPlants"),
+                std::make_tuple(UberStateGroup::TuleyShop, 40006, "lastTree"),
+            };
+
+            for (auto const& [slot_group, state, name]: shop_data) {
+                register_virtual_state(
+                    {
+                        .type = ValueType::Boolean,
+                        .group = slot_group,
+                        .state = state,
+                        .name = name,
+                    },
+                    core::Property<double>(
+                        [state](const double x) { UberState(42178, state).set(x > 0.5 ? 3 : 1); },
+                        [state] -> double { return UberState(42178, state).get<int>() >= 3 ? 1 : 0; }
+                    )
+                );
+            }
 
             constexpr std::array skills = {
-                std::make_tuple(app::AbilityType__Enum::Bash, std::string_view("bash")),
-                std::make_tuple(app::AbilityType__Enum::WallJump, std::string_view("wallJump")),
-                std::make_tuple(app::AbilityType__Enum::DoubleJump, std::string_view("doubleJump")),
-                std::make_tuple(app::AbilityType__Enum::Launch, std::string_view("launch")),
-                std::make_tuple(app::AbilityType__Enum::Glide, std::string_view("glide")),
-                std::make_tuple(app::AbilityType__Enum::WaterBreath, std::string_view("waterBreath")),
-                std::make_tuple(app::AbilityType__Enum::Grenade, std::string_view("grenade")),
-                std::make_tuple(app::AbilityType__Enum::SpiritLeash, std::string_view("grapple")),
-                std::make_tuple(app::AbilityType__Enum::GlowSpell, std::string_view("flash")),
-                std::make_tuple(app::AbilityType__Enum::SpiritSpearSpell, std::string_view("spear")),
-                std::make_tuple(app::AbilityType__Enum::MeditateSpell, std::string_view("regenerate")),
-                std::make_tuple(app::AbilityType__Enum::Bow, std::string_view("bow")),
-                std::make_tuple(app::AbilityType__Enum::Hammer, std::string_view("hammer")),
-                std::make_tuple(app::AbilityType__Enum::Torch, std::string_view("torch")),
-                std::make_tuple(app::AbilityType__Enum::Sword, std::string_view("sword")),
-                std::make_tuple(app::AbilityType__Enum::Digging, std::string_view("burrow")),
-                std::make_tuple(app::AbilityType__Enum::Dash, std::string_view("dash")),
-                std::make_tuple(app::AbilityType__Enum::WaterDash, std::string_view("waterDash")),
-                std::make_tuple(app::AbilityType__Enum::ChakramSpell, std::string_view("shuriken")),
-                std::make_tuple(app::AbilityType__Enum::GoldenSein, std::string_view("sein")),
-                std::make_tuple(app::AbilityType__Enum::Blaze, std::string_view("blaze")),
-                std::make_tuple(app::AbilityType__Enum::TurretSpell, std::string_view("sentry")),
-                std::make_tuple(app::AbilityType__Enum::FeatherFlap, std::string_view("flap")),
-                std::make_tuple(app::AbilityType__Enum::DamageUpgradeA, std::string_view("gladesAncestralLight")),
-                std::make_tuple(app::AbilityType__Enum::DamageUpgradeB, std::string_view("inkwaterAncestralLight")),
-                std::make_tuple(app::AbilityType__Enum::SpiritFlame, std::string_view("spiritFlame")),
-                std::make_tuple(app::AbilityType__Enum::UltraDefense, std::string_view("resilience")),
-                std::make_tuple(app::AbilityType__Enum::HealthEfficiency, std::string_view("healthEfficiency")),
-                std::make_tuple(app::AbilityType__Enum::EnergyEfficiency, std::string_view("energyEfficiency")),
-                std::make_tuple(app::AbilityType__Enum::BowCharge, std::string_view("bowCharge")),
-                std::make_tuple(app::AbilityType__Enum::SpiritMagnet, std::string_view("spiritMagnet")),
-                std::make_tuple(app::AbilityType__Enum::WeaponCharge, std::string_view("weaponCharge")),
+                std::make_tuple(app::AbilityType__Enum::Bash, "bash"),
+                std::make_tuple(app::AbilityType__Enum::WallJump, "wallJump"),
+                std::make_tuple(app::AbilityType__Enum::DoubleJump, "doubleJump"),
+                std::make_tuple(app::AbilityType__Enum::Launch, "launch"),
+                std::make_tuple(app::AbilityType__Enum::Glide, "glide"),
+                std::make_tuple(app::AbilityType__Enum::WaterBreath, "waterBreath"),
+                std::make_tuple(app::AbilityType__Enum::Grenade, "grenade"),
+                std::make_tuple(app::AbilityType__Enum::SpiritLeash, "grapple"),
+                std::make_tuple(app::AbilityType__Enum::GlowSpell, "flash"),
+                std::make_tuple(app::AbilityType__Enum::SpiritSpearSpell, "spear"),
+                std::make_tuple(app::AbilityType__Enum::MeditateSpell, "regenerate"),
+                std::make_tuple(app::AbilityType__Enum::Bow, "bow"),
+                std::make_tuple(app::AbilityType__Enum::Hammer, "hammer"),
+                std::make_tuple(app::AbilityType__Enum::Torch, "torch"),
+                std::make_tuple(app::AbilityType__Enum::Sword, "sword"),
+                std::make_tuple(app::AbilityType__Enum::Digging, "burrow"),
+                std::make_tuple(app::AbilityType__Enum::Dash, "dash"),
+                std::make_tuple(app::AbilityType__Enum::WaterDash, "waterDash"),
+                std::make_tuple(app::AbilityType__Enum::ChakramSpell, "shuriken"),
+                std::make_tuple(app::AbilityType__Enum::GoldenSein, "sein"),
+                std::make_tuple(app::AbilityType__Enum::Blaze, "blaze"),
+                std::make_tuple(app::AbilityType__Enum::TurretSpell, "sentry"),
+                std::make_tuple(app::AbilityType__Enum::FeatherFlap, "flap"),
+                std::make_tuple(app::AbilityType__Enum::DamageUpgradeA, "gladesAncestralLight"),
+                std::make_tuple(app::AbilityType__Enum::DamageUpgradeB, "inkwaterAncestralLight"),
+                std::make_tuple(app::AbilityType__Enum::SpiritFlame, "spiritFlame"),
+                std::make_tuple(app::AbilityType__Enum::UltraDefense, "resilience"),
+                std::make_tuple(app::AbilityType__Enum::HealthEfficiency, "healthEfficiency"),
+                std::make_tuple(app::AbilityType__Enum::EnergyEfficiency, "energyEfficiency"),
+                std::make_tuple(app::AbilityType__Enum::BowCharge, "bowCharge"),
+                std::make_tuple(app::AbilityType__Enum::SpiritMagnet, "spiritMagnet"),
+                std::make_tuple(app::AbilityType__Enum::WeaponCharge, "weaponCharge"),
             };
 
             for (const auto& [type, name]: skills) {
                 register_virtual_state(
-                    ValueType::Boolean,
-                    std::make_pair(UberStateGroup::Skills, static_cast<int>(type)),
-                    std::string(name),
+                    {
+                        .type = ValueType::Boolean,
+                        .group = UberStateGroup::Skills,
+                        .state = static_cast<int>(type),
+                        .name = name,
+                    },
                     core::Property<double>(
-                        [type](const double x) { core::api::game::player::ability(type).set(x > 0.5); },
-                        [type]() -> double { return core::api::game::player::ability(type).get(); }
+                        [type](const double x) { ability(type).set(x > 0.5); },
+                        [type]() -> double { return ability(type).get(); }
                     )
                 );
             }
 
             constexpr std::array shards = {
-                std::make_tuple(app::SpiritShardType__Enum::GlassCannon, std::string_view("overcharge")),
-                std::make_tuple(app::SpiritShardType__Enum::TripleJump, std::string_view("tripleJump")),
-                std::make_tuple(app::SpiritShardType__Enum::AntiAir, std::string_view("wingclip")),
-                std::make_tuple(app::SpiritShardType__Enum::Focus, std::string_view("bounty")),
-                std::make_tuple(app::SpiritShardType__Enum::Swap, std::string_view("swap")),
-                std::make_tuple(app::SpiritShardType__Enum::CrescentShot_Deprecated, std::string_view("crescentShotDeprecated")),
-                std::make_tuple(app::SpiritShardType__Enum::Pierce, std::string_view("pierce")),
-                std::make_tuple(app::SpiritShardType__Enum::SpiritMagnet, std::string_view("magnet")),
-                std::make_tuple(app::SpiritShardType__Enum::Splinter, std::string_view("splinter")),
-                std::make_tuple(app::SpiritShardType__Enum::Blaze_Deprecated, std::string_view("blazeDeprecated")),
-                std::make_tuple(app::SpiritShardType__Enum::Frost_Deprecated, std::string_view("frostDeprecated")),
-                std::make_tuple(app::SpiritShardType__Enum::LifeLeech_Deprecated, std::string_view("lifeLeechDeprecated")),
-                std::make_tuple(app::SpiritShardType__Enum::Reckless, std::string_view("reckless")),
-                std::make_tuple(app::SpiritShardType__Enum::Frenzy, std::string_view("quickshot")),
-                std::make_tuple(app::SpiritShardType__Enum::Explosive_Deprecated, std::string_view("explosiveDeprecated")),
-                std::make_tuple(app::SpiritShardType__Enum::Ricochet, std::string_view("ricochet")),
-                std::make_tuple(app::SpiritShardType__Enum::Climb_Deprecated, std::string_view("climbDeprecated")),
-                std::make_tuple(app::SpiritShardType__Enum::Barrier, std::string_view("resilience")),
-                std::make_tuple(app::SpiritShardType__Enum::SpiritLightLuck, std::string_view("spiritLightHarvest")),
-                std::make_tuple(app::SpiritShardType__Enum::Compass_Deprecated, std::string_view("compassDeprecated")),
-                std::make_tuple(app::SpiritShardType__Enum::Waterbreathing_Deprecated, std::string_view("waterbreathingDeprecated")),
-                std::make_tuple(app::SpiritShardType__Enum::Vitality, std::string_view("vitality")),
-                std::make_tuple(app::SpiritShardType__Enum::VitalityLuck, std::string_view("lifeHarvest")),
-                std::make_tuple(app::SpiritShardType__Enum::SpiritWellShield_Deprecated, std::string_view("spiritWellShieldDeprecated")),
-                std::make_tuple(app::SpiritShardType__Enum::EnergyLuck, std::string_view("energyHarvest")),
-                std::make_tuple(app::SpiritShardType__Enum::Energy, std::string_view("energy")),
-                std::make_tuple(app::SpiritShardType__Enum::BloodPact, std::string_view("lifePact")),
-                std::make_tuple(app::SpiritShardType__Enum::LastResort, std::string_view("lastStand")),
-                std::make_tuple(app::SpiritShardType__Enum::HarvestOfLight_Deprecated, std::string_view("harvestOfLightDeprecated")),
-                std::make_tuple(app::SpiritShardType__Enum::Sense, std::string_view("sense")),
-                std::make_tuple(app::SpiritShardType__Enum::UnderwaterEfficiency_Deprecated, std::string_view("underwaterEfficiencyDeprecated")),
-                std::make_tuple(app::SpiritShardType__Enum::UltraBash, std::string_view("ultraBash")),
-                std::make_tuple(app::SpiritShardType__Enum::UltraLeash, std::string_view("ultraGrapple")),
-                std::make_tuple(app::SpiritShardType__Enum::Recycler, std::string_view("overflow")),
-                std::make_tuple(app::SpiritShardType__Enum::Counterstrike, std::string_view("thorn")),
-                std::make_tuple(app::SpiritShardType__Enum::HollowEnergy, std::string_view("catalyst")),
-                std::make_tuple(app::SpiritShardType__Enum::Supressor, std::string_view("supressor")),
-                std::make_tuple(app::SpiritShardType__Enum::Aggressor, std::string_view("turmoil")),
-                std::make_tuple(app::SpiritShardType__Enum::Glue, std::string_view("sticky")),
-                std::make_tuple(app::SpiritShardType__Enum::CombatLuck, std::string_view("finesse")),
-                std::make_tuple(app::SpiritShardType__Enum::SpiritPower, std::string_view("spiritSurge")),
-                std::make_tuple(app::SpiritShardType__Enum::Overcharge_Deprecated, std::string_view("overchargeDeprecated")),
-                std::make_tuple(app::SpiritShardType__Enum::Untouchable, std::string_view("lifeforce")),
-                std::make_tuple(app::SpiritShardType__Enum::MirrorStrike, std::string_view("deflector")),
-                std::make_tuple(app::SpiritShardType__Enum::Stinger, std::string_view("stinger")),
-                std::make_tuple(app::SpiritShardType__Enum::Fracture, std::string_view("fracture")),
-                std::make_tuple(app::SpiritShardType__Enum::ChainLightning, std::string_view("arcing")),
+                std::make_tuple(app::SpiritShardType__Enum::GlassCannon, "overcharge"),
+                std::make_tuple(app::SpiritShardType__Enum::TripleJump, "tripleJump"),
+                std::make_tuple(app::SpiritShardType__Enum::AntiAir, "wingclip"),
+                std::make_tuple(app::SpiritShardType__Enum::Focus, "bounty"),
+                std::make_tuple(app::SpiritShardType__Enum::Swap, "swap"),
+                std::make_tuple(app::SpiritShardType__Enum::CrescentShot_Deprecated, "crescentShotDeprecated"),
+                std::make_tuple(app::SpiritShardType__Enum::Pierce, "pierce"),
+                std::make_tuple(app::SpiritShardType__Enum::SpiritMagnet, "magnet"),
+                std::make_tuple(app::SpiritShardType__Enum::Splinter, "splinter"),
+                std::make_tuple(app::SpiritShardType__Enum::Blaze_Deprecated, "blazeDeprecated"),
+                std::make_tuple(app::SpiritShardType__Enum::Frost_Deprecated, "frostDeprecated"),
+                std::make_tuple(app::SpiritShardType__Enum::LifeLeech_Deprecated, "lifeLeechDeprecated"),
+                std::make_tuple(app::SpiritShardType__Enum::Reckless, "reckless"),
+                std::make_tuple(app::SpiritShardType__Enum::Frenzy, "quickshot"),
+                std::make_tuple(app::SpiritShardType__Enum::Explosive_Deprecated, "explosiveDeprecated"),
+                std::make_tuple(app::SpiritShardType__Enum::Ricochet, "ricochet"),
+                std::make_tuple(app::SpiritShardType__Enum::Climb_Deprecated, "climbDeprecated"),
+                std::make_tuple(app::SpiritShardType__Enum::Barrier, "resilience"),
+                std::make_tuple(app::SpiritShardType__Enum::SpiritLightLuck, "spiritLightHarvest"),
+                std::make_tuple(app::SpiritShardType__Enum::Compass_Deprecated, "compassDeprecated"),
+                std::make_tuple(app::SpiritShardType__Enum::Waterbreathing_Deprecated, "waterbreathingDeprecated"),
+                std::make_tuple(app::SpiritShardType__Enum::Vitality, "vitality"),
+                std::make_tuple(app::SpiritShardType__Enum::VitalityLuck, "lifeHarvest"),
+                std::make_tuple(app::SpiritShardType__Enum::SpiritWellShield_Deprecated, "spiritWellShieldDeprecated"),
+                std::make_tuple(app::SpiritShardType__Enum::EnergyLuck, "energyHarvest"),
+                std::make_tuple(app::SpiritShardType__Enum::Energy, "energy"),
+                std::make_tuple(app::SpiritShardType__Enum::BloodPact, "lifePact"),
+                std::make_tuple(app::SpiritShardType__Enum::LastResort, "lastStand"),
+                std::make_tuple(app::SpiritShardType__Enum::HarvestOfLight_Deprecated, "harvestOfLightDeprecated"),
+                std::make_tuple(app::SpiritShardType__Enum::Sense, "sense"),
+                std::make_tuple(app::SpiritShardType__Enum::UnderwaterEfficiency_Deprecated, "underwaterEfficiencyDeprecated"),
+                std::make_tuple(app::SpiritShardType__Enum::UltraBash, "ultraBash"),
+                std::make_tuple(app::SpiritShardType__Enum::UltraLeash, "ultraGrapple"),
+                std::make_tuple(app::SpiritShardType__Enum::Recycler, "overflow"),
+                std::make_tuple(app::SpiritShardType__Enum::Counterstrike, "thorn"),
+                std::make_tuple(app::SpiritShardType__Enum::HollowEnergy, "catalyst"),
+                std::make_tuple(app::SpiritShardType__Enum::Supressor, "supressor"),
+                std::make_tuple(app::SpiritShardType__Enum::Aggressor, "turmoil"),
+                std::make_tuple(app::SpiritShardType__Enum::Glue, "sticky"),
+                std::make_tuple(app::SpiritShardType__Enum::CombatLuck, "finesse"),
+                std::make_tuple(app::SpiritShardType__Enum::SpiritPower, "spiritSurge"),
+                std::make_tuple(app::SpiritShardType__Enum::Overcharge_Deprecated, "overchargeDeprecated"),
+                std::make_tuple(app::SpiritShardType__Enum::Untouchable, "lifeforce"),
+                std::make_tuple(app::SpiritShardType__Enum::MirrorStrike, "deflector"),
+                std::make_tuple(app::SpiritShardType__Enum::Stinger, "stinger"),
+                std::make_tuple(app::SpiritShardType__Enum::Fracture, "fracture"),
+                std::make_tuple(app::SpiritShardType__Enum::ChainLightning, "arcing"),
             };
 
             for (const auto& [type, name]: shards) {
                 register_virtual_state(
-                    ValueType::Boolean,
-                    std::make_pair(UberStateGroup::Shards, static_cast<int>(type)),
-                    std::string(name),
+                    {
+                        .type = ValueType::Boolean,
+                        .group = UberStateGroup::Shards,
+                        .state = static_cast<int>(type),
+                        .name = name,
+                    },
                     core::Property<double>(
-                        [type](const double x) { core::api::game::player::shard(type).set(x > 0.5); },
-                        [type]() -> double { return core::api::game::player::shard(type).get(); }
+                        [type](const double x) { shard(type).set(x > 0.5); },
+                        [type]() -> double { return shard(type).get(); }
                     )
                 );
             }

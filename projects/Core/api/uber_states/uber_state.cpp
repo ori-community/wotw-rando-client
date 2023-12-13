@@ -517,6 +517,29 @@ namespace core::api::uber_states {
         }
     }
 
+    bool UberState::readonly() const {
+        switch (type()) {
+            case UberStateType::VirtualUberState:
+                return get_virtual_readonly(m_group, m_state);
+            case UberStateType::CountUberState:
+            case UberStateType::ConditionUberState:
+            case UberStateType::PlayerUberStateDescriptor:
+            case UberStateType::Unknown:
+                return true;
+            case UberStateType::FloatUberState:
+            case UberStateType::SerializedFloatUberState:
+            case UberStateType::ByteUberState:
+            case UberStateType::SerializedByteUberState:
+            case UberStateType::IntUberState:
+            case UberStateType::SerializedIntUberState:
+            case UberStateType::BooleanUberState:
+            case UberStateType::SerializedBooleanUberState:
+            case UberStateType::SavePedestalUberState:
+            default:
+return false;
+        }
+    }
+
     std::string UberState::to_string(const bool use_names, const std::optional<double> previous_value, std::optional<double> current_value) const {
         return std::format(
             "({}|{}) = {}",

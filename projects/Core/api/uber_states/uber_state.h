@@ -57,6 +57,7 @@ namespace core::api::uber_states {
         [[nodiscard]] std::string string_value() const;
         [[nodiscard]] UberStateType type() const;
         [[nodiscard]] ValueType value_type() const;
+        [[nodiscard]] bool readonly() const;
 
         std::string to_string(bool use_names = false, std::optional<double> previous_value = std::nullopt, std::optional<double> current_value = std::nullopt) const;
     private:

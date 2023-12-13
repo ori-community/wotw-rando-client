@@ -15,8 +15,7 @@ namespace {
     IL2CPP_INTERCEPT(SavePedestalController, void, OnFadedToBlack, (app::SavePedestalController* this_ptr)) {
         // We want the grant to happen before the checkpoint.
         const auto state = core::api::uber_states::UberState(UberStateGroup::RandoEvents, 20);
-        state.set(1);
-        state.set(0);
+        randomizer::game_seed().grant(state, 0);
 
         next::SavePedestalController::OnFadedToBlack(this_ptr);
     }

@@ -19,20 +19,18 @@ using namespace app::classes;
 namespace core::api::uber_states {
     namespace {
         struct VirtualUberState {
-            using setter = void (*)(double);
-            using getter = double (*)();
-
-            ValueType type;
+            ValueType type{};
             std::string name;
             Property<double> value;
             std::shared_ptr<reactivity::ReactiveEffect> effect;
+            bool readonly{};
         };
 
         std::unordered_map<uber_id_t, VirtualUberState, pair_hash> virtual_states;
         std::vector<uber_id_t> polled_virtual_states;
 
         std::unordered_map<uber_id_t, double, pair_hash> cached_values;
-        void check_state_change(const uber_id_t& uber_id, double value) {
+        void check_state_change(const uber_id_t& uber_id, const double value) {
             auto it = cached_values.find(uber_id);
             if (it == cached_values.end()) {
                 cached_values[uber_id] = value;
@@ -58,20 +56,28 @@ namespace core::api::uber_states {
         [[maybe_unused]] auto virtual_notifier = notification_bus().register_handler(virtual_notify_change);
     } // namespace
 
-    void register_virtual_state(const ValueType type, const uber_id_t& uber_id, std::string name, const Property<double>& value, const bool polled) {
-        virtual_states[uber_id] = {.type = type, .name = std::move(name), .value = value};
-        if (polled) {
+    void register_virtual_state(VirtualStateInfo const& info, const Property<double>& value) {
+        const auto uber_id = std::make_pair(info.group, info.state);
+        virtual_states[uber_id] = {.type = info.type, .name = info.name, .value = value, .readonly = info.readonly};
+        if (info.polled) {
             polled_virtual_states.push_back(uber_id);
         } else {
             auto& state = virtual_states[uber_id];
-            reactivity::watch_effect().effect(state.value).after([uber_id]() {
-                check_state_change(uber_id, virtual_states[uber_id].value.get());
-            }).finalize_inplace(state.effect);
+            reactivity::watch_effect()
+                .effect(state.value)
+                .after([uber_id]() { check_state_change(uber_id, virtual_states[uber_id].value.get()); })
+                .finalize_inplace(state.effect);
         }
     }
 
-    void register_virtual_event_state(uber_id_t const& uber_id, std::string name) {
-        virtual_states[uber_id] = {.type = ValueType::Boolean, .name = std::move(name), .value = core::Property<double>([](auto) {}, [] { return 1; })};
+    void register_virtual_event_state(UberStateGroup group, int state, const std::string& name) {
+        const auto uber_id = std::make_pair(group, state);
+        virtual_states[uber_id] = {
+            .type = ValueType::Boolean,
+            .name = name,
+            .value = core::Property<double>([](auto) {}, [] { return 1; }),
+            .readonly = true,
+        };
     }
 
     bool is_virtual_state(UberStateGroup group, int state) { return virtual_states.contains(std::make_pair(group, state)); }
@@ -84,6 +90,11 @@ namespace core::api::uber_states {
     ValueType get_virtual_type(UberStateGroup group, int state) {
         const auto it = virtual_states.find(std::make_pair(group, state));
         return it != virtual_states.end() ? it->second.type : ValueType::Unknown;
+    }
+
+    bool get_virtual_readonly(UberStateGroup group, int state) {
+        const auto it = virtual_states.find(std::make_pair(group, state));
+        return it != virtual_states.end() ? it->second.readonly : true;
     }
 
     double get_virtual_value(UberStateGroup group, int state) {
@@ -100,7 +111,7 @@ namespace core::api::uber_states {
 
     std::vector<uber_id_t> get_virtual_uber_ids() {
         auto keys = virtual_states | std::views::keys;
-        return { keys.begin(), keys.end() };
+        return {keys.begin(), keys.end()};
     }
 
     void virtual_notify_change(UberStateCallbackParams const& params) {

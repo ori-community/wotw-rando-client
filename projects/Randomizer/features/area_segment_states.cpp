@@ -1106,9 +1106,12 @@ namespace randomizer::area_segment_states {
             auto face_id = state_id % 10000;
 
             core::api::uber_states::register_virtual_state(
-                ValueType::Byte,
-                std::make_pair(UberStateGroup::MapSegments, state_id),
-                std::format("segment{}", state_id),
+                {
+                    .type = ValueType::Byte,
+                    .group = UberStateGroup::MapSegments,
+                    .state = state_id,
+                    .name = std::format("segment{}", state_id),
+                },
                 core::Property<double>(
                     [area_id, face_id](auto value) {
                         const auto info = core::api::game::player::get_area_map_information();
