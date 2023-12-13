@@ -236,6 +236,11 @@ namespace core::api::uber_states {
     }
 
     void UberState::set(double value, bool ignore_intercept, bool ignore_notify) const {
+        if (readonly()) {
+            warn("uber_state", std::format("tried to set readonly uber state ({}|{}) to '{}'", static_cast<int>(m_group), m_state, value));
+            return;
+        }
+
         // Prevent changes that don't change anything.
         // If the uber state currently has a volatile value set, we always
         // want to run the setter. Running the setter removes the volatile value.
