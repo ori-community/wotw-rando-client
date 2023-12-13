@@ -216,6 +216,7 @@ namespace {
                 {
                     {"name", uber_state.state_name()},
                     {"type", uber_state.type()},
+                    {"value_type", uber_state.value_type()},
                     {"value", uber_state.get<double>()},
                 }
             );

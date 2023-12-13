@@ -22,6 +22,7 @@ namespace core::api::uber_states {
             using setter = void (*)(double);
             using getter = double (*)();
 
+            ValueType type;
             std::string name;
             Property<double> value;
             std::shared_ptr<reactivity::ReactiveEffect> effect;
@@ -54,11 +55,11 @@ namespace core::api::uber_states {
             }
         }
 
-        auto virtual_notifier = notification_bus().register_handler(virtual_notify_change);
+        [[maybe_unused]] auto virtual_notifier = notification_bus().register_handler(virtual_notify_change);
     } // namespace
 
-    void register_virtual_state(const uber_id_t& uber_id, std::string name, const Property<double>& value, const bool polled) {
-        virtual_states[uber_id] = {.name = std::move(name), .value = value};
+    void register_virtual_state(const ValueType type, const uber_id_t& uber_id, std::string name, const Property<double>& value, const bool polled) {
+        virtual_states[uber_id] = {.type = type, .name = std::move(name), .value = value};
         if (polled) {
             polled_virtual_states.push_back(uber_id);
         } else {
@@ -70,24 +71,31 @@ namespace core::api::uber_states {
     }
 
     void register_virtual_event_state(uber_id_t const& uber_id, std::string name) {
-        virtual_states[uber_id] = {.name = std::move(name), .value = core::Property<double>([](auto) {}, [] { return 1; })};
+        virtual_states[uber_id] = {.type = ValueType::Boolean, .name = std::move(name), .value = core::Property<double>([](auto) {}, [] { return 1; })};
     }
 
     bool is_virtual_state(UberStateGroup group, int state) { return virtual_states.contains(std::make_pair(group, state)); }
 
     std::string get_virtual_name(UberStateGroup group, int state) {
-        auto it = virtual_states.find(std::make_pair(group, state));
-        return it->second.name;
+        const auto it = virtual_states.find(std::make_pair(group, state));
+        return it != virtual_states.end() ? it->second.name : "";
+    }
+
+    ValueType get_virtual_type(UberStateGroup group, int state) {
+        const auto it = virtual_states.find(std::make_pair(group, state));
+        return it != virtual_states.end() ? it->second.type : ValueType::Unknown;
     }
 
     double get_virtual_value(UberStateGroup group, int state) {
-        auto it = virtual_states.find(std::make_pair(group, state));
-        return it->second.value.get();
+        const auto it = virtual_states.find(std::make_pair(group, state));
+        return it != virtual_states.end() ? it->second.value.get() : 0.0;
     }
 
     void set_virtual_value(UberStateGroup group, int state, double value) {
-        auto it = virtual_states.find(std::make_pair(group, state));
-        it->second.value.set(value);
+        const auto it = virtual_states.find(std::make_pair(group, state));
+        if (it != virtual_states.end()) {
+            it->second.value.set(value);
+        }
     }
 
     std::vector<uber_id_t> get_virtual_uber_ids() {

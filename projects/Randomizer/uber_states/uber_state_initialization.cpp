@@ -470,15 +470,34 @@ namespace randomizer {
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 106), "onRequestLumaTrialText");
             register_virtual_event_state(std::make_pair(UberStateGroup::RandoEvents, 107), "onRequestWastesTrialText");
 
-            register_virtual_state(std::make_pair(UberStateGroup::Player, 0), "spiritLight", core::api::game::player::spirit_light().wrap<double>(), true);
-            register_virtual_state(std::make_pair(UberStateGroup::Player, 1), "gorlekOre", core::api::game::player::ore().wrap<double>(), true);
-            register_virtual_state(std::make_pair(UberStateGroup::Player, 2), "keystones", core::api::game::player::keystones().wrap<double>(), true);
-            register_virtual_state(std::make_pair(UberStateGroup::Player, 10), "maxHealth", core::api::game::player::max_health().wrap<double>(), true);
-            register_virtual_state(std::make_pair(UberStateGroup::Player, 11), "health", core::api::game::player::health().wrap<double>(), true);
-            register_virtual_state(std::make_pair(UberStateGroup::Player, 12), "maxEnergy", core::api::game::player::max_energy().wrap<double>(), true);
-            register_virtual_state(std::make_pair(UberStateGroup::Player, 13), "energy", core::api::game::player::energy().wrap<double>(), true);
+            register_virtual_state(
+                VirtualStateType::Integer,
+                std::make_pair(UberStateGroup::Player, 0),
+                "spiritLight",
+                core::api::game::player::spirit_light().wrap<double>(),
+                true
+            );
+            register_virtual_state(
+                VirtualStateType::Integer, std::make_pair(UberStateGroup::Player, 1), "gorlekOre", core::api::game::player::ore().wrap<double>(), true
+            );
+            register_virtual_state(
+                VirtualStateType::Integer, std::make_pair(UberStateGroup::Player, 2), "keystones", core::api::game::player::keystones().wrap<double>(), true
+            );
+            register_virtual_state(
+                VirtualStateType::Integer, std::make_pair(UberStateGroup::Player, 10), "maxHealth", core::api::game::player::max_health().wrap<double>(), true
+            );
+            register_virtual_state(
+                VirtualStateType::Float, std::make_pair(UberStateGroup::Player, 11), "health", core::api::game::player::health().wrap<double>(), true
+            );
+            register_virtual_state(
+                VirtualStateType::Float, std::make_pair(UberStateGroup::Player, 12), "maxEnergy", core::api::game::player::max_energy().wrap<double>(), true
+            );
+            register_virtual_state(
+                VirtualStateType::Float, std::make_pair(UberStateGroup::Player, 13), "energy", core::api::game::player::energy().wrap<double>(), true
+            );
 
             register_virtual_state(
+                VirtualStateType::Byte,
                 std::make_pair(UberStateGroup::Player, 50),
                 "currentArea",
                 core::Property<double>(
@@ -488,6 +507,7 @@ namespace randomizer {
                 true
             );
             register_virtual_state(
+                VirtualStateType::Byte,
                 std::make_pair(UberStateGroup::Goals, 500),
                 "totalRelicCount",
                 core::Property<double>(
@@ -497,6 +517,7 @@ namespace randomizer {
                 true
             );
             register_virtual_state(
+                VirtualStateType::Byte,
                 std::make_pair(UberStateGroup::Goals, 501),
                 "currentRelicCount",
                 core::Property<double>(
@@ -506,6 +527,7 @@ namespace randomizer {
                 true
             );
             register_virtual_state(
+                VirtualStateType::Byte,
                 std::make_pair(UberStateGroup::Goals, 502),
                 "currentTreeCount",
                 core::Property<double>(
@@ -529,6 +551,7 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
+                VirtualStateType::Byte,
                 std::make_pair(UberStateGroup::Goals, 503),
                 "currentWispCount",
                 core::Property<double>(
@@ -543,6 +566,7 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
+                VirtualStateType::Byte,
                 std::make_pair(UberStateGroup::Goals, 504),
                 "currentQuestCount",
                 core::Property<double>(
@@ -570,6 +594,7 @@ namespace randomizer {
             );
 
             register_virtual_state(
+                VirtualStateType::Boolean,
                 std::make_pair(UberStateGroup::Goals, 505),
                 "currentAreaHasUncollectedRelic",
                 core::Property<double>(
@@ -584,6 +609,7 @@ namespace randomizer {
 
             // Grom shop states
             register_virtual_state(
+                VirtualStateType::Boolean,
                 std::make_pair(UberStateGroup::GromShop, 16825),
                 "spiritWellBought",
                 core::Property<double>(
@@ -591,6 +617,7 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
+                VirtualStateType::Boolean,
                 std::make_pair(UberStateGroup::GromShop, 51230),
                 "housesABought",
                 core::Property<double>(
@@ -598,6 +625,7 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
+                VirtualStateType::Boolean,
                 std::make_pair(UberStateGroup::GromShop, 23607),
                 "housesBBought",
                 core::Property<double>(
@@ -605,6 +633,7 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
+                VirtualStateType::Boolean,
                 std::make_pair(UberStateGroup::GromShop, 40448),
                 "housesCBought",
                 core::Property<double>(
@@ -612,6 +641,7 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
+                VirtualStateType::Boolean,
                 std::make_pair(UberStateGroup::GromShop, 18751),
                 "removeThornsBought",
                 core::Property<double>(
@@ -619,6 +649,7 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
+                VirtualStateType::Boolean,
                 std::make_pair(UberStateGroup::GromShop, 16586),
                 "openCaveBought",
                 core::Property<double>(
@@ -626,6 +657,7 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
+                VirtualStateType::Boolean,
                 std::make_pair(UberStateGroup::GromShop, 15068),
                 "beautifyBought",
                 core::Property<double>(
@@ -635,6 +667,7 @@ namespace randomizer {
 
             // Tuley shop states
             register_virtual_state(
+                VirtualStateType::Boolean,
                 std::make_pair(UberStateGroup::TuleyShop, 47651),
                 "lightcatchers",
                 core::Property<double>(
@@ -642,6 +675,7 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
+                VirtualStateType::Boolean,
                 std::make_pair(UberStateGroup::TuleyShop, 16254),
                 "selaFlowers",
                 core::Property<double>(
@@ -649,6 +683,7 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
+                VirtualStateType::Boolean,
                 std::make_pair(UberStateGroup::TuleyShop, 33011),
                 "blueMoon",
                 core::Property<double>(
@@ -656,6 +691,7 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
+                VirtualStateType::Boolean,
                 std::make_pair(UberStateGroup::TuleyShop, 64583),
                 "stickyGrass",
                 core::Property<double>(
@@ -663,6 +699,7 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
+                VirtualStateType::Boolean,
                 std::make_pair(UberStateGroup::TuleyShop, 38393),
                 "springPlants",
                 core::Property<double>(
@@ -670,6 +707,7 @@ namespace randomizer {
                 )
             );
             register_virtual_state(
+                VirtualStateType::Boolean,
                 std::make_pair(UberStateGroup::TuleyShop, 40006),
                 "lastTree",
                 core::Property<double>(
@@ -714,6 +752,7 @@ namespace randomizer {
 
             for (const auto& [type, name]: skills) {
                 register_virtual_state(
+                    VirtualStateType::Boolean,
                     std::make_pair(UberStateGroup::Skills, static_cast<int>(type)),
                     std::string(name),
                     core::Property<double>(
@@ -775,6 +814,7 @@ namespace randomizer {
 
             for (const auto& [type, name]: shards) {
                 register_virtual_state(
+                    VirtualStateType::Boolean,
                     std::make_pair(UberStateGroup::Shards, static_cast<int>(type)),
                     std::string(name),
                     core::Property<double>(

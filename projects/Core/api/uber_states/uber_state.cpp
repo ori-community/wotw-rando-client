@@ -491,6 +491,32 @@ namespace core::api::uber_states {
         return m_type.value();
     }
 
+    ValueType UberState::value_type() const {
+        switch (type()) {
+            case UberStateType::VirtualUberState:
+                return get_virtual_type(m_group, m_state);
+            case UberStateType::FloatUberState:
+            case UberStateType::SerializedFloatUberState:
+                return ValueType::Float;
+            case UberStateType::ByteUberState:
+            case UberStateType::SerializedByteUberState:
+                return ValueType::Byte;
+            case UberStateType::CountUberState:
+            case UberStateType::IntUberState:
+            case UberStateType::SerializedIntUberState:
+                return ValueType::Integer;
+            case UberStateType::BooleanUberState:
+            case UberStateType::SerializedBooleanUberState:
+            case UberStateType::SavePedestalUberState:
+            case UberStateType::ConditionUberState:
+                return ValueType::Boolean;
+            case UberStateType::PlayerUberStateDescriptor:
+            case UberStateType::Unknown:
+            default:
+                return ValueType::Unknown;
+        }
+    }
+
     std::string UberState::to_string(const bool use_names, const std::optional<double> previous_value, std::optional<double> current_value) const {
         return std::format(
             "({}|{}) = {}",

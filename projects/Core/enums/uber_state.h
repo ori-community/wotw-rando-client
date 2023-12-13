@@ -49,6 +49,14 @@ enum class UberStateType : uint8_t {
     Unknown
 };
 
+enum class ValueType : uint8_t {
+    Unknown,
+    Boolean,
+    Byte,
+    Integer,
+    Float,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(
         UberStateType,
         {
