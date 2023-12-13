@@ -51,7 +51,7 @@ namespace core::api::game::player {
         std::unordered_map<app::AbilityType__Enum, app::EquipmentType__Enum> ability_to_equip_map{
             {app::AbilityType__Enum::Bash,             app::EquipmentType__Enum::Ability_Bash              },
             {app::AbilityType__Enum::DoubleJump,       app::EquipmentType__Enum::Ability_DoubleJump        },
-            {app::AbilityType__Enum::Launch,           app::EquipmentType__Enum::Spell_ChargeJump          },
+            {app::AbilityType__Enum::ChargeJump,       app::EquipmentType__Enum::Spell_ChargeJump          },
             {app::AbilityType__Enum::Glide,            app::EquipmentType__Enum::AutoAbility_Glide         },
             {app::AbilityType__Enum::WaterBreath,      app::EquipmentType__Enum::AutoAbility_WaterBreath   },
             {app::AbilityType__Enum::Grenade,          app::EquipmentType__Enum::Spell_StickyMine          },
