@@ -171,10 +171,10 @@ namespace core::api::uber_states {
             uber_state.set(value);
         }
 
-        app::UberID create_uber_id(int id) {
+        app::UberID create_uber_id(const int id) {
             app::UberID uber_id{};
             uber_id.monitor = nullptr;
-            uber_id.klass = reinterpret_cast<app::UberID__Class*>(types::UberID::get_class());
+            uber_id.klass = types::UberID::get_class();
             uber_id.fields.m_id = id;
             return uber_id;
         }
@@ -189,7 +189,7 @@ namespace core::api::uber_states {
         m_group(UberStateGroup::Invalid),
         m_state(0) {}
 
-    UberState::UberState(int group, int state) :
+    UberState::UberState(const int group, const int state) :
         m_type(std::nullopt),
         m_group(static_cast<UberStateGroup>(group)),
         m_state(state) {
@@ -207,7 +207,7 @@ namespace core::api::uber_states {
         }
     }
 
-    UberState::UberState(UberStateGroup group, int state) :
+    UberState::UberState(const UberStateGroup group, const int state) :
         m_type(std::nullopt),
         m_group(group),
         m_state(state) {
@@ -216,7 +216,7 @@ namespace core::api::uber_states {
         }
     }
 
-    UberState::UberState(UberStateGroup group, app::AbilityType__Enum state) :
+    UberState::UberState(const UberStateGroup group, const app::AbilityType__Enum state) :
         m_type(std::nullopt),
         m_group(group),
         m_state(static_cast<int>(state)) {
@@ -237,7 +237,7 @@ namespace core::api::uber_states {
         return ptr() != nullptr;
     }
 
-    void UberState::set(double value, bool ignore_intercept, bool ignore_notify) const {
+    void UberState::set(const double value, const bool ignore_intercept, const bool ignore_notify) const {
         if (type() == UberStateType::Unknown) {
             warn("uber_state", std::format("uber state ({}|{}) doesn't exist or is an unknown type", static_cast<int>(m_group), m_state));
             return;
