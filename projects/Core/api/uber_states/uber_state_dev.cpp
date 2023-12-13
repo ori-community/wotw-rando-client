@@ -218,6 +218,7 @@ namespace {
                     {"type", uber_state.type()},
                     {"value_type", uber_state.value_type()},
                     {"value", uber_state.get<double>()},
+                    {"readonly", uber_state.readonly()},
                 }
             );
         };
