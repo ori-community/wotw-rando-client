@@ -1,11 +1,14 @@
+#include <Core/api/game/player.h>
 #include <Randomizer/constants.h>
 
 #include <Core/api/uber_states/uber_state.h>
+#include <Core/property/reactivity.h>
 
 #include <Modloader/app/methods/GeneralDebugMenuPage.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAbilities.h>
 #include <Modloader/app/methods/SeinDashNew.h>
 #include <Modloader/interception.h>
+#include <Modloader/modloader.h>
 
 using namespace app::classes;
 
@@ -80,4 +83,14 @@ namespace {
 
         return next::GeneralDebugMenuPage::GetAbility(this_ptr, abilityType);
     }
+
+    std::shared_ptr<core::reactivity::ReactiveEffect> on_dash_changed_effect;
+    auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        on_dash_changed_effect = core::reactivity::watch_effect()
+            .effect({ dash_state })
+            .after([]() {
+                core::api::game::player::ability(app::AbilityType__Enum::DashNew).set(dash_state.get<bool>());
+            })
+            .finalize();
+    });
 } // namespace
