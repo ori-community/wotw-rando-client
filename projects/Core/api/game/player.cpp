@@ -58,7 +58,7 @@ namespace core::api::game::player {
             {app::AbilityType__Enum::SpiritLeash,      app::EquipmentType__Enum::Ability_Leash             },
             {app::AbilityType__Enum::GlowSpell,        app::EquipmentType__Enum::Spell_Glow                },
             {app::AbilityType__Enum::SpiritSpearSpell, app::EquipmentType__Enum::Spell_Spear               },
-            {app::AbilityType__Enum::Regenerate,       app::EquipmentType__Enum::Spell_Meditate            },
+            {app::AbilityType__Enum::MeditateSpell,    app::EquipmentType__Enum::Spell_Meditate            },
             {app::AbilityType__Enum::Bow,              app::EquipmentType__Enum::Weapon_Bow                },
             {app::AbilityType__Enum::Hammer,           app::EquipmentType__Enum::Weapon_Hammer             },
             {app::AbilityType__Enum::Sword,            app::EquipmentType__Enum::Weapon_Sword              },
