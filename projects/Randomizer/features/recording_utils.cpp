@@ -412,9 +412,7 @@ namespace {
                 case OrishotState::Screenshot: {
                     console::console_send(std::format("Capturing screenshot {}-{}", column, row));
 
-                    UnityEngine::ScreenCapture::CaptureScreenshot_1(
-                            il2cpp::string_new(std::format(R"(C:\Users\Timo\orishots2\{}-{}.png)", column, row))
-                    );
+                    UnityEngine::ScreenCapture::CaptureScreenshot_1(il2cpp::string_new(std::format(R"(C:\Users\Timo\orishots2\{}-{}.png)", column, row)));
 
                     column++;
                     current_x += DELTA_X;
@@ -437,6 +435,10 @@ namespace {
                     position_ori_and_unload();
                     break;
                 }
+                case OrishotState::None:
+                    break;
+                case OrishotState::Wait:
+                    break;
             }
         }
     });

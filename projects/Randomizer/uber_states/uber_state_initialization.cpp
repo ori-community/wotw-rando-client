@@ -471,13 +471,13 @@ namespace randomizer {
             register_virtual_event_state(UberStateGroup::RandoEvents, 107, "onRequestWastesTrialText");
 
             using namespace core::api::game::player;
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 0, "spiritLight", .polled = true}, spirit_light().wrap<double>());
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 1, "gorlekOre", .polled = true}, ore().wrap<double>());
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 2, "keystones", .polled = true}, keystones().wrap<double>());
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 10, "maxHealth", .polled = true}, max_health().wrap<double>());
-            register_virtual_state({ValueType::Float, UberStateGroup::Player, 11, "health", .polled = true}, health().wrap<double>());
-            register_virtual_state({ValueType::Float, UberStateGroup::Player, 12, "maxEnergy", .polled = true}, max_energy().wrap<double>());
-            register_virtual_state({ValueType::Float, UberStateGroup::Player, 13, "energy", .polled = true}, energy().wrap<double>());
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 0, "spiritLight", false, true}, spirit_light().wrap<double>());
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 1, "gorlekOre", false, true}, ore().wrap<double>());
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 2, "keystones", false, true}, keystones().wrap<double>());
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 10, "maxHealth", false, true}, max_health().wrap<double>());
+            register_virtual_state({ValueType::Float, UberStateGroup::Player, 11, "health", false, true}, health().wrap<double>());
+            register_virtual_state({ValueType::Float, UberStateGroup::Player, 12, "maxEnergy", false, true}, max_energy().wrap<double>());
+            register_virtual_state({ValueType::Float, UberStateGroup::Player, 13, "energy", false, true}, energy().wrap<double>());
 
             register_virtual_state(
                 {
@@ -485,8 +485,8 @@ namespace randomizer {
                     .group = UberStateGroup::Player,
                     .state = 50,
                     .name = "currentArea",
-                    .polled = true,
                     .readonly = true,
+                    .polled = true,
                 },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentArea (5, 50) is read only."); },
@@ -499,8 +499,8 @@ namespace randomizer {
                     .group = UberStateGroup::Goals,
                     .state = 500,
                     .name = "totalRelicCount",
-                    .polled = true,
                     .readonly = true,
+                    .polled = true,
                 },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate totalRelicCount (23, 500) is read only."); },
@@ -513,8 +513,8 @@ namespace randomizer {
                     .group = UberStateGroup::Goals,
                     .state = 501,
                     .name = "currentRelicCount",
-                    .polled = true,
                     .readonly = true,
+                    .polled = true,
                 },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentRelicCount (23, 501) is read only."); },
@@ -606,8 +606,8 @@ namespace randomizer {
                     .group = UberStateGroup::Goals,
                     .state = 505,
                     .name = "currentAreaHasUncollectedRelic",
-                    .polled = true,
                     .readonly = true,
+                    .polled = true,
                 },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentAreaHasUncollectedRelic (23, 505) is read only."); },
