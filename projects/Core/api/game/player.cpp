@@ -63,7 +63,7 @@ namespace core::api::game::player {
             {app::AbilityType__Enum::Hammer,           app::EquipmentType__Enum::Weapon_Hammer             },
             {app::AbilityType__Enum::Sword,            app::EquipmentType__Enum::Weapon_Sword              },
             {app::AbilityType__Enum::Digging,          app::EquipmentType__Enum::Ability_Digging           },
-            {app::AbilityType__Enum::Dash,             app::EquipmentType__Enum::AutoAbility_Dash          },
+            {app::AbilityType__Enum::DashNew,          app::EquipmentType__Enum::AutoAbility_Dash          },
             {app::AbilityType__Enum::WaterDash,        app::EquipmentType__Enum::AutoAbility_WaterDash     },
             {app::AbilityType__Enum::ChakramSpell,     app::EquipmentType__Enum::Spell_Chakram             },
             {app::AbilityType__Enum::GoldenSein,       app::EquipmentType__Enum::Spell_GoldenSein          },
