@@ -28,7 +28,7 @@ namespace randomizer::seed {
             std::string slug;
             int world_index = 0;
             bool race_mode = false;
-            bool net_code_enabled = false; // TODO: Remove this.
+            bool online = false; // TODO: Remove this.
         };
 
         struct SeedInfo {

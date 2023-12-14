@@ -83,7 +83,7 @@ namespace randomizer::main_menu_seed_info {
                 ? std::make_optional(std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result))
                 : std::nullopt;
 
-            const auto should_display_network_info = player.has_value() && seed_metadata.has_value() && seed_metadata.value().net_code_enabled;
+            const auto should_display_network_info = player.has_value() && seed_metadata.has_value() && seed_metadata.value().online;
 
             if (should_display_network_info) {
                 name_property.set(player.value().user.name());
@@ -271,7 +271,7 @@ namespace randomizer::main_menu_seed_info {
                     current_seed_path = seed_meta_data->path.string();
 
                     if (std::holds_alternative<seed::Seed::SeedMetaData>(meta)) {
-                        should_connect = std::get<seed::Seed::SeedMetaData>(meta).net_code_enabled;
+                        should_connect = std::get<seed::Seed::SeedMetaData>(meta).online;
                     }
                 } else {
                     current_seed_path = std::nullopt;
@@ -289,7 +289,7 @@ namespace randomizer::main_menu_seed_info {
                 current_seed_path = game_seed().path().string();
                 current_seed_meta_data_result = game_seed().info().meta;
 
-                if (game_seed().info().meta.net_code_enabled) {
+                if (game_seed().info().meta.online) {
                     randomizer::server_connect();
                 } else {
                     randomizer::server_disconnect();

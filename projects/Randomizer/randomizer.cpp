@@ -109,7 +109,7 @@ namespace randomizer {
                 queue_reach_check();
                 uber_states::disable_reverts() = false;
 
-                if (randomizer_seed.info().meta.net_code_enabled) {
+                if (randomizer_seed.info().meta.online) {
                     multiplayer_universe().report_player_save_guid(core::save_meta::get_current_save_guid());
                 }
             });
@@ -195,7 +195,7 @@ namespace randomizer {
             seed_save_data = std::make_unique<seed::SaveSlotSeedMetaData>();
             register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::None, seed_save_data);
             load_seed(true, false);
-            if (!core::settings::netcode_disabled() && randomizer_seed.info().meta.net_code_enabled) {
+            if (!core::settings::netcode_disabled() && randomizer_seed.info().meta.online) {
                 server_connect();
             }
         });
@@ -235,7 +235,7 @@ namespace randomizer {
 
         core::settings::reload();
         load_seed(TitleScreenManager::get_MainMenuActive(), true);
-        if (!core::settings::netcode_disabled() && randomizer_seed.info().meta.net_code_enabled) {
+        if (!core::settings::netcode_disabled() && randomizer_seed.info().meta.online) {
             server_connect();
         }
     }

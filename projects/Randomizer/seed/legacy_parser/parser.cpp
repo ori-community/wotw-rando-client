@@ -1996,7 +1996,7 @@ namespace randomizer::seed::legacy_parser {
             data->info.meta.slug = trim_copy(line.substr(sizeof("Slug:")));
         } else if (line.starts_with("// Config:")) {
             auto j = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
-            data->info.meta.net_code_enabled = j.value("online", false);
+            data->info.meta.online = j.value("online", false);
         }
 
         // If we don't match anything here it's a comment, and we can ignore it.
@@ -2034,7 +2034,7 @@ namespace randomizer::seed::legacy_parser {
                 meta.slug = trim_copy(line.substr(sizeof("Slug:")));
             } else if (line.starts_with("// Config:")) {
                 auto j = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
-                meta.net_code_enabled = j.value("online", false);
+                meta.online = j.value("online", false);
             } else if (line.starts_with("Flags:")) {
                 split_str(line.substr(6), meta.flags, ',');
                 for (auto& flag: meta.flags) {
