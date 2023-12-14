@@ -5,7 +5,7 @@
 #include <nlohmann/json.hpp>
 
 namespace core::settings {
-    common::settings::Settings get_settings() {
+    common::settings::Settings& get_settings() {
         static std::unique_ptr<common::settings::Settings> settings;
 
         if (settings == nullptr) {

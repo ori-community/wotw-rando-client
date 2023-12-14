@@ -82,13 +82,14 @@ namespace randomizer::features::wheel {
         initialize_item(9000, 11, "Next", "Go to next page of actions", "file:assets/icons/wheel/menu.blue.png",
                         [](auto, auto, auto) { set_active_wheel(9001); });
 
-        initialize_item(9001, 0, "Toggle dev", "Toggles the dev flag.", "file:assets/icons/wheel/dev_mode.blue.png",
+        initialize_item(9001, 0, "Toggle dev", "Toggle developer tools", "file:assets/icons/wheel/dev_mode.blue.png",
                         [](auto, auto, auto) {
                             core::settings::dev_mode(!core::settings::dev_mode());
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>::format("Dev mode: {}", core::settings::dev_mode()),
                                 .prioritized = true,
                             });
+                            on_dev_changed();
                         });
         initialize_item(9001, 1, "Toggle debug", "Toggle debug controls", "file:assets/icons/wheel/toggle_debug.blue.png",
                         [](auto, auto, auto) {
@@ -98,7 +99,7 @@ namespace randomizer::features::wheel {
                                 .prioritized = true,
                             });
                         });
-        initialize_item(9001, 2, "Reload file textures", "Reloads all textures with the file: designation", "file:assets/icons/wheel/reload_file_textures.blue.png",
+        initialize_item(9001, 2, "Reload file textures", "Reloads all 'file:' textures", "file:assets/icons/wheel/reload_file_textures.blue.png",
                         [](auto, auto, auto) {
                             core::api::graphics::textures::reload_all_file_textures();
                             core::message_controller().queue_central({
