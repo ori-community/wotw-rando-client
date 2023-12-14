@@ -286,6 +286,7 @@ namespace randomizer::main_menu_seed_info {
 
                 update_text();
             } else {
+                current_seed_path = game_seed().path().string();
                 current_seed_meta_data_result = game_seed().info().meta;
 
                 if (game_seed().info().meta.net_code_enabled) {
