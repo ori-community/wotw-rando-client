@@ -46,6 +46,7 @@ namespace randomizer::text_processors {
             replace_all(output, "*", "");
             replace_all(output, "#", "");
             replace_all(output, "$", "");
+            replace_all(output, "@", "");
             return output;
         }
     } // namespace

@@ -1349,6 +1349,7 @@ namespace randomizer::seed::legacy_parser {
         set_location(message.get(), location);
         data.add_item(message);
         data.location_data.names.emplace_back().set(relic_name);
+        data.location_data.icons.emplace_back(MapIcon::MapstonePickup);
 
         return true;
     }
