@@ -92,7 +92,7 @@ namespace {
     };
 
     std::unordered_map<MapIcon, std::tuple<MapIcon, int>> icon_default_variants{
-        {MapIcon::TeleporterInactive,  {MapIcon::Teleporter, 1}},
+        {MapIcon::SavePedestalInactive,  {MapIcon::SavePedestal, 1}},
         {MapIcon::RaceStartUnfinished, {MapIcon::RaceStart, 1} },
     };
 

@@ -74,7 +74,7 @@ enum class MapIcon {
     Siira = 75,
 
     // Rando Icons
-    TeleporterInactive = 76,
+    SavePedestalInactive = 76,
     RaceStartUnfinished = 77,
 
     CleanWater = 100,
