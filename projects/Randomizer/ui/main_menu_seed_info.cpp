@@ -12,6 +12,7 @@
 #include <Modloader/app/methods/SaveGameController.h>
 #include <Modloader/app/methods/SaveSlotsManager.h>
 #include <Modloader/app/methods/System/IO/File.h>
+#include <Modloader/app/methods/SaveSlotsUI.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/XboxLiveIdentityUI.h>
 #include <Modloader/modloader.h>
@@ -29,6 +30,7 @@ namespace randomizer::main_menu_seed_info {
         constexpr int MAX_DISPLAYED_SEED_PATH_LENGTH = 32;
 
         bool is_in_main_menu = false;
+        bool is_in_save_slots_ui_on_enable = false;
 
         std::vector<std::shared_ptr<core::reactivity::ReactiveEffect>> reactive_effects;
 
@@ -247,6 +249,11 @@ namespace randomizer::main_menu_seed_info {
         IL2CPP_INTERCEPT(SaveSlotsManager, void, set_CurrentSlotIndex, (int index)) {
             next::SaveSlotsManager::set_CurrentSlotIndex(index);
 
+            // Don't run the logic if we are currently in SaveSlotsUI::OnEnable
+            if (is_in_save_slots_ui_on_enable) {
+                return;
+            }
+
             if (SaveSlotsManager::SaveFileExists(index)) {
                 on_seed_loaded_handle = nullptr;
 
@@ -301,6 +308,11 @@ namespace randomizer::main_menu_seed_info {
                     update_text();
                 });
             }
+        }
+
+        IL2CPP_INTERCEPT(SaveSlotsUI, void, OnEnable, (app::SaveSlotsUI * this_ptr)) {
+            modloader::ScopedSetter setter(is_in_save_slots_ui_on_enable, true);
+            next::SaveSlotsUI::OnEnable(this_ptr);
         }
     } // namespace
 
