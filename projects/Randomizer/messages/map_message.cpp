@@ -21,7 +21,14 @@ namespace randomizer::messages {
             box->text_processor(general_text_processor());
         }
 
-        box->text().process_and_set(text);
+        if (text.length() > 500) {
+            box->text().process_and_set(std::format("<s_0.7><ls_0.8>{}</></>", text));
+        } else if (text.length() > 250) {
+            box->text().process_and_set(std::format("<s_0.85><ls_0.9>{}</></>", text));
+        } else {
+            box->text().process_and_set(text);
+        }
+
         box->show(true, false);
     }
 
