@@ -82,7 +82,9 @@ namespace core::api::game {
             next::GameController::FixedUpdate(this_ptr);
             game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::After);
             if (save_requested && can_save()) {
-                save(false, save_request_options);
+                if (save(false, save_request_options)) {
+                    save_requested = false;
+                }
             }
         }
 
@@ -178,16 +180,21 @@ namespace core::api::game {
         save(true, SaveOptions(refill, refill_instantly, false, restore_instantly));
     }
 
-    void save(bool queue, const SaveOptions& options) {
+    bool save(bool queue, const SaveOptions& options) {
         if (queue && !can_save()) {
             save_requested = true;
             save_request_options = options;
-            return;
+            return true;
         }
 
-        auto sein = game::player::sein();
-        auto health_controller = sein->fields.Mortality->fields.Health;
-        auto energy = sein->fields.Energy;
+        const auto sein = game::player::sein();
+
+        if (sein == nullptr) {
+            return false;
+        }
+
+        const auto health_controller = sein->fields.Mortality->fields.Health;
+        const auto energy = sein->fields.Energy;
         StoredHealthAndEnergy health_and_energy_to_restore{};
 
         if (options.refill) {
@@ -214,6 +221,8 @@ namespace core::api::game {
             energy->fields.MinVisual = health_and_energy_to_restore.energy;
             energy->fields.MaxVisual = health_and_energy_to_restore.energy;
         }
+
+        return true;
     }
 
     void load(bool immediate) {

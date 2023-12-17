@@ -55,7 +55,7 @@ namespace core::api::game {
 
     CORE_DLLEXPORT bool can_save();
     CORE_DLLEXPORT void checkpoint(bool refill = false, bool refill_instantly = true, bool restore_instantly = false);
-    CORE_DLLEXPORT void save(bool queue = false, const SaveOptions& options = SaveOptions(false, false, true, false));
+    CORE_DLLEXPORT bool save(bool queue = false, const SaveOptions& options = SaveOptions(false, false, true, false));
 
     CORE_DLLEXPORT void load(bool immediate = false);
 
