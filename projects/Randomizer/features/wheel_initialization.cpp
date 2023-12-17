@@ -111,11 +111,21 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {});
         initialize_item(9001, 4, "Display coordinates", "Displays your current\ncoordinates as a message", "file:assets/icons/wheel/show_coordinates.blue.png",
                         [](auto, auto, auto) {
-                            auto position = core::api::game::player::get_position();
-                            core::message_controller().queue_central({
-                                .text = core::Property<std::string>::format("[ {}, {}, {} ]", position.x, position.y, position.z),
-                                .prioritized = true,
-                            });
+                            static core::api::messages::MessageBox box;
+                            static common::registration_handle_t handle;
+                            if (handle == nullptr) {
+                                box.screen_position().set(core::api::messages::ScreenPosition::BottomLeft);
+                                box.position().set(1, 0, 0);
+                                box.show_box().set(false);
+                                box.show(false, false);
+                                handle = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [](auto, auto) {
+                                    const auto [x, y, z] = core::api::game::player::get_position();
+                                    box.text().set_format("{:.3f}, {:.3f}", x, y);
+                                });
+                            } else {
+                                handle = nullptr;
+                                box.hide();
+                            }
                         });
         initialize_item(9001, 5, "Teleport cheat", "Toggles cheat to teleport\nanywhere on the map", "file:assets/icons/wheel/teleport_cheat.blue.png",
                         [](auto, auto, auto) {

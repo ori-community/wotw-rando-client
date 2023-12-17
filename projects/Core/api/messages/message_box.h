@@ -68,24 +68,24 @@ namespace core::api::messages {
         [[nodiscard]] app::Rect text_bounds() const;
         [[nodiscard]] app::Rect bounds() const;
 
-        [[nodiscard]] Property<std::string> text() { return m_text; }
-        void text_processor(std::shared_ptr<text::ITextProcessor> text_processor) { m_text.text_processor(text_processor); }
+        [[nodiscard]] const Property<std::string>& text() { return m_text; }
+        void text_processor(const std::shared_ptr<text::ITextProcessor>& text_processor) { m_text.text_processor(text_processor); }
 
-        [[nodiscard]] Property<app::Vector3> position() { return m_position; }
-        [[nodiscard]] Property<bool> use_world_coordinates() { return m_use_world_coordinates; }
-        [[nodiscard]] Property<bool> show_box() { return m_show_box; }
-        [[nodiscard]] Property<float> fade_in() { return m_fade_in; }
-        [[nodiscard]] Property<float> fade_out() { return m_fade_out; }
-        [[nodiscard]] Property<app::Color> color() { return m_color; }
-        [[nodiscard]] Property<float> line_spacing() { return m_line_spacing; }
-        [[nodiscard]] Property<app::AlignmentMode__Enum> alignment() { return m_alignment; }
-        [[nodiscard]] Property<app::HorizontalAnchorMode__Enum> horizontal_anchor() { return m_horizontal_anchor; }
-        [[nodiscard]] Property<app::VerticalAnchorMode__Enum> vertical_anchor() { return m_vertical_anchor; }
-        [[nodiscard]] Property<float> top_padding() { return m_top_padding; }
-        [[nodiscard]] Property<float> bottom_padding() { return m_bottom_padding; }
-        [[nodiscard]] Property<float> left_padding() { return m_left_padding; }
-        [[nodiscard]] Property<float> right_padding() { return m_right_padding; }
-        [[nodiscard]] Property<std::optional<ScreenPosition>> screen_position() { return m_screen_position; }
+        [[nodiscard]] const Property<app::Vector3>& position() { return m_position; }
+        [[nodiscard]] const Property<bool>& use_world_coordinates() { return m_use_world_coordinates; }
+        [[nodiscard]] const Property<bool>& show_box() { return m_show_box; }
+        [[nodiscard]] const Property<float>& fade_in() { return m_fade_in; }
+        [[nodiscard]] const Property<float>& fade_out() { return m_fade_out; }
+        [[nodiscard]] const Property<app::Color>& color() { return m_color; }
+        [[nodiscard]] const Property<float>& line_spacing() { return m_line_spacing; }
+        [[nodiscard]] const Property<app::AlignmentMode__Enum>& alignment() { return m_alignment; }
+        [[nodiscard]] const Property<app::HorizontalAnchorMode__Enum>& horizontal_anchor() { return m_horizontal_anchor; }
+        [[nodiscard]] const Property<app::VerticalAnchorMode__Enum>& vertical_anchor() { return m_vertical_anchor; }
+        [[nodiscard]] const Property<float>& top_padding() { return m_top_padding; }
+        [[nodiscard]] const Property<float>& bottom_padding() { return m_bottom_padding; }
+        [[nodiscard]] const Property<float>& left_padding() { return m_left_padding; }
+        [[nodiscard]] const Property<float>& right_padding() { return m_right_padding; }
+        [[nodiscard]] const Property<std::optional<ScreenPosition>>& screen_position() { return m_screen_position; }
     private:
         void render_text_box();
         app::Transform* background_transform() const;

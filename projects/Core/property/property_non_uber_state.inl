@@ -77,6 +77,14 @@ struct core::Property<T> {
         set(get() + value);
     }
 
+    void add(const float x, const float y) const requires std::is_same_v<T, app::Vector2> {
+        set(get() + app::Vector2{x, y});
+    }
+
+    void add(const float x, const float y, const float z) const requires std::is_same_v<T, app::Vector3> {
+        set(get() + app::Vector3{x, y, z});
+    }
+
     void assign(value_type value) {
         m_value = value;
         notify_changed(reactivity::PropertyDependency(m_id));

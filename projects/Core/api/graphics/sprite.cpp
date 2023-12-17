@@ -114,7 +114,7 @@ namespace core::api::graphics {
     } // namespace
 
     Sprite::Sprite(app::GameObject* parent) {
-        m_root = reinterpret_cast<app::GameObject*>(il2cpp::unity::instantiate_object(find_prefab()));
+        m_root = il2cpp::unity::instantiate_object(find_prefab());
         m_renderer = il2cpp::unity::get_component<app::Renderer>(m_root, types::Renderer::get_class());
         il2cpp::unity::set_active(m_root, false);
         if (parent == nullptr) {
