@@ -296,7 +296,11 @@ namespace randomizer::game::map {
                     const auto condition = location.condition;
                     icon->icon().assign([](auto) {}, [condition, game_finished] {
                         const auto new_location = location_collection().location(condition);
-                        return !new_location.has_value() || game_finished.get<bool>() ? game_seed().icon(condition) : select_icon(new_location.value());
+                        if (!new_location.has_value()) {
+                            return MapIcon::Eyestone;
+                        }
+
+                        return game_finished.get<bool>() ? game_seed().icon(new_location.value().name) : select_icon(new_location.value());
                     });
 
                     icon->position().set(location.map_position.value());

@@ -34,7 +34,7 @@ namespace randomizer::ipc {
             nlohmann::json response;
             response["type"] = "response";
             response["id"] = j.at("id").get<int>();
-            response["payload"] = game_seed().info().meta.flags;
+            response["payload"] = game_seed().parser_output().meta.flags;
             send_message(response);
         }
 
@@ -176,14 +176,14 @@ namespace randomizer::ipc {
 
         void get_total_pickup_count(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
-            response["payload"]["count"] = game_seed().info().total_pickups;
+            response["payload"]["count"] = game_seed().parser_output().meta.total_pickups;
             core::ipc::send_message(response);
         }
 
         void get_pickup_count_by_area(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
             const auto area = j.at("area").get<GameArea>();
-            const auto& pickup_count_by_area = game_seed().info().pickup_count_by_area;
+            const auto& pickup_count_by_area = game_seed().parser_output().meta.pickup_count_by_area;
             auto it = pickup_count_by_area.find(area);
             const auto count = it != pickup_count_by_area.end() ? it->second : 0;
             response["payload"]["count"] = count;
@@ -192,18 +192,18 @@ namespace randomizer::ipc {
 
         void get_pickup_counts(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
-            const auto& info = game_seed().info();
+            const auto& info = game_seed().parser_output();
 
             nlohmann::json areas;
             for (auto i = 0; i < static_cast<int>(GameArea::TOTAL); ++i) {
                 auto area = static_cast<GameArea>(i);
-                auto it = info.pickup_count_by_area.find(area);
-                if (it != info.pickup_count_by_area.end()) {
+                auto it = info.meta.pickup_count_by_area.find(area);
+                if (it != info.meta.pickup_count_by_area.end()) {
                     areas[std::to_string(static_cast<int>(area))] = it->second;
                 }
             }
 
-            response["payload"]["total"] = info.total_pickups;
+            response["payload"]["total"] = info.meta.total_pickups;
             response["payload"]["areas"] = areas;
             core::ipc::send_message(response);
         }

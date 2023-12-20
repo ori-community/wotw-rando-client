@@ -17,7 +17,7 @@
 #include <Modloader/app/types/XboxLiveIdentityUI.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/randomizer.h>
-#include <Randomizer/seed/legacy_parser/parser.h>
+#include <Randomizer/seed/parser.h>
 #include <magic_enum.hpp>
 
 using namespace utils;
@@ -50,7 +50,7 @@ namespace randomizer::main_menu_seed_info {
         common::registration_handle_t on_multiverse_update_handle;
 
         std::optional<std::string> current_seed_path = std::nullopt;
-        std::variant<seed::Seed::SeedMetaData, seed::legacy_parser::ParserError, generic_error_t> current_seed_meta_data_result = std::string("No seed loaded");
+        std::variant<seed::SeedMetaData, seed::ParserError, generic_error_t> current_seed_meta_data_result = std::string("No seed loaded");
         auto current_network_state = online::NetworkClient::State::Closed;
 
         void on_network_status(const online::NetworkClient::State state) {
@@ -81,8 +81,8 @@ namespace randomizer::main_menu_seed_info {
         void update_text() {
             auto const& player = multiplayer_universe().local_player();
 
-            const auto seed_metadata = std::holds_alternative<seed::Seed::SeedMetaData>(current_seed_meta_data_result)
-                ? std::make_optional(std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result))
+            const auto seed_metadata = std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)
+                ? std::make_optional(std::get<seed::SeedMetaData>(current_seed_meta_data_result))
                 : std::nullopt;
 
             const auto should_display_network_info = player.has_value() && seed_metadata.has_value() && seed_metadata.value().online;
@@ -114,11 +114,11 @@ namespace randomizer::main_menu_seed_info {
                 for (auto flag: meta.flags) {
                     description += std::format("\n   - {}", flag);
                 }
-            } else if (holds_any_of<seed::legacy_parser::ParserError, generic_error_t>(current_seed_meta_data_result)) {
+            } else if (holds_any_of<seed::ParserError, generic_error_t>(current_seed_meta_data_result)) {
                 description += "Error loading seed:\n";
 
-                if (std::holds_alternative<seed::legacy_parser::ParserError>(current_seed_meta_data_result)) {
-                    description += magic_enum::enum_name(std::get<seed::legacy_parser::ParserError>(current_seed_meta_data_result));
+                if (std::holds_alternative<seed::ParserError>(current_seed_meta_data_result)) {
+                    description += magic_enum::enum_name(std::get<seed::ParserError>(current_seed_meta_data_result));
                 } else if (std::holds_alternative<std::string>(current_seed_meta_data_result)) {
                     description += std::get<std::string>(current_seed_meta_data_result);
                 }
@@ -273,12 +273,12 @@ namespace randomizer::main_menu_seed_info {
                 auto should_connect = false;
 
                 if (read_slots.contains(SaveMetaSlot::SeedMetaData)) {
-                    const auto meta = randomizer::seed::legacy_parser::parse_meta_data(seed_meta_data->path);
+                    const auto meta = seed::parse_meta_data(seed_meta_data->path);
                     current_seed_meta_data_result = variant_cast(meta);
                     current_seed_path = seed_meta_data->path.string();
 
-                    if (std::holds_alternative<seed::Seed::SeedMetaData>(meta)) {
-                        should_connect = std::get<seed::Seed::SeedMetaData>(meta).online;
+                    if (std::holds_alternative<seed::SeedMetaData>(meta)) {
+                        should_connect = std::get<seed::SeedMetaData>(meta).online;
                     }
                 } else {
                     current_seed_path = std::nullopt;
@@ -286,25 +286,25 @@ namespace randomizer::main_menu_seed_info {
                 }
 
                 if (should_connect) {
-                    randomizer::server_connect();
+                    server_connect();
                 } else {
-                    randomizer::server_disconnect();
+                    server_disconnect();
                 }
 
                 update_text();
             } else {
                 current_seed_path = game_seed().path().string();
-                current_seed_meta_data_result = game_seed().info().meta;
+                current_seed_meta_data_result = game_seed().parser_output().meta;
 
-                if (game_seed().info().meta.online) {
-                    randomizer::server_connect();
+                if (game_seed().parser_output().meta.online) {
+                    server_connect();
                 } else {
-                    randomizer::server_disconnect();
+                    server_disconnect();
                 }
 
                 update_text();
                 on_seed_loaded_handle = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
-                    current_seed_meta_data_result = game_seed().info().meta;
+                    current_seed_meta_data_result = game_seed().parser_output().meta;
                     update_text();
                 });
             }

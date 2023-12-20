@@ -42,7 +42,7 @@ namespace randomizer::features::wheel {
         initialize_item(9000, 0, "Show last pickup", "Displays the message associated\nwith the last pickup.", "file:assets/icons/wheel/show_last_pickup.blue.png",
                         [](auto, auto, auto) { core::message_controller().requeue_last_saved(); });
         initialize_item(9000, 1, "Show progress, with hints.", "Displays current goal mode progress and bought hints.", "file:assets/icons/wheel/progress_summary.blue.png",
-                        [](auto, auto, auto) { game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 8), 0); });
+                        [](auto, auto, auto) { game_seed().trigger(seed::SeedEvent::ShowProgress); });
         initialize_item(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "file:assets/icons/wheel/warp_to_credits.blue.png",
                         [](auto, auto, auto) {
                             if (core::api::uber_states::UberState(34543, 11226).get<bool>()) {
@@ -141,14 +141,6 @@ namespace randomizer::features::wheel {
                         });
         initialize_item(9001, 5, "Teleport cheat", "Toggles cheat to teleport\nanywhere on the map", "file:assets/icons/wheel/teleport_cheat.blue.png",
                         [](auto, auto, auto) {
-                            if (game_seed().info().meta.race_mode) {
-                                core::message_controller().queue_central({
-                                    .text = core::Property<std::string>("Teleport anywhere is not available in race mode"),
-                                    .prioritized = true,
-                                });
-                                return;
-                            }
-
                             game::map::teleport_anywhere = !game::map::teleport_anywhere;
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>::format("Teleport anywhere {}", game::map::teleport_anywhere ? "enabled" : "disabled"),
@@ -157,14 +149,6 @@ namespace randomizer::features::wheel {
                         });
         initialize_item(9001, 6, "Unlock spoilers", "Unlock spoilers filter on the map", "file:assets/icons/wheel/unlock_spoilers.blue.png",
                         [](auto, auto, auto) {
-                            if (game_seed().info().meta.race_mode) {
-                                core::message_controller().queue_central({
-                                    .text = core::Property<std::string>("Unlock spoilers is not available in race mode"),
-                                    .prioritized = true,
-                                });
-                                return;
-                            }
-
                             core::api::uber_states::UberState(34543, 11226).set(1);
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>("Spoilers unlocked"),

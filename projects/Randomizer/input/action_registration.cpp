@@ -15,27 +15,27 @@
 namespace randomizer::input {
     namespace {
         auto on_binding1_before = single_input_bus().register_handler(Action::Binding1, EventTiming::Before, [](auto, auto) {
-            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 2), 0);
+            game_seed().trigger(seed::SeedEvent::Binding1);
         });
 
         auto on_binding2_before = single_input_bus().register_handler(Action::Binding2, EventTiming::Before, [](auto, auto) {
-            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 3), 0);
+            game_seed().trigger(seed::SeedEvent::Binding2);
         });
 
         auto on_binding3_before = single_input_bus().register_handler(Action::Binding3, EventTiming::Before, [](auto, auto) {
-            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 4), 0);
+            game_seed().trigger(seed::SeedEvent::Binding3);
         });
 
         auto on_binding4_before = single_input_bus().register_handler(Action::Binding4, EventTiming::Before, [](auto, auto) {
-            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 5), 0);
+            game_seed().trigger(seed::SeedEvent::Binding4);
         });
 
         auto on_binding5_before = single_input_bus().register_handler(Action::Binding5, EventTiming::Before, [](auto, auto) {
-            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 6), 0);
+            game_seed().trigger(seed::SeedEvent::Binding5);
         });
 
         auto on_progress_hint_before = single_input_bus().register_handler(Action::ShowProgressWithHints, EventTiming::Before, [](auto, auto) {
-            game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 8), 0);
+            game_seed().trigger(seed::SeedEvent::ShowProgress);
         });
 
         auto on_reload_before = single_input_bus().register_handler(Action::Reload, EventTiming::Before, [](auto, auto) {
@@ -109,14 +109,6 @@ namespace randomizer::input {
         });
 
         auto on_teleport_cheat_before = single_input_bus().register_handler(Action::TeleportCheat, EventTiming::Before, [](auto, auto) {
-            if (game_seed().info().meta.race_mode) {
-                core::message_controller().queue_central({
-                    .text = core::Property<std::string>(std::string("Teleport anywhere is not available in race mode")),
-                    .prioritized = true,
-                });
-                return;
-            }
-
             game::map::teleport_anywhere = !game::map::teleport_anywhere;
             core::message_controller().queue_central({
                 .text = core::Property<std::string>::format("Teleport anywhere {}", game::map::teleport_anywhere ? "enabled" : "disabled"),
@@ -125,14 +117,6 @@ namespace randomizer::input {
         });
 
         auto on_unlock_spoilers_before = single_input_bus().register_handler(Action::UnlockSpoilers, EventTiming::Before, [](auto, auto) {
-            if (game_seed().info().meta.race_mode) {
-                core::message_controller().queue_central({
-                    .text = core::Property<std::string>("Unlock spoilers is not available in race mode"),
-                    .prioritized = true,
-                });
-                return;
-            }
-
             core::api::uber_states::UberState(34543, 11226).set(1);
             core::message_controller().queue_central({
                 .text = core::Property<std::string>("Spoilers unlocked"),

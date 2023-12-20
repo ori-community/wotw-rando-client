@@ -32,24 +32,24 @@ namespace {
 
     std::string_view get_text_for_spirit_trial(SpiritTrialLocation location);
 
-    int get_event_uber_state_for_spirit_trial(SpiritTrialLocation location) {
+    randomizer::seed::SeedEvent get_event_uber_state_for_spirit_trial(SpiritTrialLocation location) {
         switch (location) {
             case SpiritTrialLocation::Marsh:
-                return 100;
+                return randomizer::seed::SeedEvent::InkwaterTrialTextRequest;
             case SpiritTrialLocation::Hollow:
-                return 101;
+                return randomizer::seed::SeedEvent::HollowTrialTextRequest;
             case SpiritTrialLocation::Wellspring:
-                return 102;
+                return randomizer::seed::SeedEvent::WellspringTrialTextRequest;
             case SpiritTrialLocation::Woods:
-                return 103;
+                return randomizer::seed::SeedEvent::WoodsTrialTextRequest;
             case SpiritTrialLocation::Reach:
-                return 104;
+                return randomizer::seed::SeedEvent::ReachTrialTextRequest;
             case SpiritTrialLocation::Depths:
-                return 105;
+                return randomizer::seed::SeedEvent::DepthsTrialTextRequest;
             case SpiritTrialLocation::Pools:
-                return 106;
+                return randomizer::seed::SeedEvent::LumaTrialTextRequest;
             case SpiritTrialLocation::Wastes:
-                return 107;
+                return randomizer::seed::SeedEvent::WastesTrialTextRequest;
             default:
                 throw std::exception("Unexpected trial location.");
         }
@@ -178,7 +178,7 @@ namespace {
             auto& box = trial_text_boxes.at(location.value());
             box.reactive_effect = core::reactivity::watch_effect()
                 .before([location]() {
-                    randomizer::game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, get_event_uber_state_for_spirit_trial(location.value())), 0);
+                    randomizer::game_seed().trigger(get_event_uber_state_for_spirit_trial(location.value()));
                 })
                 .effect([location] {
                     const auto ref_it = trial_text_boxes.find(location.value());

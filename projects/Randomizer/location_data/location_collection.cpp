@@ -84,6 +84,7 @@ namespace randomizer::location_data {
         for (auto& [area, locations]: m_area_to_locations) {
             for (auto i = 0; i < locations.size(); ++i) {
                 auto const& location = locations[i];
+                m_location_states.emplace(location.condition.state);
                 m_id_to_location[location.condition] = std::make_pair(area, i);
                 m_name_to_location[location.name] = std::make_pair(area, i);
             }
@@ -98,6 +99,10 @@ namespace randomizer::location_data {
     GameArea LocationCollection::area(std::string const& name) const {
         const auto loc = location(name);
         return loc.has_value() ? loc.value().area : GameArea::Void;
+    }
+
+    bool LocationCollection::should_queue_reach_check(core::api::uber_states::UberState const& state) const {
+        return m_location_states.contains(state);
     }
 
     std::optional<Location> LocationCollection::location(location_id const& id) const {

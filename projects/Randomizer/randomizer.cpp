@@ -1,7 +1,6 @@
 #include <Core/api/game/debug_menu.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
-#include <Core/api/game/ui.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/core.h>
@@ -10,7 +9,6 @@
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/TitleScreenManager.h>
 #include <Modloader/app/types/GameController.h>
-#include <Modloader/app/types/UI_Hints.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/game/pickups/quests.h>
@@ -18,13 +16,12 @@
 #include <Randomizer/location_data/parser.h>
 #include <Randomizer/online/network_monitor.h>
 #include <Randomizer/randomizer.h>
-#include <Randomizer/seed/legacy_parser/parser.h>
+#include <Randomizer/seed/parser.h>
 #include <Randomizer/state_data/parser.h>
 #include <Randomizer/text_processors/ability.h>
 #include <Randomizer/text_processors/control.h>
 #include <Randomizer/text_processors/legacy.h>
 #include <Randomizer/text_processors/multiplayer.h>
-#include <Randomizer/text_processors/seed.h>
 #include <Randomizer/text_processors/shard.h>
 #include <Randomizer/text_processors/uber_state.h>
 #include <Randomizer/timer.h>
@@ -113,13 +110,13 @@ namespace randomizer {
 
         auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
             queue_input_unlocked_callback([]() {
-                randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 0), 0);
-                randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 1), 0);
+                randomizer_seed.trigger(seed::SeedEvent::Spawn);
+                randomizer_seed.trigger(seed::SeedEvent::Reload);
                 core::api::game::save(true);
                 queue_reach_check();
                 uber_states::disable_reverts() = false;
 
-                if (randomizer_seed.info().meta.online) {
+                if (randomizer_seed.parser_output().meta.online) {
                     multiplayer_universe().report_player_save_guid(core::save_meta::get_current_save_guid());
                 }
             });
@@ -142,7 +139,7 @@ namespace randomizer {
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
             game::shops::reset_shop_data();
-            randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 1), 0);
+            randomizer_seed.trigger(seed::SeedEvent::Reload);
             queue_reach_check();
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::Before);
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
@@ -166,7 +163,7 @@ namespace randomizer {
                 }
             }
 
-            randomizer_seed.read(seed_save_data->path, seed::legacy_parser::parse, show_message);
+            randomizer_seed.read(seed_save_data->path, seed::parse, show_message);
         }
 
         auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(
@@ -176,11 +173,11 @@ namespace randomizer {
         );
 
         auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
-            randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 7), 0);
+            randomizer_seed.trigger(seed::SeedEvent::Respawn);
         });
 
         auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
-            randomizer_seed.grant(params.state, params.previous_value);
+            randomizer_seed.on_state_changed(params.state);
         });
 
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
@@ -197,7 +194,6 @@ namespace randomizer {
             text_processor->compose(std::make_shared<text_processors::ControlProcessor>());
             text_processor->compose(std::make_shared<text_processors::AbilityProcessor>());
             text_processor->compose(std::make_shared<text_processors::ShardProcessor>());
-            text_processor->compose(std::make_shared<text_processors::SeedProcessor>());
             text_processor->compose(std::make_shared<text_processors::LegacyProcessor>());
             text_processor->compose(std::make_shared<text_processors::MultiplayerProcessor>());
 
@@ -205,7 +201,7 @@ namespace randomizer {
             seed_save_data = std::make_unique<seed::SaveSlotSeedMetaData>();
             register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::None, seed_save_data);
             load_seed(true, false);
-            if (!core::settings::netcode_disabled() && randomizer_seed.info().meta.online) {
+            if (!core::settings::netcode_disabled() && randomizer_seed.parser_output().meta.online) {
                 server_connect();
             }
         });
@@ -245,7 +241,7 @@ namespace randomizer {
 
         core::settings::reload();
         load_seed(TitleScreenManager::get_MainMenuActive(), true);
-        if (!core::settings::netcode_disabled() && randomizer_seed.info().meta.online) {
+        if (!core::settings::netcode_disabled() && randomizer_seed.parser_output().meta.online) {
             server_connect();
         }
     }

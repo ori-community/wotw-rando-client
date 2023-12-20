@@ -137,7 +137,7 @@ namespace {
 
                 // Reactive effect
                 shriek_barrier_effect = core::reactivity::watch_effect([] {
-                    shriek_barrier_active = !randomizer::game_seed().finished_goals();
+                    shriek_barrier_active = core::api::uber_states::UberState(UberStateGroup::RandoState, 0).get<bool>();
 
                     if (shriek_barrier_killbox.has_value() && shriek_barrier_killbox->is_valid()) {
                         il2cpp::unity::set_active(**shriek_barrier_killbox, shriek_barrier_active);

@@ -237,7 +237,7 @@ namespace randomizer::seed {
 
     void reach_check(reach_check_callback callback) {
         if (thread_is_running && core::api::game::player::sein() != nullptr) {
-            auto const& seed_info = game_seed().info();
+            auto const& seed_info = game_seed().parser_output();
             ReachCheckRequest request{
                 .health = static_cast<float>(core::api::game::player::max_health().get()),
                 .energy = core::api::game::player::max_energy().get(),

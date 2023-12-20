@@ -334,6 +334,7 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "oreCollected", 5, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "oreSpent", 6, 0),
 
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "shriekBarrier", 0, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "tuleyExists", 300, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "rainLiftedInInkwater", 401, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "regenTreeDrained", 402, false),
@@ -365,6 +366,10 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "slimeKills", 43, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "fishKills", 44, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "exploderKills", 45, 0),
+
+                add_state<app::SerializedByteUberState>(UberStateGroup::Goals, "totalRelicCount", 500, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::Goals, "currentRelicCount", 501, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::Goals, "currentAreaHasUncollectedRelic", 505, false),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "preventMapReactivateTps", 1, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "allowOpeningEyestoneDoor", 6, true),
@@ -463,16 +468,6 @@ namespace randomizer {
             info("initialize", "Custom uber states initialized.");
             next::Moon::UberStateCollection::PrepareRuntimeDataType(this_ptr);
 
-            register_virtual_event_state(UberStateGroup::RandoEvents, 0, "onNewGame");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 1, "onLoadSeed");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 2, "onBinding1");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 3, "onBinding2");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 4, "onBinding3");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 5, "onBinding4");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 6, "onBinding5");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 7, "onRestoreCheckpoint");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 8, "onProgressHint");
-
             register_virtual_event_state(UberStateGroup::RandoEvents, 100, "onRequestInkwaterTrialText");
             register_virtual_event_state(UberStateGroup::RandoEvents, 101, "onRequestHollowTrialText");
             register_virtual_event_state(UberStateGroup::RandoEvents, 102, "onRequestWellspringTrialText");
@@ -503,34 +498,6 @@ namespace randomizer {
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentArea (5, 50) is read only."); },
                     []() -> double { return static_cast<double>(get_current_area()); }
-                )
-            );
-            register_virtual_state(
-                {
-                    .type = ValueType::Byte,
-                    .group = UberStateGroup::Goals,
-                    .state = 500,
-                    .name = "totalRelicCount",
-                    .readonly = true,
-                    .polled = true,
-                },
-                core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate totalRelicCount (23, 500) is read only."); },
-                    []() -> double { return game_seed().relics().relic_count(); }
-                )
-            );
-            register_virtual_state(
-                {
-                    .type = ValueType::Byte,
-                    .group = UberStateGroup::Goals,
-                    .state = 501,
-                    .name = "currentRelicCount",
-                    .readonly = true,
-                    .polled = true,
-                },
-                core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentRelicCount (23, 501) is read only."); },
-                    []() -> double { return game_seed().relics().found_relics(); }
                 )
             );
             register_virtual_state(
@@ -608,24 +575,6 @@ namespace randomizer {
                             static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 50597).get() > 3.5) +
                             static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 44578).get() > 1.5) +
                             static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 26394).get() > 1.5);
-                    }
-                )
-            );
-
-            register_virtual_state(
-                {
-                    .type = ValueType::Boolean,
-                    .group = UberStateGroup::Goals,
-                    .state = 505,
-                    .name = "currentAreaHasUncollectedRelic",
-                    .readonly = true,
-                    .polled = true,
-                },
-                core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentAreaHasUncollectedRelic (23, 505) is read only."); },
-                    []() -> double {
-                        const auto area = core::api::game::player::get_current_area();
-                        return game_seed().relics().found_relics_in_area(area) < game_seed().relics().relic_count_in_area(area) ? 1.0 : 0.0;
                     }
                 )
             );

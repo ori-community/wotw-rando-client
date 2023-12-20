@@ -265,7 +265,7 @@ namespace randomizer::game {
                     if (save_slots_ui != nullptr) {
                         auto save_slot_ui = SaveSlotsUI::get_CurrentSaveSlot(save_slots_ui);
 
-                        auto scene_names = core::api::scenes::get_scenes_at_position(randomizer::game_seed().info().meta.start_position);
+                        auto scene_names = core::api::scenes::get_scenes_at_position(math::convert(game_seed().parser_output().meta.spawn));
 
                         for (const auto& scene_name: scenes_to_preload) {
                             if (!scene_names.contains(scene_name)) {
@@ -399,7 +399,7 @@ namespace randomizer::game {
                 core::api::scenes::force_load_scene(scene_name, nullptr, true, false);
             }
 
-            teleportation::teleport_instantly(game_seed().info().meta.start_position);
+            teleport(math::convert(game_seed().parser_output().meta.spawn));
             core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.Enabled = false;
             on_new_game_late_initialization_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, on_new_game_late_initialization);
 

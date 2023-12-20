@@ -1,12 +1,12 @@
 #pragma once
 
-#include <Core/api/uber_states/uber_state_condition.h>
+#include <Core/enums/map_icon.h>
 #include <Core/enums/game_areas.h>
 #include <Core/property.h>
 
 #include <Randomizer/location_data/location_collection.h>
-#include <Randomizer/seed/item_data.h>
-#include <Randomizer/seed/relics.h>
+#include <Randomizer/seed/commands.h>
+#include <Randomizer/seed/seed_event.h>
 
 #include <Core/save_meta/save_meta.h>
 #include <neargye/semver.hpp>
@@ -14,74 +14,81 @@
 #include <unordered_map>
 
 namespace randomizer::seed {
+
+    struct SeedData {
+        struct Condition {
+            std::variant<int, core::api::uber_states::UberState> condition;
+            bool previous_value = false;
+            int command = 0;
+            std::shared_ptr<core::reactivity::ReactiveEffect> reactive;
+        };
+
+        std::vector<Condition> conditions;
+        std::unordered_map<SeedEvent, std::vector<int>> events;
+        std::vector<std::vector<std::unique_ptr<ICommand>>> commands;
+    };
+
+    struct SeedMetaData {
+        std::string name;
+        semver::version version = semver::version(0, 0, 0);
+        std::vector<std::string> flags;
+        app::Vector2 spawn = {-798.797058f, -4310.119141f};
+        std::string slug;
+        int world_index = 0;
+
+        // TODO: Figure this shit out.
+        int total_pickups = 0;
+        std::unordered_map<GameArea, int> pickup_count_by_area;
+        bool online = false; // TEMP
+    };
+
+    struct SeedParseOutput {
+        std::string parser_error;
+        SeedMetaData meta;
+        SeedData data;
+
+        std::string content;
+        std::string areas;
+        std::string locations;
+        std::string states;
+    };
+
     class Seed {
     public:
-        using inner_location_entry = core::api::uber_states::UberStateCondition;
-        using inner_location_entries = std::unordered_map<inner_location_entry, ItemData>;
-        using location_entry = core::api::uber_states::UberState;
 
-        struct SeedMetaData {
-            std::string name;
-            semver::version version = semver::version(0, 0, 0);
-            std::vector<std::string> flags;
-            app::Vector3 start_position = {-798.797058f, -4310.119141f, 0.f};
-            std::string slug;
-            int world_index = 0;
-            bool race_mode = false;
-            bool online = false; // TODO: Remove this.
-        };
+        using seed_parser =
+            bool (*)(const std::filesystem::path& path, location_data::LocationCollection const& location_data, const std::shared_ptr<SeedParseOutput>& data);
 
-        struct SeedInfo {
-            SeedMetaData meta;
-
-            std::string parser_error;
-
-            int total_pickups = 0;
-            std::unordered_map<GameArea, int> pickup_count_by_area;
-
-            std::string content;
-            std::string areas;
-            std::string locations;
-            std::string states;
-        };
-
-        struct Data {
-            SeedInfo info;
-            Relics relics;
-            std::unordered_map<location_entry, inner_location_entries> locations;
-            std::unordered_map<int, ItemData> procedures;
-        };
-
-        using seed_parser = bool (*)(const std::filesystem::path& path, location_data::LocationCollection const& location_data, std::shared_ptr<Data> data);
-
-        Seed(location_data::LocationCollection const& location_data);
+        explicit Seed(location_data::LocationCollection const& location_data);
 
         void read(const std::filesystem::path& path, seed_parser parser, bool show_message = true);
         void reload(bool show_message = true);
         void clear();
 
-        MapIcon icon(inner_location_entry location);
-        std::string text(const inner_location_entry& location) const;
-        void grant(location_entry location, double previous_value);
-        void procedure_call(int id);
-        std::optional<ItemData> procedure_data(int id);
+        MapIcon icon(const std::string& location);
+        std::string text(const std::string& location) const;
+        void trigger(SeedEvent event) const;
+        void on_state_changed(const core::api::uber_states::UberState& state) const;
+        bool should_grant() const;
 
-        SeedInfo const& info() const { return m_data->info; }
-        int total_pickups() const { return m_data->info.total_pickups; }
+        SeedParseOutput const& parser_output() const { return *m_data; }
+        int total_pickups() const { return m_data->meta.total_pickups; }
 
         std::filesystem::path path() const { return m_last_path; }
 
-        Relics const& relics() const { return m_data->relics; }
-        bool finished_goals() const;
-
         void prevent_grants(const std::function<bool()>& callback) { m_prevent_grant_callbacks.push_back(callback); }
-
+        void handle_command(int id, bool condition_check = false);
     private:
+
         location_data::LocationCollection const& m_location_data;
         seed_parser m_last_parser = nullptr;
         std::filesystem::path m_last_path;
-        std::shared_ptr<Data> m_data = std::make_shared<Data>();
+        std::shared_ptr<SeedParseOutput> m_data = std::make_shared<SeedParseOutput>();
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
+
+        bool m_handling_command = false;
+        std::vector<ICommand*> m_command_stack;
+        SeedMemory m_memory;
     };
 
 
