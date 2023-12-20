@@ -6,7 +6,7 @@
 namespace randomizer::seed {
     namespace {
         bool is_seed_version_supported(const semver::version version) {
-            return semver::range::satisfies(version, ">=1.0.0 <=1.0.0");
+            return semver::range::satisfies(version, ">=0.0.0 <=1.0.0");
         }
     }
 
@@ -85,23 +85,28 @@ namespace randomizer::seed {
             // TODO: Do something.
         }
 
+        std::string current_item;
         try {
             auto json(nlohmann::json::parse(seed_file));
+            current_item = "spawn";
             json.at("spawn").at("position").get_to(output->meta.spawn);
             for (const auto& event: json.at("events")) {
-                const auto& trigger = event.at("trigger");
+                const auto& trigger = event.at(0);
                 if (trigger.contains("Condition")) {
+                    current_item = "condition";
                     auto& condition = output->data.conditions.emplace_back();
                     condition.condition = trigger.at("Condition").get<int>();
-                    condition.command = event.at("command").get<int>();
+                    condition.command = event.at(1).get<int>();
                 } else if (trigger.contains("Pseudo")) {
-                    output->data.events[trigger.at("Pseudo").get<SeedEvent>()].push_back(event.at("command").get<int>());
+                    current_item = "pseuodo";
+                    output->data.events[trigger.at("Pseudo").get<SeedEvent>()].push_back(event.at(1).get<int>());
                 } else if (trigger.contains("Binding")) {
+                    current_item = "binding";
                     auto& condition = output->data.conditions.emplace_back();
                     const auto& binding = trigger.at("Binding");
                     const auto state = core::api::uber_states::UberState(binding.at("group").get<int>(), binding.at("member").get<int>());
                     condition.condition = state;
-                    condition.command = event.at("command").get<int>();
+                    condition.command = event.at(1).get<int>();
                 } else {
                     throw std::exception("Invalid event type");
                 }
@@ -110,6 +115,7 @@ namespace randomizer::seed {
             for (const auto& command_entry: json.at("command_lookup")) {
                 auto& command = output->data.commands.emplace_back();
                 for (const auto& instruction_entry: command_entry) {
+                    current_item = instruction_entry.is_string() ? instruction_entry.get<std::string>() : instruction_entry.begin().key();
                     auto instruction = create_command(instruction_entry);
                     if (instruction != nullptr) {
                         command.push_back(std::move(instruction));
@@ -117,7 +123,7 @@ namespace randomizer::seed {
                 }
             }
         } catch (const std::exception& e) {
-            output->parser_error = e.what();
+            output->parser_error = std::format("{}: {}", current_item, e.what());
             return false;
         }
 

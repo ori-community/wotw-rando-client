@@ -12,18 +12,19 @@ namespace randomizer::seed {
     struct ICommand {
         virtual ~ICommand() = default;
         virtual void execute(Seed& seed, SeedMemory& memory) const = 0;
+        virtual std::string to_string(const Seed& seed, const SeedMemory& memory) const = 0;
     };
 
     struct SeedMemory {
         template<typename T>
         struct MemoryRegister {
-            void check_size(const std::size_t index) {
+            void check_size(const std::size_t index) const {
                 if (values.size() <= index) {
                     values.resize(index + 1);
                 }
             }
 
-            T get(const std::size_t index) {
+            T get(const std::size_t index) const {
                 check_size(index);
                 return values[index];
             }
@@ -33,7 +34,7 @@ namespace randomizer::seed {
                 values[index] = value;
             }
 
-            std::vector<T> values;
+            mutable std::vector<T> values;
         };
 
         MemoryRegister<bool> booleans;
@@ -42,29 +43,29 @@ namespace randomizer::seed {
         MemoryRegister<std::string> strings;
 
         template<typename T>
-        T get(std::size_t index);
+        T get(std::size_t index) const;
 
         template<typename T>
         void set(std::size_t index, const T& value);
     };
 
     template<>
-    inline bool SeedMemory::get(const std::size_t index) {
+    inline bool SeedMemory::get(const std::size_t index) const {
         return booleans.get(index);
     }
 
     template<>
-    inline int SeedMemory::get(const std::size_t index) {
+    inline int SeedMemory::get(const std::size_t index) const {
         return integers.get(index);
     }
 
     template<>
-    inline float SeedMemory::get(const std::size_t index) {
+    inline float SeedMemory::get(const std::size_t index) const {
         return floats.get(index);
     }
 
     template<>
-    inline std::string SeedMemory::get(const std::size_t index) {
+    inline std::string SeedMemory::get(const std::size_t index) const {
         return strings.get(index);
     }
 

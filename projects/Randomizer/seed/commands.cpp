@@ -15,6 +15,11 @@
 
 namespace randomizer::seed {
     namespace {
+        struct SeedTimer {
+            core::api::uber_states::UberState toggle;
+            core::api::uber_states::UberState value;
+        };
+
         struct SeedMessage {
             std::shared_ptr<core::api::messages::MessageBox> message;
             std::optional<float> timeout;
@@ -23,6 +28,7 @@ namespace randomizer::seed {
         std::unordered_map<std::size_t, std::shared_ptr<game::map::Icon>> warp_icons;
         std::unordered_map<std::size_t, SeedMessage> message_boxes;
         std::unordered_set<std::size_t> message_boxes_with_timeouts;
+        std::vector<SeedTimer> timers;
         bool prevent_grant = false;
 
         auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
@@ -44,6 +50,12 @@ namespace randomizer::seed {
             for (const auto id: to_destroy) {
                 message_boxes_with_timeouts.erase(id);
                 message_boxes.erase(id);
+            }
+
+            for (const auto& timer : timers) {
+                if (timer.toggle.get<bool>()) {
+                    timer.value.set(timer.value.get<int>() + 1);
+                }
             }
         });
 
@@ -111,6 +123,48 @@ namespace randomizer::seed {
         }
         );
 
+        std::string parse_icon(const nlohmann::json& j) {
+            const auto icon = j.begin();
+            const auto key = icon.key();
+            if (key == "Shard") {
+                return std::format("shard:{}", icon.value().get<int>());
+            } else if (key == "Ability") {
+                return std::format("ability:{}", icon.value().get<int>());
+            } else if (key == "Equipment") {
+                return std::format("spell:{}", icon.value().get<int>());
+            } else if (key == "OpherIcon") {
+                return std::format("opher:{}", icon.value().get<int>());
+            } else if (key == "LupoIcon") {
+                return std::format("lupo:{}", icon.value().get<int>());
+            } else if (key == "GromIcon") {
+                return std::format("grom:{}", icon.value().get<int>());
+            } else if (key == "TuleyIcon") {
+                return std::format("tuley:{}", icon.value().get<int>());
+            } else {
+                return std::format("file:{}", icon.value().get<std::string>());
+            }
+        }
+
+        template<typename T>
+        struct TypeStr { static constexpr std::string_view str = "unknown"; };
+
+        template<>
+        struct TypeStr<bool> { static constexpr std::string_view str = "boolean"; };
+
+        template<>
+        struct TypeStr<int> { static constexpr std::string_view str = "integer"; };
+
+        template<>
+        struct TypeStr<float> { static constexpr std::string_view str = "float"; };
+
+        template<>
+        struct TypeStr<std::string> { static constexpr std::string_view str = "string"; };
+
+        template<typename E>
+        E parse_enum(const nlohmann::json& j) {
+            return static_cast<E>(j.get<int>());
+        }
+
         template<bool check_bool>
         struct Execute final : ICommand {
             explicit Execute(const int index) :
@@ -125,6 +179,14 @@ namespace randomizer::seed {
 
                 seed.handle_command(index);
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                if (check_bool) {
+                    return std::format("ExecuteIf ({}) {}", memory.booleans.get(0), index);
+                } else {
+                    return std::format("Execute {}", index);
+                }
+            }
         };
 
         template<typename T>
@@ -135,6 +197,10 @@ namespace randomizer::seed {
             T value;
 
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set(0, value); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("Set {} 0 to {}", TypeStr<T>::str, value);
+            }
         };
 
         template<typename T>
@@ -147,6 +213,10 @@ namespace randomizer::seed {
             std::size_t to;
 
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set(to, memory.get<T>(from)); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("Copy {}: {} -> {}", TypeStr<T>::str, from, to);
+            }
         };
 
         template<typename T>
@@ -159,8 +229,13 @@ namespace randomizer::seed {
             int member;
 
             void execute(Seed& seed, SeedMemory& memory) const override {
-                core::api::uber_states::UberState state(group, member);
+                const core::api::uber_states::UberState state(group, member);
                 memory.set(0, state.get<T>());
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                const core::api::uber_states::UberState state(group, member);
+                return std::format("Fetch {}: {}|{} -> {}", TypeStr<T>::str, group, member, state.get<T>());
             }
         };
 
@@ -180,6 +255,10 @@ namespace randomizer::seed {
                 modloader::ScopedSetter setter(prevent_grant, true);
                 state.set(memory.get<T>(0));
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("Store {}: {}|{} with_triggers {}", TypeStr<T>::str, group, member, check_triggers);
+            }
         };
 
         template<typename T>
@@ -191,6 +270,12 @@ namespace randomizer::seed {
 
             void execute(Seed& seed, SeedMemory& memory) const override {
                 memory.booleans.set(0, op == EqualityComparator::Equal && memory.get<T>(1) == memory.get<T>(0));
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                nlohmann::json j;
+                to_json(j, op);
+                return std::format("Compare {}: {} {} {}", TypeStr<T>::str, memory.get<T>(1), j.get<std::string>(), memory.get<T>(0));
             }
         };
 
@@ -223,6 +308,12 @@ namespace randomizer::seed {
                         break;
                 }
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                nlohmann::json j;
+                to_json(j, op);
+                return std::format("Compare {}: {} {} {}", TypeStr<T>::str, memory.get<T>(1), j.get<std::string>(), memory.get<T>(0));
+            }
         };
 
         struct LogicOperation final : ICommand {
@@ -240,6 +331,12 @@ namespace randomizer::seed {
                         memory.booleans.set(0, memory.booleans.get(1) || memory.booleans.get(0));
                         break;
                 }
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                nlohmann::json j;
+                to_json(j, op);
+                return std::format("Logic bool: {} {} {}", memory.booleans.get(1), j.get<std::string>(), memory.booleans.get(0));
             }
         };
 
@@ -266,33 +363,67 @@ namespace randomizer::seed {
                         break;
                 }
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                nlohmann::json j;
+                to_json(j, op);
+                return std::format("Arithmetic {}: {} {} {}", TypeStr<T>::str, memory.get<T>(1), j.get<std::string>(), memory.get<T>(0));
+            }
         };
 
         struct Concatenate final : ICommand {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.strings.set(0, memory.strings.get(1) + memory.strings.get(0)); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("Concat: '{}' '{}'", memory.strings.get(1), memory.strings.get(0));
+            }
         };
 
         template<typename A, typename B>
         struct Cast final : ICommand {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set(0, static_cast<B>(memory.get<A>(0))); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("Cast {} -> {}", TypeStr<A>::str, TypeStr<B>::str);
+            }
         };
 
         struct BoolToString final : ICommand {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set<std::string>(0, memory.get<bool>(0) ? "true" : "false"); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("Cast {} -> {}", TypeStr<bool>::str, TypeStr<std::string>::str);
+            }
         };
 
         struct IntToString final : ICommand {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set(0, std::format("{}", memory.get<int>(0))); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("Cast {} -> {}", TypeStr<int>::str, TypeStr<std::string>::str);
+            }
         };
 
         struct FloatToString final : ICommand {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set(0, std::format("{:.3f}", memory.get<float>(0))); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("Cast {} -> {}", TypeStr<float>::str, TypeStr<std::string>::str);
+            }
         };
 
         struct DefineTimer final : ICommand {
+            explicit DefineTimer(const core::api::uber_states::UberState& toggle, const core::api::uber_states::UberState& value) :
+                toggle(toggle), value(value) {}
+
+            core::api::uber_states::UberState toggle;
+            core::api::uber_states::UberState value;
             void execute(Seed& seed, SeedMemory& memory) const override {
-                // TODO: Implement this or change it.
-                throw std::exception("Not Implemented");
+                timers.push_back({toggle, value});
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("Timer toggle( {} ) value( {} )", toggle.to_string(), value.to_string());
             }
         };
 
@@ -307,6 +438,10 @@ namespace randomizer::seed {
 
                 memory.booleans.set(0, modloader::math::in_rect(core::api::game::player::get_position(), box));
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("IsInHitBox ({}, {}, {}, {})", memory.floats.get(1), memory.floats.get(2), memory.floats.get(3), memory.floats.get(0));
+            }
         };
 
         struct WorldName final : ICommand {
@@ -318,6 +453,10 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 const auto world = multiplayer_universe().get_world(id);
                 memory.strings.set(0, world == nullptr ? "" : world->name());
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("WorldName {}", id);
             }
         };
 
@@ -336,6 +475,10 @@ namespace randomizer::seed {
                     .prioritized = prioritized,
                 });
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("Message '{}'", memory.strings.get(0));
+            }
         };
 
         struct ControlledMessageCreate final : ICommand {
@@ -347,6 +490,10 @@ namespace randomizer::seed {
                 message_boxes_with_timeouts.erase(id);
                 message_boxes[id].message = std::make_shared<core::api::messages::MessageBox>();
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("MessageCreate {}", id);
+            }
         };
 
         struct ControlledMessageDestroy final : ICommand {
@@ -357,6 +504,10 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 message_boxes.erase(id);
                 message_boxes_with_timeouts.erase(id);
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("MessageDestroy {}", id);
             }
         };
 
@@ -370,6 +521,10 @@ namespace randomizer::seed {
                     message_boxes[id].message->show(false, memory.booleans.get(0));
                 }
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("MessageShow {}", id);
+            }
         };
 
         struct ControlledMessageHide final : ICommand {
@@ -382,6 +537,10 @@ namespace randomizer::seed {
                     message_boxes[id].message->hide(false);
                 }
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("MessageHide {}", id);
+            }
         };
 
         struct ControlledMessageText final : ICommand {
@@ -393,6 +552,10 @@ namespace randomizer::seed {
                 if (message_boxes.contains(id)) {
                     message_boxes[id].message->text().set(memory.strings.get(0));
                 }
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("MessageText {}: '{}'", id, memory.strings.get(0));
             }
         };
 
@@ -407,6 +570,10 @@ namespace randomizer::seed {
                     message_boxes_with_timeouts.emplace(id);
                 }
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("MessageTimeout {}: '{:.3}'", id, memory.floats.get(0));
+            }
         };
 
         struct ControlledMessageBackground final : ICommand {
@@ -419,6 +586,10 @@ namespace randomizer::seed {
                     message_boxes[id].message->show_box().set(memory.booleans.get(0));
                 }
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("MessageBackground {}: '{}'", id, memory.booleans.get(0));
+            }
         };
 
         struct ControlledMessagePosition final : ICommand {
@@ -430,6 +601,10 @@ namespace randomizer::seed {
                 if (message_boxes.contains(id)) {
                     message_boxes[id].message->position().set(memory.floats.get(0), memory.floats.get(1), 0.f);
                 }
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("MessagePosition {}: '{:.3}, {:.3}'", id, memory.floats.get(0), memory.floats.get(1));
             }
         };
 
@@ -445,6 +620,10 @@ namespace randomizer::seed {
                     message_boxes[id].message->alignment().set(alignment);
                 }
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("MessageAlignment {}: '{}'", id, static_cast<int>(alignment));
+            }
         };
 
         struct ControlledMessageScreenPosition final : ICommand {
@@ -459,18 +638,34 @@ namespace randomizer::seed {
                     message_boxes[id].message->screen_position().set(screen_position);
                 }
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("MessageScreenPosition {}: '{}'", id, static_cast<int>(screen_position));
+            }
         };
 
         struct Save final : ICommand {
             void execute(Seed& seed, SeedMemory& memory) const override { core::api::game::save(); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return "Save";
+            }
         };
 
         struct Checkpoint final : ICommand {
             void execute(Seed& seed, SeedMemory& memory) const override { core::api::game::checkpoint(); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return "Checkpoint";
+            }
         };
 
         struct Warp final : ICommand {
             void execute(Seed& seed, SeedMemory& memory) const override { game::teleport({memory.floats.get(0), memory.floats.get(1), 0.f}); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("Warp: {}, {}", memory.floats.get(0), memory.floats.get(1));
+            }
         };
 
         struct Equip final : ICommand {
@@ -482,6 +677,10 @@ namespace randomizer::seed {
             app::SpellInventory_Binding__Enum slot;
 
             void execute(Seed& seed, SeedMemory& memory) const override { core::api::game::player::bind(slot, equipment); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("Equip: {}, {}", static_cast<int>(equipment), static_cast<int>(slot));
+            }
         };
 
         struct Unequip final : ICommand {
@@ -491,6 +690,10 @@ namespace randomizer::seed {
             app::EquipmentType__Enum equipment;
 
             void execute(Seed& seed, SeedMemory& memory) const override { core::api::game::player::unbind(equipment); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("Unequip: {}", static_cast<int>(equipment));
+            }
         };
 
         struct TriggerKeybind final : ICommand {
@@ -501,6 +704,10 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 input::set_action(action, true);
                 input::set_action(action, false);
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("TriggerKeybind: {}", static_cast<int>(action));
             }
         };
 
@@ -516,6 +723,10 @@ namespace randomizer::seed {
                 const core::api::uber_states::UberState state(group, member);
                 multiplayer_universe().uber_state_handler().set_unsyncable(state, !sync);
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("ServerSync: {}|{}", group, member);
+            }
         };
 
         struct SetSpoiler final : ICommand {
@@ -527,6 +738,10 @@ namespace randomizer::seed {
             MapIcon icon;
 
             void execute(Seed& seed, SeedMemory& memory) const override { game::map::set_spoiler_data(location, icon, memory.strings.get(0)); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("SetSpoiler: {}", location);
+            }
         };
 
         struct WarpIconCreate final : ICommand {
@@ -546,6 +761,10 @@ namespace randomizer::seed {
                 icon->can_teleport().set(true);
                 warp_icons[id] = icon;
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("WarpIconCreate {}", id);
+            }
         };
 
         struct WarpIconLabel final : ICommand {
@@ -559,6 +778,10 @@ namespace randomizer::seed {
                     icon->second->name().set(std::format("custom_warp_icon: {}", memory.strings.get(0)));
                     icon->second->label().set(memory.strings.get(0));
                 }
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("WarpIconLabel {}: ", id, memory.strings.get(0));
             }
         };
 
@@ -574,6 +797,10 @@ namespace randomizer::seed {
                     warp_icons.erase(icon);
                 }
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("WarpIconDestroy {}", id);
+            }
         };
 
         struct ShopPrice final : ICommand {
@@ -587,6 +814,10 @@ namespace randomizer::seed {
                 const core::api::uber_states::UberState state(group, member);
                 const auto slot = game::shops::shop_slot_from_state(state);
                 slot->cost.set(memory.integers.get(0));
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("ShopPrice {}|{}", group, member);
             }
         };
 
@@ -604,6 +835,10 @@ namespace randomizer::seed {
                 slot->locked.name.set(memory.strings.get(0));
                 slot->hidden.name.set(memory.strings.get(0));
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("ShopName {}|{}", group, member);
+            }
         };
 
         struct ShopDescription final : ICommand {
@@ -620,22 +855,32 @@ namespace randomizer::seed {
                 slot->locked.description.set(memory.strings.get(0));
                 slot->hidden.description.set(memory.strings.get(0));
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("ShopDescription {}|{}", group, member);
+            }
         };
 
         struct ShopIcon final : ICommand {
-            ShopIcon(const int group, const int member) :
+            ShopIcon(const int group, const int member, const std::string& icon) :
                 group(group),
-                member(member) {}
+                member(member),
+                icon(icon) {}
 
             int group;
             int member;
+            std::string icon;
             void execute(Seed& seed, SeedMemory& memory) const override {
                 const core::api::uber_states::UberState state(group, member);
                 const auto slot = game::shops::shop_slot_from_state(state);
-                const auto texture = core::api::graphics::textures::get_texture(memory.strings.get(0));
+                const auto texture = core::api::graphics::textures::get_texture(icon);
                 slot->normal.icon = texture;
                 slot->locked.icon = texture;
                 slot->hidden.icon = texture;
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("ShopIcon {}|{}", group, member);
             }
         };
 
@@ -651,6 +896,10 @@ namespace randomizer::seed {
                 const auto slot = game::shops::shop_slot_from_state(state);
                 slot->visibility = memory.booleans.get(0) ? game::shops::SlotVisibility::Hidden : game::shops::SlotVisibility::Visible;
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("ShopHidden {}|{}", group, member);
+            }
         };
 
         struct ShopLocked final : ICommand {
@@ -665,6 +914,10 @@ namespace randomizer::seed {
                 const auto slot = game::shops::shop_slot_from_state(state);
                 slot->visibility = memory.booleans.get(0) ? game::shops::SlotVisibility::Locked : game::shops::SlotVisibility::Visible;
             }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("ShopLocked {}|{}", group, member);
+            }
         };
 
         struct WheelItemName final : ICommand {
@@ -675,6 +928,10 @@ namespace randomizer::seed {
             int wheel;
             features::wheel::WheelItemPosition position;
             void execute(Seed& seed, SeedMemory& memory) const override { set_wheel_item_name(wheel, position, memory.strings.get(0)); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("WheelItemName {}, {}", wheel, static_cast<int>(position));
+            }
         };
 
         struct WheelItemDescription final : ICommand {
@@ -685,6 +942,10 @@ namespace randomizer::seed {
             int wheel;
             features::wheel::WheelItemPosition position;
             void execute(Seed& seed, SeedMemory& memory) const override { set_wheel_item_description(wheel, position, memory.strings.get(0)); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("WheelItemDescription {}, {}", wheel, static_cast<int>(position));
+            }
         };
 
         struct WheelItemIcon final : ICommand {
@@ -697,6 +958,10 @@ namespace randomizer::seed {
             features::wheel::WheelItemPosition position;
             std::string icon;
             void execute(Seed& seed, SeedMemory& memory) const override { set_wheel_item_texture(wheel, position, icon); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("WheelItemIcon {}, {}", wheel, static_cast<int>(position));
+            }
         };
 
         struct WheelItemColor final : ICommand {
@@ -708,6 +973,10 @@ namespace randomizer::seed {
             features::wheel::WheelItemPosition position;
             void execute(Seed& seed, SeedMemory& memory) const override {
                 set_wheel_item_color(wheel, position, memory.integers.get(0), memory.integers.get(1), memory.integers.get(2), memory.integers.get(3));
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("WheelItemColor {}, {}", wheel, static_cast<int>(position));
             }
         };
 
@@ -732,6 +1001,10 @@ namespace randomizer::seed {
             }
 
             void call() const { game_seed().handle_command(command); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("WheelItemCommand {}, {}", wheel, static_cast<int>(position));
+            }
         };
 
         struct WheelItemDestroy final : ICommand {
@@ -742,6 +1015,10 @@ namespace randomizer::seed {
             int wheel;
             features::wheel::WheelItemPosition position;
             void execute(Seed& seed, SeedMemory& memory) const override { set_wheel_item_description(wheel, position, memory.strings.get(0)); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("WheelItemDestroy {}, {}", wheel, static_cast<int>(position));
+            }
         };
 
         struct WheelSwitch final : ICommand {
@@ -750,6 +1027,10 @@ namespace randomizer::seed {
 
             int wheel;
             void execute(Seed& seed, SeedMemory& memory) const override { features::wheel::set_active_wheel(wheel); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("WheelSwitch {}", wheel);
+            }
         };
 
         struct WheelPinned final : ICommand {
@@ -758,54 +1039,60 @@ namespace randomizer::seed {
 
             int wheel;
             void execute(Seed& seed, SeedMemory& memory) const override { features::wheel::set_wheel_sticky(wheel, memory.booleans.get(0)); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("WheelPinned {}", wheel);
+            }
         };
 
         struct WheelsClear final : ICommand {
             void execute(Seed& seed, SeedMemory& memory) const override { features::wheel::clear_wheels(); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return "WheelsClear";
+            }
         };
 
         template<bool check>
         std::unique_ptr<ICommand> create_execute(const nlohmann::json& j) {
-            return std::make_unique<Execute<check>>(j.at("index").get<int>());
+            return std::make_unique<Execute<check>>(j.get<int>());
         }
 
         template<typename T>
         std::unique_ptr<ICommand> create_set(const nlohmann::json& j) {
-            return std::make_unique<Set<T>>(j.at("value").get<T>());
+            return std::make_unique<Set<T>>(j.get<T>());
         }
 
         template<typename T>
         std::unique_ptr<ICommand> create_copy(const nlohmann::json& j) {
-            return std::make_unique<Copy<T>>(j.at("from").get<std::size_t>(), j.at("to").get<std::size_t>());
+            return std::make_unique<Copy<T>>(j.at(0).get<std::size_t>(), j.at(1).get<std::size_t>());
         }
 
         template<typename T>
         std::unique_ptr<ICommand> create_fetch(const nlohmann::json& j) {
-            const auto& identifier = j.at("uber_identifier");
-            return std::make_unique<Fetch<T>>(identifier.at("group").get<int>(), identifier.at("member").get<int>());
+            return std::make_unique<Fetch<T>>(j.at("group").get<int>(), j.at("member").get<int>());
         }
 
         template<typename T>
         std::unique_ptr<ICommand> create_store(const nlohmann::json& j) {
-            const auto& identifier = j.at("uber_identifier");
-            return std::make_unique<Store<T>>(identifier.at("group").get<int>(), identifier.at("member").get<int>(), j.at("check_triggers").get<bool>());
+            return std::make_unique<Store<T>>(j.at(0).at("group").get<int>(), j.at(0).at("member").get<int>(), j.at(1).get<bool>());
         }
 
         template<typename T>
         std::unique_ptr<ICommand> create_compare_equal(const nlohmann::json& j) {
-            return std::make_unique<CompareEqual<T>>(j.at("operator").get<EqualityComparator>());
+            return std::make_unique<CompareEqual<T>>(parse_enum<EqualityComparator>(j));
         }
 
         template<typename T>
         std::unique_ptr<ICommand> create_compare(const nlohmann::json& j) {
-            return std::make_unique<Compare<T>>(j.at("operator").get<Comparator>());
+            return std::make_unique<Compare<T>>(parse_enum<Comparator>(j));
         }
 
-        std::unique_ptr<ICommand> create_logic(const nlohmann::json& j) { return std::make_unique<LogicOperation>(j.at("operator").get<LogicOperator>()); }
+        std::unique_ptr<ICommand> create_logic(const nlohmann::json& j) { return std::make_unique<LogicOperation>(parse_enum<LogicOperator>(j)); }
 
         template<typename T>
         std::unique_ptr<ICommand> create_arithmetic(const nlohmann::json& j) {
-            return std::make_unique<ArithmeticOperation<T>>(j.at("operator").get<ArithmeticOperator>());
+            return std::make_unique<ArithmeticOperation<T>>(parse_enum<ArithmeticOperator>(j));
         }
 
         std::unique_ptr<ICommand> create_concatenate(const nlohmann::json&) { return std::make_unique<Concatenate>(); }
@@ -818,10 +1105,15 @@ namespace randomizer::seed {
         std::unique_ptr<ICommand> create_bool_to_string(const nlohmann::json&) { return std::make_unique<BoolToString>(); }
         std::unique_ptr<ICommand> create_int_to_string(const nlohmann::json&) { return std::make_unique<IntToString>(); }
         std::unique_ptr<ICommand> create_float_to_string(const nlohmann::json&) { return std::make_unique<FloatToString>(); }
-        std::unique_ptr<ICommand> create_define_timer(const nlohmann::json&) { return std::make_unique<DefineTimer>(); }
+        std::unique_ptr<ICommand> create_define_timer(const nlohmann::json& j) {
+            core::api::uber_states::UberState toggle(j.at(0).at("group").get<int>(), j.at(0).at("member").get<int>());
+            core::api::uber_states::UberState value(j.at(1).at("group").get<int>(), j.at(1).at("member").get<int>());
+            return std::make_unique<DefineTimer>(toggle, value);
+        }
+
         std::unique_ptr<ICommand> create_is_in_hitbox(const nlohmann::json&) { return std::make_unique<IsInHitbox>(); }
 
-        std::unique_ptr<ICommand> create_world_name(const nlohmann::json& j) { return std::make_unique<WorldName>(j.at("index").get<int>()); }
+        std::unique_ptr<ICommand> create_world_name(const nlohmann::json& j) { return std::make_unique<WorldName>(j.at(0).get<int>()); }
 
         template<bool prioritized, bool custom_timeout>
         std::unique_ptr<ICommand> create_message(const nlohmann::json&) {
@@ -833,163 +1125,139 @@ namespace randomizer::seed {
         std::unique_ptr<ICommand> create_warp(const nlohmann::json&) { return std::make_unique<Warp>(); }
 
         std::unique_ptr<ICommand> create_equip(const nlohmann::json& j) {
-            return std::make_unique<Equip>(j.at("equipment").get<app::EquipmentType__Enum>(), j.at("slot").get<app::SpellInventory_Binding__Enum>());
+            return std::make_unique<Equip>(parse_enum<app::EquipmentType__Enum>(j.at(0)), parse_enum<app::SpellInventory_Binding__Enum>(j.at(1)));
         }
 
         std::unique_ptr<ICommand> create_unequip(const nlohmann::json& j) {
-            return std::make_unique<Unequip>(j.at("equipment").get<app::EquipmentType__Enum>());
+            return std::make_unique<Unequip>(parse_enum<app::EquipmentType__Enum>(j.at(0)));
         }
 
-        std::unique_ptr<ICommand> create_trigger_keybind(const nlohmann::json& j) { return std::make_unique<TriggerKeybind>(j.at("bind").get<Action>()); }
+        std::unique_ptr<ICommand> create_trigger_keybind(const nlohmann::json& j) { return std::make_unique<TriggerKeybind>(j.at(0).get<Action>()); }
 
         std::unique_ptr<ICommand> create_c_message_create(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageCreate>(j.at("id").get<std::size_t>());
+            return std::make_unique<ControlledMessageCreate>(j.get<std::size_t>());
         }
 
         std::unique_ptr<ICommand> create_c_message_destroy(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageDestroy>(j.at("id").get<std::size_t>());
+            return std::make_unique<ControlledMessageDestroy>(j.get<std::size_t>());
         }
 
         std::unique_ptr<ICommand> create_c_message_show(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageShow>(j.at("id").get<std::size_t>());
+            return std::make_unique<ControlledMessageShow>(j.get<std::size_t>());
         }
 
         std::unique_ptr<ICommand> create_c_message_hide(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageHide>(j.at("id").get<std::size_t>());
+            return std::make_unique<ControlledMessageHide>(j.get<std::size_t>());
         }
 
         std::unique_ptr<ICommand> create_c_message_text(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageText>(j.at("id").get<std::size_t>());
+            return std::make_unique<ControlledMessageText>(j.get<std::size_t>());
         }
 
         std::unique_ptr<ICommand> create_c_message_timeout(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageTimeout>(j.at("id").get<std::size_t>());
+            return std::make_unique<ControlledMessageTimeout>(j.get<std::size_t>());
         }
 
         std::unique_ptr<ICommand> create_c_message_background(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageBackground>(j.at("id").get<std::size_t>());
+            return std::make_unique<ControlledMessageBackground>(j.get<std::size_t>());
         }
 
         std::unique_ptr<ICommand> create_c_message_position(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessagePosition>(j.at("id").get<std::size_t>());
+            return std::make_unique<ControlledMessagePosition>(j.get<std::size_t>());
         }
 
         std::unique_ptr<ICommand> create_c_message_alignment(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageAlignment>(j.at("id").get<std::size_t>(), j.at("alignment").get<app::AlignmentMode__Enum>());
+            return std::make_unique<ControlledMessageAlignment>(j.at(0).get<std::size_t>(), parse_enum<app::AlignmentMode__Enum>(j.at(0)));
         }
 
         std::unique_ptr<ICommand> create_c_message_screen_position(const nlohmann::json& j) {
             return std::make_unique<ControlledMessageScreenPosition>(
-                j.at("id").get<std::size_t>(), j.at("screen_position").get<core::api::messages::ScreenPosition>()
+                j.at(0).get<std::size_t>(), parse_enum<core::api::messages::ScreenPosition>(j.at(1))
             );
         }
 
         template<bool sync>
         std::unique_ptr<ICommand> create_server_sync(const nlohmann::json& j) {
-            const auto& identifier = j.at("uber_identifier");
-            return std::make_unique<ServerSync<sync>>(identifier.at("group").get<int>(), identifier.at("member").get<int>());
+            return std::make_unique<ServerSync<sync>>(j.at(0).get<int>(), j.at(1).get<int>());
         }
 
         std::unique_ptr<ICommand> create_set_spoiler(const nlohmann::json& j) {
-            return std::make_unique<SetSpoiler>(j.at("location").get<std::string>(), j.at("icon").get<MapIcon>());
+            return std::make_unique<SetSpoiler>(j.at(0).get<std::string>(), parse_enum<MapIcon>(j.at(1)));
         }
 
-        std::unique_ptr<ICommand> create_warp_icon_create(const nlohmann::json& j) { return std::make_unique<WarpIconCreate>(j.at("id").get<std::size_t>()); }
+        std::unique_ptr<ICommand> create_warp_icon_create(const nlohmann::json& j) { return std::make_unique<WarpIconCreate>(j.at(0).get<std::size_t>()); }
 
-        std::unique_ptr<ICommand> create_warp_icon_label(const nlohmann::json& j) { return std::make_unique<WarpIconLabel>(j.at("id").get<std::size_t>()); }
+        std::unique_ptr<ICommand> create_warp_icon_label(const nlohmann::json& j) { return std::make_unique<WarpIconLabel>(j.at(0).get<std::size_t>()); }
 
-        std::unique_ptr<ICommand> create_warp_icon_destroy(const nlohmann::json& j) { return std::make_unique<WarpIconDestroy>(j.at("id").get<std::size_t>()); }
+        std::unique_ptr<ICommand> create_warp_icon_destroy(const nlohmann::json& j) { return std::make_unique<WarpIconDestroy>(j.at(0).get<std::size_t>()); }
 
         std::unique_ptr<ICommand> create_shop_price(const nlohmann::json& j) {
-            const auto& identifier = j.at("uber_identifier");
-            return std::make_unique<ShopPrice>(identifier.at("group").get<int>(), identifier.at("member").get<int>());
+            return std::make_unique<ShopPrice>(j.at("group").get<int>(), j.at("member").get<int>());
         }
 
         std::unique_ptr<ICommand> create_shop_name(const nlohmann::json& j) {
-            const auto& identifier = j.at("uber_identifier");
-            return std::make_unique<ShopName>(identifier.at("group").get<int>(), identifier.at("member").get<int>());
+            return std::make_unique<ShopName>(j.at("group").get<int>(), j.at("member").get<int>());
         }
 
         std::unique_ptr<ICommand> create_shop_description(const nlohmann::json& j) {
-            const auto& identifier = j.at("uber_identifier");
-            return std::make_unique<ShopDescription>(identifier.at("group").get<int>(), identifier.at("member").get<int>());
+            return std::make_unique<ShopDescription>(j.at("group").get<int>(), j.at("member").get<int>());
         }
 
         std::unique_ptr<ICommand> create_shop_icon(const nlohmann::json& j) {
-            const auto& identifier = j.at("uber_identifier");
-            return std::make_unique<ShopIcon>(identifier.at("group").get<int>(), identifier.at("member").get<int>());
+            return std::make_unique<ShopIcon>(
+                j.at(0).at("group").get<int>(),
+                j.at(0).at("member").get<int>(),
+                parse_icon(j.at(1))
+            );
         }
 
         std::unique_ptr<ICommand> create_shop_hidden(const nlohmann::json& j) {
-            const auto& identifier = j.at("uber_identifier");
-            return std::make_unique<ShopHidden>(identifier.at("group").get<int>(), identifier.at("member").get<int>());
+            return std::make_unique<ShopHidden>(j.at("group").get<int>(), j.at("member").get<int>());
         }
 
         std::unique_ptr<ICommand> create_shop_locked(const nlohmann::json& j) {
-            const auto& identifier = j.at("uber_identifier");
-            return std::make_unique<ShopLocked>(identifier.at("group").get<int>(), identifier.at("member").get<int>());
+            return std::make_unique<ShopLocked>(j.at("group").get<int>(), j.at("member").get<int>());
         }
 
         std::unique_ptr<ICommand> create_wheel_item_name(const nlohmann::json& j) {
-            return std::make_unique<WheelItemName>(j.at("wheel").get<int>(), j.at("position").get<features::wheel::WheelItemPosition>());
+            return std::make_unique<WheelItemName>(j.at(0).get<int>(), parse_enum<features::wheel::WheelItemPosition>(j.at(1)));
         }
 
         std::unique_ptr<ICommand> create_wheel_item_description(const nlohmann::json& j) {
-            return std::make_unique<WheelItemDescription>(j.at("wheel").get<int>(), j.at("position").get<features::wheel::WheelItemPosition>());
+            return std::make_unique<WheelItemDescription>(j.at(0).get<int>(), parse_enum<features::wheel::WheelItemPosition>(j.at(1)));
         }
 
         std::unique_ptr<ICommand> create_wheel_item_icon(const nlohmann::json& j) {
-            const auto& icon = j.at("icon").begin();
-            const auto key = icon.key();
-            std::string path;
-            if (key == "Shard") {
-                path = std::format("shard:{}", icon.value().get<int>());
-            } else if (key == "Ability") {
-                path = std::format("ability:{}", icon.value().get<int>());
-            } else if (key == "Equipment") {
-                path = std::format("spell:{}", icon.value().get<int>());
-            } else if (key == "OpherIcon") {
-                path = std::format("opher:{}", icon.value().get<int>());
-            } else if (key == "LupoIcon") {
-                path = std::format("lupo:{}", icon.value().get<int>());
-            } else if (key == "GromIcon") {
-                path = std::format("grom:{}", icon.value().get<int>());
-            } else if (key == "TuleyIcon") {
-                path = std::format("tuley:{}", icon.value().get<int>());
-            } else {
-                path = std::format("file:{}", icon.value().get<std::string>());
-            }
-
             return std::make_unique<WheelItemIcon>(
-                j.at("wheel").get<int>(),
-                j.at("position").get<features::wheel::WheelItemPosition>(),
-                path
+                j.at(0).get<int>(),
+                parse_enum<features::wheel::WheelItemPosition>(j.at(1)),
+                parse_icon(j.at(2))
             );
         }
 
         std::unique_ptr<ICommand> create_wheel_item_color(const nlohmann::json& j) {
-            return std::make_unique<WheelItemColor>(j.at("wheel").get<int>(), j.at("position").get<features::wheel::WheelItemPosition>());
+            return std::make_unique<WheelItemColor>(j.at(0).get<int>(), parse_enum<features::wheel::WheelItemPosition>(j.at(1)));
         }
 
         std::unique_ptr<ICommand> create_wheel_item_command(const nlohmann::json& j) {
             return std::make_unique<WheelItemCommand>(
-                j.at("wheel").get<int>(),
-                j.at("position").get<features::wheel::WheelItemPosition>(),
-                j.at("bind").get<app::SpellInventory_Binding__Enum>(),
-                j.at("command").get<std::size_t>()
+                j.at(0).get<int>(),
+                parse_enum<features::wheel::WheelItemPosition>(j.at(1)),
+                parse_enum<app::SpellInventory_Binding__Enum>(j.at(2)),
+                j.at(3).get<std::size_t>()
             );
         }
 
         std::unique_ptr<ICommand> create_wheel_item_destroy(const nlohmann::json& j) {
-            return std::make_unique<WheelItemDestroy>(j.at("wheel").get<int>(), j.at("position").get<features::wheel::WheelItemPosition>());
+            return std::make_unique<WheelItemDestroy>(j.at(0).get<int>(), parse_enum<features::wheel::WheelItemPosition>(j.at(1)));
         }
 
         std::unique_ptr<ICommand> create_wheel_switch(const nlohmann::json& j) {
-            return std::make_unique<WheelSwitch>(j.at("wheel").get<int>());
+            return std::make_unique<WheelSwitch>(j.get<int>());
         }
 
         std::unique_ptr<ICommand> create_wheel_pinned(const nlohmann::json& j) {
-            return std::make_unique<WheelPinned>(j.at("wheel").get<int>());
+            return std::make_unique<WheelPinned>(j.get<int>());
         }
 
         std::unique_ptr<ICommand> create_wheels_clear(const nlohmann::json& j) {
@@ -1078,7 +1346,7 @@ namespace randomizer::seed {
                 return std::move(it->second(j));
             }
         } else {
-            const auto it = creation_functors.find(begin(j).key());
+            const auto it = creation_functors.find(j.begin().key());
             if (it != creation_functors.end()) {
                 return std::move(it->second(begin(j).value()));
             }

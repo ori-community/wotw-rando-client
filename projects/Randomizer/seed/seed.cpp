@@ -115,11 +115,18 @@ namespace randomizer::seed {
                 command->execute(*this, m_memory);
             }
         } else if (core::api::game::in_game() && should_grant()) {
-            for (const auto& command: m_data->data.commands[id] | std::ranges::views::reverse) {
+            modloader::info("seed", std::format("start executing {}", id));
+            for (const auto& command: m_data->data.commands[id]) {
+                modloader::info("seed", command->to_string(*this, m_memory));
+                command->execute(*this, m_memory);
+            }
+
+            modloader::info("seed", std::format("finish executing {}", id));
+            /*for (const auto& command: m_data->data.commands[id] | std::ranges::views::reverse) {
                 m_command_stack.push_back(command.get());
             }
 
-            if (!m_handling_command) {
+            if (m_handling_command) {
                 return;
             }
 
@@ -128,7 +135,7 @@ namespace randomizer::seed {
                 const auto command = m_command_stack.back();
                 m_command_stack.pop_back();
                 command->execute(*this, m_memory);
-            }
+            }*/
         }
     }
 

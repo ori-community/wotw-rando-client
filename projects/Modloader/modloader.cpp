@@ -47,8 +47,10 @@ namespace modloader {
         class BufferingHandler final : public ILoggingHandler {
         public:
             static constexpr int MAX_MESSAGES = 1000;
+            std::mutex m_mutex;
 
             void write(MessageType type, std::string const& group, std::string const& message) override {
+                std::lock_guard guard(m_mutex);
                 message_buffer.emplace_back(type, group, message);
                 while (message_buffer.size() > MAX_MESSAGES) {
                     message_buffer.erase(message_buffer.begin());
