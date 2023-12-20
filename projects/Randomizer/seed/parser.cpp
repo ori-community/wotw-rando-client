@@ -99,7 +99,13 @@ namespace randomizer::seed {
                     condition.command = event.at(1).get<int>();
                 } else if (trigger.contains("Pseudo")) {
                     current_item = "pseuodo";
-                    output->data.events[trigger.at("Pseudo").get<SeedEvent>()].push_back(event.at(1).get<int>());
+                    auto seed_event = trigger.at("Pseudo").get<SeedEvent>();
+                    if (seed_event == SeedEvent::INVALID) {
+                        current_item = trigger.at("Pseudo").get<std::string>();
+                        throw std::exception("Invalid Pseudo value");
+                    }
+
+                    output->data.events[seed_event].push_back(event.at(1).get<int>());
                 } else if (trigger.contains("Binding")) {
                     current_item = "binding";
                     auto& condition = output->data.conditions.emplace_back();

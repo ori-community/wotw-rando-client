@@ -109,19 +109,31 @@ namespace randomizer::seed {
         });
     }
 
+    std::string cindent(const int indent) {
+        std::string indentation;
+        for (auto i = 0; i < indent; ++i) {
+            indentation += "\t";
+        }
+
+        return indentation;
+    }
+
     void Seed::handle_command(const int id, bool condition_check) {
         if (condition_check) {
             for (const auto& command: m_data->data.commands[id]) {
                 command->execute(*this, m_memory);
             }
         } else if (core::api::game::in_game() && should_grant()) {
-            modloader::info("seed", std::format("start executing {}", id));
-            for (const auto& command: m_data->data.commands[id]) {
-                modloader::info("seed", command->to_string(*this, m_memory));
-                command->execute(*this, m_memory);
+            modloader::info("seed", std::format("{}START EXECUTION {}", cindent(indent), id));
+            {
+                modloader::ScopedSetter setter(indent, indent + 1);
+                for (const auto& command: m_data->data.commands[id]) {
+                    modloader::info("seed", std::format("{}{}", cindent(indent), command->to_string(*this, m_memory)));
+                    command->execute(*this, m_memory);
+                }
             }
 
-            modloader::info("seed", std::format("finish executing {}", id));
+            modloader::info("seed", std::format("{}END EXECUTION {}", cindent(indent), id));
             /*for (const auto& command: m_data->data.commands[id] | std::ranges::views::reverse) {
                 m_command_stack.push_back(command.get());
             }
@@ -158,7 +170,7 @@ namespace randomizer::seed {
         return std::ranges::all_of(m_prevent_grant_callbacks, [](const auto& callback) { return !callback(); });
     }
 
-    nlohmann::json SaveSlotSeedMetaData::json_serialize() { return {*this}; }
+    nlohmann::json SaveSlotSeedMetaData::json_serialize() { return *this; }
 
     void SaveSlotSeedMetaData::json_deserialize(nlohmann::json& j) { j.get_to(*this); }
 } // namespace randomizer::seed

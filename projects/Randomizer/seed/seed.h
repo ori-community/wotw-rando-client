@@ -83,6 +83,7 @@ namespace randomizer::seed {
         std::shared_ptr<SeedParseOutput> m_data = std::make_shared<SeedParseOutput>();
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
 
+        int indent = 0;
         bool m_handling_command = false;
         std::vector<ICommand*> m_command_stack;
         SeedMemory m_memory;
