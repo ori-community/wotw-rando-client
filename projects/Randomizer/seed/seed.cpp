@@ -118,7 +118,7 @@ namespace randomizer::seed {
         return indentation;
     }
 
-    void Seed::handle_command(const int id, bool condition_check) {
+    void Seed::handle_command(const std::size_t id, bool condition_check) {
         if (condition_check) {
             for (const auto& command: m_data->data.commands[id]) {
                 command->execute(*this, m_memory);

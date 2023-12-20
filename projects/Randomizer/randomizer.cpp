@@ -121,11 +121,6 @@ namespace randomizer {
                 }
             });
 
-            Game::UI_Hints::Show(
-                core::api::system::create_message_provider("*Good Luck! <3*"), app::HintLayer__Enum::Gameplay, 3.f, app::Vector3{0.f, 0.f, 0.f}
-            );
-
-
             game::pickups::quests::clear_queued_quest_messages_on_next_update();
         });
 

@@ -54,7 +54,7 @@ namespace randomizer::seed {
 
             for (const auto& timer : timers) {
                 if (timer.toggle.get<bool>()) {
-                    timer.value.set(timer.value.get<int>() + 1);
+                    timer.value.set(timer.value.get<float>() + core::api::game::delta_time());
                 }
             }
         });
@@ -661,10 +661,10 @@ namespace randomizer::seed {
         };
 
         struct Warp final : ICommand {
-            void execute(Seed& seed, SeedMemory& memory) const override { game::teleport({memory.floats.get(0), memory.floats.get(1), 0.f}); }
+            void execute(Seed& seed, SeedMemory& memory) const override { game::teleport({memory.floats.get(1), memory.floats.get(0), 0.f}); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Warp: {}, {}", memory.floats.get(0), memory.floats.get(1));
+                return std::format("Warp: {}, {}", memory.floats.get(1), memory.floats.get(0));
             }
         };
 

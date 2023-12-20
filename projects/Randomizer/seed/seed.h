@@ -74,7 +74,7 @@ namespace randomizer::seed {
 
         void trigger(SeedEvent event);
         void prevent_grants(const std::function<bool()>& callback) { m_prevent_grant_callbacks.push_back(callback); }
-        void handle_command(int id, bool condition_check = false);
+        void handle_command(std::size_t id, bool condition_check = false);
     private:
 
         location_data::LocationCollection const& m_location_data;
