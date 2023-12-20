@@ -89,4 +89,5 @@ namespace randomizer::seed {
     }
 
     std::unique_ptr<ICommand> create_command(const nlohmann::json& j);
+    void destroy_all_seed_icons();
 }

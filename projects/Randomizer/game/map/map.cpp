@@ -264,7 +264,7 @@ namespace randomizer::game::map {
 
     std::shared_ptr<Icon> add_icon(FilterFlag filter_mask) {
         auto icon = std::make_shared<Icon>(filter_mask);
-        auto mask = static_cast<int>(filter_mask);
+        const auto mask = static_cast<int>(filter_mask);
         for (auto i = 0; i < static_cast<int>(Filters::COUNT); ++i) {
             if ((mask & (1 << i)) != 0) {
                 auto& collection = icons[static_cast<Filters>(i)];
@@ -276,8 +276,8 @@ namespace randomizer::game::map {
     }
 
     void remove_icon(const std::shared_ptr<Icon>& icon) {
-        for (auto& collection: icons) {
-            collection.second.erase(icon);
+        for (auto& icon_data: icons | std::views::values) {
+            icon_data.erase(icon);
         }
     }
 

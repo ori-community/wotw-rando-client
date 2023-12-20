@@ -20,4 +20,6 @@ namespace randomizer::game::map {
 
     void refresh();
     core::Property<bool>& show_interactible_icons();
+
+    void set_spoiler_data(const std::string& location, MapIcon icon, const std::string& text);
 } // namespace randomizer::game::map

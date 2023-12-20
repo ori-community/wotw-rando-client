@@ -65,10 +65,6 @@ namespace randomizer::seed {
         void reload(bool show_message = true);
         void clear();
 
-        MapIcon icon(const std::string& location);
-        std::string text(const std::string& location) const;
-        void trigger(SeedEvent event) const;
-        void on_state_changed(const core::api::uber_states::UberState& state) const;
         bool should_grant() const;
 
         SeedParseOutput const& parser_output() const { return *m_data; }
@@ -76,6 +72,7 @@ namespace randomizer::seed {
 
         std::filesystem::path path() const { return m_last_path; }
 
+        void trigger(SeedEvent event);
         void prevent_grants(const std::function<bool()>& callback) { m_prevent_grant_callbacks.push_back(callback); }
         void handle_command(int id, bool condition_check = false);
     private:

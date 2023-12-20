@@ -114,7 +114,7 @@ namespace randomizer::seed {
             for (const auto& command: m_data->data.commands[id]) {
                 command->execute(*this, m_memory);
             }
-        } else {
+        } else if (core::api::game::in_game() && should_grant()) {
             for (const auto& command: m_data->data.commands[id] | std::ranges::views::reverse) {
                 m_command_stack.push_back(command.get());
             }
@@ -138,33 +138,17 @@ namespace randomizer::seed {
         m_memory.integers.values.clear();
         m_memory.floats.values.clear();
         m_memory.strings.values.clear();
-        // destroy_all_seed_icons();
+        destroy_all_seed_icons();
     }
 
-    MapIcon Seed::icon(const std::string& location) { return MapIcon::QuestItem; }
-
-    std::string Seed::text(const std::string& location) const { return ""; }
-
-    void Seed::trigger(SeedEvent event) const { const auto& commands = m_data->data.events[event]; }
+    void Seed::trigger(const SeedEvent event) {
+        for (const auto& command: m_data->data.events[event]) {
+            handle_command(command);
+        }
+    }
 
     bool Seed::should_grant() const {
-        for (const auto& callback: m_prevent_grant_callbacks) {
-            if (callback()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    void Seed::on_state_changed(const core::api::uber_states::UberState& state) const {
-        if (!core::api::game::in_game() || !should_grant()) {
-            return;
-        }
-
-        if (location_collection().should_queue_reach_check(state)) {
-            queue_reach_check();
-        }
+        return std::ranges::all_of(m_prevent_grant_callbacks, [](const auto& callback) { return !callback(); });
     }
 
     nlohmann::json SaveSlotSeedMetaData::json_serialize() { return {*this}; }

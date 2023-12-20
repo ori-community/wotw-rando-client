@@ -15,23 +15,24 @@ namespace randomizer::features::wheel {
         int wheel, int item, std::string name, std::string desc,
         std::string texture, wheel_callback callback)
     {
-        set_wheel_item_name(wheel, item, name);
-        set_wheel_item_description(wheel, item, desc);
-        set_wheel_item_texture(wheel, item, texture);
-        set_wheel_item_color(wheel, item, 255, 255, 255, 255);
-        set_wheel_item_callback(wheel, item, app::SpellInventory_Binding__Enum::ButtonX, callback);
+        const auto position = static_cast<WheelItemPosition>(item);
+        set_wheel_item_name(wheel,  position, name);
+        set_wheel_item_description(wheel, position, desc);
+        set_wheel_item_texture(wheel, position, texture);
+        set_wheel_item_color(wheel, position, 255, 255, 255, 255);
+        set_wheel_item_callback(wheel, position, app::SpellInventory_Binding__Enum::ButtonX, callback);
     }
 
     void on_dev_changed() {
         auto dev = core::settings::dev_mode();
-        set_wheel_item_enabled(9001, 1, dev);
-        set_wheel_item_enabled(9001, 2, dev);
-        set_wheel_item_enabled(9001, 4, dev);
-        set_wheel_item_enabled(9001, 5, dev);
-        set_wheel_item_enabled(9001, 6, dev);
-        set_wheel_item_enabled(9001, 7, dev);
-        set_wheel_item_enabled(9001, 9, dev);
-        set_wheel_item_enabled(9001, 10, dev);
+        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(1), dev);
+        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(2), dev);
+        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(4), dev);
+        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(5), dev);
+        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(6), dev);
+        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(7), dev);
+        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(9), dev);
+        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(10), dev);
         refresh_wheel();
     }
 

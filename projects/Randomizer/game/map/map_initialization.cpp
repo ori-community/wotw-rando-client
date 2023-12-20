@@ -8,15 +8,13 @@
 #include <Randomizer/randomizer.h>
 
 namespace randomizer::game::map {
-    core::Property<bool> show_interactible_icons_property(true);
-    core::Property<bool>& show_interactible_icons() {
-        return show_interactible_icons_property;
-    }
-
     namespace {
-        std::string icon_label(const std::optional<location_data::Location>& location, const core::api::uber_states::UberStateCondition& condition) {
-            auto name = location.has_value() && !location->name.empty() ? location->name : " ";
-            return std::format("[no_color([if([state_bool(34543|11226)],[pickup_text({0})],{1})])]", condition.serialize(), name);
+    core::Property<bool> show_interactible_icons_property(true);
+        std::unordered_map<std::string, std::tuple<MapIcon, std::string>> spoiler_data;
+
+        MapIcon select_spoiler_icon(const location_data::Location& location) {
+            const auto spoiler = spoiler_data.find(location.name);
+            return spoiler == spoiler_data.end() ? MapIcon::Eyestone : std::get<0>(spoiler->second);
         }
 
         MapIcon select_icon(const location_data::Location& location) {
@@ -300,12 +298,27 @@ namespace randomizer::game::map {
                             return MapIcon::Eyestone;
                         }
 
-                        return game_finished.get<bool>() ? game_seed().icon(new_location.value().name) : select_icon(new_location.value());
+                        return game_finished.get<bool>() ?
+                            select_spoiler_icon(new_location.value()) :
+                            select_icon(new_location.value());
                     });
 
                     icon->position().set(location.map_position.value());
                     icon->name().set(location.name);
-                    icon->label().set(icon_label(location, location.condition));
+                    icon->label().assign([](auto) {}, [condition, game_finished] {
+                        const auto new_location = location_collection().location(condition);
+                        if (!new_location.has_value()) {
+                            return std::string(" ");
+                        }
+
+                        if (game_finished.get<bool>()) {
+                            const auto spoiler = spoiler_data.find(new_location->name);
+                            return spoiler == spoiler_data.end() ? std::string(" ") : std::get<1>(spoiler->second);
+                        }
+
+                        return !new_location->name.empty() ? new_location->name : std::string(" ");
+                    });
+
                     add_icon_visibility_callback(icon, [location](auto) {
                         if (active_filter() == Filters::Spoilers) {
                             return IconVisibilityResult::Show;
@@ -343,4 +356,12 @@ namespace randomizer::game::map {
             }
         });
     } // namespace
+
+    void set_spoiler_data(const std::string& location, MapIcon icon, const std::string& text) {
+
+    }
+
+    core::Property<bool>& show_interactible_icons() {
+        return show_interactible_icons_property;
+    }
 } // namespace randomizer::game::map

@@ -176,10 +176,6 @@ namespace randomizer {
             randomizer_seed.trigger(seed::SeedEvent::Respawn);
         });
 
-        auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
-            randomizer_seed.on_state_changed(params.state);
-        });
-
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             monitor.display(&status);
             monitor.network_client(&client);
