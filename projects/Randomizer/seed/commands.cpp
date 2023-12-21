@@ -1129,10 +1129,10 @@ namespace randomizer::seed {
         }
 
         std::unique_ptr<ICommand> create_unequip(const nlohmann::json& j) {
-            return std::make_unique<Unequip>(parse_enum<app::EquipmentType__Enum>(j.at(0)));
+            return std::make_unique<Unequip>(parse_enum<app::EquipmentType__Enum>(j));
         }
 
-        std::unique_ptr<ICommand> create_trigger_keybind(const nlohmann::json& j) { return std::make_unique<TriggerKeybind>(j.at(0).get<Action>()); }
+        std::unique_ptr<ICommand> create_trigger_keybind(const nlohmann::json& j) { return std::make_unique<TriggerKeybind>(j.get<Action>()); }
 
         std::unique_ptr<ICommand> create_c_message_create(const nlohmann::json& j) {
             return std::make_unique<ControlledMessageCreate>(j.get<std::size_t>());
