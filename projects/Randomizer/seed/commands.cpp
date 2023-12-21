@@ -391,7 +391,15 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set(0, static_cast<B>(memory.get<A>(0))); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Cast {} -> {}", TypeStr<A>::str, TypeStr<B>::str);
+                return std::format("Cast {} -> {} ({})", TypeStr<A>::str, TypeStr<B>::str, memory.get<A>(0));
+            }
+        };
+
+        struct Round final : ICommand {
+            void execute(Seed& seed, SeedMemory& memory) const override { memory.floats.set(0, std::round(memory.floats.get(0))); }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("Round {:.3} -> {:.0}", TypeStr<float>::str, TypeStr<std::string>::str, memory.get<float>(0), std::round(memory.get<float>(0)));
             }
         };
 
@@ -399,7 +407,7 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set<std::string>(0, memory.get<bool>(0) ? "true" : "false"); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Cast {} -> {}", TypeStr<bool>::str, TypeStr<std::string>::str);
+                return std::format("Cast {} -> {} ({})", TypeStr<bool>::str, TypeStr<std::string>::str, memory.get<bool>(0));
             }
         };
 
@@ -407,7 +415,7 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set(0, std::format("{}", memory.get<int>(0))); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Cast {} -> {}", TypeStr<int>::str, TypeStr<std::string>::str);
+                return std::format("Cast {} -> {} ({})", TypeStr<int>::str, TypeStr<std::string>::str, memory.get<int>(0));
             }
         };
 
@@ -415,7 +423,7 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set(0, std::format("{:.3f}", memory.get<float>(0))); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Cast {} -> {}", TypeStr<float>::str, TypeStr<std::string>::str);
+                return std::format("Cast {} -> {} ({:.3})", TypeStr<float>::str, TypeStr<std::string>::str, memory.get<float>(0));
             }
         };
 
@@ -1109,6 +1117,7 @@ namespace randomizer::seed {
             return std::make_unique<Cast<A, B>>();
         }
 
+        std::unique_ptr<ICommand> create_round(const nlohmann::json&) { return std::make_unique<Round>(); }
         std::unique_ptr<ICommand> create_bool_to_string(const nlohmann::json&) { return std::make_unique<BoolToString>(); }
         std::unique_ptr<ICommand> create_int_to_string(const nlohmann::json&) { return std::make_unique<IntToString>(); }
         std::unique_ptr<ICommand> create_float_to_string(const nlohmann::json&) { return std::make_unique<FloatToString>(); }
@@ -1295,8 +1304,10 @@ namespace randomizer::seed {
             {"LogicOperation", create_logic},
             {"ArithmeticInteger", create_arithmetic<int>},
             {"ArithmeticFloat", create_arithmetic<float>},
+            {"Round", create_round},
             {"Concatenate", create_concatenate},
             {"IntegerToFloat", create_cast<int, float>},
+            {"FloatToInteger", create_cast<float, int>},
             {"BooleanToString", create_bool_to_string},
             {"IntegerToString", create_int_to_string},
             {"FloatToString", create_float_to_string},
