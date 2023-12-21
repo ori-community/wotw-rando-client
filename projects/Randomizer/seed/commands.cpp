@@ -269,13 +269,13 @@ namespace randomizer::seed {
             EqualityComparator op;
 
             void execute(Seed& seed, SeedMemory& memory) const override {
-                memory.booleans.set(0, op == EqualityComparator::Equal && memory.get<T>(1) == memory.get<T>(0));
+                memory.booleans.set(0, op == EqualityComparator::Equal && memory.get<T>(0) == memory.get<T>(1));
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
                 nlohmann::json j;
                 to_json(j, op);
-                return std::format("Compare {}: {} {} {}", TypeStr<T>::str, memory.get<T>(1), j.get<std::string>(), memory.get<T>(0));
+                return std::format("Compare {}: {} {} {}", TypeStr<T>::str, memory.get<T>(0), j.get<std::string>(), memory.get<T>(1));
             }
         };
 
@@ -289,22 +289,22 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 switch (op) {
                     case Comparator::Equal:
-                        memory.booleans.set(0, memory.get<T>(1) == memory.get<T>(0));
+                        memory.booleans.set(0, memory.get<T>(0) == memory.get<T>(1));
                         break;
                     case Comparator::NotEqual:
-                        memory.booleans.set(0, memory.get<T>(1) != memory.get<T>(0));
+                        memory.booleans.set(0, memory.get<T>(0) != memory.get<T>(1));
                         break;
                     case Comparator::Less:
-                        memory.booleans.set(0, memory.get<T>(1) < memory.get<T>(0));
+                        memory.booleans.set(0, memory.get<T>(0) < memory.get<T>(1));
                         break;
                     case Comparator::LessOrEqual:
-                        memory.booleans.set(0, memory.get<T>(1) <= memory.get<T>(0));
+                        memory.booleans.set(0, memory.get<T>(0) <= memory.get<T>(1));
                         break;
                     case Comparator::Greater:
-                        memory.booleans.set(0, memory.get<T>(1) > memory.get<T>(0));
+                        memory.booleans.set(0, memory.get<T>(0) > memory.get<T>(1));
                         break;
                     case Comparator::GreaterOrEqual:
-                        memory.booleans.set(0, memory.get<T>(1) >= memory.get<T>(0));
+                        memory.booleans.set(0, memory.get<T>(0) >= memory.get<T>(1));
                         break;
                 }
             }
@@ -312,7 +312,7 @@ namespace randomizer::seed {
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
                 nlohmann::json j;
                 to_json(j, op);
-                return std::format("Compare {}: {} {} {}", TypeStr<T>::str, memory.get<T>(1), j.get<std::string>(), memory.get<T>(0));
+                return std::format("Compare {}: {} {} {}", TypeStr<T>::str, memory.get<T>(0), j.get<std::string>(), memory.get<T>(1));
             }
         };
 
@@ -325,10 +325,10 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 switch (op) {
                     case LogicOperator::And:
-                        memory.booleans.set(0, memory.booleans.get(1) && memory.booleans.get(0));
+                        memory.booleans.set(0, memory.booleans.get(0) && memory.booleans.get(1));
                         break;
                     case LogicOperator::Or:
-                        memory.booleans.set(0, memory.booleans.get(1) || memory.booleans.get(0));
+                        memory.booleans.set(0, memory.booleans.get(0) || memory.booleans.get(1));
                         break;
                 }
             }
@@ -336,7 +336,7 @@ namespace randomizer::seed {
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
                 nlohmann::json j;
                 to_json(j, op);
-                return std::format("Logic bool: {} {} {}", memory.booleans.get(1), j.get<std::string>(), memory.booleans.get(0));
+                return std::format("Logic bool: {} {} {}", memory.booleans.get(0), j.get<std::string>(), memory.booleans.get(1));
             }
         };
 
@@ -350,16 +350,16 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 switch (op) {
                     case ArithmeticOperator::Add:
-                        memory.set(0, memory.get<T>(1) + memory.get<T>(0));
+                        memory.set(0, memory.get<T>(0) + memory.get<T>(1));
                         break;
                     case ArithmeticOperator::Subtract:
-                        memory.set(0, memory.get<T>(1) - memory.get<T>(0));
+                        memory.set(0, memory.get<T>(0) - memory.get<T>(1));
                         break;
                     case ArithmeticOperator::Multiply:
-                        memory.set(0, memory.get<T>(1) * memory.get<T>(0));
+                        memory.set(0, memory.get<T>(0) * memory.get<T>(1));
                         break;
                     case ArithmeticOperator::Divide:
-                        memory.set(0, memory.get<T>(1) / memory.get<T>(0));
+                        memory.set(0, memory.get<T>(0) / memory.get<T>(1));
                         break;
                 }
             }
@@ -367,15 +367,15 @@ namespace randomizer::seed {
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
                 nlohmann::json j;
                 to_json(j, op);
-                return std::format("Arithmetic {}: {} {} {}", TypeStr<T>::str, memory.get<T>(1), j.get<std::string>(), memory.get<T>(0));
+                return std::format("Arithmetic {}: {} {} {}", TypeStr<T>::str, memory.get<T>(0), j.get<std::string>(), memory.get<T>(1));
             }
         };
 
         struct Concatenate final : ICommand {
-            void execute(Seed& seed, SeedMemory& memory) const override { memory.strings.set(0, memory.strings.get(1) + memory.strings.get(0)); }
+            void execute(Seed& seed, SeedMemory& memory) const override { memory.strings.set(0, memory.strings.get(0) + memory.strings.get(1)); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Concat: '{}' '{}'", memory.strings.get(1), memory.strings.get(0));
+                return std::format("Concat: '{}' '{}'", memory.strings.get(0), memory.strings.get(1));
             }
         };
 
@@ -430,17 +430,17 @@ namespace randomizer::seed {
         struct IsInHitbox final : ICommand {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 app::Rect box{
+                    memory.floats.get(0),
                     memory.floats.get(1),
-                    memory.floats.get(2),
+                    memory.floats.get(2) - memory.floats.get(0),
                     memory.floats.get(3) - memory.floats.get(1),
-                    memory.floats.get(0) - memory.floats.get(2),
                 };
 
                 memory.booleans.set(0, modloader::math::in_rect(core::api::game::player::get_position(), box));
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("IsInHitBox ({}, {}, {}, {})", memory.floats.get(1), memory.floats.get(2), memory.floats.get(3), memory.floats.get(0));
+                return std::format("IsInHitBox ({}, {}, {}, {})", memory.floats.get(0), memory.floats.get(1), memory.floats.get(2), memory.floats.get(3));
             }
         };
 
@@ -661,10 +661,10 @@ namespace randomizer::seed {
         };
 
         struct Warp final : ICommand {
-            void execute(Seed& seed, SeedMemory& memory) const override { game::teleport({memory.floats.get(1), memory.floats.get(0), 0.f}); }
+            void execute(Seed& seed, SeedMemory& memory) const override { game::teleport({memory.floats.get(0), memory.floats.get(1), 0.f}); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Warp: {}, {}", memory.floats.get(1), memory.floats.get(0));
+                return std::format("Warp: {}, {}", memory.floats.get(0), memory.floats.get(1));
             }
         };
 
