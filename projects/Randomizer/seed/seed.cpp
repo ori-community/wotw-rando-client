@@ -153,10 +153,6 @@ namespace randomizer::seed {
 
     void Seed::clear() {
         m_data = nullptr;
-        m_memory.booleans.values.clear();
-        m_memory.integers.values.clear();
-        m_memory.floats.values.clear();
-        m_memory.strings.values.clear();
         destroy_all_seed_icons();
     }
 
