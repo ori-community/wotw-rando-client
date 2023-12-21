@@ -36,6 +36,13 @@ namespace randomizer::seed {
         });
 
         auto on_update = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [](auto, auto) {
+            if (!core::api::game::in_game()) {
+                message_boxes_with_timeouts.clear();
+                message_boxes.clear();
+                timers.clear();
+                return;
+            }
+
             std::unordered_set<int> to_destroy;
             for (const auto id: message_boxes_with_timeouts) {
                 auto& box = message_boxes.at(id);
@@ -1357,7 +1364,8 @@ namespace randomizer::seed {
         }
     }
 
-    void destroy_all_seed_icons() {
+    void destroy_volatile_seed_data() {
+        timers.clear();
         for (const auto& icon: warp_icons | std::views::values) {
             remove_icon(icon);
         }

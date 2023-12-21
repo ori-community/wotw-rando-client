@@ -153,7 +153,7 @@ namespace randomizer::seed {
 
     void Seed::clear() {
         m_data = nullptr;
-        destroy_all_seed_icons();
+        destroy_volatile_seed_data();
     }
 
     void Seed::trigger(const SeedEvent event) {
