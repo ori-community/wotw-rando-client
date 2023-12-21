@@ -84,7 +84,7 @@ namespace randomizer::seed {
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
 
         int indent = 0;
-        bool m_handling_command = false;
+        bool m_should_handle_command = true;
         std::vector<ICommand*> m_command_stack;
         SeedMemory m_memory;
     };

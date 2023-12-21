@@ -12,6 +12,19 @@
 #include <neargye/semver.hpp>
 
 namespace randomizer {
+    class RandoException final : public std::exception {
+    public:
+        RandoException(const std::string& information)
+            : information(information)
+        {}
+
+        char const* what() const override {
+            return information.c_str();
+        }
+    private:
+        std::string information;
+    };
+
     enum class RandomizerEvent {
         LocationCollectionLoaded,
         SeedLoaded,

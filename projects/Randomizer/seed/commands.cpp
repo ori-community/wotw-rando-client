@@ -1342,17 +1342,19 @@ namespace randomizer::seed {
     std::unique_ptr<ICommand> create_command(const nlohmann::json& j) {
         if (j.is_string()) {
             const auto it = creation_functors.find(j.get<std::string>());
-            if (it != creation_functors.end()) {
-                return std::move(it->second(j));
+            if (it == creation_functors.end()) {
+                throw RandoException("Unknown command");
             }
+
+            return std::move(it->second(j));
         } else {
             const auto it = creation_functors.find(j.begin().key());
-            if (it != creation_functors.end()) {
-                return std::move(it->second(begin(j).value()));
+            if (it == creation_functors.end()) {
+                throw RandoException("Unknown command");
             }
-        }
 
-        return nullptr;
+            return std::move(it->second(j.begin().value()));
+        }
     }
 
     void destroy_all_seed_icons() {

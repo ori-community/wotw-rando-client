@@ -78,7 +78,7 @@ namespace randomizer::seed {
             } else {
                 auto state = std::get<core::api::uber_states::UberState>(condition.condition);
                 auto builder = core::reactivity::watch_effect().effect({state});
-                modloader::ScopedSetter setter(m_handling_command, true);
+                modloader::ScopedSetter setter(m_should_handle_command, false);
                 builder.after([&] { handle_command(condition.command); }).finalize_inplace(condition.reactive);
                 m_command_stack.clear();
             }
@@ -123,7 +123,7 @@ namespace randomizer::seed {
             for (const auto& command: m_data->data.commands[id]) {
                 command->execute(*this, m_memory);
             }
-        } else if (core::api::game::in_game() && should_grant()) {
+        } else if (core::api::game::in_game() && should_grant() && m_should_handle_command) {
             modloader::info("seed", std::format("{}START EXECUTION {}", cindent(indent), id));
             {
                 modloader::ScopedSetter setter(indent, indent + 1);
@@ -138,11 +138,11 @@ namespace randomizer::seed {
                 m_command_stack.push_back(command.get());
             }
 
-            if (m_handling_command) {
+            if (!m_should_handle_command) {
                 return;
             }
 
-            m_handling_command = true;
+            ScopedSetter setter(m_should_handle_command, false);
             while (!m_command_stack.empty()) {
                 const auto command = m_command_stack.back();
                 m_command_stack.pop_back();

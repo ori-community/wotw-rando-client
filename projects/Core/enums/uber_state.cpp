@@ -27,6 +27,7 @@ namespace {
         { UberStateGroup::Goals, "goals" },
         { UberStateGroup::Skills, "skills" },
         { UberStateGroup::Shards, "shards" },
+        { UberStateGroup::Settings, "settings" },
     };
 }
 

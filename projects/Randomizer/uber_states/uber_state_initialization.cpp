@@ -4,6 +4,7 @@
 #include <Core/api/uber_states/uber_state_virtual.h>
 #include <Core/dev/timing.h>
 #include <Core/enums/uber_state.h>
+#include <Core/settings.h>
 #include <Modloader/app/methods/Moon/UberStateCollection.h>
 #include <Modloader/app/types/BooleanUberState.h>
 #include <Modloader/app/types/ByteUberState.h>
@@ -485,6 +486,21 @@ namespace randomizer {
             register_virtual_state({ValueType::Float, UberStateGroup::Player, 11, "health", false, true}, health().wrap<double>());
             register_virtual_state({ValueType::Float, UberStateGroup::Player, 12, "maxEnergy", false, true}, max_energy().wrap<double>());
             register_virtual_state({ValueType::Float, UberStateGroup::Player, 13, "energy", false, true}, energy().wrap<double>());
+
+            register_virtual_state(
+                {
+                    .type = ValueType::Boolean,
+                    .group = UberStateGroup::Settings,
+                    .state = 0,
+                    .name = "randomSpiritLight",
+                    .readonly = true,
+                    .polled = true,
+                },
+                core::Property<double>(
+                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentArea (5, 50) is read only."); },
+                    []() -> double { return !core::settings::use_default_currency_name(); }
+                )
+            );
 
             register_virtual_state(
                 {

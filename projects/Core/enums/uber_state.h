@@ -30,6 +30,7 @@ enum class UberStateGroup {
     Goals = 23,
     Skills = 24,
     Shards = 25,
+    Settings = 26,
 };
 
 enum class UberStateType : uint8_t {
