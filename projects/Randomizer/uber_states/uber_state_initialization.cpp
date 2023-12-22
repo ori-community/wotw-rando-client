@@ -653,7 +653,7 @@ namespace randomizer {
                 std::make_tuple(app::AbilityType__Enum::DashNew, "dash"),
                 std::make_tuple(app::AbilityType__Enum::WaterDash, "waterDash"),
                 std::make_tuple(app::AbilityType__Enum::ChakramSpell, "shuriken"),
-                std::make_tuple(app::AbilityType__Enum::GoldenSein, "sein"),
+                std::make_tuple(app::AbilityType__Enum::GoldenSein, "seir"),
                 std::make_tuple(app::AbilityType__Enum::Blaze, "blaze"),
                 std::make_tuple(app::AbilityType__Enum::TurretSpell, "sentry"),
                 std::make_tuple(app::AbilityType__Enum::FeatherFlap, "flap"),
