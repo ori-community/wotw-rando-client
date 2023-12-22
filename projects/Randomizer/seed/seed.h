@@ -5,7 +5,7 @@
 #include <Core/property.h>
 
 #include <Randomizer/location_data/location_collection.h>
-#include <Randomizer/seed/commands.h>
+#include <Randomizer/seed/instructions.h>
 #include <Randomizer/seed/seed_event.h>
 
 #include <Core/save_meta/save_meta.h>
@@ -16,6 +16,7 @@
 namespace randomizer::seed {
 
     struct SeedData {
+        using command_t = std::vector<std::unique_ptr<IInstruction>>;
         struct Condition {
             std::variant<int, core::api::uber_states::UberState> condition;
             bool previous_value = false;
@@ -25,7 +26,7 @@ namespace randomizer::seed {
 
         std::vector<Condition> conditions;
         std::unordered_map<SeedEvent, std::vector<int>> events;
-        std::vector<std::vector<std::unique_ptr<ICommand>>> commands;
+        std::vector<command_t> commands;
     };
 
     struct SeedMetaData {
@@ -74,7 +75,9 @@ namespace randomizer::seed {
 
         void trigger(SeedEvent event);
         void prevent_grants(const std::function<bool()>& callback) { m_prevent_grant_callbacks.push_back(callback); }
-        void handle_command(std::size_t id, bool condition_check = false);
+        void handle_command(std::size_t id);
+
+        const SeedMemory& memory() const { return m_memory; }
     private:
         location_data::LocationCollection const& m_location_data;
         seed_parser m_last_parser = nullptr;
@@ -82,9 +85,8 @@ namespace randomizer::seed {
         std::shared_ptr<SeedParseOutput> m_data = std::make_shared<SeedParseOutput>();
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
 
-        int indent = 0;
         bool m_should_handle_command = true;
-        std::vector<ICommand*> m_command_stack;
+        std::vector<IInstruction*> m_command_stack;
         SeedMemory m_memory;
     };
 

@@ -1,4 +1,6 @@
-#pragma ocne
+#pragma once
+
+#include <nlohmann/json.hpp>
 
 namespace randomizer::seed {
     enum class SeedEvent {
@@ -49,11 +51,11 @@ namespace randomizer::seed {
         SeedEvent,
         {
             {SeedEvent::INVALID,                    "INVALID"                   },
-            {SeedEvent::Bind1,                   "Bind1"                  },
-            {SeedEvent::Bind2,                   "Bind2"                  },
-            {SeedEvent::Bind3,                   "Bind3"                  },
-            {SeedEvent::Bind4,                   "Bind4"                  },
-            {SeedEvent::Bind5,                   "Bind5"                  },
+            {SeedEvent::Bind1,                      "Bind1"                     },
+            {SeedEvent::Bind2,                      "Bind2"                     },
+            {SeedEvent::Bind3,                      "Bind3"                     },
+            {SeedEvent::Bind4,                      "Bind4"                     },
+            {SeedEvent::Bind5,                      "Bind5"                     },
             {SeedEvent::Teleport,                   "Teleport"                  },
             {SeedEvent::Jump,                       "Jump"                      },
             {SeedEvent::DoubleJump,                 "DoubleJump"                },
@@ -75,7 +77,7 @@ namespace randomizer::seed {
             {SeedEvent::WaterDash,                  "WaterDash"                 },
             {SeedEvent::Flap,                       "Flap"                      },
             {SeedEvent::Regenerate,                 "Regenerate"                },
-            {SeedEvent::ShowProgress,               "ProgressMessage"              },
+            {SeedEvent::ShowProgress,               "ProgressMessage"           },
             {SeedEvent::Reload,                     "Reload"                    },
             {SeedEvent::Respawn,                    "Respawn"                   },
             {SeedEvent::Tick,                       "Tick"                      },

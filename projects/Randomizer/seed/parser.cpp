@@ -123,7 +123,7 @@ namespace randomizer::seed {
                 auto& command = output->data.commands.emplace_back();
                 for (const auto& instruction_entry: command_entry) {
                     current_item = instruction_entry.is_string() ? instruction_entry.get<std::string>() : instruction_entry.begin().key();
-                    auto instruction = create_command(instruction_entry);
+                    auto instruction = create_instruction(instruction_entry);
                     if (instruction != nullptr) {
                         command.push_back(std::move(instruction));
                     }
