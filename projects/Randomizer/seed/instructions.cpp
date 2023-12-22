@@ -529,6 +529,8 @@ namespace randomizer::seed {
 
                 if (id.has_value()) {
                     central_message_boxes[id.value()] = {.handle = handle};
+                    message_boxes.erase(id.value());
+                    message_boxes_with_timeouts.erase(id.value());
                 }
             }
 
@@ -540,40 +542,6 @@ namespace randomizer::seed {
                     memory.strings.get(0),
                     memory.floats.get(0)
                 );
-            }
-        };
-
-        struct QueuedMessageText final : IInstruction {
-            explicit QueuedMessageText(const std::size_t id) :
-                id(id) {}
-
-            std::size_t id;
-            void execute(Seed& seed, SeedMemory& memory) const override {
-                const auto it = central_message_boxes.find(id);
-                if (it == central_message_boxes.end() || it->second.handle->message.expired()) {
-                    it->second.handle->message.lock()->text().set(memory.strings.get(0));
-                }
-            }
-
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("QueuedMessageText {} -> '{}'", id, memory.strings.get(0));
-            }
-        };
-
-        struct QueuedMessageTimeout final : IInstruction {
-            explicit QueuedMessageTimeout(const std::size_t id) :
-                id(id) {}
-
-            std::size_t id;
-            void execute(Seed& seed, SeedMemory& memory) const override {
-                const auto it = central_message_boxes.find(id);
-                if (it == central_message_boxes.end() || it->second.handle->message.expired()) {
-                    it->second.handle->time_left = memory.floats.get(0);
-                }
-            }
-
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("QueuedMessageTimeout {} -> {:.3}", id, memory.floats.get(0));
             }
         };
 
@@ -605,22 +573,10 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 message_boxes_with_timeouts.erase(id);
                 message_boxes[id].message = std::make_shared<core::api::messages::MessageBox>();
+                central_message_boxes.erase(id);
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("FreeMessageCreate {}", id); }
-        };
-
-        struct FreeMessageDestroy final : IInstruction {
-            explicit FreeMessageDestroy(const std::size_t id) :
-                id(id) {}
-
-            std::size_t id;
-            void execute(Seed& seed, SeedMemory& memory) const override {
-                message_boxes.erase(id);
-                message_boxes_with_timeouts.erase(id);
-            }
-
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("FreeMessageDestroy {}", id); }
         };
 
         struct FreeMessageShow final : IInstruction {
@@ -649,55 +605,6 @@ namespace randomizer::seed {
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("FreeMessageHide {}", id); }
-        };
-
-        struct FreeMessageText final : IInstruction {
-            explicit FreeMessageText(const std::size_t id) :
-                id(id) {}
-
-            std::size_t id;
-            void execute(Seed& seed, SeedMemory& memory) const override {
-                if (message_boxes.contains(id)) {
-                    message_boxes[id].message->text().set(memory.strings.get(0));
-                }
-            }
-
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("FreeMessageText {} -> '{}'", id, memory.strings.get(0));
-            }
-        };
-
-        struct FreeMessageTimeout final : IInstruction {
-            explicit FreeMessageTimeout(const std::size_t id) :
-                id(id) {}
-
-            std::size_t id;
-            void execute(Seed& seed, SeedMemory& memory) const override {
-                if (message_boxes.contains(id)) {
-                    message_boxes[id].timeout = memory.floats.get(0);
-                    message_boxes_with_timeouts.emplace(id);
-                }
-            }
-
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("FreeMessageTimeout {} -> {:.3}", id, memory.floats.get(0));
-            }
-        };
-
-        struct FreeMessageBackground final : IInstruction {
-            explicit FreeMessageBackground(const std::size_t id) :
-                id(id) {}
-
-            std::size_t id;
-            void execute(Seed& seed, SeedMemory& memory) const override {
-                if (message_boxes.contains(id)) {
-                    message_boxes[id].message->show_box().set(memory.booleans.get(0));
-                }
-            }
-
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("FreeMessageBackground {} -> {}", id, memory.booleans.get(0));
-            }
         };
 
         struct FreeMessagePosition final : IInstruction {
@@ -749,6 +656,88 @@ namespace randomizer::seed {
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
                 return std::format("FreeMessageScreenPosition {} -> {}", id, static_cast<int>(screen_position));
+            }
+        };
+
+        struct MessageDestroy final : IInstruction {
+            explicit MessageDestroy(const std::size_t id) :
+                id(id) {}
+
+            std::size_t id;
+            void execute(Seed& seed, SeedMemory& memory) const override {
+                message_boxes.erase(id);
+                message_boxes_with_timeouts.erase(id);
+                if (central_message_boxes.contains(id)) {
+                    central_message_boxes.at(id).handle->time_left = 0;
+                }
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("MessageDestroy {}", id); }
+        };
+
+        struct MessageText final : IInstruction {
+            explicit MessageText(const std::size_t id) :
+                id(id) {}
+
+            std::size_t id;
+            void execute(Seed& seed, SeedMemory& memory) const override {
+                const auto it = central_message_boxes.find(id);
+                if (it == central_message_boxes.end() || it->second.handle->message.expired()) {
+                    it->second.handle->message.lock()->text().set(memory.strings.get(0));
+                }
+
+                const auto qit = message_boxes.find(id);
+                if (qit == message_boxes.end()) {
+                    qit->second.message->text().set(memory.strings.get(0));
+                }
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("MessageText {} -> '{}'", id, memory.strings.get(0));
+            }
+        };
+
+        struct MessageTimeout final : IInstruction {
+            explicit MessageTimeout(const std::size_t id) :
+                id(id) {}
+
+            std::size_t id;
+            void execute(Seed& seed, SeedMemory& memory) const override {
+                const auto it = central_message_boxes.find(id);
+                if (it == central_message_boxes.end() || it->second.handle->message.expired()) {
+                    it->second.handle->time_left = memory.floats.get(0);
+                }
+
+                const auto qit = message_boxes.find(id);
+                if (qit == message_boxes.end()) {
+                    qit->second.timeout = memory.floats.get(0);
+                }
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("MessageTimeout {} -> {:.3}", id, memory.floats.get(0));
+            }
+        };
+
+        struct MessageBackground final : IInstruction {
+            explicit MessageBackground(const std::size_t id) :
+                id(id) {}
+
+            std::size_t id;
+            void execute(Seed& seed, SeedMemory& memory) const override {
+                const auto it = central_message_boxes.find(id);
+                if (it == central_message_boxes.end() || it->second.handle->message.expired()) {
+                    it->second.handle->message.lock()->show_box().set(memory.booleans.get(0));
+                }
+
+                const auto qit = message_boxes.find(id);
+                if (qit == message_boxes.end()) {
+                    qit->second.message->show_box().set(memory.booleans.get(0));
+                }
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("MessageBackground {} -> {}", id, memory.booleans.get(0));
             }
         };
 
@@ -1226,16 +1215,6 @@ namespace randomizer::seed {
             return std::make_unique<QueuedMessage>(id, prioritized);
         }
 
-        std::unique_ptr<IInstruction> create_q_message_text(const nlohmann::json& j) {
-            const auto id = j.at(0).get<int>();
-            return std::make_unique<QueuedMessageText>(id);
-        }
-
-        std::unique_ptr<IInstruction> create_q_message_timeout(const nlohmann::json& j) {
-            const auto id = j.at(0).get<int>();
-            return std::make_unique<QueuedMessageTimeout>(id);
-        }
-
         template<bool on_visible>
         std::unique_ptr<IInstruction> create_q_message_callback(const nlohmann::json& j) {
             const auto id = j.at(0).get<int>();
@@ -1245,28 +1224,28 @@ namespace randomizer::seed {
 
         std::unique_ptr<IInstruction> create_f_message_create(const nlohmann::json& j) { return std::make_unique<FreeMessageCreate>(j.get<std::size_t>()); }
 
-        std::unique_ptr<IInstruction> create_f_message_destroy(const nlohmann::json& j) { return std::make_unique<FreeMessageDestroy>(j.get<std::size_t>()); }
-
         std::unique_ptr<IInstruction> create_f_message_show(const nlohmann::json& j) { return std::make_unique<FreeMessageShow>(j.get<std::size_t>()); }
 
         std::unique_ptr<IInstruction> create_f_message_hide(const nlohmann::json& j) { return std::make_unique<FreeMessageHide>(j.get<std::size_t>()); }
 
-        std::unique_ptr<IInstruction> create_f_message_text(const nlohmann::json& j) { return std::make_unique<FreeMessageText>(j.get<std::size_t>()); }
-
-        std::unique_ptr<IInstruction> create_f_message_timeout(const nlohmann::json& j) { return std::make_unique<FreeMessageTimeout>(j.get<std::size_t>()); }
-
-        std::unique_ptr<IInstruction> create_f_message_background(const nlohmann::json& j) {
-            return std::make_unique<FreeMessageBackground>(j.get<std::size_t>());
-        }
-
         std::unique_ptr<IInstruction> create_f_message_position(const nlohmann::json& j) { return std::make_unique<FreeMessagePosition>(j.get<std::size_t>()); }
 
         std::unique_ptr<IInstruction> create_f_message_alignment(const nlohmann::json& j) {
-            return std::make_unique<FreeMessageAlignment>(j.at(0).get<std::size_t>(), parse_enum<app::AlignmentMode__Enum>(j.at(0)));
+            return std::make_unique<FreeMessageAlignment>(j.at(0).get<std::size_t>(), parse_enum<app::AlignmentMode__Enum>(j.at(1)));
         }
 
         std::unique_ptr<IInstruction> create_f_message_screen_position(const nlohmann::json& j) {
             return std::make_unique<FreeMessageScreenPosition>(j.at(0).get<std::size_t>(), parse_enum<core::api::messages::ScreenPosition>(j.at(1)));
+        }
+
+        std::unique_ptr<IInstruction> create_message_destroy(const nlohmann::json& j) { return std::make_unique<MessageDestroy>(j.get<std::size_t>()); }
+
+        std::unique_ptr<IInstruction> create_message_text(const nlohmann::json& j) { return std::make_unique<MessageText>(j.get<std::size_t>()); }
+
+        std::unique_ptr<IInstruction> create_message_timeout(const nlohmann::json& j) { return std::make_unique<MessageTimeout>(j.get<std::size_t>()); }
+
+        std::unique_ptr<IInstruction> create_message_background(const nlohmann::json& j) {
+            return std::make_unique<MessageBackground>(j.get<std::size_t>());
         }
 
         template<bool sync>
@@ -1380,20 +1359,18 @@ namespace randomizer::seed {
             {"IsInHitbox", create_is_in_hitbox},
             {"WorldName", create_world_name},
             {"QueuedMessage", create_q_message},
-            {"QueuedMessageText", create_q_message_text},
-            {"QueuedMessageTimeout", create_q_message_timeout},
             {"QueuedMessageVisibleCallback", create_q_message_callback<true>},
             {"QueuedMessageHiddenCallback", create_q_message_callback<false>},
             {"FreeMessage", create_f_message_create},
-            {"FreeMessageDestroy", create_f_message_destroy},
             {"FreeMessageShow", create_f_message_show},
             {"FreeMessageHide", create_f_message_hide},
-            {"FreeMessageText", create_f_message_text},
-            {"FreeMessageTimeout", create_f_message_timeout},
-            {"FreeMessageBackground", create_f_message_background},
             {"FreeMessagePosition", create_f_message_position},
             {"FreeMessageAlignment", create_f_message_alignment},
             {"FreeMessageScreenPosition", create_f_message_screen_position},
+            {"MessageDestroy", create_message_destroy},
+            {"MessageText", create_message_text},
+            {"MessageTimeout", create_message_timeout},
+            {"MessageBackground", create_message_background},
             {"Save", create_save},
             {"Checkpoint", create_checkpoint},
             {"Warp", create_warp},
