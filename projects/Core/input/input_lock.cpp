@@ -1,8 +1,9 @@
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/input/input_lock.h>
+#include <Modloader/app/methods/CharacterLeftRightMovement.h>
 #include <Modloader/app/methods/RestrictAbilityController.h>
-#include <Modloader/app/structs/SeinAbilityRestrictZoneMask__Enum.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 #include <unordered_set>
 
 using namespace app::classes;
@@ -12,6 +13,32 @@ namespace core::input {
         uint32_t next_id = 0;
         std::unordered_set<uint32_t> locks;
         api::uber_states::UberState lock_state(UberStateGroup::Player, 1000);
+        constexpr auto FULL_MASK = static_cast<app::SeinAbilityRestrictZoneMask__Enum>(0xffffff);
+
+        IL2CPP_INTERCEPT(CharacterLeftRightMovement, float, get_HorizontalInput, (app::CharacterLeftRightMovement* this_ptr)) {
+            if (lock_state.get<bool>() || !locks.empty()) {
+                return 0.f;
+            }
+
+            return next::CharacterLeftRightMovement::get_HorizontalInput(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(CharacterLeftRightMovement, void, FixedUpdate, (app::CharacterLeftRightMovement* this_ptr)) {
+            if (lock_state.get<bool>() || !locks.empty()) {
+                modloader::ScopedSetter<float> setter(this_ptr->fields.m_horizontalInput, 0.0);
+                next::CharacterLeftRightMovement::FixedUpdate(this_ptr);
+            } else {
+                next::CharacterLeftRightMovement::FixedUpdate(this_ptr);
+            }
+        }
+
+        IL2CPP_INTERCEPT(RestrictAbilityController, app::SeinAbilityRestrictZoneMask__Enum, GetCurrentRestrictZoneMask, ()) {
+            if (lock_state.get<bool>() || !locks.empty()) {
+                return FULL_MASK;
+            }
+
+            return next::RestrictAbilityController::GetCurrentRestrictZoneMask();
+        }
 
         IL2CPP_INTERCEPT(RestrictAbilityController, bool, IsRestricted_1, (app::SeinAbilityRestrictZoneMask__Enum restrict_masks)) {
             if (lock_state.get<bool>() || !locks.empty()) {
