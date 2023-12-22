@@ -19,6 +19,7 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
+#include <Modloader/app/methods/ButtonIconUtility.h>
 #include <algorithm>
 #include <magic_enum.hpp>
 #include <nlohmann/json.hpp>
@@ -227,5 +228,47 @@ namespace randomizer::input {
         }
 
         return false;
+    }
+
+    std::unordered_map<ControllerButton, std::string> button_to_string{
+        { ControllerButton::LeftShoulder, "<xbox>L</>"},
+        { ControllerButton::RightShoulder, "<xbox>R</>"},
+        { ControllerButton::LeftTrigger, "<xbox>S</>"},
+        { ControllerButton::RightTrigger, "<xbox>T</>"},
+        { ControllerButton::Select, "<xbox>s</>"},
+        { ControllerButton::Start, "<xbox>m</>"},
+        { ControllerButton::LeftStick, "<xbox>5</>"},
+        { ControllerButton::RightStick, "<xbox>6</>"},
+        { ControllerButton::ButtonA, "<xbox>A</>"},
+        { ControllerButton::ButtonB, "<xbox>B</>"},
+        { ControllerButton::ButtonX, "<xbox>X</>"},
+        { ControllerButton::ButtonY, "<xbox>Y</>"},
+        { ControllerButton::DPadLeft, "<xbox>l</>"},
+        { ControllerButton::DPadRight, "<xbox>r</>"},
+        { ControllerButton::DPadUp, "<xbox>u</>"},
+        { ControllerButton::DPadDown, "<xbox>d</>"},
+        { ControllerButton::LeftStickLeft, "<xbox>5</><xbox>1</>"},
+        { ControllerButton::LeftStickRight, "<xbox>5</><xbox>2</>"},
+        { ControllerButton::LeftStickUp, "<xbox>5</><xbox>3</>"},
+        { ControllerButton::LeftStickDown, "<xbox>5</><xbox>4</>"},
+        { ControllerButton::RightStickLeft, "<xbox>6</><xbox>1</>"},
+        { ControllerButton::RightStickRight, "<xbox>6</><xbox>2</>"},
+        { ControllerButton::RightStickUp, "<xbox>6</><xbox>3</>"},
+        { ControllerButton::RightStickDown, "<xbox>6</><xbox>4</>"},
+    };
+
+    std::string controller_action_to_string(Action action) {
+        std::string key;
+        const auto it = bindings.find(action);
+        if (it == bindings.end() || it->second.empty()) {
+            return key;
+        }
+
+        const auto& binding = it->second.front();
+        for (auto button: binding) {
+            key += button_to_string.at(button);
+        }
+
+        return key;
     }
 } // namespace randomizer::input

@@ -32,6 +32,7 @@ namespace core::messages {
 
     message_handle_ptr_t MessageDisplay::push(MessageInfo info) {
         auto handle = std::make_shared<message_handle_t>();
+        handle->time_left = info.duration;
         if (info.prioritized) {
             m_priority_message = {
                 .info = std::move(info),
@@ -80,7 +81,8 @@ namespace core::messages {
                     for (auto jit = it; jit != m_active_messages.end(); ++jit) {
                         jit->info.duration = std::max(jit->handle->active_time, 1.0f);
                         jit->handle->state = message_handle_t::MessageState::Finished;
-                        jit->handle->time_left = std::optional<float>();
+                        jit->handle->time_left = jit->info.duration;
+                        jit->handle->active_time = 0;
                         jit->message->hide(jit->info.instant_fade);
                     }
 
@@ -249,8 +251,6 @@ namespace core::messages {
             data.message->show(false, data.info.play_sound);
         }
 
-        data.handle = std::make_shared<message_handle_t>();
         data.handle->state = message_handle_t::MessageState::Visible;
-        data.handle->time_left = data.info.duration;
     }
 } // namespace core::messages

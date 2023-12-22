@@ -14,7 +14,7 @@ namespace core::messages {
         });
     } // namespace
 
-    void update_time(MessageController::MessageData& data, float delta_time) {
+    void MessageController::update_time(const MessageData& data, const float delta_time) {
         if (data.handle->state == message_handle_t::MessageState::Visible) {
             data.handle->active_time += delta_time;
         }
@@ -34,7 +34,7 @@ namespace core::messages {
         }
     }
 
-    void MessageController::MessageQueue::update(float delta_time) {
+    void MessageController::MessageQueue::update(const float delta_time) {
         if (!m_current.has_value()) {
             if (!m_priority_data.empty()) {
                 m_current = m_priority_data.front();
@@ -119,35 +119,16 @@ namespace core::messages {
         return sync;
     }
 
-    void MessageController::queue_central(MessageInfo info, bool should_save) {
-        if (should_save) {
-            m_saved_message = info;
-        }
-
-        m_central_display.push(std::move(info));
-    }
-
-    void MessageController::requeue_last_saved() {
-        if (m_saved_message.has_value()) {
-            m_saved_message->pickup_position = std::nullopt;
-            m_saved_message->prioritized = true;
-            m_central_display.push(m_saved_message.value());
-        } else {
-            m_central_display.push({
-                .text = Property<std::string>(std::string("No pickups collected yet, good Luck!")),
-                .duration = 5.f,
-                .prioritized = true,
-            });
-        }
+    message_handle_ptr_t MessageController::queue_central(MessageInfo info) {
+        return m_central_display.push(std::move(info));
     }
 
     void MessageController::clear_central() {
-        m_saved_message = std::nullopt;
         m_central_display.clear();
     }
 
     app::Rect active_hint_bounds() {
-        const auto ui_hints = app::classes::types::UI_Hints::get_class();
+        const auto ui_hints = types::UI_Hints::get_class();
         const auto m_current_hint_message_box = ui_hints->static_fields->m_currentHint;
 
         if (!il2cpp::unity::is_valid(m_current_hint_message_box)) {
@@ -155,16 +136,16 @@ namespace core::messages {
         }
 
         const auto text_box = m_current_hint_message_box->fields.TextBox;
-        return app::classes::CatlikeCoding::TextBox::TextBox::GetRealTextBoxLocalRect(text_box);
+        return CatlikeCoding::TextBox::TextBox::GetRealTextBoxLocalRect(text_box);
     }
 
-    void MessageController::update(float delta_time) {
+    void MessageController::update(const float delta_time) {
         if (!global_can_show) {
             return;
         }
 
-        for (auto& queue : m_queues) {
-            queue.second.update(delta_time);
+        for (auto& queue: m_queues | std::views::values) {
+            queue.update(delta_time);
         }
 
         for (auto it = m_unqueued_messages.begin(); it != m_unqueued_messages.end();) {
@@ -177,8 +158,8 @@ namespace core::messages {
         }
 
         auto y_position = 0.3f;
-        if (app::classes::Game::UI_Hints::get_IsShowingHint()) {
-            auto bounds = active_hint_bounds();
+        if (Game::UI_Hints::get_IsShowingHint()) {
+            const auto bounds = active_hint_bounds();
             y_position += bounds.m_Height;
             y_position -= 0.3f; // Gap
         } else if (api::game::ui::area_map_open()) {

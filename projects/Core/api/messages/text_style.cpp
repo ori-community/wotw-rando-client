@@ -5,6 +5,7 @@
 #include <Modloader/modloader.h>
 
 #include <Common/ext.h>
+#include <Modloader/app/structs/MoonIconRenderer.h>
 #include <unordered_set>
 #include <vector>
 
@@ -133,7 +134,7 @@ namespace text_style {
     void create_styles(app::TextBox* box, std::string_view text) {
         std::unordered_set<std::string> styles;
         auto style_array = box->fields.styleCollection->fields.styles;
-        for (auto style: il2cpp::ArrayIterator(style_array)) {
+        for (const auto style: il2cpp::ArrayIterator(style_array)) {
             styles.emplace(il2cpp::convert_csstring(style->fields.name));
         }
 

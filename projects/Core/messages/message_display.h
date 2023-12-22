@@ -57,7 +57,7 @@ namespace core::messages {
         void update_priority_message(int& total_lines, app::Vector3& cursor_position, float delta_time);
         void update_active_messages(int& total_lines, app::Vector3& cursor_position, float delta_time);
         void update_message_queue(int& total_lines, app::Vector3& cursor_position);
-        void update_message_position(MessageData& data, int& total_lines, app::Vector3& cursor_position, float delta_time);
+        static void update_message_position(MessageData& data, int& total_lines, app::Vector3& cursor_position, float delta_time);
         bool handle_active_message(MessageData& data, int& total_lines, app::Vector3& cursor_position, float fade_out, float delta_time);
         void show_message_box(MessageData& data, int& total_lines, app::Vector3& position);
 

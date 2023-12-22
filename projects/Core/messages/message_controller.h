@@ -3,13 +3,8 @@
 #include <Core/api/messages/message_box.h>
 #include <Core/messages/message_display.h>
 
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Vector4.h>
-
 #include <memory>
 #include <optional>
-#include <string_view>
-#include <utility>
 
 namespace core::messages {
     struct IndependentMessageInfo {
@@ -27,8 +22,7 @@ namespace core::messages {
 
         // Handles showing / hiding the given messagebox based on info provided.
         message_handle_ptr_t queue(std::shared_ptr<api::messages::MessageBox> message, IndependentMessageInfo info);
-        void queue_central(MessageInfo info, bool should_save = false);
-        void requeue_last_saved();
+        message_handle_ptr_t queue_central(MessageInfo info);
         void update(float delta_time);
         void clear_central();
 
@@ -52,11 +46,9 @@ namespace core::messages {
             std::optional<MessageData> m_current;
         };
 
-        friend void update_time(MessageData& m_data, float delta_time);
+        static void update_time(const MessageData& data, const float delta_time);
 
         MessageDisplay m_central_display;
-        std::optional<MessageInfo> m_saved_message;
-
         std::unordered_map<std::string, MessageQueue> m_queues;
         std::vector<MessageData> m_unqueued_messages;
     };

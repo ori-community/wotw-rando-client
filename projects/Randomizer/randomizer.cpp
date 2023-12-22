@@ -19,6 +19,7 @@
 #include <Randomizer/seed/parser.h>
 #include <Randomizer/state_data/parser.h>
 #include <Randomizer/text_processors/ability.h>
+#include <Randomizer/text_processors/action.h>
 #include <Randomizer/text_processors/control.h>
 #include <Randomizer/text_processors/legacy.h>
 #include <Randomizer/text_processors/multiplayer.h>
@@ -184,6 +185,7 @@ namespace randomizer {
             text_processor->compose(std::make_shared<text_processors::UberStateProcessor>());
             text_processor->compose(std::make_shared<text_processors::ControlProcessor>());
             text_processor->compose(std::make_shared<text_processors::AbilityProcessor>());
+            text_processor->compose(std::make_shared<text_processors::ActionProcessor>());
             text_processor->compose(std::make_shared<text_processors::ShardProcessor>());
             text_processor->compose(std::make_shared<text_processors::LegacyProcessor>());
             text_processor->compose(std::make_shared<text_processors::MultiplayerProcessor>());

@@ -1,20 +1,21 @@
 #include <Randomizer/input/controller_bindings.h>
 #include <Randomizer/input/helpers.h>
 #include <Randomizer/input/rando_bindings.h>
-#include <Randomizer/macros.h>
 #include <Randomizer/randomizer.h>
 
 #include <Core/api/game/game.h>
 #include <Core/input/simulator.h>
-#include <Core/settings.h>
 
 #include <Modloader/app/methods/PlayerInput.h>
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/methods/UnityEngine/Input.h>
+#include <Modloader/app/methods/ButtonIconUtility.h>
 #include <Modloader/app/types/PlayerInput.h>
+#include <Modloader/app/types/GameSettings.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
+#include <Modloader/app/structs/ControlScheme__Enum.h>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -176,6 +177,40 @@ namespace randomizer::input {
         } else {
             randomizer::input::simulate_action(action, value);
         }
+    }
+
+    app::ControlScheme__Enum get_current_control_scheme() {
+        static app::GameSettings* settings = nullptr;
+        if (il2cpp::unity::is_valid(settings))
+            return settings->fields.m_currentControlSchemes;
+
+        settings = types::GameSettings::get_class()->static_fields->Instance;
+        return il2cpp::unity::is_valid(settings)
+            ? settings->fields.m_currentControlSchemes
+            : app::ControlScheme__Enum::KeyboardAndMouse;
+    }
+
+    std::string action_to_string(Action action) {
+        if (get_current_control_scheme() == app::ControlScheme__Enum::Controller) {
+            return controller_action_to_string(action);
+        }
+
+        std::string key;
+        const auto it = rando_bindings.find(action);
+        if (it == rando_bindings.end() || it->second.kbm_bindings.empty()) {
+            return key;
+        }
+
+        const auto& binding = it->second.kbm_bindings.front();
+        for (const auto code : binding.codes) {
+            key += il2cpp::convert_csstring(ButtonIconUtility::KeyCodeToString(code));
+        }
+
+        for (const auto button : binding.mouse_buttons) {
+            key += std::format("<mouse>{}</>", button);
+        }
+
+        return key;
     }
 
     common::TimedMultiEventBus<Action>& single_input_bus() {

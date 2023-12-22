@@ -1,6 +1,7 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/core.h>
+#include <Core/messages/message_controller.h>
 #include <Core/utils/json_serializers.h>
 #include <Modloader/il2cpp_math.h>
 #include <Randomizer/features/wheel.h>
@@ -22,12 +23,20 @@ namespace randomizer::seed {
         };
 
         struct SeedMessage {
+            core::messages::MessageHandle::MessageState last_state = core::messages::MessageHandle::MessageState::Queued;
+            message_handle_ptr_t handle;
+            std::optional<int> visible_callback;
+            std::optional<int> hidden_callback;
+        };
+
+        struct SeedControlledMessage {
             std::shared_ptr<core::api::messages::MessageBox> message;
             std::optional<float> timeout;
         };
 
         std::unordered_map<std::size_t, std::shared_ptr<game::map::Icon>> warp_icons;
-        std::unordered_map<std::size_t, SeedMessage> message_boxes;
+        std::unordered_map<std::size_t, SeedMessage> central_message_boxes;
+        std::unordered_map<std::size_t, SeedControlledMessage> message_boxes;
         std::unordered_set<std::size_t> message_boxes_with_timeouts;
         std::vector<SeedTimer> timers;
         bool prevent_grant = false;
@@ -38,10 +47,27 @@ namespace randomizer::seed {
 
         auto on_update = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [](auto, auto) {
             if (!core::api::game::in_game()) {
+                central_message_boxes.clear();
                 message_boxes_with_timeouts.clear();
                 message_boxes.clear();
                 timers.clear();
                 return;
+            }
+
+            for (auto& message: central_message_boxes | std::views::values) {
+                if (message.last_state == message.handle->state) {
+                    continue;
+                }
+
+                if (message.handle->state == core::messages::MessageHandle::MessageState::Visible && message.visible_callback.has_value()) {
+                    game_seed().handle_command(message.visible_callback.value());
+                }
+
+                if (message.last_state == core::messages::MessageHandle::MessageState::Visible && message.hidden_callback.has_value()) {
+                    game_seed().handle_command(message.hidden_callback.value());
+                }
+
+                message.last_state = message.handle->state;
             }
 
             std::unordered_set<int> to_destroy;
@@ -60,7 +86,7 @@ namespace randomizer::seed {
                 message_boxes.erase(id);
             }
 
-            for (const auto& timer : timers) {
+            for (const auto& timer: timers) {
                 if (timer.toggle.get<bool>()) {
                     timer.value.set(timer.value.get<float>() + core::api::game::delta_time());
                 }
@@ -156,19 +182,29 @@ namespace randomizer::seed {
         }
 
         template<typename T>
-        struct TypeStr { static constexpr std::string_view str = "unknown"; };
+        struct TypeStr {
+            static constexpr std::string_view VALUE = "Unknown";
+        };
 
         template<>
-        struct TypeStr<bool> { static constexpr std::string_view str = "boolean"; };
+        struct TypeStr<bool> {
+            static constexpr std::string_view VALUE = "Boolean";
+        };
 
         template<>
-        struct TypeStr<int> { static constexpr std::string_view str = "integer"; };
+        struct TypeStr<int> {
+            static constexpr std::string_view VALUE = "Integer";
+        };
 
         template<>
-        struct TypeStr<float> { static constexpr std::string_view str = "float"; };
+        struct TypeStr<float> {
+            static constexpr std::string_view VALUE = "Float";
+        };
 
         template<>
-        struct TypeStr<std::string> { static constexpr std::string_view str = "string"; };
+        struct TypeStr<std::string> {
+            static constexpr std::string_view VALUE = "String";
+        };
 
         template<typename E>
         E parse_enum(const nlohmann::json& j) {
@@ -209,7 +245,7 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set(0, value); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Set {} 0 to {}", TypeStr<T>::str, value);
+                return std::format("Set{} 0 -> {}", TypeStr<T>::VALUE, value);
             }
         };
 
@@ -225,7 +261,7 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set(to, memory.get<T>(from)); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Copy {}: {} -> {}", TypeStr<T>::str, from, to);
+                return std::format("Copy{} -> {} -> {}", TypeStr<T>::VALUE, from, to);
             }
         };
 
@@ -245,7 +281,7 @@ namespace randomizer::seed {
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
                 const core::api::uber_states::UberState state(group, member);
-                return std::format("Fetch {}: {}|{} -> {}", TypeStr<T>::str, group, member, state.get<T>());
+                return std::format("Fetch{} -> {}|{} ({})", TypeStr<T>::VALUE, group, member, state.get<T>());
             }
         };
 
@@ -267,7 +303,7 @@ namespace randomizer::seed {
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Store {}: {}|{} (trigger_events:{})", TypeStr<T>::str, group, member, trigger_events);
+                return std::format("Store{} -> {}|{} (trigger_events:{})", TypeStr<T>::VALUE, group, member, trigger_events);
             }
         };
 
@@ -285,7 +321,7 @@ namespace randomizer::seed {
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
                 nlohmann::json j;
                 to_json(j, op);
-                return std::format("Compare {}: {} {} {}", TypeStr<T>::str, memory.get<T>(0), j.get<std::string>(), memory.get<T>(1));
+                return std::format("Compare{} -> {} {} {}", TypeStr<T>::VALUE, memory.get<T>(0), j.get<std::string>(), memory.get<T>(1));
             }
         };
 
@@ -322,7 +358,7 @@ namespace randomizer::seed {
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
                 nlohmann::json j;
                 to_json(j, op);
-                return std::format("Compare {}: {} {} {}", TypeStr<T>::str, memory.get<T>(0), j.get<std::string>(), memory.get<T>(1));
+                return std::format("Compare{} -> {} {} {}", TypeStr<T>::VALUE, memory.get<T>(0), j.get<std::string>(), memory.get<T>(1));
             }
         };
 
@@ -346,7 +382,7 @@ namespace randomizer::seed {
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
                 nlohmann::json j;
                 to_json(j, op);
-                return std::format("Logic bool: {} {} {}", memory.booleans.get(0), j.get<std::string>(), memory.booleans.get(1));
+                return std::format("LogicBoolean -> {} {} {}", memory.booleans.get(0), j.get<std::string>(), memory.booleans.get(1));
             }
         };
 
@@ -377,7 +413,7 @@ namespace randomizer::seed {
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
                 nlohmann::json j;
                 to_json(j, op);
-                return std::format("Arithmetic {}: {} {} {}", TypeStr<T>::str, memory.get<T>(0), j.get<std::string>(), memory.get<T>(1));
+                return std::format("Arithmetic{} -> {} {} {}", TypeStr<T>::VALUE, memory.get<T>(0), j.get<std::string>(), memory.get<T>(1));
             }
         };
 
@@ -385,7 +421,7 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.strings.set(0, memory.strings.get(0) + memory.strings.get(1)); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Concat: '{}' '{}'", memory.strings.get(0), memory.strings.get(1));
+                return std::format("Concat -> '{}' '{}'", memory.strings.get(0), memory.strings.get(1));
             }
         };
 
@@ -394,7 +430,7 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set(0, static_cast<B>(memory.get<A>(0))); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Cast {} -> {} ({})", TypeStr<A>::str, TypeStr<B>::str, memory.get<A>(0));
+                return std::format("Cast {} to {} -> {}", TypeStr<A>::VALUE, TypeStr<B>::VALUE, memory.get<A>(0));
             }
         };
 
@@ -402,7 +438,9 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.floats.set(0, std::round(memory.floats.get(0))); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Round {:.3} -> {:.0}", TypeStr<float>::str, TypeStr<std::string>::str, memory.get<float>(0), std::round(memory.get<float>(0)));
+                return std::format(
+                    "Round {:.3} -> {:.0}", TypeStr<float>::VALUE, TypeStr<std::string>::VALUE, memory.get<float>(0), std::round(memory.get<float>(0))
+                );
             }
         };
 
@@ -410,7 +448,7 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set<std::string>(0, memory.get<bool>(0) ? "true" : "false"); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Cast {} -> {} ({})", TypeStr<bool>::str, TypeStr<std::string>::str, memory.get<bool>(0));
+                return std::format("Cast {} to {} -> {}", TypeStr<bool>::VALUE, TypeStr<std::string>::VALUE, memory.get<bool>(0));
             }
         };
 
@@ -418,7 +456,7 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set(0, std::format("{}", memory.get<int>(0))); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Cast {} -> {} ({})", TypeStr<int>::str, TypeStr<std::string>::str, memory.get<int>(0));
+                return std::format("Cast {} to {} -> {}", TypeStr<int>::VALUE, TypeStr<std::string>::VALUE, memory.get<int>(0));
             }
         };
 
@@ -426,22 +464,21 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override { memory.set(0, std::format("{:.3f}", memory.get<float>(0))); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Cast {} -> {} ({:.3})", TypeStr<float>::str, TypeStr<std::string>::str, memory.get<float>(0));
+                return std::format("Cast {} to {} -> {:.3}", TypeStr<float>::VALUE, TypeStr<std::string>::VALUE, memory.get<float>(0));
             }
         };
 
         struct DefineTimer final : IInstruction {
             explicit DefineTimer(const core::api::uber_states::UberState& toggle, const core::api::uber_states::UberState& value) :
-                toggle(toggle), value(value) {}
+                toggle(toggle),
+                value(value) {}
 
             core::api::uber_states::UberState toggle;
             core::api::uber_states::UberState value;
-            void execute(Seed& seed, SeedMemory& memory) const override {
-                timers.push_back({toggle, value});
-            }
+            void execute(Seed& seed, SeedMemory& memory) const override { timers.push_back({toggle, value}); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Timer toggle( {} ) value( {} )", toggle.to_string(), value.to_string());
+                return std::format("Timer -> toggle({}) value({})", toggle.to_string(), value.to_string());
             }
         };
 
@@ -458,7 +495,7 @@ namespace randomizer::seed {
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("IsInHitBox ({}, {}, {}, {})", memory.floats.get(0), memory.floats.get(1), memory.floats.get(2), memory.floats.get(3));
+                return std::format("IsInHitBox -> {}, {}, {}, {}", memory.floats.get(0), memory.floats.get(1), memory.floats.get(2), memory.floats.get(3));
             }
         };
 
@@ -473,34 +510,95 @@ namespace randomizer::seed {
                 memory.strings.set(0, world == nullptr ? "" : world->name());
             }
 
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("WorldName {}", id);
-            }
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("WorldName {}", id); }
         };
 
-        struct Message final : IInstruction {
-            Message(const bool prioritized, const bool custom_timeout) :
-                prioritized(prioritized),
-                custom_timeout(custom_timeout) {}
+        struct QueuedMessage final : IInstruction {
+            QueuedMessage(const std::optional<std::size_t> id, const bool prioritized) :
+                id(id),
+                prioritized(prioritized) {}
 
+            std::optional<std::size_t> id;
             bool prioritized;
-            bool custom_timeout;
-
             void execute(Seed& seed, SeedMemory& memory) const override {
-                core::message_controller().queue_central({
+                const auto handle = core::message_controller().queue_central({
                     .text = core::Property<std::string>(memory.strings.get(0)),
-                    .duration = custom_timeout ? memory.floats.get(0) : 3.f,
+                    .duration = memory.floats.get(0),
                     .prioritized = prioritized,
                 });
+
+                if (id.has_value()) {
+                    central_message_boxes[id.value()] = {.handle = handle};
+                }
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Message '{}'", memory.strings.get(0));
+                return std::format(
+                    "Queued{}Message{} -> '{}' with timeout {}",
+                    prioritized ? "Priority" : "",
+                    id.has_value() ? std::format(" {}", id.value()) : "",
+                    memory.strings.get(0),
+                    memory.floats.get(0)
+                );
             }
         };
 
-        struct ControlledMessageCreate final : IInstruction {
-            explicit ControlledMessageCreate(const std::size_t id) :
+        struct QueuedMessageText final : IInstruction {
+            explicit QueuedMessageText(const std::size_t id) :
+                id(id) {}
+
+            std::size_t id;
+            void execute(Seed& seed, SeedMemory& memory) const override {
+                const auto it = central_message_boxes.find(id);
+                if (it == central_message_boxes.end() || it->second.handle->message.expired()) {
+                    it->second.handle->message.lock()->text().set(memory.strings.get(0));
+                }
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("QueuedMessageText {} -> '{}'", id, memory.strings.get(0));
+            }
+        };
+
+        struct QueuedMessageTimeout final : IInstruction {
+            explicit QueuedMessageTimeout(const std::size_t id) :
+                id(id) {}
+
+            std::size_t id;
+            void execute(Seed& seed, SeedMemory& memory) const override {
+                const auto it = central_message_boxes.find(id);
+                if (it == central_message_boxes.end() || it->second.handle->message.expired()) {
+                    it->second.handle->time_left = memory.floats.get(0);
+                }
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("QueuedMessageTimeout {} -> {:.3}", id, memory.floats.get(0));
+            }
+        };
+
+        template<bool on_visible>
+        struct QueuedMessageCallback final : IInstruction {
+            explicit QueuedMessageCallback(const std::size_t id, const std::size_t command) :
+                id(id),
+                command(command) {}
+
+            std::size_t id;
+            std::size_t command;
+            void execute(Seed& seed, SeedMemory& memory) const override {
+                const auto it = central_message_boxes.find(id);
+                if (it == central_message_boxes.end()) {
+                    on_visible ? it->second.visible_callback : it->second.hidden_callback = command;
+                }
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("QueuedMessage{}Callback {} -> {}", on_visible ? "Visible" : "Hidden", id, command);
+            }
+        };
+
+        struct FreeMessageCreate final : IInstruction {
+            explicit FreeMessageCreate(const std::size_t id) :
                 id(id) {}
 
             std::size_t id;
@@ -509,13 +607,11 @@ namespace randomizer::seed {
                 message_boxes[id].message = std::make_shared<core::api::messages::MessageBox>();
             }
 
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("MessageCreate {}", id);
-            }
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("FreeMessageCreate {}", id); }
         };
 
-        struct ControlledMessageDestroy final : IInstruction {
-            explicit ControlledMessageDestroy(const std::size_t id) :
+        struct FreeMessageDestroy final : IInstruction {
+            explicit FreeMessageDestroy(const std::size_t id) :
                 id(id) {}
 
             std::size_t id;
@@ -524,13 +620,11 @@ namespace randomizer::seed {
                 message_boxes_with_timeouts.erase(id);
             }
 
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("MessageDestroy {}", id);
-            }
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("FreeMessageDestroy {}", id); }
         };
 
-        struct ControlledMessageShow final : IInstruction {
-            explicit ControlledMessageShow(const std::size_t id) :
+        struct FreeMessageShow final : IInstruction {
+            explicit FreeMessageShow(const std::size_t id) :
                 id(id) {}
 
             std::size_t id;
@@ -540,13 +634,11 @@ namespace randomizer::seed {
                 }
             }
 
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("MessageShow {}", id);
-            }
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("FreeMessageShow {}", id); }
         };
 
-        struct ControlledMessageHide final : IInstruction {
-            explicit ControlledMessageHide(const std::size_t id) :
+        struct FreeMessageHide final : IInstruction {
+            explicit FreeMessageHide(const std::size_t id) :
                 id(id) {}
 
             std::size_t id;
@@ -556,13 +648,11 @@ namespace randomizer::seed {
                 }
             }
 
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("MessageHide {}", id);
-            }
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("FreeMessageHide {}", id); }
         };
 
-        struct ControlledMessageText final : IInstruction {
-            explicit ControlledMessageText(const std::size_t id) :
+        struct FreeMessageText final : IInstruction {
+            explicit FreeMessageText(const std::size_t id) :
                 id(id) {}
 
             std::size_t id;
@@ -573,12 +663,12 @@ namespace randomizer::seed {
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("MessageText {}: '{}'", id, memory.strings.get(0));
+                return std::format("FreeMessageText {} -> '{}'", id, memory.strings.get(0));
             }
         };
 
-        struct ControlledMessageTimeout final : IInstruction {
-            explicit ControlledMessageTimeout(const std::size_t id) :
+        struct FreeMessageTimeout final : IInstruction {
+            explicit FreeMessageTimeout(const std::size_t id) :
                 id(id) {}
 
             std::size_t id;
@@ -590,12 +680,12 @@ namespace randomizer::seed {
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("MessageTimeout {}: '{:.3}'", id, memory.floats.get(0));
+                return std::format("FreeMessageTimeout {} -> {:.3}", id, memory.floats.get(0));
             }
         };
 
-        struct ControlledMessageBackground final : IInstruction {
-            explicit ControlledMessageBackground(const std::size_t id) :
+        struct FreeMessageBackground final : IInstruction {
+            explicit FreeMessageBackground(const std::size_t id) :
                 id(id) {}
 
             std::size_t id;
@@ -606,12 +696,12 @@ namespace randomizer::seed {
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("MessageBackground {}: '{}'", id, memory.booleans.get(0));
+                return std::format("FreeMessageBackground {} -> {}", id, memory.booleans.get(0));
             }
         };
 
-        struct ControlledMessagePosition final : IInstruction {
-            explicit ControlledMessagePosition(const std::size_t id) :
+        struct FreeMessagePosition final : IInstruction {
+            explicit FreeMessagePosition(const std::size_t id) :
                 id(id) {}
 
             std::size_t id;
@@ -622,12 +712,12 @@ namespace randomizer::seed {
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("MessagePosition {}: '{:.3}, {:.3}'", id, memory.floats.get(0), memory.floats.get(1));
+                return std::format("FreeMessagePosition {} -> {:.3}, {:.3}", id, memory.floats.get(0), memory.floats.get(1));
             }
         };
 
-        struct ControlledMessageAlignment final : IInstruction {
-            ControlledMessageAlignment(const std::size_t id, const app::AlignmentMode__Enum alignment) :
+        struct FreeMessageAlignment final : IInstruction {
+            FreeMessageAlignment(const std::size_t id, const app::AlignmentMode__Enum alignment) :
                 id(id),
                 alignment(alignment) {}
 
@@ -640,12 +730,12 @@ namespace randomizer::seed {
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("MessageAlignment {}: '{}'", id, static_cast<int>(alignment));
+                return std::format("FreeMessageAlignment {} -> {}", id, static_cast<int>(alignment));
             }
         };
 
-        struct ControlledMessageScreenPosition final : IInstruction {
-            ControlledMessageScreenPosition(const std::size_t id, const core::api::messages::ScreenPosition screen_position) :
+        struct FreeMessageScreenPosition final : IInstruction {
+            FreeMessageScreenPosition(const std::size_t id, const core::api::messages::ScreenPosition screen_position) :
                 id(id),
                 screen_position(screen_position) {}
 
@@ -658,31 +748,27 @@ namespace randomizer::seed {
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("MessageScreenPosition {}: '{}'", id, static_cast<int>(screen_position));
+                return std::format("FreeMessageScreenPosition {} -> {}", id, static_cast<int>(screen_position));
             }
         };
 
         struct Save final : IInstruction {
             void execute(Seed& seed, SeedMemory& memory) const override { core::api::game::save(); }
 
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return "Save";
-            }
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return "Save"; }
         };
 
         struct Checkpoint final : IInstruction {
             void execute(Seed& seed, SeedMemory& memory) const override { core::api::game::checkpoint(); }
 
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return "Checkpoint";
-            }
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return "Checkpoint"; }
         };
 
         struct Warp final : IInstruction {
             void execute(Seed& seed, SeedMemory& memory) const override { game::teleport({memory.floats.get(0), memory.floats.get(1), 0.f}); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Warp: {}, {}", memory.floats.get(0), memory.floats.get(1));
+                return std::format("Warp -> {}, {}", memory.floats.get(0), memory.floats.get(1));
             }
         };
 
@@ -697,7 +783,7 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override { core::api::game::player::bind(slot, equipment); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Equip: {}, {}", static_cast<int>(equipment), static_cast<int>(slot));
+                return std::format("Equip -> {}, {}", static_cast<int>(equipment), static_cast<int>(slot));
             }
         };
 
@@ -710,7 +796,7 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override { core::api::game::player::unbind(equipment); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Unequip: {}", static_cast<int>(equipment));
+                return std::format("Unequip -> {}", static_cast<int>(equipment));
             }
         };
 
@@ -725,7 +811,7 @@ namespace randomizer::seed {
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("TriggerKeybind: {}", static_cast<int>(action));
+                return std::format("TriggerKeybind -> {}", static_cast<int>(action));
             }
         };
 
@@ -743,12 +829,12 @@ namespace randomizer::seed {
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("ServerSync: {}|{}", group, member);
+                return std::format("ServerSync -> {}|{}", group, member);
             }
         };
 
         struct SetSpoiler final : IInstruction {
-            explicit SetSpoiler(std::string  location, const MapIcon icon) :
+            explicit SetSpoiler(std::string location, const MapIcon icon) :
                 location(std::move(location)),
                 icon(icon) {}
 
@@ -757,9 +843,7 @@ namespace randomizer::seed {
 
             void execute(Seed& seed, SeedMemory& memory) const override { game::map::set_spoiler_data(location, icon, memory.strings.get(0)); }
 
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("SetSpoiler: {}", location);
-            }
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("SetSpoiler -> {}", location); }
         };
 
         struct WarpIconCreate final : IInstruction {
@@ -780,9 +864,7 @@ namespace randomizer::seed {
                 warp_icons[id] = icon;
             }
 
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("WarpIconCreate {}", id);
-            }
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("WarpIconCreate {}", id); }
         };
 
         struct WarpIconLabel final : IInstruction {
@@ -793,13 +875,13 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 const auto icon = warp_icons.find(id);
                 if (icon != warp_icons.end()) {
-                    icon->second->name().set(std::format("custom_warp_icon: {}", memory.strings.get(0)));
+                    icon->second->name().set(std::format("custom_warp_icon -> {}", memory.strings.get(0)));
                     icon->second->label().set(memory.strings.get(0));
                 }
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("WarpIconLabel {}: ", id, memory.strings.get(0));
+                return std::format("WarpIconLabel {} -> {}", id, memory.strings.get(0));
             }
         };
 
@@ -816,9 +898,7 @@ namespace randomizer::seed {
                 }
             }
 
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("WarpIconDestroy {}", id);
-            }
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("WarpIconDestroy {}", id); }
         };
 
         struct ShopPrice final : IInstruction {
@@ -1046,9 +1126,7 @@ namespace randomizer::seed {
             int wheel;
             void execute(Seed& seed, SeedMemory& memory) const override { features::wheel::set_active_wheel(wheel); }
 
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("WheelSwitch {}", wheel);
-            }
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("WheelSwitch {}", wheel); }
         };
 
         struct WheelPinned final : IInstruction {
@@ -1058,17 +1136,13 @@ namespace randomizer::seed {
             int wheel;
             void execute(Seed& seed, SeedMemory& memory) const override { features::wheel::set_wheel_sticky(wheel, memory.booleans.get(0)); }
 
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("WheelPinned {}", wheel);
-            }
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("WheelPinned {}", wheel); }
         };
 
         struct WheelsClear final : IInstruction {
             void execute(Seed& seed, SeedMemory& memory) const override { features::wheel::clear_wheels(); }
 
-            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return "WheelsClear";
-            }
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return "WheelsClear"; }
         };
 
         template<bool check>
@@ -1134,11 +1208,6 @@ namespace randomizer::seed {
 
         std::unique_ptr<IInstruction> create_world_name(const nlohmann::json& j) { return std::make_unique<WorldName>(j.at(0).get<int>()); }
 
-        template<bool prioritized, bool custom_timeout>
-        std::unique_ptr<IInstruction> create_message(const nlohmann::json&) {
-            return std::make_unique<Message>(prioritized, custom_timeout);
-        }
-
         std::unique_ptr<IInstruction> create_save(const nlohmann::json&) { return std::make_unique<Save>(); }
         std::unique_ptr<IInstruction> create_checkpoint(const nlohmann::json&) { return std::make_unique<Checkpoint>(); }
         std::unique_ptr<IInstruction> create_warp(const nlohmann::json&) { return std::make_unique<Warp>(); }
@@ -1147,52 +1216,57 @@ namespace randomizer::seed {
             return std::make_unique<Equip>(parse_enum<app::EquipmentType__Enum>(j.at(0)), parse_enum<app::SpellInventory_Binding__Enum>(j.at(1)));
         }
 
-        std::unique_ptr<IInstruction> create_unequip(const nlohmann::json& j) {
-            return std::make_unique<Unequip>(parse_enum<app::EquipmentType__Enum>(j));
-        }
+        std::unique_ptr<IInstruction> create_unequip(const nlohmann::json& j) { return std::make_unique<Unequip>(parse_enum<app::EquipmentType__Enum>(j)); }
 
         std::unique_ptr<IInstruction> create_trigger_keybind(const nlohmann::json& j) { return std::make_unique<TriggerKeybind>(j.get<Action>()); }
 
-        std::unique_ptr<IInstruction> create_c_message_create(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageCreate>(j.get<std::size_t>());
+        std::unique_ptr<IInstruction> create_q_message(const nlohmann::json& j) {
+            const auto id = j.at(0).is_null() ? std::nullopt : std::make_optional(j.at(0).get<int>());
+            const auto prioritized = j.at(1).get<bool>();
+            return std::make_unique<QueuedMessage>(id, prioritized);
         }
 
-        std::unique_ptr<IInstruction> create_c_message_destroy(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageDestroy>(j.get<std::size_t>());
+        std::unique_ptr<IInstruction> create_q_message_text(const nlohmann::json& j) {
+            const auto id = j.at(0).get<int>();
+            return std::make_unique<QueuedMessageText>(id);
         }
 
-        std::unique_ptr<IInstruction> create_c_message_show(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageShow>(j.get<std::size_t>());
+        std::unique_ptr<IInstruction> create_q_message_timeout(const nlohmann::json& j) {
+            const auto id = j.at(0).get<int>();
+            return std::make_unique<QueuedMessageTimeout>(id);
         }
 
-        std::unique_ptr<IInstruction> create_c_message_hide(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageHide>(j.get<std::size_t>());
+        template<bool on_visible>
+        std::unique_ptr<IInstruction> create_q_message_callback(const nlohmann::json& j) {
+            const auto id = j.at(0).get<int>();
+            const auto command = j.at(1).get<int>();
+            return std::make_unique<QueuedMessageCallback<on_visible>>(id, command);
         }
 
-        std::unique_ptr<IInstruction> create_c_message_text(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageText>(j.get<std::size_t>());
+        std::unique_ptr<IInstruction> create_f_message_create(const nlohmann::json& j) { return std::make_unique<FreeMessageCreate>(j.get<std::size_t>()); }
+
+        std::unique_ptr<IInstruction> create_f_message_destroy(const nlohmann::json& j) { return std::make_unique<FreeMessageDestroy>(j.get<std::size_t>()); }
+
+        std::unique_ptr<IInstruction> create_f_message_show(const nlohmann::json& j) { return std::make_unique<FreeMessageShow>(j.get<std::size_t>()); }
+
+        std::unique_ptr<IInstruction> create_f_message_hide(const nlohmann::json& j) { return std::make_unique<FreeMessageHide>(j.get<std::size_t>()); }
+
+        std::unique_ptr<IInstruction> create_f_message_text(const nlohmann::json& j) { return std::make_unique<FreeMessageText>(j.get<std::size_t>()); }
+
+        std::unique_ptr<IInstruction> create_f_message_timeout(const nlohmann::json& j) { return std::make_unique<FreeMessageTimeout>(j.get<std::size_t>()); }
+
+        std::unique_ptr<IInstruction> create_f_message_background(const nlohmann::json& j) {
+            return std::make_unique<FreeMessageBackground>(j.get<std::size_t>());
         }
 
-        std::unique_ptr<IInstruction> create_c_message_timeout(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageTimeout>(j.get<std::size_t>());
+        std::unique_ptr<IInstruction> create_f_message_position(const nlohmann::json& j) { return std::make_unique<FreeMessagePosition>(j.get<std::size_t>()); }
+
+        std::unique_ptr<IInstruction> create_f_message_alignment(const nlohmann::json& j) {
+            return std::make_unique<FreeMessageAlignment>(j.at(0).get<std::size_t>(), parse_enum<app::AlignmentMode__Enum>(j.at(0)));
         }
 
-        std::unique_ptr<IInstruction> create_c_message_background(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageBackground>(j.get<std::size_t>());
-        }
-
-        std::unique_ptr<IInstruction> create_c_message_position(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessagePosition>(j.get<std::size_t>());
-        }
-
-        std::unique_ptr<IInstruction> create_c_message_alignment(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageAlignment>(j.at(0).get<std::size_t>(), parse_enum<app::AlignmentMode__Enum>(j.at(0)));
-        }
-
-        std::unique_ptr<IInstruction> create_c_message_screen_position(const nlohmann::json& j) {
-            return std::make_unique<ControlledMessageScreenPosition>(
-                j.at(0).get<std::size_t>(), parse_enum<core::api::messages::ScreenPosition>(j.at(1))
-            );
+        std::unique_ptr<IInstruction> create_f_message_screen_position(const nlohmann::json& j) {
+            return std::make_unique<FreeMessageScreenPosition>(j.at(0).get<std::size_t>(), parse_enum<core::api::messages::ScreenPosition>(j.at(1)));
         }
 
         template<bool sync>
@@ -1208,7 +1282,9 @@ namespace randomizer::seed {
 
         std::unique_ptr<IInstruction> create_warp_icon_label(const nlohmann::json& j) { return std::make_unique<WarpIconLabel>(j.at(0).get<std::size_t>()); }
 
-        std::unique_ptr<IInstruction> create_warp_icon_destroy(const nlohmann::json& j) { return std::make_unique<WarpIconDestroy>(j.at(0).get<std::size_t>()); }
+        std::unique_ptr<IInstruction> create_warp_icon_destroy(const nlohmann::json& j) {
+            return std::make_unique<WarpIconDestroy>(j.at(0).get<std::size_t>());
+        }
 
         std::unique_ptr<IInstruction> create_shop_price(const nlohmann::json& j) {
             return std::make_unique<ShopPrice>(j.at("group").get<int>(), j.at("member").get<int>());
@@ -1223,11 +1299,7 @@ namespace randomizer::seed {
         }
 
         std::unique_ptr<IInstruction> create_shop_icon(const nlohmann::json& j) {
-            return std::make_unique<ShopIcon>(
-                j.at(0).at("group").get<int>(),
-                j.at(0).at("member").get<int>(),
-                parse_icon(j.at(1))
-            );
+            return std::make_unique<ShopIcon>(j.at(0).at("group").get<int>(), j.at(0).at("member").get<int>(), parse_icon(j.at(1)));
         }
 
         std::unique_ptr<IInstruction> create_shop_hidden(const nlohmann::json& j) {
@@ -1247,11 +1319,7 @@ namespace randomizer::seed {
         }
 
         std::unique_ptr<IInstruction> create_wheel_item_icon(const nlohmann::json& j) {
-            return std::make_unique<WheelItemIcon>(
-                j.at(0).get<int>(),
-                parse_enum<features::wheel::WheelItemPosition>(j.at(1)),
-                parse_icon(j.at(2))
-            );
+            return std::make_unique<WheelItemIcon>(j.at(0).get<int>(), parse_enum<features::wheel::WheelItemPosition>(j.at(1)), parse_icon(j.at(2)));
         }
 
         std::unique_ptr<IInstruction> create_wheel_item_color(const nlohmann::json& j) {
@@ -1271,17 +1339,11 @@ namespace randomizer::seed {
             return std::make_unique<WheelItemDestroy>(j.at(0).get<int>(), parse_enum<features::wheel::WheelItemPosition>(j.at(1)));
         }
 
-        std::unique_ptr<IInstruction> create_wheel_switch(const nlohmann::json& j) {
-            return std::make_unique<WheelSwitch>(j.get<int>());
-        }
+        std::unique_ptr<IInstruction> create_wheel_switch(const nlohmann::json& j) { return std::make_unique<WheelSwitch>(j.get<int>()); }
 
-        std::unique_ptr<IInstruction> create_wheel_pinned(const nlohmann::json& j) {
-            return std::make_unique<WheelPinned>(j.get<int>());
-        }
+        std::unique_ptr<IInstruction> create_wheel_pinned(const nlohmann::json& j) { return std::make_unique<WheelPinned>(j.get<int>()); }
 
-        std::unique_ptr<IInstruction> create_wheels_clear(const nlohmann::json& j) {
-            return std::make_unique<WheelsClear>();
-        }
+        std::unique_ptr<IInstruction> create_wheels_clear(const nlohmann::json& j) { return std::make_unique<WheelsClear>(); }
 
         std::unordered_map<std::string, std::function<std::unique_ptr<IInstruction>(const nlohmann::json& j)>> creation_functors{
             {"Execute", create_execute<false>},
@@ -1317,19 +1379,21 @@ namespace randomizer::seed {
             {"DefineTimer", create_define_timer},
             {"IsInHitbox", create_is_in_hitbox},
             {"WorldName", create_world_name},
-            {"ItemMessage", create_message<false, false>},
-            {"ItemMessageWithTimeout", create_message<false, true>},
-            {"PriorityMessage", create_message<true, true>},
-            {"ControlledMessage", create_c_message_create},
-            {"DestroyMessage", create_c_message_destroy},
-            {"ShowMessage", create_c_message_show},
-            {"HideMessage", create_c_message_hide},
-            {"SetMessageText", create_c_message_text},
-            {"SetMessageTimeout", create_c_message_timeout},
-            {"SetMessageBackground", create_c_message_background},
-            {"SetMessagePosition", create_c_message_position},
-            {"SetMessageAlignment", create_c_message_alignment},
-            {"SetMessageScreenPosition", create_c_message_screen_position},
+            {"QueuedMessage", create_q_message},
+            {"QueuedMessageText", create_q_message_text},
+            {"QueuedMessageTimeout", create_q_message_timeout},
+            {"QueuedMessageVisibleCallback", create_q_message_callback<true>},
+            {"QueuedMessageHiddenCallback", create_q_message_callback<false>},
+            {"FreeMessage", create_f_message_create},
+            {"FreeMessageDestroy", create_f_message_destroy},
+            {"FreeMessageShow", create_f_message_show},
+            {"FreeMessageHide", create_f_message_hide},
+            {"FreeMessageText", create_f_message_text},
+            {"FreeMessageTimeout", create_f_message_timeout},
+            {"FreeMessageBackground", create_f_message_background},
+            {"FreeMessagePosition", create_f_message_position},
+            {"FreeMessageAlignment", create_f_message_alignment},
+            {"FreeMessageScreenPosition", create_f_message_screen_position},
             {"Save", create_save},
             {"Checkpoint", create_checkpoint},
             {"Warp", create_warp},
@@ -1380,6 +1444,7 @@ namespace randomizer::seed {
 
     void destroy_volatile_seed_data() {
         timers.clear();
+        central_message_boxes.clear();
         for (const auto& icon: warp_icons | std::views::values) {
             remove_icon(icon);
         }

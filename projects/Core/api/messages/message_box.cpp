@@ -51,7 +51,7 @@ namespace core::api::messages {
     }
 
     MessageBox::MessageBox() {
-        auto controller = types::UI::get_class()->static_fields->MessageController;
+        const auto controller = types::UI::get_class()->static_fields->MessageController;
         m_game_object = reinterpret_cast<app::GameObject*>(Object::Instantiate_3(reinterpret_cast<app::Object_1*>(controller->fields.HintSmallMessage)));
         game::add_to_container(game::RandoContainer::Messages, m_game_object);
 
