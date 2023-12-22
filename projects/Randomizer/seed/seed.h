@@ -76,7 +76,6 @@ namespace randomizer::seed {
         void prevent_grants(const std::function<bool()>& callback) { m_prevent_grant_callbacks.push_back(callback); }
         void handle_command(std::size_t id, bool condition_check = false);
     private:
-
         location_data::LocationCollection const& m_location_data;
         seed_parser m_last_parser = nullptr;
         std::filesystem::path m_last_path;

@@ -248,23 +248,23 @@ namespace randomizer::seed {
 
         template<typename T>
         struct Store final : ICommand {
-            Store(const int group, const int member, const bool check_triggers) :
+            Store(const int group, const int member, const bool trigger_events) :
                 group(group),
                 member(member),
-                check_triggers(check_triggers) {}
+                trigger_events(trigger_events) {}
 
             int group;
             int member;
-            bool check_triggers;
+            bool trigger_events;
 
             void execute(Seed& seed, SeedMemory& memory) const override {
                 core::api::uber_states::UberState state(group, member);
-                modloader::ScopedSetter setter(prevent_grant, true);
+                modloader::ScopedSetter setter(prevent_grant, !trigger_events);
                 state.set(memory.get<T>(0));
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("Store {}: {}|{} with_triggers {}", TypeStr<T>::str, group, member, check_triggers);
+                return std::format("Store {}: {}|{} (trigger_events:{})", TypeStr<T>::str, group, member, trigger_events);
             }
         };
 

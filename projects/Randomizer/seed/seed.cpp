@@ -7,6 +7,7 @@
 #include <Randomizer/game/shops/shop.h>
 
 #include <fstream>
+#include <magic_enum.hpp>
 
 namespace randomizer::seed {
 
@@ -24,6 +25,15 @@ namespace randomizer::seed {
         std::stringstream buffer;
         buffer << file.rdbuf();
         return buffer.str();
+    }
+
+    std::string cindent(const int indent) {
+        std::string indentation;
+        for (auto i = 0; i < indent; ++i) {
+            indentation += "\t";
+        }
+
+        return indentation;
     }
 
     void Seed::reload(const bool show_message) {
@@ -70,7 +80,12 @@ namespace randomizer::seed {
 
                 condition.previous_value = m_memory.booleans.get(0);
                 builder.after([&] {
+                    if (!should_grant()) {
+                        return;
+                    }
+
                     if (condition.previous_value != m_memory.booleans.get(0)) {
+                        modloader::info("seed", std::format("{}TRIGGERED CONDITION {}", cindent(indent), std::get<int>(condition.condition)));
                         condition.previous_value = m_memory.booleans.get(0);
                         handle_command(condition.command);
                     }
@@ -79,7 +94,14 @@ namespace randomizer::seed {
                 auto state = std::get<core::api::uber_states::UberState>(condition.condition);
                 auto builder = core::reactivity::watch_effect().effect({state});
                 modloader::ScopedSetter setter(m_should_handle_command, false);
-                builder.after([&] { handle_command(condition.command); }).finalize_inplace(condition.reactive);
+                builder.after([&, state] {
+                    if (!should_grant()) {
+                        return;
+                    }
+
+                    modloader::info("seed", std::format("{}TRIGGERED BINDING {}|{}", cindent(indent), state.group_int(), state.state()));
+                    handle_command(condition.command);
+                }).finalize_inplace(condition.reactive);
                 m_command_stack.clear();
             }
         }
@@ -109,21 +131,12 @@ namespace randomizer::seed {
         });
     }
 
-    std::string cindent(const int indent) {
-        std::string indentation;
-        for (auto i = 0; i < indent; ++i) {
-            indentation += "\t";
-        }
-
-        return indentation;
-    }
-
-    void Seed::handle_command(const std::size_t id, bool condition_check) {
+    void Seed::handle_command(const std::size_t id, const bool condition_check) {
         if (condition_check) {
             for (const auto& command: m_data->data.commands[id]) {
                 command->execute(*this, m_memory);
             }
-        } else if (core::api::game::in_game() && should_grant() && m_should_handle_command) {
+        } else {
             modloader::info("seed", std::format("{}START EXECUTION {}", cindent(indent), id));
             {
                 modloader::ScopedSetter setter(indent, indent + 1);
@@ -157,13 +170,21 @@ namespace randomizer::seed {
     }
 
     void Seed::trigger(const SeedEvent event) {
+        if (!should_grant()) {
+            return;
+        }
+
+        auto event_str = magic_enum::enum_name(event);
         for (const auto& command: m_data->data.events[event]) {
+            modloader::info("seed", std::format("{}TRIGGERED EVENT {}", cindent(indent), event_str));
             handle_command(command);
         }
     }
 
     bool Seed::should_grant() const {
-        return std::ranges::all_of(m_prevent_grant_callbacks, [](const auto& callback) { return !callback(); });
+        return core::api::game::in_game() &&
+            m_should_handle_command &&
+            std::ranges::all_of(m_prevent_grant_callbacks, [](const auto& callback) { return !callback(); });
     }
 
     nlohmann::json SaveSlotSeedMetaData::json_serialize() { return *this; }

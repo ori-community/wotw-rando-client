@@ -254,12 +254,7 @@ namespace core::api::game::player {
 
         bool has_ability(const app::AbilityType__Enum ability) {
             const auto player = sein();
-            if (player && player->fields.PlayerAbilities) {
-                return PlayerAbilities::HasAbility(player->fields.PlayerAbilities, ability);
-            }
-
-            error("abilities", "Failed to check ability: couldn't find reference to sein!");
-            return false;
+            return player && player->fields.PlayerAbilities && PlayerAbilities::HasAbility(player->fields.PlayerAbilities, ability);
         }
 
         void set_ability(app::AbilityType__Enum ability, const bool value) {
