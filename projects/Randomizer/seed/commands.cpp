@@ -12,6 +12,7 @@
 #include <Randomizer/seed/commands.h>
 #include <Randomizer/seed/seed.h>
 #include <functional>
+#include <utility>
 
 namespace randomizer::seed {
     namespace {
@@ -132,23 +133,25 @@ namespace randomizer::seed {
 
         std::string parse_icon(const nlohmann::json& j) {
             const auto icon = j.begin();
-            const auto key = icon.key();
+            const auto& key = icon.key();
             if (key == "Shard") {
                 return std::format("shard:{}", icon.value().get<int>());
             } else if (key == "Ability") {
                 return std::format("ability:{}", icon.value().get<int>());
             } else if (key == "Equipment") {
                 return std::format("spell:{}", icon.value().get<int>());
-            } else if (key == "OpherIcon") {
+            } else if (key == "Opher") {
                 return std::format("opher:{}", icon.value().get<int>());
-            } else if (key == "LupoIcon") {
+            } else if (key == "Lupo") {
                 return std::format("lupo:{}", icon.value().get<int>());
-            } else if (key == "GromIcon") {
+            } else if (key == "Grom") {
                 return std::format("grom:{}", icon.value().get<int>());
-            } else if (key == "TuleyIcon") {
+            } else if (key == "Tuley") {
                 return std::format("tuley:{}", icon.value().get<int>());
-            } else {
+            } else if (key == "Path") {
                 return std::format("file:{}", icon.value().get<std::string>());
+            } else {
+                throw RandoException(std::format("Invalid shop icon type '{}'", key));
             }
         }
 
@@ -745,8 +748,8 @@ namespace randomizer::seed {
         };
 
         struct SetSpoiler final : ICommand {
-            explicit SetSpoiler(const std::string& location, const MapIcon icon) :
-                location(location),
+            explicit SetSpoiler(std::string  location, const MapIcon icon) :
+                location(std::move(location)),
                 icon(icon) {}
 
             std::string location;
@@ -877,10 +880,10 @@ namespace randomizer::seed {
         };
 
         struct ShopIcon final : ICommand {
-            ShopIcon(const int group, const int member, const std::string& icon) :
+            ShopIcon(const int group, const int member, std::string icon) :
                 group(group),
                 member(member),
-                icon(icon) {}
+                icon(std::move(icon)) {}
 
             int group;
             int member;
@@ -964,10 +967,10 @@ namespace randomizer::seed {
         };
 
         struct WheelItemIcon final : ICommand {
-            WheelItemIcon(const int wheel, const features::wheel::WheelItemPosition position, const std::string& icon) :
+            WheelItemIcon(const int wheel, const features::wheel::WheelItemPosition position, std::string icon) :
                 wheel(wheel),
                 position(position),
-                icon(icon) {}
+                icon(std::move(icon)) {}
 
             int wheel;
             features::wheel::WheelItemPosition position;
