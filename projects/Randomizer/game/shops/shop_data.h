@@ -25,12 +25,21 @@ namespace randomizer::game::shops {
         SlotInfo normal;
         SlotInfo hidden;
         SlotInfo locked;
-        SlotVisibility visibility = SlotVisibility::Hidden;
+        bool is_locked;
+        bool is_hidden;
         core::api::uber_states::UberState cost;
         bool uses_energy = false;
 
+        SlotVisibility visibility() const {
+            if (is_hidden) {
+                return SlotVisibility::Hidden;
+            }
+
+            return is_locked ? SlotVisibility::Locked : SlotVisibility::Visible;
+        }
+
         SlotInfo& active_info() {
-            switch (visibility) {
+            switch (visibility()) {
                 case SlotVisibility::Visible:
                     return normal;
                 case SlotVisibility::Hidden:

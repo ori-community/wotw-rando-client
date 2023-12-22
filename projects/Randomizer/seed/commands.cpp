@@ -912,11 +912,11 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 const core::api::uber_states::UberState state(group, member);
                 const auto slot = game::shops::shop_slot_from_state(state);
-                slot->visibility = memory.booleans.get(0) ? game::shops::SlotVisibility::Hidden : game::shops::SlotVisibility::Visible;
+                slot->is_hidden = memory.booleans.get(0);
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("ShopHidden {}|{}", group, member);
+                return std::format("ShopHidden {}|{} -> {}", group, member, memory.booleans.get(0));
             }
         };
 
@@ -930,11 +930,11 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 const core::api::uber_states::UberState state(group, member);
                 const auto slot = game::shops::shop_slot_from_state(state);
-                slot->visibility = memory.booleans.get(0) ? game::shops::SlotVisibility::Locked : game::shops::SlotVisibility::Visible;
+                slot->is_locked = memory.booleans.get(0);
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-                return std::format("ShopLocked {}|{}", group, member);
+                return std::format("ShopLocked {}|{} -> {}", group, member, memory.booleans.get(0));
             }
         };
 

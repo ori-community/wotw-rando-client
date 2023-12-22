@@ -97,7 +97,7 @@ namespace {
         }
 
         const auto slot = lupo_shop().slot(item->fields.UberState);
-        switch (slot->visibility) {
+        switch (slot->visibility()) {
             case SlotVisibility::Hidden:
             case SlotVisibility::Locked:
                 return show_hint(this_ptr, slot->active_info().description.get_provider());
@@ -122,9 +122,9 @@ namespace {
         const auto owned = state->fields.m_value >= this_ptr->fields.m_upgradeItem->fields.MaxLevel;
         const auto cost = MapmakerItem::GetCost(this_ptr->fields.m_upgradeItem);
         const auto can_afford = core::api::game::player::spirit_light().get() >= cost;
-        const auto can_purchase = !owned && can_afford && slot->visibility == SlotVisibility::Visible;
+        const auto can_purchase = !owned && can_afford && slot->visibility() == SlotVisibility::Visible;
 
-        const auto show_cost = cost != 0 && slot->visibility == SlotVisibility::Visible;
+        const auto show_cost = cost != 0 && slot->visibility() == SlotVisibility::Visible;
         GameObject::SetActive(this_ptr->fields.CostGO, show_cost);
         if (this_ptr->fields.SpiritLightGO != nullptr) {
             GameObject::SetActive(this_ptr->fields.SpiritLightGO, show_cost);
@@ -157,7 +157,7 @@ namespace {
             can_afford = MapmakerItem::GetCost(item) <= core::api::game::player::spirit_light().get();
         }
 
-        const auto can_purchase = can_afford && slot->visibility == SlotVisibility::Visible;
+        const auto can_purchase = can_afford && slot->visibility() == SlotVisibility::Visible;
         const auto color = can_purchase ? this_ptr->fields.PurchasableColor : this_ptr->fields.NotPurchasableColor;
         UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, color);
 
@@ -189,10 +189,10 @@ namespace {
         item->fields.Description = description.get_provider();
 
         const auto is_available = value < item->fields.MaxLevel && can_afford;
-        GameObject::SetActive(this_ptr->fields.AvailableToBuyGO, slot->visibility == SlotVisibility::Visible && is_available);
-        GameObject::SetActive(this_ptr->fields.AlreadyOwnedGO, slot->visibility == SlotVisibility::Visible && item->fields.MaxLevel <= value);
-        GameObject::SetActive(this_ptr->fields.TooExpensiveGO, slot->visibility == SlotVisibility::Visible && !can_afford);
-        GameObject::SetActive(this_ptr->fields.LockedGO, slot->visibility == SlotVisibility::Locked);
+        GameObject::SetActive(this_ptr->fields.AvailableToBuyGO, slot->visibility() == SlotVisibility::Visible && is_available);
+        GameObject::SetActive(this_ptr->fields.AlreadyOwnedGO, slot->visibility() == SlotVisibility::Visible && item->fields.MaxLevel <= value);
+        GameObject::SetActive(this_ptr->fields.TooExpensiveGO, slot->visibility() == SlotVisibility::Visible && !can_afford);
+        GameObject::SetActive(this_ptr->fields.LockedGO, slot->visibility() == SlotVisibility::Locked);
 
         MapmakerUISubItem::SetUpgradeItem(
             il2cpp::unity::get_component<app::MapmakerUISubItem>(this_ptr->fields.AvailableToBuyGO, types::MapmakerUISubItem::get_class()),

@@ -340,8 +340,8 @@ namespace randomizer::game::shops {
             slot->hidden.description.assign(text_id + 5);
             slot->hidden.description.text_processor(general_text_processor());
             slot->hidden.icon = core::api::graphics::textures::get_texture("shard:0");
-            // TODO: Change this to default to Hidden
-            slot->visibility = SlotVisibility::Visible;
+            slot->is_locked = false;
+            slot->is_hidden = false;
             slot->uses_energy = false;
         }
 

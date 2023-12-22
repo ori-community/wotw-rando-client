@@ -80,13 +80,13 @@ namespace randomizer::seed {
 
                 condition.previous_value = m_memory.booleans.get(0);
                 builder.after([&] {
-                    if (!should_grant()) {
+                    if (!should_grant() || condition.previous_value == m_memory.booleans.get(0)) {
                         return;
                     }
 
-                    if (condition.previous_value != m_memory.booleans.get(0)) {
+                    condition.previous_value = m_memory.booleans.get(0);
+                    if (m_memory.booleans.get(0)) {
                         modloader::info("seed", std::format("{}TRIGGERED CONDITION {}", cindent(indent), std::get<int>(condition.condition)));
-                        condition.previous_value = m_memory.booleans.get(0);
                         handle_command(condition.command);
                     }
                 }).finalize_inplace(condition.reactive);
@@ -133,9 +133,15 @@ namespace randomizer::seed {
 
     void Seed::handle_command(const std::size_t id, const bool condition_check) {
         if (condition_check) {
-            for (const auto& command: m_data->data.commands[id]) {
-                command->execute(*this, m_memory);
+            modloader::info("seed", std::format("{}START CONDITION {}", cindent(indent), id));
+            {
+                modloader::ScopedSetter setter(indent, indent + 1);
+                for (const auto& command: m_data->data.commands[id]) {
+                    modloader::info("seed", std::format("{}{}", cindent(indent), command->to_string(*this, m_memory)));
+                    command->execute(*this, m_memory);
+                }
             }
+            modloader::info("seed", std::format("{}END CONDITION {}", cindent(indent), id));
         } else {
             modloader::info("seed", std::format("{}START EXECUTION {}", cindent(indent), id));
             {

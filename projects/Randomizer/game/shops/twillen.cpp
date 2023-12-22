@@ -60,12 +60,12 @@ namespace {
 
     IL2CPP_INTERCEPT(Moon::uberSerializationWisp::PlayerUberStateShards_Shard, bool, get_VisibleInShop, (app::PlayerUberStateShards_Shard * this_ptr)) {
         auto const& slot = twillen_shop().slot(this_ptr->fields.m_type);
-        return slot != nullptr && slot->visibility == SlotVisibility::Visible;
+        return slot != nullptr && slot->visibility() == SlotVisibility::Visible;
     }
 
     IL2CPP_INTERCEPT(Moon::uberSerializationWisp::PlayerUberStateShards_Shard, bool, get_PurchasableInShop, (app::PlayerUberStateShards_Shard * this_ptr)) {
         auto const& slot = twillen_shop().slot(this_ptr->fields.m_type);
-        return slot != nullptr && slot->visibility != SlotVisibility::Locked;
+        return slot != nullptr && slot->visibility() != SlotVisibility::Locked;
     }
 
     bool overwrite_shard = false;
@@ -205,8 +205,8 @@ namespace {
             if (slot != nullptr) {
                 const auto& info = slot->active_info();
                 const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
-                const auto is_visible = slot->visibility == SlotVisibility::Visible;
-                const auto is_locked = slot->visibility == SlotVisibility::Locked;
+                const auto is_visible = slot->visibility() == SlotVisibility::Visible;
+                const auto is_locked = slot->visibility() == SlotVisibility::Locked;
                 GameObject::SetActive(this_ptr->fields.IconGO, is_visible);
                 GameObject::SetActive(this_ptr->fields.LockedGO, is_locked);
                 info.icon->apply(renderer);
@@ -232,7 +232,7 @@ namespace {
             owned = is_owned(*slot);
             visible = Moon::uberSerializationWisp::PlayerUberStateShards_Shard::get_VisibleInShop(shard);
             const auto cost = slot->cost.get<int>();
-            const auto purchasable = slot->visibility == SlotVisibility::Visible;
+            const auto purchasable = slot->visibility() == SlotVisibility::Visible;
 
             const auto affordable = core::api::game::player::spirit_light().get() >= cost;
             const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.IconGO, types::Renderer::get_class());

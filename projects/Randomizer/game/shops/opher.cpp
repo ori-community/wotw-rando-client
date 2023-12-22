@@ -89,7 +89,7 @@ namespace {
                 this_ptr->fields.Upgrade->fields.RequiredAbility
             );
 
-            return opher_shop().slot(key)->visibility == SlotVisibility::Visible;
+            return opher_shop().slot(key)->visibility() == SlotVisibility::Visible;
         }
 
         return true; // get_IsVisible(this_ptr);
@@ -102,7 +102,7 @@ namespace {
                 this_ptr->fields.Upgrade->fields.RequiredAbility
             );
 
-            return opher_shop().slot(key)->visibility == SlotVisibility::Locked;
+            return opher_shop().slot(key)->visibility() == SlotVisibility::Locked;
         }
 
         return false; // get_IsLocked(this_ptr);
