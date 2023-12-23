@@ -31,14 +31,14 @@ namespace core::api::uber_states {
 
         [[nodiscard]] bool valid() const;
 
-        void set(double value, bool ignore_intercept = false, bool ignore_notify = false) const;
+        void set(double value) const;
 
         template <typename T = double>
         T get() const { return static_cast<T>(inner_get()); }
 
         template <typename T>
-        void set(T value, bool ignore_intercept = false, bool ignore_notify = false) const {
-            set(static_cast<double>(value), ignore_intercept, ignore_notify);
+        void set(T value) const {
+            set(static_cast<double>(value));
         }
 
         [[nodiscard]] UberStateGroup group() const { return m_group; }

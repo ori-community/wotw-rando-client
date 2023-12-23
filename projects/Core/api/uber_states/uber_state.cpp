@@ -52,6 +52,8 @@ using namespace app::classes::Moon::uberSerializationWisp;
 
 namespace core::api::uber_states {
     namespace {
+        std::unordered_set<UberState> current_intercepts;
+
         UberStateType class_to_type(const void* klass) {
             static std::unordered_map<const void*, UberStateType> class_to_type_map{
                 {types::SerializedBooleanUberState::get_class(), UberStateType::SerializedBooleanUberState},
@@ -237,7 +239,8 @@ namespace core::api::uber_states {
         return ptr() != nullptr;
     }
 
-    void UberState::set(const double value, const bool ignore_intercept, const bool ignore_notify) const {
+
+    void UberState::set(const double value) const {
         if (type() == UberStateType::Unknown) {
             warn("uber_state", std::format("uber state ({}|{}) doesn't exist or is an unknown type", static_cast<int>(m_group), m_state));
             return;
@@ -257,9 +260,11 @@ namespace core::api::uber_states {
             return;
         }
 
-        if (!ignore_intercept) {
+        if (!current_intercepts.contains(*this)) {
+            current_intercepts.emplace(*this);
             const UberStateCallbackParams params{*this, value};
             auto result = interception_bus().trigger_event(params);
+            current_intercepts.erase(*this);
             if (std::ranges::find(result, true) != result.end()) {
                 return;
             }
@@ -322,18 +327,15 @@ namespace core::api::uber_states {
             }
         }
 
+        const UberStateCallbackParams params{
+            *this,
+            prev,
+            value,
+        };
+
+        single_notification_bus().trigger_event(*this, params);
+        notification_bus().trigger_event(params);
         notify_changed(reactivity::UberStateDependency{static_cast<int>(m_group), m_state});
-
-        if (!ignore_notify) {
-            const UberStateCallbackParams params{
-                *this,
-                prev,
-                value,
-            };
-
-            single_notification_bus().trigger_event(*this, params);
-            notification_bus().trigger_event(params);
-        }
     }
 
     double UberState::inner_get() const {

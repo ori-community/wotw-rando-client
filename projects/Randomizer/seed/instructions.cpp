@@ -573,6 +573,7 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 message_boxes_with_timeouts.erase(id);
                 message_boxes[id].message = std::make_shared<core::api::messages::MessageBox>();
+                message_boxes[id].message->text_processor(general_text_processor());
                 central_message_boxes.erase(id);
             }
 
@@ -683,12 +684,12 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 const auto it = central_message_boxes.find(id);
                 if (it != central_message_boxes.end() && !it->second.handle->message.expired()) {
-                    it->second.handle->message.lock()->text().set(memory.strings.get(0));
+                    it->second.handle->message.lock()->text().process_and_set(memory.strings.get(0));
                 }
 
                 const auto qit = message_boxes.find(id);
                 if (qit != message_boxes.end()) {
-                    qit->second.message->text().set(memory.strings.get(0));
+                    qit->second.message->text().process_and_set(memory.strings.get(0));
                 }
             }
 

@@ -58,18 +58,18 @@ namespace core::api::uber_states {
 
     void clear() {
         std::unordered_map<int, double> saved;
-        auto position = core::api::game::player::get_position();
-        core::api::game::player::unbind_all();
+        const auto position = game::player::get_position();
+        game::player::unbind_all();
 
-        auto instance = types::UberStateController::get_class()->static_fields->m_currentStateValueStore;
+        const auto instance = types::UberStateController::get_class()->static_fields->m_currentStateValueStore;
         instance->fields.m_isInitialized = false;
         il2cpp::invoke(instance->fields.m_groupMap, "Clear");
         UberStateValueStore::FinalizeInitialization(instance, false);
         // Because for some reason if we only call it once we lose wall jump.
         scenes::load_default_values();
         scenes::load_default_values();
-        UberState(static_cast<UberStateGroup>(21786), 48748).set(1, true, false);
-        core::api::game::player::set_position(position);
+        UberState(static_cast<UberStateGroup>(21786), 48748).set(1);
+        game::player::set_position(position);
 
         apply_all();
     }

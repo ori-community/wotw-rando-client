@@ -115,6 +115,7 @@ namespace randomizer::seed {
                     condition.condition = state;
                     condition.command = event.at(1).get<int>();
                 } else {
+                    current_item = trigger.begin()->get<std::string>();
                     throw std::exception("Invalid event type");
                 }
             }
