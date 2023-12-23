@@ -94,21 +94,21 @@ namespace randomizer::seed {
             for (const auto& event: json.at("events")) {
                 const auto& trigger = event.at(0);
                 if (trigger.contains("Condition")) {
-                    current_item = "condition";
+                    current_item = "Condition";
                     auto& condition = output->data.conditions.emplace_back();
                     condition.condition = trigger.at("Condition").get<int>();
                     condition.command = event.at(1).get<int>();
-                } else if (trigger.contains("Pseudo")) {
-                    current_item = "pseuodo";
-                    auto seed_event = trigger.at("Pseudo").get<SeedEvent>();
+                } else if (trigger.contains("ClientEvent")) {
+                    current_item = "ClientEvent";
+                    auto seed_event = trigger.at("ClientEvent").get<SeedEvent>();
                     if (seed_event == SeedEvent::INVALID) {
-                        current_item = trigger.at("Pseudo").get<std::string>();
-                        throw std::exception("Invalid Pseudo value");
+                        current_item = trigger.at("ClientEvent").get<std::string>();
+                        throw std::exception("Invalid ClientEvent value");
                     }
 
                     output->data.events[seed_event].push_back(event.at(1).get<int>());
                 } else if (trigger.contains("Binding")) {
-                    current_item = "binding";
+                    current_item = "Binding";
                     auto& condition = output->data.conditions.emplace_back();
                     const auto& binding = trigger.at("Binding");
                     const auto state = core::api::uber_states::UberState(binding.at("group").get<int>(), binding.at("member").get<int>());

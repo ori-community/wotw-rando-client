@@ -682,12 +682,12 @@ namespace randomizer::seed {
             std::size_t id;
             void execute(Seed& seed, SeedMemory& memory) const override {
                 const auto it = central_message_boxes.find(id);
-                if (it == central_message_boxes.end() || it->second.handle->message.expired()) {
+                if (it != central_message_boxes.end() && !it->second.handle->message.expired()) {
                     it->second.handle->message.lock()->text().set(memory.strings.get(0));
                 }
 
                 const auto qit = message_boxes.find(id);
-                if (qit == message_boxes.end()) {
+                if (qit != message_boxes.end()) {
                     qit->second.message->text().set(memory.strings.get(0));
                 }
             }
@@ -704,12 +704,12 @@ namespace randomizer::seed {
             std::size_t id;
             void execute(Seed& seed, SeedMemory& memory) const override {
                 const auto it = central_message_boxes.find(id);
-                if (it == central_message_boxes.end() || it->second.handle->message.expired()) {
+                if (it != central_message_boxes.end() && !it->second.handle->message.expired()) {
                     it->second.handle->time_left = memory.floats.get(0);
                 }
 
                 const auto qit = message_boxes.find(id);
-                if (qit == message_boxes.end()) {
+                if (qit != message_boxes.end()) {
                     qit->second.timeout = memory.floats.get(0);
                 }
             }
@@ -726,12 +726,12 @@ namespace randomizer::seed {
             std::size_t id;
             void execute(Seed& seed, SeedMemory& memory) const override {
                 const auto it = central_message_boxes.find(id);
-                if (it == central_message_boxes.end() || it->second.handle->message.expired()) {
+                if (it != central_message_boxes.end() && !it->second.handle->message.expired()) {
                     it->second.handle->message.lock()->show_box().set(memory.booleans.get(0));
                 }
 
                 const auto qit = message_boxes.find(id);
-                if (qit == message_boxes.end()) {
+                if (qit != message_boxes.end()) {
                     qit->second.message->show_box().set(memory.booleans.get(0));
                 }
             }

@@ -15,23 +15,23 @@
 namespace randomizer::input {
     namespace {
         auto on_binding1_before = single_input_bus().register_handler(Action::Binding1, EventTiming::Before, [](auto, auto) {
-            game_seed().trigger(seed::SeedEvent::Bind1);
+            game_seed().trigger(seed::SeedEvent::Binding1);
         });
 
         auto on_binding2_before = single_input_bus().register_handler(Action::Binding2, EventTiming::Before, [](auto, auto) {
-            game_seed().trigger(seed::SeedEvent::Bind2);
+            game_seed().trigger(seed::SeedEvent::Binding2);
         });
 
         auto on_binding3_before = single_input_bus().register_handler(Action::Binding3, EventTiming::Before, [](auto, auto) {
-            game_seed().trigger(seed::SeedEvent::Bind3);
+            game_seed().trigger(seed::SeedEvent::Binding3);
         });
 
         auto on_binding4_before = single_input_bus().register_handler(Action::Binding4, EventTiming::Before, [](auto, auto) {
-            game_seed().trigger(seed::SeedEvent::Bind4);
+            game_seed().trigger(seed::SeedEvent::Binding4);
         });
 
         auto on_binding5_before = single_input_bus().register_handler(Action::Binding5, EventTiming::Before, [](auto, auto) {
-            game_seed().trigger(seed::SeedEvent::Bind5);
+            game_seed().trigger(seed::SeedEvent::Binding5);
         });
 
         auto on_progress_hint_before = single_input_bus().register_handler(Action::ShowProgressWithHints, EventTiming::Before, [](auto, auto) {
