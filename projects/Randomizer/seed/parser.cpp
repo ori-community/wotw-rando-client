@@ -3,6 +3,7 @@
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/parser.h>
 #include <fstream>
+#include <gzip/decompress.hpp>
 
 namespace randomizer::seed {
     namespace {
@@ -81,14 +82,18 @@ namespace randomizer::seed {
             return false;
         }
 
-        auto gzipped = header_parts[2] == "z";
-        if (gzipped) {
-            // TODO: Do something.
-        }
-
+        nlohmann::json json;
         std::string current_item;
         try {
-            auto json(nlohmann::json::parse(seed_file));
+            if (header_parts[2] == "z") {
+                std::ostringstream string_stream;
+                string_stream << seed_file.rdbuf();
+                const auto string_stream_output = string_stream.view();
+                json = nlohmann::json::parse(gzip::decompress(string_stream_output.data(), string_stream_output.size()));
+            } else {
+                json = nlohmann::json::parse(seed_file);
+            }
+
             current_item = "spawn";
             json.at("spawn").at("position").get_to(output->meta.spawn);
             for (const auto& event: json.at("events")) {

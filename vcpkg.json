@@ -32,6 +32,9 @@
     "name" : "neargye-semver",
     "version>=" : "0.3.0#1"
   }, {
+    "name" : "gzip-hpp",
+    "version>=" : "0.1.0#2"
+  }, {
     "name" : "cpp-httplib",
     "version>=" : "0.14.1"
   } ]

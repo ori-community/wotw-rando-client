@@ -302,6 +302,9 @@ target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
 find_package(magic_enum REQUIRED)
 target_link_libraries(${PROJECT_NAME} magic_enum::magic_enum)
 
+find_path(GZIP_HPP_INCLUDE_DIRS "gzip/compress.hpp")
+target_include_directories(${PROJECT_NAME} PRIVATE ${GZIP_HPP_INCLUDE_DIRS})
+
 find_package(ixwebsocket REQUIRED)
 target_link_libraries(${PROJECT_NAME} ixwebsocket::ixwebsocket)
 
