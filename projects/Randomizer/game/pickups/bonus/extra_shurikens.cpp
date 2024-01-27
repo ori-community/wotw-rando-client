@@ -9,6 +9,7 @@
 #include <Modloader/app/methods/SeinChakramSpell.h>
 #include <Modloader/app/methods/SeinChakramSpell_BalancingData.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 
 using namespace app::classes;
 
@@ -33,6 +34,7 @@ namespace {
     }
 
     void throw_shuriken(app::SeinChakramSpell* spell, float angle) {
+        ++spell->fields.m_currentActiveChakrams;
         SeinChakramSpell::InstantiateProjectile(spell);
         auto offset_direction = MoonMath_Angle::VectorFromAngle(angle);
         spell->fields.m_projectile->fields._._Direction_k__BackingField = app::Vector3(offset_direction.x, offset_direction.y, 0.f);
@@ -42,6 +44,36 @@ namespace {
     IL2CPP_INTERCEPT(ChakramProjectile, void, UpdateDamage, (app::ChakramProjectile * this_ptr)) {
         next::ChakramProjectile::UpdateDamage(this_ptr);
         this_ptr->fields._.m_damageDealer->fields.m_damageAmount *= shuriken_damage_multiplier.get<float>();
+    }
+
+    IL2CPP_INTERCEPT(ChakramProjectile, void, Initialize, (app::ChakramProjectile * this_ptr, app::SeinChakramSpell* sein_chakram_spell)) {
+        next::ChakramProjectile::Initialize(this_ptr, sein_chakram_spell);
+        this_ptr->fields._.CanProjectileBeBashed = true;
+    }
+
+    auto destroy_spell_after_explosion = false;
+    auto projectile_is_exploding = false;
+    IL2CPP_INTERCEPT(ChakramProjectile, void, ExplodeProjectile, (app::ChakramProjectile * this_ptr)) {
+        modloader::ScopedSetter _(projectile_is_exploding, true);
+        destroy_spell_after_explosion = false;
+
+        next::ChakramProjectile::ExplodeProjectile(this_ptr);
+
+        if (destroy_spell_after_explosion) {
+            this_ptr->fields.m_seinChakramSpell = nullptr;
+        }
+    }
+
+    IL2CPP_INTERCEPT(ChakramProjectile, void, OnDisable, (app::ChakramProjectile * this_ptr)) {
+        next::ChakramProjectile::OnDisable(this_ptr);
+
+        if (projectile_is_exploding) {
+            destroy_spell_after_explosion = true;
+        }
+    }
+
+    IL2CPP_INTERCEPT(SeinChakramSpell, void, ChakramCaught, (app::SeinChakramSpell * this_ptr)) {
+        // noop because Shuriken code is extremely fucked
     }
 
     IL2CPP_INTERCEPT(SeinChakramSpell, void, ReleaseProjectileSingle, (app::SeinChakramSpell * this_ptr, float angle_offset)) {
