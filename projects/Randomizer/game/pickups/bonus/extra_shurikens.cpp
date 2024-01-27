@@ -7,6 +7,7 @@
 #include <Modloader/app/methods/MoonMath_Angle.h>
 #include <Modloader/app/methods/Sein/World/Events.h>
 #include <Modloader/app/methods/SeinChakramSpell.h>
+#include <Modloader/app/methods/SeinChakramSpell_BalancingData.h>
 #include <Modloader/interception_macros.h>
 
 using namespace app::classes;
@@ -15,6 +16,7 @@ namespace {
     core::api::uber_states::UberState extra_shurikens(UberStateGroup::RandoUpgrade, 38);
     core::api::uber_states::UberState shuriken_multishot_count(UberStateGroup::RandoUpgrade, 48);
     core::api::uber_states::UberState shuriken_multishot_spread(UberStateGroup::RandoUpgrade, 49);
+    core::api::uber_states::UberState shuriken_damage_multiplier(UberStateGroup::RandoUpgrade, 92);
 
     bool initialized = false;
     int default_max_chakrams = 1;
@@ -37,6 +39,10 @@ namespace {
         ChakramProjectile::Initialize(spell->fields.m_projectile, spell);
     }
 
+    IL2CPP_INTERCEPT(ChakramProjectile, void, UpdateDamage, (app::ChakramProjectile * this_ptr)) {
+        next::ChakramProjectile::UpdateDamage(this_ptr);
+        this_ptr->fields._.m_damageDealer->fields.m_damageAmount *= shuriken_damage_multiplier.get<float>();
+    }
 
     IL2CPP_INTERCEPT(SeinChakramSpell, void, ReleaseProjectileSingle, (app::SeinChakramSpell * this_ptr, float angle_offset)) {
         auto original_projectile = this_ptr->fields.m_projectile;
