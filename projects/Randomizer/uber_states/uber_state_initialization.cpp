@@ -294,6 +294,8 @@ namespace randomizer {
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "shurikenDamageMultiplier", 92, 1.0),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "flashDamageMultiplier", 93, 1.0),
 
+                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "flashTickInterval", 94, 1.0),
+
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "overflowPickupUpgrade", 150, false),
 
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onTeleport", 20, false),
