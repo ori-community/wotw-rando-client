@@ -39,7 +39,7 @@ set(
         "features/cutscene_skips/wellspring_escape_start.cpp"
         "features/cutscene_skips/wellspring_so_soggy.cpp"
         "features/difficulty.cpp"
-        "features/grenade.cpp"
+        "game/pickups/bonus/grenade.cpp"
         "features/keystone_door.cpp"
         "features/map.cpp"
         "features/npcs/lupo_everywhere.cpp"
