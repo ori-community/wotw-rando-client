@@ -257,6 +257,9 @@ namespace randomizer {
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "sentryShots", 46, 3),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "sentryFireRateSpeed", 47, 1.0),
 
+                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "shurikenMultishotCount", 48, 0),
+                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "shurikenMultishotSpread", 49, 45.f),
+
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "hammerSpeed", 50, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "swordSpeed", 51, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "blazeEfficiency", 52, 0),
