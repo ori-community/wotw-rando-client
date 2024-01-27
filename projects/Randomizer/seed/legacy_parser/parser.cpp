@@ -1235,15 +1235,15 @@ namespace randomizer::seed::legacy_parser {
             case 9:
                 return "#Grenade Efficiency#";
             case 45:
-                return "#Hammer Shockwave#";
+                return "#Exploding Spear#";
             case 46:
-                return "#Static Shuriken#";
+                return "#Hammer Shockwave#";
             case 47:
-                return "#Sentry Speed#";
+                return "#Static Shuriken#";
             case 48:
                 return "#Charge Blaze#";
             case 49:
-                return "#Exploding Spear#";
+                return "#Sentry Speed#";
             default:
                 return "Unknown";
         }
