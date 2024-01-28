@@ -921,7 +921,7 @@ namespace randomizer::seed::legacy_parser {
                 break;
             }
             case 13:
-                assigner->variable.assign(core::api::uber_states::UberState(5377, 1370));
+                assigner->variable.assign(core::api::uber_states::UberState(945, 1370));
                 teleporter_name = "Luma Boss";
                 break;
             case 15:
