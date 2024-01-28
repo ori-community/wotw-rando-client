@@ -18,6 +18,7 @@ namespace {
     core::api::uber_states::UberState shuriken_multishot_count(UberStateGroup::RandoUpgrade, 48);
     core::api::uber_states::UberState shuriken_multishot_spread(UberStateGroup::RandoUpgrade, 49);
     core::api::uber_states::UberState shuriken_damage_multiplier(UberStateGroup::RandoUpgrade, 92);
+    core::api::uber_states::UberState shuriken_bashable(UberStateGroup::RandoUpgrade, 94);
 
     bool initialized = false;
     int default_max_chakrams = 1;
@@ -48,7 +49,7 @@ namespace {
 
     IL2CPP_INTERCEPT(ChakramProjectile, void, Initialize, (app::ChakramProjectile * this_ptr, app::SeinChakramSpell* sein_chakram_spell)) {
         next::ChakramProjectile::Initialize(this_ptr, sein_chakram_spell);
-        this_ptr->fields._.CanProjectileBeBashed = true;
+        this_ptr->fields._.CanProjectileBeBashed = shuriken_bashable.get<bool>();
     }
 
     auto destroy_spell_after_explosion = false;
