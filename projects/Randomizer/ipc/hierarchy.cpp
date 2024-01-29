@@ -6,6 +6,7 @@
 #include <fstream>
 
 #include <Modloader/app/methods/AK/Wwise/BaseType.h>
+#include <Modloader/app/methods/AK/Wwise/BaseGroupType.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/methods/UnityEngine/Quaternion.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
@@ -490,6 +491,16 @@ namespace randomizer::ipc {
             });
         }
 
+        void visualize_wwise_base_group_type(nlohmann::json& j, void* obj, bool verbose) {
+            auto base_group_type = reinterpret_cast<app::BaseGroupType*>(obj);
+            auto base_type = reinterpret_cast<app::BaseType*>(base_group_type);
+            j["value"] = nlohmann::json::array({
+                create_variable("group_id", "scalar", AK::Wwise::BaseGroupType::get_GroupId(base_group_type)),
+                create_variable("id", "scalar", AK::Wwise::BaseType::get_Id(base_type)),
+                create_variable("name", "scalar", il2cpp::convert_csstring(AK::Wwise::BaseType::get_Name(base_type))),
+            });
+        }
+
         void visualize_ambience_zone(nlohmann::json& j, void* obj, bool verbose) {
             auto zone = reinterpret_cast<app::AmbienceZone*>(obj);
             j["value"] = nlohmann::json::array({
@@ -628,6 +639,7 @@ namespace randomizer::ipc {
 
             { "AmbienceZone", visualize_ambience_zone },
             { "SoundZoneTrigger", visualize_sound_zone_trigger },
+            { "AK.Wwise.BaseGroupType", visualize_wwise_base_group_type },
             { "AK.Wwise.BaseType", visualize_wwise_basetype },
             { "WotwUberStateWwiseStateManager", visualize_wotw_uber_state_wwise_state_manager },
             { "WotwUberStateToWWiseEntry", visualize_wotw_uber_state_to_wwise_data_wotw_uber_state_to_wwise_entry },
