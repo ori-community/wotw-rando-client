@@ -8,9 +8,9 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
-#include <Core/api/sound.h>
+#include <Core/api/audio.h>
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/sound.h>
+#include <Core/enums/audio.h>
 #include <Core/utils/misc.h>
 #include <Modloader/modloader.h>
 
@@ -58,8 +58,6 @@ namespace {
     void skip_invoke() {
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(escape_end_timeline.ptr));
 
-        core::api::set_state(SoundStateGroupID::cordycepsMusic, SoundStateID::spiderBossPhase1);
-
         core::api::uber_states::UberState mora_boss_state(static_cast<UberStateGroup>(18793), 26713);
         mora_boss_state.set(2.0);
 
@@ -75,6 +73,9 @@ namespace {
 
                 core::api::game::player::set_position(701.912f, -4481.552f);
                 core::api::game::save(true, core::api::game::SaveOptions(true, true, false, true));
+
+                core::api::audio::set_state(SoundStateGroupID::cordycepsMusic, SoundStateID::None);
+                core::api::audio::set_state(SoundStateGroupID::spiderBossState, SoundStateID::C_arena1Reached);
 
                 next_frame_action = Idle;
                 break;
