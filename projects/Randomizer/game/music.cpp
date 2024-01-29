@@ -27,25 +27,25 @@ namespace {
         return out;
     }
 
-    float next_update = 0.3f;
-    IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController* this_ptr)) {
-        next_update -= TimeUtility::get_fixedDeltaTime();
-
-        if (next_update < 0.f) {
-            next_update = 0.3f;
-            modloader::win::console::console_send("---");
-
-            modloader::win::console::console_send(std::format("swampHowlsDenMusic  = {}", get_state(2313411230)));
-            modloader::win::console::console_send(std::format("swampNightcrawlerC  = {}", get_state(2613557261)));
-            modloader::win::console::console_send(std::format("nightCrawlerDefeat  = {}", get_state(1568262700)));
-            modloader::win::console::console_send(std::format("risingPedistals_ub  = {}", get_state(1461097943)));
-            modloader::win::console::console_send(std::format("playerHasSword_uber = {}", get_state(1817474664)));
-            modloader::win::console::console_send(std::format("sceneStateGroup     = {}", get_state(3828193963)));
-
-        }
-
-        next::GameController::FixedUpdate(this_ptr);
-    }
+    // float next_update = 0.3f;
+    // IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController* this_ptr)) {
+    //     next_update -= TimeUtility::get_fixedDeltaTime();
+    //
+    //     if (next_update < 0.f) {
+    //         next_update = 0.3f;
+    //         modloader::win::console::console_send("---");
+    //
+    //         modloader::win::console::console_send(std::format("swampHowlsDenMusic  = {}", get_state(2313411230)));
+    //         modloader::win::console::console_send(std::format("swampNightcrawlerC  = {}", get_state(2613557261)));
+    //         modloader::win::console::console_send(std::format("nightCrawlerDefeat  = {}", get_state(1568262700)));
+    //         modloader::win::console::console_send(std::format("risingPedistals_ub  = {}", get_state(1461097943)));
+    //         modloader::win::console::console_send(std::format("playerHasSword_uber = {}", get_state(1817474664)));
+    //         modloader::win::console::console_send(std::format("sceneStateGroup     = {}", get_state(3828193963)));
+    //
+    //     }
+    //
+    //     next::GameController::FixedUpdate(this_ptr);
+    // }
 
     /**
      * This emulates the sounds of the Howl fight. It's needed because we nuke the original
