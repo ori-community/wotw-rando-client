@@ -3,7 +3,7 @@
 #include <Core/ipc/ipc.h>
 #include <Core/utils/json_serializers.h>
 
-#include <Common/ext.h>
+#include <fstream>
 
 #include <Modloader/app/methods/AK/Wwise/BaseType.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
@@ -36,6 +36,7 @@
 #include <Modloader/app/structs/TranslatedMessageProvider_MessageItem.h>
 #include <Modloader/app/structs/UberStateConditionWrapper.h>
 #include <Modloader/app/structs/VisibleOnWorldMap.h>
+#include <Modloader/app/structs/WotwUberStateWwiseStateManager.h>
 
 using namespace app::classes;
 using namespace app::classes::UnityEngine;
@@ -512,6 +513,38 @@ namespace randomizer::ipc {
             });
         }
 
+        void visualize_wotw_uber_state_wwise_state_manager(nlohmann::json& j, void* obj, bool verbose) {
+            auto manager = reinterpret_cast<app::WotwUberStateWwiseStateManager*>(obj);
+            j["value"] = nlohmann::json::array({
+                visualize_array("entries", manager->fields.WotwUberStateToWwiseData->fields.InheritedMap, verbose),
+            });
+
+
+            std::ofstream output("wwise_dump.json");
+            output << j.dump(2) << std::endl;
+            output.close();
+        }
+
+        void visualize_wotw_uber_state_to_wwise_data_wotw_uber_state_to_wwise_entry(nlohmann::json& j, void* obj, bool verbose) {
+            auto entry = reinterpret_cast<app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry*>(obj);
+            j["value"] = nlohmann::json::array({
+                visualize_array("wwise_states", entry->fields._.WwiseStatesToSet, verbose),
+                visualize_array("bool_requirements", entry->fields._.UberStateConditions->fields.BoolRequirements, verbose),
+                visualize_array("byte_requirements", entry->fields._.UberStateConditions->fields.ByteRequirements, verbose),
+                visualize_array("int_requirements", entry->fields._.UberStateConditions->fields.IntRequirements, verbose),
+                visualize_array("float_requirements", entry->fields._.UberStateConditions->fields.FloatRequirements, verbose),
+                visualize_array("condition_requirements", entry->fields._.UberStateConditions->fields.ConditionRequirements, verbose),
+            });
+        }
+
+        void visualize_uber_state_to_wwise_data_desired_condition_uber_state(nlohmann::json& j, void* obj, bool verbose) {
+            auto state = reinterpret_cast<app::UberStateToWwiseData_DesiredConditionUberState*>(obj);
+            j["value"] = nlohmann::json::array({
+                visualize(state->fields.State, "condition", verbose),
+                create_variable("desired_value", "scalar", state->fields.DesiredStateValue)
+            });
+        }
+
         void visualize_game_object(nlohmann::json& j, void* obj, bool verbose) {
             auto go = reinterpret_cast<app::GameObject*>(obj);
             auto id = Object::GetInstanceID(reinterpret_cast<app::Object_1*>(go));
@@ -577,6 +610,9 @@ namespace randomizer::ipc {
             { "AmbienceZone", visualize_ambience_zone },
             { "SoundZoneTrigger", visualize_sound_zone_trigger },
             { "AK.Wwise.BaseType", visualize_wwise_basetype },
+            { "WotwUberStateWwiseStateManager", visualize_wotw_uber_state_wwise_state_manager },
+            { "WotwUberStateToWWiseEntry", visualize_wotw_uber_state_to_wwise_data_wotw_uber_state_to_wwise_entry },
+            { "DesiredConditionUberState", visualize_uber_state_to_wwise_data_desired_condition_uber_state },
 
             //{ "Moon.SerializedBooleanUberState", visualize_serialized_uber_state },
             //{ "Moon.SerializedFloatUberState", visualize_serialized_uber_state },
