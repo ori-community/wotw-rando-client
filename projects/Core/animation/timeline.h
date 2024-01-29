@@ -3,7 +3,7 @@
 #include <Core/animation/animation.h>
 #include <Core/animation/timeline_entries/base.h>
 #include <Core/animation/timeline_state.h>
-#include <Core/api/sound.h>
+#include <Core/api/audio.h>
 #include <Core/cached_loader.h>
 #include <Core/macros.h>
 

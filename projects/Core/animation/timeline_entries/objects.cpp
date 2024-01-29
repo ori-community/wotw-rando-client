@@ -54,7 +54,7 @@ namespace core::animation::timeline_entries {
     bool Sound::update_state(TimelineState& state, float dt) {
         auto it = state.active_sounds.find(id);
         if (it == state.active_sounds.end()) {
-            state.active_sounds[id] = std::make_shared<api::SoundActor>();
+            state.active_sounds[id] = std::make_shared<api::audio::SoundActor>();
             it = state.active_sounds.find(id);
             il2cpp::unity::set_parent(it->second->root(), state.root);
             it->second->play(sound_event(state));

@@ -2,7 +2,7 @@
 
 #include <Core/animation/animation.h>
 #include <Core/animation/timeline_entries/base.h>
-#include <Core/enums/sound.h>
+#include <Core/enums/audio.h>
 #include <Core/macros.h>
 #include <Core/utils/json_serializers.h>
 

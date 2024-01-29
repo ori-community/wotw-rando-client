@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core/enums/sound.h>
+#include <Core/enums/audio.h>
 #include <Core/macros.h>
 
 #include <Modloader/app/structs/WwiseEventSystem_SoundHandle.h>
@@ -12,7 +12,7 @@
 
 #include <string_view>
 
-namespace core::api {
+namespace core::api::audio {
     CORE_DLLEXPORT app::WwiseEventSystem_SoundHandle play_sound(SoundEventID event_id, app::ISoundHost* host = nullptr);
     CORE_DLLEXPORT void play_sound_at(SoundEventID event_id, app::Vector3 location);
     CORE_DLLEXPORT void set_state(SoundStateGroupID group_id, SoundStateID state_id);

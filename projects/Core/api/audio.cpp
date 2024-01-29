@@ -1,8 +1,7 @@
-#include <Core/api/sound.h>
-
-#include <Common/ext.h>
+#include <Core/api/audio.h>
 
 #include <Modloader/app/methods/AK/Wwise/State.h>
+#include <Modloader/app/methods/AK/Wwise/Event.h>
 #include <Modloader/app/methods/AkSoundEngine.h>
 #include <Modloader/app/methods/Moon/Wwise/WwiseEventSystem.h>
 #include <Modloader/app/methods/Moon/Wwise/WwiseEventSystem_SoundHandle.h>
@@ -22,7 +21,7 @@
 using namespace app::classes;
 using namespace app::classes::Moon::Wwise;
 
-namespace core::api {
+namespace core::api::audio {
     namespace {
         std::unordered_map<std::string, SoundEventID> string_to_event = {
             { "Catching", SoundEventID::Catching }

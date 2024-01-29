@@ -545,6 +545,16 @@ namespace randomizer::ipc {
             });
         }
 
+        void visualize_moon_timeline_wwise_sound_animator_entry(nlohmann::json& j, void* obj, bool verbose) {
+            auto entry = reinterpret_cast<app::WWiseSoundAnimatorEntity*>(obj);
+            j["value"] = nlohmann::json::array({
+                visualize(entry->fields.State, "state", verbose),
+                visualize(entry->fields.Event, "event", verbose),
+                visualize(entry->fields.Trigger, "trigger", verbose),
+                visualize(entry->fields.Switch, "switch", verbose),
+            });
+        }
+
         void visualize_game_object(nlohmann::json& j, void* obj, bool verbose) {
             auto go = reinterpret_cast<app::GameObject*>(obj);
             auto id = Object::GetInstanceID(reinterpret_cast<app::Object_1*>(go));
@@ -613,6 +623,7 @@ namespace randomizer::ipc {
             { "WotwUberStateWwiseStateManager", visualize_wotw_uber_state_wwise_state_manager },
             { "WotwUberStateToWWiseEntry", visualize_wotw_uber_state_to_wwise_data_wotw_uber_state_to_wwise_entry },
             { "DesiredConditionUberState", visualize_uber_state_to_wwise_data_desired_condition_uber_state },
+            { "Moon.Timeline.WWiseSoundAnimatorEntity", visualize_moon_timeline_wwise_sound_animator_entry },
 
             //{ "Moon.SerializedBooleanUberState", visualize_serialized_uber_state },
             //{ "Moon.SerializedFloatUberState", visualize_serialized_uber_state },

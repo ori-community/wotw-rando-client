@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Core/animation/animation.h>
-#include <Core/api/sound.h>
+#include <Core/api/audio.h>
 #include <Core/cached_loader.h>
 #include <Core/core.h>
 #include <Core/macros.h>
@@ -30,7 +30,7 @@ namespace core::animation {
         app::GameObject* root = nullptr;
         std::unordered_map<std::string, VariableValue> variable_values;
         std::unordered_map<int, std::shared_ptr<Animation>> active_animations;
-        std::unordered_map<int, std::shared_ptr<api::SoundActor>> active_sounds;
+        std::unordered_map<int, std::shared_ptr<api::audio::SoundActor>> active_sounds;
         std::unordered_map<int, std::shared_ptr<api::messages::MessageBox>> active_text;
     };
 } // namespace core::animation

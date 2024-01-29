@@ -1,7 +1,7 @@
 #include <Core/animation/animation.h>
 #include <Core/animation/timeline.h>
 #include <Core/animation/timeline_entries/base.h>
-#include <Core/api/sound.h>
+#include <Core/api/audio.h>
 
 namespace core::animation::timeline_entries {
     void Base::parse(TimelineState& state, nlohmann::json const& j) {
