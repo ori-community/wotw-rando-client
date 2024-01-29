@@ -520,9 +520,9 @@ namespace randomizer::ipc {
             });
 
 
-            std::ofstream output("wwise_dump.json");
-            output << j.dump(2) << std::endl;
-            output.close();
+            // std::ofstream output("wwise_dump.json");
+            // output << j.dump(2) << std::endl;
+            // output.close();
         }
 
         void visualize_wotw_uber_state_to_wwise_data_wotw_uber_state_to_wwise_entry(nlohmann::json& j, void* obj, bool verbose) {
