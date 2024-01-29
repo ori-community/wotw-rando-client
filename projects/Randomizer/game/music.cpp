@@ -110,22 +110,21 @@ namespace {
         bow_tree_condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UberState(0, 97).ptr());
         entries[37]->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({bow_tree_condition});
 
-        // linking the rainy/sunny marsh music change with rainy/sunny uberstate
-        // entries[127]->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements = types::WotwUberStateToWwiseData_AbilityRequirementCondition::create_array(0);
-        // auto sunny_marsh_condition = types::DesiredUberStateBool::create();
-        // DesiredUberStateBool::ctor(sunny_marsh_condition);
-        // sunny_marsh_condition->fields.DesiredValue = true;
-        // sunny_marsh_condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UberState(6, 401).ptr());
-        // entries[127]->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({sunny_marsh_condition});
-        //
-        // // for both states true and false
-        // entries[128]->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements = types::WotwUberStateToWwiseData_AbilityRequirementCondition::create_array(0);
-        // sunny_marsh_condition = types::DesiredUberStateBool::create();
-        // DesiredUberStateBool::ctor(sunny_marsh_condition);
-        // sunny_marsh_condition->fields.DesiredValue = false;
-        // sunny_marsh_condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UberState(6, 401).ptr());
-        // entries[128]->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({sunny_marsh_condition});
+        // Links the burrowing music with burrow tree rather than the ability
+        entries[78]->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements = types::WotwUberStateToWwiseData_AbilityRequirementCondition::create_array(0);
+        auto burrow_tree_condition = types::DesiredUberStateBool::create();
+        DesiredUberStateBool::ctor(burrow_tree_condition);
+        burrow_tree_condition->fields.DesiredValue = false;
+        burrow_tree_condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UberState(0, 101).ptr());
+        entries[78]->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({burrow_tree_condition});
 
+        // for both states true and false
+        entries[79]->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements = types::WotwUberStateToWwiseData_AbilityRequirementCondition::create_array(0);
+        burrow_tree_condition = types::DesiredUberStateBool::create();
+        DesiredUberStateBool::ctor(burrow_tree_condition);
+        burrow_tree_condition->fields.DesiredValue = true;
+        burrow_tree_condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UberState(0, 101).ptr());
+        entries[79]->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({burrow_tree_condition});
 
         next::WotwUberStateWwiseStateManager::PopulateAffectedStates(this_ptr);
     }
