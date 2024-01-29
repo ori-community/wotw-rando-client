@@ -534,6 +534,7 @@ namespace randomizer::ipc {
                 visualize_array("int_requirements", entry->fields._.UberStateConditions->fields.IntRequirements, verbose),
                 visualize_array("float_requirements", entry->fields._.UberStateConditions->fields.FloatRequirements, verbose),
                 visualize_array("condition_requirements", entry->fields._.UberStateConditions->fields.ConditionRequirements, verbose),
+                visualize_array("ability_requirements", entry->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements, verbose),
             });
         }
 
@@ -542,6 +543,13 @@ namespace randomizer::ipc {
             j["value"] = nlohmann::json::array({
                 visualize(state->fields.State, "condition", verbose),
                 create_variable("desired_value", "scalar", state->fields.DesiredStateValue)
+            });
+        }
+
+        void visualize_uber_state_to_wwise_data_ability_requirement_condition(nlohmann::json& j, void* obj, bool verbose) {
+            auto condition = reinterpret_cast<app::WotwUberStateToWwiseData_AbilityRequirementCondition*>(obj);
+            j["value"] = nlohmann::json::array({
+                create_variable("ability", "scalar", condition->fields.AbilityType)
             });
         }
 
@@ -623,6 +631,7 @@ namespace randomizer::ipc {
             { "WotwUberStateWwiseStateManager", visualize_wotw_uber_state_wwise_state_manager },
             { "WotwUberStateToWWiseEntry", visualize_wotw_uber_state_to_wwise_data_wotw_uber_state_to_wwise_entry },
             { "DesiredConditionUberState", visualize_uber_state_to_wwise_data_desired_condition_uber_state },
+            { "AbilityRequirementCondition", visualize_uber_state_to_wwise_data_ability_requirement_condition },
             { "Moon.Timeline.WWiseSoundAnimatorEntity", visualize_moon_timeline_wwise_sound_animator_entry },
 
             //{ "Moon.SerializedBooleanUberState", visualize_serialized_uber_state },
