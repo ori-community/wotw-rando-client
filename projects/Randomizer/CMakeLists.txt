@@ -93,6 +93,7 @@ set(
         "game/map/player_color.cpp"
         "game/map/teleport_anywhere.cpp"
         "game/map/tree_visibility_fix.cpp"
+        "game/music.cpp"
         "game/pickups/bonus/grenade.cpp"
         "game/pickups/bonus/bow_attack_speed.cpp"
         "game/pickups/bonus/energy_cost_upgrades.cpp"
