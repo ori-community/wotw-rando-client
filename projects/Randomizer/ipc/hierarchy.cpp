@@ -520,9 +520,9 @@ namespace randomizer::ipc {
             });
 
 
-            // std::ofstream output("wwise_dump.json");
-            // output << j.dump(2) << std::endl;
-            // output.close();
+            std::ofstream output("wwise_dump.json");
+            output << j.dump(2) << std::endl;
+            output.close();
         }
 
         void visualize_wotw_uber_state_to_wwise_data_wotw_uber_state_to_wwise_entry(nlohmann::json& j, void* obj, bool verbose) {
@@ -549,7 +549,8 @@ namespace randomizer::ipc {
         void visualize_uber_state_to_wwise_data_ability_requirement_condition(nlohmann::json& j, void* obj, bool verbose) {
             auto condition = reinterpret_cast<app::WotwUberStateToWwiseData_AbilityRequirementCondition*>(obj);
             j["value"] = nlohmann::json::array({
-                create_variable("ability", "scalar", condition->fields.AbilityType)
+                create_variable("ability", "scalar", condition->fields.AbilityType),
+                create_variable("has_ability", "scalar", condition->fields.HasAbility),
             });
         }
 
