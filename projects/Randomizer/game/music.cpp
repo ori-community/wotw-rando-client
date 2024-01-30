@@ -61,28 +61,21 @@ namespace {
         });
     }
 
+    void music_from_ability_to_state_link(app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry* entry, bool desired_value, short uber_state_group, short uber_state_state) {
+        entry->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements = types::WotwUberStateToWwiseData_AbilityRequirementCondition::create_array(0);
+        auto condition = types::DesiredUberStateBool::create();
+        DesiredUberStateBool::ctor(condition);
+        condition->fields.DesiredValue = desired_value;
+        condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UberState(uber_state_group, uber_state_state).ptr());
+        entry->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({condition});
+    }
+
     IL2CPP_INTERCEPT(WotwUberStateWwiseStateManager, void, PopulateAffectedStates, (app::WotwUberStateWwiseStateManager * this_ptr )) {
         // Modify this_ptr->fields.WotwUberStateToWwiseData->fields.InheritedMap here
         auto entries = this_ptr->fields.WotwUberStateToWwiseData->fields.InheritedMap->vector;
 
         // Removes the music change caused by rising pedestals
         entries[23]->fields._.WwiseStatesToSet = types::State::create_array(0);
-
-        // Links the "Now use the light we want to see" with getting sword tree rather than the ability
-        entries[30]->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements = types::WotwUberStateToWwiseData_AbilityRequirementCondition::create_array(0);
-        auto sword_tree_condition = types::DesiredUberStateBool::create();
-        DesiredUberStateBool::ctor(sword_tree_condition);
-        sword_tree_condition->fields.DesiredValue = false;
-        sword_tree_condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UberState(0, 100).ptr());
-        entries[30]->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({sword_tree_condition});
-
-        // for both states true and false
-        entries[31]->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements = types::WotwUberStateToWwiseData_AbilityRequirementCondition::create_array(0);
-        sword_tree_condition = types::DesiredUberStateBool::create();
-        DesiredUberStateBool::ctor(sword_tree_condition);
-        sword_tree_condition->fields.DesiredValue = true;
-        sword_tree_condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UberState(0, 100).ptr());
-        entries[31]->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({sword_tree_condition});
 
         // removing howl states changing the music
         // howls chase started false
@@ -94,37 +87,26 @@ namespace {
         // howls defeated true
         entries[19]->fields._.WwiseStatesToSet = types::State::create_array(0);
 
-        // Links the bow music with bow tree rather than the ability
-        entries[36]->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements = types::WotwUberStateToWwiseData_AbilityRequirementCondition::create_array(0);
-        auto bow_tree_condition = types::DesiredUberStateBool::create();
-        DesiredUberStateBool::ctor(bow_tree_condition);
-        bow_tree_condition->fields.DesiredValue = false;
-        bow_tree_condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UberState(0, 97).ptr());
-        entries[36]->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({bow_tree_condition});
+        // Links the "Now use the light we want to see" with getting sword tree rather than the ability
+        music_from_ability_to_state_link(entries[30], false, 0, 100);
+        music_from_ability_to_state_link(entries[31], true, 0, 100);
 
-        // for both states true and false
-        entries[37]->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements = types::WotwUberStateToWwiseData_AbilityRequirementCondition::create_array(0);
-        bow_tree_condition = types::DesiredUberStateBool::create();
-        DesiredUberStateBool::ctor(bow_tree_condition);
-        bow_tree_condition->fields.DesiredValue = true;
-        bow_tree_condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UberState(0, 97).ptr());
-        entries[37]->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({bow_tree_condition});
+        // Links the afterBow bowroom music with bow tree rather than the ability
+        music_from_ability_to_state_link(entries[36], false, 0, 97);
+        music_from_ability_to_state_link(entries[37], true, 0, 97);
 
         // Links the burrowing music with burrow tree rather than the ability
-        entries[78]->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements = types::WotwUberStateToWwiseData_AbilityRequirementCondition::create_array(0);
-        auto burrow_tree_condition = types::DesiredUberStateBool::create();
-        DesiredUberStateBool::ctor(burrow_tree_condition);
-        burrow_tree_condition->fields.DesiredValue = false;
-        burrow_tree_condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UberState(0, 101).ptr());
-        entries[78]->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({burrow_tree_condition});
+        music_from_ability_to_state_link(entries[78], false, 0, 101);
+        music_from_ability_to_state_link(entries[79], true, 0, 101);
 
-        // for both states true and false
-        entries[79]->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements = types::WotwUberStateToWwiseData_AbilityRequirementCondition::create_array(0);
-        burrow_tree_condition = types::DesiredUberStateBool::create();
-        DesiredUberStateBool::ctor(burrow_tree_condition);
-        burrow_tree_condition->fields.DesiredValue = true;
-        burrow_tree_condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UberState(0, 101).ptr());
-        entries[79]->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({burrow_tree_condition});
+        // Links the dashing and bashing music with dash tree rather than the ability
+        music_from_ability_to_state_link(entries[32], false, 0, 102);
+        music_from_ability_to_state_link(entries[33], true, 0, 102);
+
+        // Links the in wonderment of winter music with grenade tree rather than the ability
+        music_from_ability_to_state_link(entries[76], false, 0, 51);
+        music_from_ability_to_state_link(entries[77], true, 0, 51);
+
 
         next::WotwUberStateWwiseStateManager::PopulateAffectedStates(this_ptr);
     }
