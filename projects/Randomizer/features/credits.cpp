@@ -63,7 +63,7 @@ namespace randomizer::features::credits {
                     continue;
                 }
                 auto child_position = il2cpp::unity::get_local_position(child_go);
-                child_position.y -= 1.5f;
+                child_position.y -= 3.f;
                 il2cpp::unity::set_local_position(child_go, child_position);
             }
         }
