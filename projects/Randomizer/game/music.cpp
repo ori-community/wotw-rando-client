@@ -61,7 +61,7 @@ namespace {
         });
     }
 
-    void music_from_ability_to_state_link(app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry* entry, bool desired_value, short uber_state_group, short uber_state_state) {
+    void link_music_from_ability_to_state(app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry* entry, bool desired_value, short uber_state_group, short uber_state_state) {
         entry->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements = types::WotwUberStateToWwiseData_AbilityRequirementCondition::create_array(0);
         auto condition = types::DesiredUberStateBool::create();
         DesiredUberStateBool::ctor(condition);
@@ -88,24 +88,24 @@ namespace {
         entries[19]->fields._.WwiseStatesToSet = types::State::create_array(0);
 
         // Links the "Now use the light we want to see" with getting sword tree rather than the ability
-        music_from_ability_to_state_link(entries[30], false, 0, 100);
-        music_from_ability_to_state_link(entries[31], true, 0, 100);
+        link_music_from_ability_to_state(entries[30], false, 0, 100);
+        link_music_from_ability_to_state(entries[31], true, 0, 100);
 
         // Links the afterBow bowroom music with bow tree rather than the ability
-        music_from_ability_to_state_link(entries[36], false, 0, 97);
-        music_from_ability_to_state_link(entries[37], true, 0, 97);
+        link_music_from_ability_to_state(entries[36], false, 0, 97);
+        link_music_from_ability_to_state(entries[37], true, 0, 97);
 
         // Links the burrowing music with burrow tree rather than the ability
-        music_from_ability_to_state_link(entries[78], false, 0, 101);
-        music_from_ability_to_state_link(entries[79], true, 0, 101);
+        link_music_from_ability_to_state(entries[78], false, 0, 101);
+        link_music_from_ability_to_state(entries[79], true, 0, 101);
 
         // Links the dashing and bashing music with dash tree rather than the ability
-        music_from_ability_to_state_link(entries[32], false, 0, 102);
-        music_from_ability_to_state_link(entries[33], true, 0, 102);
+        link_music_from_ability_to_state(entries[32], false, 0, 102);
+        link_music_from_ability_to_state(entries[33], true, 0, 102);
 
         // Links the in wonderment of winter music with grenade tree rather than the ability
-        music_from_ability_to_state_link(entries[76], false, 0, 51);
-        music_from_ability_to_state_link(entries[77], true, 0, 51);
+        link_music_from_ability_to_state(entries[76], false, 0, 51);
+        link_music_from_ability_to_state(entries[77], true, 0, 51);
 
 
         next::WotwUberStateWwiseStateManager::PopulateAffectedStates(this_ptr);
