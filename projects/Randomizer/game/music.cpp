@@ -88,8 +88,8 @@ namespace {
         entries[19]->fields._.WwiseStatesToSet = types::State::create_array(0);
 
         // Links the "Now use the light we want to see" with getting sword tree rather than the ability
-        link_music_from_ability_to_state(entries[30], false, 0, 100);
-        link_music_from_ability_to_state(entries[31], true, 0, 100);
+        link_music_from_ability_to_state(entries[30], false, 6, 401);
+        link_music_from_ability_to_state(entries[31], true, 6, 401);
 
         // Links the afterBow bowroom music with bow tree rather than the ability
         link_music_from_ability_to_state(entries[36], false, 0, 97);
