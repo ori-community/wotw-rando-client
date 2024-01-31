@@ -71,12 +71,20 @@ namespace core::settings {
         return get_settings().get_boolean("Flags", "BurrowMouseControl", false);
     }
 
+    bool burrow_hybrid_mouse_control() {
+        return get_settings().get_boolean("Flags", "BurrowHybridMouseControl", false);
+    }
+
     bool grapple_mouse_control() {
         return get_settings().get_boolean("Flags", "GrappleMouseControl", false);
     }
 
     bool water_dash_mouse_control() {
         return get_settings().get_boolean("Flags", "WaterDashMouseControl", false);
+    }
+
+    bool water_dash_hybrid_mouse_control() {
+        return get_settings().get_boolean("Flags", "WaterDashHybridMouseControl", false);
     }
 
     bool invert_swim() {

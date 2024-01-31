@@ -18,8 +18,10 @@ namespace core::settings {
     CORE_DLLEXPORT bool hide_warp_filter();
     CORE_DLLEXPORT bool hide_collectible_filter();
     CORE_DLLEXPORT bool burrow_mouse_control();
+    CORE_DLLEXPORT bool burrow_hybrid_mouse_control();
     CORE_DLLEXPORT bool grapple_mouse_control();
     CORE_DLLEXPORT bool water_dash_mouse_control();
+    CORE_DLLEXPORT bool water_dash_hybrid_mouse_control();
     CORE_DLLEXPORT bool invert_swim();
     CORE_DLLEXPORT bool autoaim();
     CORE_DLLEXPORT bool show_secrets();
@@ -45,8 +47,10 @@ namespace core::settings {
     CORE_DLLEXPORT void hide_warp_filter(bool value);
     CORE_DLLEXPORT void hide_collectible_filter(bool value);
     CORE_DLLEXPORT void burrow_mouse_control(bool value);
+    CORE_DLLEXPORT void burrow_hybrid_mouse_control(bool value);
     CORE_DLLEXPORT void grapple_mouse_control(bool value);
     CORE_DLLEXPORT void water_dash_mouse_control(bool value);
+    CORE_DLLEXPORT void water_dash_hybrid_mouse_control(bool value);
     CORE_DLLEXPORT void invert_swim(bool value);
     CORE_DLLEXPORT void autoaim(bool value);
     CORE_DLLEXPORT void show_secrets(bool value);

@@ -78,7 +78,7 @@ namespace {
 
     bool use_mouse_aiming_for_axis_input = false;
     IL2CPP_INTERCEPT(SeinDashNew, bool, ShouldDig, (app::SeinDashNew * this_ptr)) {
-        if (current_control_scheme_is_kbm() && ( !is_movement_input() || core::settings::burrow_mouse_control()))
+        if (current_control_scheme_is_kbm() && ((core::settings::burrow_hybrid_mouse_control() &&!is_movement_input()) || core::settings::burrow_mouse_control()))
             use_mouse_aiming_for_axis_input = true;
 
         auto ret = next::SeinDashNew::ShouldDig(this_ptr);
@@ -87,7 +87,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinDigging, void, UpdateCharacterState, (app::SeinDigging * this_ptr)) {
-        if (current_control_scheme_is_kbm() && ( !is_movement_input() || core::settings::burrow_mouse_control()))
+        if (current_control_scheme_is_kbm() && ((core::settings::burrow_hybrid_mouse_control() && !is_movement_input()) || core::settings::burrow_mouse_control()))
             use_mouse_aiming_for_axis_input = true;
 
         next::SeinDigging::UpdateCharacterState(this_ptr);
@@ -95,7 +95,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinDashNew, bool, ShouldSwim, (app::SeinDashNew * this_ptr)) {
-        if (current_control_scheme_is_kbm() && ( !is_movement_input() || core::settings::water_dash_mouse_control())) {
+        if (current_control_scheme_is_kbm() && ((core::settings::water_dash_hybrid_mouse_control() && !is_movement_input()) || core::settings::water_dash_mouse_control())) {
             deadzone_active = true;
             use_mouse_aiming_for_axis_input = true;
         }
@@ -107,7 +107,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinSwimming, void, UpdateCharacterState, (app::SeinSwimming * this_ptr)) {
-        if (current_control_scheme_is_kbm() && ( !is_movement_input() || core::settings::water_dash_mouse_control())) {
+        if (current_control_scheme_is_kbm() && ((core::settings::water_dash_hybrid_mouse_control() && !is_movement_input()) || core::settings::water_dash_mouse_control())) {
             use_mouse_aiming_for_axis_input = true;
             deadzone_active = true;
         }
