@@ -1,18 +1,33 @@
+#include <Core/api/scenes/scene_load.h>
+#include <Modloader/app/methods/SeinAbilityRestrictZone.h>
+#include <Modloader/app/types/SeinAbilityRestrictZone.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/methods/SeinAbilityRestrictZone.h>
+
+using namespace app::classes;
 
 namespace {
-    IL2CPP_INTERCEPT(SeinAbilityRestrictZone, app::SeinAbilityRestrictZoneMask__Enum, get_Mask, (app::SeinAbilityRestrictZone * this_ptr)) {
-        auto mask = static_cast<int>(next::SeinAbilityRestrictZone::get_Mask(this_ptr));
-        if (static_cast<int>(mask & static_cast<int>(app::SeinAbilityRestrictZoneMask__Enum::Dash)) != 0) {
-            auto* const game_object = il2cpp::unity::get_game_object(this_ptr);
-            auto* const transform = il2cpp::unity::get_transform(game_object);
-            auto* const parent = il2cpp::unity::get_parent(transform);
-            if (il2cpp::unity::get_object_name(parent) == "startledRestrictionZone")
-                mask = mask & ~static_cast<int>(app::SeinAbilityRestrictZoneMask__Enum::Dash);
+    void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
+        if (metadata->state != app::SceneState__Enum::Loaded) {
+            return;
         }
 
-        return static_cast<app::SeinAbilityRestrictZoneMask__Enum>(mask);
+        if (metadata->scene_name == "petrifiedOwlFeedingGroundsRevised") {
+            auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+
+            auto ability_restrict_zone_go = il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{"setups", "petrifiedOwlFeedingGroundsSetup", "chaseSequenceSetup", "startledRestrictionZone", "restrictAbilityZone"}
+            );
+            if (il2cpp::unity::is_valid(ability_restrict_zone_go)) {
+                auto restrict_zone = il2cpp::unity::get_component<app::SeinAbilityRestrictZone>(
+                    ability_restrict_zone_go, types::SeinAbilityRestrictZone::get_class()
+                );
+                auto mask = static_cast<int>(restrict_zone->fields.RestrictMask);
+                mask = mask & ~static_cast<int>(app::SeinAbilityRestrictZoneMask__Enum::Dash);
+                restrict_zone->fields.RestrictMask = static_cast<app::SeinAbilityRestrictZoneMask__Enum>(mask);
+            }
+        }
     }
+    auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
 } // namespace
