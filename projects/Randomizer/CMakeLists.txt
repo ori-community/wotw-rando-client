@@ -58,6 +58,7 @@ set(
         "features/wheel.cpp"
         "features/wheel_initialization.cpp"
         "game/behaviour_changes/allow_blind_forest_abilities.cpp"
+        "game/behaviour_changes/alternative_baurs_reach_access.cpp"
         "game/behaviour_changes/better_lasers.cpp"
         "game/behaviour_changes/blaze_hit_environment.cpp"
         "game/behaviour_changes/burrow_and_waterdash_without_dash.cpp"
