@@ -338,6 +338,8 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "rainLiftedInInkwater", 401, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "regenTreeDrained", 402, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "cleanWater", 2000, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "BaurSneezeWithBlaze", 420, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "BaurSneezeWithFlash", 421, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "squares", 0, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "lines", 1, 0),
