@@ -32,10 +32,6 @@ namespace {
 
     float mouse_control_deadzone = 50.f;
 
-    bool allow_hybrid_movement = false;
-    bool allow_mouse_only_movement = false;
-    bool allow_mouse_control = false;
-
     app::ControlScheme__Enum get_current_control_scheme() {
         static app::GameSettings* settings = nullptr;
         if (il2cpp::unity::is_valid(settings))
@@ -54,7 +50,11 @@ namespace {
 
     bool is_movement_input_pressed() {
         auto input_cmd = types::Input_Cmd::get_class();
-        return input_cmd->static_fields->Up->fields.IsPressed || input_cmd->static_fields->Down->fields.IsPressed || input_cmd->static_fields->Left->fields.IsPressed || input_cmd->static_fields->Right->fields.IsPressed;
+        return
+            input_cmd->static_fields->Up->fields.IsPressed ||
+            input_cmd->static_fields->Down->fields.IsPressed ||
+            input_cmd->static_fields->Left->fields.IsPressed ||
+            input_cmd->static_fields->Right->fields.IsPressed;
     }
 
     // float current, float target, ref float currentVelocity, float smoothTime, float maxSpeed = Mathf.Infinity, float deltaTime = Time.deltaTime
@@ -81,9 +81,9 @@ namespace {
 
     bool use_mouse_aiming_for_axis_input = false;
     IL2CPP_INTERCEPT(SeinDashNew, bool, ShouldDig, (app::SeinDashNew * this_ptr)) {
-        allow_mouse_control = core::settings::burrow_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
+        bool should_mouse_control = core::settings::burrow_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
 
-        if (current_control_scheme_is_kbm() && allow_mouse_control)
+        if (current_control_scheme_is_kbm() && should_mouse_control)
             use_mouse_aiming_for_axis_input = true;
 
         auto ret = next::SeinDashNew::ShouldDig(this_ptr);
@@ -92,9 +92,9 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinDigging, void, UpdateCharacterState, (app::SeinDigging * this_ptr)) {
-        allow_mouse_control = core::settings::burrow_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
+        bool should_mouse_control = core::settings::burrow_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
 
-        if (current_control_scheme_is_kbm() && allow_mouse_control)
+        if (current_control_scheme_is_kbm() && should_mouse_control)
             use_mouse_aiming_for_axis_input = true;
 
         next::SeinDigging::UpdateCharacterState(this_ptr);
@@ -102,9 +102,9 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinDashNew, bool, ShouldSwim, (app::SeinDashNew * this_ptr)) {
-        allow_mouse_control = core::settings::water_dash_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
+        bool should_mouse_control = core::settings::water_dash_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
 
-        if (current_control_scheme_is_kbm() && allow_mouse_control) {
+        if (current_control_scheme_is_kbm() && should_mouse_control) {
             deadzone_active = true;
             use_mouse_aiming_for_axis_input = true;
         }
@@ -116,9 +116,9 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinSwimming, void, UpdateCharacterState, (app::SeinSwimming * this_ptr)) {
-        allow_mouse_control = core::settings::water_dash_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
+        bool should_mouse_control = core::settings::water_dash_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
 
-        if (current_control_scheme_is_kbm() && allow_mouse_control) {
+        if (current_control_scheme_is_kbm() && should_mouse_control) {
             use_mouse_aiming_for_axis_input = true;
             deadzone_active = true;
         }
