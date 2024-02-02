@@ -9,19 +9,18 @@
 
 namespace {
 
-    std::unordered_map<app::AbilityType__Enum, core::api::uber_states::UberState> ability_should_open {
+    const std::unordered_map<app::AbilityType__Enum, core::api::uber_states::UberState> ability_should_open {
         {app::AbilityType__Enum::Blaze, core::api::uber_states::UberState(6, 420)},
         {app::AbilityType__Enum::GlowSpell, core::api::uber_states::UberState(6, 421)},
     };
-    bool should_open_condition;
 
     IL2CPP_INTERCEPT(BaurEntity, void, ResolveDamage, (app::BaurEntity * this_ptr, app::DamageResult result)){
-        should_open_condition = false;
-        if(ability_should_open.contains(result.Damage->fields.m_abilityType)) {
-            should_open_condition = ability_should_open[result.Damage->fields.m_abilityType].get<bool>();
+        bool should_open_condition = false;
+        if (ability_should_open.contains(result.Damage->fields.m_abilityType)) {
+            should_open_condition = ability_should_open.at(result.Damage->fields.m_abilityType).get<bool>();
         }
 
-        if(should_open_condition) {
+        if (should_open_condition) {
             auto r = result.Damage->fields.m_damageType = app::DamageType__Enum::Wind;
         }
         next::BaurEntity::ResolveDamage(this_ptr, result);
@@ -49,11 +48,11 @@ namespace {
             if (il2cpp::unity::is_valid(ability_restrict_zone_go)) {
                 restrict_zone = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::SeinAbilityRestrictZone>(ability_restrict_zone_go, types::SeinAbilityRestrictZone::get_class()));
                 restrict_zone_effect = core::reactivity::watch_effect([] {
-                    if(restrict_zone->is_valid()) {
+                    if (restrict_zone->is_valid()) {
                         auto mask = static_cast<int>((**restrict_zone)->fields.RestrictMask);
-                         if (ability_should_open[app::AbilityType__Enum::Blaze].get<bool>()) {
-                             mask = mask & ~static_cast<int>(app::SeinAbilityRestrictZoneMask__Enum::Attack);
-                         }
+                        if (ability_should_open.at(app::AbilityType__Enum::Blaze).get<bool>()) {
+                            mask = mask & ~static_cast<int>(app::SeinAbilityRestrictZoneMask__Enum::Attack);
+                        }
                         (**restrict_zone)->fields.RestrictMask = static_cast<app::SeinAbilityRestrictZoneMask__Enum>(mask);
                     }
                });
