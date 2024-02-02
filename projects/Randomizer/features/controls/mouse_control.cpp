@@ -81,9 +81,7 @@ namespace {
 
     bool use_mouse_aiming_for_axis_input = false;
     IL2CPP_INTERCEPT(SeinDashNew, bool, ShouldDig, (app::SeinDashNew * this_ptr)) {
-        allow_hybrid_movement = core::settings::burrow_mouse_control() && core::settings::hybrid_mouse_control() && !is_movement_input_pressed();
-        allow_mouse_only_movement = core::settings::burrow_mouse_control() && !core::settings::hybrid_mouse_control();
-        allow_mouse_control = allow_hybrid_movement || allow_mouse_only_movement;
+        allow_mouse_control = core::settings::burrow_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
 
         if (current_control_scheme_is_kbm() && allow_mouse_control)
             use_mouse_aiming_for_axis_input = true;
@@ -94,9 +92,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinDigging, void, UpdateCharacterState, (app::SeinDigging * this_ptr)) {
-        allow_hybrid_movement = core::settings::burrow_mouse_control() && core::settings::hybrid_mouse_control() && !is_movement_input_pressed();
-        allow_mouse_only_movement = core::settings::burrow_mouse_control() && !core::settings::hybrid_mouse_control();
-        allow_mouse_control = allow_hybrid_movement || allow_mouse_only_movement;
+        allow_mouse_control = core::settings::burrow_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
 
         if (current_control_scheme_is_kbm() && allow_mouse_control)
             use_mouse_aiming_for_axis_input = true;
@@ -106,9 +102,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinDashNew, bool, ShouldSwim, (app::SeinDashNew * this_ptr)) {
-        allow_hybrid_movement = core::settings::water_dash_mouse_control() && core::settings::hybrid_mouse_control() && !is_movement_input_pressed();
-        allow_mouse_only_movement = core::settings::water_dash_mouse_control() && !core::settings::hybrid_mouse_control();
-        allow_mouse_control = allow_hybrid_movement || allow_mouse_only_movement;
+        allow_mouse_control = core::settings::water_dash_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
 
         if (current_control_scheme_is_kbm() && allow_mouse_control) {
             deadzone_active = true;
@@ -122,9 +116,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinSwimming, void, UpdateCharacterState, (app::SeinSwimming * this_ptr)) {
-        allow_hybrid_movement = core::settings::water_dash_mouse_control() && core::settings::hybrid_mouse_control() && !is_movement_input_pressed();
-        allow_mouse_only_movement = core::settings::water_dash_mouse_control() && !core::settings::hybrid_mouse_control();
-        allow_mouse_control = allow_hybrid_movement || allow_mouse_only_movement;
+        allow_mouse_control = core::settings::water_dash_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
 
         if (current_control_scheme_is_kbm() && allow_mouse_control) {
             use_mouse_aiming_for_axis_input = true;
