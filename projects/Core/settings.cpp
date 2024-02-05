@@ -185,6 +185,10 @@ namespace core::settings {
         get_settings().overrides()[common::settings::key_t{"Flags", "WaterDashMouseControl"}] = value;
     }
 
+    void hybrid_mouse_control(bool value) {
+        get_settings().overrides()[common::settings::key_t{"Flags", "HybridMouseControl"}] = value;
+    }
+
     void invert_swim(bool value) {
         get_settings().overrides()[common::settings::key_t{"Flags", "InvertSwim"}] = value;
     }

@@ -48,7 +48,7 @@ namespace core::settings {
     CORE_DLLEXPORT void burrow_mouse_control(bool value);
     CORE_DLLEXPORT void hybrid_mouse_control(bool value);
     CORE_DLLEXPORT void grapple_mouse_control(bool value);
-    CORE_DLLEXPORT void water_dash_hybrid_mouse_control(bool value);
+    CORE_DLLEXPORT void water_dash_mouse_control(bool value);
     CORE_DLLEXPORT void invert_swim(bool value);
     CORE_DLLEXPORT void autoaim(bool value);
     CORE_DLLEXPORT void show_secrets(bool value);
