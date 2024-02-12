@@ -18,7 +18,7 @@ namespace {
     core::api::uber_states::UberState shuriken_multishot_count(UberStateGroup::RandoUpgrade, 48);
     core::api::uber_states::UberState shuriken_multishot_spread(UberStateGroup::RandoUpgrade, 49);
     core::api::uber_states::UberState shuriken_damage_multiplier(UberStateGroup::RandoUpgrade, 92);
-    core::api::uber_states::UberState shuriken_bashable(UberStateGroup::RandoUpgrade, 94);
+    core::api::uber_states::UberState shuriken_bashable(UberStateGroup::RandoUpgrade, 95);
 
     bool initialized = false;
     int default_max_chakrams = 1;
