@@ -319,4 +319,9 @@ namespace randomizer::timing {
         checkpoint_stats->report_pickup(area);
         save_stats->report_pickup(area, location_name);
     }
+
+    void override_in_game_time(float in_game_time) {
+        save_stats->in_game_time = in_game_time;
+        queue_timer_state_report();
+    }
 } // namespace randomizer::timing

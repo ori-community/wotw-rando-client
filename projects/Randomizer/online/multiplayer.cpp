@@ -13,9 +13,11 @@
 #include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/types/AreaMapUI.h>
 
+#include <Core/save_meta/save_meta.h>
+#include <Randomizer/stats/game_stats.h>
+#include <Randomizer/tracking/game_tracker.h>
 #include <algorithm>
 #include <unordered_map>
-#include <Core/save_meta/save_meta.h>
 
 namespace randomizer::online {
     MultiplayerUniverse::MultiplayerUniverse() {
@@ -80,6 +82,10 @@ namespace randomizer::online {
 
         client.register_handler<Network::SetSaveGuidRestrictionsMessage>(Network::Packet_PacketID_SetSaveGuidRestrictionsMessage, [this](auto const& message) {
             process_set_save_guid_restrictions_message(message);
+        });
+
+        client.register_handler<Network::OverrideInGameTimeMessage>(Network::Packet_PacketID_OverrideInGameTimeMessage, [this](auto const& message) {
+            randomizer::timing::override_in_game_time(message.in_game_time());
         });
     }
 

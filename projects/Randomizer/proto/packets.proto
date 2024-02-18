@@ -34,6 +34,7 @@ message Packet {
     ReportPlayerRaceReadyMessage = 27;
     SetPlayerSaveGuidMessage = 28;
     SetSaveGuidRestrictionsMessage = 29;
+    OverrideInGameTimeMessage = 30;
 
     TrackerUpdate = 100;
     ResetTracker = 101;
@@ -266,6 +267,10 @@ message PlayerTeleportMessage {}
 message ReportInGameTimeMessage {
   float in_game_time = 1;
   bool is_finished = 2;
+}
+
+message OverrideInGameTimeMessage {
+  float in_game_time = 1;
 }
 
 message SetBlockStartingNewGameMessage {
