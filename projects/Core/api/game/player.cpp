@@ -307,6 +307,15 @@ namespace core::api::game::player {
             create_ability_property(app::AbilityType__Enum::TurretSpell),
             create_ability_property(app::AbilityType__Enum::DamageUpgradeA),
             create_ability_property(app::AbilityType__Enum::DamageUpgradeB),
+            create_ability_property(app::AbilityType__Enum::SpiritMagnet),
+            create_ability_property(app::AbilityType__Enum::WallJump),
+            create_ability_property(app::AbilityType__Enum::Torch),
+            create_ability_property(app::AbilityType__Enum::SpiritFlame),
+            create_ability_property(app::AbilityType__Enum::UltraDefense),
+            create_ability_property(app::AbilityType__Enum::HealthEfficiency),
+            create_ability_property(app::AbilityType__Enum::EnergyEfficiency),
+            create_ability_property(app::AbilityType__Enum::BowCharge),
+            create_ability_property(app::AbilityType__Enum::WeaponCharge),
         };
 
         std::pair<app::SpiritShardType__Enum, Property<bool>> create_shard_property(app::SpiritShardType__Enum type) {
@@ -487,7 +496,10 @@ namespace core::api::game::player {
         return shards != nullptr && PlayerSpiritShards::IsGlobalShardEquipped_1(shards, type);
     }
 
-    const Property<bool>& ability(const app::AbilityType__Enum type) { return ability_properties[type]; }
+    const Property<bool>& ability(const app::AbilityType__Enum type) {
+        assert(ability_properties.contains(type));  // Ability type is not in the list of ability properties. Please add it.
+        return ability_properties.at(type);
+    }
 
     app::PlayerUberStateAreaMapInformation* get_area_map_information() {
         const auto player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;
