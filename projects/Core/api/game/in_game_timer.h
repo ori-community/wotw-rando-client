@@ -12,7 +12,7 @@ namespace core::api::game::in_game_timer {
 
     struct TimeStep {
         TimeStepType type;
-        float time;
+        float duration;
     };
 
     CORE_DLLEXPORT common::EventBus<TimeStep>& time_step_event_bus();

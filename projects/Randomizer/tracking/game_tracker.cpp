@@ -247,10 +247,10 @@ namespace randomizer::timing {
 
             switch (step.type) {
                 case core::api::game::in_game_timer::TimeStepType::InGameTime:
-                    save_stats->report_in_game_time_spent(current_game_area, step.time);
+                    save_stats->report_in_game_time_spent(current_game_area, step.duration);
                     break;
                 case core::api::game::in_game_timer::TimeStepType::AsyncLoadingTime:
-                    save_stats->report_async_loading_time_spent(step.time, core::api::game::in_game_timer::get_last_async_loading_state());
+                    save_stats->report_async_loading_time_spent(step.duration, core::api::game::in_game_timer::get_last_async_loading_state());
                     break;
             }
 
