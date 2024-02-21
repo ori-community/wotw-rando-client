@@ -169,16 +169,17 @@ namespace randomizer::seed {
 
         auto& inner_locations = m_data->locations[location];
         std::map<int, std::tuple<std::shared_ptr<items::BaseItem>, core::api::uber_states::UberStateCondition, bool>> to_grant;
-        auto value = location.get<double>();
         for (auto& [condition, data]: inner_locations) {
             const auto already_granted = condition.resolve(previous_value);
             if (const auto should_grant = condition.resolve(); !should_grant) {
                 continue;
             }
 
-            const auto location_data = location_collection().location(condition);
-            if (location_data.has_value()) {
-                timing::notify_pickup_collected(location_data->area, location_data->name);
+            if (!already_granted) {
+                const auto location_data = location_collection().location(condition);
+                if (location_data.has_value()) {
+                    timing::notify_pickup_collected(location_data->area, location_data->name);
+                }
             }
 
             if ((!already_granted || !data.always_granted_items.empty()) && m_location_data.area(condition) != GameArea::Void) {
@@ -281,7 +282,7 @@ namespace randomizer::seed {
     }
 
     nlohmann::json SaveSlotSeedMetaData::json_serialize() {
-        return nlohmann::json(*this);
+        return {*this};
     }
 
     void SaveSlotSeedMetaData::json_deserialize(nlohmann::json& j) {
