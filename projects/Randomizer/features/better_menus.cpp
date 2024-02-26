@@ -4,19 +4,19 @@
 #include <Modloader/app/methods/Game/UI.h>
 #include <Modloader/app/methods/MenuScreenManager__PostFadeMenuOpen_d__100.h>
 #include <Modloader/app/methods/UberGCManager.h>
+#include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 
 using namespace app::classes;
 using namespace modloader;
-using modloader::win::console::console_flush;
-using modloader::win::console::console_send;
 
 namespace core::api {
     namespace {
-        // Skip fade to black when opening menus
-        bool skip_fade_to_black = false;
+        bool skip_fade_to_black = false;  // Skip fade to black when opening menus
+        bool disable_menu_selection_navigation = false;  // Disables navigation in CleverMenuItemSelectionManager, see below
 
         IL2CPP_INTERCEPT(FaderB, void, Fade, (app::FaderB * this_ptr, float fadeInDuration, float fadeStayDuration, float fadeOutDuration, app::Action *fadeInComplete, app::Action *fadeOutComplete, bool skipCameraMoveToTarget)) {
             if (!skip_fade_to_black) {
@@ -49,6 +49,49 @@ namespace core::api {
             }
 
             next::UberGCManager::OnCleanupOutsideOfGameplay(trigger);
+        }
+
+
+        /**
+         * Prevent menu navigation when Up or Down is pressed at the same time a menu dialog pops up.
+         * This primarily makes QTMs more consistent since you don't end up on the "Cancel" button
+         * when entering the "Exit Game" dialog while still holding Up or Down.
+         *
+         * This is a port of the fix for Blind Forest by Kirefel
+         * https://github.com/Kirefel/OriDeQol/blob/a3c3c3f114731454cfa2ae01db513a1570027bbf/KFT.OriBF.Qol/QTMBugfix.cs
+         */
+
+        IL2CPP_INTERCEPT(CleverMenuItemSelectionManager, void, Start, (app::CleverMenuItemSelectionManager* this_ptr)) {
+            const auto menu_up_pressed = types::Input_Cmd::get_class()->static_fields->MenuUp->fields.IsPressed;
+            const auto menu_down_pressed = types::Input_Cmd::get_class()->static_fields->MenuDown->fields.IsPressed;
+
+            // Disable menu navigation if Up or Down is pressed
+            disable_menu_selection_navigation = menu_up_pressed || menu_down_pressed;
+
+            next::CleverMenuItemSelectionManager::Start(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(CleverMenuItemSelectionManager, void, FixedUpdate, (app::CleverMenuItemSelectionManager* this_ptr)) {
+            const auto menu_up_pressed = types::Input_Cmd::get_class()->static_fields->MenuUp->fields.IsPressed;
+            const auto menu_down_pressed = types::Input_Cmd::get_class()->static_fields->MenuDown->fields.IsPressed;
+
+            // Re-enable menu navigation once neither Up nor Down is pressed anymore
+            if (
+                CleverMenuItemSelectionManager::get_IsActive(this_ptr) &&
+                disable_menu_selection_navigation &&
+                !menu_up_pressed &&
+                !menu_down_pressed
+            ) {
+                disable_menu_selection_navigation = false;
+            }
+
+            next::CleverMenuItemSelectionManager::FixedUpdate(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(CleverMenuItemSelectionManager, void, MoveSelection, (app::CleverMenuItemSelectionManager* this_ptr, bool forward, int step)) {
+            if (!disable_menu_selection_navigation) {
+                next::CleverMenuItemSelectionManager::MoveSelection(this_ptr, forward, step);
+            }
         }
     } // namespace
 } // namespace core::api
