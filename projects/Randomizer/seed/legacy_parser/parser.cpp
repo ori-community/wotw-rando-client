@@ -194,7 +194,12 @@ namespace randomizer::seed::legacy_parser {
         if (!core::settings::use_default_currency_name()) {
             const auto slug_hash = std::hash<std::string>()(data.data->info.meta.slug);
             const auto location_hash = std::hash<location_type>()(location);
-            currency = core::text::get_random_text_with_hash(*static_text_entry::Currency, slug_hash ^ location_hash);
+            currency = core::text::get_random_text_with_hash(
+                spirit_light == 1
+                    ? *static_text_entry::CurrencySingular
+                    : *static_text_entry::CurrencyPlural,
+                slug_hash ^ location_hash
+            );
         }
 
         const auto text = std::format("{} {}", spirit_light, currency);

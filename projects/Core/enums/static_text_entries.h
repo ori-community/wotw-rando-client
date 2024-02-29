@@ -8,7 +8,8 @@ namespace core {
         EmptyName = 1,
         Chatter = 2,
         QuestReward = 3,
-        Currency = 4,
+        CurrencyPlural = 4,
+        CurrencySingular = 5,
 
         // Shops
         OpherSlot0_Normal_Name = 13000, // 10000 + (ShopType * 1000) + (Slot index * 10) + 0
