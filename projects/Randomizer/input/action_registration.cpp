@@ -3,6 +3,7 @@
 #include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/randomizer.h>
 
+#include <Core/api/game/debug_menu.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/core.h>
@@ -80,9 +81,20 @@ namespace randomizer::input {
         });
 
         auto on_toggle_debug_before = single_input_bus().register_handler(Action::ToggleDebug, EventTiming::Before, [](auto, auto) {
-            core::api::game::debug_controls(!core::api::game::debug_controls());
+            if (core::api::game::debug_menu::is_preventing_enabling_debug()) {
+                core::message_controller().queue_central({
+                    .text = core::Property<std::string>("Debug is currently blocked"),
+                    .prioritized = true,
+                });
+                return;
+            }
+
+            core::api::game::debug_menu::set_debug_enabled(
+                !core::api::game::debug_menu::is_debug_enabled()
+            );
+
             core::message_controller().queue_central({
-                .text = core::Property<std::string>::format("Debug {}", core::api::game::debug_controls() ? "enabled" : "disabled"),
+                .text = core::Property<std::string>::format("Debug: {}", core::api::game::debug_menu::is_debug_enabled()),
                 .prioritized = true,
             });
         });

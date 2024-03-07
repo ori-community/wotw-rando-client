@@ -1,3 +1,4 @@
+#include <Core/api/game/debug_menu.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/game/ui.h>
@@ -202,7 +203,7 @@ namespace randomizer {
 
         IL2CPP_INTERCEPT(GameController, void, ParseCommandLineArgs, (app::GameController * this_ptr)) {
             next::GameController::ParseCommandLineArgs(this_ptr);
-            core::api::game::debug_controls(core::settings::start_debug_enabled());
+            core::api::game::debug_menu::set_debug_enabled(core::settings::start_debug_enabled());
         }
 
         auto on_title_screen_loaded = core::api::scenes::single_event_bus().register_handler("wotwTitleScreen", [](const auto meta_data, auto) {

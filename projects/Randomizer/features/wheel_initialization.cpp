@@ -1,13 +1,14 @@
+#include <Core/api/game/debug_menu.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/graphics/textures.h>
 #include <Core/core.h>
 #include <Core/settings.h>
 
-#include <Randomizer/game/map/teleport_anywhere.h>
-#include <Randomizer/randomizer.h>
 #include <Randomizer/features/credits.h>
 #include <Randomizer/features/wheel.h>
+#include <Randomizer/game/map/teleport_anywhere.h>
+#include <Randomizer/randomizer.h>
 
 namespace randomizer::features::wheel {
     void initialize_item(
@@ -93,9 +94,20 @@ namespace randomizer::features::wheel {
                         });
         initialize_item(9001, 1, "Toggle debug", "Toggle debug controls", "file:assets/icons/wheel/toggle_debug.blue.png",
                         [](auto, auto, auto) {
-                            core::api::game::debug_controls(!core::api::game::debug_controls());
+                            if (core::api::game::debug_menu::is_preventing_enabling_debug()) {
+                                core::message_controller().queue_central({
+                                    .text = core::Property<std::string>("Debug is currently blocked"),
+                                    .prioritized = true,
+                                });
+                                return;
+                            }
+
+                            core::api::game::debug_menu::set_debug_enabled(
+                                !core::api::game::debug_menu::is_debug_enabled()
+                            );
+
                             core::message_controller().queue_central({
-                                .text = core::Property<std::string>::format("Debug: {}", core::api::game::debug_controls()),
+                                .text = core::Property<std::string>::format("Debug: {}", core::api::game::debug_menu::is_debug_enabled()),
                                 .prioritized = true,
                             });
                         });

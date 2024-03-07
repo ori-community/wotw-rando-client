@@ -59,9 +59,6 @@ namespace core::api::game {
 
     CORE_DLLEXPORT void load(bool immediate = false);
 
-    CORE_DLLEXPORT bool debug_controls();
-    CORE_DLLEXPORT void debug_controls(bool value);
-
     /**
      * Performs a QTM and load
      */

@@ -275,21 +275,6 @@ namespace core::api::game {
         load(true);
     }
 
-    bool debug_controls() {
-        auto cheats = types::CheatsHandler::get_class()->static_fields;
-        return cheats->Instance->fields.DebugEnabled;
-    }
-
-    void debug_controls(bool value) {
-        auto cheats = types::CheatsHandler::get_class()->static_fields;
-        if (cheats->Instance->fields.DebugEnabled != value) {
-            cheats->Instance->fields.DebugEnabled = value;
-            cheats->DebugWasEnabled = value;
-            cheats->DebugAlwaysEnabled = value;
-            types::DebugValues::get_class()->static_fields->DebugControlsEnabled = value;
-        }
-    }
-
     auto on_map_opened = event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, [](auto, auto) {
         auto it = containers.find(RandoContainer::MapIcons);
         if (it != containers.end()) {
