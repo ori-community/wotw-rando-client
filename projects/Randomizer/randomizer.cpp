@@ -261,7 +261,7 @@ namespace randomizer {
         const auto host = core::settings::host();
         const auto udp_port = core::settings::udp_port();
 
-        const std::string websocket_url = std::format("ws{}://{}/api/client-websocket/wotw", insecure ? "" : "s", host);
+        const std::string websocket_url = std::format("{}://{}/api/client-websocket/wotw", insecure ? "ws" : "wss", host);
         client.websocket_connect(websocket_url);
         client.udp_open(host, udp_port);
     }
