@@ -3,19 +3,18 @@
 This repository contains the client/modloader part of the Ori and the Will of the Wisps Randomizer.
 
 
-## Wiki
+## Installation
 
-If you need help on how to install the randomizer, tutorials or other randomizer-related information, you can
-read the wiki: https://wiki.orirando.com/
+For instructions and help with how to play this randomizer, visit https://wotw.orirando.com.
 
 
 ## Discord links:
 
-Visit https://orirando.com/discord for the main ori speedrunning Discord
-https://discord.gg/tpn9WydSQz for the development Discord.
+- Ori Speedrunning: https://orirando.com/discord
+- Ori Randomizer Development: https://discord.gg/tpn9WydSQz
 
 
-## Dev instructions
+## Development
 
 
 ### NOTICE
@@ -28,7 +27,29 @@ Run this as administrator:
 git config --system core.longpaths true
 ```
 
-First you will have to generate the solution file, for this you will need cmake version 3.17 or higher
-and Visual Studio 2022 (You might be able to use a lower version but you will have to change the gen-win64.bat file)
-Once you have those dependencies please run gen-win64.bat, this will generate a solution file.
-OriWotwRandomizerClient\build\win64\WotWRandomizer.sln
+- Using CLion (or alternatively Visual Studio) is recommended.
+- If you are using some other IDE than CLion without vcpkg support, make sure to [install](https://learn.microsoft.com/en-nz/vcpkg/get_started/get-started?pivots=shell-cmd) it first.
+- Make sure to have the `clang-cl` compilers and tools installed. Check this in the Visual Studio Installer in the Individual Components section.
+
+
+#### Setup in CLion
+
+1. Load the CMake project as usual into the IDE
+2. Enable vcpkg
+3. Add `-DVCPKG_TARGET_TRIPLET=x64-windows-static-md` as CMake argument in the CMake IDE settings
+4. Switch to the `clang-cl` compilers in the Toolchain IDE settings.
+
+
+#### Setup in Visual Studio
+
+1. Make sure the `VCPKG_INSTALLATION_ROOT` environment variable is set correctly and holding the path to the vcpkg installation root. If not, set it before continuing.
+2. Run `generate-cmake.debug-vs2022.bat` and wait for it to complete
+3. Open the solution file (.sln) in the resulting `cmake-build-debug` directory with Visual Studio
+
+
+### Set up debugging
+
+Debugging only works when launching the randomizer using the winhttp.dll proxy file (which is recommended in general for development).
+After building the project, symlink the built winhttp.dll next to the game. For that, open a terminal with elevated privileges next to the game executable (oriwotw.exe) and run `mklink winhttp.dll C:\moon\randomizer\winhttp.dll`.
+Now you can load the randomizer by launching the game executable with `-m C:\moon\randomizer` as command line argument. If you don't supply any argument, the winhttp.dll proxy will do nothing.
+If you are using CLion, you can create a Run Configuration with the aforementioned settings to get a seamless debugging experience.
