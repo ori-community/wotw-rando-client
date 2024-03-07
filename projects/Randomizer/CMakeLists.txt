@@ -325,7 +325,7 @@ find_package(ixwebsocket REQUIRED)
 target_link_libraries(${PROJECT_NAME} ixwebsocket::ixwebsocket)
 
 find_package(httplib CONFIG REQUIRED)
-target_link_libraries(${LIBRARY_NAME} PRIVATE httplib::httplib)
+target_link_libraries(${PROJECT_NAME} httplib::httplib)
 
 target_link_libraries(${PROJECT_NAME} protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
 
