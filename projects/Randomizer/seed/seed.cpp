@@ -282,7 +282,8 @@ namespace randomizer::seed {
     }
 
     nlohmann::json SaveSlotSeedMetaData::json_serialize() {
-        return {*this};
+        nlohmann::json j = *this;
+        return j;
     }
 
     void SaveSlotSeedMetaData::json_deserialize(nlohmann::json& j) {
