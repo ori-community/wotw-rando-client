@@ -219,7 +219,7 @@ namespace randomizer {
             std::stringstream version_buffer;
             version_buffer << version_file.rdbuf();
             const auto parsed = semver::from_string_noexcept(trim_copy(version_buffer.str()));
-            ;
+
             if (parsed.has_value()) {
                 version = parsed.value();
             }
