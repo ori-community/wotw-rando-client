@@ -6,10 +6,12 @@
 #include <Modloader/app/methods/SceneManagerScene.h>
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
+#include <Modloader/app/methods/UnityEngine/Rect.h>
 #include <Modloader/app/types/GameController.h>
 #include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/app/types/SceneRoot.h>
 #include <Modloader/app/types/Scenes.h>
+#include <Modloader/app/types/Rect.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
@@ -233,13 +235,24 @@ namespace core::api::scenes {
         }
     }
 
-    std::set<std::string> get_scenes_at_position(app::Vector3 position) {
+    std::set<int> get_scene_ids_at_position(app::Vector3 position) {
         const auto scenes_manager = get_scenes_manager();
         auto scenes = ScenesManager::ListAllScenesAtPosition(scenes_manager, position);
-        std::set<std::string> scene_names;
+        std::set<int> scene_ids;
 
         for (const auto scene_metadata: il2cpp::ListIterator(scenes)) {
-            scene_names.emplace(il2cpp::convert_csstring(scene_metadata->fields.Scene));
+            scene_ids.emplace(scene_metadata->fields.LinearId);
+        }
+
+        return scene_ids;
+    }
+
+    std::set<std::string> get_scenes_at_position(app::Vector3 position) {
+        const auto scenes_manager = get_scenes_manager();
+        std::set<std::string> scene_names;
+
+        for (const auto scene_id: get_scene_ids_at_position(position)) {
+            scene_names.emplace(il2cpp::convert_csstring(scenes_manager->fields.m_linearScenesArray->vector[scene_id]->fields.Scene));
         }
 
         return scene_names;

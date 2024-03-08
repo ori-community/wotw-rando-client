@@ -42,6 +42,7 @@ namespace core::api::scenes {
     CORE_DLLEXPORT void unload_scene(std::string_view scene, bool instant = true);
     CORE_DLLEXPORT void remove_scene(std::string_view scene, bool instant = true);
 
+    CORE_DLLEXPORT std::set<int> get_scene_ids_at_position(app::Vector3 position);
     CORE_DLLEXPORT std::set<std::string> get_scenes_at_position(app::Vector3 position);
 
     CORE_DLLEXPORT app::GameObject* get_root(std::string_view name);

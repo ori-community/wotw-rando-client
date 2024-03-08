@@ -11,37 +11,30 @@
 #include <Common/ext.h>
 
 #include <Modloader/app/methods/ActionSequence.h>
-#include <Modloader/app/methods/AreaMapNavigation.h>
+#include <Modloader/app/methods/CameraPivotZone.h>
 #include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/methods/Core/Input_InputButtonProcessor.h>
 #include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/GameplayCamera.h>
 #include <Modloader/app/methods/MessageBox.h>
-#include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
-#include <Modloader/app/methods/QuestsUI.h>
 #include <Modloader/app/methods/RunActionOnce.h>
 #include <Modloader/app/methods/SaveSlotUI.h>
 #include <Modloader/app/methods/SaveSlotsManager.h>
 #include <Modloader/app/methods/SaveSlotsUI.h>
 #include <Modloader/app/methods/ScenesManager.h>
-#include <Modloader/app/methods/SeinCharacter.h>
 #include <Modloader/app/methods/TitleScreenManager.h>
 #include <Modloader/app/methods/WaitAction.h>
 #include <Modloader/app/types/ActionSequence.h>
-#include <Modloader/app/types/AreaMapUI.h>
 #include <Modloader/app/types/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/types/FaderBFadeInAction.h>
 #include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/app/types/MessageBox.h>
-#include <Modloader/app/types/QuestsUI.h>
-#include <Modloader/app/types/InstantLoadScenesController.h>
 #include <Modloader/app/types/SaveSlotsUI.h>
 #include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/app/types/WaitAction.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/methods/InstantLoadScenesController.h>
 #include <Modloader/windows_api/console.h>
 
 
@@ -285,7 +278,7 @@ namespace randomizer::game {
                             if (!core::api::scenes::scene_is_loaded(scene_name)) {
                                 pending_scenes_to_preload.emplace(scene_name);
                                 scenes_to_preload.emplace(scene_name);
-                                core::api::scenes::force_load_scene(scene_name, &on_scene_loading, true, true);
+                                core::api::scenes::force_load_scene(scene_name, &on_scene_loading, false, true);
                             }
                         }
 
@@ -386,6 +379,12 @@ namespace randomizer::game {
             core::api::game::event_bus().trigger_event(GameEvent::NewGameInitialized, EventTiming::Before);
             core::api::game::event_bus().trigger_event(GameEvent::NewGameInitialized, EventTiming::After);
             on_new_game_late_initialization_handle = nullptr;
+
+            core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.Enabled = true;
+            if (handling_start) {
+                handling_start = false;
+                core::api::faderb::fade_out(0.3f);
+            }
         }
 
         void on_new_game(GameEvent event, EventTiming timing) {
@@ -393,7 +392,6 @@ namespace randomizer::game {
 
             auto camera = types::UI_Cameras::get_class()->static_fields->Current;
             GameplayCamera::DisableGoThroughScrollLocks(camera, reinterpret_cast<app::Object_1*>(game_state_machine));
-            ScenesManager::ClearPreventUnloading(core::api::scenes::get_scenes_manager());
 
             handling_start = true;
             intro_cutscene.set(1);
@@ -401,18 +399,15 @@ namespace randomizer::game {
                 core::api::scenes::force_load_scene(scene_name, nullptr, true, false);
             }
 
-            teleport(game_seed().info().meta.start_position);
+            teleportation::teleport_instantly(game_seed().info().meta.start_position);
+            core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.Enabled = false;
             on_new_game_late_initialization_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, on_new_game_late_initialization);
 
             GameStateMachine::SetToGame(game_state_machine);
             core::api::game::player::ability(app::AbilityType__Enum::SpiritMagnet).set(false);
 
             core::api::game::player::snap_camera();
-
-            if (handling_start) {
-                handling_start = false;
-                core::api::faderb::fade_out(0.3f);
-            }
+            ScenesManager::ClearPreventUnloading(core::api::scenes::get_scenes_manager());
         }
 
         void on_finished_loading_save(GameEvent event, EventTiming timing) {
@@ -449,21 +444,4 @@ namespace randomizer::game {
             });
         });
     } // namespace
-
-    void teleport(app::Vector3 position) {
-        SeinCharacter::set_Position(core::api::game::player::sein(), position);
-
-        // We do this because InstantLoadScenesController::LoadScenesAtPosition uses it as the target position
-        const auto scenes_manager = core::api::scenes::get_scenes_manager();
-        scenes_manager->fields.m_currentCameraTargetPosition.x = position.x;
-        scenes_manager->fields.m_currentCameraTargetPosition.y = position.y;
-
-        const auto instant_load_scenes_controller = types::InstantLoadScenesController::get_class()->static_fields->Instance;
-        InstantLoadScenesController::LoadScenesAtPosition(instant_load_scenes_controller, nullptr, false, false);
-
-        auto area_map_ui = types::AreaMapUI::get_class()->static_fields->Instance;
-        auto quests_ui = types::QuestsUI::get_class()->static_fields->Instance;
-        AreaMapNavigation::SetLocationPlayer(area_map_ui->fields._Navigation_k__BackingField);
-        QuestsUI::UpdateDescriptionUI_2(quests_ui, nullptr);
-    }
 } // namespace randomizer::game

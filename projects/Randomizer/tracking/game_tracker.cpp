@@ -120,11 +120,13 @@ namespace randomizer::timing {
         }
 
         auto on_new_game = core::api::game::event_bus().register_handler(
-            GameEvent::NewGame,
+            GameEvent::NewGameInitialized,
             EventTiming::Before,
             [](GameEvent event, EventTiming timing) {
-                reset_stats();
-                loaded_any_save_file = true;
+                queue_input_unlocked_callback([] {
+                    reset_stats();
+                    loaded_any_save_file = true;
+                });
             }
         );
 
