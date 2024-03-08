@@ -94,7 +94,7 @@ namespace randomizer::features::wheel {
                         });
         initialize_item(9001, 1, "Toggle debug", "Toggle debug controls", "file:assets/icons/wheel/toggle_debug.blue.png",
                         [](auto, auto, auto) {
-                            if (core::api::game::debug_menu::is_preventing_enabling_debug()) {
+                            if (core::api::game::debug_menu::should_prevent_cheats()) {
                                 core::message_controller().queue_central({
                                     .text = core::Property<std::string>("Debug is currently blocked"),
                                     .prioritized = true,

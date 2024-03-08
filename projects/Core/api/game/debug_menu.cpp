@@ -16,10 +16,10 @@ namespace core::api::game::debug_menu {
     /**
      * If true, prevents enabling debug mode
      */
-    bool prevent_enabling_debug = false;
+    bool prevent_cheats = false;
 
     IL2CPP_INTERCEPT(CheatsHandler, void, ActivateDebug, (app::CheatsHandler* this_ptr)) {
-        if (prevent_enabling_debug) {
+        if (prevent_cheats) {
             return;
         }
 
@@ -27,27 +27,27 @@ namespace core::api::game::debug_menu {
     }
 
     IL2CPP_INTERCEPT(CheatsHandler, void, ActivateDebugMenu, (app::CheatsHandler* this_ptr)) {
-        if (prevent_enabling_debug) {
+        if (prevent_cheats) {
             return;
         }
 
         next::CheatsHandler::ActivateDebugMenu(this_ptr);
     }
 
-    void set_prevent_enabling_debug(bool prevent) {
+    void set_should_prevent_cheats(bool prevent) {
         if (prevent && is_debug_enabled()) {
             set_debug_enabled(false);
         }
 
-        prevent_enabling_debug = prevent;
+        prevent_cheats = prevent;
     }
 
-    bool is_preventing_enabling_debug() {
-        return prevent_enabling_debug;
+    bool should_prevent_cheats() {
+        return prevent_cheats;
     }
 
     void set_debug_enabled(bool enable) {
-        if (enable && prevent_enabling_debug) {
+        if (enable && prevent_cheats) {
             return;
         }
 
