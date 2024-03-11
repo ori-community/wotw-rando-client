@@ -30,6 +30,7 @@
 #include <Randomizer/timer.h>
 #include <Randomizer/uber_states/uber_state_intercepts.h>
 #include <fstream>
+#include <utility>
 
 namespace randomizer {
     namespace {
@@ -56,12 +57,18 @@ namespace randomizer {
 
         void on_reach_check(seed::ReachCheckResult result) {
             reach_check_in_progress = false;
-            reach_check_result = result;
+
+            if (!reach_check_result.is_same_as(result)) {
+                event_bus().trigger_event(RandomizerEvent::ReachableItemsChanged, EventTiming::Before);
+                reach_check_result = std::move(result);
+                event_bus().trigger_event(RandomizerEvent::ReachableItemsChanged, EventTiming::After);
+            }
+
             event_bus().trigger_event(RandomizerEvent::ReachCheck, EventTiming::After);
         }
 
         bool do_reach_check() {
-            if (reach_check_in_progress && !core::api::game::in_game()) {
+            if (reach_check_in_progress || !core::api::game::in_game()) {
                 return false;
             }
 

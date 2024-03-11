@@ -17,6 +17,7 @@ namespace randomizer {
         SeedLoaded,
         SeedLoadedPostGrant,
         ReachCheck,
+        ReachableItemsChanged,
     };
 
     void reload();

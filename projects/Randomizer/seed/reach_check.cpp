@@ -159,7 +159,7 @@ namespace randomizer::seed {
             EventTiming::After,
             [](auto, auto) {
                 if (auto lock = std::unique_lock(results_mutex, std::try_to_lock)) {
-                    for (auto [callback, result]: results) {
+                    for (auto& [callback, result]: results) {
                         callback(result);
                     }
 
@@ -177,6 +177,10 @@ namespace randomizer::seed {
         }
 
         return data.reached.contains(location);
+    }
+
+    bool ReachCheckResult::is_same_as(const ReachCheckResult& other) const {
+        return data.reached == other.data.reached;
     }
 
     std::vector<app::AbilityType__Enum> abilities{

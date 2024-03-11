@@ -48,8 +48,9 @@ namespace {
 
     IL2CPP_INTERCEPT(SeinDashNew, bool, get_CanDash, (app::SeinDashNew * this_ptr)) {
         auto result = next::SeinDashNew::get_CanDash(this_ptr);
-        if (!has_dash())
+        if (!has_dash()) {
             result = result && (SeinDashNew::ShouldDig(this_ptr) || SeinDashNew::ShouldSwim(this_ptr));
+        }
         return result;
     }
 
@@ -78,8 +79,9 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(GeneralDebugMenuPage, bool, GetAbility, (app::GeneralDebugMenuPage * this_ptr, app::AbilityType__Enum abilityType)) {
-        if (abilityType == app::AbilityType__Enum::DashNew)
+        if (abilityType == app::AbilityType__Enum::DashNew) {
             return has_dash();
+        }
 
         return next::GeneralDebugMenuPage::GetAbility(this_ptr, abilityType);
     }

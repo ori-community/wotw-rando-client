@@ -12,6 +12,7 @@ namespace randomizer::seed {
         };
 
         bool reachable(core::api::uber_states::UberStateCondition location) const;
+        bool is_same_as(const ReachCheckResult& other) const;
 
         Data data;
     };

@@ -331,5 +331,9 @@ namespace randomizer::game::map {
             // interactive_doors();
             // levers();
         });
+
+        auto on_after_reachable_items_changed = randomizer::event_bus().register_handler(RandomizerEvent::ReachableItemsChanged, EventTiming::After, [](auto, auto) {
+            refresh();
+        });
     } // namespace
 } // namespace randomizer::game::map
