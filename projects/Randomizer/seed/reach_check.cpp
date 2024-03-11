@@ -115,7 +115,9 @@ namespace randomizer::seed {
                 }
 
                 auto request = request_optional.value();
+
                 std::vector<const char*> nodes;
+                nodes.reserve(request.nodes.size());
                 for (auto const& node: request.nodes) {
                     nodes.push_back(node.c_str());
                 }
