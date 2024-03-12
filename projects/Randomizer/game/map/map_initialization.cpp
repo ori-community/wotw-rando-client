@@ -1,4 +1,5 @@
 
+#include <Core/api/game/ui.h>
 #include <Core/api/uber_states/uber_state_condition.h>
 #include <Core/settings.h>
 
@@ -333,7 +334,9 @@ namespace randomizer::game::map {
         });
 
         auto on_after_reachable_items_changed = randomizer::event_bus().register_handler(RandomizerEvent::ReachableItemsChanged, EventTiming::After, [](auto, auto) {
-            refresh();
+            if (core::api::game::ui::area_map_open()) {
+                refresh();
+            }
         });
     } // namespace
 } // namespace randomizer::game::map

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Core/macros.h>
 #include <Modloader/app/structs/UI__Class.h>
 #include <Modloader/app/structs/AreaMapUI.h>
 
