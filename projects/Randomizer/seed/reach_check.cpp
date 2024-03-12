@@ -75,7 +75,7 @@ namespace randomizer::seed {
 
         bool thread_is_running = false;
         common::BlockingQueue<ReachCheckRequest> requests;
-        std::vector<std::tuple<reach_check_callback, ReachCheckResult>> results;
+        std::vector<std::tuple<reach_check_callback, std::optional<ReachCheckResult>>> results;
         std::mutex results_mutex;
 
         void push_error(ReachCheckResult::Data* data, const char* error_message) {
@@ -142,9 +142,11 @@ namespace randomizer::seed {
                 ReachCheckResult result = {};
                 auto status = func(input, &result.data, functions);
                 if (status == Status::Success) {
-                    std::lock_guard<std::mutex> lock(results_mutex);
+                    std::lock_guard lock(results_mutex);
                     results.emplace_back(request.callback, result);
                 } else {
+                    std::lock_guard lock(results_mutex);
+                    results.emplace_back(request.callback, std::nullopt);
                     modloader::warn("reach_check", "Reach check failed");
                 }
             }
@@ -276,7 +278,11 @@ namespace randomizer::seed {
             }
 
             requests.enqueue(request);
+            return;
         }
+
+        // We couldn't queue the request, abort immediately
+        callback(std::nullopt);
     }
 
     auto on_shutdown = modloader::event_bus().register_handler(

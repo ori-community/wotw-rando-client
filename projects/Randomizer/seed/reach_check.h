@@ -17,7 +17,7 @@ namespace randomizer::seed {
         Data data;
     };
 
-    using reach_check_callback = std::function<void(ReachCheckResult result)>;
+    using reach_check_callback = std::function<void(const std::optional<ReachCheckResult>& result)>;
 
     void reach_check(reach_check_callback callback);
 } // namespace randomizer::seed

@@ -55,16 +55,18 @@ namespace randomizer {
         bool reach_check_queued = false;
         bool reach_check_in_progress = false;
 
-        void on_reach_check(seed::ReachCheckResult result) {
+        void on_reach_check(const std::optional<seed::ReachCheckResult>& result) {
             reach_check_in_progress = false;
 
-            if (!reach_check_result.is_same_as(result)) {
-                event_bus().trigger_event(RandomizerEvent::ReachableItemsChanged, EventTiming::Before);
-                reach_check_result = std::move(result);
-                event_bus().trigger_event(RandomizerEvent::ReachableItemsChanged, EventTiming::After);
-            }
+            if (result.has_value()) {
+                if (!reach_check_result.is_same_as(*result)) {
+                    event_bus().trigger_event(RandomizerEvent::ReachableItemsChanged, EventTiming::Before);
+                    reach_check_result = *result;
+                    event_bus().trigger_event(RandomizerEvent::ReachableItemsChanged, EventTiming::After);
+                }
 
-            event_bus().trigger_event(RandomizerEvent::ReachCheck, EventTiming::After);
+                event_bus().trigger_event(RandomizerEvent::ReachCheck, EventTiming::After);
+            }
         }
 
         bool do_reach_check() {
