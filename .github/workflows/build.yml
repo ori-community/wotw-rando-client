@@ -20,7 +20,7 @@ jobs:
       - name: Enable Git support for long file paths
         run: git config --system core.longpaths true
       - name: Run sccache-cache
-        uses: mozilla-actions/sccache-action@v0.0.3
+        uses: mozilla-actions/sccache-action@v0.0.4
       - name: Load CMake and Ninja
         uses: lukka/get-cmake@latest
       - name: Set up directories
@@ -31,21 +31,20 @@ jobs:
         with:
           tagRegex: "v?([^-]*)"
       - name: Check out repository code
-        uses: actions/checkout@v3
-      - uses: actions/github-script@v6
+        uses: actions/checkout@v4
+      - uses: actions/github-script@v7
         with:
           script: |
             core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
             core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
-      - name: Install MSVC developer tools
-        uses: microsoft/setup-msbuild@v1.1
-        with:
-          arch: x64
       - name: Symlink build directory
         run: |
           $path = Resolve-Path .
           New-Item -Path ${{ env.WORKDIR }} -ItemType SymbolicLink -Value $path
-      - uses: ilammy/msvc-dev-cmd@v1
+      - uses: TheMrMilchmann/setup-msvc-dev@v3
+        with:
+          arch: x64
+          toolset: 14.39  # Workaround for https://github.com/actions/runner-images/issues/9086
       - name: Generate solution
         shell: cmd
         working-directory: ${{ env.WORKDIR }}
@@ -65,7 +64,7 @@ jobs:
             exit 1
           )
       - name: Archive randomizer
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: randomizer
           path: 'C:\moon\randomizer\*'
