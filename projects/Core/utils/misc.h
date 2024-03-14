@@ -2,7 +2,10 @@
 
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/structs/UberShaderColor.h>
+#include <Modloader/app/types/Object_1.h>
 #include <Core/macros.h>
+
+using namespace app::classes;
 
 namespace utils {
 
@@ -13,7 +16,7 @@ namespace utils {
 
         bool is_valid() {
             return il2cpp::unity::is_valid(ptr) &&
-                    il2cpp::is_assignable(ptr, "UnityEngine", "Object") &&
+                    il2cpp::is_assignable(ptr, types::Object_1::get_class()) &&
                     UnityEngine::Object::GetInstanceID(reinterpret_cast<app::Object_1*>(ptr)) == object_id;
         }
 
