@@ -9,6 +9,7 @@
 #include <Core/events/task.h>
 
 #include <Common/ext.h>
+#include <Core/core.h>
 
 #include <Modloader/app/methods/ActionSequence.h>
 #include <Modloader/app/methods/CameraPivotZone.h>
@@ -295,12 +296,24 @@ namespace randomizer::game {
             // If the player started a new empty save slot...
             if (empty_slot_pressed_action_sequence_handle.has_value() && this_ptr->fields.Action == reinterpret_cast<app::ActionMethod*>(empty_slot_pressed_action_sequence_handle.value().ref()) &&
                 start_game_sequence_handle.has_value()) {
+
+                const auto [source_status, source_seed_content] = get_new_game_seed_source()->poll();
+                if (source_status != seed::SourceStatus::Ready || !source_seed_content.has_value()) {
+                    core::message_controller().queue_central({
+                        .text = core::Property<std::string>::format("You cannot start a game without a seed"),
+                        .show_box = true,
+                        .prioritized = true,
+                    });
+                    return;
+                }
+
+                set_new_game_seed_content(*source_seed_content);
+
                 if (randomizer::multiplayer_universe().should_block_starting_new_game()) {
                     is_in_lobby = true;
                     update_lobby_ui();
                     check_if_preloaded_and_report_ready();
-                }
-                else {
+                } else {
                     set_full_game_main_menu_selection_manager_active(false);
                     start_new_game();
                 }
@@ -376,7 +389,6 @@ namespace randomizer::game {
                 return;
             }
 
-            core::api::game::event_bus().trigger_event(GameEvent::NewGameInitialized, EventTiming::Before);
             core::api::game::event_bus().trigger_event(GameEvent::NewGameInitialized, EventTiming::After);
             on_new_game_late_initialization_handle = nullptr;
 
@@ -388,6 +400,8 @@ namespace randomizer::game {
         }
 
         void on_new_game(GameEvent event, EventTiming timing) {
+            core::api::game::event_bus().trigger_event(GameEvent::NewGameInitialized, EventTiming::Before);
+
             auto game_state_machine = types::GameStateMachine::get_class()->static_fields->m_instance;
 
             auto camera = types::UI_Cameras::get_class()->static_fields->Current;

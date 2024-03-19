@@ -49,7 +49,8 @@ namespace randomizer::main_menu_seed_info {
         common::registration_handle_t on_network_status_handle;
         common::registration_handle_t on_multiverse_update_handle;
 
-        std::optional<std::string> current_seed_path = std::nullopt;
+        bool poll_current_seed_source_until_not_loading = false;
+        std::shared_ptr<seed::SeedSource> current_seed_source = nullptr;
         std::variant<seed::Seed::SeedMetaData, seed::legacy_parser::ParserError, generic_error_t> current_seed_meta_data_result = std::string("No seed loaded");
         auto current_network_state = online::NetworkClient::State::Closed;
 
@@ -85,7 +86,8 @@ namespace randomizer::main_menu_seed_info {
                 ? std::make_optional(std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result))
                 : std::nullopt;
 
-            const auto should_display_network_info = player.has_value() && seed_metadata.has_value() && seed_metadata.value().online;
+            const auto should_display_network_info = player.has_value() && seed_metadata.has_value() && current_seed_source != nullptr &&
+                current_seed_source->requires_server_connection();
 
             if (should_display_network_info) {
                 name_property.set(player.value().user.name());
@@ -99,23 +101,30 @@ namespace randomizer::main_menu_seed_info {
                 description += std::format("Universe: {}\n", player->universe.name());
             }
 
-            if (current_seed_path.has_value()) {
+            if (current_seed_source != nullptr) {
+                const auto current_seed_source_description = current_seed_source->get_description();
                 description += std::format(
-                    "Path: {}\n",
-                    current_seed_path.value().size() > MAX_DISPLAYED_SEED_PATH_LENGTH ? std::format("...{}", current_seed_path.value().substr(current_seed_path.value().size() - MAX_DISPLAYED_SEED_PATH_LENGTH, MAX_DISPLAYED_SEED_PATH_LENGTH))
-                                                          : current_seed_path.value()
+                    "Source: {}\n",
+                    current_seed_source_description.size() > MAX_DISPLAYED_SEED_PATH_LENGTH
+                        ? std::format("...{}", current_seed_source_description.substr(current_seed_source_description.size() - MAX_DISPLAYED_SEED_PATH_LENGTH, MAX_DISPLAYED_SEED_PATH_LENGTH))
+                        : current_seed_source_description
                 );
             }
 
             if (seed_metadata.has_value()) {
                 const auto meta = seed_metadata.value();
-                description += std::format("Seed: {}\n", meta.name);
+                description += std::format("Slug: <hex_9ee2f7ff>{}</>\n", meta.slug);
                 description += "Flags:";
                 for (auto flag: meta.flags) {
                     description += std::format("\n   - {}", flag);
                 }
-            } else if (holds_any_of<seed::legacy_parser::ParserError, generic_error_t>(current_seed_meta_data_result)) {
+            } else if (current_seed_source != nullptr && current_seed_source->get_error().has_value()) {
                 description += "Error loading seed:\n";
+                description += current_seed_source->get_error().value();
+            } else if (poll_current_seed_source_until_not_loading) {
+                description += "Loading seed...";
+            } else if (holds_any_of<seed::legacy_parser::ParserError, generic_error_t>(current_seed_meta_data_result)) {
+                description += "Error parsing seed:\n";
 
                 if (std::holds_alternative<seed::legacy_parser::ParserError>(current_seed_meta_data_result)) {
                     description += magic_enum::enum_name(std::get<seed::legacy_parser::ParserError>(current_seed_meta_data_result));
@@ -273,17 +282,19 @@ namespace randomizer::main_menu_seed_info {
                 auto should_connect = false;
 
                 if (read_slots.contains(SaveMetaSlot::SeedMetaData)) {
-                    const auto meta = randomizer::seed::legacy_parser::parse_meta_data(seed_meta_data->path);
+                    const auto meta = randomizer::seed::legacy_parser::parse_meta_data(seed_meta_data->seed_content);
                     current_seed_meta_data_result = variant_cast(meta);
-                    current_seed_path = seed_meta_data->path.string();
+                    current_seed_source = seed_meta_data->get_source();
 
                     if (std::holds_alternative<seed::Seed::SeedMetaData>(meta)) {
-                        should_connect = std::get<seed::Seed::SeedMetaData>(meta).online;
+                        should_connect = current_seed_source->requires_server_connection();
                     }
                 } else {
-                    current_seed_path = std::nullopt;
+                    current_seed_source = nullptr;
                     current_seed_meta_data_result = "Error reading save metadata.\nThis might be a vanilla save.";
                 }
+
+                poll_current_seed_source_until_not_loading = false;
 
                 if (should_connect) {
                     randomizer::server_connect();
@@ -293,22 +304,60 @@ namespace randomizer::main_menu_seed_info {
 
                 update_text();
             } else {
-                current_seed_path = game_seed().path().string();
-                current_seed_meta_data_result = game_seed().info().meta;
+                current_seed_source = get_new_game_seed_source();
+                current_seed_meta_data_result = std::string("Loading...");
 
-                if (game_seed().info().meta.online) {
+                poll_current_seed_source_until_not_loading = true;
+
+                if (current_seed_source->requires_server_connection()) {
                     randomizer::server_connect();
                 } else {
                     randomizer::server_disconnect();
                 }
 
                 update_text();
-                on_seed_loaded_handle = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
-                    current_seed_meta_data_result = game_seed().info().meta;
+
+                on_seed_loaded_handle = event_bus().register_handler(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::After, [](auto, auto) {
+                    current_seed_source = get_new_game_seed_source();
+                    current_seed_meta_data_result = std::string("Loading...");
+
+                    poll_current_seed_source_until_not_loading = true;
+
+                    if (current_seed_source->requires_server_connection()) {
+                        randomizer::server_connect();
+                    } else {
+                        randomizer::server_disconnect();
+                    }
+
                     update_text();
                 });
             }
         }
+
+        auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+            if (!poll_current_seed_source_until_not_loading) {
+                return;
+            }
+
+            const auto [source_status, source_seed_content] = get_new_game_seed_source()->poll();
+
+            if (source_status == seed::SourceStatus::Loading) {
+                return;
+            }
+
+            poll_current_seed_source_until_not_loading = false;
+
+            if (source_seed_content.has_value()) {
+                const auto meta = randomizer::seed::legacy_parser::parse_meta_data(*source_seed_content);
+                current_seed_meta_data_result = variant_cast(meta);
+            } else if (get_new_game_seed_source()->get_error().has_value()) {
+                current_seed_meta_data_result = get_new_game_seed_source()->get_error().value();
+            } else {
+                throw std::exception("Seed source did neither supply content nor an error. Please fix this.");
+            }
+
+            update_text();
+        });
 
         IL2CPP_INTERCEPT(SaveSlotsUI, void, OnEnable, (app::SaveSlotsUI * this_ptr)) {
             modloader::ScopedSetter setter(is_in_save_slots_ui_on_enable, true);

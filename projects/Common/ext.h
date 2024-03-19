@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <array>
 #include <cctype>
+#include <filesystem>
+#include <fstream>
 #include <optional>
 #include <span>
 #include <sstream>
@@ -196,6 +198,13 @@ void split_str(const std::string_view str, Container& cont, const std::span<std:
 }
 
 std::string_view find_next_unbalanced(std::string_view text, std::string_view start, std::string_view end);
+
+inline std::string read_text_file(const std::filesystem::path& path) {
+    const std::ifstream file(path.string());
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    return buffer.str();
+}
 
 template<typename T>
 bool string_convert(std::string_view str, T& value, std::size_t* position = nullptr);

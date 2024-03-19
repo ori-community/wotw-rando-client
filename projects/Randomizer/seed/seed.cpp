@@ -12,22 +12,17 @@
 #include <fstream>
 #include <map>
 
+#include "seed_source.h"
+
 namespace randomizer::seed {
 
     Seed::Seed(location_data::LocationCollection const& location_data) :
         m_location_data(location_data) {}
 
-    void Seed::read(const std::filesystem::path& path, const seed_parser parser, const bool show_message) {
+    void Seed::read(const std::string& seed_content, const seed_parser parser, const bool show_message) {
         m_last_parser = parser;
-        m_last_path = path;
+        m_seed_content = seed_content;
         reload(show_message);
-    }
-
-    std::string read_all(const std::filesystem::path& path) {
-        const std::ifstream file(path.string());
-        std::stringstream buffer;
-        buffer << file.rdbuf();
-        return buffer.str();
     }
 
     void set_shop_slot_titles(Seed const& seed, std::vector<game::shops::ShopSlot*> const& slots) {
@@ -44,11 +39,11 @@ namespace randomizer::seed {
 
         event_bus().trigger_event(RandomizerEvent::SeedLoaded, EventTiming::Before);
         auto data = std::make_shared<Data>();
-        data->info.areas = read_all(modloader::base_path() / "areas.wotw");
-        data->info.locations = read_all(modloader::base_path() / "loc_data.csv");
-        data->info.states = read_all(modloader::base_path() / "state_data.csv");
-        if (!m_last_parser(m_last_path, m_location_data, data)) {
-            auto error_message = std::format("Failed to load seed '{}'", m_last_path.string());
+        data->info.areas = read_text_file(modloader::base_path() / "areas.wotw");
+        data->info.locations = read_text_file(modloader::base_path() / "loc_data.csv");
+        data->info.states = read_text_file(modloader::base_path() / "state_data.csv");
+        if (!m_last_parser(m_seed_content, m_location_data, data)) {
+            auto error_message = std::format("Failed to load seed");
             if (!data->info.parser_error.empty()) {
                 error_message = data->info.parser_error;
             }
@@ -73,7 +68,6 @@ namespace randomizer::seed {
             }
         }
 
-        m_data->info.meta.name = std::filesystem::path(m_last_path).filename().string();
         std::string flags;
         for (auto const& flag: info().meta.flags) {
             if (flags.empty()) {
@@ -100,13 +94,13 @@ namespace randomizer::seed {
         }
 
         core::message_controller().queue_central({
-            .text = core::Property<std::string>::format("Loaded {}{}", info().meta.name, flags),
+            .text = core::Property<std::string>::format("Loaded <hex_9ee2f7ff>{}</>{}", info().meta.slug, flags),
             .show_box = true,
             .prioritized = true,
         });
     }
 
-    void Seed::clear() {
+    void Seed::clear() const {
         m_data->info = {};
         m_data->relics.clear();
         m_data->locations.clear();
@@ -286,7 +280,8 @@ namespace randomizer::seed {
         return j;
     }
 
-    void SaveSlotSeedMetaData::json_deserialize(nlohmann::json& j) {
-        j.get_to(*this);
+    void SaveSlotSeedMetaData::json_deserialize(nlohmann::json& j) { j.get_to(*this); }
+    std::shared_ptr<SeedSource> SaveSlotSeedMetaData::get_source() const {
+        return seed::parse_source_string(seed_source_string);
     }
 } // namespace randomizer::seed

@@ -79,7 +79,7 @@ namespace randomizer::features::wheel {
                             });
                         });
         initialize_item(9000, 10, "Reload", "Reloads the seed file", "file:assets/icons/wheel/reload_seed.blue.png",
-                        [](auto, auto, auto) { randomizer::reload(); });
+                        [](auto, auto, auto) { randomizer::full_reload(); });
         initialize_item(9000, 11, "Next", "Go to next page of actions", "file:assets/icons/wheel/menu.blue.png",
                         [](auto, auto, auto) { set_active_wheel(9001); });
 

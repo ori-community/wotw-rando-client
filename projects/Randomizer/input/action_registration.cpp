@@ -39,7 +39,7 @@ namespace randomizer::input {
         });
 
         auto on_reload_before = single_input_bus().register_handler(Action::Reload, EventTiming::Before, [](auto, auto) {
-            reload();
+            full_reload();
         });
 
         auto on_show_last_pickup_before = single_input_bus().register_handler(Action::ShowLastPickup, EventTiming::Before, [](auto, auto) {

@@ -8,6 +8,7 @@
 #include <Core/settings.h>
 #include <Modloader/app/methods/Game/UI_Hints.h>
 #include <Modloader/app/methods/GameController.h>
+#include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/TitleScreenManager.h>
 #include <Modloader/app/types/GameController.h>
 #include <Modloader/app/types/UI_Hints.h>
@@ -32,6 +33,8 @@
 #include <fstream>
 #include <utility>
 
+#include "seed/seed_source.h"
+
 namespace randomizer {
     namespace {
         location_data::LocationCollection randomizer_location_collection;
@@ -50,7 +53,10 @@ namespace randomizer {
             .screen_position = core::api::messages::ScreenPosition::TopCenter,
         });
 
-        std::shared_ptr<seed::SaveSlotSeedMetaData> seed_save_data;
+        auto seed_save_data = std::make_shared<seed::SaveSlotSeedMetaData>();
+
+        std::shared_ptr<seed::SeedSource> new_game_seed_source = std::make_shared<seed::EmptySeedSource>();
+        std::string new_game_seed_content;  // Set by spawning_and_preloading.cpp
 
         bool reach_check_queued = false;
         bool reach_check_in_progress = false;
@@ -84,20 +90,6 @@ namespace randomizer {
             server_disconnect();
         });
 
-        auto on_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, [](auto, auto) {
-            if (reach_check_queued && do_reach_check()) {
-                reach_check_queued = false;
-            }
-
-            const float delta_time = core::api::game::fixed_delta_time();
-            monitor.update(delta_time);
-            status.update(delta_time);
-        });
-
-        auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
-            core::api::game::player::shard_slots().set(3);
-        });
-
         std::vector<std::function<void()>> input_unlocked_callbacks;
         auto on_input_locked_handler = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
             if (!core::api::game::player::can_move()) {
@@ -119,7 +111,7 @@ namespace randomizer {
                 queue_reach_check();
                 uber_states::disable_reverts() = false;
 
-                if (randomizer_seed.info().meta.online) {
+                if (network_client().wants_connection()) {
                     multiplayer_universe().report_player_save_guid(core::save_meta::get_current_save_guid());
                 }
             });
@@ -127,7 +119,6 @@ namespace randomizer {
             Game::UI_Hints::Show(
                 core::api::system::create_message_provider("*Good Luck! <3*"), app::HintLayer__Enum::Gameplay, 3.f, app::Vector3{0.f, 0.f, 0.f}
             );
-
 
             game::pickups::quests::clear_queued_quest_messages_on_next_update();
         });
@@ -148,8 +139,7 @@ namespace randomizer {
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
         });
 
-        void load_seed(const bool read_seed_name, const bool show_message) {
-            // TODO: Check if we need to download/receive the seed from the server.
+        void load_seed(const bool show_message) {
             event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::Before);
             randomizer_location_collection.read(modloader::base_path() / "loc_data.csv", location_data::parse_location_data);
             event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::After);
@@ -157,22 +147,47 @@ namespace randomizer {
             randomizer_state_data.clear();
             parse_state_data(modloader::base_path() / "state_data.csv", randomizer_state_data);
 
-            if (read_seed_name) {
-                const std::ifstream seed_path_file(modloader::base_path() / ".currentseedpath");
-                if (seed_path_file.is_open()) {
-                    std::stringstream seed_path_buffer;
-                    seed_path_buffer << seed_path_file.rdbuf();
-                    seed_save_data->path = seed_path_buffer.str();
-                }
+            randomizer_seed.read(seed_save_data->seed_content, seed::legacy_parser::parse, show_message);
+        }
+
+        void load_new_game_source() {
+            const std::ifstream seed_source_file(modloader::base_path() / ".newgameseedsource");
+
+            if (seed_source_file.is_open()) {
+                std::stringstream seed_path_buffer;
+                seed_path_buffer << seed_source_file.rdbuf();
+                const auto source_str = seed_path_buffer.str();
+
+                event_bus().trigger_event(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::Before);
+                new_game_seed_source = seed::parse_source_string(source_str);
+                event_bus().trigger_event(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::After);
+            }
+        }
+
+        auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
+            seed_save_data->seed_source_string = new_game_seed_source->to_source_string();
+            seed_save_data->seed_content = new_game_seed_content;
+            load_seed(false);
+
+            core::api::game::player::shard_slots().set(3);
+        });
+
+        auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, [](auto, auto) {
+            if (reach_check_queued && do_reach_check()) {
+                reach_check_queued = false;
             }
 
-            randomizer_seed.read(seed_save_data->path, seed::legacy_parser::parse, show_message);
-        }
+            const float delta_time = core::api::game::fixed_delta_time();
+            monitor.update(delta_time);
+            status.update(delta_time);
+        });
 
         auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(
             GameEvent::FinishedLoadingSave,
             EventTiming::After,
-            [](auto, auto) { load_seed(false, false); }
+            [](auto, auto) {
+                load_seed(false);
+            }
         );
 
         auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
@@ -204,10 +219,8 @@ namespace randomizer {
             core::message_controller().central_display().text_processor(text_processor);
             seed_save_data = std::make_unique<seed::SaveSlotSeedMetaData>();
             register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::None, seed_save_data);
-            load_seed(true, false);
-            if (!core::settings::netcode_disabled() && randomizer_seed.info().meta.online) {
-                server_connect();
-            }
+
+            load_new_game_source();
         });
 
         IL2CPP_INTERCEPT(GameController, void, ParseCommandLineArgs, (app::GameController * this_ptr)) {
@@ -217,7 +230,7 @@ namespace randomizer {
 
         auto on_title_screen_loaded = core::api::scenes::single_event_bus().register_handler("wotwTitleScreen", [](const auto meta_data, auto) {
             if (meta_data->state == app::SceneState__Enum::Loaded) {
-                load_seed(true, false);
+                randomizer_seed.clear();
             }
         });
     } // namespace
@@ -238,14 +251,19 @@ namespace randomizer {
         return version;
     }
 
-    void reload() {
+    void full_reload() {
         if (network_client().wants_connection()) {
             server_disconnect();
         }
 
         core::settings::reload();
-        load_seed(TitleScreenManager::get_MainMenuActive(), true);
-        if (!core::settings::netcode_disabled() && randomizer_seed.info().meta.online) {
+        load_new_game_source();
+
+        if (!TitleScreenManager::get_MainMenuActive()) {
+            load_seed(true);
+        }
+
+        if (seed_save_data->get_source()->requires_server_connection()) {
             server_connect();
         }
     }
@@ -263,10 +281,6 @@ namespace randomizer {
             server_disconnect();
         }
 
-        if (core::settings::netcode_disabled()) {
-            return;
-        }
-
         const auto insecure = core::settings::insecure();
         const auto host = core::settings::host();
         const auto udp_port = core::settings::udp_port();
@@ -277,14 +291,17 @@ namespace randomizer {
     }
 
     void server_connect() {
-        if (core::settings::netcode_disabled() || network_client().wants_connection()) {
+        if (network_client().wants_connection()) {
             return;
         }
 
         server_reconnect();
     }
 
-    void server_disconnect() { client.disconnect(); }
+    void server_disconnect() {
+        client.disconnect();
+        seed::set_server_seed_content(std::nullopt);
+    }
 
     common::TimedMultiEventBus<RandomizerEvent>& event_bus() {
         static common::TimedMultiEventBus<RandomizerEvent> randomizer_event_bus;
@@ -304,4 +321,9 @@ namespace randomizer {
     online::MultiplayerUniverse& multiplayer_universe() { return universe; }
 
     std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor() { return text_processor; }
+    std::shared_ptr<seed::SeedSource> get_new_game_seed_source() { return new_game_seed_source; }
+
+    void set_new_game_seed_content(const std::string& content) {
+        new_game_seed_content = content;
+    }
 } // namespace randomizer

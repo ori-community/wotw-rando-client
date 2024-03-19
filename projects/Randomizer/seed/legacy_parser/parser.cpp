@@ -1999,10 +1999,7 @@ namespace randomizer::seed::legacy_parser {
         } else if (line.starts_with("// Format Version:")) {
         } else if (line.starts_with("// Generator Version:")) {
         } else if (line.starts_with("// Slug:")) {
-            data->info.meta.slug = trim_copy(line.substr(sizeof("Slug:")));
-        } else if (line.starts_with("// Config:")) {
-            auto j = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
-            data->info.meta.online = j.value("online", false);
+            data->info.meta.slug = trim_copy(line.substr(sizeof("// Slug:")));
         }
 
         // If we don't match anything here it's a comment, and we can ignore it.
@@ -2012,14 +2009,10 @@ namespace randomizer::seed::legacy_parser {
         return semver::range::satisfies(version, ">=1.0.0 <=1.0.0");
     }
 
-    std::variant<Seed::SeedMetaData, ParserError> parse_meta_data(const std::filesystem::path& path) {
-        std::ifstream seed_file(path);
-        if (!seed_file.is_open()) {
-            return ParserError::FileNotFound;
-        }
+    std::variant<Seed::SeedMetaData, ParserError> parse_meta_data(const std::string_view content) {
+        std::istringstream seed_file(content.data());
 
         Seed::SeedMetaData meta;
-        meta.name = path.filename().string();
         std::string line;
         while (std::getline(seed_file, line)) {
             if (line.starts_with("// Format Version: ")) {
@@ -2037,10 +2030,7 @@ namespace randomizer::seed::legacy_parser {
                 const std::string str(line.substr(14));
                 meta.world_index = std::stoi(str);
             } else if (line.starts_with("// Slug:")) {
-                meta.slug = trim_copy(line.substr(sizeof("Slug:")));
-            } else if (line.starts_with("// Config:")) {
-                auto j = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
-                meta.online = j.value("online", false);
+                meta.slug = trim_copy(line.substr(sizeof("// Slug:")));
             } else if (line.starts_with("Flags:")) {
                 split_str(line.substr(6), meta.flags, ',');
                 for (auto& flag: meta.flags) {
@@ -2062,15 +2052,11 @@ namespace randomizer::seed::legacy_parser {
             }
         }
 
-        seed_file.close();
         return meta;
     }
 
-    bool parse(const std::filesystem::path& path, location_data::LocationCollection const& location_data, std::shared_ptr<Seed::Data> data) {
-        std::ifstream seed_file(path);
-        if (!seed_file.is_open()) {
-            return false;
-        }
+    bool parse(const std::string_view content, location_data::LocationCollection const& location_data, std::shared_ptr<Seed::Data> data) {
+        std::istringstream seed_file(content.data());
 
         current_location_data = &location_data;
         int next_location_id = 0;
@@ -2092,7 +2078,7 @@ namespace randomizer::seed::legacy_parser {
 
         if (!is_seed_version_supported(data->info.meta.version)) {
             modloader::warn("legacy_seed_parser", "Failed to load seed due to incompatible version");
-            data->info.parser_error = std::format("Failed to load seed '{}'\ndue to version incompatibility", path.string());
+            data->info.parser_error = std::format("Failed to load seed\ndue to version incompatibility");
             return false;
         }
 
@@ -2143,7 +2129,6 @@ namespace randomizer::seed::legacy_parser {
             ++line_number;
         }
 
-        seed_file.close();
         return true;
     }
 

@@ -18,9 +18,10 @@ namespace randomizer {
         SeedLoadedPostGrant,
         ReachCheck,
         ReachableItemsChanged,
+        NewGameSeedSourceUpdated,
     };
 
-    void reload();
+    void full_reload();
 
     void server_connect();
     void server_reconnect();
@@ -38,6 +39,8 @@ namespace randomizer {
     online::NetworkClient& network_client();
     online::MultiplayerUniverse& multiplayer_universe();
     std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor();
+    std::shared_ptr<seed::SeedSource> get_new_game_seed_source();
+    void set_new_game_seed_content(const std::string& content);
 
     void queue_input_unlocked_callback(std::function<void()> const& callback);
 } // namespace randomizer

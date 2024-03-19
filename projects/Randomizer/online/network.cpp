@@ -8,6 +8,7 @@
 #include <ixwebsocket/IXNetSystem.h>
 #include <ixwebsocket/IXWebSocket.h>
 
+#include <Randomizer/randomizer.h>
 #include <fstream>
 
 namespace randomizer::online {
@@ -41,8 +42,10 @@ namespace randomizer::online {
     NetworkClient::~NetworkClient() = default;
 
     void NetworkClient::websocket_connect(std::string_view url) {
+        m_websocket.stop();
         m_websocket.setUrl(std::string(url));
         m_websocket.setPingInterval(30);
+        m_websocket.disableAutomaticReconnection();
         m_websocket.start();
         m_reconnect_websocket = true;
         modloader::info("network_client", "Network client connected.");
@@ -106,6 +109,7 @@ namespace randomizer::online {
 
                 Network::AuthenticateMessage auth;
                 auth.set_jwt(jwt);
+                auth.set_client_version(randomizer::randomizer_version().to_string());
                 websocket_send(Network::Packet_PacketID_AuthenticateMessage, auth);
                 core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Authenticating); });
                 if (m_status_listener) {
@@ -128,6 +132,9 @@ namespace randomizer::online {
                 if (m_reconnect_websocket) {
                     // If we are in here we did not expect this disconnect, underlying socket will auto reconnect.
                     core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Reconnecting); });
+                    core::events::schedule_task(3.f, [this] {
+                        websocket_connect(m_websocket.getUrl());
+                    });
                     if (m_status_listener) {
                         m_status_listener(
                             {

@@ -14,6 +14,7 @@
 #include <Modloader/app/types/AreaMapUI.h>
 
 #include <Core/save_meta/save_meta.h>
+#include <Randomizer/randomizer.h>
 #include <Randomizer/stats/game_stats.h>
 #include <Randomizer/tracking/game_tracker.h>
 #include <algorithm>
@@ -472,8 +473,7 @@ namespace randomizer::online {
     }
 
     void MultiplayerUniverse::set_seed(Network::SetSeedMessage const& message) {
-        // csharp_bridge::set_seed(message.seed());
-        // UberStateQueue.Add(new UberStateController.SetSeedCommand(seedMessage));
+        seed::set_server_seed_content(message.seed_content());
     }
 
     bool MultiplayerUniverse::is_in_incorrect_save_file() const {

@@ -27,7 +27,7 @@ namespace randomizer::ipc {
     namespace {
         void reload(const nlohmann::json& j) {
             info("ipc", "Received reload action request.");
-            randomizer::reload();
+            randomizer::full_reload();
         }
 
         void get_flags(const nlohmann::json& j) {

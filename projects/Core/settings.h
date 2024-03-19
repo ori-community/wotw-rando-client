@@ -8,7 +8,6 @@ namespace core::settings {
     CORE_DLLEXPORT bool dev_mode();
     CORE_DLLEXPORT bool cursor_locked();
     CORE_DLLEXPORT bool start_debug_enabled();
-    CORE_DLLEXPORT bool netcode_disabled();
     CORE_DLLEXPORT bool insecure();
     CORE_DLLEXPORT std::string host();
     CORE_DLLEXPORT int udp_port();

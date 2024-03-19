@@ -1,5 +1,8 @@
 #pragma once
 
+#include "seed_source.h"
+
+
 #include <Core/api/uber_states/uber_state_condition.h>
 #include <Core/enums/game_areas.h>
 #include <Core/property.h>
@@ -13,6 +16,24 @@
 #include <nlohmann/json.hpp>
 #include <unordered_map>
 
+template<typename T>
+struct nlohmann::adl_serializer<std::optional<T>> {
+    static void from_json(const json& j, std::optional<T>& opt) {
+        if (j.is_null()) {
+            opt = std::nullopt;
+        } else {
+            opt = j.get<T>();
+        }
+    }
+    static void to_json(json& json, std::optional<T> t) {
+        if (t) {
+            json = *t;
+        } else {
+            json = nullptr;
+        }
+    }
+};
+
 namespace randomizer::seed {
     class Seed {
     public:
@@ -21,14 +42,12 @@ namespace randomizer::seed {
         using location_entry = core::api::uber_states::UberState;
 
         struct SeedMetaData {
-            std::string name;
             semver::version version = semver::version(0, 0, 0);
             std::vector<std::string> flags;
             app::Vector3 start_position = {-798.797058f, -4310.119141f, 0.f};
             std::string slug;
             int world_index = 0;
             bool race_mode = false;
-            bool online = false; // TODO: Remove this.
         };
 
         struct SeedInfo {
@@ -52,13 +71,13 @@ namespace randomizer::seed {
             std::unordered_map<int, ItemData> procedures;
         };
 
-        using seed_parser = bool (*)(const std::filesystem::path& path, location_data::LocationCollection const& location_data, std::shared_ptr<Data> data);
+        using seed_parser = bool (*)(const std::string_view content, location_data::LocationCollection const& location_data, std::shared_ptr<Data> data);
 
         Seed(location_data::LocationCollection const& location_data);
 
-        void read(const std::filesystem::path& path, seed_parser parser, bool show_message = true);
-        void reload(bool show_message = true);
-        void clear();
+        void read(const std::string& seed_content, const seed_parser parser, const bool show_message = true);
+        void reload(const bool show_message = true);
+        void clear() const;
 
         MapIcon icon(inner_location_entry location);
         std::string text(const inner_location_entry& location) const;
@@ -69,8 +88,6 @@ namespace randomizer::seed {
         SeedInfo const& info() const { return m_data->info; }
         int total_pickups() const { return m_data->info.total_pickups; }
 
-        std::filesystem::path path() const { return m_last_path; }
-
         Relics const& relics() const { return m_data->relics; }
         bool finished_goals() const;
 
@@ -79,7 +96,7 @@ namespace randomizer::seed {
     private:
         location_data::LocationCollection const& m_location_data;
         seed_parser m_last_parser = nullptr;
-        std::filesystem::path m_last_path;
+        std::string m_seed_content;
         std::shared_ptr<Data> m_data = std::make_shared<Data>();
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
     };
@@ -87,11 +104,21 @@ namespace randomizer::seed {
 
     class SaveSlotSeedMetaData final : public core::save_meta::JsonSaveMetaSerializable {
     public:
-        std::filesystem::path path;
+        /** The seed source string that was used when this save file was created. (see parse_source_string) */
+        std::string seed_source_string;
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(SaveSlotSeedMetaData, path);
+        /** The Seed file content. */
+        std::string seed_content;
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
+            SaveSlotSeedMetaData,
+            seed_source_string,
+            seed_content
+        );
 
         nlohmann::json json_serialize() override;
         void json_deserialize(nlohmann::json& j) override;
+
+        std::shared_ptr<SeedSource> get_source() const;
     };
 } // namespace randomizer::seed

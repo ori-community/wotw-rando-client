@@ -118,6 +118,7 @@ message PrintPickupMessage {
 
 message AuthenticateMessage {
   string jwt = 1;
+  string client_version = 2;
 }
 
 message AuthenticatedMessage {
@@ -131,9 +132,7 @@ message RequestSeedMessage {
 }
 
 message SetSeedMessage {
-  string name = 1;
-  string seed = 2;
-  bool init = 3;
+  string seed_content = 1;
 }
 
 message PlayerPositionMessage  {
