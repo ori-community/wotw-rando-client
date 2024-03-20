@@ -96,16 +96,21 @@ namespace randomizer::game {
                     int total_waiting_for_players_count = 0;
 
                     if (randomizer::multiplayer_universe().multiverse_info() != nullptr) {
-                        auto u = randomizer::multiplayer_universe().multiverse_info();
+                        auto multiverse_info = randomizer::multiplayer_universe().multiverse_info();
 
-                        for (const auto& universe: randomizer::multiplayer_universe().multiverse_info()->universes()) {
+                        std::unordered_set<std::string> connected_user_ids;
+                        std::unordered_set<std::string> race_ready_user_ids;
+                        connected_user_ids.insert_range(multiverse_info->connecteduserids());
+                        race_ready_user_ids.insert_range(multiverse_info->racereadyuserids());
+
+                        for (const auto& universe: multiverse_info->universes()) {
                             for (const auto& world: universe.worlds()) {
                                 for (const auto& player: world.members()) {
-                                    if (!player.raceready()) {
+                                    if (!race_ready_user_ids.contains(player.id())) {
                                         if (displayed_waiting_for_players_count < MAX_DISPLAYED_WAITING_FOR_PLAYERS) {
                                             text += std::format("\n{}", player.name());
 
-                                            if (!player.has_connectedmultiverseid()) {
+                                            if (!connected_user_ids.contains(player.id())) {
                                                 text += " <s_0.8>(not connected)</>";
                                             }
 

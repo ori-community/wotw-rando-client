@@ -87,7 +87,7 @@ namespace randomizer::main_menu_seed_info {
                 : std::nullopt;
 
             const auto should_display_network_info = player.has_value() && seed_metadata.has_value() && current_seed_source != nullptr &&
-                current_seed_source->requires_server_connection();
+                current_seed_source->get_multiverse_id().has_value();
 
             if (should_display_network_info) {
                 name_property.set(player.value().user.name());
@@ -279,7 +279,7 @@ namespace randomizer::main_menu_seed_info {
                     }
                 );
 
-                auto should_connect = false;
+                std::optional<long> connect_to_multiverse_id = std::nullopt;
 
                 if (read_slots.contains(SaveMetaSlot::SeedMetaData)) {
                     const auto meta = randomizer::seed::legacy_parser::parse_meta_data(seed_meta_data->seed_content);
@@ -287,7 +287,7 @@ namespace randomizer::main_menu_seed_info {
                     current_seed_source = seed_meta_data->get_source();
 
                     if (std::holds_alternative<seed::Seed::SeedMetaData>(meta)) {
-                        should_connect = current_seed_source->requires_server_connection();
+                        connect_to_multiverse_id = current_seed_source->get_multiverse_id();
                     }
                 } else {
                     current_seed_source = nullptr;
@@ -296,8 +296,8 @@ namespace randomizer::main_menu_seed_info {
 
                 poll_current_seed_source_until_not_loading = false;
 
-                if (should_connect) {
-                    randomizer::server_connect();
+                if (connect_to_multiverse_id.has_value()) {
+                    randomizer::server_connect(*connect_to_multiverse_id);
                 } else {
                     randomizer::server_disconnect();
                 }
@@ -309,8 +309,9 @@ namespace randomizer::main_menu_seed_info {
 
                 poll_current_seed_source_until_not_loading = true;
 
-                if (current_seed_source->requires_server_connection()) {
-                    randomizer::server_connect();
+                const auto connect_to_multiverse_id = current_seed_source->get_multiverse_id();
+                if (connect_to_multiverse_id.has_value()) {
+                    randomizer::server_connect(*connect_to_multiverse_id);
                 } else {
                     randomizer::server_disconnect();
                 }
@@ -323,8 +324,9 @@ namespace randomizer::main_menu_seed_info {
 
                     poll_current_seed_source_until_not_loading = true;
 
-                    if (current_seed_source->requires_server_connection()) {
-                        randomizer::server_connect();
+                    const auto connect_to_multiverse_id = current_seed_source->get_multiverse_id();
+                    if (connect_to_multiverse_id.has_value()) {
+                        randomizer::server_connect(*connect_to_multiverse_id);
                     } else {
                         randomizer::server_disconnect();
                     }

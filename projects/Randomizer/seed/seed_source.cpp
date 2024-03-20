@@ -1,4 +1,5 @@
 #include <Core/events/task.h>
+#include <Modloader/modloader.h>
 #include <Randomizer/seed/seed_source.h>
 #include <fstream>
 #include <memory>
@@ -15,8 +16,15 @@ namespace randomizer::seed {
             return std::make_shared<DebugDelayedFileSeedSource>(source.substr(13));
         }
 
-        if (source == "server") {
-            return std::make_shared<ServerSeedSource>();
+        if (source.starts_with("server:")) {
+            const auto multiverse_id_string = source.substr(7);
+
+            try {
+                const auto multiverse_id = std::stol(multiverse_id_string);
+                return std::make_shared<ServerSeedSource>(multiverse_id);
+            } catch (const std::invalid_argument&) {
+                modloader::error("seed_source", std::format("Parsing multiverse ID '{}' failed", multiverse_id_string));
+            }
         }
 
         if (source == "empty") {
@@ -34,16 +42,16 @@ namespace randomizer::seed {
             : std::make_pair(SourceStatus::Loading, std::nullopt);
     }
     std::string ServerSeedSource::get_description() { return "Server Seed"; }
-    std::string ServerSeedSource::to_source_string() { return "server"; }
-    bool ServerSeedSource::requires_server_connection() { return true; }
+    std::string ServerSeedSource::to_source_string() { return std::format("server:{}", m_multiverse_id); }
+    std::optional<long> ServerSeedSource::get_multiverse_id() { return m_multiverse_id; }
 
     std::pair<SourceStatus, std::optional<std::string>> EmptySeedSource::poll() {
         return {SourceStatus::Ready, ""};
     }
-    std::string EmptySeedSource::get_description() { return "No Seed Loaded"; }
+    std::string EmptySeedSource::get_description() { return "Empty Seed"; }
     std::string EmptySeedSource::to_source_string() { return "empty"; }
-    bool EmptySeedSource::requires_server_connection() {
-        return false;
+    std::optional<long> EmptySeedSource::get_multiverse_id() {
+        return std::nullopt;
     }
 
     FileSeedSource::FileSeedSource(const std::filesystem::path& path) {
@@ -70,7 +78,7 @@ namespace randomizer::seed {
     std::string FileSeedSource::to_source_string() {
         return std::format("file:{}", m_path.string());
     }
-    bool FileSeedSource::requires_server_connection() { return false; }
+    std::optional<long> FileSeedSource::get_multiverse_id() { return std::nullopt; }
 
     DebugDelayedFileSeedSource::DebugDelayedFileSeedSource(const std::filesystem::path& path) {
         m_path = path;
@@ -101,14 +109,14 @@ namespace randomizer::seed {
     }
     std::string DebugDelayedFileSeedSource::get_description() { return std::format("File (DEBUG 5s delay) {}", m_path.filename().string()); }
     std::string DebugDelayedFileSeedSource::to_source_string() { return std::format("delayed-file:{}", m_path.string()); }
-    bool DebugDelayedFileSeedSource::requires_server_connection() { return false; }
+    std::optional<long> DebugDelayedFileSeedSource::get_multiverse_id() { return std::nullopt; }
 
     std::pair<SourceStatus, std::optional<std::string>> InvalidSeedSource::poll() {
         return {SourceStatus::Error, std::nullopt};
     }
     std::string InvalidSeedSource::get_description() { return std::format("Invalid source: {}", m_source_string); }
     std::string InvalidSeedSource::to_source_string() { return "invalid"; }
-    bool InvalidSeedSource::requires_server_connection() {
-        return false;
+    std::optional<long> InvalidSeedSource::get_multiverse_id() {
+        return std::nullopt;
     }
 } // namespace randomizer::seed

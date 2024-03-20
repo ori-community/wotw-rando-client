@@ -65,23 +65,24 @@ namespace randomizer::online {
         void on_load();
         void request_full_sync();
 
-        void handle_multiverse_info(Network::MultiverseInfoMessage const& message);
-        void handle_authenticated(Network::AuthenticatedMessage const& message);
-        void handle_visibility(Network::VisibilityMessage const& message) const;
+        void clear_current_multiverse_info();
+        void handle_multiverse_info(std::shared_ptr<Network::MultiverseInfoMessage> const& message);
+        void handle_authenticated(std::shared_ptr<Network::AuthenticatedMessage> const& message);
+        void handle_visibility(std::shared_ptr<Network::VisibilityMessage> const& message) const;
 
         void update_player_world_position(std::string_view player_id, float x, float y, std::string_view ghost_frame_data);
         void update_player_map_position(std::string_view player_id, float x, float y);
 
-        void uber_state_update(Network::UberStateUpdateMessage const& message);
-        void uber_state_batch_update(Network::UberStateBatchUpdateMessage const& message);
+        void uber_state_update(std::shared_ptr<Network::UberStateUpdateMessage> const& message);
+        void uber_state_batch_update(std::shared_ptr<Network::UberStateBatchUpdateMessage> const& message);
 
-        void print_text(Network::PrintTextMessage const& message);
-        static void print_pickup(Network::PrintPickupMessage const& message);
+        void print_text(std::shared_ptr<Network::PrintTextMessage> const& message);
+        static void print_pickup(std::shared_ptr<Network::PrintPickupMessage> const& message);
 
-        void process_set_save_guid_restrictions_message(const Network::SetSaveGuidRestrictionsMessage& restrictions);
+        void process_set_save_guid_restrictions_message(Network::SetSaveGuidRestrictionsMessage& message);
 
-        void initialize_game_sync(Network::InitGameSyncMessage const& message);
-        void set_seed(Network::SetSeedMessage const& message);
+        void initialize_game_sync(std::shared_ptr<Network::InitGameSyncMessage> const& message);
+        void set_seed(std::shared_ptr<Network::SetSeedMessage> const& message);
 
         common::TimedMultiEventBus<Event> m_event_bus;
 

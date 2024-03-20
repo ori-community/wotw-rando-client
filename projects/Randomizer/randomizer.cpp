@@ -61,6 +61,8 @@ namespace randomizer {
         bool reach_check_queued = false;
         bool reach_check_in_progress = false;
 
+        std::optional<long> multiverse_id_to_connect_to = std::nullopt;
+
         void on_reach_check(const std::optional<seed::ReachCheckResult>& result) {
             reach_check_in_progress = false;
 
@@ -263,8 +265,9 @@ namespace randomizer {
             load_seed(true);
         }
 
-        if (seed_save_data->get_source()->requires_server_connection()) {
-            server_connect();
+        const auto connect_to_multiverse_id = seed_save_data->get_source()->get_multiverse_id();
+        if (connect_to_multiverse_id.has_value()) {
+            server_connect(*connect_to_multiverse_id);
         }
     }
 
@@ -276,7 +279,7 @@ namespace randomizer {
         }
     }
 
-    void server_reconnect() {
+    void server_reconnect(long multiverse_id) {
         if (network_client().wants_connection()) {
             server_disconnect();
         }
@@ -284,22 +287,25 @@ namespace randomizer {
         const auto insecure = core::settings::insecure();
         const auto host = core::settings::host();
         const auto udp_port = core::settings::udp_port();
+        multiverse_id_to_connect_to = multiverse_id;
 
-        const std::string websocket_url = std::format("{}://{}/api/client-websocket/wotw", insecure ? "ws" : "wss", host);
+        const std::string websocket_url = std::format("{}://{}/api/client-websocket/{}/wotw", insecure ? "ws" : "wss", host, multiverse_id);
         client.websocket_connect(websocket_url);
         client.udp_open(host, udp_port);
     }
 
-    void server_connect() {
-        if (network_client().wants_connection()) {
+    void server_connect(long multiverse_id) {
+        // Don't try to connect if we are already connected to the target multiverse
+        if (network_client().wants_connection() && multiverse_id_to_connect_to.has_value() && *multiverse_id_to_connect_to == multiverse_id) {
             return;
         }
 
-        server_reconnect();
+        server_reconnect(multiverse_id);
     }
 
     void server_disconnect() {
         client.disconnect();
+        multiverse_id_to_connect_to = std::nullopt;
         seed::set_server_seed_content(std::nullopt);
     }
 

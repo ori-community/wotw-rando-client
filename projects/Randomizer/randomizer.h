@@ -23,8 +23,8 @@ namespace randomizer {
 
     void full_reload();
 
-    void server_connect();
-    void server_reconnect();
+    void server_connect(long multiverse_id);
+    void server_reconnect(long multiverse_id);
     void server_disconnect();
 
     semver::version randomizer_version();

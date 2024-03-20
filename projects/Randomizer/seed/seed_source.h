@@ -24,8 +24,8 @@ namespace randomizer::seed {
         /** Convert this seed source to a source string. This must be the inverse of parse_source_string */
         virtual std::string to_source_string() = 0;
 
-        /** Whether this seed source requires the game to connect to the server */
-        virtual bool requires_server_connection() = 0;
+        /** The multiverse ID to connect to, or nullopt if no server connection should be made */
+        virtual std::optional<long> get_multiverse_id() = 0;
 
         std::optional<std::string> get_error() { return m_error; }
 
@@ -38,7 +38,7 @@ namespace randomizer::seed {
         std::pair<SourceStatus, std::optional<std::string>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
-        bool requires_server_connection() override;
+        std::optional<long> get_multiverse_id() override;
 
         explicit FileSeedSource(const std::filesystem::path& path);
 
@@ -52,7 +52,7 @@ namespace randomizer::seed {
         std::pair<SourceStatus, std::optional<std::string>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
-        bool requires_server_connection() override;
+        std::optional<long> get_multiverse_id() override;
 
         explicit DebugDelayedFileSeedSource(const std::filesystem::path& path);
 
@@ -67,7 +67,12 @@ namespace randomizer::seed {
         std::pair<SourceStatus, std::optional<std::string>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
-        bool requires_server_connection() override;
+        std::optional<long> get_multiverse_id() override;
+
+        explicit ServerSeedSource(long multiverse_id) : m_multiverse_id(multiverse_id) {};
+
+    private:
+        long m_multiverse_id;
     };
 
     class EmptySeedSource: public SeedSource {
@@ -75,7 +80,7 @@ namespace randomizer::seed {
         std::pair<SourceStatus, std::optional<std::string>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
-        bool requires_server_connection() override;
+        std::optional<long> get_multiverse_id() override;
     };
 
     class InvalidSeedSource: public SeedSource {
@@ -83,9 +88,11 @@ namespace randomizer::seed {
         std::pair<SourceStatus, std::optional<std::string>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
-        bool requires_server_connection() override;
+        std::optional<long> get_multiverse_id() override;
 
-        explicit InvalidSeedSource(const std::string& source_string) : m_source_string(source_string) {};
+        explicit InvalidSeedSource(const std::string& source_string) : m_source_string(source_string) {
+            m_error = std::format("Invalid source: {}", source_string);
+        };
 
     private:
         std::string m_source_string;

@@ -165,9 +165,6 @@ message UserInfo {
   string id = 1;
   string name = 2;
   optional string avatarId = 3;
-  optional int64 connectedMultiverseId = 4;
-  optional int64 currentMultiverseId = 5;
-  bool raceReady = 8;
 }
 
 message WorldInfo {
@@ -200,6 +197,9 @@ message MultiverseInfoMessage {
   GameHandlerType handlerType = 6;
   bytes handlerInfo = 7;
   optional VisibilityMessage visibility = 8;
+
+  repeated string connectedUserIds = 13;
+  repeated string raceReadyUserIds = 14;
 }
 
 message VisibilityMessage {
