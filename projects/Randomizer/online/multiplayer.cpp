@@ -307,27 +307,6 @@ namespace randomizer::online {
                     utils::set_color(area_map->fields._PlayerPositionMarker_k__BackingField, m_color);
                 }
             }
-
-            // TODO: clearGameHandlers();
-            m_game_type = message->handlertype();
-            switch (m_game_type) {
-                case Network::MultiverseInfoMessage_GameHandlerType_Normal:
-                    break;
-                case Network::MultiverseInfoMessage_GameHandlerType_HideAndSeek: {
-                    Network::HideAndSeekGameHandlerClientInfo handler;
-                    handler.ParseFromString(message->handlerinfo());
-                    // TODO: HideAndSeek.ParseHandlerInfo(info);
-                    break;
-                }
-                case Network::MultiverseInfoMessage_GameHandlerType_Infection: {
-                    Network::InfectionGameHandlerClientInfo handler;
-                    handler.ParseFromString(message->handlerinfo());
-                    // TODO: Infection.ParseHandlerInfo(info);
-                    break;
-                }
-                default:
-                    break;
-            }
         }
 
         m_event_bus.trigger_event(Event::MultiverseUpdated, EventTiming::After);
