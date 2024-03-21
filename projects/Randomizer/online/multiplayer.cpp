@@ -13,6 +13,7 @@
 #include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/types/AreaMapUI.h>
 
+#include <Core/api/game/debug_menu.h>
 #include <Core/save_meta/save_meta.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/stats/game_stats.h>
@@ -471,6 +472,22 @@ namespace randomizer::online {
     }
 
     void MultiplayerUniverse::initialize_game_sync(std::shared_ptr<Network::InitGameSyncMessage> const& message) {
+        core::api::game::debug_menu::set_should_prevent_cheats(message->preventcheats());
+        if (message->preventcheats() && core::api::game::debug_menu::was_debug_active_this_session()) {
+            randomizer::server_disconnect();
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>::format(
+                    "It is forbidden to play this game with Debug Mode enabled.\n"
+                    "Please start the game without Debug Mode.\n"
+                    "Disabling Debug Mode after starting the game is not enough because\n"
+                    "it can have persistent effects on the game even after turning it off."
+                ),
+                .duration = 20.f,
+                .prioritized = true,
+            });
+            return;
+        }
+
         Network::SetSaveGuidRestrictionsMessage save_guid_restrictions_message = message->saveguidrestrictions();
         process_set_save_guid_restrictions_message(save_guid_restrictions_message);
 

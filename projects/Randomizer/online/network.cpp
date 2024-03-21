@@ -133,7 +133,9 @@ namespace randomizer::online {
                     // If we are in here we did not expect this disconnect, underlying socket will auto reconnect.
                     core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Reconnecting); });
                     core::events::schedule_task(3.f, [this] {
-                        websocket_connect(m_websocket.getUrl());
+                        if (m_reconnect_websocket) {
+                            websocket_connect(m_websocket.getUrl());
+                        }
                     });
                     if (m_status_listener) {
                         m_status_listener(
@@ -160,7 +162,9 @@ namespace randomizer::online {
                 core::events::schedule_task(
                     10.f,
                     [this]() {
-                        websocket_connect(m_websocket.getUrl());
+                        if (m_reconnect_websocket) {
+                            websocket_connect(m_websocket.getUrl());
+                        }
                     }
                 );
 

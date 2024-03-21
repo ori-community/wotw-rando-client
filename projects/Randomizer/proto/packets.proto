@@ -80,6 +80,7 @@ message InitGameSyncMessage {
   repeated UberId uberId = 1;
   bool blockStartingNewGame = 2;
   SetSaveGuidRestrictionsMessage saveGuidRestrictions = 3;
+  bool preventCheats = 4;
 }
 
 message SetPlayerSaveGuidMessage {
@@ -185,8 +186,7 @@ message UniverseInfo {
 message MultiverseInfoMessage {
   enum GameHandlerType {
     Normal = 0;
-    HideAndSeek = 1;
-    Infection = 2;
+    League = 3;
   }
 
   int64 id = 1;
