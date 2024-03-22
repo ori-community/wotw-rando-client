@@ -495,7 +495,7 @@ namespace randomizer::seed::legacy_parser {
 
         std::optional<app::Vector2> override_position = std::nullopt;
 
-        if (parts.size() == 2) {
+        if (parts.size() >= 2) {
             app::Vector2 position;
             if (!string_convert(parts[0], position.x) || !string_convert(parts[1], position.y)) {
                 return false;
