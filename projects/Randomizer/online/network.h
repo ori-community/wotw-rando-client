@@ -110,4 +110,6 @@ namespace randomizer::online {
         int m_udp_id;
         std::vector<char> m_udp_key;
     };
+
+    std::string get_jwt();
 } // namespace randomizer::online

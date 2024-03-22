@@ -23,10 +23,6 @@ using namespace app::classes::Moon::Wwise;
 
 namespace core::api::audio {
     namespace {
-        std::unordered_map<std::string, SoundEventID> string_to_event = {
-            { "Catching", SoundEventID::Catching }
-        };
-
         app::Event_1* create_event(SoundEventID id) {
             auto evt = types::Event_1::create();
             il2cpp::invoke(evt, ".ctor");
@@ -59,8 +55,9 @@ namespace core::api::audio {
     app::WwiseEventSystem_SoundHandle play_sound(SoundEventID event_id, app::ISoundHost* host) {
         auto wwise = types::Wwise::get_class();
         auto wes = wwise->static_fields->m_eventsSystem;
-        if (host == nullptr)
+        if (host == nullptr) {
             host = reinterpret_cast<app::ISoundHost*>(wwise->static_fields->_DefaultDevSoundHost_k__BackingField);
+        }
 
         auto evt = create_event(event_id);
         auto handle = WwiseEventSystem::AllocateHandle(wes, evt, host);

@@ -101,14 +101,8 @@ namespace randomizer::online {
             case ix::WebSocketMessageType::Open: {
                 modloader::info("network_client", "Connected to server");
                 // TODO: Get jwt from ipc with launcher.
-                std::ifstream jwt_file(modloader::base_path() / ".jwt");
-                std::stringstream output;
-                output << jwt_file.rdbuf();
-                std::string jwt = output.str();
-                trim(jwt);
-
                 Network::AuthenticateMessage auth;
-                auth.set_jwt(jwt);
+                auth.set_jwt(get_jwt());
                 auth.set_client_version(randomizer::randomizer_version().to_string());
                 websocket_send(Network::Packet_PacketID_AuthenticateMessage, auth);
                 core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Authenticating); });
@@ -252,13 +246,17 @@ namespace randomizer::online {
     void NetworkClient::ping_udp() {
         if (udp_is_open()) {
             m_udp_socket.send({});
-            core::events::schedule_task(
-                20.f,
-                [this]() {
-                    ping_udp();
-                }
-            );
+            core::events::schedule_task(20.f, [this]() { ping_udp(); });
         }
+    }
+
+    std::string get_jwt() {
+        std::ifstream jwt_file(modloader::base_path() / ".jwt");
+        std::stringstream output;
+        output << jwt_file.rdbuf();
+        std::string jwt = output.str();
+        trim(jwt);
+        return jwt;
     }
 
     void NetworkClient::register_handler(Network::Packet_PacketID type, handler_callback const& handler) {

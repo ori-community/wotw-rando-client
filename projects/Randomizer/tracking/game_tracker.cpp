@@ -326,4 +326,9 @@ namespace randomizer::timing {
         save_stats->in_game_time = in_game_time;
         queue_timer_state_report();
     }
+
+    float get_in_game_time() { return save_stats->in_game_time; }
+    void force_set_game_finished(bool value) {
+        game_finished = value;
+    }
 } // namespace randomizer::timing

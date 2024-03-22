@@ -41,6 +41,7 @@ namespace randomizer {
     std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor();
     std::shared_ptr<seed::SeedSource> get_new_game_seed_source();
     void set_new_game_seed_content(const std::string& content);
+    std::optional<long> get_multiverse_id();
 
     void queue_input_unlocked_callback(std::function<void()> const& callback);
 } // namespace randomizer

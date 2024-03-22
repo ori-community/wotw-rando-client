@@ -33,6 +33,6 @@
     "version>=" : "0.3.0#1"
   }, {
     "name" : "cpp-httplib",
-    "version>=" : "0.14.1"
+    "version>=" : "0.15.3"
   } ]
 }

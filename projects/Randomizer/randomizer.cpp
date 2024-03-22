@@ -334,7 +334,6 @@ namespace randomizer {
     std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor() { return text_processor; }
     std::shared_ptr<seed::SeedSource> get_new_game_seed_source() { return new_game_seed_source; }
 
-    void set_new_game_seed_content(const std::string& content) {
-        new_game_seed_content = content;
-    }
+    void set_new_game_seed_content(const std::string& content) { new_game_seed_content = content; }
+    std::optional<long> get_multiverse_id() { return multiverse_id_to_connect_to; }
 } // namespace randomizer

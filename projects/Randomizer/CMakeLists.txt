@@ -135,6 +135,7 @@ set(
         "input/rando_bindings.cpp"
         "ipc/base_handlers.cpp"
         "ipc/hierarchy.cpp"
+        "league/league.cpp"
         "location_data/location_collection.cpp"
         "location_data/parser.cpp"
         "messages/credits_controller.cpp"
