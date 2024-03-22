@@ -171,9 +171,10 @@ namespace randomizer {
             seed_save_data->seed_content = new_game_seed_content;
             load_seed(false);
 
-            // Allow cheats in offline games
+            // Allow cheats in offline games and clear GUID restrictions
             if (!seed_save_data->get_source()->get_multiverse_id().has_value()) {
                 core::api::game::debug_menu::set_should_prevent_cheats(false);
+                multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
             }
 
             core::api::game::player::shard_slots().set(3);
