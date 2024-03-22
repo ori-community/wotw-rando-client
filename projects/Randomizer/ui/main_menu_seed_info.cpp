@@ -104,7 +104,7 @@ namespace randomizer::main_menu_seed_info {
             if (current_seed_source != nullptr) {
                 const auto current_seed_source_description = current_seed_source->get_description();
                 description += std::format(
-                    "Source: {}\n",
+                    "Seed: {}\n",
                     current_seed_source_description.size() > MAX_DISPLAYED_SEED_PATH_LENGTH
                         ? std::format("...{}", current_seed_source_description.substr(current_seed_source_description.size() - MAX_DISPLAYED_SEED_PATH_LENGTH, MAX_DISPLAYED_SEED_PATH_LENGTH))
                         : current_seed_source_description
