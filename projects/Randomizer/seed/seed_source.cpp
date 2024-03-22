@@ -74,7 +74,7 @@ namespace randomizer::seed {
             ? std::make_pair(SourceStatus::Ready, m_content)
             : std::make_pair(SourceStatus::Error, std::nullopt);
     }
-    std::string FileSeedSource::get_description() { return std::format("File {}", m_path.filename().string()); }
+    std::string FileSeedSource::get_description() { return std::format("{}", m_path.filename().string()); }
     std::string FileSeedSource::to_source_string() {
         return std::format("file:{}", m_path.string());
     }
