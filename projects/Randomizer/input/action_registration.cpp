@@ -51,7 +51,7 @@ namespace randomizer::input {
                 features::credits::start();
             } else {
                 core::message_controller().queue_central({
-                    .text = core::Property<std::string>("Credit warp not unlocked!"),
+                    .text = core::Property<std::string>("Game is not finished!"),
                     .prioritized = true,
                 });
             }

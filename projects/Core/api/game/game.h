@@ -18,13 +18,23 @@ namespace core::api::game {
     };
 
     struct CORE_DLLEXPORT SaveOptions {
+        /** Refill Health and Energy on this checkpoint */
         bool refill = false;
+
+        /** If [refill] is true, keep the refilled resources */
         bool refill_instantly = true;
+
+        /** Store the checkpoint to disk */
         bool to_disk = true;
+
+        /** Restore the checkpoint instantly after making it */
         bool restore_instantly = false;
 
-        SaveOptions(bool refill, bool refill_instantly, bool to_disk, bool restore_instantly)
-                : refill(refill), refill_instantly(refill_instantly), to_disk(to_disk), restore_instantly(restore_instantly) {}
+        /** If set, instead of the current position, create the checkpoint at this position */
+        std::optional<app::Vector2> override_position;
+
+        SaveOptions(bool refill, bool refill_instantly, bool to_disk, bool restore_instantly, const std::optional<app::Vector2> override_position = std::nullopt)
+                : refill(refill), refill_instantly(refill_instantly), to_disk(to_disk), restore_instantly(restore_instantly), override_position(override_position) {}
 
         SaveOptions(){};
     };
@@ -54,7 +64,7 @@ namespace core::api::game {
     CORE_DLLEXPORT bool is_paused();
 
     CORE_DLLEXPORT bool can_save();
-    CORE_DLLEXPORT void checkpoint(bool refill = false, bool refill_instantly = true, bool restore_instantly = false);
+    CORE_DLLEXPORT void checkpoint(bool refill = false, bool refill_instantly = true, bool restore_instantly = false, std::optional<app::Vector2> override_position = std::nullopt);
     CORE_DLLEXPORT bool save(bool queue = false, const SaveOptions& options = SaveOptions(false, false, true, false));
 
     CORE_DLLEXPORT void load(bool immediate = false);

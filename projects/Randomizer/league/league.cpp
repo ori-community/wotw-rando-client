@@ -226,7 +226,10 @@ namespace randomizer::league {
             game_finished_uber_state.set(true);
             timing::force_set_game_finished(true);  // Need this because we immediately set the GameStateMachine to TitleScreen in league games...
 
+            Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(this_ptr->fields.DeathTimeline));
+
             const auto shriek_entity = reinterpret_cast<app::PetrifiedOwlBossEntity*>(this_ptr->fields._._._.m_entity);
+
             PetrifiedOwlBossEntity::ResetAllBreakableStates(shriek_entity);
 
             core::api::uber_states::UberState(shriek_entity->fields.PhasesState).set(0);

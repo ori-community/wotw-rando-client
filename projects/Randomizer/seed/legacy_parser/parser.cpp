@@ -118,7 +118,8 @@ namespace randomizer::seed::legacy_parser {
         SaveString = 29,
         AppendString = 30,
         SetIconOverride = 31,
-        ClearIconOverride = 32
+        ClearIconOverride = 32,
+        SaveAt = 33
     };
 
     void set_location(items::Message* message, location_type const& location) {
@@ -492,21 +493,32 @@ namespace randomizer::seed::legacy_parser {
 
     bool parse_save(std::span<std::string> parts, ParserData& data, bool checkpoint) {
         const auto caller = std::make_shared<items::Call>();
-        if (!checkpoint) {
-            caller->description = "do save";
-            caller->func = []() {
-                if (core::api::game::can_save()) {
-                    core::api::game::save();
-                }
-            };
-        } else {
-            caller->description = "do checkpoint";
-            caller->func = []() {
-                if (core::api::game::can_save()) {
-                    core::api::game::checkpoint();
-                }
-            };
+
+        std::optional<app::Vector2> override_position = std::nullopt;
+
+        if (parts.size() == 2) {
+            app::Vector2 position;
+            if (!string_convert(parts[0], position.x) || !string_convert(parts[1], position.y)) {
+                return false;
+            }
+            override_position = position;
         }
+
+        core::api::game::SaveOptions save_options(
+            false, false, checkpoint, false, override_position
+        );
+
+        caller->description = checkpoint ? "do checkpoint" : "do save";
+
+        if (override_position.has_value()) {
+            caller->description += std::format(" at {}, {}", override_position->x, override_position->y);
+        }
+
+        caller->func = [save_options] {
+            if (core::api::game::can_save()) {
+                core::api::game::save(false, save_options);
+            }
+        };
 
         data.add_item(caller);
         return true;
