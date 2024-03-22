@@ -119,7 +119,6 @@ namespace randomizer::seed::legacy_parser {
         AppendString = 30,
         SetIconOverride = 31,
         ClearIconOverride = 32,
-        SaveAt = 33
     };
 
     void set_location(items::Message* message, location_type const& location) {
