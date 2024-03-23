@@ -4,6 +4,8 @@
 #include <Modloader/app/structs/UberShaderColor.h>
 #include <Core/macros.h>
 
+using namespace app::classes;
+
 namespace utils {
 
     template <typename T>
