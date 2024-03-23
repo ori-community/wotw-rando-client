@@ -37,7 +37,7 @@ namespace randomizer::input {
             game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 8), 0);
         });
 
-        auto on_reload_before = single_input_bus().register_handler(Action::RereadSeedSource, EventTiming::Before, [](auto, auto) {
+        auto on_reload_before = single_input_bus().register_handler(Action::ReloadSeed, EventTiming::Before, [](auto, auto) {
             load_new_game_source();
             reread_seed_source();
         });
