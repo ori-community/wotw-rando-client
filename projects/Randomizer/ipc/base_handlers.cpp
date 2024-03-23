@@ -242,7 +242,8 @@ namespace randomizer::ipc {
         });
 
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-            register_request_handler("reload", reload);
+            register_request_handler("server_reconnect_current_multiverse", server_reconnect_current_multiverse);
+            register_request_handler("reread_seed_source", reread_seed_source);
             register_request_handler("get_uberstates", get_uberstates);
             register_request_handler("set_uberstate", set_uberstate);
             register_request_handler("get_flags", get_flags);
