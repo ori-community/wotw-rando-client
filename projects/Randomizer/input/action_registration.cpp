@@ -4,7 +4,6 @@
 #include <Randomizer/randomizer.h>
 
 #include <Core/api/game/debug_menu.h>
-#include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/core.h>
 #include <Core/settings.h>
@@ -38,8 +37,13 @@ namespace randomizer::input {
             game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 8), 0);
         });
 
-        auto on_reload_before = single_input_bus().register_handler(Action::Reload, EventTiming::Before, [](auto, auto) {
-            full_reload();
+        auto on_reload_before = single_input_bus().register_handler(Action::RereadSeedSource, EventTiming::Before, [](auto, auto) {
+            load_new_game_source();
+            reread_seed_source();
+        });
+
+        auto on_reconnect_before = single_input_bus().register_handler(Action::ServerReconnect, EventTiming::Before, [](auto, auto) {
+            server_reconnect_current_multiverse();
         });
 
         auto on_show_last_pickup_before = single_input_bus().register_handler(Action::ShowLastPickup, EventTiming::Before, [](auto, auto) {

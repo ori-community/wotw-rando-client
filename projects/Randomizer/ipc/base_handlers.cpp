@@ -25,9 +25,14 @@ using namespace core::ipc;
 
 namespace randomizer::ipc {
     namespace {
-        void reload(const nlohmann::json& j) {
-            info("ipc", "Received reload action request.");
-            randomizer::full_reload();
+        void server_reconnect_current_multiverse(const nlohmann::json& j) {
+            info("ipc", "Received server_reconnect_current_multiverse action request.");
+            randomizer::server_reconnect_current_multiverse();
+        }
+
+        void reread_seed_source(const nlohmann::json& j) {
+            info("ipc", "Received reread_seed_source action request.");
+            randomizer::reread_seed_source();
         }
 
         void get_flags(const nlohmann::json& j) {

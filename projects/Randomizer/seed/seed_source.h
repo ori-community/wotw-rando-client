@@ -27,6 +27,9 @@ namespace randomizer::seed {
         /** The multiverse ID to connect to, or nullopt if no server connection should be made */
         virtual std::optional<long> get_multiverse_id() = 0;
 
+        /** Reread the seed source */
+        virtual bool allows_rereading() = 0;
+
         std::optional<std::string> get_error() { return m_error; }
 
     protected:
@@ -39,6 +42,7 @@ namespace randomizer::seed {
         std::string get_description() override;
         std::string to_source_string() override;
         std::optional<long> get_multiverse_id() override;
+        bool allows_rereading() override;
 
         explicit FileSeedSource(const std::filesystem::path& path);
 
@@ -53,6 +57,7 @@ namespace randomizer::seed {
         std::string get_description() override;
         std::string to_source_string() override;
         std::optional<long> get_multiverse_id() override;
+        bool allows_rereading() override;
 
         explicit DebugDelayedFileSeedSource(const std::filesystem::path& path);
 
@@ -68,6 +73,7 @@ namespace randomizer::seed {
         std::string get_description() override;
         std::string to_source_string() override;
         std::optional<long> get_multiverse_id() override;
+        bool allows_rereading() override;
 
         explicit ServerSeedSource(long multiverse_id) : m_multiverse_id(multiverse_id) {};
 
@@ -81,6 +87,7 @@ namespace randomizer::seed {
         std::string get_description() override;
         std::string to_source_string() override;
         std::optional<long> get_multiverse_id() override;
+        bool allows_rereading() override;
     };
 
     class InvalidSeedSource: public SeedSource {
@@ -89,6 +96,7 @@ namespace randomizer::seed {
         std::string get_description() override;
         std::string to_source_string() override;
         std::optional<long> get_multiverse_id() override;
+        bool allows_rereading() override;
 
         explicit InvalidSeedSource(const std::string& source_string) : m_source_string(source_string) {
             m_error = std::format("Invalid source: {}", source_string);

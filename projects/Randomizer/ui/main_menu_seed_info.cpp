@@ -304,6 +304,7 @@ namespace randomizer::main_menu_seed_info {
 
                 update_text();
             } else {
+                load_new_game_source();
                 current_seed_source = get_new_game_seed_source();
                 current_seed_meta_data_result = std::string("Loading...");
 

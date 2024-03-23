@@ -30,6 +30,7 @@
 #include <Modloader/windows_api/console.h>
 #include <Modloader/windows_api/common.h>
 
+#include <Core/settings.h>
 #include <magic_enum.hpp>
 
 using namespace modloader;
@@ -98,11 +99,15 @@ namespace core::api::game {
             UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(simple_fps), false);
         });
 
-        IL2CPP_INTERCEPT(GameController, void, OnApplicationFocus, (app::GameController * this_ptr, bool focusStatus)) {
-            auto evt = focusStatus ? GameEvent::GainedFocus : GameEvent::LostFocus;
+        IL2CPP_INTERCEPT(GameController, void, OnApplicationFocus, (app::GameController * this_ptr, bool focus_status)) {
+            if (focus_status) {
+                core::settings::reload();
+            }
+
+            auto evt = focus_status ? GameEvent::GainedFocus : GameEvent::LostFocus;
             game_event_bus.trigger_event(evt, EventTiming::Before);
             this_ptr->fields._PreventFocusPause_k__BackingField = true;
-            next::GameController::OnApplicationFocus(this_ptr, focusStatus);
+            next::GameController::OnApplicationFocus(this_ptr, focus_status);
             game_event_bus.trigger_event(evt, EventTiming::After);
         }
 

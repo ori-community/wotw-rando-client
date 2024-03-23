@@ -152,20 +152,6 @@ namespace randomizer {
             randomizer_seed.read(seed_save_data->seed_content, seed::legacy_parser::parse, show_message);
         }
 
-        void load_new_game_source() {
-            const std::ifstream seed_source_file(modloader::base_path() / ".newgameseedsource");
-
-            if (seed_source_file.is_open()) {
-                std::stringstream seed_path_buffer;
-                seed_path_buffer << seed_source_file.rdbuf();
-                const auto source_str = seed_path_buffer.str();
-
-                event_bus().trigger_event(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::Before);
-                new_game_seed_source = seed::parse_source_string(source_str);
-                event_bus().trigger_event(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::After);
-            }
-        }
-
         auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
             seed_save_data->seed_source_string = new_game_seed_source->to_source_string();
             seed_save_data->seed_content = new_game_seed_content;
@@ -243,6 +229,20 @@ namespace randomizer {
         });
     } // namespace
 
+    void load_new_game_source() {
+        const std::ifstream seed_source_file(modloader::base_path() / ".newgameseedsource");
+
+        if (seed_source_file.is_open()) {
+            std::stringstream seed_path_buffer;
+            seed_path_buffer << seed_source_file.rdbuf();
+            const auto source_str = seed_path_buffer.str();
+
+            event_bus().trigger_event(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::Before);
+            new_game_seed_source = seed::parse_source_string(source_str);
+            event_bus().trigger_event(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::After);
+        }
+    }
+
     semver::version randomizer_version() {
         semver::version version = semver::from_string("0.0.0");
         const std::ifstream version_file(modloader::base_path() / "VERSION");
@@ -259,24 +259,6 @@ namespace randomizer {
         return version;
     }
 
-    void full_reload() {
-        if (network_client().wants_connection()) {
-            server_disconnect();
-        }
-
-        core::settings::reload();
-        load_new_game_source();
-
-        if (!TitleScreenManager::get_MainMenuActive()) {
-            load_seed(true);
-        }
-
-        const auto connect_to_multiverse_id = seed_save_data->get_source()->get_multiverse_id();
-        if (connect_to_multiverse_id.has_value()) {
-            server_connect(*connect_to_multiverse_id);
-        }
-    }
-
     void queue_input_unlocked_callback(std::function<void()> const& callback) { input_unlocked_callbacks.push_back(callback); }
 
     void queue_reach_check() {
@@ -285,7 +267,60 @@ namespace randomizer {
         }
     }
 
-    void server_reconnect(long multiverse_id) {
+    void reread_seed_source() {
+        const auto current_source = seed_save_data->get_source();
+
+        if (!current_source->allows_rereading()) {
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>::format("Cannot re-read this seed."),
+                .show_box = true,
+                .prioritized = true,
+            });
+            return;
+        }
+
+        const auto [status, seed_content] = current_source->poll();
+
+        switch (status) {
+            case seed::SourceStatus::Ready:
+                seed_save_data->seed_content = seed_content.value();
+                load_seed(true);
+                break;
+            case seed::SourceStatus::Loading:
+                core::message_controller().queue_central({
+                    .text = core::Property<std::string>::format("The seed source is still loading. Please try again later..."),
+                    .show_box = true,
+                    .prioritized = true,
+                });
+                break;
+            case seed::SourceStatus::Error:
+                core::message_controller().queue_central({
+                    .text = core::Property<std::string>::format("Error reading seed source: {}", current_source->get_error().value()),
+                    .show_box = true,
+                    .prioritized = true,
+                });
+                break;
+        }
+    }
+
+    void server_reconnect_current_multiverse() {
+        if (!multiverse_id_to_connect_to.has_value()) {
+            if (network_client().wants_connection()) {
+                server_disconnect();
+            }
+
+            return;
+        }
+
+        server_connect(*multiverse_id_to_connect_to, true);
+    }
+
+    void server_connect(long multiverse_id, bool force_reconnect) {
+        // Don't try to connect if we are already connected to the target multiverse
+        if (network_client().wants_connection() && multiverse_id_to_connect_to.has_value() && *multiverse_id_to_connect_to == multiverse_id) {
+            return;
+        }
+
         if (network_client().wants_connection()) {
             server_disconnect();
         }
@@ -298,15 +333,6 @@ namespace randomizer {
         const std::string websocket_url = std::format("{}://{}/api/client-websocket/{}/wotw", insecure ? "ws" : "wss", host, multiverse_id);
         client.websocket_connect(websocket_url);
         client.udp_open(host, udp_port);
-    }
-
-    void server_connect(long multiverse_id) {
-        // Don't try to connect if we are already connected to the target multiverse
-        if (network_client().wants_connection() && multiverse_id_to_connect_to.has_value() && *multiverse_id_to_connect_to == multiverse_id) {
-            return;
-        }
-
-        server_reconnect(multiverse_id);
     }
 
     void server_disconnect() {

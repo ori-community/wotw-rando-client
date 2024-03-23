@@ -21,11 +21,11 @@ namespace randomizer {
         NewGameSeedSourceUpdated,
     };
 
-    void full_reload();
-
-    void server_connect(long multiverse_id);
-    void server_reconnect(long multiverse_id);
+    void reread_seed_source();
+    void server_connect(long multiverse_id, bool force_reconnect = false);
+    void server_reconnect_current_multiverse();
     void server_disconnect();
+    void load_new_game_source();
 
     semver::version randomizer_version();
 
