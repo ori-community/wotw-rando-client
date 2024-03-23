@@ -504,7 +504,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         core::api::game::SaveOptions save_options(
-            false, false, checkpoint, false, override_position
+            false, false, !checkpoint, false, override_position
         );
 
         caller->description = checkpoint ? "do checkpoint" : "do save";
