@@ -222,9 +222,9 @@ void replace_all(std::string& str, std::string_view find, std::string_view repla
 
 void replace_all(std::wstring& str, std::wstring_view find, std::wstring_view replace);
 
-std::wstring convert_string_to_wstring(std::string_view str);
+std::wstring convert_string_to_wstring(const std::string& str);
 
-std::string convert_wstring_to_string(std::wstring_view str);
+std::string convert_wstring_to_string(const std::wstring& str);
 
 bool eps_equals(double a, double b, double eps = 0.001);
 

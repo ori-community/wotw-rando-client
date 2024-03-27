@@ -103,7 +103,7 @@ namespace modloader {
     auto buffered_handler = register_logging_handler(std::make_shared<BufferingHandler>());
 
     std::binary_semaphore wait_for_exit(0);
-    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string const& path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
+    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(const std::filesystem::path& path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
         inner_base_path = path;
         trace(MessageType::Info, "initialize", "Loading settings.");
 

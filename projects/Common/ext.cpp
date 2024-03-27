@@ -92,14 +92,30 @@ void replace_all(std::wstring& str, std::wstring_view find, std::wstring_view re
     }
 }
 
-std::wstring convert_string_to_wstring(std::string_view str) {
-    CA2W ca2w(str.data());
-    return { ca2w };
+std::wstring convert_string_to_wstring(const std::string& str) {
+    std::wstring ret;
+
+    const auto length = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), nullptr, 0);
+
+    if (length > 0) {
+        ret.resize(length);
+        MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), ret.data(), length);
+    }
+
+    return ret;
 }
 
-std::string convert_wstring_to_string(std::wstring_view str) {
-    CW2A cw2a(str.data());
-    return { cw2a };
+std::string convert_wstring_to_string(const std::wstring& str) {
+    std::string ret;
+
+    const auto length = WideCharToMultiByte(CP_UTF8, 0, str.c_str(), str.length(), nullptr, 0, nullptr, nullptr);
+
+    if (length > 0) {
+        ret.resize(length);
+        WideCharToMultiByte(CP_UTF8, 0, str.c_str(), str.length(), ret.data(), length, nullptr, nullptr);
+    }
+
+    return ret;
 }
 
 bool eps_equals(double a, double b, double eps) {

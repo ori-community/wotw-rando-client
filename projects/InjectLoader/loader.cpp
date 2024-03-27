@@ -13,28 +13,29 @@
 bool loaded = false;
 
 
-bool find_base_path(std::string &output_path) {
-    char path[MAX_PATH];
+bool find_base_path(std::wstring &output_path) {
+    wchar_t path[MAX_PATH];
     HMODULE handle = nullptr;
-    if (GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-                          (LPCSTR) &find_base_path, &handle) == 0) {
+
+    if (GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+                          reinterpret_cast<LPCWSTR>(&find_base_path), &handle) == 0) {
         std::cout << "failed to GetModuleHandle, error: " << GetLastError() << std::endl;
         return false;
     }
 
-    if (GetModuleFileName(handle, path, sizeof(path)) == 0) {
+    if (GetModuleFileNameW(handle, path, sizeof(path)) == 0) {
         std::cout << "failed to GetModuleFileName, error: " << GetLastError() << std::endl;
         return false;
     }
 
-    std::filesystem::path actual_path(path);
-    output_path = actual_path.parent_path().string() + "\\";
-    std::cout << "setting path to: " << output_path << std::endl;
+    const std::filesystem::path actual_path(path);
+    output_path = actual_path.parent_path().wstring() + L"\\";
+    std::wcout << "setting path to: " << output_path << std::endl;
     return true;
 }
 
 void load_modloader() {
-    std::string base_path_string;
+    std::wstring base_path_string;
 
     if (!find_base_path(base_path_string)) {
         MessageBoxA(
@@ -48,7 +49,7 @@ void load_modloader() {
     auto base_path = std::filesystem::path(base_path_string);
 
     auto modloader = LoadLibraryW((base_path / "Modloader.dll").c_str());
-    auto modloader_injection_entry_fn = reinterpret_cast<void (*)(std::string, const std::function<void()>,
+    auto modloader_injection_entry_fn = reinterpret_cast<void (*)(std::filesystem::path, const std::function<void()>,
                                                                   const std::function<void(std::string_view)>)>(
             GetProcAddress(modloader, "injection_entry")
     );
@@ -56,7 +57,7 @@ void load_modloader() {
     std::binary_semaphore modloader_initialization_mutex(0);
 
     std::thread thread([&modloader_injection_entry_fn, base_path, &modloader_initialization_mutex]() {
-        modloader_injection_entry_fn(base_path.string(), [&modloader_initialization_mutex]() {
+        modloader_injection_entry_fn(base_path, [&modloader_initialization_mutex]() {
             modloader_initialization_mutex.release();
         }, [&modloader_initialization_mutex](auto error_message) {
             MessageBoxA(

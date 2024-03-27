@@ -230,12 +230,11 @@ namespace randomizer {
     } // namespace
 
     void load_new_game_source() {
-        const std::ifstream seed_source_file(modloader::base_path() / ".newgameseedsource");
+        std::ifstream seed_source_file(modloader::base_path() / ".newgameseedsource", std::ios::binary);
 
         if (seed_source_file.is_open()) {
-            std::stringstream seed_path_buffer;
-            seed_path_buffer << seed_source_file.rdbuf();
-            const auto source_str = seed_path_buffer.str();
+            std::string source_str{std::istreambuf_iterator(seed_source_file),
+                                   std::istreambuf_iterator<char>()};
 
             event_bus().trigger_event(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::Before);
             new_game_seed_source = seed::parse_source_string(source_str);
