@@ -39,7 +39,7 @@ namespace randomizer::league {
             Uploading,
             Done,
             Error,
-            Cancelled,
+            Idle,
         };
 
         const core::api::uber_states::UberState game_finished_uber_state(34543, 11226);
@@ -117,6 +117,9 @@ namespace randomizer::league {
                     text += "\n\nPress [MenuSelect] to continue";
 
                     break;
+                case SubmissionStatus::Idle:
+                    text += "Uploader Idle";  // This shouldn't be visible at any point
+                    break;
             }
             status_message_mutex.unlock();
 
@@ -129,7 +132,7 @@ namespace randomizer::league {
 
             core::api::faderb::fade_in(1.f);
             core::events::schedule_task(1.f, [] {
-                submission_status = SubmissionStatus::Cancelled;
+                submission_status = SubmissionStatus::Idle;
                 black_background = nullptr;
                 league_submission_status_text_box = nullptr;
                 GameStateMachine::SetToGame(GameStateMachine::get_Instance());
@@ -164,7 +167,7 @@ namespace randomizer::league {
             }
 
             if (submit_thread != nullptr && submit_thread->joinable()) {
-                submission_status = SubmissionStatus::Cancelled;
+                submission_status = SubmissionStatus::Idle;
                 submit_thread->join();
             }
 
