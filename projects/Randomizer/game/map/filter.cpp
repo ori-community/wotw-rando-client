@@ -63,7 +63,7 @@ namespace randomizer::game::map {
         app::AreaMapIconFilterFooterLabel create_filter(Filters filter, const std::string& message) {
             app::AreaMapIconFilterFooterLabel label{
                 .Filter = static_cast<app::AreaMapIconFilter__Enum>(filter),
-                .Footer = core::api::system::create_message_provider("Filter: " + message),
+                .Footer = core::api::system::create_message_provider("[MapCycleFilter] Filter: " + message),
             };
             return label;
         }
