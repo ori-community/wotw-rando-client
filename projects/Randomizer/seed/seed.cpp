@@ -124,7 +124,7 @@ namespace randomizer::seed {
             return icons.front().get();
         }
 
-        return !items.empty() ? MapIcon::QuestItem : MapIcon::Invisible;
+        return !names.empty() ? MapIcon::QuestItem : MapIcon::Invisible;
     }
 
     std::string Seed::text(const inner_location_entry& location) const {

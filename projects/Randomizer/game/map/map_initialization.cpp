@@ -292,21 +292,35 @@ namespace randomizer::game::map {
                         continue;
                     }
 
-                    const auto icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
+                    const auto in_logic_icon = add_icon(FilterFlag::InLogic);
+                    const auto spoiler_icon = add_icon(FilterFlag::Spoilers);
                     const auto condition = location.condition;
-                    icon->icon().assign([](auto) {}, [condition, game_finished] {
-                        const auto new_location = location_collection().location(condition);
-                        return !new_location.has_value() || game_finished.get<bool>() ? game_seed().icon(condition) : select_icon(new_location.value());
-                    });
 
-                    icon->position().set(location.map_position.value());
-                    icon->name().set(location.name);
-                    icon->label().set(icon_label(location, location.condition));
-                    add_icon_visibility_callback(icon, [location](auto) {
+                    in_logic_icon->icon().assign([](auto) {}, [condition, game_finished] {
+                        const auto new_location = location_collection().location(condition);
+
                         if (active_filter() == Filters::Spoilers) {
-                            return IconVisibilityResult::Show;
+                            return game_seed().icon(condition);
                         }
 
+                        if (!new_location.has_value()) {
+                            return MapIcon::Invisible;
+                        }
+
+                        return select_icon(new_location.value());
+                    });
+                    spoiler_icon->icon().assign([](auto) {}, [condition, game_finished] {
+                        return game_seed().icon(condition);
+                    });
+
+                    in_logic_icon->position().set(location.map_position.value());
+                    in_logic_icon->name().set(location.name);
+                    in_logic_icon->label().set(icon_label(location, location.condition));
+                    spoiler_icon->position().set(location.map_position.value());
+                    spoiler_icon->name().set(location.name);
+                    spoiler_icon->label().set(icon_label(location, location.condition));
+
+                    add_icon_visibility_callback(in_logic_icon, [location](auto) {
                         // Don't show icon if it has been picked up.
                         if (location.condition.resolve()) {
                             return IconVisibilityResult::Hide;
