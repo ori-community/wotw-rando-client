@@ -67,8 +67,6 @@ namespace randomizer::online {
 
         client.register_handler<Network::AuthenticatedMessage>(Network::Packet_PacketID_AuthenticatedMessage, [this](auto const& message) { handle_authenticated(message); });
 
-        client.register_handler<Network::VisibilityMessage>(Network::Packet_PacketID_Visibility, [this](auto const& message) { handle_visibility(message); });
-
         client.register_handler<Network::UberStateUpdateMessage>(Network::Packet_PacketID_UberStateUpdateMessage, [this](auto const& message) { uber_state_update(message); });
 
         client.register_handler<Network::UberStateBatchUpdateMessage>(Network::Packet_PacketID_UberStateBatchUpdateMessage, [this](auto const& message) { uber_state_batch_update(message); });
@@ -321,17 +319,17 @@ namespace randomizer::online {
         }
     }
 
-    void MultiplayerUniverse::handle_visibility(std::shared_ptr<Network::VisibilityMessage> const& message) const {
-        auto const& hidden_in_world = message->hidden_in_world();
-        auto const& hidden_on_map = message->hidden_on_map();
-        for (const auto& [name, avatar]: m_player_avatars) {
-            auto world = std::ranges::find(hidden_in_world, name);
-            avatar->set_visible_world(world == hidden_in_world.end());
-
-            auto map = std::ranges::find(hidden_on_map, name);
-            avatar->set_visible_map(map == hidden_on_map.end());
-        }
-    }
+    // void MultiplayerUniverse::handle_visibility(std::shared_ptr<Network::VisibilityMessage> const& message) const {
+    //     auto const& hidden_in_world = message->hidden_in_world();
+    //     auto const& hidden_on_map = message->hidden_on_map();
+    //     for (const auto& [name, avatar]: m_player_avatars) {
+    //         auto world = std::ranges::find(hidden_in_world, name);
+    //         avatar->set_visible_world(world == hidden_in_world.end());
+    //
+    //         auto map = std::ranges::find(hidden_on_map, name);
+    //         avatar->set_visible_map(map == hidden_on_map.end());
+    //     }
+    // }
 
     void MultiplayerUniverse::update_player_world_position(std::string_view player_id, float x, float y, std::string_view ghost_frame_data) {
         // InterOp.Multiplayer.update_player_position(id, x, y, ghostFrameData, ghostFrameData.Length);

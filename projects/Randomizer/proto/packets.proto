@@ -24,7 +24,6 @@ message Packet {
     PlayerUseCatchingAbility = 17;
     PlayerUsedCatchingAbility = 18;
     PlayerCaught = 19;
-    Visibility = 20;
     UpdatePlayerWorldPositionMessage = 21;
     UpdatePlayerMapPositionMessage = 22;
     ResourceRequestMessage = 23;
