@@ -196,15 +196,9 @@ message MultiverseInfoMessage {
   optional int64 seedGroupId = 5;
   GameHandlerType handlerType = 6;
   bytes handlerInfo = 7;
-  optional VisibilityMessage visibility = 8;
 
-  repeated string connectedUserIds = 13;
-  repeated string raceReadyUserIds = 14;
-}
-
-message VisibilityMessage {
-  repeated string hidden_in_world = 1;
-  repeated string hidden_on_map = 2;
+  repeated string connectedUserIds = 12;
+  repeated string raceReadyUserIds = 13;
 }
 
 message SeekerWorldInfo {
