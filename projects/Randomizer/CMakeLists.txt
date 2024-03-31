@@ -331,6 +331,9 @@ target_link_libraries(${PROJECT_NAME} ixwebsocket::ixwebsocket)
 find_package(httplib CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} httplib::httplib)
 
+find_package(OpenSSL REQUIRED)
+target_link_libraries(${PROJECT_NAME} OpenSSL::SSL OpenSSL::Crypto)
+
 target_link_libraries(${PROJECT_NAME} protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
 
 message(STATUS "Assigning source groups.")
