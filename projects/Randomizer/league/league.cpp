@@ -28,6 +28,8 @@
 
 #include <Core/settings.h>
 #include <Randomizer/features/credits.h>
+
+#define CPPHTTPLIB_OPENSSL_SUPPORT
 #include <httplib.h>
 #undef MessageBox
 
