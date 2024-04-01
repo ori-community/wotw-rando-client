@@ -105,12 +105,14 @@ namespace randomizer::game {
 
                         for (const auto& universe: multiverse_info->universes()) {
                             for (const auto& world: universe.worlds()) {
-                                for (const auto& player: world.members()) {
-                                    if (!race_ready_user_ids.contains(player.id())) {
-                                        if (displayed_waiting_for_players_count < MAX_DISPLAYED_WAITING_FOR_PLAYERS) {
-                                            text += std::format("\n{}", player.name());
+                                for (const auto& membership: world.memberships()) {
+                                    const auto& user = membership.user();
 
-                                            if (!connected_user_ids.contains(player.id())) {
+                                    if (!race_ready_user_ids.contains(user.id())) {
+                                        if (displayed_waiting_for_players_count < MAX_DISPLAYED_WAITING_FOR_PLAYERS) {
+                                            text += std::format("\n{}", user.name());
+
+                                            if (!connected_user_ids.contains(user.id())) {
                                                 text += " <s_0.8>(not connected)</>";
                                             }
 

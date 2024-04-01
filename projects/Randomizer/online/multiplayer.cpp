@@ -211,8 +211,8 @@ namespace randomizer::online {
     Network::UniverseInfo const* find_universe_with_player(Network::MultiverseInfoMessage const& message, std::string_view id) {
         for (auto const& u: message.universes()) {
             for (auto const& w: u.worlds()) {
-                for (auto const& m: w.members()) {
-                    if (m.id() == id) {
+                for (auto const& m: w.memberships()) {
+                    if (m.user().id() == id) {
                         return &u;
                     }
                 }
@@ -239,12 +239,12 @@ namespace randomizer::online {
             std::unordered_map<std::string, PlayerInfo> info_players;
             for (auto& world: universe->worlds()) {
                 m_current_world_infos.push_back(&world);
-                for (auto const& member: world.members()) {
-                    auto& player = info_players[member.id()];
+                for (auto const& memberhip: world.memberships()) {
+                    auto& player = info_players[memberhip.user().id()];
                     player.universe_id = universe->id();
                     player.world = world;
                     player.universe = *universe;
-                    player.user = member;
+                    player.user = memberhip.user();
                 }
             }
 

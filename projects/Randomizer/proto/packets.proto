@@ -167,11 +167,16 @@ message UserInfo {
   optional string avatarId = 3;
 }
 
+message WorldMembershipInfo {
+  int64 id = 1;
+  UserInfo user = 2;
+}
+
 message WorldInfo {
   int64 id = 1;
   string name = 2;
   string color = 3;
-  repeated UserInfo members = 4;
+  repeated WorldMembershipInfo memberships = 4;
   optional int64 seedId = 5;
 }
 
