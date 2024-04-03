@@ -2036,8 +2036,7 @@ namespace randomizer::seed::legacy_parser {
                 if (!is_seed_version_supported(meta.version)) {
                     return ParserError::WrongVersion;
                 }
-            }
-            else if (line.starts_with("// This World:")) {
+            } else if (line.starts_with("// This World:")) {
                 const std::string str(line.substr(14));
                 meta.world_index = std::stoi(str);
             } else if (line.starts_with("// Slug:")) {
@@ -2060,6 +2059,11 @@ namespace randomizer::seed::legacy_parser {
                 }
 
                 meta.start_position = position;
+            } else if (line.starts_with("// Config:")) {
+                auto j = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
+                meta.intended_difficulty = j.value("hard", false)
+                    ? app::GameController_GameDifficultyModes__Enum::Hard
+                    : app::GameController_GameDifficultyModes__Enum::Normal;
             }
         }
 

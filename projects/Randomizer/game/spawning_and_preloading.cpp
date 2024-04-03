@@ -16,6 +16,7 @@
 #include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/methods/Core/Input_InputButtonProcessor.h>
 #include <Modloader/app/methods/GameStateMachine.h>
+#include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/GameplayCamera.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/RunActionOnce.h>
@@ -172,7 +173,7 @@ namespace randomizer::game {
         }
 
         void update_difficulty_text_boxes() {
-            std::string prepend_to_difficulty = "";
+            std::string prepend_to_difficulty;
 
             if (randomizer::multiplayer_universe().should_block_starting_new_game()) {
                 prepend_to_difficulty = "JOIN RACE in ";
@@ -234,7 +235,7 @@ namespace randomizer::game {
 
         void on_scene_loading(core::api::scenes::SceneLoadEventMetadata* metadata) {
             if (metadata->state == app::SceneState__Enum::Loaded || metadata->state == app::SceneState__Enum::LoadingCancelled) {
-                if (!pending_scenes_to_preload.erase(metadata->scene_name.data())) {
+                if (!pending_scenes_to_preload.erase(metadata->scene_name)) {
                     return;
                 }
 
@@ -400,6 +401,8 @@ namespace randomizer::game {
 
             core::api::game::event_bus().trigger_event(GameEvent::NewGameInitialized, EventTiming::After);
             on_new_game_late_initialization_handle = nullptr;
+
+            check_seed_difficulty_enforcement();
 
             core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.Enabled = true;
             if (handling_start) {

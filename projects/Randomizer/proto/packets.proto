@@ -34,6 +34,7 @@ message Packet {
     SetPlayerSaveGuidMessage = 28;
     SetSaveGuidRestrictionsMessage = 29;
     OverrideInGameTimeMessage = 30;
+    SetEnforceSeedDifficultyMessage = 32;
 
     TrackerUpdate = 100;
     ResetTracker = 101;
@@ -75,11 +76,16 @@ message SetSaveGuidRestrictionsMessage {
   bool shouldRestrictSaveGuid = 2;
 }
 
+message SetEnforceSeedDifficultyMessage {
+  bool shouldEnforceSeedDifficulty = 1;
+}
+
 message InitGameSyncMessage {
   repeated UberId uberId = 1;
   bool blockStartingNewGame = 2;
   SetSaveGuidRestrictionsMessage saveGuidRestrictions = 3;
   bool preventCheats = 4;
+  SetEnforceSeedDifficultyMessage enforceSeedDifficulty = 5;
 }
 
 message SetPlayerSaveGuidMessage {

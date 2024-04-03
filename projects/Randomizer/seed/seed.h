@@ -12,6 +12,7 @@
 #include <Randomizer/seed/relics.h>
 
 #include <Core/save_meta/save_meta.h>
+#include <Modloader/app/structs/GameController_GameDifficultyModes__Enum.h>
 #include <neargye/semver.hpp>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
@@ -48,6 +49,7 @@ namespace randomizer::seed {
             std::string slug;
             int world_index = 0;
             bool race_mode = false;
+            app::GameController_GameDifficultyModes__Enum intended_difficulty = app::GameController_GameDifficultyModes__Enum::Normal;
         };
 
         struct SeedInfo {

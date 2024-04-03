@@ -91,6 +91,10 @@ namespace randomizer::online {
             process_set_save_guid_restrictions_message(*message);
         });
 
+        client.register_handler<Network::SetEnforceSeedDifficultyMessage>(Network::Packet_PacketID_SetEnforceSeedDifficultyMessage, [this](auto const& message) {
+            process_set_enforce_seed_difficulty_message(*message);
+        });
+
         client.register_handler<Network::OverrideInGameTimeMessage>(Network::Packet_PacketID_OverrideInGameTimeMessage, [this](auto const& message) {
             randomizer::timing::override_in_game_time(message->in_game_time());
         });
@@ -430,7 +434,7 @@ namespace randomizer::online {
         });
     }
 
-    void MultiplayerUniverse::process_set_save_guid_restrictions_message(Network::SetSaveGuidRestrictionsMessage& message) {
+    void MultiplayerUniverse::process_set_save_guid_restrictions_message(const Network::SetSaveGuidRestrictionsMessage& message) {
         m_should_restrict_to_save_guid = message.shouldrestrictsaveguid();
 
         if (m_should_restrict_to_save_guid) {
@@ -445,6 +449,12 @@ namespace randomizer::online {
             } else {
                 request_full_sync();
             }
+        }
+    }
+
+    void MultiplayerUniverse::process_set_enforce_seed_difficulty_message(const Network::SetEnforceSeedDifficultyMessage& message) {
+        if (message.shouldenforceseeddifficulty() != m_should_enforce_seed_difficulty) {
+            set_enforce_seed_difficulty(message.shouldenforceseeddifficulty());
         }
     }
 
@@ -468,6 +478,9 @@ namespace randomizer::online {
         Network::SetSaveGuidRestrictionsMessage save_guid_restrictions_message = message->saveguidrestrictions();
         process_set_save_guid_restrictions_message(save_guid_restrictions_message);
 
+        Network::SetEnforceSeedDifficultyMessage enforce_seed_difficulty_message = message->enforceseeddifficulty();
+        process_set_enforce_seed_difficulty_message(enforce_seed_difficulty_message);
+
         std::unordered_set<core::api::uber_states::UberState> states;
         for (auto& id: message->uberid()) {
             states.emplace(id.group(), id.state());
@@ -488,6 +501,12 @@ namespace randomizer::online {
 
     void MultiplayerUniverse::set_restrict_to_save_guid(const std::optional<core::MoodGuid>& value) {
         m_restrict_to_save_guid = value;
+    }
+
+    void MultiplayerUniverse::set_enforce_seed_difficulty(bool value) {
+        m_event_bus.trigger_event(Event::ShouldEnforceSeedDifficultyChanged, EventTiming::Before);
+        m_should_enforce_seed_difficulty = value;
+        m_event_bus.trigger_event(Event::ShouldEnforceSeedDifficultyChanged, EventTiming::After);
     }
 
     bool MultiplayerUniverse::is_in_incorrect_save_file() const {

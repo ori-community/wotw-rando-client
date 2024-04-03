@@ -185,6 +185,7 @@ namespace randomizer {
         );
 
         auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
+            check_seed_difficulty_enforcement();
             randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 7), 0);
         });
 
@@ -338,6 +339,18 @@ namespace randomizer {
         client.disconnect();
         multiverse_id_to_connect_to = std::nullopt;
         seed::set_server_seed_content(std::nullopt);
+    }
+
+    void check_seed_difficulty_enforcement() {
+        if (multiplayer_universe().should_enforce_seed_difficulty()) {
+            const auto game_controller = core::api::game::game_controller();
+            const auto current_difficulty = GameController::get_GameDifficultyMode(game_controller);
+            const auto intended_difficulty = game_seed().info().meta.intended_difficulty;
+
+            if (current_difficulty != intended_difficulty) {
+                GameController::set_GameDifficultyMode(game_controller, intended_difficulty);
+            }
+        }
     }
 
     common::TimedMultiEventBus<RandomizerEvent>& event_bus() {

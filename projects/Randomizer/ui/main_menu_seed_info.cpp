@@ -8,13 +8,19 @@
 #include <Core/api/messages/text_style.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/utils/misc.h>
+#include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/SaveGameController.h>
 #include <Modloader/app/methods/SaveSlotsManager.h>
 #include <Modloader/app/methods/System/IO/File.h>
 #include <Modloader/app/methods/SaveSlotsUI.h>
+#include <Modloader/app/methods/SetTitleScreenAction.h>
+#include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/XboxLiveIdentityUI.h>
+#include <Modloader/app/types/CleverMenuItem.h>
+#include <Modloader/app/types/TitleScreenManager.h>
+#include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/legacy_parser/parser.h>
@@ -40,14 +46,18 @@ namespace randomizer::main_menu_seed_info {
         il2cpp::WeakGCRef<app::GameObject> separator_go;
         std::unique_ptr<core::api::graphics::Sprite> sprite;
 
+        std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> easy_mode_menu_item_handle;
+        std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> normal_mode_menu_item_handle;
+        std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> hard_mode_menu_item_handle;
+
         core::Property<std::string> name_property;
         core::Property<std::string> status_property("Offline");
         core::Property<std::string> description_property;
 
         common::registration_handle_t on_seed_loaded_handle;
-        common::registration_handle_t on_before_uber_value_store_loaded_handle;
         common::registration_handle_t on_network_status_handle;
         common::registration_handle_t on_multiverse_update_handle;
+        common::registration_handle_t on_should_enforce_seed_difficulty_update_handle;
 
         bool poll_current_seed_source_until_not_loading = false;
         std::shared_ptr<seed::SeedSource> current_seed_source = nullptr;
@@ -134,6 +144,44 @@ namespace randomizer::main_menu_seed_info {
             }
 
             description_property.set(description);
+        }
+
+        template<typename T>
+        void do_if_valid(std::optional<il2cpp::WeakGCRef<T>> object, const std::function<void(T*)> action) {
+            if (object.has_value() && **object != nullptr) {
+                action(**object);
+            }
+        }
+
+        void update_difficulty_menu_items() {
+            auto allow_easy = false;
+            auto allow_normal = false;
+            auto allow_hard = false;
+
+            if (
+                GameStateMachine::IsInExtendedTitleScreen(types::GameStateMachine::get_class()->static_fields->m_instance) &&
+                SaveSlotsManager::SlotByIndex(SaveSlotsManager::get_CurrentSlotIndex()) == nullptr // Selected save file is empty
+            ) {
+                if (randomizer::multiplayer_universe().should_enforce_seed_difficulty()) {
+                    const auto seed_metadata = std::holds_alternative<seed::Seed::SeedMetaData>(current_seed_meta_data_result)
+                    ? std::make_optional(std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result))
+                    : std::nullopt;
+
+                    if (seed_metadata.has_value()) {
+                        allow_easy = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Easy;
+                        allow_normal = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Normal;
+                        allow_hard = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Hard;
+                    }
+                } else {
+                    allow_easy = true;
+                    allow_normal = true;
+                    allow_hard = true;
+                }
+            }
+
+            do_if_valid<app::CleverMenuItem>(easy_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_easy); });
+            do_if_valid<app::CleverMenuItem>(normal_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_normal); });
+            do_if_valid<app::CleverMenuItem>(hard_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_hard); });
         }
 
         void on_ready(ModloaderEvent) {
@@ -229,11 +277,21 @@ namespace randomizer::main_menu_seed_info {
 
                     sprite->texture(core::api::graphics::textures::get_texture("file:assets/textures/gradient_transparent_dark.png"));
 
+                    easy_mode_menu_item_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::CleverMenuItem>(
+                            il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. easyMode"}), types::CleverMenuItem::get_class()));
+                    normal_mode_menu_item_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::CleverMenuItem>(
+                            il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. normalMode"}), types::CleverMenuItem::get_class()));
+                    hard_mode_menu_item_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::CleverMenuItem>(
+                            il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. hardMode"}), types::CleverMenuItem::get_class()));
+
                     is_in_main_menu = true;
 
                     on_network_status_handle = network_client().event_bus().register_handler(on_network_status);
                     on_multiverse_update_handle = multiplayer_universe().event_bus().register_handler(
                         online::MultiplayerUniverse::Event::MultiverseUpdated, EventTiming::After, [](auto, auto) { update_text(); }
+                    );
+                    on_should_enforce_seed_difficulty_update_handle = multiplayer_universe().event_bus().register_handler(
+                        online::MultiplayerUniverse::Event::ShouldEnforceSeedDifficultyChanged, EventTiming::After, [](auto, auto) { update_difficulty_menu_items(); }
                     );
                     break;
                 }
@@ -299,6 +357,7 @@ namespace randomizer::main_menu_seed_info {
                 if (connect_to_multiverse_id.has_value()) {
                     randomizer::server_connect(*connect_to_multiverse_id);
                 } else {
+                    multiplayer_universe().set_enforce_seed_difficulty(false);
                     randomizer::server_disconnect();
                 }
 
@@ -314,6 +373,7 @@ namespace randomizer::main_menu_seed_info {
                 if (connect_to_multiverse_id.has_value()) {
                     randomizer::server_connect(*connect_to_multiverse_id);
                 } else {
+                    multiplayer_universe().set_enforce_seed_difficulty(false);
                     randomizer::server_disconnect();
                 }
 
@@ -329,11 +389,20 @@ namespace randomizer::main_menu_seed_info {
                     if (connect_to_multiverse_id.has_value()) {
                         randomizer::server_connect(*connect_to_multiverse_id);
                     } else {
+                        multiplayer_universe().set_enforce_seed_difficulty(false);
                         randomizer::server_disconnect();
                     }
 
                     update_text();
                 });
+            }
+        }
+
+        IL2CPP_INTERCEPT(SetTitleScreenAction, void, Perform, (app::SetTitleScreenAction * this_ptr, app::IContext* context)) {
+            next::SetTitleScreenAction::Perform(this_ptr, context);
+
+            if (this_ptr->fields.Screen == app::TitleScreenManager_Screen__Enum::ProfileSelected) {
+                update_difficulty_menu_items();
             }
         }
 
@@ -360,6 +429,7 @@ namespace randomizer::main_menu_seed_info {
             }
 
             update_text();
+            update_difficulty_menu_items();
         });
 
         IL2CPP_INTERCEPT(SaveSlotsUI, void, OnEnable, (app::SaveSlotsUI * this_ptr)) {

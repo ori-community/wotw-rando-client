@@ -19,6 +19,7 @@ namespace randomizer::online {
         enum class Event {
             ShouldBlockStartingNewGameChanged,
             MultiverseUpdated,
+            ShouldEnforceSeedDifficultyChanged,
         };
 
         struct PlayerInfo {
@@ -39,6 +40,7 @@ namespace randomizer::online {
         void full_sync_states();
 
         bool should_block_starting_new_game() const { return m_should_block_starting_new_game; }
+        bool should_enforce_seed_difficulty() const { return m_should_enforce_seed_difficulty; }
         app::Color local_player_color() const { return m_color; }
         std::optional<PlayerInfo> local_player() const;
         Network::WorldInfo const* get_world(int id) const;
@@ -57,6 +59,7 @@ namespace randomizer::online {
 
         bool is_in_incorrect_save_file() const;
         void set_restrict_to_save_guid(const std::optional<core::MoodGuid>& value);
+        void set_enforce_seed_difficulty(bool value);
 
     private:
         struct MessageBoxStorage {
@@ -80,7 +83,8 @@ namespace randomizer::online {
         void print_text(std::shared_ptr<Network::PrintTextMessage> const& message);
         static void print_pickup(std::shared_ptr<Network::PrintPickupMessage> const& message);
 
-        void process_set_save_guid_restrictions_message(Network::SetSaveGuidRestrictionsMessage& message);
+        void process_set_save_guid_restrictions_message(const Network::SetSaveGuidRestrictionsMessage& message);
+        void process_set_enforce_seed_difficulty_message(const Network::SetEnforceSeedDifficultyMessage& message);
 
         void initialize_game_sync(std::shared_ptr<Network::InitGameSyncMessage> const& message);
         void set_seed(std::shared_ptr<Network::SetSeedMessage> const& message);
@@ -106,6 +110,7 @@ namespace randomizer::online {
 
         std::optional<core::MoodGuid> m_restrict_to_save_guid = std::nullopt;
         bool m_should_restrict_to_save_guid = false;
+        bool m_should_enforce_seed_difficulty = false;
         std::optional<core::MoodGuid> m_report_player_save_guid = std::nullopt;
     };
 } // namespace randomizer::online
