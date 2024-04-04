@@ -46,6 +46,10 @@ namespace randomizer::input {
             server_reconnect_current_multiverse();
         });
 
+        auto on_show_flags_before = single_input_bus().register_handler(Action::ShowFlags, EventTiming::Before, [](auto, auto) {
+            game_seed().show_flags_message();
+        });
+
         auto on_show_last_pickup_before = single_input_bus().register_handler(Action::ShowLastPickup, EventTiming::Before, [](auto, auto) {
             core::message_controller().requeue_last_saved();
         });

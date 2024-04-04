@@ -32,6 +32,24 @@ namespace randomizer::seed {
         }
     }
 
+    void Seed::show_flags_message() const {
+        std::string flags;
+        for (auto const& flag: info().meta.flags) {
+            if (flags.empty()) {
+                flags += "\nFlags: ";
+            } else {
+                flags += ", ";
+            }
+
+            flags += flag;
+        }
+
+        core::message_controller().queue_central({
+            .text = core::Property<std::string>::format("Loaded <hex_9ee2f7ff>{}</>{}", info().meta.slug, flags),
+            .show_box = true,
+            .prioritized = true,
+        });
+    }
     void Seed::reload(const bool show_message) {
         if (!m_last_parser) {
             return;
@@ -68,17 +86,6 @@ namespace randomizer::seed {
             }
         }
 
-        std::string flags;
-        for (auto const& flag: info().meta.flags) {
-            if (flags.empty()) {
-                flags += "\nFlags: ";
-            } else {
-                flags += ", ";
-            }
-
-            flags += flag;
-        }
-
         // TODO: Hack, remove when we have new header language and we set these directly.
         set_shop_slot_titles(*this, game::shops::opher_shop().slots());
         set_shop_slot_titles(*this, game::shops::twillen_shop().slots());
@@ -93,11 +100,7 @@ namespace randomizer::seed {
             return;
         }
 
-        core::message_controller().queue_central({
-            .text = core::Property<std::string>::format("Loaded <hex_9ee2f7ff>{}</>{}", info().meta.slug, flags),
-            .show_box = true,
-            .prioritized = true,
-        });
+        show_flags_message();
     }
 
     void Seed::clear() const {
