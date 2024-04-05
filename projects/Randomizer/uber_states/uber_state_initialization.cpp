@@ -376,6 +376,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "inLogicFilterEnabled", IN_LOGIC_FILTER_ENABLED_ID, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "fixMeetingKwolokUnderwaterTrigger", 13, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "fixTeleporterChainOutOfBounds", 14, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "fixKwolokBossEscapeUnderwaterSpiritLightSoftlock", 15, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoConfig, "forceNoAirDecelerationFlag", FORCE_AIR_NO_DECELERATION_ID, 0),
 
