@@ -78,6 +78,7 @@ namespace randomizer::seed {
         Seed(location_data::LocationCollection const& location_data);
 
         void read(const std::string& seed_content, const seed_parser parser, const bool show_message = true);
+        void show_flags_message() const;
         void reload(const bool show_message = true);
         void clear() const;
 
