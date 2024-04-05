@@ -4,7 +4,7 @@
 #include <Core/api/scenes/scene_load.h>
 
 namespace {
-    auto on_scene_loade_handler = core::api::scenes::event_bus().register_handler(
+    auto on_scene_loaded_handler = core::api::scenes::event_bus().register_handler(
         [](auto metadata) {
             if (metadata->state != app::SceneState__Enum::Enabled) {
                 return;
