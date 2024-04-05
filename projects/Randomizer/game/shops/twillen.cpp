@@ -27,6 +27,7 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
+#include <Modloader/app/methods/MenuScreenManager.h>
 #include <Modloader/app/methods/SpellUIExperience.h>
 #include <set>
 

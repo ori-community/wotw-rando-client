@@ -69,6 +69,7 @@ set(
         "game/behaviour_changes/deflector_without_bash.cpp"
         "game/behaviour_changes/faster_teleportation.cpp"
         "game/behaviour_changes/feeding_grounds_allow_burrow.cpp"
+        "game/behaviour_changes/fix_shop_anywhere.cpp"
         "game/behaviour_changes/flap_without_glide.cpp"
         "game/behaviour_changes/instant_tp_activation.cpp"
         "game/behaviour_changes/kwolok_boss_rubberbanding_fix.cpp"
