@@ -78,6 +78,7 @@ set(
         "game/behaviour_changes/stomp_through_portals.cpp"
         "game/behaviour_changes/teleporter_glades_identifier.cpp"
         "game/behaviour_changes/teleporter_map_activation.cpp"
+        "game/behaviour_changes/teleporting_oob_fix.cpp"
         "game/behaviour_changes/trials_leaderboards.cpp"
         "game/condition_intercepts/day_night_logic.cpp"
         "game/condition_intercepts/good_hollow.cpp"
