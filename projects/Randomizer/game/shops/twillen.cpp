@@ -103,10 +103,12 @@ namespace {
         il2cpp::invoke(core::api::game::player::sein()->fields.PlayerSpiritShards->fields.OnInventoryUpdated, "Invoke", shard);
 
         auto ui_experience = il2cpp::unity::get_component_in_children<app::SpellUIExperience>(
-            il2cpp::unity::get_game_object(types::UI::get_class()->static_fields->SeinUI),
-            types::SpellUIExperience::get_class()
+            il2cpp::unity::get_game_object(types::UI::get_class()->static_fields->SeinUI), types::SpellUIExperience::get_class()
         );
-        SpellUIExperience::Spend(ui_experience, twillen_shop().slot(shard->fields.m_type)->cost.get<int>());
+
+        if (il2cpp::unity::is_valid(ui_experience)) {
+            SpellUIExperience::Spend(ui_experience, twillen_shop().slot(shard->fields.m_type)->cost.get<int>());
+        }
 
         buy_item(*twillen_shop().slot(shard->fields.m_type));
         Moon::uberSerializationWisp::PlayerUberStateShards_Shard::RunSetDirtyCallback(shard);
