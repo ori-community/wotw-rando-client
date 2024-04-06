@@ -11,11 +11,8 @@
 #include <Core/ipc/ipc.h>
 #include <Core/utils/json_serializers.h>
 
-#include <Common/ext.h>
-
 #include <Modloader/modloader.h>
 
-#include <Modloader/windows_api/focus_window.h>
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
@@ -34,6 +31,17 @@ namespace randomizer::ipc {
         void reread_seed_source(const nlohmann::json& j) {
             info("ipc", "Received reread_seed_source action request.");
             randomizer::reread_seed_source();
+        }
+
+        void load_new_game_source(const nlohmann::json& j) {
+            info("ipc", "Received load_new_game_source action request.");
+            randomizer::load_new_game_source();
+
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>::format("Start an empty save file to play"),
+                .show_box = true,
+                .prioritized = true,
+            });
         }
 
         void get_flags(const nlohmann::json& j) {
@@ -214,10 +222,6 @@ namespace randomizer::ipc {
             core::ipc::send_message(response);
         }
 
-        void focus_game_window(const nlohmann::json& j) {
-            modloader::win::focus_window("OriAndTheWilloftheWisps");
-        }
-
         void report_load(GameEvent game_event, EventTiming timing) {
             send_message(core::ipc::make_request("notify_on_load"));
         }
@@ -259,7 +263,7 @@ namespace randomizer::ipc {
             register_request_handler("get_total_pickup_count", get_total_pickup_count);
             register_request_handler("get_pickup_count_by_area", get_pickup_count_by_area);
             register_request_handler("get_pickup_counts", get_pickup_counts);
-            register_request_handler("focus_game_window", focus_game_window);
+            register_request_handler("load_new_game_source", load_new_game_source);
         });
     } // namespace
 

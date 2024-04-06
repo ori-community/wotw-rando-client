@@ -38,7 +38,6 @@ namespace randomizer::input {
         });
 
         auto on_reload_before = single_input_bus().register_handler(Action::ReloadSeed, EventTiming::Before, [](auto, auto) {
-            load_new_game_source();
             reread_seed_source();
         });
 
