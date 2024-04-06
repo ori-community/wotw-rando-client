@@ -46,6 +46,7 @@ namespace randomizer::seed {
 
         core::message_controller().queue_central({
             .text = core::Property<std::string>::format("Loaded <hex_9ee2f7ff>{}</>{}", info().meta.slug, flags),
+            .duration = 5.f,
             .show_box = true,
             .prioritized = true,
         });
