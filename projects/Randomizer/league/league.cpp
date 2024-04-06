@@ -174,6 +174,8 @@ namespace randomizer::league {
             }
 
             submission_status = SubmissionStatus::Uploading;
+            core::events::schedule_task_for_next_update(update_status_text_box);
+
             const auto host = core::settings::host();
             const auto insecure = core::settings::insecure();
             const auto multiverse_id = get_multiverse_id().value();
