@@ -15,8 +15,8 @@
 #include <Modloader/app/methods/CameraPivotZone.h>
 #include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/methods/Core/Input_InputButtonProcessor.h>
-#include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/GameController.h>
+#include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/GameplayCamera.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/RunActionOnce.h>
@@ -38,6 +38,7 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
+#include <Randomizer/ui/main_menu_seed_info.h>
 
 
 #include "Modloader/windows_api/windows.h"
@@ -147,6 +148,7 @@ namespace randomizer::game {
 
             if (ui_go_handle.has_value() && ui_go_handle->is_valid()) {
                 il2cpp::unity::set_active(**ui_go_handle, !is_in_lobby && !is_starting_game);
+                main_menu_seed_info::update_difficulty_menu_items();
             }
 
             set_full_game_main_menu_selection_manager_active(!is_in_lobby);

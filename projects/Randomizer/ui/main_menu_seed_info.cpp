@@ -1,3 +1,4 @@
+#include <Randomizer/ui/main_menu_seed_info.h>
 #include <Modloader/il2cpp_helpers.h>
 
 #include <Common/event_bus.h>
@@ -151,37 +152,6 @@ namespace randomizer::main_menu_seed_info {
             if (object.has_value() && **object != nullptr) {
                 action(**object);
             }
-        }
-
-        void update_difficulty_menu_items() {
-            auto allow_easy = false;
-            auto allow_normal = false;
-            auto allow_hard = false;
-
-            if (
-                GameStateMachine::IsInExtendedTitleScreen(types::GameStateMachine::get_class()->static_fields->m_instance) &&
-                SaveSlotsManager::SlotByIndex(SaveSlotsManager::get_CurrentSlotIndex()) == nullptr // Selected save file is empty
-            ) {
-                if (randomizer::multiplayer_universe().should_enforce_seed_difficulty()) {
-                    const auto seed_metadata = std::holds_alternative<seed::Seed::SeedMetaData>(current_seed_meta_data_result)
-                    ? std::make_optional(std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result))
-                    : std::nullopt;
-
-                    if (seed_metadata.has_value()) {
-                        allow_easy = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Easy;
-                        allow_normal = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Normal;
-                        allow_hard = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Hard;
-                    }
-                } else {
-                    allow_easy = true;
-                    allow_normal = true;
-                    allow_hard = true;
-                }
-            }
-
-            do_if_valid<app::CleverMenuItem>(easy_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_easy); });
-            do_if_valid<app::CleverMenuItem>(normal_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_normal); });
-            do_if_valid<app::CleverMenuItem>(hard_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_hard); });
         }
 
         void on_ready(ModloaderEvent) {
@@ -441,5 +411,34 @@ namespace randomizer::main_menu_seed_info {
         }
     } // namespace
 
-    void notify_online_status_changed() {}
+    void update_difficulty_menu_items() {
+        auto allow_easy = false;
+        auto allow_normal = false;
+        auto allow_hard = false;
+
+        if (
+            GameStateMachine::IsInExtendedTitleScreen(types::GameStateMachine::get_class()->static_fields->m_instance) &&
+            SaveSlotsManager::SlotByIndex(SaveSlotsManager::get_CurrentSlotIndex()) == nullptr // Selected save file is empty
+        ) {
+            if (randomizer::multiplayer_universe().should_enforce_seed_difficulty()) {
+                const auto seed_metadata = std::holds_alternative<seed::Seed::SeedMetaData>(current_seed_meta_data_result)
+                ? std::make_optional(std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result))
+                : std::nullopt;
+
+                if (seed_metadata.has_value()) {
+                    allow_easy = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Easy;
+                    allow_normal = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Normal;
+                    allow_hard = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Hard;
+                }
+            } else {
+                allow_easy = true;
+                allow_normal = true;
+                allow_hard = true;
+            }
+        }
+
+        do_if_valid<app::CleverMenuItem>(easy_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_easy); });
+        do_if_valid<app::CleverMenuItem>(normal_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_normal); });
+        do_if_valid<app::CleverMenuItem>(hard_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_hard); });
+    }
 } // namespace randomizer::main_menu_seed_info
