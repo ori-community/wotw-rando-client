@@ -112,23 +112,39 @@ namespace randomizer::seed {
         items::destroy_all_seed_icons();
     }
 
-    MapIcon Seed::icon(inner_location_entry location) {
+    MapIcon Seed::icon(const inner_location_entry& location) const {
         std::string output;
-        const auto& [always_granted_items, items, names, icons,icon_override] = m_data->locations[location.state][location];
-        // Since we can only show one icon, if we have multiple show a preset one.
-        if (icon_override.has_value()) {
-            return icon_override.value().get();
+
+        const auto& seed_locations = m_data->locations;
+
+        auto locations_it = seed_locations.find(location.state);
+        if (locations_it == seed_locations.end()) {
+            return MapIcon::Invisible;
         }
 
-        if (icons.size() > 1) {
+        const auto& item_locations = locations_it->second;
+
+        auto location_data_it = item_locations.find(location);
+        if (location_data_it == item_locations.end()) {
+            return MapIcon::Invisible;
+        }
+
+        const auto& location_data = location_data_it->second;
+
+        // Since we can only show one icon, if we have multiple show a preset one.
+        if (location_data.icon_override.has_value()) {
+            return location_data.icon_override->get();
+        }
+
+        if (location_data.icons.size() > 1) {
             return MapIcon::QuestItem;
         }
 
-        if (!icons.empty()) {
-            return icons.front().get();
+        if (!location_data.icons.empty()) {
+            return location_data.icons.front().get();
         }
 
-        return !names.empty() ? MapIcon::QuestItem : MapIcon::Invisible;
+        return !location_data.names.empty() ? MapIcon::QuestItem : MapIcon::Invisible;
     }
 
     std::string Seed::text(const inner_location_entry& location) const {
@@ -165,7 +181,7 @@ namespace randomizer::seed {
             }
         }
 
-        auto& inner_locations = m_data->locations[location];
+        const auto& inner_locations = m_data->locations[location];
         std::map<int, std::tuple<std::shared_ptr<items::BaseItem>, core::api::uber_states::UberStateCondition, bool>> to_grant;
         for (auto& [condition, data]: inner_locations) {
             const auto already_granted = condition.resolve(previous_value);

@@ -52,7 +52,7 @@ struct core::Property<T> {
                 throw std::exception("Unhandled variant in Property");
         }
 
-        notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed();
     }
 
     void add(T const& value) const
@@ -67,12 +67,12 @@ struct core::Property<T> {
 
     void assign(value_type value) {
         m_value = value;
-        notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed();
     }
 
     void assign(setter<T> set, getter<T> get) {
         m_value = std::make_tuple(set, get);
-        notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed();
     }
 
     std::string to_string() const {
@@ -86,7 +86,7 @@ struct core::Property<T> {
 
     Property& operator=(const Property& other) {
         m_value = other.m_value;
-        notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed();
         return *this;
     }
 
@@ -97,6 +97,9 @@ struct core::Property<T> {
         return Property<K>([&](auto value) mutable { set(value); }, [&]() { return get(); });
     }
 
+    void notify_changed() const {
+        reactivity::notify_changed(reactivity::PropertyDependency(m_id));
+    }
 private:
     const unsigned int m_id = reactivity::reserve_property_id();
     value_type m_value = nullptr;

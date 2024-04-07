@@ -14,6 +14,8 @@
 #include <Randomizer/game/map/filter.h>
 #include <Randomizer/randomizer.h>
 
+#include "map.h"
+
 namespace randomizer::game::map {
     namespace {
         bool filter_enabled(Filters filter);
@@ -60,12 +62,11 @@ namespace randomizer::game::map {
             }
         }
 
-        app::AreaMapIconFilterFooterLabel create_filter(Filters filter, const std::string& message) {
-            app::AreaMapIconFilterFooterLabel label{
+        app::AreaMapIconFilterFooterLabel create_filter_label(Filters filter, const std::string& message) {
+            return {
                 .Filter = static_cast<app::AreaMapIconFilter__Enum>(filter),
                 .Footer = core::api::system::create_message_provider("[MapCycleFilter] Filter: " + message),
             };
-            return label;
         }
 
         bool ignore_filter_input = false;
@@ -84,9 +85,9 @@ namespace randomizer::game::map {
                 }
 
                 // Add extra labels.
-                arr->vector[static_cast<int>(Filters::InLogic)] = create_filter(Filters::InLogic, "In Logic");
-                arr->vector[static_cast<int>(Filters::Spoilers)] = create_filter(Filters::Spoilers, "Spoilers");
-                arr->vector[static_cast<int>(Filters::Players)] = create_filter(Filters::Players, "Players");
+                arr->vector[static_cast<int>(Filters::InLogic)] = create_filter_label(Filters::InLogic, "In Logic");
+                arr->vector[static_cast<int>(Filters::Spoilers)] = create_filter_label(Filters::Spoilers, "Spoilers");
+                arr->vector[static_cast<int>(Filters::Players)] = create_filter_label(Filters::Players, "Players");
 
                 icon_manager->fields.Labels = arr;
             }

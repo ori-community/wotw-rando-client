@@ -9,7 +9,7 @@ namespace randomizer::seed::items {
     public:
         int procedure;
 
-        void grant() final;
+        void grant() override;
         std::string to_string() const override;
     };
 } // namespace randomizer::seed::items

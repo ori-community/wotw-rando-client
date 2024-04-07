@@ -82,7 +82,7 @@ namespace randomizer::seed {
         void reload(const bool show_message = true);
         void clear() const;
 
-        MapIcon icon(inner_location_entry location);
+        MapIcon icon(const inner_location_entry& location) const;
         std::string text(const inner_location_entry& location) const;
         void grant(location_entry location, double previous_value);
         void procedure_call(int id);
