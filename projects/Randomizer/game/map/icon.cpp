@@ -123,9 +123,7 @@ namespace randomizer::game::map {
             .finalize(m_reactive_effects);
 
         core::reactivity::watch_effect()
-            .effect([this] {
-                m_icon.get();
-            })
+            .effect(m_icon)
             .after([&]() {
                 if (!m_initialized || m_icon.get() != m_current_icon) {
                     initialize_game_object();
