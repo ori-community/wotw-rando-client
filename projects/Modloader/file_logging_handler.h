@@ -9,7 +9,7 @@
 namespace modloader {
     class FileLoggingHandler final : public ILoggingHandler {
     public:
-        explicit FileLoggingHandler(std::filesystem::path path);
+        explicit FileLoggingHandler(const std::filesystem::path& path);
 
         void write(MessageType type, std::string const& group, std::string const& message) override;
 
