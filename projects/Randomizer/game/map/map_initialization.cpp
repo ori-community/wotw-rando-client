@@ -309,10 +309,7 @@ namespace randomizer::game::map {
 
                         return select_icon(new_location.value());
                     });
-                    spoiler_icon->icon().assign([](auto) {}, [condition, game_finished] {
-                        auto icon = game_seed().icon(condition);
-                        return icon;
-                    });
+                    spoiler_icon->icon().assign([](auto) {}, [condition, game_finished] { return game_seed().icon(condition); });
 
                     in_logic_icon->position().set(location.map_position.value());
                     in_logic_icon->name().set(location.name);

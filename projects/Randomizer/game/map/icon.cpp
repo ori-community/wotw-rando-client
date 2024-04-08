@@ -60,7 +60,7 @@ namespace randomizer::game::map {
 
                 const auto map_icon = il2cpp::unity::get_component<app::AreaMapIcon>(m_game_object.get(), types::AreaMapIcon::get_class());
                 UnityEngine::GameObject::set_moonReady(m_game_object.get(), true);
-                auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>( //
+                auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(
                     map_icon->fields.MapIconActive,
                     types::Renderer::get_class(),
                     true
