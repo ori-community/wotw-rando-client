@@ -327,6 +327,7 @@ namespace randomizer::main_menu_seed_info {
                 if (connect_to_multiverse_id.has_value()) {
                     randomizer::server_connect(*connect_to_multiverse_id);
                 } else {
+                    multiplayer_universe().set_should_block_starting_new_game(false);
                     multiplayer_universe().set_enforce_seed_difficulty(false);
                     multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
                     randomizer::server_disconnect();
@@ -344,6 +345,7 @@ namespace randomizer::main_menu_seed_info {
                 if (connect_to_multiverse_id.has_value()) {
                     randomizer::server_connect(*connect_to_multiverse_id);
                 } else {
+                    multiplayer_universe().set_should_block_starting_new_game(false);
                     multiplayer_universe().set_enforce_seed_difficulty(false);
                     multiplayer_universe().set_enforce_seed_difficulty(false);
                     randomizer::server_disconnect();
@@ -361,6 +363,7 @@ namespace randomizer::main_menu_seed_info {
                     if (connect_to_multiverse_id.has_value()) {
                         randomizer::server_connect(*connect_to_multiverse_id);
                     } else {
+                        multiplayer_universe().set_should_block_starting_new_game(false);
                         multiplayer_universe().set_enforce_seed_difficulty(false);
                         multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
                         randomizer::server_disconnect();

@@ -80,11 +80,7 @@ namespace randomizer::online {
         client.register_handler<Network::SetSeedMessage>(Network::Packet_PacketID_SetSeedMessage, [this](auto const& message) { set_seed(message); });
 
         client.register_handler<Network::SetBlockStartingNewGameMessage>(Network::Packet_PacketID_SetBlockStartingNewGameMessage, [this](auto const& message) {
-            if (m_should_block_starting_new_game != message->blockstartingnewgame()) {
-                m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::Before);
-                m_should_block_starting_new_game = message->blockstartingnewgame();
-                m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::After);
-            }
+            set_should_block_starting_new_game(message->blockstartingnewgame());
         });
 
         client.register_handler<Network::SetSaveGuidRestrictionsMessage>(Network::Packet_PacketID_SetSaveGuidRestrictionsMessage, [this](auto const& message) {
@@ -499,8 +495,13 @@ namespace randomizer::online {
 
     void MultiplayerUniverse::set_seed(std::shared_ptr<Network::SetSeedMessage> const& message) { seed::set_server_seed_content(message->seed_content()); }
 
-    void MultiplayerUniverse::set_restrict_to_save_guid(const std::optional<core::MoodGuid>& value) {
-        m_restrict_to_save_guid = value;
+    void MultiplayerUniverse::set_restrict_to_save_guid(const std::optional<core::MoodGuid>& value) { m_restrict_to_save_guid = value; }
+    void MultiplayerUniverse::set_should_block_starting_new_game(bool value) {
+        if (m_should_block_starting_new_game != value) {
+            m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::Before);
+            m_should_block_starting_new_game = value;
+            m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::After);
+        }
     }
 
     void MultiplayerUniverse::set_enforce_seed_difficulty(bool value) {

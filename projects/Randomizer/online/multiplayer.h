@@ -55,10 +55,10 @@ namespace randomizer::online {
         UberStateHandler& uber_state_handler() { return m_uber_state_handler; }
 
         const std::optional<core::MoodGuid>& restrict_to_save_guid() const { return m_restrict_to_save_guid; };
-        void set_restrict_to_save_guid(std::optional<core::MoodGuid> value) const;
 
         bool is_in_incorrect_save_file() const;
         void set_restrict_to_save_guid(const std::optional<core::MoodGuid>& value);
+        void set_should_block_starting_new_game(bool value);
         void set_enforce_seed_difficulty(bool value);
 
     private:
