@@ -379,6 +379,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "fixKwolokBossEscapeUnderwaterSpiritLightSoftlock", 15, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "fixShopAnywhere", 16, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeShriekEscapeSand", 100, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeFeedingGroundsToElevatorSand", 101, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoConfig, "forceNoAirDecelerationFlag", FORCE_AIR_NO_DECELERATION_ID, 0),
 
