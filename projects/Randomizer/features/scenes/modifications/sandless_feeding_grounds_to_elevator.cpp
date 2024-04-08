@@ -11,6 +11,8 @@ namespace {
     using namespace app::classes;
 
     std::vector<il2cpp::WeakGCRef<app::GameObject>> objects_to_disable;
+    std::optional<il2cpp::WeakGCRef<app::GameObject>> early_z_mesh;
+
     std::shared_ptr<core::reactivity::ReactiveEffect> effect;
 
     core::api::uber_states::UberState modification_enabled_state(UberStateGroup::RandoConfig, 101);
@@ -27,8 +29,10 @@ namespace {
                 objects_to_disable.clear();
 
                 objects_to_disable.emplace_back(il2cpp::unity::find_child(scene_root_go, std::vector<std::string> {"artSetups", "desertSandZoneTileA"}));
-                objects_to_disable.emplace_back(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"artSetups", "sandZones", "sandZoneBaseB"}));
-                objects_to_disable.emplace_back(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"earlyZParent", "earlyZMesh-regular-cell[68,26,0]-0"}));
+                objects_to_disable.emplace_back(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"artSetups", "sandZones", "sandZoneBaseB", "outB (1)", "desertSandZoneOutlineCs (1)"}));
+                early_z_mesh = il2cpp::WeakGCRef(
+                    il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"earlyZParent", "earlyZMesh-regular-cell[68,26,0]-0"})
+                );
 
                 effect = core::reactivity::watch_effect([] {
                     const auto modification_enabled = modification_enabled_state.get<bool>();
@@ -44,7 +48,16 @@ namespace {
                         }
                     }
 
-                    if (objects_to_disable.empty()) {
+                    if (early_z_mesh.has_value() && early_z_mesh->is_valid()) {
+                        il2cpp::unity::set_local_scale(
+                            **early_z_mesh,
+                            modification_enabled
+                                ? app::Vector3{0, 0, 0}
+                                : app::Vector3{1, 1, 1}
+                        );
+                    }
+
+                    if (objects_to_disable.empty() && (!early_z_mesh.has_value() || !early_z_mesh->is_valid())) {
                         effect = nullptr;
                     }
                 });
