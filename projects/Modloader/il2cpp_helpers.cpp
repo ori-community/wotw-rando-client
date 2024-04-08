@@ -331,9 +331,10 @@ namespace il2cpp {
             const auto transform = get_transform(obj);
             const auto child_count = UnityEngine::Transform::get_childCount(transform);
             for (int i = 0; i < child_count; i++) {
-                if (convert_csstring(UnityEngine::Object::get_name(reinterpret_cast<app::Object_1*>(UnityEngine::Transform::GetChild(transform, i)))) ==
+                auto child = UnityEngine::Transform::GetChild(transform, i);
+                if (convert_csstring(UnityEngine::Object::get_name(reinterpret_cast<app::Object_1*>(child))) ==
                     name) {
-                    children.push_back(get_game_object(transform));
+                    children.push_back(get_game_object(child));
                 }
             }
 
