@@ -389,6 +389,9 @@ namespace randomizer {
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoConfig, "chaosTriggerMin", CHAOS_TRIGGER_MIN_ID, 30.f),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoConfig, "chaosTriggerMax", CHAOS_TRIGGER_MAX_ID, 60.f),
 
+                add_state<app::SerializedIntUberState>(UberStateGroup::UI, "launchFragmentsCount", 1, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::UI, "launchFragmentsRequired", 2, 0),
+
                 add_state<app::SerializedIntUberState>(
                     UberStateGroup::LupoMapCosts, "inkwater", static_cast<int>(app::GameWorldAreaID__Enum::InkwaterMarsh), 200
                 ),
