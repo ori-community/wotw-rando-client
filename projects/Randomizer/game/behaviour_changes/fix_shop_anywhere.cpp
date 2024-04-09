@@ -9,18 +9,16 @@ namespace {
     core::api::uber_states::UberState fix_enabled_state(UberStateGroup::RandoConfig, 16);
 
     IL2CPP_INTERCEPT(MenuScreenManager, void, ShowMenuScreen, (app::MenuScreenManager* this_ptr, app::MenuScreenManager_Screens__Enum screen, bool immediate, bool play_sound, bool pause)) {
-        if (screen == app::MenuScreenManager_Screens__Enum::ShardUpgradeShop) {
-            modloader::ScopedSetter _(is_in_menu_screen_manager_show_menu_screen, true);
-            next::MenuScreenManager::ShowMenuScreen(this_ptr, screen, immediate, play_sound, pause);
-            return;
-        }
-
+        modloader::ScopedSetter _(is_in_menu_screen_manager_show_menu_screen, true);
         next::MenuScreenManager::ShowMenuScreen(this_ptr, screen, immediate, play_sound, pause);
     }
 
     IL2CPP_INTERCEPT(MenuScreenManager, void, ChangeScreen, (app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen)) {
         if (
-            screen == app::MenuScreenManager_Screens__Enum::ShardUpgradeShop &&
+            (
+                screen == app::MenuScreenManager_Screens__Enum::ShardUpgradeShop ||
+                screen == app::MenuScreenManager_Screens__Enum::ShardsShop
+            ) &&
             this_ptr->fields.CurrentScreen == app::MenuScreenManager_Screens__Enum::None &&
             !is_in_menu_screen_manager_show_menu_screen &&
             fix_enabled_state.get<bool>()
