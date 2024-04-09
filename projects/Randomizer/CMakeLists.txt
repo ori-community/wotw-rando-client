@@ -49,6 +49,7 @@ set(
         "features/scenes/modifications/double_jump_spring.cpp"
         "features/scenes/modifications/hornbug_arena_allow_teleportation.cpp"
         "features/scenes/modifications/keep_epilogue_loaded_during_shriek_escape.cpp"
+        "features/scenes/modifications/kwolok_escape_sl_softlock_fix.cpp"
         "features/scenes/modifications/load_wellspring_bottom_floor_center_path_earlier.cpp"
         "features/scenes/modifications/luma_fight_room_door_always_open.cpp"
         "features/scenes/modifications/marsh_burrow_fight_arena_allow_teleportation.cpp"
