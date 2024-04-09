@@ -76,7 +76,7 @@ namespace randomizer::seed {
     }
     std::string FileSeedSource::get_description() { return std::format("{}", convert_wstring_to_string(m_path.filename().wstring())); }
     std::string FileSeedSource::to_source_string() {
-        return std::format("file:{}", convert_wstring_to_string(m_path.filename().wstring()));
+        return std::format("file:{}", convert_wstring_to_string(m_path.wstring()));
     }
     std::optional<long> FileSeedSource::get_multiverse_id() { return std::nullopt; }
     bool FileSeedSource::allows_rereading() { return true; }
@@ -109,7 +109,7 @@ namespace randomizer::seed {
             : std::make_pair(SourceStatus::Error, std::nullopt);
     }
     std::string DebugDelayedFileSeedSource::get_description() { return std::format("File (DEBUG 5s delay) {}", convert_wstring_to_string(m_path.filename().wstring())); }
-    std::string DebugDelayedFileSeedSource::to_source_string() { return std::format("delayed-file:{}", convert_wstring_to_string(m_path.filename().wstring())); }
+    std::string DebugDelayedFileSeedSource::to_source_string() { return std::format("delayed-file:{}", convert_wstring_to_string(m_path.wstring())); }
     std::optional<long> DebugDelayedFileSeedSource::get_multiverse_id() { return std::nullopt; }
     bool DebugDelayedFileSeedSource::allows_rereading() { return true; }
 
