@@ -54,6 +54,7 @@ set(
         "features/scenes/modifications/luma_fight_room_door_always_open.cpp"
         "features/scenes/modifications/marsh_burrow_fight_arena_allow_teleportation.cpp"
         "features/scenes/modifications/meeting_kwolok_cutscene_trigger_underwater_fix.cpp"
+        "features/scenes/modifications/reactive_bone_bridge_state.cpp"
         "features/scenes/modifications/sandless_feeding_grounds_to_elevator.cpp"
         "features/scenes/modifications/sandless_shriek_escape.cpp"
         "features/secrets.cpp"
