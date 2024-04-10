@@ -21,9 +21,11 @@ namespace randomizer::messages {
             box->text_processor(general_text_processor());
         }
 
-        if (text.length() > 500) {
+        const auto length = text.length();
+
+        if (length > 350) {
             box->text().process_and_set(std::format("<s_0.7><ls_0.8>{}</></>", text));
-        } else if (text.length() > 250) {
+        } else if (length > 175) {
             box->text().process_and_set(std::format("<s_0.85><ls_0.9>{}</></>", text));
         } else {
             box->text().process_and_set(text);
