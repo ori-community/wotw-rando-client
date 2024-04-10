@@ -317,7 +317,12 @@ namespace randomizer {
 
     void server_connect(long multiverse_id, bool force_reconnect) {
         // Don't try to connect if we are already connected to the target multiverse
-        if (network_client().wants_connection() && multiverse_id_to_connect_to.has_value() && *multiverse_id_to_connect_to == multiverse_id) {
+        if (
+            !force_reconnect &&
+            network_client().wants_connection() &&
+            multiverse_id_to_connect_to.has_value() &&
+            *multiverse_id_to_connect_to == multiverse_id
+            ) {
             return;
         }
 
