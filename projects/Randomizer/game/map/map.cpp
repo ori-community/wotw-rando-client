@@ -176,10 +176,12 @@ namespace randomizer::game::map {
                 const auto it = visibility_callbacks.find(icon);
                 switch (it == visibility_callbacks.end() ? IconVisibilityResult::Show : it->second(icon)) {
                     case IconVisibilityResult::Show:
+                        icon->icon().notify_changed();
                         icon->visible().set(true);
                         icon->opacity().set(1.0);
                         break;
                     case IconVisibilityResult::ShowTransparent:
+                        icon->icon().notify_changed();
                         icon->visible().set(true);
                         icon->opacity().set(core::settings::map_icon_transparency());
                         break;

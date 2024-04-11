@@ -53,80 +53,82 @@ namespace randomizer::game::map {
         core::reactivity::watch_effect()
             .effect(m_game_object)
             .after([&]() {
-            if (!il2cpp::unity::is_valid(m_game_object.get())) {
-                m_map_icon.set(nullptr);
-                return;
-            }
+                if (!il2cpp::unity::is_valid(m_game_object.get())) {
+                    m_map_icon.set(nullptr);
+                    return;
+                }
 
-            const auto map_icon = il2cpp::unity::get_component<app::AreaMapIcon>(m_game_object.get(), types::AreaMapIcon::get_class());
-            UnityEngine::GameObject::set_moonReady(m_game_object.get(), true);
-            auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>( //
-                map_icon->fields.MapIconActive,
-                types::Renderer::get_class(),
-                true
-            );
-
-            if (map_icon->fields.MapIconInactive != nullptr) {
-                const auto renderers_extra = il2cpp::unity::get_components_in_children<app::Renderer>(
-                    map_icon->fields.MapIconInactive, types::Renderer::get_class(), true
+                const auto map_icon = il2cpp::unity::get_component<app::AreaMapIcon>(m_game_object.get(), types::AreaMapIcon::get_class());
+                UnityEngine::GameObject::set_moonReady(m_game_object.get(), true);
+                auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(
+                    map_icon->fields.MapIconActive,
+                    types::Renderer::get_class(),
+                    true
                 );
-                renderers.insert(renderers.end(), renderers_extra.begin(), renderers_extra.end());
-            }
 
-            if (map_icon->fields.MapIconSpecial != nullptr) {
-                const auto renderers_extra = il2cpp::unity::get_components_in_children<app::Renderer>(
-                    map_icon->fields.MapIconSpecial, types::Renderer::get_class(), true
-                );
-                renderers.insert(renderers.end(), renderers_extra.begin(), renderers_extra.end());
-            }
+                if (map_icon->fields.MapIconInactive != nullptr) {
+                    const auto renderers_extra = il2cpp::unity::get_components_in_children<app::Renderer>(
+                        map_icon->fields.MapIconInactive, types::Renderer::get_class(), true
+                    );
+                    renderers.insert(renderers.end(), renderers_extra.begin(), renderers_extra.end());
+                }
 
-            m_original_color.clear();
-            for (const auto renderer: renderers) {
-                m_original_color.push_back(UberShaderAPI::GetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor));
-            }
+                if (map_icon->fields.MapIconSpecial != nullptr) {
+                    const auto renderers_extra = il2cpp::unity::get_components_in_children<app::Renderer>(
+                        map_icon->fields.MapIconSpecial, types::Renderer::get_class(), true
+                    );
+                    renderers.insert(renderers.end(), renderers_extra.begin(), renderers_extra.end());
+                }
 
-            add_to_container(core::api::game::RandoContainer::MapIcons, m_game_object.get());
-            m_map_icon.set(map_icon);
-        }).finalize(m_reactive_effects);
+                m_original_color.clear();
+                for (const auto renderer: renderers) {
+                    m_original_color.push_back(UberShaderAPI::GetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor));
+                }
+
+                add_to_container(core::api::game::RandoContainer::MapIcons, m_game_object.get());
+                m_map_icon.set(map_icon);
+            })
+            .finalize(m_reactive_effects);
 
         core::reactivity::watch_effect()
             .effect(m_map_icon)
             .after([&]() {
-            if (!il2cpp::unity::is_valid(m_map_icon.get())) {
-                return;
-            }
+                if (!il2cpp::unity::is_valid(m_map_icon.get())) {
+                    return;
+                }
 
-            if (m_map_icon.get()->fields.AttentionMarker != nullptr) {
-                UnityEngine::GameObject::set_active(m_map_icon.get()->fields.AttentionMarker, false);
-                m_map_icon.get()->fields.AttentionMarkerState = nullptr;
-                m_map_icon.get()->fields.AttentionMarkerActiveConditions = nullptr;
-            }
-        }).finalize(m_reactive_effects);
-
-        core::reactivity::watch_effect()
-            .effect([&] {
-            if (il2cpp::unity::is_valid(m_game_object.get())) {
-                UnityEngine::Object::set_name(reinterpret_cast<app::Object_1*>(m_game_object.get()), il2cpp::string_new(m_name.get()));
-            }
-        }).finalize(m_reactive_effects);
+                if (m_map_icon.get()->fields.AttentionMarker != nullptr) {
+                    UnityEngine::GameObject::set_active(m_map_icon.get()->fields.AttentionMarker, false);
+                    m_map_icon.get()->fields.AttentionMarkerState = nullptr;
+                    m_map_icon.get()->fields.AttentionMarkerActiveConditions = nullptr;
+                }
+            })
+            .finalize(m_reactive_effects);
 
         core::reactivity::watch_effect()
             .effect([&] {
-            if (il2cpp::unity::is_valid(m_map_icon.get())) {
-                m_map_icon.get()->fields.m_labelBox->fields.MessageProvider = core::api::system::create_message_provider(m_label.get());
-                MessageBox::RefreshText_1(m_map_icon.get()->fields.m_labelBox);
-            }
-        }).finalize(m_reactive_effects);
+                if (il2cpp::unity::is_valid(m_game_object.get())) {
+                    UnityEngine::Object::set_name(reinterpret_cast<app::Object_1*>(m_game_object.get()), il2cpp::string_new(m_name.get()));
+                }
+            })
+            .finalize(m_reactive_effects);
+
+        core::reactivity::watch_effect()
+            .effect([&] {
+                if (il2cpp::unity::is_valid(m_map_icon.get())) {
+                    m_map_icon.get()->fields.m_labelBox->fields.MessageProvider = core::api::system::create_message_provider(m_label.get());
+                    MessageBox::RefreshText_1(m_map_icon.get()->fields.m_labelBox);
+                }
+            })
+            .finalize(m_reactive_effects);
 
         core::reactivity::watch_effect()
             .effect(m_icon)
             .after([&]() {
-            if (m_icon.get() == m_current_icon || !m_initialized) {
-                return;
-            }
-
-            initialize_game_object();
-        })
+                if (!m_initialized || m_icon.get() != m_current_icon) {
+                    initialize_game_object();
+                }
+            })
             .trigger_on_load()
             .finalize(m_reactive_effects);
 
@@ -134,29 +136,33 @@ namespace randomizer::game::map {
 
         core::reactivity::watch_effect()
             .before([&]() {
-            if (m_visible.get() && !m_initialized) {
-                initialize_game_object();
-            }
-        })
+                if (m_visible.get() && !m_initialized) {
+                    initialize_game_object();
+                }
+            })
             .effect([&] {
-            // Needs to be outside the if because we want the before part of the effect to run and initialie the game_object.
-            const auto visible = m_visible.get();
-            if (il2cpp::unity::is_valid(m_game_object.get())) {
-                UnityEngine::GameObject::set_active(m_game_object.get(), visible);
-            }
-        }).finalize(m_reactive_effects);
+                // Needs to be outside the if because we want the before part of the effect to run and initialize the game_object.
+                const auto visible = m_visible.get();
+                if (il2cpp::unity::is_valid(m_game_object.get())) {
+                    UnityEngine::GameObject::set_active(m_game_object.get(), visible);
+                }
+            })
+            .finalize(m_reactive_effects);
 
         core::reactivity::watch_effect()
             .effect([&] {
-            if (il2cpp::unity::is_valid(m_map_icon.get())) {
-                UnityEngine::GameObject::set_active(m_map_icon.get()->fields.Label, m_label_visible.get());
-            }
-        }).finalize(m_reactive_effects);
+                if (il2cpp::unity::is_valid(m_map_icon.get())) {
+                    UnityEngine::GameObject::set_active(m_map_icon.get()->fields.Label, m_label_visible.get());
+                }
+            })
+            .finalize(m_reactive_effects);
 
         core::reactivity::watch_effect().effect([&] { update_opacity(m_opacity.get()); }).finalize(m_reactive_effects);
     }
 
     Icon::~Icon() {
+        m_reactive_effects.clear();
+
         if (il2cpp::unity::is_valid(m_game_object.get())) {
             visible().set(false);
             const auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;

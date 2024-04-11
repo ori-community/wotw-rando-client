@@ -19,6 +19,7 @@ namespace randomizer::online {
         enum class Event {
             ShouldBlockStartingNewGameChanged,
             MultiverseUpdated,
+            ShouldEnforceSeedDifficultyChanged,
         };
 
         struct PlayerInfo {
@@ -39,6 +40,7 @@ namespace randomizer::online {
         void full_sync_states();
 
         bool should_block_starting_new_game() const { return m_should_block_starting_new_game; }
+        bool should_enforce_seed_difficulty() const { return m_should_enforce_seed_difficulty; }
         app::Color local_player_color() const { return m_color; }
         std::optional<PlayerInfo> local_player() const;
         Network::WorldInfo const* get_world(int id) const;
@@ -55,6 +57,9 @@ namespace randomizer::online {
         const std::optional<core::MoodGuid>& restrict_to_save_guid() const { return m_restrict_to_save_guid; };
 
         bool is_in_incorrect_save_file() const;
+        void set_restrict_to_save_guid(const std::optional<core::MoodGuid>& value);
+        void set_should_block_starting_new_game(bool value);
+        void set_enforce_seed_difficulty(bool value);
 
     private:
         struct MessageBoxStorage {
@@ -65,23 +70,24 @@ namespace randomizer::online {
         void on_load();
         void request_full_sync();
 
-        void handle_multiverse_info(Network::MultiverseInfoMessage const& message);
-        void handle_authenticated(Network::AuthenticatedMessage const& message);
-        void handle_visibility(Network::VisibilityMessage const& message) const;
+        void clear_current_multiverse_info();
+        void handle_multiverse_info(std::shared_ptr<Network::MultiverseInfoMessage> const& message);
+        void handle_authenticated(std::shared_ptr<Network::AuthenticatedMessage> const& message);
 
         void update_player_world_position(std::string_view player_id, float x, float y, std::string_view ghost_frame_data);
         void update_player_map_position(std::string_view player_id, float x, float y);
 
-        void uber_state_update(Network::UberStateUpdateMessage const& message);
-        void uber_state_batch_update(Network::UberStateBatchUpdateMessage const& message);
+        void uber_state_update(std::shared_ptr<Network::UberStateUpdateMessage> const& message);
+        void uber_state_batch_update(std::shared_ptr<Network::UberStateBatchUpdateMessage> const& message);
 
-        void print_text(Network::PrintTextMessage const& message);
-        static void print_pickup(Network::PrintPickupMessage const& message);
+        void print_text(std::shared_ptr<Network::PrintTextMessage> const& message);
+        static void print_pickup(std::shared_ptr<Network::PrintPickupMessage> const& message);
 
-        void process_set_save_guid_restrictions_message(const Network::SetSaveGuidRestrictionsMessage& restrictions);
+        void process_set_save_guid_restrictions_message(const Network::SetSaveGuidRestrictionsMessage& message);
+        void process_set_enforce_seed_difficulty_message(const Network::SetEnforceSeedDifficultyMessage& message);
 
-        void initialize_game_sync(Network::InitGameSyncMessage const& message);
-        void set_seed(Network::SetSeedMessage const& message);
+        void initialize_game_sync(std::shared_ptr<Network::InitGameSyncMessage> const& message);
+        void set_seed(std::shared_ptr<Network::SetSeedMessage> const& message);
 
         common::TimedMultiEventBus<Event> m_event_bus;
 
@@ -104,6 +110,7 @@ namespace randomizer::online {
 
         std::optional<core::MoodGuid> m_restrict_to_save_guid = std::nullopt;
         bool m_should_restrict_to_save_guid = false;
+        bool m_should_enforce_seed_difficulty = false;
         std::optional<core::MoodGuid> m_report_player_save_guid = std::nullopt;
     };
 } // namespace randomizer::online

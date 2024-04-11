@@ -24,7 +24,6 @@ message Packet {
     PlayerUseCatchingAbility = 17;
     PlayerUsedCatchingAbility = 18;
     PlayerCaught = 19;
-    Visibility = 20;
     UpdatePlayerWorldPositionMessage = 21;
     UpdatePlayerMapPositionMessage = 22;
     ResourceRequestMessage = 23;
@@ -35,6 +34,7 @@ message Packet {
     SetPlayerSaveGuidMessage = 28;
     SetSaveGuidRestrictionsMessage = 29;
     OverrideInGameTimeMessage = 30;
+    SetEnforceSeedDifficultyMessage = 32;
 
     TrackerUpdate = 100;
     ResetTracker = 101;
@@ -76,10 +76,16 @@ message SetSaveGuidRestrictionsMessage {
   bool shouldRestrictSaveGuid = 2;
 }
 
+message SetEnforceSeedDifficultyMessage {
+  bool shouldEnforceSeedDifficulty = 1;
+}
+
 message InitGameSyncMessage {
   repeated UberId uberId = 1;
   bool blockStartingNewGame = 2;
   SetSaveGuidRestrictionsMessage saveGuidRestrictions = 3;
+  bool preventCheats = 4;
+  SetEnforceSeedDifficultyMessage enforceSeedDifficulty = 5;
 }
 
 message SetPlayerSaveGuidMessage {
@@ -118,6 +124,7 @@ message PrintPickupMessage {
 
 message AuthenticateMessage {
   string jwt = 1;
+  string client_version = 2;
 }
 
 message AuthenticatedMessage {
@@ -131,9 +138,7 @@ message RequestSeedMessage {
 }
 
 message SetSeedMessage {
-  string name = 1;
-  string seed = 2;
-  bool init = 3;
+  string seed_content = 1;
 }
 
 message PlayerPositionMessage  {
@@ -166,16 +171,18 @@ message UserInfo {
   string id = 1;
   string name = 2;
   optional string avatarId = 3;
-  optional int64 connectedMultiverseId = 4;
-  optional int64 currentMultiverseId = 5;
-  bool raceReady = 8;
+}
+
+message WorldMembershipInfo {
+  int64 id = 1;
+  UserInfo user = 2;
 }
 
 message WorldInfo {
   int64 id = 1;
   string name = 2;
   string color = 3;
-  repeated UserInfo members = 4;
+  repeated WorldMembershipInfo memberships = 4;
   optional int64 seedId = 5;
 }
 
@@ -189,8 +196,7 @@ message UniverseInfo {
 message MultiverseInfoMessage {
   enum GameHandlerType {
     Normal = 0;
-    HideAndSeek = 1;
-    Infection = 2;
+    League = 3;
   }
 
   int64 id = 1;
@@ -200,12 +206,9 @@ message MultiverseInfoMessage {
   optional int64 seedGroupId = 5;
   GameHandlerType handlerType = 6;
   bytes handlerInfo = 7;
-  optional VisibilityMessage visibility = 8;
-}
 
-message VisibilityMessage {
-  repeated string hidden_in_world = 1;
-  repeated string hidden_on_map = 2;
+  repeated string connectedUserIds = 12;
+  repeated string raceReadyUserIds = 13;
 }
 
 message SeekerWorldInfo {

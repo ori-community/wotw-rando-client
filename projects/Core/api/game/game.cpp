@@ -13,11 +13,11 @@
 #include <Modloader/app/methods/SeinEnergy.h>
 #include <Modloader/app/methods/SeinHealthController.h>
 #include <Modloader/app/methods/TimeUtility.h>
+#include <Modloader/app/methods/PlatformMovement.h>
 #include <Modloader/app/methods/UnityEngine/Behaviour.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/types/CheatsHandler.h>
-#include <Modloader/app/types/DebugValues.h>
 #include <Modloader/app/types/GameController.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/GameSettings.h>
@@ -30,6 +30,7 @@
 #include <Modloader/windows_api/console.h>
 #include <Modloader/windows_api/common.h>
 
+#include <Core/settings.h>
 #include <magic_enum.hpp>
 
 using namespace modloader;
@@ -98,11 +99,15 @@ namespace core::api::game {
             UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(simple_fps), false);
         });
 
-        IL2CPP_INTERCEPT(GameController, void, OnApplicationFocus, (app::GameController * this_ptr, bool focusStatus)) {
-            auto evt = focusStatus ? GameEvent::GainedFocus : GameEvent::LostFocus;
+        IL2CPP_INTERCEPT(GameController, void, OnApplicationFocus, (app::GameController * this_ptr, bool focus_status)) {
+            if (focus_status) {
+                core::settings::reload();
+            }
+
+            auto evt = focus_status ? GameEvent::GainedFocus : GameEvent::LostFocus;
             game_event_bus.trigger_event(evt, EventTiming::Before);
             this_ptr->fields._PreventFocusPause_k__BackingField = true;
-            next::GameController::OnApplicationFocus(this_ptr, focusStatus);
+            next::GameController::OnApplicationFocus(this_ptr, focus_status);
             game_event_bus.trigger_event(evt, EventTiming::After);
         }
 
@@ -176,8 +181,8 @@ namespace core::api::game {
             SaveGameController::CanPerformSave(save_controller());
     }
 
-    void checkpoint(bool refill, bool refill_instantly, bool restore_instantly) {
-        save(true, SaveOptions(refill, refill_instantly, false, restore_instantly));
+    void checkpoint(bool refill, bool refill_instantly, bool restore_instantly, std::optional<app::Vector2> override_position) {
+        save(true, SaveOptions(refill, refill_instantly, false, restore_instantly, override_position));
     }
 
     bool save(bool queue, const SaveOptions& options) {
@@ -206,6 +211,14 @@ namespace core::api::game {
         }
 
         save_controller()->fields.m_lastSavedFrameIndex = -1;
+
+        if (options.override_position.has_value()) {
+            PlatformMovement::OverridePositionNextSave(
+                reinterpret_cast<app::PlatformMovement*>(core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement),
+                app::Vector3{options.override_position->x, options.override_position->y, 0.f}
+            );
+        }
+
         GameController::CreateCheckpoint(game::game_controller(), options.to_disk, false);
 
         if (options.restore_instantly) {

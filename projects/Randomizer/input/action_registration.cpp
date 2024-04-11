@@ -4,7 +4,6 @@
 #include <Randomizer/randomizer.h>
 
 #include <Core/api/game/debug_menu.h>
-#include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/core.h>
 #include <Core/settings.h>
@@ -38,8 +37,16 @@ namespace randomizer::input {
             game_seed().trigger(seed::SeedEvent::ShowProgress);
         });
 
-        auto on_reload_before = single_input_bus().register_handler(Action::Reload, EventTiming::Before, [](auto, auto) {
-            reload();
+        auto on_reload_before = single_input_bus().register_handler(Action::ReloadSeed, EventTiming::Before, [](auto, auto) {
+            reread_seed_source();
+        });
+
+        auto on_reconnect_before = single_input_bus().register_handler(Action::ServerReconnect, EventTiming::Before, [](auto, auto) {
+            server_reconnect_current_multiverse();
+        });
+
+        auto on_show_flags_before = single_input_bus().register_handler(Action::ShowFlags, EventTiming::Before, [](auto, auto) {
+            game_seed().show_flags_message();
         });
 
         auto on_show_last_pickup_before = single_input_bus().register_handler(Action::ShowLastPickup, EventTiming::Before, [](auto, auto) {
@@ -51,7 +58,7 @@ namespace randomizer::input {
                 features::credits::start();
             } else {
                 core::message_controller().queue_central({
-                    .text = core::Property<std::string>("Credit warp not unlocked!"),
+                    .text = core::Property<std::string>("Game is not finished!"),
                     .prioritized = true,
                 });
             }

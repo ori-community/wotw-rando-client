@@ -9,11 +9,13 @@
 #include <Core/events/task.h>
 
 #include <Common/ext.h>
+#include <Core/core.h>
 
 #include <Modloader/app/methods/ActionSequence.h>
 #include <Modloader/app/methods/CameraPivotZone.h>
 #include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/methods/Core/Input_InputButtonProcessor.h>
+#include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/GameplayCamera.h>
 #include <Modloader/app/methods/MessageBox.h>
@@ -36,6 +38,7 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
+#include <Randomizer/ui/main_menu_seed_info.h>
 
 
 #include "Modloader/windows_api/windows.h"
@@ -95,16 +98,23 @@ namespace randomizer::game {
                     int total_waiting_for_players_count = 0;
 
                     if (randomizer::multiplayer_universe().multiverse_info() != nullptr) {
-                        auto u = randomizer::multiplayer_universe().multiverse_info();
+                        auto multiverse_info = randomizer::multiplayer_universe().multiverse_info();
 
-                        for (const auto& universe: randomizer::multiplayer_universe().multiverse_info()->universes()) {
+                        std::unordered_set<std::string> connected_user_ids;
+                        std::unordered_set<std::string> race_ready_user_ids;
+                        connected_user_ids.insert_range(multiverse_info->connecteduserids());
+                        race_ready_user_ids.insert_range(multiverse_info->racereadyuserids());
+
+                        for (const auto& universe: multiverse_info->universes()) {
                             for (const auto& world: universe.worlds()) {
-                                for (const auto& player: world.members()) {
-                                    if (!player.raceready()) {
-                                        if (displayed_waiting_for_players_count < MAX_DISPLAYED_WAITING_FOR_PLAYERS) {
-                                            text += std::format("\n{}", player.name());
+                                for (const auto& membership: world.memberships()) {
+                                    const auto& user = membership.user();
 
-                                            if (!player.has_connectedmultiverseid()) {
+                                    if (!race_ready_user_ids.contains(user.id())) {
+                                        if (displayed_waiting_for_players_count < MAX_DISPLAYED_WAITING_FOR_PLAYERS) {
+                                            text += std::format("\n{}", user.name());
+
+                                            if (!connected_user_ids.contains(user.id())) {
                                                 text += " <s_0.8>(not connected)</>";
                                             }
 
@@ -138,6 +148,7 @@ namespace randomizer::game {
 
             if (ui_go_handle.has_value() && ui_go_handle->is_valid()) {
                 il2cpp::unity::set_active(**ui_go_handle, !is_in_lobby && !is_starting_game);
+                main_menu_seed_info::update_difficulty_menu_items();
             }
 
             set_full_game_main_menu_selection_manager_active(!is_in_lobby);
@@ -164,7 +175,7 @@ namespace randomizer::game {
         }
 
         void update_difficulty_text_boxes() {
-            std::string prepend_to_difficulty = "";
+            std::string prepend_to_difficulty;
 
             if (randomizer::multiplayer_universe().should_block_starting_new_game()) {
                 prepend_to_difficulty = "JOIN RACE in ";
@@ -226,7 +237,7 @@ namespace randomizer::game {
 
         void on_scene_loading(core::api::scenes::SceneLoadEventMetadata* metadata) {
             if (metadata->state == app::SceneState__Enum::Loaded || metadata->state == app::SceneState__Enum::LoadingCancelled) {
-                if (!pending_scenes_to_preload.erase(metadata->scene_name.data())) {
+                if (!pending_scenes_to_preload.erase(metadata->scene_name)) {
                     return;
                 }
 
@@ -295,12 +306,24 @@ namespace randomizer::game {
             // If the player started a new empty save slot...
             if (empty_slot_pressed_action_sequence_handle.has_value() && this_ptr->fields.Action == reinterpret_cast<app::ActionMethod*>(empty_slot_pressed_action_sequence_handle.value().ref()) &&
                 start_game_sequence_handle.has_value()) {
+
+                const auto [source_status, source_seed_content] = get_new_game_seed_source()->poll();
+                if (source_status != seed::SourceStatus::Ready || !source_seed_content.has_value()) {
+                    core::message_controller().queue_central({
+                        .text = core::Property<std::string>::format("You cannot start a game without a seed"),
+                        .show_box = true,
+                        .prioritized = true,
+                    });
+                    return;
+                }
+
+                set_new_game_seed_content(*source_seed_content);
+
                 if (randomizer::multiplayer_universe().should_block_starting_new_game()) {
                     is_in_lobby = true;
                     update_lobby_ui();
                     check_if_preloaded_and_report_ready();
-                }
-                else {
+                } else {
                     set_full_game_main_menu_selection_manager_active(false);
                     start_new_game();
                 }
@@ -357,14 +380,16 @@ namespace randomizer::game {
                 hard_mode_text_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
                         il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. hardMode", "text"}), types::MessageBox::get_class()));
 
+                #ifdef ENABLE_FAST_LOAD
                 // Make QTMs faster
                 auto qtm_fade_to_black_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "actions", "usedSlotPressed (part2)", "06. FadeToBlack over 5 seconds"});
                 auto qtm_fade_to_black = il2cpp::unity::get_component<app::FaderBFadeInAction>(qtm_fade_to_black_go, types::FaderBFadeInAction::get_class());
-                qtm_fade_to_black->fields.FadeInDuration = 2.f;
+                qtm_fade_to_black->fields.FadeInDuration = 0.f;
 
                 auto qtm_wait_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "actions", "usedSlotPressed (part2)", "07. Wait 5 seconds"});
                 auto qtm_wait = il2cpp::unity::get_component<app::WaitAction>(qtm_wait_go, types::WaitAction::get_class());
-                qtm_wait->fields.Duration = 2.f;
+                qtm_wait->fields.Duration = 0.f;
+                #endif
 
                 update_difficulty_text_boxes();
             }
@@ -376,10 +401,10 @@ namespace randomizer::game {
                 return;
             }
 
-            core::api::game::player::ability(app::AbilityType__Enum::SpiritMagnet).set(false);
-            core::api::game::event_bus().trigger_event(GameEvent::NewGameInitialized, EventTiming::Before);
             core::api::game::event_bus().trigger_event(GameEvent::NewGameInitialized, EventTiming::After);
             on_new_game_late_initialization_handle = nullptr;
+
+            check_seed_difficulty_enforcement();
 
             core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.Enabled = true;
             if (handling_start) {
@@ -389,6 +414,8 @@ namespace randomizer::game {
         }
 
         void on_new_game(GameEvent event, EventTiming timing) {
+            core::api::game::event_bus().trigger_event(GameEvent::NewGameInitialized, EventTiming::Before);
+
             auto game_state_machine = types::GameStateMachine::get_class()->static_fields->m_instance;
 
             auto camera = types::UI_Cameras::get_class()->static_fields->Current;
@@ -405,6 +432,8 @@ namespace randomizer::game {
             on_new_game_late_initialization_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, on_new_game_late_initialization);
 
             GameStateMachine::SetToGame(game_state_machine);
+            core::api::game::player::ability(app::AbilityType__Enum::SpiritMagnet).set(false);
+
             core::api::game::player::snap_camera();
             ScenesManager::ClearPreventUnloading(core::api::scenes::get_scenes_manager());
         }

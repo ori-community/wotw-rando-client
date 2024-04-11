@@ -2,7 +2,7 @@
 #include <Modloader/file_logging_handler.h>
 
 namespace modloader {
-    FileLoggingHandler::FileLoggingHandler(std::filesystem::path path) :
+    FileLoggingHandler::FileLoggingHandler(const std::filesystem::path& path) :
         m_stream(path) {
     }
 
@@ -19,5 +19,6 @@ namespace modloader {
 
         std::lock_guard guard(m_mutex);
         m_stream << line << std::endl;
+        m_stream.flush();
     }
 }

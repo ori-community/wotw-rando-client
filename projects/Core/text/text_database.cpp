@@ -312,7 +312,7 @@ namespace core::text {
     }
 
     void register_text(text_id id, std::wstring_view text) {
-        register_text(id, convert_wstring_to_string(text));
+        register_text(id, convert_wstring_to_string(std::wstring(text)));
     }
 
     void clear_text(text_id id) {

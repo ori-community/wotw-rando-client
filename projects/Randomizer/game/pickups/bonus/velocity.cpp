@@ -103,11 +103,15 @@ namespace {
     }
 
     float initial_burrow_speed;
-    float initial_burrow_dash;
+    float initial_burrow_dash_speed;
+    float initial_burrow_dash_enter_speed;
+    float initial_burrow_dash_exit_speed;
 
     IL2CPP_INTERCEPT(SeinDigging, void, OnAwake, (app::SeinDigging * this_ptr)) {
         initial_burrow_speed = this_ptr->fields.DigSpeed;
-        initial_burrow_dash = this_ptr->fields.DashSpeed;
+        initial_burrow_dash_speed = this_ptr->fields.DashSpeed;
+        initial_burrow_dash_enter_speed = this_ptr->fields.OutOfDigDashSpeed;
+        initial_burrow_dash_exit_speed = this_ptr->fields.DashExitDigSpeed;
         next::SeinDigging::OnAwake(this_ptr);
     }
 
@@ -119,23 +123,51 @@ namespace {
 
     IL2CPP_INTERCEPT(SeinDigging, void, StartDashing, (app::SeinDigging * this_ptr)) {
         auto modifier = burrow_dash_speed.get<float>();
-        this_ptr->fields.DashSpeed = initial_burrow_dash * modifier;
+        this_ptr->fields.DashSpeed = initial_burrow_dash_speed * modifier;
         next::SeinDigging::StartDashing(this_ptr);
     }
 
+    IL2CPP_INTERCEPT(SeinDigging, void, StartOutOfZoneDashing, (app::SeinDigging * this_ptr)) {
+        auto modifier = burrow_dash_speed.get<float>();
+        this_ptr->fields.OutOfDigDashSpeed = initial_burrow_dash_enter_speed * (1.f + (modifier - 1.f) / 1.5f);  // Affect less than normal dash
+        next::SeinDigging::StartOutOfZoneDashing(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(SeinDigging, void, EndDigging, (app::SeinDigging * this_ptr)) {
+        auto modifier = burrow_dash_speed.get<float>();
+        this_ptr->fields.DashExitDigSpeed = initial_burrow_dash_exit_speed * (1.f + (modifier - 1.f) / 1.5f);  // Affect less than normal dash
+        next::SeinDigging::EndDigging(this_ptr);
+    }
+
     float initial_swim_speed;
-    float initial_swim_dash;
+    float initial_swim_dash_speed;
+    float initial_swim_dash_enter_speed;
+    float initial_swim_dash_exit_speed;
 
     IL2CPP_INTERCEPT(SeinSwimming, void, OnAwake, (app::SeinSwimming * this_ptr)) {
         initial_swim_speed = this_ptr->fields.SwimSpeed;
-        initial_swim_dash = this_ptr->fields.DashMaxSpeed;
+        initial_swim_dash_speed = this_ptr->fields.DashMaxSpeed;
+        initial_swim_dash_enter_speed = this_ptr->fields.DashIntoWaterCurveMaxSpeed;
+        initial_swim_dash_exit_speed = this_ptr->fields.DashExitCurveMaxSpeed;
         next::SeinSwimming::OnAwake(this_ptr);
     }
 
     IL2CPP_INTERCEPT(SeinSwimming, void, StartDashing, (app::SeinSwimming * this_ptr)) {
         auto modifier = swim_dash_speed.get<float>();
-        this_ptr->fields.DashMaxSpeed = initial_swim_dash * modifier;
+        this_ptr->fields.DashMaxSpeed = initial_swim_dash_speed * modifier;
         next::SeinSwimming::StartDashing(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(SeinSwimming, void, OnEnterDashIntoWater, (app::SeinSwimming * this_ptr)) {
+        auto modifier = swim_dash_speed.get<float>();
+        this_ptr->fields.DashIntoWaterCurveMaxSpeed = initial_swim_dash_enter_speed * (1.f + (modifier - 1.f) / 1.5f);  // Affect less than water dash
+        next::SeinSwimming::OnEnterDashIntoWater(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(SeinSwimming, void, OnEnterDashingOutOfWater, (app::SeinSwimming * this_ptr)) {
+        auto modifier = swim_dash_speed.get<float>();
+        this_ptr->fields.DashExitCurveMaxSpeed = initial_swim_dash_exit_speed * (1.f + (modifier - 1.f) / 1.5f);  // Affect less than water dash
+        next::SeinSwimming::OnEnterDashingOutOfWater(this_ptr);
     }
 
     float jump_height_backflip = 0.f;

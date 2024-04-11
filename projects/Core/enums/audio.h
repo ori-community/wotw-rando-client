@@ -3,11 +3,11 @@
 
 enum class SoundEventID : uint32_t {
     // Randomizer
-    Catching = 1210588850,
+    LeagueSubmitted = 2697705149,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SoundEventID, {
-                                                   { SoundEventID::Catching, "Catching" },
+                                                   { SoundEventID::LeagueSubmitted, "LeagueSubmitted" },
                                            });
 
 enum class SoundStateGroupID : uint32_t {

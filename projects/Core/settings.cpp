@@ -31,10 +31,6 @@ namespace core::settings {
         return !get_settings().get_boolean("Flags", "DisableDebugControls", true);
     }
 
-    bool netcode_disabled() {
-        return get_settings().get_boolean("Flags", "DisableNetcode", false);
-    }
-
     bool insecure() {
         return get_settings().get_boolean("Flags", "Insecure", false);
     }

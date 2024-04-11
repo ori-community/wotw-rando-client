@@ -11,8 +11,6 @@
 #include <Core/ipc/ipc.h>
 #include <Core/utils/json_serializers.h>
 
-#include <Common/ext.h>
-
 #include <Modloader/modloader.h>
 
 #include <nlohmann/json.hpp>
@@ -25,9 +23,25 @@ using namespace core::ipc;
 
 namespace randomizer::ipc {
     namespace {
-        void reload(const nlohmann::json& j) {
-            info("ipc", "Received reload action request.");
-            randomizer::reload();
+        void server_reconnect_current_multiverse(const nlohmann::json& j) {
+            info("ipc", "Received server_reconnect_current_multiverse action request.");
+            randomizer::server_reconnect_current_multiverse();
+        }
+
+        void reread_seed_source(const nlohmann::json& j) {
+            info("ipc", "Received reread_seed_source action request.");
+            randomizer::reread_seed_source();
+        }
+
+        void load_new_game_source(const nlohmann::json& j) {
+            info("ipc", "Received load_new_game_source action request.");
+            randomizer::load_new_game_source();
+
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>::format("Start an empty save file to play"),
+                .show_box = true,
+                .prioritized = true,
+            });
         }
 
         void get_flags(const nlohmann::json& j) {
@@ -237,7 +251,8 @@ namespace randomizer::ipc {
         });
 
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-            register_request_handler("reload", reload);
+            register_request_handler("server_reconnect_current_multiverse", server_reconnect_current_multiverse);
+            register_request_handler("reread_seed_source", reread_seed_source);
             register_request_handler("get_uberstates", get_uberstates);
             register_request_handler("set_uberstate", set_uberstate);
             register_request_handler("get_flags", get_flags);
@@ -248,6 +263,7 @@ namespace randomizer::ipc {
             register_request_handler("get_total_pickup_count", get_total_pickup_count);
             register_request_handler("get_pickup_count_by_area", get_pickup_count_by_area);
             register_request_handler("get_pickup_counts", get_pickup_counts);
+            register_request_handler("load_new_game_source", load_new_game_source);
         });
     } // namespace
 

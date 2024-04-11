@@ -277,12 +277,12 @@ namespace {
                     continue;
                 }
 
-                const auto runtimeArea = GameWorld::FindRuntimeArea(game_world, area);
-                if (!runtimeArea) {
+                const auto runtime_area = GameWorld::FindRuntimeArea(game_world, area);
+                if (!runtime_area) {
                     continue;
                 }
 
-                RuntimeGameWorldArea::DiscoverAllAreas(runtimeArea);
+                RuntimeGameWorldArea::DiscoverAllAreas(runtime_area);
             }
 
             debug("game", "Map revealed");

@@ -79,8 +79,12 @@ namespace randomizer::features::wheel {
                                 .prioritized = true,
                             });
                         });
-        initialize_item(9000, 10, "Reload", "Reloads the seed file", "file:assets/icons/wheel/reload_seed.blue.png",
-                        [](auto, auto, auto) { randomizer::reload(); });
+
+        if (randomizer::get_multiverse_id().has_value()) {
+            initialize_item(9000, 10, "Reconnect", "Reconnect to the server", "file:assets/icons/wheel/reload_seed.blue.png",
+                            [](auto, auto, auto) { randomizer::server_reconnect_current_multiverse(); });
+        }
+
         initialize_item(9000, 11, "Next", "Go to next page of actions", "file:assets/icons/wheel/menu.blue.png",
                         [](auto, auto, auto) { set_active_wheel(9001); });
 

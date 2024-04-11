@@ -381,6 +381,12 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "stompIntoWater", STOMP_INTO_WATER_ID, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "goodHollow", GOOD_HOLLOW_ID, true),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "inLogicFilterEnabled", IN_LOGIC_FILTER_ENABLED_ID, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "fixMeetingKwolokUnderwaterTrigger", 13, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "fixTeleporterChainOutOfBounds", 14, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "fixKwolokBossEscapeUnderwaterSpiritLightSoftlock", 15, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "fixShopAnywhere", 16, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeShriekEscapeSand", 100, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeFeedingGroundsToElevatorSand", 101, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoConfig, "forceNoAirDecelerationFlag", FORCE_AIR_NO_DECELERATION_ID, 0),
 
@@ -389,6 +395,9 @@ namespace randomizer {
 
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoConfig, "chaosTriggerMin", CHAOS_TRIGGER_MIN_ID, 30.f),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoConfig, "chaosTriggerMax", CHAOS_TRIGGER_MAX_ID, 60.f),
+
+                add_state<app::SerializedIntUberState>(UberStateGroup::UI, "launchFragmentsCount", 1, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::UI, "launchFragmentsRequired", 2, 0),
 
                 add_state<app::SerializedIntUberState>(
                     UberStateGroup::LupoMapCosts, "inkwater", static_cast<int>(app::GameWorldAreaID__Enum::InkwaterMarsh), 200

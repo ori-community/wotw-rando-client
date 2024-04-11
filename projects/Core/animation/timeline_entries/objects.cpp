@@ -47,7 +47,8 @@ namespace core::animation::timeline_entries {
     }
 
     void Sound::parse(TimelineState& state, nlohmann::json const& j) {
-        sound_event = create_variable(state, j, "sound_event", SoundEventID::Catching);
+        assert(false);  // TODO
+        // sound_event = create_variable(state, j, "sound_event");
         Base::parse(state, j);
     }
 

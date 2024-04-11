@@ -47,9 +47,16 @@ set(
         "features/npcs/twillen_everywhere.cpp"
         "features/recording_utils.cpp"
         "features/scenes/modifications/double_jump_spring.cpp"
+        "features/scenes/modifications/hornbug_arena_allow_teleportation.cpp"
         "features/scenes/modifications/keep_epilogue_loaded_during_shriek_escape.cpp"
+        "features/scenes/modifications/kwolok_escape_sl_softlock_fix.cpp"
         "features/scenes/modifications/load_wellspring_bottom_floor_center_path_earlier.cpp"
         "features/scenes/modifications/luma_fight_room_door_always_open.cpp"
+        "features/scenes/modifications/marsh_burrow_fight_arena_allow_teleportation.cpp"
+        "features/scenes/modifications/meeting_kwolok_cutscene_trigger_underwater_fix.cpp"
+        "features/scenes/modifications/reactive_bone_bridge_state.cpp"
+        "features/scenes/modifications/sandless_feeding_grounds_to_elevator.cpp"
+        "features/scenes/modifications/sandless_shriek_escape.cpp"
         "features/secrets.cpp"
         "features/shrine_states.cpp"
         "features/trackers/ability_tracker.cpp"
@@ -66,6 +73,7 @@ set(
         "game/behaviour_changes/deflector_without_bash.cpp"
         "game/behaviour_changes/faster_teleportation.cpp"
         "game/behaviour_changes/feeding_grounds_allow_burrow.cpp"
+        "game/behaviour_changes/fix_shop_anywhere.cpp"
         "game/behaviour_changes/flap_without_glide.cpp"
         "game/behaviour_changes/instant_tp_activation.cpp"
         "game/behaviour_changes/kwolok_boss_rubberbanding_fix.cpp"
@@ -75,6 +83,7 @@ set(
         "game/behaviour_changes/stomp_through_portals.cpp"
         "game/behaviour_changes/teleporter_glades_identifier.cpp"
         "game/behaviour_changes/teleporter_map_activation.cpp"
+        "game/behaviour_changes/teleporting_oob_fix.cpp"
         "game/behaviour_changes/trials_leaderboards.cpp"
         "game/condition_intercepts/day_night_logic.cpp"
         "game/condition_intercepts/good_hollow.cpp"
@@ -135,6 +144,7 @@ set(
         "input/rando_bindings.cpp"
         "ipc/base_handlers.cpp"
         "ipc/hierarchy.cpp"
+        "league/league.cpp"
         "location_data/location_collection.cpp"
         "location_data/parser.cpp"
         "messages/credits_controller.cpp"
@@ -154,6 +164,7 @@ set(
         "seed/parser.cpp"
         "seed/reach_check.cpp"
         "seed/seed.cpp"
+        "seed/seed_source.cpp"
         "state_data/parser.cpp"
         "shrek.cpp"
         "stats/enemies.cpp"
@@ -227,6 +238,7 @@ set(
         "seed/parser.h"
         "seed/reach_check.h"
         "seed/seed.h"
+        "seed/seed_source.h"
         "state_data/state.h"
         "state_data/parser.h"
         "stats/game_stats.h"
@@ -310,6 +322,9 @@ target_link_libraries(${PROJECT_NAME} ixwebsocket::ixwebsocket)
 
 find_package(httplib CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} httplib::httplib)
+
+find_package(OpenSSL REQUIRED)
+target_link_libraries(${PROJECT_NAME} OpenSSL::SSL OpenSSL::Crypto)
 
 target_link_libraries(${PROJECT_NAME} protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
 

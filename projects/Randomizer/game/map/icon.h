@@ -19,8 +19,8 @@ namespace randomizer::game::map {
 
         ~Icon();
 
-        core::Property<std::string> name() const { return m_name; }
-        core::Property<std::string> label() const { return m_label; }
+        core::Property<std::string>& name() { return m_name; }
+        core::Property<std::string>& label() { return m_label; }
         core::Property<MapIcon>& icon() { return m_icon; }
         core::Property<app::Vector2>& position() { return m_position; }
         core::Property<bool>& visible() { return m_visible; }

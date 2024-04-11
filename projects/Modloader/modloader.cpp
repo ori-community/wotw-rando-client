@@ -28,7 +28,7 @@ namespace modloader {
 
     std::filesystem::path inner_base_path = "C:\\moon\\";
     std::filesystem::path modloader_config_path = "modloader_config.json";
-    std::filesystem::path csv_path = "randomizer/inject_log.csv";
+    std::filesystem::path csv_path = "modloader_log.csv";
     std::atomic<bool> shutdown_requested = false;
 
     std::filesystem::path base_path() {
@@ -44,7 +44,7 @@ namespace modloader {
         std::vector<std::weak_ptr<ILoggingHandler>> logging_handlers;
         std::vector<std::tuple<MessageType, std::string, std::string>> message_buffer;
 
-        class BufferingHandler final : public ILoggingHandler {
+        class BufferLoggingHandler final : public ILoggingHandler {
         public:
             static constexpr int MAX_MESSAGES = 1000;
             std::mutex m_mutex;
@@ -61,7 +61,8 @@ namespace modloader {
 
     std::shared_ptr<ILoggingHandler> register_logging_handler(std::shared_ptr<ILoggingHandler> handler) {
         logging_handlers.push_back(handler);
-        for (auto [type, group, message]: message_buffer) {
+
+        for (const auto& [type, group, message]: message_buffer) {
             handler->write(type, group, message);
         }
 
@@ -101,12 +102,17 @@ namespace modloader {
     }
 
     bool attached = false;
-    auto file_logger = register_logging_handler(std::make_shared<FileLoggingHandler>(base_path() / csv_path));
-    auto buffered_handler = register_logging_handler(std::make_shared<BufferingHandler>());
+
+    std::shared_ptr<ILoggingHandler> buffer_logging_handler;
+    std::shared_ptr<ILoggingHandler> file_logging_handler;
 
     std::binary_semaphore wait_for_exit(0);
-    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string const& path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
+    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(const std::filesystem::path& path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
         inner_base_path = path;
+
+        buffer_logging_handler = register_logging_handler(std::make_shared<BufferLoggingHandler>());
+        file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(base_path() / csv_path));
+
         trace(MessageType::Info, "initialize", "Loading settings.");
 
         common::settings::Settings settings(base_path() / "settings.json");

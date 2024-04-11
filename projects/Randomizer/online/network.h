@@ -76,10 +76,10 @@ namespace randomizer::online {
         void register_handler(Network::Packet_PacketID packet, handler_callback const& handler);
 
         template <typename T>
-        void register_handler(Network::Packet_PacketID packet, std::function<void(T const&)> handler) {
+        void register_handler(Network::Packet_PacketID packet, std::function<void(std::shared_ptr<T> const&)> handler) {
             register_handler(packet, [handler](Network::Packet_PacketID, std::string data) {
-                T message;
-                message.ParseFromString(data);
+                std::shared_ptr<T> message = std::make_shared<T>();
+                message->ParseFromString(data);
                 handler(message);
             });
         }
@@ -110,4 +110,6 @@ namespace randomizer::online {
         int m_udp_id;
         std::vector<char> m_udp_key;
     };
+
+    std::string get_jwt();
 } // namespace randomizer::online

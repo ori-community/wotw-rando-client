@@ -1,3 +1,4 @@
+#include <Randomizer/ui/main_menu_seed_info.h>
 #include <Modloader/il2cpp_helpers.h>
 
 #include <Common/event_bus.h>
@@ -8,16 +9,22 @@
 #include <Core/api/messages/text_style.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/utils/misc.h>
+#include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/SaveGameController.h>
 #include <Modloader/app/methods/SaveSlotsManager.h>
 #include <Modloader/app/methods/System/IO/File.h>
 #include <Modloader/app/methods/SaveSlotsUI.h>
+#include <Modloader/app/methods/SetTitleScreenAction.h>
+#include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/XboxLiveIdentityUI.h>
+#include <Modloader/app/types/CleverMenuItem.h>
+#include <Modloader/app/types/TitleScreenManager.h>
+#include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/randomizer.h>
-#include <Randomizer/seed/parser.h>
+#include <Randomizer/seed/legacy_parser/parser.h>
 #include <magic_enum.hpp>
 
 using namespace utils;
@@ -40,17 +47,22 @@ namespace randomizer::main_menu_seed_info {
         il2cpp::WeakGCRef<app::GameObject> separator_go;
         std::unique_ptr<core::api::graphics::Sprite> sprite;
 
+        std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> easy_mode_menu_item_handle;
+        std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> normal_mode_menu_item_handle;
+        std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> hard_mode_menu_item_handle;
+
         core::Property<std::string> name_property;
         core::Property<std::string> status_property("Offline");
         core::Property<std::string> description_property;
 
         common::registration_handle_t on_seed_loaded_handle;
-        common::registration_handle_t on_before_uber_value_store_loaded_handle;
         common::registration_handle_t on_network_status_handle;
         common::registration_handle_t on_multiverse_update_handle;
+        common::registration_handle_t on_should_enforce_seed_difficulty_update_handle;
 
-        std::optional<std::string> current_seed_path = std::nullopt;
-        std::variant<seed::SeedMetaData, seed::ParserError, generic_error_t> current_seed_meta_data_result = std::string("No seed loaded");
+        bool poll_current_seed_source_until_not_loading = false;
+        std::shared_ptr<seed::SeedSource> current_seed_source = nullptr;
+        std::variant<seed::Seed::SeedMetaData, seed::legacy_parser::ParserError, generic_error_t> current_seed_meta_data_result = std::string("No seed loaded");
         auto current_network_state = online::NetworkClient::State::Closed;
 
         void on_network_status(const online::NetworkClient::State state) {
@@ -81,11 +93,12 @@ namespace randomizer::main_menu_seed_info {
         void update_text() {
             auto const& player = multiplayer_universe().local_player();
 
-            const auto seed_metadata = std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)
-                ? std::make_optional(std::get<seed::SeedMetaData>(current_seed_meta_data_result))
+            const auto seed_metadata = std::holds_alternative<seed::Seed::SeedMetaData>(current_seed_meta_data_result)
+                ? std::make_optional(std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result))
                 : std::nullopt;
 
-            const auto should_display_network_info = player.has_value() && seed_metadata.has_value() && seed_metadata.value().online;
+            const auto should_display_network_info = player.has_value() && seed_metadata.has_value() && current_seed_source != nullptr &&
+                current_seed_source->get_multiverse_id().has_value();
 
             if (should_display_network_info) {
                 name_property.set(player.value().user.name());
@@ -99,32 +112,46 @@ namespace randomizer::main_menu_seed_info {
                 description += std::format("Universe: {}\n", player->universe.name());
             }
 
-            if (current_seed_path.has_value()) {
+            if (current_seed_source != nullptr) {
+                const auto current_seed_source_description = current_seed_source->get_description();
                 description += std::format(
-                    "Path: {}\n",
-                    current_seed_path.value().size() > MAX_DISPLAYED_SEED_PATH_LENGTH ? std::format("...{}", current_seed_path.value().substr(current_seed_path.value().size() - MAX_DISPLAYED_SEED_PATH_LENGTH, MAX_DISPLAYED_SEED_PATH_LENGTH))
-                                                          : current_seed_path.value()
+                    "Seed: {}\n",
+                    current_seed_source_description.size() > MAX_DISPLAYED_SEED_PATH_LENGTH
+                        ? std::format("...{}", current_seed_source_description.substr(current_seed_source_description.size() - MAX_DISPLAYED_SEED_PATH_LENGTH, MAX_DISPLAYED_SEED_PATH_LENGTH))
+                        : current_seed_source_description
                 );
             }
 
             if (seed_metadata.has_value()) {
                 const auto meta = seed_metadata.value();
-                description += std::format("Seed: {}\n", meta.name);
+                description += std::format("Slug: <hex_9ee2f7ff>{}</>\n", meta.slug);
                 description += "Flags:";
                 for (auto flag: meta.flags) {
                     description += std::format("\n   - {}", flag);
                 }
-            } else if (holds_any_of<seed::ParserError, generic_error_t>(current_seed_meta_data_result)) {
+            } else if (current_seed_source != nullptr && current_seed_source->get_error().has_value()) {
                 description += "Error loading seed:\n";
+                description += current_seed_source->get_error().value();
+            } else if (poll_current_seed_source_until_not_loading) {
+                description += "Loading seed...";
+            } else if (holds_any_of<seed::legacy_parser::ParserError, generic_error_t>(current_seed_meta_data_result)) {
+                description += "Error parsing seed:\n";
 
-                if (std::holds_alternative<seed::ParserError>(current_seed_meta_data_result)) {
-                    description += magic_enum::enum_name(std::get<seed::ParserError>(current_seed_meta_data_result));
+                if (std::holds_alternative<seed::legacy_parser::ParserError>(current_seed_meta_data_result)) {
+                    description += magic_enum::enum_name(std::get<seed::legacy_parser::ParserError>(current_seed_meta_data_result));
                 } else if (std::holds_alternative<std::string>(current_seed_meta_data_result)) {
                     description += std::get<std::string>(current_seed_meta_data_result);
                 }
             }
 
             description_property.set(description);
+        }
+
+        template<typename T>
+        void do_if_valid(std::optional<il2cpp::WeakGCRef<T>> object, const std::function<void(T*)> action) {
+            if (object.has_value() && **object != nullptr) {
+                action(**object);
+            }
         }
 
         void on_ready(ModloaderEvent) {
@@ -220,11 +247,21 @@ namespace randomizer::main_menu_seed_info {
 
                     sprite->texture(core::api::graphics::textures::get_texture("file:assets/textures/gradient_transparent_dark.png"));
 
+                    easy_mode_menu_item_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::CleverMenuItem>(
+                            il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. easyMode"}), types::CleverMenuItem::get_class()));
+                    normal_mode_menu_item_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::CleverMenuItem>(
+                            il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. normalMode"}), types::CleverMenuItem::get_class()));
+                    hard_mode_menu_item_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::CleverMenuItem>(
+                            il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. hardMode"}), types::CleverMenuItem::get_class()));
+
                     is_in_main_menu = true;
 
                     on_network_status_handle = network_client().event_bus().register_handler(on_network_status);
                     on_multiverse_update_handle = multiplayer_universe().event_bus().register_handler(
                         online::MultiplayerUniverse::Event::MultiverseUpdated, EventTiming::After, [](auto, auto) { update_text(); }
+                    );
+                    on_should_enforce_seed_difficulty_update_handle = multiplayer_universe().event_bus().register_handler(
+                        online::MultiplayerUniverse::Event::ShouldEnforceSeedDifficultyChanged, EventTiming::After, [](auto, auto) { update_difficulty_menu_items(); }
                     );
                     break;
                 }
@@ -270,45 +307,106 @@ namespace randomizer::main_menu_seed_info {
                     }
                 );
 
-                auto should_connect = false;
+                std::optional<long> connect_to_multiverse_id = std::nullopt;
 
                 if (read_slots.contains(SaveMetaSlot::SeedMetaData)) {
-                    const auto meta = seed::parse_meta_data(seed_meta_data->path);
+                    const auto meta = randomizer::seed::legacy_parser::parse_meta_data(seed_meta_data->seed_content);
                     current_seed_meta_data_result = variant_cast(meta);
-                    current_seed_path = seed_meta_data->path.string();
+                    current_seed_source = seed_meta_data->get_source();
 
-                    if (std::holds_alternative<seed::SeedMetaData>(meta)) {
-                        should_connect = std::get<seed::SeedMetaData>(meta).online;
+                    if (std::holds_alternative<seed::Seed::SeedMetaData>(meta)) {
+                        connect_to_multiverse_id = current_seed_source->get_multiverse_id();
                     }
                 } else {
-                    current_seed_path = std::nullopt;
+                    current_seed_source = nullptr;
                     current_seed_meta_data_result = "Error reading save metadata.\nThis might be a vanilla save.";
                 }
 
-                if (should_connect) {
-                    server_connect();
+                poll_current_seed_source_until_not_loading = false;
+
+                if (connect_to_multiverse_id.has_value()) {
+                    randomizer::server_connect(*connect_to_multiverse_id);
                 } else {
-                    server_disconnect();
+                    multiplayer_universe().set_should_block_starting_new_game(false);
+                    multiplayer_universe().set_enforce_seed_difficulty(false);
+                    multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
+                    randomizer::server_disconnect();
                 }
 
                 update_text();
             } else {
-                current_seed_path = game_seed().path().string();
-                current_seed_meta_data_result = game_seed().parser_output().meta;
+                load_new_game_source();
+                current_seed_source = get_new_game_seed_source();
+                current_seed_meta_data_result = std::string("Loading...");
 
-                if (game_seed().parser_output().meta.online) {
-                    server_connect();
+                poll_current_seed_source_until_not_loading = true;
+
+                const auto connect_to_multiverse_id = current_seed_source->get_multiverse_id();
+                if (connect_to_multiverse_id.has_value()) {
+                    randomizer::server_connect(*connect_to_multiverse_id);
                 } else {
-                    server_disconnect();
+                    multiplayer_universe().set_should_block_starting_new_game(false);
+                    multiplayer_universe().set_enforce_seed_difficulty(false);
+                    multiplayer_universe().set_enforce_seed_difficulty(false);
+                    randomizer::server_disconnect();
                 }
 
                 update_text();
-                on_seed_loaded_handle = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
-                    current_seed_meta_data_result = game_seed().parser_output().meta;
+
+                on_seed_loaded_handle = event_bus().register_handler(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::After, [](auto, auto) {
+                    current_seed_source = get_new_game_seed_source();
+                    current_seed_meta_data_result = std::string("Loading...");
+
+                    poll_current_seed_source_until_not_loading = true;
+
+                    const auto connect_to_multiverse_id = current_seed_source->get_multiverse_id();
+                    if (connect_to_multiverse_id.has_value()) {
+                        randomizer::server_connect(*connect_to_multiverse_id);
+                    } else {
+                        multiplayer_universe().set_should_block_starting_new_game(false);
+                        multiplayer_universe().set_enforce_seed_difficulty(false);
+                        multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
+                        randomizer::server_disconnect();
+                    }
+
                     update_text();
                 });
             }
         }
+
+        IL2CPP_INTERCEPT(SetTitleScreenAction, void, Perform, (app::SetTitleScreenAction * this_ptr, app::IContext* context)) {
+            next::SetTitleScreenAction::Perform(this_ptr, context);
+
+            if (this_ptr->fields.Screen == app::TitleScreenManager_Screen__Enum::ProfileSelected) {
+                update_difficulty_menu_items();
+            }
+        }
+
+        auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+            if (!poll_current_seed_source_until_not_loading) {
+                return;
+            }
+
+            const auto [source_status, source_seed_content] = get_new_game_seed_source()->poll();
+
+            if (source_status == seed::SourceStatus::Loading) {
+                return;
+            }
+
+            poll_current_seed_source_until_not_loading = false;
+
+            if (source_seed_content.has_value()) {
+                const auto meta = randomizer::seed::legacy_parser::parse_meta_data(*source_seed_content);
+                current_seed_meta_data_result = variant_cast(meta);
+            } else if (get_new_game_seed_source()->get_error().has_value()) {
+                current_seed_meta_data_result = get_new_game_seed_source()->get_error().value();
+            } else {
+                throw std::exception("Seed source did neither supply content nor an error. Please fix this.");
+            }
+
+            update_text();
+            update_difficulty_menu_items();
+        });
 
         IL2CPP_INTERCEPT(SaveSlotsUI, void, OnEnable, (app::SaveSlotsUI * this_ptr)) {
             modloader::ScopedSetter setter(is_in_save_slots_ui_on_enable, true);
@@ -316,5 +414,34 @@ namespace randomizer::main_menu_seed_info {
         }
     } // namespace
 
-    void notify_online_status_changed() {}
+    void update_difficulty_menu_items() {
+        auto allow_easy = false;
+        auto allow_normal = false;
+        auto allow_hard = false;
+
+        if (
+            GameStateMachine::IsInExtendedTitleScreen(types::GameStateMachine::get_class()->static_fields->m_instance) &&
+            SaveSlotsManager::SlotByIndex(SaveSlotsManager::get_CurrentSlotIndex()) == nullptr // Selected save file is empty
+        ) {
+            if (randomizer::multiplayer_universe().should_enforce_seed_difficulty()) {
+                const auto seed_metadata = std::holds_alternative<seed::Seed::SeedMetaData>(current_seed_meta_data_result)
+                ? std::make_optional(std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result))
+                : std::nullopt;
+
+                if (seed_metadata.has_value()) {
+                    allow_easy = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Easy;
+                    allow_normal = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Normal;
+                    allow_hard = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Hard;
+                }
+            } else {
+                allow_easy = true;
+                allow_normal = true;
+                allow_hard = true;
+            }
+        }
+
+        do_if_valid<app::CleverMenuItem>(easy_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_easy); });
+        do_if_valid<app::CleverMenuItem>(normal_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_normal); });
+        do_if_valid<app::CleverMenuItem>(hard_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_hard); });
+    }
 } // namespace randomizer::main_menu_seed_info

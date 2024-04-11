@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <array>
 #include <cctype>
+#include <filesystem>
+#include <fstream>
 #include <optional>
 #include <span>
 #include <sstream>
@@ -197,6 +199,13 @@ void split_str(const std::string_view str, Container& cont, const std::span<std:
 
 std::string_view find_next_unbalanced(std::string_view text, std::string_view start, std::string_view end);
 
+inline std::string read_text_file(const std::filesystem::path& path) {
+    const std::ifstream file(path.string());
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    return buffer.str();
+}
+
 template<typename T>
 bool string_convert(std::string_view str, T& value, std::size_t* position = nullptr);
 
@@ -213,9 +222,9 @@ void replace_all(std::string& str, std::string_view find, std::string_view repla
 
 void replace_all(std::wstring& str, std::wstring_view find, std::wstring_view replace);
 
-std::wstring convert_string_to_wstring(std::string_view str);
+std::wstring convert_string_to_wstring(const std::string& str);
 
-std::string convert_wstring_to_string(std::wstring_view str);
+std::string convert_wstring_to_string(const std::wstring& str);
 
 bool eps_equals(double a, double b, double eps = 0.001);
 
