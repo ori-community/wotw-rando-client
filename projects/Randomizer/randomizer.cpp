@@ -122,6 +122,7 @@ namespace randomizer {
 
         auto on_respawn = core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [](auto, auto) {
             core::message_controller().clear_central();
+            game_seed().trigger(seed::SeedClientEvent::Respawn);
         });
 
         auto on_after_seed_load = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
@@ -159,6 +160,8 @@ namespace randomizer {
             }
 
             core::api::game::player::shard_slots().set(3);
+
+            game_seed().trigger(seed::SeedClientEvent::Spawn);
         });
 
         auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, [](auto, auto) {
@@ -169,6 +172,8 @@ namespace randomizer {
             const float delta_time = core::api::game::fixed_delta_time();
             monitor.update(delta_time);
             status.update(delta_time);
+
+            game_seed().trigger(seed::SeedClientEvent::Tick);
         });
 
         auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(
@@ -182,6 +187,10 @@ namespace randomizer {
         auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
             check_seed_difficulty_enforcement();
             randomizer_seed.trigger(seed::SeedClientEvent::Respawn);
+        });
+
+        auto on_teleport = core::api::game::event_bus().register_handler(GameEvent::Teleport, EventTiming::Before, [](auto, auto) {
+            game_seed().trigger(seed::SeedClientEvent::Teleport);
         });
 
         auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {

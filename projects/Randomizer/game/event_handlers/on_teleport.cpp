@@ -7,26 +7,23 @@
 #include <Core/api/game/player.h>
 
 namespace {
-    IL2CPP_INTERCEPT(SavePedestalController, void, BeginTeleportation, (app::Vector2 position)) {
-        core::api::game::event_bus().trigger_event(GameEvent::Teleport, EventTiming::Before);
-        next::SavePedestalController::BeginTeleportation(position);
-    }
-
     IL2CPP_INTERCEPT(SavePedestalController, void, OnFadedToBlack, (app::SavePedestalController* this_ptr)) {
         // We want the grant to happen before the checkpoint.
         const auto state = core::api::uber_states::UberState(UberStateGroup::RandoEvents, 20);
         state.set(1);
         state.set(0);
 
+        core::api::game::event_bus().trigger_event(GameEvent::Teleport, EventTiming::Before);
+
         next::SavePedestalController::OnFadedToBlack(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SavePedestalController, void, OnFinishedTeleportingStartAnimation, ()) {
+    IL2CPP_INTERCEPT(SavePedestalController, void, OnFinishedTeleporting, (app::SavePedestalController * this_ptr)) {
         core::api::game::event_bus().trigger_event(GameEvent::Teleport, EventTiming::After);
 
         Network::Packet packet;
         packet.set_id(Network::Packet_PacketID_NotifyTeleport);
         randomizer::network_client().websocket_send(packet);
-        next::SavePedestalController::OnFinishedTeleportingStartAnimation();
+        next::SavePedestalController::OnFinishedTeleporting(this_ptr);
     }
 } // namespace
