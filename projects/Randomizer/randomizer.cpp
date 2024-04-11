@@ -51,10 +51,11 @@ namespace randomizer {
             .screen_position = core::api::messages::ScreenPosition::TopCenter,
         });
 
-        auto seed_save_data = std::make_shared<seed::SaveSlotSeedMetaData>();
+        auto seed_meta_save_data = std::make_shared<seed::SaveSlotSeedMetaData>();
+        auto seed_archive_save_data = std::make_shared<seed::SeedArchiveSaveMetaData>();
 
-        std::shared_ptr<seed::SeedSource> new_game_seed_source = std::make_shared<seed::EmptySeedSource>();
-        std::string new_game_seed_content;  // Set by spawning_and_preloading.cpp
+        std::shared_ptr<seed::SeedSource> new_game_seed_source = std::make_shared<seed::InvalidSeedSource>("empty");
+        std::shared_ptr<seed::SeedArchive> new_game_seed_archive;  // Set by spawning_and_preloading.cpp
 
         bool reach_check_queued = false;
         bool reach_check_in_progress = false;
@@ -105,8 +106,8 @@ namespace randomizer {
 
         auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
             queue_input_unlocked_callback([]() {
-                randomizer_seed.trigger(seed::SeedEvent::Spawn);
-                randomizer_seed.trigger(seed::SeedEvent::Reload);
+                randomizer_seed.trigger(seed::SeedClientEvent::Spawn);
+                randomizer_seed.trigger(seed::SeedClientEvent::Reload);
                 core::api::game::save(true);
                 queue_reach_check();
                 uber_states::disable_reverts() = false;
@@ -129,7 +130,7 @@ namespace randomizer {
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
             game::shops::reset_shop_data();
-            randomizer_seed.trigger(seed::SeedEvent::Reload);
+            randomizer_seed.trigger(seed::SeedClientEvent::Reload);
             queue_reach_check();
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::Before);
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
@@ -143,16 +144,16 @@ namespace randomizer {
             randomizer_state_data.clear();
             parse_state_data(modloader::base_path() / "state_data.csv", randomizer_state_data);
 
-            randomizer_seed.read(seed_save_data->seed_content, seed::legacy_parser::parse, show_message);
+            randomizer_seed.read(seed_archive_save_data->seed_archive, seed::parse, show_message);
         }
 
         auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
-            seed_save_data->seed_source_string = new_game_seed_source->to_source_string();
-            seed_save_data->seed_content = new_game_seed_content;
+            seed_meta_save_data->seed_source_string = new_game_seed_source->to_source_string();
+            seed_archive_save_data->seed_archive = new_game_seed_archive;
             load_seed(false);
 
             // Allow cheats in offline games and clear GUID restrictions
-            if (!seed_save_data->get_source()->get_multiverse_id().has_value()) {
+            if (!seed_meta_save_data->get_source()->get_multiverse_id().has_value()) {
                 core::api::game::debug_menu::set_should_prevent_cheats(false);
                 multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
             }
@@ -180,11 +181,12 @@ namespace randomizer {
 
         auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
             check_seed_difficulty_enforcement();
-            randomizer_seed.trigger(seed::SeedEvent::Respawn);
+            randomizer_seed.trigger(seed::SeedClientEvent::Respawn);
         });
 
         auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
-            randomizer_seed.grant(params.state, params.previous_value);
+            // TODO
+            // randomizer_seed.grant(params.state, params.previous_value);
         });
 
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
@@ -206,8 +208,10 @@ namespace randomizer {
             text_processor->compose(std::make_shared<text_processors::MultiplayerProcessor>());
 
             core::message_controller().central_display().text_processor(text_processor);
-            seed_save_data = std::make_unique<seed::SaveSlotSeedMetaData>();
-            register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::None, seed_save_data);
+            seed_meta_save_data = std::make_unique<seed::SaveSlotSeedMetaData>();
+
+            register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::None, seed_meta_save_data);
+            register_slot(SaveMetaSlot::SeedArchiveData, SaveMetaSlotPersistence::None, seed_archive_save_data);
 
             load_new_game_source();
         });
@@ -262,7 +266,7 @@ namespace randomizer {
     }
 
     void reread_seed_source() {
-        const auto current_source = seed_save_data->get_source();
+        const auto current_source = seed_meta_save_data->get_source();
 
         if (!current_source->allows_rereading()) {
             core::message_controller().queue_central({
@@ -273,11 +277,11 @@ namespace randomizer {
             return;
         }
 
-        const auto [status, seed_content] = current_source->poll();
+        const auto [status, seed_archive] = current_source->poll();
 
         switch (status) {
             case seed::SourceStatus::Ready:
-                seed_save_data->seed_content = seed_content.value();
+                seed_archive_save_data->seed_archive = *seed_archive;
                 load_seed(true);
                 break;
             case seed::SourceStatus::Loading:
@@ -337,14 +341,14 @@ namespace randomizer {
     void server_disconnect() {
         client.disconnect();
         multiverse_id_to_connect_to = std::nullopt;
-        seed::set_server_seed_content(std::nullopt);
+        seed::set_server_seed_archive(std::nullopt);
     }
 
     void check_seed_difficulty_enforcement() {
         if (multiplayer_universe().should_enforce_seed_difficulty()) {
             const auto game_controller = core::api::game::game_controller();
             const auto current_difficulty = GameController::get_GameDifficultyMode(game_controller);
-            const auto intended_difficulty = game_seed().info().meta.intended_difficulty;
+            const auto intended_difficulty = game_seed().parser_output().meta.intended_difficulty;
 
             if (current_difficulty != intended_difficulty) {
                 GameController::set_GameDifficultyMode(game_controller, intended_difficulty);
@@ -372,6 +376,6 @@ namespace randomizer {
     std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor() { return text_processor; }
     std::shared_ptr<seed::SeedSource> get_new_game_seed_source() { return new_game_seed_source; }
 
-    void set_new_game_seed_content(const std::string& content) { new_game_seed_content = content; }
+    void set_new_game_seed_archive(const std::shared_ptr<seed::SeedArchive>& archive) { new_game_seed_archive = archive; }
     std::optional<long> get_multiverse_id() { return multiverse_id_to_connect_to; }
 } // namespace randomizer

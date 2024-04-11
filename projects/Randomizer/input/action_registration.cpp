@@ -14,27 +14,27 @@
 namespace randomizer::input {
     namespace {
         auto on_binding1_before = single_input_bus().register_handler(Action::Binding1, EventTiming::Before, [](auto, auto) {
-            game_seed().trigger(seed::SeedEvent::Binding1);
+            game_seed().trigger(seed::SeedClientEvent::Binding1);
         });
 
         auto on_binding2_before = single_input_bus().register_handler(Action::Binding2, EventTiming::Before, [](auto, auto) {
-            game_seed().trigger(seed::SeedEvent::Binding2);
+            game_seed().trigger(seed::SeedClientEvent::Binding2);
         });
 
         auto on_binding3_before = single_input_bus().register_handler(Action::Binding3, EventTiming::Before, [](auto, auto) {
-            game_seed().trigger(seed::SeedEvent::Binding3);
+            game_seed().trigger(seed::SeedClientEvent::Binding3);
         });
 
         auto on_binding4_before = single_input_bus().register_handler(Action::Binding4, EventTiming::Before, [](auto, auto) {
-            game_seed().trigger(seed::SeedEvent::Binding4);
+            game_seed().trigger(seed::SeedClientEvent::Binding4);
         });
 
         auto on_binding5_before = single_input_bus().register_handler(Action::Binding5, EventTiming::Before, [](auto, auto) {
-            game_seed().trigger(seed::SeedEvent::Binding5);
+            game_seed().trigger(seed::SeedClientEvent::Binding5);
         });
 
         auto on_progress_hint_before = single_input_bus().register_handler(Action::ShowProgressWithHints, EventTiming::Before, [](auto, auto) {
-            game_seed().trigger(seed::SeedEvent::ShowProgress);
+            game_seed().trigger(seed::SeedClientEvent::ShowProgress);
         });
 
         auto on_reload_before = single_input_bus().register_handler(Action::ReloadSeed, EventTiming::Before, [](auto, auto) {
@@ -45,12 +45,12 @@ namespace randomizer::input {
             server_reconnect_current_multiverse();
         });
 
-        auto on_show_flags_before = single_input_bus().register_handler(Action::ShowFlags, EventTiming::Before, [](auto, auto) {
-            game_seed().show_flags_message();
+        auto on_show_tags_before = single_input_bus().register_handler(Action::ShowTags, EventTiming::Before, [](auto, auto) {
+            game_seed().show_tags_message();
         });
 
         auto on_show_last_pickup_before = single_input_bus().register_handler(Action::ShowLastPickup, EventTiming::Before, [](auto, auto) {
-            game_seed().trigger(seed::SeedEvent::RequeueLastMessage);
+            game_seed().trigger(seed::SeedClientEvent::RequeueLastMessage);
         });
 
         auto on_warp_credits_before = single_input_bus().register_handler(Action::WarpCredits, EventTiming::Before, [](auto, auto) {

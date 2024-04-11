@@ -10,7 +10,7 @@ namespace randomizer::dev::seed_debugger {
             std::unordered_map<std::size_t, debugger_types> condition_breakpoints;
             std::unordered_map<std::size_t, debugger_types> condition_triggered_breakpoints;
             std::unordered_map<std::size_t, debugger_types> command_breakpoints;
-            std::unordered_map<seed::SeedEvent, debugger_types> seed_event_breakpoints;
+            std::unordered_map<seed::SeedClientEvent, debugger_types> seed_event_breakpoints;
             std::unordered_map<core::api::uber_states::UberState, debugger_types> binding_breakpoints;
 
             std::unordered_map<DebuggerType, int> active_breaks;
@@ -69,15 +69,15 @@ namespace randomizer::dev::seed_debugger {
         return !removed;
     }
 
-    void add_seed_event_breakpoint(const DebuggerType debugger, const seed::SeedEvent event) {
+    void add_seed_event_breakpoint(const DebuggerType debugger, const seed::SeedClientEvent event) {
         debugger_state.seed_event_breakpoints[event].emplace(debugger);
     }
 
-    bool remove_seed_event_breakpoint(const DebuggerType debugger, const seed::SeedEvent event) {
+    bool remove_seed_event_breakpoint(const DebuggerType debugger, const seed::SeedClientEvent event) {
         return debugger_state.seed_event_breakpoints[event].erase(debugger);
     }
 
-    bool toggle_seed_event_breakpoint(const DebuggerType debugger, const seed::SeedEvent event) {
+    bool toggle_seed_event_breakpoint(const DebuggerType debugger, const seed::SeedClientEvent event) {
         const auto removed = remove_seed_event_breakpoint(debugger, event);
         if (!removed) {
             add_seed_event_breakpoint(debugger, event);
@@ -135,13 +135,13 @@ namespace randomizer::dev::seed_debugger {
         }
     }
 
-    void seed_event_start(const seed::SeedEvent event) {
+    void seed_event_start(const seed::SeedClientEvent event) {
         context_stack.emplace_back(std::make_optional<seed_event_t>(event), std::nullopt, nullptr);
         handle_break_check(debugger_state.seed_event_breakpoints[event], true);
         trigger_event(Event::SeedEventStart);
     }
 
-    void seed_event_end(const seed::SeedEvent event) {
+    void seed_event_end(const seed::SeedClientEvent event) {
         trigger_event(Event::SeedEventEnd);
         handle_break_check(debugger_state.seed_event_breakpoints[event], false);
         context_stack.pop_back();

@@ -1,8 +1,11 @@
 #pragma once
 
-#include <string>
+#include "archive.h"
+
+
 #include <filesystem>
 #include <optional>
+#include <string>
 
 namespace randomizer::seed {
     enum class SourceStatus {
@@ -16,7 +19,7 @@ namespace randomizer::seed {
         virtual ~SeedSource() = default;
 
         /** Poll the status of this seed source, and if it's ready, the seed content */
-        virtual std::pair<SourceStatus, std::optional<std::string>> poll() = 0;
+        virtual std::pair<SourceStatus, std::optional<std::shared_ptr<SeedArchive>>> poll() = 0;
 
         /** The human description of this seed source */
         virtual std::string get_description() = 0;
@@ -38,7 +41,7 @@ namespace randomizer::seed {
 
     class FileSeedSource: public SeedSource {
     public:
-        std::pair<SourceStatus, std::optional<std::string>> poll() override;
+        std::pair<SourceStatus, std::optional<std::shared_ptr<SeedArchive>>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
         std::optional<long> get_multiverse_id() override;
@@ -48,28 +51,12 @@ namespace randomizer::seed {
 
     private:
         std::filesystem::path m_path;
-        std::optional<std::string> m_content;
-    };
-
-    class DebugDelayedFileSeedSource: public SeedSource {
-    public:
-        std::pair<SourceStatus, std::optional<std::string>> poll() override;
-        std::string get_description() override;
-        std::string to_source_string() override;
-        std::optional<long> get_multiverse_id() override;
-        bool allows_rereading() override;
-
-        explicit DebugDelayedFileSeedSource(const std::filesystem::path& path);
-
-    private:
-        bool loaded = false;
-        std::filesystem::path m_path;
-        std::optional<std::string> m_content;
+        std::optional<std::shared_ptr<SeedArchive>> m_archive;
     };
 
     class ServerSeedSource: public SeedSource {
     public:
-        std::pair<SourceStatus, std::optional<std::string>> poll() override;
+        std::pair<SourceStatus, std::optional<std::shared_ptr<SeedArchive>>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
         std::optional<long> get_multiverse_id() override;
@@ -81,18 +68,9 @@ namespace randomizer::seed {
         long m_multiverse_id;
     };
 
-    class EmptySeedSource: public SeedSource {
-    public:
-        std::pair<SourceStatus, std::optional<std::string>> poll() override;
-        std::string get_description() override;
-        std::string to_source_string() override;
-        std::optional<long> get_multiverse_id() override;
-        bool allows_rereading() override;
-    };
-
     class InvalidSeedSource: public SeedSource {
     public:
-        std::pair<SourceStatus, std::optional<std::string>> poll() override;
+        std::pair<SourceStatus, std::optional<std::shared_ptr<SeedArchive>>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
         std::optional<long> get_multiverse_id() override;
@@ -106,6 +84,6 @@ namespace randomizer::seed {
         std::string m_source_string;
     };
 
-    void set_server_seed_content(const std::optional<std::string>& content);
+    void set_server_seed_archive(const std::optional<std::shared_ptr<SeedArchive>>& content);
     std::shared_ptr<SeedSource> parse_source_string(const std::string& source);
 }

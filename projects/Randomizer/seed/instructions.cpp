@@ -1423,6 +1423,7 @@ namespace randomizer::seed {
     void destroy_volatile_seed_data() {
         timers.clear();
         central_message_boxes.clear();
+
         for (const auto& icon: warp_icons | std::views::values) {
             remove_icon(icon);
         }

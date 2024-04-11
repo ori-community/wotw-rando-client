@@ -12,17 +12,31 @@ namespace randomizer::seed {
     Seed::Seed(location_data::LocationCollection const& location_data) :
         m_location_data(location_data) {}
 
-    void Seed::read(const std::filesystem::path& path, const seed_parser parser, const bool show_message) {
+    void Seed::read(const std::shared_ptr<SeedArchive>& seed_archive, const seed_parser parser, const bool show_message) {
         m_last_parser = parser;
-        m_last_path = path;
+        m_seed_archive = seed_archive;
         reload(show_message);
     }
 
-    std::string read_all(const std::filesystem::path& path) {
-        const std::ifstream file(path.string());
-        std::stringstream buffer;
-        buffer << file.rdbuf();
-        return buffer.str();
+    void Seed::show_tags_message() const {
+        std::string tags;
+
+        for (auto const& flag: m_parse_output->meta.tags) {
+            if (tags.empty()) {
+                tags += "\nTags: ";
+            } else {
+                tags += ", ";
+            }
+
+            tags += flag;
+        }
+
+        core::message_controller().queue_central({
+            .text = core::Property<std::string>::format("Seed <hex_9ee2f7ff>{}</>{}", m_parse_output->meta.slug, tags),
+            .duration = 5.f,
+            .show_box = true,
+            .prioritized = true,
+        });
     }
 
     void Seed::reload(const bool show_message) {
@@ -32,11 +46,11 @@ namespace randomizer::seed {
 
         event_bus().trigger_event(RandomizerEvent::SeedLoaded, EventTiming::Before);
         const auto data = std::make_shared<SeedParseOutput>();
-        data->areas = read_all(modloader::base_path() / "areas.wotw");
-        data->locations = read_all(modloader::base_path() / "loc_data.csv");
-        data->states = read_all(modloader::base_path() / "state_data.csv");
-        if (!m_last_parser(m_last_path, m_location_data, data)) {
-            auto error_message = std::format("Failed to load seed '{}'", m_last_path.string());
+        data->areas = read_text_file(modloader::base_path() / "areas.wotw");
+        data->locations = read_text_file(modloader::base_path() / "loc_data.csv");
+        data->states = read_text_file(modloader::base_path() / "state_data.csv");
+        if (!m_last_parser(m_seed_archive, m_location_data, data)) {
+            std::string error_message = "Failed to load seed";
             if (!data->parser_error.empty()) {
                 error_message = data->parser_error;
             }
@@ -50,7 +64,7 @@ namespace randomizer::seed {
         }
 
         clear();
-        m_data = data;
+        m_parse_output = data;
         // for (auto& inner_locations: m_data->locations | std::views::values) {
         //     for (const auto& location: inner_locations | std::views::keys) {
         //         auto area = m_location_data.area(location);
@@ -62,7 +76,7 @@ namespace randomizer::seed {
         //  }
 
         // clang-format off
-        for (auto& condition: m_data->data.conditions) {
+        for (auto& condition: m_parse_output->data.conditions) {
             if (std::holds_alternative<int>(condition.condition)) {
                 auto builder = core::reactivity::watch_effect()
                     .before([condition] { dev::seed_debugger::condition_start(std::get<int>(condition.condition)); })
@@ -104,34 +118,18 @@ namespace randomizer::seed {
         }
         // clang-format on
 
-        m_data->meta.name = std::filesystem::path(m_last_path).filename().string();
-        std::string flags;
-        for (auto const& flag: m_data->meta.flags) {
-            if (flags.empty()) {
-                flags += "\nFlags: ";
-            } else {
-                flags += ", ";
-            }
-
-            flags += flag;
-        }
-
         event_bus().trigger_event(RandomizerEvent::SeedLoaded, EventTiming::After);
 
         if (!show_message) {
             return;
         }
 
-        core::message_controller().queue_central({
-            .text = core::Property<std::string>::format("Loaded {}{}", m_data->meta.name, flags),
-            .show_box = true,
-            .prioritized = true,
-        });
+        show_tags_message();
     }
 
     void Seed::handle_command(const std::size_t id) {
         dev::seed_debugger::command_start(id);
-        for (const auto& command: m_data->data.commands[id]) {
+        for (const auto& command: m_parse_output->data.commands[id]) {
             dev::seed_debugger::instruction(command.get());
             command->execute(*this, m_memory);
         }
@@ -140,18 +138,19 @@ namespace randomizer::seed {
     }
 
     void Seed::clear() {
-        m_data = nullptr;
+        m_parse_output = std::make_shared<SeedParseOutput>();
         destroy_volatile_seed_data();
     }
 
-    void Seed::trigger(const SeedEvent event) {
+    void Seed::trigger(const SeedClientEvent event) {
         dev::seed_debugger::seed_event_start(event);
+
         if (!should_grant()) {
             dev::seed_debugger::seed_event_end(event);
             return;
         }
 
-        for (const auto& command: m_data->data.events[event]) {
+        for (const auto& command: m_parse_output->data.events[event]) {
             handle_command(command);
         }
 
@@ -166,4 +165,18 @@ namespace randomizer::seed {
     nlohmann::json SaveSlotSeedMetaData::json_serialize() { return *this; }
 
     void SaveSlotSeedMetaData::json_deserialize(nlohmann::json& j) { j.get_to(*this); }
+
+    std::shared_ptr<SeedSource> SaveSlotSeedMetaData::get_source() const {
+        return seed::parse_source_string(seed_source_string);
+    }
+
+    std::vector<std::byte> SeedArchiveSaveMetaData::save() {
+        return seed_archive != nullptr
+        ? seed_archive->get_archive_data()
+        : std::vector<std::byte>{};
+    }
+
+    void SeedArchiveSaveMetaData::load(utils::ByteStream& stream) {
+        seed_archive = std::make_shared<SeedArchive>(stream.buffer);
+    }
 } // namespace randomizer::seed

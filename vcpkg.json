@@ -32,13 +32,17 @@
     "name" : "neargye-semver",
     "version>=" : "0.3.0#1"
   }, {
-    "name" : "gzip-hpp",
-    "version>=" : "0.1.0#2"
-  }, {
     "name" : "cpp-httplib",
     "version>=" : "0.15.3"
   }, {
     "name" : "openssl",
     "version>=" : "3.2.1#2"
+  }, {
+    "name" : "libzippp",
+    "version>=" : "7.1-1.10.1"
+  }, {
+    "name" : "libzip",
+    "version>=" : "1.10.1",
+    "features": ["zstd"]
   } ]
 }

@@ -20,11 +20,10 @@
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/XboxLiveIdentityUI.h>
 #include <Modloader/app/types/CleverMenuItem.h>
-#include <Modloader/app/types/TitleScreenManager.h>
 #include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/randomizer.h>
-#include <Randomizer/seed/legacy_parser/parser.h>
+#include <Randomizer/seed/parser.h>
 #include <magic_enum.hpp>
 
 using namespace utils;
@@ -62,7 +61,7 @@ namespace randomizer::main_menu_seed_info {
 
         bool poll_current_seed_source_until_not_loading = false;
         std::shared_ptr<seed::SeedSource> current_seed_source = nullptr;
-        std::variant<seed::Seed::SeedMetaData, seed::legacy_parser::ParserError, generic_error_t> current_seed_meta_data_result = std::string("No seed loaded");
+        std::variant<seed::SeedMetaData, seed::ParserError, generic_error_t> current_seed_meta_data_result = std::string("No seed loaded");
         auto current_network_state = online::NetworkClient::State::Closed;
 
         void on_network_status(const online::NetworkClient::State state) {
@@ -93,8 +92,8 @@ namespace randomizer::main_menu_seed_info {
         void update_text() {
             auto const& player = multiplayer_universe().local_player();
 
-            const auto seed_metadata = std::holds_alternative<seed::Seed::SeedMetaData>(current_seed_meta_data_result)
-                ? std::make_optional(std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result))
+            const auto seed_metadata = std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)
+                ? std::make_optional(std::get<seed::SeedMetaData>(current_seed_meta_data_result))
                 : std::nullopt;
 
             const auto should_display_network_info = player.has_value() && seed_metadata.has_value() && current_seed_source != nullptr &&
@@ -126,7 +125,7 @@ namespace randomizer::main_menu_seed_info {
                 const auto meta = seed_metadata.value();
                 description += std::format("Slug: <hex_9ee2f7ff>{}</>\n", meta.slug);
                 description += "Flags:";
-                for (auto flag: meta.flags) {
+                for (auto flag: meta.tags) {
                     description += std::format("\n   - {}", flag);
                 }
             } else if (current_seed_source != nullptr && current_seed_source->get_error().has_value()) {
@@ -134,11 +133,11 @@ namespace randomizer::main_menu_seed_info {
                 description += current_seed_source->get_error().value();
             } else if (poll_current_seed_source_until_not_loading) {
                 description += "Loading seed...";
-            } else if (holds_any_of<seed::legacy_parser::ParserError, generic_error_t>(current_seed_meta_data_result)) {
+            } else if (holds_any_of<seed::ParserError, generic_error_t>(current_seed_meta_data_result)) {
                 description += "Error parsing seed:\n";
 
-                if (std::holds_alternative<seed::legacy_parser::ParserError>(current_seed_meta_data_result)) {
-                    description += magic_enum::enum_name(std::get<seed::legacy_parser::ParserError>(current_seed_meta_data_result));
+                if (std::holds_alternative<seed::ParserError>(current_seed_meta_data_result)) {
+                    description += magic_enum::enum_name(std::get<seed::ParserError>(current_seed_meta_data_result));
                 } else if (std::holds_alternative<std::string>(current_seed_meta_data_result)) {
                     description += std::get<std::string>(current_seed_meta_data_result);
                 }
@@ -300,21 +299,24 @@ namespace randomizer::main_menu_seed_info {
                 const auto data = System::IO::File::ReadAllBytes(save_info->fields.m_FullSaveFilePath);
 
                 auto seed_meta_data = std::make_shared<seed::SaveSlotSeedMetaData>();
+                auto seed_archive_data = std::make_shared<seed::SeedArchiveSaveMetaData>();
+
                 const auto read_slots = core::save_meta::read_save_meta_slots_from_byte_array(
                     data,
                     {
-                        {SaveMetaSlot::SeedMetaData, seed_meta_data}
+                        {SaveMetaSlot::SeedMetaData, seed_meta_data},
+                        {SaveMetaSlot::SeedArchiveData, seed_archive_data},
                     }
                 );
 
                 std::optional<long> connect_to_multiverse_id = std::nullopt;
 
-                if (read_slots.contains(SaveMetaSlot::SeedMetaData)) {
-                    const auto meta = randomizer::seed::legacy_parser::parse_meta_data(seed_meta_data->seed_content);
+                if (read_slots.contains(SaveMetaSlot::SeedMetaData) && read_slots.contains(SaveMetaSlot::SeedArchiveData)) {
+                    const auto meta = randomizer::seed::parse_meta_data(seed_archive_data->seed_archive);
                     current_seed_meta_data_result = variant_cast(meta);
                     current_seed_source = seed_meta_data->get_source();
 
-                    if (std::holds_alternative<seed::Seed::SeedMetaData>(meta)) {
+                    if (std::holds_alternative<seed::SeedMetaData>(meta)) {
                         connect_to_multiverse_id = current_seed_source->get_multiverse_id();
                     }
                 } else {
@@ -387,7 +389,7 @@ namespace randomizer::main_menu_seed_info {
                 return;
             }
 
-            const auto [source_status, source_seed_content] = get_new_game_seed_source()->poll();
+            const auto [source_status, source_seed_archive] = get_new_game_seed_source()->poll();
 
             if (source_status == seed::SourceStatus::Loading) {
                 return;
@@ -395,8 +397,8 @@ namespace randomizer::main_menu_seed_info {
 
             poll_current_seed_source_until_not_loading = false;
 
-            if (source_seed_content.has_value()) {
-                const auto meta = randomizer::seed::legacy_parser::parse_meta_data(*source_seed_content);
+            if (source_seed_archive.has_value()) {
+                const auto meta = randomizer::seed::parse_meta_data(*source_seed_archive);
                 current_seed_meta_data_result = variant_cast(meta);
             } else if (get_new_game_seed_source()->get_error().has_value()) {
                 current_seed_meta_data_result = get_new_game_seed_source()->get_error().value();
@@ -424,8 +426,8 @@ namespace randomizer::main_menu_seed_info {
             SaveSlotsManager::SlotByIndex(SaveSlotsManager::get_CurrentSlotIndex()) == nullptr // Selected save file is empty
         ) {
             if (randomizer::multiplayer_universe().should_enforce_seed_difficulty()) {
-                const auto seed_metadata = std::holds_alternative<seed::Seed::SeedMetaData>(current_seed_meta_data_result)
-                ? std::make_optional(std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result))
+                const auto seed_metadata = std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)
+                ? std::make_optional(std::get<seed::SeedMetaData>(current_seed_meta_data_result))
                 : std::nullopt;
 
                 if (seed_metadata.has_value()) {

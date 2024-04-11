@@ -3,7 +3,8 @@
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/parser.h>
 #include <fstream>
-#include <gzip/decompress.hpp>
+
+#include "archive.h"
 
 namespace randomizer::seed {
     namespace {
@@ -12,106 +13,55 @@ namespace randomizer::seed {
         }
     }
 
-    std::variant<SeedMetaData, ParserError> parse_meta_data(const std::filesystem::path& path) {
-        std::ifstream seed_file(path);
-        if (!seed_file.is_open()) {
-            return ParserError::FileNotFound;
-        }
-
-        std::string header_line;
-        std::getline(seed_file, header_line);
-
-        std::vector<std::string> header_parts;
-        split_str(header_line, header_parts, ',');
-        if (header_parts[0] != "wotwr") {
-            return ParserError::InvalidSeed;
-        }
-
+    std::variant<SeedMetaData, ParserError> parse_meta_data(const std::shared_ptr<SeedArchive>& archive) {
         SeedMetaData data;
-        data.version = semver::version(header_parts[1]);
+
+        auto version_string = archive->get_format_version();
+
+        data.version = semver::version(version_string);
         if (!is_seed_version_supported(data.version)) {
             return ParserError::WrongVersion;
         }
 
-        const auto gzipped = header_parts[2] == "z";
-        if (gzipped) {
-            // TODO: Do something.
-        }
+        auto preload = archive->get_preload();
 
         try {
-            auto json(nlohmann::json::parse(seed_file));
-            json.at("spawn").at("position").get_to(data.spawn);
+            preload.at("spawn").get_to(data.spawn);
+            preload.at("tags").get_to(data.tags);
+            preload.at("slug").get_to(data.slug);
         } catch (const std::exception& e) {
             return ParserError::InvalidSeed;
         }
 
-        //std::string name;
-        //std::vector<std::string> flags;
-        //std::string slug;
-        //int world_index = 0;
         //int total_pickups = 0;
         //std::unordered_map<GameArea, int> pickup_count_by_area;
-        //bool online = false; // TEMP
         return data;
     }
 
-    bool parse(const std::filesystem::path& path, location_data::LocationCollection const& location_data, const std::shared_ptr<SeedParseOutput>& output) {
-        std::ifstream seed_file(path);
-        if (!seed_file.is_open()) {
-            modloader::warn("legacy_seed_parser", "Failed to open seed file");
-            output->parser_error = std::format("Failed to open file '{}'", path.string());
-            return false;
-        }
-
-        std::string header_line;
-        std::getline(seed_file, header_line);
-
-        std::vector<std::string> header_parts;
-        split_str(header_line, header_parts, ',');
-        if (header_parts[0] != "wotwr") {
-            modloader::warn("legacy_seed_parser", "Failed to load seed, invalid header");
-            output->parser_error = std::format("Seed file invalid '{}'", path.string());
-            return false;
-        }
-
-        SeedMetaData data;
-        data.version = semver::version(header_parts[1]);
-        if (!is_seed_version_supported(data.version)) {
-            modloader::warn("legacy_seed_parser", "Failed to load seed due to incompatible version");
-            output->parser_error = std::format("Failed to load seed '{}'\ndue to version incompatibility", path.string());
-            return false;
-        }
-
-        nlohmann::json json;
+    bool parse(const std::shared_ptr<SeedArchive>& archive, location_data::LocationCollection const& location_data, const std::shared_ptr<SeedParseOutput>& output) {
+        auto json = archive->get_assembly();
         std::string current_item;
-        try {
-            if (header_parts[2] == "z") {
-                std::ostringstream string_stream;
-                string_stream << seed_file.rdbuf();
-                const auto string_stream_output = string_stream.view();
-                json = nlohmann::json::parse(gzip::decompress(string_stream_output.data(), string_stream_output.size()));
-            } else {
-                json = nlohmann::json::parse(seed_file);
-            }
 
-            current_item = "spawn";
-            json.at("spawn").at("position").get_to(output->meta.spawn);
+        try {
             for (const auto& event: json.at("events")) {
                 const auto& trigger = event.at(0);
+
                 if (trigger.contains("Condition")) {
                     current_item = "Condition";
                     auto& condition = output->data.conditions.emplace_back();
                     condition.condition = trigger.at("Condition").get<int>();
                     condition.command = event.at(1).get<int>();
+
                 } else if (trigger.contains("ClientEvent")) {
                     current_item = "ClientEvent";
-                    auto seed_event = trigger.at("ClientEvent").get<SeedEvent>();
-                    if (seed_event == SeedEvent::INVALID) {
+                    auto seed_event = trigger.at("ClientEvent").get<SeedClientEvent>();
+                    if (seed_event == SeedClientEvent::INVALID) {
                         current_item = trigger.at("ClientEvent").get<std::string>();
                         throw std::exception("Invalid ClientEvent value");
                     }
 
                     output->data.events[seed_event].push_back(event.at(1).get<int>());
+
                 } else if (trigger.contains("Binding")) {
                     current_item = "Binding";
                     auto& condition = output->data.conditions.emplace_back();
@@ -119,6 +69,7 @@ namespace randomizer::seed {
                     const auto state = core::api::uber_states::UberState(binding.at("group").get<int>(), binding.at("member").get<int>());
                     condition.condition = state;
                     condition.command = event.at(1).get<int>();
+
                 } else {
                     current_item = trigger.begin()->get<std::string>();
                     throw std::exception("Invalid event type");

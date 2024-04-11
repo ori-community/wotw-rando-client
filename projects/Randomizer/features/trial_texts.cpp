@@ -32,24 +32,24 @@ namespace {
 
     std::string_view get_text_for_spirit_trial(SpiritTrialLocation location);
 
-    randomizer::seed::SeedEvent get_event_uber_state_for_spirit_trial(SpiritTrialLocation location) {
+    randomizer::seed::SeedClientEvent get_event_uber_state_for_spirit_trial(SpiritTrialLocation location) {
         switch (location) {
             case SpiritTrialLocation::Marsh:
-                return randomizer::seed::SeedEvent::InkwaterTrialTextRequest;
+                return randomizer::seed::SeedClientEvent::InkwaterTrialTextRequest;
             case SpiritTrialLocation::Hollow:
-                return randomizer::seed::SeedEvent::HollowTrialTextRequest;
+                return randomizer::seed::SeedClientEvent::HollowTrialTextRequest;
             case SpiritTrialLocation::Wellspring:
-                return randomizer::seed::SeedEvent::WellspringTrialTextRequest;
+                return randomizer::seed::SeedClientEvent::WellspringTrialTextRequest;
             case SpiritTrialLocation::Woods:
-                return randomizer::seed::SeedEvent::WoodsTrialTextRequest;
+                return randomizer::seed::SeedClientEvent::WoodsTrialTextRequest;
             case SpiritTrialLocation::Reach:
-                return randomizer::seed::SeedEvent::ReachTrialTextRequest;
+                return randomizer::seed::SeedClientEvent::ReachTrialTextRequest;
             case SpiritTrialLocation::Depths:
-                return randomizer::seed::SeedEvent::DepthsTrialTextRequest;
+                return randomizer::seed::SeedClientEvent::DepthsTrialTextRequest;
             case SpiritTrialLocation::Pools:
-                return randomizer::seed::SeedEvent::LumaTrialTextRequest;
+                return randomizer::seed::SeedClientEvent::LumaTrialTextRequest;
             case SpiritTrialLocation::Wastes:
-                return randomizer::seed::SeedEvent::WastesTrialTextRequest;
+                return randomizer::seed::SeedClientEvent::WastesTrialTextRequest;
             default:
                 throw std::exception("Unexpected trial location.");
         }

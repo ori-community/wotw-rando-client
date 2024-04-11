@@ -7,6 +7,7 @@
 #include <Randomizer/location_data/location_collection.h>
 #include <Randomizer/seed/reach_check.h>
 #include <Randomizer/seed/seed.h>
+#include <Randomizer/seed/seed_source.h>
 #include <Randomizer/state_data/state.h>
 
 #include <neargye/semver.hpp>
@@ -60,7 +61,7 @@ namespace randomizer {
     online::MultiplayerUniverse& multiplayer_universe();
     std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor();
     std::shared_ptr<seed::SeedSource> get_new_game_seed_source();
-    void set_new_game_seed_content(const std::string& content);
+    void set_new_game_seed_archive(const std::shared_ptr<seed::SeedArchive>& content);
     std::optional<long> get_multiverse_id();
 
     void queue_input_unlocked_callback(std::function<void()> const& callback);

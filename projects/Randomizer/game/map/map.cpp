@@ -323,4 +323,8 @@ namespace randomizer::game::map {
         const auto icon_manager = instance->fields.m_areaMap->fields._IconManager_k__BackingField;
         AreaMapIconManager::ShowAreaIcons(icon_manager);
     }
+
+    void set_spoiler_data(const std::string& location, MapIcon icon, const std::string& text) {
+        // TODO
+    }
 } // namespace randomizer::game::map

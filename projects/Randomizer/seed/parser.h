@@ -9,6 +9,6 @@ namespace randomizer::seed {
         WrongVersion,
     };
 
-    std::variant<SeedMetaData, ParserError> parse_meta_data(const std::filesystem::path& path);
-    bool parse(const std::filesystem::path& path, location_data::LocationCollection const& location_data, const std::shared_ptr<SeedParseOutput>& output);
+    std::variant<SeedMetaData, ParserError> parse_meta_data(const std::shared_ptr<SeedArchive>& path);
+    bool parse(const std::shared_ptr<SeedArchive>& content, location_data::LocationCollection const& location_data, const std::shared_ptr<SeedParseOutput>& output);
 } // namespace randomizer::seed::modern_parser

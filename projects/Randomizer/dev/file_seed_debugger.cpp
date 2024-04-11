@@ -50,7 +50,7 @@ namespace randomizer::dev::seed_debugger {
 
         [[maybe_unused]] auto start_seed_event = event_bus().register_handler(DebuggerType::File, Event::SeedEventStart, [](auto context, auto, auto) {
             write_beginning();
-            const auto event = std::get<seed::SeedEvent>(context.event.value());
+            const auto event = std::get<seed::SeedClientEvent>(context.event.value());
             write(std::format("{}ON_SEED_EVENT {} {{", indent(indentation), magic_enum::enum_name(event)));
             ++indentation;
             last_written = Event::SeedEventStart;

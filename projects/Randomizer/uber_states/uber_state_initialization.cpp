@@ -429,7 +429,7 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoShop, "shardMapIconsCost", 41667, 0),
 
                 add_state<app::IntUberState>(UberStateGroup::Player, "currentMapArea", 51, static_cast<int>(GameArea::TOTAL)),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::Player, "inputLocked", 1000, static_cast<int>(GameArea::TOTAL)),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::Player, "inputLocked", 1000, 0),
 
                 // Dash has special handling, see burrow_and_waterdash_without_dash.cpp
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Skills, "dash", static_cast<int>(app::AbilityType__Enum::DashNew), false),

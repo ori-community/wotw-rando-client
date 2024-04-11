@@ -307,8 +307,8 @@ namespace randomizer::game {
             if (empty_slot_pressed_action_sequence_handle.has_value() && this_ptr->fields.Action == reinterpret_cast<app::ActionMethod*>(empty_slot_pressed_action_sequence_handle.value().ref()) &&
                 start_game_sequence_handle.has_value()) {
 
-                const auto [source_status, source_seed_content] = get_new_game_seed_source()->poll();
-                if (source_status != seed::SourceStatus::Ready || !source_seed_content.has_value()) {
+                const auto [source_status, source_seed_archive] = get_new_game_seed_source()->poll();
+                if (source_status != seed::SourceStatus::Ready || !source_seed_archive.has_value()) {
                     core::message_controller().queue_central({
                         .text = core::Property<std::string>::format("You cannot start a game without a seed"),
                         .show_box = true,
@@ -317,7 +317,7 @@ namespace randomizer::game {
                     return;
                 }
 
-                set_new_game_seed_content(*source_seed_content);
+                set_new_game_seed_archive(*source_seed_archive);
 
                 if (randomizer::multiplayer_universe().should_block_starting_new_game()) {
                     is_in_lobby = true;
@@ -407,6 +407,7 @@ namespace randomizer::game {
             check_seed_difficulty_enforcement();
 
             core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.Enabled = true;
+
             if (handling_start) {
                 handling_start = false;
                 core::api::faderb::fade_out(0.3f);

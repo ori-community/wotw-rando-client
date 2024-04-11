@@ -44,11 +44,11 @@ namespace randomizer::ipc {
             });
         }
 
-        void get_flags(const nlohmann::json& j) {
+        void get_tags(const nlohmann::json& j) {
             nlohmann::json response;
             response["type"] = "response";
             response["id"] = j.at("id").get<int>();
-            response["payload"] = game_seed().parser_output().meta.flags;
+            response["payload"] = game_seed().parser_output().meta.tags;
             send_message(response);
         }
 
@@ -255,7 +255,7 @@ namespace randomizer::ipc {
             register_request_handler("reread_seed_source", reread_seed_source);
             register_request_handler("get_uberstates", get_uberstates);
             register_request_handler("set_uberstate", set_uberstate);
-            register_request_handler("get_flags", get_flags);
+            register_request_handler("get_tags", get_tags);
             register_request_handler("action", action);
             register_request_handler("set_velocity", set_velocity);
             register_request_handler("get_velocity", get_velocity);

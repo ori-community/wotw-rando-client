@@ -3,7 +3,7 @@
 #include <nlohmann/json.hpp>
 
 namespace randomizer::seed {
-    enum class SeedEvent {
+    enum class SeedClientEvent {
         INVALID,
         Binding1,
         Binding2,
@@ -28,29 +28,29 @@ namespace randomizer::seed {
     };
 
     NLOHMANN_JSON_SERIALIZE_ENUM(
-        SeedEvent,
+        SeedClientEvent,
         {
-            {SeedEvent::INVALID,                    "INVALID"                   },
-            {SeedEvent::Binding1,                      "Binding1"                     },
-            {SeedEvent::Binding2,                      "Binding2"                     },
-            {SeedEvent::Binding3,                      "Binding3"                     },
-            {SeedEvent::Binding4,                      "Binding4"                     },
-            {SeedEvent::Binding5,                      "Binding5"                     },
-            {SeedEvent::Teleport,                   "Teleport"                  },
-            {SeedEvent::ShowProgress,               "ProgressMessage"           },
-            {SeedEvent::RequeueLastMessage,         "RequeueLastMessage"        },
-            {SeedEvent::Reload,                     "Reload"                    },
-            {SeedEvent::Respawn,                    "Respawn"                   },
-            {SeedEvent::Tick,                       "Tick"                      },
-            {SeedEvent::Spawn,                      "Spawn"                     },
-            {SeedEvent::InkwaterTrialTextRequest,   "InkwaterTrialTextRequest"  },
-            {SeedEvent::HollowTrialTextRequest,     "HollowTrialTextRequest"    },
-            {SeedEvent::WellspringTrialTextRequest, "WellspringTrialTextRequest"},
-            {SeedEvent::WoodsTrialTextRequest,      "WoodsTrialTextRequest"     },
-            {SeedEvent::ReachTrialTextRequest,      "ReachTrialTextRequest"     },
-            {SeedEvent::DepthsTrialTextRequest,     "DepthsTrialTextRequest"    },
-            {SeedEvent::LumaTrialTextRequest,       "LumaTrialTextRequest"      },
-            {SeedEvent::WastesTrialTextRequest,     "WastesTrialTextRequest"    },
+            {SeedClientEvent::INVALID,                    "INVALID"                   },
+            {SeedClientEvent::Binding1,                   "Binding1"                  },
+            {SeedClientEvent::Binding2,                   "Binding2"                  },
+            {SeedClientEvent::Binding3,                   "Binding3"                  },
+            {SeedClientEvent::Binding4,                   "Binding4"                  },
+            {SeedClientEvent::Binding5,                   "Binding5"                  },
+            {SeedClientEvent::Teleport,                   "Teleport"                  },
+            {SeedClientEvent::ShowProgress,               "ProgressMessage"           },
+            {SeedClientEvent::RequeueLastMessage,         "RequeueLastMessage"        },
+            {SeedClientEvent::Reload,                     "Reload"                    },
+            {SeedClientEvent::Respawn,                    "Respawn"                   },
+            {SeedClientEvent::Tick,                       "Tick"                      },
+            {SeedClientEvent::Spawn,                      "Spawn"                     },
+            {SeedClientEvent::InkwaterTrialTextRequest,   "InkwaterTrialTextRequest"  },
+            {SeedClientEvent::HollowTrialTextRequest,     "HollowTrialTextRequest"    },
+            {SeedClientEvent::WellspringTrialTextRequest, "WellspringTrialTextRequest"},
+            {SeedClientEvent::WoodsTrialTextRequest,      "WoodsTrialTextRequest"     },
+            {SeedClientEvent::ReachTrialTextRequest,      "ReachTrialTextRequest"     },
+            {SeedClientEvent::DepthsTrialTextRequest,     "DepthsTrialTextRequest"    },
+            {SeedClientEvent::LumaTrialTextRequest,       "LumaTrialTextRequest"      },
+            {SeedClientEvent::WastesTrialTextRequest,     "WastesTrialTextRequest"    },
     }
     );
 } // namespace randomizer::seed

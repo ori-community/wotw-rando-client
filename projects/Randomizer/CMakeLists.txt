@@ -160,6 +160,7 @@ set(
         "online/player_icon.cpp"
         "online/uber_state_handler.cpp"
         "randomizer.cpp"
+        "seed/archive.cpp"
         "seed/instructions.cpp"
         "seed/parser.cpp"
         "seed/reach_check.cpp"
@@ -234,6 +235,7 @@ set(
         "online/player_icon.h"
         "online/uber_state_handler.h"
         "randomizer.h"
+        "seed/archive.h"
         "seed/instructions.h"
         "seed/parser.h"
         "seed/reach_check.h"
@@ -305,6 +307,8 @@ target_link_libraries(
         Core
 )
 
+target_compile_definitions(${PROJECT_NAME} PUBLIC ZIP_CM_ZSTD)
+
 find_path(NEARGYE_SEMVER_INCLUDE_DIRS "neargye/semver.hpp")
 target_include_directories(${PROJECT_NAME} PRIVATE ${NEARGYE_SEMVER_INCLUDE_DIRS})
 
@@ -327,6 +331,12 @@ find_package(OpenSSL REQUIRED)
 target_link_libraries(${PROJECT_NAME} OpenSSL::SSL OpenSSL::Crypto)
 
 target_link_libraries(${PROJECT_NAME} protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
+
+find_package(zstd CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} $<IF:$<TARGET_EXISTS:zstd::libzstd_shared>,zstd::libzstd_shared,zstd::libzstd_static>)
+
+find_package(libzippp CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} libzippp::libzippp)
 
 message(STATUS "Assigning source groups.")
 

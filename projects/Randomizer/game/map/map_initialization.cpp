@@ -9,9 +9,7 @@
 
 namespace randomizer::game::map {
     core::Property<bool> show_interactible_icons_property(true);
-    core::Property<bool>& show_interactible_icons() {
-        return show_interactible_icons_property;
-    }
+    core::Property<bool>& show_interactible_icons() { return show_interactible_icons_property; }
 
     namespace {
         std::string icon_label(const std::optional<location_data::Location>& location, const core::api::uber_states::UberStateCondition& condition) {
@@ -299,17 +297,15 @@ namespace randomizer::game::map {
                     in_logic_icon->icon().assign([](auto) {}, [condition, game_finished] {
                         const auto new_location = location_collection().location(condition);
 
-                        if (active_filter() == Filters::Spoilers) {
-                            return game_seed().icon(condition);
-                        }
-
                         if (!new_location.has_value()) {
                             return MapIcon::Invisible;
                         }
 
                         return select_icon(new_location.value());
                     });
-                    spoiler_icon->icon().assign([](auto) {}, [condition, game_finished] { return game_seed().icon(condition); });
+
+                    // TODO
+                    // spoiler_icon->icon().assign([](auto) {}, [condition, game_finished] { return game_seed().icon(condition); });
 
                     in_logic_icon->position().set(location.map_position.value());
                     in_logic_icon->name().set(location.name);

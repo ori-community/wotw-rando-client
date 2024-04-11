@@ -41,9 +41,9 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) { set_active_wheel(9000); });
 
         initialize_item(9000, 0, "Show last pickup", "Displays the message associated\nwith the last pickup.", "file:assets/icons/wheel/show_last_pickup.blue.png",
-                        [](auto, auto, auto) { game_seed().trigger(seed::SeedEvent::RequeueLastMessage); });
+                        [](auto, auto, auto) { game_seed().trigger(seed::SeedClientEvent::RequeueLastMessage); });
         initialize_item(9000, 1, "Show progress, with hints.", "Displays current goal mode progress and bought hints.", "file:assets/icons/wheel/progress_summary.blue.png",
-                        [](auto, auto, auto) { game_seed().trigger(seed::SeedEvent::ShowProgress); });
+                        [](auto, auto, auto) { game_seed().trigger(seed::SeedClientEvent::ShowProgress); });
         initialize_item(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "file:assets/icons/wheel/warp_to_credits.blue.png",
                         [](auto, auto, auto) {
                             if (core::api::uber_states::UberState(34543, 11226).get<bool>()) {
