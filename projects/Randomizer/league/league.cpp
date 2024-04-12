@@ -205,7 +205,7 @@ namespace randomizer::league {
 
                         if (result.error() != httplib::Error::Success) {
                             set_status_message_thread_safe("Request failed");
-                            modloader::warn("league", std::format("Submission request failed with httplib error code {}", result.error()));
+                            modloader::warn("league", std::format("Submission request failed with httplib error code {}", static_cast<int>(result.error())));
                             continue;
                         }
 
