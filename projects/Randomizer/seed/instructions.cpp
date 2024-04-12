@@ -177,7 +177,7 @@ namespace randomizer::seed {
             } else if (key == "Path") {
                 return std::format("file:{}", icon.value().get<std::string>());
             } else {
-                throw RandoException(std::format("Invalid shop icon type '{}'", key));
+                throw RandoException(std::format("Invalid icon type '{}'", key));
             }
         }
 
@@ -1258,12 +1258,12 @@ namespace randomizer::seed {
             return std::make_unique<SetSpoiler>(j.at(0).get<std::string>(), parse_enum<MapIcon>(j.at(1)));
         }
 
-        std::unique_ptr<IInstruction> create_warp_icon_create(const nlohmann::json& j) { return std::make_unique<WarpIconCreate>(j.at(0).get<std::size_t>()); }
+        std::unique_ptr<IInstruction> create_warp_icon_create(const nlohmann::json& j) { return std::make_unique<WarpIconCreate>(j.get<std::size_t>()); }
 
-        std::unique_ptr<IInstruction> create_warp_icon_label(const nlohmann::json& j) { return std::make_unique<WarpIconLabel>(j.at(0).get<std::size_t>()); }
+        std::unique_ptr<IInstruction> create_warp_icon_label(const nlohmann::json& j) { return std::make_unique<WarpIconLabel>(j.get<std::size_t>()); }
 
         std::unique_ptr<IInstruction> create_warp_icon_destroy(const nlohmann::json& j) {
-            return std::make_unique<WarpIconDestroy>(j.at(0).get<std::size_t>());
+            return std::make_unique<WarpIconDestroy>(j.get<std::size_t>());
         }
 
         std::unique_ptr<IInstruction> create_shop_price(const nlohmann::json& j) {
