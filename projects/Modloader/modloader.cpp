@@ -41,6 +41,7 @@ namespace modloader {
     }
 
     namespace {
+        std::mutex logging_mutex;
         std::vector<std::weak_ptr<ILoggingHandler>> logging_handlers;
         std::vector<std::tuple<MessageType, std::string, std::string>> message_buffer;
 
@@ -68,6 +69,8 @@ namespace modloader {
     }
 
     void write_trace(const MessageType type, std::string const& group, std::string const& message) {
+        std::lock_guard _(logging_mutex);
+
         for (auto it = logging_handlers.begin(); it != logging_handlers.end();) {
             if (it->expired()) {
                 it = logging_handlers.erase(it);
