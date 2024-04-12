@@ -9,6 +9,7 @@
 #include <Core/events/task.h>
 
 #include <Common/ext.h>
+#include <Core/api/game/debug_menu.h>
 #include <Core/core.h>
 
 #include <Modloader/app/methods/ActionSequence.h>
@@ -312,6 +313,20 @@ namespace randomizer::game {
                     core::message_controller().queue_central({
                         .text = core::Property<std::string>::format("You cannot start a game without a seed"),
                         .show_box = true,
+                        .prioritized = true,
+                    });
+                    return;
+                }
+
+                if (core::api::game::debug_menu::should_prevent_cheats() && core::api::game::debug_menu::was_debug_active_this_session()) {
+                    core::message_controller().queue_central({
+                        .text = core::Property<std::string>::format(
+                            "It is forbidden to play this game with Debug Mode enabled.\n"
+                            "Please start the game without Debug Mode.\n"
+                            "Disabling Debug Mode after starting the game is not enough because\n"
+                            "it can have persistent effects on the game even after turning it off."
+                        ),
+                        .duration = 20.f,
                         .prioritized = true,
                     });
                     return;

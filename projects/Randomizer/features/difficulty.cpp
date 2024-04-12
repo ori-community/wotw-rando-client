@@ -13,9 +13,11 @@ IL2CPP_INTERCEPT(GameController, app::GameController_GameModeBalanceSettings*, g
 }
 
 IL2CPP_INTERCEPT(SeinDamageReciever, void, OnRecieveDamage, (app::SeinDamageReciever * this_ptr, app::Damage* damage)) {
-    auto interaction = core::api::game::player::sein()->fields.Abilities->fields.InteractionWrapper->fields.State;
-    if (!interaction->fields.m_isInNPCInteraction)
+    const auto interaction = core::api::game::player::sein()->fields.Abilities->fields.InteractionWrapper->fields.State;
+
+    if (!interaction->fields.m_isInNPCInteraction) {
         next::SeinDamageReciever::OnRecieveDamage(this_ptr, damage);
-    else
+    } else {
         damage->fields.m_ignored = true;
+    }
 }
