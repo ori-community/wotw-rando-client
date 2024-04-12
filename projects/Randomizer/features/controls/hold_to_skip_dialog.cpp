@@ -7,7 +7,6 @@
 #include <Modloader/app/methods/NPCMessageBox.h>
 #include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/types/Input_Cmd.h>
-#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
