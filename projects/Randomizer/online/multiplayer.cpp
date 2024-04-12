@@ -460,7 +460,7 @@ namespace randomizer::online {
             randomizer::server_disconnect();
             core::message_controller().queue_central({
                 .text = core::Property<std::string>::format(
-                    "It is forbidden to play this game with Debug Mode enabled.\n"
+                    "It is #forbidden# to play this game with #Debug Mode# enabled.\n"
                     "Please start the game without Debug Mode.\n"
                     "Disabling Debug Mode after starting the game is not enough because\n"
                     "it can have persistent effects on the game even after turning it off."
