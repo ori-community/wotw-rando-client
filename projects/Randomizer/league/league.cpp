@@ -99,7 +99,7 @@ namespace randomizer::league {
                         text += std::format("\n<s_0.8>Attempt {}</>", upload_attempt.load());
                     }
 
-                    if (status_message.length() > 0) {
+                    if (!status_message.empty()) {
                         text += std::format("\n<s_0.7>{}</>", status_message);
                     }
 
@@ -112,7 +112,7 @@ namespace randomizer::league {
                 case SubmissionStatus::Error:
                     text += "Your run could @not be submitted@.";
 
-                    if (status_message.length() > 0) {
+                    if (!status_message.empty()) {
                         text += std::format("\n<s_0.8>{}</>", status_message);
                     }
 
@@ -205,23 +205,28 @@ namespace randomizer::league {
 
                         if (result.error() != httplib::Error::Success) {
                             set_status_message_thread_safe("Request failed");
+                            modloader::warn("league", std::format("Submission request failed with httplib error code {}", result.error()));
                             continue;
                         }
 
                         if (result->status == httplib::StatusCode::Created_201) {
                             submission_status = SubmissionStatus::Done;
+                            modloader::info("league", "Submission created");
                             break;
                         }
 
                         if (result->status == httplib::StatusCode::UnprocessableContent_422) {
                             submission_status = SubmissionStatus::Error;
                             set_status_message_thread_safe(result->body);
+                            modloader::warn("league", std::format("Submission request failed with server error 422: {}", result->body));
                             break;
                         }
 
                         set_status_message_thread_safe(std::format("Request failed ({}, {})", result->status, result->body));
+                        modloader::warn("league", std::format("Submission request failed: {}, {}", result->status, result->body));
                     } catch (std::exception& e) {
                         set_status_message_thread_safe(std::format("Request failed ({})", e.what()));
+                        modloader::warn("league", std::format("Submission request failed: {}", e.what()));
                     }
                 }
 
@@ -295,7 +300,7 @@ namespace randomizer::league {
             }
         }
 
-        auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](GameEvent event, EventTiming timing) {
+        [[maybe_unused]] auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](GameEvent event, EventTiming timing) {
             if (is_showing_league_summary_screen) {
                 const auto menu_select_input = types::Input_Cmd::get_class()->static_fields->MenuSelect;
 
