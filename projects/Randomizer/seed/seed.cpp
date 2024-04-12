@@ -32,7 +32,7 @@ namespace randomizer::seed {
         }
 
         core::message_controller().queue_central({
-            .text = core::Property<std::string>::format("Seed <hex_9ee2f7ff>{}</>{}", m_parse_output->meta.slug, tags),
+            .text = core::Property<std::string>::format("Loaded Seed <hex_9ee2f7ff>{}</>{}", m_parse_output->meta.slug, tags),
             .duration = 5.f,
             .show_box = true,
             .prioritized = true,

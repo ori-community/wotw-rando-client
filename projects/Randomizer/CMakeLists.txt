@@ -187,6 +187,7 @@ set(
         "uber_states/uber_state_initialization.cpp"
         "uber_states/uber_state_intercepts.cpp"
         "ui/always_show_keystones.cpp"
+        "ui/empty_message_provider_fix.cpp"
         "ui/main_menu_seed_info.cpp"
 )
 
