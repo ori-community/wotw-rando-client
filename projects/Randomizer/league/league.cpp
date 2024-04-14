@@ -30,6 +30,7 @@
 #include <Randomizer/features/credits.h>
 
 #define CPPHTTPLIB_OPENSSL_SUPPORT
+#include <Core/ipc/ipc.h>
 #include <httplib.h>
 #undef MessageBox
 
@@ -250,6 +251,12 @@ namespace randomizer::league {
                 }
 
                 core::events::schedule_task_for_next_update(update_status_text_box);
+
+                if (submission_status == SubmissionStatus::Submitted || submission_status == SubmissionStatus::SubmittedWithWarnings) {
+                    core::ipc::send_message(
+                        core::ipc::make_request("league.run_submitted")
+                    );
+                }
             });
         }
 
