@@ -131,6 +131,7 @@ namespace randomizer::league {
 
                     break;
                 case SubmissionStatus::Idle:
+                default:
                     text += "Uploader Idle";  // This shouldn't be visible at any point
                     break;
             }
