@@ -39,7 +39,8 @@ namespace randomizer::league {
     namespace {
         enum class SubmissionStatus {
             Uploading,
-            Done,
+            Submitted,
+            SubmittedWithWarnings,
             Error,
             Idle,
         };
@@ -104,10 +105,20 @@ namespace randomizer::league {
                     }
 
                     break;
-                case SubmissionStatus::Done:
+                case SubmissionStatus::Submitted:
                     text += "Your run has been $submitted$.\n"
                             "\n"
                             "Press [MenuSelect] to continue";
+                    break;
+                case SubmissionStatus::SubmittedWithWarnings:
+                    text += "Your run has been #submitted# but could #not# be automatically #validated#.";
+
+                    if (!status_message.empty()) {
+                        text += std::format("\n<s_0.8>{}</>", status_message);
+                    }
+
+                    text += "\n\nPress [MenuSelect] to continue";
+
                     break;
                 case SubmissionStatus::Error:
                     text += "Your run could @not be submitted@.";
@@ -210,8 +221,15 @@ namespace randomizer::league {
                         }
 
                         if (result->status == httplib::StatusCode::Created_201) {
-                            submission_status = SubmissionStatus::Done;
+                            submission_status = SubmissionStatus::Submitted;
                             modloader::info("league", "Submission created");
+                            break;
+                        }
+
+                        if (result->status == 298) {
+                            submission_status = SubmissionStatus::SubmittedWithWarnings;
+                            set_status_message_thread_safe(result->body);
+                            modloader::warn("league", std::format("Submission request succeeded with warnings: {}", result->body));
                             break;
                         }
 
