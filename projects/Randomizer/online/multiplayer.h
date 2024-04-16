@@ -58,6 +58,7 @@ namespace randomizer::online {
 
         bool is_in_incorrect_save_file() const;
         void set_restrict_to_save_guid(const std::optional<core::MoodGuid>& value);
+        void set_should_restrict_to_save_guid(bool value);
         void set_should_block_starting_new_game(bool value);
         void set_enforce_seed_difficulty(bool value);
 
