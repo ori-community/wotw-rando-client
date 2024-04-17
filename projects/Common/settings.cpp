@@ -31,7 +31,7 @@ namespace common::settings {
         const nlohmann::json_pointer<std::string> path(std::format("/{}/{}", section, name));
         return it != m_overrides.end()
             ? std::get<int>(it->second)
-            : m_cached_settings.contains(path) && m_cached_settings.at(path).is_number_integer()
+            : m_cached_settings.contains(path) && m_cached_settings.at(path).is_number()
             ? m_cached_settings.at(path).get<int>()
             : default_value;
     }
@@ -41,7 +41,7 @@ namespace common::settings {
         const nlohmann::json_pointer<std::string> path(std::format("/{}/{}", section, name));
         return it != m_overrides.end()
             ? std::get<float>(it->second)
-            : m_cached_settings.contains(path) && m_cached_settings.at(path).is_number_float()
+            : m_cached_settings.contains(path) && m_cached_settings.at(path).is_number()
             ? m_cached_settings.at(path).get<float>()
             : default_value;
     }

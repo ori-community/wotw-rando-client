@@ -499,6 +499,8 @@ namespace randomizer::online {
     }
 
     void MultiplayerUniverse::set_restrict_to_save_guid(const std::optional<core::MoodGuid>& value) { m_restrict_to_save_guid = value; }
+    void MultiplayerUniverse::set_should_restrict_to_save_guid(bool value) { m_should_restrict_to_save_guid = value; }
+
     void MultiplayerUniverse::set_should_block_starting_new_game(bool value) {
         if (m_should_block_starting_new_game != value) {
             m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::Before);
