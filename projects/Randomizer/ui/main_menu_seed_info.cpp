@@ -64,6 +64,8 @@ namespace randomizer::main_menu_seed_info {
         std::variant<seed::SeedMetaData, seed::ParserError, generic_error_t> current_seed_meta_data_result = std::string("No seed loaded");
         auto current_network_state = online::NetworkClient::State::Closed;
 
+        common::EventBus<SeedMetaDataLoadedEventArgs> seed_meta_data_loaded_event_bus_instance;
+
         void on_network_status(const online::NetworkClient::State state) {
             if (state == online::NetworkClient::State::Closed) {
                 status_property.set("Offline");
@@ -290,7 +292,9 @@ namespace randomizer::main_menu_seed_info {
                 return;
             }
 
-            if (SaveSlotsManager::SaveFileExists(index)) {
+            const auto save_file_exists = SaveSlotsManager::SaveFileExists(index);
+
+            if (save_file_exists) {
                 on_seed_loaded_handle = nullptr;
 
                 const auto save_controller = core::api::game::save_controller();
@@ -377,6 +381,13 @@ namespace randomizer::main_menu_seed_info {
                     update_text();
                 });
             }
+
+            seed_meta_data_loaded_event_bus().trigger_event(SeedMetaDataLoadedEventArgs {
+                std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)
+                    ? std::make_optional(std::get<seed::SeedMetaData>(current_seed_meta_data_result))
+                    : std::nullopt,
+                !save_file_exists,
+            });
         }
 
         IL2CPP_INTERCEPT(SetTitleScreenAction, void, Perform, (app::SetTitleScreenAction * this_ptr, app::IContext* context)) {
@@ -411,6 +422,13 @@ namespace randomizer::main_menu_seed_info {
 
             update_text();
             update_difficulty_menu_items();
+
+            seed_meta_data_loaded_event_bus().trigger_event(SeedMetaDataLoadedEventArgs {
+                std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)
+                    ? std::make_optional(std::get<seed::SeedMetaData>(current_seed_meta_data_result))
+                    : std::nullopt,
+                !SaveSlotsManager::SaveFileExists(SaveSlotsManager::get_CurrentSlotIndex()),
+            });
         });
 
         IL2CPP_INTERCEPT(SaveSlotsUI, void, OnEnable, (app::SaveSlotsUI * this_ptr)) {
@@ -424,14 +442,13 @@ namespace randomizer::main_menu_seed_info {
         auto allow_normal = false;
         auto allow_hard = false;
 
-        if (
-            GameStateMachine::IsInExtendedTitleScreen(types::GameStateMachine::get_class()->static_fields->m_instance) &&
+        if (GameStateMachine::IsInExtendedTitleScreen(types::GameStateMachine::get_class()->static_fields->m_instance) &&
             SaveSlotsManager::SlotByIndex(SaveSlotsManager::get_CurrentSlotIndex()) == nullptr // Selected save file is empty
         ) {
             if (randomizer::multiplayer_universe().should_enforce_seed_difficulty()) {
                 const auto seed_metadata = std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)
-                ? std::make_optional(std::get<seed::SeedMetaData>(current_seed_meta_data_result))
-                : std::nullopt;
+                    ? std::make_optional(std::get<seed::SeedMetaData>(current_seed_meta_data_result))
+                    : std::nullopt;
 
                 if (seed_metadata.has_value()) {
                     allow_easy = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Easy;
@@ -448,5 +465,9 @@ namespace randomizer::main_menu_seed_info {
         do_if_valid<app::CleverMenuItem>(easy_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_easy); });
         do_if_valid<app::CleverMenuItem>(normal_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_normal); });
         do_if_valid<app::CleverMenuItem>(hard_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_hard); });
+    }
+
+    common::EventBus<SeedMetaDataLoadedEventArgs>& seed_meta_data_loaded_event_bus() {
+        return seed_meta_data_loaded_event_bus_instance;
     }
 } // namespace randomizer::main_menu_seed_info

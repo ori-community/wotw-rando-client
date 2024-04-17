@@ -263,44 +263,7 @@ namespace randomizer::game {
             next::SaveSlotsUI::OnEnable(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(SaveSlotsManager, void, set_CurrentSlotIndex, (int index)) {
-            next::SaveSlotsManager::set_CurrentSlotIndex(index);
-
-            if (!prevent_preload_on_selecting_empty_save) {
-                auto slot_info = SaveSlotsManager::SlotByIndex(index);
-
-                if (slot_info == nullptr) {
-                    console_send(std::format("Selected empty index {}", index));
-
-                    auto save_slots_ui = get_save_slots_ui();
-
-                    if (save_slots_ui != nullptr) {
-                        auto save_slot_ui = SaveSlotsUI::get_CurrentSaveSlot(save_slots_ui);
-
-                        auto scene_names = core::api::scenes::get_scenes_at_position(math::convert(game_seed().parser_output().meta.spawn));
-
-                        for (const auto& scene_name: scenes_to_preload) {
-                            if (!scene_names.contains(scene_name)) {
-                                core::api::scenes::unload_scene(scene_name, false);
-                            }
-                        }
-
-                        pending_scenes_to_preload.clear();
-                        for (const auto& scene_name: scene_names) {
-                            if (!core::api::scenes::scene_is_loaded(scene_name)) {
-                                pending_scenes_to_preload.emplace(scene_name);
-                                scenes_to_preload.emplace(scene_name);
-                                core::api::scenes::force_load_scene(scene_name, &on_scene_loading, false, true);
-                            }
-                        }
-
-                        if (!pending_scenes_to_preload.empty()) {
-                            SaveSlotUI::SetBusy(save_slot_ui, true);
-                        }
-                    }
-                }
-            }
-        }
+        [[maybe_unused]] common::registration_handle_t on_seed_meta_data_loaded;
         // endregion
 
         IL2CPP_INTERCEPT(RunActionOnce, void, Perform, (app::RunActionOnce * this_ptr, app::IContext* context)) {
@@ -485,6 +448,37 @@ namespace randomizer::game {
 
             on_multiverse_updated = randomizer::multiplayer_universe().event_bus().register_handler(online::MultiplayerUniverse::Event::MultiverseUpdated, EventTiming::After, [](auto, auto) {
                 update_lobby_ui();
+            });
+
+            on_seed_meta_data_loaded = randomizer::main_menu_seed_info::seed_meta_data_loaded_event_bus().register_handler([](auto event) {
+                if (!prevent_preload_on_selecting_empty_save && event.is_empty_save_file && event.seed_meta_data.has_value()) {
+                    auto save_slots_ui = get_save_slots_ui();
+
+                    if (save_slots_ui != nullptr) {
+                        auto save_slot_ui = SaveSlotsUI::get_CurrentSaveSlot(save_slots_ui);
+
+                        auto scene_names = core::api::scenes::get_scenes_at_position(math::convert(event.seed_meta_data->spawn));
+
+                        for (const auto& scene_name: scenes_to_preload) {
+                            if (!scene_names.contains(scene_name)) {
+                                core::api::scenes::unload_scene(scene_name, false);
+                            }
+                        }
+
+                        pending_scenes_to_preload.clear();
+                        for (const auto& scene_name: scene_names) {
+                            if (!core::api::scenes::scene_is_loaded(scene_name)) {
+                                pending_scenes_to_preload.emplace(scene_name);
+                                scenes_to_preload.emplace(scene_name);
+                                core::api::scenes::force_load_scene(scene_name, &on_scene_loading, false, true);
+                            }
+                        }
+
+                        if (!pending_scenes_to_preload.empty()) {
+                            SaveSlotUI::SetBusy(save_slot_ui, true);
+                        }
+                    }
+                }
             });
         });
     } // namespace

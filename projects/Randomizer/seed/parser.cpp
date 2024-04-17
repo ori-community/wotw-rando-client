@@ -3,6 +3,7 @@
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/parser.h>
 #include <fstream>
+#include <magic_enum.hpp>
 
 #include "archive.h"
 
@@ -43,6 +44,14 @@ namespace randomizer::seed {
         std::string current_item;
 
         try {
+            const auto meta_data_result = parse_meta_data(archive);
+
+            if (std::holds_alternative<ParserError>(meta_data_result)) {
+                throw std::exception(std::format("Failed to parse seed metadata: {}", magic_enum::enum_name(std::get<ParserError>(meta_data_result))).c_str());
+            }
+
+            output->meta = std::get<SeedMetaData>(meta_data_result);
+
             for (const auto& event: json.at("events")) {
                 const auto& trigger = event.at(0);
 
