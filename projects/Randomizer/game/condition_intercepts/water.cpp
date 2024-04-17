@@ -1,5 +1,7 @@
 #include <Core/api/uber_states/uber_state.h>
+#include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/enums/uber_state.h>
+#include <Core/property/reactivity.h>
 #include <Randomizer/conditions/new_setup_state_override.h>
 #include <Randomizer/macros.h>
 
@@ -19,7 +21,13 @@ namespace {
         return !water_damage_override && clean_water_state.get<bool>();
     }
 
+    [[maybe_unused]] std::shared_ptr<core::reactivity::ReactiveEffect> water_effect;
+
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        water_effect = core::reactivity::watch_effect().effect({clean_water_state}).after([] {
+            randomizer::conditions::apply_all_states();
+        }).trigger_on_load().finalize();
+
         std::function<randomizer::conditions::applier_intercept(int32_t, int32_t)> ai_create = [](int32_t corrupted,
                                                                                                   int32_t clean) -> randomizer::conditions::applier_intercept {
             return [corrupted, clean](auto, auto, auto, auto) -> int32_t {
