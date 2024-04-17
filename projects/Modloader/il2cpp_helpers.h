@@ -78,6 +78,10 @@ namespace il2cpp {
             handle = il2cpp::gchandle_new(obj, pinned);
         }
 
+        ~GCRef() {
+            free();
+        }
+
         T* ref() {
             return reinterpret_cast<T*>(il2cpp::gchandle_target(handle));
         }

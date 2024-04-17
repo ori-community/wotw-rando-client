@@ -7,7 +7,7 @@
 #include <memory>
 #include <optional>
 #include <string_view>
-#include <unordered_map>
+#include <functional>
 
 namespace core::api::graphics::textures {
     struct CORE_DLLEXPORT MaterialParams {
@@ -17,6 +17,7 @@ namespace core::api::graphics::textures {
     };
 
     CORE_C_DLLEXPORT void reload_all_file_textures();
+    CORE_C_DLLEXPORT void register_custom_protocol(const std::string& protocol, const std::function<app::Texture2D*(const std::string&)>& loader);
 
     class CORE_DLLEXPORT TextureData {
     public:

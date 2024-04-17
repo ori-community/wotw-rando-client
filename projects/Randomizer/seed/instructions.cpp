@@ -176,6 +176,8 @@ namespace randomizer::seed {
                 return std::format("tuley:{}", icon.value().get<int>());
             } else if (key == "File") {
                 return std::format("file:{}", icon.value().get<std::string>());
+            } else if (key == "Bundle") {
+                return std::format("bundle:{}", icon.value().get<std::string>());
             } else {
                 throw RandoException(std::format("Invalid icon type '{}'", key));
             }

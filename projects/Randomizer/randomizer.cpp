@@ -235,6 +235,16 @@ namespace randomizer {
                 randomizer_seed.clear();
             }
         });
+
+        auto on_modloader_injection_complete = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
+            core::api::graphics::textures::register_custom_protocol("bundle", [](const std::string& path) -> app::Texture2D* {
+                if (seed_archive_save_data->seed_archive == nullptr) {
+                    return nullptr;
+                }
+
+                return seed_archive_save_data->seed_archive->get_asset_texture(path);
+            });
+        });
     } // namespace
 
     void load_new_game_source() {

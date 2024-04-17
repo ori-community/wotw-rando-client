@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/app/structs/Texture2D.h>
 #include <libzippp.h>
 #include <nlohmann/json.hpp>
 
@@ -16,11 +18,15 @@ namespace randomizer::seed {
 
     const std::vector<std::byte>& get_archive_data() const;
 
+    app::Texture2D* get_asset_texture(const std::string& path);
+
 private:
     std::string read_text_file_from_archive(const std::string& file_name) const;
     nlohmann::json read_json_file_from_archive(const std::string& file_name) const;
 
     std::vector<std::byte> m_archive_data;
     libzippp::ZipArchive* m_archive;
+
+    std::unordered_map<std::string, il2cpp::GCRef<app::Texture2D>> asset_texture_cache;
   };
 }

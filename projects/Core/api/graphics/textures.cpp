@@ -24,9 +24,8 @@
 #include <Modloader/windows_api/console.h>
 
 #include <Core/api/game/game.h>
-#include <Core/utils/stb_image.h>
+#include <stb_image.h>
 
-#include <Modloader/app/structs/WrapMode__Enum.h>
 #include <filesystem>
 #include <string>
 #include <unordered_map>
@@ -41,10 +40,15 @@ namespace core::api::graphics::textures {
         std::unordered_map<std::string, gchandle> files;
         std::unordered_map<std::string, std::vector<std::weak_ptr<TextureData>>> file_instances;
         std::unordered_map<app::Renderer*, std::pair<gchandle, MaterialParams>> default_params;
+        std::unordered_map<std::string, std::function<app::Texture2D*(const std::string&)>> custom_protocols;
     } // namespace
 
     TextureData::~TextureData() {
         clear_overrides();
+    }
+
+    void register_custom_protocol(const std::string& protocol, const std::function<app::Texture2D*(const std::string&)>& loader) {
+        custom_protocols.emplace(protocol, loader);
     }
 
     void add_default_param(app::Renderer* renderer) {
@@ -156,7 +160,7 @@ namespace core::api::graphics::textures {
 
         auto texture_ptr = il2cpp::gchandle_target<app::Texture2D>(texture.value());
         if (!il2cpp::unity::is_valid(texture_ptr) && path.starts_with("file:")) {
-            info("textures", "had to reload file texture.");
+            info("textures", std::format("had to reload file texture {}", path));
             reload_file_texture();
             texture_ptr = il2cpp::gchandle_target<app::Texture2D>(texture.value());
         }
@@ -334,6 +338,25 @@ namespace core::api::graphics::textures {
                         texture = il2cpp::gchandle_new(items->vector[actual_value]->fields.Project->fields.Icon, true);
                     }
                 }
+            } else if (const auto custom_protocol = custom_protocols.find(type); custom_protocol != custom_protocols.end()) {
+                const auto texture_ptr = custom_protocol->second(value);
+
+                if (texture_ptr == nullptr) {
+                    const auto instance = types::SpiritShardSettings::get_class()->static_fields->Instance;
+                    if (instance == nullptr) {
+                        initialized = false;
+                        return;
+                    }
+
+                    int zero = 0;
+                    const auto shard_icons = instance->fields.Icons;
+                    const auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &zero);
+                    texture = il2cpp::gchandle_new_weak(icons->fields.InventoryIcon, true);
+                    return;
+                }
+
+                texture = il2cpp::gchandle_new(texture_ptr, false);
+                dont_unload_texture(reinterpret_cast<app::Texture*>(texture_ptr));
             } else if (type == "file") {
                 auto it = files.find(path);
                 if (it != files.end()) {
@@ -347,6 +370,7 @@ namespace core::api::graphics::textures {
                 int y;
                 int n = 4;
                 stbi_set_flip_vertically_on_load(true);
+
                 unsigned char* png_data = stbi_load(texture_path.c_str(), &x, &y, &n, STBI_rgb_alpha);
                 if (png_data == nullptr) {
                     const auto instance = types::SpiritShardSettings::get_class()->static_fields->Instance;
@@ -377,7 +401,7 @@ namespace core::api::graphics::textures {
             } else {
                 modloader::warn("textures", std::format("unknown texture protocol used when loading texture '{}'.", type));
             }
-        } catch (std::exception e) {
+        } catch (std::exception& e) {
             modloader::warn("textures", std::format("Fatal error fetching texture ({})", e.what()));
         }
     }
