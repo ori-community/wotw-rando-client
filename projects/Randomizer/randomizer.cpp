@@ -219,8 +219,8 @@ namespace randomizer {
             core::message_controller().central_display().text_processor(text_processor);
             seed_meta_save_data = std::make_unique<seed::SaveSlotSeedMetaData>();
 
-            register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::None, seed_meta_save_data);
-            register_slot(SaveMetaSlot::SeedArchiveData, SaveMetaSlotPersistence::None, seed_archive_save_data);
+            register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, seed_meta_save_data);
+            register_slot(SaveMetaSlot::SeedArchiveData, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, seed_archive_save_data);
 
             load_new_game_source();
         });
