@@ -35,7 +35,7 @@ namespace core::dev {
         app::AlignmentMode__Enum alignment = app::AlignmentMode__Enum::Center;
         app::HorizontalAnchorMode__Enum horizontal_anchor = app::HorizontalAnchorMode__Enum::Center;
         app::VerticalAnchorMode__Enum vertical_anchor = app::VerticalAnchorMode__Enum::Middle;
-        std::optional<api::messages::ScreenPosition> screen_position = api::messages::ScreenPosition::MiddleCenter;
+        std::optional<api::screen_position::ScreenPosition> screen_position = api::screen_position::ScreenPosition::MiddleCenter;
     };
 
     class CORE_DLLEXPORT StatusDisplay {

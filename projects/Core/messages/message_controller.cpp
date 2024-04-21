@@ -1,16 +1,62 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/ui.h>
+#include <Core/api/graphics/sprite.h>
+#include <Core/api/screen_position.h>
+#include <Core/events/task.h>
 #include <Core/messages/message_controller.h>
+#include <Modloader/modloader.h>
 
+#include <Modloader/app/methods/AnimatorDriver.h>
+#include <Modloader/app/methods/BaseAnimator.h>
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/Game/UI_Hints.h>
+#include <Modloader/app/methods/LegacyTransparencyAnimator.h>
+#include <Modloader/app/methods/ScalePositionForAspectRatio.h>
+#include <Modloader/app/types/LegacyTransparencyAnimator.h>
+#include <Modloader/app/types/ScalePositionForAspectRatio.h>
 #include <Modloader/app/types/UI_Hints.h>
 
 namespace core::messages {
     namespace {
-        bool global_can_show = false;
+        constexpr int MAX_RECENT_MESSAGES = 7;
+
+        bool game_booted = false;
+        std::unique_ptr<core::api::graphics::Sprite> recent_pickups_background;
+        std::optional<il2cpp::GCRef<app::LegacyTransparencyAnimator>> recent_pickups_background_animator;
+
         auto on_after_title_screen_startup = api::game::event_bus().register_handler(GameEvent::TitleScreenStartup, EventTiming::After, [](auto, auto) {
-            global_can_show = true;
+            game_booted = true;
+        });
+
+        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+            recent_pickups_background = std::make_unique<core::api::graphics::Sprite>(api::graphics::Sprite::Anchor::BottomLeft);
+
+            recent_pickups_background->layer(Layer::UI);
+            recent_pickups_background->local_scale({8, 8, 8});
+
+            auto bottom_left = api::screen_position::get(api::screen_position::ScreenPosition::BottomLeft, false);
+            bottom_left.z = -0.2f;
+            recent_pickups_background->local_position(bottom_left);
+
+            recent_pickups_background->texture(core::api::graphics::textures::get_texture("file:assets/textures/gradient_corner_bottom_left.png"));
+
+            const auto scale_position_component = il2cpp::unity::add_component<app::ScalePositionForAspectRatio>(
+                recent_pickups_background->get_game_object(), types::ScalePositionForAspectRatio::get_class()
+            );
+            ScalePositionForAspectRatio::ctor(scale_position_component);
+
+            const auto animator_component = il2cpp::unity::add_component<app::LegacyTransparencyAnimator>(
+                recent_pickups_background->get_game_object(), types::LegacyTransparencyAnimator::get_class()
+            );
+            recent_pickups_background_animator = il2cpp::GCRef(animator_component);
+
+            LegacyTransparencyAnimator::ctor(animator_component);
+
+            animator_component->fields.AnimateChildren = true;
+            animator_component->fields.AutoEnableTargets = true;
+            LegacyTransparencyAnimator::CacheOriginals(animator_component);
+
+            BaseAnimator::set_Speed(reinterpret_cast<app::BaseAnimator*>(animator_component), 4.f);
         });
     } // namespace
 
@@ -90,10 +136,20 @@ namespace core::messages {
         return sync;
     }
 
-    MessageController::MessageController()
-            : m_central_display(7, 5) {
-        m_central_display.vertical_anchor().set(app::VerticalAnchorMode__Enum::Top);
-        m_central_display.screen_position().set(api::messages::ScreenPosition::TopCenter);
+    MessageController::MessageController() :
+        m_central_display(7, 5),
+        m_recent_display(10, 5) {
+
+        m_central_display.message_vertical_anchor().set(app::VerticalAnchorMode__Enum::Top);
+        m_central_display.screen_position().set(api::screen_position::ScreenPosition::TopCenter);
+
+        m_recent_display.position().set({0.4f, 0.4f, 0.f});
+        m_recent_display.horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Left);
+        m_recent_display.message_vertical_anchor().set(app::VerticalAnchorMode__Enum::Bottom);
+        m_recent_display.display_vertical_anchor().set(MessageDisplayAnchor::Bottom);
+        m_recent_display.expand_direction().set(MessageDisplayExpandDirection::Upwards);
+        m_recent_display.alignment().set(app::AlignmentMode__Enum::Left);
+        m_recent_display.screen_position().set(api::screen_position::ScreenPosition::BottomLeft);
     }
 
     MessageController::~MessageController() = default;
@@ -121,29 +177,51 @@ namespace core::messages {
 
     void MessageController::queue_central(MessageInfo info, bool should_save) {
         if (should_save) {
-            m_saved_message = info;
+            // Copy processed text
+            auto message_copy = info;
+            auto text = message_copy.text.get();
+            m_central_display.text_processor()->process(text);
+            message_copy.text.set(text);
+
+            m_recent_messages.emplace_back(message_copy);
+            if (m_recent_messages.size() > MAX_RECENT_MESSAGES) {
+                m_recent_messages.pop_front();
+            }
         }
 
         m_central_display.push(std::move(info));
     }
 
     void MessageController::requeue_last_saved() {
-        if (m_saved_message.has_value()) {
-            m_saved_message->pickup_position = std::nullopt;
-            m_saved_message->prioritized = true;
-            m_central_display.push(m_saved_message.value());
-        } else {
-            m_central_display.push({
-                .text = Property<std::string>(std::string("No pickups collected yet, good Luck!")),
+        if (m_recent_messages.empty()) {
+            m_recent_display.push({
+                .text = Property<std::string>(std::string("<s_0.8>No pickups collected yet, good Luck!</>")),
                 .duration = 5.f,
+                .show_box = false,
                 .prioritized = true,
+                .play_sound = false,
             });
+        } else {
+            m_recent_display.clear();
+
+            for (const auto& message: m_recent_messages | std::views::reverse) {
+                auto text = message.text.get();
+                m_recent_display.push({
+                    .text = Property<std::string>(std::format("<s_0.8>{}</>", text)),
+                    .duration = 3.f,
+                    .show_box = false,
+                    .play_sound = false,
+                    .margins = {-0.09f, 0.125f},
+                    .line_spacing = -0.1f
+                });
+            }
         }
     }
 
     void MessageController::clear_central() {
-        m_saved_message = std::nullopt;
+        m_recent_messages.clear();
         m_central_display.clear();
+        m_recent_messages.clear();
     }
 
     app::Rect active_hint_bounds() {
@@ -159,7 +237,7 @@ namespace core::messages {
     }
 
     void MessageController::update(float delta_time) {
-        if (!global_can_show) {
+        if (!game_booted) {
             return;
         }
 
@@ -176,7 +254,7 @@ namespace core::messages {
             }
         }
 
-        auto y_position = 0.3f;
+        auto y_position = -0.8f;
         if (app::classes::Game::UI_Hints::get_IsShowingHint()) {
             auto bounds = active_hint_bounds();
             y_position += bounds.m_Height;
@@ -188,5 +266,23 @@ namespace core::messages {
 
         m_central_display.position().set(0, y_position, 0);
         m_central_display.update(delta_time);
+
+        m_recent_display.update(delta_time);
+
+        const auto recent_messages_displayed = m_recent_display.get_active_messages_count() > 0;
+        if (m_recent_messages_displayed_last_update != recent_messages_displayed) {
+            const auto animator = **recent_pickups_background_animator;
+            LegacyTransparencyAnimator::UpdateActiveStates(animator);
+
+            const auto driver = BaseAnimator::get_AnimatorDriver(reinterpret_cast<app::BaseAnimator*>(animator));
+
+            if (recent_messages_displayed) {
+                AnimatorDriver::ContinueForward(driver);
+            } else {
+                AnimatorDriver::ContinueBackwards(driver);
+            }
+
+            m_recent_messages_displayed_last_update = recent_messages_displayed;
+        }
     }
 } // namespace core::messages

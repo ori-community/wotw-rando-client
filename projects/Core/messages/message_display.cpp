@@ -1,5 +1,6 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
+#include <Core/api/screen_position.h>
 #include <Core/messages/message_display.h>
 #include <Core/utils/position_converter.h>
 
@@ -26,8 +27,8 @@ namespace core::messages {
         , m_max_in_queue(max_in_queue)
         , m_alignment(app::AlignmentMode__Enum::Center)
         , m_horizontal_anchor(app::HorizontalAnchorMode__Enum::Center)
-        , m_vertical_anchor(app::VerticalAnchorMode__Enum::Middle)
-        , m_screen_position(api::messages::ScreenPosition::MiddleCenter) {
+        , m_message_vertical_anchor(app::VerticalAnchorMode__Enum::Middle)
+        , m_screen_position(api::screen_position::ScreenPosition::MiddleCenter) {
     }
 
     message_handle_ptr_t MessageDisplay::push(MessageInfo info) {
@@ -51,7 +52,7 @@ namespace core::messages {
 
     void MessageDisplay::clear() {
         m_priority_message = std::nullopt;
-        m_priority_message_data = std::nullopt;
+        m_active_priority_message = std::nullopt;
         m_messages.clear();
         m_active_messages.clear();
     }
@@ -69,7 +70,7 @@ namespace core::messages {
 
         int total_lines = 0;
         auto cursor_position = m_position.get();
-        if (m_priority_message.has_value() || m_priority_message_data.has_value()) {
+        if (m_priority_message.has_value() || m_active_priority_message.has_value()) {
             update_priority_message(total_lines, cursor_position, delta_time);
             const auto max_line_count = m_max_line_count.get();
             int total_lines_temp = total_lines;
@@ -97,18 +98,18 @@ namespace core::messages {
 
     void MessageDisplay::update_priority_message(int& total_lines, app::Vector3& cursor_position, float delta_time) {
         if (m_priority_message.has_value()) {
-            if (m_priority_message_data.has_value()) {
-                m_priority_message_data->message->hide(true);
+            if (m_active_priority_message.has_value()) {
+                m_active_priority_message->message->hide(true);
             }
 
             auto& data = m_priority_message.value();
             show_message_box(data, total_lines, cursor_position);
-            m_priority_message_data = std::move(data);
+            m_active_priority_message = std::move(data);
             m_priority_message = std::nullopt;
         } else {
-            auto& data = m_priority_message_data.value();
+            auto& data = m_active_priority_message.value();
             if (!handle_active_message(data, total_lines, cursor_position, 0.5f, delta_time)) {
-                m_priority_message_data = std::nullopt;
+                m_active_priority_message = std::nullopt;
             }
         }
     }
@@ -158,6 +159,14 @@ namespace core::messages {
         }
     }
 
+    unsigned long long MessageDisplay::get_active_messages_count() const {
+        if (m_active_priority_message.has_value()) {
+            return 1;
+        }
+
+        return m_active_messages.size();
+    }
+
     void MessageDisplay::update_time(MessageData& data, float delta_time) {
         if (data.handle->state == message_handle_t::MessageState::Visible) {
             data.handle->active_time += delta_time;
@@ -181,14 +190,15 @@ namespace core::messages {
     void MessageDisplay::update_message_position(MessageData& data, int& total_lines, app::Vector3& cursor_position, float delta_time) {
         const auto text = trim_copy(data.info.text.get());
         const auto message_lines = static_cast<int>(std::ranges::count(text, '\n') + 1);
-        auto display_message_in_game_world = false;
 
         if (data.info.use_world_space) {
             // TODO: World space messages are currently unsupported
         } else {
+            const auto cursor_y_direction = static_cast<float>(get_expand_direction_y_multiplier());
+
             // Add top padding & margin
-            cursor_position.y -= data.info.margins.x;
-            cursor_position.y -= data.info.padding.x;
+            cursor_position.y -= data.info.margins.x * cursor_y_direction;
+            cursor_position.y -= data.info.padding.x * cursor_y_direction;
 
             // Animate message box movement if the message is visible
             if (data.handle->state == MessageHandle::MessageState::Visible) {
@@ -206,19 +216,15 @@ namespace core::messages {
 
             // Add message box height and bottom padding/margin
             const auto [m_XMin, m_YMin, m_Width, m_Height] = data.message->text_bounds();
-            cursor_position.y += m_Height;
-            cursor_position.y -= data.info.margins.y;
-            cursor_position.y -= data.info.padding.z;
+            cursor_position.y += m_Height * cursor_y_direction;
+            cursor_position.y -= data.info.margins.y * cursor_y_direction;
+            cursor_position.y -= data.info.padding.z * cursor_y_direction;
 
             total_lines += message_lines;
         }
     }
 
-    void MessageDisplay::show_message_box(
-        MessageData& data,
-        int& total_lines,
-        app::Vector3& position
-    ) {
+    void MessageDisplay::show_message_box(MessageData& data, int& total_lines, app::Vector3& position) {
         data.message = std::make_shared<api::messages::MessageBox>();
         data.message->show_box().set(data.info.show_box);
         data.message->text_processor(m_text_processor);
@@ -229,16 +235,20 @@ namespace core::messages {
         data.message->right_padding().set(data.info.padding.w);
         data.message->alignment().set(m_alignment.get());
         data.message->horizontal_anchor().set(m_horizontal_anchor.get());
-        data.message->vertical_anchor().set(m_vertical_anchor.get());
+        data.message->vertical_anchor().set(m_message_vertical_anchor.get());
         data.message->screen_position().set(m_screen_position.get());
+        data.message->line_spacing().set(data.info.line_spacing);
 
         update_message_position(data, total_lines, position, 0.f);
         if (data.info.pickup_position.has_value()) {
-            const auto top_center = modloader::math::convert(get_screen_position(api::messages::ScreenPosition::TopCenter));
+            const auto top_center = modloader::math::convert(
+                core::api::screen_position::get(m_screen_position.get().value_or(api::screen_position::ScreenPosition::TopCenter)) + m_position.get()
+            );
+
             const auto pickup_positon = data.info.pickup_position.value();
             const auto message_position = data.message->position().get();
             const auto pickup_ui_position = world_to_ui_position_2d(modloader::math::convert(pickup_positon)) - top_center;
-            //pickup_ui_position.y = -pickup_ui_position.y;
+            // pickup_ui_position.y = -pickup_ui_position.y;
             const auto distance_squared = modloader::math::distance2(pickup_ui_position, modloader::math::convert(message_position));
             if (distance_squared < m_max_distance_squared_for_message_position_animation) {
                 data.message->position().set(modloader::math::convert(pickup_ui_position));
@@ -252,5 +262,11 @@ namespace core::messages {
         data.handle = std::make_shared<message_handle_t>();
         data.handle->state = message_handle_t::MessageState::Visible;
         data.handle->time_left = data.info.duration;
+    }
+
+    int MessageDisplay::get_expand_direction_y_multiplier() const {
+        return m_expand_direction.get() == MessageDisplayExpandDirection::Downwards
+            ? 1
+            : -1;
     }
 } // namespace core::messages

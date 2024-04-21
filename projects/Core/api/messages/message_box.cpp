@@ -1,6 +1,7 @@
 #include <Core/api/game/game.h>
 #include <Core/api/messages/message_box.h>
 #include <Core/api/messages/text_style.h>
+#include <Core/api/screen_position.h>
 #include <Core/api/system/message_provider.h>
 #include <Core/utils/position_converter.h>
 
@@ -25,31 +26,6 @@ using namespace app::classes;
 using namespace app::classes::UnityEngine;
 
 namespace core::api::messages {
-    app::Vector3 get_screen_position(ScreenPosition position) {
-        // Because these positions are always the same and OnScreenPositions
-        // sometimes isn't initialized for all values we hardcode them.
-        switch (position) {
-            case ScreenPosition::TopLeft:
-                return {-5, 3, 0};
-            case ScreenPosition::TopCenter:
-                return {0, 3, 0};
-            case ScreenPosition::TopRight:
-                return {5, 3, 0};
-            case ScreenPosition::MiddleLeft:
-                return {-5, 0, 0};
-            case ScreenPosition::MiddleCenter:
-                return {0, 0, 0};
-            case ScreenPosition::MiddleRight:
-                return {5, 0, 0};
-            case ScreenPosition::BottomLeft:
-                return {-5, -3, 0};
-            case ScreenPosition::BottomCenter:
-                return {0, -2.5, 0};
-            case ScreenPosition::BottomRight:
-                return {5, -3, 0};
-        }
-    }
-
     MessageBox::MessageBox() {
         auto controller = types::UI::get_class()->static_fields->MessageController;
         m_game_object = reinterpret_cast<app::GameObject*>(Object::Instantiate_3(reinterpret_cast<app::Object_1*>(controller->fields.HintSmallMessage)));
@@ -170,6 +146,8 @@ namespace core::api::messages {
                 [this] { return m_scaler->fields.BottomRightPadding.x; }
         );
 
+        m_screen_position = Property<std::optional<screen_position::ScreenPosition>>(std::nullopt);
+
         m_on_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) { on_fixed_update(); });
 
         // Move back the background glow a little bit so it doesn't go out of the near-plane
@@ -268,7 +246,7 @@ namespace core::api::messages {
         }
 
         if (m_screen_position.get().has_value()) {
-            const auto offset = get_screen_position(*m_screen_position.get());
+            const auto offset = screen_position::get(*m_screen_position.get());
             pos = pos + offset;
         }
 

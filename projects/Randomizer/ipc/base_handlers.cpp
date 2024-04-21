@@ -13,6 +13,7 @@
 
 #include <Modloader/modloader.h>
 
+#include <Core/api/screen_position.h>
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
@@ -146,8 +147,8 @@ namespace randomizer::ipc {
 
             if (p.contains("position")) {
                 auto pos = p.at("position");
-                auto screen_position = p.value("screen_position", core::api::messages::ScreenPosition::MiddleCenter);
-                app::Vector3 position = get_screen_position(screen_position);
+                auto screen_position = p.value("screen_position", core::api::screen_position::ScreenPosition::MiddleCenter);
+                app::Vector3 position = core::api::screen_position::get(screen_position);
                 position.x += pos.at("x").get<float>();
                 position.y += pos.at("y").get<float>();
                 position.z += pos.at("z").get<float>();

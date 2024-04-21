@@ -1,10 +1,14 @@
 #include "text_style.h"
 
 #include <Modloader/app/types/TextStyle.h>
+#include <Modloader/app/types/TextStyleCollection.h>
+#include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
+#include <Modloader/app/methods/CatlikeCoding/TextBox/TextStyleCollection.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/modloader.h>
 
 #include <Common/ext.h>
+#include <Modloader/interception_macros.h>
 #include <unordered_set>
 #include <vector>
 
@@ -12,6 +16,13 @@ using namespace app::classes;
 using namespace modloader;
 
 namespace text_style {
+    // IL2CPP_INTERCEPT(CatlikeCoding::TextBox::TextBox, void, GenerateMetaData, (app::TextBox * this_ptr)) {
+    //     next::CatlikeCoding::TextBox::TextBox::GenerateMetaData(this_ptr);
+    //     this_ptr->fields.currentStyle.lineHeight = 0.0f;
+    //     this_ptr->fields.currentStyle.lineDescent.baseline = 0.f;
+    //     this_ptr->fields.currentStyle.lineDescent.baselineToBottom = 0.f;
+    // }
+
     bool eat(std::string_view text, int& i, std::string_view food) {
         if (i + food.size() >= text.size()) {
             return false;
@@ -55,9 +66,8 @@ namespace text_style {
     }
 
     app::TextStyle* create_style(std::string_view name) {
-        auto style = types::TextStyle::create();
-        il2cpp::invoke(style, ".ctor");
-        style->fields.name = reinterpret_cast<app::String*>(il2cpp::string_new(name));
+        const auto style = types::TextStyle::create();
+        style->fields.name = il2cpp::string_new(name);
         style->fields.rendererId = -1;
         return style;
     }
@@ -131,10 +141,12 @@ namespace text_style {
     }
 
     void create_styles(app::TextBox* box, std::string_view text) {
-        std::unordered_set<std::string> styles;
+        std::unordered_set<std::string> existing_style_names;
+
         auto style_array = box->fields.styleCollection->fields.styles;
-        for (auto style: il2cpp::ArrayIterator(style_array)) {
-            styles.emplace(il2cpp::convert_csstring(style->fields.name));
+        for (const auto& style: il2cpp::ArrayIterator(style_array)) {
+            auto name = il2cpp::convert_csstring(style->fields.name);
+            existing_style_names.emplace(name);
         }
 
         std::vector<app::TextStyle*> new_styles;
@@ -142,33 +154,33 @@ namespace text_style {
         for (int i = 0; i < text.size();) {
             app::TextStyle* style = nullptr;
             if (check_style(text, i, "<hex_", value)) {
-                style = create_color_style(styles, value);
+                style = create_color_style(existing_style_names, value);
             } else if (check_style(text, i, "<s_", value)) {
-                style = create_size_style(styles, value);
+                style = create_size_style(existing_style_names, value);
             } else if (check_style(text, i, "<ls_", value)) {
-                style = create_line_size_style(styles, value);
+                style = create_line_size_style(existing_style_names, value);
             } else {
                 ++i;
             }
 
             if (style != nullptr) {
-                styles.emplace(value);
                 new_styles.push_back(style);
             }
         }
 
         if (!new_styles.empty()) {
-            auto size = style_array->max_length + new_styles.size();
-            auto arr = types::TextStyle::create_array(static_cast<int>(size));
+            const auto new_styles_array_count = style_array->max_length + new_styles.size();
+            const auto new_styles_array = types::TextStyle::create_array(static_cast<int>(new_styles_array_count));
+
             for (int i = 0; i < style_array->max_length; ++i) {
-                arr->vector[i] = style_array->vector[i];
+                new_styles_array->vector[i] = style_array->vector[i];
             }
 
             for (int i = 0; i < new_styles.size(); ++i) {
-                arr->vector[i + style_array->max_length] = new_styles.at(i);
+                new_styles_array->vector[i + style_array->max_length] = new_styles.at(i);
             }
 
-            box->fields.styleCollection->fields.styles = arr;
+            box->fields.styleCollection->fields.styles = new_styles_array;
         }
     }
 } // namespace text_style

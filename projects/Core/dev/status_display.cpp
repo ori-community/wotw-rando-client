@@ -12,7 +12,7 @@ namespace core::dev {
         m_display.position().set(m_config.position);
         m_display.alignment().set(m_config.alignment);
         m_display.horizontal_anchor().set(m_config.horizontal_anchor);
-        m_display.vertical_anchor().set(m_config.vertical_anchor);
+        m_display.message_vertical_anchor().set(m_config.vertical_anchor);
         m_display.screen_position().set(m_config.screen_position);
         if (!m_config.entries.contains(StatusType::Warning)) {
             m_config.entries[StatusType::Warning].format = "<hex_ffc700ff>{}</>";
