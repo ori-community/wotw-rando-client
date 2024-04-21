@@ -394,7 +394,7 @@ namespace randomizer::online {
 
         box->text().process_and_set(message->text());
         box->position().set(position);
-        box->screen_position().set(static_cast<core::api::messages::ScreenPosition>(message->screenposition()));
+        box->screen_position().set(static_cast<core::api::screen_position::ScreenPosition>(message->screenposition()));
         box->alignment().set(static_cast<app::AlignmentMode__Enum>(message->alignment()));
         box->horizontal_anchor().set(static_cast<app::HorizontalAnchorMode__Enum>(message->horizontalanchor()));
         box->vertical_anchor().set(static_cast<app::VerticalAnchorMode__Enum>(message->verticalanchor()));

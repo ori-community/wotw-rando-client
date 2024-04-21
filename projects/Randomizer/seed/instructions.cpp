@@ -645,12 +645,12 @@ namespace randomizer::seed {
         };
 
         struct FreeMessageScreenPosition final : IInstruction {
-            FreeMessageScreenPosition(const std::size_t id, const core::api::messages::ScreenPosition screen_position) :
+            FreeMessageScreenPosition(const std::size_t id, const core::api::screen_position::ScreenPosition screen_position) :
                 id(id),
                 screen_position(screen_position) {}
 
             std::size_t id;
-            core::api::messages::ScreenPosition screen_position;
+            core::api::screen_position::ScreenPosition screen_position;
             void execute(Seed& seed, SeedMemory& memory) const override {
                 if (message_boxes.contains(id)) {
                     message_boxes[id].message->screen_position().set(screen_position);
@@ -1238,7 +1238,7 @@ namespace randomizer::seed {
         }
 
         std::unique_ptr<IInstruction> create_f_message_screen_position(const nlohmann::json& j) {
-            return std::make_unique<FreeMessageScreenPosition>(j.at(0).get<std::size_t>(), parse_enum<core::api::messages::ScreenPosition>(j.at(1)));
+            return std::make_unique<FreeMessageScreenPosition>(j.at(0).get<std::size_t>(), parse_enum<core::api::screen_position::ScreenPosition>(j.at(1)));
         }
 
         std::unique_ptr<IInstruction> create_message_destroy(const nlohmann::json& j) { return std::make_unique<MessageDestroy>(j.get<std::size_t>()); }

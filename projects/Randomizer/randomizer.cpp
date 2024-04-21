@@ -45,10 +45,12 @@ namespace randomizer {
 
         online::NetworkMonitor monitor;
         core::dev::StatusDisplay status({
-            .position = app::Vector3{-1.4f, 0.2f, 0},
+            .position = app::Vector3{0.2f, -0.2f, 0},
             .margins = {-0.09f, -0.09f},
             .alignment = app::AlignmentMode__Enum::Left,
-            .screen_position = core::api::messages::ScreenPosition::TopCenter,
+            .horizontal_anchor = app::HorizontalAnchorMode__Enum::Left,
+            .vertical_anchor = app::VerticalAnchorMode__Enum::Top,
+            .screen_position = core::api::screen_position::ScreenPosition::TopLeft,
         });
 
         auto seed_meta_save_data = std::make_shared<seed::SaveSlotSeedMetaData>();
@@ -217,6 +219,7 @@ namespace randomizer {
             text_processor->compose(std::make_shared<text_processors::MultiplayerProcessor>());
 
             core::message_controller().central_display().text_processor(text_processor);
+            core::message_controller().recent_display().text_processor(text_processor);
             seed_meta_save_data = std::make_unique<seed::SaveSlotSeedMetaData>();
 
             register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, seed_meta_save_data);

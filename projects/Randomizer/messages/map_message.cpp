@@ -12,7 +12,7 @@ namespace randomizer::messages {
             box = std::make_shared<core::api::messages::MessageBox>();
             box->position().set(0, 0, 0);
 
-            box->screen_position().set(core::api::messages::ScreenPosition::BottomCenter);
+            box->screen_position().set(core::api::screen_position::ScreenPosition::BottomCenter);
             box->alignment().set(app::AlignmentMode__Enum::Center);
             box->horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Center);
             box->vertical_anchor().set(app::VerticalAnchorMode__Enum::Bottom);

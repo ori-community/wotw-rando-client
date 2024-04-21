@@ -10,40 +10,11 @@
 #include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/ScaleToTextBox.h>
 
+#include <Core/api/screen_position.h>
 #include <nlohmann/json.hpp>
 #include <string_view>
 
 namespace core::api::messages {
-
-    enum class ScreenPosition {
-        TopLeft = 0,
-        TopCenter = 1,
-        TopRight = 2,
-        MiddleLeft = 3,
-        MiddleCenter = 4,
-        MiddleRight = 5,
-        BottomLeft = 6,
-        BottomCenter = 7,
-        BottomRight = 8
-    };
-
-    NLOHMANN_JSON_SERIALIZE_ENUM(
-        ScreenPosition,
-        {
-            { ScreenPosition::TopLeft, "TopLeft" },
-            { ScreenPosition::TopCenter, "TopCenter" },
-            { ScreenPosition::TopRight, "TopRight" },
-            { ScreenPosition::MiddleLeft, "MiddleLeft" },
-            { ScreenPosition::MiddleCenter, "MiddleCenter" },
-            { ScreenPosition::MiddleRight, "MiddleRight" },
-            { ScreenPosition::BottomLeft, "BottomLeft" },
-            { ScreenPosition::BottomCenter, "BottomCenter" },
-            { ScreenPosition::BottomRight, "BottomRight" },
-        }
-    );
-
-    CORE_DLLEXPORT app::Vector3 get_screen_position(ScreenPosition position);
-
     class CORE_DLLEXPORT MessageBox {
     public:
         enum class Visibility {
@@ -85,7 +56,7 @@ namespace core::api::messages {
         [[nodiscard]] const Property<float>& bottom_padding() { return m_bottom_padding; }
         [[nodiscard]] const Property<float>& left_padding() { return m_left_padding; }
         [[nodiscard]] const Property<float>& right_padding() { return m_right_padding; }
-        [[nodiscard]] const Property<std::optional<ScreenPosition>>& screen_position() { return m_screen_position; }
+        [[nodiscard]] const Property<std::optional<screen_position::ScreenPosition>>& screen_position() { return m_screen_position; }
     private:
         void render_text_box();
         app::Transform* background_transform() const;
@@ -113,6 +84,6 @@ namespace core::api::messages {
         Property<float> m_bottom_padding { 0.f };
         Property<float> m_left_padding { 1.f };
         Property<float> m_right_padding { 1.f };
-        Property<std::optional<ScreenPosition>> m_screen_position;
+        Property<std::optional<screen_position::ScreenPosition>> m_screen_position{};
     };
 } // namespace core::api::messages

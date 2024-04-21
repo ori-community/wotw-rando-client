@@ -13,6 +13,7 @@
 
 #include <Modloader/modloader.h>
 
+#include <Core/api/screen_position.h>
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
@@ -146,8 +147,8 @@ namespace randomizer::ipc {
 
             if (p.contains("position")) {
                 auto pos = p.at("position");
-                auto screen_position = p.value("screen_position", core::api::messages::ScreenPosition::MiddleCenter);
-                app::Vector3 position = get_screen_position(screen_position);
+                auto screen_position = p.value("screen_position", core::api::screen_position::ScreenPosition::MiddleCenter);
+                app::Vector3 position = core::api::screen_position::get(screen_position);
                 position.x += pos.at("x").get<float>();
                 position.y += pos.at("y").get<float>();
                 position.z += pos.at("z").get<float>();
@@ -247,7 +248,7 @@ namespace randomizer::ipc {
             request["payload"]["state"] = event.state.state();
             request["payload"]["previous_value"] = event.previous_value;
             request["payload"]["value"] = event.value;
-            core::ipc::send_message(request);
+             core::ipc::send_message(request);
         });
 
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
@@ -271,16 +272,6 @@ namespace randomizer::ipc {
         nlohmann::json response;
         response["type"] = "request";
         response["method"] = "notify_on_reload";
-        core::ipc::send_message(response);
-    });
-
-    auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
-        nlohmann::json response;
-        response["type"] = "request";
-        response["method"] = "notify_on_uber_state_changed";
-        response["payload"]["group"] = static_cast<int>(params.state.group());
-        response["payload"]["state"] = params.state.state();
-        response["payload"]["value"] = params.state.get();
         core::ipc::send_message(response);
     });
 

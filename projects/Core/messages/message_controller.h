@@ -5,6 +5,9 @@
 
 #include <memory>
 #include <optional>
+#include <queue>
+#include <string_view>
+#include <utility>
 
 namespace core::messages {
     struct IndependentMessageInfo {
@@ -22,11 +25,13 @@ namespace core::messages {
 
         // Handles showing / hiding the given messagebox based on info provided.
         message_handle_ptr_t queue(std::shared_ptr<api::messages::MessageBox> message, IndependentMessageInfo info);
-        message_handle_ptr_t queue_central(MessageInfo info);
+        message_handle_ptr_t queue_central(MessageInfo info, bool should_save = false);
+        void requeue_last_saved();
         void update(float delta_time);
         void clear_central();
 
         MessageDisplay& central_display() { return m_central_display; }
+        MessageDisplay& recent_display() { return m_recent_display; }
 
     private:
         struct MessageData {
@@ -49,6 +54,10 @@ namespace core::messages {
         static void update_time(const MessageData& data, const float delta_time);
 
         MessageDisplay m_central_display;
+        MessageDisplay m_recent_display;
+        std::deque<MessageInfo> m_recent_messages;
+        bool m_recent_messages_displayed_last_update = false;
+
         std::unordered_map<std::string, MessageQueue> m_queues;
         std::vector<MessageData> m_unqueued_messages;
     };
