@@ -1149,7 +1149,7 @@ namespace randomizer::area_segment_states {
 
         next::Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::SetAreaState(this_ptr, area_id, index, state, position);
 
-        const core::api::uber_states::UberStateCallbackParams params{uber_state, previous_value};
+        const core::api::uber_states::UberStateCallbackParams params{uber_state, previous_value, uber_state.get<double>()};
         core::api::uber_states::notification_bus().trigger_event(params);
         core::api::uber_states::single_notification_bus().trigger_event(uber_state, params);
     }
