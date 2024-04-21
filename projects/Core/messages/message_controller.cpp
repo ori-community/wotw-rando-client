@@ -175,8 +175,8 @@ namespace core::messages {
         return sync;
     }
 
-    void MessageController::queue_central(MessageInfo info, bool should_save) {
-        if (should_save) {
+    void MessageController::queue_central(MessageInfo info, bool add_to_recent) {
+        if (add_to_recent) {
             // Copy processed text
             auto message_copy = info;
             auto text = message_copy.text.get();
@@ -192,7 +192,7 @@ namespace core::messages {
         m_central_display.push(std::move(info));
     }
 
-    void MessageController::requeue_last_saved() {
+    void MessageController::show_recent_messages() {
         if (m_recent_messages.empty()) {
             m_recent_display.push({
                 .text = Property<std::string>(std::string("<s_0.8>No pickups collected yet, good Luck!</>")),
@@ -219,7 +219,6 @@ namespace core::messages {
     }
 
     void MessageController::clear_central() {
-        m_recent_messages.clear();
         m_central_display.clear();
         m_recent_messages.clear();
     }

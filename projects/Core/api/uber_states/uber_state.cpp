@@ -258,7 +258,7 @@ namespace core::api::uber_states {
         }
 
         if (!ignore_intercept) {
-            const UberStateCallbackParams params{*this, value};
+            const UberStateCallbackParams params{*this, prev, value};
             auto result = interception_bus().trigger_event(params);
             if (std::ranges::find(result, true) != result.end()) {
                 return;

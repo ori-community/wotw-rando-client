@@ -6,7 +6,7 @@
 
 namespace randomizer::seed::items {
     void Message::grant() {
-        core::message_controller().queue_central(info, should_save_as_last);
+        core::message_controller().queue_central(info, should_add_to_recent);
     }
 
     std::string Message::to_string() const {

@@ -100,7 +100,7 @@ struct core::Property<T> {
     }
 
     Property &operator=(const Property &other) {
-        m_value = other.m_value;
+        m_value = std::make_shared<T>(get());
         notify_changed(reactivity::PropertyDependency(m_id));
         return *this;
     }
