@@ -248,7 +248,7 @@ namespace randomizer::ipc {
             request["payload"]["state"] = event.state.state();
             request["payload"]["previous_value"] = event.previous_value;
             request["payload"]["value"] = event.value;
-             core::ipc::send_message(request);
+            core::ipc::send_message(request);
         });
 
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
