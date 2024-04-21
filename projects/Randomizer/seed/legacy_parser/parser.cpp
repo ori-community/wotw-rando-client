@@ -205,7 +205,7 @@ namespace randomizer::seed::legacy_parser {
         const auto text = std::format("{} {}", spirit_light, currency);
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
-        message->should_save_as_last = true;
+        message->should_add_to_recent = true;
         message->info.text.set(text);
 
         data.add_item(message);
@@ -229,7 +229,7 @@ namespace randomizer::seed::legacy_parser {
 
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
-        message->should_save_as_last = true;
+        message->should_add_to_recent = true;
         MapIcon icon;
         switch (static_cast<ResourceType>(resource_type_int)) {
             case ResourceType::Health: {
@@ -330,7 +330,7 @@ namespace randomizer::seed::legacy_parser {
 
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
-        message->should_save_as_last = true;
+        message->should_add_to_recent = true;
         const auto text = should_add ? std::format("[ability({0})]", ability_type_int) : std::format("Removed [ability({0})]", ability_type_int);
         message->info.text.set(text);
         data.add_item(message);
@@ -365,7 +365,7 @@ namespace randomizer::seed::legacy_parser {
 
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
-        message->should_save_as_last = true;
+        message->should_add_to_recent = true;
         const auto text = should_add ? std::format("[shard({0})]", shard_type_int) : std::format("Removed [shard({0})]", shard_type_int);
         message->info.text.set(text);
         data.add_item(message);
@@ -963,7 +963,7 @@ namespace randomizer::seed::legacy_parser {
 
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
-        message->should_save_as_last = true;
+        message->should_add_to_recent = true;
         const auto text = should_add ? std::format("#{0} TP#", teleporter_name) : std::format("Removed #{0} TP#", teleporter_name);
         message->info.text.set(text);
         data.add_item(message);
@@ -975,7 +975,7 @@ namespace randomizer::seed::legacy_parser {
     bool parse_message(location_type const& location, std::span<std::string> parts, ParserData& data) {
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
-        message->should_save_as_last = true;
+        message->should_add_to_recent = true;
         message->info.duration = 4;
         std::string text;
         for (const auto& part: parts) {
@@ -991,6 +991,7 @@ namespace randomizer::seed::legacy_parser {
                 message->info.play_sound = false;
             } else if (part == "instant" || part == "prioritized") {
                 message->info.prioritized = true;
+                message->should_add_to_recent = false;
             } else if (part == "nofade") {
                 message->info.instant_fade = true;
             } else if (part == "prepend") {
@@ -1167,7 +1168,7 @@ namespace randomizer::seed::legacy_parser {
 
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
-        message->should_save_as_last = true;
+        message->should_add_to_recent = true;
         message->info.text.set_format("*{0}*", text);
         data.add_item(message);
 
@@ -1218,7 +1219,7 @@ namespace randomizer::seed::legacy_parser {
 
         const auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
-        message->should_save_as_last = true;
+        message->should_add_to_recent = true;
         message->info.text.set_format(R"(#{0}[if([state_int(4|{1})] > 1,<> x[state_int(4|{1})],)]#)", bonus_item, bonus_type_int);
         data.add_item(message);
 
@@ -1334,7 +1335,7 @@ namespace randomizer::seed::legacy_parser {
         std::string name = weapon_upgrade_name(weapon_upgrade_int);
 
         const auto message = std::make_shared<items::Message>();
-        message->should_save_as_last = true;
+        message->should_add_to_recent = true;
         message->info.text.set(name);
         set_location(message.get(), location);
 
@@ -1359,7 +1360,7 @@ namespace randomizer::seed::legacy_parser {
 
         const auto relic_name = std::format("@{} Relic@", std::string(data.data->relics.relic_name(location)));
         const auto message = std::make_shared<items::Message>();
-        message->should_save_as_last = true;
+        message->should_add_to_recent = true;
         message->info.text.set(relic_name);
 
         set_location(message.get(), location);
@@ -1421,7 +1422,7 @@ namespace randomizer::seed::legacy_parser {
                 return false;
             case 2: {
                 const auto message = std::make_shared<items::Message>();
-                message->should_save_as_last = true;
+                message->should_add_to_recent = true;
                 message->info.text.set("[state_int(6|2)]/[seed(pickup_count)]");
                 data.add_item(message);
                 data.location_data.names.emplace_back(message->info.text);
@@ -1486,7 +1487,7 @@ namespace randomizer::seed::legacy_parser {
                 // WorldName
                 const auto message = std::make_shared<items::Message>();
                 message->info.text.set_format("[world({})]", parts[1]);
-                message->should_save_as_last = true;
+                message->should_add_to_recent = true;
                 data.add_item(message);
                 data.location_data.names.emplace_back(message->info.text);
                 break;

@@ -8,7 +8,7 @@ namespace randomizer::seed::items {
     class Message final : public BaseItem {
     public:
         core::messages::MessageInfo info;
-        bool should_save_as_last = false;
+        bool should_add_to_recent = false;
 
         void grant() override;
         std::string to_string() const override;
