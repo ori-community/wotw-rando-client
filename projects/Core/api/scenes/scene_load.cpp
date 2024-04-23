@@ -116,9 +116,13 @@ namespace core::api::scenes {
         return ScenesManager::GetSceneInformation(scenes_manager, scene_name_csstring);
     }
 
-    std::string current_scene() {
-        auto scenes_manager = types::Scenes::get_class()->static_fields->Manager;
-        auto scene = scenes_manager->fields.m_currentScene;
+    app::RuntimeSceneMetaData* current_scene() {
+        const auto scenes_manager = types::Scenes::get_class()->static_fields->Manager;
+        return ScenesManager::get_CurrentScene(scenes_manager);
+    }
+
+    std::string current_scene_name() {
+        const auto scene = current_scene();
         return scene == nullptr ? "" : il2cpp::convert_csstring(scene->fields.Scene);
     }
 

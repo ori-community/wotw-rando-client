@@ -119,6 +119,10 @@ namespace core::settings {
         return get_settings().get_boolean("Flags", "ShriekIsShrek", false);
     }
 
+    bool enable_minimap() {
+        return get_settings().get_boolean("Flags", "EnableMinimap", false);
+    }
+
     std::string ori_model_texture() {
         return get_settings().get_string("Paths", "OriModelTexture", "");
     }
@@ -223,5 +227,9 @@ namespace core::settings {
 
     void shriek_is_shrek(bool value) {
         get_settings().overrides()[common::settings::key_t{"Flags", "ShriekIsShrek"}] = value;
+    }
+
+    void enable_minimap(bool value) {
+        get_settings().overrides()[common::settings::key_t{"Flags", "EnableMinimap"}] = value;
     }
 } // namespace core::settings

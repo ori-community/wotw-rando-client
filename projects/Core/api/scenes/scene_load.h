@@ -28,7 +28,8 @@ namespace core::api::scenes {
     CORE_DLLEXPORT app::RuntimeSceneMetaData* get_scene_metadata(std::string_view scene);
 
     CORE_DLLEXPORT bool is_in_game();
-    CORE_DLLEXPORT std::string current_scene();
+    CORE_DLLEXPORT app::RuntimeSceneMetaData* current_scene();
+    CORE_DLLEXPORT std::string current_scene_name();
 
     CORE_DLLEXPORT bool scene_is_loading(std::string_view scene);
     CORE_DLLEXPORT bool scene_is_loaded(std::string_view scene);

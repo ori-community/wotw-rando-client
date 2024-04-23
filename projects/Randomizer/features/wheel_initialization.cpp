@@ -54,7 +54,7 @@ namespace randomizer::features::wheel {
                                 });
                             }
                         });
-        initialize_item(9000, 3, "Toggle keystones", "Toggle to always show the keystone ui.", "shard:1",
+        initialize_item(9000, 3, "Toggle keystones", "Toggle to always show the keystone ui.", "file:assets/icons/game/keystone.png",
                         [](auto, auto, auto) {
                             core::settings::always_show_keystones(!core::settings::always_show_keystones());
                             core::message_controller().queue_central({
@@ -77,6 +77,10 @@ namespace randomizer::features::wheel {
                                 .text = core::Property<std::string>::format("Autoaim: {}", core::settings::autoaim()),
                                 .prioritized = true,
                             });
+                        });
+        initialize_item(9000, 6, "Toggle minimap", "Toggle minimap overlay.", "file:assets/icons/game/map.png",
+                        [](auto, auto, auto) {
+                            core::settings::enable_minimap(!core::settings::enable_minimap());
                         });
 
         if (randomizer::get_multiverse_id().has_value()) {
