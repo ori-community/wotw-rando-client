@@ -78,7 +78,7 @@ namespace randomizer::features::wheel {
                                 .prioritized = true,
                             });
                         });
-        initialize_item(9000, 6, "Toggle minimap", "Toggle minimap overlay.", "file:assets/icons/game/map.png",
+        initialize_item(9000, 6, "Toggle minimap", "Toggle minimap overlay.", "file:assets/icons/wheel/minimap.png",
                         [](auto, auto, auto) {
                             core::settings::enable_minimap(!core::settings::enable_minimap());
                         });
