@@ -18,12 +18,14 @@
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Graphics.h>
 #include <Modloader/app/methods/UnityEngine/Material.h>
+#include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/types/AreaMapCanvas.h>
 #include <Modloader/app/types/AreaMapUI.h>
 #include <Modloader/app/types/AspectRatioManager.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/MenuTabManager.h>
 #include <Modloader/app/types/ScalePositionForAspectRatio.h>
+#include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
@@ -170,6 +172,21 @@ namespace {
             return true;
         }
 
+        const auto game_state_machine = types::GameStateMachine::get_class()->static_fields->m_instance;
+
+        if (game_state_machine != nullptr) {
+            const auto state = game_state_machine->fields._CurrentState_k__BackingField;
+            if (
+                state == app::GameStateMachine_State__Enum::Logos ||
+                state == app::GameStateMachine_State__Enum::Prologue ||
+                state == app::GameStateMachine_State__Enum::StartScreen ||
+                state == app::GameStateMachine_State__Enum::TitleScreen ||
+                state == app::GameStateMachine_State__Enum::WatchCutscenes
+            ) {
+                return true;
+            }
+        }
+
         return PerformBackOutAction::get_IsAbandonChallangeActive();
     }
 
@@ -185,6 +202,11 @@ namespace {
         if (this_ptr->fields.m_backgroundState != state_before) {
             update_minimap_visibility();
         }
+    }
+
+    IL2CPP_INTERCEPT(GameStateMachine, void, set_CurrentState, (app::GameStateMachine * this_ptr, app::GameStateMachine_State__Enum value)) {
+        next::GameStateMachine::set_CurrentState(this_ptr, value);
+        update_minimap_visibility();
     }
 
     IL2CPP_INTERCEPT(PerformBackOutAction, void, ActivateAbandonChallange, (app::ConditionUberState * abandon_challange_condition)) {
