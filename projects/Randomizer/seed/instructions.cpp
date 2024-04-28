@@ -60,11 +60,11 @@ namespace randomizer::seed {
                 }
 
                 if (message.handle->state == core::messages::MessageHandle::MessageState::Visible && message.visible_callback.has_value()) {
-                    game_seed().handle_command(message.visible_callback.value());
+                    game_seed().execute_command(message.visible_callback.value());
                 }
 
                 if (message.last_state == core::messages::MessageHandle::MessageState::Visible && message.hidden_callback.has_value()) {
-                    game_seed().handle_command(message.hidden_callback.value());
+                    game_seed().execute_command(message.hidden_callback.value());
                 }
 
                 message.last_state = message.handle->state;
@@ -225,7 +225,7 @@ namespace randomizer::seed {
                     return;
                 }
 
-                seed.handle_command(index);
+                seed.execute_command(index);
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
@@ -903,6 +903,12 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 const core::api::uber_states::UberState state(group, member);
                 const auto slot = game::shops::shop_slot_from_state(state);
+
+                if (slot == nullptr) {
+                    modloader::error("instructions", std::format("[ShopPrice] Did not find shop slot for state {}", state));
+                    return;
+                }
+
                 slot->cost.set(memory.integers.get(0));
             }
 
@@ -921,6 +927,12 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 const core::api::uber_states::UberState state(group, member);
                 const auto slot = game::shops::shop_slot_from_state(state);
+
+                if (slot == nullptr) {
+                    modloader::error("instructions", std::format("[ShopName] Did not find shop slot for state {}", state));
+                    return;
+                }
+
                 slot->normal.name.set(memory.strings.get(0));
                 slot->locked.name.set(memory.strings.get(0));
                 slot->hidden.name.set(memory.strings.get(0));
@@ -941,6 +953,12 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 const core::api::uber_states::UberState state(group, member);
                 const auto slot = game::shops::shop_slot_from_state(state);
+
+                if (slot == nullptr) {
+                    modloader::error("instructions", std::format("[ShopDescription] Did not find shop slot for state {}", state));
+                    return;
+                }
+
                 slot->normal.description.set(memory.strings.get(0));
                 slot->locked.description.set(memory.strings.get(0));
                 slot->hidden.description.set(memory.strings.get(0));
@@ -964,6 +982,12 @@ namespace randomizer::seed {
                 const core::api::uber_states::UberState state(group, member);
                 const auto slot = game::shops::shop_slot_from_state(state);
                 const auto texture = core::api::graphics::textures::get_texture(icon);
+
+                if (slot == nullptr) {
+                    modloader::error("instructions", std::format("[ShopIcon] Did not find shop slot for state {}", state));
+                    return;
+                }
+
                 slot->normal.icon = texture;
                 slot->locked.icon = texture;
                 slot->hidden.icon = texture;
@@ -984,6 +1008,12 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 const core::api::uber_states::UberState state(group, member);
                 const auto slot = game::shops::shop_slot_from_state(state);
+
+                if (slot == nullptr) {
+                    modloader::error("instructions", std::format("[ShopHidden] Did not find shop slot for state {}", state));
+                    return;
+                }
+
                 slot->is_hidden = memory.booleans.get(0);
             }
 
@@ -1002,6 +1032,12 @@ namespace randomizer::seed {
             void execute(Seed& seed, SeedMemory& memory) const override {
                 const core::api::uber_states::UberState state(group, member);
                 const auto slot = game::shops::shop_slot_from_state(state);
+
+                if (slot == nullptr) {
+                    modloader::error("instructions", std::format("[ShopLocked] Did not find shop slot for state {}", state));
+                    return;
+                }
+
                 slot->is_locked = memory.booleans.get(0);
             }
 
@@ -1090,7 +1126,7 @@ namespace randomizer::seed {
                 set_wheel_item_callback(wheel, position, bind, [&](auto, auto, auto) { call(); });
             }
 
-            void call() const { game_seed().handle_command(command); }
+            void call() const { game_seed().execute_command(command); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
                 return std::format("WheelItemCommand {}, {}", wheel, static_cast<int>(position));
@@ -1253,7 +1289,7 @@ namespace randomizer::seed {
 
         template<bool sync>
         std::unique_ptr<IInstruction> create_server_sync(const nlohmann::json& j) {
-            return std::make_unique<ServerSync<sync>>(j.at(0).get<int>(), j.at(1).get<int>());
+            return std::make_unique<ServerSync<sync>>(j.at("group").get<int>(), j.at("member").get<int>());
         }
 
         std::unique_ptr<IInstruction> create_set_spoiler(const nlohmann::json& j) {

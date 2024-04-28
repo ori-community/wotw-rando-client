@@ -97,7 +97,7 @@ namespace randomizer::seed {
 
         void trigger(SeedClientEvent event);
         void prevent_grants(const std::function<bool()>& callback) { m_prevent_grant_callbacks.push_back(callback); }
-        void handle_command(std::size_t id);
+        void execute_command(std::size_t id);
 
         const SeedMemory& memory() const { return m_memory; }
     private:

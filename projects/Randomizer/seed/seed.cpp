@@ -80,7 +80,7 @@ namespace randomizer::seed {
             if (std::holds_alternative<int>(condition.condition)) {
                 auto builder = core::reactivity::watch_effect()
                     .before([condition] { dev::seed_debugger::condition_start(std::get<int>(condition.condition)); })
-                    .effect([&] { handle_command(std::get<int>(condition.condition)); });
+                    .effect([&] { execute_command(std::get<int>(condition.condition)); });
 
                 condition.previous_value = m_memory.booleans.get(0);
                 condition.reactive = builder.after([&] {
@@ -92,7 +92,7 @@ namespace randomizer::seed {
                     condition.previous_value = m_memory.booleans.get(0);
                     if (m_memory.booleans.get(0)) {
                         dev::seed_debugger::condition_triggered(std::get<int>(condition.condition));
-                        handle_command(condition.command);
+                        execute_command(condition.command);
                     }
 
                     dev::seed_debugger::condition_end(std::get<int>(condition.condition));
@@ -110,7 +110,7 @@ namespace randomizer::seed {
                         return;
                     }
 
-                    handle_command(condition.command);
+                    execute_command(condition.command);
                     dev::seed_debugger::binding_end(state);
                 }).finalize();
                 m_command_stack.clear();
@@ -127,9 +127,14 @@ namespace randomizer::seed {
         show_tags_message();
     }
 
-    void Seed::handle_command(const std::size_t id) {
+    void Seed::execute_command(const std::size_t id) {
         dev::seed_debugger::command_start(id);
-        for (const auto& command: m_parse_output->data.commands[id]) {
+
+        if (m_parse_output->data.commands.size() <= id) {
+            throw std::exception("Instructed to execute command");
+        }
+
+        for (const auto& command: m_parse_output->data.commands.at(id)) {
             dev::seed_debugger::instruction(command.get());
             command->execute(*this, m_memory);
         }
@@ -151,7 +156,7 @@ namespace randomizer::seed {
         }
 
         for (const auto& command: m_parse_output->data.events[event]) {
-            handle_command(command);
+            execute_command(command);
         }
 
         dev::seed_debugger::seed_event_end(event);
