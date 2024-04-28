@@ -48,7 +48,33 @@ namespace core::api::game::player {
             }
         }
 
-        std::unordered_map<app::AbilityType__Enum, app::EquipmentType__Enum> ability_to_equip_map{
+        const std::unordered_set<app::EquipmentType__Enum> equpment_types {
+            app::EquipmentType__Enum::Ability_Bash,
+            app::EquipmentType__Enum::Ability_DoubleJump,
+            app::EquipmentType__Enum::Spell_ChargeJump,
+            app::EquipmentType__Enum::AutoAbility_Glide,
+            app::EquipmentType__Enum::AutoAbility_WaterBreath,
+            app::EquipmentType__Enum::Spell_StickyMine,
+            app::EquipmentType__Enum::Ability_Leash,
+            app::EquipmentType__Enum::Spell_Glow,
+            app::EquipmentType__Enum::Spell_Spear,
+            app::EquipmentType__Enum::Spell_Meditate,
+            app::EquipmentType__Enum::Weapon_Bow,
+            app::EquipmentType__Enum::Weapon_Hammer,
+            app::EquipmentType__Enum::Weapon_Sword,
+            app::EquipmentType__Enum::Ability_Digging,
+            app::EquipmentType__Enum::AutoAbility_Dash,
+            app::EquipmentType__Enum::AutoAbility_WaterDash,
+            app::EquipmentType__Enum::Spell_Chakram,
+            app::EquipmentType__Enum::Spell_GoldenSein,
+            app::EquipmentType__Enum::Spell_Blaze,
+            app::EquipmentType__Enum::Ability_FeatherFlap,
+            app::EquipmentType__Enum::Spell_Turret,
+            app::EquipmentType__Enum::AutoAbility_DamageUpgradeA,
+            app::EquipmentType__Enum::AutoAbility_DamageUpgradeB,
+        };
+
+        const std::unordered_map<app::AbilityType__Enum, app::EquipmentType__Enum> ability_to_equip_map{
             {app::AbilityType__Enum::Bash,             app::EquipmentType__Enum::Ability_Bash              },
             {app::AbilityType__Enum::DoubleJump,       app::EquipmentType__Enum::Ability_DoubleJump        },
             {app::AbilityType__Enum::ChargeJump,       app::EquipmentType__Enum::Spell_ChargeJump          },
@@ -382,6 +408,10 @@ namespace core::api::game::player {
     std::optional<app::EquipmentType__Enum> ability_to_equip_type(const app::AbilityType__Enum ability) {
         const auto it = ability_to_equip_map.find(ability);
         return it != ability_to_equip_map.end() ? std::optional<app::EquipmentType__Enum>(it->second) : std::nullopt;
+    }
+
+    bool is_valid_equipment(const app::EquipmentType__Enum equipment) {
+        return equpment_types.contains(equipment);
     }
 
     void bind(const app::SpellInventory_Binding__Enum slot, const app::EquipmentType__Enum equip_type) {

@@ -16,6 +16,7 @@ namespace core::api::game::player {
     CORE_DLLEXPORT app::SeinCharacter* sein();
 
     CORE_DLLEXPORT std::optional<app::EquipmentType__Enum> ability_to_equip_type(app::AbilityType__Enum ability);
+    CORE_DLLEXPORT bool is_valid_equipment(const app::EquipmentType__Enum equipment);
     CORE_DLLEXPORT void bind(app::SpellInventory_Binding__Enum slot, app::EquipmentType__Enum equip_type);
     CORE_DLLEXPORT void unbind(app::EquipmentType__Enum equip_type);
     CORE_DLLEXPORT void unbind_all();
