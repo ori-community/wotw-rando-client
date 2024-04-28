@@ -82,3 +82,14 @@ struct std::hash<core::api::uber_states::UberState> {
         return hash<UberStateGroup>()(s.group()) ^ (hash<int>()(s.state()) << 1);
     }
 };
+
+template <>
+struct std::formatter<core::api::uber_states::UberState> {
+    constexpr auto parse(std::format_parse_context& ctx) {
+        return ctx.begin();
+    }
+
+    auto format(const core::api::uber_states::UberState& state, std::format_context& ctx) const {
+        return std::format_to(ctx.out(), "{}|{}", state.group_int(), state.state());
+    }
+};
