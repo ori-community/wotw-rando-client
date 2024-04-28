@@ -30,6 +30,7 @@ namespace core::settings {
     CORE_DLLEXPORT float map_icon_transparency();
     CORE_DLLEXPORT float camera_shake_intensity();
     CORE_DLLEXPORT bool shriek_is_shrek();
+    CORE_DLLEXPORT bool enable_minimap();
     CORE_DLLEXPORT std::string ori_model_texture();
     CORE_DLLEXPORT std::string ori_model_emissivity_mask_texture();
 
@@ -58,4 +59,5 @@ namespace core::settings {
     CORE_DLLEXPORT void map_icon_transparency(float value);
     CORE_DLLEXPORT void camera_shake_intensity(float value);
     CORE_DLLEXPORT void shriek_is_shrek(bool value);
+    CORE_DLLEXPORT void enable_minimap(bool value);
 } // namespace core::settings

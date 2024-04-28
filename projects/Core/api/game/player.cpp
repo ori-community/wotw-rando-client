@@ -450,6 +450,19 @@ namespace core::api::game::player {
         }
     }
 
+    app::Vector3 get_camera_position() {
+        const auto cameras = types::UI_Cameras::get_class();
+
+        if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
+            // We need to do this on the next frame to allow state to update without causing flickering.
+            auto* const camera = cameras->static_fields->Current;
+            auto bounds = GameplayCamera::get_CameraBoundingBox(camera);
+            return bounds.m_Center;
+        }
+
+        return {0, 0, 0};
+    }
+
     GameArea get_current_area() {
         const auto game_world = types::GameWorld::get_class()->static_fields->Instance;
         if (game_world == nullptr || game_world->fields.CurrentArea == nullptr || game_world->fields.CurrentArea->fields.Area == nullptr) {

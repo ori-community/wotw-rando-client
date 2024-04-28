@@ -32,10 +32,10 @@ namespace randomizer::online {
         void update_position(bool online, float x, float y);
         void recreate();
 
-        [[nodiscard]] core::Property<app::Color> color() { return m_dynamic_color; }
-        [[nodiscard]] core::Property<std::string> name() { return m_dynamic_name; }
-        [[nodiscard]] core::Property<bool> visible() { return m_visible; }
-        [[nodiscard]] core::Property<Type> type() { return m_dynamic_type; }
+        [[nodiscard]] core::Property<app::Color>& color() { return m_dynamic_color; }
+        [[nodiscard]] core::Property<std::string>& name() { return m_dynamic_name; }
+        [[nodiscard]] core::Property<bool>& visible() { return m_visible; }
+        [[nodiscard]] core::Property<Type>& type() { return m_dynamic_type; }
 
     private:
         bool initialize();

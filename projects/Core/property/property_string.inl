@@ -172,7 +172,7 @@ struct core::Property<std::string> {
             return *this;
         }
 
-        m_value = other.m_value;
+        m_value = std::make_shared<std::string>(other.get_unprocessed());
         m_text_processor = other.m_text_processor;
         reactivity::notify_changed(reactivity::PropertyDependency(m_id));
         return *this;

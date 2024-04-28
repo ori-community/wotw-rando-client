@@ -16,9 +16,9 @@
 
 namespace core::api::uber_states {
     struct UberStateCallbackParams {
-        UberState state;
-        double previous_value;
-        double value;
+        const UberState state;
+        const double previous_value;
+        const double value;
     };
 
     CORE_DLLEXPORT void apply_all();

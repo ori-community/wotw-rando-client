@@ -103,8 +103,8 @@ namespace randomizer::game::map {
             dirty_filter = true;
         }
 
-        IL2CPP_INTERCEPT(AreaMapUI, void, Init, (app::AreaMapUI * this_ptr)) {
-            next::AreaMapUI::Init(this_ptr);
+        IL2CPP_INTERCEPT(AreaMapUI, void, Show, (app::AreaMapUI * this_ptr, bool set_menu_audio_state)) {
+            next::AreaMapUI::Show(this_ptr, set_menu_audio_state);
             auto icon_manager = this_ptr->fields._IconManager_k__BackingField;
             check_and_initialize_filter_labels(icon_manager);
             if (!start_in_logic_filter_done_since_new_game && core::settings::start_in_logic_filter() && filter_enabled(Filters::InLogic)) {

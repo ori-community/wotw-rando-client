@@ -29,6 +29,7 @@ namespace core::api::game::player {
     CORE_DLLEXPORT void set_velocity(float x, float y);
     CORE_DLLEXPORT void set_velocity(const app::Vector2& value);
     CORE_DLLEXPORT void snap_camera();
+    CORE_DLLEXPORT app::Vector3 get_camera_position();
 
     CORE_DLLEXPORT void refill_energy();
     CORE_DLLEXPORT void refill_health();

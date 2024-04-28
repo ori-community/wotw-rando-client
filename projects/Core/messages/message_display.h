@@ -48,16 +48,16 @@ namespace core::messages {
 
         void update(float delta_time);
 
-        Property<app::Vector3> position() { return m_position; };
-        Property<std::optional<int>> max_line_count() { return m_max_line_count; };
-        Property<std::optional<int>> max_in_queue() { return m_max_in_queue; };
+        Property<app::Vector3>& position() { return m_position; };
+        Property<std::optional<int>>& max_line_count() { return m_max_line_count; };
+        Property<std::optional<int>>& max_in_queue() { return m_max_in_queue; };
 
-        Property<app::AlignmentMode__Enum> alignment() { return m_alignment; }
-        Property<app::HorizontalAnchorMode__Enum> horizontal_anchor() { return m_horizontal_anchor; }
-        Property<app::VerticalAnchorMode__Enum> message_vertical_anchor() { return m_message_vertical_anchor; }
-        Property<MessageDisplayAnchor> display_vertical_anchor() { return m_display_vertical_anchor; }
-        Property<MessageDisplayExpandDirection> expand_direction() { return m_expand_direction; }
-        Property<std::optional<api::screen_position::ScreenPosition>> screen_position() { return m_screen_position; }
+        Property<app::AlignmentMode__Enum>& alignment() { return m_alignment; }
+        Property<app::HorizontalAnchorMode__Enum>& horizontal_anchor() { return m_horizontal_anchor; }
+        Property<app::VerticalAnchorMode__Enum>& message_vertical_anchor() { return m_message_vertical_anchor; }
+        Property<MessageDisplayAnchor>& display_vertical_anchor() { return m_display_vertical_anchor; }
+        Property<MessageDisplayExpandDirection>& expand_direction() { return m_expand_direction; }
+        Property<std::optional<api::screen_position::ScreenPosition>>& screen_position() { return m_screen_position; }
 
         unsigned long long get_active_messages_count() const;
 

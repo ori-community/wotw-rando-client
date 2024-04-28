@@ -26,7 +26,7 @@ namespace core::messages {
         // Handles showing / hiding the given messagebox based on info provided.
         message_handle_ptr_t queue(std::shared_ptr<api::messages::MessageBox> message, IndependentMessageInfo info);
         message_handle_ptr_t queue_central(MessageInfo info, bool should_save = false);
-        void requeue_last_saved();
+        void show_recent_messages();
         void update(float delta_time);
         void clear_central();
 

@@ -41,7 +41,10 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) { set_active_wheel(9000); });
 
         initialize_item(9000, 0, "Show last pickup", "Displays the message associated\nwith the last pickup.", "file:assets/icons/wheel/show_last_pickup.blue.png",
-                        [](auto, auto, auto) { game_seed().trigger(seed::SeedClientEvent::RequeueLastMessage); });
+                        [](auto, auto, auto) {
+                            game_seed().trigger(seed::SeedClientEvent::RequeueLastMessage);
+                            core::message_controller().show_recent_messages();
+                        });
         initialize_item(9000, 1, "Show progress, with hints.", "Displays current goal mode progress and bought hints.", "file:assets/icons/wheel/progress_summary.blue.png",
                         [](auto, auto, auto) { game_seed().trigger(seed::SeedClientEvent::ShowProgress); });
         initialize_item(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "file:assets/icons/wheel/warp_to_credits.blue.png",
@@ -55,7 +58,7 @@ namespace randomizer::features::wheel {
                                 });
                             }
                         });
-        initialize_item(9000, 3, "Toggle keystones", "Toggle to always show the keystone ui.", "shard:1",
+        initialize_item(9000, 3, "Toggle keystones", "Toggle to always show the keystone ui.", "file:assets/icons/game/keystone.png",
                         [](auto, auto, auto) {
                             core::settings::always_show_keystones(!core::settings::always_show_keystones());
                             core::message_controller().queue_central({
@@ -78,6 +81,10 @@ namespace randomizer::features::wheel {
                                 .text = core::Property<std::string>::format("Autoaim: {}", core::settings::autoaim()),
                                 .prioritized = true,
                             });
+                        });
+        initialize_item(9000, 6, "Toggle minimap", "Toggle minimap overlay.", "file:assets/icons/wheel/minimap.png",
+                        [](auto, auto, auto) {
+                            core::settings::enable_minimap(!core::settings::enable_minimap());
                         });
 
         if (randomizer::get_multiverse_id().has_value()) {

@@ -39,7 +39,7 @@ namespace core::api::uber_states {
 
             if (it != cached_values.end() && std::abs(it->second - value) >= 0.1) {
                 const auto state = UberState(uber_id.first, uber_id.second);
-                const UberStateCallbackParams params{state, it->second};
+                const UberStateCallbackParams params{state, it->second, value};
 
                 notification_bus().trigger_event(params);
                 single_notification_bus().trigger_event(state, params);

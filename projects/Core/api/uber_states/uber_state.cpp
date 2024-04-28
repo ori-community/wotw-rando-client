@@ -262,7 +262,7 @@ namespace core::api::uber_states {
 
         if (!current_intercepts.contains(*this)) {
             current_intercepts.emplace(*this);
-            const UberStateCallbackParams params{*this, value};
+            const UberStateCallbackParams params{*this, prev, value};
             auto result = interception_bus().trigger_event(params);
             current_intercepts.erase(*this);
             if (std::ranges::find(result, true) != result.end()) {

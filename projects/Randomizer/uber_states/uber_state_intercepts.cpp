@@ -20,8 +20,8 @@ namespace randomizer::uber_states {
                 return false;
             }
 
-            if ((params.state == cleanse_wellspring && cleanse_wellspring.get() > params.previous_value) ||
-                (params.state == find_ku_quest && params.previous_value < 4)) {
+            if ((params.state == cleanse_wellspring && cleanse_wellspring.get() > params.value) ||
+                (params.state == find_ku_quest && params.value < 4)) {
                 return true;
             }
 
