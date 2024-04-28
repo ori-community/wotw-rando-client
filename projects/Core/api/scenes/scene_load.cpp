@@ -318,7 +318,7 @@ namespace core::api::scenes {
         return il2cpp::unity::find_child(root_go, split_path);
     }
 
-    gchandle initial_values_handle = 0;
+    GCHandleId initial_values_handle = 0;
 
     void load_default_values() {
         auto initial_values = il2cpp::gchandle_target<app::SceneMetaData_SeinInitialValuesWotW>(initial_values_handle);

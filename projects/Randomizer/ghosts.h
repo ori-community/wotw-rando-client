@@ -17,7 +17,7 @@ namespace ghosts {
             int priority;
         };
 
-        gchandle ghost_go_gchandle = 0;
+        GCHandleId ghost_go_gchandle = 0;
         app::GhostPlayer* ghost_player = nullptr;
         bool preventing_tpose = false;
         std::unordered_map<int, std::unordered_map<int, ActiveAnimation>> active_animations;
