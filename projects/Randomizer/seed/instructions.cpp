@@ -527,7 +527,7 @@ namespace randomizer::seed {
                     .text = core::Property<std::string>(memory.strings.get(0)),
                     .duration = memory.floats.get(0),
                     .prioritized = prioritized,
-                });
+                }, true);
 
                 if (id.has_value()) {
                     central_message_boxes[id.value()] = {.handle = handle};
