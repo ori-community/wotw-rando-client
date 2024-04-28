@@ -496,6 +496,7 @@ namespace randomizer {
             register_virtual_state({ValueType::Integer, UberStateGroup::Player, 0, "spiritLight", false, true}, spirit_light().wrap<double>());
             register_virtual_state({ValueType::Integer, UberStateGroup::Player, 1, "gorlekOre", false, true}, ore().wrap<double>());
             register_virtual_state({ValueType::Integer, UberStateGroup::Player, 2, "keystones", false, true}, keystones().wrap<double>());
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 3, "shardSlots", false, true}, shard_slots().wrap<double>());
             register_virtual_state({ValueType::Integer, UberStateGroup::Player, 10, "maxHealth", false, true}, max_health().wrap<double>());
             register_virtual_state({ValueType::Float, UberStateGroup::Player, 11, "health", false, true}, health().wrap<double>());
             register_virtual_state({ValueType::Float, UberStateGroup::Player, 12, "maxEnergy", false, true}, max_energy().wrap<double>());
