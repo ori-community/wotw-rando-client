@@ -170,6 +170,8 @@ namespace {
 
     // Force project order because we disable SortByCost on shops
     IL2CPP_INTERCEPT(BuilderScreen, void, Init, (app::BuilderScreen * this_ptr)) {
+        this_ptr->fields._.SortedByCost = false;
+
         const auto project_teleporter = this_ptr->fields.Projects->vector[0];
         const auto project_houses1 = this_ptr->fields.Projects->vector[1];
         const auto project_houses2 = this_ptr->fields.Projects->vector[2];
