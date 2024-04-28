@@ -1,21 +1,22 @@
 #pragma once
 
+#include <Modloader/app/il2cpp_api.h>
 #include <Modloader/app/structs/Component_1.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/List_1_System_Int32_.h>
 #include <Modloader/app/structs/Scene.h>
 #include <Modloader/app/structs/ScriptableObject.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/List_1_System_Int32_.h>
 #include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Vector3.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
-#include <Modloader/app/il2cpp_api.h>
+#include <memory>
 
 #include <string_view>
 #include <vector>
 
-using gchandle = uint32_t;
+using GCHandleId = uint32_t;
 
 namespace il2cpp {
     struct MethodOverloadInfo {
@@ -56,13 +57,13 @@ namespace il2cpp {
         IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new_full(Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds);
     } // namespace untyped
 
-    IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* gchandle_target(gchandle handle);
+    IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* gchandle_target(GCHandleId handle);
 
-    IL2CPP_MODLOADER_DLLEXPORT gchandle gchandle_new(void* obj, bool pinned = false);
+    IL2CPP_MODLOADER_DLLEXPORT GCHandleId gchandle_new(void* obj, bool pinned = false);
 
-    IL2CPP_MODLOADER_DLLEXPORT gchandle gchandle_new_weak(void* obj, bool track_resurrection = true);
+    IL2CPP_MODLOADER_DLLEXPORT GCHandleId gchandle_new_weak(void* obj, bool track_resurrection = true);
 
-    IL2CPP_MODLOADER_DLLEXPORT void gchandle_free(gchandle handle);
+    IL2CPP_MODLOADER_DLLEXPORT void gchandle_free(GCHandleId handle);
 
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
 
@@ -70,65 +71,66 @@ namespace il2cpp {
         IL2CPP_MODLOADER_DLLEXPORT bool is_valid(void* obj);
     }
 
-    template<typename T>
-    struct GCRef {
-        gchandle handle;
+    class GCHandle {
+    public:
+        explicit GCHandle(GCHandleId m_id) :
+            m_id(m_id) {}
 
-        explicit GCRef(T* obj, bool pinned = false) {
-            handle = il2cpp::gchandle_new(obj, pinned);
+        ~GCHandle() {
+            il2cpp::gchandle_free(m_id);
         }
 
-        ~GCRef() {
-            free();
+        Il2CppObject* target() {
+            return il2cpp::gchandle_target(m_id);
         }
 
-        T* ref() {
-            return reinterpret_cast<T*>(il2cpp::gchandle_target(handle));
-        }
-
-        T* operator*() {
-            return reinterpret_cast<T*>(il2cpp::gchandle_target(handle));
-        }
-
-        GCRef& operator=(const GCRef& other) {
-            free();
-            handle = other.handle;
-            return *this;
-        }
-
-        void free() {
-            il2cpp::gchandle_free(handle);
-        }
+    private:
+        GCHandleId m_id;
     };
 
     template<typename T>
-    struct WeakGCRef {
-        gchandle handle;
+    struct GCRef {
+        std::shared_ptr<GCHandle> handle;
 
-        explicit WeakGCRef() :
-            handle(0) {
-        };
-
-        explicit WeakGCRef(T* obj, bool track_resurrection = true) {
-            handle = il2cpp::gchandle_new_weak(obj, track_resurrection);
+        explicit GCRef(T* obj, bool pinned = false) {
+            handle = std::make_shared<GCHandle>(il2cpp::gchandle_new(obj, pinned));
         }
 
         T* ref() {
-            return reinterpret_cast<T*>(il2cpp::gchandle_target(handle));
+            if (handle == nullptr) {
+                return nullptr;
+            }
+
+            return reinterpret_cast<T*>(handle->target());
         }
 
         T* operator*() {
             return ref();
         }
+    };
 
-        WeakGCRef& operator=(const WeakGCRef& other) {
-            free();
-            handle = other.handle;
-            return *this;
+    template<typename T>
+    struct WeakGCRef {
+        std::shared_ptr<GCHandle> handle;
+
+        explicit WeakGCRef() :
+            handle(nullptr) {
+        };
+
+        explicit WeakGCRef(T* obj, bool track_resurrection = true) {
+            handle = std::make_shared<GCHandle>(il2cpp::gchandle_new_weak(obj, track_resurrection));
         }
 
-        void free() {
-            il2cpp::gchandle_free(handle);
+        T* ref() {
+            if (handle == nullptr) {
+                return nullptr;
+            }
+
+            return reinterpret_cast<T*>(handle->target());
+        }
+
+        T* operator*() {
+            return ref();
         }
 
         bool is_valid() {

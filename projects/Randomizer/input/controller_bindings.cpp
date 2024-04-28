@@ -35,8 +35,8 @@ namespace randomizer::input {
     namespace {
         const std::string CONTROLLER_REBIND_FILE = "controller_bindings.json";
 
-        std::unordered_map<app::XboxControllerInput_Axis__Enum, gchandle> axis_map;
-        std::unordered_map<ControllerButton, gchandle> buttons_map;
+        std::unordered_map<app::XboxControllerInput_Axis__Enum, GCHandleId> axis_map;
+        std::unordered_map<ControllerButton, GCHandleId> buttons_map;
 
         app::IAxisInput* get_axis_input(app::XboxControllerInput_Axis__Enum button) {
             return reinterpret_cast<app::IAxisInput*>(il2cpp::gchandle_target(axis_map[button]));
@@ -46,19 +46,19 @@ namespace randomizer::input {
             return reinterpret_cast<app::IButtonInput*>(il2cpp::gchandle_target(buttons_map[button]));
         }
 
-        gchandle create_axis_input(app::XboxControllerInput_Axis__Enum axis) {
+        GCHandleId create_axis_input(app::XboxControllerInput_Axis__Enum axis) {
             auto* input = types::ControllerAxisInput::create();
             ControllerAxisInput::ctor(input, axis);
             return il2cpp::gchandle_new(input, false);
         }
 
-        gchandle create_axis_button_input(app::XboxControllerInput_Axis__Enum axis, app::AxisButtonInput_AxisMode__Enum mode, float value) {
+        GCHandleId create_axis_button_input(app::XboxControllerInput_Axis__Enum axis, app::AxisButtonInput_AxisMode__Enum mode, float value) {
             auto* input = types::AxisButtonInput::create();
             AxisButtonInput::ctor(input, get_axis_input(axis), mode, value);
             return il2cpp::gchandle_new(input, false);
         }
 
-        gchandle create_button_input(app::XboxControllerInput_Button__Enum button) {
+        GCHandleId create_button_input(app::XboxControllerInput_Button__Enum button) {
             auto* input = types::ControllerButtonInput::create();
             ControllerButtonInput::ctor(input, button);
             return il2cpp::gchandle_new(input, false);

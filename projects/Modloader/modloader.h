@@ -68,41 +68,6 @@ namespace modloader {
         }
     };
 
-    struct ScopedGCHandleUntyped {
-        explicit ScopedGCHandleUntyped(void* obj) {
-            m_handle = il2cpp::gchandle_new(obj);
-        }
-
-        ScopedGCHandleUntyped(ScopedGCHandleUntyped const&) = delete;
-
-        ScopedGCHandleUntyped(ScopedGCHandleUntyped&&) = delete;
-
-        ~ScopedGCHandleUntyped() {
-            il2cpp::gchandle_free(m_handle);
-        }
-
-        [[nodiscard]] void* get() const {
-            return il2cpp::gchandle_target(m_handle);
-        }
-
-    private:
-        gchandle m_handle;
-    };
-
-    template<typename T>
-    struct ScopedGCHandle {
-        explicit ScopedGCHandle(T* obj) :
-            m_handle(obj) {
-        }
-
-        [[nodiscard]] T* get() {
-            return static_cast<T*>(m_handle.get());
-        }
-
-    private:
-        ScopedGCHandleUntyped m_handle;
-    };
-
     class ILoggingHandler {
     public:
         virtual ~ILoggingHandler() = default;

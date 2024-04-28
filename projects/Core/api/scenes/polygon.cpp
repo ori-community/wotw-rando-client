@@ -11,8 +11,9 @@ using namespace app::classes;
 namespace core::api::scenes {
     app::GameObject* PolygonGeometry::get_game_object() {
         if (!m_game_object.has_value()) {
-            m_game_object = il2cpp::GCRef(il2cpp::create_object<app::GameObject>(types::GameObject::get_class()));
-            UnityEngine::GameObject::ctor_1(**m_game_object, il2cpp::string_new("polygon"));
+            const auto go = il2cpp::create_object<app::GameObject>(types::GameObject::get_class());
+            UnityEngine::GameObject::ctor_1(go, il2cpp::string_new("polygon"));
+            m_game_object = il2cpp::GCRef(go);
             update_polygon();
         }
 

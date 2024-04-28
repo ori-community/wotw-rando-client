@@ -47,7 +47,7 @@ namespace core::api::graphics::textures {
     private:
         bool initialized = true;
         std::string path;
-        std::optional<gchandle> texture;
+        std::optional<GCHandleId> texture;
         MaterialParams local;
 
         void load_texture();

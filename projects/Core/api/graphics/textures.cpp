@@ -37,9 +37,9 @@ using namespace app::classes::UnityEngine;
 
 namespace core::api::graphics::textures {
     namespace {
-        std::unordered_map<std::string, gchandle> files;
+        std::unordered_map<std::string, GCHandleId> files;
         std::unordered_map<std::string, std::vector<std::weak_ptr<TextureData>>> file_instances;
-        std::unordered_map<app::Renderer*, std::pair<gchandle, MaterialParams>> default_params;
+        std::unordered_map<app::Renderer*, std::pair<GCHandleId, MaterialParams>> default_params;
         std::unordered_map<std::string, std::function<app::Texture2D*(const std::string&)>> custom_protocols;
     } // namespace
 
