@@ -595,7 +595,8 @@ namespace randomizer::seed::legacy_parser {
 
         auto binding_type = static_cast<app::SpellInventory_Binding__Enum>(binding);
         auto equip_type = static_cast<app::EquipmentType__Enum>(equip);
-        if (!magic_enum::enum_contains(equip_type)) {
+
+        if (!core::api::game::player::is_valid_equipment(equip_type)) {
             return false;
         }
 
@@ -617,7 +618,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         auto equip_type = static_cast<app::EquipmentType__Enum>(equip);
-        if (!magic_enum::enum_contains(equip_type)) {
+        if (!core::api::game::player::is_valid_equipment(equip_type)) {
             return false;
         }
 
@@ -1598,7 +1599,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         auto binding_type = static_cast<app::SpellInventory_Binding__Enum>(binding - 1);
-        if (binding != 0 && !magic_enum::enum_contains(binding_type)) {
+        if (binding < 0 || binding > 2) {
             return false;
         }
 
