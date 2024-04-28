@@ -114,9 +114,13 @@ namespace {
         return false;
     }
 
+    core::api::uber_states::UberState get_cutscene_state(app::NpcProjectItem* project) {
+        const auto cutscene_state = 2 + project->fields.UberState->fields._.m_id->fields.m_id;
+        return {UberStateGroup::GromShop, cutscene_state};
+    }
+
     IL2CPP_INTERCEPT(BuilderItem, void, DoPurchase, (app::BuilderItem * this_ptr, app::PurchaseContext* context)) {
-        const auto cutscene_state = 2 + this_ptr->fields.Project->fields.UberState->fields.m_value;
-        if (core::api::uber_states::UberState(UberStateGroup::GromShop, cutscene_state).get<bool>()) {
+        if (get_cutscene_state(this_ptr->fields.Project).get<bool>()) {
             // The normal method calls a DelayedAction.Action
             next::BuilderItem::DoPurchase(this_ptr, context);
             return;
@@ -154,8 +158,7 @@ namespace {
     IL2CPP_INTERCEPT(BuilderScreen, void, CompletePurchase, (app::BuilderScreen * this_ptr)) {
         const auto shopkeeper_screen = reinterpret_cast<app::ShopkeeperScreen*>(this_ptr);
         const auto item = reinterpret_cast<app::BuilderItem*>(ShopkeeperScreen::get_SelectedUpgradeItem(shopkeeper_screen));
-        const auto cutscene_state = 200000 + item->fields.Project->fields.UberState->fields._.m_id->fields.m_id;
-        const auto should_play_cutscene = core::api::uber_states::UberState(UberStateGroup::GromShop, cutscene_state).get<bool>();
+        const auto should_play_cutscene = get_cutscene_state(item->fields.Project).get<bool>();
         shopkeeper_screen->fields.HideScreenAfterPurchase = should_play_cutscene;
         next::BuilderScreen::CompletePurchase(this_ptr);
         if (!should_play_cutscene) {
