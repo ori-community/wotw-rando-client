@@ -169,8 +169,12 @@ namespace core::api::graphics {
 
         std::unordered_map<Sprite::Anchor, il2cpp::GCRef<app::Mesh>> mesh_for_anchor_cache;
         app::Mesh* get_mesh_for_anchor(const Sprite::Anchor anchor) {
-            if (const auto mesh = mesh_for_anchor_cache.find(anchor); mesh != mesh_for_anchor_cache.end()) {
-                return mesh->second.ref();
+            if (const auto mesh_gcref = mesh_for_anchor_cache.find(anchor); mesh_gcref != mesh_for_anchor_cache.end()) {
+                const auto mesh = mesh_gcref->second.ref();
+
+                if (il2cpp::unity::is_valid(mesh) && Mesh::get_isReadable(mesh)) {
+                    return mesh;
+                }
             }
 
             const auto mesh = types::Mesh::create();
