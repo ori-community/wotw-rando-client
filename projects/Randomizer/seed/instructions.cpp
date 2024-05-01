@@ -523,11 +523,14 @@ namespace randomizer::seed {
             std::optional<std::size_t> id;
             bool prioritized;
             void execute(Seed& seed, SeedMemory& memory) const override {
-                const auto handle = core::message_controller().queue_central({
-                    .text = core::Property<std::string>(memory.strings.get(0)),
-                    .duration = memory.floats.get(0),
-                    .prioritized = prioritized,
-                }, true);
+                const auto handle = core::message_controller().queue_central(
+                    {
+                        .text = core::Property<std::string>(memory.strings.get(0)),
+                        .duration = memory.floats.get(0),
+                        .prioritized = prioritized,
+                    },
+                    true
+                );
 
                 if (id.has_value()) {
                     central_message_boxes[id.value()] = {.handle = handle};
@@ -757,7 +760,9 @@ namespace randomizer::seed {
         };
 
         struct Warp final : IInstruction {
-            void execute(Seed& seed, SeedMemory& memory) const override { game::teleportation::teleport_instantly({memory.floats.get(0), memory.floats.get(1), 0.f}); }
+            void execute(Seed& seed, SeedMemory& memory) const override {
+                game::teleportation::teleport_instantly({memory.floats.get(0), memory.floats.get(1), 0.f});
+            }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
                 return std::format("Warp -> {}, {}", memory.floats.get(0), memory.floats.get(1));
@@ -1140,7 +1145,7 @@ namespace randomizer::seed {
 
             int wheel;
             features::wheel::WheelItemPosition position;
-            void execute(Seed& seed, SeedMemory& memory) const override { set_wheel_item_description(wheel, position, memory.strings.get(0)); }
+            void execute(Seed& seed, SeedMemory& memory) const override { clear_wheel_item(wheel, position); }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
                 return std::format("WheelItemDestroy {}, {}", wheel, static_cast<int>(position));
@@ -1283,9 +1288,7 @@ namespace randomizer::seed {
 
         std::unique_ptr<IInstruction> create_message_timeout(const nlohmann::json& j) { return std::make_unique<MessageTimeout>(j.get<std::size_t>()); }
 
-        std::unique_ptr<IInstruction> create_message_background(const nlohmann::json& j) {
-            return std::make_unique<MessageBackground>(j.get<std::size_t>());
-        }
+        std::unique_ptr<IInstruction> create_message_background(const nlohmann::json& j) { return std::make_unique<MessageBackground>(j.get<std::size_t>()); }
 
         template<bool sync>
         std::unique_ptr<IInstruction> create_server_sync(const nlohmann::json& j) {
@@ -1300,9 +1303,7 @@ namespace randomizer::seed {
 
         std::unique_ptr<IInstruction> create_warp_icon_label(const nlohmann::json& j) { return std::make_unique<WarpIconLabel>(j.get<std::size_t>()); }
 
-        std::unique_ptr<IInstruction> create_warp_icon_destroy(const nlohmann::json& j) {
-            return std::make_unique<WarpIconDestroy>(j.get<std::size_t>());
-        }
+        std::unique_ptr<IInstruction> create_warp_icon_destroy(const nlohmann::json& j) { return std::make_unique<WarpIconDestroy>(j.get<std::size_t>()); }
 
         std::unique_ptr<IInstruction> create_shop_price(const nlohmann::json& j) {
             return std::make_unique<ShopPrice>(j.at("group").get<int>(), j.at("member").get<int>());
