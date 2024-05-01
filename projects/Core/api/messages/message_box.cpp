@@ -55,7 +55,7 @@ namespace core::api::messages {
 
         m_message_box->fields.TextBox->fields.color = app::Color{1.f, 1.f, 1.f, 1.f};
         m_message_box->fields.TextBox->fields.alignment = app::AlignmentMode__Enum::Center;
-        m_message_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Middle;
+        m_message_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Top;
         m_message_box->fields.TextBox->fields.horizontalAnchor = app::HorizontalAnchorMode__Enum::Center;
         m_message_box->fields.TextBox->fields.LineSpacing = 1.f;
         m_message_box->fields.TextBox->fields.m_initializeAfterEnabling = true;
@@ -145,8 +145,6 @@ namespace core::api::messages {
                 },
                 [this] { return m_scaler->fields.BottomRightPadding.x; }
         );
-
-        m_screen_position = Property<std::optional<screen_position::ScreenPosition>>(std::nullopt);
 
         m_on_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) { on_fixed_update(); });
 
@@ -245,10 +243,8 @@ namespace core::api::messages {
             pos = world_to_ui_position(pos);
         }
 
-        if (m_screen_position.get().has_value()) {
-            const auto offset = screen_position::get(*m_screen_position.get());
-            pos = pos + offset;
-        }
+        const auto offset = screen_position::get(m_screen_position.get());
+        pos = pos + offset;
 
         const auto transform = il2cpp::unity::get_transform(m_game_object);
         Transform::set_position(transform, pos);
