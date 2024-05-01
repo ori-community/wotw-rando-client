@@ -20,7 +20,7 @@ namespace randomizer::features::wheel {
         set_wheel_item_description(wheel, position, desc);
         set_wheel_item_texture(wheel, position, texture);
         set_wheel_item_color(wheel, position, 255, 255, 255, 255);
-        set_wheel_item_callback(wheel, position, app::SpellInventory_Binding__Enum::ButtonX, callback);
+        set_wheel_item_callback(wheel, position, WheelBind::Ability1, callback);
     }
 
     void on_dev_changed() {

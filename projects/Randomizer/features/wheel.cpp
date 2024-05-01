@@ -52,14 +52,14 @@ namespace randomizer::features::wheel {
 
     namespace {
         struct CustomWheelEntry {
-            using binding_action = void (*)(CustomWheelEntry const& entry, app::SpellUIItem* item, app::SpellInventory_Binding__Enum binding);
+            using binding_action = void (*)(CustomWheelEntry const& entry, app::SpellUIItem* item, WheelBind binding);
 
             std::string name = "";
             std::string description = "";
             std::shared_ptr<core::api::graphics::textures::TextureData> texture_data = nullptr;
             app::Color color = {1.0f, 1.0f, 1.0f, 1.0f};
             binding_action action = nullptr;
-            std::array<wheel_callback, 3> callbacks = {nullptr, nullptr, nullptr};
+            std::array<wheel_callback, 4> callbacks = {nullptr, nullptr, nullptr, nullptr};
             bool enabled = true;
         };
 
@@ -387,13 +387,26 @@ namespace randomizer::features::wheel {
             }
         }
 
+        WheelBind native_binding_to_wheel_bind(app::SpellInventory_Binding__Enum native_binding) {
+            switch (native_binding) {
+                case app::SpellInventory_Binding__Enum::ButtonX:
+                    return WheelBind::Ability1;
+                case app::SpellInventory_Binding__Enum::ButtonY:
+                    return WheelBind::Ability2;
+                case app::SpellInventory_Binding__Enum::ButtonB:
+                    return WheelBind::Ability3;
+                default:
+                    return WheelBind::All;
+            }
+        }
+
         IL2CPP_INTERCEPT(EquipmentWheel, void, OnPressButton, (app::EquipmentWheel * this_ptr, app::SpellInventory_Binding__Enum binding)) {
             if (custom_wheel_on) {
                 auto* item = EquipmentWheel::get_SelectedSpellUIItem(this_ptr);
                 if (item != nullptr && item->fields.m_spell != nullptr) {
                     const auto* entry = get_wheel_entry(item->fields.m_spell->fields.m_type);
                     if (entry != nullptr && entry->action != nullptr) {
-                        entry->action(*entry, item, binding);
+                        entry->action(*entry, item, native_binding_to_wheel_bind(binding));
                     }
                 }
             } else {
@@ -417,14 +430,27 @@ namespace randomizer::features::wheel {
         //    }
         //}
 
-        void binding_callback(CustomWheelEntry const& entry, app::SpellUIItem* item, app::SpellInventory_Binding__Enum binding) {
+        void binding_callback(CustomWheelEntry const& entry, app::SpellUIItem* item, WheelBind binding) {
             const auto index = EquipmentRadialSelection::GetWheelIndex(item->fields.m_spell->fields.m_type);
-            const auto callback = entry.callbacks[static_cast<int>(binding)];
-            if (callback == nullptr) {
-                return;
+
+            const auto all_callback = entry.callbacks[static_cast<int>(WheelBind::All)];
+            const auto binding_callback = entry.callbacks[static_cast<int>(binding)];
+
+            auto ran_any_callback = false;
+
+            if (all_callback != nullptr) {
+                ran_any_callback = true;
+                all_callback(wheel_index, static_cast<WheelItemPosition>(index), binding);
             }
 
-            callback(wheel_index, static_cast<WheelItemPosition>(index), binding);
+            if (binding_callback != nullptr) {
+                ran_any_callback = true;
+                binding_callback(wheel_index, static_cast<WheelItemPosition>(index), binding);
+            }
+
+            if (!ran_any_callback) {
+                return;
+            }
 
             // Refresh things.
             const auto wheel = types::EquipmentWheel::get_class()->static_fields->Instance;
@@ -581,7 +607,7 @@ namespace randomizer::features::wheel {
     bool set_wheel_item_callback(
         const int wheel,
         const WheelItemPosition item,
-        const app::SpellInventory_Binding__Enum binding,
+        const WheelBind binding,
         const wheel_callback& callback
     ) {
         if (!is_valid_wheel_index(wheel, item)) {

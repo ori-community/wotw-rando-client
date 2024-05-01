@@ -20,6 +20,13 @@ namespace randomizer::features::wheel {
         TopLeft = 11,
     };
 
+    enum class WheelBind {
+        All = 0,
+        Ability1 = 1,
+        Ability2 = 2,
+        Ability3 = 3,
+    };
+
     NLOHMANN_JSON_SERIALIZE_ENUM(
         WheelItemPosition,
         {
@@ -38,7 +45,7 @@ namespace randomizer::features::wheel {
     }
     );
 
-    using wheel_callback = std::function<void(int wheel, WheelItemPosition item, app::SpellInventory_Binding__Enum binding)>;
+    using wheel_callback = std::function<void(int wheel, WheelItemPosition item, WheelBind binding)>;
     // TODO: Rewrite this whole thing.
 
     bool set_wheel_item_name(int wheel, WheelItemPosition item, std::string const& name);
@@ -46,7 +53,7 @@ namespace randomizer::features::wheel {
     bool set_wheel_item_texture(int wheel, WheelItemPosition item, std::string const& texture);
     bool set_wheel_item_color(int wheel, WheelItemPosition item, int r, int g, int b, int a);
     bool set_wheel_item_enabled(int wheel, WheelItemPosition item, bool enabled);
-    bool set_wheel_item_callback(int wheel, WheelItemPosition item, app::SpellInventory_Binding__Enum binding, const wheel_callback& callback);
+    bool set_wheel_item_callback(int wheel, WheelItemPosition item, WheelBind binding, const wheel_callback& callback);
     bool clear_wheel_item(int wheel, WheelItemPosition item);
     void refresh_wheel();
     bool set_active_wheel(int wheel);

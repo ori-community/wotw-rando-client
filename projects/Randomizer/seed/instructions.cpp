@@ -1115,7 +1115,7 @@ namespace randomizer::seed {
             WheelItemCommand(
                 const int wheel,
                 const features::wheel::WheelItemPosition position,
-                const app::SpellInventory_Binding__Enum bind,
+                const features::wheel::WheelBind bind,
                 const std::size_t command
             ) :
                 wheel(wheel),
@@ -1125,7 +1125,7 @@ namespace randomizer::seed {
 
             int wheel;
             features::wheel::WheelItemPosition position;
-            app::SpellInventory_Binding__Enum bind;
+            features::wheel::WheelBind bind;
             std::size_t command;
             void execute(Seed& seed, SeedMemory& memory) const override {
                 set_wheel_item_callback(wheel, position, bind, [&](auto, auto, auto) { call(); });
@@ -1349,7 +1349,7 @@ namespace randomizer::seed {
             return std::make_unique<WheelItemCommand>(
                 j.at(0).get<int>(),
                 parse_enum<features::wheel::WheelItemPosition>(j.at(1)),
-                parse_enum<app::SpellInventory_Binding__Enum>(j.at(2)),
+                parse_enum<features::wheel::WheelBind>(j.at(2)),
                 j.at(3).get<std::size_t>()
             );
         }
