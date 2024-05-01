@@ -57,7 +57,7 @@ namespace core::api::messages {
 
         m_message_box->fields.TextBox->fields.color = app::Color{1.f, 1.f, 1.f, 1.f};
         m_message_box->fields.TextBox->fields.alignment = app::AlignmentMode__Enum::Center;
-        m_message_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Top;
+        m_message_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Middle;
         m_message_box->fields.TextBox->fields.horizontalAnchor = app::HorizontalAnchorMode__Enum::Center;
         m_message_box->fields.TextBox->fields.LineSpacing = 1.f;
         m_message_box->fields.TextBox->fields.m_initializeAfterEnabling = true;

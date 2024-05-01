@@ -70,7 +70,7 @@ namespace core::api::messages {
         bool m_cached_show_box = false;
 
         Property<std::string> m_text;
-        Property<app::Vector3> m_position { { 0, 1, 0 } };
+        Property<app::Vector3> m_position { { 0, -1, 0 } };
         Property<bool> m_use_world_coordinates;
         Property<bool> m_show_box = Property<bool>(true);
         Property<float> m_fade_in;
