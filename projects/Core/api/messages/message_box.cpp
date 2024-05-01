@@ -15,6 +15,7 @@
 #include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/types/DestroyOnRestoreCheckpoint.h>
 #include <Modloader/app/types/MessageBox.h>
+#include <Modloader/app/types/ParticleSuspender.h>
 #include <Modloader/app/types/ScaleToTextBox.h>
 #include <Modloader/app/types/SoundSource.h>
 #include <Modloader/app/types/UI.h>
@@ -32,6 +33,7 @@ namespace core::api::messages {
         game::add_to_container(game::RandoContainer::Messages, m_game_object);
 
         il2cpp::unity::destroy_object(il2cpp::unity::get_component_in_children<app::DestroyOnRestoreCheckpoint>(m_game_object, types::DestroyOnRestoreCheckpoint::get_class()));
+        il2cpp::unity::destroy_object(il2cpp::unity::get_component_in_children<app::ParticleSuspender>(m_game_object, types::ParticleSuspender::get_class()));
 
         m_message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(m_game_object, types::MessageBox::get_class());
         m_scaler = il2cpp::unity::get_component_in_children<app::ScaleToTextBox>(m_game_object, types::ScaleToTextBox::get_class());
