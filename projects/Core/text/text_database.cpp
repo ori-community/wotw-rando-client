@@ -9,7 +9,6 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/modloader.h>
 
-#include <Randomizer/randomizer.h>
 #include <unordered_map>
 
 namespace core::text {
@@ -299,10 +298,6 @@ namespace core::text {
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-        reset_static_entries();
-    });
-
-    auto on_seed_loaded = randomizer::event_bus().register_handler(randomizer::RandomizerEvent::SeedLoaded, EventTiming::Before, [](auto, auto) {
         reset_static_entries();
     });
 
