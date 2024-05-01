@@ -602,6 +602,7 @@ namespace randomizer::features::wheel {
         }
 
         wheels[wheel].entries.erase(item);
+        refresh_wheel();
         return true;
     }
 
