@@ -665,6 +665,44 @@ namespace randomizer::seed {
             }
         };
 
+        struct FreeMessageVerticalAnchor final : IInstruction {
+            FreeMessageVerticalAnchor(const std::size_t id, const app::VerticalAnchorMode__Enum anchor) :
+                id(id),
+                anchor(anchor) {}
+
+            std::size_t id;
+            app::VerticalAnchorMode__Enum anchor;
+
+            void execute(Seed& seed, SeedMemory& memory) const override {
+                if (message_boxes.contains(id)) {
+                    message_boxes[id].message->vertical_anchor().set(anchor);
+                }
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("FreeMessageVerticalAnchor {} -> {}", id, static_cast<int>(anchor));
+            }
+        };
+
+        struct FreeMessageHorizontalAnchor final : IInstruction {
+            FreeMessageHorizontalAnchor(const std::size_t id, const app::HorizontalAnchorMode__Enum anchor) :
+                id(id),
+                anchor(anchor) {}
+
+            std::size_t id;
+            app::HorizontalAnchorMode__Enum anchor;
+
+            void execute(Seed& seed, SeedMemory& memory) const override {
+                if (message_boxes.contains(id)) {
+                    message_boxes[id].message->horizontal_anchor().set(anchor);
+                }
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("FreeMessageHorizontalAnchor {} -> {}", id, static_cast<int>(anchor));
+            }
+        };
+
         struct MessageDestroy final : IInstruction {
             explicit MessageDestroy(const std::size_t id) :
                 id(id) {}
@@ -1282,6 +1320,14 @@ namespace randomizer::seed {
             return std::make_unique<FreeMessageScreenPosition>(j.at(0).get<std::size_t>(), parse_enum<core::api::screen_position::ScreenPosition>(j.at(1)));
         }
 
+        std::unique_ptr<IInstruction> create_f_message_vertical_anchor(const nlohmann::json& j) {
+            return std::make_unique<FreeMessageVerticalAnchor>(j.at(0).get<std::size_t>(), parse_enum<app::VerticalAnchorMode__Enum>(j.at(1)));
+        }
+
+        std::unique_ptr<IInstruction> create_f_message_horizontal_anchor(const nlohmann::json& j) {
+            return std::make_unique<FreeMessageHorizontalAnchor>(j.at(0).get<std::size_t>(), parse_enum<app::HorizontalAnchorMode__Enum>(j.at(1)));
+        }
+
         std::unique_ptr<IInstruction> create_message_destroy(const nlohmann::json& j) { return std::make_unique<MessageDestroy>(j.get<std::size_t>()); }
 
         std::unique_ptr<IInstruction> create_message_text(const nlohmann::json& j) { return std::make_unique<MessageText>(j.get<std::size_t>()); }
@@ -1407,6 +1453,8 @@ namespace randomizer::seed {
             {"FreeMessagePosition", create_f_message_position},
             {"FreeMessageAlignment", create_f_message_alignment},
             {"FreeMessageScreenPosition", create_f_message_screen_position},
+            {"FreeMessageVerticalAnchor", create_f_message_vertical_anchor},
+            {"FreeMessageHorizontalAnchor", create_f_message_horizontal_anchor},
             {"MessageDestroy", create_message_destroy},
             {"MessageText", create_message_text},
             {"MessageTimeout", create_message_timeout},
