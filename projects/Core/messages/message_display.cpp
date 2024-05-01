@@ -243,13 +243,13 @@ namespace core::messages {
 
         update_message_position(data, total_lines, position, 0.f);
         if (data.info.pickup_position.has_value()) {
-            const auto top_center = modloader::math::convert(
-                core::api::screen_position::get(m_screen_position.get().value_or(api::screen_position::ScreenPosition::TopCenter)) + m_position.get()
+            const auto screen_anchor = modloader::math::convert(
+                core::api::screen_position::get(m_screen_position.get()) + m_position.get()
             );
 
             const auto pickup_positon = data.info.pickup_position.value();
             const auto message_position = data.message->position().get();
-            const auto pickup_ui_position = world_to_ui_position_2d(modloader::math::convert(pickup_positon)) - top_center;
+            const auto pickup_ui_position = world_to_ui_position_2d(modloader::math::convert(pickup_positon)) - screen_anchor;
             // pickup_ui_position.y = -pickup_ui_position.y;
             const auto distance_squared = modloader::math::distance2(pickup_ui_position, modloader::math::convert(message_position));
             if (distance_squared < m_max_distance_squared_for_message_position_animation) {

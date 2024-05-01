@@ -56,7 +56,7 @@ namespace core::api::messages {
         [[nodiscard]] const Property<float>& bottom_padding() { return m_bottom_padding; }
         [[nodiscard]] const Property<float>& left_padding() { return m_left_padding; }
         [[nodiscard]] const Property<float>& right_padding() { return m_right_padding; }
-        [[nodiscard]] const Property<std::optional<screen_position::ScreenPosition>>& screen_position() { return m_screen_position; }
+        [[nodiscard]] const Property<screen_position::ScreenPosition>& screen_position() { return m_screen_position; }
     private:
         void render_text_box();
         app::Transform* background_transform() const;
