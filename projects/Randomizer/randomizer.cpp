@@ -127,7 +127,11 @@ namespace randomizer {
             game_seed().trigger(seed::SeedClientEvent::Respawn);
         });
 
-        auto on_after_seed_load = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
+        auto on_before_seed_loaded = randomizer::event_bus().register_handler(randomizer::RandomizerEvent::SeedLoaded, EventTiming::Before, [](auto, auto) {
+            core::text::reset_static_entries();
+        });
+
+        auto on_after_seed_loaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
             timer::clear_uber_state_timers();
             universe.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
