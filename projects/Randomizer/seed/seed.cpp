@@ -80,10 +80,12 @@ namespace randomizer::seed {
             if (std::holds_alternative<int>(condition.condition)) {
                 auto builder = core::reactivity::watch_effect()
                     .before([condition] { dev::seed_debugger::condition_start(std::get<int>(condition.condition)); })
-                    .effect([&] { execute_command(std::get<int>(condition.condition)); });
+                    .effect([&] {
+                        execute_command(std::get<int>(condition.condition));
+                    });
 
                 condition.previous_value = m_memory.booleans.get(0);
-                condition.reactive = builder.after([&] {
+                condition.reactive_effect = builder.after([&] {
                     if (!should_grant() || condition.previous_value == m_memory.booleans.get(0)) {
                         dev::seed_debugger::condition_end(std::get<int>(condition.condition));
                         return;
@@ -92,11 +94,13 @@ namespace randomizer::seed {
                     condition.previous_value = m_memory.booleans.get(0);
                     if (m_memory.booleans.get(0)) {
                         dev::seed_debugger::condition_triggered(std::get<int>(condition.condition));
-                        execute_command(condition.command);
+                        execute_command(condition.command_id);
                     }
 
                     dev::seed_debugger::condition_end(std::get<int>(condition.condition));
-                }).finalize();
+                })
+                .trigger_on_load()
+                .finalize();
             } else {
                 auto state = std::get<core::api::uber_states::UberState>(condition.condition);
                 auto builder = core::reactivity::watch_effect()
@@ -104,13 +108,13 @@ namespace randomizer::seed {
                     .effect({state});
 
                 modloader::ScopedSetter setter(m_should_handle_command, false);
-                condition.reactive = builder.after([&, state] {
+                condition.reactive_effect = builder.after([&, state] {
                     if (!should_grant()) {
                         dev::seed_debugger::binding_end(state);
                         return;
                     }
 
-                    execute_command(condition.command);
+                    execute_command(condition.command_id);
                     dev::seed_debugger::binding_end(state);
                 }).finalize();
                 m_command_stack.clear();

@@ -59,7 +59,7 @@ namespace randomizer::seed {
                     current_item = "Condition";
                     auto& condition = output->data.conditions.emplace_back();
                     condition.condition = trigger.at("Condition").get<int>();
-                    condition.command = event.at(1).get<int>();
+                    condition.command_id = event.at(1).get<int>();
 
                 } else if (trigger.contains("ClientEvent")) {
                     current_item = "ClientEvent";
@@ -77,7 +77,7 @@ namespace randomizer::seed {
                     const auto& binding = trigger.at("Binding");
                     const auto state = core::api::uber_states::UberState(binding.at("group").get<int>(), binding.at("member").get<int>());
                     condition.condition = state;
-                    condition.command = event.at(1).get<int>();
+                    condition.command_id = event.at(1).get<int>();
 
                 } else {
                     current_item = trigger.begin()->get<std::string>();
