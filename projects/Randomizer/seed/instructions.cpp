@@ -755,6 +755,7 @@ namespace randomizer::seed {
                 const auto qit = message_boxes.find(id);
                 if (qit != message_boxes.end()) {
                     qit->second.timeout = memory.floats.get(0);
+                    message_boxes_with_timeouts.emplace(qit->first);
                 }
             }
 
