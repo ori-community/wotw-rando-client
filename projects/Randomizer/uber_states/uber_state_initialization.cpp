@@ -4,6 +4,7 @@
 #include <Core/api/uber_states/uber_state_virtual.h>
 #include <Core/dev/timing.h>
 #include <Core/enums/uber_state.h>
+#include <Core/input/mouse.h>
 #include <Core/input/simulator.h>
 #include <Core/settings.h>
 #include <Modloader/app/methods/Moon/UberStateCollection.h>
@@ -757,6 +758,32 @@ namespace randomizer {
                     )
                 );
             }
+
+            register_virtual_state(
+                {
+                    .type = ValueType::Float,
+                    .group = UberStateGroup::Input,
+                    .state = 1,
+                    .name = "mouseWorldPositionX",
+                },
+                core::Property<double>(
+                    [](const double x) { error("uber_state_virtual", "Invalid operation: uberstate mouseWorldPositionX (28, 1) is read only."); },
+                    []() -> double { return core::input::mouse::get_world_position().x; }
+                )
+            );
+
+            register_virtual_state(
+                {
+                    .type = ValueType::Float,
+                    .group = UberStateGroup::Input,
+                    .state = 2,
+                    .name = "mouseWorldPositionY",
+                },
+                core::Property<double>(
+                    [](const double x) { error("uber_state_virtual", "Invalid operation: uberstate mouseWorldPositionY (28, 2) is read only."); },
+                    []() -> double { return core::input::mouse::get_world_position().y; }
+                )
+            );
 
             area_segment_states::register_virtual_uber_states();
             dev::print_time(start_time, "Virtual states initialized");

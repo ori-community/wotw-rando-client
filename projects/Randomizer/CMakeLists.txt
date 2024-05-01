@@ -204,7 +204,6 @@ set(
         "features/chaos.h"
         "features/controls/ability_overrides.h"
         "features/controls/invert_swim.h"
-        "features/controls/mouse_control.h"
         "features/credits.h"
         "features/cutscene_skips/custom_cutscene_skips.h"
         "game/map/filter.h"

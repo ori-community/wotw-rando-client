@@ -1,5 +1,3 @@
-#include <Randomizer/features/controls/mouse_control.h>
-
 #include <Core/api/game/player.h>
 #include <Core/settings.h>
 
@@ -19,7 +17,6 @@
 
 #include <Modloader/app/types/Input_Cmd.h>
 #include <cmath>
-#include <limits>
 
 #undef max
 
@@ -176,11 +173,3 @@ namespace {
             return next::SeinCharacter::get_FaceLeft(this_ptr);
     }
 } // namespace
-
-RANDOMIZER_C_DLLEXPORT bool get_axis_inverted(bool horizontal) {
-    return horizontal ? invert_x : invert_y;
-}
-
-RANDOMIZER_C_DLLEXPORT void set_axis_inverted(bool horizontal, bool value) {
-    (horizontal ? invert_x : invert_y) = value;
-}
