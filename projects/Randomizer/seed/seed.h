@@ -58,7 +58,7 @@ namespace randomizer::seed {
         semver::version version = semver::version(0, 0, 0);
         std::vector<std::string> tags;
         app::Vector2 spawn = {-798.797058f, -4310.119141f};
-        std::string slug;
+        std::optional<std::string> slug;
         app::GameController_GameDifficultyModes__Enum intended_difficulty = app::GameController_GameDifficultyModes__Enum::Normal;
 
         // TODO: Figure this shit out.

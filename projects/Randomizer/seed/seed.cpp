@@ -31,8 +31,14 @@ namespace randomizer::seed {
             tags += flag;
         }
 
+        std::string slug_string;
+
+        if (m_parse_output->meta.slug.has_value()) {
+            slug_string = std::format(" <hex_9ee2f7ff>{}</>", *m_parse_output->meta.slug);
+        }
+
         core::message_controller().queue_central({
-            .text = core::Property<std::string>::format("Loaded Seed <hex_9ee2f7ff>{}</>{}", m_parse_output->meta.slug, tags),
+            .text = core::Property<std::string>::format("Loaded Seed{}{}", slug_string, tags),
             .duration = 5.f,
             .show_box = true,
             .prioritized = true,

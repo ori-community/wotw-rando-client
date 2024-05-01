@@ -125,10 +125,16 @@ namespace randomizer::main_menu_seed_info {
 
             if (seed_metadata.has_value()) {
                 const auto meta = seed_metadata.value();
-                description += std::format("Slug: <hex_9ee2f7ff>{}</>\n", meta.slug);
-                description += "Flags:";
-                for (auto flag: meta.tags) {
-                    description += std::format("\n   - {}", flag);
+
+                if (meta.slug.has_value()) {
+                    description += std::format("Slug: <hex_9ee2f7ff>{}</>\n", *meta.slug);
+                }
+
+                if (!meta.tags.empty()) {
+                    description += "Tags:";
+                    for (auto flag: meta.tags) {
+                        description += std::format("\n   - {}", flag);
+                    }
                 }
             } else if (current_seed_source != nullptr && current_seed_source->get_error().has_value()) {
                 description += "Error loading seed:\n";

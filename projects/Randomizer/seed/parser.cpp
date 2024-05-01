@@ -28,8 +28,14 @@ namespace randomizer::seed {
 
         try {
             preload.at("spawn").get_to(data.spawn);
-            preload.at("tags").get_to(data.tags);
-            preload.at("slug").get_to(data.slug);
+
+            if (preload.contains("tags")) {
+                preload.at("tags").get_to(data.tags);
+            }
+
+            if (preload.contains("slug")) {
+                preload.at("slug").get_to(data.slug);
+            }
         } catch (const std::exception& e) {
             return ParserError::InvalidSeed;
         }
