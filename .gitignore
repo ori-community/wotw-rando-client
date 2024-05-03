@@ -15,6 +15,7 @@
 */x64/*
 Randomizer.log
 .idea*
+.vscode/*
 *.iml
 /Debug
 /obj
