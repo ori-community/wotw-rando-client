@@ -19,7 +19,7 @@ namespace core::reactivity {
     struct DependencyTracker {
         unsigned int next_property_id = 0;
         std::vector<TrackingContext> active_tracking_contexts;
-        std::multiset<size_t> tracking_blockers;
+        std::multiset<size_t> reactivity_blockers;
         std::unordered_map<dependency_t, std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare>> effects_by_dependency;
         std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare> trigger_on_load_effects;
     };
@@ -29,14 +29,14 @@ namespace core::reactivity {
         return tracker;
     }
 
-    ScopedTrackingBlocker::ScopedTrackingBlocker()
+    ScopedReactivityBlocker::ScopedReactivityBlocker()
         : m_index(dependency_tracker().active_tracking_contexts.size()) {
-        dependency_tracker().tracking_blockers.emplace(m_index);
+        dependency_tracker().reactivity_blockers.emplace(m_index);
     }
 
-    ScopedTrackingBlocker::~ScopedTrackingBlocker() {
-        auto& tracking_blockers = dependency_tracker().tracking_blockers;
-        tracking_blockers.erase(tracking_blockers.find(m_index));
+    ScopedReactivityBlocker::~ScopedReactivityBlocker() {
+        auto& reactivity_blockers = dependency_tracker().reactivity_blockers;
+        reactivity_blockers.erase(reactivity_blockers.find(m_index));
     }
 
     /**
@@ -59,9 +59,9 @@ namespace core::reactivity {
         }
 
         dependency_tracker().active_tracking_contexts.pop_back();
-        auto const& tracking_blockers = dependency_tracker().tracking_blockers;
-        if (!tracking_blockers.empty() && *dependency_tracker().tracking_blockers.rbegin() > dependency_tracker().active_tracking_contexts.size()) {
-            throw std::exception("Popped tracking context past blocker, ScopedTrackingBlocker kept alive past scope.");
+        auto const& reactivity_blockers = dependency_tracker().reactivity_blockers;
+        if (!reactivity_blockers.empty() && *dependency_tracker().reactivity_blockers.rbegin() > dependency_tracker().active_tracking_contexts.size()) {
+            throw std::exception("Popped tracking context past blocker, ScopedReactivityBlocker kept alive past scope.");
         }
     }
 
@@ -134,8 +134,8 @@ namespace core::reactivity {
             return;
         }
 
-        auto const& tracking_blockers = dependency_tracker().tracking_blockers;
-        if (!tracking_blockers.empty() && *dependency_tracker().tracking_blockers.rbegin() == dependency_tracker().active_tracking_contexts.size()) {
+        auto const& reactivity_blockers = dependency_tracker().reactivity_blockers;
+        if (!reactivity_blockers.empty() && *dependency_tracker().reactivity_blockers.rbegin() == dependency_tracker().active_tracking_contexts.size()) {
             return;
         }
 
@@ -168,9 +168,9 @@ namespace core::reactivity {
     }
 
     void notify_changed(const dependency_t& dependency) {
-        auto const& tracking_blockers = dependency_tracker().tracking_blockers;
+        auto const& reactivity_blockers = dependency_tracker().reactivity_blockers;
         auto const& active_contexts = dependency_tracker().active_tracking_contexts;
-        if (!tracking_blockers.empty() && *tracking_blockers.rbegin() == active_contexts.size()) {
+        if (!reactivity_blockers.empty() && *reactivity_blockers.rbegin() == active_contexts.size()) {
             return;
         }
 

@@ -120,8 +120,6 @@ namespace {
         }
     }
 
-    // TODO: Update text when text database content changes
-
     IL2CPP_INTERCEPT(Moon::Race::RaceData, void, Awake, (app::RaceData * this_ptr)) {
         next::Moon::Race::RaceData::Awake(this_ptr);
 
@@ -178,6 +176,7 @@ namespace {
             auto& box = trial_text_boxes.at(location.value());
             box.reactive_effect = core::reactivity::watch_effect()
                 .before([location]() {
+                    core::reactivity::ScopedReactivityBlocker _;
                     randomizer::game_seed().grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, get_event_uber_state_for_spirit_trial(location.value())), 0);
                 })
                 .effect([location] {

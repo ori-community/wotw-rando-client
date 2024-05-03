@@ -30,7 +30,9 @@ namespace core::text {
         register_text(slot + 5, "What could it be?");
     }
 
-    void reset_static_entries() {
+    void reset_to_default_values() {
+        text_entries.clear();
+
         register_text(*static_text_entry::Empty, " ");
         register_text(*static_text_entry::EmptyName, "Empty");
 
@@ -298,7 +300,7 @@ namespace core::text {
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-        reset_static_entries();
+        reset_to_default_values();
     });
 
     app::MessageProvider* get_provider(TextEntry& entry) {
@@ -331,7 +333,6 @@ namespace core::text {
     }
 
     int get_text_count(text_id id) {
-
         notify_used(reactivity::TextDatabaseDependency { id });
         auto& entry = text_entries[id];
         return static_cast<int>(entry.text.size());
