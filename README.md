@@ -27,7 +27,7 @@ Run this as administrator:
 git config --system core.longpaths true
 ```
 
-- Using CLion (or alternatively Visual Studio) is recommended.
+- Using CLion (or alternatively Visual Studio Code) is recommended.
 - If you are using some other IDE than CLion without vcpkg support, make sure to [install](https://learn.microsoft.com/en-nz/vcpkg/get_started/get-started?pivots=shell-cmd) it first.
 - Make sure to have the `clang-cl` compilers and tools installed. Check this in the Visual Studio Installer in the Individual Components section.
 
@@ -40,7 +40,19 @@ git config --system core.longpaths true
 4. Switch to the `clang-cl` compilers in the Toolchain IDE settings.
 
 
-#### Setup in Visual Studio
+#### Setup in Visual Studio Code
+
+1. Make sure to have Ninja installed: `winget install "Ninja-build.Ninja"`
+2. Install the CMake Tools and Clangd extensions
+3. In CMake Tools settings:
+    - Cmake: Configure Environment:
+        - VCPKG_TARGET_TRIPLET = x64-windows-static-md
+        - CMAKE_TOOLCHAIN_FILE = <wherever your vcpkg lives>\scripts\buildsystems\vcpkg.cmake
+    - Cmake: Generator: Ninja
+4. In the CMake panel on the left side under "Configure", click on "[No Kit Selected]", then click "Scan for Kits" and after it is done scanning select the CLang (MSVC CLI) compiler for amd64
+
+
+#### Setup in Visual Studio (not recommended)
 
 1. Make sure the `VCPKG_INSTALLATION_ROOT` environment variable is set correctly and holding the path to the vcpkg installation root. If not, set it before continuing.
 2. Run `generate-cmake.debug-vs2022.bat` and wait for it to complete
