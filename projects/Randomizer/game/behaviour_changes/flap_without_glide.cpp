@@ -15,7 +15,7 @@ namespace {
         ScopedSetter setter(randomizer::timing::disable_ability_tracking, true);
         const auto previous_glide_state = core::api::game::player::ability(app::AbilityType__Enum::Glide).get();
 
-        core::reactivity::ScopedTrackingBlocker _;
+        core::reactivity::ScopedReactivityBlocker _;
         core::api::game::player::ability(app::AbilityType__Enum::Glide).set(true);
         next::WindCollision::OnTriggerEnter(this_ptr, collider);
         core::api::game::player::ability(app::AbilityType__Enum::Glide).set(previous_glide_state);

@@ -1,0 +1,19 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(Windows) Launch",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "D:\\SteamLibrary\\steamapps\\common\\Ori and the Will of the Wisps\\oriwotw.exe",
+            "args": ["-m","c:\\moon\\randomizer","--enableDebug=true"],
+            "stopAtEntry": false,
+            "cwd": "C:\\moon\\randomizer",
+            "environment": [],
+            "console": "externalTerminal"
+        },
+    ]
+}

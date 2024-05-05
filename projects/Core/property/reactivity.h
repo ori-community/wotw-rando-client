@@ -72,10 +72,10 @@ namespace core::reactivity {
         class FinalizeOnlyBuilder;
     } // namespace builder
 
-    class CORE_DLLEXPORT ScopedTrackingBlocker {
+    class CORE_DLLEXPORT ScopedReactivityBlocker {
     public:
-        ScopedTrackingBlocker();
-        ~ScopedTrackingBlocker();
+        ScopedReactivityBlocker();
+        ~ScopedReactivityBlocker();
 
     private:
         size_t m_index;

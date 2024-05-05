@@ -1,0 +1,8 @@
+{
+    "version": "2.0.0",
+    "tasks": [{
+        "label": "Run Ori",
+        "command": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Ori and the Will of the Wisps\\oriwotw.exe --enableDebug=true -m C:\\moon\\randomizer",
+        "type": "shell"
+    }]
+}

@@ -4,7 +4,7 @@
 #include <Modloader/app/types/EnemyEntity.h>
 #include <Modloader/app/types/GasballEntity.h>
 #include <Modloader/app/types/KamikazeLizardEntity.h>
-#include <Modloader/app/types/MinerNPCEntity.h>
+#include <Modloader/app/types/MinerEntity.h>
 #include <Modloader/app/types/PiranhaEntity.h>
 #include <Modloader/app/types/SandWormEntity.h>
 #include <Modloader/app/types/SkeetoEntity.h>
@@ -66,7 +66,7 @@ namespace core::api::death_listener {
 
         std::unordered_map<void*, std::variant<enemy_list, enemy_function>>& enemy_type_map() {
             static std::unordered_map<void*, std::variant<enemy_list, enemy_function>> inner_enemy_type_map = {
-                {types::MinerNPCEntity::get_class(), enemy_list{UberState(10, 40)}},
+                {types::MinerEntity::get_class(), enemy_list{UberState(10, 40)}},
                 {types::SkeetoEntity::get_class(), skeeto_check},
                 {types::TentacleEntity::get_class(), enemy_list{UberState(10, 42)}},
                 {types::SpikeSlugEntity::get_class(), enemy_list{UberState(10, 43)}},

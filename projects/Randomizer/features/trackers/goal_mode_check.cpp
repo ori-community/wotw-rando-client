@@ -129,7 +129,7 @@ namespace {
                 il2cpp::unity::set_parent(collider.get_game_object(), **shriek_barrier_go);
                 const auto damage_dealer = il2cpp::unity::add_component<app::DamageDealer>(collider.get_game_object(), types::DamageDealer::get_class());
                 damage_dealer->fields.m_damageAmount = 1000.f;
-                damage_dealer->fields.DamageType = app::DamageType__Enum::Laser;
+                damage_dealer->fields.DamageType = app::DamageType__Enum::Lava;
                 damage_dealer->fields.m_isKillSurface = true;
 
                 shriek_barrier_killbox = il2cpp::WeakGCRef(collider.get_game_object());

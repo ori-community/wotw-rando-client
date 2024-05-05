@@ -14,7 +14,7 @@ namespace {
         if (core::api::game::player::ability(app::AbilityType__Enum::Bash).get()) {
             ret = next::Projectile::HandleMirrorStrike(this_ptr, damage);
         } else {
-            core::reactivity::ScopedTrackingBlocker blocker;
+            core::reactivity::ScopedReactivityBlocker blocker;
             modloader::ScopedSetter setter(randomizer::timing::disable_ability_tracking, true);
             core::api::game::player::ability(app::AbilityType__Enum::Bash).set(true);
             ret = next::Projectile::HandleMirrorStrike(this_ptr, damage);

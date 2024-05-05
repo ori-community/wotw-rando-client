@@ -45,10 +45,10 @@ git config --system core.longpaths true
 1. Make sure to have Ninja installed: `winget install "Ninja-build.Ninja"`
 2. Install the CMake Tools and Clangd extensions
 3. In CMake Tools settings:
-   - Cmake: Configure Environment:
-     - VCPKG_TARGET_TRIPLET = x64-windows-static-md
-     - CMAKE_TOOLCHAIN_FILE = <wherever your vcpkg lives>\scripts\buildsystems\vcpkg.cmake
-   - Cmake: Generator: Ninja
+    - Cmake: Configure Environment:
+        - VCPKG_TARGET_TRIPLET = x64-windows-static-md
+        - CMAKE_TOOLCHAIN_FILE = <wherever your vcpkg lives>\scripts\buildsystems\vcpkg.cmake
+    - Cmake: Generator: Ninja
 4. In the CMake panel on the left side under "Configure", click on "[No Kit Selected]", then click "Scan for Kits" and after it is done scanning select the CLang (MSVC CLI) compiler for amd64
 
 

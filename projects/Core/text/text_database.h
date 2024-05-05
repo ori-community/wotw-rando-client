@@ -8,7 +8,7 @@
 #include <vector>
 
 namespace core::text {
-    CORE_DLLEXPORT void reset_static_entries();
+    CORE_DLLEXPORT void reset_to_default_values();
     CORE_DLLEXPORT void register_text(text_id id, std::string_view text);
     CORE_DLLEXPORT void register_text(text_id id, std::wstring_view text);
     CORE_DLLEXPORT void clear_text(text_id id);

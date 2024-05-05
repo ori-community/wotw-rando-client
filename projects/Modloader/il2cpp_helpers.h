@@ -186,6 +186,8 @@ namespace il2cpp {
 
     IL2CPP_MODLOADER_DLLEXPORT MethodInfo* resolve_generic_method(uint64_t address);
 
+    IL2CPP_MODLOADER_DLLEXPORT std::string get_class_name(Il2CppClass* klass);
+
     template<typename Return = Il2CppClass>
     Return* get_class(std::string_view namezpace, std::string_view name) {
         return reinterpret_cast<Return*>(untyped::get_class(namezpace, name));
