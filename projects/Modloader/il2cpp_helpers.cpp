@@ -926,6 +926,8 @@ namespace il2cpp {
 
     MethodInfo* resolve_generic_method(uint64_t address) { return *reinterpret_cast<MethodInfo**>(memory::resolve_rva(address)); }
 
+    std::string get_class_name(Il2CppClass* klass) { return {il2cpp_class_get_name(klass)}; }
+
     /**
      * Converts a C# string to std::string by truncating characters.
      * May lose special characters.

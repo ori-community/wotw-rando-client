@@ -79,6 +79,7 @@ set(
         "game/behaviour_changes/instant_tp_activation.cpp"
         "game/behaviour_changes/kwolok_boss_rubberbanding_fix.cpp"
         "game/behaviour_changes/luma_contact_switch_door_jank_fix.cpp"
+        "game/behaviour_changes/patch2_kickback.cpp"
         "game/behaviour_changes/prevent_pickup.cpp"
         "game/behaviour_changes/stomp_into_water.cpp"
         "game/behaviour_changes/stomp_through_portals.cpp"
