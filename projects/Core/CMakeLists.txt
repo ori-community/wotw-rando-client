@@ -58,6 +58,7 @@ set(
         "events/console_update.cpp"
         "events/task.cpp"
         "events/unity_update_loop.cpp"
+        "input/midi.cpp"
         "input/simulator.cpp"
         "ipc/ipc.cpp"
         "ipc/console.cpp"
@@ -214,6 +215,9 @@ target_link_libraries(${PROJECT_NAME} magic_enum::magic_enum)
 
 find_package(cppzmq CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} cppzmq cppzmq-static)
+
+find_package(libremidi CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} libremidi)
 
 message(STATUS "Assigning source groups.")
 

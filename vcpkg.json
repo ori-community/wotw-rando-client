@@ -37,5 +37,8 @@
   }, {
     "name" : "openssl",
     "version>=" : "3.2.1#2"
+  }, {
+    "name" : "libremidi",
+    "version>=" : "4.3.0"
   } ]
 }
