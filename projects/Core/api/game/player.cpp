@@ -408,7 +408,13 @@ namespace core::api::game::player {
         Property<int> shard_slots_property(set_shard_slots, get_shard_slots);
     } // namespace
 
-    app::SeinCharacter* sein() { return types::Characters::get_class()->static_fields->m_sein; }
+    app::SeinCharacter* sein() {
+        if (!types::Characters::get_class()->static_fields->HasSein) {
+            return nullptr;
+        }
+
+        return types::Characters::get_class()->static_fields->m_sein;
+    }
 
     std::optional<app::EquipmentType__Enum> ability_to_equip_type(const app::AbilityType__Enum ability) {
         const auto it = ability_to_equip_map.find(ability);
