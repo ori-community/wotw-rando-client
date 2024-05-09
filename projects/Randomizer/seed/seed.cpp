@@ -109,6 +109,7 @@ namespace randomizer::seed {
         m_data->relics.clear();
         m_data->locations.clear();
         m_data->procedures.clear();
+        m_data->timers.clear();
         items::destroy_all_seed_icons();
     }
 
@@ -293,6 +294,14 @@ namespace randomizer::seed {
         }
 
         return true;
+    }
+
+    void Seed::process_timers(float delta_time) const {
+        for (const auto & timer : m_data->timers) {
+            if (timer.toggle.get<bool>()) {
+                timer.value.set(timer.value.get() + delta_time);
+            }
+        }
     }
 
     nlohmann::json SaveSlotSeedMetaData::json_serialize() {

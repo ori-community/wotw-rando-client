@@ -136,7 +136,6 @@ namespace randomizer {
         });
 
         auto on_after_seed_loaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
-            timer::clear_uber_state_timers();
             universe.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
@@ -180,6 +179,8 @@ namespace randomizer {
             const float delta_time = core::api::game::fixed_delta_time();
             monitor.update(delta_time);
             status.update(delta_time);
+
+            game_seed().process_timers(delta_time);
         });
 
         auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(

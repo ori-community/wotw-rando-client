@@ -66,11 +66,17 @@ namespace randomizer::seed {
             std::string states;
         };
 
+        struct Timer {
+            core::api::uber_states::UberState toggle;
+            core::api::uber_states::UberState value;
+        };
+
         struct Data {
             SeedInfo info;
             Relics relics;
             std::unordered_map<location_entry, inner_location_entries> locations;
             std::unordered_map<int, ItemData> procedures;
+            std::vector<Timer> timers;
         };
 
         using seed_parser = bool (*)(const std::string_view content, location_data::LocationCollection const& location_data, std::shared_ptr<Data> data);
@@ -95,6 +101,8 @@ namespace randomizer::seed {
         bool finished_goals() const;
 
         void prevent_grants(const std::function<bool()>& callback) { m_prevent_grant_callbacks.push_back(callback); }
+
+        void process_timers(float delta_time) const;
 
     private:
         location_data::LocationCollection const& m_location_data;

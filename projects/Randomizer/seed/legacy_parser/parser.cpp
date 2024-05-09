@@ -95,8 +95,6 @@ namespace randomizer::seed::legacy_parser {
         StopIfLess = 6,
         SetState = 7,
         Warp = 8,
-        StartTimer = 9,
-        StopTimer = 10,
         RedirectState = 11,
         SetHealth = 12,
         SetEnergy = 13,
@@ -540,25 +538,6 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_timer(std::span<std::string> parts, ParserData& data, bool start) {
-        if (parts.size() < 2) {
-            return false;
-        }
-
-        int group;
-        int state;
-        if (!string_convert(parts[0], group) || !string_convert(parts[1], state)) {
-            return false;
-        }
-
-        core::api::uber_states::UberState timer_state(group, state);
-        const auto caller = std::make_shared<items::Call>();
-        caller->description = std::format("register timer on {}", timer_state.to_string());
-        caller->func = [timer_state, start]() { timer::uber_state_timer(timer_state, start); };
-        data.add_item(caller);
-        return true;
-    }
-
     bool parse_redirect_state(std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 3) {
             return false;
@@ -805,10 +784,6 @@ namespace randomizer::seed::legacy_parser {
                 return parse_grant_if_bounds(location, next_parts, data);
             case SystemCommand::Warp:
                 return parse_warp(next_parts, data);
-            case SystemCommand::StartTimer:
-                return parse_timer(next_parts, data, true);
-            case SystemCommand::StopTimer:
-                return parse_timer(next_parts, data, false);
             case SystemCommand::RedirectState:
                 return parse_redirect_state(next_parts, data);
             case SystemCommand::Bind:
@@ -2137,6 +2112,36 @@ namespace randomizer::seed::legacy_parser {
 
                 data->info.meta.start_position = position;
             } else if (line.starts_with("timer:")) {
+                std::vector<std::string> parts;
+                auto timer_states = line.substr(6);
+                trim(timer_states);
+                parse_parts(timer_states, parts);
+
+                if (parts.size() != 4) {
+                    ++line_number;
+                    continue;
+                }
+
+                int toggle_group;
+                int toggle_state;
+                int value_group;
+                int value_state;
+
+                if (
+                    !string_convert(parts[0], toggle_group) ||
+                    !string_convert(parts[1], toggle_state) ||
+                    !string_convert(parts[2], value_group) ||
+                    !string_convert(parts[3], value_state)
+                ) {
+                    ++line_number;
+                    continue;
+                }
+
+                data->timers.push_back({
+                    {toggle_group, toggle_state},
+                    {value_group, value_state}
+                });
+
             } else if (!line.empty()) {
                 std::vector<std::string> parts;
                 parse_parts(line, parts);
