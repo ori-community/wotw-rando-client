@@ -37,16 +37,7 @@ namespace randomizer::features::credits {
             credits.load(std::format(CREDITS_PATH_FMT, modloader::base_path().string()));
             credits.reset();
 
-            if (!requested_credits_immediately) {
-                return;
-            }
-
-            requested_credits_immediately = false;
             auto credits_go = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, "credits");
-            auto cred_cont = il2cpp::unity::get_component<app::CreditsController>(credits_go, types::CreditsController::get_class());
-            auto timeline = cred_cont->fields.CreditsTimeline;
-            il2cpp::invoke_virtual(timeline, reinterpret_cast<Il2CppClass*>(types::TimelineEntity::get_class()), "StartPlayback");
-
             auto credits_text_go = il2cpp::unity::find_child(credits_go, std::vector<std::string>{ "defaultCredits", "credits", "creditsTexts" });
             auto children = il2cpp::unity::get_children(credits_text_go);
 
@@ -66,6 +57,15 @@ namespace randomizer::features::credits {
                 child_position.y -= 3.f;
                 il2cpp::unity::set_local_position(child_go, child_position);
             }
+            
+            if (!requested_credits_immediately) {
+                return;
+            }
+
+            requested_credits_immediately = false;
+            auto cred_cont = il2cpp::unity::get_component<app::CreditsController>(credits_go, types::CreditsController::get_class());
+            auto timeline = cred_cont->fields.CreditsTimeline;
+            il2cpp::invoke_virtual(timeline, reinterpret_cast<Il2CppClass*>(types::TimelineEntity::get_class()), "StartPlayback");
         }
 
         float time = 0.0f;
