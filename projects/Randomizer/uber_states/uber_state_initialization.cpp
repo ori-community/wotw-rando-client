@@ -392,6 +392,8 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "allowSpawningEnemiesNearby", 103, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "showSmallDoors", 200, false),
 
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "transparentCorruptedWater", 201, false),
+
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoConfig, "forceNoAirDecelerationFlag", FORCE_AIR_NO_DECELERATION_ID, 0),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "baurSneezeWithBlaze", 420, false),
