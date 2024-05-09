@@ -2,30 +2,36 @@
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/screen_position.h>
+#include <Core/core.h>
 #include <Core/settings.h>
 #include <optional>
 
 #include <Modloader/app/methods/AreaMapCanvas.h>
 #include <Modloader/app/methods/AreaMapCanvasOverlay.h>
 #include <Modloader/app/methods/AreaMapUI.h>
+#include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/GameWorldArea.h>
 #include <Modloader/app/methods/MenuTabManager.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
+#include <Modloader/app/methods/PerformBackOutAction.h>
 #include <Modloader/app/methods/ScalePositionForAspectRatio.h>
 #include <Modloader/app/methods/UberShaderAPI.h>
-#include <Modloader/app/methods/PerformBackOutAction.h>
 #include <Modloader/app/methods/UnityEngine/GL.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Graphics.h>
 #include <Modloader/app/methods/UnityEngine/Material.h>
-#include <Modloader/app/methods/GameStateMachine.h>
+#include <Modloader/app/methods/Moon/SuspensionManager.h>
+#include <Modloader/app/methods/LegacyTransparencyAnimator.h>
+#include <Modloader/app/methods/AnimatorDriver.h>
+#include <Modloader/app/methods/BaseAnimator.h>
 #include <Modloader/app/types/AreaMapCanvas.h>
 #include <Modloader/app/types/AreaMapUI.h>
 #include <Modloader/app/types/AspectRatioManager.h>
 #include <Modloader/app/types/GameObject.h>
+#include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/app/types/MenuTabManager.h>
 #include <Modloader/app/types/ScalePositionForAspectRatio.h>
-#include <Modloader/app/types/GameStateMachine.h>
+#include <Modloader/app/types/LegacyTransparencyAnimator.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
@@ -34,6 +40,7 @@ namespace {
 
     constexpr float MAP_SCALE = 0.0175f;
 
+    std::optional<app::LegacyTransparencyAnimator*> minimap_animator;
     std::optional<app::GameObject*> minimap_go;
     std::optional<app::GameObject*> minimap_pivot_go;
     std::optional<app::GameObject*> player_position_go;
@@ -44,6 +51,7 @@ namespace {
     auto minimap_height = 1.f;
     auto area_segment_updated_this_frame = false;
     auto use_custom_map_mask = false;
+    auto minimap_is_faded_in = true;
 
     void update_canvas(app::AreaMapCanvas* canvas) {
         modloader::ScopedSetter _(use_custom_map_mask, true);
@@ -75,10 +83,10 @@ namespace {
         const auto [x, y, z] = minimap_camera_position;
 
         const std::vector<app::Vector3> mask_rect {
-            {x - (minimap_width * 1.f) / MAP_SCALE, y - (minimap_height * 2.f) / MAP_SCALE, 0},
-            {x + (minimap_width * 2.f) / MAP_SCALE, y - (minimap_height * 2.f) / MAP_SCALE, 0},
-            {x - (minimap_width * 1.f) / MAP_SCALE, y + (minimap_height * 1.f) / MAP_SCALE, 0},
-            {x + (minimap_width * 2.f) / MAP_SCALE, y + (minimap_height * 1.f) / MAP_SCALE, 0},
+            {x - (minimap_width * 2.f) / MAP_SCALE, y - (minimap_height * 2.f) / MAP_SCALE, 0},
+            {x + (minimap_width * 1.f) / MAP_SCALE, y - (minimap_height * 2.f) / MAP_SCALE, 0},
+            {x - (minimap_width * 2.f) / MAP_SCALE, y + (minimap_height * 1.f) / MAP_SCALE, 0},
+            {x + (minimap_width * 1.f) / MAP_SCALE, y + (minimap_height * 1.f) / MAP_SCALE, 0},
         };
 
         const std::vector<app::Vector3> erase_rect {
@@ -136,7 +144,7 @@ namespace {
             il2cpp::unity::set_active_recursively(*minimap_pivot_go, true);
             il2cpp::unity::set_local_scale(*minimap_pivot_go, {MAP_SCALE, MAP_SCALE, 1.f});
 
-            const auto position = core::api::screen_position::get(core::api::screen_position::ScreenPosition::BottomRight, false);
+            const auto position = core::api::screen_position::get(core::api::screen_position::ScreenPosition::BottomLeft, false);
             il2cpp::unity::set_local_position(*minimap_go, {position.x, position.y, -1.f});
 
             canvases = il2cpp::unity::get_components_in_children<app::AreaMapCanvas>(*minimap_pivot_go, types::AreaMapCanvas::get_class());
@@ -155,6 +163,19 @@ namespace {
                 types::ScalePositionForAspectRatio::get_class()
             );
             ScalePositionForAspectRatio::ctor(scale_position_component);
+
+            minimap_animator = il2cpp::unity::add_component<app::LegacyTransparencyAnimator>(
+                *minimap_go, types::LegacyTransparencyAnimator::get_class()
+            );
+
+            LegacyTransparencyAnimator::ctor(*minimap_animator);
+
+            (*minimap_animator)->fields._._.m_suspensionMask = app::SuspendableMask__Enum::None;
+            (*minimap_animator)->fields.AnimateChildren = true;
+            (*minimap_animator)->fields.AutoEnableTargets = true;
+            LegacyTransparencyAnimator::CacheOriginals(*minimap_animator);
+
+            BaseAnimator::set_Speed(reinterpret_cast<app::BaseAnimator*>(*minimap_animator), 8.f);
 
             core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, *minimap_go);
         }
@@ -187,36 +208,31 @@ namespace {
             }
         }
 
+        if (core::message_controller().recent_display().get_active_messages_count() > 0) {
+            return true;
+        }
+
         return PerformBackOutAction::get_IsAbandonChallangeActive();
     }
 
-    void update_minimap_visibility() {
+    void update_minimap_target_opacity() {
         if (core::settings::enable_minimap() && minimap_go.has_value()) {
-            il2cpp::unity::set_active(*minimap_go, !should_hide_minimap());
+            const auto should_be_visible = !should_hide_minimap();
+            if (should_be_visible != minimap_is_faded_in) {
+                LegacyTransparencyAnimator::UpdateActiveStates(*minimap_animator);
+                const auto driver = BaseAnimator::get_AnimatorDriver(reinterpret_cast<app::BaseAnimator*>(*minimap_animator));
+
+                if (should_be_visible) {
+                    AnimatorDriver::ContinueForward(driver);
+                } else {
+                    AnimatorDriver::ContinueBackwards(driver);
+                }
+
+                Moon::SuspensionManager::Unregister(reinterpret_cast<app::ISuspendable*>(*minimap_animator));
+
+                minimap_is_faded_in = should_be_visible;
+            }
         }
-    }
-
-    IL2CPP_INTERCEPT(MenuTabManager, void, UpdateBackgroundState, (app::MenuTabManager* this_ptr)) {
-        const auto state_before = this_ptr->fields.m_backgroundState;
-        next::MenuTabManager::UpdateBackgroundState(this_ptr);
-        if (this_ptr->fields.m_backgroundState != state_before) {
-            update_minimap_visibility();
-        }
-    }
-
-    IL2CPP_INTERCEPT(GameStateMachine, void, set_CurrentState, (app::GameStateMachine * this_ptr, app::GameStateMachine_State__Enum value)) {
-        next::GameStateMachine::set_CurrentState(this_ptr, value);
-        update_minimap_visibility();
-    }
-
-    IL2CPP_INTERCEPT(PerformBackOutAction, void, ActivateAbandonChallange, (app::ConditionUberState * abandon_challange_condition)) {
-        next::PerformBackOutAction::ActivateAbandonChallange(abandon_challange_condition);
-        update_minimap_visibility();
-    }
-
-    IL2CPP_INTERCEPT(PerformBackOutAction, void, ClearAbandonChallangeCondition, ()) {
-        next::PerformBackOutAction::ClearAbandonChallangeCondition();
-        update_minimap_visibility();
     }
 
     void load_areamap_ui_for_minimap_if_needed() {
@@ -260,13 +276,15 @@ namespace {
 
             il2cpp::unity::set_local_position(
                 *player_position_go,
-                {(minimap_player_position.x - minimap_camera_position.x) * MAP_SCALE - minimap_width, (minimap_player_position.y - minimap_camera_position.y) * MAP_SCALE + minimap_height, 0.f}
+                {(minimap_player_position.x - minimap_camera_position.x) * MAP_SCALE + minimap_width, (minimap_player_position.y - minimap_camera_position.y) * MAP_SCALE + minimap_height, 0.f}
             );
 
             il2cpp::unity::set_local_position(
                 *minimap_pivot_go,
-                {-minimap_camera_position.x * MAP_SCALE - minimap_width, -minimap_camera_position.y * MAP_SCALE + minimap_height, 0.f}
+                {-minimap_camera_position.x * MAP_SCALE + minimap_width, -minimap_camera_position.y * MAP_SCALE + minimap_height, 0.f}
             );
+
+            update_minimap_target_opacity();
 
             for (const auto& canvas : canvases) {
                 update_canvas(canvas);
@@ -276,6 +294,7 @@ namespace {
             minimap_go = std::nullopt;
             minimap_pivot_go = std::nullopt;
             player_position_go = std::nullopt;
+            minimap_animator = std::nullopt;
             canvases.clear();
         }
     });

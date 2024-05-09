@@ -186,8 +186,6 @@ namespace randomizer::features::wheel {
                                 .prioritized = true,
                             });
                         });
-        initialize_item(9001, 7, "Toggle pickup names", "Sets the labels of pickups\non the spoiler/in logic filter\nto be the name of the pickup location.", "file:assets/icons/wheel/toggle_pickup_names.blue.png",
-                        [](auto, auto, auto) {});
         initialize_item(9001, 9, "Force Exit", "Forcibly exit the game.", "file:assets/icons/wheel/force_exit.blue.png",
                         [](auto, auto, auto) { modloader::shutdown(); });
         initialize_item(9001, 10, "Clear messages", "Clears the message queue.", "file:assets/icons/wheel/clear_messages.blue.png",

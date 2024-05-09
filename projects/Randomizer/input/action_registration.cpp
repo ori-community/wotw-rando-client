@@ -132,10 +132,6 @@ namespace randomizer::input {
             });
         });
 
-        auto on_toggle_pickup_names_on_spoiler_before = single_input_bus().register_handler(Action::TogglePickupNamesOnSpoiler, EventTiming::Before, [](auto, auto) {
-            // TODO: Toggle name labels on map to show pickup names.
-        });
-
         auto on_force_exit_before = single_input_bus().register_handler(Action::ForceExit, EventTiming::Before, [](auto, auto) {
             app::classes::UnityEngine::Application::Quit_1(0);
         });

@@ -44,5 +44,8 @@
     "name" : "libzip",
     "version>=" : "1.10.1",
     "features": ["zstd"]
+  }, {
+    "name" : "libremidi",
+    "version>=" : "4.3.0"
   } ]
 }
