@@ -10,7 +10,9 @@
 #include <Modloader/app/methods/TeleportRestrictZone.h>
 #include <Modloader/app/methods/SeinSwimming.h>
 #include <Modloader/app/methods/ShrineCombat.h>
+#include <Modloader/app/methods/ShrineCombat_RunningState.h>
 #include <Modloader/app/types/SavePedestalController.h>
+#include <Modloader/app/types/ShrineCombat.h>
 #include <Modloader/interception_macros.h>
 
 namespace {
@@ -47,6 +49,31 @@ namespace {
 
         // Clear scheduled movement curves (e.g. Water Dash) to prevent moving out of bounds during teleportation
         CharacterPlatformMovement::ClearScheduleCurves(sein->fields.PlatformBehaviour->fields.PlatformMovement);
+
+        // Stop all combat shrines
+        for (const auto& shrine: il2cpp::ListIterator(types::ShrineCombat::get_class()->static_fields->AllShrines)) {
+            const auto state_machine = shrine->fields.m_stateMachine;
+
+            if (state_machine == nullptr) {
+                continue;
+            }
+
+            const auto current_state = state_machine->fields._CurrentState_k__BackingField;
+
+            if (current_state == nullptr) {
+                continue;
+            }
+
+            const auto all_states = shrine->fields.m_states;
+
+            if (all_states == nullptr) {
+                continue;
+            }
+
+            if (reinterpret_cast<app::IState_2*>(all_states->fields.Running) == current_state) {
+                ShrineCombat_RunningState::CancelArena(reinterpret_cast<app::ShrineCombat_RunningState*>(current_state));
+            }
+        }
     }
 
     IL2CPP_INTERCEPT(SavePedestalController, void, OnFinishedTeleporting, (app::SavePedestalController* this_ptr)) {
