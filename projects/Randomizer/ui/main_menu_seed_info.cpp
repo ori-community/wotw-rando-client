@@ -3,6 +3,7 @@
 
 #include <Common/event_bus.h>
 #include <Common/variant_cast.h>
+#include <Core/api/game/debug_menu.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/graphics/sprite.h>
@@ -10,18 +11,18 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/utils/misc.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
+#include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/SaveGameController.h>
 #include <Modloader/app/methods/SaveSlotsManager.h>
-#include <Modloader/app/methods/System/IO/File.h>
 #include <Modloader/app/methods/SaveSlotsUI.h>
 #include <Modloader/app/methods/SetTitleScreenAction.h>
-#include <Modloader/app/methods/GameStateMachine.h>
-#include <Modloader/app/types/MessageBox.h>
-#include <Modloader/app/types/XboxLiveIdentityUI.h>
+#include <Modloader/app/methods/System/IO/File.h>
 #include <Modloader/app/types/CleverMenuItem.h>
-#include <Modloader/app/types/TitleScreenManager.h>
 #include <Modloader/app/types/GameStateMachine.h>
+#include <Modloader/app/types/MessageBox.h>
+#include <Modloader/app/types/TitleScreenManager.h>
+#include <Modloader/app/types/XboxLiveIdentityUI.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/legacy_parser/parser.h>
@@ -154,6 +155,19 @@ namespace randomizer::main_menu_seed_info {
             }
         }
 
+        void set_current_multiverse(std::optional<long> multiverse_id) {
+            if (multiverse_id.has_value()) {
+                randomizer::server_connect(*multiverse_id);
+            } else {
+                randomizer::server_disconnect();
+                multiplayer_universe().set_should_block_starting_new_game(false);
+                multiplayer_universe().set_enforce_seed_difficulty(false);
+                multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
+                multiplayer_universe().set_should_restrict_to_save_guid(false);
+                core::api::game::debug_menu::set_should_prevent_cheats(false);
+            }
+        }
+
         void on_ready(ModloaderEvent) {
             core::reactivity::watch_effect()
                 .effect(name_property)
@@ -280,7 +294,10 @@ namespace randomizer::main_menu_seed_info {
             }
         }
 
+        [[maybe_unused]]
         auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(on_scene_load);
+
+        [[maybe_unused]]
         auto on_ready_handle = modloader::event_bus().register_handler(ModloaderEvent::GameReady, on_ready);
 
         IL2CPP_INTERCEPT(SaveSlotsManager, void, set_CurrentSlotIndex, (int index)) {
@@ -323,57 +340,28 @@ namespace randomizer::main_menu_seed_info {
                 }
 
                 poll_current_seed_source_until_not_loading = false;
-
-                if (connect_to_multiverse_id.has_value()) {
-                    randomizer::server_connect(*connect_to_multiverse_id);
-                } else {
-                    randomizer::server_disconnect();
-                    multiplayer_universe().set_should_block_starting_new_game(false);
-                    multiplayer_universe().set_enforce_seed_difficulty(false);
-                    multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
-                    multiplayer_universe().set_should_restrict_to_save_guid(false);
-                }
+                set_current_multiverse(connect_to_multiverse_id);
 
                 update_text();
             } else {
                 load_new_game_source();
-                current_seed_source = get_new_game_seed_source();
-                current_seed_meta_data_result = std::string("Loading...");
 
-                poll_current_seed_source_until_not_loading = true;
-
-                const auto connect_to_multiverse_id = current_seed_source->get_multiverse_id();
-                if (connect_to_multiverse_id.has_value()) {
-                    randomizer::server_connect(*connect_to_multiverse_id);
-                } else {
-                    randomizer::server_disconnect();
-                    multiplayer_universe().set_should_block_starting_new_game(false);
-                    multiplayer_universe().set_enforce_seed_difficulty(false);
-                    multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
-                    multiplayer_universe().set_should_restrict_to_save_guid(false);
-                }
-
-                update_text();
-
-                on_seed_loaded_handle = event_bus().register_handler(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::After, [](auto, auto) {
+                static auto update = [] {
                     current_seed_source = get_new_game_seed_source();
                     current_seed_meta_data_result = std::string("Loading...");
 
                     poll_current_seed_source_until_not_loading = true;
 
-                    const auto connect_to_multiverse_id = current_seed_source->get_multiverse_id();
-                    if (connect_to_multiverse_id.has_value()) {
-                        randomizer::server_connect(*connect_to_multiverse_id);
-                    } else {
-                        randomizer::server_disconnect();
-                        multiplayer_universe().set_should_block_starting_new_game(false);
-                        multiplayer_universe().set_enforce_seed_difficulty(false);
-                        multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
-                        multiplayer_universe().set_should_restrict_to_save_guid(false);
-                    }
+                    set_current_multiverse(current_seed_source->get_multiverse_id());
 
                     update_text();
+                };
+
+                on_seed_loaded_handle = event_bus().register_handler(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::After, [](auto, auto) {
+                    update();
                 });
+
+                update();
             }
         }
 
@@ -385,6 +373,7 @@ namespace randomizer::main_menu_seed_info {
             }
         }
 
+        [[maybe_unused]]
         auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
             if (!poll_current_seed_source_until_not_loading) {
                 return;
