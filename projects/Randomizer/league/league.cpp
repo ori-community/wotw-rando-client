@@ -20,6 +20,7 @@
 #include <Modloader/app/methods/Moon/Wwise/WwiseEventSystem.h>
 #include <Modloader/app/methods/PlatformMovement.h>
 #include <Modloader/app/methods/Game/UI.h>
+#include <Modloader/app/methods/AkSoundEngine.h>
 #include <Modloader/app/types/CheckpointFunctionality.h>
 #include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/interception_macros.h>
@@ -313,6 +314,7 @@ namespace randomizer::league {
                 );
 
                 core::events::schedule_task(2.f, [] {
+                    AkSoundEngine::StopAll_3();
                     core::api::faderb::fade_out(1.f);
                     core::api::audio::play_sound(SoundEventID::LeagueSubmitted);
 
