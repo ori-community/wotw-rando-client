@@ -205,6 +205,11 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(Moon::Timeline::TimelineEntity, void, StartPlayback_2, (app::TimelineEntity* this_ptr, app::IContext* context)) {
+        // If we skip the cutscenes, Grom never gets into the "purchase successful" state, hence
+        // he always complains about you when leaving him even though you purchased something.
+        // This fix plays the correct timeline instead if you purchased something from Grom
+        // and leave.
+
         if (this_ptr == reinterpret_cast<app::TimelineEntity*>(purchase_failed_timeline) && BuilderEntity::get_Instance()->fields.PurchasedProject) {
             this_ptr = reinterpret_cast<app::TimelineEntity*>(offer_accepted_timeline);
         }
