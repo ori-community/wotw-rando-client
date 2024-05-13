@@ -11,11 +11,14 @@
 #include <Modloader/app/methods/BuilderItem.h>
 #include <Modloader/app/methods/BuilderScreen.h>
 #include <Modloader/app/methods/EquipmentUIInventoryGrid.h>
+#include <Modloader/app/methods/Moon/Timeline/MoonTimeline.h>
+#include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
 #include <Modloader/app/methods/ShopkeeperScreen.h>
 #include <Modloader/app/methods/SpellUISeeds.h>
 #include <Modloader/app/methods/UISoundSettingsAsset.h>
 #include <Modloader/app/types/BuilderItem.h>
 #include <Modloader/app/types/ChangeStateOnCondition.h>
+#include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/app/types/SpellUISeeds.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
@@ -24,6 +27,9 @@ namespace {
     using namespace modloader;
     using namespace app::classes;
     using namespace randomizer::game::shops;
+
+    app::MoonTimeline* offer_accepted_timeline = nullptr;
+    app::MoonTimeline* purchase_failed_timeline = nullptr;
 
     auto scene = core::api::scenes::single_event_bus().register_handler("wellspringGladesHubSetups", [](auto metadata, auto) {
         if (metadata->state != app::SceneState__Enum::Loaded) {
@@ -48,6 +54,37 @@ namespace {
                 il2cpp::unity::destroy_object(component);
             }
         }
+
+        const auto offer_ability_upgrade_dialog_go = il2cpp::unity::find_child(
+            metadata->scene->fields.SceneRoot,
+            std::vector<std::string>{
+                "interactives",
+                "NPCs",
+                "builder",
+                "minerBuilderEntity(Clone)",
+                "dialogs",
+                "offerAbilityUpgradeDialog",
+            }
+        );
+
+        const auto offer_accepted_timeline_go = il2cpp::unity::find_child(
+            offer_ability_upgrade_dialog_go,
+            std::vector<std::string>{
+                "farewellOfferAccepted",
+                "farewellOfferAcceptedTimeline",
+            }
+        );
+
+        const auto purchase_failed_timeline_go = il2cpp::unity::find_child(
+            offer_ability_upgrade_dialog_go,
+            std::vector<std::string>{
+                "purchaseFailed",
+                "purchaseFailedTimeline",
+            }
+        );
+
+        offer_accepted_timeline = il2cpp::unity::get_component<app::MoonTimeline>(offer_accepted_timeline_go, types::MoonTimeline::get_class());
+        purchase_failed_timeline = il2cpp::unity::get_component<app::MoonTimeline>(purchase_failed_timeline_go, types::MoonTimeline::get_class());
     });
 
     // Why ores are treated as seeds, nobody knows.
@@ -162,10 +199,17 @@ namespace {
         shopkeeper_screen->fields.HideScreenAfterPurchase = should_play_cutscene;
         next::BuilderScreen::CompletePurchase(this_ptr);
         if (!should_play_cutscene) {
-            BuilderEntity::get_Instance()->fields.PurchasedProject = false;
             core::api::uber_states::UberState(item->fields.Project->fields.UberState).set(3);
             ShopkeeperScreen::UpdateContextCanvasShards(reinterpret_cast<app::ShopkeeperScreen*>(this_ptr));
         }
+    }
+
+    IL2CPP_INTERCEPT(Moon::Timeline::TimelineEntity, void, StartPlayback_2, (app::TimelineEntity* this_ptr, app::IContext* context)) {
+        if (this_ptr == reinterpret_cast<app::TimelineEntity*>(purchase_failed_timeline) && BuilderEntity::get_Instance()->fields.PurchasedProject) {
+            this_ptr = reinterpret_cast<app::TimelineEntity*>(offer_accepted_timeline);
+        }
+
+        next::Moon::Timeline::TimelineEntity::StartPlayback_2(this_ptr, context);
     }
 
     // Force project order because we disable SortByCost on shops
