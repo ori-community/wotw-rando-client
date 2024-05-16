@@ -39,6 +39,7 @@ set(
         "features/cutscene_skips/wellspring_so_soggy.cpp"
         "features/mini_map/mini_map.cpp"
         "features/difficulty.cpp"
+        "features/keyboard_multibind.cpp"
         "features/keystone_door.cpp"
         "features/map.cpp"
         "features/npcs/lupo_everywhere.cpp"
