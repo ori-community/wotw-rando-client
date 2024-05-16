@@ -165,6 +165,10 @@ namespace randomizer {
             core::api::game::player::shard_slots().set(3);
         });
 
+        auto on_area_map_open = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, [](auto, auto) {
+            queue_reach_check();
+        });
+
         auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, [](auto, auto) {
             if (reach_check_queued && do_reach_check()) {
                 reach_check_queued = false;
