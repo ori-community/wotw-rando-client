@@ -210,8 +210,12 @@ namespace {
         // This fix plays the correct timeline instead if you purchased something from Grom
         // and leave.
 
-        if (this_ptr == reinterpret_cast<app::TimelineEntity*>(purchase_failed_timeline) && BuilderEntity::get_Instance()->fields.PurchasedProject) {
-            this_ptr = reinterpret_cast<app::TimelineEntity*>(offer_accepted_timeline);
+        if (this_ptr == reinterpret_cast<app::TimelineEntity*>(purchase_failed_timeline)) {
+            const auto builder_entity_instance = BuilderEntity::get_Instance();
+
+            if (il2cpp::unity::is_valid(builder_entity_instance) && builder_entity_instance->fields.PurchasedProject) {
+                this_ptr = reinterpret_cast<app::TimelineEntity*>(offer_accepted_timeline);
+            }
         }
 
         next::Moon::Timeline::TimelineEntity::StartPlayback_2(this_ptr, context);
