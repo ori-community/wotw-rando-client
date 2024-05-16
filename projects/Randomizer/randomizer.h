@@ -7,7 +7,6 @@
 #include <Randomizer/location_data/location_collection.h>
 #include <Randomizer/seed/reach_check.h>
 #include <Randomizer/seed/seed.h>
-#include <Randomizer/state_data/state.h>
 
 #include <neargye/semver.hpp>
 
@@ -40,7 +39,7 @@ namespace randomizer {
     seed::ReachCheckResult const& reach_check();
 
     common::TimedMultiEventBus<RandomizerEvent>& event_bus();
-    std::vector<state_data::State>& state_collection();
+    std::unordered_map<core::api::uber_states::UberStateCondition, std::string>& state_collection();
     location_data::LocationCollection& location_collection();
     seed::Seed& game_seed();
     online::NetworkClient& network_client();

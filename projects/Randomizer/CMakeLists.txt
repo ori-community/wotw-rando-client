@@ -266,7 +266,6 @@ set(
         "seed/relics.h"
         "seed/seed.h"
         "seed/seed_source.h"
-        "state_data/state.h"
         "state_data/parser.h"
         "stats/game_stats.h"
         "text_processors/ability.h"

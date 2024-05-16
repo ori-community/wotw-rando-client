@@ -271,9 +271,9 @@ namespace randomizer::seed {
                 }
             }
 
-            for (auto const& state: randomizer::state_collection()) {
-                if (state.condition.resolve()) {
-                    request.nodes.push_back(state.name);
+            for (auto const& [condition, name]: randomizer::state_collection()) {
+                if (condition.resolve()) {
+                    request.nodes.push_back(name);
                 }
             }
 

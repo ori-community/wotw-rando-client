@@ -38,7 +38,7 @@
 namespace randomizer {
     namespace {
         location_data::LocationCollection randomizer_location_collection;
-        std::vector<state_data::State> randomizer_state_data;
+        std::unordered_map<core::api::uber_states::UberStateCondition, std::string> randomizer_state_name_map;
         seed::Seed randomizer_seed(randomizer_location_collection);
         seed::ReachCheckResult reach_check_result;
         online::NetworkClient client;
@@ -151,8 +151,8 @@ namespace randomizer {
             randomizer_location_collection.read(modloader::base_path() / "loc_data.csv", location_data::parse_location_data);
             event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::After);
 
-            randomizer_state_data.clear();
-            parse_state_data(modloader::base_path() / "state_data.csv", randomizer_state_data);
+            randomizer_state_name_map.clear();
+            state_data::parse_state_data(modloader::base_path() / "state_data.csv", randomizer_state_name_map);
 
             randomizer_seed.read(seed_save_data->seed_content, seed::legacy_parser::parse, show_message);
         }
@@ -368,7 +368,7 @@ namespace randomizer {
 
     location_data::LocationCollection& location_collection() { return randomizer_location_collection; }
 
-    std::vector<state_data::State>& state_collection() { return randomizer_state_data; }
+    std::unordered_map<core::api::uber_states::UberStateCondition, std::string>& state_collection() { return randomizer_state_name_map; }
 
     seed::Seed& game_seed() { return randomizer_seed; }
 

@@ -195,6 +195,10 @@ namespace randomizer::seed {
                 if (location_data.has_value()) {
                     timing::notify_pickup_collected(location_data->area, location_data->name);
                 }
+
+                if (location_data.has_value() || randomizer::state_collection().contains(condition)) {
+                    queue_reach_check();
+                }
             }
 
             if ((!already_granted || !data.always_granted_items.empty()) && m_location_data.area(condition) != GameArea::Void) {
@@ -238,7 +242,6 @@ namespace randomizer::seed {
         }
 
         dev::seed_debugger::end_grant(location, current_value, previous_value);
-        queue_reach_check();
     }
 
     void Seed::procedure_call(const int id) {
