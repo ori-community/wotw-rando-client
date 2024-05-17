@@ -112,7 +112,7 @@ namespace core::api::game::in_game_timer {
 
             if (
                 save_pedestal_controller->fields.m_isTeleporting &&
-                (save_pedestal_controller->fields.m_startTime + 7.f) < UnityEngine::Time::get_time()  // 7.f seconds is the hardcoded default in vanilla
+                (save_pedestal_controller->fields.m_startTime + minimum_teleportation_time) < UnityEngine::Time::get_time()
             ) {
                 return AsyncLoadingState::SavePedestalControllerWaiting;
             }
