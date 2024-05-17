@@ -18,10 +18,10 @@
 #include <Modloader/app/methods/SaveSlotsUI.h>
 #include <Modloader/app/methods/SetTitleScreenAction.h>
 #include <Modloader/app/methods/System/IO/File.h>
+#include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/types/CleverMenuItem.h>
 #include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/app/types/MessageBox.h>
-#include <Modloader/app/types/TitleScreenManager.h>
 #include <Modloader/app/types/XboxLiveIdentityUI.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/randomizer.h>
@@ -434,6 +434,27 @@ namespace randomizer::main_menu_seed_info {
 
         do_if_valid<app::CleverMenuItem>(easy_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_easy); });
         do_if_valid<app::CleverMenuItem>(normal_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_normal); });
-        do_if_valid<app::CleverMenuItem>(hard_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_hard); });
+        do_if_valid<app::CleverMenuItem>(hard_mode_menu_item_handle, [&](auto menu_item) {
+            il2cpp::unity::set_active(menu_item, allow_hard);
+            menu_item->fields.m_isDisabled = true;
+
+            auto select_index = menu_item->fields.m_selectionManager->fields.Index;
+
+            if (select_index == 0 && !allow_easy) {
+                select_index = 1;
+            }
+
+            if (select_index == 1 && !allow_normal) {
+                select_index = 2;
+            }
+
+            if (select_index == 2 && !allow_hard) {
+                select_index = 0;
+            }
+
+            if (il2cpp::unity::is_valid(menu_item->fields.m_selectionManager)) {
+                CleverMenuItemSelectionManager::SetCurrentItem(menu_item->fields.m_selectionManager, select_index, true);
+            }
+        });
     }
 } // namespace randomizer::main_menu_seed_info
