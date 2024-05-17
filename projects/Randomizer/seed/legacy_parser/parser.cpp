@@ -2058,6 +2058,7 @@ namespace randomizer::seed::legacy_parser {
         int next_location_id = 0;
         int next_procedure_id = 0;
         int line_number = 0;
+        std::optional<nlohmann::json> seedgen_config;
 
         std::string line;
         while (std::getline(seed_file, line)) {
@@ -2085,7 +2086,12 @@ namespace randomizer::seed::legacy_parser {
 
             // Config needs to do its own escape handling (\n, \t etc)
             if (line.starts_with("//")) {
-                parse_config(line, data);
+                if (line.starts_with("// Config:")) {
+                    seedgen_config = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
+                } else {
+                    parse_config(line, data);
+                }
+
                 ++line_number;
                 continue;
             }
@@ -2153,6 +2159,12 @@ namespace randomizer::seed::legacy_parser {
             }
 
             ++line_number;
+        }
+
+        if (seedgen_config.has_value()) {
+            data->info.meta.intended_difficulty = (*seedgen_config)["worldSettings"][data->info.meta.world_index].value("hard", false)
+                ? app::GameController_GameDifficultyModes__Enum::Hard
+                : app::GameController_GameDifficultyModes__Enum::Normal;
         }
 
         return true;
