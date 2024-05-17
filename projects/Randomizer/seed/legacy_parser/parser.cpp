@@ -2000,6 +2000,7 @@ namespace randomizer::seed::legacy_parser {
     std::variant<Seed::SeedMetaData, ParserError> parse_meta_data(const std::string_view content) {
         std::istringstream seed_file(content.data());
 
+        std::optional<nlohmann::json> seedgen_config;
         Seed::SeedMetaData meta;
         std::string line;
         while (std::getline(seed_file, line)) {
@@ -2037,11 +2038,14 @@ namespace randomizer::seed::legacy_parser {
 
                 meta.start_position = position;
             } else if (line.starts_with("// Config:")) {
-                auto j = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
-                meta.intended_difficulty = j.value("hard", false)
+                seedgen_config = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
+            }
+        }
+
+        if (seedgen_config.has_value()) {
+            meta.intended_difficulty = (*seedgen_config)["worldSettings"][meta.world_index].value("hard", false)
                     ? app::GameController_GameDifficultyModes__Enum::Hard
                     : app::GameController_GameDifficultyModes__Enum::Normal;
-            }
         }
 
         return meta;
