@@ -40,6 +40,11 @@ namespace {
 
         // Stop dashing
         if (swimming->fields.HasState) {
+            // This removes the root motion processor that is eventually present
+            // because of an eventual water dash wall impact. That root motion
+            // processor causes egg hammer & co.
+            SeinSwimming::OnWallImpactAnimationEnded(swimming->fields.State);
+
             swimming->fields.State->fields.CurrentState = swimming->fields.State->fields.m_currentWater == nullptr
                 ? app::SeinSwimming_State__Enum::OutOfWater
                 : app::SeinSwimming_State__Enum::SwimMovingUnderwater;
