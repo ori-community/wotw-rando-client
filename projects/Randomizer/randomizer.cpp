@@ -129,6 +129,7 @@ namespace randomizer {
 
         auto on_respawn = core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [](auto, auto) {
             core::message_controller().clear_central();
+            queue_reach_check();
         });
 
         auto on_before_seed_loaded = randomizer::event_bus().register_handler(randomizer::RandomizerEvent::SeedLoaded, EventTiming::Before, [](auto, auto) {
@@ -182,12 +183,14 @@ namespace randomizer {
             EventTiming::After,
             [](auto, auto) {
                 load_seed(false);
+                queue_reach_check();
             }
         );
 
         auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
             check_seed_difficulty_enforcement();
             randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 7), 0);
+            queue_reach_check();
         });
 
         auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {

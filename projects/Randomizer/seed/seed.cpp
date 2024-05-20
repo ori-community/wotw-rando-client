@@ -182,6 +182,7 @@ namespace randomizer::seed {
             }
         }
 
+        auto queue_reach_check_after_grant = false;
         const auto& inner_locations = m_data->locations[location];
         std::map<int, std::tuple<std::shared_ptr<items::BaseItem>, core::api::uber_states::UberStateCondition, bool>> to_grant;
         for (auto& [condition, data]: inner_locations) {
@@ -197,7 +198,7 @@ namespace randomizer::seed {
                 }
 
                 if (location_data.has_value() || randomizer::state_collection().contains(condition)) {
-                    queue_reach_check();
+                    queue_reach_check_after_grant = true;
                 }
             }
 
@@ -242,6 +243,10 @@ namespace randomizer::seed {
         }
 
         dev::seed_debugger::end_grant(location, current_value, previous_value);
+
+        if (queue_reach_check_after_grant) {
+            queue_reach_check();
+        }
     }
 
     void Seed::procedure_call(const int id) {
