@@ -37,6 +37,7 @@ set(
         "features/cutscene_skips/sandworm_start.cpp"
         "features/cutscene_skips/wellspring_escape_start.cpp"
         "features/cutscene_skips/wellspring_so_soggy.cpp"
+        "features/cutscene_skips/willow_heart_cutscenes.cpp"
         "features/mini_map/mini_map.cpp"
         "features/difficulty.cpp"
         "features/keyboard_multibind.cpp"

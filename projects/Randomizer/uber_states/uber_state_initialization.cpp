@@ -380,6 +380,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "usePatch2Kickback", 17, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "allowTeleportingUnderwater", 18, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "allowTeleportingDuringCombatShrineFights", 19, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "disableWillowHeartCutscenes", 20, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeShriekEscapeSand", 100, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeFeedingGroundsToElevatorSand", 101, false),
 
