@@ -33,6 +33,7 @@ namespace randomizer::game::map {
         std::unordered_map<std::shared_ptr<Icon>, icon_visibility_callback> visibility_callbacks;
         Filters last_filter = Filters::COUNT;
         auto is_handling_map_scrolling_on_controller = false;
+        auto is_handling_map_scrolling = false;
 
         app::WorldMapIconType__Enum get_base_icon(const app::RuntimeWorldMapIcon* icon) {
             for (const auto base_icon: il2cpp::ListIterator(icon->fields.Area->fields.Area->fields.Icons)) {
@@ -216,9 +217,7 @@ namespace randomizer::game::map {
         }
 
         IL2CPP_INTERCEPT(UnityEngine::AnimationCurve, float, Evaluate, (app::AnimationCurve* this_ptr, float time)) {
-            if (is_handling_map_scrolling_on_controller) {
-                // When scrolling the map on controller, time is the magnitude of
-                // the input axis
+            if (is_handling_map_scrolling) {
                 return next::UnityEngine::AnimationCurve::Evaluate(this_ptr, time) * core::settings::map_pan_speed();
             }
 
@@ -226,7 +225,7 @@ namespace randomizer::game::map {
         }
 
         IL2CPP_INTERCEPT(AreaMapNavigation, void, HandleMapScrolling, (app::AreaMapNavigation* this_ptr)) {
-            ScopedSetter _(is_handling_map_scrolling_on_controller, types::GameSettings::get_class()->static_fields->Instance->fields.m_currentControlSchemes == app::ControlScheme__Enum::Controller);
+            ScopedSetter _(is_handling_map_scrolling, true);
             next::AreaMapNavigation::HandleMapScrolling(this_ptr);
         }
 
