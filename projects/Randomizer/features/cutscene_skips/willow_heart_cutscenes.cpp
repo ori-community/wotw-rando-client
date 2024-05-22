@@ -46,6 +46,28 @@ namespace {
                 }
             }
 
+            // Fix coreG timeline
+            const auto core_g_death_timeline_go = il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string> {
+                    "vineSetups",
+                    "cores",
+                    "coreG",
+                    "weepingRidgeInfectionCore",
+                    "timelines",
+                    "DeathTimeline",
+                }
+            );
+
+            if (il2cpp::unity::is_valid(core_g_death_timeline_go)) {
+                // Clamp all timeline entities to 0.5s so the timeline ends sooner and
+                // the floor gets removed faster
+                const auto timeline = il2cpp::unity::get_component<app::MoonTimeline>(core_g_death_timeline_go, types::MoonTimeline::get_class());
+                for (auto& record: il2cpp::ListIterator(timeline->fields.m_entityRecords)) {
+                    record->fields.EndConstraint->fields.m_timeOffset = std::min(0.5f, record->fields.EndConstraint->fields.m_timeOffset);
+                }
+            }
+
             effect = core::reactivity::watch_effect([] {
                 auto vines_it = vine_timelines.begin();
                 while (vines_it != vine_timelines.end()) {
