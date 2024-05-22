@@ -7,10 +7,12 @@
 #include <Modloader/app/methods/GameMapUI.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
 #include <Modloader/app/methods/RuntimeWorldMapIcon.h>
+#include <Modloader/app/methods/UnityEngine/AnimationCurve.h>
 #include <Modloader/app/structs/Boolean__Boxed.h>
 #include <Modloader/app/types/GameMapUI.h>
 #include <Modloader/app/types/GameWorld.h>
 #include <Modloader/app/types/PlayerUberStateGroup.h>
+#include <Modloader/app/types/GameSettings.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Randomizer/game/map/filter.h>
@@ -30,6 +32,7 @@ namespace randomizer::game::map {
         std::unordered_map<Filters, icon_vector> icons;
         std::unordered_map<std::shared_ptr<Icon>, icon_visibility_callback> visibility_callbacks;
         Filters last_filter = Filters::COUNT;
+        auto is_handling_map_scrolling_on_controller = false;
 
         app::WorldMapIconType__Enum get_base_icon(const app::RuntimeWorldMapIcon* icon) {
             for (const auto base_icon: il2cpp::ListIterator(icon->fields.Area->fields.Area->fields.Icons)) {
@@ -210,6 +213,21 @@ namespace randomizer::game::map {
                     icon->apply_scaler(icon->position().get());
                 }
             }
+        }
+
+        IL2CPP_INTERCEPT(UnityEngine::AnimationCurve, float, Evaluate, (app::AnimationCurve* this_ptr, float time)) {
+            if (is_handling_map_scrolling_on_controller) {
+                // When scrolling the map on controller, time is the magnitude of
+                // the input axis
+                return next::UnityEngine::AnimationCurve::Evaluate(this_ptr, time) * core::settings::map_pan_speed();
+            }
+
+            return next::UnityEngine::AnimationCurve::Evaluate(this_ptr, time);
+        }
+
+        IL2CPP_INTERCEPT(AreaMapNavigation, void, HandleMapScrolling, (app::AreaMapNavigation* this_ptr)) {
+            ScopedSetter _(is_handling_map_scrolling_on_controller, types::GameSettings::get_class()->static_fields->Instance->fields.m_currentControlSchemes == app::ControlScheme__Enum::Controller);
+            next::AreaMapNavigation::HandleMapScrolling(this_ptr);
         }
 
         auto on_area_map_destroyed = core::api::game::event_bus().register_handler(GameEvent::DestroyAreaMap, EventTiming::Before, [](auto, auto) {

@@ -115,6 +115,10 @@ namespace core::settings {
         return get_settings().get_float("Values", "CameraShakeIntensity", 1.f);
     }
 
+    float map_pan_speed() {
+        return get_settings().get_float("Values", "MapPanSpeed", 1.f);
+    }
+
     bool shriek_is_shrek() {
         return get_settings().get_boolean("Flags", "ShriekIsShrek", false);
     }
