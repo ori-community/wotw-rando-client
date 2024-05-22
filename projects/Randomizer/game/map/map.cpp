@@ -12,7 +12,6 @@
 #include <Modloader/app/types/GameMapUI.h>
 #include <Modloader/app/types/GameWorld.h>
 #include <Modloader/app/types/PlayerUberStateGroup.h>
-#include <Modloader/app/types/GameSettings.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Randomizer/game/map/filter.h>
@@ -32,7 +31,7 @@ namespace randomizer::game::map {
         std::unordered_map<Filters, icon_vector> icons;
         std::unordered_map<std::shared_ptr<Icon>, icon_visibility_callback> visibility_callbacks;
         Filters last_filter = Filters::COUNT;
-        auto is_handling_map_scrolling_on_controller = false;
+        auto force_focus_location_to_center_once = false;
         auto is_handling_map_scrolling = false;
 
         app::WorldMapIconType__Enum get_base_icon(const app::RuntimeWorldMapIcon* icon) {
@@ -214,6 +213,25 @@ namespace randomizer::game::map {
                     icon->apply_scaler(icon->position().get());
                 }
             }
+        }
+
+        IL2CPP_INTERCEPT(GameMapUI, app::Vector2, get_FocusLocation, (app::GameMapUI* this_ptr)) {
+            if (force_focus_location_to_center_once) {
+                force_focus_location_to_center_once = false;
+                return math::convert(
+                    AreaMapNavigation::WorldToMapPosition(
+                        this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField,
+                        this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField->fields.m_scrollPosition
+                    )
+                );
+            }
+
+            return next::GameMapUI::get_FocusLocation(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(GameMapUI, void, FixedUpdate, (app::GameMapUI* this_ptr)) {
+            force_focus_location_to_center_once = true;
+            next::GameMapUI::FixedUpdate(this_ptr);
         }
 
         IL2CPP_INTERCEPT(UnityEngine::AnimationCurve, float, Evaluate, (app::AnimationCurve* this_ptr, float time)) {
