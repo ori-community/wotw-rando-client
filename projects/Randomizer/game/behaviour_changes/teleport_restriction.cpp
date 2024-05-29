@@ -38,13 +38,13 @@ namespace {
         const auto sein = core::api::game::player::sein();
         const auto swimming = sein->fields.Abilities->fields.SwimmingWrapper;
 
-        // Stop dashing
-        if (swimming->fields.HasState) {
+        // Stop dashing.
+        // The check for app::SeinSwimming_State__Enum::Digging is to still allow Moon Jumping.
+        if (swimming->fields.HasState && swimming->fields.State->fields.CurrentState != app::SeinSwimming_State__Enum::Digging) {
             // This removes the root motion processor that is eventually present
             // because of an eventual water dash wall impact. That root motion
             // processor causes egg hammer & co.
             SeinSwimming::OnWallImpactAnimationEnded(swimming->fields.State);
-
             swimming->fields.State->fields.CurrentState = swimming->fields.State->fields.m_currentWater == nullptr
                 ? app::SeinSwimming_State__Enum::OutOfWater
                 : app::SeinSwimming_State__Enum::SwimMovingUnderwater;
@@ -88,8 +88,9 @@ namespace {
         const auto swimming = sein->fields.Abilities->fields.SwimmingWrapper;
 
         // Reset the swimming state to fix the vanilla bug where it doesn't reset the swimming state
-        // properly when falling into water when teleporting
-        if (swimming->fields.HasState) {
+        // properly when falling into water when teleporting.
+        // The check for app::SeinSwimming_State__Enum::Digging is to still allow Moon Jumping.
+        if (swimming->fields.HasState && swimming->fields.State->fields.CurrentState != app::SeinSwimming_State__Enum::Digging) {
             SeinSwimming::ChangeState(swimming->fields.State, app::SeinSwimming_State__Enum::OutOfWater);
         }
     }
