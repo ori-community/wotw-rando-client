@@ -47,4 +47,15 @@ namespace modloader::win::memory {
     uint64_t resolve_unity_player_rva(uint64_t rva) {
         return get_unity_player_address() + rva;
     }
+
+    void modify_memory(uint64_t address, uint64_t length, const std::function<void(uint8_t* memory)>& fn) {
+        auto out = 0UL;
+        const auto address_ptr = reinterpret_cast<void*>(address);
+        VirtualProtect(address_ptr, length, PAGE_EXECUTE_READWRITE, &out);
+
+        fn(reinterpret_cast<uint8_t*>(address));
+
+        VirtualProtect(address_ptr, length, PAGE_EXECUTE_READ, &out);
+        FlushInstructionCache(GetCurrentProcess(), address_ptr, length);
+    }
 } // namespace modloader::win::memory
