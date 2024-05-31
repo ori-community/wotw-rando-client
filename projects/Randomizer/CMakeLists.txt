@@ -42,6 +42,7 @@ set(
         "features/difficulty.cpp"
         "features/keyboard_multibind.cpp"
         "features/keystone_door.cpp"
+        "features/knock_knock_wellspring.cpp"
         "features/map.cpp"
         "features/npcs/lupo_everywhere.cpp"
         "features/npcs/opher_everywhere.cpp"
