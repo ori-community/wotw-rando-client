@@ -8,7 +8,7 @@
 #include <Randomizer/seed/reach_check.h>
 #include <Randomizer/seed/seed.h>
 
-#include <neargye/semver.hpp>
+#include <semver.hpp>
 
 namespace randomizer {
     enum class RandomizerEvent {

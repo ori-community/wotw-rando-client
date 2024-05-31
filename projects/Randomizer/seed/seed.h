@@ -13,7 +13,7 @@
 
 #include <Core/save_meta/save_meta.h>
 #include <Modloader/app/structs/GameController_GameDifficultyModes__Enum.h>
-#include <neargye/semver.hpp>
+#include <semver.hpp>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
 
