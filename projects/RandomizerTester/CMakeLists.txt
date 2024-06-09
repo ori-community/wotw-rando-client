@@ -71,8 +71,6 @@ message(STATUS "Assigning source groups.")
 set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES}")
 set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
 
-target_compile_options(${PROJECT_NAME} PRIVATE /D_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR)
-
 message(STATUS "TESTING ${PROJECT_BINARY_DIR}")
 
 install(

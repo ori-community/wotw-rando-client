@@ -114,7 +114,6 @@ find_library(DETOURS_LIBRARY detours REQUIRED)
 target_include_directories(${PROJECT_NAME} PRIVATE ${DETOURS_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} ${DETOURS_LIBRARY})
 
-target_compile_options(${PROJECT_NAME} PRIVATE /D_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR)
 
 message(STATUS "Assigning source groups.")
 
