@@ -1,5 +1,6 @@
 @echo off
 cmake.exe ^
+    -DDISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR ^
     -DCMAKE_C_COMPILER_LAUNCHER=sccache ^
     -DCMAKE_CXX_COMPILER_LAUNCHER=sccache ^
     -DCMAKE_BUILD_TYPE=RelWithDebInfo ^
