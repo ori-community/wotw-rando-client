@@ -23,7 +23,7 @@ namespace {
     core::api::uber_states::UberState disable_cutscenes_state(UberStateGroup::RandoConfig, 20);
 
     void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
+        if (metadata->state != app::SceneState__Enum::Enabled) {
             return;
         }
 
