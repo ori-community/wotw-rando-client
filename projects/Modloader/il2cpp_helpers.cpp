@@ -928,6 +928,8 @@ namespace il2cpp {
 
     std::string get_class_name(Il2CppClass* klass) { return {il2cpp_class_get_name(klass)}; }
 
+    std::string get_class_namespace(Il2CppClass* klass) { return {il2cpp_class_get_namespace(klass)}; }
+
     /**
      * Converts a C# string to std::string by truncating characters.
      * May lose special characters.
