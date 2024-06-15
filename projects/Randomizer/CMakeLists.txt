@@ -62,6 +62,7 @@ set(
         "features/scenes/modifications/sandless_feeding_grounds_to_elevator.cpp"
         "features/scenes/modifications/sandless_shriek_escape.cpp"
         "features/secrets.cpp"
+        "features/sentry_burn_damage_type_fix.cpp"
         "features/shrine_states.cpp"
         "features/trackers/ability_tracker.cpp"
         "features/trackers/goal_mode_check.cpp"

@@ -32,7 +32,6 @@ namespace core::api::death_listener {
             {app::DamageType__Enum::SpiritSentry, UberState(10, 15)},
             {app::DamageType__Enum::Blaze, UberState(10, 16)},
             {app::DamageType__Enum::Grenade, UberState(10, 17)},
-            {app::DamageType__Enum::Heat, UberState(10, 18)},
             {app::DamageType__Enum::Chakram, UberState(10, 19)},
             {app::DamageType__Enum::ChargeJump, UberState(10, 20)},
             {app::DamageType__Enum::Glow, UberState(10, 21)},
@@ -98,7 +97,26 @@ namespace core::api::death_listener {
                 state.set(state.get() + 1);
             }
 
-            const auto it = damage_type_map.find(death.damage->fields.m_damageType);
+            auto it = damage_type_map.find(death.damage->fields.m_damageType);
+
+            // Count Blaze and Grenade burns as Blaze and Grenade deaths but
+            // count Sentry burns as Sentry deaths, albeit they are technically
+            // Grenade burns internally (see sentry_burn_damage_type_fix.cpp)
+            if (death.damage->fields.m_damageType == app::DamageType__Enum::Heat) {
+                if (death.damage->fields.m_abilityType == app::AbilityType__Enum::Grenade) {
+                    it = damage_type_map.find(app::DamageType__Enum::Grenade);
+                } else if (death.damage->fields.m_abilityType == app::AbilityType__Enum::Blaze) {
+                    it = damage_type_map.find(app::DamageType__Enum::Blaze);
+                } else if (death.damage->fields.m_abilityType == app::AbilityType__Enum::SpiritSentrySpell) {
+                    it = damage_type_map.find(app::DamageType__Enum::SpiritSentry);
+                }
+            } else if (
+                death.damage->fields.m_damageType == app::DamageType__Enum::Grenade &&
+                death.damage->fields.m_abilityType == app::AbilityType__Enum::SpiritSentrySpell
+            ) {
+                it = damage_type_map.find(app::DamageType__Enum::SpiritSentry);
+            }
+
             if (it != damage_type_map.end()) {
                 it->second.set(it->second.get() + 1);
             }

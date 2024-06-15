@@ -352,7 +352,6 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "sentryKills", 15, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "blazeKills", 16, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "grenadeKills", 17, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "burnDoTKills", 18, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "shurikenKills", 19, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "launchKills", 20, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "flashKills", 21, 0),
