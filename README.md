@@ -36,7 +36,7 @@ git config --system core.longpaths true
 
 1. Load the CMake project as usual into the IDE
 2. Enable vcpkg
-3. Add `-DVCPKG_TARGET_TRIPLET=x64-windows-static-md` as CMake argument in the CMake IDE settings
+3. Add `-DVCPKG_TARGET_TRIPLET=x64-windows-static` as CMake argument in the CMake IDE settings
 4. Switch to the `clang-cl` compilers in the Toolchain IDE settings.
 
 
@@ -46,7 +46,7 @@ git config --system core.longpaths true
 2. Install the CMake Tools and Clangd extensions
 3. In CMake Tools settings:
     - Cmake: Configure Environment:
-        - VCPKG_TARGET_TRIPLET = x64-windows-static-md
+        - VCPKG_TARGET_TRIPLET = x64-windows-static
         - CMAKE_TOOLCHAIN_FILE = <wherever your vcpkg lives>\scripts\buildsystems\vcpkg.cmake
     - Cmake: Generator: Ninja
 4. In the CMake panel on the left side under "Configure", click on "[No Kit Selected]", then click "Scan for Kits" and after it is done scanning select the CLang (MSVC CLI) compiler for amd64

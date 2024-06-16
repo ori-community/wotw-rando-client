@@ -114,6 +114,10 @@ find_library(DETOURS_LIBRARY detours REQUIRED)
 target_include_directories(${PROJECT_NAME} PRIVATE ${DETOURS_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} ${DETOURS_LIBRARY})
 
+set_property(
+        TARGET ${PROJECT_NAME}
+        PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+)
 
 message(STATUS "Assigning source groups.")
 

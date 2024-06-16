@@ -18,13 +18,6 @@ inline void* _wmemcpy(wchar_t* dst, const wchar_t* src, size_t n) {
     return dst;
 }
 
-inline size_t wcslen(wchar_t const* str) {
-    size_t result = 0;
-    while (*str++)
-        result++;
-    return result;
-}
-
 #include <Shlwapi.h>
 #include <crtdbg.h>
 
