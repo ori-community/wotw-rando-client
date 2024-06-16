@@ -71,10 +71,7 @@ message(STATUS "Assigning source groups.")
 set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES}")
 set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
 
-set_property(
-		TARGET ${PROJECT_NAME}
-		PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
-)
+message(STATUS "TESTING ${PROJECT_BINARY_DIR}")
 
 install(
         TARGETS ${PROJECT_NAME}
