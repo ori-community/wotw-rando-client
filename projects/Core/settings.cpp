@@ -107,6 +107,10 @@ namespace core::settings {
         return get_settings().get_boolean("Flags", "WorldMapEnabled", true);
     }
 
+    bool native_controller_support_enabled() {
+        return get_settings().get_boolean("Flags", "NativeControllerSupportEnabled", true);
+    }
+
     float map_icon_transparency() {
         return get_settings().get_float("Values", "MapIconTransparency", 0.f);
     }
