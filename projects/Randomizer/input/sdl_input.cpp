@@ -11,7 +11,6 @@ namespace {
     using namespace app::classes;
 
     bool enable_native_controller_support = false;
-    std::atomic<int16_t> last_button_state = 0;
     float last_touchpad_x_touch = 1.f;
     SDL_GameController* controller = nullptr;
 
@@ -54,14 +53,6 @@ namespace {
             SDL_Quit();
         }
     });
-
-    IL2CPP_INTERCEPT(Core::Input, bool, get_OnAnyButtonPressed, ()) {
-        if (!enable_native_controller_support) {
-            return next::Core::Input::get_OnAnyButtonPressed();
-        }
-
-        return last_button_state > 0;
-    }
 
     void update_controller_touchpad_state() {
         uint8_t state;
@@ -127,7 +118,6 @@ namespace {
             (SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_X) << 14) +
             (SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_Y) << 15)
         );
-        last_button_state = this_ptr->fields.gamepadStateCurrent.Gamepad.wButtons;
         this_ptr->fields.gamepadStateCurrent.PacketNumber++;
 
         // Emulate Start/Select on touchpad
