@@ -184,6 +184,7 @@ namespace randomizer {
             [](auto, auto) {
                 load_seed(false);
                 queue_reach_check();
+                check_seed_difficulty_enforcement();
             }
         );
 
