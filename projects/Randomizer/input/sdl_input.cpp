@@ -1,14 +1,18 @@
 #include <mutex>
+#include <atomic>
 #include <Core/settings.h>
 #include <Modloader/modloader.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/app/methods/J2i/Net/XInputWrapper/XboxController.h>
+#include <Modloader/app/methods/Core/Input.h>
 #include <sdl2/SDL.h>
 
 namespace {
     using namespace app::classes;
 
     bool enable_native_controller_support = false;
+    std::atomic<int16_t> last_button_state = 0;
+    float last_touchpad_x_touch = 1.f;
     SDL_GameController* controller = nullptr;
 
     void detect_controller() {
@@ -50,6 +54,26 @@ namespace {
             SDL_Quit();
         }
     });
+
+    IL2CPP_INTERCEPT(Core::Input, bool, get_OnAnyButtonPressed, ()) {
+        if (!enable_native_controller_support) {
+            return next::Core::Input::get_OnAnyButtonPressed();
+        }
+
+        return last_button_state > 0;
+    }
+
+    void update_controller_touchpad_state() {
+        uint8_t state;
+        float x, y, pressure;
+        SDL_GameControllerGetTouchpadFinger(controller, 0, 0, &state, &x, &y, &pressure);
+
+        // Store finger touch position in case the finger is lifted on
+        // the frame the touchpad is being pressed
+        if (state == 1) {
+            last_touchpad_x_touch = x;
+        }
+    }
 
     // Warning: This method runs in a thread!
     IL2CPP_INTERCEPT(J2i::Net::XInputWrapper::XboxController, void, UpdateState, (app::XboxController* this_ptr)) {
@@ -103,16 +127,15 @@ namespace {
             (SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_X) << 14) +
             (SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_Y) << 15)
         );
+        last_button_state = this_ptr->fields.gamepadStateCurrent.Gamepad.wButtons;
         this_ptr->fields.gamepadStateCurrent.PacketNumber++;
 
         // Emulate Start/Select on touchpad
-        if (SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_TOUCHPAD)) {
-            uint8_t state;
-            float x, y, pressure;
-            SDL_GameControllerGetTouchpadFinger(controller, 0, 0, &state, &x, &y, &pressure);
+        update_controller_touchpad_state();
 
+        if (SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_TOUCHPAD)) {
             this_ptr->fields.gamepadStateCurrent.Gamepad.wButtons |=
-                (state == 1 /* is touched */ && x >= 0.5 /* right side touchpad */)
+                (last_touchpad_x_touch >= 0.5 /* right side touchpad */)
                     ? (1u << 4u)  // Start
                     : (1u << 5u); // Select
         }
