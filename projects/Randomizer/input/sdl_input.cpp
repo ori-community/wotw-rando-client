@@ -1,10 +1,11 @@
 #include <mutex>
-#include <atomic>
 #include <Core/settings.h>
 #include <Modloader/modloader.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/app/methods/J2i/Net/XInputWrapper/XboxController.h>
 #include <Modloader/app/methods/Core/Input.h>
+#include <Modloader/app/methods/GameStateMachine.h>
+#include <Modloader/app/methods/IntroLogosSkip.h>
 #include <sdl2/SDL.h>
 
 namespace {
@@ -63,6 +64,18 @@ namespace {
         // the frame the touchpad is being pressed
         if (state == 1) {
             last_touchpad_x_touch = x;
+        }
+    }
+
+    IL2CPP_INTERCEPT(IntroLogosSkip, void, Update, (app::IntroLogosSkip* this_ptr)) {
+        if (GameStateMachine::get_CurrentState(GameStateMachine::get_Instance()) == app::GameStateMachine_State__Enum::Logos) {
+            if (!this_ptr->fields.TimelineRunning->fields.m_isRunning && this_ptr->fields.MoonStudiosLogoTimeline->fields._._PlayState_k__BackingField != app::AnimatorPlayState__Enum::Playing) {
+                return;
+            }
+
+            if (Core::Input::get_OnAnyButtonPressed()) {
+                IntroLogosSkip::SkipLogos(this_ptr);
+            }
         }
     }
 
