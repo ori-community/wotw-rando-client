@@ -39,6 +39,8 @@ namespace {
         enable_native_controller_support = core::settings::native_controller_support_enabled();
 
         if (enable_native_controller_support) {
+            SDL_SetHint(SDL_HINT_JOYSTICK_HIDAPI_PS5_RUMBLE, "1");
+
             if (auto sdl_init_error = SDL_Init(SDL_INIT_GAMECONTROLLER); sdl_init_error < 0) {
                 modloader::error("sdl_input", std::format("Failed to initialize SDL, error {}", sdl_init_error));
             }
