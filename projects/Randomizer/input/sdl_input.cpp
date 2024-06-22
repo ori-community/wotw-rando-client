@@ -12,7 +12,6 @@ namespace {
     using namespace app::classes;
 
     bool enable_native_controller_support = false;
-    float last_touchpad_x_touch = 1.f;
     SDL_GameController* controller = nullptr;
 
     void detect_controller() {
@@ -56,18 +55,6 @@ namespace {
             SDL_Quit();
         }
     });
-
-    void update_controller_touchpad_state() {
-        uint8_t state;
-        float x, y, pressure;
-        SDL_GameControllerGetTouchpadFinger(controller, 0, 0, &state, &x, &y, &pressure);
-
-        // Store finger touch position in case the finger is lifted on
-        // the frame the touchpad is being pressed
-        if (state == 1) {
-            last_touchpad_x_touch = x;
-        }
-    }
 
     IL2CPP_INTERCEPT(IntroLogosSkip, void, Update, (app::IntroLogosSkip* this_ptr)) {
         if (GameStateMachine::get_CurrentState(GameStateMachine::get_Instance()) == app::GameStateMachine_State__Enum::Logos) {
@@ -136,11 +123,13 @@ namespace {
         this_ptr->fields.gamepadStateCurrent.PacketNumber++;
 
         // Emulate Start/Select on touchpad
-        update_controller_touchpad_state();
-
         if (SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_TOUCHPAD)) {
+            uint8_t state;
+            float x, y, pressure;
+            SDL_GameControllerGetTouchpadFinger(controller, 0, 0, &state, &x, &y, &pressure);
+
             this_ptr->fields.gamepadStateCurrent.Gamepad.wButtons |=
-                (last_touchpad_x_touch >= 0.5 /* right side touchpad */)
+                (state != 1 || x >= 0.5 /* right side touchpad */)
                     ? (1u << 4u)  // Start
                     : (1u << 5u); // Select
         }
