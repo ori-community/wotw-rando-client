@@ -40,7 +40,7 @@ namespace core::events {
         }
     }
 
-    CustomAction<app::Action> create_action(std::function<void(int)> function) {
+    CustomAction create_action(std::function<void(int)> function) {
         const auto id = next_id++;
         auto stored_function = std::make_shared<ActionStore<void(int)>>();
         stored_function->function = std::move(function);
@@ -49,7 +49,7 @@ namespace core::events {
         auto action = il2cpp::create_object<app::Action>(app::classes::types::Action::get_class());
         app::classes::System::Action::ctor(action, reinterpret_cast<app::Object*>(stored_function.get()), reinterpret_cast<void*>(&stored_function->info));
         stored_functions[id] = std::move(stored_function);
-        return { id, action };
+        return { id, il2cpp::GCRef(action) };
     }
 
     void destroy(int id) {

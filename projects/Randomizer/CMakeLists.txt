@@ -228,6 +228,7 @@ set(
         "game/pickups/quests.h"
         "game/shops/shop.h"
         "game/shops/shop_data.h"
+        "game/spawning_and_preloading.h"
         "game/teleport.h"
         "ghosts/plugins/update_active_animations_plugin.h"
         "ghosts/plugins.h"

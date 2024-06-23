@@ -12,6 +12,8 @@
 #include <Core/api/game/debug_menu.h>
 #include <Core/core.h>
 
+#include <Randomizer/game/spawning_and_preloading.h>
+
 #include <Modloader/app/methods/ActionSequence.h>
 #include <Modloader/app/methods/CameraPivotZone.h>
 #include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
@@ -27,6 +29,7 @@
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/TitleScreenManager.h>
 #include <Modloader/app/methods/WaitAction.h>
+#include <Modloader/app/methods/UnityEngine/Behaviour.h>
 #include <Modloader/app/types/ActionSequence.h>
 #include <Modloader/app/types/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/types/FaderBFadeInAction.h>
@@ -66,13 +69,6 @@ namespace randomizer::game {
         std::optional<il2cpp::WeakGCRef<app::MessageBox>> normal_mode_text_handle;
         std::optional<il2cpp::WeakGCRef<app::MessageBox>> hard_mode_text_handle;
         std::shared_ptr<core::api::messages::MessageBox> lobby_status_text_box;
-
-        void set_full_game_main_menu_selection_manager_active(bool active) {
-            if (full_game_main_menu_selection_manager_handle.has_value() && full_game_main_menu_selection_manager_handle->is_valid()) {
-                CleverMenuItemSelectionManager::set_IsActive(**full_game_main_menu_selection_manager_handle, active);
-                CleverMenuItemSelectionManager::set_IsLocked(**full_game_main_menu_selection_manager_handle, !active);
-            }
-        }
 
         void update_lobby_ui() {
             if (is_in_lobby && !is_starting_game) {
@@ -155,7 +151,7 @@ namespace randomizer::game {
             set_full_game_main_menu_selection_manager_active(!is_in_lobby);
         }
 
-        void start_new_game() {
+        void run_start_new_game_sequence() {
             if (start_game_sequence_handle.has_value()) {
                 auto action = start_game_sequence_handle.value().ref();
 
@@ -303,51 +299,6 @@ namespace randomizer::game {
         }
         // endregion
 
-        IL2CPP_INTERCEPT(RunActionOnce, void, Perform, (app::RunActionOnce * this_ptr, app::IContext* context)) {
-            // If the player started a new empty save slot...
-            if (empty_slot_pressed_action_sequence_handle.has_value() && this_ptr->fields.Action == reinterpret_cast<app::ActionMethod*>(empty_slot_pressed_action_sequence_handle.value().ref()) &&
-                start_game_sequence_handle.has_value()) {
-
-                const auto [source_status, source_seed_content] = get_new_game_seed_source()->poll();
-                if (source_status != seed::SourceStatus::Ready || !source_seed_content.has_value()) {
-                    core::message_controller().queue_central({
-                        .text = core::Property<std::string>::format("You cannot start a game without a seed"),
-                        .show_box = true,
-                        .prioritized = true,
-                    });
-                    return;
-                }
-
-                if (core::api::game::debug_menu::should_prevent_cheats() && core::api::game::debug_menu::was_debug_active_this_session()) {
-                    core::message_controller().queue_central({
-                        .text = core::Property<std::string>::format(
-                            "It is #forbidden# to play this game with #Debug Mode# enabled.\n"
-                            "Please start the game without Debug Mode.\n"
-                            "Disabling Debug Mode after starting the game is not enough because\n"
-                            "it can have persistent effects on the game even after turning it off."
-                        ),
-                        .duration = 20.f,
-                        .prioritized = true,
-                    });
-                    return;
-                }
-
-                set_new_game_seed_content(*source_seed_content);
-
-                if (randomizer::multiplayer_universe().should_block_starting_new_game()) {
-                    is_in_lobby = true;
-                    update_lobby_ui();
-                    check_if_preloaded_and_report_ready();
-                } else {
-                    set_full_game_main_menu_selection_manager_active(false);
-                    start_new_game();
-                }
-            }
-            else {
-                next::RunActionOnce::Perform(this_ptr, context);
-            }
-        }
-
         void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
             if (metadata->scene_name == "wotwTitleScreen" && metadata->state == app::SceneState__Enum::Loaded) {
                 is_starting_game = false;
@@ -477,7 +428,7 @@ namespace randomizer::game {
 
                 if (!randomizer::multiplayer_universe().should_block_starting_new_game() && randomizer::game::is_in_lobby) {
                     core::events::schedule_task_for_next_update([]() {
-                        randomizer::game::start_new_game();
+                        randomizer::game::run_start_new_game_sequence();
                     });
                 }
             });
@@ -487,4 +438,50 @@ namespace randomizer::game {
             });
         });
     } // namespace
+
+    // Called by main_menu_seed_info
+    void start_new_game() {
+        if (start_game_sequence_handle.has_value()) {
+            const auto [source_status, source_seed_content] = get_new_game_seed_source()->poll();
+            if (source_status != seed::SourceStatus::Ready || !source_seed_content.has_value()) {
+                core::message_controller().queue_central({
+                    .text = core::Property<std::string>::format("You cannot start a game without a seed"),
+                    .show_box = true,
+                    .prioritized = true,
+                });
+                return;
+            }
+
+            if (core::api::game::debug_menu::should_prevent_cheats() && core::api::game::debug_menu::was_debug_active_this_session()) {
+                core::message_controller().queue_central({
+                    .text = core::Property<std::string>::format(
+                        "It is #forbidden# to play this game with #Debug Mode# enabled.\n"
+                        "Please start the game without Debug Mode.\n"
+                        "Disabling Debug Mode after starting the game is not enough because\n"
+                        "it can have persistent effects on the game even after turning it off."
+                    ),
+                    .duration = 20.f,
+                    .prioritized = true,
+                });
+                return;
+            }
+
+            set_new_game_seed_content(*source_seed_content);
+
+            if (randomizer::multiplayer_universe().should_block_starting_new_game()) {
+                is_in_lobby = true;
+                update_lobby_ui();
+                check_if_preloaded_and_report_ready();
+            } else {
+                set_full_game_main_menu_selection_manager_active(false);
+                run_start_new_game_sequence();
+            }
+        }
+    }
+
+    void set_full_game_main_menu_selection_manager_active(bool active) {
+        if (full_game_main_menu_selection_manager_handle.has_value() && full_game_main_menu_selection_manager_handle->is_valid()) {
+            UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(**full_game_main_menu_selection_manager_handle), active);
+        }
+    }
 } // namespace randomizer::game
