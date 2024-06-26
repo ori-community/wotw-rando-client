@@ -535,9 +535,11 @@ namespace randomizer::main_menu_seed_info {
             ? std::make_optional(std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result))
             : std::nullopt;
 
+        const auto selected_save_file_is_empty = SaveSlotsManager::SlotByIndex(SaveSlotsManager::get_CurrentSlotIndex()) == nullptr;
+
         if (
             GameStateMachine::IsInExtendedTitleScreen(types::GameStateMachine::get_class()->static_fields->m_instance) &&
-            SaveSlotsManager::SlotByIndex(SaveSlotsManager::get_CurrentSlotIndex()) == nullptr // Selected save file is empty
+            selected_save_file_is_empty
         ) {
             if (randomizer::multiplayer_universe().should_enforce_seed_difficulty()) {
                 if (seed_metadata.has_value()) {
@@ -574,7 +576,7 @@ namespace randomizer::main_menu_seed_info {
                 select_index = 0;
             }
 
-            if (il2cpp::unity::is_valid(menu_item->fields.m_selectionManager)) {
+            if (selected_save_file_is_empty && il2cpp::unity::is_valid(menu_item->fields.m_selectionManager)) {
                 CleverMenuItemSelectionManager::SetCurrentItem(menu_item->fields.m_selectionManager, select_index, true);
             }
         });
