@@ -33,8 +33,9 @@ namespace {
         return damage;
     }
 
-    IL2CPP_INTERCEPT(BlockableLaser, void, Awake, (app::BlockableLaser * this_ptr)) {
-        next::BlockableLaser::Awake(this_ptr);
+    // Fix laser going through walls on the first frame
+    IL2CPP_INTERCEPT(BlockableLaser, void, OnEnable, (app::BlockableLaser * this_ptr)) {
+        next::BlockableLaser::OnEnable(this_ptr);
         BlockableLaser::PerformLaserLogic(this_ptr);
     }
 } // namespace
