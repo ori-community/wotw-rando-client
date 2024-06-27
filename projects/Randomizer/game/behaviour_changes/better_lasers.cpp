@@ -32,4 +32,9 @@ namespace {
 
         return damage;
     }
+
+    IL2CPP_INTERCEPT(BlockableLaser, void, Awake, (app::BlockableLaser * this_ptr)) {
+        next::BlockableLaser::Awake(this_ptr);
+        BlockableLaser::PerformLaserLogic(this_ptr);
+    }
 } // namespace
