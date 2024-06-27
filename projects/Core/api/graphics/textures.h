@@ -60,4 +60,5 @@ namespace core::api::graphics::textures {
     CORE_DLLEXPORT std::shared_ptr<TextureData> create_texture();
     CORE_DLLEXPORT std::shared_ptr<TextureData> get_texture(std::string_view path);
     CORE_DLLEXPORT void apply_default(app::Renderer* renderer);
+    CORE_DLLEXPORT void dont_unload_texture(app::Texture* texture);
 } // namespace core::textures
