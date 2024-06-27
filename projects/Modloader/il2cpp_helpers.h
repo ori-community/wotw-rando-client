@@ -405,7 +405,7 @@ namespace il2cpp {
 
         template<typename Return = app::Component_1>
         std::vector<Return*> get_components_in_children(void* obj, void* klass, bool include_inactive = false) {
-            return get_components_in_children<Return>(obj, reinterpret_cast<Il2CppClass*>(klass));
+            return get_components_in_children<Return>(obj, reinterpret_cast<Il2CppClass*>(klass), include_inactive);
         }
 
         template<typename Return = app::ScriptableObject, typename Clazz = Il2CppClass>
