@@ -10,6 +10,8 @@
 using namespace app::classes;
 
 namespace core::api::faderb {
+    auto skip_black_screen_cleanup = false;
+
     app::FaderB* get() {
         static auto cache = types::UI::get_class()->static_fields->Fader;
         return cache;
@@ -21,6 +23,18 @@ namespace core::api::faderb {
 
     void fade_out(float duration) {
         FaderB::FadeOut_2(get(), duration);
+    }
+
+    void set_skip_black_screen_cleanup(bool skip) {
+        skip_black_screen_cleanup = skip;
+    }
+
+    IL2CPP_INTERCEPT(FaderB, void, DoBlackScreenCleanup, (app::FaderB * this_ptr)) {
+        if (skip_black_screen_cleanup) {
+            return;
+        }
+
+        next::FaderB::DoBlackScreenCleanup(this_ptr);
     }
 
     IL2CPP_INTERCEPT(FaderB, void, OnFadeInFinished, (app::FaderB * this_ptr)) {

@@ -158,6 +158,7 @@ namespace randomizer::game {
                 if (il2cpp::unity::is_valid(action)) {
                     is_in_lobby = false;
                     is_starting_game = true;
+                    core::api::faderb::set_skip_black_screen_cleanup(true);
                     core::api::faderb::fade_in(0.4f);
                     core::events::schedule_task(0.4f, [action]() { ActionSequence::Perform_1(action); });
                     update_lobby_ui();
@@ -402,6 +403,10 @@ namespace randomizer::game {
 
             core::api::game::player::snap_camera();
             ScenesManager::ClearPreventUnloading(core::api::scenes::get_scenes_manager());
+
+            core::events::schedule_task(5.f, [] {
+                core::api::faderb::set_skip_black_screen_cleanup(false);
+            });
         }
 
         void on_finished_loading_save(GameEvent event, EventTiming timing) {
