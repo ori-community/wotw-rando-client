@@ -39,7 +39,10 @@ namespace {
     // Fix laser going through walls on the first frame
     IL2CPP_INTERCEPT(BlockableLaser, void, OnEnable, (app::BlockableLaser * this_ptr)) {
         next::BlockableLaser::OnEnable(this_ptr);
-        BlockableLaser::PerformLaserLogic(this_ptr);
+
+        if (!this_ptr->fields.OptimizeStaticSetupAndOri) {
+            BlockableLaser::PerformLaserLogic(this_ptr);
+        }
     }
 
     // Fix Laser Shooter Elementals having a wrong laser rotation when
