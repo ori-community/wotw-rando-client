@@ -510,6 +510,10 @@ namespace randomizer::main_menu_seed_info {
             if (source_seed_content.has_value()) {
                 const auto meta = randomizer::seed::legacy_parser::parse_meta_data(*source_seed_content);
                 current_seed_meta_data_result = variant_cast(meta);
+
+                if (std::holds_alternative<seed::Seed::SeedMetaData>(meta)) {
+                    randomizer::game::preload_spawn_async(std::get<seed::Seed::SeedMetaData>(meta).start_position);
+                }
             } else if (get_new_game_seed_source()->get_error().has_value()) {
                 current_seed_meta_data_result = get_new_game_seed_source()->get_error().value();
             } else {

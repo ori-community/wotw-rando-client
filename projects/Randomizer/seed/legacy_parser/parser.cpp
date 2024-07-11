@@ -2004,6 +2004,9 @@ namespace randomizer::seed::legacy_parser {
         Seed::SeedMetaData meta;
         std::string line;
         while (std::getline(seed_file, line)) {
+            // Remove comments.
+            line = line.substr(0, line.find("//"));
+
             if (line.starts_with("// Format Version: ")) {
                 const auto version = trim_copy(line.substr(19));
                 const auto parsed = semver::from_string_noexcept(version);

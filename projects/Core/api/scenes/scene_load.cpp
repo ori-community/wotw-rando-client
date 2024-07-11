@@ -30,7 +30,7 @@ namespace core::api::scenes {
     };
 
     std::unordered_map<std::string, PendingScene> scenes_to_load;
-    bool scene_loader_debug_logging = false;
+    bool scene_loader_debug_logging = true;
 
     app::ScenesManager* get_scenes_manager() {
         return types::Scenes::get_class()->static_fields->Manager;
