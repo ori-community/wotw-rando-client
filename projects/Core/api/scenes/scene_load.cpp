@@ -6,12 +6,11 @@
 #include <Modloader/app/methods/SceneManagerScene.h>
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
-#include <Modloader/app/methods/UnityEngine/Rect.h>
+#include <Modloader/app/methods/RuntimeSceneMetaData.h>
 #include <Modloader/app/types/GameController.h>
 #include <Modloader/app/types/GameStateMachine.h>
-#include <Modloader/app/types/SceneRoot.h>
 #include <Modloader/app/types/Scenes.h>
-#include <Modloader/app/types/Rect.h>
+#include <Modloader/app/types/ScenesManager.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
@@ -207,7 +206,7 @@ namespace core::api::scenes {
                 callback(&metadata);
             }
         } else if (!ScenesManager::SceneIsLoading(scenes_manager, scene_meta->fields.SceneMoonGuid)) {
-            ScenesManager::RequestAdditivelyLoadScene(scenes_manager, scene_meta, async, true, true, true, false);
+            ScenesManager::RequestAdditivelyLoadScene(scenes_manager, scene_meta, async, true, true, true, true);
         }
     }
 
@@ -241,11 +240,28 @@ namespace core::api::scenes {
 
     std::set<int> get_scene_ids_at_position(app::Vector3 position) {
         const auto scenes_manager = get_scenes_manager();
-        auto scenes = ScenesManager::ListAllScenesAtPosition(scenes_manager, position);
+        ScenesManager::QueryQuadTreeFast_1(scenes_manager, position, types::ScenesManager::get_class()->static_fields->m_tempHashList);
         std::set<int> scene_ids;
 
-        for (const auto scene_metadata: il2cpp::ListIterator(scenes)) {
-            scene_ids.emplace(scene_metadata->fields.LinearId);
+        constexpr float RECT_WIDTH = 80.f;
+        constexpr float RECT_HEIGHT = 80.f;
+        const app::Rect rect {
+            position.x - RECT_WIDTH / 2.f,
+            position.x + RECT_WIDTH / 2.f,
+            position.y - RECT_HEIGHT / 2.f,
+            position.y + RECT_HEIGHT / 2.f,
+        };
+
+        for (const auto id: il2cpp::ListIterator(types::ScenesManager::get_class()->static_fields->m_tempHashList)) {
+            const auto scene_meta = ScenesManager::GetSceneFromLinearArray(scenes_manager, id);
+
+            if (
+                RuntimeSceneMetaData::IsInsideSceneBounds_3(scene_meta, rect) ||
+                RuntimeSceneMetaData::IsInsideScenePaddingBounds_5(scene_meta, rect) ||
+                RuntimeSceneMetaData::IsInsideSceneLoadingZone_2(scene_meta, rect)
+            ) {
+                scene_ids.emplace(id);
+            }
         }
 
         return scene_ids;
