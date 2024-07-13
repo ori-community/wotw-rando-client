@@ -2004,9 +2004,6 @@ namespace randomizer::seed::legacy_parser {
         Seed::SeedMetaData meta;
         std::string line;
         while (std::getline(seed_file, line)) {
-            // Remove comments.
-            line = line.substr(0, line.find("//"));
-
             if (line.starts_with("// Format Version: ")) {
                 const auto version = trim_copy(line.substr(19));
                 const auto parsed = semver::from_string_noexcept(version);
@@ -2022,26 +2019,31 @@ namespace randomizer::seed::legacy_parser {
                 meta.world_index = std::stoi(str);
             } else if (line.starts_with("// Slug:")) {
                 meta.slug = trim_copy(line.substr(sizeof("// Slug:")));
-            } else if (line.starts_with("Flags:")) {
-                split_str(line.substr(6), meta.flags, ',');
-                for (auto& flag: meta.flags) {
-                    trim(flag);
-                }
-            } else if (line.starts_with("Spawn:")) {
-                std::vector<std::string> coords;
-                split_str(line.substr(6), coords, ',');
-                if (coords.size() != 2) {
-                    continue;
-                }
-
-                app::Vector3 position{};
-                if (!string_convert(coords[0], position.x) || !string_convert(coords[1], position.y)) {
-                    continue;
-                }
-
-                meta.start_position = position;
             } else if (line.starts_with("// Config:")) {
                 seedgen_config = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
+            } else {
+                // Remove comments.
+                line = line.substr(0, line.find("//"));
+            
+                if (line.starts_with("Flags:")) {
+                    split_str(line.substr(6), meta.flags, ',');
+                    for (auto& flag: meta.flags) {
+                        trim(flag);
+                    }
+                } else if (line.starts_with("Spawn:")) {
+                    std::vector<std::string> coords;
+                    split_str(line.substr(6), coords, ',');
+                    if (coords.size() != 2) {
+                        continue;
+                    }
+
+                    app::Vector3 position{};
+                    if (!string_convert(coords[0], position.x) || !string_convert(coords[1], position.y)) {
+                        continue;
+                    }
+
+                    meta.start_position = position;
+                }
             }
         }
 
