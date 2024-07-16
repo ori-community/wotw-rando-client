@@ -70,7 +70,7 @@ namespace randomizer::game {
         std::optional<il2cpp::WeakGCRef<app::MessageBox>> hard_mode_text_handle;
         std::shared_ptr<core::api::messages::MessageBox> lobby_status_text_box;
 
-        void update_lobby_ui() {
+        void update_lobby_ui(bool update_text_only = false) {
             if (is_in_lobby && !is_starting_game) {
                 if (lobby_status_text_box == nullptr) {
                     lobby_status_text_box = std::make_shared<core::api::messages::MessageBox>();
@@ -87,9 +87,9 @@ namespace randomizer::game {
                 std::string text;
 
                 if (!pending_scenes_to_preload.empty()) {
-                    text = "<s_1.5>Waiting for spawn area to preload...</>";
-                }
-                else {
+                    const auto loading_progress = static_cast<float>(scenes_to_preload.size() - pending_scenes_to_preload.size()) / static_cast<float>(scenes_to_preload.size());
+                    text = std::format("<s_1.5>Waiting for spawn area to preload...</>\n{}%", std::round(loading_progress * 100.f));
+                } else {
                     text = "<s_1.5>Waiting for players:</>";
                     int displayed_waiting_for_players_count = 0;
                     int total_waiting_for_players_count = 0;
@@ -138,9 +138,12 @@ namespace randomizer::game {
 
                 lobby_status_text_box->show(true, false);
                 lobby_status_text_box->text().set(text);
-            }
-            else if (lobby_status_text_box != nullptr) {
+            } else if (lobby_status_text_box != nullptr) {
                 lobby_status_text_box = nullptr;
+            }
+
+            if (update_text_only) {
+                return;
             }
 
             if (ui_go_handle.has_value() && ui_go_handle->is_valid()) {
@@ -238,6 +241,8 @@ namespace randomizer::game {
                 if (!pending_scenes_to_preload.erase(metadata->scene_name)) {
                     return;
                 }
+
+                update_lobby_ui(true);
 
                 if (pending_scenes_to_preload.empty()) {
                     auto save_slots_ui = get_save_slots_ui();
