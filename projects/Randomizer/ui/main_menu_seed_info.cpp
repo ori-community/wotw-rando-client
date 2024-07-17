@@ -20,6 +20,7 @@
 #include <Modloader/app/methods/System/IO/File.h>
 #include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/methods/GameController.h>
+#include <Modloader/app/methods/Grdk/Wrapper.h>
 #include <Modloader/app/types/CleverMenuItem.h>
 #include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/app/types/MessageBox.h>
@@ -432,9 +433,15 @@ namespace randomizer::main_menu_seed_info {
                 on_seed_loaded_handle = nullptr;
 
                 const auto save_controller = core::api::game::save_controller();
-                const auto save_info = SaveGameController::GetSaveFileInfo(save_controller, index, -1);
 
-                const auto data = System::IO::File::ReadAllBytes(save_info->fields.m_FullSaveFilePath);
+                app::Byte__Array* data;
+
+                if (Grdk::Wrapper::get_InitializedOk()) {  // Handle GRDK (Xbox live) saves
+                    data = Grdk::Wrapper::Load_1(index, -1);
+                } else {
+                    const auto save_info = SaveGameController::GetSaveFileInfo(save_controller, index, -1);
+                    data = System::IO::File::ReadAllBytes(save_info->fields.m_FullSaveFilePath);
+                }
 
                 auto seed_meta_data = std::make_shared<seed::SaveSlotSeedMetaData>();
                 const auto read_slots = core::save_meta::read_save_meta_slots_from_byte_array(
