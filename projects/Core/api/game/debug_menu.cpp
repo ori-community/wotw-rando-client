@@ -8,6 +8,8 @@
 #include <Modloader/app/methods/UnityEngine/GUIStyleState.h>
 #include <Modloader/app/methods/UnityEngine/Texture.h>
 #include <Modloader/app/methods/UnityEngine/Texture2D.h>
+#include <Modloader/app/methods/Moon/UberStateVisualization/UberStateVisualizationView.h>
+#include <Modloader/app/methods/Moon/UberStateVisualization/ListView.h>
 #include <Modloader/app/types/CheatsHandler.h>
 #include <Modloader/app/types/DebugValues.h>
 #include <Modloader/app/types/Texture2D.h>
@@ -122,5 +124,70 @@ namespace core::api::game::debug_menu {
 
     bool was_debug_active_this_session() {
         return debug_was_active_this_session;
+    }
+
+    namespace better_uber_state_menu {
+        auto is_building_list = false;
+        auto selected_group_index = 0;
+        std::unordered_map<int, int> last_selected_state_index_per_group;
+
+        void restore_state_selection(const app::UberStateVisualizationView* view) {
+            Moon::UberStateVisualization::ListView::SelectItem_1(view->fields.m_statesListView, last_selected_state_index_per_group[selected_group_index]);
+        }
+
+        void restore_group_selection(const app::UberStateVisualizationView* view) {
+            Moon::UberStateVisualization::ListView::SelectItem_1(view->fields.m_groupsListView, selected_group_index);
+            restore_state_selection(view);
+        }
+
+        IL2CPP_INTERCEPT(Moon::UberStateVisualization::UberStateVisualizationView, void, UpdateWithModel, (app::UberStateVisualizationView * this_ptr, app::UberStateValueStore* uber_state_value_store)) {
+            {
+                modloader::ScopedSetter _(is_building_list, true);
+                next::Moon::UberStateVisualization::UberStateVisualizationView::UpdateWithModel(this_ptr, uber_state_value_store);
+            }
+
+            restore_group_selection(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(Moon::UberStateVisualization::UberStateVisualizationView, void, OnGroupsListViewSelectionChanged, (app::UberStateVisualizationView * this_ptr, app::ListViewItem* selected_item)) {
+            {
+                modloader::ScopedSetter _(is_building_list, true);
+                next::Moon::UberStateVisualization::UberStateVisualizationView::OnGroupsListViewSelectionChanged(this_ptr, selected_item);
+            }
+
+            if (is_building_list) {
+                return;
+            }
+
+            auto index = 0;
+            for (const auto& item: il2cpp::ListIterator(this_ptr->fields.m_groupsListView->fields.m_items)) {
+                if (item == selected_item) {
+                    selected_group_index = index;
+                    break;
+                }
+
+                ++index;
+            }
+
+            restore_state_selection(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(Moon::UberStateVisualization::UberStateVisualizationView, void, OnStatesListViewSelectionChanged, (app::UberStateVisualizationView * this_ptr, app::ListViewItem* selected_item)) {
+            next::Moon::UberStateVisualization::UberStateVisualizationView::OnStatesListViewSelectionChanged(this_ptr, selected_item);
+
+            if (is_building_list) {
+                return;
+            }
+
+            auto index = 0;
+            for (const auto& item: il2cpp::ListIterator(this_ptr->fields.m_statesListView->fields.m_items)) {
+                if (item == selected_item) {
+                    last_selected_state_index_per_group[selected_group_index] = index;
+                    break;
+                }
+
+                ++index;
+            }
+        }
     }
 }
