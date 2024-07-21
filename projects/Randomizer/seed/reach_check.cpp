@@ -175,12 +175,6 @@ namespace randomizer::seed {
     } // namespace
 
     bool ReachCheckResult::reachable(core::api::uber_states::UberStateCondition location) const {
-        auto test = location;
-        if (static_cast<int>(test.state.group()) == 5377 && test.state.state() == 21860) {
-            auto value = data.reached.contains(location);
-            return value;
-        }
-
         return data.reached.contains(location);
     }
 
