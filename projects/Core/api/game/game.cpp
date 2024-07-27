@@ -102,6 +102,9 @@ namespace core::api::game {
         IL2CPP_INTERCEPT(GameController, void, OnApplicationFocus, (app::GameController * this_ptr, bool focus_status)) {
             if (focus_status) {
                 core::settings::reload();
+
+                // Update settings
+                modloader::cursor_lock(core::settings::cursor_locked());
             }
 
             auto evt = focus_status ? GameEvent::GainedFocus : GameEvent::LostFocus;

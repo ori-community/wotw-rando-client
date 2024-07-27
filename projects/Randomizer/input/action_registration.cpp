@@ -65,7 +65,8 @@ namespace randomizer::input {
         });
 
         auto on_toggle_cursor_lock_before = single_input_bus().register_handler(Action::ToggleCursorLock, EventTiming::Before, [](auto, auto) {
-            modloader::cursor_lock(!modloader::cursor_lock());
+            core::settings::cursor_locked(!core::settings::cursor_locked());
+            modloader::cursor_lock(core::settings::cursor_locked());
             core::message_controller().queue_central({
                 .text = core::Property<std::string>::format("Cursor Lock {}", modloader::cursor_lock() ? "enabled" : "disabled"),
                 .prioritized = true,
