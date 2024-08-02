@@ -6,6 +6,8 @@
 #include <Modloader/app/methods/Core/Input.h>
 #include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/IntroLogosSkip.h>
+#include <Modloader/app/methods/System/TimeSpan.h>
+#include <Modloader/app/types/TimeSpan.h>
 #include <sdl2/SDL.h>
 
 namespace {
@@ -135,5 +137,19 @@ namespace {
         }
 
         J2i::Net::XInputWrapper::XboxController::OnStateChanged(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(J2i::Net::XInputWrapper::XboxController, void, Vibrate_2, (app::XboxController * this_ptr, double left_motor, double right_motor, app::TimeSpan length)) {
+        if (!enable_native_controller_support) {
+            next::J2i::Net::XInputWrapper::XboxController::Vibrate_2(this_ptr, left_motor, right_motor, length);
+            return;
+        }
+
+        if (controller == nullptr) {
+            return;
+        }
+
+        // We can ignore the length parameter since XBoxControllerManager will call this function periodically anyways
+        SDL_GameControllerRumble(controller, left_motor * 0xFFFF, right_motor * 0xFFFF, 100);
     }
 }
