@@ -5,6 +5,7 @@
 
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
+#include <Modloader/il2cpp_math.h>
 
 #include <Core/property/reactivity.h>
 

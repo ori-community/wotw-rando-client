@@ -1,11 +1,10 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/app/methods/Moon/Timeline/CameraShakeAnimator.h>
 #include <Modloader/app/methods/CameraShake.h>
-#include <Modloader/app/methods/UnityEngine/Vector3.h>
 #include <Core/settings.h>
+#include <Modloader/il2cpp_math.h>
 
 using namespace app::classes;
-using namespace UnityEngine::Vector3::operators;
 
 namespace {
     IL2CPP_INTERCEPT(Moon::Timeline::CameraShakeAnimator, float, get_ModifiedStrength, (app::CameraShakeAnimator* this_ptr)) {

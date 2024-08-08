@@ -24,7 +24,6 @@
 
 using namespace app::classes;
 using namespace app::classes::SmartInput;
-using namespace UnityEngine::Vector3::operators;
 
 namespace core::input {
     struct SimulatedButtonEntry {
