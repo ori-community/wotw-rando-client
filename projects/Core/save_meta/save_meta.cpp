@@ -6,6 +6,7 @@
 #include <Modloader/app/methods/SaveGameController.h>
 #include <Modloader/app/methods/SaveSlotsManager.h>
 #include <Modloader/app/methods/System/IO/File.h>
+#include <Modloader/app/methods/Grdk/Wrapper.h>
 #include <Modloader/app/types/Byte.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
@@ -264,13 +265,20 @@ namespace core::save_meta {
                 // Load the backup...
                 auto return_value = next::SaveGameController::PerformLoad(this_ptr);
 
-                // ...and then load SaveMeta with the ThroughDeathsAndBackup persistence
-                // level from the main save file if we're on a new/different save slot
+                // ...and then load SaveMeta with the ThroughDeathsAndQTMsAndBackups persistence
+                // level from the backup save file if we're on a new/different save slot
                 if (current_save_guid != previous_save_guid) {
-                    auto save_info = SaveGameController::GetSaveFileInfo(this_ptr, save_slot_index, backup_slot);
-                    auto path = save_info->fields.m_FullSaveFilePath;
-                    auto path_str = il2cpp::convert_csstring(path);
-                    auto bytes = System::IO::File::ReadAllBytes(path);
+                    app::Byte__Array* bytes;
+
+                    if (Grdk::Wrapper::get_InitializedOk()) {  // Handle GRDK (Xbox Account) saves
+                        bytes = Grdk::Wrapper::Load_1(save_slot_index, backup_slot);
+                    } else {
+                        auto save_info = SaveGameController::GetSaveFileInfo(this_ptr, save_slot_index, backup_slot);
+                        auto path = save_info->fields.m_FullBackupSaveFilePath;
+                        auto path_str = il2cpp::convert_csstring(path);
+                        bytes = System::IO::File::ReadAllBytes(path);
+                    }
+
                     read_save_meta_from_byte_array(bytes, true, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups);
                 }
 

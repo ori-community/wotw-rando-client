@@ -4,6 +4,7 @@
 enum class SoundEventID : uint32_t {
     // Randomizer
     LeagueSubmitted = 2697705149,
+    KnockKnockWellspring = 965810158,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SoundEventID, {

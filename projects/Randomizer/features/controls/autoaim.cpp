@@ -6,9 +6,7 @@
 #include <Modloader/app/methods/Game/Targets.h>
 #include <Modloader/app/methods/SeinBowAttack.h>
 #include <Modloader/app/methods/SeinChakramSpell.h>
-#include <Modloader/app/methods/SeinSpiritSpearSpell.h>
 #include <Modloader/app/types/IAttackable.h>
-#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
@@ -22,6 +20,24 @@ namespace {
     //     next::SeinSpiritSpearSpell::FindClosestAttackTarget(this_ptr);
     //     overwrite_attackables = false;
     // }
+
+    [[maybe_unused]]
+    auto on_injection_complete = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
+        // In vanilla, the game divides the distance to enemies by 10, making the spear autoaim heavily prefer targeting them
+        // over anything else. The DIVSS instruction lives at 0xa74431, and here we replace it with NOP instructions to
+        // disable that behavior.
+        modloader::win::memory::modify_memory(
+            modloader::win::memory::resolve_rva(0xa74431),
+            5,
+            [](auto memory) {
+                memory[0] = static_cast<uint8_t>(modloader::win::memory::Instruction::NOP);
+                memory[1] = static_cast<uint8_t>(modloader::win::memory::Instruction::NOP);
+                memory[2] = static_cast<uint8_t>(modloader::win::memory::Instruction::NOP);
+                memory[3] = static_cast<uint8_t>(modloader::win::memory::Instruction::NOP);
+                memory[4] = static_cast<uint8_t>(modloader::win::memory::Instruction::NOP);
+            }
+        );
+    });
 
     IL2CPP_INTERCEPT(SeinChakramSpell, void, UpdateCharacterState, (app::SeinChakramSpell * this_ptr)) {
         this_ptr->fields.AutoAimEnabled = core::settings::autoaim();

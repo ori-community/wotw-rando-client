@@ -177,6 +177,14 @@ namespace randomizer::seed {
             std::ranges::all_of(m_prevent_grant_callbacks, [](const auto& callback) { return !callback(); });
     }
 
+    void Seed::process_timers(float delta_time) const {
+        for (const auto & timer : m_timers) {
+            if (timer.toggle.get<bool>()) {
+                timer.value.set(timer.value.get() + delta_time);
+            }
+        }
+    }
+
     nlohmann::json SaveSlotSeedMetaData::json_serialize() { return *this; }
 
     void SaveSlotSeedMetaData::json_deserialize(nlohmann::json& j) { j.get_to(*this); }

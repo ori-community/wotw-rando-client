@@ -3,17 +3,17 @@
 #include <Modloader/app/structs/Action.h>
 
 #include <functional>
-#include <span>
+#include <Core/macros.h>
+#include <Modloader/il2cpp_helpers.h>
 
 namespace core::events {
-    template <typename T>
     struct CustomAction {
         int id;
-        T* action;
+        il2cpp::GCRef<app::Action> action;
     };
 
     // First parameter to the function is the id in CustomAction.
-    CustomAction<app::Action> create_action(std::function<void(int)> function);
+    CORE_DLLEXPORT CustomAction create_action(std::function<void(int)> function);
 
-    void destroy(int id);
+    CORE_DLLEXPORT void destroy(int id);
 } // namespace core::events

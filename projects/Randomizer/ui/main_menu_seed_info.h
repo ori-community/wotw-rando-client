@@ -8,6 +8,6 @@ namespace randomizer::main_menu_seed_info {
     bool is_empty_save_file;
   };
 
-  void update_difficulty_menu_items();
+  void update_difficulty_menu_items(bool try_select_intended_difficulty = false);
   common::EventBus<SeedMetaDataLoadedEventArgs>& seed_meta_data_loaded_event_bus();
 }

@@ -7,6 +7,7 @@
 #include <Modloader/app/methods/GameMapUI.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
 #include <Modloader/app/methods/RuntimeWorldMapIcon.h>
+#include <Modloader/app/methods/UnityEngine/AnimationCurve.h>
 #include <Modloader/app/structs/Boolean__Boxed.h>
 #include <Modloader/app/types/GameMapUI.h>
 #include <Modloader/app/types/GameWorld.h>
@@ -30,6 +31,8 @@ namespace randomizer::game::map {
         std::unordered_map<Filters, icon_vector> icons;
         std::unordered_map<std::shared_ptr<Icon>, icon_visibility_callback> visibility_callbacks;
         Filters last_filter = Filters::COUNT;
+        auto force_focus_location_to_center_once = false;
+        auto is_handling_map_scrolling = false;
 
         app::WorldMapIconType__Enum get_base_icon(const app::RuntimeWorldMapIcon* icon) {
             for (const auto base_icon: il2cpp::ListIterator(icon->fields.Area->fields.Area->fields.Icons)) {
@@ -210,6 +213,38 @@ namespace randomizer::game::map {
                     icon->apply_scaler(icon->position().get());
                 }
             }
+        }
+
+        IL2CPP_INTERCEPT(GameMapUI, app::Vector2, get_FocusLocation, (app::GameMapUI* this_ptr)) {
+            if (force_focus_location_to_center_once) {
+                force_focus_location_to_center_once = false;
+                return math::convert(
+                    AreaMapNavigation::WorldToMapPosition(
+                        this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField,
+                        this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField->fields.m_scrollPosition
+                    )
+                );
+            }
+
+            return next::GameMapUI::get_FocusLocation(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(GameMapUI, void, FixedUpdate, (app::GameMapUI* this_ptr)) {
+            force_focus_location_to_center_once = true;
+            next::GameMapUI::FixedUpdate(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(UnityEngine::AnimationCurve, float, Evaluate, (app::AnimationCurve* this_ptr, float time)) {
+            if (is_handling_map_scrolling) {
+                return next::UnityEngine::AnimationCurve::Evaluate(this_ptr, time) * core::settings::map_pan_speed();
+            }
+
+            return next::UnityEngine::AnimationCurve::Evaluate(this_ptr, time);
+        }
+
+        IL2CPP_INTERCEPT(AreaMapNavigation, void, HandleMapScrolling, (app::AreaMapNavigation* this_ptr)) {
+            ScopedSetter _(is_handling_map_scrolling, true);
+            next::AreaMapNavigation::HandleMapScrolling(this_ptr);
         }
 
         auto on_area_map_destroyed = core::api::game::event_bus().register_handler(GameEvent::DestroyAreaMap, EventTiming::Before, [](auto, auto) {

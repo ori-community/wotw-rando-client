@@ -25,8 +25,8 @@ namespace {
             grom_open_cave_built,
             grom_beautify_built,
         },
-        [](auto state, auto) {
-            core::api::uber_states::UberState(42178, state.state.state()).apply();
+        [](auto event, auto) {
+            core::api::uber_states::UberState(42178, event.state.state()).apply();
         }
     );
 

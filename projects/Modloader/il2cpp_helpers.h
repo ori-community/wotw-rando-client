@@ -188,6 +188,8 @@ namespace il2cpp {
 
     IL2CPP_MODLOADER_DLLEXPORT std::string get_class_name(Il2CppClass* klass);
 
+    IL2CPP_MODLOADER_DLLEXPORT std::string get_class_namespace(Il2CppClass* klass);
+
     template<typename Return = Il2CppClass>
     Return* get_class(std::string_view namezpace, std::string_view name) {
         return reinterpret_cast<Return*>(untyped::get_class(namezpace, name));
@@ -403,7 +405,7 @@ namespace il2cpp {
 
         template<typename Return = app::Component_1>
         std::vector<Return*> get_components_in_children(void* obj, void* klass, bool include_inactive = false) {
-            return get_components_in_children<Return>(obj, reinterpret_cast<Il2CppClass*>(klass));
+            return get_components_in_children<Return>(obj, reinterpret_cast<Il2CppClass*>(klass), include_inactive);
         }
 
         template<typename Return = app::ScriptableObject, typename Clazz = Il2CppClass>

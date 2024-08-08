@@ -25,9 +25,6 @@ const std::set tree_abilities{
 constexpr double PI = 3.14159265358979323846;
 
 #pragma region Uberstate constants
-constexpr int CHAOS_MODE_ID = 7;
-constexpr int CHAOS_TRIGGER_MIN_ID = 500;
-constexpr int CHAOS_TRIGGER_MAX_ID = 501;
 constexpr int PREVENT_PICKUP_ID = 8;
 constexpr int STOMP_THROUGH_PORTALS_ID = 9;
 constexpr int STOMP_INTO_WATER_ID = 10;

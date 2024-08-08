@@ -36,7 +36,7 @@
 namespace randomizer {
     namespace {
         location_data::LocationCollection randomizer_location_collection;
-        std::vector<state_data::State> randomizer_state_data;
+        std::unordered_map<core::api::uber_states::UberStateCondition, std::string> randomizer_state_name_map;
         seed::Seed randomizer_seed(randomizer_location_collection);
         seed::ReachCheckResult reach_check_result;
         online::NetworkClient client;
@@ -125,6 +125,7 @@ namespace randomizer {
         auto on_respawn = core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [](auto, auto) {
             core::message_controller().clear_central();
             game_seed().trigger(seed::SeedClientEvent::Respawn);
+            queue_reach_check();
         });
 
         auto on_before_seed_loaded = randomizer::event_bus().register_handler(randomizer::RandomizerEvent::SeedLoaded, EventTiming::Before, [](auto, auto) {
@@ -132,7 +133,6 @@ namespace randomizer {
         });
 
         auto on_after_seed_loaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
-            timer::clear_uber_state_timers();
             universe.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
@@ -148,8 +148,8 @@ namespace randomizer {
             randomizer_location_collection.read(modloader::base_path() / "loc_data.csv", location_data::parse_location_data);
             event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::After);
 
-            randomizer_state_data.clear();
-            parse_state_data(modloader::base_path() / "state_data.csv", randomizer_state_data);
+            randomizer_state_name_map.clear();
+            state_data::parse_state_data(modloader::base_path() / "state_data.csv", randomizer_state_name_map);
 
             randomizer_seed.read(seed_archive_save_data->seed_archive, seed::parse, show_message);
         }
@@ -180,6 +180,7 @@ namespace randomizer {
             status.update(delta_time);
 
             game_seed().trigger(seed::SeedClientEvent::Tick);
+            game_seed().process_timers(delta_time);
         });
 
         auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(
@@ -187,12 +188,15 @@ namespace randomizer {
             EventTiming::After,
             [](auto, auto) {
                 load_seed(false);
+                queue_reach_check();
+                check_seed_difficulty_enforcement();
             }
         );
 
         auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
             check_seed_difficulty_enforcement();
             randomizer_seed.trigger(seed::SeedClientEvent::Respawn);
+            queue_reach_check();
         });
 
         auto on_teleport = core::api::game::event_bus().register_handler(GameEvent::Teleport, EventTiming::Before, [](auto, auto) {
@@ -389,7 +393,7 @@ namespace randomizer {
 
     location_data::LocationCollection& location_collection() { return randomizer_location_collection; }
 
-    std::vector<state_data::State>& state_collection() { return randomizer_state_data; }
+    std::unordered_map<core::api::uber_states::UberStateCondition, std::string>& state_collection() { return randomizer_state_name_map; }
 
     seed::Seed& game_seed() { return randomizer_seed; }
 

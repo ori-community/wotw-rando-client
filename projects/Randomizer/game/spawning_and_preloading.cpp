@@ -12,6 +12,8 @@
 #include <Core/api/game/debug_menu.h>
 #include <Core/core.h>
 
+#include <Randomizer/game/spawning_and_preloading.h>
+
 #include <Modloader/app/methods/ActionSequence.h>
 #include <Modloader/app/methods/CameraPivotZone.h>
 #include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
@@ -27,6 +29,7 @@
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/TitleScreenManager.h>
 #include <Modloader/app/methods/WaitAction.h>
+#include <Modloader/app/methods/UnityEngine/Behaviour.h>
 #include <Modloader/app/types/ActionSequence.h>
 #include <Modloader/app/types/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/types/FaderBFadeInAction.h>
@@ -67,14 +70,7 @@ namespace randomizer::game {
         std::optional<il2cpp::WeakGCRef<app::MessageBox>> hard_mode_text_handle;
         std::shared_ptr<core::api::messages::MessageBox> lobby_status_text_box;
 
-        void set_full_game_main_menu_selection_manager_active(bool active) {
-            if (full_game_main_menu_selection_manager_handle.has_value() && full_game_main_menu_selection_manager_handle->is_valid()) {
-                CleverMenuItemSelectionManager::set_IsActive(**full_game_main_menu_selection_manager_handle, active);
-                CleverMenuItemSelectionManager::set_IsLocked(**full_game_main_menu_selection_manager_handle, !active);
-            }
-        }
-
-        void update_lobby_ui() {
+        void update_lobby_ui(bool update_text_only = false) {
             if (is_in_lobby && !is_starting_game) {
                 if (lobby_status_text_box == nullptr) {
                     lobby_status_text_box = std::make_shared<core::api::messages::MessageBox>();
@@ -91,9 +87,9 @@ namespace randomizer::game {
                 std::string text;
 
                 if (!pending_scenes_to_preload.empty()) {
-                    text = "<s_1.5>Waiting for spawn area to preload...</>";
-                }
-                else {
+                    const auto loading_progress = static_cast<float>(scenes_to_preload.size() - pending_scenes_to_preload.size()) / static_cast<float>(scenes_to_preload.size());
+                    text = std::format("<s_1.5>Waiting for spawn area to preload...</>\n{}%", std::round(loading_progress * 100.f));
+                } else {
                     text = "<s_1.5>Waiting for players:</>";
                     int displayed_waiting_for_players_count = 0;
                     int total_waiting_for_players_count = 0;
@@ -142,9 +138,12 @@ namespace randomizer::game {
 
                 lobby_status_text_box->show(true, false);
                 lobby_status_text_box->text().set(text);
-            }
-            else if (lobby_status_text_box != nullptr) {
+            } else if (lobby_status_text_box != nullptr) {
                 lobby_status_text_box = nullptr;
+            }
+
+            if (update_text_only) {
+                return;
             }
 
             if (ui_go_handle.has_value() && ui_go_handle->is_valid()) {
@@ -155,13 +154,14 @@ namespace randomizer::game {
             set_full_game_main_menu_selection_manager_active(!is_in_lobby);
         }
 
-        void start_new_game() {
+        void run_start_new_game_sequence() {
             if (start_game_sequence_handle.has_value()) {
                 auto action = start_game_sequence_handle.value().ref();
 
                 if (il2cpp::unity::is_valid(action)) {
                     is_in_lobby = false;
                     is_starting_game = true;
+                    core::api::faderb::set_skip_black_screen_cleanup(true);
                     core::api::faderb::fade_in(0.4f);
                     core::events::schedule_task(0.4f, [action]() { ActionSequence::Perform_1(action); });
                     update_lobby_ui();
@@ -241,6 +241,8 @@ namespace randomizer::game {
                 if (!pending_scenes_to_preload.erase(metadata->scene_name)) {
                     return;
                 }
+
+                update_lobby_ui(true);
 
                 if (pending_scenes_to_preload.empty()) {
                     auto save_slots_ui = get_save_slots_ui();
@@ -415,6 +417,10 @@ namespace randomizer::game {
 
             core::api::game::player::snap_camera();
             ScenesManager::ClearPreventUnloading(core::api::scenes::get_scenes_manager());
+
+            core::events::schedule_task(5.f, [] {
+                core::api::faderb::set_skip_black_screen_cleanup(false);
+            });
         }
 
         void on_finished_loading_save(GameEvent event, EventTiming timing) {
@@ -441,7 +447,7 @@ namespace randomizer::game {
 
                 if (!randomizer::multiplayer_universe().should_block_starting_new_game() && randomizer::game::is_in_lobby) {
                     core::events::schedule_task_for_next_update([]() {
-                        randomizer::game::start_new_game();
+                        randomizer::game::run_start_new_game_sequence();
                     });
                 }
             });
@@ -482,4 +488,80 @@ namespace randomizer::game {
             });
         });
     } // namespace
+
+    // Called by main_menu_seed_info
+    void preload_spawn_async(const app::Vector2& spawn) {
+        auto save_slots_ui = get_save_slots_ui();
+
+        if (save_slots_ui != nullptr) {
+            auto save_slot_ui = SaveSlotsUI::get_CurrentSaveSlot(save_slots_ui);
+
+            auto scene_names = core::api::scenes::get_scenes_at_position(math::convert(spawn));
+
+            for (const auto& scene_name: scenes_to_preload) {
+                if (!scene_names.contains(scene_name)) {
+                    core::api::scenes::unload_scene(scene_name, false);
+                }
+            }
+
+            pending_scenes_to_preload.clear();
+            for (const auto& scene_name: scene_names) {
+                if (!core::api::scenes::scene_is_loaded(scene_name)) {
+                    pending_scenes_to_preload.emplace(scene_name);
+                    scenes_to_preload.emplace(scene_name);
+                    core::api::scenes::force_load_scene(scene_name, &on_scene_loading, false, true);
+                }
+            }
+
+            if (!pending_scenes_to_preload.empty()) {
+                SaveSlotUI::SetBusy(save_slot_ui, true);
+            }
+        }
+    }
+
+    // Called by main_menu_seed_info
+    void start_new_game() {
+        if (start_game_sequence_handle.has_value()) {
+            const auto [source_status, source_seed_archive] = get_new_game_seed_source()->poll();
+            if (source_status != seed::SourceStatus::Ready || !source_seed_archive.has_value()) {
+                core::message_controller().queue_central({
+                    .text = core::Property<std::string>::format("You cannot start a game without a seed"),
+                    .show_box = true,
+                    .prioritized = true,
+                });
+                return;
+            }
+
+            if (core::api::game::debug_menu::should_prevent_cheats() && core::api::game::debug_menu::was_debug_active_this_session()) {
+                core::message_controller().queue_central({
+                    .text = core::Property<std::string>::format(
+                        "It is #forbidden# to play this game with #Debug Mode# enabled.\n"
+                        "Please start the game without Debug Mode.\n"
+                        "Disabling Debug Mode after starting the game is not enough because\n"
+                        "it can have persistent effects on the game even after turning it off."
+                    ),
+                    .duration = 20.f,
+                    .prioritized = true,
+                });
+                return;
+            }
+
+            set_new_game_seed_archive(*source_seed_archive);
+
+            if (randomizer::multiplayer_universe().should_block_starting_new_game()) {
+                is_in_lobby = true;
+                update_lobby_ui();
+                check_if_preloaded_and_report_ready();
+            } else {
+                set_full_game_main_menu_selection_manager_active(false);
+                run_start_new_game_sequence();
+            }
+        }
+    }
+
+    void set_full_game_main_menu_selection_manager_active(bool active) {
+        if (full_game_main_menu_selection_manager_handle.has_value() && full_game_main_menu_selection_manager_handle->is_valid()) {
+            UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(**full_game_main_menu_selection_manager_handle), active);
+        }
+    }
 } // namespace randomizer::game

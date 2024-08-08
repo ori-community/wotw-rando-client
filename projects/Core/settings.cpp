@@ -107,12 +107,20 @@ namespace core::settings {
         return get_settings().get_boolean("Flags", "WorldMapEnabled", true);
     }
 
+    bool native_controller_support_enabled() {
+        return get_settings().get_boolean("Flags", "NativeControllerSupportEnabled", true);
+    }
+
     float map_icon_transparency() {
         return get_settings().get_float("Values", "MapIconTransparency", 0.f);
     }
 
     float camera_shake_intensity() {
         return get_settings().get_float("Values", "CameraShakeIntensity", 1.f);
+    }
+
+    float map_pan_speed() {
+        return get_settings().get_float("Values", "MapPanSpeed", 1.f);
     }
 
     bool shriek_is_shrek() {

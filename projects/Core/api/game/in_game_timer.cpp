@@ -37,7 +37,6 @@ namespace core::api::game::in_game_timer {
      * - Moon Delta Time = deltaTime after it got overridden by Moon
      */
 
-    auto minimum_teleportation_time = 7.f;  // 7.f constant from SavePedestalController_FixedUpdate, can be overridden in rando
     auto unity_delta_time = 0.f;
     auto loading_finished_condition_is_blocking = false;
     auto title_screen_startup_waiting = true;
@@ -112,7 +111,9 @@ namespace core::api::game::in_game_timer {
 
             if (
                 save_pedestal_controller->fields.m_isTeleporting &&
-                (save_pedestal_controller->fields.m_startTime + 7.f) < UnityEngine::Time::get_time()  // 7.f seconds is the hardcoded default in vanilla
+                (save_pedestal_controller->fields.m_startTime + 7.f) < UnityEngine::Time::get_time()
+                // The 7.f constant here is correct despite rando shortening the TP time
+                // because in rando we just offset m_startTime
             ) {
                 return AsyncLoadingState::SavePedestalControllerWaiting;
             }
@@ -232,10 +233,6 @@ namespace core::api::game::in_game_timer {
 
     common::EventBus<TimeStep>& time_step_event_bus() {
         return _time_step_event_bus;
-    }
-
-    void set_minimum_teleportation_time(float time) {
-        minimum_teleportation_time = time;
     }
 
     AsyncLoadingState get_last_async_loading_state() {

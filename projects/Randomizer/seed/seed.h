@@ -16,7 +16,7 @@
 
 #include <Core/save_meta/save_meta.h>
 #include <Modloader/app/structs/GameController_GameDifficultyModes__Enum.h>
-#include <neargye/semver.hpp>
+#include <semver.hpp>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
 
@@ -79,6 +79,10 @@ namespace randomizer::seed {
 
     class Seed {
     public:
+        struct Timer {
+            core::api::uber_states::UberState toggle;
+            core::api::uber_states::UberState value;
+        };
 
         using seed_parser =
             bool (*)(const std::shared_ptr<SeedArchive>& seed_archive, location_data::LocationCollection const& location_data, const std::shared_ptr<SeedParseOutput>& data);
@@ -100,12 +104,15 @@ namespace randomizer::seed {
         void execute_command(std::size_t id);
 
         const SeedMemory& memory() const { return m_memory; }
+        void process_timers(float delta_time) const;
+
     private:
         location_data::LocationCollection const& m_location_data;
         seed_parser m_last_parser = nullptr;
         std::shared_ptr<SeedArchive> m_seed_archive;
         std::shared_ptr<SeedParseOutput> m_parse_output = std::make_shared<SeedParseOutput>();
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
+        std::vector<Timer> m_timers;
 
         bool m_should_handle_command = true;
         std::vector<IInstruction*> m_command_stack;

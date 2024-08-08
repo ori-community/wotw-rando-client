@@ -4,7 +4,6 @@
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/enums/world_events.h>
-#include <Core/events/async_update.h>
 #include <Core/ipc/ipc.h>
 #include <Core/save_meta/save_meta.h>
 #include <Modloader/app/methods/GameStateMachine.h>
@@ -15,11 +14,8 @@
 #include <Modloader/windows_api/console.h>
 #include <Randomizer/tracking/game_tracker.h>
 #include <Randomizer/randomizer.h>
-#include <Randomizer/stats/game_stats.h>
 
 #include <format>
-#include <atomic>
-#include <mutex>
 #include <unordered_set>
 
 using namespace app::classes;
@@ -330,5 +326,13 @@ namespace randomizer::timing {
     float get_in_game_time() { return save_stats->in_game_time; }
     void force_set_game_finished(bool value) {
         game_finished = value;
+    }
+
+    const SaveFileGameStats& get_save_file_game_stats() {
+        return *save_stats;
+    }
+
+    const CheckpointGameStats& get_checkpoint_game_stats() {
+        return *checkpoint_stats;
     }
 } // namespace randomizer::timing

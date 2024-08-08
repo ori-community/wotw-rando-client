@@ -69,6 +69,8 @@ namespace randomizer::features::wheel {
         initialize_item(9000, 4, "Toggle cursor lock", "Toggle to confine the mouse cursor to the window.", "file:assets/icons/wheel/cursor_lock.blue.png",
                         [](auto, auto, auto) {
                             core::settings::cursor_locked(!core::settings::cursor_locked());
+                            modloader::cursor_lock(core::settings::cursor_locked());
+
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>::format("Cursor locked: {}", core::settings::cursor_locked()),
                                 .prioritized = true,

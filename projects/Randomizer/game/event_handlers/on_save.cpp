@@ -8,6 +8,7 @@
 #include <Modloader/app/methods/SaveSlotBackupsManager.h>
 #include <Modloader/app/methods/SaveSlotsManager.h>
 #include <Modloader/app/methods/SeinHealthController.h>
+#include <Modloader/app/methods/RestoreCheckpointController.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
@@ -53,6 +54,12 @@ namespace {
     IL2CPP_INTERCEPT(SaveGameController, void, RestoreCheckpoint, (app::SaveGameController * this_ptr)) {
         core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::Before);
         next::SaveGameController::RestoreCheckpoint(this_ptr);
+        core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::After);
+    }
+
+    IL2CPP_INTERCEPT(RestoreCheckpointController, void, RestoreCheckpoint, (app::RestoreCheckpointController * this_ptr, bool load_from_disc)) {
+        core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::Before);
+        next::RestoreCheckpointController::RestoreCheckpoint(this_ptr, load_from_disc);
         core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::After);
     }
 

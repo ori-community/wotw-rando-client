@@ -18,7 +18,6 @@ set(
         "dev/seed_debugger.cpp"
         "features/area_segment_states.cpp"
         "features/better_menus.cpp"
-        "features/chaos.cpp"
         "features/controls/ability_overrides.cpp"
         "features/controls/air_no_deceleration.cpp"
         "features/controls/autoaim.cpp"
@@ -38,9 +37,12 @@ set(
         "features/cutscene_skips/sandworm_start.cpp"
         "features/cutscene_skips/wellspring_escape_start.cpp"
         "features/cutscene_skips/wellspring_so_soggy.cpp"
+        "features/cutscene_skips/willow_heart_cutscenes.cpp"
         "features/mini_map/mini_map.cpp"
         "features/difficulty.cpp"
+        "features/keyboard_multibind.cpp"
         "features/keystone_door.cpp"
+        "features/knock_knock_wellspring.cpp"
         "features/map.cpp"
         "features/npcs/lupo_everywhere.cpp"
         "features/npcs/opher_everywhere.cpp"
@@ -51,6 +53,7 @@ set(
         "features/scenes/modifications/hornbug_arena_allow_teleportation.cpp"
         "features/scenes/modifications/keep_epilogue_loaded_during_shriek_escape.cpp"
         "features/scenes/modifications/kwolok_escape_sl_softlock_fix.cpp"
+        "features/scenes/modifications/kwolok_escape_start_allow_teleportation.cpp"
         "features/scenes/modifications/load_wellspring_bottom_floor_center_path_earlier.cpp"
         "features/scenes/modifications/luma_fight_room_door_always_open.cpp"
         "features/scenes/modifications/marsh_burrow_fight_arena_allow_teleportation.cpp"
@@ -59,6 +62,7 @@ set(
         "features/scenes/modifications/sandless_feeding_grounds_to_elevator.cpp"
         "features/scenes/modifications/sandless_shriek_escape.cpp"
         "features/secrets.cpp"
+        "features/sentry_burn_damage_type_fix.cpp"
         "features/shrine_states.cpp"
         "features/trackers/ability_tracker.cpp"
         "features/trackers/goal_mode_check.cpp"
@@ -74,7 +78,9 @@ set(
         "game/behaviour_changes/deflector_without_bash.cpp"
         "game/behaviour_changes/faster_teleportation.cpp"
         "game/behaviour_changes/feeding_grounds_allow_burrow.cpp"
+        "game/behaviour_changes/fix_kwolok_not_stopping_when_abandoning_challenge.cpp"
         "game/behaviour_changes/fix_shop_anywhere.cpp"
+        "game/behaviour_changes/fix_straight_grenades.cpp"
         "game/behaviour_changes/flap_without_glide.cpp"
         "game/behaviour_changes/instant_tp_activation.cpp"
         "game/behaviour_changes/kwolok_boss_rubberbanding_fix.cpp"
@@ -83,10 +89,12 @@ set(
         "game/behaviour_changes/prevent_pickup.cpp"
         "game/behaviour_changes/stomp_into_water.cpp"
         "game/behaviour_changes/stomp_through_portals.cpp"
+        "game/behaviour_changes/teleport_restriction.cpp"
         "game/behaviour_changes/teleporter_glades_identifier.cpp"
         "game/behaviour_changes/teleporter_map_activation.cpp"
         "game/behaviour_changes/teleporting_oob_fix.cpp"
         "game/behaviour_changes/trials_leaderboards.cpp"
+        "game/behaviour_changes/triple_jump_shockwave.cpp"
         "game/condition_intercepts/day_night_logic.cpp"
         "game/condition_intercepts/good_hollow.cpp"
         "game/condition_intercepts/grom_built_tps.cpp"
@@ -144,6 +152,7 @@ set(
         "input/controller_bindings.cpp"
         "input/helpers.cpp"
         "input/rando_bindings.cpp"
+        "input/sdl_input.cpp"
         "ipc/base_handlers.cpp"
         "ipc/hierarchy.cpp"
         "league/league.cpp"
@@ -185,7 +194,6 @@ set(
         "trial.cpp"
         "tracking/game_tracker.cpp"
         "uber_states/misc_handlers.cpp"
-        "uber_states/trigger_reach_check.cpp"
         "uber_states/uber_state_initialization.cpp"
         "uber_states/uber_state_intercepts.cpp"
         "ui/always_show_keystones.cpp"
@@ -202,7 +210,6 @@ set(
         "constants.h"
         "dev/seed_debugger.h"
         "features/area_segment_states.h"
-        "features/chaos.h"
         "features/controls/ability_overrides.h"
         "features/controls/invert_swim.h"
         "features/credits.h"
@@ -213,6 +220,7 @@ set(
         "game/pickups/quests.h"
         "game/shops/shop.h"
         "game/shops/shop_data.h"
+        "game/spawning_and_preloading.h"
         "game/teleport.h"
         "ghosts/plugins/update_active_animations_plugin.h"
         "ghosts/plugins.h"
@@ -243,7 +251,6 @@ set(
         "seed/reach_check.h"
         "seed/seed.h"
         "seed/seed_source.h"
-        "state_data/state.h"
         "state_data/parser.h"
         "stats/game_stats.h"
         "text_processors/ability.h"
@@ -311,8 +318,8 @@ target_link_libraries(
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC ZIP_CM_ZSTD)
 
-find_path(NEARGYE_SEMVER_INCLUDE_DIRS "neargye/semver.hpp")
-target_include_directories(${PROJECT_NAME} PRIVATE ${NEARGYE_SEMVER_INCLUDE_DIRS})
+find_package(semver CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} semver::semver)
 
 find_package(nlohmann_json REQUIRED)
 target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
@@ -336,6 +343,13 @@ target_link_libraries(${PROJECT_NAME} $<IF:$<TARGET_EXISTS:zstd::libzstd_shared>
 
 find_package(libzippp CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} libzippp::libzippp)
+
+find_package(SDL2 CONFIG REQUIRED)
+target_link_libraries(
+        ${PROJECT_NAME}
+        $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
+        $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
+)
 
 message(STATUS "Assigning source groups.")
 

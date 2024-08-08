@@ -356,7 +356,6 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "sentryKills", 15, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "blazeKills", 16, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "grenadeKills", 17, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "burnDoTKills", 18, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "shurikenKills", 19, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "launchKills", 20, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "flashKills", 21, 0),
@@ -376,7 +375,6 @@ namespace randomizer {
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "preventMapReactivateTps", 1, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "allowOpeningEyestoneDoor", 6, true),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "chaosMode", CHAOS_MODE_ID, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "preventPickup", PREVENT_PICKUP_ID, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "stompThroughPortals", STOMP_THROUGH_PORTALS_ID, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "stompIntoWater", STOMP_INTO_WATER_ID, false),
@@ -387,16 +385,17 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "fixKwolokBossEscapeUnderwaterSpiritLightSoftlock", 15, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "fixShopAnywhere", 16, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "usePatch2Kickback", 17, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "allowTeleportingUnderwater", 18, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "allowTeleportingDuringCombatShrineFights", 19, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "disableWillowHeartCutscenes", 20, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeShriekEscapeSand", 100, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeFeedingGroundsToElevatorSand", 101, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "knockKnockWellspring", 102, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoConfig, "forceNoAirDecelerationFlag", FORCE_AIR_NO_DECELERATION_ID, 0),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "baurSneezeWithBlaze", 420, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "baurSneezeWithFlash", 421, false),
-
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoConfig, "chaosTriggerMin", CHAOS_TRIGGER_MIN_ID, 30.f),
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoConfig, "chaosTriggerMax", CHAOS_TRIGGER_MAX_ID, 60.f),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::UI, "launchFragmentsCount", 1, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::UI, "launchFragmentsRequired", 2, 0),

@@ -3,6 +3,7 @@
 
 #include <Common/event_bus.h>
 #include <Common/variant_cast.h>
+#include <Core/api/game/debug_menu.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/graphics/sprite.h>
@@ -10,13 +11,18 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/utils/misc.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
+#include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/SaveGameController.h>
 #include <Modloader/app/methods/SaveSlotsManager.h>
-#include <Modloader/app/methods/System/IO/File.h>
 #include <Modloader/app/methods/SaveSlotsUI.h>
 #include <Modloader/app/methods/SetTitleScreenAction.h>
-#include <Modloader/app/methods/GameStateMachine.h>
+#include <Modloader/app/methods/System/IO/File.h>
+#include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/methods/GameController.h>
+#include <Modloader/app/methods/Grdk/Wrapper.h>
+#include <Modloader/app/types/CleverMenuItem.h>
+#include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/XboxLiveIdentityUI.h>
 #include <Modloader/app/types/CleverMenuItem.h>
@@ -25,6 +31,8 @@
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/parser.h>
 #include <magic_enum.hpp>
+#include <Core/events/action.h>
+#include <Randomizer/game/spawning_and_preloading.h>
 
 using namespace utils;
 using namespace app::classes;
@@ -49,6 +57,8 @@ namespace randomizer::main_menu_seed_info {
         std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> easy_mode_menu_item_handle;
         std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> normal_mode_menu_item_handle;
         std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> hard_mode_menu_item_handle;
+        std::optional<il2cpp::WeakGCRef<app::GameObject>> question_dialog_go_handle;
+        std::optional<il2cpp::WeakGCRef<app::MessageBox>> question_dialog_message_box;
 
         core::Property<std::string> name_property;
         core::Property<std::string> status_property("Offline");
@@ -65,6 +75,12 @@ namespace randomizer::main_menu_seed_info {
         auto current_network_state = online::NetworkClient::State::Closed;
 
         common::EventBus<SeedMetaDataLoadedEventArgs> seed_meta_data_loaded_event_bus_instance;
+
+        std::optional<core::events::CustomAction> easy_press_action;
+        std::optional<core::events::CustomAction> normal_press_action;
+        std::optional<core::events::CustomAction> hard_press_action;
+        std::optional<core::events::CustomAction> question_yes_press_action;
+        std::optional<core::events::CustomAction> question_no_press_action;
 
         void on_network_status(const online::NetworkClient::State state) {
             if (state == online::NetworkClient::State::Closed) {
@@ -161,6 +177,19 @@ namespace randomizer::main_menu_seed_info {
             }
         }
 
+        void set_current_multiverse(std::optional<long> multiverse_id) {
+            if (multiverse_id.has_value()) {
+                randomizer::server_connect(*multiverse_id);
+            } else {
+                randomizer::server_disconnect();
+                multiplayer_universe().set_should_block_starting_new_game(false);
+                multiplayer_universe().set_enforce_seed_difficulty(false);
+                multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
+                multiplayer_universe().set_should_restrict_to_save_guid(false);
+                core::api::game::debug_menu::set_should_prevent_cheats(false);
+            }
+        }
+
         void on_ready(ModloaderEvent) {
             core::reactivity::watch_effect()
                 .effect(name_property)
@@ -188,6 +217,54 @@ namespace randomizer::main_menu_seed_info {
                     }
                 })
                 .finalize(reactive_effects);
+        }
+
+        void hide_question_dialog() {
+            if (question_dialog_go_handle.has_value() && question_dialog_go_handle->is_valid()) {
+                il2cpp::unity::set_active(**question_dialog_go_handle, false);
+                randomizer::game::set_full_game_main_menu_selection_manager_active(true);
+
+                update_difficulty_menu_items(true);
+            }
+        }
+
+        void show_question_dialog(const std::string& text) {
+            if (question_dialog_message_box.has_value() && question_dialog_message_box->is_valid()) {
+                (**question_dialog_message_box)->fields.MessageProvider = core::api::system::create_message_provider(text);
+
+                // Prevent line wrapping
+                (**question_dialog_message_box)->fields.TextBox->fields.width = 10000.f;
+
+                app::classes::MessageBox::RefreshText_1(**question_dialog_message_box);
+            }
+
+            if (question_dialog_go_handle.has_value() && question_dialog_go_handle->is_valid()) {
+                randomizer::game::set_full_game_main_menu_selection_manager_active(false);
+                il2cpp::unity::set_active(**question_dialog_go_handle, true);
+            }
+        }
+
+        void on_new_game_with_difficulty_pressed(app::GameController_GameDifficultyModes__Enum difficulty) {
+            const auto intended_difficulty = std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)
+                ? std::make_optional(std::get<seed::SeedMetaData>(current_seed_meta_data_result).intended_difficulty)
+                : std::nullopt;
+
+            GameController::set_GameDifficultyMode(core::api::game::game_controller(), difficulty);
+
+            if (randomizer::multiplayer_universe().should_enforce_seed_difficulty() || difficulty == intended_difficulty) {
+                randomizer::game::start_new_game();
+                return;
+            }
+
+            auto intended_difficulty_name = intended_difficulty == app::GameController_GameDifficultyModes__Enum::Easy
+                ? "Easy"
+                : (
+                    intended_difficulty == app::GameController_GameDifficultyModes__Enum::Hard
+                        ? "Hard"
+                        : "Normal"
+                );
+
+            show_question_dialog(std::format("The seed is intended for #{} Mode#.\nContinue anyways?", intended_difficulty_name));
         }
 
         void on_scene_load(const core::api::scenes::SceneLoadEventMetadata* metadata) {
@@ -260,6 +337,67 @@ namespace randomizer::main_menu_seed_info {
                             il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. normalMode"}), types::CleverMenuItem::get_class()));
                     hard_mode_menu_item_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::CleverMenuItem>(
                             il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. hardMode"}), types::CleverMenuItem::get_class()));
+                    question_dialog_go_handle = il2cpp::WeakGCRef(
+                        il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "hardModeConfirmQuestion"}));
+                    question_dialog_message_box = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
+                        il2cpp::unity::find_child(**question_dialog_go_handle, "title"), types::MessageBox::get_class()));
+
+                    const auto question_dialog_background = il2cpp::unity::find_child(**question_dialog_go_handle, "messageBackgroundA");
+
+                    // Make question box a little larger
+                    il2cpp::unity::set_local_scale(question_dialog_background, {13.f, 3.2f, 0.7f});
+                    il2cpp::unity::set_local_position(question_dialog_background, app::Vector3{0.35f, 0.6f, -1.7f});
+                    il2cpp::unity::set_local_position(**question_dialog_message_box, app::Vector3{0.f, 1.f, -2.f});
+
+                    if (!easy_press_action.has_value()) {
+                        easy_press_action = core::events::create_action([](auto) {
+                            on_new_game_with_difficulty_pressed(app::GameController_GameDifficultyModes__Enum::Easy);
+                        });
+                    }
+
+                    if (!normal_press_action.has_value()) {
+                        normal_press_action = core::events::create_action([](auto) {
+                            on_new_game_with_difficulty_pressed(app::GameController_GameDifficultyModes__Enum::Normal);
+                        });
+                    }
+
+                    if (!hard_press_action.has_value()) {
+                        hard_press_action = core::events::create_action([](auto) {
+                            on_new_game_with_difficulty_pressed(app::GameController_GameDifficultyModes__Enum::Hard);
+                        });
+                    }
+
+                    if (!question_yes_press_action.has_value()) {
+                        question_yes_press_action = core::events::create_action([](auto) {
+                            randomizer::game::start_new_game();
+                        });
+                    }
+
+                    if (!question_no_press_action.has_value()) {
+                        question_no_press_action = core::events::create_action([](auto) {
+                            hide_question_dialog();
+                        });
+                    }
+
+                    (**easy_mode_menu_item_handle)->fields.Pressed = nullptr;
+                    (**easy_mode_menu_item_handle)->fields.PressedCallback = easy_press_action->action.ref();
+
+                    (**normal_mode_menu_item_handle)->fields.Pressed = nullptr;
+                    (**normal_mode_menu_item_handle)->fields.PressedCallback = normal_press_action->action.ref();
+
+                    (**hard_mode_menu_item_handle)->fields.Pressed = nullptr;
+                    (**hard_mode_menu_item_handle)->fields.PressedCallback = hard_press_action->action.ref();
+
+                    const auto question_dialog_yes_button = il2cpp::unity::get_component<app::CleverMenuItem>(
+                            il2cpp::unity::find_child(**question_dialog_go_handle, "yes"), types::CleverMenuItem::get_class());
+                    const auto question_dialog_no_button = il2cpp::unity::get_component<app::CleverMenuItem>(
+                            il2cpp::unity::find_child(**question_dialog_go_handle, "no"), types::CleverMenuItem::get_class());
+
+                    question_dialog_yes_button->fields.Pressed = nullptr;
+                    question_dialog_yes_button->fields.PressedCallback = question_yes_press_action->action.ref();
+
+                    question_dialog_no_button->fields.Pressed = nullptr;
+                    question_dialog_no_button->fields.PressedCallback = question_no_press_action->action.ref();
 
                     is_in_main_menu = true;
 
@@ -287,7 +425,10 @@ namespace randomizer::main_menu_seed_info {
             }
         }
 
+        [[maybe_unused]]
         auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(on_scene_load);
+
+        [[maybe_unused]]
         auto on_ready_handle = modloader::event_bus().register_handler(ModloaderEvent::GameReady, on_ready);
 
         IL2CPP_INTERCEPT(SaveSlotsManager, void, set_CurrentSlotIndex, (int index)) {
@@ -304,9 +445,15 @@ namespace randomizer::main_menu_seed_info {
                 on_seed_loaded_handle = nullptr;
 
                 const auto save_controller = core::api::game::save_controller();
-                const auto save_info = SaveGameController::GetSaveFileInfo(save_controller, index, -1);
 
-                const auto data = System::IO::File::ReadAllBytes(save_info->fields.m_FullSaveFilePath);
+                app::Byte__Array* data;
+
+                if (Grdk::Wrapper::get_InitializedOk()) {  // Handle GRDK (Xbox live) saves
+                    data = Grdk::Wrapper::Load_1(index, -1);
+                } else {
+                    const auto save_info = SaveGameController::GetSaveFileInfo(save_controller, index, -1);
+                    data = System::IO::File::ReadAllBytes(save_info->fields.m_FullSaveFilePath);
+                }
 
                 auto seed_meta_data = std::make_shared<seed::SaveSlotSeedMetaData>();
                 auto seed_archive_data = std::make_shared<seed::SeedArchiveSaveMetaData>();
@@ -335,57 +482,28 @@ namespace randomizer::main_menu_seed_info {
                 }
 
                 poll_current_seed_source_until_not_loading = false;
-
-                if (connect_to_multiverse_id.has_value()) {
-                    randomizer::server_connect(*connect_to_multiverse_id);
-                } else {
-                    randomizer::server_disconnect();
-                    multiplayer_universe().set_should_block_starting_new_game(false);
-                    multiplayer_universe().set_enforce_seed_difficulty(false);
-                    multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
-                    multiplayer_universe().set_should_restrict_to_save_guid(false);
-                }
+                set_current_multiverse(connect_to_multiverse_id);
 
                 update_text();
             } else {
                 load_new_game_source();
-                current_seed_source = get_new_game_seed_source();
-                current_seed_meta_data_result = std::string("Loading...");
 
-                poll_current_seed_source_until_not_loading = true;
-
-                const auto connect_to_multiverse_id = current_seed_source->get_multiverse_id();
-                if (connect_to_multiverse_id.has_value()) {
-                    randomizer::server_connect(*connect_to_multiverse_id);
-                } else {
-                    randomizer::server_disconnect();
-                    multiplayer_universe().set_should_block_starting_new_game(false);
-                    multiplayer_universe().set_enforce_seed_difficulty(false);
-                    multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
-                    multiplayer_universe().set_should_restrict_to_save_guid(false);
-                }
-
-                update_text();
-
-                on_seed_loaded_handle = event_bus().register_handler(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::After, [](auto, auto) {
+                static auto update = [] {
                     current_seed_source = get_new_game_seed_source();
                     current_seed_meta_data_result = std::string("Loading...");
 
                     poll_current_seed_source_until_not_loading = true;
 
-                    const auto connect_to_multiverse_id = current_seed_source->get_multiverse_id();
-                    if (connect_to_multiverse_id.has_value()) {
-                        randomizer::server_connect(*connect_to_multiverse_id);
-                    } else {
-                        randomizer::server_disconnect();
-                        multiplayer_universe().set_should_block_starting_new_game(false);
-                        multiplayer_universe().set_enforce_seed_difficulty(false);
-                        multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
-                        multiplayer_universe().set_should_restrict_to_save_guid(false);
-                    }
+                    set_current_multiverse(current_seed_source->get_multiverse_id());
 
                     update_text();
+                };
+
+                on_seed_loaded_handle = event_bus().register_handler(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::After, [](auto, auto) {
+                    update();
                 });
+
+                update();
             }
 
             seed_meta_data_loaded_event_bus().trigger_event(SeedMetaDataLoadedEventArgs {
@@ -400,10 +518,11 @@ namespace randomizer::main_menu_seed_info {
             next::SetTitleScreenAction::Perform(this_ptr, context);
 
             if (this_ptr->fields.Screen == app::TitleScreenManager_Screen__Enum::ProfileSelected) {
-                update_difficulty_menu_items();
+                update_difficulty_menu_items(true);
             }
         }
 
+        [[maybe_unused]]
         auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
             if (!poll_current_seed_source_until_not_loading) {
                 return;
@@ -420,6 +539,10 @@ namespace randomizer::main_menu_seed_info {
             if (source_seed_archive.has_value()) {
                 const auto meta = randomizer::seed::parse_meta_data(*source_seed_archive);
                 current_seed_meta_data_result = variant_cast(meta);
+
+                if (std::holds_alternative<seed::SeedMetaData>(meta)) {
+                    randomizer::game::preload_spawn_async(std::get<seed::SeedMetaData>(meta).spawn);
+                }
             } else if (get_new_game_seed_source()->get_error().has_value()) {
                 current_seed_meta_data_result = get_new_game_seed_source()->get_error().value();
             } else {
@@ -427,7 +550,7 @@ namespace randomizer::main_menu_seed_info {
             }
 
             update_text();
-            update_difficulty_menu_items();
+            update_difficulty_menu_items(true);
 
             seed_meta_data_loaded_event_bus().trigger_event(SeedMetaDataLoadedEventArgs {
                 std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)
@@ -443,19 +566,22 @@ namespace randomizer::main_menu_seed_info {
         }
     } // namespace
 
-    void update_difficulty_menu_items() {
+    void update_difficulty_menu_items(bool try_select_intended_difficulty) {
         auto allow_easy = false;
         auto allow_normal = false;
         auto allow_hard = false;
 
-        if (GameStateMachine::IsInExtendedTitleScreen(types::GameStateMachine::get_class()->static_fields->m_instance) &&
-            SaveSlotsManager::SlotByIndex(SaveSlotsManager::get_CurrentSlotIndex()) == nullptr // Selected save file is empty
-        ) {
-            if (randomizer::multiplayer_universe().should_enforce_seed_difficulty()) {
-                const auto seed_metadata = std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)
+        const auto seed_metadata = std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)
                     ? std::make_optional(std::get<seed::SeedMetaData>(current_seed_meta_data_result))
                     : std::nullopt;
 
+        const auto selected_save_file_is_empty = SaveSlotsManager::SlotByIndex(SaveSlotsManager::get_CurrentSlotIndex()) == nullptr;
+
+        if (
+            GameStateMachine::IsInExtendedTitleScreen(types::GameStateMachine::get_class()->static_fields->m_instance) &&
+            selected_save_file_is_empty
+        ) {
+            if (randomizer::multiplayer_universe().should_enforce_seed_difficulty()) {
                 if (seed_metadata.has_value()) {
                     allow_easy = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Easy;
                     allow_normal = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Normal;
@@ -470,7 +596,30 @@ namespace randomizer::main_menu_seed_info {
 
         do_if_valid<app::CleverMenuItem>(easy_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_easy); });
         do_if_valid<app::CleverMenuItem>(normal_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_normal); });
-        do_if_valid<app::CleverMenuItem>(hard_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_hard); });
+        do_if_valid<app::CleverMenuItem>(hard_mode_menu_item_handle, [&](auto menu_item) {
+            il2cpp::unity::set_active(menu_item, allow_hard);
+            menu_item->fields.m_isDisabled = true;
+
+            auto select_index = try_select_intended_difficulty && seed_metadata.has_value()
+                ? static_cast<int>(seed_metadata->intended_difficulty)
+                : menu_item->fields.m_selectionManager->fields.Index;
+
+            if (select_index == 0 && !allow_easy) {
+                select_index = 1;
+            }
+
+            if (select_index == 1 && !allow_normal) {
+                select_index = 2;
+            }
+
+            if (select_index == 2 && !allow_hard) {
+                select_index = 0;
+            }
+
+            if (selected_save_file_is_empty && il2cpp::unity::is_valid(menu_item->fields.m_selectionManager)) {
+                CleverMenuItemSelectionManager::SetCurrentItem(menu_item->fields.m_selectionManager, select_index, true);
+            }
+        });
     }
 
     common::EventBus<SeedMetaDataLoadedEventArgs>& seed_meta_data_loaded_event_bus() {

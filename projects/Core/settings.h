@@ -27,8 +27,10 @@ namespace core::settings {
     CORE_DLLEXPORT bool always_show_keystone_doors();
     CORE_DLLEXPORT bool always_show_keystones();
     CORE_DLLEXPORT bool world_map_enabled();
+    CORE_DLLEXPORT bool native_controller_support_enabled();
     CORE_DLLEXPORT float map_icon_transparency();
     CORE_DLLEXPORT float camera_shake_intensity();
+    CORE_DLLEXPORT float map_pan_speed();
     CORE_DLLEXPORT bool shriek_is_shrek();
     CORE_DLLEXPORT bool enable_minimap();
     CORE_DLLEXPORT std::string ori_model_texture();

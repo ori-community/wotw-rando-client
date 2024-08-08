@@ -9,7 +9,7 @@
 using namespace app::classes;
 
 namespace {
-    constexpr float MINIMUM_TELEPORTATION_TIME = 2.0f;
+    constexpr float MINIMUM_TELEPORTATION_TIME = 1.0f;
 
     // Fix for tree animation skips
     void unlock_cinematics() {
@@ -32,8 +32,4 @@ namespace {
         // 7.f is the default
         types::SavePedestalController::get_class()->static_fields->Instance->fields.m_startTime -= (7.f - MINIMUM_TELEPORTATION_TIME);
     }
-
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-        core::api::game::in_game_timer::set_minimum_teleportation_time(MINIMUM_TELEPORTATION_TIME);
-    });
 }

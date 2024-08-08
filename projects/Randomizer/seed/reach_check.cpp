@@ -20,6 +20,7 @@ namespace randomizer::seed {
         struct ReachCheckRequest {
             float health;
             float energy;
+            int spirit_light;
             int gorlek_ore;
             int keystones;
             int shard_slots;
@@ -44,6 +45,7 @@ namespace randomizer::seed {
         struct Input {
             float health;
             float energy;
+            int spirit_light;
             int gorlek_ore;
             int keystones;
             int shard_slots;
@@ -125,6 +127,7 @@ namespace randomizer::seed {
                 Input input = {
                     .health = request.health,
                     .energy = request.energy,
+                    .spirit_light = request.spirit_light,
                     .gorlek_ore = request.gorlek_ore,
                     .keystones = request.keystones,
                     .shard_slots = request.shard_slots,
@@ -172,12 +175,6 @@ namespace randomizer::seed {
     } // namespace
 
     bool ReachCheckResult::reachable(core::api::uber_states::UberStateCondition location) const {
-        auto test = location;
-        if (static_cast<int>(test.state.group()) == 5377 && test.state.state() == 21860) {
-            auto value = data.reached.contains(location);
-            return value;
-        }
-
         return data.reached.contains(location);
     }
 
@@ -241,6 +238,7 @@ namespace randomizer::seed {
             ReachCheckRequest request{
                 .health = static_cast<float>(core::api::game::player::max_health().get()),
                 .energy = core::api::game::player::max_energy().get(),
+                .spirit_light = core::api::uber_states::UberState(UberStateGroup::RandoStats, 3).get<int>(),
                 .gorlek_ore = core::api::game::player::ore().get(),
                 .keystones = core::api::game::player::keystones().get(),
                 .shard_slots = core::api::game::player::shard_slots().get(),
@@ -271,9 +269,9 @@ namespace randomizer::seed {
                 }
             }
 
-            for (auto const& state: randomizer::state_collection()) {
-                if (state.condition.resolve()) {
-                    request.nodes.push_back(state.name);
+            for (auto const& [condition, name]: randomizer::state_collection()) {
+                if (condition.resolve()) {
+                    request.nodes.push_back(name);
                 }
             }
 
