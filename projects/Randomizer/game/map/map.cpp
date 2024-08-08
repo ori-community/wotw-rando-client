@@ -218,7 +218,7 @@ namespace randomizer::game::map {
         IL2CPP_INTERCEPT(GameMapUI, app::Vector2, get_FocusLocation, (app::GameMapUI* this_ptr)) {
             if (force_focus_location_to_center_once) {
                 force_focus_location_to_center_once = false;
-                return math::convert(
+                return math::to_vec2(
                     AreaMapNavigation::WorldToMapPosition(
                         this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField,
                         this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField->fields.m_scrollPosition

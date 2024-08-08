@@ -46,14 +46,14 @@ namespace randomizer {
     }
 
     void Trial::update_not_in_trial() {
-        const auto position = modloader::math::convert(core::api::game::player::get_position());
+        const auto position = modloader::math::to_vec2(core::api::game::player::get_position());
         const auto in_range = modloader::math::distance2(position, m_location) < interact_radius * interact_radius;
         if (in_range && m_input_handle == nullptr) {
             m_message_box = std::make_shared<core::api::messages::MessageBox>();
             m_message_box->use_world_coordinates().set(true);
             m_message_box->show_box().set(false);
             m_message_box->text().set("Start Trial [Interact]");
-            m_message_box->position().set(modloader::math::convert(position));
+            m_message_box->position().set(modloader::math::to_vec3(position));
             m_message_box->position().add(0, 10, 0);
             m_input_handle = input::single_input_bus().register_handler(Action::Interact, EventTiming::Before, [&](auto, auto) {
                 m_checkpoint_index = 0;
@@ -78,7 +78,7 @@ namespace randomizer {
     void Trial::update_in_trial() {
         m_timer += core::api::game::delta_time();
         const auto& [location, time] = m_checkpoints[m_checkpoint_index];
-        const auto position = modloader::math::convert(core::api::game::player::get_position());
+        const auto position = modloader::math::to_vec2(core::api::game::player::get_position());
         if (modloader::math::distance2(position, location) < interact_radius * interact_radius) {
             ++m_checkpoint_index;
             if (m_checkpoint_index == m_checkpoints.size()) {

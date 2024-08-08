@@ -127,11 +127,11 @@ namespace modloader::math {
         return a * (1 - weight) + b * weight;
     }
 
-    inline app::Vector2 convert(app::Vector3 const& vec) {
+    inline app::Vector2 to_vec2(app::Vector3 const& vec) {
         return app::Vector2{ vec.x, vec.y };
     }
 
-    inline app::Vector3 convert(app::Vector2 const& vec) {
+    inline app::Vector3 to_vec3(app::Vector2 const& vec) {
         return app::Vector3{ vec.x, vec.y, 0 };
     }
 } // namespace modloader::math
