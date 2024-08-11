@@ -155,7 +155,9 @@ namespace randomizer::game::map {
                     .after([] {
                         if (!inlogic_toggle.get<bool>() && active_filter() == Filters::InLogic) {
                             const auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
-                            AreaMapUI::CycleFilter(area_map);
+                            if (area_map != nullptr) {
+                                AreaMapUI::CycleFilter(area_map);
+                            }
                         }
                     })
                     .finalize();
