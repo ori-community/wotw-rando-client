@@ -320,10 +320,10 @@ namespace randomizer::seed {
                 switch (op) {
                     case EqualityComparator::Equal:
                         memory.booleans.set(0, memory.get<T>(0) == memory.get<T>(1));
-                        break;
+                        return;
                     case EqualityComparator::NotEqual:
                         memory.booleans.set(0, memory.get<T>(0) != memory.get<T>(1));
-                        break;
+                        return;
                 }
 
                 throw RandoException("Invalid operator in CompareEqual instruction");
