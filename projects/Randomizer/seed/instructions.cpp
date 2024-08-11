@@ -317,7 +317,16 @@ namespace randomizer::seed {
             EqualityComparator op;
 
             void execute(Seed& seed, SeedMemory& memory) const override {
-                memory.booleans.set(0, op == EqualityComparator::Equal && memory.get<T>(0) == memory.get<T>(1));
+                switch (op) {
+                    case EqualityComparator::Equal:
+                        memory.booleans.set(0, memory.get<T>(0) == memory.get<T>(1));
+                        break;
+                    case EqualityComparator::NotEqual:
+                        memory.booleans.set(0, memory.get<T>(0) != memory.get<T>(1));
+                        break;
+                }
+
+                throw RandoException("Invalid operator in CompareEqual instruction");
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
