@@ -91,4 +91,6 @@ namespace randomizer::seed {
 
     std::unique_ptr<IInstruction> create_instruction(const nlohmann::json& j);
     void destroy_volatile_seed_data();
+
+    void destroy_free_message_boxes();
 }

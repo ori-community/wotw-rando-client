@@ -66,7 +66,7 @@ namespace core::messages {
         const auto max_in_queue = m_max_in_queue.get();
         if (max_in_queue.has_value() && m_messages.size() > max_in_queue.value() && !m_active_messages.empty()) {
             m_active_messages.front().message->hide();
-            m_active_messages.front().handle->state = message_handle_t::MessageState::Finished;
+            m_active_messages.front().handle->state = message_handle_t::QueuedMessageState::Finished;
         }
 
         int total_lines = 0;
@@ -81,7 +81,7 @@ namespace core::messages {
                 if (max_line_count.has_value() && total_lines_temp >= max_line_count.value()) {
                     for (auto jit = it; jit != m_active_messages.end(); ++jit) {
                         jit->info.duration = std::max(jit->handle->active_time, 1.0f);
-                        jit->handle->state = message_handle_t::MessageState::Finished;
+                        jit->handle->state = message_handle_t::QueuedMessageState::Finished;
                         jit->handle->time_left = jit->info.duration;
                         jit->handle->active_time = 0;
                         jit->message->hide(jit->info.instant_fade);
@@ -152,7 +152,7 @@ namespace core::messages {
 
     bool MessageDisplay::handle_active_message(MessageData& data, int& total_lines, app::Vector3& cursor_position, float fade_out, float delta_time) {
         update_time(data, delta_time);
-        if (data.handle->state != message_handle_t::MessageState::Finished) {
+        if (data.handle->state != message_handle_t::QueuedMessageState::Finished) {
             update_message_position(data, total_lines, cursor_position, delta_time);
             data.message->fade_out().set(fade_out);
             return true;
@@ -170,7 +170,7 @@ namespace core::messages {
     }
 
     void MessageDisplay::update_time(MessageData& data, float delta_time) {
-        if (data.handle->state == message_handle_t::MessageState::Visible) {
+        if (data.handle->state == message_handle_t::QueuedMessageState::Visible) {
             data.handle->active_time += delta_time;
         }
 
@@ -183,7 +183,7 @@ namespace core::messages {
             }
 
             if (*data.handle->time_left <= 0.f) {
-                data.handle->state = message_handle_t::MessageState::Finished;
+                data.handle->state = message_handle_t::QueuedMessageState::Finished;
                 data.handle->time_left = std::optional<float>();
             }
         }
@@ -203,7 +203,7 @@ namespace core::messages {
             cursor_position.y -= data.info.padding.x * cursor_y_direction;
 
             // Animate message box movement if the message is visible
-            if (data.handle->state == MessageHandle::MessageState::Visible) {
+            if (data.handle->state == QueuedMessageHandle::QueuedMessageState::Visible) {
                 // When this message is queued, stall it on the pickup position
                 data.message->position().set(
                     modloader::math::lerp(
@@ -261,7 +261,7 @@ namespace core::messages {
             data.message->show(false, data.info.play_sound);
         }
 
-        data.handle->state = message_handle_t::MessageState::Visible;
+        data.handle->state = message_handle_t::QueuedMessageState::Visible;
     }
 
     int MessageDisplay::get_expand_direction_y_multiplier() const {

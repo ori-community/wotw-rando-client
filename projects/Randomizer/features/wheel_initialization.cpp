@@ -20,7 +20,7 @@ namespace randomizer::features::wheel {
         set_wheel_item_description(wheel, position, desc);
         set_wheel_item_texture(wheel, position, texture);
         set_wheel_item_color(wheel, position, 255, 255, 255, 255);
-        set_wheel_item_callback(wheel, position, WheelBind::Ability1, callback);
+        set_wheel_item_callback(wheel, position, WheelBind::All, callback);
     }
 
     void on_dev_changed() {
@@ -190,8 +190,16 @@ namespace randomizer::features::wheel {
                         });
         initialize_item(9001, 9, "Force Exit", "Forcibly exit the game.", "file:assets/icons/wheel/force_exit.blue.png",
                         [](auto, auto, auto) { modloader::shutdown(); });
-        initialize_item(9001, 10, "Clear messages", "Clears the message queue.", "file:assets/icons/wheel/clear_messages.blue.png",
-                        [](auto, auto, auto) { core::message_controller().clear_central(); });
+        initialize_item(9001, 10, "Clear messages", "[Ability1] Clear all\n[Ability2] Clear queue\n[Ability3] Clear free", "file:assets/icons/wheel/clear_messages.blue.png",
+                        [](auto, auto, auto bind) {
+                            if (bind == WheelBind::Ability1 || bind == WheelBind::Ability2) {
+                                core::message_controller().clear_central();
+                            }
+
+                            if (bind == WheelBind::Ability1 || bind == WheelBind::Ability3) {
+                                seed::destroy_free_message_boxes();
+                            }
+                        });
         initialize_item(9001, 11, "Next", "Go to next page of actions", "file:assets/icons/wheel/menu.blue.png",
                         [](auto, auto, auto) { set_active_wheel(9000); });
         on_dev_changed();

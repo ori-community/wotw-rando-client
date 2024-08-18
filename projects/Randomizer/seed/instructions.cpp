@@ -22,21 +22,21 @@ namespace randomizer::seed {
             core::api::uber_states::UberState value;
         };
 
-        struct SeedMessage {
-            core::messages::MessageHandle::MessageState last_state = core::messages::MessageHandle::MessageState::Queued;
+        struct QueuedMessageBox {
+            core::messages::QueuedMessageHandle::QueuedMessageState last_state = core::messages::QueuedMessageHandle::QueuedMessageState::Queued;
             message_handle_ptr_t handle;
             std::optional<int> visible_callback;
             std::optional<int> hidden_callback;
         };
 
-        struct SeedControlledMessage {
+        struct FreeMessageBox {
             std::shared_ptr<core::api::messages::MessageBox> message;
             std::optional<float> timeout;
         };
 
         std::unordered_map<std::size_t, std::shared_ptr<game::map::Icon>> warp_icons;
-        std::unordered_map<std::size_t, SeedMessage> central_message_boxes;
-        std::unordered_map<std::size_t, SeedControlledMessage> message_boxes;
+        std::unordered_map<std::size_t, QueuedMessageBox> queued_message_boxes;
+        std::unordered_map<std::size_t, FreeMessageBox> free_message_boxes;
         std::unordered_set<std::size_t> message_boxes_with_timeouts;
         std::vector<SeedTimer> timers;
         bool prevent_grant = false;
@@ -47,23 +47,23 @@ namespace randomizer::seed {
 
         auto on_update = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [](auto, auto) {
             if (!core::api::game::in_game()) {
-                central_message_boxes.clear();
+                queued_message_boxes.clear();
                 message_boxes_with_timeouts.clear();
-                message_boxes.clear();
+                free_message_boxes.clear();
                 timers.clear();
                 return;
             }
 
-            for (auto& message: central_message_boxes | std::views::values) {
+            for (auto& message: queued_message_boxes | std::views::values) {
                 if (message.last_state == message.handle->state) {
                     continue;
                 }
 
-                if (message.handle->state == core::messages::MessageHandle::MessageState::Visible && message.visible_callback.has_value()) {
+                if (message.handle->state == core::messages::QueuedMessageHandle::QueuedMessageState::Visible && message.visible_callback.has_value()) {
                     game_seed().execute_command(message.visible_callback.value());
                 }
 
-                if (message.last_state == core::messages::MessageHandle::MessageState::Visible && message.hidden_callback.has_value()) {
+                if (message.last_state == core::messages::QueuedMessageHandle::QueuedMessageState::Visible && message.hidden_callback.has_value()) {
                     game_seed().execute_command(message.hidden_callback.value());
                 }
 
@@ -72,7 +72,7 @@ namespace randomizer::seed {
 
             std::unordered_set<int> to_destroy;
             for (const auto id: message_boxes_with_timeouts) {
-                auto& box = message_boxes.at(id);
+                auto& box = free_message_boxes.at(id);
                 if (box.timeout.has_value()) {
                     box.timeout.value() -= core::api::game::delta_time();
                     if (box.timeout.value() < 0) {
@@ -83,7 +83,7 @@ namespace randomizer::seed {
 
             for (const auto id: to_destroy) {
                 message_boxes_with_timeouts.erase(id);
-                message_boxes.erase(id);
+                free_message_boxes.erase(id);
             }
 
             for (const auto& timer: timers) {
@@ -542,8 +542,8 @@ namespace randomizer::seed {
                 );
 
                 if (id.has_value()) {
-                    central_message_boxes[id.value()] = {.handle = handle};
-                    message_boxes.erase(id.value());
+                    queued_message_boxes[id.value()] = {.handle = handle};
+                    free_message_boxes.erase(id.value());
                     message_boxes_with_timeouts.erase(id.value());
                 }
             }
@@ -568,8 +568,8 @@ namespace randomizer::seed {
             std::size_t id;
             std::size_t command;
             void execute(Seed& seed, SeedMemory& memory) const override {
-                const auto it = central_message_boxes.find(id);
-                if (it == central_message_boxes.end()) {
+                const auto it = queued_message_boxes.find(id);
+                if (it == queued_message_boxes.end()) {
                     on_visible ? it->second.visible_callback : it->second.hidden_callback = command;
                 }
             }
@@ -586,9 +586,9 @@ namespace randomizer::seed {
             std::size_t id;
             void execute(Seed& seed, SeedMemory& memory) const override {
                 message_boxes_with_timeouts.erase(id);
-                message_boxes[id].message = std::make_shared<core::api::messages::MessageBox>();
-                message_boxes[id].message->text_processor(general_text_processor());
-                central_message_boxes.erase(id);
+                free_message_boxes[id].message = std::make_shared<core::api::messages::MessageBox>();
+                free_message_boxes[id].message->text_processor(general_text_processor());
+                queued_message_boxes.erase(id);
             }
 
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return std::format("FreeMessageCreate {}", id); }
@@ -600,8 +600,8 @@ namespace randomizer::seed {
 
             std::size_t id;
             void execute(Seed& seed, SeedMemory& memory) const override {
-                if (message_boxes.contains(id)) {
-                    message_boxes[id].message->show(false, memory.booleans.get(0));
+                if (free_message_boxes.contains(id)) {
+                    free_message_boxes[id].message->show(false, memory.booleans.get(0));
                 }
             }
 
@@ -614,8 +614,8 @@ namespace randomizer::seed {
 
             std::size_t id;
             void execute(Seed& seed, SeedMemory& memory) const override {
-                if (message_boxes.contains(id)) {
-                    message_boxes[id].message->hide(false);
+                if (free_message_boxes.contains(id)) {
+                    free_message_boxes[id].message->hide(false);
                 }
             }
 
@@ -628,8 +628,8 @@ namespace randomizer::seed {
 
             std::size_t id;
             void execute(Seed& seed, SeedMemory& memory) const override {
-                if (message_boxes.contains(id)) {
-                    message_boxes[id].message->position().set(memory.floats.get(0), memory.floats.get(1), 0.f);
+                if (free_message_boxes.contains(id)) {
+                    free_message_boxes[id].message->position().set(memory.floats.get(0), memory.floats.get(1), 0.f);
                 }
             }
 
@@ -646,8 +646,8 @@ namespace randomizer::seed {
             std::size_t id;
             app::AlignmentMode__Enum alignment;
             void execute(Seed& seed, SeedMemory& memory) const override {
-                if (message_boxes.contains(id)) {
-                    message_boxes[id].message->alignment().set(alignment);
+                if (free_message_boxes.contains(id)) {
+                    free_message_boxes[id].message->alignment().set(alignment);
                 }
             }
 
@@ -664,8 +664,8 @@ namespace randomizer::seed {
             std::size_t id;
             core::api::screen_position::ScreenPosition screen_position;
             void execute(Seed& seed, SeedMemory& memory) const override {
-                if (message_boxes.contains(id)) {
-                    message_boxes[id].message->screen_position().set(screen_position);
+                if (free_message_boxes.contains(id)) {
+                    free_message_boxes[id].message->screen_position().set(screen_position);
                 }
             }
 
@@ -683,8 +683,8 @@ namespace randomizer::seed {
             app::VerticalAnchorMode__Enum anchor;
 
             void execute(Seed& seed, SeedMemory& memory) const override {
-                if (message_boxes.contains(id)) {
-                    message_boxes[id].message->vertical_anchor().set(anchor);
+                if (free_message_boxes.contains(id)) {
+                    free_message_boxes[id].message->vertical_anchor().set(anchor);
                 }
             }
 
@@ -702,8 +702,8 @@ namespace randomizer::seed {
             app::HorizontalAnchorMode__Enum anchor;
 
             void execute(Seed& seed, SeedMemory& memory) const override {
-                if (message_boxes.contains(id)) {
-                    message_boxes[id].message->horizontal_anchor().set(anchor);
+                if (free_message_boxes.contains(id)) {
+                    free_message_boxes[id].message->horizontal_anchor().set(anchor);
                 }
             }
 
@@ -718,10 +718,10 @@ namespace randomizer::seed {
 
             std::size_t id;
             void execute(Seed& seed, SeedMemory& memory) const override {
-                message_boxes.erase(id);
+                free_message_boxes.erase(id);
                 message_boxes_with_timeouts.erase(id);
-                if (central_message_boxes.contains(id)) {
-                    central_message_boxes.at(id).handle->time_left = 0;
+                if (queued_message_boxes.contains(id)) {
+                    queued_message_boxes.at(id).handle->time_left = 0;
                 }
             }
 
@@ -734,13 +734,13 @@ namespace randomizer::seed {
 
             std::size_t id;
             void execute(Seed& seed, SeedMemory& memory) const override {
-                const auto it = central_message_boxes.find(id);
-                if (it != central_message_boxes.end() && !it->second.handle->message.expired()) {
+                const auto it = queued_message_boxes.find(id);
+                if (it != queued_message_boxes.end() && !it->second.handle->message.expired()) {
                     it->second.handle->message.lock()->text().process_and_set(memory.strings.get(0));
                 }
 
-                const auto qit = message_boxes.find(id);
-                if (qit != message_boxes.end()) {
+                const auto qit = free_message_boxes.find(id);
+                if (qit != free_message_boxes.end()) {
                     qit->second.message->text().process_and_set(memory.strings.get(0));
                 }
             }
@@ -756,13 +756,13 @@ namespace randomizer::seed {
 
             std::size_t id;
             void execute(Seed& seed, SeedMemory& memory) const override {
-                const auto it = central_message_boxes.find(id);
-                if (it != central_message_boxes.end() && !it->second.handle->message.expired()) {
+                const auto it = queued_message_boxes.find(id);
+                if (it != queued_message_boxes.end() && !it->second.handle->message.expired()) {
                     it->second.handle->time_left = memory.floats.get(0);
                 }
 
-                const auto qit = message_boxes.find(id);
-                if (qit != message_boxes.end()) {
+                const auto qit = free_message_boxes.find(id);
+                if (qit != free_message_boxes.end()) {
                     qit->second.timeout = memory.floats.get(0);
                     message_boxes_with_timeouts.emplace(qit->first);
                 }
@@ -779,13 +779,13 @@ namespace randomizer::seed {
 
             std::size_t id;
             void execute(Seed& seed, SeedMemory& memory) const override {
-                const auto it = central_message_boxes.find(id);
-                if (it != central_message_boxes.end() && !it->second.handle->message.expired()) {
+                const auto it = queued_message_boxes.find(id);
+                if (it != queued_message_boxes.end() && !it->second.handle->message.expired()) {
                     it->second.handle->message.lock()->show_box().set(memory.booleans.get(0));
                 }
 
-                const auto qit = message_boxes.find(id);
-                if (qit != message_boxes.end()) {
+                const auto qit = free_message_boxes.find(id);
+                if (qit != free_message_boxes.end()) {
                     qit->second.message->show_box().set(memory.booleans.get(0));
                 }
             }
@@ -1519,12 +1519,17 @@ namespace randomizer::seed {
 
     void destroy_volatile_seed_data() {
         timers.clear();
-        central_message_boxes.clear();
+        queued_message_boxes.clear();
+        free_message_boxes.clear();
 
         for (const auto& icon: warp_icons | std::views::values) {
             remove_icon(icon);
         }
 
         warp_icons.clear();
+    }
+
+    void destroy_free_message_boxes() {
+        free_message_boxes.clear();
     }
 } // namespace randomizer::seed
