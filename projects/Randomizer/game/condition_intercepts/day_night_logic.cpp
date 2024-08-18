@@ -1,6 +1,7 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
+#include <Core/property/reactivity.h>
 #include <Randomizer/conditions/condition_override.h>
 #include <Randomizer/conditions/new_setup_state_override.h>
 
@@ -184,20 +185,35 @@ namespace {
         return 0;
     }
 
+    std::optional<il2cpp::WeakGCRef<app::GameObject>> mokk_the_brave_setup_ref = std::nullopt;
+    std::shared_ptr<core::reactivity::ReactiveEffect> mokk_the_brave_effect = nullptr;
+
+    void update_mokk_the_brave_presence() {
+        if (!mokk_the_brave_setup_ref.has_value() || !mokk_the_brave_setup_ref->is_valid()) {
+            mokk_the_brave_setup_ref = std::nullopt;
+            return;
+        }
+
+        core::api::uber_states::UberState howl_escape_started(21786, 30656);
+        core::api::uber_states::UberState howl_escape_done(21786, 40322);
+
+        il2cpp::unity::set_active(
+            **mokk_the_brave_setup_ref,
+            !howl_escape_started.get<bool>() || howl_escape_done.get<bool>()
+        );
+    }
+
     int32_t move_howl(app::NewSetupStateController* this_ptr, std::string const&, int32_t state, int32_t) {
         state = is_day() ? -1375966924 : 1361521887;
         const auto setup = il2cpp::unity::get_game_object(il2cpp::unity::get_parent(il2cpp::unity::get_transform(this_ptr)));
-        const auto moki = il2cpp::unity::find_child(setup, {std::string_view("#day"), "mokiNpcSetup"});
-        if (il2cpp::unity::is_valid(moki)) {
-            il2cpp::unity::set_parent(moki, setup);
-            il2cpp::unity::set_active(moki, true);
-        }
 
         const auto howl = il2cpp::unity::find_child(setup, {std::string_view("#night"), "nightcrawlerChase"});
         if (il2cpp::unity::is_valid(howl)) {
             il2cpp::unity::set_parent(howl, setup);
             il2cpp::unity::set_active(howl, true);
         }
+
+        update_mokk_the_brave_presence();
 
         return state;
     }
@@ -219,6 +235,30 @@ namespace {
     IL2CPP_INTERCEPT(PlayerAbilities, bool, HasAbility, (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability)) {
         return override_has_ability ? is_day() : next::PlayerAbilities::HasAbility(this_ptr, ability);
     }
+
+    auto on_swamp_nightcrawler_a_loaded = core::api::scenes::single_event_bus().register_handler("swampNightcrawlerA", [](core::api::scenes::SceneLoadEventMetadata* metadata, auto) {
+        if (metadata->state != app::SceneState__Enum::Loaded) {
+            return;
+        }
+
+        // Move Mokk the Brave out of the #day GameObject
+        const auto mokk_the_brave_go = il2cpp::unity::find_child(
+            metadata->scene->fields.SceneRoot,
+            std::vector<std::string>{
+                "artSetups",
+                "#day",
+                "mokiNpcSetup",
+            }
+        );
+
+        il2cpp::unity::set_parent(mokk_the_brave_go, metadata->scene->fields.SceneRoot);
+
+        mokk_the_brave_setup_ref = il2cpp::WeakGCRef(mokk_the_brave_go);
+
+        mokk_the_brave_effect = core::reactivity::watch_effect([] {
+            update_mokk_the_brave_presence();
+        });
+    });
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         using namespace randomizer::conditions;
