@@ -8,6 +8,10 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
 set(
         SOURCE_FILES
+        "archipelago/archipelago.cpp"
+        "archipelago/archipelago_ids.cpp"
+        "archipelago/archipelago_protocol.cpp"
+        "archipelago/archipelago_save_meta.cpp"
         "conditions/condition_override.cpp"
         "conditions/condition_uber_state.cpp"
         "conditions/new_setup_state_override.cpp"
@@ -218,6 +222,9 @@ set(
 
 set(
         PUBLIC_HEADER_FILES
+        "archipelago/archipelago.h"
+        "archipelago/archipelago_ids.h"
+        "archipelago/archipelago_protocol.h"
         "conditions/condition_override.h"
         "conditions/condition_uber_state.h"
         "conditions/new_setup_state_override.h"
@@ -364,6 +371,9 @@ target_link_libraries(${PROJECT_NAME} protobuf::libprotoc protobuf::libprotobuf 
 
 find_package(SDL3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} SDL3::SDL3)
+
+find_package(stduuid CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} stduuid)
 
 message(STATUS "Assigning source groups.")
 
