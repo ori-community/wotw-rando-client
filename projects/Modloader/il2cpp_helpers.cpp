@@ -16,11 +16,10 @@
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/il2cpp_api.h>
 
 #include <Common/ext.h>
 
-#include <codecvt>
-#include <locale>
 #include <vector>
 #include <xstring>
 

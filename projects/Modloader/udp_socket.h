@@ -5,7 +5,7 @@
 #include <functional>
 #include <memory>
 #include <span>
-#include <string_view>
+#include <string>
 #include <vector>
 
 namespace modloader {
