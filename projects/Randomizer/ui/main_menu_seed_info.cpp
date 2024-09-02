@@ -9,28 +9,29 @@
 #include <Core/api/graphics/sprite.h>
 #include <Core/api/messages/text_style.h>
 #include <Core/api/scenes/scene_load.h>
+#include <Core/api/system/save_files.h>
+#include <Core/events/action.h>
 #include <Core/utils/misc.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
+#include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/GameStateMachine.h>
+#include <Modloader/app/methods/Grdk/Wrapper.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/SaveGameController.h>
 #include <Modloader/app/methods/SaveSlotsManager.h>
 #include <Modloader/app/methods/SaveSlotsUI.h>
 #include <Modloader/app/methods/SetTitleScreenAction.h>
 #include <Modloader/app/methods/System/IO/File.h>
-#include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
-#include <Modloader/app/methods/GameController.h>
-#include <Modloader/app/methods/Grdk/Wrapper.h>
 #include <Modloader/app/types/CleverMenuItem.h>
 #include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/XboxLiveIdentityUI.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/game/spawning_and_preloading.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/legacy_parser/parser.h>
 #include <magic_enum.hpp>
-#include <Core/events/action.h>
-#include <Randomizer/game/spawning_and_preloading.h>
 
 using namespace utils;
 using namespace app::classes;
@@ -432,20 +433,9 @@ namespace randomizer::main_menu_seed_info {
             if (SaveSlotsManager::SaveFileExists(index)) {
                 on_seed_loaded_handle = nullptr;
 
-                const auto save_controller = core::api::game::save_controller();
-
-                app::Byte__Array* data;
-
-                if (Grdk::Wrapper::get_InitializedOk()) {  // Handle GRDK (Xbox live) saves
-                    data = Grdk::Wrapper::Load_1(index, -1);
-                } else {
-                    const auto save_info = SaveGameController::GetSaveFileInfo(save_controller, index, -1);
-                    data = System::IO::File::ReadAllBytes(save_info->fields.m_FullSaveFilePath);
-                }
-
                 auto seed_meta_data = std::make_shared<seed::SaveSlotSeedMetaData>();
                 const auto read_slots = core::save_meta::read_save_meta_slots_from_byte_array(
-                    data,
+                    core::api::save_files::get_byte_array(index, -1),
                     {
                         {SaveMetaSlot::SeedMetaData, seed_meta_data}
                     }
