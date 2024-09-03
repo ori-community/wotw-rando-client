@@ -199,6 +199,8 @@ namespace randomizer::league {
             const auto jwt = randomizer::online::get_jwt();
 
             submit_thread = std::make_shared<std::thread>([host, insecure, multiverse_id, jwt, save_slot_index]() {
+                il2cpp::attach_thread();
+
                 upload_attempt.store(0);
 
                 auto save_file_data = core::api::save_files::get_bytes(save_slot_index);
