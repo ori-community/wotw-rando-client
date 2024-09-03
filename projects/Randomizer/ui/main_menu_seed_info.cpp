@@ -435,7 +435,7 @@ namespace randomizer::main_menu_seed_info {
 
                 auto seed_meta_data = std::make_shared<seed::SaveSlotSeedMetaData>();
                 const auto read_slots = core::save_meta::read_save_meta_slots_from_byte_array(
-                    core::api::save_files::get_byte_array(index, -1),
+                    core::api::save_files::get_byte_array(index),
                     {
                         {SaveMetaSlot::SeedMetaData, seed_meta_data}
                     }

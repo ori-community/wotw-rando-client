@@ -14,9 +14,12 @@ namespace core::api::save_files {
         }
 
         auto save_info = SaveGameController::GetSaveFileInfo(game::save_controller(), slot_index, backup_index);
-        auto path = save_info->fields.m_FullBackupSaveFilePath;
-        auto path_str = il2cpp::convert_csstring(path);
-        return System::IO::File::ReadAllBytes(path);
+
+        return System::IO::File::ReadAllBytes(
+            backup_index >= 0
+                ? save_info->fields.m_FullBackupSaveFilePath
+                : save_info->fields.m_FullSaveFilePath
+        );
     }
 
     std::vector<std::byte> get_bytes(int slot_index, int backup_index) {
