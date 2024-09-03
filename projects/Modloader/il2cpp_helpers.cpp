@@ -929,6 +929,10 @@ namespace il2cpp {
 
     std::string get_class_namespace(Il2CppClass* klass) { return {il2cpp_class_get_namespace(klass)}; }
 
+    void attach_thread() {
+        il2cpp_thread_attach(il2cpp_domain_get());
+    }
+
     /**
      * Converts a C# string to std::string by truncating characters.
      * May lose special characters.

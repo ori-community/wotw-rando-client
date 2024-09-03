@@ -188,6 +188,8 @@ namespace il2cpp {
 
     IL2CPP_MODLOADER_DLLEXPORT std::string get_class_namespace(Il2CppClass* klass);
 
+    IL2CPP_MODLOADER_DLLEXPORT void attach_thread();
+
     template<typename Return = Il2CppClass>
     Return* get_class(std::string_view namezpace, std::string_view name) {
         return reinterpret_cast<Return*>(untyped::get_class(namezpace, name));
