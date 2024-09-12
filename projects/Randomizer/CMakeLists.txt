@@ -94,6 +94,7 @@ set(
         "game/behaviour_changes/teleporter_glades_identifier.cpp"
         "game/behaviour_changes/teleporter_map_activation.cpp"
         "game/behaviour_changes/teleporting_oob_fix.cpp"
+        "game/behaviour_changes/luma_trial_bubbles.cpp"
         "game/behaviour_changes/trials_leaderboards.cpp"
         "game/behaviour_changes/triple_jump_shockwave.cpp"
         "game/condition_intercepts/day_night_logic.cpp"
