@@ -1252,10 +1252,12 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        const auto increment = std::make_shared<items::ValueModifier<float, items::ValueOperator::Add>>();
-        increment->variable.assign(core::api::uber_states::UberState(4, 50 + weapon_upgrade_int));
-        increment->value.set(1.f);
-        data.add_item(increment);
+        if (weapon_upgrade_int >= 0 && weapon_upgrade_int <= 9) {
+            const auto increment = std::make_shared<items::ValueModifier<float, items::ValueOperator::Add>>();
+            increment->variable.assign(core::api::uber_states::UberState(4, 50 + weapon_upgrade_int));
+            increment->value.set(1.f);
+            data.add_item(increment);
+        }
 
         const auto item = std::make_shared<items::ValueModifier<float, items::ValueOperator::Assign>>();
         item->value.set(1.f);
@@ -2024,7 +2026,7 @@ namespace randomizer::seed::legacy_parser {
             } else {
                 // Remove comments.
                 line = line.substr(0, line.find("//"));
-            
+
                 if (line.starts_with("Flags:")) {
                     split_str(line.substr(6), meta.flags, ',');
                     for (auto& flag: meta.flags) {
