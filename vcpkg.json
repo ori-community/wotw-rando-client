@@ -43,5 +43,8 @@
   }, {
     "name" : "sdl2",
     "version>=" : "2.30.3"
+  }, {
+    "name" : "stduuid",
+    "version>=" : "1.2.3"
   } ]
 }

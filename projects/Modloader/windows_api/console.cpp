@@ -35,7 +35,7 @@ namespace modloader::win::console {
 
         Command root;
 
-        bool initialzed = false;
+        bool initialized = false;
         bool failed = false;
         FILE* console_file;
         std::future<std::string> console_input;
@@ -218,7 +218,7 @@ namespace modloader::win::console {
 
     void console_initialize() {
         console_file = nullptr;
-        initialzed = false;
+        initialized = false;
         failed = true;
         if (!AllocConsole()) {
             return;
@@ -247,13 +247,19 @@ namespace modloader::win::console {
         SetConsoleCP(GetACP());
         SetConsoleOutputCP(GetACP());
 
+        HANDLE console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        DWORD console_mode = 0;
+        GetConsoleMode(console_handle, &console_mode);
+        console_mode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+        SetConsoleMode(console_handle, console_mode);
+
         console_input = std::async(read_command);
-        initialzed = true;
+        initialized = true;
         failed = false;
     }
 
     void console_free() {
-        if (!initialzed) {
+        if (!initialized) {
             return;
         }
 
@@ -302,7 +308,7 @@ namespace modloader::win::console {
     void console_poll() {
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-        if (initialzed && console_input.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
+        if (initialized && console_input.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
             const auto command = console_input.get();
             if (command.rfind("echo ", 0) != std::string::npos) {
                 std::cout << command.substr(5, command.length()) << std::endl;
