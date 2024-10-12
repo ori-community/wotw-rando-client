@@ -11,12 +11,13 @@
 #include <Modloader/windows_api/common.h>
 #include <Modloader/windows_api/console.h>
 #include <Modloader/file_logging_handler.h>
+#include <Modloader/console_logging_handler.h>
 
+#include <Common/settings.h>
 #include <filesystem>
 #include <functional>
 #include <semaphore>
 
-#include <Common/settings.h>
 
 //---------------------------------------------------Globals-----------------------------------------------------
 
@@ -106,6 +107,7 @@ namespace modloader {
 
     std::shared_ptr<ILoggingHandler> buffer_logging_handler;
     std::shared_ptr<ILoggingHandler> file_logging_handler;
+    std::shared_ptr<ILoggingHandler> console_logging_handler;
 
     std::binary_semaphore wait_for_exit(0);
     IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(const std::filesystem::path& path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
@@ -113,6 +115,7 @@ namespace modloader {
 
         buffer_logging_handler = register_logging_handler(std::make_shared<BufferLoggingHandler>());
         file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(base_path() / csv_path));
+        console_logging_handler = register_logging_handler(std::make_shared<ConsoleLoggingHandler>());
 
         trace(MessageType::Info, "initialize", "Loading settings.");
 
