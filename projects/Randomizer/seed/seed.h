@@ -50,6 +50,7 @@ namespace randomizer::seed {
             int world_index = 0;
             bool race_mode = false;
             app::GameController_GameDifficultyModes__Enum intended_difficulty = app::GameController_GameDifficultyModes__Enum::Normal;
+            std::optional<std::string> archipelago_slot_name = std::nullopt;
         };
 
         struct SeedInfo {
