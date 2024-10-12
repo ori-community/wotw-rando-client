@@ -370,6 +370,9 @@ target_link_libraries(${PROJECT_NAME} protobuf::libprotoc protobuf::libprotobuf 
 find_package(SDL3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} SDL3::SDL3)
 
+find_package(stduuid CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} stduuid)
+
 message(STATUS "Assigning source groups.")
 
 set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES}")
