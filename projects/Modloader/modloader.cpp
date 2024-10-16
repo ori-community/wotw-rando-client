@@ -88,7 +88,7 @@ namespace modloader {
     }
 
     void debug(std::string const& group, std::string const& message) {
-        trace(MessageType::Info, group, message);
+        trace(MessageType::Debug, group, message);
     }
 
     void info(std::string const& group, std::string const& message) {
