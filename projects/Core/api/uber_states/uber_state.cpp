@@ -272,12 +272,12 @@ namespace core::api::uber_states {
             if (settings::dev_mode()) {
                 if (prev != value) {
                     const auto text = std::format("uber state ({}|{}) set to {} from {}", static_cast<int>(m_group), m_state, value, prev);
-                    info("uber_state", text);
+                    debug("uber_state", text);
                 } else if (has_volatile_value()) {
                     const auto text = std::format(
                         "uber state ({}|{}) set to {} because it had a volatile value set", static_cast<int>(m_group), m_state, value
                     );
-                    info("uber_state", text);
+                    debug("uber_state", text);
                 }
             }
 
