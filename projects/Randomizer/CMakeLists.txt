@@ -84,6 +84,7 @@ set(
         "game/behaviour_changes/fix_straight_grenades.cpp"
         "game/behaviour_changes/flap_without_glide.cpp"
         "game/behaviour_changes/instant_tp_activation.cpp"
+        "game/behaviour_changes/keep_shriek_health_bar_visible.cpp"
         "game/behaviour_changes/kwolok_boss_rubberbanding_fix.cpp"
         "game/behaviour_changes/luma_contact_switch_door_jank_fix.cpp"
         "game/behaviour_changes/patch2_kickback.cpp"
