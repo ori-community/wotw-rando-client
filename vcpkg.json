@@ -4,7 +4,7 @@
   "builtin-baseline" : "cd5e746ec203c8c3c61647e0886a8df8c1e78e41",
   "dependencies" : [ {
     "name" : "stb",
-    "version>=" : "2023-04-11#1"
+    "version>=" : "2024-07-29#1"
   }, {
     "name" : "ixwebsocket",
     "version>=" : "11.4.5#0",
@@ -24,7 +24,7 @@
     "version>=" : "0.15.3"
   }, {
     "name" : "libremidi",
-    "version>=" : "4.3.0"
+    "version>=" : "4.5.0"
   }, {
     "name" : "magic-enum",
     "version>=" : "0.9.5"
@@ -36,13 +36,13 @@
     "version>=" : "3.11.3"
   }, {
     "name" : "openssl",
-    "version>=" : "3.3.0"
+    "version>=" : "3.4.0"
   }, {
     "name" : "protobuf",
-    "version>=" : "3.21.12#3"
+    "version>=" : "3.21.12#4"
   }, {
     "name" : "sdl2",
-    "version>=" : "2.30.3"
+    "version>=" : "2.30.8"
   }, {
     "name" : "stduuid",
     "version>=" : "1.2.3"
