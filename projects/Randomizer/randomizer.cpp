@@ -108,6 +108,8 @@ namespace randomizer {
         });
 
         auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+            core::message_controller().clear_recent_messages();
+
             queue_input_unlocked_callback([]() {
                 randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 0), 0);
                 randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 1), 0);
