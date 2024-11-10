@@ -81,7 +81,7 @@ namespace randomizer::timing {
     }
 
     bool timer_should_run() {
-        return loaded_any_save_file && !game_finished;
+        return loaded_any_save_file && !game_finished && !timer_should_pause();
     }
 
     namespace {

@@ -20,6 +20,7 @@ namespace randomizer {
         NewGameSeedSourceUpdated,
     };
 
+    bool timer_should_pause();
     void reread_seed_source();
     void server_connect(long multiverse_id, bool force_reconnect = false);
     void server_reconnect_current_multiverse();
