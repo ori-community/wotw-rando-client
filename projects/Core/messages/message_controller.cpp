@@ -218,6 +218,10 @@ namespace core::messages {
         }
     }
 
+    void MessageController::clear_recent_messages() {
+        m_recent_messages.clear();
+    }
+
     void MessageController::clear_central() {
         m_central_display.clear();
         m_recent_display.clear();

@@ -61,6 +61,7 @@ namespace randomizer {
 
         bool reach_check_queued = false;
         bool reach_check_in_progress = false;
+        bool pause_timer = false;
 
         std::optional<long> multiverse_id_to_connect_to = std::nullopt;
 
@@ -107,7 +108,10 @@ namespace randomizer {
         });
 
         auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+            core::message_controller().clear_recent_messages();
+
             queue_input_unlocked_callback([]() {
+                pause_timer = false;
                 randomizer_seed.trigger(seed::SeedClientEvent::Spawn);
                 randomizer_seed.trigger(seed::SeedClientEvent::Reload);
                 core::api::game::save(true);
@@ -155,8 +159,10 @@ namespace randomizer {
         }
 
         auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
-            seed_meta_save_data->seed_source_string = new_game_seed_source->to_source_string();
-            seed_archive_save_data->seed_archive = new_game_seed_archive;
+            pause_timer = true;
+
+            seed_save_data->seed_source_string = new_game_seed_source->to_source_string();
+            seed_save_data->seed_content = new_game_seed_content;
             load_seed(false);
 
             // Allow cheats in offline games and clear GUID restrictions
@@ -257,6 +263,10 @@ namespace randomizer {
             });
         });
     } // namespace
+
+    bool timer_should_pause() {
+        return pause_timer;
+    }
 
     void load_new_game_source() {
         std::ifstream seed_source_file(modloader::base_path() / ".newgameseedsource", std::ios::binary);

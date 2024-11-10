@@ -31,7 +31,10 @@
 #include <Randomizer/features/credits.h>
 
 #define CPPHTTPLIB_OPENSSL_SUPPORT
+#include <Core/api/system/save_files.h>
 #include <Core/ipc/ipc.h>
+#include <Modloader/app/methods/Grdk/Wrapper.h>
+#include <Modloader/app/methods/System/IO/File.h>
 #include <httplib.h>
 #undef MessageBox
 
@@ -173,7 +176,7 @@ namespace randomizer::league {
             status_message_mutex.unlock();
         }
 
-        void start_submission_thread(const std::string& save_file_path) {
+        void start_submission_thread(const int save_slot_index) {
             using namespace std::chrono_literals;
 
             if (!get_multiverse_id().has_value()) {
@@ -195,11 +198,12 @@ namespace randomizer::league {
             const auto multiverse_id = get_multiverse_id().value();
             const auto jwt = randomizer::online::get_jwt();
 
-            submit_thread = std::make_shared<std::thread>([host, insecure, multiverse_id, jwt, save_file_path]() {
+            submit_thread = std::make_shared<std::thread>([host, insecure, multiverse_id, jwt, save_slot_index]() {
+                il2cpp::attach_thread();
+
                 upload_attempt.store(0);
 
-                std::ifstream input(save_file_path, std::ios::binary);
-                std::vector<char> save_file_data(std::istreambuf_iterator<char>(input), {});
+                auto save_file_data = core::api::save_files::get_bytes(save_slot_index);
 
                 while (submission_status.load() == SubmissionStatus::Uploading) {
                     const auto attempt = upload_attempt.fetch_add(1) + 1;
@@ -215,7 +219,7 @@ namespace randomizer::league {
                         auto result = client.Post(std::format("/api/league/{}/submission", multiverse_id), {
                             {"User-Agent", std::format("OriAndTheWillOfTheWispsRandomizer/{}", randomizer_version().to_string())},
                             {"Authorization", std::format("Bearer {}", jwt)}
-                        }, save_file_data.data(), save_file_data.size(), "application/octet-stream");
+                        }, reinterpret_cast<char*>(save_file_data.data()), save_file_data.size(), "application/octet-stream");
 
                         if (result.error() != httplib::Error::Success) {
                             set_status_message_thread_safe("Request failed");
@@ -319,8 +323,7 @@ namespace randomizer::league {
                     core::api::audio::play_sound(SoundEventID::LeagueSubmitted);
 
                     const auto save_controller = core::api::game::save_controller();
-                    const auto current_save_file_path = il2cpp::convert_csstring(SaveGameController::get_CurrentSaveFileInfo(save_controller)->fields.m_FullSaveFilePath);
-                    start_submission_thread(current_save_file_path);
+                    start_submission_thread(SaveGameController::get_CurrentSlotIndex(save_controller));
                 });
             } else {
                 const auto resolved_epilogue_timeline = il2cpp::invoke<app::MoonTimeline>(shriek_entity->fields.EpilogueTimeline, "Resolve", 0);

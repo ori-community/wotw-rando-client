@@ -1,8 +1,6 @@
 #pragma once
 
-#include <Modloader/app/il2cpp_api.h>
 #include <Modloader/app/structs/Component_1.h>
-#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/List_1_System_Int32_.h>
 #include <Modloader/app/structs/Scene.h>
 #include <Modloader/app/structs/ScriptableObject.h>
@@ -13,7 +11,7 @@
 #include <Modloader/windows_api/memory.h>
 #include <memory>
 
-#include <string_view>
+#include <string>
 #include <vector>
 
 using GCHandleId = uint32_t;
@@ -189,6 +187,8 @@ namespace il2cpp {
     IL2CPP_MODLOADER_DLLEXPORT std::string get_class_name(Il2CppClass* klass);
 
     IL2CPP_MODLOADER_DLLEXPORT std::string get_class_namespace(Il2CppClass* klass);
+
+    IL2CPP_MODLOADER_DLLEXPORT void attach_thread();
 
     template<typename Return = Il2CppClass>
     Return* get_class(std::string_view namezpace, std::string_view name) {
