@@ -9,6 +9,11 @@
 #include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/PlayerAbilities.h>
 #include <Modloader/app/methods/TimeUtility.h>
+#include <Modloader/app/methods/SavePedestalController.h>
+#include <Modloader/app/methods/ScenesManager.h>
+#include <Modloader/app/methods/SeinDoorHandler.h>
+#include <Modloader/app/methods/Portal.h>
+#include <Modloader/app/methods/PlatformMovementPortalVisitor.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
@@ -146,6 +151,8 @@ namespace randomizer::timing {
             }
         );
 
+        std::optional<app::Vector2> death_position_before_respawn = std::nullopt;
+
         auto on_respawn = core::api::game::event_bus().register_handler(
             GameEvent::Respawn,
             EventTiming::Before,
@@ -154,19 +161,17 @@ namespace randomizer::timing {
                     return;
                 }
 
-                save_stats->report_respawn();
-            }
-        );
+                if (death_position_before_respawn.has_value()) {
+                    save_stats->report_teleport(
+                        death_position_before_respawn.value(),
+                        modloader::math::convert(core::api::game::player::get_position()),
+                        SaveFileGameStats::TeleportReason::Death
+                    );
 
-        auto on_teleport = core::api::game::event_bus().register_handler(
-            GameEvent::Teleport,
-            EventTiming::Before,
-            [](GameEvent event, EventTiming timing) {
-                if (!timer_should_run()) {
-                    return;
+                    death_position_before_respawn = std::nullopt;
                 }
 
-                save_stats->report_teleport();
+                save_stats->report_respawn();
             }
         );
 
@@ -177,6 +182,7 @@ namespace randomizer::timing {
                     return;
                 }
 
+                death_position_before_respawn = modloader::math::convert(core::api::game::player::get_position());
                 save_stats->report_death(core::api::game::player::get_current_area());
             }
         );
@@ -306,6 +312,82 @@ namespace randomizer::timing {
             }
 
             next::PlayerAbilities::SetAbility(this_ptr, ability, value);
+        }
+
+        auto scenes_manager_on_teleport_called_since_last_sein_door_handler_fixed_update = false;
+
+        IL2CPP_INTERCEPT(ScenesManager, void, OnTeleport, (app::ScenesManager * this_ptr, bool update_camera_target, bool move_camera_to_target)) {
+            next::ScenesManager::OnTeleport(this_ptr, update_camera_target, move_camera_to_target);
+            scenes_manager_on_teleport_called_since_last_sein_door_handler_fixed_update = true;
+        }
+
+        IL2CPP_INTERCEPT(SeinDoorHandler, void, FixedUpdate, (app::SeinDoorHandler* this_ptr)) {
+            scenes_manager_on_teleport_called_since_last_sein_door_handler_fixed_update = false;
+
+            const auto previous_position = core::api::game::player::get_position();
+            next::SeinDoorHandler::FixedUpdate(this_ptr);
+
+            if (!timer_should_run()) {
+                return;
+            }
+
+            if (scenes_manager_on_teleport_called_since_last_sein_door_handler_fixed_update) {
+                const auto new_position = core::api::game::player::get_position();
+
+                save_stats->report_teleport(
+                    modloader::math::convert(previous_position),
+                    modloader::math::convert(new_position),
+                    SaveFileGameStats::TeleportReason::Door
+                );
+            }
+        }
+
+        IL2CPP_INTERCEPT(SavePedestalController, void, OnFadedToBlack, (app::SavePedestalController* this_ptr)) {
+            const auto previous_position = core::api::game::player::get_position();
+            next::SavePedestalController::OnFadedToBlack(this_ptr);
+
+            if (!timer_should_run()) {
+                return;
+            }
+
+            const auto new_position = core::api::game::player::get_position();
+
+            save_stats->report_teleport(
+                modloader::math::convert(previous_position),
+                modloader::math::convert(new_position),
+                SaveFileGameStats::TeleportReason::Teleporter
+            );
+        }
+
+        std::optional<app::Vector2> new_position_after_portal_teleportation = std::nullopt;
+
+        IL2CPP_INTERCEPT(Portal, void, PerformPortalTeleportation, (app::Portal * this_ptr, app::IPortalVisitor* portal_visitor)) {
+            const auto previous_position = core::api::game::player::get_position();
+            new_position_after_portal_teleportation = std::nullopt;
+
+            // This method will call set_Position on PlatformMovementPortalVisitor one or multiple times
+            next::Portal::PerformPortalTeleportation(this_ptr, portal_visitor);
+
+            if (!timer_should_run()) {
+                return;
+            }
+
+            if (!Portal::IsSein(this_ptr, portal_visitor)) {
+                return;
+            }
+
+            if (!new_position_after_portal_teleportation.has_value()) {
+                return;
+            }
+
+            save_stats->report_teleport(
+                modloader::math::convert(previous_position), *new_position_after_portal_teleportation, SaveFileGameStats::TeleportReason::Portal
+            );
+        }
+
+        IL2CPP_INTERCEPT(PlatformMovementPortalVisitor, void, set_Position, (app::PlatformMovementPortalVisitor* this_ptr, app::Vector3 value)) {
+            next::PlatformMovementPortalVisitor::set_Position(this_ptr, value);
+            new_position_after_portal_teleportation = modloader::math::convert(value);
         }
     } // namespace
 

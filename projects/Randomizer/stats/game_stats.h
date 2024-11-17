@@ -3,12 +3,12 @@
 #include <Core/enums/game_areas.h>
 #include <Core/enums/async_loading_state.h>
 #include <Core/enums/world_events.h>
-#include <Core/mood_guid.h>
 #include <Core/save_meta/save_meta.h>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
 
 #include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 NLOHMANN_JSON_NAMESPACE_BEGIN
 template <typename T>
@@ -110,6 +110,43 @@ namespace randomizer::timing {
             );
         };
 
+        enum class TeleportReason {
+            Unknown,
+            Teleporter,
+            Death,
+            Door,
+            Portal,
+        };
+
+        NLOHMANN_JSON_SERIALIZE_ENUM(
+            TeleportReason,
+            {
+                {TeleportReason::Unknown,    "Unknown"   },
+                {TeleportReason::Teleporter, "Teleporter"},
+                {TeleportReason::Death,      "Death"     },
+                {TeleportReason::Door,       "Door"      },
+                {TeleportReason::Portal,     "Portal"    },
+            }
+        );
+
+        struct Teleport {
+            float from_x = 0.f;
+            float from_y = 0.f;
+            float to_x = 0.f;
+            float to_y = 0.f;
+            float in_game_time = 0.f;
+            TeleportReason reason = TeleportReason::Unknown;
+
+            NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
+                Teleport,
+                from_x,
+                from_y,
+                to_x,
+                to_y,
+                reason
+            )
+        };
+
         // Tracking
         float time_since_last_checkpoint = 0.f;
         float in_game_time = 0.f;
@@ -137,6 +174,11 @@ namespace randomizer::timing {
          */
         std::map<WorldEvent, float> world_event_timestamps;
 
+        /**
+         * Teleports
+         */
+        std::vector<Teleport> teleports;
+
         // Stats
         float max_ppm_over_timespan = 0.f;
         float max_ppm_over_timespan_at = 0.f;
@@ -155,6 +197,7 @@ namespace randomizer::timing {
             collected_pickups,
             ability_timestamps,
             world_event_timestamps,
+            teleports,
             max_ppm_over_timespan,
             max_ppm_over_timespan_at,
             time_lost_to_deaths,
@@ -176,11 +219,11 @@ namespace randomizer::timing {
 
         void report_death(GameArea area);
 
+        void report_teleport(const app::Vector2& from, const app::Vector2& to, TeleportReason reason);
+
         void report_checkpoint_created();
 
         void report_respawn();
-
-        void report_teleport();
 
         float get_total_async_loading_time();
 
