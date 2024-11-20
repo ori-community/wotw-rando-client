@@ -118,17 +118,6 @@ namespace randomizer::timing {
             Portal,
         };
 
-        NLOHMANN_JSON_SERIALIZE_ENUM(
-            TeleportReason,
-            {
-                {TeleportReason::Unknown,    "Unknown"   },
-                {TeleportReason::Teleporter, "Teleporter"},
-                {TeleportReason::Death,      "Death"     },
-                {TeleportReason::Door,       "Door"      },
-                {TeleportReason::Portal,     "Portal"    },
-            }
-        );
-
         struct Teleport {
             float from_x = 0.f;
             float from_y = 0.f;
@@ -231,4 +220,15 @@ namespace randomizer::timing {
 
         void json_deserialize(nlohmann::json& j) override;
     };
+
+    NLOHMANN_JSON_SERIALIZE_ENUM(
+        SaveFileGameStats::TeleportReason,
+        {
+            {SaveFileGameStats::TeleportReason::Unknown,    "Unknown"   },
+            {SaveFileGameStats::TeleportReason::Teleporter, "Teleporter"},
+            {SaveFileGameStats::TeleportReason::Death,      "Death"     },
+            {SaveFileGameStats::TeleportReason::Door,       "Door"      },
+            {SaveFileGameStats::TeleportReason::Portal,     "Portal"    },
+        }
+    );
 } // namespace randomizer::timing
