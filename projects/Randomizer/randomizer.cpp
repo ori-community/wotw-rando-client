@@ -161,8 +161,8 @@ namespace randomizer {
         auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
             pause_timer = true;
 
-            seed_save_data->seed_source_string = new_game_seed_source->to_source_string();
-            seed_save_data->seed_content = new_game_seed_content;
+            seed_meta_save_data->seed_source_string = new_game_seed_source->to_source_string();
+            seed_archive_save_data->seed_archive = new_game_seed_archive;
             load_seed(false);
 
             // Allow cheats in offline games and clear GUID restrictions
@@ -385,13 +385,21 @@ namespace randomizer {
     }
 
     void check_seed_difficulty_enforcement() {
-        if (multiplayer_universe().should_enforce_seed_difficulty()) {
-            const auto game_controller = core::api::game::game_controller();
-            const auto current_difficulty = GameController::get_GameDifficultyMode(game_controller);
-            const auto intended_difficulty = game_seed().parser_output().meta.intended_difficulty;
+        const auto game_difficulties = [&]() -> seed::GameDifficultySettings {
+            if (multiplayer_universe().game_difficulty_settings_overrides().has_value()) {
+                return *multiplayer_universe().game_difficulty_settings_overrides();
+            }
 
-            if (current_difficulty != intended_difficulty) {
-                GameController::set_GameDifficultyMode(game_controller, intended_difficulty);
+            return game_seed().parser_output().meta.game_difficulties;
+        }();
+
+        const auto game_controller = core::api::game::game_controller();
+        const auto current_difficulty = GameController::get_GameDifficultyMode(game_controller);
+
+        if (game_difficulties.get_for_game_difficulty(current_difficulty) == seed::GameDifficultySetting::Deny) {
+            auto lowest_allowed_difficulty = game_difficulties.get_lowest_allowed_difficulty();
+            if (lowest_allowed_difficulty.has_value()) {
+                GameController::set_GameDifficultyMode(game_controller, *lowest_allowed_difficulty);
             }
         }
     }

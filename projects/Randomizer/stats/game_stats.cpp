@@ -32,6 +32,21 @@ namespace randomizer::timing {
         ++this->area_stats[area].deaths;
     }
 
+    void SaveFileGameStats::report_teleport(const app::Vector2& from, const app::Vector2& to, TeleportReason reason) {
+        teleports.emplace_back(
+            from.x,
+            from.y,
+            to.x,
+            to.y,
+            this->in_game_time,
+            reason
+        );
+
+        if (reason == TeleportReason::Teleporter) {
+            ++this->teleport_count;
+        }
+    }
+
     nlohmann::json SaveFileGameStats::json_serialize() {
         nlohmann::json j = *this;
         return j;
@@ -48,10 +63,6 @@ namespace randomizer::timing {
     void SaveFileGameStats::report_respawn() {
         this->time_lost_to_deaths += this->time_since_last_checkpoint;
         this->time_since_last_checkpoint = 0.f;
-    }
-
-    void SaveFileGameStats::report_teleport() {
-        ++this->teleport_count;
     }
 
     void SaveFileGameStats::report_pickup(GameArea area, const std::string& location_name) {

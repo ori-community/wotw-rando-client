@@ -87,8 +87,8 @@ namespace randomizer::online {
             process_set_save_guid_restrictions_message(*message);
         });
 
-        client.register_handler<Network::SetEnforceSeedDifficultyMessage>(Network::Packet_PacketID_SetEnforceSeedDifficultyMessage, [this](auto const& message) {
-            process_set_enforce_seed_difficulty_message(*message);
+        client.register_handler<Network::SetGameDifficultySettingsOverridesMessage>(Network::Packet_PacketID_SetGameDifficultySettingsOverridesMessage, [this](auto const& message) {
+            process_set_game_difficulty_settings_overrides_message(*message);
         });
 
         client.register_handler<Network::OverrideInGameTimeMessage>(Network::Packet_PacketID_OverrideInGameTimeMessage, [this](auto const& message) {
@@ -448,9 +448,28 @@ namespace randomizer::online {
         }
     }
 
-    void MultiplayerUniverse::process_set_enforce_seed_difficulty_message(const Network::SetEnforceSeedDifficultyMessage& message) {
-        if (message.shouldenforceseeddifficulty() != m_should_enforce_seed_difficulty) {
-            set_enforce_seed_difficulty(message.shouldenforceseeddifficulty());
+    void MultiplayerUniverse::process_set_game_difficulty_settings_overrides_message(const Network::SetGameDifficultySettingsOverridesMessage& message) {
+        if (message.has_overrides() == m_game_difficulty_settings_overrides.has_value()) {
+            return;
+        }
+
+        if (!message.has_overrides()) {
+            set_game_difficulty_settings_overrides(std::nullopt);
+            return;
+        }
+
+        if (
+            message.overrides().easy() != static_cast<int>(m_game_difficulty_settings_overrides->easy) ||
+            message.overrides().normal() != static_cast<int>(m_game_difficulty_settings_overrides->normal) ||
+            message.overrides().hard() != static_cast<int>(m_game_difficulty_settings_overrides->hard)
+        ) {
+            set_game_difficulty_settings_overrides(
+                seed::GameDifficultySettings{
+                    static_cast<seed::GameDifficultySetting>(message.overrides().easy()),
+                    static_cast<seed::GameDifficultySetting>(message.overrides().normal()),
+                    static_cast<seed::GameDifficultySetting>(message.overrides().hard()),
+                }
+            );
         }
     }
 
@@ -474,8 +493,8 @@ namespace randomizer::online {
         Network::SetSaveGuidRestrictionsMessage save_guid_restrictions_message = message->saveguidrestrictions();
         process_set_save_guid_restrictions_message(save_guid_restrictions_message);
 
-        Network::SetEnforceSeedDifficultyMessage enforce_seed_difficulty_message = message->enforceseeddifficulty();
-        process_set_enforce_seed_difficulty_message(enforce_seed_difficulty_message);
+        Network::SetGameDifficultySettingsOverridesMessage game_difficulty_settings_overrides_message = message->gamedifficultysettingsoverrides();
+        process_set_game_difficulty_settings_overrides_message(game_difficulty_settings_overrides_message);
 
         std::unordered_set<core::api::uber_states::UberState> states;
         for (auto& id: message->uberid()) {
@@ -509,10 +528,10 @@ namespace randomizer::online {
         }
     }
 
-    void MultiplayerUniverse::set_enforce_seed_difficulty(bool value) {
-        m_event_bus.trigger_event(Event::ShouldEnforceSeedDifficultyChanged, EventTiming::Before);
-        m_should_enforce_seed_difficulty = value;
-        m_event_bus.trigger_event(Event::ShouldEnforceSeedDifficultyChanged, EventTiming::After);
+    void MultiplayerUniverse::set_game_difficulty_settings_overrides(std::optional<seed::GameDifficultySettings> overrides) {
+        m_event_bus.trigger_event(Event::GameDifficultySettingsOverridesChanged, EventTiming::Before);
+        m_game_difficulty_settings_overrides = overrides;
+        m_event_bus.trigger_event(Event::GameDifficultySettingsOverridesChanged, EventTiming::After);
     }
 
     bool MultiplayerUniverse::is_in_incorrect_save_file() const {

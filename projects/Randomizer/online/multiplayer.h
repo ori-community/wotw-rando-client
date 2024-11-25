@@ -9,9 +9,10 @@
 
 #include <packets.pb.h>
 
+#include <Core/mood_guid.h>
+#include <Randomizer/seed/seed.h>
 #include <string>
 #include <vector>
-#include <Core/mood_guid.h>
 
 namespace randomizer::online {
     class MultiplayerUniverse {
@@ -19,7 +20,7 @@ namespace randomizer::online {
         enum class Event {
             ShouldBlockStartingNewGameChanged,
             MultiverseUpdated,
-            ShouldEnforceSeedDifficultyChanged,
+            GameDifficultySettingsOverridesChanged,
         };
 
         struct PlayerInfo {
@@ -40,7 +41,7 @@ namespace randomizer::online {
         void full_sync_states();
 
         bool should_block_starting_new_game() const { return m_should_block_starting_new_game; }
-        bool should_enforce_seed_difficulty() const { return m_should_enforce_seed_difficulty; }
+        std::optional<seed::GameDifficultySettings> game_difficulty_settings_overrides() const { return m_game_difficulty_settings_overrides; }
         app::Color local_player_color() const { return m_color; }
         std::optional<PlayerInfo> local_player() const;
         Network::WorldInfo const* get_world(int id) const;
@@ -60,7 +61,7 @@ namespace randomizer::online {
         void set_restrict_to_save_guid(const std::optional<core::MoodGuid>& value);
         void set_should_restrict_to_save_guid(bool value);
         void set_should_block_starting_new_game(bool value);
-        void set_enforce_seed_difficulty(bool value);
+        void set_game_difficulty_settings_overrides(std::optional<seed::GameDifficultySettings> overrides);
 
     private:
         struct MessageBoxStorage {
@@ -85,7 +86,7 @@ namespace randomizer::online {
         static void print_pickup(std::shared_ptr<Network::PrintPickupMessage> const& message);
 
         void process_set_save_guid_restrictions_message(const Network::SetSaveGuidRestrictionsMessage& message);
-        void process_set_enforce_seed_difficulty_message(const Network::SetEnforceSeedDifficultyMessage& message);
+        void process_set_game_difficulty_settings_overrides_message(const Network::SetGameDifficultySettingsOverridesMessage& message);
 
         void initialize_game_sync(std::shared_ptr<Network::InitGameSyncMessage> const& message);
         void set_seed(std::shared_ptr<Network::SetSeedMessage> const& message);
@@ -111,7 +112,7 @@ namespace randomizer::online {
 
         std::optional<core::MoodGuid> m_restrict_to_save_guid = std::nullopt;
         bool m_should_restrict_to_save_guid = false;
-        bool m_should_enforce_seed_difficulty = false;
+        std::optional<seed::GameDifficultySettings> m_game_difficulty_settings_overrides = std::nullopt;
         std::optional<core::MoodGuid> m_report_player_save_guid = std::nullopt;
     };
 } // namespace randomizer::online

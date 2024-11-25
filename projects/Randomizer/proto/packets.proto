@@ -34,7 +34,7 @@ message Packet {
     SetPlayerSaveGuidMessage = 28;
     SetSaveGuidRestrictionsMessage = 29;
     OverrideInGameTimeMessage = 30;
-    SetEnforceSeedDifficultyMessage = 32;
+    SetGameDifficultySettingsOverridesMessage = 32;
 
     TrackerUpdate = 100;
     ResetTracker = 101;
@@ -76,8 +76,20 @@ message SetSaveGuidRestrictionsMessage {
   bool shouldRestrictSaveGuid = 2;
 }
 
-message SetEnforceSeedDifficultyMessage {
-  bool shouldEnforceSeedDifficulty = 1;
+message GameDifficultySettings {
+  enum Setting {
+    Allow = 0;
+    Warn = 1;
+    Deny = 2;
+  }
+
+  Setting easy = 1;
+  Setting normal = 2;
+  Setting hard = 3;
+}
+
+message SetGameDifficultySettingsOverridesMessage {
+  optional GameDifficultySettings overrides = 1;
 }
 
 message InitGameSyncMessage {
@@ -85,7 +97,7 @@ message InitGameSyncMessage {
   bool blockStartingNewGame = 2;
   SetSaveGuidRestrictionsMessage saveGuidRestrictions = 3;
   bool preventCheats = 4;
-  SetEnforceSeedDifficultyMessage enforceSeedDifficulty = 5;
+  SetGameDifficultySettingsOverridesMessage gameDifficultySettingsOverrides = 5;
 }
 
 message SetPlayerSaveGuidMessage {
