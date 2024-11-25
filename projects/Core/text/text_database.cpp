@@ -182,6 +182,7 @@ namespace core::text {
         register_text(*static_text_entry::CurrencyPlural, "Shillings");
         register_text(*static_text_entry::CurrencyPlural, "Silver");
         register_text(*static_text_entry::CurrencyPlural, "Slivers");
+        register_text(*static_text_entry::CurrencyPlural, "Smackeroonis");
         register_text(*static_text_entry::CurrencyPlural, "Socks");
         register_text(*static_text_entry::CurrencyPlural, "Solari");
         register_text(*static_text_entry::CurrencyPlural, "Souls");
@@ -268,6 +269,7 @@ namespace core::text {
         register_text(*static_text_entry::CurrencySingular, "Shilling");
         register_text(*static_text_entry::CurrencySingular, "Silver");
         register_text(*static_text_entry::CurrencySingular, "Sliver");
+        register_text(*static_text_entry::CurrencySingular, "Smackerooni");
         register_text(*static_text_entry::CurrencySingular, "Sock");
         register_text(*static_text_entry::CurrencySingular, "Solari");
         register_text(*static_text_entry::CurrencySingular, "Soul");
