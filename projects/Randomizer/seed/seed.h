@@ -42,6 +42,47 @@ namespace randomizer::seed {
         using inner_location_entries = std::unordered_map<inner_location_entry, ItemData>;
         using location_entry = core::api::uber_states::UberState;
 
+        enum class GameDifficultySetting {
+            Allow,
+            Warn,
+            Deny,
+        };
+
+        struct GameDifficultySettings {
+            GameDifficultySetting easy = GameDifficultySetting::Warn;
+            GameDifficultySetting normal = GameDifficultySetting::Warn;
+            GameDifficultySetting hard = GameDifficultySetting::Warn;
+
+            GameDifficultySetting get_for_game_difficulty(app::GameController_GameDifficultyModes__Enum difficulty) const {
+                switch (difficulty) {
+                    case app::GameController_GameDifficultyModes__Enum::Easy:
+                        return easy;
+                    case app::GameController_GameDifficultyModes__Enum::Normal:
+                        return normal;
+                    case app::GameController_GameDifficultyModes__Enum::Hard:
+                        return hard;
+                }
+
+                throw std::exception("Invalid difficulty given");
+            }
+
+            std::optional<app::GameController_GameDifficultyModes__Enum> get_lowest_allowed_difficulty() const {
+                if (easy == GameDifficultySetting::Allow) {
+                    return app::GameController_GameDifficultyModes__Enum::Easy;
+                }
+
+                if (normal == GameDifficultySetting::Allow) {
+                    return app::GameController_GameDifficultyModes__Enum::Normal;
+                }
+
+                if (hard == GameDifficultySetting::Allow) {
+                    return app::GameController_GameDifficultyModes__Enum::Hard;
+                }
+
+                return std::nullopt;
+            }
+        };
+
         struct SeedMetaData {
             semver::version version = semver::version(0, 0, 0);
             std::vector<std::string> flags;
@@ -49,7 +90,7 @@ namespace randomizer::seed {
             std::string slug;
             int world_index = 0;
             bool race_mode = false;
-            app::GameController_GameDifficultyModes__Enum intended_difficulty = app::GameController_GameDifficultyModes__Enum::Normal;
+            GameDifficultySettings game_difficulties;
         };
 
         struct SeedInfo {

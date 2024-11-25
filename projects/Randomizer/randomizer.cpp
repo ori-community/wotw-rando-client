@@ -364,13 +364,21 @@ namespace randomizer {
     }
 
     void check_seed_difficulty_enforcement() {
-        if (multiplayer_universe().should_enforce_seed_difficulty()) {
-            const auto game_controller = core::api::game::game_controller();
-            const auto current_difficulty = GameController::get_GameDifficultyMode(game_controller);
-            const auto intended_difficulty = game_seed().info().meta.intended_difficulty;
+        const auto game_difficulties = [&]() -> seed::Seed::GameDifficultySettings {
+            if (multiplayer_universe().game_difficulty_settings_overrides().has_value()) {
+                return *multiplayer_universe().game_difficulty_settings_overrides();
+            }
 
-            if (current_difficulty != intended_difficulty) {
-                GameController::set_GameDifficultyMode(game_controller, intended_difficulty);
+            return game_seed().info().meta.game_difficulties;
+        }();
+
+        const auto game_controller = core::api::game::game_controller();
+        const auto current_difficulty = GameController::get_GameDifficultyMode(game_controller);
+
+        if (game_difficulties.get_for_game_difficulty(current_difficulty) == seed::Seed::GameDifficultySetting::Deny) {
+            auto lowest_allowed_difficulty = game_difficulties.get_lowest_allowed_difficulty();
+            if (lowest_allowed_difficulty.has_value()) {
+                GameController::set_GameDifficultyMode(game_controller, *lowest_allowed_difficulty);
             }
         }
     }

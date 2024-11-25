@@ -66,7 +66,7 @@ namespace randomizer::main_menu_seed_info {
         common::registration_handle_t on_seed_loaded_handle;
         common::registration_handle_t on_network_status_handle;
         common::registration_handle_t on_multiverse_update_handle;
-        common::registration_handle_t on_should_enforce_seed_difficulty_update_handle;
+        common::registration_handle_t on_game_difficulty_settings_overrides_update_handle;
 
         bool poll_current_seed_source_until_not_loading = false;
         std::shared_ptr<seed::SeedSource> current_seed_source = nullptr;
@@ -174,7 +174,7 @@ namespace randomizer::main_menu_seed_info {
             } else {
                 randomizer::server_disconnect();
                 multiplayer_universe().set_should_block_starting_new_game(false);
-                multiplayer_universe().set_enforce_seed_difficulty(false);
+                multiplayer_universe().set_game_difficulty_settings_overrides(std::nullopt);
                 multiplayer_universe().set_restrict_to_save_guid(std::nullopt);
                 multiplayer_universe().set_should_restrict_to_save_guid(false);
                 core::api::game::debug_menu::set_should_prevent_cheats(false);
@@ -236,26 +236,52 @@ namespace randomizer::main_menu_seed_info {
         }
 
         void on_new_game_with_difficulty_pressed(app::GameController_GameDifficultyModes__Enum difficulty) {
-            const auto intended_difficulty = std::holds_alternative<seed::Seed::SeedMetaData>(current_seed_meta_data_result)
-                ? std::make_optional(std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result).intended_difficulty)
-                : std::nullopt;
+            const auto game_difficulties = [&]() -> std::optional<seed::Seed::GameDifficultySettings> {
+                if (multiplayer_universe().game_difficulty_settings_overrides().has_value()) {
+                    return multiplayer_universe().game_difficulty_settings_overrides();
+                }
+
+                if (std::holds_alternative<seed::Seed::SeedMetaData>(current_seed_meta_data_result)) {
+                    return std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result).game_difficulties;
+                }
+
+                return std::nullopt;
+            }();
 
             GameController::set_GameDifficultyMode(core::api::game::game_controller(), difficulty);
 
-            if (randomizer::multiplayer_universe().should_enforce_seed_difficulty() || difficulty == intended_difficulty) {
+            if (game_difficulties.has_value() && game_difficulties->get_for_game_difficulty(difficulty) == seed::Seed::GameDifficultySetting::Allow) {
                 randomizer::game::start_new_game();
                 return;
             }
 
-            auto intended_difficulty_name = intended_difficulty == app::GameController_GameDifficultyModes__Enum::Easy
-                ? "Easy"
-                : (
-                    intended_difficulty == app::GameController_GameDifficultyModes__Enum::Hard
-                        ? "Hard"
-                        : "Normal"
-                );
+            std::vector<std::string> intended_difficulty_names;
 
-            show_question_dialog(std::format("The seed is intended for #{} Mode#.\nContinue anyways?", intended_difficulty_name));
+            if (game_difficulties.has_value()) {
+                if (game_difficulties->easy == seed::Seed::GameDifficultySetting::Allow) {
+                    intended_difficulty_names.emplace_back("Easy");
+                }
+
+                if (game_difficulties->normal == seed::Seed::GameDifficultySetting::Allow) {
+                    intended_difficulty_names.emplace_back("Normal");
+                }
+
+                if (game_difficulties->hard == seed::Seed::GameDifficultySetting::Allow) {
+                    intended_difficulty_names.emplace_back("Hard");
+                }
+            }
+
+            if (intended_difficulty_names.empty()) {
+                intended_difficulty_names.emplace_back("Normal (probably?)");
+            }
+
+            std::string combined_difficulty_names = "";
+            combined_difficulty_names += intended_difficulty_names[0];
+            for (int i = 1; i < intended_difficulty_names.size(); ++i) {
+                combined_difficulty_names += " or " + intended_difficulty_names[i];
+            }
+
+            show_question_dialog(std::format("The seed is intended for #{} Mode#.\nContinue anyways?", combined_difficulty_names));
         }
 
         void on_scene_load(const core::api::scenes::SceneLoadEventMetadata* metadata) {
@@ -396,8 +422,8 @@ namespace randomizer::main_menu_seed_info {
                     on_multiverse_update_handle = multiplayer_universe().event_bus().register_handler(
                         online::MultiplayerUniverse::Event::MultiverseUpdated, EventTiming::After, [](auto, auto) { update_text(); }
                     );
-                    on_should_enforce_seed_difficulty_update_handle = multiplayer_universe().event_bus().register_handler(
-                        online::MultiplayerUniverse::Event::ShouldEnforceSeedDifficultyChanged, EventTiming::After, [](auto, auto) { update_difficulty_menu_items(); }
+                    on_game_difficulty_settings_overrides_update_handle = multiplayer_universe().event_bus().register_handler(
+                        online::MultiplayerUniverse::Event::GameDifficultySettingsOverridesChanged, EventTiming::After, [](auto, auto) { update_difficulty_menu_items(); }
                     );
                     break;
                 }
@@ -528,9 +554,9 @@ namespace randomizer::main_menu_seed_info {
     } // namespace
 
     void update_difficulty_menu_items(bool try_select_intended_difficulty) {
-        auto allow_easy = false;
-        auto allow_normal = false;
-        auto allow_hard = false;
+        auto show_easy = false;
+        auto show_normal = false;
+        auto show_hard = false;
 
         const auto seed_metadata = std::holds_alternative<seed::Seed::SeedMetaData>(current_seed_meta_data_result)
             ? std::make_optional(std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result))
@@ -542,38 +568,45 @@ namespace randomizer::main_menu_seed_info {
             GameStateMachine::IsInExtendedTitleScreen(types::GameStateMachine::get_class()->static_fields->m_instance) &&
             selected_save_file_is_empty
         ) {
-            if (randomizer::multiplayer_universe().should_enforce_seed_difficulty()) {
-                if (seed_metadata.has_value()) {
-                    allow_easy = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Easy;
-                    allow_normal = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Normal;
-                    allow_hard = seed_metadata->intended_difficulty == app::GameController_GameDifficultyModes__Enum::Hard;
-                }
+            const auto online_overrides = randomizer::multiplayer_universe().game_difficulty_settings_overrides();
+            if (online_overrides.has_value()) {
+                show_easy = online_overrides->easy != seed::Seed::GameDifficultySetting::Deny;
+                show_normal = online_overrides->normal != seed::Seed::GameDifficultySetting::Deny;
+                show_hard = online_overrides->hard != seed::Seed::GameDifficultySetting::Deny;
             } else {
-                allow_easy = true;
-                allow_normal = true;
-                allow_hard = true;
+                if (seed_metadata.has_value()) {
+                    show_easy = seed_metadata->game_difficulties.easy != seed::Seed::GameDifficultySetting::Deny;
+                    show_normal = seed_metadata->game_difficulties.normal != seed::Seed::GameDifficultySetting::Deny;
+                    show_hard = seed_metadata->game_difficulties.hard != seed::Seed::GameDifficultySetting::Deny;
+                } else {
+                    show_easy = true;
+                    show_normal = true;
+                    show_hard = true;
+                }
             }
         }
 
-        do_if_valid<app::CleverMenuItem>(easy_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_easy); });
-        do_if_valid<app::CleverMenuItem>(normal_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, allow_normal); });
+        do_if_valid<app::CleverMenuItem>(easy_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, show_easy); });
+        do_if_valid<app::CleverMenuItem>(normal_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, show_normal); });
         do_if_valid<app::CleverMenuItem>(hard_mode_menu_item_handle, [&](auto menu_item) {
-            il2cpp::unity::set_active(menu_item, allow_hard);
+            il2cpp::unity::set_active(menu_item, show_hard);
             menu_item->fields.m_isDisabled = true;
 
+            auto lowest_allowed_difficulty = seed_metadata->game_difficulties.get_lowest_allowed_difficulty().value_or(app::GameController_GameDifficultyModes__Enum::Normal);
+
             auto select_index = try_select_intended_difficulty && seed_metadata.has_value()
-                ? static_cast<int>(seed_metadata->intended_difficulty)
+                ? static_cast<int>(lowest_allowed_difficulty)
                 : menu_item->fields.m_selectionManager->fields.Index;
 
-            if (select_index == 0 && !allow_easy) {
+            if (select_index == 0 && !show_easy) {
                 select_index = 1;
             }
 
-            if (select_index == 1 && !allow_normal) {
+            if (select_index == 1 && !show_normal) {
                 select_index = 2;
             }
 
-            if (select_index == 2 && !allow_hard) {
+            if (select_index == 2 && !show_hard) {
                 select_index = 0;
             }
 

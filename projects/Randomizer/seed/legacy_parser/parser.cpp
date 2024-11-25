@@ -2050,9 +2050,11 @@ namespace randomizer::seed::legacy_parser {
         }
 
         if (seedgen_config.has_value()) {
-            meta.intended_difficulty = (*seedgen_config)["worldSettings"][meta.world_index].value("hard", false)
-                    ? app::GameController_GameDifficultyModes__Enum::Hard
-                    : app::GameController_GameDifficultyModes__Enum::Normal;
+            if ((*seedgen_config)["worldSettings"][meta.world_index].value("hard", false)) {
+                meta.game_difficulties.hard = Seed::GameDifficultySetting::Allow;
+            } else {
+                meta.game_difficulties.normal = Seed::GameDifficultySetting::Allow;
+            }
         }
 
         return meta;
@@ -2169,9 +2171,11 @@ namespace randomizer::seed::legacy_parser {
         }
 
         if (seedgen_config.has_value()) {
-            data->info.meta.intended_difficulty = (*seedgen_config)["worldSettings"][data->info.meta.world_index].value("hard", false)
-                ? app::GameController_GameDifficultyModes__Enum::Hard
-                : app::GameController_GameDifficultyModes__Enum::Normal;
+            if ((*seedgen_config)["worldSettings"][data->info.meta.world_index].value("hard", false)) {
+                data->info.meta.game_difficulties.hard = Seed::GameDifficultySetting::Allow;
+            } else {
+                data->info.meta.game_difficulties.normal = Seed::GameDifficultySetting::Allow;
+            }
         }
 
         return true;
