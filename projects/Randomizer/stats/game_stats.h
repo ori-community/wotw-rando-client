@@ -132,6 +132,7 @@ namespace randomizer::timing {
                 from_y,
                 to_x,
                 to_y,
+                in_game_time,
                 reason
             )
         };
