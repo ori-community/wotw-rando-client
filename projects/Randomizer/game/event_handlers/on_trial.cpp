@@ -12,8 +12,6 @@
 #include <Randomizer/randomizer.h>
 #include <Randomizer/conditions/new_setup_state_override.h>
 
-bool is_in_trial = false;
-
 using namespace app::classes;
 
 namespace {

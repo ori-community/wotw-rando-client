@@ -23,6 +23,7 @@
 #include <Modloader/app/methods/MoonMath_Line.h>
 #include <Modloader/app/methods/MoonTimelineUiFader.h>
 #include <Modloader/app/methods/SpellUIItem.h>
+#include <Modloader/app/methods/RaceSystem.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Mesh.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
@@ -56,10 +57,8 @@ WheelBehavior wheel_behavior = WheelBehavior::Standalone;
 void refresh_wheel();
 
 extern bool disable_has_ability_overwrite;
-extern bool is_in_trial;
 
 namespace randomizer::features::wheel {
-
     namespace {
         struct CustomWheelEntry {
             using binding_action = void (*)(CustomWheelEntry const& entry, app::SpellUIItem* item, app::SpellInventory_Binding__Enum binding);
@@ -154,7 +153,7 @@ namespace randomizer::features::wheel {
                     Game::UI::IsInventoryVisible()))
                 return false;
 
-            return !is_in_trial;
+            return RaceSystem::get_IsIdle();
         }
 
         void handle_custom_wheel(bool pressed) {
