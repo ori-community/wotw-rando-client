@@ -14,7 +14,7 @@ namespace randomizer::game::map {
     namespace {
         std::string icon_label(const std::optional<location_data::Location>& location, const core::api::uber_states::UberStateCondition& condition) {
             auto name = location.has_value() && !location->name.empty() ? location->name : " ";
-            return std::format("[no_color([if([state_bool(34543|11226)],[pickup_text({0})],{1})])]", condition.serialize(), name);
+            return std::format("[if([state_bool(34543|11226)],[pickup_text({0})],{1})]", condition.serialize(), name);
         }
 
         MapIcon select_icon(const location_data::Location& location) {
