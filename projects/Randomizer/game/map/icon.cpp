@@ -116,6 +116,8 @@ namespace randomizer::game::map {
         core::reactivity::watch_effect()
             .effect([&] {
                 if (il2cpp::unity::is_valid(m_map_icon.get())) {
+                    m_map_icon.get()->fields.m_labelBox->fields.TextBox->fields.color = app::Color(1.0, 1.0, 1.0, 1.0);
+                    m_map_icon.get()->fields.m_labelBox->fields.FormatText = true;
                     m_map_icon.get()->fields.m_labelBox->fields.MessageProvider = core::api::system::create_message_provider(m_label.get());
                     MessageBox::RefreshText_1(m_map_icon.get()->fields.m_labelBox);
                 }
@@ -141,7 +143,7 @@ namespace randomizer::game::map {
                 }
             })
             .effect([&] {
-                // Needs to be outside the if because we want the before part of the effect to run and initialize the game_object.
+                // Needs to be outside the 'if' because we want the before part of the effect to run and initialize the game_object.
                 const auto visible = m_visible.get();
                 if (il2cpp::unity::is_valid(m_game_object.get())) {
                     UnityEngine::GameObject::set_active(m_game_object.get(), visible);
