@@ -114,6 +114,12 @@ namespace {
 
         const auto sein = core::api::game::player::sein();
 
+        // This check is an addition of the randomizer. In vanilla, you can teleport while being dead
+        // but this messes up a bunch of systems so it's not allowed here.
+        if (core::api::game::player::health().get() <= 0.f) {
+            return app::SavePedestalController_CanTeleportResult__Enum::Denied_PerformingCinematic;
+        }
+
         if (SeinLogicCycle::IsCharacterStateBlockedBy(
                 sein->fields.LogicCycle,
                 allow_tp_underwater_state.get<bool>()
