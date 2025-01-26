@@ -12,9 +12,27 @@ namespace randomizer::archipelago::messages {
     struct NetworkVersion {
         int major;
         int minor;
-        int patch;
+        int build;
+        std::string version_class;
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(NetworkVersion, major, minor, patch);
+        // The macro cannot be used, because an argument is called class.
+        template<typename BasicJsonType>
+        friend void to_json(BasicJsonType& nlohmann_json_j, const NetworkVersion& nlohmann_json_t)
+        {
+            nlohmann_json_j["major"] = nlohmann_json_t.major;
+            nlohmann_json_j["minor"] = nlohmann_json_t.minor;
+            nlohmann_json_j["build"] = nlohmann_json_t.build;
+            nlohmann_json_j["class"] = nlohmann_json_t.version_class;
+        }
+
+        template<typename BasicJsonType>
+        friend void from_json(const BasicJsonType& nlohmann_json_j, NetworkVersion& nlohmann_json_t)
+        {
+            nlohmann_json_t.major = nlohmann_json_j.at("major");
+            nlohmann_json_t.minor = nlohmann_json_j.at("minor");
+            nlohmann_json_t.build = nlohmann_json_j.at("build");
+            nlohmann_json_t.version_class = nlohmann_json_j.at("class");
+        }
     };
 
     enum SlotType {
@@ -64,6 +82,18 @@ namespace randomizer::archipelago::messages {
         std::string checksum;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(GameData, item_name_to_id, location_name_to_id, checksum);
+    };
+
+    struct DataPack {
+        std::unordered_map<std::string, GameData> games;
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(DataPack, games);
+    };
+
+    struct JSONMessage {
+        std::string text;
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(JSONMessage, text);
     };
 
     // Messages client -> server
@@ -156,11 +186,11 @@ namespace randomizer::archipelago::messages {
         );
     };
 
-    struct ReceivedItem {
+    struct ReceivedItems {
         int index;
         std::vector<NetworkItem> items;
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(ReceivedItem, index, items);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(ReceivedItems, index, items);
     };
 
     struct LocationInfo {
@@ -173,31 +203,31 @@ namespace randomizer::archipelago::messages {
         std::vector<NetworkPlayer> players;
         std::vector<ids::archipelago_id_t> checked_locations;
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(RoomUpdate, players, checked_locations);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(RoomUpdate, players, checked_locations);
     };
 
     struct PrintJSON {
-        std::vector<nlohmann::json> data;
+        std::vector<JSONMessage> data;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(PrintJSON, data);
     };
 
     struct InvalidPacket {
         std::string type;
-        std::string original_cmd;
+        std::string original_cmd;  // TODO can be null, which causes the parsing to fail
         std::string text;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(InvalidPacket, type, original_cmd, text);
     };
 
     struct DataPackage {
-        std::unordered_map<std::string, GameData> games;
+        DataPack data;
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(DataPackage, games);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(DataPackage, data);
     };
 
     using ap_server_message_t = std::
-        variant<Connected, ConnectionRefused, RoomInfo, ReceivedItem, LocationInfo, RoomUpdate, PrintJSON, InvalidPacket, DataPackage>;
+        variant<Connected, ConnectionRefused, RoomInfo, ReceivedItems, LocationInfo, RoomUpdate, PrintJSON, InvalidPacket, DataPackage>;
 
     std::optional<ap_server_message_t> parse_server_message(const nlohmann::json& message);
 } // namespace randomizer::archipelago::messages
