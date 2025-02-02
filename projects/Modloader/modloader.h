@@ -3,7 +3,6 @@
 #include <Common/event_bus.h>
 
 #include <Modloader/constants.h>
-#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 
 #include <atomic>
@@ -19,21 +18,6 @@ enum class ModloaderEvent {
 namespace modloader {
     using shutdown_handler = void (*)();
     IL2CPP_MODLOADER_DLLEXPORT std::filesystem::path base_path();
-
-    enum class InitializationType {
-        OnInjectionComplete,
-        OnGameReady,
-    };
-
-    struct IL2CPP_MODLOADER_DLLEXPORT Initialization {
-        using init = void (*)();
-
-        Initialization(init p_call, InitializationType when);
-
-        InitializationType when;
-        init call;
-        Initialization* next;
-    };
 
     template<typename T>
     struct ScopedSetter {

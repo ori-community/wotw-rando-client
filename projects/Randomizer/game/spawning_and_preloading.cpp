@@ -453,7 +453,7 @@ namespace randomizer::game {
                 return;
             }
 
-            if (core::api::game::debug_menu::should_prevent_cheats() && core::api::game::debug_menu::was_debug_active_this_session()) {
+            if (core::api::game::debug_menu::was_debug_active_this_session()) {
                 core::message_controller().queue_central({
                     .text = core::Property<std::string>::format(
                         "It is #forbidden# to play this game with #Debug Mode# enabled.\n"
