@@ -476,7 +476,7 @@ namespace randomizer::seed::legacy_parser {
         data.add_item(skip);
         auto skip_value = data.items_added;
 
-        const auto sub_parts = std::span(parts.begin() + 1, parts.end());
+        const auto sub_parts = std::span(parts.begin() + 4, parts.end());
         parse_action(location, sub_parts, data);
 
         skip_value = data.items_added - skip_value;
