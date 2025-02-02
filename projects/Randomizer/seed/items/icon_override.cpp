@@ -1,5 +1,5 @@
 #include <Randomizer/seed/items/icon_override.h>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 
 namespace randomizer::seed::items {
     void SetIconOverride::grant() {

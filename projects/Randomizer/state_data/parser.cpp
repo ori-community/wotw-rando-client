@@ -4,7 +4,7 @@
 #include <Randomizer/state_data/parser.h>
 
 #include <fstream>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 
 namespace randomizer::state_data {
     bool parse_state_data(std::filesystem::path path, std::unordered_map<core::api::uber_states::UberStateCondition, std::string>& states) {

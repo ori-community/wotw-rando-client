@@ -1,7 +1,7 @@
 {
   "name" : "wotw-rando-client",
   "version-string" : "1.0.0",
-  "builtin-baseline" : "cd5e746ec203c8c3c61647e0886a8df8c1e78e41",
+  "builtin-baseline" : "0ca64b4e1c70fa6d9f53b369b8f3f0843797c20c",
   "dependencies" : [ {
     "name" : "stb",
     "version>=" : "2024-07-29#1"
@@ -38,13 +38,19 @@
     "name" : "openssl",
     "version>=" : "3.4.0"
   }, {
-    "name" : "protobuf",
-    "version>=" : "3.21.12#4"
-  }, {
-    "name" : "sdl2",
-    "version>=" : "2.30.8"
-  }, {
     "name" : "stduuid",
     "version>=" : "1.2.3"
-  } ]
+  }, {
+    "name" : "sdl3",
+    "version>=" : "3.2.0"
+  }, {
+    "name" : "protobuf",
+    "version>=" : "3.21.12#4"
+  } ],
+  "overrides": [
+    {
+      "name": "protobuf",
+      "version": "3.21.12#4"
+    }
+  ]
 }

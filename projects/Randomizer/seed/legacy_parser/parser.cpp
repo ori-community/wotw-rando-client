@@ -31,7 +31,7 @@
 #include <Randomizer/seed/items/icon_override.h>
 #include <fstream>
 #include <iostream>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 #include <regex>
 #include <span>
 #include <string>

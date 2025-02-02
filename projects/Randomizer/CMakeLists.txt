@@ -358,12 +358,8 @@ target_link_libraries(${PROJECT_NAME} OpenSSL::SSL OpenSSL::Crypto)
 
 target_link_libraries(${PROJECT_NAME} protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
 
-find_package(SDL2 CONFIG REQUIRED)
-target_link_libraries(
-        ${PROJECT_NAME}
-        $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
-        $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
-)
+find_package(SDL3 CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} SDL3::SDL3)
 
 message(STATUS "Assigning source groups.")
 

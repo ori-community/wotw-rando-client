@@ -20,7 +20,7 @@
 #include <Modloader/app/types/PlayerUberStateGroup.h>
 #include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/modloader.h>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 
 using namespace modloader;
 using namespace app::classes;

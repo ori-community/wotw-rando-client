@@ -1,4 +1,4 @@
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/dev/seed_debugger.h>
 #include <Randomizer/seed/items/item.h>

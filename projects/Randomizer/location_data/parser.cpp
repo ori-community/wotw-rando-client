@@ -3,7 +3,7 @@
 #include <Randomizer/location_data/parser.h>
 
 #include <fstream>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 
 namespace randomizer::location_data {
     bool parse_location_data(std::filesystem::path path, location_data_emitter emitter) {

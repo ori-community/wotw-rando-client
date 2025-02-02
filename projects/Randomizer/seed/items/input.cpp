@@ -1,6 +1,6 @@
 #include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/seed/items/input.h>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 
 namespace randomizer::seed::items {
     void Input::grant() {
