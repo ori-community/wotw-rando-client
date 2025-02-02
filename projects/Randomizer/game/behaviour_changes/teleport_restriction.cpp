@@ -1,18 +1,19 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
+#include <Modloader/app/methods/CharacterPlatformMovement.h>
 #include <Modloader/app/methods/CharacterStateWrapper_1_SeinCinematic_.h>
 #include <Modloader/app/methods/CharacterStateWrapper_1_SeinInteraction_.h>
-#include <Modloader/app/methods/CharacterPlatformMovement.h>
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/RaceSystem.h>
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/methods/SeinLogicCycle.h>
-#include <Modloader/app/methods/TeleportRestrictZone.h>
 #include <Modloader/app/methods/SeinSwimming.h>
 #include <Modloader/app/methods/ShrineCombat.h>
 #include <Modloader/app/methods/ShrineCombat_RunningState.h>
+#include <Modloader/app/methods/TeleportRestrictZone.h>
 #include <Modloader/app/types/SavePedestalController.h>
 #include <Modloader/app/types/ShrineCombat.h>
+#include <Modloader/il2cpp_math.h>
 #include <Modloader/interception_macros.h>
 
 namespace {
@@ -101,7 +102,14 @@ namespace {
         }
 
         if (TeleportRestrictZone::IsPlayerInTeleportRestrictZone()) {
-            return app::SavePedestalController_CanTeleportResult__Enum::Denied_RestrictZone;
+            // Nobody has ever seen a tp restriction zone around the Inner Ruins TP...
+            constexpr app::Vector2 inner_ruins_tp_position {2125.27, -3978.36};
+            constexpr float inner_ruins_force_allow_tp_radius_squared = 196.f;  // sqrt = 14.f
+            const auto is_near_inner_ruins_tp = modloader::math::distance2(modloader::math::convert(core::api::game::player::get_position()), inner_ruins_tp_position) < inner_ruins_force_allow_tp_radius_squared;
+
+            if (!is_near_inner_ruins_tp) {
+                return app::SavePedestalController_CanTeleportResult__Enum::Denied_RestrictZone;
+            }
         }
 
         if (ShrineCombat::IsAnyShrineRunning() && !allow_tp_in_combat_shrines_state.get<bool>()) {
@@ -113,6 +121,12 @@ namespace {
         }
 
         const auto sein = core::api::game::player::sein();
+
+        // This check is an addition of the randomizer. In vanilla, you can teleport while being dead
+        // but this messes up a bunch of systems so it's not allowed here.
+        if (core::api::game::player::health().get() <= 0.f) {
+            return app::SavePedestalController_CanTeleportResult__Enum::Denied_PerformingCinematic;
+        }
 
         if (SeinLogicCycle::IsCharacterStateBlockedBy(
                 sein->fields.LogicCycle,

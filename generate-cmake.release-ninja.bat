@@ -8,5 +8,6 @@ cmake.exe ^
     -DCMAKE_TOOLCHAIN_FILE="%VCPKG_INSTALLATION_ROOT%\scripts\buildsystems\vcpkg.cmake" ^
     -DVCPKG_TARGET_TRIPLET=x64-windows-static-md ^
     -G Ninja ^
+    -D CMAKE_MAKE_PROGRAM=ninja ^
     -B cmake-build-relwithdebinfo
 pause
