@@ -20,6 +20,7 @@
 #include <Modloader/modloader.h>
 #include <Randomizer/constants.h>
 #include <Randomizer/features/area_segment_states.h>
+#include <Randomizer/features/door_randomizer.h>
 #include <Randomizer/randomizer.h>
 #include <chrono>
 
@@ -455,6 +456,17 @@ namespace randomizer {
                 states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, std::format("{:04d}_id", i * 2), i * 2, 0));
 
                 states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, std::format("{:04d}_value", i * 2 + 1), i * 2 + 1, 0));
+            }
+
+            // Doors
+            for (const auto& [door_id, state_id] : randomizer::doors::get_door_id_to_state_id_map()) {
+                const auto default_door_info = randomizer::doors::get_default_door_info(door_id);
+
+                const auto default_target_state_id = default_door_info.target_door_id.has_value()
+                    ? randomizer::doors::get_state_id_from_door_id(*default_door_info.target_door_id)
+                    : 0;
+
+                states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Doors, door_id, state_id, default_target_state_id));
             }
 
             dev::print_time(start_time, "Built custom state list");

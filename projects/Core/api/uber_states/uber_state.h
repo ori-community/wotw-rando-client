@@ -31,6 +31,8 @@ namespace core::api::uber_states {
 
         [[nodiscard]] bool valid() const;
 
+        bool enable_logging = true;
+
         void set(double value, bool ignore_intercept = false, bool ignore_notify = false) const;
 
         template <typename T = double>

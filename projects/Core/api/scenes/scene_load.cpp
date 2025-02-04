@@ -300,6 +300,16 @@ namespace core::api::scenes {
         return il2cpp::unity::get_game_object(scene->fields.SceneRoot);
     }
 
+    app::SceneRoot* get_scene_root(std::string_view name) {
+        const auto scenes_manager_scene = ScenesManager::GetSceneManagerScene(get_scenes_manager(), il2cpp::string_new(name));
+
+        if (!il2cpp::unity::is_valid(scenes_manager_scene)) {
+            return nullptr;
+        }
+
+        return scenes_manager_scene->fields.SceneRoot;
+    }
+
     std::vector<app::GameObject*> get_roots_from_active() {
         std::vector<app::GameObject*> game_objects;
         const auto scenes = types::Scenes::get_class();

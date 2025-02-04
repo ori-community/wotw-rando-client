@@ -47,6 +47,7 @@ namespace core::api::scenes {
     CORE_DLLEXPORT std::set<std::string> get_scenes_at_position(app::Vector3 position);
 
     CORE_DLLEXPORT app::GameObject* get_root(std::string_view name);
+    CORE_DLLEXPORT app::SceneRoot* get_scene_root(std::string_view name);
     CORE_DLLEXPORT std::vector<app::GameObject*> get_roots_from_active();
     CORE_DLLEXPORT app::GameObject* get_game_object(std::string_view path);
     CORE_DLLEXPORT void load_default_values();
