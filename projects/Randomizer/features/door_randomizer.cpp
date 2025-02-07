@@ -357,7 +357,7 @@ namespace randomizer::doors {
         for (auto& scene: il2cpp::ListIterator(scenes_manager->fields.AllScenes)) {
             if (il2cpp::convert_csstring(scene->fields.Scene) == target_loading_zone_cache->scene_name) {
                 il2cpp::invoke(scene->fields.SceneLoadingBoundaries, "Remove", &target_loading_zone_cache->rect);
-                return;
+                break;
             }
         }
 
