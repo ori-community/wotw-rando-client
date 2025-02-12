@@ -10,6 +10,7 @@
 #include <Modloader/app/methods/SeinDoorHandler.h>
 #include <Modloader/app/types/LegacyDoor.h>
 #include <Modloader/app/types/SceneMetaData.h>
+#include <Modloader/app/types/ReverseSceneLoadingZone.h>
 #include <Modloader/il2cpp_math.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/features/door_randomizer.h>
@@ -188,12 +189,30 @@ namespace randomizer::doors {
                         from_door.target_loading_zones_cache.push_back(zone);
 
                         ScenesManager::GenerateGuidToRuntimeSceneMetaDataDictionaryAndQuadTree(scenes_manager, true);
-                        return;
+                        goto next_scene;
                     }
                 }
+
+                modloader::warn("door_randomizer", std::format("Could not setup target loading zone '{}' for target door '{}'", scene_name, *from_door.target_door_id));
+
+                next_scene:;
             }
 
-            modloader::warn("door_randomizer", std::format("Could not setup target loading zone for target door '{}'", *from_door.target_door_id));
+            // We need to override the target of the first ReverseSceneLoadingZone component in a door because
+            // it *may* be used to determine a scene to preload in case the normal loading zone is not fast enough
+            // with loading the actual target door.
+            const auto reverse_loading_zone = il2cpp::unity::get_component_in_children<app::ReverseSceneLoadingZone>(
+                il2cpp::unity::get_game_object(door),
+                types::ReverseSceneLoadingZone::get_class(),
+                true
+            );
+
+            if (reverse_loading_zone != nullptr) {
+                const auto runtime_scene_meta = core::api::scenes::get_runtime_scene_metadata(to_door.scene_names.at(0));
+                const auto scene_meta = types::SceneMetaData::create();
+                scene_meta->fields.SceneMoonGuid = runtime_scene_meta->fields.SceneMoonGuid;
+                reverse_loading_zone->fields.SceneToLoad = scene_meta;
+            }
         }
 
         [[maybe_unused]] auto on_scene_load = core::api::scenes::event_bus().register_handler([](core::api::scenes::SceneLoadEventMetadata* metadata) {
@@ -282,6 +301,9 @@ namespace randomizer::doors {
                 }
 
                 door->fields.OtherDoorName = il2cpp::string_new(*it->second.target_door_id);
+
+                auto x = il2cpp::unity::get_path(door->fields.EnterDoorAction);
+                auto y = il2cpp::unity::get_path(door->fields.ComeOutOfDoorAction);
 
                 if (it->second.target_door_id.has_value()) {
                     const auto to_it = doors.find(*it->second.target_door_id);
