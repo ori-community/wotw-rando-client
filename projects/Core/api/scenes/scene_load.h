@@ -25,7 +25,7 @@ namespace core::api::scenes {
     CORE_DLLEXPORT common::EventBus<SceneLoadEventMetadata*>& event_bus();
     CORE_DLLEXPORT common::EventBus<SceneLoadEventMetadata*, std::string>& single_event_bus();
 
-    CORE_DLLEXPORT app::RuntimeSceneMetaData* get_scene_metadata(std::string_view scene);
+    CORE_DLLEXPORT app::RuntimeSceneMetaData* get_runtime_scene_metadata(std::string_view scene);
 
     CORE_DLLEXPORT bool is_in_game();
     CORE_DLLEXPORT app::RuntimeSceneMetaData* current_scene();
@@ -37,6 +37,7 @@ namespace core::api::scenes {
     CORE_DLLEXPORT app::SceneState__Enum scene_state(std::string_view scene);
     CORE_DLLEXPORT void enable_scene(std::string_view scene, bool async = false);
 
+    CORE_DLLEXPORT void force_enable_scene(std::string_view scene);
     CORE_DLLEXPORT void force_load_scene(std::string_view scene, scene_loading_callback callback, bool keep_preloaded = false, bool async = true);
     CORE_DLLEXPORT void unload_all_scenes();
     CORE_DLLEXPORT void allow_unload_scene(std::string_view scene_name);
@@ -46,6 +47,7 @@ namespace core::api::scenes {
     CORE_DLLEXPORT std::set<int> get_scene_ids_at_position(app::Vector3 position);
     CORE_DLLEXPORT std::set<std::string> get_scenes_at_position(app::Vector3 position);
 
+    CORE_DLLEXPORT app::SceneManagerScene* get_scene_manager_scene(std::string_view name);
     CORE_DLLEXPORT app::GameObject* get_root(std::string_view name);
     CORE_DLLEXPORT app::SceneRoot* get_scene_root(std::string_view name);
     CORE_DLLEXPORT std::vector<app::GameObject*> get_roots_from_active();

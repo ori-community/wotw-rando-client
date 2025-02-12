@@ -15,6 +15,7 @@
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 
+#include <Modloader/app/methods/SceneRoot.h>
 #include <set>
 #include <unordered_set>
 
@@ -29,7 +30,7 @@ namespace core::api::scenes {
     };
 
     std::unordered_map<std::string, PendingScene> scenes_to_load;
-    bool scene_loader_debug_logging = false;
+    bool scene_loader_debug_logging = true;
 
     app::ScenesManager* get_scenes_manager() {
         return types::Scenes::get_class()->static_fields->Manager;
@@ -109,7 +110,7 @@ namespace core::api::scenes {
         return bus;
     }
 
-    app::RuntimeSceneMetaData* get_scene_metadata(std::string_view scene) {
+    app::RuntimeSceneMetaData* get_runtime_scene_metadata(std::string_view scene) {
         auto scenes_manager = get_scenes_manager();
         auto scene_name_csstring = il2cpp::string_new(scene);
         return ScenesManager::GetSceneInformation(scenes_manager, scene_name_csstring);
@@ -145,22 +146,22 @@ namespace core::api::scenes {
     }
 
     bool scene_is_loading(std::string_view scene) {
-        auto metadata = get_scene_metadata(scene);
+        auto metadata = get_runtime_scene_metadata(scene);
         return ScenesManager::SceneIsLoading(get_scenes_manager(), metadata->fields.SceneMoonGuid);
     }
 
     bool scene_is_loaded(std::string_view scene) {
-        auto metadata = get_scene_metadata(scene);
+        auto metadata = get_runtime_scene_metadata(scene);
         return ScenesManager::SceneIsLoaded(get_scenes_manager(), metadata->fields.SceneMoonGuid);
     }
 
     bool scene_is_enabled(std::string_view scene) {
-        auto metadata = get_scene_metadata(scene);
+        auto metadata = get_runtime_scene_metadata(scene);
         return ScenesManager::SceneIsEnabled_2(get_scenes_manager(), metadata->fields.SceneMoonGuid);
     }
 
     app::SceneState__Enum scene_state(std::string_view scene) {
-        auto metadata = get_scene_metadata(scene);
+        auto metadata = get_runtime_scene_metadata(scene);
         auto scene_manager_scene = ScenesManager::GetFromCurrentScenes_1(get_scenes_manager(), metadata);
 
         if (scene_manager_scene == nullptr) {
@@ -171,7 +172,7 @@ namespace core::api::scenes {
     }
 
     void enable_scene(std::string_view scene, bool async) {
-        auto metadata = get_scene_metadata(scene);
+        auto metadata = get_runtime_scene_metadata(scene);
         auto scene_manager_scene = ScenesManager::GetFromCurrentScenes_1(get_scenes_manager(), metadata);
 
         if (scene_manager_scene == nullptr) {
@@ -179,6 +180,18 @@ namespace core::api::scenes {
         }
 
         return ScenesManager::EnableDisabledScene(get_scenes_manager(), scene_manager_scene, async);
+    }
+
+    void force_enable_scene(std::string_view scene_name) {
+        const auto scene_manager_scene = get_scene_manager_scene(scene_name);
+
+        if (!il2cpp::unity::is_valid(scene_manager_scene)) {
+            return;
+        }
+
+        SceneManagerScene::PreEnableScene(scene_manager_scene);
+        SceneRoot::EnableSceneImmediate(scene_manager_scene->fields.SceneRoot);
+        SceneManagerScene::PostEnableScene(scene_manager_scene);
     }
 
     void force_load_scene(std::string_view scene, scene_loading_callback callback, bool keep_preloaded, bool async) {
@@ -218,7 +231,7 @@ namespace core::api::scenes {
     }
 
     void allow_unload_scene(std::string_view scene_name) {
-        auto scene_metadata = get_scene_metadata(scene_name);
+        auto scene_metadata = get_runtime_scene_metadata(scene_name);
         if (scene_metadata != nullptr) {
             ScenesManager::UnsetPreventUnloading_2(get_scenes_manager(), scene_metadata);
         }
@@ -300,8 +313,12 @@ namespace core::api::scenes {
         return il2cpp::unity::get_game_object(scene->fields.SceneRoot);
     }
 
+    app::SceneManagerScene* get_scene_manager_scene(std::string_view name) {
+        return ScenesManager::GetSceneManagerScene(get_scenes_manager(), il2cpp::string_new(name));
+    }
+
     app::SceneRoot* get_scene_root(std::string_view name) {
-        const auto scenes_manager_scene = ScenesManager::GetSceneManagerScene(get_scenes_manager(), il2cpp::string_new(name));
+        const auto scenes_manager_scene = get_scene_manager_scene(name);
 
         if (!il2cpp::unity::is_valid(scenes_manager_scene)) {
             return nullptr;

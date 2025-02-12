@@ -1,10 +1,15 @@
+#include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/system/message_provider.h>
 #include <Core/property/reactivity.h>
+#include <Modloader/app/methods/CharacterPlatformMovement.h>
+#include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/RuntimeSceneMetaData.h>
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/SeinDoorHandler.h>
 #include <Modloader/app/types/LegacyDoor.h>
+#include <Modloader/app/types/SceneMetaData.h>
 #include <Modloader/il2cpp_math.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/features/door_randomizer.h>
@@ -68,38 +73,38 @@ namespace randomizer::doors {
 
         // Default door configurations. The actual used doors are below.
         const std::unordered_map<std::string, DoorInfo> DEFAULT_DOORS{
-            {"lupoShopDoorOutside",     {"wellspringGladesHubB", "lupoShopDoorInside"}               },
-            {"lupoShopDoorInside",      {"hutInteriorA", "lupoShopDoorOutside"}                      },
-            {"hutBEntrance",            {"wellspringGladesHub", "hutBExit"}                          },
-            {"hutBExit",                {"hutInteriorB", "hutBEntrance"}                             },
-            {"hutCEntrance",            {"wellspringGladesHub", "hutCExit"}                          },
-            {"hutCExit",                {"hutInteriorC", "hutCEntrance"}                             },
-            {"hutDEntrance",            {"wellspringGladesHubB", "hutDExit"}                         },
-            {"hutDExit",                {"hutInteriorD", "hutDEntrance"}                             },
-            {"hutEEntrance",            {"wellspringGladesHub", "hutEExit"}                          },
-            {"hutEExit",                {"hutInteriorE", "hutEEntrance"}                             },
-            {"hutFEntrance",            {"wellspringGladesHubB", "hutFExit"}                         },
-            {"hutFExit",                {"hutInteriorF", "hutFEntrance"}                             },
-            {"caveEntrance",            {"wellspringGladesHub", "caveExit"}                          },
-            {"caveExit",                {"hubCaveInterior", "caveEntrance"}                          },
-            {"waterMillOutsideDoorA",   {"waterMillEntrance", "waterMillInsideDoorA"}                },
-            {"waterMillInsideDoorA",    {"wotwSaveRoomC__clone0__clone1", "waterMillOutsideDoorA"}   },
-            {"waterMillOutsideDoorB",   {"waterMillEntrance", "waterMillInsideDoorB"}                },
-            {"waterMillInsideDoorB",    {"waterMillAExit", "waterMillOutsideDoorB"}                  },
-            {"waterMillOutsideDoorC",   {"waterMillEntrance", "waterMillInsideDoorC"}                },
-            {"waterMillInsideDoorC",    {"waterMillBEntrance", "waterMillOutsideDoorC"}              },
-            {"waterMillOutsideDoorD",   {"waterMillEntranceTop", "waterMillInsideDoorD"}             },
-            {"waterMillInsideDoorD",    {"waterMillCEntrance", "waterMillOutsideDoorD"}              },
-            {"baursReachHutEntrance",   {"baursReachGetAbility", "baursReachHutExit"}                },
-            {"baursReachHutExit",       {"baursReachHutInterior", "baursReachHutEntrance"}           },
-            {"petrifiedHutDoorOutside", {"petrifiedForestNewTransitionOri", "petrifiedHutDoorInside"}},
-            {"petrifiedHutDoorInside",  {"petrifiedForestHutInterior", "petrifiedHutDoorOutside"}    },
-            {"desertRuinsEntranceDoor", {"desertRuinsTowerEntranceA", "doorB"}                       },
-            {"doorB",                   {"windtornRuinsA", "desertRuinsEntranceDoor"}                },
-            {"willowsEndEntrance",      {"weepingRidgeWillowsEndEntrance", "willowsEndExit"}         },
-            {"willowsEndExit",          {"willowsEndHub", "willowsEndEntrance"}                      },
-            {"powlArenaEntrance",       {"willowsEndExit", "powlArenaExit"}                          },
-            {"powlArenaExit",           {"willowCeremonyIntro", "powlArenaEntrance"}                 },
+            {"lupoShopDoorOutside",     {{"wellspringGladesHubB"}, "lupoShopDoorInside"}                  },
+            {"lupoShopDoorInside",      {{"hutInteriorA"}, "lupoShopDoorOutside"}                         },
+            {"hutBEntrance",            {{"wellspringGladesHub"}, "hutBExit"}                             },
+            {"hutBExit",                {{"hutInteriorB"}, "hutBEntrance"}                                },
+            {"hutCEntrance",            {{"wellspringGladesHub", "wellspringGladesHubSetups"}, "hutCExit"} },
+            {"hutCExit",                {{"hutInteriorC"}, "hutCEntrance"}                                },
+            {"hutDEntrance",            {{"wellspringGladesHubB"}, "hutDExit"}                            },
+            {"hutDExit",                {{"hutInteriorD"}, "hutDEntrance"}                                },
+            {"hutEEntrance",            {{"wellspringGladesHub"}, "hutEExit"}                             },
+            {"hutEExit",                {{"hutInteriorE"}, "hutEEntrance"}                                },
+            {"hutFEntrance",            {{"wellspringGladesHubB", "wellspringGladesHubSetups"}, "hutFExit"}},
+            {"hutFExit",                {{"hutInteriorF"}, "hutFEntrance"}                                },
+            {"caveEntrance",            {{"wellspringGladesHub"}, "caveExit"}                             },
+            {"caveExit",                {{"hubCaveInterior"}, "caveEntrance"}                             },
+            {"waterMillOutsideDoorA",   {{"waterMillEntrance"}, "waterMillInsideDoorA"}                   },
+            {"waterMillInsideDoorA",    {{"wotwSaveRoomC__clone0__clone1"}, "waterMillOutsideDoorA"}      },
+            {"waterMillOutsideDoorB",   {{"waterMillEntrance"}, "waterMillInsideDoorB"}                   },
+            {"waterMillInsideDoorB",    {{"waterMillAExit"}, "waterMillOutsideDoorB"}                     },
+            {"waterMillOutsideDoorC",   {{"waterMillEntrance"}, "waterMillInsideDoorC"}                   },
+            {"waterMillInsideDoorC",    {{"waterMillBEntrance"}, "waterMillOutsideDoorC"}                 },
+            {"waterMillOutsideDoorD",   {{"waterMillEntranceTop"}, "waterMillInsideDoorD"}                },
+            {"waterMillInsideDoorD",    {{"waterMillCEntrance"}, "waterMillOutsideDoorD"}                 },
+            {"baursReachHutEntrance",   {{"baursReachGetAbility"}, "baursReachHutExit"}                   },
+            {"baursReachHutExit",       {{"baursReachHutInterior"}, "baursReachHutEntrance"}              },
+            {"petrifiedHutDoorOutside", {{"petrifiedForestNewTransitionOri"}, "petrifiedHutDoorInside"}   },
+            {"petrifiedHutDoorInside",  {{"petrifiedForestHutInterior"}, "petrifiedHutDoorOutside"}       },
+            {"desertRuinsEntranceDoor", {{"desertRuinsTowerEntranceA"}, "doorB"}                          },
+            {"doorB",                   {{"windtornRuinsA"}, "desertRuinsEntranceDoor"}                   },
+            {"willowsEndEntrance",      {{"weepingRidgeWillowsEndEntrance"}, "willowsEndExit"}            },
+            {"willowsEndExit",          {{"willowsEndHub"}, "willowsEndEntrance"}                         },
+            {"powlArenaEntrance",       {{"willowsEndExit"}, "powlArenaExit"}                             },
+            {"powlArenaExit",           {{"willowCeremonyIntro"}, "powlArenaEntrance"}                    },
         };
 
         // Actual door configuration
@@ -149,7 +154,7 @@ namespace randomizer::doors {
         };
 
         void setup_door(DoorInfo& from_door, app::LegacyDoor* door) {
-            from_door.clear_target_loading_zone();
+            from_door.clear_target_loading_zones();
 
             if (!from_door.target_door_id.has_value()) {
                 door->fields.OverrideEnterDoorMessage = core::api::system::create_message_provider("This door is closed");
@@ -161,28 +166,30 @@ namespace randomizer::doors {
             const auto& to_door = doors.at(*from_door.target_door_id);
             const auto door_position = modloader::math::convert(il2cpp::unity::get_position(door));
 
-            DoorLoadingZone zone{
-                to_door.scene_name,
-                {
-                    door_position.x - 20.f,
-                    door_position.y - 20.f,
-                    40.f, 40.f,
-                }
-            };
+            for (auto& scene_name : to_door.scene_names) {
+                DoorLoadingZone zone{
+                    scene_name,
+                    {
+                        door_position.x - 20.f,
+                        door_position.y - 20.f,
+                        40.f, 40.f,
+                    }
+                };
 
-            const auto scenes_manager = core::api::scenes::get_scenes_manager();
-            for (auto& scene: il2cpp::ListIterator(scenes_manager->fields.AllScenes)) {
-                if (il2cpp::convert_csstring(scene->fields.Scene) == to_door.scene_name) {
-                    il2cpp::invoke(scene->fields.SceneLoadingBoundaries, "Add", &zone.rect);
+                const auto scenes_manager = core::api::scenes::get_scenes_manager();
+                for (auto& scene: il2cpp::ListIterator(scenes_manager->fields.AllScenes)) {
+                    if (il2cpp::convert_csstring(scene->fields.Scene) == scene_name) {
+                        il2cpp::invoke(scene->fields.SceneLoadingBoundaries, "Add", &zone.rect);
 
-                    // Recalculate total scene rectangle
-                    scene->fields.m_doneTotal = false;
-                    RuntimeSceneMetaData::DoTotal(scene);
+                        // Recalculate total scene rectangle
+                        scene->fields.m_doneTotal = false;
+                        RuntimeSceneMetaData::DoTotal(scene);
 
-                    from_door.target_loading_zone_cache = zone;
+                        from_door.target_loading_zones_cache.push_back(zone);
 
-                    ScenesManager::GenerateGuidToRuntimeSceneMetaDataDictionaryAndQuadTree(scenes_manager, true);
-                    return;
+                        ScenesManager::GenerateGuidToRuntimeSceneMetaDataDictionaryAndQuadTree(scenes_manager, true);
+                        return;
+                    }
                 }
             }
 
@@ -207,7 +214,7 @@ namespace randomizer::doors {
                     continue;
                 }
 
-                if (door_it->second.has_target_loading_zone()) {
+                if (door_it->second.has_target_loading_zones()) {
                     continue;
                 }
 
@@ -229,6 +236,40 @@ namespace randomizer::doors {
             next::ScenesManager::Awake(this_ptr);
         }
 
+        auto prevent_placing_ori_on_ground = false;
+
+        IL2CPP_INTERCEPT(SeinDoorHandler, void, FixedUpdate, (app::SeinDoorHandler* this_ptr)) {
+            modloader::ScopedSetter _1(prevent_placing_ori_on_ground, true);
+            modloader::ScopedSetter _2(this_ptr->fields.m_createCheckpoint, false);
+            next::SeinDoorHandler::FixedUpdate(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(SeinDoorHandler, void, OnGoneThroughDoor, (app::SeinDoorHandler* this_ptr)) {
+            const auto sein = core::api::game::player::sein();
+            CharacterPlatformMovement::TeleportAndPlaceOnGround_1(
+                sein->fields.PlatformBehaviour->fields.PlatformMovement,
+                il2cpp::unity::get_position(this_ptr->fields.m_targetDoor),
+                0.1,
+                10.0
+            );
+
+            if (this_ptr->fields.m_createCheckpoint) {
+                const auto game_controller = core::api::game::game_controller();
+                GameController::CreateCheckpoint(game_controller, true, true);
+                GameController::PerformSaveGameSequence(game_controller);
+            }
+
+            next::SeinDoorHandler::OnGoneThroughDoor(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(CharacterPlatformMovement, bool, TeleportAndPlaceOnGround_2, (app::CharacterPlatformMovement * this_ptr, app::Vector3 target, app::RaycastHit* hit, float lift, float distance)) {
+            if (prevent_placing_ori_on_ground) {
+                return false;
+            }
+
+            return next::CharacterPlatformMovement::TeleportAndPlaceOnGround_2(this_ptr, target, hit, lift, distance);
+        }
+
         IL2CPP_INTERCEPT(SeinDoorHandler, void, EnterIntoDoor, (app::SeinDoorHandler * this_ptr, app::LegacyDoor* door)) {
             const auto door_name = il2cpp::unity::get_object_name(door);
 
@@ -241,6 +282,24 @@ namespace randomizer::doors {
                 }
 
                 door->fields.OtherDoorName = il2cpp::string_new(*it->second.target_door_id);
+
+                if (it->second.target_door_id.has_value()) {
+                    const auto to_it = doors.find(*it->second.target_door_id);
+
+                    if (to_it == doors.end()) {
+                        modloader::warn("door_randomizer", std::format("Unknown door '{}'", *it->second.target_door_id));
+                    } else {
+                        door->fields.AdditionalScenesToBlockOn = types::SceneMetaData::create_array(to_it->second.scene_names.size() - 1);
+
+                        for (int i = 0; i < to_it->second.scene_names.size() - 1; ++i) {
+                            const auto runtime_scene_meta = core::api::scenes::get_runtime_scene_metadata(to_it->second.scene_names.at(i));
+                            const auto scene_meta = types::SceneMetaData::create();
+                            scene_meta->fields.SceneMoonGuid = runtime_scene_meta->fields.SceneMoonGuid;
+
+                            door->fields.AdditionalScenesToBlockOn->vector[i] = scene_meta;
+                        }
+                    }
+                }
             }
 
             next::SeinDoorHandler::EnterIntoDoor(this_ptr, door);
@@ -261,10 +320,10 @@ namespace randomizer::doors {
                 if (target_it == doors.end()) {
                     modloader::warn("door_randomizer", std::format("Unknown door '{}'", door_name));
                 } else {
-                    const auto target_door_scene_name = target_it->second.scene_name;
+                    const auto target_door_scene_name = target_it->second.scene_names.at(0);
                     const auto scene_root = core::api::scenes::get_scene_root(target_door_scene_name);
 
-                    if (scene_root != nullptr) {
+                    if (scene_root != nullptr && il2cpp::unity::is_valid(scene_root)) {
                         const auto found_doors = il2cpp::unity::get_components_in_children<app::LegacyDoor>(scene_root, types::LegacyDoor::get_class(), true);
                         for (const auto& found_door: found_doors) {
                             if (il2cpp::unity::get_object_name(found_door) == *current_it->second.target_door_id) {
@@ -296,7 +355,7 @@ namespace randomizer::doors {
             auto& from_door = from_it->second;
             from_door.target_door_id = to_door_id;
 
-            from_door.clear_target_loading_zone();
+            from_door.clear_target_loading_zones();
 
             const auto scenes_manager = core::api::scenes::get_scenes_manager();
 
@@ -348,24 +407,22 @@ namespace randomizer::doors {
         });
     } // namespace
 
-    void DoorInfo::clear_target_loading_zone() {
-        if (!target_loading_zone_cache.has_value()) {
-            return;
-        }
-
-        const auto scenes_manager = core::api::scenes::get_scenes_manager();
-        for (auto& scene: il2cpp::ListIterator(scenes_manager->fields.AllScenes)) {
-            if (il2cpp::convert_csstring(scene->fields.Scene) == target_loading_zone_cache->scene_name) {
-                il2cpp::invoke(scene->fields.SceneLoadingBoundaries, "Remove", &target_loading_zone_cache->rect);
-                break;
+    void DoorInfo::clear_target_loading_zones() {
+        for (auto& target_loading_zone_cache : target_loading_zones_cache) {
+            const auto scenes_manager = core::api::scenes::get_scenes_manager();
+            for (auto& scene: il2cpp::ListIterator(scenes_manager->fields.AllScenes)) {
+                if (il2cpp::convert_csstring(scene->fields.Scene) == target_loading_zone_cache.scene_name) {
+                    il2cpp::invoke(scene->fields.SceneLoadingBoundaries, "Remove", &target_loading_zone_cache.rect);
+                    break;
+                }
             }
         }
 
-        target_loading_zone_cache = std::nullopt;
+        target_loading_zones_cache.clear();
     }
 
-    bool DoorInfo::has_target_loading_zone() const {
-        return target_loading_zone_cache.has_value();
+    bool DoorInfo::has_target_loading_zones() const {
+        return !target_loading_zones_cache.empty();
     }
 
     std::vector<DoorId> get_door_ids() {

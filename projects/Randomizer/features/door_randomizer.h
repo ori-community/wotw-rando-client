@@ -11,16 +11,16 @@ namespace randomizer::doors {
     };
 
     struct DoorInfo {
-        /** The name of the scene this door is in */
-        std::string scene_name;
+        /** Scenes that need to be loaded for this door to be functional. The first one needs to contain the actual LegacyDoor component */
+        std::vector<std::string> scene_names;
 
         /** The name of the target door, nullopt if the door is disabled */
         std::optional<DoorId> target_door_id;
 
-        std::optional<DoorLoadingZone> target_loading_zone_cache = std::nullopt;
+        std::vector<DoorLoadingZone> target_loading_zones_cache;
 
-        void clear_target_loading_zone();
-        bool has_target_loading_zone() const;
+        void clear_target_loading_zones();
+        bool has_target_loading_zones() const;
     };
 
     std::vector<DoorId> get_door_ids();
