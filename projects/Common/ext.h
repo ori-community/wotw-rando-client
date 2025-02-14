@@ -13,12 +13,12 @@
 #include <vector>
 
 enum class BooleanOperator {
-    GreaterOrEquals,
-    LesserOrEquals,
-    Equals,
-    NotEquals,
-    Greater,
-    Lesser
+    GreaterOrEquals = 0,
+    LesserOrEquals = 1,
+    Equals = 2,
+    NotEquals = 3,
+    Greater = 4,
+    Lesser = 5
 };
 
 struct BooleanOperatorResult {

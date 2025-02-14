@@ -4,7 +4,7 @@
 
 #include <unordered_set>
 
-namespace randomizer::seed {
+namespace randomizer::seedgen_interop {
     struct ReachCheckResult {
         struct Data
         {
@@ -17,7 +17,9 @@ namespace randomizer::seed {
         Data data;
     };
 
-    using reach_check_callback = std::function<void(const std::optional<ReachCheckResult>& result)>;
+    using reach_check_callback_t = std::function<void(const std::optional<ReachCheckResult>& result)>;
 
-    void reach_check(reach_check_callback callback);
+    void request_states_update_on_next_reach_check();
+    void reach_check(reach_check_callback_t callback);
+    bool is_state(const core::api::uber_states::UberStateCondition& condition);
 } // namespace randomizer::seed

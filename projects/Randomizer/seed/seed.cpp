@@ -197,7 +197,7 @@ namespace randomizer::seed {
                     timing::notify_pickup_collected(location_data->area, location_data->name);
                 }
 
-                if (location_data.has_value() || randomizer::state_collection().contains(condition)) {
+                if (location_data.has_value() || seedgen_interop::is_state(condition)) {
                     queue_reach_check_after_grant = true;
                 }
             }

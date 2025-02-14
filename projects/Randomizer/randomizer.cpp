@@ -1,17 +1,13 @@
 #include <Core/api/game/debug_menu.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
-#include <Core/api/game/ui.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/core.h>
 #include <Core/settings.h>
 #include <Modloader/app/methods/Game/UI_Hints.h>
 #include <Modloader/app/methods/GameController.h>
-#include <Modloader/app/methods/GameStateMachine.h>
-#include <Modloader/app/methods/TitleScreenManager.h>
 #include <Modloader/app/types/GameController.h>
-#include <Modloader/app/types/UI_Hints.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/game/pickups/quests.h>
@@ -20,7 +16,6 @@
 #include <Randomizer/online/network_monitor.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/legacy_parser/parser.h>
-#include <Randomizer/state_data/parser.h>
 #include <Randomizer/text_processors/ability.h>
 #include <Randomizer/text_processors/control.h>
 #include <Randomizer/text_processors/legacy.h>
@@ -28,7 +23,6 @@
 #include <Randomizer/text_processors/seed.h>
 #include <Randomizer/text_processors/shard.h>
 #include <Randomizer/text_processors/uber_state.h>
-#include <Randomizer/timer.h>
 #include <Randomizer/uber_states/uber_state_intercepts.h>
 #include <fstream>
 #include <utility>
@@ -38,9 +32,8 @@
 namespace randomizer {
     namespace {
         location_data::LocationCollection randomizer_location_collection;
-        std::unordered_map<core::api::uber_states::UberStateCondition, std::string> randomizer_state_name_map;
         seed::Seed randomizer_seed(randomizer_location_collection);
-        seed::ReachCheckResult reach_check_result;
+        seedgen_interop::ReachCheckResult reach_check_result;
         online::NetworkClient client;
         online::MultiplayerUniverse universe;
         std::shared_ptr<core::text::CompositeTextProcessor> text_processor;
@@ -66,7 +59,7 @@ namespace randomizer {
 
         std::optional<long> multiverse_id_to_connect_to = std::nullopt;
 
-        void on_reach_check(const std::optional<seed::ReachCheckResult>& result) {
+        void on_reach_check(const std::optional<seedgen_interop::ReachCheckResult>& result) {
             reach_check_in_progress = false;
 
             if (result.has_value()) {
@@ -87,7 +80,7 @@ namespace randomizer {
 
             reach_check_in_progress = true;
             event_bus().trigger_event(RandomizerEvent::ReachCheck, EventTiming::Before);
-            seed::reach_check(on_reach_check);
+            seedgen_interop::reach_check(on_reach_check);
             return true;
         }
 
@@ -146,6 +139,7 @@ namespace randomizer {
             features::wheel::initialize_default_wheel();
             game::shops::reset_shop_data();
             randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 1), 0);
+            seedgen_interop::request_states_update_on_next_reach_check();
             queue_reach_check();
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::Before);
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
@@ -155,9 +149,6 @@ namespace randomizer {
             event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::Before);
             randomizer_location_collection.read(modloader::base_path() / "loc_data.csv", location_data::parse_location_data);
             event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::After);
-
-            randomizer_state_name_map.clear();
-            state_data::parse_state_data(modloader::base_path() / "state_data.csv", randomizer_state_name_map);
 
             randomizer_seed.read(seed_save_data->seed_content, seed::legacy_parser::parse, show_message);
         }
@@ -390,11 +381,9 @@ namespace randomizer {
 
     location_data::LocationCollection& location_collection() { return randomizer_location_collection; }
 
-    std::unordered_map<core::api::uber_states::UberStateCondition, std::string>& state_collection() { return randomizer_state_name_map; }
-
     seed::Seed& game_seed() { return randomizer_seed; }
 
-    seed::ReachCheckResult const& reach_check() { return reach_check_result; }
+    seedgen_interop::ReachCheckResult const& reach_check() { return reach_check_result; }
 
     online::NetworkClient& network_client() { return client; }
 

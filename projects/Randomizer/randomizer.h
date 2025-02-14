@@ -37,10 +37,9 @@ namespace randomizer {
     void check_seed_difficulty_enforcement();
 
     void queue_reach_check();
-    seed::ReachCheckResult const& reach_check();
+    seedgen_interop::ReachCheckResult const& reach_check();
 
     common::TimedMultiEventBus<RandomizerEvent>& event_bus();
-    std::unordered_map<core::api::uber_states::UberStateCondition, std::string>& state_collection();
     location_data::LocationCollection& location_collection();
     seed::Seed& game_seed();
     online::NetworkClient& network_client();
