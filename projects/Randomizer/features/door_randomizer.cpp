@@ -7,12 +7,14 @@
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/RuntimeSceneMetaData.h>
 #include <Modloader/app/methods/ScenesManager.h>
+#include <Modloader/app/methods/SceneMetaData.h>
 #include <Modloader/app/methods/SeinDoorHandler.h>
 #include <Modloader/app/types/LegacyDoor.h>
-#include <Modloader/app/types/SceneMetaData.h>
 #include <Modloader/app/types/ReverseSceneLoadingZone.h>
+#include <Modloader/app/types/SceneMetaData.h>
 #include <Modloader/il2cpp_math.h>
 #include <Modloader/modloader.h>
+#include <Modloader/windows_api/console.h>
 #include <Randomizer/features/door_randomizer.h>
 #include <ranges>
 #include <set>
@@ -154,7 +156,7 @@ namespace randomizer::doors {
             {"willowCeremonyIntro",             {0}                  },
         };
 
-        void setup_door(DoorInfo& from_door, app::LegacyDoor* door) {
+        void setup_door_target_loading_zone(DoorInfo& from_door, app::LegacyDoor* door) {
             from_door.clear_target_loading_zones();
 
             if (!from_door.target_door_id.has_value()) {
@@ -197,20 +199,30 @@ namespace randomizer::doors {
 
                 next_scene:;
             }
+        }
+
+        void setup_door_reverse_scene_loading_zones(DoorInfo& from_door, app::LegacyDoor* door) {
+            if (!from_door.target_door_id.has_value()) {
+                return;
+            }
+
+            const auto& to_door = doors.at(*from_door.target_door_id);
 
             // We need to override the target of the first ReverseSceneLoadingZone component in a door because
             // it *may* be used to determine a scene to preload in case the normal loading zone is not fast enough
             // with loading the actual target door.
-            const auto reverse_loading_zone = il2cpp::unity::get_component_in_children<app::ReverseSceneLoadingZone>(
+            const auto reverse_loading_zones = il2cpp::unity::get_components_in_children<app::ReverseSceneLoadingZone>(
                 il2cpp::unity::get_game_object(door),
                 types::ReverseSceneLoadingZone::get_class(),
                 true
             );
 
-            if (reverse_loading_zone != nullptr) {
-                const auto runtime_scene_meta = core::api::scenes::get_runtime_scene_metadata(to_door.scene_names.at(0));
-                const auto scene_meta = types::SceneMetaData::create();
-                scene_meta->fields.SceneMoonGuid = runtime_scene_meta->fields.SceneMoonGuid;
+            const auto runtime_scene_meta = core::api::scenes::get_runtime_scene_metadata(to_door.scene_names.at(0));
+            const auto scene_meta = types::SceneMetaData::create();
+            SceneMetaData::ctor(scene_meta);
+            scene_meta->fields.SceneMoonGuid = runtime_scene_meta->fields.SceneMoonGuid;
+
+            for (auto& reverse_loading_zone: reverse_loading_zones) {
                 reverse_loading_zone->fields.SceneToLoad = scene_meta;
             }
         }
@@ -233,11 +245,13 @@ namespace randomizer::doors {
                     continue;
                 }
 
+                setup_door_reverse_scene_loading_zones(door_it->second, door);
+
                 if (door_it->second.has_target_loading_zones()) {
                     continue;
                 }
 
-                setup_door(door_it->second, door);
+                setup_door_target_loading_zone(door_it->second, door);
             }
         });
 
@@ -301,9 +315,6 @@ namespace randomizer::doors {
                 }
 
                 door->fields.OtherDoorName = il2cpp::string_new(*it->second.target_door_id);
-
-                auto x = il2cpp::unity::get_path(door->fields.EnterDoorAction);
-                auto y = il2cpp::unity::get_path(door->fields.ComeOutOfDoorAction);
 
                 if (it->second.target_door_id.has_value()) {
                     const auto to_it = doors.find(*it->second.target_door_id);
@@ -393,7 +404,7 @@ namespace randomizer::doors {
                 for (auto door: doors_in_scene) {
                     const auto door_name = il2cpp::unity::get_object_name(door);
                     if (door_name == from_door_id) {
-                        setup_door(from_door, door);
+                        setup_door_target_loading_zone(from_door, door);
                     }
                 }
             }
