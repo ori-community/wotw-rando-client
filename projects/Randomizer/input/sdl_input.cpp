@@ -14,11 +14,11 @@ namespace {
     using namespace app::classes;
 
     bool enable_native_controller_support = false;
-    SDL_Gamepad* controller = nullptr;
+    SDL_Gamepad* gamepad = nullptr;
 
     void detect_controller() {
-        if (controller != nullptr) {
-            SDL_CloseGamepad(controller);
+        if (gamepad != nullptr) {
+            SDL_CloseGamepad(gamepad);
         }
 
         int joystick_count;
@@ -26,17 +26,17 @@ namespace {
 
         for (int i = 0; i < joystick_count; i++) {
             if (SDL_IsGamepad(joysticks[i])) {
-                controller = SDL_OpenGamepad(joysticks[i]);
-                SDL_SetGamepadLED(controller, 255, 255, 255);
-                SDL_RumbleGamepad(controller, 0xFFFF, 0xFFFF, 225);
-                SDL_RumbleGamepadTriggers(controller, 0xFFFF, 0xFFFF, 225);
-                modloader::info("sdl_input", "Gamepad connected");
+                gamepad = SDL_OpenGamepad(joysticks[i]);
+                SDL_SetGamepadLED(gamepad, 255, 255, 255);
+                SDL_RumbleGamepad(gamepad, 0xFFFF, 0xFFFF, 225);
+                SDL_RumbleGamepadTriggers(gamepad, 0xFFFF, 0xFFFF, 225);
+                modloader::info("sdl_input", std::format("Gamepad connected: {}", SDL_GetGamepadName(gamepad)));
                 return;
             }
         }
 
-        modloader::info("sdl_input", "Controller lost");
-        controller = nullptr;
+        modloader::info("sdl_input", "Gamepad lost");
+        gamepad = nullptr;
     }
 
     [[maybe_unused]]
@@ -86,7 +86,7 @@ namespace {
             }
         }
 
-        if (controller == nullptr) {
+        if (gamepad == nullptr) {
             this_ptr->fields._isConnected = false;
             return;
         }
@@ -102,35 +102,35 @@ namespace {
         this_ptr->fields.gamepadStatePrev.Gamepad.wButtons = this_ptr->fields.gamepadStateCurrent.Gamepad.wButtons;
         this_ptr->fields.gamepadStatePrev.PacketNumber = this_ptr->fields.gamepadStateCurrent.PacketNumber;
 
-        this_ptr->fields.gamepadStateCurrent.Gamepad.sThumbLX = SDL_GetGamepadAxis(controller, SDL_GAMEPAD_AXIS_LEFTX);
-        this_ptr->fields.gamepadStateCurrent.Gamepad.sThumbLY = static_cast<short>(~SDL_GetGamepadAxis(controller, SDL_GAMEPAD_AXIS_LEFTY));
-        this_ptr->fields.gamepadStateCurrent.Gamepad.sThumbRX = SDL_GetGamepadAxis(controller, SDL_GAMEPAD_AXIS_RIGHTX);
-        this_ptr->fields.gamepadStateCurrent.Gamepad.sThumbRY = static_cast<short>(~SDL_GetGamepadAxis(controller, SDL_GAMEPAD_AXIS_RIGHTY));
-        this_ptr->fields.gamepadStateCurrent.Gamepad.bLeftTrigger = SDL_GetGamepadAxis(controller, SDL_GAMEPAD_AXIS_LEFT_TRIGGER) / 128;
-        this_ptr->fields.gamepadStateCurrent.Gamepad.bRightTrigger = SDL_GetGamepadAxis(controller, SDL_GAMEPAD_AXIS_RIGHT_TRIGGER) / 128;
+        this_ptr->fields.gamepadStateCurrent.Gamepad.sThumbLX = SDL_GetGamepadAxis(gamepad, SDL_GAMEPAD_AXIS_LEFTX);
+        this_ptr->fields.gamepadStateCurrent.Gamepad.sThumbLY = static_cast<short>(~SDL_GetGamepadAxis(gamepad, SDL_GAMEPAD_AXIS_LEFTY));
+        this_ptr->fields.gamepadStateCurrent.Gamepad.sThumbRX = SDL_GetGamepadAxis(gamepad, SDL_GAMEPAD_AXIS_RIGHTX);
+        this_ptr->fields.gamepadStateCurrent.Gamepad.sThumbRY = static_cast<short>(~SDL_GetGamepadAxis(gamepad, SDL_GAMEPAD_AXIS_RIGHTY));
+        this_ptr->fields.gamepadStateCurrent.Gamepad.bLeftTrigger = SDL_GetGamepadAxis(gamepad, SDL_GAMEPAD_AXIS_LEFT_TRIGGER) / 128;
+        this_ptr->fields.gamepadStateCurrent.Gamepad.bRightTrigger = SDL_GetGamepadAxis(gamepad, SDL_GAMEPAD_AXIS_RIGHT_TRIGGER) / 128;
         this_ptr->fields.gamepadStateCurrent.Gamepad.wButtons = static_cast<short>(
-            (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_DPAD_UP) << 0) +
-            (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_DPAD_DOWN) << 1) +
-            (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_DPAD_LEFT) << 2) +
-            (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_DPAD_RIGHT) << 3) +
-            (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_START) << 4) +
-            (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_BACK) << 5) +
-            (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_LEFT_STICK) << 6) +
-            (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_RIGHT_STICK) << 7) +
-            (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_LEFT_SHOULDER) << 8) +
-            (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_RIGHT_SHOULDER) << 9) +
-            (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_SOUTH) << 12) +
-            (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_EAST) << 13) +
-            (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_WEST) << 14) +
-            (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_NORTH) << 15)
+            (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_DPAD_UP) << 0) +
+            (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_DPAD_DOWN) << 1) +
+            (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_DPAD_LEFT) << 2) +
+            (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_DPAD_RIGHT) << 3) +
+            (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_START) << 4) +
+            (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_BACK) << 5) +
+            (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_LEFT_STICK) << 6) +
+            (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_RIGHT_STICK) << 7) +
+            (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_LEFT_SHOULDER) << 8) +
+            (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_RIGHT_SHOULDER) << 9) +
+            (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_SOUTH) << 12) +
+            (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_EAST) << 13) +
+            (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_WEST) << 14) +
+            (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_NORTH) << 15)
         );
         this_ptr->fields.gamepadStateCurrent.PacketNumber++;
 
         // Emulate Start/Select on touchpad
-        if (SDL_GetGamepadButton(controller, SDL_GAMEPAD_BUTTON_TOUCHPAD)) {
+        if (SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_TOUCHPAD)) {
             bool state;
             float x, y, pressure;
-            SDL_GetGamepadTouchpadFinger(controller, 0, 0, &state, &x, &y, &pressure);
+            SDL_GetGamepadTouchpadFinger(gamepad, 0, 0, &state, &x, &y, &pressure);
 
             this_ptr->fields.gamepadStateCurrent.Gamepad.wButtons |=
                 (!state || x >= 0.5 /* right side touchpad */)
@@ -147,11 +147,11 @@ namespace {
             return;
         }
 
-        if (controller == nullptr) {
+        if (gamepad == nullptr) {
             return;
         }
 
         // We can ignore the length parameter since XBoxControllerManager will call this function periodically anyway
-        SDL_RumbleGamepad(controller, left_motor * 0xFFFF, right_motor * 0xFFFF, 100);
+        SDL_RumbleGamepad(gamepad, left_motor * 0xFFFF, right_motor * 0xFFFF, 100);
     }
 }
