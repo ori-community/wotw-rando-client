@@ -18,6 +18,7 @@ set(
         "dev/seed_debugger.cpp"
         "features/area_segment_states.cpp"
         "features/better_menus.cpp"
+        "features/camera_aspect.cpp"
         "features/controls/ability_overrides.cpp"
         "features/controls/air_no_deceleration.cpp"
         "features/controls/autoaim.cpp"
