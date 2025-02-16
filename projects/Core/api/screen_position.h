@@ -32,5 +32,5 @@ namespace core::api::screen_position {
         }
     );
 
-    CORE_DLLEXPORT app::Vector3 get(ScreenPosition position, bool auto_scale_aspect_ratio = true);
+    CORE_DLLEXPORT app::Vector3 get(ScreenPosition position, bool auto_scale_aspect_ratio = true, float z = 0.f);
 }
