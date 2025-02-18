@@ -76,38 +76,38 @@ namespace randomizer::doors {
 
         // Default door configurations. The actual used doors are below.
         const std::unordered_map<std::string, DoorInfo> DEFAULT_DOORS{
-            {"lupoShopDoorOutside",     {{"wellspringGladesHubB"}, "lupoShopDoorInside"}                  },
-            {"lupoShopDoorInside",      {{"hutInteriorA"}, "lupoShopDoorOutside"}                         },
-            {"hutBEntrance",            {{"wellspringGladesHub"}, "hutBExit"}                             },
-            {"hutBExit",                {{"hutInteriorB"}, "hutBEntrance"}                                },
-            {"hutCEntrance",            {{"wellspringGladesHub", "wellspringGladesHubSetups"}, "hutCExit"} },
-            {"hutCExit",                {{"hutInteriorC"}, "hutCEntrance"}                                },
-            {"hutDEntrance",            {{"wellspringGladesHubB"}, "hutDExit"}                            },
-            {"hutDExit",                {{"hutInteriorD"}, "hutDEntrance"}                                },
-            {"hutEEntrance",            {{"wellspringGladesHub"}, "hutEExit"}                             },
-            {"hutEExit",                {{"hutInteriorE"}, "hutEEntrance"}                                },
-            {"hutFEntrance",            {{"wellspringGladesHubB", "wellspringGladesHubSetups"}, "hutFExit"}},
-            {"hutFExit",                {{"hutInteriorF"}, "hutFEntrance"}                                },
-            {"caveEntrance",            {{"wellspringGladesHub"}, "caveExit"}                             },
-            {"caveExit",                {{"hubCaveInterior"}, "caveEntrance"}                             },
-            {"waterMillOutsideDoorA",   {{"waterMillEntrance"}, "waterMillInsideDoorA"}                   },
-            {"waterMillInsideDoorA",    {{"wotwSaveRoomC__clone0__clone1"}, "waterMillOutsideDoorA"}      },
-            {"waterMillOutsideDoorB",   {{"waterMillEntrance"}, "waterMillInsideDoorB"}                   },
-            {"waterMillInsideDoorB",    {{"waterMillAExit"}, "waterMillOutsideDoorB"}                     },
-            {"waterMillOutsideDoorC",   {{"waterMillEntrance"}, "waterMillInsideDoorC"}                   },
-            {"waterMillInsideDoorC",    {{"waterMillBEntrance"}, "waterMillOutsideDoorC"}                 },
-            {"waterMillOutsideDoorD",   {{"waterMillEntranceTop"}, "waterMillInsideDoorD"}                },
-            {"waterMillInsideDoorD",    {{"waterMillCEntrance"}, "waterMillOutsideDoorD"}                 },
-            {"baursReachHutEntrance",   {{"baursReachGetAbility"}, "baursReachHutExit"}                   },
-            {"baursReachHutExit",       {{"baursReachHutInterior"}, "baursReachHutEntrance"}              },
-            {"petrifiedHutDoorOutside", {{"petrifiedForestNewTransitionOri"}, "petrifiedHutDoorInside"}   },
-            {"petrifiedHutDoorInside",  {{"petrifiedForestHutInterior"}, "petrifiedHutDoorOutside"}       },
-            {"desertRuinsEntranceDoor", {{"desertRuinsTowerEntranceA"}, "doorB"}                          },
-            {"doorB",                   {{"windtornRuinsA"}, "desertRuinsEntranceDoor"}                   },
-            {"willowsEndEntrance",      {{"weepingRidgeWillowsEndEntrance"}, "willowsEndExit"}            },
-            {"willowsEndExit",          {{"willowsEndHub"}, "willowsEndEntrance"}                         },
-            {"powlArenaEntrance",       {{"willowsEndExit"}, "powlArenaExit"}                             },
-            {"powlArenaExit",           {{"willowCeremonyIntro"}, "powlArenaEntrance"}                    },
+            {"lupoShopDoorOutside",     {{"wellspringGladesHubB"}, "lupoShopDoorInside"}                                          },
+            {"lupoShopDoorInside",      {{"hutInteriorA"}, "lupoShopDoorOutside"}                                                 },
+            {"hutBEntrance",            {{"wellspringGladesHub"}, "hutBExit"}                                                     },
+            {"hutBExit",                {{"hutInteriorB"}, "hutBEntrance"}                                                        },
+            {"hutCEntrance",            {{"wellspringGladesHub", "wellspringGladesHubSetups"}, "hutCExit"}                        },
+            {"hutCExit",                {{"hutInteriorC"}, "hutCEntrance"}                                                        },
+            {"hutDEntrance",            {{"wellspringGladesHubB"}, "hutDExit"}                                                    },
+            {"hutDExit",                {{"hutInteriorD"}, "hutDEntrance"}                                                        },
+            {"hutEEntrance",            {{"wellspringGladesHub"}, "hutEExit"}                                                     },
+            {"hutEExit",                {{"hutInteriorE"}, "hutEEntrance"}                                                        },
+            {"hutFEntrance",            {{"wellspringGladesHubB", "wellspringGladesHubSetups"}, "hutFExit"}                       },
+            {"hutFExit",                {{"hutInteriorF"}, "hutFEntrance"}                                                        },
+            {"caveEntrance",            {{"wellspringGladesHub"}, "caveExit"}                                                     },
+            {"caveExit",                {{"hubCaveInterior"}, "caveEntrance"}                                                     },
+            {"waterMillOutsideDoorA",   {{"waterMillEntrance"}, "waterMillInsideDoorA"}                                           },
+            {"waterMillInsideDoorA",    {{"wotwSaveRoomC__clone0__clone1", "naruGumoBuildRaft"}, "waterMillOutsideDoorA"}                              },
+            {"waterMillOutsideDoorB",   {{"waterMillEntrance"}, "waterMillInsideDoorB"}                                           },
+            {"waterMillInsideDoorB",    {{"waterMillAExit"}, "waterMillOutsideDoorB"}                                             },
+            {"waterMillOutsideDoorC",   {{"waterMillEntrance"}, "waterMillInsideDoorC"}                                           },
+            {"waterMillInsideDoorC",    {{"waterMillBEntrance"}, "waterMillOutsideDoorC"}                                         },
+            {"waterMillOutsideDoorD",   {{"waterMillEntranceTop"}, "waterMillInsideDoorD"}                                        },
+            {"waterMillInsideDoorD",    {{"waterMillCEntrance"}, "waterMillOutsideDoorD"}                                         },
+            {"baursReachHutEntrance",   {{"baursReachGetAbility"}, "baursReachHutExit"}                                           },
+            {"baursReachHutExit",       {{"baursReachHutInterior"}, "baursReachHutEntrance"}                                      },
+            {"petrifiedHutDoorOutside", {{"petrifiedForestNewTransitionOri"}, "petrifiedHutDoorInside"}                           },
+            {"petrifiedHutDoorInside",  {{"petrifiedForestHutInterior"}, "petrifiedHutDoorOutside"}                               },
+            {"desertRuinsEntranceDoor", {{"desertRuinsTowerEntranceA"}, "doorB"}                                                  },
+            {"doorB",                   {{"windtornRuinsA", "desertRuinsEnterMaster"}, "desertRuinsEntranceDoor"}                                           },
+            {"willowsEndEntrance",      {{"weepingRidgeWillowsEndEntrance"}, "willowsEndExit"}                                    },
+            {"willowsEndExit",          {{"willowsEndHub", "flyToTree", "willowCeremonyQuarterViewCloseUp"}, "willowsEndEntrance"}},
+            {"powlArenaEntrance",       {{"willowsEndExit"}, "powlArenaExit"}                                                     },
+            {"powlArenaExit",           {{"willowCeremonyIntro"}, "powlArenaEntrance"}                                            },
         };
 
         // Actual door configuration
@@ -278,21 +278,24 @@ namespace randomizer::doors {
         }
 
         IL2CPP_INTERCEPT(SeinDoorHandler, void, OnGoneThroughDoor, (app::SeinDoorHandler* this_ptr)) {
+            const auto target_door_position = il2cpp::unity::get_position(this_ptr->fields.m_targetDoor);
+            const auto should_create_checkpoint = this_ptr->fields.m_createCheckpoint;
+
+            next::SeinDoorHandler::OnGoneThroughDoor(this_ptr);
+
             const auto sein = core::api::game::player::sein();
             CharacterPlatformMovement::TeleportAndPlaceOnGround_1(
                 sein->fields.PlatformBehaviour->fields.PlatformMovement,
-                il2cpp::unity::get_position(this_ptr->fields.m_targetDoor),
-                0.1,
-                10.0
+                target_door_position,
+                0.1f,
+                10.f
             );
 
-            if (this_ptr->fields.m_createCheckpoint) {
+            if (should_create_checkpoint) {
                 const auto game_controller = core::api::game::game_controller();
                 GameController::CreateCheckpoint(game_controller, true, true);
                 GameController::PerformSaveGameSequence(game_controller);
             }
-
-            next::SeinDoorHandler::OnGoneThroughDoor(this_ptr);
         }
 
         IL2CPP_INTERCEPT(CharacterPlatformMovement, bool, TeleportAndPlaceOnGround_2, (app::CharacterPlatformMovement * this_ptr, app::Vector3 target, app::RaycastHit* hit, float lift, float distance)) {
