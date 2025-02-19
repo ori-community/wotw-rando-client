@@ -284,7 +284,6 @@ namespace core::api::game::player {
                 return PlayerAbilities::HasAbility(player->fields.PlayerAbilities, ability);
             }
 
-            error("abilities", "Failed to check ability: couldn't find reference to sein!");
             return false;
         }
 
