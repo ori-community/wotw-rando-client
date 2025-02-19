@@ -459,14 +459,14 @@ namespace randomizer {
             }
 
             // Doors
-            for (const auto& [door_id, state_id] : randomizer::doors::get_door_id_to_state_id_map()) {
-                const auto default_door_info = randomizer::doors::get_default_door_info(door_id);
+            for (const auto& [door_name, door_id] : randomizer::doors::get_door_name_to_door_id_map()) {
+                const auto default_door_info = randomizer::doors::get_default_door_info(door_name);
 
-                const auto default_target_state_id = default_door_info.target_door_id.has_value()
-                    ? randomizer::doors::get_state_id_from_door_id(*default_door_info.target_door_id)
+                const auto default_target_door_id = default_door_info.target_door_name.has_value()
+                    ? randomizer::doors::get_door_id_from_door_name(*default_door_info.target_door_name)
                     : 0;
 
-                states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Doors, door_id, state_id, default_target_state_id));
+                states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Doors, default_door_info.display_name, door_id, default_target_door_id));
             }
 
             dev::print_time(start_time, "Built custom state list");

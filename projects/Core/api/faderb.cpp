@@ -4,12 +4,14 @@
 
 #include <Modloader/app/methods/FaderB.h>
 #include <Modloader/app/types/UI.h>
+#include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
 
 using namespace app::classes;
 
 namespace core::api::faderb {
+    constexpr auto DEBUG_DISABLE_FADERB = true;
     auto skip_black_screen_cleanup = false;
 
     app::FaderB* get() {
@@ -47,5 +49,13 @@ namespace core::api::faderb {
         game::event_bus().trigger_event(GameEvent::FaderBFadeOutFinished, EventTiming::Before);
         next::FaderB::OnFadeOutFinished(this_ptr);
         game::event_bus().trigger_event(GameEvent::FaderBFadeOutFinished, EventTiming::After);
+    }
+
+    IL2CPP_INTERCEPT(FaderB, void, SetOpacity, (app::FaderB * this_ptr, float opacity)) {
+        next::FaderB::SetOpacity(this_ptr, opacity);
+
+        if (DEBUG_DISABLE_FADERB) {
+            types::UI_Cameras::get_class()->static_fields->Current->fields.Controller->fields.CameraPostProcessing->fields.UberPostProcess->fields.FaderBrightnessContrastSettings->fields.Weight = 0.f;
+        }
     }
 } // namespace core::api::faderb
