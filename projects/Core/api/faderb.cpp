@@ -11,7 +11,7 @@
 using namespace app::classes;
 
 namespace core::api::faderb {
-    constexpr auto DEBUG_DISABLE_FADERB = true;
+    constexpr auto DEBUG_DISABLE_FADERB = false;
     auto skip_black_screen_cleanup = false;
 
     app::FaderB* get() {
