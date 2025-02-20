@@ -29,6 +29,7 @@ namespace {
         { UberStateGroup::Shards, "shards" },
         { UberStateGroup::UI, "ui" },
         { UberStateGroup::Doors, "doors" },
+        { UberStateGroup::DoorEntries, "doorEntries" },
     };
 }
 

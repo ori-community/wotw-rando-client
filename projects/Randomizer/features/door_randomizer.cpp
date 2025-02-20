@@ -324,17 +324,21 @@ namespace randomizer::doors {
 
                     if (to_it == doors.end()) {
                         modloader::warn("door_randomizer", std::format("Unknown door '{}'", *it->second.target_door_name));
-                    } else {
-                        door->fields.AdditionalScenesToBlockOn = types::SceneMetaData::create_array(to_it->second.scene_names.size() - 1);
-
-                        for (int i = 0; i < to_it->second.scene_names.size() - 1; ++i) {
-                            const auto runtime_scene_meta = core::api::scenes::get_runtime_scene_metadata(to_it->second.scene_names.at(i));
-                            const auto scene_meta = types::SceneMetaData::create();
-                            scene_meta->fields.SceneMoonGuid = runtime_scene_meta->fields.SceneMoonGuid;
-
-                            door->fields.AdditionalScenesToBlockOn->vector[i] = scene_meta;
-                        }
+                        return;
                     }
+
+                    door->fields.AdditionalScenesToBlockOn = types::SceneMetaData::create_array(to_it->second.scene_names.size() - 1);
+
+                    for (int i = 0; i < to_it->second.scene_names.size() - 1; ++i) {
+                        const auto runtime_scene_meta = core::api::scenes::get_runtime_scene_metadata(to_it->second.scene_names.at(i));
+                        const auto scene_meta = types::SceneMetaData::create();
+                        scene_meta->fields.SceneMoonGuid = runtime_scene_meta->fields.SceneMoonGuid;
+
+                        door->fields.AdditionalScenesToBlockOn->vector[i] = scene_meta;
+                    }
+
+                    core::api::uber_states::UberState entries_uber_state(UberStateGroup::DoorEntries, DOOR_NAME_TO_DOOR_ID.at(it->first));
+                    entries_uber_state.set<int>(entries_uber_state.get<int>() + 1);
                 }
             }
 

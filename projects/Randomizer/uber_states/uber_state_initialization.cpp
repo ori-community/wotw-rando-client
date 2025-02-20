@@ -387,6 +387,8 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeShriekEscapeSand", 100, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeFeedingGroundsToElevatorSand", 101, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "knockKnockWellspring", 102, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "showSmallDoors", 200, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "markUnvisitedDoors", 201, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoConfig, "forceNoAirDecelerationFlag", FORCE_AIR_NO_DECELERATION_ID, 0),
 
@@ -468,6 +470,7 @@ namespace randomizer {
                     : 0;
 
                 states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Doors, default_door_info.display_name, door_id, default_target_door_id));
+                states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::DoorEntries, default_door_info.display_name, door_id, 0));
             }
 
             dev::print_time(start_time, "Built custom state list");

@@ -42,10 +42,10 @@ enum class MapIcon {
     Seed = 35,
     RaceEnd = 36,
     Eyestone = 37,
-    WatermillDoor = 38,
-    TempleDoor = 39,
-    SmallDoor = 40,
-    Shrine = 41,
+    WatermillDoor = 40,
+    TempleDoor = 41,
+    SmallDoor = 42,
+    Shrine = 43,
     Loremaster = 50,
     Weaponmaster = 51,
     Gardener = 52,
@@ -90,6 +90,10 @@ enum class MapIcon {
     VerticalDoor = 110,
     HorizontalDoor = 111,
     Lever = 112,
+    Door = 113,
+    DoorUnknown = 114,
+    DoorSmall = 115,
+    DoorSmallUnknown = 115,
 };
 
 CORE_DLLEXPORT app::GameObject* map_icon_to_game_object(MapIcon icon);
