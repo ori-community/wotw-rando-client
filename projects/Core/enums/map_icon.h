@@ -93,7 +93,7 @@ enum class MapIcon {
     Door = 113,
     DoorUnknown = 114,
     DoorSmall = 115,
-    DoorSmallUnknown = 115,
+    DoorSmallUnknown = 116,
 };
 
 CORE_DLLEXPORT app::GameObject* map_icon_to_game_object(MapIcon icon);

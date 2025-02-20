@@ -283,8 +283,16 @@ namespace randomizer::game::map {
                 doors::get_door_name_from_door_id(door_id),
                 {x, y},
                 std::make_optional([small, door_id] -> bool {
+                    if (small && !SHOW_SMALL_DOORS_STATE.get<bool>()) {
+                        return false;
+                    }
+
+                    if (!MARK_UNVISITED_DOORS_STATE.get<bool>()) {
+                        return true;
+                    }
+
                     const auto door_entries_state = core::api::uber_states::UberState(UberStateGroup::DoorEntries, door_id);
-                    return (!small || SHOW_SMALL_DOORS_STATE.get<bool>()) && (!MARK_UNVISITED_DOORS_STATE.get<bool>() || door_entries_state.get<int>() > 0);
+                    return door_entries_state.get<int>() > 0;
                 })
             );
 
@@ -294,8 +302,16 @@ namespace randomizer::game::map {
                 doors::get_door_name_from_door_id(door_id),
                 {x, y},
                 std::make_optional([small, door_id] -> bool {
+                    if (small && !SHOW_SMALL_DOORS_STATE.get<bool>()) {
+                        return false;
+                    }
+
+                    if (!MARK_UNVISITED_DOORS_STATE.get<bool>()) {
+                        return false;
+                    }
+
                     const auto door_entries_state = core::api::uber_states::UberState(UberStateGroup::DoorEntries, door_id);
-                    return (!small || SHOW_SMALL_DOORS_STATE.get<bool>()) && (MARK_UNVISITED_DOORS_STATE.get<bool>() && door_entries_state.get<int>() == 0);
+                    return door_entries_state.get<int>() == 0;
                 })
             );
         }
