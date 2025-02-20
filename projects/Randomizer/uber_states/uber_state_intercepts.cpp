@@ -15,6 +15,7 @@ namespace randomizer::uber_states {
         UberState cleanse_wellspring(937, 34641);
         UberState find_ku_quest(14019, 34504);
 
+        [[maybe_unused]]
         auto on_uber_state_interception = interception_bus().register_handler([](auto params) {
             if (disable_reverts() || !core::api::game::in_game()) {
                 return false;
