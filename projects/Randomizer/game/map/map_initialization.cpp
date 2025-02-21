@@ -291,8 +291,8 @@ namespace randomizer::game::map {
                         return true;
                     }
 
-                    const auto door_entries_state = core::api::uber_states::UberState(UberStateGroup::DoorEntries, door_id);
-                    return door_entries_state.get<int>() > 0;
+                    const auto door_visited_state = core::api::uber_states::UberState(UberStateGroup::DoorsVisited, door_id);
+                    return door_visited_state.get<bool>();
                 })
             );
 
@@ -310,8 +310,8 @@ namespace randomizer::game::map {
                         return false;
                     }
 
-                    const auto door_entries_state = core::api::uber_states::UberState(UberStateGroup::DoorEntries, door_id);
-                    return door_entries_state.get<int>() == 0;
+                    const auto door_visited_state = core::api::uber_states::UberState(UberStateGroup::DoorsVisited, door_id);
+                    return !door_visited_state.get<bool>();
                 })
             );
         }

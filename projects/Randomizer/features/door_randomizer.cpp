@@ -337,8 +337,8 @@ namespace randomizer::doors {
                         door->fields.AdditionalScenesToBlockOn->vector[i] = scene_meta;
                     }
 
-                    core::api::uber_states::UberState entries_uber_state(UberStateGroup::DoorEntries, DOOR_NAME_TO_DOOR_ID.at(it->first));
-                    entries_uber_state.set<int>(entries_uber_state.get<int>() + 1);
+                    core::api::uber_states::UberState visited_uber_state(UberStateGroup::DoorsVisited, DOOR_NAME_TO_DOOR_ID.at(it->first));
+                    visited_uber_state.set<bool>(true);
                 }
             }
 
