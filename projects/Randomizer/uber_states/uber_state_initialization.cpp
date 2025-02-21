@@ -470,7 +470,7 @@ namespace randomizer {
                     : 0;
 
                 states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Doors, default_door_info.display_name, door_id, default_target_door_id));
-                states.push_back(add_state<app::SerializedBooleanUberState>(UberStateGroup::DoorsVisited, default_door_info.display_name, door_id, true));
+                states.push_back(add_state<app::SerializedBooleanUberState>(UberStateGroup::DoorsVisited, default_door_info.display_name, door_id, false));
             }
 
             dev::print_time(start_time, "Built custom state list");
