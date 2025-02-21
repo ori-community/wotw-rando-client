@@ -23,6 +23,7 @@
 #include <Modloader/modloader.h>
 #include <Randomizer/constants.h>
 #include <Randomizer/features/area_segment_states.h>
+#include <Randomizer/features/door_randomizer.h>
 #include <Randomizer/randomizer.h>
 #include <chrono>
 
@@ -341,6 +342,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "tuleyExists", 300, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "rainLiftedInInkwater", 401, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "regenTreeDrained", 402, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "canOpenMokiFatherHut", 500, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "cleanWater", 2000, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "squares", 0, 0),
@@ -393,6 +395,8 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeShriekEscapeSand", 100, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeFeedingGroundsToElevatorSand", 101, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "knockKnockWellspring", 102, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "showSmallDoors", 200, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "markUnvisitedDoors", 201, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoConfig, "forceNoAirDecelerationFlag", FORCE_AIR_NO_DECELERATION_ID, 0),
 
@@ -467,6 +471,18 @@ namespace randomizer {
                 states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, std::format("{:04d}_id", i * 2), i * 2, 0));
 
                 states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, std::format("{:04d}_value", i * 2 + 1), i * 2 + 1, 0));
+            }
+
+            // Doors
+            for (const auto& [door_name, door_id] : randomizer::doors::get_door_name_to_door_id_map()) {
+                const auto default_door_info = randomizer::doors::get_default_door_info(door_name);
+
+                const auto default_target_door_id = default_door_info.target_door_name.has_value()
+                    ? randomizer::doors::get_door_id_from_door_name(*default_door_info.target_door_name)
+                    : 0;
+
+                states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Doors, default_door_info.display_name, door_id, default_target_door_id));
+                states.push_back(add_state<app::SerializedBooleanUberState>(UberStateGroup::DoorsVisited, default_door_info.display_name, door_id, false));
             }
 
             dev::print_time(start_time, "Built custom state list");

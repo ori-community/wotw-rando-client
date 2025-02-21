@@ -3,11 +3,10 @@
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/dev/object_visualizer.h>
 #include <Randomizer/conditions/new_setup_state_override.h>
-#include <Randomizer/macros.h>
 
-#include <Modloader/app/methods/Moon/SerializedIntUberState.h>
 #include <Modloader/app/methods/Moon/UberStateController.h>
 #include <Modloader/app/methods/NewSetupStateController.h>
+#include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerStateMap_Mapping.h>
 #include <Modloader/app/types/NewSetupStateController.h>
 #include <Modloader/app/types/PlayerStateMap.h>
 #include <Modloader/app/types/PlayerStateMap_Mapping.h>
@@ -64,7 +63,7 @@ namespace randomizer::conditions {
                 if (tree.valid()) {
                     output = UberState(0, static_cast<int>(entry.m_ability)).get<bool>() ^ (entry.m_matchType != 0);
                 } else {
-                    output = il2cpp::invoke(types::PlayerStateMap_Mapping::box(entry), "", state);
+                    output = Moon::uberSerializationWisp::PlayerStateMap_Mapping::Matches(types::PlayerStateMap_Mapping::box(entry), reinterpret_cast<app::IUberState*>(state));
                 }
 
                 if (output) {

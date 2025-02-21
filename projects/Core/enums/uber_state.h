@@ -31,8 +31,10 @@ enum class UberStateGroup {
     Skills = 24,
     Shards = 25,
     UI = 26, // Values that control UI *only* and have no other effect in the randomizer by default. Headers can still work with them.
-    Settings = 27,
-    Input = 28,
+    Doors = 27,
+    DoorsVisited = 28,
+    Settings = 29,
+    Input = 30,
 };
 
 enum class UberStateType : uint8_t {

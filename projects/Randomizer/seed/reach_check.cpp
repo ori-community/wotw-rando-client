@@ -10,12 +10,30 @@
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/bootstrap.h>
 
-#include <utility>
 #include <Core/enums/teleporter_type.h>
+#include <Core/events/action.h>
+#include <Core/events/task.h>
+#include <utility>
 
-namespace randomizer::seed {
+namespace randomizer::seedgen_interop {
     namespace {
         const std::string seedgen_interop_dll_file = "seedgen_interop.dll";
+
+        struct GetStatesResult {
+            struct Data
+            {
+                std::unordered_map<core::api::uber_states::UberStateCondition, std::string> states;
+            };
+
+            Data data;
+        };
+
+        struct SeedgenInput {
+            std::string areas;
+            std::string locations;
+            std::string states;
+            std::string seed_file;
+        };
 
         struct ReachCheckRequest {
             float health;
@@ -28,12 +46,8 @@ namespace randomizer::seed {
             std::vector<int> skills;
             std::vector<int> teleporters;
             std::vector<int> shards;
-            std::vector<std::string> nodes;
-            std::string areas;
-            std::string locations;
-            std::string states;
-            std::string seed_file;
-            reach_check_callback callback;
+            std::vector<std::string> set_nodes;
+            reach_check_callback_t callback;
         };
 
         template<typename T>
@@ -42,7 +56,14 @@ namespace randomizer::seed {
             int length;
         };
 
-        struct Input {
+        struct RawSeedgenInput {
+            const char* areas;
+            const char* locations;
+            const char* states;
+            const char* seed_file;
+        };
+
+        struct RawReachCheckRequest {
             float health;
             float energy;
             int spirit_light;
@@ -53,18 +74,17 @@ namespace randomizer::seed {
             RawVec<int> skills;
             RawVec<int> teleporters;
             RawVec<int> shards;
-            RawVec<const char*> nodes;
-            const char* areas;
-            const char* locations;
-            const char* states;
-            const char* seed_file;
+            RawVec<const char*> set_nodes;
         };
 
-        using rust_usable_function = void (*)(ReachCheckResult::Data* data, const char* string);
+        struct ReachCheckFunctions {
+            void (*push_error)(ReachCheckResult::Data* data, const char* string);
+            void (*push_reached)(ReachCheckResult::Data* data, const char* string);
+        };
 
-        struct Functions {
-            rust_usable_function push_error;
-            rust_usable_function push_reached;
+        struct GetStatesFunctions {
+            void (*push_error)(ReachCheckResult::Data* data, const char* string);
+            void (*push_state)(GetStatesResult::Data* data, const char* name, int32_t uber_group, int32_t uber_state, int32_t value, int32_t op);
         };
 
         enum class Status {
@@ -73,25 +93,18 @@ namespace randomizer::seed {
             Panic,
         };
 
-        using seedgen_reach_check = Status (*)(Input& input, ReachCheckResult::Data* data, Functions& functions);
+        using reach_check_fn_t = Status (*)(RawSeedgenInput& input, RawReachCheckRequest& request, ReachCheckResult::Data* data, ReachCheckFunctions& functions);
+        using get_states_fn_t = Status (*)(RawSeedgenInput& input, GetStatesResult::Data* data, GetStatesFunctions& functions);
 
         bool thread_is_running = false;
-        common::BlockingQueue<ReachCheckRequest> requests;
-        std::vector<std::tuple<reach_check_callback, std::optional<ReachCheckResult>>> results;
-        std::mutex results_mutex;
-
-        void push_error(ReachCheckResult::Data* data, const char* error_message) {
-            // TODO: Show message
-            modloader::error("reach_check", error_message);
-        }
-
-        void push_reached(ReachCheckResult::Data* data, const char* identifier) {
-            auto location = randomizer::location_collection().location(identifier);
-            if (location.has_value()) {
-                auto condition = location->condition;
-                data->reached.emplace(condition);
-            }
-        }
+        common::BlockingQueue<ReachCheckRequest> reach_check_requests;
+        std::vector<std::tuple<reach_check_callback_t, std::optional<ReachCheckResult>>> reach_check_results;
+        std::mutex reach_check_results_mutex;
+        SeedgenInput seedgen_input;
+        std::mutex seedgen_input_mutex;
+        std::atomic<bool> states_update_queued = true;
+        std::unordered_map<core::api::uber_states::UberStateCondition, std::string> states;
+        std::mutex states_mutex;
 
         void handle_requests() {
             auto handle = modloader::win::bootstrap::load_library(modloader::base_path() / seedgen_interop_dll_file);
@@ -99,32 +112,95 @@ namespace randomizer::seed {
                 return;
             }
 
-            auto func = reinterpret_cast<seedgen_reach_check>(modloader::win::bootstrap::load_function(handle, "reach_check"));
-            if (!func) {
+            auto reach_check_fn = reinterpret_cast<reach_check_fn_t>(modloader::win::bootstrap::load_function(handle, "reach_check"));
+            auto get_states_fn = reinterpret_cast<get_states_fn_t>(modloader::win::bootstrap::load_function(handle, "get_states"));
+
+            if (!reach_check_fn || !get_states_fn) {
                 return;
             }
 
-            Functions functions = {
-                .push_error = &push_error,
-                .push_reached = &push_reached
+            ReachCheckFunctions reach_check_functions = {
+                .push_error = [](ReachCheckResult::Data* data, const char* error_message) {
+                    modloader::error("reach_check", error_message);
+                },
+                .push_reached = [](ReachCheckResult::Data* data, const char* identifier) {
+                    auto location = randomizer::location_collection().location(identifier);
+                    if (location.has_value()) {
+                        auto condition = location->condition;
+                        data->reached.emplace(condition);
+                    }
+                }
+            };
+
+            GetStatesFunctions get_states_functions = {
+                .push_error = [](ReachCheckResult::Data* data, const char* error_message) {
+                    modloader::error("reach_check", error_message);
+                },
+                .push_state = [](GetStatesResult::Data* data, const char* name, int32_t uber_group, int32_t uber_state, int32_t value, int32_t op) {
+                    data->states.emplace(
+                        core::api::uber_states::UberStateCondition(
+                            uber_group, uber_state, static_cast<BooleanOperator>(op), static_cast<double>(value)
+                        ),
+                        std::string(name)
+                    );
+                }
             };
 
             thread_is_running = true;
             while (!modloader::shutdown_requested) {
-                auto request_optional = requests.dequeue();
+                auto request_optional = reach_check_requests.dequeue();
                 if (modloader::shutdown_requested) {
                     break;
                 }
 
-                auto request = request_optional.value();
+                seedgen_input_mutex.lock();
+                const auto seedgen_input_copy = seedgen_input;
+                seedgen_input_mutex.unlock();
 
-                std::vector<const char*> nodes;
-                nodes.reserve(request.nodes.size());
-                for (auto const& node: request.nodes) {
-                    nodes.push_back(node.c_str());
+                RawSeedgenInput raw_input {
+                    .areas = seedgen_input_copy.areas.c_str(),
+                    .locations = seedgen_input_copy.locations.c_str(),
+                    .states = seedgen_input_copy.states.c_str(),
+                    .seed_file = seedgen_input_copy.seed_file.c_str()
+                };
+
+                auto states_updated = false;
+                if (states_update_queued) {
+                    GetStatesResult result = {};
+                    auto status = get_states_fn(raw_input, &result.data, get_states_functions);
+                    if (status == Status::Success) {
+                        std::lock_guard _(states_mutex);
+                        states = result.data.states;
+                        modloader::info("reach_check", std::format("Queried {} states from seedgen", states.size()));
+                        states_updated = true;
+                    } else {
+                        modloader::warn("reach_check", "Failed to query states from seedgen");
+                    }
+
+                    states_update_queued = false;
                 }
 
-                Input input = {
+                if (!request_optional.has_value()) {
+                    continue;
+                }
+
+                auto request = request_optional.value();
+
+                // If we just updated the states, requeue this request
+                if (states_updated) {
+                    core::events::schedule_task_for_next_update([=] {
+                        reach_check(request.callback);
+                    });
+                    continue;
+                }
+
+                std::vector<const char*> set_nodes;
+                set_nodes.reserve(request.set_nodes.size());
+                for (auto const& node: request.set_nodes) {
+                    set_nodes.push_back(node.c_str());
+                }
+
+                RawReachCheckRequest raw_request = {
                     .health = request.health,
                     .energy = request.energy,
                     .spirit_light = request.spirit_light,
@@ -135,21 +211,17 @@ namespace randomizer::seed {
                     .skills = RawVec<int>{request.skills.data(), static_cast<int>(request.skills.size())},
                     .teleporters = RawVec<int>{request.teleporters.data(), static_cast<int>(request.teleporters.size())},
                     .shards = RawVec<int>{request.shards.data(), static_cast<int>(request.shards.size())},
-                    .nodes = RawVec<const char*>{nodes.data(), static_cast<int>(nodes.size())},
-                    .areas = request.areas.c_str(),
-                    .locations = request.locations.c_str(),
-                    .states = request.states.c_str(),
-                    .seed_file = request.seed_file.c_str()
+                    .set_nodes = RawVec<const char*>{set_nodes.data(), static_cast<int>(set_nodes.size())},
                 };
 
                 ReachCheckResult result = {};
-                auto status = func(input, &result.data, functions);
+                auto status = reach_check_fn(raw_input, raw_request, &result.data, reach_check_functions);
                 if (status == Status::Success) {
-                    std::lock_guard lock(results_mutex);
-                    results.emplace_back(request.callback, result);
+                    std::lock_guard lock(reach_check_results_mutex);
+                    reach_check_results.emplace_back(request.callback, result);
                 } else {
-                    std::lock_guard lock(results_mutex);
-                    results.emplace_back(request.callback, std::nullopt);
+                    std::lock_guard lock(reach_check_results_mutex);
+                    reach_check_results.emplace_back(request.callback, std::nullopt);
                     modloader::warn("reach_check", "Reach check failed");
                 }
             }
@@ -163,12 +235,12 @@ namespace randomizer::seed {
             GameEvent::FixedUpdate,
             EventTiming::After,
             [](auto, auto) {
-                if (auto lock = std::unique_lock(results_mutex, std::try_to_lock)) {
-                    for (auto& [callback, result]: results) {
+                if (auto lock = std::unique_lock(reach_check_results_mutex, std::try_to_lock)) {
+                    for (auto& [callback, result]: reach_check_results) {
                         callback(result);
                     }
 
-                    results.clear();
+                    reach_check_results.clear();
                 }
             }
         );
@@ -232,9 +304,19 @@ namespace randomizer::seed {
         app::SpiritShardType__Enum::Fracture,
     };
 
-    void reach_check(reach_check_callback callback) {
+    void request_states_update_on_next_reach_check() {
+        states_update_queued = true;
+    }
+
+    void reach_check(reach_check_callback_t callback) {
         if (thread_is_running && core::api::game::player::sein() != nullptr) {
             auto const& seed_info = game_seed().parser_output();
+
+            seedgen_input.areas = seed_info.areas;
+            seedgen_input.locations = seed_info.locations;
+            seedgen_input.states = seed_info.states;
+            seedgen_input.seed_file = seed_info.content;
+
             ReachCheckRequest request{
                 .health = static_cast<float>(core::api::game::player::max_health().get()),
                 .energy = core::api::game::player::max_energy().get(),
@@ -243,11 +325,6 @@ namespace randomizer::seed {
                 .keystones = core::api::game::player::keystones().get(),
                 .shard_slots = core::api::game::player::shard_slots().get(),
                 .clean_water = core::api::uber_states::UberState(UberStateGroup::RandoState, 2000).get<char>(),
-
-                .areas = seed_info.areas,
-                .locations = seed_info.locations,
-                .states = seed_info.states,
-                .seed_file = seed_info.content,
                 .callback = std::move(callback)
             };
 
@@ -269,13 +346,15 @@ namespace randomizer::seed {
                 }
             }
 
-            for (auto const& [condition, name]: randomizer::state_collection()) {
+            states_mutex.lock();
+            for (auto const& [condition, name]: states) {
                 if (condition.resolve()) {
-                    request.nodes.push_back(name);
+                    request.set_nodes.push_back(name);
                 }
             }
+            states_mutex.unlock();
 
-            requests.enqueue(request);
+            reach_check_requests.enqueue(request);
             return;
         }
 
@@ -283,11 +362,16 @@ namespace randomizer::seed {
         callback(std::nullopt);
     }
 
+    bool is_state(const core::api::uber_states::UberStateCondition& condition) {
+        std::lock_guard _(states_mutex);
+        return states.contains(condition);
+    }
+
     auto on_shutdown = modloader::event_bus().register_handler(
         ModloaderEvent::Shutdown,
         [](auto) {
             if (request_thread.joinable()) {
-                requests.interrupt();
+                reach_check_requests.interrupt();
                 request_thread.join();
             }
         }

@@ -38,7 +38,7 @@ namespace core::events {
         schedule_task(-timer, task);
     }
 
-    IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
+    auto before_unity_update = core::api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
         if (!tasks.empty()) {
             modloader::ScopedSetter updater(is_updating_tasks, true);
             is_updating_tasks = true;
@@ -56,6 +56,5 @@ namespace core::events {
         }
 
         task_buffer.clear();
-        next::GameController::FixedUpdate(this_ptr);
-    }
+    });
 } // namespace core::events

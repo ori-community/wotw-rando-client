@@ -21,6 +21,7 @@ namespace modloader::win::console {
     IL2CPP_MODLOADER_DLLEXPORT void console_poll();
     IL2CPP_MODLOADER_DLLEXPORT void console_send(std::string str);
     IL2CPP_MODLOADER_DLLEXPORT void console_flush();
+    IL2CPP_MODLOADER_DLLEXPORT bool console_is_initialized();
 
     IL2CPP_MODLOADER_DLLEXPORT void register_command(std::vector<std::string> const& path, dev_command command, bool should_run_on_game_thread = false);
     IL2CPP_MODLOADER_DLLEXPORT bool handle_message(std::string const& message);

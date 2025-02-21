@@ -3,13 +3,18 @@
 #include <Core/api/uber_states/uber_state_condition.h>
 #include <Core/settings.h>
 
+#include <Randomizer/features/door_randomizer.h>
 #include <Randomizer/game/map/map.h>
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/randomizer.h>
 
 namespace randomizer::game::map {
     core::Property<bool> show_interactible_icons_property(true);
-    core::Property<bool>& show_interactible_icons() { return show_interactible_icons_property; }
+    core::Property<bool>& show_interactible_icons() {
+        return show_interactible_icons_property;
+    }
+    const core::api::uber_states::UberState SHOW_SMALL_DOORS_STATE(UberStateGroup::RandoConfig, 200);
+    const core::api::uber_states::UberState MARK_UNVISITED_DOORS_STATE(UberStateGroup::RandoConfig, 201);
 
     namespace {
         std::string icon_label(const std::optional<location_data::Location>& location, const core::api::uber_states::UberStateCondition& condition) {
@@ -111,16 +116,16 @@ namespace randomizer::game::map {
             std::string const& label,
             std::string const& name,
             const app::Vector2 position,
-            std::optional<core::api::uber_states::UberStateCondition> const& state = std::nullopt
+            std::optional<std::function<bool()>> const& is_visible_fn = std::nullopt
         ) {
             auto icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
             icon->icon().set(map_icon);
             icon->label().set(label);
             icon->name().set(name);
             icon->position().set(position);
-            if (state.has_value()) {
-                add_icon_visibility_callback(icon, [state](auto) {
-                    return show_interactible_icons_property.get() && !state.value().resolve() ? IconVisibilityResult::Show : IconVisibilityResult::Hide;
+            if (is_visible_fn.has_value()) {
+                add_icon_visibility_callback(icon, [is_visible_fn](auto) {
+                    return show_interactible_icons_property.get() && (*is_visible_fn)() ? IconVisibilityResult::Show : IconVisibilityResult::Hide;
                 });
             } else {
                 add_icon_visibility_callback(icon, [](auto) {
@@ -271,6 +276,72 @@ namespace randomizer::game::map {
             make_icon(MapIcon::Lever, "Lever", "WindtornRuins.UpperRuinsDoorLever", {2191.75f,-3868.96f});
         }
 
+        void make_door_icon(bool small, int door_id, float x, float y) {
+            make_icon(
+                small ? MapIcon::DoorSmall : MapIcon::Door,
+                "Door",
+                doors::get_door_name_from_door_id(door_id),
+                {x, y},
+                std::make_optional([small, door_id] -> bool {
+                    if (small && !SHOW_SMALL_DOORS_STATE.get<bool>()) {
+                        return false;
+                    }
+
+                    if (!MARK_UNVISITED_DOORS_STATE.get<bool>()) {
+                        return true;
+                    }
+
+                    const auto door_visited_state = core::api::uber_states::UberState(UberStateGroup::DoorsVisited, door_id);
+                    return door_visited_state.get<bool>();
+                })
+            );
+
+            make_icon(
+                small ? MapIcon::DoorSmallUnknown : MapIcon::DoorUnknown,
+                "Unvisited Door",
+                doors::get_door_name_from_door_id(door_id),
+                {x, y},
+                std::make_optional([small, door_id] -> bool {
+                    if (small && !SHOW_SMALL_DOORS_STATE.get<bool>()) {
+                        return false;
+                    }
+
+                    if (!MARK_UNVISITED_DOORS_STATE.get<bool>()) {
+                        return false;
+                    }
+
+                    const auto door_visited_state = core::api::uber_states::UberState(UberStateGroup::DoorsVisited, door_id);
+                    return !door_visited_state.get<bool>();
+                })
+            );
+        }
+
+        void doors() {
+            make_door_icon(true, 1, -208.3, -4159.8);
+            make_door_icon(true, 3, -329.1, -4119.4);
+            make_door_icon(true, 5, -394.1, -4131.8);
+            make_door_icon(true, 7, -229.8, -4090.8);
+            make_door_icon(true, 9, -387.7, -4156.6);
+            make_door_icon(true, 11, -205.5, -4129.3);
+            make_door_icon(true, 13, -365.7, -4181.4);
+            make_door_icon(false, 15, -856.3, -4052.6);
+            make_door_icon(false, 16, -1292.4, -3949.0);
+            make_door_icon(false, 17, -891.1, -3987.2);
+            make_door_icon(false, 18, -1252.1, -2884.3);
+            make_door_icon(false, 19, -813.1, -3968.0);
+            make_door_icon(false, 20, -1179.1, -3727.0);
+            make_door_icon(false, 21, -836.8, -3922.6);
+            make_door_icon(false, 22, -1238.4, -3679.2);
+            make_door_icon(true, 23, -32.6, -3922.5);
+            make_door_icon(true, 25, 469.1, -4175.8);
+            make_door_icon(false, 27, 2111.8, -3604.9);
+            make_door_icon(false, 28, 2199.5, -3823.1);
+            make_door_icon(false, 29, 1062.8, -3645.1);
+            make_door_icon(false, 30, 493.7, -3945.6);
+            make_door_icon(false, 31, 515.5, -3740.5);
+            make_door_icon(false, 32, 580.0, -3604.9);
+        }
+
         auto initialized = false;
         auto on_ready = event_bus().register_handler(RandomizerEvent::LocationCollectionLoaded, EventTiming::After, [](auto, auto) {
             if (initialized) {
@@ -331,6 +402,7 @@ namespace randomizer::game::map {
             }
 
             npc_icons();
+            doors();
 
             // TODO: Add conditions and then enable this again
             // one_way_walls();

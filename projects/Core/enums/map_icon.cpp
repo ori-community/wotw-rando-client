@@ -93,7 +93,7 @@ namespace {
 
     std::unordered_map<MapIcon, std::tuple<MapIcon, int>> icon_default_variants{
         {MapIcon::SavePedestalInactive,  {MapIcon::SavePedestal, 1}},
-        {MapIcon::RaceStartUnfinished, {MapIcon::RaceStart, 1} },
+        {MapIcon::RaceStartUnfinished, {MapIcon::RaceStart, 1}},
     };
 
     struct IconData {
@@ -110,19 +110,23 @@ namespace {
     std::unordered_map<MapIcon, IconData> custom_icons;
     auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         custom_icons = {
-            {MapIcon::CleanWater,      IconData(MapIcon::HealthFragment, "file:assets/map_icons/clean_water.png",       1.f) },
-            {MapIcon::BonusItem,       IconData(MapIcon::HealthFragment, "file:assets/map_icons/bonus_item.png",        1.f) },
-            {MapIcon::LaunchFragment,  IconData(MapIcon::HealthFragment, "file:assets/map_icons/launch_fragment.png",   1.f) },
-            {MapIcon::PurpleFloor,     IconData(MapIcon::StompableFloor, "file:assets/map_icons/purple_floor.png",      0.8f)},
-            {MapIcon::PurpleWall,      IconData(MapIcon::BreakableWall,  "file:assets/map_icons/purple_wall.png",       0.8f)},
-            {MapIcon::YellowWall,      IconData(MapIcon::BreakableWall,  "file:assets/map_icons/yellow_wall.png",       0.8f)},
-            {MapIcon::OneWayWallLeft,  IconData(MapIcon::BreakableWall,  "file:assets/map_icons/oneway_wall_left.png",  0.8f)},
-            {MapIcon::OneWayWallRight, IconData(MapIcon::BreakableWall,  "file:assets/map_icons/oneway_wall_right.png", 0.8f)},
-            {MapIcon::IceFloor,        IconData(MapIcon::StompableFloor, "file:assets/map_icons/ice_floor.png",         0.8f)},
-            {MapIcon::IceWall,         IconData(MapIcon::BreakableWall,  "file:assets/map_icons/ice_wall.png",          0.8f)},
-            {MapIcon::VerticalDoor,    IconData(MapIcon::BreakableWall,  "file:assets/map_icons/blocked_wall.png",      0.8f)},
-            {MapIcon::HorizontalDoor,  IconData(MapIcon::StompableFloor, "file:assets/map_icons/blocked_floor.png",     0.8f)},
-            {MapIcon::Lever,           IconData(MapIcon::BreakableWall,  "file:assets/map_icons/lever.png",             0.6f)},
+            {MapIcon::CleanWater,       IconData(MapIcon::HealthFragment, "file:assets/map_icons/clean_water.png",       1.f) },
+            {MapIcon::BonusItem,        IconData(MapIcon::HealthFragment, "file:assets/map_icons/bonus_item.png",        1.f) },
+            {MapIcon::LaunchFragment,   IconData(MapIcon::HealthFragment, "file:assets/map_icons/launch_fragment.png",   1.f) },
+            {MapIcon::PurpleFloor,      IconData(MapIcon::StompableFloor, "file:assets/map_icons/purple_floor.png",      0.8f)},
+            {MapIcon::PurpleWall,       IconData(MapIcon::BreakableWall,  "file:assets/map_icons/purple_wall.png",       0.8f)},
+            {MapIcon::YellowWall,       IconData(MapIcon::BreakableWall,  "file:assets/map_icons/yellow_wall.png",       0.8f)},
+            {MapIcon::OneWayWallLeft,   IconData(MapIcon::BreakableWall,  "file:assets/map_icons/oneway_wall_left.png",  0.8f)},
+            {MapIcon::OneWayWallRight,  IconData(MapIcon::BreakableWall,  "file:assets/map_icons/oneway_wall_right.png", 0.8f)},
+            {MapIcon::IceFloor,         IconData(MapIcon::StompableFloor, "file:assets/map_icons/ice_floor.png",         0.8f)},
+            {MapIcon::IceWall,          IconData(MapIcon::BreakableWall,  "file:assets/map_icons/ice_wall.png",          0.8f)},
+            {MapIcon::VerticalDoor,     IconData(MapIcon::BreakableWall,  "file:assets/map_icons/blocked_wall.png",      0.8f)},
+            {MapIcon::HorizontalDoor,   IconData(MapIcon::StompableFloor, "file:assets/map_icons/blocked_floor.png",     0.8f)},
+            {MapIcon::Lever,            IconData(MapIcon::BreakableWall,  "file:assets/map_icons/lever.png",             0.6f)},
+            {MapIcon::Door,             IconData(MapIcon::WatermillDoor,  "file:assets/map_icons/door.png",              1.4f)},
+            {MapIcon::DoorUnknown,      IconData(MapIcon::WatermillDoor,  "file:assets/map_icons/door_unknown.png",      1.4f)},
+            {MapIcon::DoorSmall,        IconData(MapIcon::WatermillDoor,  "file:assets/map_icons/door.png",              0.85f)},
+            {MapIcon::DoorSmallUnknown, IconData(MapIcon::WatermillDoor,  "file:assets/map_icons/door_unknown.png",      0.85f)},
         };
     });
 

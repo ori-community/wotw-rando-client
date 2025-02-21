@@ -28,6 +28,8 @@ namespace {
         { UberStateGroup::Skills, "skills" },
         { UberStateGroup::Shards, "shards" },
         { UberStateGroup::UI, "ui" },
+        { UberStateGroup::Doors, "doors" },
+        { UberStateGroup::DoorsVisited, "doorsVisited" },
         { UberStateGroup::Settings, "settings" },
         { UberStateGroup::Input, "input" },
     };

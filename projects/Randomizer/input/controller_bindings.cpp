@@ -21,7 +21,7 @@
 
 #include <Modloader/app/methods/ButtonIconUtility.h>
 #include <algorithm>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
 #include <unordered_set>

@@ -3,11 +3,10 @@
 #include <Core/save_meta/save_meta.h>
 #include <Core/utils/byte_stream.h>
 #include <Modloader/app/methods/DeathUberStateManager.h>
-#include <Modloader/app/methods/Grdk/Wrapper.h>
 #include <Modloader/app/methods/Moon/UberStateValueStore.h>
 #include <Modloader/app/methods/SaveGameController.h>
 #include <Modloader/app/methods/SaveSlotsManager.h>
-#include <Modloader/app/methods/System/IO/File.h>
+#include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/types/Byte.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
@@ -280,6 +279,13 @@ namespace core::save_meta {
             }
 
             return next::SaveGameController::PerformLoad(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(GameController, void, ctor, (app::GameController * this_ptr)) {
+            next::GameController::ctor(this_ptr);
+
+            // Reserve 2MB for temporary checkpoints
+            this_ptr->fields.SaveGameController->fields.m_saveSnapshot = types::Byte::create_array(1024 * 1024 * 2);
         }
 
         IL2CPP_INTERCEPT(Moon::UberStateValueStore, app::Byte__Array*, ToByteArray, (app::UberStateValueStore * this_ptr)) {

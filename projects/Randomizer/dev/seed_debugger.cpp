@@ -1,3 +1,4 @@
+#include <magic_enum/magic_enum.hpp>
 #include <Modloader/windows_api/console.h>
 #include <Randomizer/dev/seed_debugger.h>
 #include <Randomizer/randomizer.h>

@@ -3,17 +3,18 @@
 #include <Modloader/app/methods/CheatsHandler.h>
 #include <Modloader/app/methods/DebugMenu.h>
 #include <Modloader/app/methods/HierarchyDebugMenu.h>
+#include <Modloader/app/methods/Moon/UberStateVisualization/ListView.h>
+#include <Modloader/app/methods/Moon/UberStateVisualization/UberStateVisualizationView.h>
 #include <Modloader/app/methods/UnityEngine/GUILayout.h>
 #include <Modloader/app/methods/UnityEngine/GUIStyle.h>
 #include <Modloader/app/methods/UnityEngine/GUIStyleState.h>
 #include <Modloader/app/methods/UnityEngine/Texture.h>
 #include <Modloader/app/methods/UnityEngine/Texture2D.h>
-#include <Modloader/app/methods/Moon/UberStateVisualization/UberStateVisualizationView.h>
-#include <Modloader/app/methods/Moon/UberStateVisualization/ListView.h>
 #include <Modloader/app/types/CheatsHandler.h>
 #include <Modloader/app/types/DebugValues.h>
 #include <Modloader/app/types/Texture2D.h>
 #include <Modloader/modloader.h>
+#include <Modloader/windows_api/console.h>
 #include <optional>
 
 using namespace app::classes;
@@ -33,12 +34,22 @@ namespace core::api::game::debug_menu {
 
     std::optional<bool> was_debug_enabled_initially = std::nullopt;
 
+    void notify_debug_was_active_this_session() {
+        debug_was_active_this_session = true;
+    }
+
+    [[maybe_unused]] auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
+        if (modloader::win::console::console_is_initialized()) {
+            notify_debug_was_active_this_session();
+        }
+    });
+
     IL2CPP_INTERCEPT(CheatsHandler, void, ActivateDebug, (app::CheatsHandler* this_ptr)) {
         if (prevent_cheats) {
             return;
         }
 
-        debug_was_active_this_session = true;
+        notify_debug_was_active_this_session();
         next::CheatsHandler::ActivateDebug(this_ptr);
     }
 
@@ -47,38 +58,8 @@ namespace core::api::game::debug_menu {
             return;
         }
 
-        debug_was_active_this_session = true;
+        notify_debug_was_active_this_session();
         next::CheatsHandler::ActivateDebugMenu(this_ptr);
-    }
-
-    auto draw_gui_area_without_style = false;
-    IL2CPP_INTERCEPT(UnityEngine::GUILayout, void, BeginArea_4, (app::Rect screen_rect, app::GUIStyle* style)) {
-        if (draw_gui_area_without_style) {
-            UnityEngine::GUILayout::BeginArea_1(screen_rect);
-            return;
-        }
-
-        next::UnityEngine::GUILayout::BeginArea_4(screen_rect, style);
-    }
-
-    IL2CPP_INTERCEPT(HierarchyDebugMenu, bool, Draw, (app::HierarchyDebugMenu * this_ptr, app::Rect rect, bool is_selected)) {
-        modloader::ScopedSetter _(draw_gui_area_without_style, true);
-        return next::HierarchyDebugMenu::Draw(this_ptr, rect, is_selected);
-    }
-
-    IL2CPP_INTERCEPT(DebugMenu, void, Awake, (app::DebugMenu* this_ptr)) {
-        next::DebugMenu::Awake(this_ptr);
-
-        const auto texture = types::Texture2D::create();
-        UnityEngine::Texture2D::ctor_5(texture, 1, 1, app::TextureFormat__Enum::RGBA32, false);
-        UnityEngine::Texture2D::SetPixel(texture, 0, 0, app::Color{0.f, 0.f, 0.f, 0.4f});
-        UnityEngine::Texture2D::Compress(texture, false);
-        UnityEngine::Texture::set_wrapMode(reinterpret_cast<app::Texture*>(texture), app::TextureWrapMode__Enum::Repeat);
-        UnityEngine::Texture2D::Apply_1(texture, true, true);
-        graphics::textures::dont_unload_texture(reinterpret_cast<app::Texture*>(texture));
-
-        const auto normal = UnityEngine::GUIStyle::get_normal(this_ptr->fields.Skin->fields.m_CustomStyles->vector[9]);
-        UnityEngine::GUIStyleState::set_background(normal, texture);
     }
 
     void set_should_prevent_cheats(bool prevent) {
@@ -105,7 +86,7 @@ namespace core::api::game::debug_menu {
         }
 
         if (enable) {
-            debug_was_active_this_session = true;
+            notify_debug_was_active_this_session();
         }
 
         const auto cheats = types::CheatsHandler::get_class()->static_fields;
@@ -190,4 +171,36 @@ namespace core::api::game::debug_menu {
             }
         }
     }
-}
+
+    namespace better_hierarchy_menu {
+        auto draw_gui_area_without_style = false;
+        IL2CPP_INTERCEPT(UnityEngine::GUILayout, void, BeginArea_4, (app::Rect screen_rect, app::GUIStyle* style)) {
+            if (draw_gui_area_without_style) {
+                UnityEngine::GUILayout::BeginArea_1(screen_rect);
+                return;
+            }
+
+            next::UnityEngine::GUILayout::BeginArea_4(screen_rect, style);
+        }
+
+        IL2CPP_INTERCEPT(HierarchyDebugMenu, bool, Draw, (app::HierarchyDebugMenu * this_ptr, app::Rect rect, bool is_selected)) {
+            modloader::ScopedSetter _(draw_gui_area_without_style, true);
+            return next::HierarchyDebugMenu::Draw(this_ptr, rect, is_selected);
+        }
+
+        IL2CPP_INTERCEPT(DebugMenu, void, Awake, (app::DebugMenu * this_ptr)) {
+            next::DebugMenu::Awake(this_ptr);
+
+            const auto texture = types::Texture2D::create();
+            UnityEngine::Texture2D::ctor_5(texture, 1, 1, app::TextureFormat__Enum::RGBA32, false);
+            UnityEngine::Texture2D::SetPixel(texture, 0, 0, app::Color{0.f, 0.f, 0.f, 0.4f});
+            UnityEngine::Texture2D::Compress(texture, false);
+            UnityEngine::Texture::set_wrapMode(reinterpret_cast<app::Texture*>(texture), app::TextureWrapMode__Enum::Repeat);
+            UnityEngine::Texture2D::Apply_1(texture, true, true);
+            graphics::textures::dont_unload_texture(reinterpret_cast<app::Texture*>(texture));
+
+            const auto normal = UnityEngine::GUIStyle::get_normal(this_ptr->fields.Skin->fields.m_CustomStyles->vector[9]);
+            UnityEngine::GUIStyleState::set_background(normal, texture);
+        }
+    } // namespace better_hierarchy_menu
+} // namespace core::api::game::debug_menu

@@ -20,7 +20,7 @@
 #include <Modloader/app/types/PlayerUberStateGroup.h>
 #include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/modloader.h>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 
 using namespace modloader;
 using namespace app::classes;
@@ -280,7 +280,11 @@ namespace core::api::game::player {
 
         bool has_ability(const app::AbilityType__Enum ability) {
             const auto player = sein();
-            return player && player->fields.PlayerAbilities && PlayerAbilities::HasAbility(player->fields.PlayerAbilities, ability);
+            if (player && player->fields.PlayerAbilities) {
+                return PlayerAbilities::HasAbility(player->fields.PlayerAbilities, ability);
+            }
+
+            return false;
         }
 
         void set_ability(app::AbilityType__Enum ability, const bool value) {

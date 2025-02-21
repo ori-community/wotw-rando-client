@@ -3,9 +3,9 @@
 #include <Modloader/windows_api/windows.h>
 #include <Modloader/modloader.h>
 
-#include <format>
 #include <algorithm>
 #include <cctype>
+#include <format>
 #include <future>
 #include <iostream>
 #include <map>
@@ -347,6 +347,10 @@ namespace modloader::win::console {
                 std::cout << message << std::endl;
             }
         }
+    }
+
+    bool console_is_initialized() {
+        return initialized;
     }
 
     namespace {

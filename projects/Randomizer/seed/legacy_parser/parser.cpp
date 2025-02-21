@@ -31,7 +31,7 @@
 #include <Randomizer/seed/items/icon_override.h>
 #include <fstream>
 #include <iostream>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 #include <regex>
 #include <span>
 #include <string>
@@ -2146,19 +2146,18 @@ namespace randomizer::seed::legacy_parser {
                 int value_group;
                 int value_state;
 
-                if (
-                    !string_convert(parts[0], toggle_group) ||
-                    !string_convert(parts[1], toggle_state) ||
-                    !string_convert(parts[2], value_group) ||
-                    !string_convert(parts[3], value_state)
-                ) {
+                if (!string_convert(parts[0], toggle_group) || !string_convert(parts[1], toggle_state) || !string_convert(parts[2], value_group) ||
+                    !string_convert(parts[3], value_state)) {
                     ++line_number;
                     continue;
                 }
 
+                core::api::uber_states::UberState uber_state(value_group, value_state);
+                uber_state.enable_logging = false;
+
                 data->timers.push_back({
                     {toggle_group, toggle_state},
-                    {value_group, value_state}
+                    std::move(uber_state),
                 });
 
             } else if (!line.empty()) {

@@ -18,6 +18,7 @@ set(
         "dev/seed_debugger.cpp"
         "features/area_segment_states.cpp"
         "features/better_menus.cpp"
+        "features/camera_aspect.cpp"
         "features/controls/ability_overrides.cpp"
         "features/controls/air_no_deceleration.cpp"
         "features/controls/autoaim.cpp"
@@ -40,6 +41,7 @@ set(
         "features/cutscene_skips/willow_heart_cutscenes.cpp"
         "features/mini_map/mini_map.cpp"
         "features/difficulty.cpp"
+        "features/door_randomizer.cpp"
         "features/keyboard_multibind.cpp"
         "features/keystone_door.cpp"
         "features/knock_knock_wellspring.cpp"
@@ -79,6 +81,7 @@ set(
         "game/behaviour_changes/deflector_without_bash.cpp"
         "game/behaviour_changes/faster_teleportation.cpp"
         "game/behaviour_changes/feeding_grounds_allow_burrow.cpp"
+        "game/behaviour_changes/family_reunion_moki_hut_state.cpp"
         "game/behaviour_changes/fix_kwolok_not_stopping_when_abandoning_challenge.cpp"
         "game/behaviour_changes/fix_shop_anywhere.cpp"
         "game/behaviour_changes/fix_straight_grenades.cpp"
@@ -180,7 +183,6 @@ set(
         "seed/reach_check.cpp"
         "seed/seed.cpp"
         "seed/seed_source.cpp"
-        "state_data/parser.cpp"
         "shrek.cpp"
         "stats/enemies.cpp"
         "stats/game_stats.cpp"
@@ -213,6 +215,7 @@ set(
         "constants.h"
         "dev/seed_debugger.h"
         "features/area_segment_states.h"
+        "features/door_randomizer.h"
         "features/controls/ability_overrides.h"
         "features/controls/invert_swim.h"
         "features/credits.h"
@@ -254,7 +257,6 @@ set(
         "seed/reach_check.h"
         "seed/seed.h"
         "seed/seed_source.h"
-        "state_data/parser.h"
         "stats/game_stats.h"
         "text_processors/ability.h"
         "text_processors/action.h"
@@ -347,12 +349,8 @@ target_link_libraries(${PROJECT_NAME} $<IF:$<TARGET_EXISTS:zstd::libzstd_shared>
 find_package(libzippp CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} libzippp::libzippp)
 
-find_package(SDL2 CONFIG REQUIRED)
-target_link_libraries(
-        ${PROJECT_NAME}
-        $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
-        $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
-)
+find_package(SDL3 CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} SDL3::SDL3)
 
 message(STATUS "Assigning source groups.")
 

@@ -33,7 +33,7 @@
 #include <Randomizer/game/spawning_and_preloading.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/parser.h>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 
 using namespace utils;
 using namespace app::classes;
