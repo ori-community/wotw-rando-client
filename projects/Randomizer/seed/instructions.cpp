@@ -1226,6 +1226,16 @@ namespace randomizer::seed {
             [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override { return "WheelsClear"; }
         };
 
+        struct DebugLog final : IInstruction {
+            void execute(Seed& seed, SeedMemory& memory) const override {
+                modloader::info("seed_log", memory.strings.get(0));
+            }
+
+            [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+                return std::format("DebugLog '{}'", memory.strings.get(0));
+            }
+        };
+
         template<bool check>
         std::unique_ptr<IInstruction> create_execute(const nlohmann::json& j) {
             return std::make_unique<Execute<check>>(j.get<int>());
@@ -1420,6 +1430,8 @@ namespace randomizer::seed {
 
         std::unique_ptr<IInstruction> create_wheels_clear(const nlohmann::json& j) { return std::make_unique<WheelsClear>(); }
 
+        std::unique_ptr<IInstruction> create_debug_log(const nlohmann::json& j) { return std::make_unique<DebugLog>(); }
+
         std::unordered_map<std::string, std::function<std::unique_ptr<IInstruction>(const nlohmann::json& j)>> creation_functors{
             {"Execute", create_execute<false>},
             {"ExecuteIf", create_execute<true>},
@@ -1496,6 +1508,7 @@ namespace randomizer::seed {
             {"SwitchWheel", create_wheel_switch},
             {"SetWheelPinned", create_wheel_pinned},
             {"ClearAllWheels", create_wheels_clear},
+            {"DebugLog", create_debug_log},
         };
     } // namespace
 
