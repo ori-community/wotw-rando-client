@@ -11,24 +11,19 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/system/save_files.h>
 #include <Core/events/action.h>
-#include <Core/utils/misc.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/GameStateMachine.h>
-#include <Modloader/app/methods/Grdk/Wrapper.h>
 #include <Modloader/app/methods/MessageBox.h>
-#include <Modloader/app/methods/SaveGameController.h>
 #include <Modloader/app/methods/SaveSlotsManager.h>
 #include <Modloader/app/methods/SaveSlotsUI.h>
 #include <Modloader/app/methods/SetTitleScreenAction.h>
-#include <Modloader/app/methods/System/IO/File.h>
 #include <Modloader/app/types/CleverMenuItem.h>
 #include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/XboxLiveIdentityUI.h>
-#include <Modloader/app/types/CleverMenuItem.h>
-#include <Modloader/app/types/GameStateMachine.h>
+#include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/game/spawning_and_preloading.h>
 #include <Randomizer/randomizer.h>
@@ -531,6 +526,10 @@ namespace randomizer::main_menu_seed_info {
         }
 
         IL2CPP_INTERCEPT(SetTitleScreenAction, void, Perform, (app::SetTitleScreenAction * this_ptr, app::IContext* context)) {
+            // Moon forgot this, and it causes the game to start if you quickly press escape
+            // and then enter when being in the difficulty selection
+            types::Input_Cmd::get_class()->static_fields->MenuSelect->fields.Used = true;
+
             next::SetTitleScreenAction::Perform(this_ptr, context);
 
             if (this_ptr->fields.Screen == app::TitleScreenManager_Screen__Enum::ProfileSelected) {
