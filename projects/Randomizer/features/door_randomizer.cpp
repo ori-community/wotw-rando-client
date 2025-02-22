@@ -168,7 +168,7 @@ namespace randomizer::doors {
             door->fields.OverrideEnterDoorMessage = nullptr;
 
             const auto& to_door = doors.at(*from_door.target_door_name);
-            const auto door_position = modloader::math::convert(il2cpp::unity::get_position(door));
+            const auto door_position = modloader::math::to_vec2(il2cpp::unity::get_position(door));
 
             for (auto& scene_name: to_door.scene_names) {
                 DoorLoadingZone zone{

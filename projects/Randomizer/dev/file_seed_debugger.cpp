@@ -5,7 +5,7 @@
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/seed_event.h>
 #include <fstream>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 
 namespace randomizer::dev::seed_debugger {
     namespace {

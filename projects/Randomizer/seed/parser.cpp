@@ -2,8 +2,7 @@
 #include <Modloader/modloader.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/parser.h>
-#include <fstream>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 
 #include "archive.h"
 

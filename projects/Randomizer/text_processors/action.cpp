@@ -3,7 +3,7 @@
 #include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/text_processors/action.h>
 #include <Randomizer/text_processors/helpers.h>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 
 namespace randomizer::text_processors {
     void ActionProcessor::process(ITextProcessor const& base_processor, std::string& text) const {

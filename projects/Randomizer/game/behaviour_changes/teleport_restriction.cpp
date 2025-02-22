@@ -105,7 +105,7 @@ namespace {
             // Nobody has ever seen a tp restriction zone around the Inner Ruins TP...
             constexpr app::Vector2 inner_ruins_tp_position {2125.27, -3978.36};
             constexpr float inner_ruins_force_allow_tp_radius_squared = 196.f;  // sqrt = 14.f
-            const auto is_near_inner_ruins_tp = modloader::math::distance2(modloader::math::convert(core::api::game::player::get_position()), inner_ruins_tp_position) < inner_ruins_force_allow_tp_radius_squared;
+            const auto is_near_inner_ruins_tp = modloader::math::distance2(modloader::math::to_vec2(core::api::game::player::get_position()), inner_ruins_tp_position) < inner_ruins_force_allow_tp_radius_squared;
 
             if (!is_near_inner_ruins_tp) {
                 return app::SavePedestalController_CanTeleportResult__Enum::Denied_RestrictZone;

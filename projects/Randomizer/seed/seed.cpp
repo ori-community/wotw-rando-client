@@ -4,8 +4,7 @@
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/seed.h>
-#include <fstream>
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 
 namespace randomizer::seed {
 
