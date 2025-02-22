@@ -4,6 +4,7 @@
 #include <Core/messages/message_controller.h>
 #include <Core/utils/json_serializers.h>
 #include <Modloader/il2cpp_math.h>
+#include <Modloader/app/types/SuspensionManager.h>
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/game/map/map.h>
 #include <Randomizer/game/shops/shop.h>
@@ -87,7 +88,7 @@ namespace randomizer::seed {
             }
 
             for (const auto& timer: timers) {
-                if (timer.toggle.get<bool>()) {
+                if (!core::api::game::game_controller()->fields._IsSuspended_k__BackingField && timer.toggle.get<bool>()) {
                     timer.value.set(timer.value.get<float>() + core::api::game::delta_time());
                 }
             }
