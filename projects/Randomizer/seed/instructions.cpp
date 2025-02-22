@@ -4,7 +4,6 @@
 #include <Core/messages/message_controller.h>
 #include <Core/utils/json_serializers.h>
 #include <Modloader/il2cpp_math.h>
-#include <Modloader/app/types/SuspensionManager.h>
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/game/map/map.h>
 #include <Randomizer/game/shops/shop.h>
