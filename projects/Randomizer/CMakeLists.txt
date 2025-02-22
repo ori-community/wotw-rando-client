@@ -199,6 +199,7 @@ set(
         "trial.cpp"
         "tracking/game_tracker.cpp"
         "uber_states/misc_handlers.cpp"
+        "uber_states/random_value_generator.cpp"
         "uber_states/uber_state_initialization.cpp"
         "uber_states/uber_state_intercepts.cpp"
         "ui/always_show_keystones.cpp"
@@ -270,6 +271,8 @@ set(
         "timer.h"
         "trial.h"
         "tracking/game_tracker.h"
+        "uber_states/random_value_generator.h"
+        "uber_states/uber_state_intercepts.h"
 )
 
 set(

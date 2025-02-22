@@ -10,13 +10,21 @@
 namespace core::api::uber_states {
     using uber_id_t = std::pair<UberStateGroup, int>;
     struct VirtualStateInfo {
+        enum class UpdateMode {
+            None,
+            Poll,  // Polls the virtual uber state every Update
+            ReactiveEffect,  // Creates a reactive effect on the getter
+        };
+
         ValueType type = ValueType::Boolean;
         UberStateGroup group = UberStateGroup::Invalid;
         int state = 0;
         std::string name = "Uninitialized";
 
+        /** Whether this virtual state is read-only */
         bool readonly = false;
-        bool polled = false;
+
+        UpdateMode update_mode = UpdateMode::ReactiveEffect;
     };
 
     CORE_DLLEXPORT void register_virtual_state(VirtualStateInfo const& info, Property<double> const& value);

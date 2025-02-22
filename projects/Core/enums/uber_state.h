@@ -35,6 +35,7 @@ enum class UberStateGroup {
     DoorsVisited = 28,
     Settings = 29,
     Input = 30,
+    RandomValueGenerator = 31,
 };
 
 enum class UberStateType : uint8_t {

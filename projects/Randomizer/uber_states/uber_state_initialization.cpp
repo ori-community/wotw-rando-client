@@ -27,6 +27,8 @@
 #include <Randomizer/randomizer.h>
 #include <chrono>
 
+#include "random_value_generator.h"
+
 using namespace modloader;
 using namespace app::classes;
 using namespace core::api::uber_states;
@@ -440,6 +442,9 @@ namespace randomizer {
 
                 // Dash has special handling, see burrow_and_waterdash_without_dash.cpp
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Skills, "dash", static_cast<int>(app::AbilityType__Enum::DashNew), false),
+
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandomValueGenerator, "seed", 0, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandomValueGenerator, "randomizeSeedNextTime", 1, true),
             };
 
             dev::print_time(start_time, "Built state list");
@@ -512,14 +517,16 @@ namespace randomizer {
             register_virtual_event_state(UberStateGroup::RandoEvents, 107, "onRequestWastesTrialText");
 
             using namespace core::api::game::player;
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 0, "spiritLight", false, true}, spirit_light().wrap<double>());
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 1, "gorlekOre", false, true}, ore().wrap<double>());
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 2, "keystones", false, true}, keystones().wrap<double>());
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 3, "shardSlots", false, true}, shard_slots().wrap<double>());
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 10, "maxHealth", false, true}, max_health().wrap<double>());
-            register_virtual_state({ValueType::Float, UberStateGroup::Player, 11, "health", false, true}, health().wrap<double>());
-            register_virtual_state({ValueType::Float, UberStateGroup::Player, 12, "maxEnergy", false, true}, max_energy().wrap<double>());
-            register_virtual_state({ValueType::Float, UberStateGroup::Player, 13, "energy", false, true}, energy().wrap<double>());
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 0, "spiritLight", false, VirtualStateInfo::UpdateMode::Poll}, spirit_light().wrap<double>());
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 1, "gorlekOre", false, VirtualStateInfo::UpdateMode::Poll}, ore().wrap<double>());
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 2, "keystones", false, VirtualStateInfo::UpdateMode::Poll}, keystones().wrap<double>());
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 3, "shardSlots", false, VirtualStateInfo::UpdateMode::Poll}, shard_slots().wrap<double>());
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 10, "maxHealth", false, VirtualStateInfo::UpdateMode::Poll}, max_health().wrap<double>());
+            register_virtual_state({ValueType::Float, UberStateGroup::Player, 11, "health", false, VirtualStateInfo::UpdateMode::Poll}, health().wrap<double>());
+            register_virtual_state({ValueType::Float, UberStateGroup::Player, 12, "maxEnergy", false, VirtualStateInfo::UpdateMode::Poll}, max_energy().wrap<double>());
+            register_virtual_state({ValueType::Float, UberStateGroup::Player, 13, "energy", false, VirtualStateInfo::UpdateMode::Poll}, energy().wrap<double>());
+
+            uber_states::random_value_generator::register_virtual_uber_states();
 
             register_virtual_state(
                 {
@@ -528,7 +535,7 @@ namespace randomizer {
                     .state = 0,
                     .name = "randomSpiritLight",
                     .readonly = true,
-                    .polled = true,
+                    .update_mode = VirtualStateInfo::UpdateMode::Poll,
                 },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentArea (5, 50) is read only."); },
@@ -543,7 +550,7 @@ namespace randomizer {
                     .state = 50,
                     .name = "currentArea",
                     .readonly = true,
-                    .polled = true,
+                    .update_mode = VirtualStateInfo::UpdateMode::Poll,
                 },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentArea (5, 50) is read only."); },

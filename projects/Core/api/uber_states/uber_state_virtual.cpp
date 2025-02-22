@@ -59,9 +59,9 @@ namespace core::api::uber_states {
     void register_virtual_state(VirtualStateInfo const& info, const Property<double>& value) {
         const auto uber_id = std::make_pair(info.group, info.state);
         virtual_states[uber_id] = {.type = info.type, .name = info.name, .value = value, .readonly = info.readonly};
-        if (info.polled) {
+        if (info.update_mode == VirtualStateInfo::UpdateMode::Poll) {
             polled_virtual_states.push_back(uber_id);
-        } else {
+        } else if (info.update_mode == VirtualStateInfo::UpdateMode::ReactiveEffect) {
             auto& state = virtual_states[uber_id];
             reactivity::watch_effect()
                 .effect(state.value)

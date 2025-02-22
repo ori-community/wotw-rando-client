@@ -32,6 +32,7 @@ namespace {
         { UberStateGroup::DoorsVisited, "doorsVisited" },
         { UberStateGroup::Settings, "settings" },
         { UberStateGroup::Input, "input" },
+        { UberStateGroup::RandomValueGenerator, "randomValueGenerator" },
     };
 }
 
