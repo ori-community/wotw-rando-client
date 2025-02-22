@@ -194,7 +194,7 @@ namespace core::api::scenes {
         SceneManagerScene::PostEnableScene(scene_manager_scene);
     }
 
-    void force_load_scene(std::string_view scene, scene_loading_callback callback, bool keep_preloaded, bool async) {
+    void force_load_scene(std::string_view scene, scene_loading_callback callback, bool keep_preloaded, bool async, bool load_dependant, bool queue_included) {
         auto& scene_to_load = scenes_to_load[std::string(scene)];
         scene_to_load.scene_name = std::string(scene);
         scene_to_load.keep_preloaded = scene_to_load.keep_preloaded || keep_preloaded;
@@ -219,7 +219,7 @@ namespace core::api::scenes {
                 callback(&metadata);
             }
         } else if (!ScenesManager::SceneIsLoading(scenes_manager, scene_meta->fields.SceneMoonGuid)) {
-            ScenesManager::RequestAdditivelyLoadScene(scenes_manager, scene_meta, async, true, true, true, true);
+            ScenesManager::RequestAdditivelyLoadScene(scenes_manager, scene_meta, async, true, true, load_dependant, queue_included);
         }
     }
 

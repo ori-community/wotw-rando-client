@@ -77,8 +77,9 @@ namespace core::api::scenes {
         IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
             next::GameController::FixedUpdate(this_ptr);
 
-            for (const auto& object_spawn_by_scene : pending_object_spawns_by_scene)
-                force_load_scene(object_spawn_by_scene.first, &on_loading_callback);
+            for (const auto& object_spawn_by_scene : pending_object_spawns_by_scene) {
+                force_load_scene(object_spawn_by_scene.first, &on_loading_callback, false, true, false, false);
+            }
         }
     } // namespace
 
