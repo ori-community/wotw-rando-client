@@ -26,7 +26,7 @@ namespace core::api::screen_position {
             case ScreenPosition::BottomLeft:
                 return {-7.f * aspect_ratio_multiplier, -3.93749950781f, z};
             case ScreenPosition::BottomCenter:
-                return {0.f * aspect_ratio_multiplier, -2.5, z};
+                return {0.f * aspect_ratio_multiplier, -2.8, z};
             case ScreenPosition::BottomRight:
                 return {7.f * aspect_ratio_multiplier, -3.93749950781f, z};
             case ScreenPosition::MiddleCenter:

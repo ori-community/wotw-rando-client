@@ -109,6 +109,10 @@ struct core::Property<std::string> {
         notify_changed(reactivity::PropertyDependency(m_id));
     }
 
+    const std::shared_ptr<text::ITextProcessor>& processor() const {
+        return m_text_processor;
+    }
+
     void process_and_set(std::string value) const {
         if (m_text_processor != nullptr) {
             m_text_processor->process(value);
