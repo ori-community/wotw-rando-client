@@ -45,9 +45,13 @@ namespace randomizer::seed {
         seed_file.unsetf(std::ios::skipws);
 
         if (seed_file.is_open()) {
-            m_archive = std::make_shared<SeedArchive>(
-                std::vector(std::istreambuf_iterator{seed_file}, {})
-            );
+            try {
+                m_archive = std::make_shared<SeedArchive>(
+                    std::vector(std::istreambuf_iterator{seed_file}, {})
+                );
+            } catch (const std::runtime_error& e) {
+                m_error = std::format("{}: {}", e.what(), convert_wstring_to_string(m_path.filename().wstring()));
+            }
         } else {
             m_error = std::format("File not found: {}", convert_wstring_to_string(m_path.filename().wstring()));
         }

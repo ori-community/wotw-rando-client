@@ -12,7 +12,11 @@ namespace randomizer::seed {
 
     SeedArchive::SeedArchive(const std::vector<std::byte>& data) :
         m_archive_data(data),
-        m_archive(libzippp::ZipArchive::fromBuffer(m_archive_data.data(), m_archive_data.size())) {}
+        m_archive(libzippp::ZipArchive::fromBuffer(m_archive_data.data(), m_archive_data.size())) {
+        if (m_archive == nullptr) {
+            throw std::runtime_error("Failed to open seed archive");
+        }
+    }
 
     SeedArchive::~SeedArchive() { libzippp::ZipArchive::free(m_archive); }
 
