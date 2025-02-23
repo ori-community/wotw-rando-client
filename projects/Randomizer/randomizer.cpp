@@ -224,9 +224,6 @@ namespace randomizer {
         };
 
         auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
-            // TODO
-            // randomizer_seed.grant(params.state, params.previous_value);
-
             if (TELEPORTER_UBER_STATES.contains(params.state)) {
                 queue_reach_check();
             }
