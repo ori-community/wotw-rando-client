@@ -4,14 +4,17 @@
 #include <nlohmann/adl_serializer.hpp>
 #include <string>
 #include <vector>
+#include <Core/messages/message_handle.h>
+#include <Randomizer/game/map/icon.h>
 
 namespace randomizer::seed {
     class Seed;
     struct SeedMemory;
+    struct SeedExecutionEnvironment;
 
     struct IInstruction {
         virtual ~IInstruction() = default;
-        virtual void execute(Seed& seed, SeedMemory& memory) const = 0;
+        virtual void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const = 0;
         virtual std::string to_string(const Seed& seed, const SeedMemory& memory) const = 0;
     };
 
@@ -88,6 +91,32 @@ namespace randomizer::seed {
     inline void SeedMemory::set(const std::size_t index, const std::string& value) {
         strings.set(index, value);
     }
+
+    struct SeedTimer {
+        core::api::uber_states::UberState toggle;
+        core::api::uber_states::UberState value;
+    };
+
+    struct QueuedMessageBox {
+        core::messages::QueuedMessageHandle::QueuedMessageState last_state = core::messages::QueuedMessageHandle::QueuedMessageState::Queued;
+        message_handle_ptr_t handle;
+        std::optional<int> visible_callback;
+        std::optional<int> hidden_callback;
+    };
+
+    struct FreeMessageBox {
+        std::shared_ptr<core::api::messages::MessageBox> message;
+        std::optional<float> timeout;
+    };
+
+    struct SeedExecutionEnvironment {
+        std::unordered_map<std::size_t, std::shared_ptr<game::map::Icon>> warp_icons;
+        std::unordered_map<std::size_t, QueuedMessageBox> queued_message_boxes;
+        std::unordered_map<std::size_t, FreeMessageBox> free_message_boxes;
+        std::unordered_set<std::size_t> message_boxes_with_timeouts;
+        std::vector<SeedTimer> timers;
+        bool prevent_grant = false;
+    };
 
     std::unique_ptr<IInstruction> create_instruction(const nlohmann::json& j);
     void destroy_volatile_seed_data();

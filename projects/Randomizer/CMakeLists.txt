@@ -179,6 +179,7 @@ set(
         "randomizer.cpp"
         "seed/archive.cpp"
         "seed/instructions.cpp"
+        "seed/instruction_utils.cpp"
         "seed/parser.cpp"
         "seed/reach_check.cpp"
         "seed/seed.cpp"

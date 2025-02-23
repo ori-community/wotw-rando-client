@@ -145,7 +145,7 @@ namespace randomizer::seed {
 
         for (const auto& command: m_parse_output->data.commands.at(id)) {
             dev::seed_debugger::instruction(command.get());
-            command->execute(*this, m_memory);
+            command->execute(*this, m_memory, m_environment);
         }
 
         dev::seed_debugger::command_end(id);
