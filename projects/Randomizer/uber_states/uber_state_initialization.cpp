@@ -443,7 +443,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Skills, "dash", static_cast<int>(app::AbilityType__Enum::DashNew), false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandomValueGenerator, "seed", 0, 0),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandomValueGenerator, "randomizeSeedNextTime", 1, true),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandomValueGenerator, "useSeed", 1, false),
             };
 
             dev::print_time(start_time, "Built state list");
