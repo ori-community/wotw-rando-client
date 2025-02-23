@@ -29,7 +29,6 @@ namespace randomizer::features::wheel {
         set_wheel_item_enabled(9001, 4, dev);
         set_wheel_item_enabled(9001, 5, dev);
         set_wheel_item_enabled(9001, 6, dev);
-        set_wheel_item_enabled(9001, 7, dev);
         set_wheel_item_enabled(9001, 9, dev);
         set_wheel_item_enabled(9001, 10, dev);
         refresh_wheel();
