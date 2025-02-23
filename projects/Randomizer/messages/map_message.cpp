@@ -1,4 +1,6 @@
+#include <Core/api/game/game.h>
 #include <Core/core.h>
+#include <Core/enums/game_event.h>
 #include <Core/messages/message_controller.h>
 #include <Randomizer/messages/map_message.h>
 #include <Randomizer/randomizer.h>
@@ -7,7 +9,7 @@
 namespace randomizer::messages {
     std::shared_ptr<core::api::messages::MessageBox> box;
 
-    void show_map_message(std::string_view text) {
+    void set_map_message(std::string_view text) {
         if (box == nullptr) {
             box = std::make_shared<core::api::messages::MessageBox>();
             box->position().set(0, 0, 0);
@@ -33,13 +35,29 @@ namespace randomizer::messages {
         } else {
             box->text().set(processed_text);
         }
+    }
+
+    void show_map_message() {
+        if (box == nullptr) {
+            return;
+        }
 
         box->show(true, false);
     }
 
     void hide_map_message() {
-        if (box != nullptr) {
-            box->hide(true);
+        if (box == nullptr) {
+            return;
         }
+
+        box->hide(true);
     }
+
+    [[maybe_unused]] auto on_map_opened = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, [](auto, auto) {
+        show_map_message();
+    });
+
+    [[maybe_unused]] auto on_map_closed = core::api::game::event_bus().register_handler(GameEvent::CloseAreaMap, EventTiming::After, [](auto, auto) {
+        hide_map_message();
+    });
 } // namespace randomizer::messages

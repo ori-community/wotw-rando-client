@@ -315,6 +315,7 @@ set(
         "seed/instructions/set_boolean.h"
         "seed/instructions/set_float.h"
         "seed/instructions/set_integer.h"
+        "seed/instructions/set_map_message.h"
         "seed/instructions/set_shop_item_description.h"
         "seed/instructions/set_shop_item_hidden.h"
         "seed/instructions/set_shop_item_icon.h"

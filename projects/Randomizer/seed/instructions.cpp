@@ -2,7 +2,6 @@
 #include <Core/core.h>
 #include <Core/messages/message_controller.h>
 #include <Core/utils/json_serializers.h>
-#include <Randomizer/game/map/map.h>
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/randomizer.h>
@@ -83,6 +82,7 @@
 #include <Randomizer/seed/instructions/set_wheel_pinned.h>
 #include <Randomizer/seed/instructions/reset_all_wheels.h>
 #include <Randomizer/seed/instructions/debug_log.h>
+#include <Randomizer/seed/instructions/set_map_message.h>
 #include <Randomizer/seed/seed.h>
 #include <functional>
 #include <utility>
@@ -230,6 +230,7 @@ namespace randomizer::seed {
             register_instruction<SetWheelPinned>(factories);
             register_instruction<ResetAllWheels>(factories);
             register_instruction<DebugLog>(factories);
+            register_instruction<SetMapMessage>(factories);
 
             return factories;
         })();
