@@ -81,7 +81,7 @@
 #include <Randomizer/seed/instructions/destroy_wheel_item.h>
 #include <Randomizer/seed/instructions/switch_wheel.h>
 #include <Randomizer/seed/instructions/set_wheel_pinned.h>
-#include <Randomizer/seed/instructions/clear_all_wheels.h>
+#include <Randomizer/seed/instructions/reset_all_wheels.h>
 #include <Randomizer/seed/instructions/debug_log.h>
 #include <Randomizer/seed/seed.h>
 #include <functional>
@@ -228,7 +228,7 @@ namespace randomizer::seed {
             register_instruction<DestroyWheelItem>(factories);
             register_instruction<SwitchWheel>(factories);
             register_instruction<SetWheelPinned>(factories);
-            register_instruction<ClearAllWheels>(factories);
+            register_instruction<ResetAllWheels>(factories);
             register_instruction<DebugLog>(factories);
 
             return factories;
