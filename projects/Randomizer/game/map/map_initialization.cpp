@@ -388,7 +388,7 @@ namespace randomizer::game::map {
                         return MapIcon::Invisible;
                     });
 
-                    add_icon_visibility_callback(in_logic_icon, [location](auto&) {
+                    add_icon_visibility_callback(in_logic_icon, [location](auto) {
                         // Don't show icon if it has been picked up.
                         if (location.condition.resolve()) {
                             return IconVisibilityResult::Hide;
