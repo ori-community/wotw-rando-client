@@ -30,7 +30,6 @@ namespace randomizer::features::wheel {
         set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(4), dev);
         set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(5), dev);
         set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(6), dev);
-        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(7), dev);
         set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(9), dev);
         set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(10), dev);
         refresh_wheel();
