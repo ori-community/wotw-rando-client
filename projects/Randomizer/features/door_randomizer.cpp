@@ -268,6 +268,16 @@ namespace randomizer::doors {
             next::ScenesManager::Awake(this_ptr);
         }
 
+        IL2CPP_INTERCEPT(SeinDoorHandler, void, OnGoneThroughDoor, (app::SeinDoorHandler * this_ptr)) {
+            next::SeinDoorHandler::OnGoneThroughDoor(this_ptr);
+            core::api::game::save();
+        }
+
+        IL2CPP_INTERCEPT(SeinDoorHandler, void, FadeOutOnTimelineEnd, (app::SeinDoorHandler * this_ptr)) {
+            next::SeinDoorHandler::FadeOutOnTimelineEnd(this_ptr);
+            core::api::game::save();
+        }
+
         IL2CPP_INTERCEPT(SeinDoorHandler, void, FixedUpdate, (app::SeinDoorHandler * this_ptr)) {
             if (this_ptr->fields.m_state == app::SeinDoorHandler_State__Enum::WaitingForScene) {
                 // Make sure the target door has z = 0, otherwise the downwards raycast
@@ -288,7 +298,7 @@ namespace randomizer::doors {
                 queued_ground_placement = std::nullopt;
             }
 
-            modloader::ScopedSetter _(queue_placing_ori_on_ground, true);
+            modloader::ScopedSetter _1(queue_placing_ori_on_ground, true);
             next::SeinDoorHandler::FixedUpdate(this_ptr);
         }
 
@@ -343,6 +353,9 @@ namespace randomizer::doors {
             }
 
             next::SeinDoorHandler::EnterIntoDoor(this_ptr, door);
+
+            // We always create a checkpoint in our OnGoneThroughDoor intercept
+            this_ptr->fields.m_createCheckpoint = false;
         }
 
         IL2CPP_INTERCEPT(SeinDoorHandler, app::LegacyDoor*, GetTargetDoor, (app::SeinDoorHandler * this_ptr, app::LegacyDoor* door)) {
