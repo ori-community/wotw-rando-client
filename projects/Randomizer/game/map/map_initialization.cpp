@@ -334,7 +334,7 @@ namespace randomizer::game::map {
         }
 
         auto initialized = false;
-        auto on_ready = event_bus().register_handler(RandomizerEvent::LocationCollectionLoaded, EventTiming::After, [](auto, auto) {
+        [[maybe_unused]] auto on_ready = event_bus().register_handler(RandomizerEvent::LocationCollectionLoaded, EventTiming::After, [](auto, auto) {
             if (initialized) {
                 return;
             }
@@ -371,7 +371,7 @@ namespace randomizer::game::map {
                     in_logic_icon->label().set(icon_label(location, location.condition));
                     spoiler_icon->position().set(location.map_position.value());
                     spoiler_icon->name().set(location.name);
-                    spoiler_icon->label().assign([](auto) {}, [condition, game_finished, location] -> std::string {
+                    spoiler_icon->label().assign([](auto&) {}, [condition, game_finished, location] -> std::string {
                         const auto data_it = game_seed().environment().map_spoiler_data.find(location.name);
                         if (data_it != game_seed().environment().map_spoiler_data.end()) {
                             return data_it->second.label;
@@ -388,7 +388,7 @@ namespace randomizer::game::map {
                         return MapIcon::Invisible;
                     });
 
-                    add_icon_visibility_callback(in_logic_icon, [location](auto) {
+                    add_icon_visibility_callback(in_logic_icon, [location](auto&) {
                         // Don't show icon if it has been picked up.
                         if (location.condition.resolve()) {
                             return IconVisibilityResult::Hide;
