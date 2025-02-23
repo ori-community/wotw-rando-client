@@ -298,7 +298,7 @@ namespace randomizer::doors {
                 queued_ground_placement = std::nullopt;
             }
 
-            modloader::ScopedSetter _1(queue_placing_ori_on_ground, true);
+            modloader::ScopedSetter _(queue_placing_ori_on_ground, true);
             next::SeinDoorHandler::FixedUpdate(this_ptr);
         }
 
