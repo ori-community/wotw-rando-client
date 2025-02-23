@@ -253,18 +253,6 @@ namespace randomizer::seed {
         }
     }
 
-    void destroy_volatile_seed_data() {
-        game_seed().environment().timers.clear();
-        game_seed().environment().queued_message_boxes.clear();
-        game_seed().environment().free_message_boxes.clear();
-
-        for (const auto& icon: game_seed().environment().warp_icons | std::views::values) {
-            remove_icon(icon);
-        }
-
-        game_seed().environment().warp_icons.clear();
-    }
-
     void destroy_free_message_boxes() {
         game_seed().environment().free_message_boxes.clear();
     }

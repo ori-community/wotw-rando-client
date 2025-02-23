@@ -110,16 +110,21 @@ namespace randomizer::seed {
     };
 
     struct SeedExecutionEnvironment {
+        struct ItemSpoilerData {
+            MapIcon icon;
+            std::string label;
+        };
+
         std::unordered_map<std::size_t, std::shared_ptr<game::map::Icon>> warp_icons;
         std::unordered_map<std::size_t, QueuedMessageBox> queued_message_boxes;
         std::unordered_map<std::size_t, FreeMessageBox> free_message_boxes;
         std::unordered_set<std::size_t> message_boxes_with_timeouts;
         std::vector<SeedTimer> timers;
         bool prevent_grant = false;
+        std::unordered_map<std::string, ItemSpoilerData> map_spoiler_data;
     };
 
     std::unique_ptr<IInstruction> create_instruction(const nlohmann::json& j);
-    void destroy_volatile_seed_data();
 
     void destroy_free_message_boxes();
 }

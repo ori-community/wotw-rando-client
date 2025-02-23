@@ -1,6 +1,7 @@
 #include <Core/api/game/game.h>
 #include <Core/core.h>
 #include <Randomizer/dev/seed_debugger.h>
+#include <Randomizer/game/map/map.h>
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/seed.h>
@@ -153,7 +154,12 @@ namespace randomizer::seed {
 
     void Seed::clear() {
         m_parse_output = std::make_shared<SeedParseOutput>();
-        destroy_volatile_seed_data();
+
+        for (const auto& icon: game_seed().environment().warp_icons | std::views::values) {
+            remove_icon(icon);
+        }
+
+        m_environment = SeedExecutionEnvironment();
     }
 
     void Seed::trigger(const SeedClientEvent event) {
