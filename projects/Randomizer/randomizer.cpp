@@ -202,9 +202,34 @@ namespace randomizer {
             game_seed().trigger(seed::SeedClientEvent::Teleport);
         });
 
+        const std::unordered_set<core::api::uber_states::UberState> TELEPORTER_UBER_STATES{
+            { core::api::uber_states::UberState(21786, 10185) },
+            { core::api::uber_states::UberState(11666, 61594) },
+            { core::api::uber_states::UberState(53632, 18181) },
+            { core::api::uber_states::UberState(24922, 42531) },
+            { core::api::uber_states::UberState(937, 26601) },
+            { core::api::uber_states::UberState(42178, 42096) },
+            { core::api::uber_states::UberState(28895, 54235) },
+            { core::api::uber_states::UberState(18793, 38871) },
+            { core::api::uber_states::UberState(945, 58183) },
+            { core::api::uber_states::UberState(945, 1370) },
+            { core::api::uber_states::UberState(58674, 7071) },
+            { core::api::uber_states::UberState(58674, 1965) },
+            { core::api::uber_states::UberState(58674, 10029) },
+            { core::api::uber_states::UberState(20120, 49994) },
+            { core::api::uber_states::UberState(20120, 41398) },
+            { core::api::uber_states::UberState(10289, 4928) },
+            { core::api::uber_states::UberState(16155, 41465) },
+            { core::api::uber_states::UberState(16155, 50867) },
+        };
+
         auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
             // TODO
             // randomizer_seed.grant(params.state, params.previous_value);
+
+            if (TELEPORTER_UBER_STATES.contains(params.state)) {
+                queue_reach_check();
+            }
         });
 
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
