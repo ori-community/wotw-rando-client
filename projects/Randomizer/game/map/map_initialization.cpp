@@ -14,7 +14,6 @@ namespace randomizer::game::map {
         return show_interactible_icons_property;
     }
     const core::api::uber_states::UberState SHOW_SMALL_DOORS_STATE(UberStateGroup::RandoConfig, 200);
-    const core::api::uber_states::UberState MARK_UNVISITED_DOORS_STATE(UberStateGroup::RandoConfig, 201);
 
     namespace {
         std::string icon_label(const std::optional<location_data::Location>& location, const core::api::uber_states::UberStateCondition& condition) {
@@ -287,12 +286,8 @@ namespace randomizer::game::map {
                         return false;
                     }
 
-                    if (!MARK_UNVISITED_DOORS_STATE.get<bool>()) {
-                        return true;
-                    }
-
-                    const auto door_visited_state = core::api::uber_states::UberState(UberStateGroup::DoorsVisited, door_id);
-                    return door_visited_state.get<bool>();
+                    const auto door_connection_known_state = core::api::uber_states::UberState(UberStateGroup::KnownDoorConnections, door_id);
+                    return door_connection_known_state.get<bool>();
                 })
             );
 
@@ -306,12 +301,8 @@ namespace randomizer::game::map {
                         return false;
                     }
 
-                    if (!MARK_UNVISITED_DOORS_STATE.get<bool>()) {
-                        return false;
-                    }
-
-                    const auto door_visited_state = core::api::uber_states::UberState(UberStateGroup::DoorsVisited, door_id);
-                    return !door_visited_state.get<bool>();
+                    const auto door_connection_known_state = core::api::uber_states::UberState(UberStateGroup::KnownDoorConnections, door_id);
+                    return !door_connection_known_state.get<bool>();
                 })
             );
         }
