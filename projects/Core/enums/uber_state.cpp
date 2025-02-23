@@ -29,7 +29,7 @@ namespace {
         { UberStateGroup::Shards, "shards" },
         { UberStateGroup::UI, "ui" },
         { UberStateGroup::Doors, "doors" },
-        { UberStateGroup::DoorsVisited, "doorsVisited" },
+        { UberStateGroup::KnownDoorConnections, "knownDoorConnections" },
         { UberStateGroup::Settings, "settings" },
         { UberStateGroup::Input, "input" },
         { UberStateGroup::RandomValueGenerator, "randomValueGenerator" },
