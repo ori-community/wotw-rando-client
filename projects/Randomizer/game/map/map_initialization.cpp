@@ -318,7 +318,7 @@ namespace randomizer::game::map {
             make_door_icon(false, 15, -856.3, -4052.6);
             make_door_icon(false, 16, -1292.4, -3949.0);
             make_door_icon(false, 17, -891.1, -3987.2);
-            make_door_icon(false, 18, -1252.1, -2884.3);
+            make_door_icon(false, 18, -1252.1, -3884.3);
             make_door_icon(false, 19, -813.1, -3968.0);
             make_door_icon(false, 20, -1179.1, -3727.0);
             make_door_icon(false, 21, -836.8, -3922.6);
