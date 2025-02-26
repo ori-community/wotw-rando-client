@@ -2,7 +2,6 @@
 
 #include <Randomizer/archipelago/archipelago_ids.h>
 #include <nlohmann/json.hpp>
-#include <openssl/bio.h>
 #include <unordered_map>
 #include <unordered_set>
 #include <variant>

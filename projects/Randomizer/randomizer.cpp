@@ -435,7 +435,7 @@ namespace randomizer {
     void connect_ap_client() {
         std::string url;
         auto seed_meta = randomizer_seed.info().meta;
-        if (seed_meta.archipelago_address.value_or("archipelago.gg") == "archipelago.gg") {
+        if (!seed_meta.archipelago_address.has_value() || seed_meta.archipelago_address.value().starts_with("archipelago.gg")) {
             url = std::format("wss://archipelago.gg:{}/", seed_meta.archipelago_port.value_or("38281"));
         }
         else {
