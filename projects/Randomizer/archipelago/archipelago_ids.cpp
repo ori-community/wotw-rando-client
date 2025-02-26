@@ -23,25 +23,26 @@ namespace randomizer::archipelago::ids {
         RandomizerEvent::LocationCollectionLoaded,
         EventTiming::After,
         [](auto, auto) {
-            for (const auto& location: location_collection().locations()) {
-                const auto location_id = get_location_id(location);
+            if (should_use_ap_client()) {
+                for (const auto& location: location_collection().locations()) {
+                    const auto location_id = get_location_id(location);
 
-                auto existing_it = location_map.find(location_id);
-                if (existing_it != location_map.end()) {
-                    modloader::warn(
-                        "archipelago",
-                        std::format(
-                            "Location {} overlaps location {} when converted to an Archipelago ID and thus cannot be used in Archipelago",
-                            location.name,
-                            existing_it->second.name
-                        )
-                    );
-                    continue;
+                    auto existing_it = location_map.find(location_id);
+                    if (existing_it != location_map.end()) {
+                        modloader::warn(
+                            "archipelago",
+                            std::format(
+                                "Location {} overlaps location {} when converted to an Archipelago ID and thus cannot be used in Archipelago",
+                                location.name,
+                                existing_it->second.name
+                            )
+                        );
+                        continue;
+                    }
+                    location_map.emplace(location_id, location);
                 }
-                location_map.emplace(location_id, location);
+                modloader::info("archipelago", "Built location map");
             }
-            modloader::info("archipelago", "Built location map");
-            //}
         }
     );
 
