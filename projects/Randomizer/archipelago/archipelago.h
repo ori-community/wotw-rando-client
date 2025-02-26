@@ -51,6 +51,7 @@ namespace randomizer::archipelago {
         bool m_should_connect = false;
         ix::WebSocket m_websocket;
         std::string m_slot_name; // aka player name
+        int m_slot_id;
         std::string m_password;
         std::unordered_set<ids::archipelago_id_t> m_cached_locations;
         std::unordered_map<std::string, messages::NetworkSlot> m_slots;
