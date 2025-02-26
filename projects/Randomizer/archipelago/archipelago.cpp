@@ -33,18 +33,18 @@ namespace randomizer::archipelago {
 
     [[maybe_unused]]
     auto on_location_collection_loaded = event_bus().register_handler(RandomizerEvent::LocationCollectionLoaded, EventTiming::After, [](auto, auto) {
-        for (const auto& location: location_collection().locations()) {
-            core::api::uber_states::UberState loc_uber;
-            loc_uber = core::api::uber_states::UberState(location.condition.state.group_int(), location.condition.state.state());
+        if (should_use_ap_client()) {
+            for (const auto& location: location_collection().locations()) {
+                core::api::uber_states::UberState loc_uber;
+                loc_uber = core::api::uber_states::UberState(location.condition.state.group_int(), location.condition.state.state());
 
-            auto existing_it = locations_set.find(loc_uber);
-            if (existing_it == locations_set.end()) {
-                locations_set.insert(loc_uber);
+                auto existing_it = locations_set.find(loc_uber);
+                if (existing_it == locations_set.end()) {
+                    locations_set.insert(loc_uber);
+                }
             }
+            modloader::info("archipelago", "Built location set");
         }
-
-        modloader::info("archipelago", "Built location set");
-        //}
     });
 
     [[maybe_unused]]
@@ -169,10 +169,18 @@ namespace randomizer::archipelago {
                             connect(m_websocket.getUrl(), m_slot_name, m_password);
                         }
                     });
+                    core::message_controller().queue_central({
+                        .text = core::Property<std::string>(std::format("Connection to AP lost ({}). Retrying in 3s.", msg->closeInfo.reason)),
+                        .show_box = true,
+                    });
                 }
                 break;
             }
             case ix::WebSocketMessageType::Error:
+                core::message_controller().queue_central({
+                    .text = core::Property<std::string>(std::format("Connection to AP failed (url {}). Retrying in 10s.", m_websocket.getUrl())),
+                    .show_box = true,
+                });
                 core::events::schedule_task(10.f, [this]() {
                     if (m_should_connect) {
                         connect(m_websocket.getUrl(), m_slot_name, m_password);
@@ -262,6 +270,7 @@ namespace randomizer::archipelago {
         // TODO does not work
         location_data::Location location{ids::get_location_from_id(location_id)};
         set_state(location.condition.state.group_int(),location.condition.state.state(), location.condition.value);
+        modloader::info("archipelago", std::format("Activate location: {}|{} to {}", location.condition.state.group_int(),location.condition.state.state(), location.condition.value));
     }
 
     void ArchipelagoClient::set_state(int group, int state, auto value) {
