@@ -33,18 +33,16 @@ namespace randomizer::archipelago {
 
     [[maybe_unused]]
     auto on_location_collection_loaded = event_bus().register_handler(RandomizerEvent::LocationCollectionLoaded, EventTiming::After, [](auto, auto) {
-        if (should_use_ap_client()) {
-            for (const auto& location: location_collection().locations()) {
-                core::api::uber_states::UberState loc_uber;
-                loc_uber = core::api::uber_states::UberState(location.condition.state.group_int(), location.condition.state.state());
+        for (const auto& location: location_collection().locations()) {
+            core::api::uber_states::UberState loc_uber;
+            loc_uber = core::api::uber_states::UberState(location.condition.state.group_int(), location.condition.state.state());
 
-                auto existing_it = locations_set.find(loc_uber);
-                if (existing_it == locations_set.end()) {
-                    locations_set.insert(loc_uber);
-                }
+            auto existing_it = locations_set.find(loc_uber);
+            if (existing_it == locations_set.end()) {
+                locations_set.insert(loc_uber);
             }
-            modloader::info("archipelago", "Built location set");
         }
+        modloader::info("archipelago", "Built location set");
     });
 
     [[maybe_unused]]
@@ -178,7 +176,7 @@ namespace randomizer::archipelago {
             }
             case ix::WebSocketMessageType::Error:
                 core::message_controller().queue_central({
-                    .text = core::Property<std::string>(std::format("Connection to AP failed (url {}). Retrying in 10s.", m_websocket.getUrl())),
+                    .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}). Retrying in 10s.", m_websocket.getUrl())),
                     .show_box = true,
                 });
                 core::events::schedule_task(10.f, [this]() {
@@ -268,6 +266,7 @@ namespace randomizer::archipelago {
     void ArchipelagoClient::collect_location(const ids::archipelago_id_t location_id) {
         // Collect locations from RoomUpdate and Connected packets, useful for coop
         // TODO does not work
+        modloader::info("archipelago", std::format("Activate location id: {}", location_id));
         location_data::Location location{ids::get_location_from_id(location_id)};
         set_state(location.condition.state.group_int(),location.condition.state.state(), location.condition.value);
         modloader::info("archipelago", std::format("Activate location: {}|{} to {}", location.condition.state.group_int(),location.condition.state.state(), location.condition.value));
@@ -386,13 +385,21 @@ namespace randomizer::archipelago {
                     modloader::error("archipelago", std::format("AP ID {} corresponds to a location, expected an item.", net_item.item));
                 },
             };
-        modloader::info("archipelago", std::format("Received item: {} from {}.", get_item_name(net_item, true), get_player_name(net_item.player)));
+        std::string sender_name = get_player_name(net_item.player);
+        modloader::info("archipelago", std::format("Received item: {} from {}.", get_item_name(net_item, true), sender_name));
         queue_reach_check();
-        core::message_controller().queue_central({
-            .text = core::Property<std::string>(std::format("{} from {}.", get_item_name(net_item, true), get_player_name(net_item.player))),
-            .show_box = true,
-        });
-
+        if (sender_name == get_player_name(m_slot_id)) {
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>(std::format("{}", get_item_name(net_item, true), sender_name)),
+                .show_box = true,
+            });
+        }
+        else {
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>(std::format("{} from {}.", get_item_name(net_item, true), sender_name)),
+                .show_box = true,
+            });
+        }
     }
 
     void ArchipelagoClient::read_data_package(const std::string& file_name, auto& data) {
@@ -423,13 +430,15 @@ namespace randomizer::archipelago {
                 [this](const messages::Connected& message) {
                     modloader::info("archipelago", "Parsing Connected Packet");
                     m_player_map[0] = messages::NetworkPlayer{0, 0, "Archipelago", "Archipelago"};
+                    m_slot_id = message.slot;
                     for (auto& player: message.players) {
                         m_player_map[player.slot] = player;
                     }
                     m_slots = message.slot_info;
+                    /*  TODO Decomment when fixed
                     for (ids::archipelago_id_t location_id: message.checked_locations) {
                         collect_location(location_id);
-                    }
+                    }*/
                     core::message_controller().queue_central({
                         .text = core::Property<std::string>(std::format("Connected to Archipelago as {}.", m_slot_name)),
                         .show_box = true,
@@ -524,22 +533,30 @@ namespace randomizer::archipelago {
                     for (auto& player: message.players) {
                         m_player_map[player.slot] = player;
                     }
+                    /*  TODO Decomment when fixed
                     for (ids::archipelago_id_t location_id: message.checked_locations) {
                         collect_location(location_id);
                         m_cached_locations.erase(location_id); // Remove location from the cache if it existed in it.
-                    }
+                    }*/
                 },
                 [this](const messages::PrintJSON& message) {
                     modloader::info("archipelago", "Parsing PrintJSON Packet");
                     if (message.type == "ItemSend" || message.type == "ItemCheat") {
-                        core::message_controller().queue_central({
-                                .text = core::Property<std::string>(std::format("{} sent to {}.", get_item_name(message.item, false), get_player_name(message.receiving))),
-                                .show_box = true,
-                        });
+                        if (message.type == "ItemSend") {
+                            // This means that the server received the LocationCheck packet, so we can clear the cache.
+                            m_cached_locations.clear();
+                        }
+                        std::string sender_name = get_player_name(message.receiving);
+                        if (sender_name != get_player_name(m_slot_id)) {
+                            core::message_controller().queue_central({
+                                    .text = core::Property<std::string>(std::format("{} sent to {}.", get_item_name(message.item, false), sender_name)),
+                                    .show_box = true,
+                            });
+                        }
                     }
                     else if (message.type == "Hint") {
                         core::message_controller().queue_central({
-                                .text = core::Property<std::string>(std::format("{} for {} is in {}.", get_item_name(message.item, false), get_location_name(message.item.location, "Ori and the Will of the Wisps"))),
+                                .text = core::Property<std::string>(std::format("{} for {} is in {}.", get_item_name(message.item, false), get_player_name(message.receiving), get_location_name(message.item.location, "Ori and the Will of the Wisps"))),
                                 .show_box = true,
                         });
                     }
@@ -549,8 +566,11 @@ namespace randomizer::archipelago {
                             .show_box = true,
                         });
                     }
+                    else if (message.type == "Join" || message.type == "Tutorial") {
+                        modloader::info("archipelago", std::format("PrintJSON received: {}", message.type));
+                    }
                     else {
-                        std::string text = message.type;
+                        std::string text = message.type + ": ";
                         for (auto& print_text : message.data) {
                             text += print_text.text;
                         }
@@ -577,3 +597,4 @@ namespace randomizer::archipelago {
 // Make a queue for received messages (see Network.cpp with the mutex)
 // Add death link support (see core/api/game/death_listener + add the tag in Connect packet)
 // Clear the locations sets or do not remake them
+// Fix collect_location
