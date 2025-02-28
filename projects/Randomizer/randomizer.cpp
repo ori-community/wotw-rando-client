@@ -18,7 +18,6 @@
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/legacy_parser/parser.h>
 #include <Randomizer/seed/seed_source.h>
-#include <Randomizer/state_data/parser.h>
 #include <Randomizer/text_processors/ability.h>
 #include <Randomizer/text_processors/control.h>
 #include <Randomizer/text_processors/legacy.h>
