@@ -319,15 +319,21 @@ namespace randomizer::archipelago {
                         }
                     }
                 },
-                [this](const ids::ResourceItem& item) {
+                [&net_item, this](const ids::ResourceItem& item) {
                     switch (item.type) {
                         case ids::ResourceType::SpiritLight: {
-                            core::events::schedule_task_for_next_update([&item] {
+                            // TODO workaround because item.value does weird things, fix and remove this part and amount
+                            std::string name = get_item_name(net_item, true);
+                            int amount;
+                            if (name.starts_with("200")) { amount = 200; }
+                            else if (name.starts_with("100")) { amount = 100; }
+                            else if (name.starts_with("50")) { amount = 50; }
+                            else { amount = 1; }
+                            core::events::schedule_task_for_next_update([amount, &item] {
                                 const auto& spirit_light = core::api::game::player::spirit_light();
                                 const auto& spirit_light_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 3);
-            
-                                spirit_light.set(spirit_light.get() + item.value);
-                                spirit_light_collected.set<int>(spirit_light_collected.get<int>() + item.value);
+                                spirit_light.set(spirit_light.get() + amount);
+                                spirit_light_collected.set<int>(spirit_light_collected.get<int>() + amount);
                             });
                             break;
                         }
@@ -540,7 +546,7 @@ namespace randomizer::archipelago {
                     }*/
                 },
                 [this](const messages::PrintJSON& message) {
-                    modloader::info("archipelago", "Parsing PrintJSON Packet");
+                    modloader::info("archipelago", std::format("Parsing PrintJSON of type: {}", message.type));
                     if (message.type == "ItemSend" || message.type == "ItemCheat") {
                         if (message.type == "ItemSend") {
                             // This means that the server received the LocationCheck packet, so we can clear the cache.
@@ -566,10 +572,69 @@ namespace randomizer::archipelago {
                             .show_box = true,
                         });
                     }
-                    else if (message.type == "Join" || message.type == "Tutorial") {
-                        modloader::info("archipelago", std::format("PrintJSON received: {}", message.type));
+                    else if (message.type == "Goal") {
+                        std::string player_name = get_player_name(message.slot);
+                        if (player_name != get_player_name(m_slot_id)) {
+                            core::message_controller().queue_central({
+                                .text = core::Property<std::string>(std::format("{} reached their goal.", player_name)),
+                                .show_box = true,
+                            });
+                        }
                     }
-                    else {
+                    else if (message.type == "Collect") {
+                        std::string player_name = get_player_name(message.slot);
+                        if (player_name != get_player_name(m_slot_id)) {
+                            core::message_controller().queue_central({
+                                .text = core::Property<std::string>(std::format("{} collected their world.", player_name)),
+                                .show_box = true,
+                            });
+                        }
+                    }
+                    else if (message.type == "Release") {
+                        std::string player_name = get_player_name(message.slot);
+                        if (player_name != get_player_name(m_slot_id)) {
+                            core::message_controller().queue_central({
+                                .text = core::Property<std::string>(std::format("{} released their world.", player_name)),
+                                .show_box = true,
+                            });
+                        }
+                    }
+                    else if (message.type == "Join") {
+                        std::string player_name = get_player_name(message.slot);
+                        if (player_name != get_player_name(m_slot_id)) {
+                            core::message_controller().queue_central({
+                                .text = core::Property<std::string>(std::format("{} joined the game.", player_name)),
+                                .show_box = true,
+                            });
+                        }
+                    }
+                    else if (message.type == "Part") {
+                        std::string player_name = get_player_name(message.slot);
+                        if (player_name != get_player_name(m_slot_id)) {
+                            core::message_controller().queue_central({
+                                .text = core::Property<std::string>(std::format("{} left the game.", player_name)),
+                                .show_box = true,
+                            });
+                        }
+                    }
+                    else if (message.type == "Chat") {
+                        std::string player_name = get_player_name(message.slot);
+                        if (player_name != get_player_name(m_slot_id)) {
+                            core::message_controller().queue_central({
+                                .text = core::Property<std::string>(std::format("{}: {}", player_name, message.message)),
+                                .show_box = true,
+                            });
+                        }
+                    }
+                    else if (message.type == "ServerChat") {
+                        core::message_controller().queue_central({
+                            .text = core::Property<std::string>(std::format("Server: {}", message.message)),
+                            .show_box = true,
+                        });
+                    }
+                    else if (message.type == "Tutorial" || message.type == "TagsChanged" ||
+                        message.type == "CommandResult" || message.type == "AdminCommandResult") {}  // Skip these messages
+                    else {  // TODO sometimes there is no type (eg Cheat console), see what to do
                         std::string text = message.type + ": ";
                         for (auto& print_text : message.data) {
                             text += print_text.text;
@@ -578,7 +643,7 @@ namespace randomizer::archipelago {
                             .text = core::Property<std::string>(text),
                             .show_box = true,
                         });
-                        modloader::info("archipelago", std::format("PrintJSON: {}", text));
+                        modloader::warn("archipelago", std::format("Unknown PrintJSON type. Data: {}", text));
                     }
                 },
                 [](const messages::InvalidPacket& message) {
