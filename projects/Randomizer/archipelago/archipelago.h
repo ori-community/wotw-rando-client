@@ -40,9 +40,8 @@ namespace randomizer::archipelago {
         void handle_server_message(messages::ap_server_message_t const& message);
         void update_data_package(const std::unordered_map<std::string, messages::GameData>& new_data);
         static IdToName parse_data_package(const std::unordered_map<std::string, ids::archipelago_id_t>& data);
-        std::string get_item_name(const messages::NetworkItem& item, bool is_local);
+        std::string get_item_name(const messages::NetworkItem& item, const std::string& game);
         std::string get_player_name(int player);
-
         std::string get_location_name(ids::archipelago_id_t id, const std::string& game);
         static void write_file(const nlohmann::json& data, const std::string& file_name);
         void read_data_package(const std::string& file_name, auto& data);
@@ -51,7 +50,7 @@ namespace randomizer::archipelago {
         bool m_should_connect = false;
         ix::WebSocket m_websocket;
         std::string m_slot_name; // aka player name
-        int m_slot_id;
+        int m_slot_id {0};
         std::string m_password;
         std::unordered_set<ids::archipelago_id_t> m_cached_locations;
         std::unordered_map<std::string, messages::NetworkSlot> m_slots;

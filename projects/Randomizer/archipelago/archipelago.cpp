@@ -234,14 +234,7 @@ namespace randomizer::archipelago {
 
     void ArchipelagoClient::set_last_index(int index) { archipelago_save_data->last_item_index = index; };
 
-    std::string ArchipelagoClient::get_item_name(const messages::NetworkItem& item, bool is_local) {
-        messages::NetworkPlayer player = m_player_map[item.player];
-        std::string game;
-        if (is_local) { // When receiving items
-            game = "Ori and the Will of the Wisps";
-        } else { // When sending items
-            game = m_slots[std::to_string(player.slot)].game;
-        }
+    std::string ArchipelagoClient::get_item_name(const messages::NetworkItem& item, const std::string& game="Ori and the Will of the Wisps") {
         auto existing_it = m_item_id_to_name[game].find(item.item);
         if (existing_it != m_item_id_to_name[game].end()) {
             return m_item_id_to_name[game][item.item];
@@ -253,7 +246,7 @@ namespace randomizer::archipelago {
 
     std::string ArchipelagoClient::get_player_name(int player) { return m_player_map[player].alias; }
 
-    std::string ArchipelagoClient::get_location_name(ids::archipelago_id_t id, const std::string& game) {
+    std::string ArchipelagoClient::get_location_name(ids::archipelago_id_t id, const std::string& game="Ori and the Will of the Wisps") {
         auto existing_it = m_location_id_to_name[game].find(id);
         if (existing_it != m_location_id_to_name[game].end()) {
             return m_location_id_to_name[game][id];
@@ -323,7 +316,7 @@ namespace randomizer::archipelago {
                     switch (item.type) {
                         case ids::ResourceType::SpiritLight: {
                             // TODO workaround because item.value does weird things, fix and remove this part and amount
-                            std::string name = get_item_name(net_item, true);
+                            std::string name = get_item_name(net_item);
                             int amount;
                             if (name.starts_with("200")) { amount = 200; }
                             else if (name.starts_with("100")) { amount = 100; }
@@ -392,17 +385,17 @@ namespace randomizer::archipelago {
                 },
             };
         std::string sender_name = get_player_name(net_item.player);
-        modloader::info("archipelago", std::format("Received item: {} from {}.", get_item_name(net_item, true), sender_name));
+        modloader::info("archipelago", std::format("Received item: {} from {}.", get_item_name(net_item), sender_name));
         queue_reach_check();
         if (sender_name == get_player_name(m_slot_id)) {
             core::message_controller().queue_central({
-                .text = core::Property<std::string>(std::format("{}", get_item_name(net_item, true), sender_name)),
+                .text = core::Property<std::string>(std::format("{}", get_item_name(net_item), sender_name)),
                 .show_box = true,
             });
         }
         else {
             core::message_controller().queue_central({
-                .text = core::Property<std::string>(std::format("{} from {}.", get_item_name(net_item, true), sender_name)),
+                .text = core::Property<std::string>(std::format("{} from {}.", get_item_name(net_item), sender_name)),
                 .show_box = true,
             });
         }
@@ -526,13 +519,6 @@ namespace randomizer::archipelago {
                 },
                 [this](const messages::LocationInfo& message) {
                     modloader::info("archipelago", "Parsing LocationInfo Packet");
-                    for (const messages::NetworkItem item: message.locations) {
-                        m_cached_locations.erase(item.location);
-                        core::message_controller().queue_central({
-                            .text = core::Property<std::string>(std::format("{} sent to {}.", get_item_name(item, false), get_player_name(item.player))),
-                            .show_box = true,
-                        });
-                    }
                 },
                 [this](const messages::RoomUpdate& message) {
                     modloader::info("archipelago", "Parsing RoomUpdate Packet");
@@ -548,23 +534,28 @@ namespace randomizer::archipelago {
                 [this](const messages::PrintJSON& message) {
                     modloader::info("archipelago", std::format("Parsing PrintJSON of type: {}", message.type));
                     if (message.type == "ItemSend" || message.type == "ItemCheat") {
-                        if (message.type == "ItemSend") {
-                            // This means that the server received the LocationCheck packet, so we can clear the cache.
-                            m_cached_locations.clear();
-                        }
-                        std::string sender_name = get_player_name(message.receiving);
-                        if (sender_name != get_player_name(m_slot_id)) {
+                        // Only display if the item is not a local item, and comes from this game
+                        if (message.receiving != m_slot_id & message.item.player == m_slot_id) {
+                            std::string game = m_slots[std::to_string(message.receiving)].game;
                             core::message_controller().queue_central({
-                                    .text = core::Property<std::string>(std::format("{} sent to {}.", get_item_name(message.item, false), sender_name)),
+                                    .text = core::Property<std::string>(std::format("{} sent to {}.", get_item_name(message.item, game), get_player_name(message.receiving))),
                                     .show_box = true,
                             });
+                            if (message.type == "ItemSend") {
+                                // This means that the server received the LocationCheck packet, so we can clear the cache.
+                                m_cached_locations.clear();
+                            }
                         }
                     }
                     else if (message.type == "Hint") {
-                        core::message_controller().queue_central({
-                                .text = core::Property<std::string>(std::format("{} for {} is in {}.", get_item_name(message.item, false), get_player_name(message.receiving), get_location_name(message.item.location, "Ori and the Will of the Wisps"))),
-                                .show_box = true,
-                        });
+                        // Only display if the item is in this game, and not found yet.
+                        if (message.item.player == m_slot_id & !message.found) {
+                            std::string game = m_slots[std::to_string(message.receiving)].game;
+                            core::message_controller().queue_central({
+                                    .text = core::Property<std::string>(std::format("{} for {} is in {}.", get_item_name(message.item, game), get_player_name(message.receiving), get_location_name(message.item.location))),
+                                    .show_box = true,
+                            });
+                        }
                     }
                     else if (message.type == "Countdown") {
                         core::message_controller().queue_central({
@@ -639,10 +630,6 @@ namespace randomizer::archipelago {
                         for (auto& print_text : message.data) {
                             text += print_text.text;
                         }
-                        core::message_controller().queue_central({
-                            .text = core::Property<std::string>(text),
-                            .show_box = true,
-                        });
                         modloader::warn("archipelago", std::format("Unknown PrintJSON type. Data: {}", text));
                     }
                 },
