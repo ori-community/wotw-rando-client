@@ -15,7 +15,8 @@
 
 namespace {
 
-    core::api::uber_states::UberState water_transparent_state(UberStateGroup::RandoConfig, 200);
+    core::api::uber_states::UberState water_transparent_state(UberStateGroup::RandoConfig, 204);
+    il2cpp::WeakGCRef<app::GameObject> black_rectangle_ref;
     struct CustomWaterModifier {
         std::function<void(app::GameObject*, bool)> update_function;
         std::optional<il2cpp::WeakGCRef<app::GameObject>> scene_root_ref;
@@ -134,25 +135,47 @@ namespace {
         UnityEngine::GameObject::set_active(clean_state_go, !corruption_visible); // if the corruption is removed, these states need to be enabled
     }
 
-    void under_wellspring_water_visuals_A_controller(app::GameObject* scene_root_go, bool corruption_visible) {
+    void under_wellspring_water_visuals_a_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
 
         set_active(
             il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"artSetups", "corruptState", "diseasedWaterNew", "backCenter", "water (5)"}),
             corruption_visible
         );
+        app::GameObject*  black_rectangle_go = il2cpp::unity::find_child(
+            scene_root_go, std::vector<std::string>{"artSetups", "corruptState", "diseasedWaterNew", "frontCenter", "waterTempSolution"}
+        );
 
+        if(!black_rectangle_ref.is_valid()){
+            black_rectangle_ref = il2cpp::WeakGCRef<app::GameObject>(il2cpp::unity::instantiate_object(black_rectangle_go));
+            il2cpp::unity::set_parent(*black_rectangle_ref, il2cpp::unity::get_parent(black_rectangle_go));
+            il2cpp::unity::set_local_position(*black_rectangle_ref, il2cpp::unity::get_local_position(black_rectangle_go));
+        }
+        app::GameObject* black_rectangle_go_2 = *black_rectangle_ref;
+        
+        auto first_rectangle_pos = il2cpp::unity::get_local_position(black_rectangle_go);
+        il2cpp::unity::set_position(black_rectangle_go, app::Vector3{-739.0, -4120.0, -5.1}); // I love magic numbers
+        il2cpp::unity::set_local_scale(black_rectangle_go, app::Vector3{25.f, 40.f, 1.f});
         set_color(
-            il2cpp::unity::find_child(
-                scene_root_go, std::vector<std::string>{"artSetups", "corruptState", "diseasedWaterNew", "frontCenter", "waterTempSolution"}
-            ),
+            black_rectangle_go,
+            corruption_visible
+            ? app::Color {0, 0, 0, 1}
+            : app::Color {0.5, 0, 0.5, 0.85}
+        );
+
+ 
+        auto second_rectangle_pos = il2cpp::unity::get_local_position(black_rectangle_go_2);
+        il2cpp::unity::set_position(black_rectangle_go_2, app::Vector3{-775.4, -4155.5, -5.1});
+        il2cpp::unity::set_local_scale(black_rectangle_go_2, app::Vector3{38.f, 30.f, 1.f});
+        set_color(
+            black_rectangle_go_2,
             corruption_visible
                 ? app::Color {0, 0, 0, 1}
                 : app::Color {0.5, 0, 0.5, 0.85}
         );
     }
 
-    void under_wellspring_water_visuals_B_controller(app::GameObject* scene_root_go, bool corruption_visible) {
+    void under_wellspring_water_visuals_b_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_enable;
 
         gos_to_enable.push_back(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"artSetups", "cleanState"}));
@@ -453,8 +476,8 @@ namespace {
         {"kwoloksCavernThroneRoom",        {under_kwolok_water_visuals_controller}               },
         {"silentWoodlandsKwoloksCanal",    {silent_swim_water_visuals_controller}                },
         {"waterMillCEntrance",             {wellspring_top_water_visuals_controller}             },
-        {"waterMillEntrance",              {under_wellspring_water_visuals_A_controller}         },
-        {"waterMillEntranceBottomRight",   {under_wellspring_water_visuals_B_controller}         },
+        {"waterMillEntrance",              {under_wellspring_water_visuals_a_controller}         },
+        {"waterMillEntranceBottomRight",   {under_wellspring_water_visuals_b_controller}         },
         {"waterMillCEntrance",             {wellspring_top_water_visuals_controller}             },
         {"wotwSaveRoomC__clone0__clone1",  {wellspring_waterdash_switch_water_visuals_controller}},
         {"kwoloksCavernUpperMainRoom",     {west_glades_water_visuals_controller}                },
