@@ -184,7 +184,7 @@ namespace core::api::game {
             SaveGameController::CanPerformSave(save_controller());
     }
 
-    void checkpoint(bool refill, bool refill_instantly, bool restore_instantly, std::optional<app::Vector2> override_position) {
+    void temporary_save(bool refill, bool refill_instantly, bool restore_instantly, std::optional<app::Vector2> override_position) {
         save(true, SaveOptions(refill, refill_instantly, false, restore_instantly, override_position));
     }
 

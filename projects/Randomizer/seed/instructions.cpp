@@ -55,7 +55,7 @@
 #include <Randomizer/seed/instructions/message_timeout.h>
 #include <Randomizer/seed/instructions/message_background.h>
 #include <Randomizer/seed/instructions/save.h>
-#include <Randomizer/seed/instructions/checkpoint.h>
+#include <Randomizer/seed/instructions/temporary_save.h>
 #include <Randomizer/seed/instructions/warp.h>
 #include <Randomizer/seed/instructions/equip.h>
 #include <Randomizer/seed/instructions/unequip.h>
@@ -203,7 +203,7 @@ namespace randomizer::seed {
             register_instruction<MessageTimeout>(factories);
             register_instruction<MessageBackground>(factories);
             register_instruction<Save>(factories);
-            register_instruction<Checkpoint>(factories);
+            register_instruction<TemporarySave>(factories);
             register_instruction<Warp>(factories);
             register_instruction<Equip>(factories);
             register_instruction<Unequip>(factories);

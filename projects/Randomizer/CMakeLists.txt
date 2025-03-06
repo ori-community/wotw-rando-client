@@ -265,7 +265,7 @@ set(
         "seed/instructions/arithmetic_float.h"
         "seed/instructions/arithmetic_integer.h"
         "seed/instructions/boolean_to_string.h"
-        "seed/instructions/checkpoint.h"
+        "seed/instructions/temporary_save.h"
         "seed/instructions/compare_boolean.h"
         "seed/instructions/compare_float.h"
         "seed/instructions/compare_integer.h"

@@ -62,7 +62,7 @@ namespace {
             case TeleportOri:
                 core::api::game::player::set_position(-55.90539f, -3754.317, true);
                 core::api::game::player::snap_camera();
-                core::api::game::checkpoint(true, false, true);
+                core::api::game::temporary_save(true, false, true);
                 next_frame_action = Idle;
                 break;
         }

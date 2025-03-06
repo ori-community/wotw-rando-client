@@ -83,5 +83,5 @@ RANDOMIZER_C_DLLEXPORT void save() {
 
 RANDOMIZER_C_DLLEXPORT void checkpoint() {
     info("csharp_interop", "Checkpoint requested by c# code");
-    core::api::game::checkpoint();
+    core::api::game::temporary_save();
 }

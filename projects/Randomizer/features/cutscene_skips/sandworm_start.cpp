@@ -64,7 +64,7 @@ namespace {
                 break;
             case TeleportOri:
                 core::api::game::player::set_position(2020.209f, -4027.096);
-                core::api::game::checkpoint(true, false);
+                core::api::game::temporary_save(true, false);
                 next_frame_action = SnapCamera;
                 break;
             case SnapCamera:

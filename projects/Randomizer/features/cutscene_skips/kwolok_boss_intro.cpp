@@ -53,7 +53,7 @@ namespace {
         core::api::uber_states::UberState kwolok_boss_state(static_cast<UberStateGroup>(945), 58403);
         kwolok_boss_state.set(2.0);
 
-        core::api::game::checkpoint(true, true, true);
+        core::api::game::temporary_save(true, true, true);
     }
 
     auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
