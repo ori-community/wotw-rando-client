@@ -22,8 +22,6 @@ namespace randomizer::archipelago {
         void notify_location_collected(const location_data::Location& location);
         void game_finished_handler();
         void ask_resync();
-        static int get_last_index();
-        void set_last_index(int index);
 
     private:
         void send_message(const nlohmann::json& message) {
