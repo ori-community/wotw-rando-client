@@ -19,13 +19,12 @@ namespace randomizer::archipelago {
         void notify_location_collected(const location_data::Location& location);
         void notify_game_finished();
         void request_sync();
+        void handle_queued_server_messages();
 
     private:
         void send_message(const nlohmann::json& message);
 
-        using IdToName = std::unordered_map<ids::archipelago_id_t, std::string>;
-
-        void give_item(messages::NetworkItem const& net_item);
+        void grant_item(messages::NetworkItem const& net_item);
         void collect_location(ids::archipelago_id_t location_id);
         void on_websocket_message(ix::WebSocketMessagePtr const& msg);
         void handle_server_message(messages::ap_server_message_t const& message);
@@ -39,8 +38,8 @@ namespace randomizer::archipelago {
         std::unordered_set<ids::archipelago_id_t> m_cached_locations;
         std::unordered_map<std::string, messages::NetworkSlot> m_slots;
         std::unordered_map<int, messages::NetworkPlayer> m_player_map;
-        std::mutex m_packet_mutex;
-        std::vector<nlohmann::basic_json<>> m_packets;
+        std::mutex m_queued_server_messages_mutex;
+        std::vector<messages::ap_server_message_t> m_queued_server_messages;
         ArchipelagoDataPackage m_data_package;
     };
 } // namespace randomizer::archipelago
