@@ -66,6 +66,11 @@ namespace randomizer::archipelago {
         modloader::debug("archipelago", "Resync asked: Restore Checkpoint");
     });
 
+    [[maybe_unused]]
+    auto on_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+        archipelago_client().handle_queued_server_messages();
+    });
+
     ArchipelagoClient::ArchipelagoClient() {
         m_websocket.setOnMessageCallback([this](const auto& msg) { on_websocket_message(msg); });
     }
@@ -108,19 +113,17 @@ namespace randomizer::archipelago {
                 try {
                     nlohmann::json json = nlohmann::json::parse(message_string);
                     for (auto& packet: json) {
-                        std::lock_guard guard(m_packet_mutex);
-                        m_packets.push_back(packet);
-
                         const auto message = messages::parse_server_message(packet);
 
                         if (message.has_value()) {
-                            handle_server_message(*message);
+                            std::lock_guard guard(m_queued_server_messages_mutex);
+                            m_queued_server_messages.push_back(*message);
                         }
                     }
                 } catch (nlohmann::json::exception& e) {
                     modloader::error("archipelago", std::format("Failed to parse message: {}, {}", e.what(), message_string));
                 }
-                m_packets.clear();
+
                 break;
             }
             case ix::WebSocketMessageType::Open: {
@@ -179,6 +182,14 @@ namespace randomizer::archipelago {
         }
     }
 
+    void ArchipelagoClient::handle_queued_server_messages() {
+        std::lock_guard guard(m_queued_server_messages_mutex);
+        for (const auto& message : m_queued_server_messages) {
+            handle_server_message(message);
+        }
+        m_queued_server_messages.clear();
+    }
+
     void ArchipelagoClient::notify_game_finished() { send_message(messages::StatusUpdate{messages::ClientStatus::ClientGoal}); }
 
     std::string ArchipelagoClient::get_player_name(int player) { return m_player_map[player].alias; }
@@ -195,7 +206,7 @@ namespace randomizer::archipelago {
         );
     }
 
-    void ArchipelagoClient::give_item(messages::NetworkItem const& net_item) {
+    void ArchipelagoClient::grant_item(messages::NetworkItem const& net_item) {
         std::variant<ids::Location, ids::BooleanItem, ids::ResourceItem, ids::UpgradeItem> item = ids::get_item(net_item.item);
         const auto item_name = m_data_package.get_item_name(net_item.item).value_or(UNKNOWN_ITEM_TEXT);
 
@@ -252,60 +263,47 @@ namespace randomizer::archipelago {
                             amount = 1;
                         }
 
-                        core::events::schedule_task_for_next_update([amount, &item] {
-                            const auto& spirit_light = core::api::game::player::spirit_light();
-                            const auto& spirit_light_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 3);
-                            spirit_light.set(spirit_light.get() + amount);
-                            spirit_light_collected.set<int>(spirit_light_collected.get<int>() + amount);
-                        });
+                        const auto& spirit_light = core::api::game::player::spirit_light();
+                        const auto& spirit_light_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 3);
+                        spirit_light.set(spirit_light.get() + amount);
+                        spirit_light_collected.set<int>(spirit_light_collected.get<int>() + amount);
                         break;
                     }
                     case ids::ResourceType::GorlekOre: {
-                        core::events::schedule_task_for_next_update([&item] {
-                            const auto& gorlek_ore = core::api::game::player::ore();
-                            const auto& gorlek_ore_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 5);
+                        const auto& gorlek_ore = core::api::game::player::ore();
+                        const auto& gorlek_ore_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 5);
 
-                            gorlek_ore.set(gorlek_ore.get() + 1);
-                            gorlek_ore_collected.set<int>(gorlek_ore_collected.get<int>() + 1);
-                        });
+                        gorlek_ore.set(gorlek_ore.get() + 1);
+                        gorlek_ore_collected.set<int>(gorlek_ore_collected.get<int>() + 1);
                         break;
                     }
                     case ids::ResourceType::Keystone: {
-                        core::events::schedule_task_for_next_update([&item] {
-                            const auto& keystone = core::api::game::player::keystones();
-                            const auto& keystone_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 0);
+                        const auto& keystone = core::api::game::player::keystones();
+                        const auto& keystone_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 0);
 
-                            keystone.set(keystone.get() + 1);
-                            keystone_collected.set<int>(keystone_collected.get<int>() + 1);
-                        });
+                        keystone.set(keystone.get() + 1);
+                        keystone_collected.set<int>(keystone_collected.get<int>() + 1);
                         break;
                     }
                     case ids::ResourceType::ShardSlot: {
-                        core::events::schedule_task_for_next_update([&item] {
-                            const auto& shard_slot = core::api::game::player::shard_slots();
-
-                            shard_slot.set(shard_slot.get() + 1);
-                        });
+                        const auto& shard_slot = core::api::game::player::shard_slots();
+                        shard_slot.set(shard_slot.get() + 1);
                         break;
                     }
                     case ids::ResourceType::HealthFragment: {
-                        core::events::schedule_task_for_next_update([&item] {
-                            const auto& max_health = core::api::game::player::max_health();
-                            const auto& health = core::api::game::player::health();
+                        const auto& max_health = core::api::game::player::max_health();
+                        const auto& health = core::api::game::player::health();
 
-                            max_health.set(max_health.get() + 5);
-                            health.set(static_cast<float>(max_health.get()));
-                        });
+                        max_health.set(max_health.get() + 5);
+                        health.set(static_cast<float>(max_health.get()));
                         break;
                     }
                     case ids::ResourceType::EnergyFragment: {
-                        core::events::schedule_task_for_next_update([&item] {
-                            const auto& max_energy = core::api::game::player::max_energy();
-                            const auto& energy = core::api::game::player::energy();
+                        const auto& max_energy = core::api::game::player::max_energy();
+                        const auto& energy = core::api::game::player::energy();
 
-                            max_energy.set(max_energy.get() + 0.5f);
-                            energy.set(max_energy.get());
-                        });
+                        max_energy.set(max_energy.get() + 0.5f);
+                        energy.set(max_energy.get());
                         break;
                     }
                 }
@@ -345,6 +343,8 @@ namespace randomizer::archipelago {
 
         m_websocket.send("[" + message.dump() + "]"); // Not very good style, maybe improve it
     }
+
+
 
     void ArchipelagoClient::handle_server_message(messages::ap_server_message_t const& message) {
         message |
@@ -422,7 +422,7 @@ namespace randomizer::archipelago {
                     );
                     if (message.index == archipelago_save_data->last_item_index + 1) {
                         for (auto& item: message.items) {
-                            give_item(item);
+                            grant_item(item);
                             archipelago_save_data->last_item_index += 1;
                         }
                     } else if (message.index == 0) {
@@ -430,7 +430,7 @@ namespace randomizer::archipelago {
                         int start_index = archipelago_save_data->last_item_index == 0 ? 0 : archipelago_save_data->last_item_index + 1;
 
                         for (int index{start_index}; index < message.items.size(); ++index) {
-                            give_item(message.items[index]);
+                            grant_item(message.items[index]);
                         }
                         archipelago_save_data->last_item_index = static_cast<int>(message.items.size() - 1);
                     } else {
