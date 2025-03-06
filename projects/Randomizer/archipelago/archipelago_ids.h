@@ -66,6 +66,7 @@ namespace randomizer::archipelago::ids {
 
     archipelago_id_t get_boolean_item_id(int uber_group, int uber_state);
     archipelago_id_t get_resource_item_id(ResourceType type, int16_t value);
+    archipelago_id_t get_location_id(const core::api::uber_states::UberState& state, double value);
     archipelago_id_t get_location_id(const location_data::Location& location);
     archipelago_id_t get_upgrade_item_id(int uber_group, int uber_state);
     std::variant<Location, BooleanItem, ResourceItem, UpgradeItem> get_item(archipelago_id_t id);
