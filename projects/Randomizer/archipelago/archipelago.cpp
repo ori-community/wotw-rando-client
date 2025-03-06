@@ -5,7 +5,6 @@
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/core.h>
-#include <Core/enums/game_areas.h>
 #include <Core/events/task.h>
 #include <Core/utils/json_serializers.h>
 #include <Modloader/modloader.h>
@@ -57,7 +56,7 @@ namespace randomizer::archipelago {
     // Resync items
     [[maybe_unused]]
     auto on_new_game = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
-        archipelago_client().set_last_index(0);
+        archipelago_save_data->last_item_index = 0;
     });
     [[maybe_unused]]
     auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
@@ -186,7 +185,6 @@ namespace randomizer::archipelago {
 
     void ArchipelagoClient::game_finished_handler() { send_message(messages::StatusUpdate{messages::ClientStatus::ClientGoal, "StatusUpdate"}); }
 
-
     void ArchipelagoClient::update_data_package(const std::unordered_map<std::string, messages::GameData>& new_data) {
         for (auto& [game, data]: new_data) {
             m_data_package_cache[game] = data;
@@ -206,10 +204,6 @@ namespace randomizer::archipelago {
         }
         return parsed_data;
     }
-
-    int ArchipelagoClient::get_last_index() { return archipelago_save_data->last_item_index; };
-
-    void ArchipelagoClient::set_last_index(int index) { archipelago_save_data->last_item_index = index; };
 
     std::string ArchipelagoClient::get_item_name(const messages::NetworkItem& item, const std::string& game="Ori and the Will of the Wisps") {
         auto existing_it = m_item_id_to_name[game].find(item.item);
@@ -476,20 +470,23 @@ namespace randomizer::archipelago {
                     modloader::debug("archipelago", "Parsing ReceivedItems Packet");
                     modloader::debug(
                         "archipelago",
-                        std::format("Message index: {}, Saved index: {}, Message length {}", message.index, get_last_index(), message.items.size())
+                        std::format("Message index: {}, Saved index: {}, Message length {}", message.index, archipelago_save_data->last_item_index, message.items.size())
                     );
-                    if (message.index == get_last_index() + 1) {
+                    if (message.index == archipelago_save_data->last_item_index + 1) {
                         for (auto& item: message.items) {
                             give_item(item);
-                            set_last_index(get_last_index() + 1);
+                            archipelago_save_data->last_item_index += 1;
                         }
                     } else if (message.index == 0) {
                         // AP server sent all the received items, only add the new ones
-                        int start_index = get_last_index() == 0 ? 0 : get_last_index() + 1;
+                        int start_index = archipelago_save_data->last_item_index == 0
+                            ? 0
+                            : archipelago_save_data->last_item_index + 1;
+
                         for (int index{start_index}; index < message.items.size(); ++index) {
                             give_item(message.items[index]);
                         }
-                        set_last_index(static_cast<int>(message.items.size() - 1));
+                        archipelago_save_data->last_item_index = static_cast<int>(message.items.size() - 1);
                     } else {
                         ask_resync();
                     }
