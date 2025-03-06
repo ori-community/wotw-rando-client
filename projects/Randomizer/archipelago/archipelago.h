@@ -17,8 +17,8 @@ namespace randomizer::archipelago {
         void disconnect();
         bool is_connected() const;
         void notify_location_collected(const location_data::Location& location);
-        void game_finished_handler();
-        void ask_resync();
+        void notify_game_finished();
+        void request_sync();
 
     private:
         void send_message(const nlohmann::json& message);
@@ -26,12 +26,10 @@ namespace randomizer::archipelago {
         using IdToName = std::unordered_map<ids::archipelago_id_t, std::string>;
 
         void give_item(messages::NetworkItem const& net_item);
-        static void collect_location(ids::archipelago_id_t location_id);
+        void collect_location(ids::archipelago_id_t location_id);
         void on_websocket_message(ix::WebSocketMessagePtr const& msg);
         void handle_server_message(messages::ap_server_message_t const& message);
-        static IdToName parse_data_package(const std::unordered_map<std::string, ids::archipelago_id_t>& data);
         std::string get_player_name(int player);
-        static void set_state(int group, int state, auto value);
 
         bool m_should_connect = false;
         ix::WebSocket m_websocket;
