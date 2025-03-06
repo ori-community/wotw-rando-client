@@ -15,13 +15,14 @@
 #include <Randomizer/location_data/location.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/items/value_modifier.h>
-#include <nlohmann/detail/conversions/from_json.hpp>
 
 
 #define UUID_SYSTEM_GENERATOR
 #include <uuid.h>
 
 namespace randomizer::archipelago {
+    const std::string UNKNOWN_ITEM_TEXT = "@Unknown Item@";
+
     auto archipelago_save_data = std::make_shared<ArchipelagoSaveData>();
 
     [[maybe_unused]]
@@ -64,17 +65,11 @@ namespace randomizer::archipelago {
         modloader::debug("archipelago", "Resync asked: Restore Checkpoint");
     });
 
-
     ArchipelagoClient::ArchipelagoClient() {
         m_websocket.setOnMessageCallback([this](const auto& msg) { on_websocket_message(msg); });
     }
 
     void ArchipelagoClient::connect(const std::string_view url, const std::string_view slot_name, const std::string_view password) {
-        // Load files for data packages
-        read_data_package("ap_data_package.json", m_data_package_cache);
-        read_data_package("ap_item_id_to_name.json", m_item_id_to_name);
-        read_data_package("ap_location_id_to_name.json", m_location_id_to_name);
-
         m_slot_name = slot_name;
         m_password = password;
         m_websocket.stop();
@@ -97,7 +92,7 @@ namespace randomizer::archipelago {
     void ArchipelagoClient::notify_location_collected(const location_data::Location& location) {
         ids::archipelago_id_t location_id{ids::get_location_id(location)};
 
-        m_cached_locations.insert(location_id);  // Stores the locations that are checked, but not yet validated by the server: useful for resync
+        m_cached_locations.insert(location_id); // Stores the locations that are checked, but not yet validated by the server: useful for resync
         send_message(messages::LocationChecks{m_cached_locations});
 
         modloader::debug("archipelago", std::format("Location checked: {}", location.name));
@@ -185,18 +180,6 @@ namespace randomizer::archipelago {
 
     void ArchipelagoClient::game_finished_handler() { send_message(messages::StatusUpdate{messages::ClientStatus::ClientGoal, "StatusUpdate"}); }
 
-    void ArchipelagoClient::update_data_package(const std::unordered_map<std::string, messages::GameData>& new_data) {
-        for (auto& [game, data]: new_data) {
-            m_data_package_cache[game] = data;
-            m_item_id_to_name[game] = parse_data_package(data.item_name_to_id);
-            m_location_id_to_name[game] = parse_data_package(data.location_name_to_id);
-            modloader::debug("archipelago", std::format("Data packages for {} updated.", game));
-        }
-        write_file(nlohmann::json(m_data_package_cache), "ap_data_package.json");
-        write_file(nlohmann::json(m_item_id_to_name), "ap_item_id_to_name.json");
-        write_file(nlohmann::json(m_location_id_to_name), "ap_location_id_to_name.json");
-    }
-
     ArchipelagoClient::IdToName ArchipelagoClient::parse_data_package(const std::unordered_map<std::string, ids::archipelago_id_t>& data) {
         ArchipelagoClient::IdToName parsed_data;
         for (auto& [name, id]: data) {
@@ -205,35 +188,18 @@ namespace randomizer::archipelago {
         return parsed_data;
     }
 
-    std::string ArchipelagoClient::get_item_name(const messages::NetworkItem& item, const std::string& game="Ori and the Will of the Wisps") {
-        auto existing_it = m_item_id_to_name[game].find(item.item);
-        if (existing_it != m_item_id_to_name[game].end()) {
-            return m_item_id_to_name[game][item.item];
-        } else {
-            modloader::error("archipelago", std::format("Failed to convert item ID {} from game {} to its name.", item.item, game));
-            return std::format("Unknown item name from {}", game);
-        };
-    }
-
     std::string ArchipelagoClient::get_player_name(int player) { return m_player_map[player].alias; }
-
-    std::string ArchipelagoClient::get_location_name(ids::archipelago_id_t id, const std::string& game="Ori and the Will of the Wisps") {
-        auto existing_it = m_location_id_to_name[game].find(id);
-        if (existing_it != m_location_id_to_name[game].end()) {
-            return m_location_id_to_name[game][id];
-        } else {
-            modloader::error("archipelago", std::format("Failed to convert location ID {} from game {} to its name.", id, game));
-            return std::format("Unknown location name from {}.", game);
-        };
-    }
 
     void ArchipelagoClient::collect_location(const ids::archipelago_id_t location_id) {
         // Collect locations from RoomUpdate and Connected packets, useful for coop
         // TODO does not work
         modloader::debug("archipelago", std::format("Activate location id: {}", location_id));
         location_data::Location location{ids::get_location_from_id(location_id)};
-        set_state(location.condition.state.group_int(),location.condition.state.state(), location.condition.value);
-        modloader::debug("archipelago", std::format("Activate location: {}|{} to {}", location.condition.state.group_int(),location.condition.state.state(), location.condition.value));
+        set_state(location.condition.state.group_int(), location.condition.state.state(), location.condition.value);
+        modloader::debug(
+            "archipelago",
+            std::format("Activate location: {}|{} to {}", location.condition.state.group_int(), location.condition.state.state(), location.condition.value)
+        );
     }
 
     void ArchipelagoClient::set_state(int group, int state, auto value) {
@@ -245,153 +211,149 @@ namespace randomizer::archipelago {
 
     void ArchipelagoClient::give_item(messages::NetworkItem const& net_item) {
         std::variant<ids::Location, ids::BooleanItem, ids::ResourceItem, ids::UpgradeItem> item = ids::get_item(net_item.item);
-        item |
-            vx::match{
-                [this](const ids::BooleanItem& item) {
-                    set_state(item.uber_group, item.uber_state, true);
-                    if (item.uber_group == 945 && item.uber_state == 58183) { // Central Luma TP
-                        set_state(5377, 63173, true);
-                    }
-                },
-                [this](const ids::UpgradeItem& item) {
-                    std::vector<core::api::uber_states::UberState> item_uberstates;
-                    set_state(item.uber_group, item.uber_state, true);
-                    if (item.uber_group == static_cast<int16_t>(UberStateGroup::RandoUpgrade)) {
-                        // Currently this is always true, as all upgrade items have this UberGroup.
-                        switch (item.uber_state) { // Handle upgrades that affect multiple uberstates.
-                            case 48: { // Splinter Shurikens
-                                set_state(item.uber_group, 49, true);
-                                break;
-                            }
-                            case 80: { // Skill Velocity
-                                set_state(item.uber_group, 81, true);
-                                set_state(item.uber_group, 82, true);
-                                set_state(item.uber_group, 83, true);
-                                set_state(item.uber_group, 84, true);
-                                set_state(item.uber_group, 86, true);
-                                set_state(item.uber_group, 90, true);
-                                break;
-                            }
-                            case 87: { // Jumpgrade
-                                set_state(item.uber_group, 88, true);
-                                set_state(item.uber_group, 89, true);
-                                break;
-                            }
-                            default: {
-                                break;
-                            }
-                        }
-                    }
-                },
-                [&net_item, this](const ids::ResourceItem& item) {
-                    switch (item.type) {
-                        case ids::ResourceType::SpiritLight: {
-                            // TODO workaround because item.value does weird things, fix and remove this part and amount
-                            std::string name = get_item_name(net_item);
-                            int amount;
-                            if (name.starts_with("200")) { amount = 200; }
-                            else if (name.starts_with("100")) { amount = 100; }
-                            else if (name.starts_with("50")) { amount = 50; }
-                            else { amount = 1; }
-                            core::events::schedule_task_for_next_update([amount, &item] {
-                                const auto& spirit_light = core::api::game::player::spirit_light();
-                                const auto& spirit_light_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 3);
-                                spirit_light.set(spirit_light.get() + amount);
-                                spirit_light_collected.set<int>(spirit_light_collected.get<int>() + amount);
-                            });
+        const auto item_name = m_data_package.get_item_name(net_item.item).value_or(UNKNOWN_ITEM_TEXT);
+
+        item | vx::match{
+            [this](const ids::BooleanItem& item) {
+                // TODO: This should be in the seed file, not hardcoded here
+                set_state(item.uber_group, item.uber_state, true);
+                if (item.uber_group == 945 && item.uber_state == 58183) { // Central Luma TP
+                    set_state(5377, 63173, true);
+                }
+            },
+            [this](const ids::UpgradeItem& item) {
+                std::vector<core::api::uber_states::UberState> item_uber_states;
+                set_state(item.uber_group, item.uber_state, true);
+                if (item.uber_group == static_cast<int16_t>(UberStateGroup::RandoUpgrade)) {
+                    // Currently this is always true, as all upgrade items have this UberGroup.
+                    switch (item.uber_state) { // Handle upgrades that affect multiple uberstates.
+                        case 48: { // Splinter Shurikens
+                            set_state(item.uber_group, 49, true);
                             break;
                         }
-                        case ids::ResourceType::GorlekOre: {
-                            core::events::schedule_task_for_next_update([&item] {
-                                const auto& gorlek_ore = core::api::game::player::ore();
-                                const auto& gorlek_ore_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 5);
-
-                                gorlek_ore.set(gorlek_ore.get() + 1);
-                                gorlek_ore_collected.set<int>(gorlek_ore_collected.get<int>() + 1);
-                            });
+                        case 80: { // Skill Velocity
+                            set_state(item.uber_group, 81, true);
+                            set_state(item.uber_group, 82, true);
+                            set_state(item.uber_group, 83, true);
+                            set_state(item.uber_group, 84, true);
+                            set_state(item.uber_group, 86, true);
+                            set_state(item.uber_group, 90, true);
                             break;
                         }
-                        case ids::ResourceType::Keystone: {
-                            core::events::schedule_task_for_next_update([&item] {
-                                const auto& keystone = core::api::game::player::keystones();
-                                const auto& keystone_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 0);
-
-                                keystone.set(keystone.get() + 1);
-                                keystone_collected.set<int>(keystone_collected.get<int>() + 1);
-                            });
+                        case 87: { // Jumpgrade
+                            set_state(item.uber_group, 88, true);
+                            set_state(item.uber_group, 89, true);
                             break;
                         }
-                        case ids::ResourceType::ShardSlot: {
-                            core::events::schedule_task_for_next_update([&item] {
-                                const auto& shard_slot = core::api::game::player::shard_slots();
-
-                                shard_slot.set(shard_slot.get() + 1);
-                            });
-                            break;
-                        }
-                        case ids::ResourceType::HealthFragment: {
-                            core::events::schedule_task_for_next_update([&item] {
-                                const auto& max_health = core::api::game::player::max_health();
-                                const auto& health = core::api::game::player::health();
-
-                                max_health.set(max_health.get() + 5);
-                                health.set(static_cast<float>(max_health.get()));
-                            });
-                            break;
-                        }
-                        case ids::ResourceType::EnergyFragment: {
-                            core::events::schedule_task_for_next_update([&item] {
-                                const auto& max_energy = core::api::game::player::max_energy();
-                                const auto& energy = core::api::game::player::energy();
-
-                                max_energy.set(max_energy.get() + 0.5f);
-                                energy.set(max_energy.get());
-                            });
+                        default: {
                             break;
                         }
                     }
-                },
-                [net_item](const ids::Location& item) {
-                    modloader::error("archipelago", std::format("AP ID {} corresponds to a location, expected an item.", net_item.item));
-                },
-            };
-        std::string sender_name = get_player_name(net_item.player);
-        modloader::debug("archipelago", std::format("Received item: {} from {}.", get_item_name(net_item), sender_name));
+                }
+            },
+            [&item_name, this](const ids::ResourceItem& item) {
+                switch (item.type) {
+                    case ids::ResourceType::SpiritLight: {
+                        // TODO workaround because item.value does weird things, fix and remove this part and amount
+                        int amount;
+                        if (item_name.starts_with("200")) {
+                            amount = 200;
+                        } else if (item_name.starts_with("100")) {
+                            amount = 100;
+                        } else if (item_name.starts_with("50")) {
+                            amount = 50;
+                        } else {
+                            amount = 1;
+                        }
+
+                        core::events::schedule_task_for_next_update([amount, &item] {
+                            const auto& spirit_light = core::api::game::player::spirit_light();
+                            const auto& spirit_light_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 3);
+                            spirit_light.set(spirit_light.get() + amount);
+                            spirit_light_collected.set<int>(spirit_light_collected.get<int>() + amount);
+                        });
+                        break;
+                    }
+                    case ids::ResourceType::GorlekOre: {
+                        core::events::schedule_task_for_next_update([&item] {
+                            const auto& gorlek_ore = core::api::game::player::ore();
+                            const auto& gorlek_ore_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 5);
+
+                            gorlek_ore.set(gorlek_ore.get() + 1);
+                            gorlek_ore_collected.set<int>(gorlek_ore_collected.get<int>() + 1);
+                        });
+                        break;
+                    }
+                    case ids::ResourceType::Keystone: {
+                        core::events::schedule_task_for_next_update([&item] {
+                            const auto& keystone = core::api::game::player::keystones();
+                            const auto& keystone_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 0);
+
+                            keystone.set(keystone.get() + 1);
+                            keystone_collected.set<int>(keystone_collected.get<int>() + 1);
+                        });
+                        break;
+                    }
+                    case ids::ResourceType::ShardSlot: {
+                        core::events::schedule_task_for_next_update([&item] {
+                            const auto& shard_slot = core::api::game::player::shard_slots();
+
+                            shard_slot.set(shard_slot.get() + 1);
+                        });
+                        break;
+                    }
+                    case ids::ResourceType::HealthFragment: {
+                        core::events::schedule_task_for_next_update([&item] {
+                            const auto& max_health = core::api::game::player::max_health();
+                            const auto& health = core::api::game::player::health();
+
+                            max_health.set(max_health.get() + 5);
+                            health.set(static_cast<float>(max_health.get()));
+                        });
+                        break;
+                    }
+                    case ids::ResourceType::EnergyFragment: {
+                        core::events::schedule_task_for_next_update([&item] {
+                            const auto& max_energy = core::api::game::player::max_energy();
+                            const auto& energy = core::api::game::player::energy();
+
+                            max_energy.set(max_energy.get() + 0.5f);
+                            energy.set(max_energy.get());
+                        });
+                        break;
+                    }
+                }
+            },
+            [&net_item](const ids::Location&) {
+                modloader::error("archipelago", std::format("AP ID {} corresponds to a location, expected an item.", net_item.item));
+            },
+        };
+
         queue_reach_check();
-        if (sender_name == get_player_name(m_slot_id)) {
+
+        if (m_slot_id == net_item.player) {
+            modloader::debug("archipelago", std::format("Received item: {}", item_name));
             core::message_controller().queue_central({
-                .text = core::Property<std::string>(std::format("{}", get_item_name(net_item), sender_name)),
+                .text = core::Property<std::string>(item_name),
+                .show_box = true,
+            });
+        } else {
+            std::string sender_name = get_player_name(net_item.player);
+            modloader::debug("archipelago", std::format("Received item: {} from {}", item_name, sender_name));
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>(std::format("{} from {}.", item_name, sender_name)),
                 .show_box = true,
             });
         }
-        else {
-            core::message_controller().queue_central({
-                .text = core::Property<std::string>(std::format("{} from {}.", get_item_name(net_item), sender_name)),
-                .show_box = true,
-            });
-        }
-    }
-
-    void ArchipelagoClient::read_data_package(const std::string& file_name, auto& data) {
-        nlohmann::json j;
-        if (!load_json_file(file_name, j)) {
-            // Something went wrong
-            // Error message is printed to modloader log
-            return;
-        }
-        nlohmann::from_json(j, data);
-    }
-
-    void ArchipelagoClient::write_file(const nlohmann::json& data, const std::string& file_name) {
-        std::ofstream o(modloader::base_path() / file_name);
-        o << std::setw(4) << data << std::endl;
-        modloader::debug("Data", data.dump());
-        modloader::debug("archipelago", std::format("Write {} data package.", file_name));
     }
 
     void ArchipelagoClient::ask_resync() {
         send_message(messages::Sync{"Sync"});
         modloader::debug("archipelago", "Sent Sync packet to AP server.");
+    }
+
+    void ArchipelagoClient::send_message(const nlohmann::json& message) {
+        m_websocket.send("[" + message.dump() + "]"); // Not very good style, maybe improve it
     }
 
     void ArchipelagoClient::handle_server_message(messages::ap_server_message_t const& message) {
@@ -454,15 +416,9 @@ namespace randomizer::archipelago {
                     }
 
                     // Update data package
-                    std::vector<std::string> outdated_games;
-                    for (auto& [game, checksum]: message.datapackage_checksums) {
-                        if (checksum != m_data_package_cache[game].checksum) {
-                            outdated_games.push_back(game);
-                            modloader::debug("archipelago", std::format("Data packages for {} are obsolete.", game));
-                        }
-                    }
+                    const auto outdated_games = m_data_package.get_outdated_game_data_packages(message.datapackage_checksums);
                     if (!outdated_games.empty()) {
-                        send_message(messages::GetDataPackage{outdated_games, "GetDataPackage"});
+                        send_message(messages::GetDataPackage{outdated_games});
                         modloader::debug("archipelago", "Sent GetDataPackage packet to AP server.");
                     }
                 },
@@ -470,7 +426,9 @@ namespace randomizer::archipelago {
                     modloader::debug("archipelago", "Parsing ReceivedItems Packet");
                     modloader::debug(
                         "archipelago",
-                        std::format("Message index: {}, Saved index: {}, Message length {}", message.index, archipelago_save_data->last_item_index, message.items.size())
+                        std::format(
+                            "Message index: {}, Saved index: {}, Message length {}", message.index, archipelago_save_data->last_item_index, message.items.size()
+                        )
                     );
                     if (message.index == archipelago_save_data->last_item_index + 1) {
                         for (auto& item: message.items) {
@@ -479,9 +437,7 @@ namespace randomizer::archipelago {
                         }
                     } else if (message.index == 0) {
                         // AP server sent all the received items, only add the new ones
-                        int start_index = archipelago_save_data->last_item_index == 0
-                            ? 0
-                            : archipelago_save_data->last_item_index + 1;
+                        int start_index = archipelago_save_data->last_item_index == 0 ? 0 : archipelago_save_data->last_item_index + 1;
 
                         for (int index{start_index}; index < message.items.size(); ++index) {
                             give_item(message.items[index]);
@@ -491,9 +447,7 @@ namespace randomizer::archipelago {
                         ask_resync();
                     }
                 },
-                [this](const messages::LocationInfo& message) {
-                    modloader::debug("archipelago", "Parsing LocationInfo Packet");
-                },
+                [this](const messages::LocationInfo& message) { modloader::debug("archipelago", "Parsing LocationInfo Packet"); },
                 [this](const messages::RoomUpdate& message) {
                     modloader::debug("archipelago", "Parsing RoomUpdate Packet");
                     for (auto& player: message.players) {
@@ -512,21 +466,29 @@ namespace randomizer::archipelago {
                         if (message.receiving != m_slot_id && message.item.player == m_slot_id) {
                             std::string game = m_slots[std::to_string(message.receiving)].game;
                             core::message_controller().queue_central({
-                                    .text = core::Property<std::string>(std::format("{} sent to {}.", get_item_name(message.item, game), get_player_name(message.receiving))),
-                                    .show_box = true,
+                                .text = core::Property<std::string>(
+                                    std::format("{} sent to {}.", m_data_package.get_item_name(message.item.item).value_or(UNKNOWN_ITEM_TEXT), get_player_name(message.receiving))
+                                ),
+                                .show_box = true,
                             });
                             if (message.type == "ItemSend") {
                                 // This means that the server received the LocationCheck packet, so we can clear the cache.
                                 m_cached_locations.clear();
                             }
                         }
+
                     } else if (message.type == "Hint") {
                         // Only display if the item is in this game, and not found yet.
                         if (message.item.player == m_slot_id && !message.found) {
                             std::string game = m_slots[std::to_string(message.receiving)].game;
                             core::message_controller().queue_central({
-                                    .text = core::Property<std::string>(std::format("{} for {} is in {}.", get_item_name(message.item, game), get_player_name(message.receiving), get_location_name(message.item.location))),
-                                    .show_box = true,
+                                .text = core::Property<std::string>(std::format(
+                                    "{} for {} is on {}.",
+                                    m_data_package.get_item_name(message.item.item).value_or(UNKNOWN_ITEM_TEXT),
+                                    get_player_name(message.receiving),
+                                    m_data_package.get_location_name(message.item.location).value_or("@Unknown Location@")
+                                )),
+                                .show_box = true,
                             });
                         }
                     } else if (message.type == "Countdown") {
@@ -587,16 +549,12 @@ namespace randomizer::archipelago {
                             .text = core::Property<std::string>(std::format("Server: {}", message.message)),
                             .show_box = true,
                         });
-                    } else if (
-                        message.type == "Tutorial" ||
-                        message.type == "TagsChanged" ||
-                        message.type == "CommandResult" ||
-                        message.type == "AdminCommandResult"
-                    ) {
+                    } else if (message.type == "Tutorial" || message.type == "TagsChanged" || message.type == "CommandResult" ||
+                               message.type == "AdminCommandResult") {
                         // Skip these messages
-                    } else {  // TODO sometimes there is no type (eg Cheat console), see what to do
+                    } else { // TODO sometimes there is no type (eg Cheat console), see what to do
                         std::string text = message.type + ": ";
-                        for (auto& print_text : message.data) {
+                        for (auto& print_text: message.data) {
                             text += print_text.text;
                         }
                         modloader::warn("archipelago", std::format("Unknown PrintJSON type. Data: {}", text));
@@ -608,7 +566,7 @@ namespace randomizer::archipelago {
                 },
                 [this](const messages::DataPackage& message) {
                     modloader::debug("archipelago", "Parsing DataPackage Packet");
-                    update_data_package(message.data.games);
+                    m_data_package.add_game_data(message.data.games);
                 },
             };
     }
