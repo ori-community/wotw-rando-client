@@ -25,26 +25,6 @@
 namespace randomizer::archipelago {
     auto archipelago_save_data = std::make_shared<ArchipelagoSaveData>();
 
-    std::unordered_set<core::api::uber_states::UberState> locations_set;
-    [[maybe_unused]]
-    auto on_location_collection_loading = event_bus().register_handler(RandomizerEvent::LocationCollectionLoaded, EventTiming::Before, [](auto, auto) {
-        locations_set.clear();
-    });
-
-    [[maybe_unused]]
-    auto on_location_collection_loaded = event_bus().register_handler(RandomizerEvent::LocationCollectionLoaded, EventTiming::After, [](auto, auto) {
-        for (const auto& location: location_collection().locations()) {
-            core::api::uber_states::UberState loc_uber;
-            loc_uber = core::api::uber_states::UberState(location.condition.state.group_int(), location.condition.state.state());
-
-            auto existing_it = locations_set.find(loc_uber);
-            if (existing_it == locations_set.end()) {
-                locations_set.insert(loc_uber);
-            }
-        }
-        modloader::info("archipelago", "Built location set");
-    });
-
     [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         core::save_meta::register_slot(SaveMetaSlot::ArchipelagoData, SaveMetaSlotPersistence::None, archipelago_save_data);
@@ -64,11 +44,14 @@ namespace randomizer::archipelago {
     // On location checked
     [[maybe_unused]]
     auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
-        auto existing_it = locations_set.find(core::api::uber_states::UberState(params.state));
-
-        if (existing_it != locations_set.end()) {
-            archipelago_client().location_handler(params);
-        };
+        const auto locations_on_state = location_collection().locations_on_state(params.state);
+        for (const auto& location: locations_on_state) {
+            // If we just collected this location, ...
+            if (!location.condition.resolve(params.previous_value) && location.condition.resolve(params.value)) {
+                // ...notify the AP client.
+                archipelago_client().notify_location_collected(location);
+            }
+        }
     });
 
     // Resync items
@@ -79,7 +62,7 @@ namespace randomizer::archipelago {
     [[maybe_unused]]
     auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
         archipelago_client().ask_resync();
-        modloader::info("archipelago", "Resync asked: Restore Checkpoint");
+        modloader::debug("archipelago", "Resync asked: Restore Checkpoint");
     });
 
 
@@ -101,21 +84,30 @@ namespace randomizer::archipelago {
         m_websocket.disableAutomaticReconnection();
         m_websocket.start();
         m_should_connect = true;
-        modloader::info("archipelago", "AP client connected.");
+        modloader::debug("archipelago", "AP client connected.");
     }
 
     void ArchipelagoClient::disconnect() {
         m_should_connect = false;
         m_websocket.stop();
-        modloader::info("archipelago", "AP client disconnected.");
+        modloader::debug("archipelago", "AP client disconnected.");
     }
 
     bool ArchipelagoClient::is_connected() const { return m_websocket.getReadyState() == ix::ReadyState::Open; }
 
+    void ArchipelagoClient::notify_location_collected(const location_data::Location& location) {
+        ids::archipelago_id_t location_id{ids::get_location_id(location)};
+
+        m_cached_locations.insert(location_id);  // Stores the locations that are checked, but not yet validated by the server: useful for resync
+        send_message(messages::LocationChecks{m_cached_locations});
+
+        modloader::debug("archipelago", std::format("Location checked: {}", location.name));
+    }
+
     void ArchipelagoClient::on_websocket_message(ix::WebSocketMessagePtr const& msg) {
         switch (msg->type) {
             case ix::WebSocketMessageType::Message: {
-                modloader::info("archipelago", "Data package received");
+                modloader::debug("archipelago", "Data package received");
                 auto message_string = msg.get()->str;
 
                 try {
@@ -137,7 +129,7 @@ namespace randomizer::archipelago {
                 break;
             }
             case ix::WebSocketMessageType::Open: {
-                modloader::info("archipelago", "Connected to server");
+                modloader::debug("archipelago", "Connected to server");
 
                 const uuids::uuid uuid = uuids::uuid_system_generator{}();
 
@@ -192,21 +184,6 @@ namespace randomizer::archipelago {
         }
     }
 
-    void ArchipelagoClient::location_handler(auto& params) {
-        location_data::Location location{
-            "AP", // Dummy infos, only the uber states are used
-            GameArea::Void,
-            location_data::LocationType::Unknown,
-            core::api::uber_states::UberStateCondition(params.state, BooleanOperator::Greater, params.value)
-        };
-        ids::archipelago_id_t location_id{ids::get_location_id(location)};
-        m_cached_locations.insert(location_id); // Stores the locations that are checked, but not yet validated by the server: useful for resync
-        send_message(messages::LocationChecks{m_cached_locations, "LocationChecks"});
-        modloader::info(
-            "archipelago", std::format("Location checked. Group: {}, State: {}, Value: {}.", params.state.group_int(), params.state.state(), params.value)
-        );
-    }
-
     void ArchipelagoClient::game_finished_handler() { send_message(messages::StatusUpdate{messages::ClientStatus::ClientGoal, "StatusUpdate"}); }
 
 
@@ -215,7 +192,7 @@ namespace randomizer::archipelago {
             m_data_package_cache[game] = data;
             m_item_id_to_name[game] = parse_data_package(data.item_name_to_id);
             m_location_id_to_name[game] = parse_data_package(data.location_name_to_id);
-            modloader::info("archipelago", std::format("Data packages for {} updated.", game));
+            modloader::debug("archipelago", std::format("Data packages for {} updated.", game));
         }
         write_file(nlohmann::json(m_data_package_cache), "ap_data_package.json");
         write_file(nlohmann::json(m_item_id_to_name), "ap_item_id_to_name.json");
@@ -259,16 +236,16 @@ namespace randomizer::archipelago {
     void ArchipelagoClient::collect_location(const ids::archipelago_id_t location_id) {
         // Collect locations from RoomUpdate and Connected packets, useful for coop
         // TODO does not work
-        modloader::info("archipelago", std::format("Activate location id: {}", location_id));
+        modloader::debug("archipelago", std::format("Activate location id: {}", location_id));
         location_data::Location location{ids::get_location_from_id(location_id)};
         set_state(location.condition.state.group_int(),location.condition.state.state(), location.condition.value);
-        modloader::info("archipelago", std::format("Activate location: {}|{} to {}", location.condition.state.group_int(),location.condition.state.state(), location.condition.value));
+        modloader::debug("archipelago", std::format("Activate location: {}|{} to {}", location.condition.state.group_int(),location.condition.state.state(), location.condition.value));
     }
 
     void ArchipelagoClient::set_state(int group, int state, auto value) {
         core::events::schedule_task_for_next_update([group, state, value] {
             core::api::uber_states::UberState(group, state).set(value);
-            modloader::info("archipelago", std::format("Set {}|{} to {}", group, state, value));
+            modloader::debug("archipelago", std::format("Set {}|{} to {}", group, state, value));
         });
     }
 
@@ -278,7 +255,7 @@ namespace randomizer::archipelago {
             vx::match{
                 [this](const ids::BooleanItem& item) {
                     set_state(item.uber_group, item.uber_state, true);
-                    if (item.uber_group == 945 & item.uber_state == 58183) { // Central Luma TP
+                    if (item.uber_group == 945 && item.uber_state == 58183) { // Central Luma TP
                         set_state(5377, 63173, true);
                     }
                 },
@@ -334,7 +311,7 @@ namespace randomizer::archipelago {
                             core::events::schedule_task_for_next_update([&item] {
                                 const auto& gorlek_ore = core::api::game::player::ore();
                                 const auto& gorlek_ore_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 5);
-            
+
                                 gorlek_ore.set(gorlek_ore.get() + 1);
                                 gorlek_ore_collected.set<int>(gorlek_ore_collected.get<int>() + 1);
                             });
@@ -344,7 +321,7 @@ namespace randomizer::archipelago {
                             core::events::schedule_task_for_next_update([&item] {
                                 const auto& keystone = core::api::game::player::keystones();
                                 const auto& keystone_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 0);
-            
+
                                 keystone.set(keystone.get() + 1);
                                 keystone_collected.set<int>(keystone_collected.get<int>() + 1);
                             });
@@ -353,7 +330,7 @@ namespace randomizer::archipelago {
                         case ids::ResourceType::ShardSlot: {
                             core::events::schedule_task_for_next_update([&item] {
                                 const auto& shard_slot = core::api::game::player::shard_slots();
-            
+
                                 shard_slot.set(shard_slot.get() + 1);
                             });
                             break;
@@ -362,7 +339,7 @@ namespace randomizer::archipelago {
                             core::events::schedule_task_for_next_update([&item] {
                                 const auto& max_health = core::api::game::player::max_health();
                                 const auto& health = core::api::game::player::health();
-            
+
                                 max_health.set(max_health.get() + 5);
                                 health.set(static_cast<float>(max_health.get()));
                             });
@@ -372,7 +349,7 @@ namespace randomizer::archipelago {
                             core::events::schedule_task_for_next_update([&item] {
                                 const auto& max_energy = core::api::game::player::max_energy();
                                 const auto& energy = core::api::game::player::energy();
-            
+
                                 max_energy.set(max_energy.get() + 0.5f);
                                 energy.set(max_energy.get());
                             });
@@ -385,7 +362,7 @@ namespace randomizer::archipelago {
                 },
             };
         std::string sender_name = get_player_name(net_item.player);
-        modloader::info("archipelago", std::format("Received item: {} from {}.", get_item_name(net_item), sender_name));
+        modloader::debug("archipelago", std::format("Received item: {} from {}.", get_item_name(net_item), sender_name));
         queue_reach_check();
         if (sender_name == get_player_name(m_slot_id)) {
             core::message_controller().queue_central({
@@ -414,20 +391,20 @@ namespace randomizer::archipelago {
     void ArchipelagoClient::write_file(const nlohmann::json& data, const std::string& file_name) {
         std::ofstream o(modloader::base_path() / file_name);
         o << std::setw(4) << data << std::endl;
-        modloader::info("Data", data.dump());
-        modloader::info("archipelago", std::format("Write {} data package.", file_name));
+        modloader::debug("Data", data.dump());
+        modloader::debug("archipelago", std::format("Write {} data package.", file_name));
     }
 
     void ArchipelagoClient::ask_resync() {
         send_message(messages::Sync{"Sync"});
-        modloader::info("archipelago", "Sent Sync packet to AP server.");
+        modloader::debug("archipelago", "Sent Sync packet to AP server.");
     }
 
     void ArchipelagoClient::handle_server_message(messages::ap_server_message_t const& message) {
         message |
             vx::match{
                 [this](const messages::Connected& message) {
-                    modloader::info("archipelago", "Parsing Connected Packet");
+                    modloader::debug("archipelago", "Parsing Connected Packet");
                     m_player_map[0] = messages::NetworkPlayer{0, 0, "Archipelago", "Archipelago"};
                     m_slot_id = message.slot;
                     for (auto& player: message.players) {
@@ -444,7 +421,7 @@ namespace randomizer::archipelago {
                     });
                 },
                 [](const messages::ConnectionRefused& message) {
-                    modloader::info("archipelago", "Parsing ConnectionRefused Packet");
+                    modloader::debug("archipelago", "Parsing ConnectionRefused Packet");
                     for (const std::string& error: message.errors) {
                         modloader::error("archipelago", std::format("Connection refused: {}.", error));
                         core::message_controller().queue_central({
@@ -454,17 +431,17 @@ namespace randomizer::archipelago {
                     }
                 },
                 [this](const messages::RoomInfo& message) {
-                    modloader::info("archipelago", "Parsing RoomInfo Packet");
-                    modloader::info(
+                    modloader::debug("archipelago", "Parsing RoomInfo Packet");
+                    modloader::debug(
                         "archipelago", std::format("AP server version: {}.{}.{}", message.version.major, message.version.minor, message.version.build)
                     );
-                    modloader::info(
+                    modloader::debug(
                         "archipelago",
                         std::format(
                             "AP generator version: {}.{}.{}", message.generator_version.major, message.generator_version.minor, message.generator_version.build
                         )
                     );
-                    modloader::info("archipelago", std::format("Hint cost: {}, Location points: {}.", message.hint_cost, message.location_check_points));
+                    modloader::debug("archipelago", std::format("Hint cost: {}, Location points: {}.", message.hint_cost, message.location_check_points));
 
                     std::optional<std::string> ap_seed = game_seed().info().meta.archipelago_seed;
                     if (message.seed_name != ap_seed) {
@@ -487,17 +464,17 @@ namespace randomizer::archipelago {
                     for (auto& [game, checksum]: message.datapackage_checksums) {
                         if (checksum != m_data_package_cache[game].checksum) {
                             outdated_games.push_back(game);
-                            modloader::info("archipelago", std::format("Data packages for {} are obsolete.", game));
+                            modloader::debug("archipelago", std::format("Data packages for {} are obsolete.", game));
                         }
                     }
                     if (!outdated_games.empty()) {
                         send_message(messages::GetDataPackage{outdated_games, "GetDataPackage"});
-                        modloader::info("archipelago", "Sent GetDataPackage packet to AP server.");
+                        modloader::debug("archipelago", "Sent GetDataPackage packet to AP server.");
                     }
                 },
                 [this](const messages::ReceivedItems& message) {
-                    modloader::info("archipelago", "Parsing ReceivedItems Packet");
-                    modloader::info(
+                    modloader::debug("archipelago", "Parsing ReceivedItems Packet");
+                    modloader::debug(
                         "archipelago",
                         std::format("Message index: {}, Saved index: {}, Message length {}", message.index, get_last_index(), message.items.size())
                     );
@@ -518,10 +495,10 @@ namespace randomizer::archipelago {
                     }
                 },
                 [this](const messages::LocationInfo& message) {
-                    modloader::info("archipelago", "Parsing LocationInfo Packet");
+                    modloader::debug("archipelago", "Parsing LocationInfo Packet");
                 },
                 [this](const messages::RoomUpdate& message) {
-                    modloader::info("archipelago", "Parsing RoomUpdate Packet");
+                    modloader::debug("archipelago", "Parsing RoomUpdate Packet");
                     for (auto& player: message.players) {
                         m_player_map[player.slot] = player;
                     }
@@ -532,10 +509,10 @@ namespace randomizer::archipelago {
                     }*/
                 },
                 [this](const messages::PrintJSON& message) {
-                    modloader::info("archipelago", std::format("Parsing PrintJSON of type: {}", message.type));
+                    modloader::debug("archipelago", std::format("Parsing PrintJSON of type: {}", message.type));
                     if (message.type == "ItemSend" || message.type == "ItemCheat") {
                         // Only display if the item is not a local item, and comes from this game
-                        if (message.receiving != m_slot_id & message.item.player == m_slot_id) {
+                        if (message.receiving != m_slot_id && message.item.player == m_slot_id) {
                             std::string game = m_slots[std::to_string(message.receiving)].game;
                             core::message_controller().queue_central({
                                     .text = core::Property<std::string>(std::format("{} sent to {}.", get_item_name(message.item, game), get_player_name(message.receiving))),
@@ -546,24 +523,21 @@ namespace randomizer::archipelago {
                                 m_cached_locations.clear();
                             }
                         }
-                    }
-                    else if (message.type == "Hint") {
+                    } else if (message.type == "Hint") {
                         // Only display if the item is in this game, and not found yet.
-                        if (message.item.player == m_slot_id & !message.found) {
+                        if (message.item.player == m_slot_id && !message.found) {
                             std::string game = m_slots[std::to_string(message.receiving)].game;
                             core::message_controller().queue_central({
                                     .text = core::Property<std::string>(std::format("{} for {} is in {}.", get_item_name(message.item, game), get_player_name(message.receiving), get_location_name(message.item.location))),
                                     .show_box = true,
                             });
                         }
-                    }
-                    else if (message.type == "Countdown") {
+                    } else if (message.type == "Countdown") {
                         core::message_controller().queue_central({
                             .text = core::Property<std::string>(std::format("Countdown: {}", message.countdown)),
                             .show_box = true,
                         });
-                    }
-                    else if (message.type == "Goal") {
+                    } else if (message.type == "Goal") {
                         std::string player_name = get_player_name(message.slot);
                         if (player_name != get_player_name(m_slot_id)) {
                             core::message_controller().queue_central({
@@ -571,8 +545,7 @@ namespace randomizer::archipelago {
                                 .show_box = true,
                             });
                         }
-                    }
-                    else if (message.type == "Collect") {
+                    } else if (message.type == "Collect") {
                         std::string player_name = get_player_name(message.slot);
                         if (player_name != get_player_name(m_slot_id)) {
                             core::message_controller().queue_central({
@@ -580,8 +553,7 @@ namespace randomizer::archipelago {
                                 .show_box = true,
                             });
                         }
-                    }
-                    else if (message.type == "Release") {
+                    } else if (message.type == "Release") {
                         std::string player_name = get_player_name(message.slot);
                         if (player_name != get_player_name(m_slot_id)) {
                             core::message_controller().queue_central({
@@ -589,8 +561,7 @@ namespace randomizer::archipelago {
                                 .show_box = true,
                             });
                         }
-                    }
-                    else if (message.type == "Join") {
+                    } else if (message.type == "Join") {
                         std::string player_name = get_player_name(message.slot);
                         if (player_name != get_player_name(m_slot_id)) {
                             core::message_controller().queue_central({
@@ -598,8 +569,7 @@ namespace randomizer::archipelago {
                                 .show_box = true,
                             });
                         }
-                    }
-                    else if (message.type == "Part") {
+                    } else if (message.type == "Part") {
                         std::string player_name = get_player_name(message.slot);
                         if (player_name != get_player_name(m_slot_id)) {
                             core::message_controller().queue_central({
@@ -607,8 +577,7 @@ namespace randomizer::archipelago {
                                 .show_box = true,
                             });
                         }
-                    }
-                    else if (message.type == "Chat") {
+                    } else if (message.type == "Chat") {
                         std::string player_name = get_player_name(message.slot);
                         if (player_name != get_player_name(m_slot_id)) {
                             core::message_controller().queue_central({
@@ -616,16 +585,19 @@ namespace randomizer::archipelago {
                                 .show_box = true,
                             });
                         }
-                    }
-                    else if (message.type == "ServerChat") {
+                    } else if (message.type == "ServerChat") {
                         core::message_controller().queue_central({
                             .text = core::Property<std::string>(std::format("Server: {}", message.message)),
                             .show_box = true,
                         });
-                    }
-                    else if (message.type == "Tutorial" || message.type == "TagsChanged" ||
-                        message.type == "CommandResult" || message.type == "AdminCommandResult") {}  // Skip these messages
-                    else {  // TODO sometimes there is no type (eg Cheat console), see what to do
+                    } else if (
+                        message.type == "Tutorial" ||
+                        message.type == "TagsChanged" ||
+                        message.type == "CommandResult" ||
+                        message.type == "AdminCommandResult"
+                    ) {
+                        // Skip these messages
+                    } else {  // TODO sometimes there is no type (eg Cheat console), see what to do
                         std::string text = message.type + ": ";
                         for (auto& print_text : message.data) {
                             text += print_text.text;
@@ -634,11 +606,11 @@ namespace randomizer::archipelago {
                     }
                 },
                 [](const messages::InvalidPacket& message) {
-                    modloader::info("archipelago", "Parsing InvalidPacket Packet");
+                    modloader::debug("archipelago", "Parsing InvalidPacket Packet");
                     modloader::error("archipelago", std::format("{}: Invalid packet sent {}: {}.", message.type, message.original_cmd, message.text));
                 },
                 [this](const messages::DataPackage& message) {
-                    modloader::info("archipelago", "Parsing DataPackage Packet");
+                    modloader::debug("archipelago", "Parsing DataPackage Packet");
                     update_data_package(message.data.games);
                 },
             };

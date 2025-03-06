@@ -19,17 +19,15 @@ namespace randomizer::archipelago {
         void connect(std::string_view url, std::string_view slot_name, std::string_view password);
         void disconnect();
         bool is_connected() const;
-        void location_handler(auto& params);
+        void notify_location_collected(const location_data::Location& location);
         void game_finished_handler();
         void ask_resync();
         static int get_last_index();
         void set_last_index(int index);
 
     private:
-        template<typename Jsonable>
-        void send_message(const Jsonable& message) {
-            const nlohmann::json json(message);
-            m_websocket.send("[" + json.dump() + "]"); // Not very good style, maybe improve it
+        void send_message(const nlohmann::json& message) {
+            m_websocket.send("[" + message.dump() + "]"); // Not very good style, maybe improve it
         }
 
         using IdToName = std::unordered_map<ids::archipelago_id_t, std::string>;
