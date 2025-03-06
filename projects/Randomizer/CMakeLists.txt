@@ -9,6 +9,7 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 set(
         SOURCE_FILES
         "archipelago/archipelago.cpp"
+        "archipelago/archipelago_data_package.cpp"
         "archipelago/archipelago_ids.cpp"
         "archipelago/archipelago_protocol.cpp"
         "archipelago/archipelago_save_meta.cpp"
@@ -223,6 +224,7 @@ set(
 set(
         PUBLIC_HEADER_FILES
         "archipelago/archipelago.h"
+        "archipelago/archipelago_data_package.h"
         "archipelago/archipelago_ids.h"
         "archipelago/archipelago_protocol.h"
         "conditions/condition_override.h"
