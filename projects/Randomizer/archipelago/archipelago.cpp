@@ -36,7 +36,7 @@ namespace randomizer::archipelago {
         core::api::uber_states::UberState(34543, 11226),
         [](const core::api::uber_states::UberStateCallbackParams& params, auto) {
             if (params.state.get<bool>()) {
-                archipelago_client().game_finished_handler();
+                archipelago_client().notify_game_finished();
             }
         }
     );
@@ -59,9 +59,10 @@ namespace randomizer::archipelago {
     auto on_new_game = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
         archipelago_save_data->last_item_index = 0;
     });
+
     [[maybe_unused]]
     auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
-        archipelago_client().ask_resync();
+        archipelago_client().request_sync();
         modloader::debug("archipelago", "Resync asked: Restore Checkpoint");
     });
 
@@ -178,15 +179,7 @@ namespace randomizer::archipelago {
         }
     }
 
-    void ArchipelagoClient::game_finished_handler() { send_message(messages::StatusUpdate{messages::ClientStatus::ClientGoal, "StatusUpdate"}); }
-
-    ArchipelagoClient::IdToName ArchipelagoClient::parse_data_package(const std::unordered_map<std::string, ids::archipelago_id_t>& data) {
-        ArchipelagoClient::IdToName parsed_data;
-        for (auto& [name, id]: data) {
-            parsed_data[id] = name;
-        }
-        return parsed_data;
-    }
+    void ArchipelagoClient::notify_game_finished() { send_message(messages::StatusUpdate{messages::ClientStatus::ClientGoal}); }
 
     std::string ArchipelagoClient::get_player_name(int player) { return m_player_map[player].alias; }
 
@@ -195,18 +188,11 @@ namespace randomizer::archipelago {
         // TODO does not work
         modloader::debug("archipelago", std::format("Activate location id: {}", location_id));
         location_data::Location location{ids::get_location_from_id(location_id)};
-        set_state(location.condition.state.group_int(), location.condition.state.state(), location.condition.value);
+        core::api::uber_states::UberState(location.condition.state.group_int(), location.condition.state.state()).set(location.condition.value);
         modloader::debug(
             "archipelago",
             std::format("Activate location: {}|{} to {}", location.condition.state.group_int(), location.condition.state.state(), location.condition.value)
         );
-    }
-
-    void ArchipelagoClient::set_state(int group, int state, auto value) {
-        core::events::schedule_task_for_next_update([group, state, value] {
-            core::api::uber_states::UberState(group, state).set(value);
-            modloader::debug("archipelago", std::format("Set {}|{} to {}", group, state, value));
-        });
     }
 
     void ArchipelagoClient::give_item(messages::NetworkItem const& net_item) {
@@ -216,33 +202,33 @@ namespace randomizer::archipelago {
         item | vx::match{
             [this](const ids::BooleanItem& item) {
                 // TODO: This should be in the seed file, not hardcoded here
-                set_state(item.uber_group, item.uber_state, true);
+                core::api::uber_states::UberState(item.uber_group, item.uber_state).set(true);
                 if (item.uber_group == 945 && item.uber_state == 58183) { // Central Luma TP
-                    set_state(5377, 63173, true);
+                    core::api::uber_states::UberState(5377, 63173).set(true);
                 }
             },
             [this](const ids::UpgradeItem& item) {
                 std::vector<core::api::uber_states::UberState> item_uber_states;
-                set_state(item.uber_group, item.uber_state, true);
+                core::api::uber_states::UberState(item.uber_group, item.uber_state).set(true);
                 if (item.uber_group == static_cast<int16_t>(UberStateGroup::RandoUpgrade)) {
                     // Currently this is always true, as all upgrade items have this UberGroup.
                     switch (item.uber_state) { // Handle upgrades that affect multiple uberstates.
                         case 48: { // Splinter Shurikens
-                            set_state(item.uber_group, 49, true);
+                            core::api::uber_states::UberState(item.uber_group, 49).set(true);
                             break;
                         }
                         case 80: { // Skill Velocity
-                            set_state(item.uber_group, 81, true);
-                            set_state(item.uber_group, 82, true);
-                            set_state(item.uber_group, 83, true);
-                            set_state(item.uber_group, 84, true);
-                            set_state(item.uber_group, 86, true);
-                            set_state(item.uber_group, 90, true);
+                            core::api::uber_states::UberState(item.uber_group, 81).set(true);
+                            core::api::uber_states::UberState(item.uber_group, 82).set(true);
+                            core::api::uber_states::UberState(item.uber_group, 83).set(true);
+                            core::api::uber_states::UberState(item.uber_group, 84).set(true);
+                            core::api::uber_states::UberState(item.uber_group, 86).set(true);
+                            core::api::uber_states::UberState(item.uber_group, 90).set(true);
                             break;
                         }
                         case 87: { // Jumpgrade
-                            set_state(item.uber_group, 88, true);
-                            set_state(item.uber_group, 89, true);
+                            core::api::uber_states::UberState(item.uber_group, 88).set(true);
+                            core::api::uber_states::UberState(item.uber_group, 89).set(true);
                             break;
                         }
                         default: {
@@ -347,12 +333,16 @@ namespace randomizer::archipelago {
         }
     }
 
-    void ArchipelagoClient::ask_resync() {
+    void ArchipelagoClient::request_sync() {
         send_message(messages::Sync{"Sync"});
         modloader::debug("archipelago", "Sent Sync packet to AP server.");
     }
 
     void ArchipelagoClient::send_message(const nlohmann::json& message) {
+        if (!is_connected()) {
+            return;
+        }
+
         m_websocket.send("[" + message.dump() + "]"); // Not very good style, maybe improve it
     }
 
@@ -444,7 +434,7 @@ namespace randomizer::archipelago {
                         }
                         archipelago_save_data->last_item_index = static_cast<int>(message.items.size() - 1);
                     } else {
-                        ask_resync();
+                        request_sync();
                     }
                 },
                 [this](const messages::LocationInfo& message) { modloader::debug("archipelago", "Parsing LocationInfo Packet"); },
