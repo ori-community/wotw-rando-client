@@ -62,15 +62,19 @@ namespace randomizer::archipelago::ids {
         return BASE_ID + (static_cast<archipelago_id_t>(IdType::ResourceItem) << 32) + (static_cast<archipelago_id_t>(type) << 16) + value;
     }
 
+    archipelago_id_t get_location_id(const core::api::uber_states::UberState& state, const double value) {
+        assert(value <= 0b11111111);
+        assert(state.state() <= 0b11111111'11111111);
+
+        const archipelago_id_t group_id = static_cast<uint32_t>((state.group_int() & 0b11111111) << 24);
+        const archipelago_id_t state_id = static_cast<uint32_t>((state.state() & 0b11111111'11111111) << 8);
+        const auto value_id = static_cast<archipelago_id_t>(value);
+
+        return BASE_ID + (static_cast<archipelago_id_t>(IdType::Location) << 32) + group_id + state_id + value_id;
+    }
+
     archipelago_id_t get_location_id(const location_data::Location& location) {
-        assert(location.condition.value <= 0b11111111);
-        assert(location.condition.state.state() <= 0b11111111'11111111);
-
-        const archipelago_id_t group = static_cast<uint32_t>((location.condition.state.group_int() & 0b11111111) << 24);
-        const archipelago_id_t state = static_cast<uint32_t>((location.condition.state.state() & 0b11111111'11111111) << 8);
-        const auto value = static_cast<archipelago_id_t>(location.condition.value);
-
-        return BASE_ID + (static_cast<archipelago_id_t>(IdType::Location) << 32) + group + state + value;
+        return get_location_id(location.condition.state, location.condition.value);
     }
 
     std::variant<Location, BooleanItem, ResourceItem, UpgradeItem> get_item(archipelago_id_t id) {

@@ -72,6 +72,12 @@ namespace randomizer::location_data {
     }
 
     void LocationCollection::read(std::filesystem::path path, location_data_parser parser) {
+        m_locations.clear();
+        m_condition_to_location_index.clear();
+        m_uber_state_to_location_indices.clear();
+        m_name_to_location_index.clear();
+        m_area_to_location_indexes.clear();
+
         for (auto i = 0; i < static_cast<int>(GameArea::TOTAL); ++i) {
             m_area_to_location_indexes[static_cast<GameArea>(i)] = {};
         }
@@ -82,14 +88,15 @@ namespace randomizer::location_data {
 
         for (auto i = 0; i < m_locations.size(); ++i) {
             auto const& location = m_locations.at(i);
-            m_id_to_location_index[location.condition] = i;
+            m_uber_state_to_location_indices[location.condition.state].push_back(i);
+            m_condition_to_location_index[location.condition] = i;
             m_name_to_location_index[location.name] = i;
             m_area_to_location_indexes[location.area].push_back(i);
         }
     }
 
-    GameArea LocationCollection::area(location_id const& id) const {
-        const auto loc = location(id);
+    GameArea LocationCollection::area(const core::api::uber_states::UberStateCondition& condition) const {
+        const auto loc = location(condition);
         return loc.has_value() ? loc.value().area : GameArea::Void;
     }
 
@@ -98,9 +105,9 @@ namespace randomizer::location_data {
         return loc.has_value() ? loc.value().area : GameArea::Void;
     }
 
-    std::optional<Location> LocationCollection::location(location_id const& id) const {
-        const auto location_index = m_id_to_location_index.find(id);
-        return location_index != m_id_to_location_index.end()
+    std::optional<Location> LocationCollection::location(const core::api::uber_states::UberStateCondition& condition) const {
+        const auto location_index = m_condition_to_location_index.find(condition);
+        return location_index != m_condition_to_location_index.end()
             ? std::optional(m_locations.at(location_index->second))
             : std::nullopt;
     }
@@ -120,6 +127,20 @@ namespace randomizer::location_data {
         }
 
         return result;
+    }
+
+    std::vector<Location> LocationCollection::locations_on_state(const core::api::uber_states::UberState& state) const {
+        auto it = m_uber_state_to_location_indices.find(state);
+        if (it == m_uber_state_to_location_indices.end()) {
+            return {};
+        }
+
+        std::vector<Location> locations;
+        std::ranges::transform(it->second, std::back_inserter(locations), [this](int location_index) {
+            return m_locations.at(location_index);
+        });
+
+        return locations;
     }
 
     std::vector<Location> const& LocationCollection::locations() const {
