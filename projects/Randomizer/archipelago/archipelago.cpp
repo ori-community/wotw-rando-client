@@ -89,6 +89,8 @@ namespace randomizer::archipelago {
     }
 
     void ArchipelagoClient::disconnect() {
+        m_scouted_locations.clear();
+        m_shop_icons.clear();
         m_current_seed_generator = std::nullopt;
         m_should_connect = false;
         m_websocket.stop();
@@ -199,13 +201,62 @@ namespace randomizer::archipelago {
             return "@Unknown Item@";
         }
 
-        const auto item_name = m_data_package.get_item_name(item_it->second.item).value_or(UNKNOWN_ITEM_TEXT);
+        auto item_name = m_data_package.get_item_name(item_it->second.item).value_or(UNKNOWN_ITEM_TEXT);
 
         if (m_slot_id == item_it->second.player) {
             return item_name;
-        } else {
-            return std::format("{}'s {}", get_player_name(item_it->second.player), item_name);
         }
+
+        return std::format("{}'s {}", get_player_name(item_it->second.player), item_name);
+    }
+
+    std::string ArchipelagoClient::get_shop_description(const location_data::Location& location) {
+        const auto location_id = ids::get_location_id(location);
+
+        const auto item_it = m_scouted_locations.find(location_id);
+        if (item_it == m_scouted_locations.end()) {
+            return "@Unknown Item@";
+        }
+
+        const auto target_player_name = item_it->second.player == m_slot_id
+            ? "you"
+            : get_player_name(item_it->second.player);
+
+        constexpr int FLAG_PROGRESSION = 0b001;
+        constexpr int FLAG_USEFUL = 0b010;
+        constexpr int FLAG_TRAP = 0b100;
+
+        if (item_it->second.flags & FLAG_PROGRESSION && item_it->second.flags & FLAG_TRAP) {
+            return std::format("This item might be important but you might want to avoid buying this for now. Ask {} about it.", target_player_name);
+        }
+
+        if (item_it->second.flags & FLAG_TRAP) {
+            return std::format("This item may or may not be important for {}", target_player_name);
+        }
+
+        if (item_it->second.flags & FLAG_PROGRESSION) {
+            return std::format("This item might be important for {}", target_player_name);
+        }
+
+        if (item_it->second.flags & FLAG_USEFUL) {
+            return std::format("This item might be useful for {}", target_player_name);
+        }
+
+        return std::format("This item might be unimportant for {}", target_player_name);
+    }
+
+    std::string ArchipelagoClient::get_shop_icon(const location_data::Location& location) {
+        if (!m_current_seed_generator.has_value()) {
+            return "shard:0";
+        }
+
+        const auto options = m_current_seed_generator->get_options();
+        const auto icon_it = options.shop_icons.find(location.name);
+        if (icon_it == options.shop_icons.end()) {
+            return "shard:0";
+        }
+
+        return icon_it->second;
     }
 
     const std::optional<ArchipelagoSeedGenerator>& ArchipelagoClient::current_seed_generator() {
@@ -378,6 +429,7 @@ namespace randomizer::archipelago {
                         collect_location(location_id);
                     }
 
+                    auto d = message.slot_data.dump(2);
                     m_current_seed_generator = ArchipelagoSeedGenerator(message.slot_data);
 
                     messages::LocationScouts location_scouts_message;
