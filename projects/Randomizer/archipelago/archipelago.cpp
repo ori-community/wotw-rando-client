@@ -88,6 +88,7 @@ namespace randomizer::archipelago {
     }
 
     void ArchipelagoClient::disconnect() {
+        m_current_seed_generator = std::nullopt;
         m_should_connect = false;
         m_websocket.stop();
         modloader::debug("archipelago", "AP client disconnected.");
@@ -98,8 +99,8 @@ namespace randomizer::archipelago {
     void ArchipelagoClient::notify_location_collected(const location_data::Location& location) {
         ids::archipelago_id_t location_id{ids::get_location_id(location)};
 
-        m_cached_locations.insert(location_id); // Stores the locations that are checked, but not yet validated by the server: useful for resync
-        send_message(messages::LocationChecks{m_cached_locations});
+        m_pending_locations.insert(location_id); // Stores the locations that are checked, but not yet validated by the server: useful for resync
+        send_message(messages::LocationChecks{m_pending_locations});
 
         modloader::debug("archipelago", std::format("Location checked: {}", location.name));
     }
@@ -141,8 +142,7 @@ namespace randomizer::archipelago {
                         0b111,
                         {"AP"},
                         false,
-                        "Connect",
-                }
+                    }
                 );
                 break;
             }
@@ -184,26 +184,43 @@ namespace randomizer::archipelago {
 
     void ArchipelagoClient::handle_queued_server_messages() {
         std::lock_guard guard(m_queued_server_messages_mutex);
-        for (const auto& message : m_queued_server_messages) {
+        for (const auto& message: m_queued_server_messages) {
             handle_server_message(message);
         }
         m_queued_server_messages.clear();
     }
 
+    std::string ArchipelagoClient::get_item_display_text(const location_data::Location& location) {
+        const auto location_id = ids::get_location_id(location);
+
+        const auto item_it = m_scouted_locations.find(location_id);
+        if (item_it == m_scouted_locations.end()) {
+            return "@Unknown Item@";
+        }
+
+        const auto item_name = m_data_package.get_item_name(item_it->second.item).value_or(UNKNOWN_ITEM_TEXT);
+
+        if (m_slot_id == item_it->second.player) {
+            return item_name;
+        } else {
+            return std::format("{}'s {}", get_player_name(item_it->second.player), item_name);
+        }
+    }
+
+    const std::optional<ArchipelagoSeedGenerator>& ArchipelagoClient::current_seed_generator() {
+        return m_current_seed_generator;
+    }
+
     void ArchipelagoClient::notify_game_finished() { send_message(messages::StatusUpdate{messages::ClientStatus::ClientGoal}); }
 
-    std::string ArchipelagoClient::get_player_name(int player) { return m_player_map[player].alias; }
+    std::string ArchipelagoClient::get_player_name(int player) {
+        return m_player_map[player].alias;
+    }
 
-    void ArchipelagoClient::collect_location(const ids::archipelago_id_t location_id) {
-        // Collect locations from RoomUpdate and Connected packets, useful for coop
-        // TODO does not work
-        modloader::debug("archipelago", std::format("Activate location id: {}", location_id));
+    void collect_location(const ids::archipelago_id_t location_id) {
         location_data::Location location{ids::get_location_from_id(location_id)};
-        core::api::uber_states::UberState(location.condition.state.group_int(), location.condition.state.state()).set(location.condition.value);
-        modloader::debug(
-            "archipelago",
-            std::format("Activate location: {}|{} to {}", location.condition.state.group_int(), location.condition.state.state(), location.condition.value)
-        );
+        core::api::uber_states::UberState state(location.condition.state.group_int(), location.condition.state.state());
+        state.set(std::max(state.get<double>(), location.condition.lower_bound_value()));
     }
 
     void ArchipelagoClient::grant_item(messages::NetworkItem const& net_item) {
@@ -357,10 +374,32 @@ namespace randomizer::archipelago {
                         m_player_map[player.slot] = player;
                     }
                     m_slots = message.slot_info;
-                    /*  TODO Decomment when fixed
-                    for (ids::archipelago_id_t location_id: message.checked_locations) {
+
+                    for (const ids::archipelago_id_t location_id: message.checked_locations) {
                         collect_location(location_id);
-                    }*/
+                    }
+
+                    m_current_seed_generator = ArchipelagoSeedGenerator(message.slot_data);
+
+                    messages::LocationScouts location_scouts_message;
+                    for (const auto& required_location_name : m_current_seed_generator->required_location_scouts()) {
+                        const auto location = location_collection().location(required_location_name);
+
+                        if (!location.has_value()) {
+                            modloader::error("archipelago", std::format("Wanted to scout location {} but it didn't exist", required_location_name));
+                            continue;
+                        }
+
+                        const auto location_id = ids::get_location_id(*location);
+                        if (!m_scouted_locations.contains(location_id)) {
+                            location_scouts_message.locations.push_back(location_id);
+                        }
+                    }
+
+                    if (!location_scouts_message.locations.empty()) {
+                        send_message(location_scouts_message);
+                    }
+
                     core::message_controller().queue_central({
                         .text = core::Property<std::string>(std::format("Connected to Archipelago as {}.", m_slot_name)),
                         .show_box = true,
@@ -437,17 +476,21 @@ namespace randomizer::archipelago {
                         request_sync();
                     }
                 },
-                [this](const messages::LocationInfo& message) { modloader::debug("archipelago", "Parsing LocationInfo Packet"); },
+                [this](const messages::LocationInfo& message) {
+                    for (const auto& item: message.locations) {
+                        m_scouted_locations.emplace(item.location, item);
+                    }
+                },
                 [this](const messages::RoomUpdate& message) {
                     modloader::debug("archipelago", "Parsing RoomUpdate Packet");
                     for (auto& player: message.players) {
                         m_player_map[player.slot] = player;
                     }
-                    /*  TODO Decomment when fixed
+
                     for (ids::archipelago_id_t location_id: message.checked_locations) {
                         collect_location(location_id);
-                        m_cached_locations.erase(location_id); // Remove location from the cache if it existed in it.
-                    }*/
+                        m_pending_locations.erase(location_id); // Remove location from the cache if it existed in it.
+                    }
                 },
                 [this](const messages::PrintJSON& message) {
                     modloader::debug("archipelago", std::format("Parsing PrintJSON of type: {}", message.type));
@@ -463,7 +506,7 @@ namespace randomizer::archipelago {
                             });
                             if (message.type == "ItemSend") {
                                 // This means that the server received the LocationCheck packet, so we can clear the cache.
-                                m_cached_locations.clear();
+                                m_pending_locations.clear();
                             }
                         }
 

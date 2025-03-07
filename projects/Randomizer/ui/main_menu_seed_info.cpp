@@ -3,6 +3,7 @@
 
 #include <Common/event_bus.h>
 #include <Common/variant_cast.h>
+#include <Common/vx.h>
 #include <Core/api/game/debug_menu.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
@@ -111,8 +112,11 @@ namespace randomizer::main_menu_seed_info {
                 ? std::make_optional(std::get<seed::Seed::SeedMetaData>(current_seed_meta_data_result))
                 : std::nullopt;
 
-            const auto should_display_network_info = player.has_value() && seed_metadata.has_value() && current_seed_source != nullptr &&
-                current_seed_source->get_multiverse_id().has_value();
+            const auto should_display_network_info = player.has_value() &&
+                seed_metadata.has_value() &&
+                current_seed_source != nullptr &&
+                current_seed_source->get_server_connection().has_value() &&
+                std::holds_alternative<seed::RandoServerConnection>(*current_seed_source->get_server_connection());
 
             if (should_display_network_info) {
                 name_property.set(player.value().user.name());
@@ -168,10 +172,8 @@ namespace randomizer::main_menu_seed_info {
             }
         }
 
-        void set_current_multiverse(std::optional<long> multiverse_id) {
-            if (multiverse_id.has_value()) {
-                randomizer::server_connect(*multiverse_id);
-            } else {
+        void set_current_server_connection(const std::optional<seed::server_connection_t>& server_connection) {
+            if (!server_connection.has_value() || !std::holds_alternative<seed::RandoServerConnection>(*server_connection)) {
                 randomizer::server_disconnect();
                 multiplayer_universe().set_should_block_starting_new_game(false);
                 multiplayer_universe().set_game_difficulty_settings_overrides(std::nullopt);
@@ -179,6 +181,23 @@ namespace randomizer::main_menu_seed_info {
                 multiplayer_universe().set_should_restrict_to_save_guid(false);
                 core::api::game::debug_menu::set_should_prevent_cheats(false);
             }
+
+            if (!server_connection.has_value() || !std::holds_alternative<seed::ArchipelagoServerConnection>(*server_connection)) {
+                archipelago_client().disconnect();
+            }
+
+            if (!server_connection.has_value()) {
+                return;
+            }
+
+            *server_connection | vx::match{
+                [](const seed::RandoServerConnection& connection) {
+                    randomizer::server_connect(connection.multiverse_id);
+                },
+                [](const seed::ArchipelagoServerConnection& connection) {
+                    archipelago_client().connect(connection.url, connection.slot_name, connection.password);
+                }
+            };
         }
 
         void on_ready(ModloaderEvent) {
@@ -467,7 +486,7 @@ namespace randomizer::main_menu_seed_info {
                     }
                 );
 
-                std::optional<long> connect_to_multiverse_id = std::nullopt;
+                std::optional<seed::server_connection_t> server_connection = std::nullopt;
 
                 if (read_slots.contains(SaveMetaSlot::SeedMetaData)) {
                     const auto meta = randomizer::seed::legacy_parser::parse_meta_data(seed_meta_data->seed_content);
@@ -475,7 +494,7 @@ namespace randomizer::main_menu_seed_info {
                     current_seed_source = seed_meta_data->get_source();
 
                     if (std::holds_alternative<seed::Seed::SeedMetaData>(meta)) {
-                        connect_to_multiverse_id = current_seed_source->get_multiverse_id();
+                        server_connection = current_seed_source->get_server_connection();
                     }
                 } else {
                     current_seed_source = nullptr;
@@ -483,7 +502,7 @@ namespace randomizer::main_menu_seed_info {
                 }
 
                 poll_current_seed_source_until_not_loading = false;
-                set_current_multiverse(connect_to_multiverse_id);
+                set_current_server_connection(server_connection);
 
                 update_text();
             } else {
@@ -495,7 +514,7 @@ namespace randomizer::main_menu_seed_info {
 
                     poll_current_seed_source_until_not_loading = true;
 
-                    set_current_multiverse(current_seed_source->get_multiverse_id());
+                    set_current_server_connection(current_seed_source->get_server_connection());
 
                     update_text();
                 };

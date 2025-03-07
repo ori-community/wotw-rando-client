@@ -12,6 +12,18 @@ namespace randomizer::seed {
         Error,
     };
 
+    struct RandoServerConnection {
+        long multiverse_id;
+    };
+
+    struct ArchipelagoServerConnection {
+        std::string url;
+        std::string slot_name;
+        std::string password;
+    };
+
+    using server_connection_t = std::variant<RandoServerConnection, ArchipelagoServerConnection>;
+
     class SeedSource {
     public:
         virtual ~SeedSource() = default;
@@ -25,8 +37,8 @@ namespace randomizer::seed {
         /** Convert this seed source to a source string. This must be the inverse of parse_source_string */
         virtual std::string to_source_string() = 0;
 
-        /** The multiverse ID to connect to, or nullopt if no server connection should be made */
-        virtual std::optional<long> get_multiverse_id() = 0;
+        /** The connection details if connecting to a server, or nullopt for offline play */
+        virtual std::optional<server_connection_t> get_server_connection() = 0;
 
         /** Reread the seed source */
         virtual bool allows_rereading() = 0;
@@ -45,7 +57,7 @@ namespace randomizer::seed {
         std::pair<SourceStatus, std::optional<std::string>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
-        std::optional<long> get_multiverse_id() override;
+        std::optional<server_connection_t> get_server_connection() override;
         bool allows_rereading() override;
 
         explicit FileSeedSource(const std::filesystem::path& path);
@@ -60,7 +72,7 @@ namespace randomizer::seed {
         std::pair<SourceStatus, std::optional<std::string>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
-        std::optional<long> get_multiverse_id() override;
+        std::optional<server_connection_t> get_server_connection() override;
         bool allows_rereading() override;
 
         explicit DebugDelayedFileSeedSource(const std::filesystem::path& path);
@@ -76,7 +88,7 @@ namespace randomizer::seed {
         std::pair<SourceStatus, std::optional<std::string>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
-        std::optional<long> get_multiverse_id() override;
+        std::optional<server_connection_t> get_server_connection() override;
         bool allows_rereading() override;
 
         explicit ServerSeedSource(long multiverse_id) :
@@ -86,23 +98,23 @@ namespace randomizer::seed {
         long m_multiverse_id;
     };
 
-    class ArchipelagoSeedSource : public FileSeedSource {
+    class ArchipelagoSeedSource : public SeedSource {
     public:
+        std::pair<SourceStatus, std::optional<std::string>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
+        std::optional<server_connection_t> get_server_connection() override;
+        bool allows_rereading() override;
 
-        explicit ArchipelagoSeedSource(const std::filesystem::path& path, const std::string& host, const int port, const std::string& password) :
-            FileSeedSource(path),
-            m_host(host),
-            m_port(port),
+        explicit ArchipelagoSeedSource(const std::string& url, const std::string& slot_name, const std::string& password) :
+            m_url(url),
+            m_slot_name(slot_name),
             m_password(password) {}
 
     private:
-        std::filesystem::path m_path;
-        std::string m_host;
-        int m_port;
+        std::string m_url;
+        std::string m_slot_name;
         std::string m_password;
-        std::optional<std::string> m_content;
     };
 
     class EmptySeedSource : public SeedSource {
@@ -110,7 +122,7 @@ namespace randomizer::seed {
         std::pair<SourceStatus, std::optional<std::string>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
-        std::optional<long> get_multiverse_id() override;
+        std::optional<server_connection_t> get_server_connection() override;
         bool allows_rereading() override;
     };
 
@@ -119,7 +131,7 @@ namespace randomizer::seed {
         std::pair<SourceStatus, std::optional<std::string>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
-        std::optional<long> get_multiverse_id() override;
+        std::optional<server_connection_t> get_server_connection() override;
         bool allows_rereading() override;
 
         explicit InvalidSeedSource(const std::string& source_string) :
