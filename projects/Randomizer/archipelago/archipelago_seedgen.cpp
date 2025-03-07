@@ -29,7 +29,6 @@ namespace randomizer::archipelago {
         seedgen_source_generators::format_version,
         seedgen_source_generators::spawn,
         seedgen_source_generators::seed_core,
-        seedgen_source_generators::shrine_hints,
         seedgen_source_generators::trial_hints,
         seedgen_source_generators::better_spawn,
         seedgen_source_generators::glades_done,
@@ -47,7 +46,6 @@ namespace randomizer::archipelago {
         seedgen_source_generators::open_mode,
         seedgen_source_generators::qol,
         seedgen_source_generators::shrine_hints,
-        seedgen_source_generators::trial_hints,
         seedgen_source_generators::config,
     };
 
