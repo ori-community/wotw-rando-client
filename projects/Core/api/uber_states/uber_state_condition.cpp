@@ -36,6 +36,62 @@ namespace core::api::uber_states {
         return common::resolve_operator(state_value, value, op);
     }
 
+    double UberStateCondition::lower_bound_value() const {
+        if (op == BooleanOperator::Equals) {
+            return value;
+        }
+
+        switch (state.value_type()) {
+            case ValueType::Unknown:
+                return 0.0;
+            case ValueType::Boolean:
+                if (op == BooleanOperator::NotEquals) {
+                    return value > 0.5 ? 0.0 : 1.0;
+                }
+                break;
+            case ValueType::Byte:
+            case ValueType::Integer:
+                switch (op) {
+                    case BooleanOperator::GreaterOrEquals:
+                        return value;
+                    case BooleanOperator::LesserOrEquals:
+                        return 0;
+                    case BooleanOperator::NotEquals:
+                        return value != 0.0 ? 0.0 : 1.0;
+                    case BooleanOperator::Greater:
+                        return value + 1.0;
+                    case BooleanOperator::Lesser:
+                        return value != 0.0 ? 0.0 : 1.0;
+                    default:;
+                }
+                break;
+            case ValueType::Float:
+                switch (op) {
+                    case BooleanOperator::GreaterOrEquals:
+                        return value;
+                    case BooleanOperator::LesserOrEquals:
+                        return 0;
+                    case BooleanOperator::NotEquals:
+                        return value != 0.0 ? 0.0 : 1.0;
+                    case BooleanOperator::Greater:
+                        return value + FLT_MIN;
+                    case BooleanOperator::Lesser:
+                        return value != 0.0 ? 0.0 : FLT_MIN;
+                    default:;
+                }
+                break;
+        }
+
+        throw std::runtime_error(
+            std::format(
+                "Requested lower_bound value for invalid UberStateCondition. Type = {}, Op = {}, Value = {}",
+                static_cast<int>(state.value_type()),
+                static_cast<int>(op),
+                value
+            )
+        );
+    }
+
     std::string UberStateCondition::serialize() const {
         std::string op_string;
         switch (op) {

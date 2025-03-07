@@ -33,6 +33,9 @@ namespace core::api::uber_states {
 
         [[nodiscard]] bool resolve(UberState compared_state, double state_value) const;
 
+        /** Returns the lowest value that satisfies this condition */
+        double lower_bound_value() const;
+
         std::string serialize() const;
 
         std::string to_string(bool use_names = false, std::optional<double> previous_value = std::nullopt) const;
