@@ -1,5 +1,6 @@
 #include <Common/ext.h>
 #include <Common/vx.h>
+#include <Modloader/app/methods/GameStateMachine.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
@@ -15,7 +16,6 @@
 #include <Randomizer/location_data/location.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/items/value_modifier.h>
-
 
 #define UUID_SYSTEM_GENERATOR
 #include <uuid.h>
@@ -58,12 +58,13 @@ namespace randomizer::archipelago {
     [[maybe_unused]]
     auto on_new_game = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
         archipelago_save_data->last_item_index = 0;
+        archipelago_client().request_sync();
     });
 
     [[maybe_unused]]
     auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
         archipelago_client().request_sync();
-        modloader::debug("archipelago", "Resync asked: Restore Checkpoint");
+        modloader::debug("archipelago", "Resync requested: Restore Checkpoint");
     });
 
     [[maybe_unused]]
@@ -141,7 +142,7 @@ namespace randomizer::archipelago {
                         messages::NetworkVersion{0, 5, 0, "Version"},
                         0b111,
                         {"AP"},
-                        false,
+                        true,
                     }
                 );
                 break;
@@ -361,8 +362,6 @@ namespace randomizer::archipelago {
         m_websocket.send("[" + message.dump() + "]"); // Not very good style, maybe improve it
     }
 
-
-
     void ArchipelagoClient::handle_server_message(messages::ap_server_message_t const& message) {
         message |
             vx::match{
@@ -428,22 +427,6 @@ namespace randomizer::archipelago {
                     );
                     modloader::debug("archipelago", std::format("Hint cost: {}, Location points: {}.", message.hint_cost, message.location_check_points));
 
-                    std::optional<std::string> ap_seed = game_seed().info().meta.archipelago_seed;
-                    if (message.seed_name != ap_seed) {
-                        modloader::warn(
-                            "archipelago",
-                            std::format(
-                                "Seed from RoomInfo ({}) does not match the seed from the .wotwr file ({}).", message.seed_name, ap_seed.value_or("None")
-                            )
-                        );
-                        core::message_controller().queue_central({
-                            .text = core::Property<std::string>(
-                                std::string("The seeds from the file and the server are different.\nMaybe you opened the wrong .wotwr file.")
-                            ),
-                            .show_box = true,
-                        });
-                    }
-
                     // Update data package
                     const auto outdated_games = m_data_package.get_outdated_game_data_packages(message.datapackage_checksums);
                     if (!outdated_games.empty()) {
@@ -452,6 +435,10 @@ namespace randomizer::archipelago {
                     }
                 },
                 [this](const messages::ReceivedItems& message) {
+                    if (!GameStateMachine::get_IsGame()) {
+                        return;
+                    }
+
                     modloader::debug("archipelago", "Parsing ReceivedItems Packet");
                     modloader::debug(
                         "archipelago",
@@ -459,6 +446,7 @@ namespace randomizer::archipelago {
                             "Message index: {}, Saved index: {}, Message length {}", message.index, archipelago_save_data->last_item_index, message.items.size()
                         )
                     );
+
                     if (message.index == archipelago_save_data->last_item_index + 1) {
                         for (auto& item: message.items) {
                             grant_item(item);
