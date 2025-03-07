@@ -9,7 +9,9 @@ namespace randomizer::archipelago {
     struct ArchipelagoSeedGeneratorOptions {
         std::string difficulty;
         bool glitches;
-        bool spawn;
+        float spawn_x;
+        float spawn_y;
+        std::string spawn_anchor;
         bool goal_trees;
         bool goal_quests;
         bool goal_wisps;
@@ -36,7 +38,9 @@ namespace randomizer::archipelago {
             ArchipelagoSeedGeneratorOptions,
             difficulty,
             glitches,
-            spawn,
+            spawn_x,
+            spawn_y,
+            spawn_anchor,
             goal_trees,
             goal_quests,
             goal_wisps,
