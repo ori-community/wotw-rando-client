@@ -74,5 +74,7 @@ namespace randomizer::archipelago {
 
         m_game_name_to_game_data.clear();
         nlohmann::from_json(j, m_game_name_to_game_data);
+
+        rebuild_caches();
     }
 } // namespace randomizer::archipelago
