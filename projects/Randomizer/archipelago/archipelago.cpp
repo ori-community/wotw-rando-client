@@ -381,6 +381,7 @@ namespace randomizer::archipelago {
                     m_current_seed_generator = ArchipelagoSeedGenerator(message.slot_data);
 
                     messages::LocationScouts location_scouts_message;
+
                     for (const auto& required_location_name : m_current_seed_generator->required_location_scouts()) {
                         const auto location = location_collection().location(required_location_name);
 

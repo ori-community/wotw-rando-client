@@ -156,10 +156,14 @@ namespace randomizer {
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
         });
 
-        void load_seed(const bool show_message) {
+        void load_location_collection() {
             event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::Before);
             randomizer_location_collection.read(modloader::base_path() / "loc_data.csv", location_data::parse_location_data);
             event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::After);
+        }
+
+        void load_seed(const bool show_message) {
+            load_location_collection();
 
             randomizer_seed.read(seed_save_data->seed_content, seed::legacy_parser::parse, show_message);
         }
@@ -268,6 +272,7 @@ namespace randomizer {
             seed_save_data = std::make_unique<seed::SaveSlotSeedMetaData>();
             register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::None, seed_save_data);
 
+            load_location_collection();
             load_new_game_source();
         });
 
