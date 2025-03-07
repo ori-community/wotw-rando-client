@@ -74,7 +74,7 @@ namespace randomizer::archipelago::ids {
     }
 
     archipelago_id_t get_location_id(const location_data::Location& location) {
-        return get_location_id(location.condition.state, location.condition.value);
+        return get_location_id(location.condition.state, location.condition.lower_bound_value());
     }
 
     std::variant<Location, BooleanItem, ResourceItem, UpgradeItem> get_item(archipelago_id_t id) {
