@@ -15,9 +15,9 @@ namespace randomizer::archipelago::seedgen_source_generators {
                 "WestHollow.SpiritTrial",
                 "OuterWellspring.SpiritTrial",
                 "WoodsMain.SpiritTrial",
-                "LowerReach.SpiritTrial"
-                "LowerDepths.SpiritTrial"
-                "EastPools.SpiritTrial"
+                "LowerReach.SpiritTrial",
+                "LowerDepths.SpiritTrial",
+                "EastPools.SpiritTrial",
                 "LowerWastes.SpiritTrial"
             };
         },
