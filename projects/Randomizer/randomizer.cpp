@@ -25,6 +25,7 @@
 #include <Randomizer/text_processors/seed.h>
 #include <Randomizer/text_processors/shard.h>
 #include <Randomizer/text_processors/uber_state.h>
+#include <Randomizer/text_processors/archipelago.h>
 #include <Randomizer/uber_states/uber_state_intercepts.h>
 #include <fstream>
 #include <utility>
@@ -153,10 +154,6 @@ namespace randomizer {
             queue_reach_check();
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::Before);
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
-
-            if (should_use_ap_client() & !ap_client.is_connected()) {
-                connect_ap_client();
-            }
         });
 
         void load_seed(const bool show_message) {
@@ -263,6 +260,7 @@ namespace randomizer {
             text_processor->compose(std::make_shared<text_processors::SeedProcessor>());
             text_processor->compose(std::make_shared<text_processors::LegacyProcessor>());
             text_processor->compose(std::make_shared<text_processors::MultiplayerProcessor>());
+            text_processor->compose(std::make_shared<text_processors::ArchipelagoProcessor>());
 
             core::message_controller().central_display().text_processor(text_processor);
             core::message_controller().recent_display().text_processor(text_processor);
@@ -436,8 +434,7 @@ namespace randomizer {
         auto seed_meta = randomizer_seed.info().meta;
         if (!seed_meta.archipelago_address.has_value() || seed_meta.archipelago_address.value().starts_with("archipelago.gg")) {
             url = std::format("wss://archipelago.gg:{}/", seed_meta.archipelago_port.value_or("38281"));
-        }
-        else {
+        } else {
             url = std::format("ws://{}:{}/", seed_meta.archipelago_address.value_or("archipelago.gg"), seed_meta.archipelago_port.value_or("38281"));
         }
         modloader::info("archipelago", std::format("Opening websocket to {}", url));
@@ -453,7 +450,6 @@ namespace randomizer {
     online::NetworkClient& network_client() { return client; }
 
     archipelago::ArchipelagoClient& archipelago_client() { return ap_client; }
-    bool should_use_ap_client() {return std::ranges::find(randomizer_seed.info().meta.flags, "AP") != randomizer_seed.info().meta.flags.end();}
 
     online::MultiplayerUniverse& multiplayer_universe() { return universe; }
 

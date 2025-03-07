@@ -142,11 +142,11 @@ namespace randomizer::archipelago::messages {
         std::vector<NetworkPlayer> players;
         std::vector<ids::archipelago_id_t> missing_locations;
         std::vector<ids::archipelago_id_t> checked_locations;
-        // slot_data
+        nlohmann::json slot_data;
         std::unordered_map<std::string, NetworkSlot> slot_info;
         int hint_points;
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(Connected, team, slot, players, missing_locations, checked_locations, slot_info, hint_points);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(Connected, team, slot, players, missing_locations, checked_locations, slot_data, slot_info, hint_points);
     };
 
     struct ConnectionRefused {
@@ -201,6 +201,14 @@ namespace randomizer::archipelago::messages {
         std::vector<ids::archipelago_id_t> checked_locations;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(RoomUpdate, players, checked_locations);
+    };
+
+    struct LocationScouts {
+        std::vector<ids::archipelago_id_t> locations;
+        int create_as_hint = 0;
+        std::string cmd = "LocationScouts";
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(LocationScouts, locations, create_as_hint, cmd);
     };
 
     struct PrintJSON {
