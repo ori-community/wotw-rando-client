@@ -45,10 +45,6 @@ namespace core::api::uber_states {
             case ValueType::Unknown:
                 return 0.0;
             case ValueType::Boolean:
-                if (op == BooleanOperator::NotEquals) {
-                    return value > 0.5 ? 0.0 : 1.0;
-                }
-                break;
             case ValueType::Byte:
             case ValueType::Integer:
                 switch (op) {
