@@ -17,6 +17,7 @@
 #include <Randomizer/archipelago/seedgen_source_generators/no_shrines.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/no_trials.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/open_mode.inc>
+#include <Randomizer/archipelago/seedgen_source_generators/shops.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/qol.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/shrine_hints.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/trial_hints.inc>
@@ -43,19 +44,22 @@ namespace randomizer::archipelago {
         seedgen_source_generators::no_rain,
         seedgen_source_generators::no_shrines,
         seedgen_source_generators::no_trials,
+        seedgen_source_generators::shops,
         seedgen_source_generators::open_mode,
         seedgen_source_generators::qol,
         seedgen_source_generators::shrine_hints,
         seedgen_source_generators::config,
     };
 
-    ArchipelagoSeedGenerator::ArchipelagoSeedGenerator(const nlohmann::json& slot_data) {
-        nlohmann::from_json(slot_data, m_options);
-
+    ArchipelagoSeedGenerator::ArchipelagoSeedGenerator(const ArchipelagoSeedGeneratorOptions& options) {
+        m_options = options;
         collect_required_location_scouts();
     }
 
     const std::unordered_set<std::string>& ArchipelagoSeedGenerator::required_location_scouts() { return m_required_location_scouts; }
+    const ArchipelagoSeedGeneratorOptions& ArchipelagoSeedGenerator::get_options() {
+        return m_options;
+    }
 
     std::string ArchipelagoSeedGenerator::get_seed_file() const {
         std::string output;

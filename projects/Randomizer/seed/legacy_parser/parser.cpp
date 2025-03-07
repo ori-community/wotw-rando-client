@@ -1746,7 +1746,9 @@ namespace randomizer::seed::legacy_parser {
         caller->description = std::format("shop '{}' set icon {}", shop_state.to_string(), icon);
         caller->func = [shop_state, icon]() {
             if (const auto slot = game::shops::shop_slot_from_state(shop_state); slot != nullptr) {
-                slot->normal.icon = core::api::graphics::textures::get_texture(icon);
+                std::string processed_icon = icon;
+                general_text_processor()->process(*general_text_processor(), processed_icon);
+                slot->normal.icon = core::api::graphics::textures::get_texture(processed_icon);
                 slot->locked.icon = slot->normal.icon;
             }
         };
@@ -1862,13 +1864,13 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        int wheel_type;
-        if (!string_convert(parts[0], wheel_type)) {
+        int shop_part;
+        if (!string_convert(parts[0], shop_part)) {
             return false;
         }
 
         const auto next_parts = std::span<std::string>(parts.begin() + 1, parts.end());
-        switch (wheel_type) {
+        switch (shop_part) {
             case 0:
                 return parse_shop_icon(next_parts, data);
             case 1:
