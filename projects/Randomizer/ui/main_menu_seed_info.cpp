@@ -142,7 +142,11 @@ namespace randomizer::main_menu_seed_info {
 
             if (seed_metadata.has_value()) {
                 const auto meta = seed_metadata.value();
-                description += std::format("Slug: <hex_9ee2f7ff>{}</>\n", meta.slug);
+
+                if (!meta.slug.empty()) {
+                    description += std::format("Slug: <hex_9ee2f7ff>{}</>\n", meta.slug);
+                }
+
                 description += "Flags:";
                 for (auto flag: meta.flags) {
                     description += std::format("\n   - {}", flag);
