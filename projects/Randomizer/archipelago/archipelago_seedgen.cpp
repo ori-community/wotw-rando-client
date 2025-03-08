@@ -1,6 +1,7 @@
 #include <Randomizer/archipelago/archipelago_seedgen.h>
 #include <Randomizer/archipelago/seedgen_source_generators/spawn.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/config.inc>
+#include <Randomizer/archipelago/seedgen_source_generators/flags.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/format_version.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/better_spawn.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/seed_core.inc>
@@ -29,6 +30,7 @@ namespace randomizer::archipelago {
     const std::array SOURCE_GENERATORS = {
         seedgen_source_generators::format_version,
         seedgen_source_generators::spawn,
+        seedgen_source_generators::flags,
         seedgen_source_generators::seed_core,
         seedgen_source_generators::trial_hints,
         seedgen_source_generators::better_spawn,
