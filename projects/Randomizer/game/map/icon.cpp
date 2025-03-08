@@ -220,9 +220,15 @@ namespace randomizer::game::map {
             il2cpp::unity::destroy_object(m_game_object.get());
         }
 
+        const auto game_object = map_icon_to_game_object(m_icon.get());
+
+        if (game_object == nullptr) {
+            return;
+        }
+
         m_initialized = true;
         m_current_icon = icon().get();
-        m_game_object.set(map_icon_to_game_object(m_icon.get()));
+        m_game_object.set(game_object);
     }
 
     void Icon::remove_scaler() const {
