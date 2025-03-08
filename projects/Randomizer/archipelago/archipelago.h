@@ -14,6 +14,12 @@
 namespace randomizer::archipelago {
     class ArchipelagoClient {
     public:
+        enum class State {
+            Connected,
+            Reconnecting,
+            Closed,
+        };
+
         ArchipelagoClient();
         void connect(std::string_view url, std::string_view slot_name, std::string_view password);
         void disconnect();
@@ -26,6 +32,7 @@ namespace randomizer::archipelago {
         std::string get_shop_description(const location_data::Location& location);
         std::string get_shop_icon(const location_data::Location& location);
         const std::optional<ArchipelagoSeedGenerator>& current_seed_generator();
+        common::EventBus<State>& event_bus() { return m_event_bus; }
 
     private:
         void send_message(const nlohmann::json& message);
@@ -48,5 +55,6 @@ namespace randomizer::archipelago {
         std::vector<messages::ap_server_message_t> m_queued_server_messages;
         ArchipelagoDataPackage m_data_package;
         std::optional<ArchipelagoSeedGenerator> m_current_seed_generator;
+        common::EventBus<State> m_event_bus;
     };
 } // namespace randomizer::archipelago

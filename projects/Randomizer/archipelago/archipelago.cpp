@@ -164,6 +164,9 @@ namespace randomizer::archipelago {
                         .text = core::Property<std::string>(std::format("Connection to AP lost ({}). Retrying in 3s.", msg->closeInfo.reason)),
                         .show_box = true,
                     });
+                    core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Reconnecting); });
+                } else {
+                    core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Closed); });
                 }
                 break;
             }
@@ -452,10 +455,7 @@ namespace randomizer::archipelago {
                         send_message(location_scouts_message);
                     }
 
-                    core::message_controller().queue_central({
-                        .text = core::Property<std::string>(std::format("Connected to Archipelago as {}.", m_slot_name)),
-                        .show_box = true,
-                    });
+                    m_event_bus.trigger_event(State::Connected);
                 },
                 [](const messages::ConnectionRefused& message) {
                     modloader::debug("archipelago", "Parsing ConnectionRefused Packet");

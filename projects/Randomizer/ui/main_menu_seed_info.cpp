@@ -66,6 +66,7 @@ namespace randomizer::main_menu_seed_info {
 
         common::registration_handle_t on_seed_loaded_handle;
         common::registration_handle_t on_network_status_handle;
+        common::registration_handle_t on_archipelago_client_status_handle;
         common::registration_handle_t on_multiverse_update_handle;
         common::registration_handle_t on_game_difficulty_settings_overrides_update_handle;
 
@@ -73,6 +74,7 @@ namespace randomizer::main_menu_seed_info {
         std::shared_ptr<seed::SeedSource> current_seed_source = nullptr;
         std::variant<seed::Seed::SeedMetaData, seed::legacy_parser::ParserError, generic_error_t> current_seed_meta_data_result = std::string("No seed loaded");
         auto current_network_state = online::NetworkClient::State::Closed;
+        auto current_archipelago_client_state = archipelago::ArchipelagoClient::State::Closed;
 
         std::optional<core::events::CustomAction> easy_press_action;
         std::optional<core::events::CustomAction> normal_press_action;
@@ -80,18 +82,42 @@ namespace randomizer::main_menu_seed_info {
         std::optional<core::events::CustomAction> question_yes_press_action;
         std::optional<core::events::CustomAction> question_no_press_action;
 
-        void on_network_status(const online::NetworkClient::State state) {
-            if (state == online::NetworkClient::State::Closed) {
-                status_property.set("Offline");
-            } else if (state == online::NetworkClient::State::Authenticating) {
-                status_property.set("Authenticating");
-            } else if (state == online::NetworkClient::State::Reconnecting) {
-                status_property.set("Reconnecting");
-            } else if (state == online::NetworkClient::State::Connected) {
-                status_property.set("Connected");
+        void update_connection_status() {
+            std::string status_string = "";
+
+            if (current_network_state == online::NetworkClient::State::Authenticating) {
+                status_string += "Authenticating";
+            } else if (current_network_state == online::NetworkClient::State::Reconnecting) {
+                status_string += "Reconnecting";
+            } else if (current_network_state == online::NetworkClient::State::Connected) {
+                status_string += "Connected";
             }
 
+            if (!status_string.empty()) {
+                status_string += ", ";
+            }
+
+            if (current_archipelago_client_state == archipelago::ArchipelagoClient::State::Reconnecting) {
+                status_string += "Reconnecting (Archipelago)";
+            } else if (current_archipelago_client_state == archipelago::ArchipelagoClient::State::Connected) {
+                status_string += "Connected (Archipelago)";
+            }
+
+            if (status_string.empty()) {
+                status_string = "Offline";
+            }
+
+            status_property.set(status_string);
+        }
+
+        void on_network_status(const online::NetworkClient::State state) {
             current_network_state = state;
+            update_connection_status();
+        }
+
+        void on_archipelago_client_status(const archipelago::ArchipelagoClient::State state) {
+            current_archipelago_client_state = state;
+            update_connection_status();
         }
 
         void set_text(app::MessageBox* box, std::string const& text) {
@@ -442,6 +468,8 @@ namespace randomizer::main_menu_seed_info {
                     is_in_main_menu = true;
 
                     on_network_status_handle = network_client().event_bus().register_handler(on_network_status);
+                    on_archipelago_client_status_handle = archipelago_client().event_bus().register_handler(on_archipelago_client_status);
+
                     on_multiverse_update_handle = multiplayer_universe().event_bus().register_handler(
                         online::MultiplayerUniverse::Event::MultiverseUpdated, EventTiming::After, [](auto, auto) { update_text(); }
                     );
@@ -457,6 +485,7 @@ namespace randomizer::main_menu_seed_info {
                     is_in_main_menu = false;
                     on_seed_loaded_handle = nullptr;
                     on_network_status_handle = nullptr;
+                    on_archipelago_client_status_handle = nullptr;
                     on_multiverse_update_handle = nullptr;
                     break;
                 }
