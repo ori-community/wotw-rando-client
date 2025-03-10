@@ -1,9 +1,13 @@
 #include <Core/api/game/debug_menu.h>
 #include <Core/api/graphics/textures.h>
+#include <Core/api/uber_states/uber_state.h>
 #include <Modloader/app/methods/CheatsHandler.h>
 #include <Modloader/app/methods/DebugMenu.h>
 #include <Modloader/app/methods/HierarchyDebugMenu.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/ListView.h>
+#include <Modloader/app/methods/Moon/UberStateVisualization/SerializedIntUberStateWrapper.h>
+#include <Modloader/app/methods/Moon/UberStateVisualization/SerializedByteUberStateWrapper.h>
+#include <Modloader/app/methods/Moon/UberStateVisualization/SerializedFloatUberStateWrapper.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/UberStateVisualizationView.h>
 #include <Modloader/app/methods/UnityEngine/GUILayout.h>
 #include <Modloader/app/methods/UnityEngine/GUIStyle.h>
@@ -169,6 +173,49 @@ namespace core::api::game::debug_menu {
 
                 ++index;
             }
+        }
+
+        std::unordered_map<std::pair<int32_t, int32_t>, app::String*, pair_hash> uber_state_menu_input_states;
+        std::pair<int32_t, int32_t> current_uber_state;
+        auto is_rendering_uber_state_wrapper = false;
+
+        IL2CPP_INTERCEPT(UnityEngine::GUILayout, app::String*, TextField, (app::String * text, app::GUILayoutOption__Array* options)) {
+            if (!is_rendering_uber_state_wrapper) {
+                return next::UnityEngine::GUILayout::TextField(text, options);
+            }
+
+            const auto it = uber_state_menu_input_states.find(current_uber_state);
+
+            const auto used_text = it == uber_state_menu_input_states.end()
+                ? text
+                : it->second;
+
+            const auto new_text = next::UnityEngine::GUILayout::TextField(used_text, options);
+
+            uber_state_menu_input_states[current_uber_state] = new_text;
+
+            return new_text;
+        }
+
+        IL2CPP_INTERCEPT(Moon::UberStateVisualization::SerializedIntUberStateWrapper, void, OnGui, (app::SerializedIntUberStateWrapper * this_ptr)) {
+            modloader::ScopedSetter _(is_rendering_uber_state_wrapper, true);
+            current_uber_state.first = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
+            current_uber_state.second = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
+            next::Moon::UberStateVisualization::SerializedIntUberStateWrapper::OnGui(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(Moon::UberStateVisualization::SerializedByteUberStateWrapper, void, OnGui, (app::SerializedByteUberStateWrapper * this_ptr)) {
+            modloader::ScopedSetter _(is_rendering_uber_state_wrapper, true);
+            current_uber_state.first = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
+            current_uber_state.second = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
+            next::Moon::UberStateVisualization::SerializedByteUberStateWrapper::OnGui(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(Moon::UberStateVisualization::SerializedFloatUberStateWrapper, void, OnGui, (app::SerializedFloatUberStateWrapper * this_ptr)) {
+            modloader::ScopedSetter _(is_rendering_uber_state_wrapper, true);
+            current_uber_state.first = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
+            current_uber_state.second = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
+            next::Moon::UberStateVisualization::SerializedFloatUberStateWrapper::OnGui(this_ptr);
         }
     }
 

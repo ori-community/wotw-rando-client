@@ -25,6 +25,7 @@ using namespace app::classes;
 
 namespace randomizer::features::credits {
     namespace {
+        constexpr float MOVE_DOWN_DISTANCE = 3.6f;
         constexpr char CREDITS_PATH_FMT[] = "{}\\credits";
         randomizer::messages::CreditsController credits;
         auto requested_credits_immediately = false;
@@ -37,27 +38,25 @@ namespace randomizer::features::credits {
             credits.load(std::format(CREDITS_PATH_FMT, modloader::base_path().string()));
             credits.reset();
 
-            auto credits_go = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, "credits");
-            auto credits_text_go = il2cpp::unity::find_child(credits_go, std::vector<std::string>{ "defaultCredits", "credits", "creditsTexts" });
-            auto children = il2cpp::unity::get_children(credits_text_go);
+            const auto credits_go = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, "credits");
+            const auto credits_text_go = il2cpp::unity::find_child(credits_go, std::vector<std::string>{ "defaultCredits", "credits", "creditsTexts" });
+            const auto children = il2cpp::unity::get_children(credits_text_go);
 
-            // reverse to get the last creditsIcon
-            std::reverse(children.begin(), children.end());
-            bool post_first_icon = false;
+            bool found_first_icon = false;
 
-            for (auto child_go : children) {
+            for (const auto& child_go : children | std::ranges::views::reverse) {
                 auto child_name = il2cpp::unity::get_object_name(child_go);
                 if (child_name == "Logo" || child_name == "LogoChineese" || child_name == "creditsThanks") {
                     continue;
-                } else if (child_name == "creditsIcon" && !post_first_icon) {
-                    post_first_icon = true;
+                } else if (child_name == "creditsIcon" && !found_first_icon) {
+                    found_first_icon = true;
                     continue;
                 }
                 auto child_position = il2cpp::unity::get_local_position(child_go);
                 child_position.y -= 3.f;
                 il2cpp::unity::set_local_position(child_go, child_position);
             }
-            
+
             if (!requested_credits_immediately) {
                 return;
             }
@@ -85,6 +84,7 @@ namespace randomizer::features::credits {
             }
         }
 
+        [[maybe_unused]]
         auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
     } // namespace
 
