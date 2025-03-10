@@ -12,10 +12,17 @@ namespace randomizer::seed {
     struct SeedMemory;
     struct SeedExecutionEnvironment;
 
+    class InstructionError final : public std::runtime_error {
+    public:
+        explicit InstructionError(const std::string& m_message) :
+            runtime_error(m_message) {}
+    };
+
     struct IInstruction {
         virtual ~IInstruction() = default;
         virtual void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const = 0;
         virtual std::string to_string(const Seed& seed, const SeedMemory& memory) const = 0;
+        virtual std::string_view get_name() const = 0;
     };
 
     struct SeedMemory {

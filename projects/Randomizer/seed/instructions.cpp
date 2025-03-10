@@ -147,7 +147,21 @@ namespace randomizer::seed {
 
         template<class T>
         void register_instruction(instruction_factories_t& factories) {
-            factories.emplace(T::INSTRUCTION_NAME, T::from_json);
+            factories.emplace(T::INSTRUCTION_NAME, [](const nlohmann::json& j) {
+                try {
+                    return T::from_json(j);
+                } catch (const InstructionError& e) {
+                    modloader::error(
+                        "instructions",
+                        std::format(
+                            "Failed to parse instruction {}: {}",
+                            T::INSTRUCTION_NAME,
+                            e.what()
+                        )
+                    );
+                    throw;
+                }
+            });
         }
 
         instruction_factories_t instruction_factories = ([] -> instruction_factories_t {

@@ -2,6 +2,7 @@
 #include <nlohmann/adl_serializer.hpp>
 // ReSharper disable once CppUnusedIncludeDirective
 #include <Randomizer/seed/instructions.h>
+#include <magic_enum/magic_enum.hpp>
 
 #define INSTRUCTION(T) \
     namespace randomizer::seed::instructions {\
@@ -9,7 +10,11 @@
     }\
     \
     struct randomizer::seed::instructions::T final : IInstruction {\
-        static constexpr std::string_view INSTRUCTION_NAME = #T;
+        static constexpr std::string_view INSTRUCTION_NAME = #T;\
+        \
+        std::string_view get_name() const override {\
+            return INSTRUCTION_NAME;\
+        }
 
 #define INSTRUCTION_DERIVE(T, D, ...) \
     namespace randomizer::seed::instructions {\
@@ -19,6 +24,10 @@
     struct randomizer::seed::instructions::T final : base::D<__VA_ARGS__> { \
         static constexpr std::string_view INSTRUCTION_NAME = #T; \
         using base::D<__VA_ARGS__>::D;\
+        \
+        std::string_view get_name() const override {\
+            return INSTRUCTION_NAME;\
+        }
 
 #define TEMPLATE_INSTRUCTION(B, ...) \
     namespace randomizer::seed::instructions::base {\
@@ -121,7 +130,20 @@ namespace randomizer::seed {
 
     template<typename E>
     E parse_enum(const nlohmann::json& j) {
-        return static_cast<E>(j.get<int>());
+        const auto int_value = j.get<int>();
+        const std::optional<E> enum_value = magic_enum::enum_cast<E>(int_value);
+
+        if (!enum_value.has_value()) {
+            throw InstructionError(
+                std::format(
+                    "Tried to cast value {} to enum {}, but that enum doesn't contain such value",
+                    int_value,
+                    magic_enum::enum_type_name<E>()
+                )
+            );
+        }
+
+        return *enum_value;
     }
 
     std::string parse_texture(const nlohmann::json& j);

@@ -2,10 +2,8 @@
 #include <Core/api/game/player.h>
 #include <Randomizer/seed/instruction_utils.h>
 #include <Randomizer/seed/seed.h>
-#include <magic_enum/magic_enum.hpp>
 
-INSTRUCTION(Equip)
-Equip(const app::SpellInventory_Binding__Enum slot, const app::EquipmentType__Enum equipment) :
+INSTRUCTION(Equip) Equip(const app::SpellInventory_Binding__Enum slot, const app::EquipmentType__Enum equipment) :
         slot(slot),
         equipment(equipment) {}
 

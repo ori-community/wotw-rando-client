@@ -58,9 +58,10 @@ namespace randomizer::seed {
         if (!m_last_parser(m_seed_archive, m_location_data, data)) {
             std::string error_message = "Failed to load seed";
             if (!data->parser_error.empty()) {
-                error_message = data->parser_error;
+                error_message += ":\n" + data->parser_error;
             }
 
+            modloader::error("seed", error_message);
             core::message_controller().queue_central({
                 .text = core::Property<std::string>(error_message),
                 .show_box = true,
@@ -146,7 +147,20 @@ namespace randomizer::seed {
 
         for (const auto& command: m_parse_output->data.commands.at(id)) {
             dev::seed_debugger::instruction(command.get());
-            command->execute(*this, m_memory, m_environment);
+
+            try {
+                command->execute(*this, m_memory, m_environment);
+            } catch (InstructionError& e) {
+                modloader::error(
+                    "instructions",
+                    std::format(
+                        "Stopped instruction execution due to error in instruction {}: {}",
+                        command->get_name(),
+                        e.what()
+                    )
+                );
+                break;
+            }
         }
 
         dev::seed_debugger::command_end(id);
