@@ -41,6 +41,7 @@ namespace core::api::uber_states {
                 const auto state = UberState(uber_id.first, uber_id.second);
                 const UberStateCallbackParams params{state, it->second, value};
 
+                reactivity::notify_changed(reactivity::UberStateDependency { static_cast<int>(uber_id.first), uber_id.second });
                 notification_bus().trigger_event(params);
                 single_notification_bus().trigger_event(state, params);
             }
