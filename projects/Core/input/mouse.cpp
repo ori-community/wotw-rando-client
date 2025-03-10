@@ -29,7 +29,7 @@ namespace core::input::mouse {
         }
 
         const auto camera = gameplay_camera->fields.Controller->fields.Camera;
-        const auto world_position = UnityEngine::Camera::ViewportToWorldPoint_2(camera, app::Vector3{ mouse_position.x, mouse_position.y, 0.f });
+        const auto world_position = UnityEngine::Camera::ViewportToWorldPoint_2(camera, app::Vector3{ mouse_position.x, mouse_position.y, -il2cpp::unity::get_position(camera).z });
 
         world_position_cache = { world_position.x, world_position.y };
 
