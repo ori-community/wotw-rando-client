@@ -31,12 +31,7 @@ namespace core::api::game {
         bool restore_instantly = false;
 
         /** If set, instead of the current position, create the checkpoint at this position */
-        std::optional<app::Vector2> override_position;
-
-        SaveOptions(bool refill, bool refill_instantly, bool to_disk, bool restore_instantly, const std::optional<app::Vector2> override_position = std::nullopt)
-                : refill(refill), refill_instantly(refill_instantly), to_disk(to_disk), restore_instantly(restore_instantly), override_position(override_position) {}
-
-        SaveOptions(){};
+        std::optional<app::Vector2> override_position = std::nullopt;
     };
 
     struct CORE_DLLEXPORT StoredHealthAndEnergy {

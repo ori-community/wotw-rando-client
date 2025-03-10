@@ -55,6 +55,7 @@
 #include <Randomizer/seed/instructions/reset_all_wheels.h>
 #include <Randomizer/seed/instructions/round.h>
 #include <Randomizer/seed/instructions/save.h>
+#include <Randomizer/seed/instructions/save_at.h>
 #include <Randomizer/seed/instructions/set_boolean.h>
 #include <Randomizer/seed/instructions/set_float.h>
 #include <Randomizer/seed/instructions/set_integer.h>
@@ -78,7 +79,6 @@
 #include <Randomizer/seed/instructions/store_float.h>
 #include <Randomizer/seed/instructions/store_integer.h>
 #include <Randomizer/seed/instructions/switch_wheel.h>
-#include <Randomizer/seed/instructions/temporary_save.h>
 #include <Randomizer/seed/instructions/trigger_keybind.h>
 #include <Randomizer/seed/instructions/unequip.h>
 #include <Randomizer/seed/instructions/warp.h>
@@ -217,6 +217,7 @@ namespace randomizer::seed {
             register_instruction<ResetAllWheels>(factories);
             register_instruction<Round>(factories);
             register_instruction<Save>(factories);
+            register_instruction<SaveAt>(factories);
             register_instruction<SetBoolean>(factories);
             register_instruction<SetFloat>(factories);
             register_instruction<SetInteger>(factories);
@@ -240,7 +241,6 @@ namespace randomizer::seed {
             register_instruction<StoreFloat>(factories);
             register_instruction<StoreInteger>(factories);
             register_instruction<SwitchWheel>(factories);
-            register_instruction<TemporarySave>(factories);
             register_instruction<TriggerKeybind>(factories);
             register_instruction<Unequip>(factories);
             register_instruction<Warp>(factories);

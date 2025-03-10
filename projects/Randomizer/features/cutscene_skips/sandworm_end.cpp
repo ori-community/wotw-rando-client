@@ -60,7 +60,12 @@ namespace {
         il2cpp::unity::destroy_object(escape_end_timeline_go.ptr);
 
         core::api::game::player::set_position(2055.673f, -3568.293);
-        core::api::game::save(true, core::api::game::SaveOptions(false, false, true, true));
+        core::api::game::save(true, core::api::game::SaveOptions{
+            .refill = false,
+            .refill_instantly = false,
+            .to_disk = true,
+            .restore_instantly = true
+        });
 
         next_frame_action = TeleportAndSave;
     }
@@ -79,7 +84,12 @@ namespace {
                 ruins_wisp_quest_state.set(3.0);
 
                 core::api::game::player::set_position(2055.673f, -3568.293);
-                core::api::game::save(true, core::api::game::SaveOptions(false, false, true, true));
+                core::api::game::save(true, core::api::game::SaveOptions{
+                    .refill = false,
+                    .refill_instantly = false,
+                    .to_disk = true,
+                    .restore_instantly = true
+                });
 
                 next_frame_action = Idle;
                 break;

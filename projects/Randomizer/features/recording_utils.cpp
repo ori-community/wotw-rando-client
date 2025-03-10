@@ -315,7 +315,12 @@ namespace {
         row = 0;
 
         prevent_pickup_state.set(true);
-        core::api::game::save(false, core::api::game::SaveOptions(false, false, false, false));
+        core::api::game::save(true, core::api::game::SaveOptions{
+            .refill = false,
+            .refill_instantly = false,
+            .to_disk = false,
+            .restore_instantly = false
+        });
 
         set_camera_ortho(true);
         set_camera_ortho_size(-9);

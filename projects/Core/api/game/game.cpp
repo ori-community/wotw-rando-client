@@ -185,7 +185,13 @@ namespace core::api::game {
     }
 
     void temporary_save(bool refill, bool refill_instantly, bool restore_instantly, std::optional<app::Vector2> override_position) {
-        save(true, SaveOptions(refill, refill_instantly, false, restore_instantly, override_position));
+        save(true, SaveOptions {
+            .refill = refill,
+            .refill_instantly = refill_instantly,
+            .to_disk = false,
+            .restore_instantly = restore_instantly,
+            .override_position = override_position,
+        });
     }
 
     bool save(bool queue, const SaveOptions& options) {

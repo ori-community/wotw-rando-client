@@ -72,7 +72,12 @@ namespace {
                 PerformBackOutAction::ActivateAbandonChallange(nullptr);
 
                 core::api::game::player::set_position(701.912f, -4481.552f);
-                core::api::game::save(true, core::api::game::SaveOptions(true, true, false, true));
+                core::api::game::save(true, core::api::game::SaveOptions{
+                    .refill = true,
+                    .refill_instantly = true,
+                    .to_disk = false,
+                    .restore_instantly = true
+                });
 
                 core::api::audio::set_state(SoundStateGroupID::cordycepsMusic, SoundStateID::None);
                 core::api::audio::set_state(SoundStateGroupID::spiderBossState, SoundStateID::C_arena1Reached);
