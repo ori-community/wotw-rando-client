@@ -789,6 +789,8 @@ namespace randomizer {
                     .group = UberStateGroup::Input,
                     .state = 1,
                     .name = "mouseWorldPositionX",
+                    .readonly = true,
+                    .update_mode = VirtualStateInfo::UpdateMode::Poll,
                 },
                 core::Property<double>(
                     [](const double x) { error("uber_state_virtual", "Invalid operation: uberstate mouseWorldPositionX (28, 1) is read only."); },
@@ -802,6 +804,8 @@ namespace randomizer {
                     .group = UberStateGroup::Input,
                     .state = 2,
                     .name = "mouseWorldPositionY",
+                    .readonly = true,
+                    .update_mode = VirtualStateInfo::UpdateMode::Poll,
                 },
                 core::Property<double>(
                     [](const double x) { error("uber_state_virtual", "Invalid operation: uberstate mouseWorldPositionY (28, 2) is read only."); },
