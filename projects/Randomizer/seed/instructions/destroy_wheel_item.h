@@ -1,4 +1,5 @@
 #pragma once
+#include <Randomizer/features/wheel.h>
 #include <Randomizer/seed/instruction_utils.h>
 #include <Randomizer/seed/seed.h>
 
