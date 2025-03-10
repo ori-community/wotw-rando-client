@@ -37,7 +37,7 @@ namespace core::api::uber_states {
                 it = cached_values.find(uber_id);
             }
 
-            if (it != cached_values.end() && std::abs(it->second - value) >= 0.1) {
+            if (it != cached_values.end() && std::abs(it->second - value) >= FLT_EPSILON) {
                 const auto state = UberState(uber_id.first, uber_id.second);
                 const UberStateCallbackParams params{state, it->second, value};
 
