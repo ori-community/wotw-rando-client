@@ -640,7 +640,4 @@ namespace randomizer::archipelago {
 } // namespace randomizer::archipelago
 
 // TODO list:
-// Make a queue for received messages (see Network.cpp with the mutex)
 // Add death link support (see core/api/game/death_listener + add the tag in Connect packet)
-// Clear the locations sets or do not remake them
-// Fix collect_location
