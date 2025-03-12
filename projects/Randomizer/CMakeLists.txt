@@ -8,6 +8,12 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
 set(
         SOURCE_FILES
+        "archipelago/archipelago.cpp"
+        "archipelago/archipelago_data_package.cpp"
+        "archipelago/archipelago_ids.cpp"
+        "archipelago/archipelago_protocol.cpp"
+        "archipelago/archipelago_save_meta.cpp"
+        "archipelago/archipelago_seedgen.cpp"
         "conditions/condition_override.cpp"
         "conditions/condition_uber_state.cpp"
         "conditions/new_setup_state_override.cpp"
@@ -196,6 +202,7 @@ set(
         "stats/enemies.cpp"
         "stats/game_stats.cpp"
         "text_processors/ability.cpp"
+        "text_processors/archipelago.cpp"
         "text_processors/control.cpp"
         "text_processors/helpers.cpp"
         "text_processors/legacy.cpp"
@@ -216,6 +223,12 @@ set(
 
 set(
         PUBLIC_HEADER_FILES
+        "archipelago/archipelago.h"
+        "archipelago/archipelago_data_package.h"
+        "archipelago/archipelago_ids.h"
+        "archipelago/archipelago_protocol.h"
+        "archipelago/archipelago_save_meta.h"
+        "archipelago/archipelago_seedgen.h"
         "conditions/condition_override.h"
         "conditions/condition_uber_state.h"
         "conditions/new_setup_state_override.h"
@@ -279,6 +292,7 @@ set(
         "seed/seed_source.h"
         "stats/game_stats.h"
         "text_processors/ability.h"
+        "text_processors/archipelago.h"
         "text_processors/control.h"
         "text_processors/helpers.h"
         "text_processors/legacy.h"
@@ -362,6 +376,9 @@ target_link_libraries(${PROJECT_NAME} protobuf::libprotoc protobuf::libprotobuf 
 
 find_package(SDL3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} SDL3::SDL3)
+
+find_package(stduuid CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} stduuid)
 
 message(STATUS "Assigning source groups.")
 

@@ -377,7 +377,7 @@ namespace core::api::graphics::textures {
             } else {
                 modloader::warn("textures", std::format("unknown texture protocol used when loading texture '{}'.", type));
             }
-        } catch (std::exception e) {
+        } catch (std::exception& e) {
             modloader::warn("textures", std::format("Fatal error fetching texture ({})", e.what()));
         }
     }
