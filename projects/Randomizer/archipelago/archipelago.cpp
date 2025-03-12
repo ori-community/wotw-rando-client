@@ -322,6 +322,10 @@ namespace randomizer::archipelago {
             },
             [&item_name, this](const ids::ResourceItem& item) {
                 switch (item.type) {
+                    case ids::ResourceType::Nothing: {
+                        modloader::debug("archipelago", "Received Nothing item.");
+                        return;
+                    }
                     case ids::ResourceType::SpiritLight: {
                         // TODO workaround because item.value does weird things, fix and remove this part and amount
                         int amount;
