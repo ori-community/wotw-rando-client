@@ -14,12 +14,13 @@ namespace randomizer::archipelago::seedgen_source_generators {
             }
 
             return R"WOTWR(
-// Combat Shrines start as completed
-3|0|8|21786|2869|bool|true
-3|0|8|24922|45011|bool|true
-3|0|8|18793|12512|bool|true
-3|0|8|58674|56043|bool|true
-3|0|8|44310|58796|bool|true
+// Better random spawn
+3|0|8|20120|12902|bool|true
+3|0|8|5377|14488|bool|true
+3|0|8|21786|30656|bool|true
+3|0|8|21786|40322|bool|true
+3|0|8|21786|25095|bool|true
+3|0|8|21786|53932|bool|true
 )WOTWR";
         },
     };
