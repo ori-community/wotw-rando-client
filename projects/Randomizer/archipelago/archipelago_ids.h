@@ -35,6 +35,7 @@ namespace randomizer::archipelago::ids {
     };
 
     enum class ResourceType : uint16_t {
+        Nothing = 0b000,
         SpiritLight = 0b001,
         GorlekOre = 0b010,
         Keystone = 0b011,
