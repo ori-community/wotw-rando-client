@@ -78,7 +78,7 @@ namespace randomizer::archipelago::seedgen_source_generators {
             }
 
             if (options.skip_shrine) {
-                flags.push_back("No Combar Shrines");
+                flags.push_back("No Combat Shrines");
             }
 
             std::string result = "Flags: ";
