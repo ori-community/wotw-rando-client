@@ -320,29 +320,16 @@ namespace randomizer::archipelago {
                     }
                 }
             },
-            [&item_name, this](const ids::ResourceItem& item) {
+            [this](const ids::ResourceItem& item) {
                 switch (item.type) {
                     case ids::ResourceType::Nothing: {
-                        modloader::debug("archipelago", "Received Nothing item.");
-                        return;
+                        break;
                     }
                     case ids::ResourceType::SpiritLight: {
-                        // TODO workaround because item.value does weird things, fix and remove this part and amount
-                        int amount;
-                        if (item_name.starts_with("200")) {
-                            amount = 200;
-                        } else if (item_name.starts_with("100")) {
-                            amount = 100;
-                        } else if (item_name.starts_with("50")) {
-                            amount = 50;
-                        } else {
-                            amount = 1;
-                        }
-
                         const auto& spirit_light = core::api::game::player::spirit_light();
                         const auto& spirit_light_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 3);
-                        spirit_light.set(spirit_light.get() + amount);
-                        spirit_light_collected.set<int>(spirit_light_collected.get<int>() + amount);
+                        spirit_light.set(spirit_light.get() + item.value);
+                        spirit_light_collected.set<int>(spirit_light_collected.get<int>() + item.value);
                         break;
                     }
                     case ids::ResourceType::GorlekOre: {
@@ -393,10 +380,12 @@ namespace randomizer::archipelago {
 
         if (m_slot_id == net_item.player) {
             modloader::debug("archipelago", std::format("Received item: {}", item_name));
-            core::message_controller().queue_central({
-                .text = core::Property<std::string>(item_name),
-                .show_box = true,
-            });
+            if (item_name != "Nothing") {
+                core::message_controller().queue_central({
+                    .text = core::Property<std::string>(item_name),
+                    .show_box = true,
+                });
+            }
         } else {
             std::string sender_name = get_player_name(net_item.player);
             modloader::debug("archipelago", std::format("Received item: {} from {}", item_name, sender_name));
