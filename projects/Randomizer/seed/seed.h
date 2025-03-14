@@ -61,9 +61,9 @@ namespace randomizer::seed {
     };
 
     struct GameDifficultySettings {
-        GameDifficultySetting easy = GameDifficultySetting::Warn;
-        GameDifficultySetting normal = GameDifficultySetting::Warn;
-        GameDifficultySetting hard = GameDifficultySetting::Warn;
+        GameDifficultySetting easy = GameDifficultySetting::Allow;
+        GameDifficultySetting normal = GameDifficultySetting::Allow;
+        GameDifficultySetting hard = GameDifficultySetting::Allow;
 
         GameDifficultySetting get_for_game_difficulty(app::GameController_GameDifficultyModes__Enum difficulty) const {
             switch (difficulty) {
