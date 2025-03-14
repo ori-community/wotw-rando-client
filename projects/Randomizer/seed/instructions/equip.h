@@ -19,6 +19,6 @@ INSTRUCTION(Equip) Equip(const app::SpellInventory_Binding__Enum slot, const app
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
-        return std::make_unique<Equip>(parse_enum<app::SpellInventory_Binding__Enum>(j.at(1)), parse_enum<app::EquipmentType__Enum>(j.at(0)));
+        return std::make_unique<Equip>(parse_enum<app::SpellInventory_Binding__Enum>(j.at(0)), parse_enum<app::EquipmentType__Enum>(j.at(1)));
     }
 };
