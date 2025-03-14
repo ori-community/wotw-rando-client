@@ -98,7 +98,12 @@ namespace core::api::game::debug_menu {
             cheats->Instance->fields.DebugEnabled = enable;
             cheats->DebugWasEnabled = cheats->DebugWasEnabled || enable;
             cheats->DebugAlwaysEnabled = enable;
+            types::DebugValues::get_class()->static_fields->Active = enable;
             types::DebugValues::get_class()->static_fields->DebugControlsEnabled = enable;
+        }
+
+        if (enable) {
+            CheatsHandler::ActivateDebug(cheats->Instance);
         }
     }
 
