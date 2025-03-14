@@ -2,7 +2,9 @@
 #include <Core/api/graphics/shaders.h>
 #include <Core/api/graphics/textures.h>
 #include <Core/api/system/message_provider.h>
+#include <Core/core.h>
 #include <Core/enums/static_text_entries.h>
+#include <Core/property.h>
 #include <Core/text/text_database.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
@@ -15,8 +17,8 @@
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/MoonMath_Line.h>
 #include <Modloader/app/methods/MoonTimelineUiFader.h>
-#include <Modloader/app/methods/SpellUIItem.h>
 #include <Modloader/app/methods/RaceSystem.h>
+#include <Modloader/app/methods/SpellUIItem.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/methods/UnityEngine/Vector3.h>
@@ -33,6 +35,7 @@
 #include <Modloader/modloader.h>
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/input/rando_bindings.h>
+#include <Randomizer/randomizer.h>
 #include <array>
 #include <unordered_map>
 #include <unordered_set>
@@ -53,8 +56,13 @@ namespace randomizer::features::wheel {
         struct CustomWheelEntry {
             using binding_action = void (*)(CustomWheelEntry const& entry, app::SpellUIItem* item, WheelBind binding);
 
-            std::string name = "";
-            std::string description = "";
+            CustomWheelEntry() {
+                name.text_processor(general_text_processor());
+                description.text_processor(general_text_processor());
+            }
+
+            core::Property<std::string> name;
+            core::Property<std::string> description;
             std::shared_ptr<core::api::graphics::textures::TextureData> texture_data = nullptr;
             app::Color color = {1.0f, 1.0f, 1.0f, 1.0f};
             binding_action action = nullptr;
@@ -530,7 +538,7 @@ namespace randomizer::features::wheel {
             return false;
         }
 
-        wheels[wheel].entries[item].name = name;
+        wheels[wheel].entries[item].name.set(name);
         refresh_wheel();
         return true;
     }
@@ -541,7 +549,7 @@ namespace randomizer::features::wheel {
             return false;
         }
 
-        wheels[wheel].entries[item].description = description;
+        wheels[wheel].entries[item].description.set(description);
         refresh_wheel();
         return true;
     }
