@@ -423,9 +423,9 @@ namespace randomizer {
         const auto current_difficulty = GameController::get_GameDifficultyMode(game_controller);
 
         if (game_difficulties.get_for_game_difficulty(current_difficulty) == seed::GameDifficultySetting::Deny) {
-            auto lowest_allowed_difficulty = game_difficulties.get_lowest_allowed_difficulty();
-            if (lowest_allowed_difficulty.has_value()) {
-                GameController::set_GameDifficultyMode(game_controller, *lowest_allowed_difficulty);
+            const auto first_intended_difficulty = game_difficulties.get_first_intended_difficulty();
+            if (first_intended_difficulty.has_value()) {
+                GameController::set_GameDifficultyMode(game_controller, *first_intended_difficulty);
             }
         }
     }

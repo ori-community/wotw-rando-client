@@ -78,13 +78,16 @@ namespace randomizer::seed {
             throw std::exception("Invalid difficulty given");
         }
 
-        std::optional<app::GameController_GameDifficultyModes__Enum> get_lowest_allowed_difficulty() const {
-            if (easy == GameDifficultySetting::Allow) {
-                return app::GameController_GameDifficultyModes__Enum::Easy;
-            }
-
+        /**
+         * @return The first intended difficulty in order: Normal, Easy, Hard
+         */
+        std::optional<app::GameController_GameDifficultyModes__Enum> get_first_intended_difficulty() const {
             if (normal == GameDifficultySetting::Allow) {
                 return app::GameController_GameDifficultyModes__Enum::Normal;
+            }
+
+            if (easy == GameDifficultySetting::Allow) {
+                return app::GameController_GameDifficultyModes__Enum::Easy;
             }
 
             if (hard == GameDifficultySetting::Allow) {

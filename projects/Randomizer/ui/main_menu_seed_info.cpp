@@ -620,12 +620,12 @@ namespace randomizer::main_menu_seed_info {
             il2cpp::unity::set_active(menu_item, show_hard);
             menu_item->fields.m_isDisabled = true;
 
-            auto lowest_allowed_difficulty = seed_metadata.has_value()
-                ? seed_metadata->game_difficulties.get_lowest_allowed_difficulty().value_or(app::GameController_GameDifficultyModes__Enum::Normal)
+            auto first_intended_difficulty = seed_metadata.has_value()
+                ? seed_metadata->game_difficulties.get_first_intended_difficulty().value_or(app::GameController_GameDifficultyModes__Enum::Normal)
                 : app::GameController_GameDifficultyModes__Enum::Normal;
 
             auto select_index = try_select_intended_difficulty && seed_metadata.has_value()
-                ? static_cast<int>(lowest_allowed_difficulty)
+                ? static_cast<int>(first_intended_difficulty)
                 : menu_item->fields.m_selectionManager->fields.Index;
 
             if (select_index == 0 && !show_easy) {
