@@ -21,7 +21,7 @@ namespace randomizer::seedgen_interface {
             std::format(
                 L"\"{}\" daemon {}",
                 (modloader::base_path() / "seedgen.exe").wstring(),
-                core::settings::seedgen_daemon_arguments()
+                convert_string_to_wstring(core::settings::seedgen_daemon_arguments())
             ),
             L"",
             [&](const char* bytes, size_t n) { on_seedgen_stdout(bytes, n); },
