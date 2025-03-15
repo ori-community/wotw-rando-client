@@ -184,7 +184,7 @@ namespace randomizer::seedgen_interface {
                 auto& element = uber_states.emplace_back();
                 element[0]["group"] = state.group_int();
                 element[0]["member"] = state.state();
-                element[1] = state.get<float>();
+                element[1] = state.template get<float>();
             }
         });
 
