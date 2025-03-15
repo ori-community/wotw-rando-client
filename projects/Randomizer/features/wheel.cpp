@@ -255,6 +255,8 @@ namespace randomizer::features::wheel {
                     menu_item->fields.m_selectionManager = wheel_selection_manager;
                 }
             }
+
+            update_wheel_position();
         }
 
         IL2CPP_INTERCEPT(UnityEngine::GameObject, void, SetActive, (app::GameObject * this_ptr, bool value)) {
@@ -439,7 +441,6 @@ namespace randomizer::features::wheel {
 
         void binding_callback(CustomWheelEntry const& entry, app::SpellUIItem* item, WheelBind binding) {
             const auto index = EquipmentRadialSelection::GetWheelIndex(item->fields.m_spell->fields.m_type);
-
             const auto all_callback = entry.callbacks[static_cast<int>(WheelBind::All)];
             const auto binding_callback = entry.callbacks[static_cast<int>(binding)];
 
@@ -528,6 +529,10 @@ namespace randomizer::features::wheel {
                         CleverMenuItem::OnHighlight(item, true);
                     }
                     break;
+            }
+
+            if (il2cpp::unity::is_valid(radial_selection)) {
+                EquipmentRadialSelection::UpdateSelection(radial_selection);
             }
         }
     } // namespace
