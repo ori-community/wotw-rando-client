@@ -1,4 +1,5 @@
 #include <Core/events/task.h>
+#include <Core/settings.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/seedgen_service.h>
 #include <future>
@@ -17,7 +18,11 @@ namespace randomizer::seedgen_interface {
 
         m_process_stderr.clear();
         m_process = std::make_unique<TinyProcessLib::Process>(
-            std::vector<std::wstring>{(modloader::base_path() / "seedgen.exe").wstring(), L"daemon"},
+            std::format(
+                L"\"{}\" daemon {}",
+                (modloader::base_path() / "seedgen.exe").wstring(),
+                core::settings::seedgen_daemon_arguments()
+            ),
             L"",
             [&](const char* bytes, size_t n) { on_seedgen_stdout(bytes, n); },
             [&](const char* bytes, size_t n) { on_seedgen_stderr(bytes, n); },

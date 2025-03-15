@@ -135,8 +135,10 @@ namespace core::settings {
         return get_settings().get_string("Paths", "OriModelTexture", "");
     }
 
-    std::string ori_model_emissivity_mask_texture() {
-        return get_settings().get_string("Paths", "OriModelEmissivityMaskTexture", "");
+    std::string ori_model_emissivity_mask_texture() { return get_settings().get_string("Paths", "OriModelEmissivityMaskTexture", ""); }
+
+    std::string seedgen_daemon_arguments() {
+        return get_settings().get_string("Values", "SeedgenDaemonArguments", "");
     }
 
     // Set overrides

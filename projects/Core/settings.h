@@ -35,6 +35,7 @@ namespace core::settings {
     CORE_DLLEXPORT bool enable_minimap();
     CORE_DLLEXPORT std::string ori_model_texture();
     CORE_DLLEXPORT std::string ori_model_emissivity_mask_texture();
+    CORE_DLLEXPORT std::string seedgen_daemon_arguments();
 
     // Set overrides.
     CORE_DLLEXPORT void dev_mode(bool value);
