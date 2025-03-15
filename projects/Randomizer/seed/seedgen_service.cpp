@@ -14,6 +14,9 @@ namespace randomizer::seedgen_interface {
         config.show_window = TinyProcessLib::Config::ShowWindow::hide;
         config.on_stderr_close = [&] {
             modloader::error("seedgen_daemon", std::format("Seedgen daemon error: {}", m_process_stderr));
+
+            std::lock_guard _(m_request_queue_mutex);
+            m_request_queue = {};
         };
 
         m_process_stderr.clear();
