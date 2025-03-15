@@ -20,7 +20,7 @@ namespace randomizer::seed {
 
     SeedArchive::~SeedArchive() { libzippp::ZipArchive::free(m_archive); }
 
-    std::string SeedArchive::read_text_file_from_archive(const std::string& file_name) const {
+    std::optional<std::string> SeedArchive::read_text_file_from_archive(const std::string& file_name) const {
         m_archive->open();
 
         if (!m_archive->isOpen()) {
@@ -30,18 +30,28 @@ namespace randomizer::seed {
         const auto entry = m_archive->getEntry(file_name);
 
         if (entry.isNull()) {
-            throw std::runtime_error(std::format("Seed archive did not contain {}", file_name));
+            return std::nullopt;
         }
 
         return entry.readAsText();
     }
 
     nlohmann::json SeedArchive::read_json_file_from_archive(const std::string& file_name) const {
-        return nlohmann::json::parse(read_text_file_from_archive(file_name));
+        const auto text = read_text_file_from_archive(file_name);
+
+        if (!text.has_value()) {
+            return nlohmann::json(nullptr);
+        }
+
+        return nlohmann::json::parse(*text);
     }
 
     nlohmann::json SeedArchive::get_assembly() const {
         return read_json_file_from_archive("assembly.json");
+    }
+
+    nlohmann::json SeedArchive::get_seedgen_info() const {
+        return read_json_file_from_archive("seedgen_info.json");
     }
 
     nlohmann::json SeedArchive::get_preload() const {
@@ -49,7 +59,13 @@ namespace randomizer::seed {
     }
 
     std::string SeedArchive::get_format_version() const {
-        return read_text_file_from_archive("format_version.txt");
+        const auto format_version = read_text_file_from_archive("format_version.txt");
+
+        if (!format_version.has_value()) {
+            throw std::runtime_error("Failed to read version from seed archive. Does format_version.txt exist?");
+        }
+
+        return *format_version;
     }
 
     const std::vector<std::byte>& SeedArchive::get_archive_data() const { return m_archive_data; }

@@ -33,9 +33,10 @@ namespace randomizer {
     namespace {
         location_data::LocationCollection randomizer_location_collection;
         seed::Seed randomizer_seed(randomizer_location_collection);
-        seedgen_interop::ReachCheckResult reach_check_result;
+        seedgen_interface::ReachCheckResult _current_reach_check_result;
         online::NetworkClient client;
         online::MultiplayerUniverse universe;
+        seedgen_interface::SeedgenService seedgen_service_instance;
         std::shared_ptr<core::text::CompositeTextProcessor> text_processor;
 
         online::NetworkMonitor monitor;
@@ -60,18 +61,16 @@ namespace randomizer {
 
         std::optional<long> multiverse_id_to_connect_to = std::nullopt;
 
-        void on_reach_check(const std::optional<seedgen_interop::ReachCheckResult>& result) {
+        void on_reach_check_completed(const seedgen_interface::ReachCheckResult& result) {
             reach_check_in_progress = false;
 
-            if (result.has_value()) {
-                if (!reach_check_result.is_same_as(*result)) {
-                    event_bus().trigger_event(RandomizerEvent::ReachableItemsChanged, EventTiming::Before);
-                    reach_check_result = *result;
-                    event_bus().trigger_event(RandomizerEvent::ReachableItemsChanged, EventTiming::After);
-                }
-
-                event_bus().trigger_event(RandomizerEvent::ReachCheck, EventTiming::After);
+            if (!_current_reach_check_result.is_same_as(result)) {
+                event_bus().trigger_event(RandomizerEvent::ReachableItemsChanged, EventTiming::Before);
+                _current_reach_check_result = result;
+                event_bus().trigger_event(RandomizerEvent::ReachableItemsChanged, EventTiming::After);
             }
+
+            event_bus().trigger_event(RandomizerEvent::ReachCheck, EventTiming::After);
         }
 
         bool do_reach_check() {
@@ -81,7 +80,7 @@ namespace randomizer {
 
             reach_check_in_progress = true;
             event_bus().trigger_event(RandomizerEvent::ReachCheck, EventTiming::Before);
-            seedgen_interop::reach_check(on_reach_check);
+            seedgen_service().enqueue_reach_check(on_reach_check_completed);
             return true;
         }
 
@@ -132,12 +131,12 @@ namespace randomizer {
         });
 
         auto on_after_seed_loaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
+            seedgen_service().set_seedgen_info(seed_archive_save_data->seed_archive->get_seedgen_info());
             universe.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
             game::shops::reset_shop_data();
             randomizer_seed.trigger(seed::SeedClientEvent::Reload);
-            seedgen_interop::request_states_update_on_next_reach_check();
             queue_reach_check();
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::Before);
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
@@ -236,6 +235,8 @@ namespace randomizer {
         });
 
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+            seedgen_service().query_relevant_uber_states();
+
             monitor.display(&status);
             monitor.network_client(&client);
 
@@ -324,6 +325,10 @@ namespace randomizer {
         if (!do_reach_check()) {
             reach_check_queued = true;
         }
+    }
+
+    const seedgen_interface::ReachCheckResult& current_reach_check_result() {
+        return _current_reach_check_result;
     }
 
     void reread_seed_source() {
@@ -434,11 +439,10 @@ namespace randomizer {
 
     seed::Seed& game_seed() { return randomizer_seed; }
 
-    seedgen_interop::ReachCheckResult const& reach_check() { return reach_check_result; }
-
     online::NetworkClient& network_client() { return client; }
 
     online::MultiplayerUniverse& multiplayer_universe() { return universe; }
+    seedgen_interface::SeedgenService& seedgen_service() { return seedgen_service_instance; }
 
     std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor() { return text_processor; }
     std::shared_ptr<seed::SeedSource> get_new_game_seed_source() { return new_game_seed_source; }

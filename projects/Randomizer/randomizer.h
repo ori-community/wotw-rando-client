@@ -5,7 +5,7 @@
 #include <Randomizer/online/multiplayer.h>
 #include <Randomizer/online/network.h>
 #include <Randomizer/location_data/location_collection.h>
-#include <Randomizer/seed/reach_check.h>
+#include <Randomizer/seed/seedgen_service.h>
 #include <Randomizer/seed/seed.h>
 #include <Randomizer/seed/seed_source.h>
 
@@ -51,13 +51,14 @@ namespace randomizer {
     void check_seed_difficulty_enforcement();
 
     void queue_reach_check();
-    seedgen_interop::ReachCheckResult const& reach_check();
+    const seedgen_interface::ReachCheckResult& current_reach_check_result();
 
     common::TimedMultiEventBus<RandomizerEvent>& event_bus();
     location_data::LocationCollection& location_collection();
     seed::Seed& game_seed();
     online::NetworkClient& network_client();
     online::MultiplayerUniverse& multiplayer_universe();
+    seedgen_interface::SeedgenService& seedgen_service();
     std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor();
     std::shared_ptr<seed::SeedSource> get_new_game_seed_source();
     void set_new_game_seed_archive(const std::shared_ptr<seed::SeedArchive>& content);

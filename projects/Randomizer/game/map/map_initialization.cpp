@@ -73,8 +73,12 @@ namespace randomizer::game::map {
                     all_bought = false;
                 }
 
-                if (!in_logic && reach_check().reachable(core::api::uber_states::UberStateCondition(slot->state))) {
-                    in_logic = true;
+                if (!in_logic) {
+                    const auto location = location_collection().location(core::api::uber_states::UberStateCondition(slot->state));
+
+                    if (location.has_value() && current_reach_check_result().is_reachable(*location)) {
+                        in_logic = true;
+                    }
                 }
 
                 if (in_logic && !all_bought) {
@@ -395,7 +399,7 @@ namespace randomizer::game::map {
                         }
 
                         // Show icon based on if it is reachable or not.
-                        return reach_check().reachable(location.condition) //
+                        return current_reach_check_result().is_reachable(location)
                             ? IconVisibilityResult::Show
                             : eps_equals(core::settings::map_icon_transparency(), 0.f) //
                                 ? IconVisibilityResult::Hide

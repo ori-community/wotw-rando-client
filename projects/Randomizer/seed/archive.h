@@ -13,6 +13,7 @@ namespace randomizer::seed {
     ~SeedArchive();
 
     nlohmann::json get_assembly() const;
+    nlohmann::json get_seedgen_info() const;
     nlohmann::json get_preload() const;
     std::string get_format_version() const;
 
@@ -21,7 +22,7 @@ namespace randomizer::seed {
     app::Texture2D* get_asset_texture(const std::string& path);
 
 private:
-    std::string read_text_file_from_archive(const std::string& file_name) const;
+    std::optional<std::string> read_text_file_from_archive(const std::string& file_name) const;
     nlohmann::json read_json_file_from_archive(const std::string& file_name) const;
 
     std::vector<std::byte> m_archive_data;

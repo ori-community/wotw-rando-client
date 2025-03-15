@@ -116,6 +116,9 @@ namespace common {
     template <typename Return, typename T, typename... Identifiers>
     using CollectingEventBus = EventBusImplementation<Return, T, Identifiers...>;
 
+    template <typename... Identifiers>
+    using MultiEventBus = EventBusImplementation<void, void, Identifiers...>;
+
     template <typename T, typename... Identifiers>
     using TimedEventBus = EventBusImplementation<void, T, Identifiers..., EventTiming>;
 

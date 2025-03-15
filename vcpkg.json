@@ -31,7 +31,7 @@
   }, {
     "name" : "libzip",
     "version>=" : "1.10.1",
-    "features": ["zstd"]
+    "features" : [ "zstd" ]
   }, {
     "name" : "libremidi",
     "version>=" : "4.5.0"
@@ -57,10 +57,8 @@
     "name" : "protobuf",
     "version>=" : "3.21.12#4"
   } ],
-  "overrides": [
-    {
-      "name": "protobuf",
-      "version": "3.21.12#4"
-    }
-  ]
+  "overrides" : [ {
+    "name" : "protobuf",
+    "version" : "3.21.12#4"
+  } ]
 }
