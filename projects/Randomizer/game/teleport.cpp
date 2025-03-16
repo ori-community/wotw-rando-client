@@ -80,6 +80,7 @@ namespace randomizer::game::teleportation {
         return next::ScenesManager::UnloadScene(this_ptr, scene, keep_in_memory, instant);
     }
 
+    // TODO: Can cause deadlocks, remove usage of InstantLoadScenesController::LoadScenesAtPosition
     void teleport_instantly(const app::Vector3 position) {
         is_teleporting = true;
 

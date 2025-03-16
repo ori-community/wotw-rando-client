@@ -57,27 +57,29 @@ namespace {
         CharacterPlatformMovement::ClearScheduleCurves(sein->fields.PlatformBehaviour->fields.PlatformMovement);
 
         // Stop all combat shrines
-        for (const auto& shrine: il2cpp::ListIterator(types::ShrineCombat::get_class()->static_fields->AllShrines)) {
-            const auto state_machine = shrine->fields.m_stateMachine;
+        if (types::ShrineCombat::get_class()->static_fields->AllShrines != nullptr) {
+            for (const auto& shrine: il2cpp::ListIterator(types::ShrineCombat::get_class()->static_fields->AllShrines)) {
+                const auto state_machine = shrine->fields.m_stateMachine;
 
-            if (state_machine == nullptr) {
-                continue;
-            }
+                if (state_machine == nullptr) {
+                    continue;
+                }
 
-            const auto current_state = state_machine->fields._CurrentState_k__BackingField;
+                const auto current_state = state_machine->fields._CurrentState_k__BackingField;
 
-            if (current_state == nullptr) {
-                continue;
-            }
+                if (current_state == nullptr) {
+                    continue;
+                }
 
-            const auto all_states = shrine->fields.m_states;
+                const auto all_states = shrine->fields.m_states;
 
-            if (all_states == nullptr) {
-                continue;
-            }
+                if (all_states == nullptr) {
+                    continue;
+                }
 
-            if (reinterpret_cast<app::IState_2*>(all_states->fields.Running) == current_state) {
-                ShrineCombat_RunningState::CancelArena(reinterpret_cast<app::ShrineCombat_RunningState*>(current_state));
+                if (reinterpret_cast<app::IState_2*>(all_states->fields.Running) == current_state) {
+                    ShrineCombat_RunningState::CancelArena(reinterpret_cast<app::ShrineCombat_RunningState*>(current_state));
+                }
             }
         }
     }
