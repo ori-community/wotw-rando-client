@@ -384,7 +384,9 @@ add_library(
 
 target_compile_definitions(
         ${PROJECT_NAME}
-        PRIVATE COMPILING_RANDOMIZER
+        PRIVATE
+        COMPILING_RANDOMIZER
+        MAGIC_ENUM_RANGE_MAX=4096
 )
 
 set_target_properties(
