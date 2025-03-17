@@ -80,15 +80,40 @@ namespace core::animation {
         return id;
     }
 
-    size_t Animation::component_id() override { return static_component_id(); }
+    size_t Animation::component_id() { return static_component_id(); }
 
-    void Animation::on_registered(actors::Actor* actor) override { m_sprite.set_parent(actor->root()); }
+    void Animation::on_registered(actors::Actor* actor) {
+        m_sprite.set_parent(actor->root());
+        m_event_registration_handles = actor->event_bus().register_handlers(
+            {
+                actors::ActorEvent::Update,
+                actors::ActorEvent::Enabled,
+                actors::ActorEvent::Disabled,
+            },
+            [this](auto param, auto event) { handle_actor_event(event, param); }
+        );
+    }
 
-    void Animation::on_deregistered() override { m_sprite.set_parent(nullptr); }
+    void Animation::on_deregistered() {
+        m_sprite.set_parent(nullptr);
+        m_event_registration_handles.clear();
+    }
 
-    void Animation::on_enabled(const bool enabled) override { m_sprite.enabled(enabled); }
+    void Animation::handle_actor_event(const actors::ActorEvent event, const actors::ActorEventParam param) {
+        switch (event) {
+            case actors::ActorEvent::Enabled:
+            case actors::ActorEvent::Disabled:
+                on_enabled(event == actors::ActorEvent::Enabled);
+                break;
+            case actors::ActorEvent::Update:
+                on_update(std::get<float>(param));
+                break;
+        }
+    }
 
-    void Animation::on_update(const float dt) override {
+    void Animation::on_enabled(const bool enabled) const { m_sprite.enabled(enabled); }
+
+    void Animation::on_update(const float dt) {
         if (!m_sprite.enabled() || is_finished() || is_stopped()) {
             return;
         }

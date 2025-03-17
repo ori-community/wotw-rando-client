@@ -2,7 +2,6 @@
 #include <Core/api/game/game.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/types/GameObject.h>
-#include <Modloader/modloader.h>
 
 #include <ranges>
 
@@ -15,7 +14,7 @@ namespace core::actors {
         UnityEngine::GameObject::ctor_1(m_root, il2cpp::string_new(name));
         add_to_container(api::game::RandoContainer::GameObjects, m_root);
         m_update_registration_handle = api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [this](auto, auto) {
-            update();
+            m_event_bus.trigger_event(ActorEvent::Update, api::game::delta_time());
         });
     }
 
@@ -33,7 +32,7 @@ namespace core::actors {
         }
 
         it->second->on_registered(this);
-        it->second->on_enabled(m_enabled);
+        event_bus().trigger_event(ActorEvent::Enabled, std::monostate{});
         return true;
     }
 
@@ -56,23 +55,17 @@ namespace core::actors {
         }
 
         m_enabled = value;
+        const auto event = value ? ActorEvent::Enabled : ActorEvent::Disabled;
         for (const auto& component: m_components | std::views::values) {
-            component->on_enabled(value);
+            event_bus().trigger_event(event, std::monostate{});
         }
 
         if (m_enabled) {
             m_update_registration_handle = api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [this](auto, auto) {
-                update();
+                m_event_bus.trigger_event(ActorEvent::Update, ActorEventParam(api::game::delta_time()));
             });
         } else {
             m_update_registration_handle = nullptr;
-        }
-    }
-
-    void Actor::update() {
-        const auto dt = api::game::delta_time();
-        for (const auto& component: m_components | std::views::values) {
-            component->on_update(dt);
         }
     }
 

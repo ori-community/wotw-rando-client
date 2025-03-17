@@ -3,12 +3,26 @@
 #include <Core/macros.h>
 #include <Modloader/app/structs/GameObject.h>
 
+#include <Common/event_bus.h>
 #include <Common/registration_handle.h>
 #include <memory>
 #include <string_view>
 #include <unordered_map>
+#include <variant>
 
 namespace core::actors {
+    enum class ActorEvent {
+        Enabled,
+        Disabled,
+        Update,
+    };
+
+    using ActorEventParam = std::variant<
+        std::monostate,
+        bool,
+        float
+    >;
+
     class CORE_DLLEXPORT Actor;
 
     class CORE_DLLEXPORT Component {
@@ -22,8 +36,6 @@ namespace core::actors {
         virtual size_t component_id() = 0;
         virtual void on_registered(Actor* actor) {};
         virtual void on_deregistered() {};
-        virtual void on_enabled(bool enabled) {};
-        virtual void on_update(float dt) {};
     private:
         Actor* m_actor = nullptr;
     };
@@ -46,12 +58,14 @@ namespace core::actors {
 
         app::GameObject* root() const { return m_root; }
 
-    private:
-        void update();
+        common::EventBus<ActorEventParam, ActorEvent>& event_bus() { return m_event_bus; }
+        common::EventBus<ActorEventParam, ActorEvent> const& event_bus() const { return m_event_bus; }
 
+    private:
         bool m_enabled = true;
         app::GameObject* m_root = nullptr;
         std::unordered_map<int, std::shared_ptr<Component>> m_components;
+        common::EventBus<ActorEventParam, ActorEvent> m_event_bus;
 
         common::registration_handle_t m_update_registration_handle;
     };
