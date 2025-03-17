@@ -17,8 +17,6 @@ using namespace app::classes;
 using namespace modloader;
 
 namespace core::animation {
-    CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation> g_animation_cache;
-
     std::shared_ptr<AnimationDefinition> load_animation(std::string path) {
         nlohmann::json j;
         load_json_file(path, j);
@@ -28,8 +26,8 @@ namespace core::animation {
             auto frames = j.at("frames");
             for (auto frame: frames) {
                 auto& frame_definition = anim->frames.emplace_back();
-                frame_definition.position = frame.value("position", app::Vector3{ 0.f, 0.f, 0.f });
-                frame_definition.scale = frame.value("scale", app::Vector3{ 1.f, 1.f, 1.f });
+                frame_definition.position = frame.value("position", app::Vector3{0.f, 0.f, 0.f});
+                frame_definition.scale = frame.value("scale", app::Vector3{1.f, 1.f, 1.f});
                 frame_definition.rotation = frame.value("rotation", 0.0f);
                 frame_definition.duration = frame.value("duration", 1.0f);
                 anim->duration += frame_definition.duration;
@@ -38,16 +36,16 @@ namespace core::animation {
                 app::Vector2 texture_size;
                 auto has_texture_size = frame.contains("texture_size");
                 if (has_texture_size) {
-                    texture_size = frame.value("texture_size", app::Vector2{ 1.f, 1.f });
+                    texture_size = frame.value("texture_size", app::Vector2{1.f, 1.f});
                     frame_definition.aspect_ratio = texture_size.y / texture_size.x;
                 }
 
                 api::graphics::textures::MaterialParams mat_params;
                 if (frame.contains("texture_params")) {
                     auto params = frame["texture_params"];
-                    mat_params.color = params.value("color", app::Color{ 1.f, 1.f, 1.f, 1.f });
-                    mat_params.scroll_rot = params.value("scroll_rot", app::Vector4{ 0.f, 0.f, 0.f, 0.f });
-                    mat_params.uvs = params.value("uvs", app::Vector4{ 0.f, 0.f, 1.f, 1.f });
+                    mat_params.color = params.value("color", app::Color{1.f, 1.f, 1.f, 1.f});
+                    mat_params.scroll_rot = params.value("scroll_rot", app::Vector4{0.f, 0.f, 0.f, 0.f});
+                    mat_params.uvs = params.value("uvs", app::Vector4{0.f, 0.f, 1.f, 1.f});
                     auto& value = mat_params.uvs.value();
                     if (has_texture_size) {
                         frame_definition.aspect_ratio = value.w / value.z;
@@ -59,9 +57,9 @@ namespace core::animation {
 
                     value.y = 1.f - value.y - value.w;
                 } else {
-                    mat_params.color = app::Color{ 1.f, 1.f, 1.f, 1.f };
-                    mat_params.scroll_rot = app::Vector4{ 0.f, 0.f, 0.f, 0.f };
-                    mat_params.uvs = app::Vector4{ 0.f, 0.f, 1.f, 1.f };
+                    mat_params.color = app::Color{1.f, 1.f, 1.f, 1.f};
+                    mat_params.scroll_rot = app::Vector4{0.f, 0.f, 0.f, 0.f};
+                    mat_params.uvs = app::Vector4{0.f, 0.f, 1.f, 1.f};
                 }
 
                 frame_definition.params = std::optional(mat_params);
@@ -82,8 +80,8 @@ namespace core::animation {
         m_sprite.set_parent(m_root);
     }
 
-    Animation::Animation(std::shared_ptr<AnimationDefinition> definition)
-        : Animation() {
+    Animation::Animation(std::shared_ptr<AnimationDefinition> definition) :
+        Animation() {
         m_definitions.push_back(std::move(definition));
     }
 
@@ -94,9 +92,7 @@ namespace core::animation {
         }
     }
 
-    void Animation::add_definition(std::shared_ptr<AnimationDefinition> definition) {
-        m_definitions.push_back(std::move(definition));
-    }
+    void Animation::add_definition(std::shared_ptr<AnimationDefinition> definition) { m_definitions.push_back(std::move(definition)); }
 
     void Animation::start(const int definition_index, const bool repeat) {
         if (m_definitions.size() <= definition_index) {
@@ -156,6 +152,7 @@ namespace core::animation {
     }
 
     CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation>& animation_cache() {
-        return g_animation_cache;
+        static CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation> cache;
+        return cache;
     }
 } // namespace core::animation

@@ -4,7 +4,7 @@
 
 namespace core::animation::timeline_entries {
     void Animation::parse(TimelineState& state, nlohmann::json const& j) {
-        auto animation_path = j.value<std::string>("path", "");
+        const auto animation_path = j.value<std::string>("path", "");
         definition = animation_cache().get(animation_path);
         if (j.contains("duration")) {
             duration = create_variable(state, j, "duration", 0.f);
@@ -13,30 +13,32 @@ namespace core::animation::timeline_entries {
         Base::parse(state, j);
     }
 
-    bool Animation::update_state(TimelineState& state, float dt) {
+    bool Animation::update_state(TimelineState& state, const float dt) {
         auto it = state.active_animations.find(id);
         if (it == state.active_animations.end()) {
             state.active_animations[id] = std::make_shared<core::animation::Animation>(definition);
             it = state.active_animations.find(id);
             auto anim = it->second;
             il2cpp::unity::set_parent(it->second->root(), state.root);
-            il2cpp::unity::set_local_position(it->second->root(), app::Vector3{ 0.f, 0.f, 0.f });
-            il2cpp::unity::set_local_scale(it->second->root(), app::Vector3{ 1.f, 1.f, 1.f });
-            il2cpp::unity::set_local_rotation(it->second->root(), app::Vector3{ 0.f, 0.f, 0.f });
+            il2cpp::unity::set_local_position(it->second->root(), app::Vector3{0.f, 0.f, 0.f});
+            il2cpp::unity::set_local_scale(it->second->root(), app::Vector3{1.f, 1.f, 1.f});
+            il2cpp::unity::set_local_rotation(it->second->root(), app::Vector3{0.f, 0.f, 0.f});
             it->second->start(false);
-        } else
+        } else {
             it->second->update(dt);
+        }
 
         if (duration.has_value()) {
-            auto elapsed = state.time - start_time;
-
-            if (elapsed >= duration.value()(state))
+            const auto elapsed = state.time - start_time;
+            if (elapsed >= duration.value()(state)) {
                 it->second->stop();
+            }
         }
 
         if (it->second->is_finished() || it->second->is_stopped()) {
-            if (duration.has_value() && !it->second->is_stopped())
+            if (duration.has_value() && !it->second->is_stopped()) {
                 it->second->start(true);
+            }
             else {
                 state.active_animations.erase(it);
                 return true;
@@ -47,7 +49,7 @@ namespace core::animation::timeline_entries {
     }
 
     void Sound::parse(TimelineState& state, nlohmann::json const& j) {
-        assert(false);  // TODO
+        assert(false); // TODO
         // sound_event = create_variable(state, j, "sound_event");
         Base::parse(state, j);
     }

@@ -1,9 +1,9 @@
 #pragma once
 
 #include <Core/api/graphics/sprite.h>
+#include <Core/cached_loader.h>
 #include <Core/enums/layer.h>
 #include <Core/macros.h>
-#include <Core/cached_loader.h>
 
 namespace core::animation {
     struct CORE_DLLEXPORT AnimationFrame {
@@ -21,7 +21,6 @@ namespace core::animation {
     };
 
     struct CORE_DLLEXPORT AnimationDefinition {
-    public:
         float duration = 0;
         std::vector<AnimationFrame> frames;
     };

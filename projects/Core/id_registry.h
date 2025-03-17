@@ -6,7 +6,6 @@
 #include <unordered_map>
 
 namespace core {
-
     template <typename T>
     class IDRegistry {
     public:
