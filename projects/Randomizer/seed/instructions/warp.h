@@ -1,13 +1,13 @@
 #pragma once
 #include <Randomizer/seed/instruction_utils.h>
 #include <Randomizer/seed/seed.h>
-#include <Modloader/app/methods/SavePedestalController.h>
+#include <Randomizer/game/teleport.h>
 
 // TODO: - Allow instantaneous teleportation
 //       - Disable target distance check
 INSTRUCTION(Warp)
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        SavePedestalController::BeginTeleportation({
+        game::teleportation::teleport({
             memory.floats.get(0),
             memory.floats.get(1),
         });
