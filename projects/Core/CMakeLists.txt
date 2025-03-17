@@ -75,7 +75,8 @@ set(
         "utils/operations.cpp"
         "utils/position_converter.cpp"
         "utils/stb_image.cpp"
-        api/messages/message_box_positioning.cpp
+        "api/messages/message_box_positioning.cpp"
+        "actors/actor.cpp"
 )
 
 set(
@@ -162,7 +163,7 @@ set(
         "utils/operations.h"
         "utils/position_converter.h"
         "utils/stb_image.h"
-        actors/actor.h
+        "actors/actor.h"
 )
 
 set(
