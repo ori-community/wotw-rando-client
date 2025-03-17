@@ -26,37 +26,49 @@ namespace core::animation {
         std::vector<AnimationFrame> frames;
     };
 
-    class CORE_DLLEXPORT Animation {
+    class CORE_DLLEXPORT Animation final {
     public:
-        Animation(AnimationDefinition const& definition);
+        Animation();
+        explicit Animation(std::shared_ptr<AnimationDefinition> definition);
         ~Animation();
 
-        void start(bool repeat = false);
+        void add_definition(std::shared_ptr<AnimationDefinition> definition);
+
+        void start(int definition_index, bool repeat = false);
         void update(float dt);
         void stop();
-        bool is_finished() { return m_time >= m_duration || m_frame >= m_frames.size(); }
-        bool is_stopped() { return m_stopped; }
 
-        app::Color const& color() { return m_color_modulate; }
-        void color(app::Color c) { m_color_modulate = c; }
+        bool is_stopped() const { return m_stopped; }
+        bool is_finished() const {
+            const auto& definition = m_definitions[m_definition_index];
+            return is_stopped() || !m_repeat && (m_time >= definition->duration || m_frame >= definition->frames.size());
+        }
 
-        app::GameObject* root() { return m_root; }
+        float const& scale() const { return m_scale; }
+        void scale(const float s) { m_scale = s; }
+
+        app::Color const& color() const { return m_color_modulate; }
+        void color(const app::Color c) { m_color_modulate = c; }
+
+        app::GameObject* root() const { return m_root; }
 
     private:
         void apply();
 
         app::GameObject* m_root;
         api::graphics::Sprite m_sprite;
-        app::Color m_color_modulate;
+        app::Color m_color_modulate{1, 1, 1, 1};
+        std::vector<std::shared_ptr<AnimationDefinition>> m_definitions;
 
-        bool m_stopped;
-        float m_duration;
-        float m_time;
-        int m_frame;
-        std::vector<AnimationFrame> m_frames;
+        float m_scale = 1.0f;
+        bool m_stopped = true;
+        float m_time = 0.0f;
+        std::size_t m_frame = 0;
+        std::size_t m_definition_index = 0;
+        bool m_repeat = false;
     };
 
     CORE_DLLEXPORT std::shared_ptr<AnimationDefinition> load_animation(std::string path);
     CORE_DLLEXPORT std::shared_ptr<AnimationDefinition> copy_animation(std::shared_ptr<AnimationDefinition> value);
-    extern CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation> animation_cache;
+    CORE_DLLEXPORT CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation>& animation_cache();
 } // namespace core::animation

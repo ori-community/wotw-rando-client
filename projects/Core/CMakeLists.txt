@@ -162,6 +162,7 @@ set(
         "utils/operations.h"
         "utils/position_converter.h"
         "utils/stb_image.h"
+        actors/actor.h
 )
 
 set(

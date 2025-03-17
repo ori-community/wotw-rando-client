@@ -3,30 +3,21 @@
 #include <Core/api/game/player.h>
 #include <Core/api/graphics/sprite.h>
 #include <Core/api/graphics/textures.h>
-#include <Core/dirty_value.h>
-#include <Core/utils/json_serializers.h>
-#include <Core/utils/operations.h>
 #include <Core/dev/object_visualizer.h>
+#include <Core/utils/json_serializers.h>
 
-#include <Common/ext.h>
-
-#include <Modloader/app/methods/UnityEngine/Transform.h>
+#include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/il2cpp_math.h>
-#include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
-#include <Modloader/windows_api/console.h>
 
 #include <nlohmann/json.hpp>
-
-#include <fstream>
-#include <unordered_map>
 
 using namespace app::classes;
 using namespace modloader;
 
 namespace core::animation {
-    CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation> animation_cache;
+    CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation> g_animation_cache;
 
     std::shared_ptr<AnimationDefinition> load_animation(std::string path) {
         nlohmann::json j;
@@ -35,7 +26,7 @@ namespace core::animation {
         try {
             anim->duration = 0.f;
             auto frames = j.at("frames");
-            for (auto frame : frames) {
+            for (auto frame: frames) {
                 auto& frame_definition = anim->frames.emplace_back();
                 frame_definition.position = frame.value("position", app::Vector3{ 0.f, 0.f, 0.f });
                 frame_definition.scale = frame.value("scale", app::Vector3{ 1.f, 1.f, 1.f });
@@ -82,17 +73,18 @@ namespace core::animation {
         return anim;
     }
 
-    std::shared_ptr<AnimationDefinition> copy_animation(std::shared_ptr<AnimationDefinition> value) {
-        return value;
+    std::shared_ptr<AnimationDefinition> copy_animation(std::shared_ptr<AnimationDefinition> value) { return value; }
+
+    Animation::Animation() {
+        m_root = types::GameObject::create();
+        UnityEngine::GameObject::ctor_1(m_root, il2cpp::string_new("rando_animation"));
+        add_to_container(api::game::RandoContainer::GameObjects, m_root);
+        m_sprite.set_parent(m_root);
     }
 
-    Animation::Animation(AnimationDefinition const& definition)
-            : m_sprite(), m_color_modulate{ 1, 1, 1, 1 }, m_duration(definition.duration), m_frame(0), m_frames(definition.frames) {
-        m_root = types::GameObject::create();
-        il2cpp::invoke(m_root, ".ctor");
-        il2cpp::invoke(m_root, "set_name", il2cpp::string_new("rando_animation"));
-        core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, m_root);
-        m_sprite.set_parent(m_root);
+    Animation::Animation(std::shared_ptr<AnimationDefinition> definition)
+        : Animation() {
+        m_definitions.push_back(std::move(definition));
     }
 
     Animation::~Animation() {
@@ -102,47 +94,68 @@ namespace core::animation {
         }
     }
 
-    void Animation::start(bool repeat) {
+    void Animation::add_definition(std::shared_ptr<AnimationDefinition> definition) {
+        m_definitions.push_back(std::move(definition));
+    }
+
+    void Animation::start(const int definition_index, const bool repeat) {
+        if (m_definitions.size() <= definition_index) {
+            stop();
+            return;
+        }
+
         m_frame = 0;
+        m_time = 0;
         m_stopped = false;
-        m_time = repeat ? m_time - m_duration : 0;
+        m_repeat = repeat;
         m_sprite.enabled(true);
         apply();
     }
 
     void Animation::stop() {
         m_stopped = true;
+        m_repeat = false;
         m_sprite.enabled(false);
     }
 
-    void Animation::update(float dt) {
-        if (!m_sprite.enabled() || is_finished() || is_stopped())
+    void Animation::update(const float dt) {
+        if (!m_sprite.enabled() || is_finished() || is_stopped()) {
             return;
+        }
 
         m_time += dt;
         int old_frame = m_frame;
-        while (!is_finished() && m_time >= m_frames[m_frame].real_duration)
-            ++m_frame;
+        while (!is_finished() && m_time >= m_definitions[m_definition_index]->frames[m_frame].real_duration) {
+            old_frame = m_frame;
+            m_frame = (m_frame + 1) % m_definitions[m_definition_index]->frames.size();
+            if (old_frame > m_frame) {
+                m_time -= m_definitions[m_definition_index]->frames[old_frame].real_duration;
+            }
+        }
 
-        if (old_frame != m_frame)
+        if (old_frame != m_frame) {
             apply();
+        }
     }
 
     void Animation::apply() {
-        auto const& frame = m_frames[std::min(m_frame, static_cast<int>(m_frames.size()))];
+        const auto frame_index = std::min(m_frame, m_definitions[m_definition_index]->frames.size() - 1);
+        const auto& frame = m_definitions[m_definition_index]->frames[frame_index];
         m_sprite.layer(frame.layer);
         m_sprite.local_position(frame.position);
         m_sprite.local_rotation(frame.rotation);
-        m_sprite.local_scale(frame.scale);
+        m_sprite.local_scale(frame.scale * m_scale);
 
         auto params = frame.params;
-        if (!params.has_value())
+        if (!params.has_value()) {
             params = api::graphics::textures::MaterialParams();
+        }
 
-        params->color = params->color.has_value()
-            ? params->color.value() * m_color_modulate
-            : m_color_modulate;
-
+        params->color = params->color.has_value() ? params->color.value() * m_color_modulate : m_color_modulate;
         m_sprite.texture(frame.texture, frame.params);
+    }
+
+    CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation>& animation_cache() {
+        return g_animation_cache;
     }
 } // namespace core::animation
