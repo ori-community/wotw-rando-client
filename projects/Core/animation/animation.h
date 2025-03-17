@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Core/actors/actor.h>
 #include <Core/api/graphics/sprite.h>
 #include <Core/cached_loader.h>
 #include <Core/enums/layer.h>
@@ -25,17 +26,20 @@ namespace core::animation {
         std::vector<AnimationFrame> frames;
     };
 
-    class CORE_DLLEXPORT Animation final {
+    class CORE_DLLEXPORT Animation final : public actors::Component {
     public:
-        Animation();
-        explicit Animation(std::shared_ptr<AnimationDefinition> definition);
-        ~Animation();
-
         void add_definition(std::shared_ptr<AnimationDefinition> definition);
 
+        static size_t static_component_id();
+        size_t component_id() override;
+
         void start(int definition_index, bool repeat = false);
-        void update(float dt);
         void stop();
+
+        void on_registered(actors::Actor* actor) override;
+        void on_deregistered() override;
+        void on_enabled(bool enabled) override;
+        void on_update(float dt) override;
 
         bool is_stopped() const { return m_stopped; }
         bool is_finished() const {
@@ -49,12 +53,9 @@ namespace core::animation {
         app::Color const& color() const { return m_color_modulate; }
         void color(const app::Color c) { m_color_modulate = c; }
 
-        app::GameObject* root() const { return m_root; }
-
     private:
         void apply();
 
-        app::GameObject* m_root;
         api::graphics::Sprite m_sprite;
         app::Color m_color_modulate{1, 1, 1, 1};
         std::vector<std::shared_ptr<AnimationDefinition>> m_definitions;

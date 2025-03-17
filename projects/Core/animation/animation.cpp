@@ -73,26 +73,40 @@ namespace core::animation {
 
     std::shared_ptr<AnimationDefinition> copy_animation(std::shared_ptr<AnimationDefinition> value) { return value; }
 
-    Animation::Animation() {
-        m_root = types::GameObject::create();
-        UnityEngine::GameObject::ctor_1(m_root, il2cpp::string_new("rando_animation"));
-        add_to_container(api::game::RandoContainer::GameObjects, m_root);
-        m_sprite.set_parent(m_root);
+    void Animation::add_definition(std::shared_ptr<AnimationDefinition> definition) { m_definitions.push_back(std::move(definition)); }
+
+    size_t Animation::static_component_id() {
+        static size_t id = actors::next_component_id();
+        return id;
     }
 
-    Animation::Animation(std::shared_ptr<AnimationDefinition> definition) :
-        Animation() {
-        m_definitions.push_back(std::move(definition));
-    }
+    size_t Animation::component_id() override { return static_component_id(); }
 
-    Animation::~Animation() {
-        if (il2cpp::unity::is_valid(m_root)) {
-            il2cpp::unity::destroy_object(m_root);
-            m_root = nullptr;
+    void Animation::on_registered(actors::Actor* actor) override { m_sprite.set_parent(actor->root()); }
+
+    void Animation::on_deregistered() override { m_sprite.set_parent(nullptr); }
+
+    void Animation::on_enabled(const bool enabled) override { m_sprite.enabled(enabled); }
+
+    void Animation::on_update(const float dt) override {
+        if (!m_sprite.enabled() || is_finished() || is_stopped()) {
+            return;
+        }
+
+        m_time += dt;
+        int old_frame = m_frame;
+        while (!is_finished() && m_time >= m_definitions[m_definition_index]->frames[m_frame].real_duration) {
+            old_frame = m_frame;
+            m_frame = (m_frame + 1) % m_definitions[m_definition_index]->frames.size();
+            if (old_frame > m_frame) {
+                m_time -= m_definitions[m_definition_index]->frames[old_frame].real_duration;
+            }
+        }
+
+        if (old_frame != m_frame) {
+            apply();
         }
     }
-
-    void Animation::add_definition(std::shared_ptr<AnimationDefinition> definition) { m_definitions.push_back(std::move(definition)); }
 
     void Animation::start(const int definition_index, const bool repeat) {
         if (m_definitions.size() <= definition_index) {
@@ -112,26 +126,6 @@ namespace core::animation {
         m_stopped = true;
         m_repeat = false;
         m_sprite.enabled(false);
-    }
-
-    void Animation::update(const float dt) {
-        if (!m_sprite.enabled() || is_finished() || is_stopped()) {
-            return;
-        }
-
-        m_time += dt;
-        int old_frame = m_frame;
-        while (!is_finished() && m_time >= m_definitions[m_definition_index]->frames[m_frame].real_duration) {
-            old_frame = m_frame;
-            m_frame = (m_frame + 1) % m_definitions[m_definition_index]->frames.size();
-            if (old_frame > m_frame) {
-                m_time -= m_definitions[m_definition_index]->frames[old_frame].real_duration;
-            }
-        }
-
-        if (old_frame != m_frame) {
-            apply();
-        }
     }
 
     void Animation::apply() {
