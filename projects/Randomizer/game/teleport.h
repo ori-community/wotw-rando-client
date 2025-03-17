@@ -1,6 +1,7 @@
 #pragma once
 
-#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace randomizer::game::teleportation {
     void teleport_instantly(app::Vector3 position);
