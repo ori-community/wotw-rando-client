@@ -149,11 +149,11 @@ namespace randomizer::ipc {
                 auto pos = p.at("position");
                 const auto coordinate_system = p.value("coordinate_system", core::api::messages::CoordinateSystem::Relative);
                 message_box->coordinate_system().set(coordinate_system);
-                app::Vector3 position{
+                message_box->position().set(
                     pos.at("x").get<float>(),
                     pos.at("y").get<float>(),
-                    pos.at("z").get<float>(),
-                };
+                    pos.at("z").get<float>()
+                );
             }
 
             if (p.contains("color")) {
