@@ -1,7 +1,6 @@
 #include <Core/api/game/game.h>
 #include <Core/core.h>
 #include <Core/messages/message_controller.h>
-#include <Core/utils/json_serializers.h>
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/randomizer.h>
@@ -270,5 +269,49 @@ namespace randomizer::seed {
 
     void destroy_free_message_boxes() {
         game_seed().environment().free_message_boxes.clear();
+    }
+
+    nlohmann::json SaveSlotIconMetaData::json_serialize() {
+
+        nlohmann::json j = *this;
+        return j;
+    }
+
+    void SaveSlotIconMetaData::json_deserialize(nlohmann::json& j) {
+        j.get_to(*this);
+    }
+
+    void SaveSlotIconMetaData::save(SeedExecutionEnvironment& seed_environment) {
+        seed_environment.warp_icons.clear();
+        for (auto const& [id, icon] : seed_environment.warp_icons) {
+            warp_icons[id] = IconData{
+                icon->name().get_unprocessed(),
+                icon->label().get_unprocessed(),
+                icon->icon().get(),
+                icon->position().get(),
+                icon->visible().get(),
+                icon->label_visible().get(),
+                icon->opacity().get(),
+                icon->can_teleport().get(),
+            };
+        }
+    }
+
+    void SaveSlotIconMetaData::load(SeedExecutionEnvironment& seed_environment) {
+        for (auto const& [id, icon_data] : warp_icons) {
+            const auto icon = add_icon(
+                game::map::FilterFlag::All | game::map::FilterFlag::Teleports | game::map::FilterFlag::InLogic | game::map::FilterFlag::Spoilers
+            );
+
+            icon->name().set(icon_data.name);
+            icon->label().set(icon_data.label);
+            icon->icon().set(icon_data.icon);
+            icon->position().set(icon_data.position);
+            icon->visible().set(icon_data.visible);
+            icon->label_visible().set(icon_data.label_visible);
+            icon->opacity().set(icon_data.opacity);
+            icon->can_teleport().set(icon_data.can_teleport);
+            seed_environment.warp_icons[id] = icon;
+        }
     }
 } // namespace randomizer::seed

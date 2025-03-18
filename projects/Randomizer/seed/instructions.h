@@ -1,11 +1,13 @@
 #pragma once
 
+#include <Core/messages/message_handle.h>
+#include <Core/utils/json_serializers.h>
+#include <Core/save_meta/save_meta.h>
+#include <Randomizer/game/map/icon.h>
 #include <memory>
 #include <nlohmann/adl_serializer.hpp>
 #include <string>
 #include <vector>
-#include <Core/messages/message_handle.h>
-#include <Randomizer/game/map/icon.h>
 
 namespace randomizer::seed {
     class Seed;
@@ -134,4 +136,42 @@ namespace randomizer::seed {
     std::unique_ptr<IInstruction> create_instruction(const nlohmann::json& j);
 
     void destroy_free_message_boxes();
+
+    class SaveSlotIconMetaData final : public core::save_meta::JsonSaveMetaSerializable {
+    public:
+        struct IconData {
+            std::string name;
+            std::string label;
+            MapIcon icon;
+            app::Vector2 position;
+            bool visible;
+            bool label_visible;
+            float opacity;
+            bool can_teleport;
+
+            NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
+                IconData,
+                name,
+                label,
+                icon,
+                position,
+                visible,
+                label_visible,
+                opacity,
+                can_teleport
+            )
+        };
+
+        std::unordered_map<std::size_t, IconData> warp_icons;
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
+            SaveSlotIconMetaData,
+            warp_icons
+        );
+
+        nlohmann::json json_serialize() override;
+        void json_deserialize(nlohmann::json& j) override;
+
+        void save(SeedExecutionEnvironment& seed_environment);
+        void load(SeedExecutionEnvironment& seed_environment);
+    };
 }
