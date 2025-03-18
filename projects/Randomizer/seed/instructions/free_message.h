@@ -10,6 +10,7 @@ INSTRUCTION(FreeMessage)
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         environment.message_boxes_with_timeouts.erase(id);
         environment.free_message_boxes[id].message = std::make_shared<core::api::messages::MessageBox>();
+        environment.free_message_boxes[id].message->coordinate_system().set(core::api::messages::CoordinateSystem::Relative);
         environment.free_message_boxes[id].message->text_processor(general_text_processor());
         environment.queued_message_boxes.erase(id);
     }

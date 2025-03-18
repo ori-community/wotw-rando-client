@@ -78,7 +78,7 @@ namespace core::api::messages {
 
         Property<std::string> m_text;
         Property<app::Vector3> m_position{{0, 0, 0}};
-        Property<CoordinateSystem> m_coordinate_system;
+        Property<CoordinateSystem> m_coordinate_system{CoordinateSystem::Relative};
         Property<bool> m_show_box = Property<bool>(true);
         Property<float> m_fade_in;
         Property<float> m_fade_out;
