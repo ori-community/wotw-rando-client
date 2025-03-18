@@ -50,7 +50,7 @@ namespace randomizer {
         const auto in_range = modloader::math::distance2(position, m_location) < interact_radius * interact_radius;
         if (in_range && m_input_handle == nullptr) {
             m_message_box = std::make_shared<core::api::messages::MessageBox>();
-            m_message_box->use_world_coordinates().set(true);
+            m_message_box->coordinate_system().set(core::api::messages::CoordinateSystem::World);
             m_message_box->show_box().set(false);
             m_message_box->text().set("Start Trial [Interact]");
             m_message_box->position().set(modloader::math::to_vec3(position));

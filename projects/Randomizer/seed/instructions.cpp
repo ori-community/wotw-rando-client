@@ -35,10 +35,10 @@
 #include <Randomizer/seed/instructions/float_to_string.h>
 #include <Randomizer/seed/instructions/free_message.h>
 #include <Randomizer/seed/instructions/free_message_alignment.h>
+#include <Randomizer/seed/instructions/free_message_coordinate_system.h>
 #include <Randomizer/seed/instructions/free_message_hide.h>
 #include <Randomizer/seed/instructions/free_message_horizontal_anchor.h>
 #include <Randomizer/seed/instructions/free_message_position.h>
-#include <Randomizer/seed/instructions/free_message_screen_position.h>
 #include <Randomizer/seed/instructions/free_message_show.h>
 #include <Randomizer/seed/instructions/free_message_vertical_anchor.h>
 #include <Randomizer/seed/instructions/integer_to_float.h>
@@ -197,10 +197,10 @@ namespace randomizer::seed {
             register_instruction<FloatToString>(factories);
             register_instruction<FreeMessage>(factories);
             register_instruction<FreeMessageAlignment>(factories);
+            register_instruction<FreeMessageCoordinateSystem>(factories);
             register_instruction<FreeMessageHide>(factories);
             register_instruction<FreeMessageHorizontalAnchor>(factories);
             register_instruction<FreeMessagePosition>(factories);
-            register_instruction<FreeMessageScreenPosition>(factories);
             register_instruction<FreeMessageShow>(factories);
             register_instruction<FreeMessageVerticalAnchor>(factories);
             register_instruction<IntegerToFloat>(factories);

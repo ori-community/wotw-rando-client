@@ -141,15 +141,12 @@ namespace core::messages {
         m_recent_display(10, 5) {
 
         m_central_display.message_vertical_anchor().set(app::VerticalAnchorMode__Enum::Top);
-        m_central_display.screen_position().set(api::screen_position::ScreenPosition::TopCenter);
 
-        m_recent_display.position().set({0.4f, 0.4f, 0.f});
         m_recent_display.horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Left);
         m_recent_display.message_vertical_anchor().set(app::VerticalAnchorMode__Enum::Bottom);
         m_recent_display.display_vertical_anchor().set(MessageDisplayAnchor::Bottom);
         m_recent_display.expand_direction().set(MessageDisplayExpandDirection::Upwards);
         m_recent_display.alignment().set(app::AlignmentMode__Enum::Left);
-        m_recent_display.screen_position().set(api::screen_position::ScreenPosition::BottomLeft);
     }
 
     MessageController::~MessageController() = default;
@@ -244,6 +241,13 @@ namespace core::messages {
             return;
         }
 
+        if (!m_initialized) {
+            // Needs to be here instead of the constructor due to uninitialized static class used by get(ScreenPosition).
+            m_recent_display.position().set(get(api::screen_position::ScreenPosition::BottomLeft));
+            m_recent_display.position().add(0.4f, 0.4f, 0.f);
+            m_initialized = true;
+        }
+
         for (auto& queue: m_queues | std::views::values) {
             queue.update(delta_time);
         }
@@ -267,7 +271,8 @@ namespace core::messages {
             y_position -= test_map_offset; // Put it below the map text.
         }
 
-        m_central_display.position().set(0, y_position, 0);
+        m_central_display.position().set(get(api::screen_position::ScreenPosition::TopCenter));
+        m_central_display.position().add(0, y_position, 0);
         m_central_display.update(delta_time);
 
         m_recent_display.update(delta_time);

@@ -27,8 +27,7 @@ namespace core::messages {
         , m_max_in_queue(max_in_queue)
         , m_alignment(app::AlignmentMode__Enum::Center)
         , m_horizontal_anchor(app::HorizontalAnchorMode__Enum::Center)
-        , m_message_vertical_anchor(app::VerticalAnchorMode__Enum::Middle)
-        , m_screen_position(api::screen_position::ScreenPosition::MiddleCenter) {
+        , m_message_vertical_anchor(app::VerticalAnchorMode__Enum::Middle) {
     }
 
     message_handle_ptr_t MessageDisplay::push(MessageInfo info) {
@@ -193,37 +192,33 @@ namespace core::messages {
         const auto text = trim_copy(data.info.text.get());
         const auto message_lines = static_cast<int>(std::ranges::count(text, '\n') + 1);
 
-        if (data.info.use_world_space) {
-            // TODO: World space messages are currently unsupported
+        const auto cursor_y_direction = static_cast<float>(get_expand_direction_y_multiplier());
+
+        // Add top padding & margin
+        cursor_position.y -= data.info.margins.x * cursor_y_direction;
+        cursor_position.y -= data.info.padding.x * cursor_y_direction;
+
+        // Animate message box movement if the message is visible
+        if (data.handle->state == QueuedMessageHandle::QueuedMessageState::Visible) {
+            // When this message is queued, stall it on the pickup position
+            data.message->position().set(
+                modloader::math::lerp(
+                    data.message->position().get(),
+                    cursor_position,
+                    delta_time * 15.f * std::min(1.f, data.handle->active_time * 2.0f + 0.1f)
+                )
+            );
         } else {
-            const auto cursor_y_direction = static_cast<float>(get_expand_direction_y_multiplier());
-
-            // Add top padding & margin
-            cursor_position.y -= data.info.margins.x * cursor_y_direction;
-            cursor_position.y -= data.info.padding.x * cursor_y_direction;
-
-            // Animate message box movement if the message is visible
-            if (data.handle->state == QueuedMessageHandle::QueuedMessageState::Visible) {
-                // When this message is queued, stall it on the pickup position
-                data.message->position().set(
-                    modloader::math::lerp(
-                        data.message->position().get(),
-                        cursor_position,
-                        delta_time * 15.f * std::min(1.f, data.handle->active_time * 2.0f + 0.1f)
-                    )
-                );
-            } else {
-                data.message->position().set(cursor_position);
-            }
-
-            // Add message box height and bottom padding/margin
-            const auto [m_XMin, m_YMin, m_Width, m_Height] = data.message->text_bounds();
-            cursor_position.y += m_Height * cursor_y_direction;
-            cursor_position.y -= data.info.margins.y * cursor_y_direction;
-            cursor_position.y -= data.info.padding.z * cursor_y_direction;
-
-            total_lines += message_lines;
+            data.message->position().set(cursor_position);
         }
+
+        // Add message box height and bottom padding/margin
+        const auto [m_XMin, m_YMin, m_Width, m_Height] = data.message->text_bounds();
+        cursor_position.y += m_Height * cursor_y_direction;
+        cursor_position.y -= data.info.margins.y * cursor_y_direction;
+        cursor_position.y -= data.info.padding.z * cursor_y_direction;
+
+        total_lines += message_lines;
     }
 
     void MessageDisplay::show_message_box(MessageData& data, int& total_lines, app::Vector3& position) {
@@ -238,18 +233,15 @@ namespace core::messages {
         data.message->alignment().set(m_alignment.get());
         data.message->horizontal_anchor().set(m_horizontal_anchor.get());
         data.message->vertical_anchor().set(m_message_vertical_anchor.get());
-        data.message->screen_position().set(m_screen_position.get());
+        data.message->coordinate_system().set(api::messages::CoordinateSystem::Absolute);
         data.message->line_spacing().set(data.info.line_spacing);
 
         update_message_position(data, total_lines, position, 0.f);
         if (data.info.pickup_position.has_value()) {
-            const auto screen_anchor = modloader::math::to_vec2(
-                core::api::screen_position::get(m_screen_position.get()) + m_position.get()
-            );
-
-            const auto pickup_positon = data.info.pickup_position.value();
+            const auto screen_anchor = modloader::math::to_vec2(m_position.get());
+            const auto pickup_position = data.info.pickup_position.value();
             const auto message_position = data.message->position().get();
-            const auto pickup_ui_position = world_to_ui_position_2d(modloader::math::to_vec2(pickup_positon)) - screen_anchor;
+            const auto pickup_ui_position = world_to_ui_position_2d(modloader::math::to_vec2(pickup_position)) - screen_anchor;
             // pickup_ui_position.y = -pickup_ui_position.y;
             const auto distance_squared = modloader::math::distance2(pickup_ui_position, modloader::math::to_vec2(message_position));
             if (distance_squared < m_max_distance_squared_for_message_position_animation) {

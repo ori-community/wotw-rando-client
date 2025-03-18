@@ -4,6 +4,7 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/core.h>
+#include <Core/input/input_lock.h>
 #include <Core/settings.h>
 #include <Modloader/app/methods/Game/UI_Hints.h>
 #include <Modloader/app/methods/GameController.h>
@@ -16,6 +17,7 @@
 #include <Randomizer/online/network_monitor.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/parser.h>
+#include <Randomizer/seed/seed_source.h>
 #include <Randomizer/text_processors/ability.h>
 #include <Randomizer/text_processors/action.h>
 #include <Randomizer/text_processors/control.h>
@@ -25,9 +27,9 @@
 #include <Randomizer/text_processors/uber_state.h>
 #include <Randomizer/uber_states/uber_state_intercepts.h>
 #include <fstream>
+#include <magic_enum/magic_enum.hpp>
 #include <utility>
 
-#include "seed/seed_source.h"
 
 namespace randomizer {
     namespace {
@@ -46,7 +48,6 @@ namespace randomizer {
             .alignment = app::AlignmentMode__Enum::Left,
             .horizontal_anchor = app::HorizontalAnchorMode__Enum::Left,
             .vertical_anchor = app::VerticalAnchorMode__Enum::Top,
-            .screen_position = core::api::screen_position::ScreenPosition::TopLeft,
         });
 
         auto seed_meta_save_data = std::make_shared<seed::SaveSlotSeedMetaData>();
@@ -126,7 +127,7 @@ namespace randomizer {
             queue_reach_check();
         });
 
-        auto on_before_seed_loaded = randomizer::event_bus().register_handler(randomizer::RandomizerEvent::SeedLoaded, EventTiming::Before, [](auto, auto) {
+        auto on_before_seed_loaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::Before, [](auto, auto) {
             core::text::reset_to_default_values();
         });
 

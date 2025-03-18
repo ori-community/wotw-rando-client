@@ -147,13 +147,13 @@ namespace randomizer::ipc {
 
             if (p.contains("position")) {
                 auto pos = p.at("position");
-                auto screen_position = p.value("screen_position", core::api::screen_position::ScreenPosition::MiddleCenter);
-                app::Vector3 position = core::api::screen_position::get(screen_position);
-                position.x += pos.at("x").get<float>();
-                position.y += pos.at("y").get<float>();
-                position.z += pos.at("z").get<float>();
-                message_box->screen_position().set(screen_position);
-                message_box->use_world_coordinates().set(pos.at("use_in_game_coordinates").get<bool>());
+                const auto coordinate_system = p.value("coordinate_system", core::api::messages::CoordinateSystem::Relative);
+                message_box->coordinate_system().set(coordinate_system);
+                app::Vector3 position{
+                    pos.at("x").get<float>(),
+                    pos.at("y").get<float>(),
+                    pos.at("z").get<float>(),
+                };
             }
 
             if (p.contains("color")) {

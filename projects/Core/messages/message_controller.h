@@ -58,6 +58,7 @@ namespace core::messages {
         MessageDisplay m_recent_display;
         std::deque<MessageInfo> m_recent_messages;
         bool m_recent_messages_displayed_last_update = false;
+        bool m_initialized = false;
 
         std::unordered_map<std::string, MessageQueue> m_queues;
         std::vector<MessageData> m_unqueued_messages;

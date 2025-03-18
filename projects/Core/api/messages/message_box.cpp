@@ -285,12 +285,21 @@ namespace core::api::messages {
         }
 
         auto pos = m_position.get();
-        if (m_use_world_coordinates.get()) {
-            pos = world_to_ui_position(pos);
+        switch (m_coordinate_system.get()) {
+            case CoordinateSystem::World: {
+                pos = world_to_ui_position(pos);
+                break;
+            }
+            case CoordinateSystem::Relative: {
+                const auto [left, top, width, height] = screen_position::get_rect();
+                pos.x = left + pos.x * width;
+                pos.y = top + pos.y * height;
+                break;
+            }
+            case CoordinateSystem::Absolute: {
+                break;
+            }
         }
-
-        const auto offset = screen_position::get(m_screen_position.get());
-        pos = pos + offset;
 
         const auto transform = il2cpp::unity::get_transform(m_game_object);
         Transform::set_position(transform, pos);

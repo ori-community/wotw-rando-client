@@ -297,7 +297,7 @@ set(
         "seed/instructions/free_message_hide.h"
         "seed/instructions/free_message_horizontal_anchor.h"
         "seed/instructions/free_message_position.h"
-        "seed/instructions/free_message_screen_position.h"
+        "seed/instructions/free_message_coordinate_system.h"
         "seed/instructions/free_message_show.h"
         "seed/instructions/free_message_vertical_anchor.h"
         "seed/instructions/integer_to_float.h"

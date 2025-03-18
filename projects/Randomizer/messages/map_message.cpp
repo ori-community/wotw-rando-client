@@ -12,13 +12,12 @@ namespace randomizer::messages {
     void set_map_message(std::string_view text) {
         if (box == nullptr) {
             box = std::make_shared<core::api::messages::MessageBox>();
-            box->position().set(0, 0, 0);
+            box->position().set(0.5, 0.95, 0);
+            box->coordinate_system().set(core::api::messages::CoordinateSystem::Relative);
 
-            box->screen_position().set(core::api::screen_position::ScreenPosition::BottomCenter);
             box->alignment().set(app::AlignmentMode__Enum::Center);
             box->horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Center);
             box->vertical_anchor().set(app::VerticalAnchorMode__Enum::Bottom);
-            box->use_world_coordinates().set(false);
             box->show_box().set(false);
             box->text_processor(general_text_processor());
         }

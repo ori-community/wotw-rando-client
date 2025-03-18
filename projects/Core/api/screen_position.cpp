@@ -34,4 +34,17 @@ namespace core::api::screen_position {
                     return {0, 0, z};
         }
     }
+
+    app::Rect get_rect() {
+        const auto top_left = get(ScreenPosition::TopLeft);
+        const auto bottom_right = get(ScreenPosition::BottomRight);
+        const auto width = bottom_right.x - top_left.x;
+        const auto height = bottom_right.y - top_left.y;
+        return app::Rect{
+            top_left.x,
+            top_left.y,
+            bottom_right.x - top_left.x,
+            bottom_right.y - top_left.y,
+        };
+    }
 }

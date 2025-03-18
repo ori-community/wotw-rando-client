@@ -2,6 +2,7 @@
 
 #include <Core/macros.h>
 #include <nlohmann/json.hpp>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace core::api::screen_position {
@@ -33,4 +34,5 @@ namespace core::api::screen_position {
     );
 
     CORE_DLLEXPORT app::Vector3 get(ScreenPosition position, bool auto_scale_aspect_ratio = true, float z = 0.f);
+    CORE_DLLEXPORT app::Rect get_rect();
 }

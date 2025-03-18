@@ -394,11 +394,10 @@ namespace randomizer::online {
 
         box->text().process_and_set(message->text());
         box->position().set(position);
-        box->screen_position().set(static_cast<core::api::screen_position::ScreenPosition>(message->screenposition()));
+        box->coordinate_system().set(static_cast<core::api::messages::CoordinateSystem>(message->coordinatesystem()));
         box->alignment().set(static_cast<app::AlignmentMode__Enum>(message->alignment()));
         box->horizontal_anchor().set(static_cast<app::HorizontalAnchorMode__Enum>(message->horizontalanchor()));
         box->vertical_anchor().set(static_cast<app::VerticalAnchorMode__Enum>(message->verticalanchor()));
-        box->use_world_coordinates().set(message->useingamecoordinates());
         box->fade_in().set(message->fadeinlength());
         box->fade_out().set(message->fadeoutlength());
         box->show_box().set(message->withbox());

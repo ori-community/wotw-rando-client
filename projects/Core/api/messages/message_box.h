@@ -1,20 +1,20 @@
 #pragma once
 
 #include <Common/registration_handle.h>
-#include <Core/property.h>
 #include <Core/macros.h>
-
-#include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/GameObject.h>
+#include <Core/property.h>
 #include <Modloader/app/structs/MessageBox.h>
-#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/ScaleToTextBox.h>
 
-#include <Core/api/screen_position.h>
-#include <nlohmann/json.hpp>
 #include <string_view>
 
 namespace core::api::messages {
+    enum class CoordinateSystem {
+        Absolute,
+        Relative,
+        World,
+    };
+
     class CORE_DLLEXPORT MessageBox {
     public:
         static constexpr std::string_view MESSAGE_BOX_MARKER = "rando_text_box_marker";
@@ -24,7 +24,7 @@ namespace core::api::messages {
             Hidden,
             FadingOut,
             FadingIn,
-            Visible
+            Visible,
         };
 
         MessageBox();
@@ -46,7 +46,7 @@ namespace core::api::messages {
         void text_processor(const std::shared_ptr<text::ITextProcessor>& text_processor) { m_text.text_processor(text_processor); }
 
         [[nodiscard]] const Property<app::Vector3>& position() { return m_position; }
-        [[nodiscard]] const Property<bool>& use_world_coordinates() { return m_use_world_coordinates; }
+        [[nodiscard]] const Property<CoordinateSystem>& coordinate_system() { return m_coordinate_system; }
         [[nodiscard]] const Property<bool>& show_box() { return m_show_box; }
         [[nodiscard]] const Property<float>& fade_in() { return m_fade_in; }
         [[nodiscard]] const Property<float>& fade_out() { return m_fade_out; }
@@ -60,8 +60,8 @@ namespace core::api::messages {
         [[nodiscard]] const Property<float>& bottom_padding() { return m_bottom_padding; }
         [[nodiscard]] const Property<float>& left_padding() { return m_left_padding; }
         [[nodiscard]] const Property<float>& right_padding() { return m_right_padding; }
-        [[nodiscard]] const Property<screen_position::ScreenPosition>& screen_position() { return m_screen_position; }
         [[nodiscard]] const Property<bool>& tighten_box_to_text() { return m_tighten_box_to_text; }
+
     private:
         int m_id;
 
@@ -77,8 +77,8 @@ namespace core::api::messages {
         bool m_cached_show_box = false;
 
         Property<std::string> m_text;
-        Property<app::Vector3> m_position { { 0, 0, 0 } };
-        Property<bool> m_use_world_coordinates;
+        Property<app::Vector3> m_position{{0, 0, 0}};
+        Property<CoordinateSystem> m_coordinate_system;
         Property<bool> m_show_box = Property<bool>(true);
         Property<float> m_fade_in;
         Property<float> m_fade_out;
@@ -88,13 +88,21 @@ namespace core::api::messages {
         Property<app::AlignmentMode__Enum> m_alignment;
         Property<app::HorizontalAnchorMode__Enum> m_horizontal_anchor;
         Property<app::VerticalAnchorMode__Enum> m_vertical_anchor;
-        Property<float> m_top_padding { 0.f };
-        Property<float> m_bottom_padding { 0.f };
-        Property<float> m_left_padding { 1.f };
-        Property<float> m_right_padding { 1.f };
-        Property<screen_position::ScreenPosition> m_screen_position{ screen_position::ScreenPosition::TopCenter };
+        Property<float> m_top_padding{0.f};
+        Property<float> m_bottom_padding{0.f};
+        Property<float> m_left_padding{1.f};
+        Property<float> m_right_padding{1.f};
         Property<bool> m_tighten_box_to_text{true};
 
         std::shared_ptr<reactivity::ReactiveEffect> m_tighten_effect;
     };
+
+    NLOHMANN_JSON_SERIALIZE_ENUM(
+        CoordinateSystem,
+        {
+            { CoordinateSystem::Absolute, "Absolute" },
+            { CoordinateSystem::Relative, "Relative" },
+            { CoordinateSystem::World, "World" },
+        }
+    );
 } // namespace core::api::messages

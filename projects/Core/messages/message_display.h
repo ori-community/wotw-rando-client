@@ -19,7 +19,6 @@ namespace core::messages {
         bool instant_fade = false;
         bool prioritized = false;
         bool play_sound = true;
-        bool use_world_space = false;
         app::Vector2 margins{ 0.1, 0.1 }; // Top-Bottom
         app::Vector4 padding{ 0, 1, 0, 1 }; // Top-Left-Bottom-Right
         float line_spacing = 1.f;
@@ -57,7 +56,6 @@ namespace core::messages {
         Property<app::VerticalAnchorMode__Enum>& message_vertical_anchor() { return m_message_vertical_anchor; }
         Property<MessageDisplayAnchor>& display_vertical_anchor() { return m_display_vertical_anchor; }
         Property<MessageDisplayExpandDirection>& expand_direction() { return m_expand_direction; }
-        Property<api::screen_position::ScreenPosition>& screen_position() { return m_screen_position; }
 
         unsigned long long get_active_messages_count() const;
 
@@ -89,7 +87,6 @@ namespace core::messages {
         Property<app::VerticalAnchorMode__Enum> m_message_vertical_anchor;
         Property<MessageDisplayAnchor> m_display_vertical_anchor;
         Property<MessageDisplayExpandDirection> m_expand_direction;
-        Property<api::screen_position::ScreenPosition> m_screen_position;
 
         std::optional<MessageData> m_last_message;
         std::optional<MessageData> m_priority_message;
