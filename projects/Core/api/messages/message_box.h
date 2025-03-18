@@ -92,7 +92,7 @@ namespace core::api::messages {
         Property<float> m_bottom_padding{0.f};
         Property<float> m_left_padding{1.f};
         Property<float> m_right_padding{1.f};
-        Property<bool> m_expand_background_to_box{true};
+        Property<bool> m_expand_background_to_box{false};
 
         std::shared_ptr<reactivity::ReactiveEffect> m_tighten_effect;
     };
