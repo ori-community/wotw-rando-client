@@ -80,6 +80,7 @@ set(
         "utils/operations.cpp"
         "utils/position_converter.cpp"
         "utils/stb_image.cpp"
+        api/messages/message_box_positioning.cpp
 )
 
 set(

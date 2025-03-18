@@ -17,6 +17,9 @@
 namespace core::api::messages {
     class CORE_DLLEXPORT MessageBox {
     public:
+        static constexpr std::string_view MESSAGE_BOX_MARKER = "rando_text_box_marker";
+        static MessageBox* find_with_id(int id);
+
         enum class Visibility {
             Hidden,
             FadingOut,
@@ -49,6 +52,7 @@ namespace core::api::messages {
         [[nodiscard]] const Property<float>& fade_out() { return m_fade_out; }
         [[nodiscard]] const Property<app::Color>& color() { return m_color; }
         [[nodiscard]] const Property<float>& line_spacing() { return m_line_spacing; }
+        [[nodiscard]] const Property<float>& width() { return m_width; }
         [[nodiscard]] const Property<app::AlignmentMode__Enum>& alignment() { return m_alignment; }
         [[nodiscard]] const Property<app::HorizontalAnchorMode__Enum>& horizontal_anchor() { return m_horizontal_anchor; }
         [[nodiscard]] const Property<app::VerticalAnchorMode__Enum>& vertical_anchor() { return m_vertical_anchor; }
@@ -58,6 +62,8 @@ namespace core::api::messages {
         [[nodiscard]] const Property<float>& right_padding() { return m_right_padding; }
         [[nodiscard]] const Property<screen_position::ScreenPosition>& screen_position() { return m_screen_position; }
     private:
+        int m_id;
+
         void render_text_box();
         app::Transform* background_transform() const;
 
@@ -70,13 +76,14 @@ namespace core::api::messages {
         bool m_cached_show_box = false;
 
         Property<std::string> m_text;
-        Property<app::Vector3> m_position { { 0, -1, 0 } };
+        Property<app::Vector3> m_position { { 0, 0, 0 } };
         Property<bool> m_use_world_coordinates;
         Property<bool> m_show_box = Property<bool>(true);
         Property<float> m_fade_in;
         Property<float> m_fade_out;
         Property<app::Color> m_color;
         Property<float> m_line_spacing;
+        Property<float> m_width;
         Property<app::AlignmentMode__Enum> m_alignment;
         Property<app::HorizontalAnchorMode__Enum> m_horizontal_anchor;
         Property<app::VerticalAnchorMode__Enum> m_vertical_anchor;

@@ -10,10 +10,12 @@
 #include <Modloader/app/methods/MessageBoxVisibility.h>
 #include <Modloader/app/methods/ScaleToTextBox.h>
 #include <Modloader/app/methods/SoundSource.h>
+#include <Modloader/app/methods/TextBoxExtended.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/types/DestroyOnRestoreCheckpoint.h>
+#include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/ParticleSuspender.h>
 #include <Modloader/app/types/ScaleToTextBox.h>
@@ -27,10 +29,20 @@ using namespace app::classes;
 using namespace app::classes::UnityEngine;
 
 namespace core::api::messages {
+    namespace {
+        int next_message_id = 0;
+        std::unordered_map<int, MessageBox*> message_boxes;
+    }
+
+    MessageBox* MessageBox::find_with_id(const int id) {
+        const auto it = message_boxes.find(id);
+        return it == message_boxes.end() ? nullptr : it->second;
+    }
+
     MessageBox::MessageBox() {
         const auto controller = types::UI::get_class()->static_fields->MessageController;
         m_game_object = reinterpret_cast<app::GameObject*>(Object::Instantiate_3(reinterpret_cast<app::Object_1*>(controller->fields.HintSmallMessage)));
-        game::add_to_container(game::RandoContainer::Messages, m_game_object);
+        add_to_container(game::RandoContainer::Messages, m_game_object);
 
         il2cpp::unity::destroy_object(il2cpp::unity::get_component_in_children<app::DestroyOnRestoreCheckpoint>(m_game_object, types::DestroyOnRestoreCheckpoint::get_class()));
         il2cpp::unity::destroy_object(il2cpp::unity::get_component_in_children<app::ParticleSuspender>(m_game_object, types::ParticleSuspender::get_class()));
@@ -71,10 +83,18 @@ namespace core::api::messages {
         sound_source->fields.PlayAtStart = false;
         sound_source->fields.DestroyOnSoundEnd = false;
 
-        const auto transform = il2cpp::unity::get_transform(m_game_object);
-        Transform::set_position(transform, m_position.get());
+        il2cpp::unity::set_position(m_game_object, m_position.get());
         GameObject::SetActive(m_game_object, true);
         ScaleToTextBox::UpdateSize(m_scaler);
+
+        m_id = ++next_message_id;
+        const auto marker = types::GameObject::create();
+        GameObject::ctor_1(marker, il2cpp::string_new(MESSAGE_BOX_MARKER));
+        il2cpp::unity::set_parent(marker, m_game_object);
+        app::Vector3 marker_id{};
+        *reinterpret_cast<int*>(&marker_id.x) = m_id;
+        il2cpp::unity::set_local_position(marker, marker_id);
+        message_boxes.emplace(m_id, this);
 
         m_fade_in = Property<float>(
             [this](auto value) { m_message_box->fields.Visibility->fields.TransitionInDuration = value; },
@@ -92,60 +112,77 @@ namespace core::api::messages {
         );
 
         m_line_spacing = Property<float>(
-                [this](auto value) {
-                    m_message_box->fields.TextBox->fields.LineSpacing = value;
-                    ScaleToTextBox::UpdateSize(m_scaler);
-                },
-                [this] { return m_message_box->fields.TextBox->fields.LineSpacing; }
+            [this](auto value) {
+                m_message_box->fields.TextBox->fields.LineSpacing = value;
+                app::classes::MessageBox::RefreshText_1(m_message_box);
+                ScaleToTextBox::UpdateSize(m_scaler);
+            },
+            [this] { return m_message_box->fields.TextBox->fields.LineSpacing; }
+        );
+        m_width = Property<float>(
+            [this](auto value) {
+                m_message_box->fields.TextBox->fields.width = value;
+                app::classes::MessageBox::RefreshText_1(m_message_box);
+                ScaleToTextBox::UpdateSize(m_scaler);
+            },
+            [this] { return m_message_box->fields.TextBox->fields.width; }
         );
         m_alignment = Property<app::AlignmentMode__Enum>(
-                [this](auto value) {
-                    m_message_box->fields.TextBox->fields.alignment = value;
-                    ScaleToTextBox::UpdateSize(m_scaler);
-                },
-                [this] { return m_message_box->fields.TextBox->fields.alignment; }
+            [this](auto value) {
+                m_message_box->fields.TextBox->fields.alignment = value;
+                app::classes::MessageBox::RefreshText_1(m_message_box);
+                auto anchor = TextBoxExtended::ComputeAnchor(m_message_box->fields.TextBox);
+                auto rect = TextBoxExtended::GetRect(m_message_box->fields.TextBox);
+                auto meta_collection = m_message_box->fields.TextBox->fields.charMetaData;
+                auto meta = meta_collection->vector[0];
+                auto meta2 = meta_collection->vector[meta_collection->max_length - 1];
+                ScaleToTextBox::UpdateSize(m_scaler);
+            },
+            [this] { return m_message_box->fields.TextBox->fields.alignment; }
         );
         m_horizontal_anchor = Property<app::HorizontalAnchorMode__Enum>(
-                [this](auto value) {
-                    m_message_box->fields.TextBox->fields.horizontalAnchor = value;
-                    ScaleToTextBox::UpdateSize(m_scaler);
-                },
-                [this] { return m_message_box->fields.TextBox->fields.horizontalAnchor; }
+            [this](auto value) {
+                m_message_box->fields.TextBox->fields.horizontalAnchor = value;
+                app::classes::MessageBox::RefreshText_1(m_message_box);
+                ScaleToTextBox::UpdateSize(m_scaler);
+            },
+            [this] { return m_message_box->fields.TextBox->fields.horizontalAnchor; }
         );
         m_vertical_anchor = Property<app::VerticalAnchorMode__Enum>(
-                [this](auto value) {
-                    m_message_box->fields.TextBox->fields.verticalAnchor = value;
-                    ScaleToTextBox::UpdateSize(m_scaler);
-                },
-                [this] { return m_message_box->fields.TextBox->fields.verticalAnchor; }
+            [this](auto value) {
+                m_message_box->fields.TextBox->fields.verticalAnchor = value;
+                app::classes::MessageBox::RefreshText_1(m_message_box);
+                ScaleToTextBox::UpdateSize(m_scaler);
+            },
+            [this] { return m_message_box->fields.TextBox->fields.verticalAnchor; }
         );
         m_top_padding = Property<float>(
-                [this](auto value) {
-                    m_scaler->fields.TopLeftPadding.y = value;
-                    ScaleToTextBox::UpdateSize(m_scaler);
-                },
-                [this] { return m_scaler->fields.TopLeftPadding.y; }
+            [this](auto value) {
+                m_scaler->fields.TopLeftPadding.y = value;
+                ScaleToTextBox::UpdateSize(m_scaler);
+            },
+            [this] { return m_scaler->fields.TopLeftPadding.y; }
         );
         m_bottom_padding = Property<float>(
-                [this](auto value) {
-                    m_scaler->fields.BottomRightPadding.y = value;
-                    ScaleToTextBox::UpdateSize(m_scaler);
-                },
-                [this] { return m_scaler->fields.BottomRightPadding.y; }
+            [this](auto value) {
+                m_scaler->fields.BottomRightPadding.y = value;
+                ScaleToTextBox::UpdateSize(m_scaler);
+            },
+            [this] { return m_scaler->fields.BottomRightPadding.y; }
         );
         m_left_padding = Property<float>(
-                [this](auto value) {
-                    m_scaler->fields.TopLeftPadding.x = value;
-                    ScaleToTextBox::UpdateSize(m_scaler);
-                },
-                [this] { return m_scaler->fields.TopLeftPadding.x; }
+            [this](auto value) {
+                m_scaler->fields.TopLeftPadding.x = value;
+                ScaleToTextBox::UpdateSize(m_scaler);
+            },
+            [this] { return m_scaler->fields.TopLeftPadding.x; }
         );
         m_right_padding = Property<float>(
-                [this](auto value) {
-                    m_scaler->fields.BottomRightPadding.x = value;
-                    ScaleToTextBox::UpdateSize(m_scaler);
-                },
-                [this] { return m_scaler->fields.BottomRightPadding.x; }
+            [this](auto value) {
+                m_scaler->fields.BottomRightPadding.x = value;
+                ScaleToTextBox::UpdateSize(m_scaler);
+            },
+            [this] { return m_scaler->fields.BottomRightPadding.x; }
         );
 
         m_on_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) { on_fixed_update(); });
@@ -160,6 +197,7 @@ namespace core::api::messages {
     }
 
     MessageBox::~MessageBox() {
+        message_boxes.erase(m_id);
         if (get_visibility() == Visibility::Hidden) {
             il2cpp::unity::destroy_object(m_game_object);
         }
