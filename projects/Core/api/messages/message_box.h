@@ -61,6 +61,7 @@ namespace core::api::messages {
         [[nodiscard]] const Property<float>& left_padding() { return m_left_padding; }
         [[nodiscard]] const Property<float>& right_padding() { return m_right_padding; }
         [[nodiscard]] const Property<screen_position::ScreenPosition>& screen_position() { return m_screen_position; }
+        [[nodiscard]] const Property<bool>& tighten_box_to_text() { return m_tighten_box_to_text; }
     private:
         int m_id;
 
@@ -92,5 +93,8 @@ namespace core::api::messages {
         Property<float> m_left_padding { 1.f };
         Property<float> m_right_padding { 1.f };
         Property<screen_position::ScreenPosition> m_screen_position{ screen_position::ScreenPosition::TopCenter };
+        Property<bool> m_tighten_box_to_text{true};
+
+        std::shared_ptr<reactivity::ReactiveEffect> m_tighten_effect;
     };
 } // namespace core::api::messages

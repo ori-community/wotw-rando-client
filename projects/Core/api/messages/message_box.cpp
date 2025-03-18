@@ -185,6 +185,12 @@ namespace core::api::messages {
             [this] { return m_scaler->fields.BottomRightPadding.x; }
         );
 
+        m_tighten_effect = reactivity::watch_effect().effect([this] {
+            auto value = m_tighten_box_to_text.get();
+        }).after([this]() {
+            ScaleToTextBox::UpdateSize(m_scaler);
+        }).finalize();
+
         m_on_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) { on_fixed_update(); });
 
         // Move back the background glow a little bit so it doesn't go out of the near-plane
