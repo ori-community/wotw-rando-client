@@ -106,12 +106,12 @@ namespace core::api::messages {
             [this] { return m_message_box->fields.Visibility->fields.TransitionOutDuration; }
         );
 
-        m_color = Property<app::Color>(
+        m_text_color = Property<app::Color>(
             [this](auto value) { m_message_box->fields.TextBox->fields.color = value; },
             [this] { return m_message_box->fields.TextBox->fields.color; }
         );
 
-        m_line_spacing = Property<float>(
+        m_text_line_spacing = Property<float>(
             [this](auto value) {
                 m_message_box->fields.TextBox->fields.LineSpacing = value;
                 app::classes::MessageBox::RefreshText_1(m_message_box);
@@ -119,7 +119,7 @@ namespace core::api::messages {
             },
             [this] { return m_message_box->fields.TextBox->fields.LineSpacing; }
         );
-        m_width = Property<float>(
+        m_box_width = Property<float>(
             [this](auto value) {
                 m_message_box->fields.TextBox->fields.width = value;
                 app::classes::MessageBox::RefreshText_1(m_message_box);
@@ -127,7 +127,7 @@ namespace core::api::messages {
             },
             [this] { return m_message_box->fields.TextBox->fields.width; }
         );
-        m_alignment = Property<app::AlignmentMode__Enum>(
+        m_text_alignment = Property<app::AlignmentMode__Enum>(
             [this](auto value) {
                 m_message_box->fields.TextBox->fields.alignment = value;
                 app::classes::MessageBox::RefreshText_1(m_message_box);
@@ -140,7 +140,7 @@ namespace core::api::messages {
             },
             [this] { return m_message_box->fields.TextBox->fields.alignment; }
         );
-        m_horizontal_anchor = Property<app::HorizontalAnchorMode__Enum>(
+        m_box_horizontal_anchor = Property<app::HorizontalAnchorMode__Enum>(
             [this](auto value) {
                 m_message_box->fields.TextBox->fields.horizontalAnchor = value;
                 app::classes::MessageBox::RefreshText_1(m_message_box);
@@ -148,7 +148,7 @@ namespace core::api::messages {
             },
             [this] { return m_message_box->fields.TextBox->fields.horizontalAnchor; }
         );
-        m_vertical_anchor = Property<app::VerticalAnchorMode__Enum>(
+        m_box_vertical_anchor = Property<app::VerticalAnchorMode__Enum>(
             [this](auto value) {
                 m_message_box->fields.TextBox->fields.verticalAnchor = value;
                 app::classes::MessageBox::RefreshText_1(m_message_box);
@@ -186,7 +186,7 @@ namespace core::api::messages {
         );
 
         m_tighten_effect = reactivity::watch_effect().effect([this] {
-            auto value = m_tighten_box_to_text.get();
+            auto value = m_expand_background_to_box.get();
         }).after([this]() {
             ScaleToTextBox::UpdateSize(m_scaler);
         }).finalize();
@@ -244,7 +244,7 @@ namespace core::api::messages {
 
         auto should_recache = false;
 
-        const auto new_show_box = m_show_box.get();
+        const auto new_show_box = m_show_background.get();
         if (m_cached_show_box != new_show_box) {
             m_cached_show_box = new_show_box;
             should_recache = true;

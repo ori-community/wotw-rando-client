@@ -11,12 +11,12 @@ INSTRUCTION(MessageBackground)
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         const auto queued_it = environment.queued_message_boxes.find(id);
         if (queued_it != environment.queued_message_boxes.end() && !queued_it->second.handle->message.expired()) {
-            queued_it->second.handle->message.lock()->show_box().set(memory.booleans.get(0));
+            queued_it->second.handle->message.lock()->show_background().set(memory.booleans.get(0));
         }
 
         const auto free_it = environment.free_message_boxes.find(id);
         if (free_it != environment.free_message_boxes.end()) {
-            free_it->second.message->show_box().set(memory.booleans.get(0));
+            free_it->second.message->show_background().set(memory.booleans.get(0));
         }
     }
 

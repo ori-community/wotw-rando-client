@@ -51,7 +51,7 @@ namespace randomizer {
         if (in_range && m_input_handle == nullptr) {
             m_message_box = std::make_shared<core::api::messages::MessageBox>();
             m_message_box->coordinate_system().set(core::api::messages::CoordinateSystem::World);
-            m_message_box->show_box().set(false);
+            m_message_box->show_background().set(false);
             m_message_box->text().set("Start Trial [Interact]");
             m_message_box->position().set(modloader::math::to_vec3(position));
             m_message_box->position().add(0, 10, 0);

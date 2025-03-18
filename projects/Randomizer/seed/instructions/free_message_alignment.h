@@ -12,7 +12,7 @@ INSTRUCTION(FreeMessageAlignment)
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         if (environment.free_message_boxes.contains(id)) {
-            environment.free_message_boxes[id].message->alignment().set(alignment);
+            environment.free_message_boxes[id].message->text_alignment().set(alignment);
         }
     }
 

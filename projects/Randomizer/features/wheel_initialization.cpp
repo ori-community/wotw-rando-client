@@ -140,11 +140,11 @@ namespace randomizer::features::wheel {
                             static common::registration_handle_t handle;
                             if (handle == nullptr) {
                                 box.coordinate_system().set(core::api::messages::CoordinateSystem::Relative);
-                                box.alignment().set(app::AlignmentMode__Enum::Left);
-                                box.horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Left);
-                                box.vertical_anchor().set(app::VerticalAnchorMode__Enum::Bottom);
+                                box.text_alignment().set(app::AlignmentMode__Enum::Left);
+                                box.box_horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Left);
+                                box.box_vertical_anchor().set(app::VerticalAnchorMode__Enum::Bottom);
                                 box.position().set(0.05f, 0.95f, 0);
-                                box.show_box().set(false);
+                                box.show_background().set(false);
                                 box.show(false, false);
                                 handle = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [](auto, auto) {
                                     const auto [x, y, z] = core::api::game::player::get_position();

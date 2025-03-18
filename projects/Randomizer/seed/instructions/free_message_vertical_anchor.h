@@ -12,7 +12,7 @@ INSTRUCTION(FreeMessageVerticalAnchor)
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         if (environment.free_message_boxes.contains(id)) {
-            environment.free_message_boxes[id].message->vertical_anchor().set(anchor);
+            environment.free_message_boxes[id].message->box_vertical_anchor().set(anchor);
         }
     }
 

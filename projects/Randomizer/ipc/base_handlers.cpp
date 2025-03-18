@@ -124,7 +124,7 @@ namespace randomizer::ipc {
                 message = std::make_shared<core::api::messages::MessageBox>();
                 message->fade_in().set(p.value("fadein", 0.5f));
                 message->fade_out().set(p.value("fadeout", 0.5f));
-                message->show_box().set(p.value("should_show_box", false));
+                message->show_background().set(p.value("should_show_box", false));
                 // bool should_play_sound = p.value("should_play_sound", false);
 
                 nlohmann::json response;
@@ -158,7 +158,7 @@ namespace randomizer::ipc {
 
             if (p.contains("color")) {
                 auto color = p.at("color");
-                message_box->color().set(app::Color{
+                message_box->text_color().set(app::Color{
                     color.at("r").get<float>() / 255.f,
                     color.at("g").get<float>() / 255.f,
                     color.at("b").get<float>() / 255.f,
@@ -167,16 +167,16 @@ namespace randomizer::ipc {
             }
 
             if (p.contains("alignment")) {
-                message_box->alignment().set(p.at("text").get<app::AlignmentMode__Enum>());
+                message_box->text_alignment().set(p.at("text").get<app::AlignmentMode__Enum>());
             }
 
             if (p.contains("anchor")) {
-                message_box->horizontal_anchor().set(p.value("horizontal", app::HorizontalAnchorMode__Enum::Center));
-                message_box->vertical_anchor().set(p.value("vertical", app::VerticalAnchorMode__Enum::Middle));
+                message_box->box_horizontal_anchor().set(p.value("horizontal", app::HorizontalAnchorMode__Enum::Center));
+                message_box->box_vertical_anchor().set(p.value("vertical", app::VerticalAnchorMode__Enum::Middle));
             }
 
             if (p.contains("line_spacing")) {
-                message_box->line_spacing().set(p.at("line_spacing").get<float>());
+                message_box->text_line_spacing().set(p.at("line_spacing").get<float>());
             }
 
             if (p.contains("visible")) {

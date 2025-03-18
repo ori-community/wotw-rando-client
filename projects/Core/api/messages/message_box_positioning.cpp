@@ -110,11 +110,11 @@ namespace core::api::messages {
             auto test1 = get_rect_base(text_box);
             auto test2 = get_rect_full(text_box);
 
-            if (message_box->tighten_box_to_text().get()) {
-                return get_rect_base(text_box);
+            if (message_box->expand_background_to_box().get()) {
+                return get_rect_full(text_box);
             }
 
-            return get_rect_full(text_box);
+            return get_rect_base(text_box);
         }
     }
 }

@@ -47,20 +47,20 @@ namespace core::api::messages {
 
         [[nodiscard]] const Property<app::Vector3>& position() { return m_position; }
         [[nodiscard]] const Property<CoordinateSystem>& coordinate_system() { return m_coordinate_system; }
-        [[nodiscard]] const Property<bool>& show_box() { return m_show_box; }
+        [[nodiscard]] const Property<bool>& show_background() { return m_show_background; }
         [[nodiscard]] const Property<float>& fade_in() { return m_fade_in; }
         [[nodiscard]] const Property<float>& fade_out() { return m_fade_out; }
-        [[nodiscard]] const Property<app::Color>& color() { return m_color; }
-        [[nodiscard]] const Property<float>& line_spacing() { return m_line_spacing; }
-        [[nodiscard]] const Property<float>& width() { return m_width; }
-        [[nodiscard]] const Property<app::AlignmentMode__Enum>& alignment() { return m_alignment; }
-        [[nodiscard]] const Property<app::HorizontalAnchorMode__Enum>& horizontal_anchor() { return m_horizontal_anchor; }
-        [[nodiscard]] const Property<app::VerticalAnchorMode__Enum>& vertical_anchor() { return m_vertical_anchor; }
+        [[nodiscard]] const Property<app::Color>& text_color() { return m_text_color; }
+        [[nodiscard]] const Property<float>& text_line_spacing() { return m_text_line_spacing; }
+        [[nodiscard]] const Property<float>& box_width() { return m_box_width; }
+        [[nodiscard]] const Property<app::AlignmentMode__Enum>& text_alignment() { return m_text_alignment; }
+        [[nodiscard]] const Property<app::HorizontalAnchorMode__Enum>& box_horizontal_anchor() { return m_box_horizontal_anchor; }
+        [[nodiscard]] const Property<app::VerticalAnchorMode__Enum>& box_vertical_anchor() { return m_box_vertical_anchor; }
         [[nodiscard]] const Property<float>& top_padding() { return m_top_padding; }
         [[nodiscard]] const Property<float>& bottom_padding() { return m_bottom_padding; }
         [[nodiscard]] const Property<float>& left_padding() { return m_left_padding; }
         [[nodiscard]] const Property<float>& right_padding() { return m_right_padding; }
-        [[nodiscard]] const Property<bool>& tighten_box_to_text() { return m_tighten_box_to_text; }
+        [[nodiscard]] const Property<bool>& expand_background_to_box() { return m_expand_background_to_box; }
 
     private:
         int m_id;
@@ -79,20 +79,20 @@ namespace core::api::messages {
         Property<std::string> m_text;
         Property<app::Vector3> m_position{{0, 0, 0}};
         Property<CoordinateSystem> m_coordinate_system{CoordinateSystem::Relative};
-        Property<bool> m_show_box = Property<bool>(true);
+        Property<bool> m_show_background = Property<bool>(true);
         Property<float> m_fade_in;
         Property<float> m_fade_out;
-        Property<app::Color> m_color;
-        Property<float> m_line_spacing;
-        Property<float> m_width;
-        Property<app::AlignmentMode__Enum> m_alignment;
-        Property<app::HorizontalAnchorMode__Enum> m_horizontal_anchor;
-        Property<app::VerticalAnchorMode__Enum> m_vertical_anchor;
+        Property<app::Color> m_text_color;
+        Property<float> m_text_line_spacing;
+        Property<float> m_box_width;
+        Property<app::AlignmentMode__Enum> m_text_alignment;
+        Property<app::HorizontalAnchorMode__Enum> m_box_horizontal_anchor;
+        Property<app::VerticalAnchorMode__Enum> m_box_vertical_anchor;
         Property<float> m_top_padding{0.f};
         Property<float> m_bottom_padding{0.f};
         Property<float> m_left_padding{1.f};
         Property<float> m_right_padding{1.f};
-        Property<bool> m_tighten_box_to_text{true};
+        Property<bool> m_expand_background_to_box{true};
 
         std::shared_ptr<reactivity::ReactiveEffect> m_tighten_effect;
     };

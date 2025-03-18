@@ -223,18 +223,18 @@ namespace core::messages {
 
     void MessageDisplay::show_message_box(MessageData& data, int& total_lines, app::Vector3& position) {
         data.message = std::make_shared<api::messages::MessageBox>();
-        data.message->show_box().set(data.info.show_box);
+        data.message->show_background().set(data.info.show_box);
         data.message->text_processor(m_text_processor);
         data.message->text().process_and_set(data.info.text.get());
         data.message->top_padding().set(data.info.padding.x);
         data.message->left_padding().set(data.info.padding.y);
         data.message->bottom_padding().set(data.info.padding.z);
         data.message->right_padding().set(data.info.padding.w);
-        data.message->alignment().set(m_alignment.get());
-        data.message->horizontal_anchor().set(m_horizontal_anchor.get());
-        data.message->vertical_anchor().set(m_message_vertical_anchor.get());
+        data.message->text_alignment().set(m_alignment.get());
+        data.message->box_horizontal_anchor().set(m_horizontal_anchor.get());
+        data.message->box_vertical_anchor().set(m_message_vertical_anchor.get());
         data.message->coordinate_system().set(api::messages::CoordinateSystem::Absolute);
-        data.message->line_spacing().set(data.info.line_spacing);
+        data.message->text_line_spacing().set(data.info.line_spacing);
 
         update_message_position(data, total_lines, position, 0.f);
         if (data.info.pickup_position.has_value()) {

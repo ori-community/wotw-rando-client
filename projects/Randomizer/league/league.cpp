@@ -71,13 +71,13 @@ namespace randomizer::league {
                 league_submission_status_text_box = std::make_shared<core::api::messages::MessageBox>();
             }
 
-            league_submission_status_text_box->alignment().set(app::AlignmentMode__Enum::Center);
-            league_submission_status_text_box->horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Center);
-            league_submission_status_text_box->vertical_anchor().set(app::VerticalAnchorMode__Enum::Top);
+            league_submission_status_text_box->text_alignment().set(app::AlignmentMode__Enum::Center);
+            league_submission_status_text_box->box_horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Center);
+            league_submission_status_text_box->box_vertical_anchor().set(app::VerticalAnchorMode__Enum::Top);
             league_submission_status_text_box->position().set(app::Vector3{0.f, 1.5f, 0.f});
             league_submission_status_text_box->fade_in().set(false);
             league_submission_status_text_box->fade_out().set(false);
-            league_submission_status_text_box->show_box().set(false);
+            league_submission_status_text_box->show_background().set(false);
 
             std::string text;
 

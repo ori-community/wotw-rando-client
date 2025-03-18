@@ -15,10 +15,10 @@ namespace randomizer::messages {
             box->position().set(0.5, 0.95, 0);
             box->coordinate_system().set(core::api::messages::CoordinateSystem::Relative);
 
-            box->alignment().set(app::AlignmentMode__Enum::Center);
-            box->horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Center);
-            box->vertical_anchor().set(app::VerticalAnchorMode__Enum::Bottom);
-            box->show_box().set(false);
+            box->text_alignment().set(app::AlignmentMode__Enum::Center);
+            box->box_horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Center);
+            box->box_vertical_anchor().set(app::VerticalAnchorMode__Enum::Bottom);
+            box->show_background().set(false);
             box->text_processor(general_text_processor());
         }
 
