@@ -57,6 +57,7 @@
 #include <Randomizer/seed/instructions/save.h>
 #include <Randomizer/seed/instructions/save_at.h>
 #include <Randomizer/seed/instructions/set_boolean.h>
+#include <Randomizer/seed/instructions/set_debugger_trace.h>
 #include <Randomizer/seed/instructions/set_float.h>
 #include <Randomizer/seed/instructions/set_integer.h>
 #include <Randomizer/seed/instructions/set_map_message.h>

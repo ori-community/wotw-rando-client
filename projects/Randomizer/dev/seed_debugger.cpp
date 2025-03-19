@@ -104,6 +104,11 @@ namespace randomizer::dev::seed_debugger {
         return !removed;
     }
 
+    bool debugger_has_active_breaks(const DebuggerType debugger) {
+        const auto it = debugger_state.active_breaks.find(debugger);
+        return it != debugger_state.active_breaks.end() || it->second > 0;
+    }
+
     void debugger_break(const DebuggerType debugger) {
         debugger_state.active_breaks[debugger] = 1;
         event_bus().trigger_event(debugger, Event::Break, DebuggerContext{ std::nullopt, std::nullopt, nullptr });

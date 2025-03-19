@@ -59,6 +59,7 @@ namespace randomizer::dev::seed_debugger {
     bool remove_binding_breakpoint(DebuggerType debugger, core::api::uber_states::UberState state);
     bool toggle_binding_breakpoint(DebuggerType debugger, core::api::uber_states::UberState state);
 
+    bool debugger_has_active_breaks(DebuggerType debugger);
     void debugger_break(DebuggerType debugger);
     void debugger_continue(DebuggerType debugger);
 
