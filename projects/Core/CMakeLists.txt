@@ -132,7 +132,7 @@ set(
         "enums/save_meta_slot.h"
         "enums/save_meta_slot_persistence.h"
         "enums/shard_type.h"
-        "enums/static_text_entries.h"
+        "enums/text_id.h"
         "enums/teleporter_type.h"
         "enums/timeline_entries.h"
         "enums/uber_state.h"
