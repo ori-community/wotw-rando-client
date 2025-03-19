@@ -272,7 +272,6 @@ namespace randomizer::seed {
     }
 
     nlohmann::json SaveSlotIconMetaData::json_serialize() {
-
         nlohmann::json j = *this;
         return j;
     }
