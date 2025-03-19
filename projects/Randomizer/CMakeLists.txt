@@ -94,6 +94,7 @@ set(
         "game/behaviour_changes/luma_contact_switch_door_jank_fix.cpp"
         "game/behaviour_changes/patch2_kickback.cpp"
         "game/behaviour_changes/prevent_pickup.cpp"
+        "game/behaviour_changes/quests_ui_to_quests_filter.cpp"
         "game/behaviour_changes/stomp_into_water.cpp"
         "game/behaviour_changes/stomp_through_portals.cpp"
         "game/behaviour_changes/teleport_restriction.cpp"
