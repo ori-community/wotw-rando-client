@@ -11,7 +11,6 @@ INSTRUCTION(DestroyWarpIcon)
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         const auto icon = environment.warp_icons.find(id);
         if (icon != environment.warp_icons.end()) {
-            remove_icon(icon->second);
             environment.warp_icons.erase(icon);
         }
     }

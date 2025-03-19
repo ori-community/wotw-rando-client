@@ -11,7 +11,8 @@ INSTRUCTION(CreateWarpIcon)
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         const auto icon = add_icon(
-            game::map::FilterFlag::All | game::map::FilterFlag::Teleports | game::map::FilterFlag::InLogic | game::map::FilterFlag::Spoilers
+            game::map::FilterFlag::All | game::map::FilterFlag::Teleports | game::map::FilterFlag::InLogic | game::map::FilterFlag::Spoilers,
+            true
         );
 
         icon->name().set("custom_warp_icon");

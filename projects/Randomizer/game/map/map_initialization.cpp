@@ -104,7 +104,7 @@ namespace randomizer::game::map {
             const app::Vector2 position,
             std::vector<shops::ShopSlot*> const& slots
         ) {
-            auto icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
+            auto icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers, false);
             icon->icon().set(map_icon);
             icon->label().set(label);
             icon->name().set(name);
@@ -121,7 +121,7 @@ namespace randomizer::game::map {
             const app::Vector2 position,
             std::optional<std::function<bool()>> const& is_visible_fn = std::nullopt
         ) {
-            auto icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers);
+            auto icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers, false);
             icon->icon().set(map_icon);
             icon->label().set(label);
             icon->name().set(name);
@@ -356,8 +356,8 @@ namespace randomizer::game::map {
                         continue;
                     }
 
-                    const auto in_logic_icon = add_icon(FilterFlag::InLogic);
-                    const auto spoiler_icon = add_icon(FilterFlag::Spoilers);
+                    const auto in_logic_icon = add_icon(FilterFlag::InLogic, false);
+                    const auto spoiler_icon = add_icon(FilterFlag::Spoilers, false);
                     const auto condition = location.condition;
 
                     in_logic_icon->icon().assign([](auto) {}, [condition, game_finished] {

@@ -282,7 +282,7 @@ namespace randomizer::seed {
     }
 
     void SaveSlotIconMetaData::save(SeedExecutionEnvironment& seed_environment) {
-        seed_environment.warp_icons.clear();
+        warp_icons.clear();
         for (auto const& [id, icon] : seed_environment.warp_icons) {
             warp_icons[id] = IconData{
                 icon->name().get_unprocessed(),
@@ -300,7 +300,8 @@ namespace randomizer::seed {
     void SaveSlotIconMetaData::load(SeedExecutionEnvironment& seed_environment) {
         for (auto const& [id, icon_data] : warp_icons) {
             const auto icon = add_icon(
-                game::map::FilterFlag::All | game::map::FilterFlag::Teleports | game::map::FilterFlag::InLogic | game::map::FilterFlag::Spoilers
+                game::map::FilterFlag::All | game::map::FilterFlag::Teleports | game::map::FilterFlag::InLogic | game::map::FilterFlag::Spoilers,
+                true
             );
 
             icon->name().set(icon_data.name);
