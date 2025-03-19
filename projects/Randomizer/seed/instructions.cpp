@@ -34,6 +34,7 @@
 #include <Randomizer/seed/instructions/float_to_string.h>
 #include <Randomizer/seed/instructions/free_message.h>
 #include <Randomizer/seed/instructions/free_message_alignment.h>
+#include <Randomizer/seed/instructions/free_message_box_width.h>
 #include <Randomizer/seed/instructions/free_message_coordinate_system.h>
 #include <Randomizer/seed/instructions/free_message_hide.h>
 #include <Randomizer/seed/instructions/free_message_horizontal_anchor.h>
