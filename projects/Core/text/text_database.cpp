@@ -3,6 +3,7 @@
 #include <Core/enums/static_text_entries.h>
 #include <Core/text/text_database.h>
 #include <Core/property/reactivity.h>
+#include <Core/save_meta/save_meta.h>
 
 #include <Common/ext.h>
 
@@ -12,16 +13,43 @@
 #include <unordered_map>
 
 namespace core::text {
+
     struct TextEntry {
         std::vector<std::string> text;
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
+            TextEntry,
+            text
+        );
     };
 
     // Start dynamic entries after all static values.
-    int next_text_id = static_cast<int>(StaticTextEntry::STATIC_TEXT_ENTRY_END) + 1;
-    std::unordered_map<int, TextEntry> text_entries;
-    std::unordered_map<int, int> dynamic_to_index;
+    class SaveSlotTextMetaData final : public save_meta::JsonSaveMetaSerializable {
+    public:
+        int next_text_id = static_cast<int>(StaticTextEntry::STATIC_TEXT_ENTRY_END) + 1;
+        std::unordered_map<int, TextEntry> text_entries;
+        std::unordered_map<int, int> dynamic_to_index;
 
-    void initialize_shop_slot(int slot) {
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
+            SaveSlotTextMetaData,
+            next_text_id,
+            text_entries,
+            dynamic_to_index
+        );
+
+        nlohmann::json json_serialize() override {
+            nlohmann::json j = *this;
+            return j;
+        }
+
+        void json_deserialize(nlohmann::json& j) override {
+            j.get_to(*this);
+        }
+    };
+
+    auto text_data = std::make_shared<SaveSlotTextMetaData>();
+
+    void initialize_shop_slot(const int slot) {
         register_text(slot, "Empty");
         register_text(slot + 1, " ");
         register_text(slot + 2, "Locked");
@@ -31,7 +59,7 @@ namespace core::text {
     }
 
     void reset_to_default_values() {
-        text_entries.clear();
+        text_data->text_entries.clear();
 
         register_text(*static_text_entry::Empty, " ");
         register_text(*static_text_entry::EmptyName, "Empty");
@@ -302,47 +330,48 @@ namespace core::text {
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        register_slot(SaveMetaSlot::IconData, SaveMetaSlotPersistence::None, text_data);
         reset_to_default_values();
     });
 
-    app::MessageProvider* get_provider(TextEntry& entry) {
-        return core::api::system::create_message_provider(entry.text);
+    app::MessageProvider* get_provider(const TextEntry& entry) {
+        return api::system::create_message_provider(entry.text);
     }
 
-    void register_text(text_id id, std::string_view text) {
-        auto& entry = text_entries[id];
+    void register_text(const text_id id, std::string_view text) {
+        auto& entry = text_data->text_entries[id];
         entry.text.emplace_back(text);
         notify_changed(reactivity::TextDatabaseDependency { id });
     }
 
-    void register_text(text_id id, std::wstring_view text) {
+    void register_text(const text_id id, const std::wstring_view text) {
         register_text(id, convert_wstring_to_string(std::wstring(text)));
     }
 
-    void clear_text(text_id id) {
-        auto& entry = text_entries[id];
+    void clear_text(const text_id id) {
+        auto& entry = text_data->text_entries[id];
         entry.text.clear();
-        auto provider = get_provider(entry);
+        const auto provider = get_provider(entry);
         if (provider != nullptr) {
             il2cpp::invoke(reinterpret_cast<app::TranslatedMessageProvider*>(provider)->fields.Messages, "Clear");
         }
         notify_changed(reactivity::TextDatabaseDependency { id });
     }
 
-    bool has_text(text_id id) {
+    bool has_text(const text_id id) {
         notify_used(reactivity::TextDatabaseDependency { id });
         return get_text_count(id) > 0;
     }
 
-    int get_text_count(text_id id) {
+    int get_text_count(const text_id id) {
         notify_used(reactivity::TextDatabaseDependency { id });
-        auto& entry = text_entries[id];
+        const auto& entry = text_data->text_entries[id];
         return static_cast<int>(entry.text.size());
     }
 
-    std::string_view get_text(text_id id, int i) {
+    std::string_view get_text(const text_id id, int i) {
         notify_used(reactivity::TextDatabaseDependency { id });
-        auto& entry = text_entries[id];
+        const auto& entry = text_data->text_entries[id];
         if (entry.text.empty()) {
             return "";
         }
@@ -350,11 +379,11 @@ namespace core::text {
         return entry.text.at(i);
     }
 
-    std::wstring get_text_w(text_id id, int i) {
+    std::wstring get_text_w(const text_id id, const int i) {
         notify_used(reactivity::TextDatabaseDependency { id });
 
         // Can't return a wstring_view here as we are converting the data so it would get destroyed as we returned.
-        auto& entry = text_entries[id];
+        const auto& entry = text_data->text_entries[id];
         if (entry.text.empty()) {
             return L"";
         }
@@ -362,17 +391,17 @@ namespace core::text {
         return convert_string_to_wstring(entry.text.at(i));
     }
 
-    std::vector<std::string> const& get_all_text(text_id id) {
+    std::vector<std::string> const& get_all_text(const text_id id) {
         notify_used(reactivity::TextDatabaseDependency { id });
-        auto& entry = text_entries[id];
+        const auto& entry = text_data->text_entries[id];
         return entry.text;
     }
 
-    std::string get_concatenated_text(text_id id, std::string_view delimiter) {
+    std::string get_concatenated_text(const text_id id, const std::string_view delimiter) {
         notify_used(reactivity::TextDatabaseDependency { id });
         std::string text;
-        auto& entry = text_entries[id];
-        for (auto& text_entry : entry.text) {
+        const auto& entry = text_data->text_entries[id];
+        for (const auto& text_entry : entry.text) {
             if (!text.empty()) {
                 text += delimiter;
             }
@@ -383,20 +412,20 @@ namespace core::text {
         return text;
     }
 
-    std::string_view get_random_text(text_id id) {
+    std::string_view get_random_text(const text_id id) {
         notify_used(reactivity::TextDatabaseDependency { id });
-        auto& entry = text_entries[id];
+        const auto& entry = text_data->text_entries[id];
         if (entry.text.empty()) {
             return "";
         }
 
-        int index = random(0, static_cast<int>(entry.text.size() - 1));
+        const int index = random(0, static_cast<int>(entry.text.size() - 1));
         return entry.text[index];
     }
 
-    std::string_view get_random_text_with_hash(text_id id, std::size_t hash) {
+    std::string_view get_random_text_with_hash(const text_id id, const std::size_t hash) {
         notify_used(reactivity::TextDatabaseDependency { id });
-        auto& entry = text_entries[id];
+        const auto& entry = text_data->text_entries[id];
         if (entry.text.empty()) {
             return "";
         }
@@ -405,29 +434,29 @@ namespace core::text {
         return entry.text[index];
     }
 
-    app::MessageProvider* get_provider(text_id id, int i) {
+    app::MessageProvider* get_provider(const text_id id, const int i) {
         notify_used(reactivity::TextDatabaseDependency{id});
-        const auto& entry = text_entries[id];
+        const auto& entry = text_data->text_entries[id];
         const auto text = entry.text.empty() ? "" : entry.text[i];
         return api::system::create_message_provider(text);
     }
 
-    app::MessageProvider* get_random_provider(text_id id) {
-        auto& entry = text_entries[id];
+    app::MessageProvider* get_random_provider(const text_id id) {
+        auto& entry = text_data->text_entries[id];
         int index = entry.text.empty() ? 0 : random(0, static_cast<int>(entry.text.size() - 1));
         return get_provider(id, index);
     }
 
     int allocate_dynamic() {
-        return next_text_id++;
+        return text_data->next_text_id++;
     }
 
     void clear_dynamic() {
-        for (auto i = static_cast<text_id>(StaticTextEntry::STATIC_TEXT_ENTRY_END) + 1; i < next_text_id; ++i) {
+        for (auto i = static_cast<text_id>(StaticTextEntry::STATIC_TEXT_ENTRY_END) + 1; i < text_data->next_text_id; ++i) {
             clear_text(i);
         }
 
-        dynamic_to_index.clear();
-        next_text_id = static_cast<int>(StaticTextEntry::STATIC_TEXT_ENTRY_END) + 1;
+        text_data->dynamic_to_index.clear();
+        text_data->next_text_id = static_cast<int>(StaticTextEntry::STATIC_TEXT_ENTRY_END) + 1;
     }
 } // namespace core::text
