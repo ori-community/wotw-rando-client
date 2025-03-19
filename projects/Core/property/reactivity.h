@@ -9,7 +9,7 @@
 #include <Core/macros.h>
 
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/static_text_entries.h>
+#include <Core/enums/text_id.h>
 
 #include <Common/event_bus.h>
 

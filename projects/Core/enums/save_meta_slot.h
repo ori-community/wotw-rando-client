@@ -11,5 +11,6 @@ enum class SaveMetaSlot {
     SeedMetaData,
     SeedArchiveData,
     SeedEnvironment,
+    SeedPersistentMemory,
     StaticText,
 };

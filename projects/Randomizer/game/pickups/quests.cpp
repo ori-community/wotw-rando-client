@@ -1,5 +1,5 @@
 #include <Common/ext.h>
-#include <Core/enums/static_text_entries.h>
+#include <Core/enums/text_id.h>
 #include <Core/mood_guid.h>
 #include <Core/text/text_database.h>
 #include <Modloader/app/methods/Quest.h>

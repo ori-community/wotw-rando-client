@@ -2,7 +2,7 @@
 
 #include <Core/api/graphics/textures.h>
 #include <Core/property.h>
-#include <Core/enums/static_text_entries.h>
+#include <Core/enums/text_id.h>
 
 #include <memory>
 

@@ -164,6 +164,7 @@ namespace randomizer::seed {
         bool m_should_handle_command = true;
         std::vector<IInstruction*> m_command_stack;
         SeedMemory m_memory;
+        std::shared_ptr<PersistentSeedMemory> m_persistent_memory = std::make_shared<PersistentSeedMemory>();
     };
 
 

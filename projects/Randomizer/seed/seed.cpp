@@ -12,6 +12,7 @@ namespace randomizer::seed {
     Seed::Seed(location_data::LocationCollection const& location_data)
         : m_location_data(location_data) {
         register_slot(SaveMetaSlot::SeedEnvironment, SaveMetaSlotPersistence::None, m_environment);
+        register_slot(SaveMetaSlot::SeedPersistentMemory, SaveMetaSlotPersistence::None, m_persistent_memory);
     }
 
     void Seed::read(const std::shared_ptr<SeedArchive>& seed_archive, const seed_parser parser, const bool show_message) {

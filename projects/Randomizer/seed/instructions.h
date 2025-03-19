@@ -41,15 +41,27 @@ namespace randomizer::seed {
                 return values[index];
             }
 
+            bool get(const std::size_t index) const
+                requires(std::same_as<T, char>) {
+                check_size(index);
+                return static_cast<bool>(values[index]);
+            }
+
             void set(const std::size_t index, const T& value) {
                 check_size(index);
                 values[index] = value;
             }
 
+            void set(const std::size_t index, const bool& value)
+                requires(std::same_as<T, char>) {
+                check_size(index);
+                values[index] = static_cast<bool>(value);
+            }
+
             mutable std::vector<T> values;
         };
 
-        MemoryRegister<bool> booleans;
+        MemoryRegister<char> booleans;
         MemoryRegister<int> integers;
         MemoryRegister<float> floats;
         MemoryRegister<std::string> strings;
@@ -100,6 +112,19 @@ namespace randomizer::seed {
     inline void SeedMemory::set(const std::size_t index, const std::string& value) {
         strings.set(index, value);
     }
+
+    class PersistentSeedMemory final : public core::save_meta::SaveMetaSerializable {
+    public:
+        SeedMemory memory;
+        common::registration_handle_t on_new_game_registration_handle;
+
+        PersistentSeedMemory();
+        PersistentSeedMemory(const PersistentSeedMemory& other) = delete;
+        PersistentSeedMemory(PersistentSeedMemory&& other) = delete;
+
+        std::vector<std::byte> serialize() override;
+        void deserialize(utils::ByteStream& stream) override;
+    };
 
     struct SeedTimer {
         core::api::uber_states::UberState toggle;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core/enums/static_text_entries.h>
+#include <Core/enums/text_id.h>
 #include <Core/macros.h>
 #include <Modloader/app/structs/MessageProvider.h>
 

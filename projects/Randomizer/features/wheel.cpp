@@ -3,7 +3,7 @@
 #include <Core/api/graphics/textures.h>
 #include <Core/api/system/message_provider.h>
 #include <Core/core.h>
-#include <Core/enums/static_text_entries.h>
+#include <Core/enums/text_id.h>
 #include <Core/property.h>
 #include <Core/text/text_database.h>
 #include <Modloader/app/methods/CleverMenuItem.h>

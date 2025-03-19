@@ -12,10 +12,10 @@ namespace utils {
         unsigned long position = 0;
 
         ByteStream();
-        explicit ByteStream(std::vector<std::byte> buffer);
-        explicit ByteStream(app::Byte__Array* buffer);
+        explicit ByteStream(const std::vector<std::byte>& buffer);
+        explicit ByteStream(const app::Byte__Array* buffer);
 
-        bool available();
+        bool available() const;
 
         std::vector<std::byte> peek_to_end();
 
@@ -26,8 +26,8 @@ namespace utils {
             this->write(reinterpret_cast<std::byte*>(&data), sizeof(T));
         }
 
-        void write_string(std::string& string) {
-            this->write(reinterpret_cast<std::byte*>(string.data()), string.length());
+        void write_string(const std::string& string) {
+            this->write(reinterpret_cast<const std::byte*>(string.data()), string.length());
         }
 
         template <typename T = std::byte>
@@ -54,6 +54,8 @@ namespace utils {
             return value;
         }
 
+        void read(std::byte* buffer, unsigned long length);
+
         std::vector<std::byte> read(unsigned long length);
 
         std::string read_string(unsigned long length) {
@@ -64,8 +66,8 @@ namespace utils {
 
         void skip(unsigned long count);
 
-        void write(std::byte* data, unsigned long length);
+        void write(const std::byte* data, unsigned long length);
 
-        void write(std::vector<std::byte> data);
+        void write(const std::vector<std::byte>& data);
     };
 } // namespace utils

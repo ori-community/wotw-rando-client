@@ -1,6 +1,6 @@
 #include <Core/api/game/game.h>
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/static_text_entries.h>
+#include <Core/enums/text_id.h>
 #include <Core/settings.h>
 #include <Core/text/text_database.h>
 #include <Modloader/app/methods/AK/Wwise/State.h>

@@ -1,6 +1,6 @@
 #include <Core/api/system/message_provider.h>
 #include <Core/core.h>
-#include <Core/enums/static_text_entries.h>
+#include <Core/enums/text_id.h>
 #include <Core/text/text_database.h>
 #include <Core/property/reactivity.h>
 #include <Core/save_meta/save_meta.h>

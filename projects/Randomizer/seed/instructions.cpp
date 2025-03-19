@@ -271,7 +271,59 @@ namespace randomizer::seed {
         game_seed().environment().free_message_boxes.clear();
     }
 
-     SeedExecutionEnvironment::SeedExecutionEnvironment() {
+    PersistentSeedMemory::PersistentSeedMemory() {
+        on_new_game_registration_handle = core::api::game::event_bus().register_handler(
+            GameEvent::NewGameInitialized,
+            EventTiming::Before,
+            [this](auto, auto) {
+                queue_input_unlocked_callback([this] {
+                    memory = SeedMemory();
+                });
+            }
+        );
+    }
+
+    std::vector<std::byte> PersistentSeedMemory::serialize() {
+        utils::ByteStream stream;
+        stream.write(memory.booleans.values.size());
+        stream.write(reinterpret_cast<std::byte*>(memory.booleans.values.data()), memory.booleans.values.size() * sizeof(char));
+        stream.write(memory.integers.values.size());
+        stream.write(reinterpret_cast<std::byte*>(memory.integers.values.data()), memory.integers.values.size() * sizeof(int));
+        stream.write(memory.floats.values.size());
+        stream.write(reinterpret_cast<std::byte*>(memory.floats.values.data()), memory.floats.values.size() * sizeof(float));
+        stream.write(memory.strings.values.size());
+        for (const auto& str : memory.strings.values) {
+            stream.write(str.size());
+            stream.write_string(str);
+        }
+
+        return stream.buffer;
+    }
+
+    void PersistentSeedMemory::deserialize(utils::ByteStream& stream) {
+        memory = SeedMemory();
+
+        auto length = stream.read<std::size_t>();
+        memory.booleans.values.resize(length);
+        stream.read(reinterpret_cast<std::byte*>(memory.booleans.values.data()), length * sizeof(char));
+
+        length = stream.read<std::size_t>();
+        memory.integers.values.resize(length);
+        stream.read(reinterpret_cast<std::byte*>(memory.integers.values.data()), length * sizeof(int));
+
+        length = stream.read<std::size_t>();
+        memory.floats.values.resize(length);
+        stream.read(reinterpret_cast<std::byte*>(memory.floats.values.data()), length * sizeof(float));
+
+        length = stream.read<std::size_t>();
+        memory.strings.values.resize(length);
+        for (auto i = 0; i < length; ++i) {
+            const auto str_length = stream.read<std::size_t>();
+            stream.read_string(str_length);
+        }
+    }
+
+    SeedExecutionEnvironment::SeedExecutionEnvironment() {
         on_new_game_registration_handle = core::api::game::event_bus().register_handler(
             GameEvent::NewGameInitialized,
             EventTiming::Before,
