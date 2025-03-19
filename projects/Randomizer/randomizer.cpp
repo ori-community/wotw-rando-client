@@ -127,10 +127,6 @@ namespace randomizer {
             queue_reach_check();
         });
 
-        auto on_before_seed_loaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::Before, [](auto, auto) {
-            core::text::reset_to_default_values();
-        });
-
         auto on_after_seed_loaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
             seedgen_service().set_seedgen_info(seed_archive_save_data->seed_archive->get_seedgen_info());
             universe.uber_state_handler().clear_unsyncables();

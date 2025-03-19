@@ -10,6 +10,7 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/modloader.h>
 
+#include <Core/api/game/game.h>
 #include <unordered_map>
 
 namespace core::text {
@@ -52,6 +53,10 @@ namespace core::text {
         register_text(static_cast<text_id>(slot + 4), "Undiscovered");
         register_text(static_cast<text_id>(slot + 5), "What could it be?");
     }
+
+    auto on_new_game = api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+        reset_to_default_values();
+    });
 
     void reset_to_default_values() {
         text_data->text_entries.clear();
