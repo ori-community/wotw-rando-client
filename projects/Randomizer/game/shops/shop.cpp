@@ -275,70 +275,70 @@ namespace randomizer::game::shops {
             { UberState(UberStateGroup::TuleyShop, 40006), UniversalKey::create_tuley(UberState(42178, 40006)) }, // Tree
         };
 
-        std::vector<std::tuple<static_text_entry, ShopSlot*, UberState, UberState>> shop_data{
+        std::vector<std::tuple<text_id, ShopSlot*, UberState, UberState>> shop_data{
             // Opher
-            { static_text_entry::OpherSlot0_Normal_Name, opher.slot(opher_keys[0]), { UberStateGroup::OpherShop, 23 }, { UberStateGroup::OpherShop, 10023 } },
-            { static_text_entry::OpherSlot1_Normal_Name, opher.slot(opher_keys[1]), { UberStateGroup::OpherShop, 74 }, { UberStateGroup::OpherShop, 10074 } },
-            { static_text_entry::OpherSlot2_Normal_Name, opher.slot(opher_keys[2]), { UberStateGroup::OpherShop, 98 }, { UberStateGroup::OpherShop, 10098 } },
-            { static_text_entry::OpherSlot3_Normal_Name, opher.slot(opher_keys[3]), { UberStateGroup::OpherShop, 105 }, { UberStateGroup::OpherShop, 10105 } },
-            { static_text_entry::OpherSlot4_Normal_Name, opher.slot(opher_keys[4]), { UberStateGroup::OpherShop, 106 }, { UberStateGroup::OpherShop, 10106 } },
-            { static_text_entry::OpherSlot5_Normal_Name, opher.slot(opher_keys[5]), { UberStateGroup::OpherShop, 115 }, { UberStateGroup::OpherShop, 10115 } },
-            { static_text_entry::OpherSlot6_Normal_Name, opher.slot(opher_keys[6]), { UberStateGroup::OpherShop, 116 }, { UberStateGroup::OpherShop, 10116 } },
-            { static_text_entry::OpherSlot7_Normal_Name, opher.slot(opher_keys[7]), { UberStateGroup::OpherShop, 1074 }, { UberStateGroup::OpherShop, 11074 } },
-            { static_text_entry::OpherSlot8_Normal_Name, opher.slot(opher_keys[8]), { UberStateGroup::OpherShop, 1098 }, { UberStateGroup::OpherShop, 11098 } },
-            { static_text_entry::OpherSlot9_Normal_Name, opher.slot(opher_keys[9]), { UberStateGroup::OpherShop, 1106 }, { UberStateGroup::OpherShop, 11106 } },
-            { static_text_entry::OpherSlot10_Normal_Name, opher.slot(opher_keys[10]), { UberStateGroup::OpherShop, 1115 }, { UberStateGroup::OpherShop, 11115 } },
-            { static_text_entry::OpherSlot11_Normal_Name, opher.slot(opher_keys[11]), { UberStateGroup::OpherShop, 1116 }, { UberStateGroup::OpherShop, 11116 } },
+            { text_id::OpherSlot0_Normal_Name, opher.slot(opher_keys[0]), { UberStateGroup::OpherShop, 23 }, { UberStateGroup::OpherShop, 10023 } },
+            { text_id::OpherSlot1_Normal_Name, opher.slot(opher_keys[1]), { UberStateGroup::OpherShop, 74 }, { UberStateGroup::OpherShop, 10074 } },
+            { text_id::OpherSlot2_Normal_Name, opher.slot(opher_keys[2]), { UberStateGroup::OpherShop, 98 }, { UberStateGroup::OpherShop, 10098 } },
+            { text_id::OpherSlot3_Normal_Name, opher.slot(opher_keys[3]), { UberStateGroup::OpherShop, 105 }, { UberStateGroup::OpherShop, 10105 } },
+            { text_id::OpherSlot4_Normal_Name, opher.slot(opher_keys[4]), { UberStateGroup::OpherShop, 106 }, { UberStateGroup::OpherShop, 10106 } },
+            { text_id::OpherSlot5_Normal_Name, opher.slot(opher_keys[5]), { UberStateGroup::OpherShop, 115 }, { UberStateGroup::OpherShop, 10115 } },
+            { text_id::OpherSlot6_Normal_Name, opher.slot(opher_keys[6]), { UberStateGroup::OpherShop, 116 }, { UberStateGroup::OpherShop, 10116 } },
+            { text_id::OpherSlot7_Normal_Name, opher.slot(opher_keys[7]), { UberStateGroup::OpherShop, 1074 }, { UberStateGroup::OpherShop, 11074 } },
+            { text_id::OpherSlot8_Normal_Name, opher.slot(opher_keys[8]), { UberStateGroup::OpherShop, 1098 }, { UberStateGroup::OpherShop, 11098 } },
+            { text_id::OpherSlot9_Normal_Name, opher.slot(opher_keys[9]), { UberStateGroup::OpherShop, 1106 }, { UberStateGroup::OpherShop, 11106 } },
+            { text_id::OpherSlot10_Normal_Name, opher.slot(opher_keys[10]), { UberStateGroup::OpherShop, 1115 }, { UberStateGroup::OpherShop, 11115 } },
+            { text_id::OpherSlot11_Normal_Name, opher.slot(opher_keys[11]), { UberStateGroup::OpherShop, 1116 }, { UberStateGroup::OpherShop, 11116 } },
 
             // Twillen
-            { static_text_entry::TwillenSlot0_Normal_Name, twillen.slot(twillen_keys[0]), { UberStateGroup::TwillenShop, 1 }, { UberStateGroup::TwillenShop, 101 } },
-            { static_text_entry::TwillenSlot1_Normal_Name, twillen.slot(twillen_keys[1]), { UberStateGroup::TwillenShop, 2 }, { UberStateGroup::TwillenShop, 102 } },
-            { static_text_entry::TwillenSlot2_Normal_Name, twillen.slot(twillen_keys[2]), { UberStateGroup::TwillenShop, 3 }, { UberStateGroup::TwillenShop, 103 } },
-            { static_text_entry::TwillenSlot3_Normal_Name, twillen.slot(twillen_keys[3]), { UberStateGroup::TwillenShop, 5 }, { UberStateGroup::TwillenShop, 105 } },
-            { static_text_entry::TwillenSlot4_Normal_Name, twillen.slot(twillen_keys[4]), { UberStateGroup::TwillenShop, 19 }, { UberStateGroup::TwillenShop, 119 } },
-            { static_text_entry::TwillenSlot5_Normal_Name, twillen.slot(twillen_keys[5]), { UberStateGroup::TwillenShop, 22 }, { UberStateGroup::TwillenShop, 122 } },
-            { static_text_entry::TwillenSlot6_Normal_Name, twillen.slot(twillen_keys[6]), { UberStateGroup::TwillenShop, 26 }, { UberStateGroup::TwillenShop, 126 } },
-            { static_text_entry::TwillenSlot7_Normal_Name, twillen.slot(twillen_keys[7]), { UberStateGroup::TwillenShop, 40 }, { UberStateGroup::TwillenShop, 140 } },
+            { text_id::TwillenSlot0_Normal_Name, twillen.slot(twillen_keys[0]), { UberStateGroup::TwillenShop, 1 }, { UberStateGroup::TwillenShop, 101 } },
+            { text_id::TwillenSlot1_Normal_Name, twillen.slot(twillen_keys[1]), { UberStateGroup::TwillenShop, 2 }, { UberStateGroup::TwillenShop, 102 } },
+            { text_id::TwillenSlot2_Normal_Name, twillen.slot(twillen_keys[2]), { UberStateGroup::TwillenShop, 3 }, { UberStateGroup::TwillenShop, 103 } },
+            { text_id::TwillenSlot3_Normal_Name, twillen.slot(twillen_keys[3]), { UberStateGroup::TwillenShop, 5 }, { UberStateGroup::TwillenShop, 105 } },
+            { text_id::TwillenSlot4_Normal_Name, twillen.slot(twillen_keys[4]), { UberStateGroup::TwillenShop, 19 }, { UberStateGroup::TwillenShop, 119 } },
+            { text_id::TwillenSlot5_Normal_Name, twillen.slot(twillen_keys[5]), { UberStateGroup::TwillenShop, 22 }, { UberStateGroup::TwillenShop, 122 } },
+            { text_id::TwillenSlot6_Normal_Name, twillen.slot(twillen_keys[6]), { UberStateGroup::TwillenShop, 26 }, { UberStateGroup::TwillenShop, 126 } },
+            { text_id::TwillenSlot7_Normal_Name, twillen.slot(twillen_keys[7]), { UberStateGroup::TwillenShop, 40 }, { UberStateGroup::TwillenShop, 140 } },
 
             // Lupo
-            { static_text_entry::LupoSlot0_Normal_Name, lupo.slot(lupo_keys[0]), { UberStateGroup::LupoShop, 19396 }, { UberStateGroup::LupoShop, 19396 + 1 } },
-            { static_text_entry::LupoSlot1_Normal_Name, lupo.slot(lupo_keys[1]), { UberStateGroup::LupoShop, 57987 }, { UberStateGroup::LupoShop, 57987 + 1 } },
-            { static_text_entry::LupoSlot2_Normal_Name, lupo.slot(lupo_keys[2]), { UberStateGroup::LupoShop, 41666 }, { UberStateGroup::LupoShop, 41666 + 1 } },
+            { text_id::LupoSlot0_Normal_Name, lupo.slot(lupo_keys[0]), { UberStateGroup::LupoShop, 19396 }, { UberStateGroup::LupoShop, 19396 + 1 } },
+            { text_id::LupoSlot1_Normal_Name, lupo.slot(lupo_keys[1]), { UberStateGroup::LupoShop, 57987 }, { UberStateGroup::LupoShop, 57987 + 1 } },
+            { text_id::LupoSlot2_Normal_Name, lupo.slot(lupo_keys[2]), { UberStateGroup::LupoShop, 41666 }, { UberStateGroup::LupoShop, 41666 + 1 } },
 
             // Grom
-            { static_text_entry::GromSlot0_Normal_Name, grom.slot(grom_keys[0]), { UberStateGroup::GromShop, 15068 }, { UberStateGroup::GromShop, 15068 + 1 } },
-            { static_text_entry::GromSlot1_Normal_Name, grom.slot(grom_keys[1]), { UberStateGroup::GromShop, 51230 }, { UberStateGroup::GromShop, 51230 + 1 } },
-            { static_text_entry::GromSlot2_Normal_Name, grom.slot(grom_keys[2]), { UberStateGroup::GromShop, 23607 }, { UberStateGroup::GromShop, 23607 + 1 } },
-            { static_text_entry::GromSlot3_Normal_Name, grom.slot(grom_keys[3]), { UberStateGroup::GromShop, 40448 }, { UberStateGroup::GromShop, 40448 + 1 } },
-            { static_text_entry::GromSlot4_Normal_Name, grom.slot(grom_keys[4]), { UberStateGroup::GromShop, 16586 }, { UberStateGroup::GromShop, 16586 + 1 } },
-            { static_text_entry::GromSlot5_Normal_Name, grom.slot(grom_keys[5]), { UberStateGroup::GromShop, 18751 }, { UberStateGroup::GromShop, 18751 + 1 } },
-            { static_text_entry::GromSlot6_Normal_Name, grom.slot(grom_keys[6]), { UberStateGroup::GromShop, 16825 }, { UberStateGroup::GromShop, 16825 + 1 } },
+            { text_id::GromSlot0_Normal_Name, grom.slot(grom_keys[0]), { UberStateGroup::GromShop, 15068 }, { UberStateGroup::GromShop, 15068 + 1 } },
+            { text_id::GromSlot1_Normal_Name, grom.slot(grom_keys[1]), { UberStateGroup::GromShop, 51230 }, { UberStateGroup::GromShop, 51230 + 1 } },
+            { text_id::GromSlot2_Normal_Name, grom.slot(grom_keys[2]), { UberStateGroup::GromShop, 23607 }, { UberStateGroup::GromShop, 23607 + 1 } },
+            { text_id::GromSlot3_Normal_Name, grom.slot(grom_keys[3]), { UberStateGroup::GromShop, 40448 }, { UberStateGroup::GromShop, 40448 + 1 } },
+            { text_id::GromSlot4_Normal_Name, grom.slot(grom_keys[4]), { UberStateGroup::GromShop, 16586 }, { UberStateGroup::GromShop, 16586 + 1 } },
+            { text_id::GromSlot5_Normal_Name, grom.slot(grom_keys[5]), { UberStateGroup::GromShop, 18751 }, { UberStateGroup::GromShop, 18751 + 1 } },
+            { text_id::GromSlot6_Normal_Name, grom.slot(grom_keys[6]), { UberStateGroup::GromShop, 16825 }, { UberStateGroup::GromShop, 16825 + 1 } },
 
             // Tuley
-            { static_text_entry::TuleySlot0_Normal_Name, tuley.slot(tuley_keys[0]), { UberStateGroup::TuleyShop, 47651 }, { UberStateGroup::TuleyShop, 47651 + 1 } },
-            { static_text_entry::TuleySlot1_Normal_Name, tuley.slot(tuley_keys[1]), { UberStateGroup::TuleyShop, 16254 }, { UberStateGroup::TuleyShop, 16254 + 1 } },
-            { static_text_entry::TuleySlot2_Normal_Name, tuley.slot(tuley_keys[2]), { UberStateGroup::TuleyShop, 33011 }, { UberStateGroup::TuleyShop, 33011 + 1 } },
-            { static_text_entry::TuleySlot3_Normal_Name, tuley.slot(tuley_keys[3]), { UberStateGroup::TuleyShop, 64583 }, { UberStateGroup::TuleyShop, 64583 + 1 } },
-            { static_text_entry::TuleySlot4_Normal_Name, tuley.slot(tuley_keys[4]), { UberStateGroup::TuleyShop, 38393 }, { UberStateGroup::TuleyShop, 38393 + 1 } },
-            { static_text_entry::TuleySlot5_Normal_Name, tuley.slot(tuley_keys[5]), { UberStateGroup::TuleyShop, 40006 }, { UberStateGroup::TuleyShop, 40006 + 1 } },
+            { text_id::TuleySlot0_Normal_Name, tuley.slot(tuley_keys[0]), { UberStateGroup::TuleyShop, 47651 }, { UberStateGroup::TuleyShop, 47651 + 1 } },
+            { text_id::TuleySlot1_Normal_Name, tuley.slot(tuley_keys[1]), { UberStateGroup::TuleyShop, 16254 }, { UberStateGroup::TuleyShop, 16254 + 1 } },
+            { text_id::TuleySlot2_Normal_Name, tuley.slot(tuley_keys[2]), { UberStateGroup::TuleyShop, 33011 }, { UberStateGroup::TuleyShop, 33011 + 1 } },
+            { text_id::TuleySlot3_Normal_Name, tuley.slot(tuley_keys[3]), { UberStateGroup::TuleyShop, 64583 }, { UberStateGroup::TuleyShop, 64583 + 1 } },
+            { text_id::TuleySlot4_Normal_Name, tuley.slot(tuley_keys[4]), { UberStateGroup::TuleyShop, 38393 }, { UberStateGroup::TuleyShop, 38393 + 1 } },
+            { text_id::TuleySlot5_Normal_Name, tuley.slot(tuley_keys[5]), { UberStateGroup::TuleyShop, 40006 }, { UberStateGroup::TuleyShop, 40006 + 1 } },
         };
 
-        for (auto& [text_id, slot, state, cost] : shop_data) {
+        for (auto& [id, slot, state, cost] : shop_data) {
             slot->state = state;
             slot->cost = cost;
-            slot->normal.name.assign(text_id);
+            slot->normal.name.assign(id);
             slot->normal.name.text_processor(general_text_processor());
-            slot->normal.description.assign(static_cast<static_text_entry>(static_cast<int>(text_id) + 1));
+            slot->normal.description.assign(static_cast<text_id>(static_cast<int>(id) + 1));
             slot->normal.description.text_processor(general_text_processor());
             slot->normal.icon = core::api::graphics::textures::get_texture("shard:0");
-            slot->locked.name.assign(static_cast<static_text_entry>(static_cast<int>(text_id) + 2));
+            slot->locked.name.assign(static_cast<text_id>(static_cast<int>(id) + 2));
             slot->normal.name.text_processor(general_text_processor());
-            slot->locked.description.assign(static_cast<static_text_entry>(static_cast<int>(text_id) + 3));
+            slot->locked.description.assign(static_cast<text_id>(static_cast<int>(id) + 3));
             slot->normal.description.text_processor(general_text_processor());
             slot->locked.icon = core::api::graphics::textures::get_texture("shard:0");
-            slot->hidden.name.assign(static_cast<static_text_entry>(static_cast<int>(text_id) + 4));
+            slot->hidden.name.assign(static_cast<text_id>(static_cast<int>(id) + 4));
             slot->hidden.name.text_processor(general_text_processor());
-            slot->hidden.description.assign(static_cast<static_text_entry>(static_cast<int>(text_id) + 5));
+            slot->hidden.description.assign(static_cast<text_id>(static_cast<int>(id) + 5));
             slot->hidden.description.text_processor(general_text_processor());
             slot->hidden.icon = core::api::graphics::textures::get_texture("shard:0");
             slot->is_locked = false;

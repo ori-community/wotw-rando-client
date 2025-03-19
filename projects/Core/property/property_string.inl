@@ -14,7 +14,7 @@ struct core::Property<std::string> {
     using value_type = std::variant<
         std::shared_ptr<std::string>,
         set_get<std::string>,
-        static_text_entry
+        text_id
     >;
 
     Property() {

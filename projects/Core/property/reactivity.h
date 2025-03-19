@@ -27,7 +27,7 @@ namespace core::reactivity {
     };
 
     struct TextDatabaseDependency {
-        static_text_entry id;
+        text_id id;
 
         auto operator<=>(const TextDatabaseDependency&) const = default;
     };
@@ -48,7 +48,7 @@ struct std::hash<core::reactivity::UberStateDependency> {
 
 template<>
 struct std::hash<core::reactivity::TextDatabaseDependency> {
-    std::size_t operator()(const core::reactivity::TextDatabaseDependency& value) const noexcept { return value.id; }
+    std::size_t operator()(const core::reactivity::TextDatabaseDependency& value) const noexcept { return static_cast<std::size_t>(value.id); }
 };
 
 template<>

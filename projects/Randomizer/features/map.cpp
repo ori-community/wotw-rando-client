@@ -36,16 +36,16 @@ using namespace app::classes;
 namespace {
     enum class LupoSelection { Intro = 0, SalesPitch = 1, NoSale = 2, Broke = 3, Thanks = 4 };
 
-    std::unordered_map<app::GameWorldAreaID__Enum, static_text_entry> text_overrides{
-        {app::GameWorldAreaID__Enum::InkwaterMarsh,   static_text_entry::LupoMarshIntroduction     },
-        {app::GameWorldAreaID__Enum::KwoloksHollow,   static_text_entry::LupoHollowIntroduction    },
-        {app::GameWorldAreaID__Enum::WaterMill,       static_text_entry::LupoWellspringIntroduction},
-        {app::GameWorldAreaID__Enum::MidnightBurrow,  static_text_entry::LupoBurrowIntroduction    },
-        {app::GameWorldAreaID__Enum::BaursReach,      static_text_entry::LupoReachIntroduction     },
-        {app::GameWorldAreaID__Enum::LumaPools,       static_text_entry::LupoPoolsIntroduction     },
-        {app::GameWorldAreaID__Enum::MouldwoodDepths, static_text_entry::LupoDepthsIntroduction    },
-        {app::GameWorldAreaID__Enum::WindsweptWastes, static_text_entry::LupoWastesIntroduction    },
-        {app::GameWorldAreaID__Enum::WillowsEnd,      static_text_entry::LupoWillowIntroduction    },
+    std::unordered_map<app::GameWorldAreaID__Enum, text_id> text_overrides{
+        {app::GameWorldAreaID__Enum::InkwaterMarsh,   text_id::LupoMarshIntroduction     },
+        {app::GameWorldAreaID__Enum::KwoloksHollow,   text_id::LupoHollowIntroduction    },
+        {app::GameWorldAreaID__Enum::WaterMill,       text_id::LupoWellspringIntroduction},
+        {app::GameWorldAreaID__Enum::MidnightBurrow,  text_id::LupoBurrowIntroduction    },
+        {app::GameWorldAreaID__Enum::BaursReach,      text_id::LupoReachIntroduction     },
+        {app::GameWorldAreaID__Enum::LumaPools,       text_id::LupoPoolsIntroduction     },
+        {app::GameWorldAreaID__Enum::MouldwoodDepths, text_id::LupoDepthsIntroduction    },
+        {app::GameWorldAreaID__Enum::WindsweptWastes, text_id::LupoWastesIntroduction    },
+        {app::GameWorldAreaID__Enum::WillowsEnd,      text_id::LupoWillowIntroduction    },
     };
 
     app::GameWorld* get_game_world() { return types::GameWorld::get_class()->static_fields->Instance; }
@@ -61,7 +61,7 @@ namespace {
 
     app::MessageProvider* handle_lupo_message(app::CartographerEntity* this_ptr, LupoSelection selection, normal_function normal) {
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
-        auto text_override = *text_overrides[area->fields.WorldMapAreaUniqueID] + static_cast<int>(selection);
+        auto text_override = static_cast<text_id>(static_cast<int>(text_overrides[area->fields.WorldMapAreaUniqueID]) + static_cast<int>(selection));
         return core::text::has_text(text_override) ? core::text::get_provider(text_override) : normal(this_ptr);
     }
 
@@ -111,7 +111,7 @@ namespace {
         QuestsUI::UpdateDescriptionUI_2(this_ptr, quest);
 
         this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox->fields.MessageProvider = core::text::get_random_provider(
-            *static_text_entry::QuestReward
+            text_id::QuestReward
         );
         MessageBox::RefreshText_1(this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox);
 

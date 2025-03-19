@@ -30,7 +30,7 @@ namespace randomizer::text_processors {
                 return std::nullopt;
             }
 
-            return core::text::get_concatenated_text(id, "\n");
+            return core::text::get_concatenated_text(static_cast<text_id>(id), "\n");
         }
     } // namespace
 

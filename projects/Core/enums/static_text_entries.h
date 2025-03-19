@@ -1,13 +1,10 @@
 #pragma once
 
 namespace core {
-    enum class StaticTextEntry {
+    enum class TextID {
         Empty = 0,
         EmptyName = 1,
-        Chatter = 2,
         QuestReward = 3,
-        CurrencyPlural = 4,
-        CurrencySingular = 5,
 
         // Shops
         OpherSlot0_Normal_Name = 13000, // 10000 + (ShopType * 1000) + (Slot index * 10) + 0
@@ -317,14 +314,9 @@ namespace core {
         LupoWillowBroke = 8143, // 8000 + (GameWorldAreaID * 10) + 3
         LupoWillowThanks = 8144, // 8000 + (GameWorldAreaID * 10) + 4
 
-        // Step 0 quests
         QuestMissingKeyStep0 = 50,
         QuestHandToHandStep0 = 51,
         QuestTreeKeeperStep0 = 52,
-
-        // Hints
-        MapHint = 90,
-        ProgressHint = 91,
 
         // Spirit Trial Texts (the ones that show up above the spirit trial start)
         TrialTextMarsh = 100,
@@ -338,4 +330,4 @@ namespace core {
     };
 } // namespace core
 
-using static_text_entry = core::StaticTextEntry;
+using text_id = core::TextID;
