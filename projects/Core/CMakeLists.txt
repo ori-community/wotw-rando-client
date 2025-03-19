@@ -9,11 +9,6 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 set(
         SOURCE_FILES
         "animation/animation.cpp"
-        "animation/timeline.cpp"
-        "animation/timeline_entries/base.cpp"
-        "animation/timeline_entries/lerpers.cpp"
-        "animation/timeline_entries/objects.cpp"
-        "animation/timeline_entries/setters.cpp"
         "api/faderb.cpp"
         "api/game/death_listener.cpp"
         "api/game/debug_menu.cpp"
@@ -86,12 +81,6 @@ set(
 set(
         PUBLIC_HEADER_FILES
         "animation/animation.h"
-        "animation/timeline.h"
-        "animation/timeline_entries/base.h"
-        "animation/timeline_entries/lerpers.h"
-        "animation/timeline_entries/objects.h"
-        "animation/timeline_entries/setters.h"
-        "animation/timeline_state.h"
         "api/faderb.h"
         "api/game/death_listener.h"
         "api/game/debug_menu.h"

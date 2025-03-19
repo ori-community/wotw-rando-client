@@ -12,9 +12,9 @@ namespace randomizer::game::shops {
     enum class ShopType {
         Lupo,
         Grom,
+        Tuley,
         Opher,
         Twillen,
-        Tuley,
     };
 
     using opher_key = std::pair<app::AbilityType__Enum, app::AbilityType__Enum>;

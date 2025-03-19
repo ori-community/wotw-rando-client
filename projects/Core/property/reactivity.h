@@ -27,7 +27,7 @@ namespace core::reactivity {
     };
 
     struct TextDatabaseDependency {
-        text_id id;
+        static_text_entry id;
 
         auto operator<=>(const TextDatabaseDependency&) const = default;
     };

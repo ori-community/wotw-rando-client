@@ -1,8 +1,6 @@
 #pragma once
 
 namespace core {
-    using text_id = int;
-
     enum class StaticTextEntry {
         Empty = 0,
         EmptyName = 1,
@@ -152,26 +150,117 @@ namespace core {
         TwillenSlot7_Hidden_Name = 14074, // 10000 + (ShopType * 1000) + (Slot index * 10) + 4
         TwillenSlot7_Hidden_Description = 14075, // 10000 + (ShopType * 1000) + (Slot index * 10) + 5
 
-        LupoSlot0_Normal_Name = 11000, // 10000 + (ShopType * 1000) + (Slot index * 10) + 0
-        LupoSlot0_Normal_Description = 11001, // 10000 + (ShopType * 1000) + (Slot index * 10) + 1
-        LupoSlot0_Locked_Name = 11002, // 10000 + (ShopType * 1000) + (Slot index * 10) + 2
-        LupoSlot0_Locked_Description = 11003, // 10000 + (ShopType * 1000) + (Slot index * 10) + 3
-        LupoSlot0_Hidden_Name = 11004, // 10000 + (ShopType * 1000) + (Slot index * 10) + 4
-        LupoSlot0_Hidden_Description = 11005, // 10000 + (ShopType * 1000) + (Slot index * 10) + 5
+        LupoSlot0_Normal_Name = 10000, // 10000 + (ShopType * 1000) + (Slot index * 10) + 0
+        LupoSlot0_Normal_Description = 10001, // 10000 + (ShopType * 1000) + (Slot index * 10) + 1
+        LupoSlot0_Locked_Name = 10002, // 10000 + (ShopType * 1000) + (Slot index * 10) + 2
+        LupoSlot0_Locked_Description = 10003, // 10000 + (ShopType * 1000) + (Slot index * 10) + 3
+        LupoSlot0_Hidden_Name = 10004, // 10000 + (ShopType * 1000) + (Slot index * 10) + 4
+        LupoSlot0_Hidden_Description = 10005, // 10000 + (ShopType * 1000) + (Slot index * 10) + 5
 
-        LupoSlot1_Normal_Name = 11010, // 10000 + (ShopType * 1000) + (Slot index * 10) + 0
-        LupoSlot1_Normal_Description = 11011, // 10000 + (ShopType * 1000) + (Slot index * 10) + 1
-        LupoSlot1_Locked_Name = 11012, // 10000 + (ShopType * 1000) + (Slot index * 10) + 2
-        LupoSlot1_Locked_Description = 11013, // 10000 + (ShopType * 1000) + (Slot index * 10) + 3
-        LupoSlot1_Hidden_Name = 11014, // 10000 + (ShopType * 1000) + (Slot index * 10) + 4
-        LupoSlot1_Hidden_Description = 11015, // 10000 + (ShopType * 1000) + (Slot index * 10) + 5
+        LupoSlot1_Normal_Name = 10010, // 10000 + (ShopType * 1000) + (Slot index * 10) + 0
+        LupoSlot1_Normal_Description = 10011, // 10000 + (ShopType * 1000) + (Slot index * 10) + 1
+        LupoSlot1_Locked_Name = 10012, // 10000 + (ShopType * 1000) + (Slot index * 10) + 2
+        LupoSlot1_Locked_Description = 10013, // 10000 + (ShopType * 1000) + (Slot index * 10) + 3
+        LupoSlot1_Hidden_Name = 10014, // 10000 + (ShopType * 1000) + (Slot index * 10) + 4
+        LupoSlot1_Hidden_Description = 10015, // 10000 + (ShopType * 1000) + (Slot index * 10) + 5
 
-        LupoSlot2_Normal_Name = 11020, // 10000 + (ShopType * 1000) + (Slot index * 10) + 0
-        LupoSlot2_Normal_Description = 11021, // 10000 + (ShopType * 1000) + (Slot index * 10) + 1
-        LupoSlot2_Locked_Name = 11022, // 10000 + (ShopType * 1000) + (Slot index * 10) + 2
-        LupoSlot2_Locked_Description = 11023, // 10000 + (ShopType * 1000) + (Slot index * 10) + 3
-        LupoSlot2_Hidden_Name = 11024, // 10000 + (ShopType * 1000) + (Slot index * 10) + 4
-        LupoSlot2_Hidden_Description = 11025, // 10000 + (ShopType * 1000) + (Slot index * 10) + 5
+        LupoSlot2_Normal_Name = 10020, // 10000 + (ShopType * 1000) + (Slot index * 10) + 0
+        LupoSlot2_Normal_Description = 10021, // 10000 + (ShopType * 1000) + (Slot index * 10) + 1
+        LupoSlot2_Locked_Name = 10022, // 10000 + (ShopType * 1000) + (Slot index * 10) + 2
+        LupoSlot2_Locked_Description = 10023, // 10000 + (ShopType * 1000) + (Slot index * 10) + 3
+        LupoSlot2_Hidden_Name = 10024, // 10000 + (ShopType * 1000) + (Slot index * 10) + 4
+        LupoSlot2_Hidden_Description = 10025, // 10000 + (ShopType * 1000) + (Slot index * 10) + 5
+
+        GromSlot1_Normal_Name = 11000, // 11000 + (ShopType * 1000) + (Slot index * 10) + 0
+        GromSlot1_Normal_Description = 11001, // 11000 + (ShopType * 1000) + (Slot index * 10) + 1
+        GromSlot1_Locked_Name = 11002, // 11000 + (ShopType * 1000) + (Slot index * 10) + 2
+        GromSlot1_Locked_Description = 11003, // 11000 + (ShopType * 1000) + (Slot index * 10) + 3
+        GromSlot1_Hidden_Name = 11004, // 11000 + (ShopType * 1000) + (Slot index * 10) + 4
+        GromSlot1_Hidden_Description = 11005, // 11000 + (ShopType * 1000) + (Slot index * 10) + 5
+
+        GromSlot2_Normal_Name = 11010, // 11000 + (ShopType * 1000) + (Slot index * 10) + 0
+        GromSlot2_Normal_Description = 11011, // 11000 + (ShopType * 1000) + (Slot index * 10) + 1
+        GromSlot2_Locked_Name = 11012, // 11000 + (ShopType * 1000) + (Slot index * 10) + 2
+        GromSlot2_Locked_Description = 11013, // 11000 + (ShopType * 1000) + (Slot index * 10) + 3
+        GromSlot2_Hidden_Name = 11014, // 11000 + (ShopType * 1000) + (Slot index * 10) + 4
+        GromSlot2_Hidden_Description = 11015, // 11000 + (ShopType * 1000) + (Slot index * 10) + 5
+
+        GromSlot3_Normal_Name = 11020, // 11000 + (ShopType * 1000) + (Slot index * 10) + 0
+        GromSlot3_Normal_Description = 11021, // 11000 + (ShopType * 1000) + (Slot index * 10) + 1
+        GromSlot3_Locked_Name = 11022, // 11000 + (ShopType * 1000) + (Slot index * 10) + 2
+        GromSlot3_Locked_Description = 11023, // 11000 + (ShopType * 1000) + (Slot index * 10) + 3
+        GromSlot3_Hidden_Name = 11024, // 11000 + (ShopType * 1000) + (Slot index * 10) + 4
+        GromSlot3_Hidden_Description = 11025, // 11000 + (ShopType * 1000) + (Slot index * 10) + 5
+
+        GromSlot4_Normal_Name = 11030, // 11000 + (ShopType * 1000) + (Slot index * 10) + 0
+        GromSlot4_Normal_Description = 11031, // 11000 + (ShopType * 1000) + (Slot index * 10) + 1
+        GromSlot4_Locked_Name = 11032, // 11000 + (ShopType * 1000) + (Slot index * 10) + 2
+        GromSlot4_Locked_Description = 11033, // 11000 + (ShopType * 1000) + (Slot index * 10) + 3
+        GromSlot4_Hidden_Name = 11034, // 11000 + (ShopType * 1000) + (Slot index * 10) + 4
+        GromSlot4_Hidden_Description = 11035, // 11000 + (ShopType * 1000) + (Slot index * 10) + 5
+
+        GromSlot5_Normal_Name = 11040, // 11000 + (ShopType * 1000) + (Slot index * 10) + 0
+        GromSlot5_Normal_Description = 11041, // 11000 + (ShopType * 1000) + (Slot index * 10) + 1
+        GromSlot5_Locked_Name = 11042, // 11000 + (ShopType * 1000) + (Slot index * 10) + 2
+        GromSlot5_Locked_Description = 11043, // 11000 + (ShopType * 1000) + (Slot index * 10) + 3
+        GromSlot5_Hidden_Name = 11044, // 11000 + (ShopType * 1000) + (Slot index * 10) + 4
+        GromSlot5_Hidden_Description = 11045, // 11000 + (ShopType * 1000) + (Slot index * 10) + 5
+
+        GromSlot6_Normal_Name = 11050, // 11000 + (ShopType * 1000) + (Slot index * 10) + 0
+        GromSlot6_Normal_Description = 11051, // 11000 + (ShopType * 1000) + (Slot index * 10) + 1
+        GromSlot6_Locked_Name = 11052, // 11000 + (ShopType * 1000) + (Slot index * 10) + 2
+        GromSlot6_Locked_Description = 11053, // 11000 + (ShopType * 1000) + (Slot index * 10) + 3
+        GromSlot6_Hidden_Name = 11054, // 11000 + (ShopType * 1000) + (Slot index * 10) + 4
+        GromSlot6_Hidden_Description = 11055, // 11000 + (ShopType * 1000) + (Slot index * 10) + 5
+
+        GromSlot0_Normal_Name = 11060, // 11000 + (ShopType * 1000) + (Slot index * 10) + 0
+        GromSlot0_Normal_Description = 11061, // 11000 + (ShopType * 1000) + (Slot index * 10) + 1
+        GromSlot0_Locked_Name = 11062, // 11000 + (ShopType * 1000) + (Slot index * 10) + 2
+        GromSlot0_Locked_Description = 11063, // 11000 + (ShopType * 1000) + (Slot index * 10) + 3
+        GromSlot0_Hidden_Name = 11064, // 11000 + (ShopType * 1000) + (Slot index * 10) + 4
+        GromSlot0_Hidden_Description = 11065, // 11000 + (ShopType * 1000) + (Slot index * 10) + 5
+
+        TuleySlot0_Normal_Name = 12000, // 11000 + (ShopType * 1000) + (Slot index * 10) + 0
+        TuleySlot0_Normal_Description = 12001, // 11000 + (ShopType * 1000) + (Slot index * 10) + 1
+        TuleySlot0_Locked_Name = 12002, // 11000 + (ShopType * 1000) + (Slot index * 10) + 2
+        TuleySlot0_Locked_Description = 12003, // 11000 + (ShopType * 1000) + (Slot index * 10) + 3
+        TuleySlot0_Hidden_Name = 12004, // 11000 + (ShopType * 1000) + (Slot index * 10) + 4
+        TuleySlot0_Hidden_Description = 12005, // 11000 + (ShopType * 1000) + (Slot index * 10) + 5
+
+        TuleySlot1_Normal_Name = 12010, // 11000 + (ShopType * 1000) + (Slot index * 10) + 0
+        TuleySlot1_Normal_Description = 12011, // 11000 + (ShopType * 1000) + (Slot index * 10) + 1
+        TuleySlot1_Locked_Name = 12012, // 11000 + (ShopType * 1000) + (Slot index * 10) + 2
+        TuleySlot1_Locked_Description = 12013, // 11000 + (ShopType * 1000) + (Slot index * 10) + 3
+        TuleySlot1_Hidden_Name = 12014, // 11000 + (ShopType * 1000) + (Slot index * 10) + 4
+        TuleySlot1_Hidden_Description = 12015, // 11000 + (ShopType * 1000) + (Slot index * 10) + 5
+
+        TuleySlot2_Normal_Name = 12020, // 11000 + (ShopType * 1000) + (Slot index * 10) + 0
+        TuleySlot2_Normal_Description = 12021, // 11000 + (ShopType * 1000) + (Slot index * 10) + 1
+        TuleySlot2_Locked_Name = 12022, // 11000 + (ShopType * 1000) + (Slot index * 10) + 2
+        TuleySlot2_Locked_Description = 12023, // 11000 + (ShopType * 1000) + (Slot index * 10) + 3
+        TuleySlot2_Hidden_Name = 12024, // 11000 + (ShopType * 1000) + (Slot index * 10) + 4
+        TuleySlot2_Hidden_Description = 12025, // 11000 + (ShopType * 1000) + (Slot index * 10) + 5
+
+        TuleySlot3_Normal_Name = 12030, // 11000 + (ShopType * 1000) + (Slot index * 10) + 0
+        TuleySlot3_Normal_Description = 12031, // 11000 + (ShopType * 1000) + (Slot index * 10) + 1
+        TuleySlot3_Locked_Name = 12032, // 11000 + (ShopType * 1000) + (Slot index * 10) + 2
+        TuleySlot3_Locked_Description = 12033, // 11000 + (ShopType * 1000) + (Slot index * 10) + 3
+        TuleySlot3_Hidden_Name = 12034, // 11000 + (ShopType * 1000) + (Slot index * 10) + 4
+        TuleySlot3_Hidden_Description = 12035, // 11000 + (ShopType * 1000) + (Slot index * 10) + 5
+
+        TuleySlot4_Normal_Name = 12040, // 11000 + (ShopType * 1000) + (Slot index * 10) + 0
+        TuleySlot4_Normal_Description = 12041, // 11000 + (ShopType * 1000) + (Slot index * 10) + 1
+        TuleySlot4_Locked_Name = 12042, // 11000 + (ShopType * 1000) + (Slot index * 10) + 2
+        TuleySlot4_Locked_Description = 12043, // 11000 + (ShopType * 1000) + (Slot index * 10) + 3
+        TuleySlot4_Hidden_Name = 12044, // 11000 + (ShopType * 1000) + (Slot index * 10) + 4
+        TuleySlot4_Hidden_Description = 12045, // 11000 + (ShopType * 1000) + (Slot index * 10) + 5
+
+        TuleySlot5_Normal_Name = 12050, // 11000 + (ShopType * 1000) + (Slot index * 10) + 0
+        TuleySlot5_Normal_Description = 12051, // 11000 + (ShopType * 1000) + (Slot index * 10) + 1
+        TuleySlot5_Locked_Name = 12052, // 11000 + (ShopType * 1000) + (Slot index * 10) + 2
+        TuleySlot5_Locked_Description = 12053, // 11000 + (ShopType * 1000) + (Slot index * 10) + 3
+        TuleySlot5_Hidden_Name = 12054, // 11000 + (ShopType * 1000) + (Slot index * 10) + 4
+        TuleySlot5_Hidden_Description = 12055, // 11000 + (ShopType * 1000) + (Slot index * 10) + 5
 
         // Lupo Maps
         LupoMarshIntroduction = 8010, // 8000 + (GameWorldAreaID * 10) + 0
@@ -246,12 +335,7 @@ namespace core {
         TrialTextDepths = 105,
         TrialTextPools = 106,
         TrialTextWastes = 107,
-
-        STATIC_TEXT_ENTRY_END = 1000000
     };
 } // namespace core
 
 using static_text_entry = core::StaticTextEntry;
-inline core::text_id operator*(static_text_entry entry) {
-    return static_cast<core::text_id>(entry);
-}
