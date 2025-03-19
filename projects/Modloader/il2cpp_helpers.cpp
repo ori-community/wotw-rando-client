@@ -426,6 +426,13 @@ namespace il2cpp {
             return UnityEngine::GameObject::AddComponent_1(game_object, get_runtime_type(klass));
         }
 
+        void set_object_name(void* object, const std::string_view name) {
+            const auto cast_object = static_cast<app::Object_1*>(object);
+            if (is_valid(cast_object)) {
+                UnityEngine::Object::set_name(cast_object, string_new(name));
+            }
+        }
+
         std::string get_object_name(void* object) {
             const auto cast_object = static_cast<app::Object_1*>(object);
             if (!is_valid(cast_object)) {

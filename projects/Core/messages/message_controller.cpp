@@ -30,6 +30,7 @@ namespace core::messages {
 
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             recent_pickups_background = std::make_unique<core::api::graphics::Sprite>(api::graphics::Sprite::Anchor::BottomLeft);
+            il2cpp::unity::set_object_name(recent_pickups_background->get_game_object(), "recent_pickups_background");
 
             recent_pickups_background->layer(Layer::UI);
             recent_pickups_background->local_scale({8, 8, 8});
@@ -199,8 +200,6 @@ namespace core::messages {
                 .play_sound = false,
             });
         } else {
-            m_recent_display.clear();
-
             for (const auto& message: m_recent_messages | std::views::reverse) {
                 auto text = message.text.get();
                 m_recent_display.push({

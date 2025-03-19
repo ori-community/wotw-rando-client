@@ -315,6 +315,8 @@ namespace il2cpp {
 
         IL2CPP_MODLOADER_DLLEXPORT std::string get_scene_path(const app::Scene& scene);
 
+        IL2CPP_MODLOADER_DLLEXPORT void set_object_name(void* object, std::string_view name);
+
         template<typename T>
         T* instantiate_object(T* object) {
             return reinterpret_cast<T*>(instantiate_object_untyped(object));
