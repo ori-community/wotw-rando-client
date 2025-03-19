@@ -26,7 +26,6 @@ namespace core::save_meta {
 
     class CORE_DLLEXPORT SaveMetaSerializable : public SaveMetaHandler {
     public:
-        virtual ~SaveMetaSerializable() = default;
         virtual std::vector<std::byte> serialize() = 0;
         virtual void deserialize(utils::ByteStream& stream) = 0;
         std::vector<std::byte> save() override;

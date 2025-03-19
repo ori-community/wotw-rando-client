@@ -148,7 +148,7 @@ namespace randomizer::seed {
         void execute_command(std::size_t id);
 
         const SeedMemory& memory() const { return m_memory; }
-        SeedExecutionEnvironment& environment() { return m_environment; }
+        SeedExecutionEnvironment& environment() { return *m_environment; }
 
         void process_timers(float delta_time) const;
 
@@ -159,7 +159,7 @@ namespace randomizer::seed {
         std::shared_ptr<SeedParseOutput> m_parse_output = std::make_shared<SeedParseOutput>();
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
         std::vector<Timer> m_timers;
-        SeedExecutionEnvironment m_environment;
+        std::shared_ptr<SeedExecutionEnvironment> m_environment = std::make_shared<SeedExecutionEnvironment>();
 
         bool m_should_handle_command = true;
         std::vector<IInstruction*> m_command_stack;

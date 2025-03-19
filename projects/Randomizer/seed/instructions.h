@@ -118,60 +118,34 @@ namespace randomizer::seed {
         std::optional<float> timeout;
     };
 
-    struct SeedExecutionEnvironment {
+    struct SeedExecutionEnvironment final : public core::save_meta::JsonSaveMetaSerializable {
         struct ItemSpoilerData {
             MapIcon icon;
             std::string label;
         };
 
+        // Serialized
         std::unordered_map<std::size_t, std::shared_ptr<game::map::Icon>> warp_icons;
+        std::unordered_map<std::size_t, FreeMessageBox> free_message_boxes; // TODO: Actually serialize this.
+
+        // Non-Serialized
         std::unordered_map<std::size_t, QueuedMessageBox> queued_message_boxes;
-        std::unordered_map<std::size_t, FreeMessageBox> free_message_boxes;
         std::unordered_set<std::size_t> message_boxes_with_timeouts;
         std::vector<SeedTimer> timers;
         bool prevent_grant = false;
         std::unordered_map<std::string, ItemSpoilerData> map_spoiler_data;
+        common::registration_handle_t on_new_game_registration_handle;
+
+        SeedExecutionEnvironment();
+        SeedExecutionEnvironment(const SeedExecutionEnvironment& other) = delete;
+        SeedExecutionEnvironment(SeedExecutionEnvironment&& other) = delete;
+
+        nlohmann::json json_serialize() override;
+        void json_deserialize(nlohmann::json& j) override;
+        void reset();
     };
 
     std::unique_ptr<IInstruction> create_instruction(const nlohmann::json& j);
 
     void destroy_free_message_boxes();
-
-    class SaveSlotIconMetaData final : public core::save_meta::JsonSaveMetaSerializable {
-    public:
-        struct IconData {
-            std::string name;
-            std::string label;
-            MapIcon icon;
-            app::Vector2 position;
-            bool visible;
-            bool label_visible;
-            float opacity;
-            bool can_teleport;
-
-            NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
-                IconData,
-                name,
-                label,
-                icon,
-                position,
-                visible,
-                label_visible,
-                opacity,
-                can_teleport
-            )
-        };
-
-        std::unordered_map<std::size_t, IconData> warp_icons;
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
-            SaveSlotIconMetaData,
-            warp_icons
-        );
-
-        nlohmann::json json_serialize() override;
-        void json_deserialize(nlohmann::json& j) override;
-
-        void save(SeedExecutionEnvironment& seed_environment);
-        void load(SeedExecutionEnvironment& seed_environment);
-    };
 }

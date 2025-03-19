@@ -271,47 +271,53 @@ namespace randomizer::seed {
         game_seed().environment().free_message_boxes.clear();
     }
 
-    nlohmann::json SaveSlotIconMetaData::json_serialize() {
-        nlohmann::json j = *this;
+     SeedExecutionEnvironment::SeedExecutionEnvironment() {
+        on_new_game_registration_handle = core::api::game::event_bus().register_handler(
+            GameEvent::NewGameInitialized,
+            EventTiming::Before,
+            [this](GameEvent event, EventTiming timing) {
+                queue_input_unlocked_callback([this] {
+                    warp_icons.clear();
+                    free_message_boxes.clear();
+                });
+            }
+        );
+    }
+
+    nlohmann::json SeedExecutionEnvironment::json_serialize() {
+        nlohmann::json j;
+        auto j_warp_icons = nlohmann::json::array();
+        for (const auto& [id, icon] : warp_icons) {
+            nlohmann::json j_warp_icon;
+            j_warp_icon["id"] = id;
+            j_warp_icon["label"] = icon->label().get_unprocessed();
+            j_warp_icon["position"] = icon->position().get();
+            j_warp_icons.emplace_back(j_warp_icon);
+        }
+
+        j["warp_icons"] = j_warp_icons;
         return j;
     }
 
-    void SaveSlotIconMetaData::json_deserialize(nlohmann::json& j) {
-        j.get_to(*this);
-    }
-
-    void SaveSlotIconMetaData::save(SeedExecutionEnvironment& seed_environment) {
+    void SeedExecutionEnvironment::json_deserialize(nlohmann::json& j) {
         warp_icons.clear();
-        for (auto const& [id, icon] : seed_environment.warp_icons) {
-            warp_icons[id] = IconData{
-                icon->name().get_unprocessed(),
-                icon->label().get_unprocessed(),
-                icon->icon().get(),
-                icon->position().get(),
-                icon->visible().get(),
-                icon->label_visible().get(),
-                icon->opacity().get(),
-                icon->can_teleport().get(),
-            };
+        const auto& j_warp_icons = j["warp_icons"];
+        for (const auto& j_warp_icon : j_warp_icons) {
+            const auto warp_icon = instructions::CreateWarpIcon::create_icon();
+            warp_icon->label().set(j_warp_icon["label"].get<std::string_view>());
+            warp_icon->position().set(j_warp_icon["position"]);
+            warp_icons[j_warp_icon["id"]] = warp_icon;
         }
     }
 
-    void SaveSlotIconMetaData::load(SeedExecutionEnvironment& seed_environment) {
-        for (auto const& [id, icon_data] : warp_icons) {
-            const auto icon = add_icon(
-                game::map::FilterFlag::All | game::map::FilterFlag::Teleports | game::map::FilterFlag::InLogic | game::map::FilterFlag::Spoilers,
-                true
-            );
+    void SeedExecutionEnvironment::reset() {
+        // TODO: Move these to json_serialize/json_deserialize.
+        free_message_boxes.clear();
 
-            icon->name().set(icon_data.name);
-            icon->label().set(icon_data.label);
-            icon->icon().set(icon_data.icon);
-            icon->position().set(icon_data.position);
-            icon->visible().set(icon_data.visible);
-            icon->label_visible().set(icon_data.label_visible);
-            icon->opacity().set(icon_data.opacity);
-            icon->can_teleport().set(icon_data.can_teleport);
-            seed_environment.warp_icons[id] = icon;
-        }
+        queued_message_boxes.clear();
+        message_boxes_with_timeouts.clear();
+        timers.clear();
+        prevent_grant = false;
+        map_spoiler_data.clear();
     }
 } // namespace randomizer::seed

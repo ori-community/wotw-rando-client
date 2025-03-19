@@ -9,8 +9,10 @@
 
 namespace randomizer::seed {
 
-    Seed::Seed(location_data::LocationCollection const& location_data) :
-        m_location_data(location_data) {}
+    Seed::Seed(location_data::LocationCollection const& location_data)
+        : m_location_data(location_data) {
+        register_slot(SaveMetaSlot::SeedEnvironment, SaveMetaSlotPersistence::None, m_environment);
+    }
 
     void Seed::read(const std::shared_ptr<SeedArchive>& seed_archive, const seed_parser parser, const bool show_message) {
         m_last_parser = parser;
@@ -149,7 +151,7 @@ namespace randomizer::seed {
             dev::seed_debugger::instruction(command.get());
 
             try {
-                command->execute(*this, m_memory, m_environment);
+                command->execute(*this, m_memory, *m_environment);
             } catch (InstructionError& e) {
                 modloader::error(
                     "instructions",
@@ -168,7 +170,7 @@ namespace randomizer::seed {
 
     void Seed::clear() {
         m_parse_output = std::make_shared<SeedParseOutput>();
-        m_environment = SeedExecutionEnvironment();
+        m_environment->reset();
     }
 
     void Seed::trigger(const SeedClientEvent event) {
