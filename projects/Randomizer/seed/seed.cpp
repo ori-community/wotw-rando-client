@@ -168,11 +168,6 @@ namespace randomizer::seed {
 
     void Seed::clear() {
         m_parse_output = std::make_shared<SeedParseOutput>();
-
-        for (const auto& icon: game_seed().environment().warp_icons | std::views::values) {
-            remove_icon(icon);
-        }
-
         m_environment = SeedExecutionEnvironment();
     }
 

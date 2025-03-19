@@ -9,7 +9,7 @@ namespace randomizer::game::map {
         Hide
     };
 
-    std::shared_ptr<Icon> add_icon(FilterFlag filter_mask);
+    std::shared_ptr<Icon> add_icon(FilterFlag filter_mask, bool ref_counted);
     void remove_icon(const std::shared_ptr<Icon>& icon);
     void clear_icons();
 

@@ -27,12 +27,30 @@ using namespace app::classes;
 
 namespace randomizer::game::map {
     namespace {
-        using icon_vector = std::unordered_set<std::shared_ptr<Icon>>;
-        std::unordered_map<Filters, icon_vector> icons;
+        struct IconCollection {
+            std::unordered_set<std::shared_ptr<Icon>> icons;
+            std::vector<std::weak_ptr<Icon>> ref_counted_icons;
+        };
+
+        std::unordered_map<Filters, IconCollection> icon_collection;
         std::unordered_map<std::shared_ptr<Icon>, icon_visibility_callback> visibility_callbacks;
         Filters last_filter = Filters::COUNT;
         auto force_focus_location_to_center_once = false;
         auto is_handling_map_scrolling = false;
+
+        std::unordered_set<std::shared_ptr<Icon>> resolve_collection(IconCollection& collection) {
+            std::unordered_set<std::shared_ptr<Icon>> output = collection.icons;
+            for (auto it = collection.ref_counted_icons.begin(); it != collection.ref_counted_icons.end();) {
+                if (it->expired()) {
+                    it = collection.ref_counted_icons.erase(it);
+                } else {
+                    output.emplace(it->lock());
+                    ++it;
+                }
+            }
+
+            return output;
+        }
 
         app::WorldMapIconType__Enum get_base_icon(const app::RuntimeWorldMapIcon* icon) {
             for (const auto base_icon: il2cpp::ListIterator(icon->fields.Area->fields.Area->fields.Icons)) {
@@ -59,18 +77,23 @@ namespace randomizer::game::map {
             const auto show_labels = core::api::game::ui::area_map_open() &&
                 GameMapUI::get_ShowIconLabels(types::GameMapUI::get_class()->static_fields->Instance);
 
-            for (auto const& [filter, collection]: icons) {
+            for (auto& [filter, collection]: icon_collection) {
                 if (active_filter() == filter) {
                     continue;
                 }
 
-                for (auto const& icon: collection) {
+                for (auto const& icon: resolve_collection(collection)) {
                     icon->label_visible().set(false);
                 }
             }
 
-            for (auto const& icon: icons[active_filter()]) {
+            const auto& active_collection = icon_collection[active_filter()];
+            for (auto const& icon: active_collection.icons) {
                 icon->label_visible().set(show_labels);
+            }
+
+            for (auto const& icon: active_collection.ref_counted_icons) {
+                icon.lock()->label_visible().set(show_labels);
             }
         }
 
@@ -164,15 +187,15 @@ namespace randomizer::game::map {
 
             if (last_filter != active_filter() && last_filter != Filters::COUNT) {
                 // Hide custom icons in old filter.
-                const auto& collection = icons[last_filter];
-                for (auto& icon: collection) {
+                auto& collection = icon_collection[last_filter];
+                for (auto& icon: resolve_collection(collection)) {
                     icon->visible().set(false);
                 }
             }
 
             // Resolve icons for active filter.
-            const auto& collection = icons[active_filter()];
-            for (auto& icon: collection) {
+            auto& collection = icon_collection[active_filter()];
+            for (auto& icon: resolve_collection(collection)) {
                 const auto it = visibility_callbacks.find(icon);
                 switch (it == visibility_callbacks.end() ? IconVisibilityResult::Show : it->second(icon)) {
                     case IconVisibilityResult::Show:
@@ -196,8 +219,8 @@ namespace randomizer::game::map {
 
         IL2CPP_INTERCEPT(AreaMapUI, void, OnInstantiate, (app::AreaMapUI * this_ptr)) {
             next::AreaMapUI::OnInstantiate(this_ptr);
-            for (auto const& icon_set: icons | std::views::values) {
-                for (auto const& icon: icon_set) {
+            for (auto& collection: icon_collection | std::views::values) {
+                for (auto const& icon: resolve_collection(collection)) {
                     icon->apply_scaler(icon->position().get());
                 }
             }
@@ -205,8 +228,8 @@ namespace randomizer::game::map {
 
         IL2CPP_INTERCEPT(AreaMapUI, void, Init, (app::AreaMapUI * this_ptr)) {
             next::AreaMapUI::Init(this_ptr);
-            for (auto const& icon_set: icons | std::views::values) {
-                for (auto const& icon: icon_set) {
+            for (auto& collection: icon_collection | std::views::values) {
+                for (auto const& icon: resolve_collection(collection)) {
                     icon->apply_scaler(icon->position().get());
                 }
             }
@@ -245,8 +268,8 @@ namespace randomizer::game::map {
         }
 
         auto on_area_map_destroyed = core::api::game::event_bus().register_handler(GameEvent::DestroyAreaMap, EventTiming::Before, [](auto, auto) {
-            for (auto const& icon_set: icons | std::views::values) {
-                for (auto const& icon: icon_set) {
+            for (auto& collection: icon_collection | std::views::values) {
+                for (auto const& icon: resolve_collection(collection)) {
                     icon->remove_scaler();
                 }
             }
@@ -257,15 +280,15 @@ namespace randomizer::game::map {
 
             // TODO: We might want to use a separate map for icons that can be teleported to.
             //       Needs to handle icons changing that property.
-            const auto& current_icons = icons[active_filter()];
+            auto& collection = icon_collection[active_filter()];
             auto min_distance = 1.02 * 1.02;
             std::shared_ptr<Icon> closest_icon;
-            for (auto const& icon: current_icons) {
+            for (auto const& icon: resolve_collection(collection)) {
                 if (icon->can_teleport().get()) {
                     const auto position = AreaMapNavigation::WorldToMapPosition(
                         this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField, icon->position().get()
                     );
-                    ;
+
                     const auto difference = cursor - app::Vector2{position.x, position.y};
                     const auto magnitude_squared = difference.x * difference.x + difference.y * difference.y;
                     if (magnitude_squared < min_distance) {
@@ -279,7 +302,6 @@ namespace randomizer::game::map {
             app::Vector2 original_target{};
             if (next::GameMapUI::IsCursorOverTeleporter(this_ptr, &original_target)) {
                 const auto position = AreaMapNavigation::WorldToMapPosition(this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField, original_target);
-                ;
                 const auto difference = cursor - app::Vector2{position.x, position.y};
                 const auto magnitude_squared = difference.x * difference.x + difference.y * difference.y;
                 if (magnitude_squared < min_distance) {
@@ -296,13 +318,17 @@ namespace randomizer::game::map {
         }
     } // namespace
 
-    std::shared_ptr<Icon> add_icon(FilterFlag filter_mask) {
+    std::shared_ptr<Icon> add_icon(FilterFlag filter_mask, bool ref_counted) {
         auto icon = std::make_shared<Icon>(filter_mask);
         const auto mask = static_cast<int>(filter_mask);
         for (auto i = 0; i < static_cast<int>(Filters::COUNT); ++i) {
             if ((mask & (1 << i)) != 0) {
-                auto& collection = icons[static_cast<Filters>(i)];
-                collection.emplace(icon);
+                auto& collection = icon_collection[static_cast<Filters>(i)];
+                if (ref_counted) {
+                    collection.ref_counted_icons.push_back(icon);
+                } else {
+                    collection.icons.emplace(icon);
+                }
             }
         }
 
@@ -310,18 +336,19 @@ namespace randomizer::game::map {
     }
 
     void remove_icon(const std::shared_ptr<Icon>& icon) {
-        for (auto& icon_data: icons | std::views::values) {
-            icon_data.erase(icon);
+        // We only remove from the non ref-counted collection.
+        for (auto& icon_data: icon_collection | std::views::values) {
+            icon_data.icons.erase(icon);
         }
     }
 
-    void clear_icons() { icons.clear(); }
+    void clear_icons() { icon_collection.clear(); }
 
     void add_icon_visibility_callback(const std::shared_ptr<Icon>& icon, icon_visibility_callback callback) {
         visibility_callbacks[icon] = std::move(callback);
     }
 
-    bool is_visited(app::GameWorldAreaID__Enum area, int index) {
+    bool is_visited(const app::GameWorldAreaID__Enum area, const int index) {
         const auto player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;
         if (!il2cpp::unity::is_valid(player_group)) {
             return false;

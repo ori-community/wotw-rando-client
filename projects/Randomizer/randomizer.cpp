@@ -50,6 +50,7 @@ namespace randomizer {
             .vertical_anchor = app::VerticalAnchorMode__Enum::Top,
         });
 
+        auto seed_icon_save_data = std::make_shared<seed::SaveSlotIconMetaData>();
         auto seed_meta_save_data = std::make_shared<seed::SaveSlotSeedMetaData>();
         auto seed_archive_save_data = std::make_shared<seed::SeedArchiveSaveMetaData>();
 
@@ -61,6 +62,15 @@ namespace randomizer {
         bool pause_timer = false;
 
         std::optional<long> multiverse_id_to_connect_to = std::nullopt;
+
+        void load_save_data() {
+            randomizer_seed.environment().warp_icons.clear();
+            seed_icon_save_data->load(randomizer_seed.environment());
+        }
+
+        void update_icon_save_data(GameEvent event, EventTiming timing) {
+            seed_icon_save_data->save(randomizer_seed.environment());
+        }
 
         void on_reach_check_completed(const seedgen_interface::ReachCheckResult& result) {
             reach_check_in_progress = false;
@@ -123,6 +133,7 @@ namespace randomizer {
 
         auto on_respawn = core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [](auto, auto) {
             core::message_controller().clear_central();
+            load_save_data();
             game_seed().trigger(seed::SeedClientEvent::Respawn);
             queue_reach_check();
         });
@@ -187,6 +198,7 @@ namespace randomizer {
             EventTiming::After,
             [](auto, auto) {
                 load_seed(false);
+                load_save_data();
                 queue_reach_check();
                 check_seed_difficulty_enforcement();
             }
@@ -194,6 +206,7 @@ namespace randomizer {
 
         auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
             check_seed_difficulty_enforcement();
+            load_save_data();
             randomizer_seed.trigger(seed::SeedClientEvent::Respawn);
             queue_reach_check();
         });
@@ -258,12 +271,18 @@ namespace randomizer {
             core::message_controller().central_display().text_processor(text_processor);
             core::message_controller().recent_display().text_processor(text_processor);
             seed_meta_save_data = std::make_unique<seed::SaveSlotSeedMetaData>();
+            seed_icon_save_data = std::make_unique<seed::SaveSlotIconMetaData>();
 
             register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, seed_meta_save_data);
             register_slot(SaveMetaSlot::SeedArchiveData, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, seed_archive_save_data);
+            register_slot(SaveMetaSlot::IconData, SaveMetaSlotPersistence::None, seed_icon_save_data);
 
             load_new_game_source();
         });
+
+        auto before_save = core::api::game::event_bus().register_handler(GameEvent::CreateSave, EventTiming::Before, update_icon_save_data);
+        auto before_checkpoint = core::api::game::event_bus().register_handler(GameEvent::CreateCheckpoint, EventTiming::Before, update_icon_save_data);
+        auto before_backup = core::api::game::event_bus().register_handler(GameEvent::CreateBackup, EventTiming::Before, update_icon_save_data);
 
         IL2CPP_INTERCEPT(GameController, void, ParseCommandLineArgs, (app::GameController * this_ptr)) {
             next::GameController::ParseCommandLineArgs(this_ptr);

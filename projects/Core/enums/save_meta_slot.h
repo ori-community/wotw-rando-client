@@ -10,4 +10,5 @@ enum class SaveMetaSlot {
     SaveFileGameStats,
     SeedMetaData,
     SeedArchiveData,
+    IconData,
 };
