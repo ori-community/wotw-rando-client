@@ -124,6 +124,20 @@ namespace randomizer::seed {
 
         std::vector<std::byte> serialize() override;
         void deserialize(utils::ByteStream& stream) override;
+
+        template<typename T>
+        T get(const std::size_t index) const {
+            using namespace core::reactivity;
+            notify_used(MemoryDependency(MemoryDependency::resolve_type<T>(), index));
+            return memory.get<T>(index);
+        }
+
+        template<typename T>
+        void set(const std::size_t index, const T& value) {
+            using namespace core::reactivity;
+            notify_changed(MemoryDependency(MemoryDependency::resolve_type<T>(), index));
+            memory.set(index, value);
+        }
     };
 
     struct SeedTimer {
