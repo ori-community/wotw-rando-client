@@ -28,9 +28,9 @@ INSTRUCTION(QueuedMessage)
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
         return std::format(
-            "QueuedMessage{} -> '{}' with timeout {}",
+            "QueuedMessage{} ->{} '{}' with timeout {}",
             prioritized ? " (Prioritized)" : "",
-            id.has_value() ? std::format(" {}", id.value()) : "",
+            id.has_value() ? std::format(" id {}", id.value()) : "",
             memory.strings.get(0),
             memory.floats.get(0)
         );
