@@ -99,6 +99,7 @@ namespace core::api::messages {
             auto transform = il2cpp::unity::get_transform(text_box);
             transform = il2cpp::unity::get_parent(transform);
             const auto marker = il2cpp::unity::find_child(transform, MessageBox::MESSAGE_BOX_MARKER);
+            // This can happen on the frame the message box is destroyed.
             if (marker == nullptr) {
                 return next::TextBoxExtended::GetRect(text_box);
             }
@@ -106,9 +107,9 @@ namespace core::api::messages {
             float data = il2cpp::unity::get_local_position(marker).x;
             const auto marker_id = *reinterpret_cast<int*>(&data);
             const auto message_box = MessageBox::find_with_id(marker_id);
-
-            auto test1 = get_rect_base(text_box);
-            auto test2 = get_rect_full(text_box);
+            if (message_box == nullptr) {
+                return next::TextBoxExtended::GetRect(text_box);
+            }
 
             if (message_box->expand_background_to_box().get()) {
                 return get_rect_full(text_box);
