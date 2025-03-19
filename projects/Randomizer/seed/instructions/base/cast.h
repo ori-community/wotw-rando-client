@@ -7,6 +7,6 @@ TEMPLATE_INSTRUCTION(Cast, typename F, typename T)
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-        return std::format("Cast {} to {} -> {}", TypeStr<F>::VALUE, TypeStr<T>::VALUE, memory.get<F>(0));
+        return std::format("Cast {} to {} -> 0:{}", TypeStr<F>::VALUE, TypeStr<T>::VALUE, memory.get<F>(0));
     }
 };

@@ -23,7 +23,7 @@ TEMPLATE_INSTRUCTION(CompareEquality, typename T)
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
         nlohmann::json j;
         to_json(j, op);
-        return std::format("CompareEquality ({}) -> {} {} {}", TypeStr<T>::VALUE, memory.get<T>(0), j.get<std::string>(), memory.get<T>(1));
+        return std::format("CompareEquality ({}) -> 0:{} {} 1:{}", TypeStr<T>::VALUE, memory.get<T>(0), j.get<std::string>(), memory.get<T>(1));
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
