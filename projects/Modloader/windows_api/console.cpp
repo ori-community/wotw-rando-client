@@ -251,6 +251,7 @@ namespace modloader::win::console {
         DWORD console_mode = 0;
         GetConsoleMode(console_handle, &console_mode);
         console_mode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+        console_mode |= ENABLE_PROCESSED_OUTPUT;
         SetConsoleMode(console_handle, console_mode);
 
         console_input = std::async(read_command);
