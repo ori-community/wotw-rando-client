@@ -54,10 +54,6 @@ namespace core::text {
         register_text(static_cast<text_id>(slot + 5), "What could it be?");
     }
 
-    auto on_new_game = api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
-        reset_to_default_values();
-    });
-
     void reset_to_default_values() {
         text_data->text_entries.clear();
 
@@ -118,6 +114,10 @@ namespace core::text {
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         register_slot(SaveMetaSlot::StaticText, SaveMetaSlotPersistence::None, text_data);
+        reset_to_default_values();
+    });
+
+    auto on_new_game = api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
         reset_to_default_values();
     });
 
