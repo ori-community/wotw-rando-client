@@ -39,6 +39,8 @@ namespace core::api::messages {
         void show(bool instant = false, bool play_sound = true);
         void hide(bool instant = false) const;
 
+        void set_name(std::string_view name);
+
         [[nodiscard]] app::Rect text_bounds() const;
         [[nodiscard]] app::Rect bounds() const;
 
@@ -64,6 +66,7 @@ namespace core::api::messages {
 
     private:
         int m_id;
+        std::string m_name;
 
         void render_text_box();
         app::Transform* background_transform() const;

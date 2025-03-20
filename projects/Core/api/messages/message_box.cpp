@@ -218,6 +218,11 @@ namespace core::api::messages {
         }
     }
 
+    void MessageBox::set_name(const std::string_view name) {
+        m_name = std::string(name);
+        il2cpp::unity::set_object_name(m_game_object, name);
+    }
+
     app::Rect MessageBox::text_bounds() const {
         const auto text_box = m_message_box->fields.TextBox;
         return CatlikeCoding::TextBox::TextBox::GetRealTextBoxLocalRect(text_box);

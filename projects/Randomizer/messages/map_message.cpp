@@ -2,27 +2,16 @@
 #include <Core/core.h>
 #include <Core/enums/game_event.h>
 #include <Core/messages/message_controller.h>
-#include <Randomizer/messages/map_message.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/text_processors/ability.h>
 
 namespace randomizer::messages {
+    core::Property<std::string> map_message_text(text_id::MapMessage);
+    std::shared_ptr<core::reactivity::ReactiveEffect> on_map_message_changed;
     std::shared_ptr<core::api::messages::MessageBox> box;
 
-    void set_map_message(std::string_view text) {
-        if (box == nullptr) {
-            box = std::make_shared<core::api::messages::MessageBox>();
-            box->position().set(0.5, 0.95, 0);
-            box->coordinate_system().set(core::api::messages::CoordinateSystem::Relative);
-
-            box->text_alignment().set(app::AlignmentMode__Enum::Center);
-            box->box_horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Center);
-            box->box_vertical_anchor().set(app::VerticalAnchorMode__Enum::Bottom);
-            box->show_background().set(false);
-            box->text_processor(general_text_processor());
-        }
-
-        auto processed_text = std::string(text);
+    void update_map_message() {
+        auto processed_text = std::string(map_message_text.get());
         box->text().processor()->process(processed_text);
 
         const auto length = processed_text.length();
@@ -38,7 +27,18 @@ namespace randomizer::messages {
 
     void show_map_message() {
         if (box == nullptr) {
-            return;
+            box = std::make_shared<core::api::messages::MessageBox>();
+            box->set_name("map_message");
+            box->coordinate_system().set(core::api::messages::CoordinateSystem::Relative);
+            box->position().set(0.5, 0.95, 0);
+
+            box->text_alignment().set(app::AlignmentMode__Enum::Center);
+            box->box_horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Center);
+            box->box_vertical_anchor().set(app::VerticalAnchorMode__Enum::Bottom);
+            box->show_background().set(false);
+            box->text_processor(general_text_processor());
+
+            on_map_message_changed = core::reactivity::watch_effect().effect(map_message_text).after(&update_map_message).finalize();
         }
 
         box->show(true, false);

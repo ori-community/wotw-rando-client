@@ -110,6 +110,9 @@ namespace core::text {
         register_text(text_id::TrialTextWastes, " ");
         register_text(text_id::TrialTextWellspring, " ");
         register_text(text_id::TrialTextWoods, " ");
+
+        register_text(text_id::MapMessage, " ");
+        register_text(text_id::SideMapMessage, "This is a test for the side panel\nThis is a test for the side panel\nThis is a test for the side panel\nThis is a test for the side panel");
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
