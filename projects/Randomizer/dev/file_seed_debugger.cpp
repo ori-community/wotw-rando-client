@@ -139,19 +139,19 @@ namespace randomizer::dev::seed_debugger {
             }
 
             modloader::win::console::register_command(
-                {"seed_debugger", "file", "break"},
+                {"seed_debugger", "file", "start"},
                 [](auto, auto) {
                     debugger_break(DebuggerType::File);
-                    modloader::win::console::console_send("manual break 'File'");
+                    modloader::win::console::console_send("Starting file seed debugger.");
                 },
                 true
             );
             // modloader::win::console::register_command({"seed_debugger", "file", "breakpoint"}, command_toggle_breakpoint, true);
             modloader::win::console::register_command(
-                {"seed_debugger", "file", "continue"},
+                {"seed_debugger", "file", "stop"},
                 [](auto, auto) {
                     debugger_continue(DebuggerType::File);
-                    modloader::win::console::console_send("continue 'File'");
+                    modloader::win::console::console_send("Stopping file seed debugger");
                 },
                 true
             );
