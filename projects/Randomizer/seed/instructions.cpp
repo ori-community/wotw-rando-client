@@ -352,6 +352,34 @@ namespace randomizer::seed {
         }
 
         j["warp_icons"] = j_warp_icons;
+
+        auto j_free_message_boxes = nlohmann::json::array();
+        for (const auto& [id, free_message_box] : free_message_boxes) {
+            nlohmann::json j_free_message_box;
+
+            j_free_message_box["id"] = id;
+            j_free_message_box["coordinate_system"] = free_message_box.message->coordinate_system().get();
+            j_free_message_box["position"] = free_message_box.message->position().get();
+            j_free_message_box["text"] = free_message_box.message->text().get_unprocessed();
+            j_free_message_box["text_alignment"] = free_message_box.message->text_alignment().get();
+            j_free_message_box["box_width"] = free_message_box.message->box_width().get();
+            j_free_message_box["box_horizontal_anchor"] = free_message_box.message->box_horizontal_anchor().get();
+            j_free_message_box["box_vertical_anchor"] = free_message_box.message->box_vertical_anchor().get();
+            j_free_message_box["show_background"] = free_message_box.message->show_background().get();
+
+            const auto visibility = free_message_box.message->get_visibility();
+            j_free_message_box["visible"] = visibility == core::api::messages::MessageBox::Visibility::Visible
+                || visibility == core::api::messages::MessageBox::Visibility::FadingIn;
+
+            if (free_message_box.timeout.has_value()) {
+                j_free_message_box["timeout"] = free_message_box.timeout;
+            }
+
+            j_free_message_boxes.emplace_back(j_free_message_box);
+        }
+
+        j["free_message_boxes"] = j_free_message_boxes;
+
         return j;
     }
 
@@ -364,12 +392,34 @@ namespace randomizer::seed {
             warp_icon->position().set(j_warp_icon["position"]);
             warp_icons[j_warp_icon["id"]] = warp_icon;
         }
+
+        free_message_boxes.clear();
+        const auto& j_free_message_boxes = j["free_message_boxes"];
+        for (const auto& j_free_message_box : j_free_message_boxes) {
+            const auto free_message_box = std::make_shared<core::api::messages::MessageBox>();
+            free_message_box->text_processor(general_text_processor());
+            free_message_box->coordinate_system().set(j_free_message_box["coordinate_system"]);
+            free_message_box->position().set(j_free_message_box["position"]);
+            free_message_box->text().set(j_free_message_box["text"].get<std::string>());
+            free_message_box->text_alignment().set(j_free_message_box["text_alignment"]);
+            free_message_box->box_width().set(j_free_message_box["box_width"]);
+            free_message_box->box_horizontal_anchor().set(j_free_message_box["box_horizontal_anchor"]);
+            free_message_box->box_vertical_anchor().set(j_free_message_box["box_vertical_anchor"]);
+            free_message_box->show_background().set(j_free_message_box["show_background"]);
+
+            const auto visible = j_free_message_box["visible"].get<bool>();
+            free_message_box->show(true, false);
+
+            const auto id = j_free_message_box["id"];
+            free_message_boxes[id].message = free_message_box;
+            if (j_free_message_box.contains("timeout")) {
+                free_message_boxes[id].timeout = j_free_message_box["timeout"];
+                message_boxes_with_timeouts.emplace(id);
+            }
+        }
     }
 
     void SeedExecutionEnvironment::reset() {
-        // TODO: Move these to json_serialize/json_deserialize.
-        free_message_boxes.clear();
-
         queued_message_boxes.clear();
         message_boxes_with_timeouts.clear();
         timers.clear();
