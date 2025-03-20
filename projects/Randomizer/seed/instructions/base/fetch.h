@@ -16,6 +16,6 @@ TEMPLATE_INSTRUCTION(Fetch, typename T)
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
         const core::api::uber_states::UberState state(group, member);
-        return std::format("Fetch ({}) -> {}|{} ({})", TypeStr<T>::VALUE, group, member, state.get<T>());
+        return std::format("Fetch {} [0]:{} = ({}|{}):{}", TypeStr<T>::VALUE, memory.get<T>(0), group, member, state.get<T>());
     }
 };

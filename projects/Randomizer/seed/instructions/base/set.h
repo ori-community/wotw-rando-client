@@ -10,6 +10,6 @@ TEMPLATE_INSTRUCTION(Set, typename T)
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override { memory.set(0, value); }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-        return std::format("Set ({}) 0 -> {}", TypeStr<T>::VALUE, value);
+        return std::format("Set {} [0]:{} = {}", TypeStr<T>::VALUE, memory.get<T>(0), value);
     }
 };

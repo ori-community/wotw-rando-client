@@ -12,6 +12,6 @@ TEMPLATE_INSTRUCTION(Copy, typename T)
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override { memory.set(to, memory.get<T>(from)); }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-        return std::format("Copy ({}) -> {} -> {}", TypeStr<T>::VALUE, from, to);
+        return std::format("Copy {} [{}]:{} = [{}]:{}", TypeStr<T>::VALUE, to, memory.get<T>(to), from, memory.get<T>(from));
     }
 };

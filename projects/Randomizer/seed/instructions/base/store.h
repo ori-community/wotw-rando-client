@@ -18,6 +18,6 @@ TEMPLATE_INSTRUCTION(Store, typename T)
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-        return std::format("Store ({}) -> {}|{} (trigger_events: {})", TypeStr<T>::VALUE, group, member, trigger_events);
+        return std::format("Store {} {}|{} (trigger_events: {}) = [0]:{}", TypeStr<T>::VALUE, group, member, trigger_events, memory.get<T>(0));
     }
 };
