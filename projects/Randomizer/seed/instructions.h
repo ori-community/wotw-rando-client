@@ -165,7 +165,7 @@ namespace randomizer::seed {
 
         // Serialized
         std::unordered_map<std::size_t, std::shared_ptr<game::map::Icon>> warp_icons;
-        std::unordered_map<std::size_t, FreeMessageBox> free_message_boxes; // TODO: Actually serialize this.
+        std::unordered_map<std::size_t, FreeMessageBox> free_message_boxes;
 
         // Non-Serialized
         std::unordered_map<std::size_t, QueuedMessageBox> queued_message_boxes;

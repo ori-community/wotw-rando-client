@@ -525,6 +525,42 @@ namespace randomizer {
             register_virtual_state({ValueType::Float, UberStateGroup::Player, 12, "maxEnergy", false, VirtualStateInfo::UpdateMode::Poll}, max_energy().wrap<double>());
             register_virtual_state({ValueType::Float, UberStateGroup::Player, 13, "energy", false, VirtualStateInfo::UpdateMode::Poll}, energy().wrap<double>());
 
+            register_virtual_state(
+                {
+                    .type = ValueType::Float,
+                    .group = UberStateGroup::Player,
+                    .state = 40,
+                    .name = "playerPositionX",
+                    .readonly = false,
+                    .update_mode = VirtualStateInfo::UpdateMode::Poll,
+                },
+                core::Property<double>(
+                    [](const double x) {
+                        const auto pos = get_position();
+                        set_position(static_cast<float>(x), pos.y);
+                    },
+                    []() -> double { return get_position().x; }
+                )
+            );
+
+            register_virtual_state(
+                {
+                    .type = ValueType::Float,
+                    .group = UberStateGroup::Player,
+                    .state = 41,
+                    .name = "playerPositionY",
+                    .readonly = false,
+                    .update_mode = VirtualStateInfo::UpdateMode::Poll,
+                },
+                core::Property<double>(
+                    [](const double y) {
+                        const auto pos = get_position();
+                        set_position(pos.x, static_cast<float>(y));
+                    },
+                    []() -> double { return get_position().y; }
+                )
+            );
+
             uber_states::random_value_generator::register_virtual_uber_states();
 
             register_virtual_state(
