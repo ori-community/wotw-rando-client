@@ -67,8 +67,10 @@
 #include <Randomizer/seed/instructions/set_shop_item_locked.h>
 #include <Randomizer/seed/instructions/set_shop_item_name.h>
 #include <Randomizer/seed/instructions/set_shop_item_price.h>
+#include <Randomizer/seed/instructions/set_side_map_message.h>
 #include <Randomizer/seed/instructions/set_spoiler_map_icon.h>
 #include <Randomizer/seed/instructions/set_string.h>
+#include <Randomizer/seed/instructions/set_text_with_id.h>
 #include <Randomizer/seed/instructions/set_warp_icon_label.h>
 #include <Randomizer/seed/instructions/set_wheel_item_color.h>
 #include <Randomizer/seed/instructions/set_wheel_item_command.h>
