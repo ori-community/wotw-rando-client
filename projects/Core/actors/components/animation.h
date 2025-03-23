@@ -39,9 +39,6 @@ namespace core::animation {
         void on_registered(actors::Actor* actor) override;
         void on_deregistered() override;
 
-        void on_enabled(bool enabled) const;
-        void on_update(float dt);
-
         bool is_stopped() const { return m_stopped; }
         bool is_finished() const {
             const auto& definition = m_definitions[m_definition_index];
@@ -56,12 +53,15 @@ namespace core::animation {
 
     private:
         void apply();
-        void handle_actor_event(actors::ActorEvent event, actors::ActorEventParam param);
+
+        void on_enabled(actors::ActorEvent event, actors::ActorEventParam param) const;
+        void on_update(actors::ActorEvent event, actors::ActorEventParam param);
 
         api::graphics::Sprite m_sprite;
         app::Color m_color_modulate{1, 1, 1, 1};
         std::vector<std::shared_ptr<AnimationDefinition>> m_definitions;
-        std::vector<common::registration_handle_t> m_event_registration_handles;
+        std::vector<common::registration_handle_t> m_enabled_disabled_handles;
+        common::registration_handle_t m_update_handle;
 
         float m_scale = 1.0f;
         bool m_stopped = true;

@@ -14,7 +14,7 @@ namespace core::actors {
         UnityEngine::GameObject::ctor_1(m_root, il2cpp::string_new(name));
         add_to_container(api::game::RandoContainer::GameObjects, m_root);
         m_update_registration_handle = api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [this](auto, auto) {
-            m_event_bus.trigger_event(ActorEvent::Update, api::game::delta_time());
+            m_event_bus.trigger_event(ActorEvent::Update, ActorEventParam(api::game::delta_time()));
         });
     }
 
@@ -32,7 +32,7 @@ namespace core::actors {
         }
 
         it->second->on_registered(this);
-        event_bus().trigger_event(ActorEvent::Enabled, std::monostate{});
+        event_bus().trigger_event(ActorEvent::Enabled, ActorEventParam(nullptr));
         return true;
     }
 
@@ -57,7 +57,7 @@ namespace core::actors {
         m_enabled = value;
         const auto event = value ? ActorEvent::Enabled : ActorEvent::Disabled;
         for (const auto& component: m_components | std::views::values) {
-            event_bus().trigger_event(event, std::monostate{});
+            event_bus().trigger_event(event, ActorEventParam(nullptr));
         }
 
         if (m_enabled) {

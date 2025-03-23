@@ -8,7 +8,8 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
 set(
         SOURCE_FILES
-        "animation/animation.cpp"
+        "actors/actor.cpp"
+        "actors/components/animation.cpp"
         "api/faderb.cpp"
         "api/game/death_listener.cpp"
         "api/game/debug_menu.cpp"
@@ -26,6 +27,7 @@ set(
         "api/graphics/sprite.cpp"
         "api/graphics/textures.cpp"
         "api/messages/message_box.cpp"
+        "api/messages/message_box_positioning.cpp"
         "api/messages/text_style.cpp"
         "api/moon_animator_events.cpp"
         "api/scenes/create_objects.cpp"
@@ -75,13 +77,13 @@ set(
         "utils/operations.cpp"
         "utils/position_converter.cpp"
         "utils/stb_image.cpp"
-        "api/messages/message_box_positioning.cpp"
-        "actors/actor.cpp"
 )
 
 set(
         PUBLIC_HEADER_FILES
-        "animation/animation.h"
+        "actors/actor.h"
+        "actors/actor_events.h"
+        "actors/components/animation.h"
         "api/faderb.h"
         "api/game/death_listener.h"
         "api/game/debug_menu.h"
@@ -163,7 +165,6 @@ set(
         "utils/operations.h"
         "utils/position_converter.h"
         "utils/stb_image.h"
-        "actors/actor.h"
 )
 
 set(

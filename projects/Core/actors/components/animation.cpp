@@ -1,4 +1,4 @@
-#include <Core/animation/animation.h>
+#include <Core/actors/components/animation.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/graphics/sprite.h>
@@ -6,7 +6,6 @@
 #include <Core/dev/object_visualizer.h>
 #include <Core/utils/json_serializers.h>
 
-#include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/il2cpp_math.h>
 #include <Modloader/modloader.h>
@@ -33,7 +32,7 @@ namespace core::animation {
                 anim->duration += frame_definition.duration;
                 frame_definition.real_duration = anim->duration;
                 frame_definition.texture = api::graphics::textures::get_texture(frame.value("texture", std::string("")));
-                app::Vector2 texture_size;
+                app::Vector2 texture_size{};
                 auto has_texture_size = frame.contains("texture_size");
                 if (has_texture_size) {
                     texture_size = frame.value("texture_size", app::Vector2{1.f, 1.f});
@@ -84,42 +83,38 @@ namespace core::animation {
 
     void Animation::on_registered(actors::Actor* actor) {
         m_sprite.set_parent(actor->root());
-        m_event_registration_handles = actor->event_bus().register_handlers(
+        m_enabled_disabled_handles = actor->event_bus().register_handlers(
             {
-                actors::ActorEvent::Update,
                 actors::ActorEvent::Enabled,
                 actors::ActorEvent::Disabled,
             },
-            [this](auto param, auto event) { handle_actor_event(event, param); }
+            [this](auto param, auto event) { on_enabled(event, param); }
+        );
+
+        m_update_handle = actor->event_bus().register_handler(
+            actors::ActorEvent::Update,
+            [this](auto param, auto event) { on_update(event, param); }
         );
     }
 
     void Animation::on_deregistered() {
         m_sprite.set_parent(nullptr);
-        m_event_registration_handles.clear();
+        m_enabled_disabled_handles.clear();
+        m_update_handle = nullptr;
     }
 
-    void Animation::handle_actor_event(const actors::ActorEvent event, const actors::ActorEventParam param) {
-        switch (event) {
-            case actors::ActorEvent::Enabled:
-            case actors::ActorEvent::Disabled:
-                on_enabled(event == actors::ActorEvent::Enabled);
-                break;
-            case actors::ActorEvent::Update:
-                on_update(std::get<float>(param));
-                break;
-        }
+    void Animation::on_enabled(const actors::ActorEvent event, const actors::ActorEventParam param) const {
+        m_sprite.enabled(event == actors::ActorEvent::Enabled);
     }
 
-    void Animation::on_enabled(const bool enabled) const { m_sprite.enabled(enabled); }
-
-    void Animation::on_update(const float dt) {
+    void Animation::on_update(const actors::ActorEvent event, const actors::ActorEventParam param) {
         if (!m_sprite.enabled() || is_finished() || is_stopped()) {
             return;
         }
 
+        const float dt = param.get<actors::ActorEvent::Update>();
         m_time += dt;
-        int old_frame = m_frame;
+        auto old_frame = m_frame;
         while (!is_finished() && m_time >= m_definitions[m_definition_index]->frames[m_frame].real_duration) {
             old_frame = m_frame;
             m_frame = (m_frame + 1) % m_definitions[m_definition_index]->frames.size();

@@ -1,28 +1,17 @@
 #pragma once
 
+#include <Core/actors/actor_events.h>
 #include <Core/macros.h>
 #include <Modloader/app/structs/GameObject.h>
 
 #include <Common/event_bus.h>
 #include <Common/registration_handle.h>
+
 #include <memory>
 #include <string_view>
 #include <unordered_map>
-#include <variant>
 
 namespace core::actors {
-    enum class ActorEvent {
-        Enabled,
-        Disabled,
-        Update,
-    };
-
-    using ActorEventParam = std::variant<
-        std::monostate,
-        bool,
-        float
-    >;
-
     class CORE_DLLEXPORT Actor;
 
     class CORE_DLLEXPORT Component {
@@ -64,7 +53,7 @@ namespace core::actors {
     private:
         bool m_enabled = true;
         app::GameObject* m_root = nullptr;
-        std::unordered_map<int, std::shared_ptr<Component>> m_components;
+        std::unordered_map<std::size_t, std::shared_ptr<Component>> m_components;
         common::EventBus<ActorEventParam, ActorEvent> m_event_bus;
 
         common::registration_handle_t m_update_registration_handle;
