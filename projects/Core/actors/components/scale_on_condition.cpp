@@ -33,12 +33,12 @@ namespace core::actors::components {
         const float dt = param.get<ActorEvent::Update>();
         m_time = std::max(m_time - dt, 0.0f);
 
-        const auto inside_scale = m_start_scale.get();
-        const auto outside_scale = m_end_scale.get();
-        const auto from = m_active ? outside_scale : inside_scale;
-        const auto to = m_active ? inside_scale : outside_scale;
-        const auto time_factor = 1.0f - m_time / m_starting_time;
+        const auto start_scale = m_start_scale.get();
+        const auto end_scale = m_end_scale.get();
+        const auto from = m_active ? start_scale : end_scale;
+        const auto to = m_active ? end_scale : start_scale;
+        const auto time_factor = eps_equals(m_starting_time, 0.0f) ? 1.0f : 1.0f - m_time / m_starting_time;
         const auto scale = (to - from) * time_factor + from;
-        il2cpp::unity::set_local_scale(m_actor, app::Vector3{scale, scale, scale});
+        il2cpp::unity::set_local_scale(m_actor->root(), app::Vector3{scale, scale, scale});
     }
 } // namespace core::actors::components

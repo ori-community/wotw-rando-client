@@ -15,11 +15,10 @@ namespace core::actors {
             void* ptr;
         };
 
-        explicit ActorEventParam(const data_t data) : m_data(data) {}
-        explicit ActorEventParam(const bool data) : m_data(data) {}
-        explicit ActorEventParam(const int data) : m_data(data) {}
-        explicit ActorEventParam(const float data) : m_data(data) {}
-        explicit ActorEventParam(const void* data) : m_data(data) {}
+        explicit ActorEventParam(const bool data) { m_data.b = data; }
+        explicit ActorEventParam(const int data) { m_data.i = data; }
+        explicit ActorEventParam(const float data) { m_data.f = data; }
+        explicit ActorEventParam(void* data) { m_data.ptr = data; }
 
         template<ActorEvent e>
         auto get() const;

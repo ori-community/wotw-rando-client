@@ -14,7 +14,8 @@ namespace core::actors {
         UnityEngine::GameObject::ctor_1(m_root, il2cpp::string_new(name));
         add_to_container(api::game::RandoContainer::GameObjects, m_root);
         m_update_registration_handle = api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [this](auto, auto) {
-            m_event_bus.trigger_event(ActorEvent::Update, ActorEventParam(api::game::delta_time()));
+            const auto dt = api::game::delta_time();
+            m_event_bus.trigger_event(ActorEvent::Update, ActorEventParam(dt));
         });
     }
 

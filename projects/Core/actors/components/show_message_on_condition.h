@@ -21,6 +21,7 @@ namespace core::actors::components {
         void show_condition(const std::shared_ptr<conditions::Condition>& condition) { m_condition = condition; }
         conditions::Condition* show_condition() const { return m_condition.get(); }
 
+        const Property<app::Vector3>& position_offset() const { return m_position_offset; }
         const Property<bool>& instant_show_hide() const { return m_instant_show_hide; }
         const Property<bool>& play_sound() const { return m_play_sound; }
 
@@ -32,6 +33,7 @@ namespace core::actors::components {
         api::messages::MessageBox m_message_box;
         common::registration_handle_t m_update_handle;
 
+        Property<app::Vector3> m_position_offset{{0.0f, 0.0f, 0.0f}};
         Property<bool> m_instant_show_hide{false};
         Property<bool> m_play_sound{false};
         std::shared_ptr<conditions::Condition> m_condition = nullptr;

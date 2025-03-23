@@ -307,18 +307,18 @@ namespace core::input {
 
     bool is_pressed(const Action action) {
         if (action < Action::RANDO_ACTIONS_START) {
-            return vanilla_bindings.contains(action) ? false : vanilla_bindings.at(action).is_pressed;
+            return !vanilla_bindings.contains(action) ? false : vanilla_bindings.at(action).is_pressed;
         }
 
-        return rando_bindings.contains(action) ? false : rando_bindings.at(action).is_pressed;
+        return !rando_bindings.contains(action) ? false : rando_bindings.at(action).is_pressed;
     }
 
     bool is_just_pressed(const Action action) {
         if (action < Action::RANDO_ACTIONS_START) {
-            return vanilla_bindings.contains(action) ? false : vanilla_bindings.at(action).is_just_pressed;
+            return !vanilla_bindings.contains(action) ? false : vanilla_bindings.at(action).is_just_pressed;
         }
 
-        return rando_bindings.contains(action) ? false : rando_bindings.at(action).is_just_pressed;
+        return !rando_bindings.contains(action) ? false : rando_bindings.at(action).is_just_pressed;
     }
 
     void on_before_register_input_simulators(GameEvent game_event, EventTiming timing) {

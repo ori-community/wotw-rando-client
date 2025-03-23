@@ -18,7 +18,11 @@ using namespace modloader;
 namespace core::actors::components {
     std::shared_ptr<AnimationDefinition> load_animation(std::string path) {
         nlohmann::json j;
-        load_json_file(path, j);
+        // TODO: Add support for different protocols.
+        if (!load_json_file(path, j)) {
+            return nullptr;
+        }
+
         std::shared_ptr<AnimationDefinition> anim(new AnimationDefinition());
         try {
             anim->duration = 0.f;

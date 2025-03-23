@@ -224,7 +224,7 @@ namespace il2cpp {
                 UnityEngine::Transform::set_localRotation(child_transform, rot);
                 set_local_scale(child_transform, scale);
             } else {
-                UnityEngine::Transform::set_parent(get_transform(child), get_transform(parent));
+                UnityEngine::Transform::set_parent(child_transform, get_transform(parent));
             }
         }
 
