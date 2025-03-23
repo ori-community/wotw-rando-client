@@ -157,9 +157,6 @@ set(
         "ghosts.cpp"
         "ghosts_playground.cpp"
         "input/action_registration.cpp"
-        "input/controller_bindings.cpp"
-        "input/helpers.cpp"
-        "input/rando_bindings.cpp"
         "input/sdl_input.cpp"
         "ipc/base_handlers.cpp"
         "ipc/hierarchy.cpp"
@@ -208,6 +205,7 @@ set(
         "ui/always_show_keystones.cpp"
         "ui/empty_message_provider_fix.cpp"
         "ui/main_menu_seed_info.cpp"
+        input/rando_controller_bindings.cpp
 )
 
 set(
@@ -236,9 +234,6 @@ set(
         "ghosts/plugins/update_active_animations_plugin.h"
         "ghosts/plugins.h"
         "ghosts.h"
-        "input/controller_bindings.h"
-        "input/helpers.h"
-        "input/rando_bindings.h"
         "ipc/base_handlers.h"
         "location_data/location.h"
         "location_data/location_collection.h"

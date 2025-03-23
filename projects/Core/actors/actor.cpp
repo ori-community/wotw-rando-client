@@ -22,6 +22,8 @@ namespace core::actors {
         for (const auto& component: m_components | std::views::values) {
             component->on_deregistered();
         }
+
+        il2cpp::unity::destroy_object(m_root);
     }
 
     bool Actor::add_component(std::shared_ptr<Component>&& component) {
@@ -43,6 +45,11 @@ namespace core::actors {
     Component* Actor::get_component(const size_t id) const {
         const auto it = m_components.find(id);
         return it != m_components.end() ? it->second.get() : nullptr;
+    }
+
+    std::weak_ptr<Component> Actor::get_component_weak(const size_t id) const {
+        const auto it = m_components.find(id);
+        return it != m_components.end() ? it->second : nullptr;
     }
 
     bool Actor::has_component(const size_t id) const {

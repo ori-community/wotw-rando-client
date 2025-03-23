@@ -1,5 +1,5 @@
-#include <Randomizer/input/controller_bindings.h>
-#include <Randomizer/input/helpers.h>
+#include <Core/input/helpers.h>
+#include <Core/input/controller_bindings.h>
 
 #include <Core/enums/actions.h>
 #include <Core/enums/buttons.h>
@@ -19,10 +19,9 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
-#include <Modloader/app/methods/ButtonIconUtility.h>
-#include <algorithm>
 #include <magic_enum/magic_enum.hpp>
 #include <nlohmann/json.hpp>
+#include <algorithm>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -31,10 +30,8 @@ using namespace modloader;
 using namespace app::classes;
 using namespace app::classes::SmartInput;
 
-namespace randomizer::input {
+namespace core::input {
     namespace {
-        const std::string CONTROLLER_REBIND_FILE = "controller_bindings.json";
-
         std::unordered_map<app::XboxControllerInput_Axis__Enum, GCHandleId> axis_map;
         std::unordered_map<ControllerButton, GCHandleId> buttons_map;
 
@@ -104,13 +101,6 @@ namespace randomizer::input {
         }
 
         std::unordered_map<Action, std::vector<std::vector<ControllerButton>>> bindings;
-        void on_binding_read(Action action, std::vector<int> const& buttons, bool respects_modifiers) {
-            auto& binding = bindings[action].emplace_back();
-            binding.resize(buttons.size());
-            std::transform(buttons.begin(), buttons.end(), binding.begin(), [](int button) {
-                return static_cast<ControllerButton>(button);
-            });
-        }
 
         void add_bindings(app::CompoundButtonInput* input, Action action) {
             for (auto buttons : bindings[action]) {
@@ -122,12 +112,19 @@ namespace randomizer::input {
             }
         }
 
+        common::CollectingEventBus<bool, void> refresh_controller_bindings;
+
         bool initialized = false;
         IL2CPP_INTERCEPT(PlayerInput, void, AddControllerControls, (app::PlayerInput * this_ptr)) {
-            // If we fail to read the bindings we want to use default game bindings.
-            auto bindings_read = read_bindings(base_path() / CONTROLLER_REBIND_FILE, on_binding_read);
+            //auto bindings_read = read_bindings(base_path() / CONTROLLER_REBIND_FILE, on_binding_read);
+            // If we fail to refresh the bindings we want to use default game bindings.
+            auto output = refresh_controller_bindings.trigger_event();
+            auto bindings_read = false;
+            for (const auto out : output) {
+                bindings_read |= out;
+            }
 
-            auto* player_input_rebinding_klass = types::PlayerInputRebinding::get_class();
+            const auto* player_input_rebinding_klass = types::PlayerInputRebinding::get_class();
             if (!bindings_read || !player_input_rebinding_klass->static_fields->USE_NEW_BINDINGS_TEST) {
                 // If we are here something weird is happening.
                 error("input/controller_bindings", "Something weird is happening!!11");
@@ -210,12 +207,20 @@ namespace randomizer::input {
         }
     } // namespace
 
-    bool is_controller_pressed(Action action) {
-        auto& entries = bindings[action];
+    void register_binding(const Action action, std::vector<int> const& buttons, bool respects_modifiers) {
+        auto& binding = bindings[action].emplace_back();
+        binding.resize(buttons.size());
+        std::ranges::transform(buttons, binding.begin(), [](int button) {
+            return static_cast<ControllerButton>(button);
+        });
+    }
+
+    bool is_controller_pressed(const Action action) {
+        const auto& entries = bindings[action];
         for (auto const& buttons : entries) {
             if (
-                std::all_of(buttons.begin(), buttons.end(), [](ControllerButton button) {
-                    auto input = il2cpp::gchandle_target(buttons_map[button]);
+                std::ranges::all_of(buttons, [](ControllerButton button) {
+                    const auto input = il2cpp::gchandle_target(buttons_map[button]);
                     if (input != nullptr) {
                         return il2cpp::invoke<app::Boolean__Boxed>(input, "GetValue")->fields;
                     }
@@ -257,7 +262,7 @@ namespace randomizer::input {
         { ControllerButton::RightStickDown, "<xbox>6</><xbox>4</>"},
     };
 
-    std::string controller_action_to_string(Action action) {
+    std::string controller_action_to_string(const Action action) {
         std::string key;
         const auto it = bindings.find(action);
         if (it == bindings.end() || it->second.empty()) {
@@ -270,5 +275,9 @@ namespace randomizer::input {
         }
 
         return key;
+    }
+
+    common::CollectingEventBus<bool, void>& refresh_controller_bindings_bus() {
+        return refresh_controller_bindings;
     }
 } // namespace randomizer::input

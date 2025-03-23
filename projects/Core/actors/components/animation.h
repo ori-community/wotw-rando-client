@@ -6,7 +6,7 @@
 #include <Core/enums/layer.h>
 #include <Core/macros.h>
 
-namespace core::animation {
+namespace core::actors::components {
     struct CORE_DLLEXPORT AnimationFrame {
         app::Vector3 position;
         app::Vector3 scale;
@@ -26,7 +26,7 @@ namespace core::animation {
         std::vector<AnimationFrame> frames;
     };
 
-    class CORE_DLLEXPORT Animation final : public actors::Component {
+    class CORE_DLLEXPORT Animation final : public Component {
     public:
         void add_definition(std::shared_ptr<AnimationDefinition> definition);
 
@@ -36,7 +36,7 @@ namespace core::animation {
         void start(int definition_index, bool repeat = false);
         void stop();
 
-        void on_registered(actors::Actor* actor) override;
+        void on_registered(Actor* actor) override;
         void on_deregistered() override;
 
         bool is_stopped() const { return m_stopped; }
@@ -54,8 +54,8 @@ namespace core::animation {
     private:
         void apply();
 
-        void on_enabled(actors::ActorEvent event, actors::ActorEventParam param) const;
-        void on_update(actors::ActorEvent event, actors::ActorEventParam param);
+        void on_enabled(ActorEvent event, ActorEventParam param) const;
+        void on_update(ActorEvent event, ActorEventParam param);
 
         api::graphics::Sprite m_sprite;
         app::Color m_color_modulate{1, 1, 1, 1};

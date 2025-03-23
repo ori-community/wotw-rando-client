@@ -1,17 +1,17 @@
-#include <Randomizer/input/helpers.h>
+#include <Core/input/helpers.h>
 
 #include <Common/ext.h>
 
 #include <Modloader/modloader.h>
 
-#include <fstream>
 #include <magic_enum/magic_enum.hpp>
 #include <nlohmann/json.hpp>
+#include <fstream>
 #include <string>
 
 using namespace modloader;
 
-namespace randomizer {
+namespace core {
     namespace input {
         namespace {
             std::vector<int> handle_keys(std::filesystem::path const& path, std::string const& name, const nlohmann::json& keys) {
@@ -66,8 +66,9 @@ namespace randomizer {
                     for (auto const& bind : entry.value()) {
                         bool does_respect_modifiers = false;
                         std::vector<int> buttons;
-                        if (bind.is_array())
+                        if (bind.is_array()) {
                             buttons = handle_keys(path, name, bind);
+                        }
                         else if (bind.is_object()) {
                             auto keys = bind.find("keys");
                             if (keys == bind.end()) {
@@ -83,11 +84,13 @@ namespace randomizer {
 
                             does_respect_modifiers = respects_modifiers != bind.end() && respects_modifiers->get<bool>();
                             buttons = handle_keys(path, name, keys.value());
-                        } else
+                        } else {
                             warn("input", std::format("failed to parse '{}' entry {} bind not an object or an array, skipping.", path.string(), name));
+                        }
 
-                        if (!buttons.empty())
+                        if (!buttons.empty()) {
                             callback(action.value(), buttons, does_respect_modifiers);
+                        }
                     }
                 }
             } else {

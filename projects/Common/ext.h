@@ -12,13 +12,18 @@
 #include <tuple>
 #include <vector>
 
+enum class AggregateOperator {
+    And = 0,
+    Or = 1,
+};
+
 enum class BooleanOperator {
     GreaterOrEquals = 0,
     LesserOrEquals = 1,
     Equals = 2,
     NotEquals = 3,
     Greater = 4,
-    Lesser = 5
+    Lesser = 5,
 };
 
 struct BooleanOperatorResult {

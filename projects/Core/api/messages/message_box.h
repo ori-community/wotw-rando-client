@@ -64,6 +64,7 @@ namespace core::api::messages {
         [[nodiscard]] const Property<float>& right_padding() { return m_right_padding; }
         [[nodiscard]] const Property<bool>& expand_background_to_box() { return m_expand_background_to_box; }
 
+        [[nodiscard]] app::GameObject* game_object() const { return m_game_object; }
     private:
         int m_id;
         std::string m_name;

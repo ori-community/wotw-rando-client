@@ -2,10 +2,9 @@
 
 #include <Core/enums/actions.h>
 
-#include <string>
 #include <vector>
 
-namespace randomizer {
+namespace core {
     namespace input {
         using handle_binding_callback = void (*)(Action action, std::vector<int> const& buttons, bool respects_modifiers);
 

@@ -15,7 +15,7 @@
 using namespace app::classes;
 using namespace modloader;
 
-namespace core::animation {
+namespace core::actors::components {
     std::shared_ptr<AnimationDefinition> load_animation(std::string path) {
         nlohmann::json j;
         load_json_file(path, j);
@@ -75,26 +75,23 @@ namespace core::animation {
     void Animation::add_definition(std::shared_ptr<AnimationDefinition> definition) { m_definitions.push_back(std::move(definition)); }
 
     size_t Animation::static_component_id() {
-        static size_t id = actors::next_component_id();
+        static size_t id = next_component_id();
         return id;
     }
 
     size_t Animation::component_id() { return static_component_id(); }
 
-    void Animation::on_registered(actors::Actor* actor) {
+    void Animation::on_registered(Actor* actor) {
         m_sprite.set_parent(actor->root());
         m_enabled_disabled_handles = actor->event_bus().register_handlers(
             {
-                actors::ActorEvent::Enabled,
-                actors::ActorEvent::Disabled,
+                ActorEvent::Enabled,
+                ActorEvent::Disabled,
             },
             [this](auto param, auto event) { on_enabled(event, param); }
         );
 
-        m_update_handle = actor->event_bus().register_handler(
-            actors::ActorEvent::Update,
-            [this](auto param, auto event) { on_update(event, param); }
-        );
+        m_update_handle = actor->event_bus().register_handler(ActorEvent::Update, [this](auto param, auto event) { on_update(event, param); });
     }
 
     void Animation::on_deregistered() {
@@ -103,16 +100,14 @@ namespace core::animation {
         m_update_handle = nullptr;
     }
 
-    void Animation::on_enabled(const actors::ActorEvent event, const actors::ActorEventParam param) const {
-        m_sprite.enabled(event == actors::ActorEvent::Enabled);
-    }
+    void Animation::on_enabled(const ActorEvent event, const ActorEventParam param) const { m_sprite.enabled(event == ActorEvent::Enabled); }
 
-    void Animation::on_update(const actors::ActorEvent event, const actors::ActorEventParam param) {
+    void Animation::on_update(const ActorEvent event, const ActorEventParam param) {
         if (!m_sprite.enabled() || is_finished() || is_stopped()) {
             return;
         }
 
-        const float dt = param.get<actors::ActorEvent::Update>();
+        const float dt = param.get<ActorEvent::Update>();
         m_time += dt;
         auto old_frame = m_frame;
         while (!is_finished() && m_time >= m_definitions[m_definition_index]->frames[m_frame].real_duration) {
@@ -169,4 +164,4 @@ namespace core::animation {
         static CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation> cache;
         return cache;
     }
-} // namespace core::animation
+} // namespace core::actors::components

@@ -40,7 +40,20 @@ namespace core::actors {
         bool add_component(std::shared_ptr<Component>&& component);
         bool remove_component(size_t id);
         Component* get_component(size_t id) const;
+        std::weak_ptr<Component> get_component_weak(size_t id) const;
         bool has_component(size_t id) const;
+
+        template<typename T>
+        bool remove_component() const { return remove_component(T::static_component_id()); }
+
+        template<typename T>
+        T* get_component() const { return dynamic_cast<T*>(get_component(T::static_component_id())); }
+
+        template<typename T>
+        std::weak_ptr<Component> get_component_weak() const { return std::dynamic_pointer_cast<T*>(get_component_weak(T::static_component_id())); }
+
+        template<typename T>
+        bool has_component() const { return has_component(T::static_component_id()); }
 
         void enabled(bool value);
         bool enabled() const { return m_enabled; }
@@ -49,10 +62,10 @@ namespace core::actors {
 
         common::EventBus<ActorEventParam, ActorEvent>& event_bus() { return m_event_bus; }
         common::EventBus<ActorEventParam, ActorEvent> const& event_bus() const { return m_event_bus; }
-
     private:
         bool m_enabled = true;
         app::GameObject* m_root = nullptr;
+        // TODO: Allow for multiple components of the same type or refactor collider components into a single one with multiple colliders.
         std::unordered_map<std::size_t, std::shared_ptr<Component>> m_components;
         common::EventBus<ActorEventParam, ActorEvent> m_event_bus;
 
