@@ -30,6 +30,16 @@
 #include <magic_enum/magic_enum.hpp>
 #include <utility>
 
+#include <Core/actors/actor.h>
+#include <Core/actors/components/animation.h>
+#include <Core/actors/components/collider.h>
+#include <Core/actors/components/scale_on_condition.h>
+#include <Core/actors/components/show_message_on_condition.h>
+#include <Core/actors/components/teleport_on_condition.h>
+#include <Core/actors/conditions/aggregate_condition.h>
+#include <Core/actors/conditions/collision_condition.h>
+#include <Core/actors/conditions/input_condition.h>
+#include <Core/actors/conditions/teleporting_condition.h>
 
 namespace randomizer {
     namespace {
@@ -231,7 +241,89 @@ namespace randomizer {
             }
         });
 
+        std::shared_ptr<core::actors::Actor> spawn_to_opher;
+        std::shared_ptr<core::actors::Actor> opher_to_spawn;
+
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+            const auto is_not_teleporting_condition = std::make_shared<core::actors::conditions::TeleportingCondition>();
+            is_not_teleporting_condition->negate_output = true;
+            const auto in_range_condition = std::make_shared<core::actors::conditions::CollisionCondition>();
+            const auto pressed_condition = std::make_shared<core::actors::conditions::InputCondition>();
+            pressed_condition->action = Action::Interact;
+
+            const auto teleport_condition = std::make_shared<core::actors::conditions::AggregateCondition>();
+            teleport_condition->op = AggregateOperator::And;
+            teleport_condition->conditions.push_back(in_range_condition);
+            teleport_condition->conditions.push_back(pressed_condition);
+            teleport_condition->conditions.push_back(is_not_teleporting_condition);
+
+            const auto can_interact_condition = std::make_shared<core::actors::conditions::AggregateCondition>();
+            can_interact_condition->op = AggregateOperator::And;
+            can_interact_condition->conditions.push_back(in_range_condition);
+            can_interact_condition->conditions.push_back(is_not_teleporting_condition);
+
+            spawn_to_opher = std::make_shared<core::actors::Actor>("spawn_to_opher");
+            il2cpp::unity::set_position(spawn_to_opher->root(), app::Vector3{-790.0f, -4312.0f, 0.0f});
+            {
+                const auto animation = std::make_shared<core::actors::components::Animation>();
+                animation->add_definition(core::actors::components::animation_cache().get("assets/animations/portal.json"));
+                animation->start(0, true);
+                spawn_to_opher->add_component(animation);
+
+                const auto collider = std::make_shared<core::actors::components::Collider>();
+                collider->add_circle({0.f, 0.f}, 1.0f);
+                spawn_to_opher->add_component(collider);
+
+                const auto scale_on_condition = std::make_shared<core::actors::components::ScaleOnCondition>();
+                scale_on_condition->condition(can_interact_condition);
+                scale_on_condition->start_scale().set(3.0f);
+                scale_on_condition->end_scale().set(4.0f);
+                spawn_to_opher->add_component(scale_on_condition);
+
+                const auto show_message_on_condition = std::make_shared<core::actors::components::ShowMessageOnCondition>();
+                show_message_on_condition->show_condition(can_interact_condition);
+                show_message_on_condition->position_offset().set({0.0f, 2.0f, 0.0f});
+                show_message_on_condition->message_box().show_background().set(false);
+                show_message_on_condition->message_box().text().set("<s_0.7>[Interact] Warp to MarshSpawn.Main</s_0.7>");
+                spawn_to_opher->add_component(show_message_on_condition);
+
+                const auto teleport_on_condition = std::make_shared<core::actors::components::TeleportOnCondition>();
+                teleport_on_condition->destination().set(app::Vector2{-596.0f, -4292.0f});
+                teleport_on_condition->condition(teleport_condition);
+                spawn_to_opher->add_component(teleport_on_condition);
+            }
+
+            opher_to_spawn = std::make_shared<core::actors::Actor>("opher_to_spawn");
+            il2cpp::unity::set_position(opher_to_spawn->root(), app::Vector3{-596.0f, -4292.0f, 0.0f});
+            {
+                const auto animation = std::make_shared<core::actors::components::Animation>();
+                animation->add_definition(core::actors::components::animation_cache().get("assets/animations/portal.json"));
+                animation->start(0, true);
+                opher_to_spawn->add_component(animation);
+
+                const auto collider = std::make_shared<core::actors::components::Collider>();
+                collider->add_circle({0.f, 0.f}, 1.0f);
+                opher_to_spawn->add_component(collider);
+
+                const auto scale_on_condition = std::make_shared<core::actors::components::ScaleOnCondition>();
+                scale_on_condition->condition(can_interact_condition);
+                scale_on_condition->start_scale().set(3.0f);
+                scale_on_condition->end_scale().set(4.0f);
+                opher_to_spawn->add_component(scale_on_condition);
+
+                const auto show_message_on_condition = std::make_shared<core::actors::components::ShowMessageOnCondition>();
+                show_message_on_condition->show_condition(can_interact_condition);
+                show_message_on_condition->position_offset().set({0.0f, 2.0f, 0.0f});
+                show_message_on_condition->message_box().show_background().set(false);
+                show_message_on_condition->message_box().text().set("<s_0.7>[Interact] Warp to MarshPastOpher.MillView</s_0.7>");
+                opher_to_spawn->add_component(show_message_on_condition);
+
+                const auto teleport_on_condition = std::make_shared<core::actors::components::TeleportOnCondition>();
+                teleport_on_condition->destination().set(app::Vector2{-790.0f, -4312.0f});
+                teleport_on_condition->condition(teleport_condition);
+                opher_to_spawn->add_component(teleport_on_condition);
+            }
+
             seedgen_service().query_relevant_uber_states();
 
             monitor.display(&status);
@@ -259,6 +351,8 @@ namespace randomizer {
             register_slot(SaveMetaSlot::SeedArchiveData, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, seed_archive_save_data);
 
             load_new_game_source();
+
+
         });
 
         IL2CPP_INTERCEPT(GameController, void, ParseCommandLineArgs, (app::GameController * this_ptr)) {
