@@ -1,4 +1,3 @@
-#include <Randomizer/game/teleport.h>
 #include <Randomizer/randomizer.h>
 
 #include <Core/api/faderb.h>
@@ -10,6 +9,7 @@
 
 #include <Common/ext.h>
 #include <Core/api/game/debug_menu.h>
+#include <Core/api/game/teleport.h>
 #include <Core/core.h>
 
 #include <Randomizer/game/spawning_and_preloading.h>
@@ -408,7 +408,7 @@ namespace randomizer::game {
                 core::api::scenes::force_load_scene(scene_name, nullptr, true, false);
             }
 
-            teleportation::teleport_instantly(math::to_vec3(game_seed().parser_output().meta.spawn));
+            core::api::game::teleportation::teleport_instantly(math::to_vec3(game_seed().parser_output().meta.spawn));
             core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.Enabled = false;
             on_new_game_late_initialization_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, on_new_game_late_initialization);
 

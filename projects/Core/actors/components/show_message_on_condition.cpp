@@ -25,16 +25,15 @@ namespace core::actors::components {
     }
 
     void ShowMessageOnCondition::on_update(const ActorEvent event, const ActorEventParam param) {
-        if (m_active) {
-            if (m_hide_condition->resolve(m_actor)) {
-                m_message_box.hide(m_instant_show_hide.get());
-                m_active = false;
-            }
-        } else {
-            if (m_show_condition->resolve(m_actor)) {
+        const auto active = m_condition->is_true(m_actor);
+        if (m_active != active) {
+            if (active) {
                 m_message_box.show(m_instant_show_hide.get(), m_play_sound.get());
-                m_active = true;
+            } else {
+                m_message_box.hide(m_instant_show_hide.get());
             }
+
+            m_active = active;
         }
     }
 } // namespace core::actors::components

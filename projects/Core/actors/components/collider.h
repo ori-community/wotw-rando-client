@@ -36,7 +36,7 @@ namespace core::actors::components {
         return lhs;
     }
 
-    class Collider final : public Component {
+    class CORE_DLLEXPORT Collider final : public Component {
         public:
             static size_t static_component_id();
             size_t component_id() override;
@@ -49,8 +49,8 @@ namespace core::actors::components {
 
             bool is_colliding() const;
 
-            std::size_t add_circle(app::Vector2 position, float radius);
-            std::size_t add_rectangle(app::Rect rectangle);
+            void add_circle(app::Vector2 position, float radius);
+            void add_rectangle(app::Rect rectangle);
             void clear_colliders();
         protected:
             bool is_colliding(app::Vector2 pos, float radius) const;

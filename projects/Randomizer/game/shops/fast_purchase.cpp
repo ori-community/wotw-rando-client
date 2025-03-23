@@ -1,4 +1,4 @@
-#include <Randomizer/input/rando_bindings.h>
+#include <Core/input/input_handling.h>
 
 #include <Modloader/app/methods/PurchaseThingScreen.h>
 #include <Modloader/interception_macros.h>
@@ -16,11 +16,11 @@ namespace randomizer::game::shops {
             next::PurchaseThingScreen::PurchaseInput(this_ptr);
         }
 
-        auto on_quick_buy_pressed = input::single_input_bus().register_handler(Action::QuickBuy, EventTiming::Before, [](auto, auto) {
+        auto on_quick_buy_pressed = core::input::single_input_bus().register_handler(Action::QuickBuy, EventTiming::Before, [](auto, auto) {
             quick_buy = true;
         });
 
-        auto on_quick_buy_released = input::single_input_bus().register_handler(Action::QuickBuy, EventTiming::After, [](auto, auto) {
+        auto on_quick_buy_released = core::input::single_input_bus().register_handler(Action::QuickBuy, EventTiming::After, [](auto, auto) {
             quick_buy = false;
         });
     } // namespace

@@ -1,7 +1,7 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
+#include <Core/input/input_handling.h>
 #include <Modloader/il2cpp_math.h>
-#include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/trial.h>
 #include <ranges>
 
@@ -55,7 +55,7 @@ namespace randomizer {
             m_message_box->text().set("Start Trial [Interact]");
             m_message_box->position().set(modloader::math::to_vec3(position));
             m_message_box->position().add(0, 10, 0);
-            m_input_handle = input::single_input_bus().register_handler(Action::Interact, EventTiming::Before, [&](auto, auto) {
+            m_input_handle = core::input::single_input_bus().register_handler(Action::Interact, EventTiming::Before, [&](auto, auto) {
                 m_checkpoint_index = 0;
                 m_timer = 0;
                 std::optional<float> last;

@@ -66,7 +66,15 @@ namespace core::actors::components {
         return false;
     }
 
-    std::size_t add_circle(app::Vector2 position, float radius);
-    std::size_t add_rectangle(app::Rect rectangle);
-    void clear_colliders();
+    void Collider::add_circle(const app::Vector2 position, const float radius) {
+        m_colliders.emplace_back(Circle{position, radius});
+    }
+
+    void Collider::add_rectangle(const app::Rect rectangle) {
+        m_colliders.emplace_back(rectangle);
+    }
+
+    void Collider::clear_colliders() {
+        m_colliders.clear();
+    }
 } // namespace core::actors::components

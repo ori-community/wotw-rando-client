@@ -1,4 +1,3 @@
-#include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/ipc/base_handlers.h>
 #include <Randomizer/randomizer.h>
 
@@ -8,6 +7,7 @@
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/core.h>
+#include <Core/input/input_handling.h>
 #include <Core/ipc/ipc.h>
 #include <Core/utils/json_serializers.h>
 
@@ -80,7 +80,7 @@ namespace randomizer::ipc {
             auto p = j.at("payload");
             auto id = p.at("action_id").get<Action>();
             auto pressed = p.at("pressed").get<bool>();
-            input::set_action(id, pressed);
+            core::input::set_action(id, pressed);
         }
 
         void set_velocity(const nlohmann::json& j) {
@@ -284,11 +284,11 @@ namespace randomizer::ipc {
         core::ipc::send_message(response);
     }
 
-    auto on_before_action = input::input_bus().register_handler(EventTiming::Before, [](auto action, auto) {
+    auto on_before_action = core::input::input_bus().register_handler(EventTiming::Before, [](auto action, auto) {
         on_action(action, true);
     });
 
-    auto on_after_action = input::input_bus().register_handler(EventTiming::Before, [](auto action, auto) {
+    auto on_after_action = core::input::input_bus().register_handler(EventTiming::Before, [](auto action, auto) {
         on_action(action, false);
     });
 } // namespace randomizer::ipc

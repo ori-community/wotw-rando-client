@@ -18,11 +18,8 @@ namespace core::actors::components {
         void on_registered(Actor* actor) override;
         void on_deregistered() override;
 
-        void show_condition(const std::shared_ptr<conditions::Condition>& condition) { m_show_condition = condition; }
-        conditions::Condition* show_condition() const { return m_show_condition.get(); }
-
-        void hide_condition(const std::shared_ptr<conditions::Condition>& condition) { m_hide_condition = condition; }
-        conditions::Condition* hide_condition() const { return m_hide_condition.get(); }
+        void show_condition(const std::shared_ptr<conditions::Condition>& condition) { m_condition = condition; }
+        conditions::Condition* show_condition() const { return m_condition.get(); }
 
         const Property<bool>& instant_show_hide() const { return m_instant_show_hide; }
         const Property<bool>& play_sound() const { return m_play_sound; }
@@ -35,10 +32,9 @@ namespace core::actors::components {
         api::messages::MessageBox m_message_box;
         common::registration_handle_t m_update_handle;
 
-        Property<bool> m_instant_show_hide;
-        Property<bool> m_play_sound;
-        std::shared_ptr<conditions::Condition> m_show_condition = nullptr;
-        std::shared_ptr<conditions::Condition> m_hide_condition = nullptr;
+        Property<bool> m_instant_show_hide{false};
+        Property<bool> m_play_sound{false};
+        std::shared_ptr<conditions::Condition> m_condition = nullptr;
         bool m_active = false;
     };
 } // namespace core::animation

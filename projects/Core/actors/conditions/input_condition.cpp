@@ -3,6 +3,6 @@
 
 namespace core::actors::conditions {
     bool InputCondition::resolve(Actor* actor) {
-        return input::is_pressed(action) == value;
+        return input::is_pressed(action);
     }
 } // namespace core::actors::conditions

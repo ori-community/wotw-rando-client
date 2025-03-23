@@ -3,11 +3,11 @@
 #include <Core/actors/conditions/condition.h>
 
 namespace core::actors::conditions {
-    class AggregateCondition final : public Condition {
+    class CORE_DLLEXPORT AggregateCondition final : public Condition {
     public:
         bool resolve(Actor* actor) override;
 
-        AggregateOperator op;
+        AggregateOperator op = AggregateOperator::And;
         std::vector<std::shared_ptr<Condition>> conditions;
     };
 }

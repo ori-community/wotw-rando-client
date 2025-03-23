@@ -4,6 +4,7 @@
 #include <Core/api/system/message_provider.h>
 #include <Core/core.h>
 #include <Core/enums/text_id.h>
+#include <Core/input/input_handling.h>
 #include <Core/property.h>
 #include <Core/text/text_database.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
@@ -34,7 +35,6 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/features/wheel.h>
-#include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/randomizer.h>
 #include <array>
 #include <unordered_map>
@@ -207,11 +207,11 @@ namespace randomizer::features::wheel {
             }
         }
 
-        auto on_open_rando_wheel_before = randomizer::input::single_input_bus().register_handler(Action::OpenRandoWheel, EventTiming::Before, [](auto, auto) {
+        auto on_open_rando_wheel_before = core::input::single_input_bus().register_handler(Action::OpenRandoWheel, EventTiming::Before, [](auto, auto) {
             handle_custom_wheel(true);
         });
 
-        auto on_open_rando_wheel_after = randomizer::input::single_input_bus().register_handler(Action::OpenRandoWheel, EventTiming::After, [](auto, auto) {
+        auto on_open_rando_wheel_after = core::input::single_input_bus().register_handler(Action::OpenRandoWheel, EventTiming::After, [](auto, auto) {
             handle_custom_wheel(false);
         });
 

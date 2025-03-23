@@ -23,6 +23,7 @@ set(
         "api/game/game.cpp"
         "api/game/in_game_timer.cpp"
         "api/game/player.cpp"
+        "api/game/teleport.cpp"
         "api/game/trials.cpp"
         "api/game/ui.cpp"
         "api/game/pickup_prevention/energy_cell.cpp"
@@ -87,6 +88,7 @@ set(
         "utils/operations.cpp"
         "utils/position_converter.cpp"
         "utils/stb_image.cpp"
+        actors/conditions/teleporting_condition.cpp
 )
 
 set(
@@ -108,6 +110,7 @@ set(
         "api/game/game.h"
         "api/game/in_game_timer.h"
         "api/game/player.h"
+        "api/game/teleport.h"
         "api/game/trials.h"
         "api/game/ui.h"
         "api/graphics/shaders.h"
@@ -186,6 +189,7 @@ set(
         "utils/operations.h"
         "utils/position_converter.h"
         "utils/stb_image.h"
+        actors/conditions/teleporting_condition.h
 )
 
 set(

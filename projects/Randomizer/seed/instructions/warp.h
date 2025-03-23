@@ -1,13 +1,13 @@
 #pragma once
 #include <Randomizer/seed/instruction_utils.h>
 #include <Randomizer/seed/seed.h>
-#include <Randomizer/game/teleport.h>
+#include <Core/api/game/teleport.h>
 
 // TODO: - Allow instantaneous teleportation
 //       - Disable target distance check
 INSTRUCTION(Warp)
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        game::teleportation::teleport({
+        core::api::game::teleportation::teleport({
             memory.floats.get(0),
             memory.floats.get(1),
         });

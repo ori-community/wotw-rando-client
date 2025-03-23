@@ -20,7 +20,7 @@ namespace core::actors::components {
     }
 
     void ScaleOnCondition::on_update(const ActorEvent event, const ActorEventParam param) {
-        const bool active = m_condition != nullptr && m_condition->resolve(m_actor);
+        const bool active = m_condition != nullptr && m_condition->is_true(m_actor);
         if (m_active != active) {
             m_active = active;
             const auto start_duration = m_transition_start_duration.get();

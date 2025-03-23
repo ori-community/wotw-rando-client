@@ -5,7 +5,7 @@ namespace core::actors::conditions {
         switch (op) {
             case AggregateOperator::And:
                 for (const auto& condition: conditions) {
-                    if (!condition->resolve(actor)) {
+                    if (!condition->is_true(actor)) {
                         return false;
                     }
                 }
@@ -13,7 +13,7 @@ namespace core::actors::conditions {
                 return true;
             case AggregateOperator::Or:
                 for (const auto& condition: conditions) {
-                    if (condition->resolve(actor)) {
+                    if (condition->is_true(actor)) {
                         return true;
                     }
                 }

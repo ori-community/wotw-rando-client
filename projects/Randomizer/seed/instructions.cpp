@@ -1,8 +1,8 @@
 #include <Core/api/game/game.h>
 #include <Core/core.h>
 #include <Core/messages/message_controller.h>
+#include <Core/input/input_handling.h>
 #include <Randomizer/game/shops/shop.h>
-#include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/instructions.h>
 #include <Randomizer/seed/instructions/arithmetic_float.h>
