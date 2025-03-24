@@ -76,12 +76,7 @@ void load_modloader() {
 }
 
 extern "C" __declspec(dllexport) void start_loading(const char* data_path_c_str) {
-    if (data_path_c_str != nullptr) {
-        data_path = data_path_c_str;
-    } else {
-        data_path = "%appdata%\\ori-wotw-rando";
-    }
-
+    data_path = data_path_c_str;
     CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)load_modloader, nullptr, 0, 0);
 }
 
