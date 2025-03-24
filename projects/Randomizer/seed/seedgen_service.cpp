@@ -19,6 +19,8 @@ namespace randomizer::seedgen_interface {
             m_request_queue = {};
         };
 
+        TinyProcessLib::Process::environment_type environment;
+        environment[L"RANDO_DATA_DIR"] = modloader::data_path().wstring();
         m_process_stderr.clear();
         m_process = std::make_unique<TinyProcessLib::Process>(
             std::format(
@@ -27,6 +29,7 @@ namespace randomizer::seedgen_interface {
                 convert_string_to_wstring(core::settings::seedgen_daemon_arguments())
             ),
             modloader::application_path().wstring(),
+            environment,
             [&](const char* bytes, size_t n) { on_seedgen_stdout(bytes, n); },
             [&](const char* bytes, size_t n) { on_seedgen_stderr(bytes, n); },
             true,
