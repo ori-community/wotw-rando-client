@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <array>
 #include <filesystem>
 #include <iostream>
@@ -72,7 +74,7 @@ std::vector<DWORD> find_process_id(const char *processname) {
     return results;
 }
 
-bool load_dll(HANDLE process_handle, PTHREAD_START_ROUTINE load_function, const char *path, unsigned long long length) {
+bool remote_call(HANDLE process_handle, PTHREAD_START_ROUTINE func, const char *path, unsigned long long length) {
     auto memory_address = VirtualAllocEx(process_handle, nullptr, length, MEM_COMMIT | MEM_RESERVE, 0X40);
     if (memory_address == nullptr) {
         auto error = GetLastError();
@@ -87,7 +89,7 @@ bool load_dll(HANDLE process_handle, PTHREAD_START_ROUTINE load_function, const 
         return false;
     }
 
-    auto thread_handle = CreateRemoteThread(process_handle, nullptr, 0, load_function, memory_address, 0, nullptr);
+    auto thread_handle = CreateRemoteThread(process_handle, nullptr, 0, func, memory_address, 0, nullptr);
     if (thread_handle == nullptr) {
         auto error = GetLastError();
         VirtualFreeEx(process_handle, memory_address, 0, MEM_RELEASE);
@@ -137,9 +139,8 @@ int main() {
 
     Sleep(inject_delay);
 
-    auto load_function = reinterpret_cast<PTHREAD_START_ROUTINE>(GetProcAddress(GetModuleHandle("Kernel32"),
-                                                                                "LoadLibraryA"));
-    if (load_function == nullptr) {
+    const auto load_dll_function = reinterpret_cast<PTHREAD_START_ROUTINE>(GetProcAddress(GetModuleHandle("Kernel32"), "LoadLibraryA"));
+    if (load_dll_function == nullptr) {
         std::cerr << "failed to get load function pointer" << std::endl;
         return -1;
     }
@@ -175,9 +176,20 @@ int main() {
         return -1;
     }
 
-    auto dll_path_string = (base_path / DLL_NAME).string();
+    const auto dll_path_string = (base_path / DLL_NAME).string();
     std::cout << "loading dll: " << dll_path_string << std::endl;
-    if (load_dll(process_handle, load_function, dll_path_string.c_str(), dll_path_string.size())) {
+    if (remote_call(process_handle, load_dll_function, dll_path_string.c_str(), dll_path_string.size())) {
+        std::cout << "injected successfully" << std::endl;
+    } else {
+        std::cerr << "failed to inject" << std::endl;
+    }
+
+    // ReSharper disable once CppDeprecatedEntity
+    const std::string data_path(std::getenv("RANDO_DATA_DIR"));
+
+    const auto loader_module = LoadLibraryA(dll_path_string.c_str());
+    const auto load_function = reinterpret_cast<PTHREAD_START_ROUTINE>(GetProcAddress(loader_module, "start_loading"));
+    if (remote_call(process_handle, load_function, data_path.c_str(), data_path.size())) {
         std::cout << "injected successfully" << std::endl;
     } else {
         std::cerr << "failed to inject" << std::endl;

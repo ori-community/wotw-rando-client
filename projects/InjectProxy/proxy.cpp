@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "hook.h"
 #include <AtlBase.h>
 #include <InjectProxy/winhttp_proxy.h>
@@ -52,18 +54,21 @@ void inject() {
     cmd.parse(arguments);
 
     if (modloader_base_dir.isSet()) {
-        auto base_path = std::filesystem::path(modloader_base_dir.getValue());
+        auto application_path = std::filesystem::path(modloader_base_dir.getValue());
+        // ReSharper disable once CppDeprecatedEntity
+        const std::filesystem::path data_path(std::getenv("RANDO_DATA_DIR"));
 
-        auto modloader = LoadLibraryW((base_path / "Modloader.dll").c_str());
-        auto modloader_injection_entry_fn = reinterpret_cast<void (*)(const std::filesystem::path&, const std::function<void()>, const std::function<void(std::string_view)>)>(
+        auto modloader = LoadLibraryW((application_path / "Modloader.dll").c_str());
+        auto modloader_injection_entry_fn = reinterpret_cast<void (*)(const std::filesystem::path&, const std::filesystem::path&, const std::function<void()>, const std::function<void(std::string_view)>)>(
             GetProcAddress(modloader, "injection_entry")
         );
 
         std::binary_semaphore modloader_initialization_mutex(0);
 
-        std::thread thread([&modloader_injection_entry_fn, base_path, &modloader_initialization_mutex]() {
+        std::thread thread([&modloader_injection_entry_fn, application_path, data_path, &modloader_initialization_mutex]() {
             modloader_injection_entry_fn(
-                base_path,
+                application_path,
+                data_path,
                 [&modloader_initialization_mutex]() {
                     modloader_initialization_mutex.release();
                 },

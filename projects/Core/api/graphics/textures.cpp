@@ -364,7 +364,7 @@ namespace core::api::graphics::textures {
                     return;
                 }
 
-                auto texture_path = (base_path() / value).string();
+                auto texture_path = (application_path() / value).string();
 
                 int x;
                 int y;

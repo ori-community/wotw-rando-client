@@ -35,7 +35,7 @@ namespace randomizer::features::credits {
                 return;
             }
 
-            credits.load(std::format(CREDITS_PATH_FMT, modloader::base_path().string()));
+            credits.load(std::format(CREDITS_PATH_FMT, modloader::application_path().string()));
             credits.reset();
 
             const auto credits_go = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, "credits");

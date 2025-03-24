@@ -48,7 +48,7 @@ namespace core::api::audio {
             modloader::info("sound", std::format("WWise version '{}.{}'", AkSoundEngine::GetMajorMinorVersion(), AkSoundEngine::GetSubminorBuildVersion()));
             modloader::info("sound", std::format("WWise soundbank version '{}'", AkSoundEngine::get_AK_SOUNDBANK_VERSION()));
 
-            load_bank("WotwRando", modloader::base_path() / "assets/sounds/WotwRando.bnk");
+            load_bank("WotwRando", modloader::application_path() / "assets/sounds/WotwRando.bnk");
         });
     } // namespace
 

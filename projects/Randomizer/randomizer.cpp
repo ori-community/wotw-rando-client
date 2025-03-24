@@ -141,7 +141,7 @@ namespace randomizer {
 
         void load_seed(const bool show_message) {
             event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::Before);
-            randomizer_location_collection.read(modloader::base_path() / "loc_data.csv", location_data::parse_location_data);
+            randomizer_location_collection.read(modloader::application_path() / "loc_data.csv", location_data::parse_location_data);
             event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::After);
 
             randomizer_seed.read(seed_archive_save_data->seed_archive, seed::parse, show_message);
@@ -288,7 +288,7 @@ namespace randomizer {
     }
 
     void load_new_game_source() {
-        std::ifstream seed_source_file(modloader::base_path() / ".newgameseedsource", std::ios::binary);
+        std::ifstream seed_source_file(modloader::data_path() / ".newgameseedsource", std::ios::binary);
 
         if (seed_source_file.is_open()) {
             std::string source_str{std::istreambuf_iterator(seed_source_file),
@@ -302,7 +302,7 @@ namespace randomizer {
 
     semver::version randomizer_version() {
         semver::version version = semver::from_string("0.0.0");
-        const std::ifstream version_file(modloader::base_path() / "VERSION");
+        const std::ifstream version_file(modloader::application_path() / "VERSION");
         if (version_file.is_open()) {
             std::stringstream version_buffer;
             version_buffer << version_file.rdbuf();

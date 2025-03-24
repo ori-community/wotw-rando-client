@@ -53,14 +53,23 @@ namespace modloader {
         } // namespace
 
         bool bootstrap() {
-            std::ifstream stream(base_path() / modloader_config_path);
+            std::ifstream stream(application_path() / modloader_config_path);
 
             if (stream.is_open()) {
                 nlohmann::json j;
                 try {
                     stream >> j;
                 } catch (nlohmann::json::parse_error& ex) {
-                    debug("initialize", std::format("failed to parse '{}{}' error '{}' at byte '{}'", base_path().string(), modloader_config_path.string(), ex.id, ex.byte));
+                    debug(
+                        "initialize",
+                        std::format(
+                            "failed to parse '{}{}' error '{}' at byte '{}'",
+                            application_path().string(),
+                            modloader_config_path.string(),
+                            ex.id,
+                            ex.byte
+                        )
+                    );
                 }
 
                 if (j.contains("cpp") && j["cpp"].is_array()) {
@@ -68,7 +77,7 @@ namespace modloader {
                     auto cpp = j["cpp"];
                     for (auto it = cpp.begin(); it != cpp.end(); ++it) {
                         if (it->is_string()) {
-                            cpp_dlls.push_back((base_path() / it->get<std::string>()).string());
+                            cpp_dlls.push_back((application_path() / it->get<std::string>()).string());
                         }
                     }
                 }

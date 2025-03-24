@@ -40,7 +40,7 @@ namespace randomizer::dev::seed_debugger {
                 modloader::error("log_seed_debugger", "Indentation != 0: this should never happen.");
             }
 
-            stream.open(modloader::base_path() / (FILE_SEED_DEBUGGER_NAME + FILE_SEED_DEBUGGER_EXTENSION), std::fstream::out | std::fstream::app);
+            stream.open(modloader::data_path() / (FILE_SEED_DEBUGGER_NAME + FILE_SEED_DEBUGGER_EXTENSION), std::fstream::out | std::fstream::app);
             modloader::win::console::console_send("file breakpoint triggered");
             write("\n");
             write("BREAK STARTED\n");
@@ -130,9 +130,9 @@ namespace randomizer::dev::seed_debugger {
         }
 
         [[maybe_unused]] auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-            const auto path = modloader::base_path() / (FILE_SEED_DEBUGGER_NAME + FILE_SEED_DEBUGGER_EXTENSION);
+            const auto path = modloader::data_path() / (FILE_SEED_DEBUGGER_NAME + FILE_SEED_DEBUGGER_EXTENSION);
             if (exists(path)) {
-                const auto new_path = modloader::base_path() /
+                const auto new_path = modloader::data_path() /
                     (FILE_SEED_DEBUGGER_NAME + "_" + std::format("{:%Y_%m_%d_%H_%M_%S}", last_write_time(path)) + FILE_SEED_DEBUGGER_EXTENSION);
 
                 std::filesystem::rename(path, new_path);

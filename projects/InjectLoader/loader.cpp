@@ -9,16 +9,14 @@
 #include <thread>
 #include <Windows.h>
 
+std::filesystem::path data_path;
 
-bool loaded = false;
-
-
-bool find_base_path(std::wstring &output_path) {
+bool find_application_path(std::wstring &output_path) {
     wchar_t path[MAX_PATH];
     HMODULE handle = nullptr;
 
     if (GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-                          reinterpret_cast<LPCWSTR>(&find_base_path), &handle) == 0) {
+                          reinterpret_cast<LPCWSTR>(&find_application_path), &handle) == 0) {
         std::cout << "failed to GetModuleHandle, error: " << GetLastError() << std::endl;
         return false;
     }
@@ -35,9 +33,8 @@ bool find_base_path(std::wstring &output_path) {
 }
 
 void load_modloader() {
-    std::wstring base_path_string;
-
-    if (!find_base_path(base_path_string)) {
+    std::wstring application_path_string;
+    if (!find_application_path(application_path_string)) {
         MessageBoxA(
                 nullptr,
                 (LPCSTR) "Injection loader initialization failed: Base path not found",
@@ -46,18 +43,17 @@ void load_modloader() {
         );
     }
 
-    auto base_path = std::filesystem::path(base_path_string);
-
-    auto modloader = LoadLibraryW((base_path / "Modloader.dll").c_str());
-    auto modloader_injection_entry_fn = reinterpret_cast<void (*)(std::filesystem::path, const std::function<void()>,
+    auto application_path = std::filesystem::path(application_path_string);
+    const auto modloader = LoadLibraryW((application_path / "Modloader.dll").c_str());
+    auto modloader_injection_entry_fn = reinterpret_cast<void (*)(std::filesystem::path, std::filesystem::path, const std::function<void()>,
                                                                   const std::function<void(std::string_view)>)>(
             GetProcAddress(modloader, "injection_entry")
     );
 
     std::binary_semaphore modloader_initialization_mutex(0);
 
-    std::thread thread([&modloader_injection_entry_fn, base_path, &modloader_initialization_mutex]() {
-        modloader_injection_entry_fn(base_path, [&modloader_initialization_mutex]() {
+    std::thread thread([&modloader_injection_entry_fn, application_path, &modloader_initialization_mutex]() {
+        modloader_injection_entry_fn(application_path, data_path, [&modloader_initialization_mutex]() {
             modloader_initialization_mutex.release();
         }, [&modloader_initialization_mutex](auto error_message) {
             MessageBoxA(
@@ -77,15 +73,16 @@ void load_modloader() {
     modloader_initialization_mutex.acquire();
 }
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) {
-    if ((ul_reason_for_call == DLL_PROCESS_ATTACH ||
-         ul_reason_for_call == DLL_THREAD_ATTACH) &&
-        !loaded) {
-
-        loaded = true;
-
-        CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)load_modloader, nullptr, 0, 0);
+ extern "C" void start_loading(const char* data_path_c_str) {
+    if (data_path_c_str != nullptr) {
+        data_path = data_path_c_str;
+    } else {
+        data_path = "%appdata%\\ori-wotw-rando";
     }
 
+    CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)load_modloader, nullptr, 0, 0);
+}
+
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) {
     return 1;
 }

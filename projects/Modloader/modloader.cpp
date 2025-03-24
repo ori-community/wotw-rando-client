@@ -27,13 +27,18 @@ namespace modloader {
     // Have this here so it is included in the assembly and can be used to examine thrown exceptions.
     Il2CppExceptionWrapper ex;
 
-    std::filesystem::path inner_base_path = "C:\\moon\\";
+    std::filesystem::path inner_application_path = "C:\\moon\\";
+    std::filesystem::path inner_data_path = "%appdata%\\ori-wotw-rando";
     std::filesystem::path modloader_config_path = "modloader_config.json";
     std::filesystem::path csv_path = "modloader_log.csv";
     std::atomic<bool> shutdown_requested = false;
 
-    std::filesystem::path base_path() {
-        return inner_base_path;
+    std::filesystem::path data_path() {
+        return inner_data_path;
+    }
+
+    std::filesystem::path application_path() {
+        return inner_application_path;
     }
 
     common::EventBus<void, ModloaderEvent>& event_bus() {
@@ -112,16 +117,22 @@ namespace modloader {
     std::shared_ptr<ILoggingHandler> console_logging_handler;
 
     std::binary_semaphore wait_for_exit(0);
-    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(const std::filesystem::path& path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
-        inner_base_path = path;
+    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(
+        const std::filesystem::path& application_path,
+        const std::filesystem::path& data_path,
+        const std::function<void()>& on_initialization_complete,
+        const std::function<void(std::string_view)>& on_error
+    ) {
+        inner_application_path = application_path;
+        inner_data_path = data_path;
 
         buffer_logging_handler = register_logging_handler(std::make_shared<BufferLoggingHandler>());
-        file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(base_path() / csv_path));
+        file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(data_path / csv_path));
         console_logging_handler = register_logging_handler(std::make_shared<ConsoleLoggingHandler>());
 
         trace(MessageType::Info, "initialize", "Loading settings.");
 
-        common::settings::Settings settings(base_path() / "settings.json");
+        common::settings::Settings settings(data_path / "settings.json");
         if (settings.get_boolean("Flags", "Dev", false)) {
             win::console::console_initialize();
         }

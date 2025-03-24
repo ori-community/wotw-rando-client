@@ -23,10 +23,10 @@ namespace randomizer::seedgen_interface {
         m_process = std::make_unique<TinyProcessLib::Process>(
             std::format(
                 L"\"{}\" daemon {}",
-                (modloader::base_path() / "seedgen.exe").wstring(),
+                (modloader::application_path() / "seedgen.exe").wstring(),
                 convert_string_to_wstring(core::settings::seedgen_daemon_arguments())
             ),
-            modloader::base_path().wstring(),
+            modloader::application_path().wstring(),
             [&](const char* bytes, size_t n) { on_seedgen_stdout(bytes, n); },
             [&](const char* bytes, size_t n) { on_seedgen_stderr(bytes, n); },
             true,
