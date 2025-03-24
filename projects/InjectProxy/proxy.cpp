@@ -56,7 +56,8 @@ void inject() {
     if (modloader_base_dir.isSet()) {
         auto application_path = std::filesystem::path(modloader_base_dir.getValue());
         // ReSharper disable once CppDeprecatedEntity
-        const std::filesystem::path data_path(std::getenv("RANDO_DATA_DIR"));
+        const auto data_path_str = std::getenv("RANDO_DATA_DIR");
+        const std::filesystem::path data_path(data_path_str == nullptr ? "%appdata%\\ori-wotw-rando" : data_path_str);
 
         auto modloader = LoadLibraryW((application_path / "Modloader.dll").c_str());
         auto modloader_injection_entry_fn = reinterpret_cast<void (*)(const std::filesystem::path&, const std::filesystem::path&, const std::function<void()>, const std::function<void(std::string_view)>)>(
