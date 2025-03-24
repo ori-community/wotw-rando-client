@@ -130,6 +130,8 @@ namespace modloader {
         file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(data_path / csv_path));
         console_logging_handler = register_logging_handler(std::make_shared<ConsoleLoggingHandler>());
 
+        trace(MessageType::Info, "initialize", std::format("application_path: {}", application_path.string()));
+        trace(MessageType::Info, "initialize", std::format("data_path: {}", data_path.string()));
         trace(MessageType::Info, "initialize", "Loading settings.");
 
         common::settings::Settings settings(data_path / "settings.json");
