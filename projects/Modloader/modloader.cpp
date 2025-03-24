@@ -28,7 +28,7 @@ namespace modloader {
     Il2CppExceptionWrapper ex;
 
     std::filesystem::path inner_application_path = "C:\\moon\\";
-    std::filesystem::path inner_data_path = "%appdata%\\ori-wotw-rando";
+    std::filesystem::path inner_data_path = std::filesystem::temp_directory_path() / "ori-wotw-rando";
     std::filesystem::path modloader_config_path = "modloader_config.json";
     std::filesystem::path csv_path = "modloader_log.csv";
     std::atomic<bool> shutdown_requested = false;
@@ -125,6 +125,7 @@ namespace modloader {
     ) {
         inner_application_path = application_path;
         inner_data_path = data_path;
+        create_directories(data_path);
 
         buffer_logging_handler = register_logging_handler(std::make_shared<BufferLoggingHandler>());
         file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(data_path / csv_path));

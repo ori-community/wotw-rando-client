@@ -8,6 +8,7 @@
 #include <tclap/CmdLine.h>
 #include <windows.h>
 #include <winuser.h>
+#include <shlobj.h>
 #include <filesystem>
 #include <functional>
 #include <iostream>
@@ -55,9 +56,30 @@ void inject() {
 
     if (modloader_base_dir.isSet()) {
         auto application_path = std::filesystem::path(modloader_base_dir.getValue());
+        std::filesystem::path data_path;
         // ReSharper disable once CppDeprecatedEntity
-        const auto data_path_str = std::getenv("RANDO_DATA_DIR");
-        const std::filesystem::path data_path(data_path_str == nullptr ? "%appdata%\\ori-wotw-rando" : data_path_str);
+        const auto env = std::getenv("RANDO_DATA_DIR");
+        const std::string data_path_str(env != nullptr ? env : "");
+        if (data_path_str.empty()) {
+            PWSTR path_tmp;
+            const auto ret = SHGetKnownFolderPath(FOLDERID_RoamingAppData, 0, nullptr, &path_tmp);
+            if (ret != S_OK) {
+                MessageBoxA(
+                    nullptr,
+                    (LPCSTR) "Failed to find data folder.",
+                    (LPCSTR) "Ori and the Will of the Wisps Modloader",
+                    MB_ICONERROR | MB_OK
+                );
+
+                // We failed to find a data folder.
+                return;
+            }
+
+            data_path = path_tmp;
+            data_path /= "ori-wotw-rando";
+        } else {
+            data_path = data_path_str;
+        }
 
         auto modloader = LoadLibraryW((application_path / "Modloader.dll").c_str());
         auto modloader_injection_entry_fn = reinterpret_cast<void (*)(const std::filesystem::path&, const std::filesystem::path&, const std::function<void()>, const std::function<void(std::string_view)>)>(

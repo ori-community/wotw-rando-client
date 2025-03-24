@@ -10,6 +10,7 @@
 // Order is important because reasons
 #include <Windows.h>
 #include <TlHelp32.h>
+#include <shlobj.h>
 
 #define NO_MODLOADER
 
@@ -74,24 +75,24 @@ std::vector<DWORD> find_process_id(const char *processname) {
     return results;
 }
 
-bool remote_call(HANDLE process_handle, PTHREAD_START_ROUTINE func, const char *path, unsigned long long length) {
-    auto memory_address = VirtualAllocEx(process_handle, nullptr, length, MEM_COMMIT | MEM_RESERVE, 0X40);
+bool remote_call(const HANDLE process_handle, const PTHREAD_START_ROUTINE func, const char *path, const unsigned long long length) {
+    const auto memory_address = VirtualAllocEx(process_handle, nullptr, length, MEM_COMMIT | MEM_RESERVE, 0X40);
     if (memory_address == nullptr) {
-        auto error = GetLastError();
+        const auto error = GetLastError();
         std::cerr << "failed to allocate memory on process " << error << std::endl;
         return false;
     }
 
     if (WriteProcessMemory(process_handle, memory_address, path, length, nullptr) == 0) {
-        auto error = GetLastError();
+        const auto error = GetLastError();
         VirtualFreeEx(process_handle, memory_address, 0, MEM_RELEASE);
         std::cerr << "failed to write memory to process " << error << std::endl;
         return false;
     }
 
-    auto thread_handle = CreateRemoteThread(process_handle, nullptr, 0, func, memory_address, 0, nullptr);
+    const auto thread_handle = CreateRemoteThread(process_handle, nullptr, 0, func, memory_address, 0, nullptr);
     if (thread_handle == nullptr) {
-        auto error = GetLastError();
+        const auto error = GetLastError();
         VirtualFreeEx(process_handle, memory_address, 0, MEM_RELEASE);
         std::cerr << "failed to create thread on process: " << error << std::endl;
         return false;
@@ -116,12 +117,37 @@ bool remote_call(HANDLE process_handle, PTHREAD_START_ROUTINE func, const char *
 }
 
 int main() {
+    std::filesystem::path data_path;
+    // ReSharper disable once CppDeprecatedEntity
+    const auto env = std::getenv("RANDO_DATA_DIR");
+    const std::string data_path_str(env != nullptr ? env : "");
+    if (data_path_str.empty()) {
+        PWSTR path_tmp;
+        const auto ret = SHGetKnownFolderPath(FOLDERID_RoamingAppData, 0, nullptr, &path_tmp);
+        if (ret != S_OK) {
+            MessageBoxA(
+                nullptr,
+                (LPCSTR) "Failed to find data folder.",
+                (LPCSTR) "Ori and the Will of the Wisps Modloader",
+                MB_ICONERROR | MB_OK
+            );
+
+            // We failed to find a data folder.
+            return -1;
+        }
+
+        data_path = path_tmp;
+        data_path /= "ori-wotw-rando";
+    } else {
+        data_path = data_path_str;
+    }
+
     shared_memory::SharedMemorySlot<bool> injector_running_memory_slot("OriWotWRandoInjectorRunning");
     injector_running_memory_slot.set_value(true);
 
     find_base_path(base_path);
 
-    common::settings::Settings settings(base_path / SETTINGS_NAME);
+    common::settings::Settings settings(data_path / SETTINGS_NAME);
     auto use_win_store = settings.get_boolean("Flags", "UseWinStore", false);
     auto inject_delay = settings.get_int("Values", "InjectDelay", 0);
 
@@ -184,12 +210,10 @@ int main() {
         std::cerr << "failed to inject" << std::endl;
     }
 
-    // ReSharper disable once CppDeprecatedEntity
-    const std::string data_path(std::getenv("RANDO_DATA_DIR"));
-
+    const auto input = data_path.string();
     const auto loader_module = LoadLibraryA(dll_path_string.c_str());
     const auto load_function = reinterpret_cast<PTHREAD_START_ROUTINE>(GetProcAddress(loader_module, "start_loading"));
-    if (remote_call(process_handle, load_function, data_path.c_str(), data_path.size())) {
+    if (remote_call(process_handle, load_function, input.c_str(), input.length())) {
         std::cout << "injected successfully" << std::endl;
     } else {
         std::cerr << "failed to inject" << std::endl;

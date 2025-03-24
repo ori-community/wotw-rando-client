@@ -1,13 +1,15 @@
+#include <Windows.h>
 #include <array>
 #include <filesystem>
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <semaphore>
-#include <functional>
 #include <format>
+#include <fstream>
+#include <functional>
+#include <iostream>
+#include <semaphore>
+#include <string>
 #include <thread>
-#include <Windows.h>
+
+#include "Modloader/macros.h"
 
 std::filesystem::path data_path;
 
@@ -73,7 +75,7 @@ void load_modloader() {
     modloader_initialization_mutex.acquire();
 }
 
- extern "C" void start_loading(const char* data_path_c_str) {
+extern "C" __declspec(dllexport) void start_loading(const char* data_path_c_str) {
     if (data_path_c_str != nullptr) {
         data_path = data_path_c_str;
     } else {
