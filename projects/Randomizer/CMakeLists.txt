@@ -82,6 +82,7 @@ set(
         "game/behaviour_changes/faster_teleportation.cpp"
         "game/behaviour_changes/feeding_grounds_allow_burrow.cpp"
         "game/behaviour_changes/family_reunion_moki_hut_state.cpp"
+        "game/behaviour_changes/fix_hand_to_hand_mapstone_delay.cpp"
         "game/behaviour_changes/fix_kwolok_not_stopping_when_abandoning_challenge.cpp"
         "game/behaviour_changes/fix_shop_anywhere.cpp"
         "game/behaviour_changes/fix_straight_grenades.cpp"
