@@ -118,12 +118,6 @@ namespace randomizer::features::wheel {
             update_wheel_position();
         }
 
-        IL2CPP_INTERCEPT(EquipmentWheel, void, ShowImmediate, (app::EquipmentWheel * this_ptr)) {
-            is_wheel_visible = true;
-            next::EquipmentWheel::ShowImmediate(this_ptr);
-            update_wheel_position();
-        }
-
         IL2CPP_INTERCEPT(EquipmentWheel, void, Hide, (app::EquipmentWheel * this_ptr, bool change)) {
             next::EquipmentWheel::Hide(this_ptr, change);
             is_wheel_visible = false;
