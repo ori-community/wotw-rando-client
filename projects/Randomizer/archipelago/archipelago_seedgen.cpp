@@ -4,6 +4,7 @@
 #include <Randomizer/archipelago/seedgen_source_generators/flags.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/format_version.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/better_spawn.inc>
+#include <Randomizer/archipelago/seedgen_source_generators/better_wellspring.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/seed_core.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/glades_done.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/knowledge_hints.inc>
@@ -34,6 +35,7 @@ namespace randomizer::archipelago {
         seedgen_source_generators::seed_core,
         seedgen_source_generators::trial_hints,
         seedgen_source_generators::better_spawn,
+        seedgen_source_generators::better_wellspring,
         seedgen_source_generators::glades_done,
         seedgen_source_generators::knowledge_hints,
         seedgen_source_generators::no_arenas,
