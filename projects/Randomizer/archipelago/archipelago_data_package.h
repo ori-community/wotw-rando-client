@@ -5,7 +5,6 @@
 #include <Randomizer/archipelago/archipelago_protocol.h>
 
 namespace randomizer::archipelago {
-    using IdMap = std::unordered_map<ids::archipelago_id_t, std::string>;
     class ArchipelagoDataPackage {
     public:
         ArchipelagoDataPackage();
@@ -28,7 +27,5 @@ namespace randomizer::archipelago {
         void load_data_from_disk();
 
         std::unordered_map<std::string, messages::GameData> m_game_name_to_game_data;
-        std::unordered_map<std::string, IdMap> m_item_id_to_name_cache;
-        std::unordered_map<std::string, IdMap> m_location_id_to_name_cache;
     };
 }

@@ -78,7 +78,32 @@ namespace randomizer::archipelago::messages {
         std::unordered_map<std::string, ids::archipelago_id_t> location_name_to_id;
         std::string checksum;
 
+        const auto& get_item_id_to_name_cache() const {
+            return m_item_id_to_name_cache;
+        }
+
+        const auto& get_location_id_to_name_cache() const {
+            return m_location_id_to_name_cache;
+        }
+
+        void rebuild_caches() {
+            m_item_id_to_name_cache.clear();
+            m_location_id_to_name_cache.clear();
+
+            for (const auto& [item_name, id]: item_name_to_id) {
+                m_item_id_to_name_cache[id] = item_name;
+            }
+
+            for (const auto& [location_name, id]: location_name_to_id) {
+                m_location_id_to_name_cache[id] = location_name;
+            }
+        }
+
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(GameData, item_name_to_id, location_name_to_id, checksum);
+
+    private:
+        std::unordered_map<ids::archipelago_id_t, std::string> m_item_id_to_name_cache;
+        std::unordered_map<ids::archipelago_id_t, std::string> m_location_id_to_name_cache;
     };
 
     struct DataPack {
