@@ -285,41 +285,14 @@ namespace randomizer::archipelago {
 
         item | vx::match{
             [this](const ids::BooleanItem& item) {
-                // TODO: This should be in the seed file, not hardcoded here
                 core::api::uber_states::UberState(item.uber_group, item.uber_state).set(true);
                 if (item.uber_group == 945 && item.uber_state == 58183) { // Central Luma TP
                     core::api::uber_states::UberState(5377, 63173).set(true);
                 }
             },
             [this](const ids::UpgradeItem& item) {
-                std::vector<core::api::uber_states::UberState> item_uber_states;
-                core::api::uber_states::UberState(item.uber_group, item.uber_state).set(true);
-                if (item.uber_group == static_cast<int16_t>(UberStateGroup::RandoUpgrade)) {
-                    // Currently this is always true, as all upgrade items have this UberGroup.
-                    switch (item.uber_state) { // Handle upgrades that affect multiple uberstates.
-                        case 48: { // Splinter Shurikens
-                            core::api::uber_states::UberState(item.uber_group, 49).set(true);
-                            break;
-                        }
-                        case 80: { // Skill Velocity
-                            core::api::uber_states::UberState(item.uber_group, 81).set(true);
-                            core::api::uber_states::UberState(item.uber_group, 82).set(true);
-                            core::api::uber_states::UberState(item.uber_group, 83).set(true);
-                            core::api::uber_states::UberState(item.uber_group, 84).set(true);
-                            core::api::uber_states::UberState(item.uber_group, 86).set(true);
-                            core::api::uber_states::UberState(item.uber_group, 90).set(true);
-                            break;
-                        }
-                        case 87: { // Jumpgrade
-                            core::api::uber_states::UberState(item.uber_group, 88).set(true);
-                            core::api::uber_states::UberState(item.uber_group, 89).set(true);
-                            break;
-                        }
-                        default: {
-                            break;
-                        }
-                    }
-                }
+                const auto state = core::api::uber_states::UberState(item.uber_group, item.uber_state);
+                state.set(state.get<int>() + 1);
             },
             [this](const ids::ResourceItem& item) {
                 switch (item.type) {
