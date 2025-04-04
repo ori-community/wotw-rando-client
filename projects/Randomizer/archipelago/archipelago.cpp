@@ -230,22 +230,22 @@ namespace randomizer::archipelago {
         constexpr int FLAG_TRAP = 0b100;
 
         if (item_it->second.flags & FLAG_PROGRESSION && item_it->second.flags & FLAG_TRAP) {
-            return std::format("This item might be important but you might want to avoid buying this for now. Ask {} about it.", target_player_name);
+            return std::format("This item might be important, but you might want to avoid buying this for now. Ask {} about it.", target_player_name);
         }
 
         if (item_it->second.flags & FLAG_TRAP) {
-            return std::format("This item may or may not be important for {}", target_player_name);
+            return std::format("This item may or may not be important for {}.", target_player_name);
         }
 
         if (item_it->second.flags & FLAG_PROGRESSION) {
-            return std::format("This item might be important for {}", target_player_name);
+            return std::format("This item might be important for {}.", target_player_name);
         }
 
         if (item_it->second.flags & FLAG_USEFUL) {
-            return std::format("This item might be useful for {}", target_player_name);
+            return std::format("This item might be useful for {}.", target_player_name);
         }
 
-        return std::format("This item might be unimportant for {}", target_player_name);
+        return std::format("This item is not important for {}.", target_player_name);
     }
 
     std::string ArchipelagoClient::get_shop_icon(const location_data::Location& location) {
