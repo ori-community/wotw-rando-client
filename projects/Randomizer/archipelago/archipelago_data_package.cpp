@@ -13,21 +13,25 @@ namespace randomizer::archipelago {
         rebuild_caches();
     }
 
-    std::optional<std::string> ArchipelagoDataPackage::get_item_name(const ids::archipelago_id_t item_id) const {
-        const auto cache_it = m_item_id_to_name_cache.find(item_id);
-        if (cache_it != m_item_id_to_name_cache.end()) {
-            return cache_it->second;
+    std::optional<std::string> ArchipelagoDataPackage::get_item_name(const ids::archipelago_id_t item_id, const std::string& game) const {
+        if (m_item_id_to_name_cache.contains(game)) {
+            const auto cache_it = m_item_id_to_name_cache.at(game).find(item_id);
+            if (cache_it != m_item_id_to_name_cache.at(game).end()) {
+                return cache_it->second;
+            }
+            return std::nullopt;
         }
-
         return std::nullopt;
     }
 
-    std::optional<std::string> ArchipelagoDataPackage::get_location_name(const ids::archipelago_id_t item_id) const {
-        const auto cache_it = m_location_id_to_name_cache.find(item_id);
-        if (cache_it != m_location_id_to_name_cache.end()) {
-            return cache_it->second;
+    std::optional<std::string> ArchipelagoDataPackage::get_location_name(const ids::archipelago_id_t item_id, const std::string& game) const {
+        if (m_location_id_to_name_cache.contains(game)) {
+            const auto cache_it = m_location_id_to_name_cache.at(game).find(item_id);
+            if (cache_it != m_location_id_to_name_cache.at(game).end()) {
+                return cache_it->second;
+            }
+            return std::nullopt;
         }
-
         return std::nullopt;
     }
 
@@ -48,13 +52,13 @@ namespace randomizer::archipelago {
         m_item_id_to_name_cache.clear();
         m_location_id_to_name_cache.clear();
 
-        for (const auto& data: m_game_name_to_game_data | std::views::values) {
+        for (const auto& [game, data]: m_game_name_to_game_data) {
             for (const auto& [item_name, id]: data.item_name_to_id) {
-                m_item_id_to_name_cache[id] = item_name;
+                m_item_id_to_name_cache[game][id] = item_name;
             }
 
             for (const auto& [location_name, id]: data.location_name_to_id) {
-                m_location_id_to_name_cache[id] = location_name;
+                m_location_id_to_name_cache[game][id] = location_name;
             }
         }
     }
