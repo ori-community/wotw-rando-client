@@ -25,7 +25,7 @@ using namespace app::classes;
 
 namespace randomizer::features::credits {
     namespace {
-        constexpr float MOVE_DOWN_DISTANCE = 3.6f;
+        constexpr float MOVE_DOWN_DISTANCE = 4.2f;
         constexpr char CREDITS_PATH_FMT[] = "{}\\credits";
         randomizer::messages::CreditsController credits;
         auto requested_credits_immediately = false;
@@ -53,7 +53,7 @@ namespace randomizer::features::credits {
                     continue;
                 }
                 auto child_position = il2cpp::unity::get_local_position(child_go);
-                child_position.y -= 3.f;
+                child_position.y -= MOVE_DOWN_DISTANCE;
                 il2cpp::unity::set_local_position(child_go, child_position);
             }
 
