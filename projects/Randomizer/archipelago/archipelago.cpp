@@ -204,7 +204,8 @@ namespace randomizer::archipelago {
             return "@Unknown Item@";
         }
 
-        auto item_name = m_data_package.get_item_name(item_it->second.item).value_or(UNKNOWN_ITEM_TEXT);
+        const std::string game = m_slots[std::to_string(item_it->second.player)].game;
+        auto item_name = m_data_package.get_item_name(item_it->second.item, game).value_or(UNKNOWN_ITEM_TEXT);
 
         if (m_slot_id == item_it->second.player) {
             return item_name;
@@ -280,7 +281,7 @@ namespace randomizer::archipelago {
 
     void ArchipelagoClient::grant_item(messages::NetworkItem const& net_item) {
         std::variant<ids::Location, ids::BooleanItem, ids::ResourceItem, ids::UpgradeItem> item = ids::get_item(net_item.item);
-        const auto item_name = m_data_package.get_item_name(net_item.item).value_or(UNKNOWN_ITEM_TEXT);
+        const auto item_name = m_data_package.get_item_name(net_item.item, "Ori and the Will of the Wisps").value_or(UNKNOWN_ITEM_TEXT);
 
         item | vx::match{
             [this](const ids::BooleanItem& item) {
@@ -534,7 +535,7 @@ namespace randomizer::archipelago {
                             std::string game = m_slots[std::to_string(message.receiving)].game;
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>(
-                                    std::format("{} sent to {}.", m_data_package.get_item_name(message.item.item).value_or(UNKNOWN_ITEM_TEXT), get_player_name(message.receiving))
+                                    std::format("{} sent to {}.", m_data_package.get_item_name(message.item.item, game).value_or(UNKNOWN_ITEM_TEXT), get_player_name(message.receiving))
                                 ),
                                 .show_box = true,
                             });
@@ -551,9 +552,9 @@ namespace randomizer::archipelago {
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>(std::format(
                                     "{} for {} is on {}.",
-                                    m_data_package.get_item_name(message.item.item).value_or(UNKNOWN_ITEM_TEXT),
+                                    m_data_package.get_item_name(message.item.item, game).value_or(UNKNOWN_ITEM_TEXT),
                                     get_player_name(message.receiving),
-                                    m_data_package.get_location_name(message.item.location).value_or("@Unknown Location@")
+                                    m_data_package.get_location_name(message.item.location, game).value_or("@Unknown Location@")
                                 )),
                                 .show_box = true,
                             });
