@@ -240,10 +240,17 @@ namespace randomizer::game::map {
     }
 
     void Icon::apply_scaler(app::Vector2 const& position) const {
-        if (il2cpp::unity::is_valid(m_game_object.get())) {
-            const app::Vector3 position_3{position.x, position.y, 0.0f};
-            const auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
-            IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, m_game_object.get(), position_3, false);
+        if (!il2cpp::unity::is_valid(m_game_object.get())) {
+            return;
         }
+
+        const app::Vector3 position_3{position.x, position.y, 0.0f};
+        const auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
+
+        if (!il2cpp::unity::is_valid(area_map)) {
+            return;
+        }
+
+        IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, m_game_object.get(), position_3, false);
     }
 } // namespace randomizer::game::map
