@@ -233,7 +233,16 @@ namespace randomizer::game::map {
 
     void Icon::remove_scaler() const {
         if (il2cpp::unity::is_valid(m_game_object.get())) {
+            if (!il2cpp::unity::is_valid(m_game_object.get())) {
+                return;
+            }
+
             const auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
+
+            if (!il2cpp::unity::is_valid(area_map) || !il2cpp::unity::is_valid(area_map->fields._IconScaler_k__BackingField)) {
+                return;
+            }
+
             IconPlacementScaler::RemoveIcon(area_map->fields._IconScaler_k__BackingField, m_game_object.get());
             il2cpp::unity::set_local_scale(m_game_object.get(), {1, 1, 1});
         }
