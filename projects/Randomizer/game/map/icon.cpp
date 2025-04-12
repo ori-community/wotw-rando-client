@@ -232,24 +232,26 @@ namespace randomizer::game::map {
     }
 
     void Icon::remove_scaler() const {
-        if (il2cpp::unity::is_valid(m_game_object.get())) {
-            if (!il2cpp::unity::is_valid(m_game_object.get())) {
-                return;
-            }
+        const auto icon_go = m_game_object.get();
 
-            const auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
-
-            if (!il2cpp::unity::is_valid(area_map) || !il2cpp::unity::is_valid(area_map->fields._IconScaler_k__BackingField)) {
-                return;
-            }
-
-            IconPlacementScaler::RemoveIcon(area_map->fields._IconScaler_k__BackingField, m_game_object.get());
-            il2cpp::unity::set_local_scale(m_game_object.get(), {1, 1, 1});
+        if (!il2cpp::unity::is_valid(icon_go)) {
+            return;
         }
+
+        const auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
+
+        if (!il2cpp::unity::is_valid(area_map) || !il2cpp::unity::is_valid(area_map->fields._IconScaler_k__BackingField)) {
+            return;
+        }
+
+        IconPlacementScaler::RemoveIcon(area_map->fields._IconScaler_k__BackingField, icon_go);
+        il2cpp::unity::set_local_scale(icon_go, {1, 1, 1});
     }
 
     void Icon::apply_scaler(app::Vector2 const& position) const {
-        if (!il2cpp::unity::is_valid(m_game_object.get())) {
+        const auto icon_go = m_game_object.get();
+
+        if (!il2cpp::unity::is_valid(icon_go)) {
             return;
         }
 
@@ -260,6 +262,6 @@ namespace randomizer::game::map {
             return;
         }
 
-        IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, m_game_object.get(), position_3, false);
+        IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, icon_go, position_3, false);
     }
 } // namespace randomizer::game::map
