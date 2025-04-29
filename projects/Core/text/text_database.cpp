@@ -195,7 +195,7 @@ namespace core::text {
         register_text(*static_text_entry::CurrencyPlural, "Subs");
         register_text(*static_text_entry::CurrencyPlural, "Tickets");
         register_text(*static_text_entry::CurrencyPlural, "Tokens");
-        register_text(*static_text_entry::CurrencyPlural, "Vespine Gas");
+        register_text(*static_text_entry::CurrencyPlural, "Vespene Gas");
         register_text(*static_text_entry::CurrencyPlural, "Wheat");
         register_text(*static_text_entry::CurrencyPlural, "Widgets");
         register_text(*static_text_entry::CurrencyPlural, "Wood");
@@ -282,7 +282,7 @@ namespace core::text {
         register_text(*static_text_entry::CurrencySingular, "Sub");
         register_text(*static_text_entry::CurrencySingular, "Ticket");
         register_text(*static_text_entry::CurrencySingular, "Token");
-        register_text(*static_text_entry::CurrencySingular, "Vespine Gas");
+        register_text(*static_text_entry::CurrencySingular, "Vespene Gas");
         register_text(*static_text_entry::CurrencySingular, "Wheat");
         register_text(*static_text_entry::CurrencySingular, "Widget");
         register_text(*static_text_entry::CurrencySingular, "Wood");
