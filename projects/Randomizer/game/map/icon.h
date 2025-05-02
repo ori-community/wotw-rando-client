@@ -50,8 +50,8 @@ namespace randomizer::game::map {
         core::Property<bool> m_label_visible;
         core::Property<bool> m_can_teleport;
 
-        core::Property<app::GameObject*> m_game_object;
-        core::Property<app::AreaMapIcon*> m_map_icon;
+        core::Property<std::optional<il2cpp::WeakGCRef<app::GameObject>>> m_game_object;
+        core::Property<std::optional<il2cpp::WeakGCRef<app::AreaMapIcon>>> m_map_icon;
 
         MapIcon m_current_icon = MapIcon::Keystone;
         core::MoodGuid m_guid;
