@@ -35,6 +35,8 @@ namespace core::api::game::player {
     CORE_DLLEXPORT void refill_energy();
     CORE_DLLEXPORT void refill_health();
 
+    CORE_DLLEXPORT bool is_alive();
+
     // TODO: Make these reactive.
     CORE_DLLEXPORT const Property<float>& health();
     CORE_DLLEXPORT const Property<int>& max_health();

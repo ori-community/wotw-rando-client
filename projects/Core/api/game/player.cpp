@@ -528,6 +528,16 @@ namespace core::api::game::player {
         }
     }
 
+    bool is_alive() {
+        const auto sein = player::sein();
+
+        if (sein == nullptr) {
+            return false;
+        }
+
+        return SeinCharacter::get_IsAlive(sein);
+    }
+
     const Property<float>& health() { return health_property; }
     const Property<int>& max_health() { return max_health_property; }
     const Property<float>& energy() { return energy_property; }
