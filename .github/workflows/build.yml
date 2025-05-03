@@ -20,7 +20,7 @@ jobs:
       - name: Enable Git support for long file paths
         run: git config --system core.longpaths true
       - name: Run sccache-cache
-        uses: mozilla-actions/sccache-action@v0.0.4
+        uses: mozilla-actions/sccache-action@v0.0.8
       - name: Install CMake
         run: choco install cmake
       - name: Install Ninja
