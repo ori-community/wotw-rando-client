@@ -38,11 +38,6 @@ namespace {
         is_restoring_checkpoint = false;
     });
 
-    IL2CPP_INTERCEPT(Moon::Timeline::Systems::SceneManagementSystem, void, SetSceneManagementMode, (app::SceneManagementSystem * this_ptr, app::ScenesManager_SceneManagementMode__Enum mode)) {
-        next::Moon::Timeline::Systems::SceneManagementSystem::SetSceneManagementMode(this_ptr, mode);
-        modloader::win::console::console_send(std::format("Set to {}", magic_enum::enum_name(mode)));
-    }
-
     IL2CPP_INTERCEPT(KwolokBossEscapeBehaviour, void, OnEscapeTimelineEnded, (app::KwolokBossEscapeBehaviour* this_ptr)) {
         if (!core::api::game::player::is_alive() || is_restoring_checkpoint) {
             return;
