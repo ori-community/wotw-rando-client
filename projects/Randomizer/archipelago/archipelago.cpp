@@ -292,7 +292,53 @@ namespace randomizer::archipelago {
             },
             [this](const ids::UpgradeItem& item) {
                 const auto state = core::api::uber_states::UberState(item.uber_group, item.uber_state);
-                state.set(state.get<int>() + 1);
+                if (item.uber_group == 4) {
+                    switch (item.uber_state) {
+                        case 45: {  // Splinter grenade
+                            state.set(state.get<int>() + 2);
+                            break;
+                        }
+                        case 44: {  // Rapid grenade
+                            state.set(state.get<float>() - 0.5);
+                            break;
+                        }
+                        case 10: {  // Quickshot upgrade
+                            state.set(state.get<float>() - 0.4);
+                            break;
+                        }
+                        case 37: {  // Unlimited sentries
+                            state.set(100);
+                            break;
+                        }
+                        case 46: {  // Sentry burst upgrade
+                            state.set(state.get<int>() + 10);
+                            break;
+                        }
+                        case 47: {  // Sentry fire rate upgrade
+                            state.set(state.get<float>() + 2.5);
+                            break;
+                        }
+                        case 48: {  // Splinter shuriken
+                            state.set(state.get<int>() + 2);
+                            break;
+                        }
+                        case 2:  // Efficiency upgrades
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                        case 7:
+                        case 8:
+                        case 9: {
+                            state.set(state.get<float>() / 2);
+                            break;
+                        }
+                        default: {
+                            state.set(state.get<int>() + 1);
+                        }
+                    }
+                }
+                else { state.set(state.get<int>() + 1); }
             },
             [this](const ids::ResourceItem& item) {
                 switch (item.type) {
