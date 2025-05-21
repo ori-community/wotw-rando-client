@@ -175,6 +175,10 @@ namespace randomizer::archipelago {
                     .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}). Retrying in 10s.", m_websocket.getUrl())),
                     .show_box = true,
                 });
+                core::message_controller().queue_central({
+                    .text = core::Property<std::string>("If the port changed, please create a new save file."),
+                    .show_box = true,
+                });
                 core::events::schedule_task(10.f, [this]() {
                     if (m_should_connect) {
                         connect(m_websocket.getUrl(), m_slot_name, m_password);
@@ -476,6 +480,10 @@ namespace randomizer::archipelago {
                         modloader::error("archipelago", std::format("Connection refused: {}.", error));
                         core::message_controller().queue_central({
                             .text = core::Property<std::string>(std::format("Connection to Archipelago refused: {}.", error)),
+                            .show_box = true,
+                        });
+                        core::message_controller().queue_central({
+                            .text = core::Property<std::string>("If the port changed, please create a new save file."),
                             .show_box = true,
                         });
                     }
