@@ -8,7 +8,9 @@ namespace randomizer::archipelago {
     ArchipelagoDataPackage::ArchipelagoDataPackage() { load_data_from_disk(); }
 
     void ArchipelagoDataPackage::add_game_data(const std::unordered_map<std::string, messages::GameData>& new_data) {
-        m_game_name_to_game_data.insert_range(new_data);
+        for (const auto& [game, data]: new_data) {
+            m_game_name_to_game_data.insert_or_assign(game, data);  // Add new games and update existing ones
+        }
         save_data_to_disk();
         rebuild_caches();
     }
