@@ -27,8 +27,6 @@ namespace randomizer::archipelago::seedgen_source_generators {
 3|0|8|23987|14832|bool|true
 3|0|4|19|14019|27804|2|8|14019|27804|int|2
 3|0|8|14019|33776|int|3
-3|0|8|14019|44578|int|2
-3|0|8|14019|26394|int|2
 3|0|8|937|34641|int|4
 3|0|8|42178|40006|byte|3
 3|0|8|58674|14313|bool|true
