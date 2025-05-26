@@ -172,11 +172,7 @@ namespace randomizer::archipelago {
             }
             case ix::WebSocketMessageType::Error:
                 core::message_controller().queue_central({
-                    .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}). Retrying in 10s.", m_websocket.getUrl())),
-                    .show_box = true,
-                });
-                core::message_controller().queue_central({
-                    .text = core::Property<std::string>("If the port changed, please create a new save file."),
+                    .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}). Retrying in 10s.\nIf the port changed, please create a new save file.", m_websocket.getUrl())),
                     .show_box = true,
                 });
                 core::events::schedule_task(10.f, [this]() {
@@ -303,11 +299,11 @@ namespace randomizer::archipelago {
                             break;
                         }
                         case 44: {  // Rapid grenade
-                            state.set(state.get<float>() - 0.5);
+                            state.set(state.get<float>() - 0.5f);
                             break;
                         }
                         case 10: {  // Quickshot upgrade
-                            state.set(state.get<float>() - 0.4);
+                            state.set(state.get<float>() - 0.4f);
                             break;
                         }
                         case 37: {  // Unlimited sentries
@@ -319,7 +315,7 @@ namespace randomizer::archipelago {
                             break;
                         }
                         case 47: {  // Sentry fire rate upgrade
-                            state.set(state.get<float>() + 2.5);
+                            state.set(state.get<float>() + 2.5f);
                             break;
                         }
                         case 48: {  // Splinter shuriken
@@ -334,7 +330,7 @@ namespace randomizer::archipelago {
                         case 7:
                         case 8:
                         case 9: {
-                            state.set(state.get<float>() / 2);
+                            state.set(state.get<float>() / 2.0f);
                             break;
                         }
                         default: {
@@ -479,11 +475,7 @@ namespace randomizer::archipelago {
                     for (const std::string& error: message.errors) {
                         modloader::error("archipelago", std::format("Connection refused: {}.", error));
                         core::message_controller().queue_central({
-                            .text = core::Property<std::string>(std::format("Connection to Archipelago refused: {}.", error)),
-                            .show_box = true,
-                        });
-                        core::message_controller().queue_central({
-                            .text = core::Property<std::string>("If the port changed, please create a new save file."),
+                            .text = core::Property<std::string>(std::format("Connection to Archipelago refused: {}.\nIf the port changed, please create a new save file.", error)),
                             .show_box = true,
                         });
                     }
