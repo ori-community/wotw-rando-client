@@ -1,7 +1,7 @@
 #include <Randomizer/input/controller_bindings.h>
 #include <Randomizer/input/helpers.h>
 #include <Randomizer/input/rando_bindings.h>
-#include <Randomizer/macros.h>
+#include <Core/input/midi_input.h>
 #include <Randomizer/randomizer.h>
 
 #include <Core/api/game/game.h>
@@ -25,6 +25,7 @@ using namespace app::classes::UnityEngine;
 namespace randomizer::input {
     namespace {
         const std::string KEYBOARD_REBIND_FILE = "keyboard_bindings.json";
+        const std::string MIDI_REBIND_FILE = "midi_bindings.json";
 
         struct KeyboardMouseInput {
             std::vector<app::KeyCode__Enum> codes;
@@ -37,8 +38,13 @@ namespace randomizer::input {
             bool altgr = false;
         };
 
+        struct MidiInput {
+            std::vector<uint8_t> notes;
+        };
+
         struct ControlInfo {
             std::vector<KeyboardMouseInput> kbm_bindings;
+            std::vector<MidiInput> midi_bindings;
             core::input::SimulatedButton simulator;
 
             bool is_pressed = false;
@@ -46,6 +52,10 @@ namespace randomizer::input {
         };
 
         std::unordered_map<Action, ControlInfo> rando_bindings;
+
+        void add_midi_binding(Action action, const MidiInput& input) {
+            rando_bindings[action].midi_bindings.push_back(input);
+        }
 
         void add_keyboard_binding(Action action, const KeyboardMouseInput& input) {
             if (action < Action::RANDO_ACTIONS_START) {
@@ -59,7 +69,7 @@ namespace randomizer::input {
             rando_bindings[action].kbm_bindings.push_back(input);
         }
 
-        void on_binding_read(Action action, std::vector<int> const& buttons, bool respects_modifiers) {
+        void on_keyboard_binding_read(Action action, std::vector<int> const& buttons, bool respects_modifiers) {
             KeyboardMouseInput input;
             input.respects_modifiers = respects_modifiers;
             for (auto const& button : buttons) {
@@ -78,10 +88,17 @@ namespace randomizer::input {
             add_keyboard_binding(action, input);
         }
 
+        void on_midi_binding_read(Action action, std::vector<int> const& notes) {
+            MidiInput input;
+            input.notes.append_range(notes);
+            add_midi_binding(action, input);
+        }
+
         IL2CPP_INTERCEPT(PlayerInput, void, ClearControls, (app::PlayerInput * this_ptr)) {
             next::PlayerInput::ClearControls(this_ptr);
             for (auto& binding : rando_bindings) {
                 binding.second.kbm_bindings.clear();
+                binding.second.midi_bindings.clear();
             }
         }
 
@@ -112,6 +129,22 @@ namespace randomizer::input {
             return true;
         }
 
+        #ifdef ENABLE_MIDI_IN
+        bool is_midi_pressed(const MidiInput& input) {
+            if (input.notes.empty()) {
+                return false;
+            }
+
+            for (const auto& note : input.notes) {
+                if (!core::input::midi_input::is_note_pressed(note)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        #endif
+
         IL2CPP_INTERCEPT(SavePedestalController, void, BeginTeleportation, (app::Vector2 teleport_target_world_position)) {
             auto player_input = types::PlayerInput::get_class()->static_fields->Instance;
             auto prev = player_input->fields.Active;
@@ -136,16 +169,31 @@ namespace randomizer::input {
                                 break;
                             }
                         }
+
+                        #ifdef ENABLE_MIDI_IN
+                        for (auto const& input : info.midi_bindings) {
+                            const auto midi_pressed = is_midi_pressed(input);
+
+                            set_action(action, midi_pressed);
+
+                            if (midi_pressed) {
+                                pressed = true;
+                                break;
+                            }
+                        }
+                        #endif
                     }
                 }
 
                 auto is_just_released = !pressed && info.is_pressed;
                 info.is_just_pressed = pressed && !info.is_pressed;
                 info.is_pressed = pressed;
+
                 if (info.is_just_pressed) {
                     single_input_bus().trigger_event(action, EventTiming::Before);
                     input_bus().trigger_event(EventTiming::Before, action);
                 }
+
                 if (is_just_released) {
                     single_input_bus().trigger_event(action, EventTiming::After);
                     input_bus().trigger_event(EventTiming::After, action);
@@ -189,7 +237,8 @@ namespace randomizer::input {
     }
 
     void on_before_register_input_simulators(GameEvent game_event, EventTiming timing) {
-        read_bindings(base_path() / KEYBOARD_REBIND_FILE, on_binding_read);
+        read_keyboard_or_controller_bindings(base_path() / KEYBOARD_REBIND_FILE, on_keyboard_binding_read);
+        read_midi_bindings(base_path() / MIDI_REBIND_FILE, on_midi_binding_read);
     }
 
     auto on_before_register_input_simulators_handle =
