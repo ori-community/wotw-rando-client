@@ -164,6 +164,7 @@ set(
         "ghosts.cpp"
         "ghosts_playground.cpp"
         "input/action_registration.cpp"
+        "input/better_keyboard_aiming.cpp"
         "input/controller_bindings.cpp"
         "input/helpers.cpp"
         "input/rando_bindings.cpp"
