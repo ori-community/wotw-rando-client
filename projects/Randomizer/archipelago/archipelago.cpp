@@ -573,7 +573,7 @@ namespace randomizer::archipelago {
                                     "{} for {} is on {}.",
                                     m_data_package.get_item_name(message.item.item, game).value_or(UNKNOWN_ITEM_TEXT),
                                     get_player_name(message.receiving),
-                                    m_data_package.get_location_name(message.item.location, game).value_or("@Unknown Location@")
+                                    m_data_package.get_location_name(message.item.location, "Ori and the Will of the Wisps").value_or("@Unknown Location@")
                                 )),
                                 .show_box = true,
                             });
