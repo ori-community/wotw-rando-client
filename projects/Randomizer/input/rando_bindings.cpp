@@ -250,6 +250,7 @@ namespace randomizer::input {
         core::api::game::event_bus().register_handler(GameEvent::RegisteringInputSimulators, EventTiming::Before, &on_before_register_input_simulators);
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        #ifdef ENABLE_MIDI_IN
         win::console::register_command(
             {"midi", "enable_input"},
             [](auto, auto) {
@@ -331,5 +332,6 @@ namespace randomizer::input {
             },
             true
         );
+        #endif
    });
 } // namespace randomizer::input
