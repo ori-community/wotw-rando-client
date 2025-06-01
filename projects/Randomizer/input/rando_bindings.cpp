@@ -7,6 +7,7 @@
 #include <Core/api/game/game.h>
 #include <Core/input/simulator.h>
 #include <Core/settings.h>
+#include <Core/utils/json_serializers.h>
 
 #include <Modloader/app/methods/PlayerInput.h>
 #include <Modloader/app/methods/SavePedestalController.h>
@@ -15,6 +16,7 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
+#include <Core/events/task.h>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -52,6 +54,7 @@ namespace randomizer::input {
         };
 
         std::unordered_map<Action, ControlInfo> rando_bindings;
+        bool midi_input_enabled = false;
 
         void add_midi_binding(Action action, const MidiInput& input) {
             rando_bindings[action].midi_bindings.push_back(input);
@@ -96,9 +99,9 @@ namespace randomizer::input {
 
         IL2CPP_INTERCEPT(PlayerInput, void, ClearControls, (app::PlayerInput * this_ptr)) {
             next::PlayerInput::ClearControls(this_ptr);
-            for (auto& binding : rando_bindings) {
-                binding.second.kbm_bindings.clear();
-                binding.second.midi_bindings.clear();
+            for (auto& bind: rando_bindings | std::views::values) {
+                bind.kbm_bindings.clear();
+                bind.midi_bindings.clear();
             }
         }
 
@@ -171,14 +174,16 @@ namespace randomizer::input {
                         }
 
                         #ifdef ENABLE_MIDI_IN
-                        for (auto const& input : info.midi_bindings) {
-                            const auto midi_pressed = is_midi_pressed(input);
+                        if (midi_input_enabled) {
+                            for (auto const& input : info.midi_bindings) {
+                                const auto midi_pressed = is_midi_pressed(input);
 
-                            set_action(action, midi_pressed);
+                                set_action(action, midi_pressed);
 
-                            if (midi_pressed) {
-                                pressed = true;
-                                break;
+                                if (midi_pressed) {
+                                    pressed = true;
+                                    break;
+                                }
                             }
                         }
                         #endif
@@ -243,4 +248,88 @@ namespace randomizer::input {
 
     auto on_before_register_input_simulators_handle =
         core::api::game::event_bus().register_handler(GameEvent::RegisteringInputSimulators, EventTiming::Before, &on_before_register_input_simulators);
+
+    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        win::console::register_command(
+            {"midi", "enable_input"},
+            [](auto, auto) {
+                midi_input_enabled = true;
+                win::console::console_send("MIDI Input enabled");
+            },
+            true
+        );
+
+        win::console::register_command(
+            {"midi", "disable_input"},
+            [](auto, auto) {
+                midi_input_enabled = false;
+                for (auto& [action, bind]: rando_bindings) {
+                    if (!bind.midi_bindings.empty()) {
+                        const auto simulator = core::input::get_simulator_for(action);
+
+                        if (simulator != nullptr) {
+                            simulator->enabled = false;
+                        }
+                    }
+                }
+
+                win::console::console_send("MIDI Input disabled");
+            },
+            true
+        );
+
+        win::console::register_command(
+            {"midi", "register_action"},
+            [](auto, auto params) {
+                if (params.size() != 1) {
+                    win::console::console_send("Error: Exactly one argument required. Please provide the action name.");
+                    return;
+                }
+
+                const auto action_name = params.at(0).value;
+                win::console::console_send(std::format("Hold your notes for '{}' in 3...", params[0].value));
+
+                core::events::schedule_task(1.f, [] { win::console::console_send("2..."); });
+
+                core::events::schedule_task(2.f, [] { win::console::console_send("1..."); });
+
+                core::events::schedule_task(3.f, [action_name] {
+                    std::vector<uint8_t> pressed_notes;
+
+                    for (int i = 0; i < 256; ++i) {
+                        if (core::input::midi_input::is_note_pressed(i)) {
+                            pressed_notes.push_back(i);
+                        }
+                    }
+
+                    if (pressed_notes.empty()) {
+                        win::console::console_send("No notes pressed, nothing changed.");
+                        return;
+                    }
+
+                    nlohmann::json j;
+                    load_json_file(MIDI_REBIND_FILE, j);
+
+                    if (!j.contains(action_name)) {
+                        j[action_name] = nlohmann::json::array();
+                    }
+
+                    // Store new bind
+                    j[action_name][0]["notes"] = pressed_notes;
+                    std::ofstream stream(base_path() / MIDI_REBIND_FILE);
+                    stream << j.dump(2);
+                    stream.close();
+
+                    // Reload MIDI bindings
+                    for (auto& bind: rando_bindings | std::views::values) {
+                        bind.midi_bindings.clear();
+                    }
+                    read_midi_bindings(base_path() / MIDI_REBIND_FILE, on_midi_binding_read);
+
+                    win::console::console_send(std::format("Saved '{}' = {}", action_name, pressed_notes));
+                });
+            },
+            true
+        );
+   });
 } // namespace randomizer::input
