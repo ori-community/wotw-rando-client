@@ -17,6 +17,7 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 
+#include <Core/api/input.h>
 #include <Modloader/app/types/Input_Cmd.h>
 #include <cmath>
 #include <limits>
@@ -32,19 +33,8 @@ namespace {
 
     float mouse_control_deadzone = 50.f;
 
-    app::ControlScheme__Enum get_current_control_scheme() {
-        static app::GameSettings* settings = nullptr;
-        if (il2cpp::unity::is_valid(settings))
-            return settings->fields.m_currentControlSchemes;
-
-        settings = types::GameSettings::get_class()->static_fields->Instance;
-        return il2cpp::unity::is_valid(settings)
-            ? settings->fields.m_currentControlSchemes
-            : app::ControlScheme__Enum::KeyboardAndMouse;
-    }
-
     bool current_control_scheme_is_kbm() {
-        auto scheme = get_current_control_scheme();
+        auto scheme = core::api::input::get_current_control_scheme();
         return scheme == app::ControlScheme__Enum::KeyboardAndMouse || scheme == app::ControlScheme__Enum::Keyboard;
     }
 
@@ -134,16 +124,19 @@ namespace {
         if (!player_input->fields.Active)
             return ret;
 
-        if (use_mouse_aiming_for_axis_input && get_current_control_scheme() == app::ControlScheme__Enum::KeyboardAndMouse)
+        if (use_mouse_aiming_for_axis_input && core::api::input::get_current_control_scheme() == app::ControlScheme__Enum::KeyboardAndMouse) {
             ret = get_mouse_dir();
-        else
+        } else {
             ret = next::Core::Input::get_Axis();
+        }
 
-        if (invert_x)
+        if (invert_x) {
             ret.x = -ret.x;
+        }
 
-        if (invert_y)
+        if (invert_y) {
             ret.y = -ret.y;
+        }
 
         return ret;
     }
@@ -163,24 +156,18 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinSpiritLeashAbility, bool, IsInputTowardsTarget, (app::SeinSpiritLeashAbility * this_ptr, app::Vector3 target_dir, app::Vector3 input_dir, bool is_current_target, float* angle_difference)) {
-        if (overwrite_target)
+        if (overwrite_target) {
             input_dir = dir;
+        }
 
         return next::SeinSpiritLeashAbility::IsInputTowardsTarget(this_ptr, target_dir, input_dir, is_current_target, angle_difference);
     }
 
     IL2CPP_INTERCEPT(SeinCharacter, bool, get_FaceLeft, (app::SeinCharacter * this_ptr)) {
-        if (overwrite_target)
+        if (overwrite_target) {
             return dir.x < 0;
-        else
-            return next::SeinCharacter::get_FaceLeft(this_ptr);
+        }
+
+        return next::SeinCharacter::get_FaceLeft(this_ptr);
     }
 } // namespace
-
-RANDOMIZER_C_DLLEXPORT bool get_axis_inverted(bool horizontal) {
-    return horizontal ? invert_x : invert_y;
-}
-
-RANDOMIZER_C_DLLEXPORT void set_axis_inverted(bool horizontal, bool value) {
-    (horizontal ? invert_x : invert_y) = value;
-}
