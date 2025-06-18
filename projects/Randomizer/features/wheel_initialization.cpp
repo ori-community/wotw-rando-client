@@ -24,7 +24,7 @@ namespace randomizer::features::wheel {
     }
 
     void on_dev_changed() {
-        auto dev = core::settings::dev_mode();
+        auto dev = core::settings::developer_mode();
         set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(1), dev);
         set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(2), dev);
         set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(4), dev);
@@ -67,19 +67,19 @@ namespace randomizer::features::wheel {
                         });
         initialize_item(9000, 4, "Toggle cursor lock", "Toggle to confine the mouse cursor to the window.", "file:assets/icons/wheel/cursor_lock.blue.png",
                         [](auto, auto, auto) {
-                            core::settings::cursor_locked(!core::settings::cursor_locked());
-                            modloader::cursor_lock(core::settings::cursor_locked());
+                            core::settings::lock_cursor(!core::settings::lock_cursor());
+                            modloader::cursor_lock(core::settings::lock_cursor());
 
                             core::message_controller().queue_central({
-                                .text = core::Property<std::string>::format("Cursor locked: {}", core::settings::cursor_locked()),
+                                .text = core::Property<std::string>::format("Cursor locked: {}", core::settings::lock_cursor()),
                                 .prioritized = true,
                             });
                         });
-        initialize_item(9000, 5, "Toggle autoaim", "Toggle autoaim for bow/shuriken.", "file:assets/icons/wheel/toggle_autoaim.blue.png",
+        initialize_item(9000, 5, "Toggle autoaim", "Toggle auto aim for bow/shuriken.", "file:assets/icons/wheel/toggle_autoaim.blue.png",
                         [](auto, auto, auto) {
-                            core::settings::autoaim(!core::settings::autoaim());
+                            core::settings::disable_auto_aim(!core::settings::disable_auto_aim());
                             core::message_controller().queue_central({
-                                .text = core::Property<std::string>::format("Autoaim: {}", core::settings::autoaim()),
+                                .text = core::Property<std::string>::format("Auto Aim {}", core::settings::disable_auto_aim() ? "disabled" : "enabled"),
                                 .prioritized = true,
                             });
                         });
@@ -98,9 +98,9 @@ namespace randomizer::features::wheel {
 
         initialize_item(9001, 0, "Toggle dev", "Toggle developer tools", "file:assets/icons/wheel/dev_mode.blue.png",
                         [](auto, auto, auto) {
-                            core::settings::dev_mode(!core::settings::dev_mode());
+                            core::settings::developer_mode(!core::settings::developer_mode());
                             core::message_controller().queue_central({
-                                .text = core::Property<std::string>::format("Dev mode: {}", core::settings::dev_mode()),
+                                .text = core::Property<std::string>::format("Dev mode: {}", core::settings::developer_mode()),
                                 .prioritized = true,
                             });
                             on_dev_changed();

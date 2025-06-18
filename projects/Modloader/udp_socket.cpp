@@ -44,11 +44,11 @@ namespace modloader {
 
     UDPSocket::~UDPSocket() {}
 
-    UDPSocket::UDPError UDPSocket::open(std::string_view server, int port) {
+    UDPSocket::UDPError UDPSocket::open(std::string_view host, int port) {
         if (data->is_open)
             return UDPError::AlreadyOpen;
 
-        this->server = server;
+        this->host = host;
         this->port = port;
 
         if (!winsock_manager.initialized) {
@@ -64,7 +64,7 @@ namespace modloader {
         hints.ai_family = PF_UNSPEC;
         hints.ai_socktype = SOCK_DGRAM;
         std::string str_port = std::to_string(port);
-        auto error_code = getaddrinfo(server.data(), str_port.c_str(), &hints, &result);
+        auto error_code = getaddrinfo(host.data(), str_port.c_str(), &hints, &result);
 
         if (error_code != 0) {
             return UDPError::HostResolving;

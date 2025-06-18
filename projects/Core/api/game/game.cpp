@@ -104,7 +104,7 @@ namespace core::api::game {
                 core::settings::reload();
 
                 // Update settings
-                modloader::cursor_lock(core::settings::cursor_locked());
+                modloader::cursor_lock(core::settings::lock_cursor());
             }
 
             auto evt = focus_status ? GameEvent::GainedFocus : GameEvent::LostFocus;

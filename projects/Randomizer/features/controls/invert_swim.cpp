@@ -21,7 +21,7 @@ namespace {
         this_ptr->fields.SwimSpeed = DEFAULT_SWIM_SPEED * swim_speed.get<float>();
         this_ptr->fields.HoldAToSwimLoop = false;
 
-        if (core::settings::invert_swim()) {
+        if (core::settings::invert_fast_swim()) {
             auto input_cmd = types::Input_Cmd::get_class();
             auto is_jump_pressed = input_cmd->static_fields->Jump->fields.IsPressed;
             auto was_jump_pressed = input_cmd->static_fields->Jump->fields.WasPressed;

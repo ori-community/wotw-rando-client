@@ -41,22 +41,26 @@ namespace randomizer::online {
 
     NetworkClient::~NetworkClient() = default;
 
-    void NetworkClient::websocket_connect(std::string_view url) {
-        m_websocket.stop();
-        m_websocket.setUrl(std::string(url));
-        m_websocket.setPingInterval(30);
-        m_websocket.disableAutomaticReconnection();
-        m_websocket.start();
-        m_reconnect_websocket = true;
-        modloader::info("network_client", "Network client connected.");
+    void NetworkClient::websocket_connect(std::string_view host, bool tls, std::string_view path) {
+        const std::string url = std::format("{}://{}{}", tls ? "wss" : "ws", host, path);
+        m_host = host;
+        websocket_connect(url);
     }
 
     bool NetworkClient::websocket_connected() const {
         return m_websocket.getReadyState() == ix::ReadyState::Open;
     }
 
-    void NetworkClient::udp_open(std::string_view server, int port) {
-        auto result = m_udp_socket.open(server, port);
+    void NetworkClient::udp_open(std::string_view host, int port) {
+        if (m_udp_socket.is_open()) {
+            if (m_udp_socket.get_port() == port && m_udp_socket.get_host() == host) {
+                return;
+            }
+
+            m_udp_socket.close();
+        }
+
+        auto result = m_udp_socket.open(host, port);
         if (result != modloader::UDPSocket::UDPError::Ok) {
             modloader::warn("network_client", "Failed to open udp socket.");
         }
@@ -75,7 +79,17 @@ namespace randomizer::online {
         m_websocket.stop();
         m_udp_socket.close();
         modloader::info("network_client", "Network client disconnected.");
-        core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Closed); });
+        core::events::schedule_task_for_next_update([&] { m_event_bus.trigger_event(State::Closed); });
+    }
+
+    void NetworkClient::websocket_connect(const std::string& url) {
+        m_websocket.stop();
+        m_websocket.setUrl(url);
+        m_websocket.setPingInterval(30);
+        m_websocket.disableAutomaticReconnection();
+        m_websocket.start();
+        m_reconnect_websocket = true;
+        modloader::info("network_client", "Network client connected.");
     }
 
     void NetworkClient::websocket_handle_message(ix::WebSocketMessagePtr const& msg) {
@@ -92,6 +106,7 @@ namespace randomizer::online {
                     auth.ParseFromString(packet.packet());
                     m_udp_id = auth.udpid();
                     m_udp_key = std::vector<char>(auth.udpkey().begin(), auth.udpkey().end());
+                    udp_open(m_host, auth.udpport());
                 }
 
                 std::lock_guard guard(m_packet_mutex);
@@ -237,7 +252,7 @@ namespace randomizer::online {
             core::events::schedule_task(
                 10.f,
                 [this]() {
-                    udp_open(m_udp_socket.get_server(), m_udp_socket.get_port());
+                    udp_open(m_udp_socket.get_host(), m_udp_socket.get_port());
                 }
             );
         }

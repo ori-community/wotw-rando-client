@@ -574,7 +574,7 @@ namespace randomizer {
                 },
                 core::Property<double>(
                     [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentArea (5, 50) is read only."); },
-                    []() -> double { return !core::settings::use_default_currency_name(); }
+                    []() -> double { return core::settings::funny_money(); }
                 )
             );
 

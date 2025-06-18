@@ -252,7 +252,7 @@ namespace {
     IL2CPP_INTERCEPT(AreaMapUI, void, Awake, (app::AreaMapUI * this_ptr)) {
         next::AreaMapUI::Awake(this_ptr);
         auto transition = types::GameMapTransitionManager::get_class();
-        transition->static_fields->WorldMapEnabled = core::settings::world_map_enabled();
+        transition->static_fields->WorldMapEnabled = core::settings::enable_world_map();
         if (original_zoom < 0.0f) {
             original_zoom = this_ptr->fields._Navigation_k__BackingField->fields.AreaMapZoomLevel;
         }

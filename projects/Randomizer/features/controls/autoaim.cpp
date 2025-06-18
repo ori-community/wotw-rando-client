@@ -40,7 +40,7 @@ namespace {
     });
 
     IL2CPP_INTERCEPT(SeinChakramSpell, void, UpdateCharacterState, (app::SeinChakramSpell * this_ptr)) {
-        this_ptr->fields.AutoAimEnabled = core::settings::autoaim();
+        this_ptr->fields.AutoAimEnabled = !core::settings::disable_auto_aim();
         // Maybe we still want this on?
         if (this_ptr->fields.m_prefabChakramProjectile != nullptr) {
             this_ptr->fields.m_prefabChakramProjectile->fields.AutoAimEnabled = this_ptr->fields.AutoAimEnabled;
@@ -50,7 +50,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinBowAttack, void, UpdateCharacterState, (app::SeinBowAttack * this_ptr)) {
-        modloader::ScopedSetter setter(overwrite_attackables, !core::settings::autoaim());
+        modloader::ScopedSetter setter(overwrite_attackables, core::settings::disable_auto_aim());
         next::SeinBowAttack::UpdateCharacterState(this_ptr);
     }
 

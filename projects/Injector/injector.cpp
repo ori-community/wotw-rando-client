@@ -120,8 +120,8 @@ int main() {
     find_base_path(base_path);
 
     common::settings::Settings settings(base_path / SETTINGS_NAME);
-    auto use_win_store = settings.get_boolean("Flags", "UseWinStore", false);
-    auto inject_delay = settings.get_int("Values", "InjectDelay", 0);
+    auto use_win_store = settings.get_boolean("UseMicrosoftStore", false);
+    auto inject_delay = settings.get_int("InjectorInterceptDelay", 0);
 
     auto process_name = use_win_store ? STORE_PROCESS_NAME : STEAM_PROCESS_NAME;
 

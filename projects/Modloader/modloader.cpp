@@ -122,7 +122,7 @@ namespace modloader {
         trace(MessageType::Info, "initialize", "Loading settings.");
 
         common::settings::Settings settings(base_path() / "settings.json");
-        if (settings.get_boolean("Flags", "Dev", false)) {
+        if (settings.get_boolean("DeveloperMode", false)) {
             win::console::console_initialize();
         }
 

@@ -142,6 +142,7 @@ message AuthenticatedMessage {
   UserInfo user = 1;
   int32 udpId = 2;
   bytes udpKey = 3;
+  int32 udpPort = 4;
 }
 
 message RequestSeedMessage {

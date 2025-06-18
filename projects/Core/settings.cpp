@@ -19,227 +19,215 @@ namespace core::settings {
         get_settings().reload();
     }
 
-    bool dev_mode() {
-        return get_settings().get_boolean("Flags", "Dev", false);
+    bool developer_mode() {
+        return get_settings().get_boolean("DeveloperMode", false);
     }
 
-    bool cursor_locked() {
-        return get_settings().get_boolean("Flags", "CursorLock", false);
+    bool lock_cursor() {
+        return get_settings().get_boolean("LockCursor", false);
     }
 
-    bool start_debug_enabled() {
-        return !get_settings().get_boolean("Flags", "DisableDebugControls", true);
+    bool debug_controls() {
+        return get_settings().get_boolean("DebugControls", true);
     }
 
-    bool insecure() {
-        return get_settings().get_boolean("Flags", "Insecure", false);
+    bool server_tls() {
+        return get_settings().get_boolean("ServerTLS", true);
     }
 
-    std::string host() {
-        return get_settings().get_string("Paths", "Host", "wotw.orirando.com");
+    std::string server_host() {
+        return get_settings().get_string("ServerHost", "wotw.orirando.com");
     }
 
-    int udp_port() {
-        return get_settings().get_int("Paths", "UdpPort", 31415);
+    bool funny_money() {
+        return get_settings().get_boolean("FunnyMoney", false);
     }
 
-    bool use_default_currency_name() {
-        return get_settings().get_boolean("Flags", "BoringMoney", false);
-    }
-
-    bool start_in_logic_filter() {
-        return get_settings().get_boolean("Flags", "SelectInLogicFilterByDefault", true);
+    bool select_in_logic_filter_by_default() {
+        return get_settings().get_boolean("SelectInLogicFilterByDefault", true);
     }
 
     bool hide_quest_filter() {
-        return get_settings().get_boolean("Flags", "HideQuestFilter", false);
+        return get_settings().get_boolean("HideQuestFilter", false);
     }
 
     bool hide_warp_filter() {
-        return get_settings().get_boolean("Flags", "HideWarpFilter", false);
+        return get_settings().get_boolean("HideWarpFilter", false);
     }
 
     bool hide_collectible_filter() {
-        return get_settings().get_boolean("Flags", "HideCollectableFilter", false);
+        return get_settings().get_boolean("HideCollectableFilter", false);
     }
 
     bool burrow_mouse_control() {
-        return get_settings().get_boolean("Flags", "BurrowMouseControl", false);
+        return get_settings().get_boolean("BurrowMouseControl", false);
     }
 
     bool hybrid_mouse_control() {
-        return get_settings().get_boolean("Flags", "HybridMouseControl", false);
+        return get_settings().get_boolean("HybridMouseControl", false);
     }
 
     bool grapple_mouse_control() {
-        return get_settings().get_boolean("Flags", "GrappleMouseControl", false);
+        return get_settings().get_boolean("GrappleMouseControl", false);
     }
 
     bool water_dash_mouse_control() {
-        return get_settings().get_boolean("Flags", "WaterDashMouseControl", false);
+        return get_settings().get_boolean("WaterDashMouseControl", false);
     }
 
-    bool invert_swim() {
-        return get_settings().get_boolean("Flags", "InvertSwim", false);
+    bool invert_fast_swim() {
+        return get_settings().get_boolean("InvertFastSwim", false);
     }
 
-    bool autoaim() {
-        return !get_settings().get_boolean("Flags", "DisableAutoaim", false);
+    bool disable_auto_aim() {
+        return get_settings().get_boolean("DisableAutoAim", false);
     }
 
-    bool show_secrets() {
-        return !get_settings().get_boolean("Flags", "DisableShowSecrets", false);
+    bool show_all_secrets() {
+        return get_settings().get_boolean("ShowAllSecrets", true);
     }
 
     bool always_show_warps() {
-        return get_settings().get_boolean("Flags", "AlwaysShowWarps", false);
+        return get_settings().get_boolean("AlwaysShowWarps", true);
     }
 
     bool always_show_keystone_doors() {
-        return get_settings().get_boolean("Flags", "AlwaysShowKeystoneDoors", false);
+        return get_settings().get_boolean("AlwaysShowKeystoneDoors", true);
     }
 
     bool always_show_keystones() {
-        return get_settings().get_boolean("Flags", "AlwaysShowKeystones", false);
+        return get_settings().get_boolean("AlwaysShowKeystones", true);
     }
 
-    bool world_map_enabled() {
-        return get_settings().get_boolean("Flags", "WorldMapEnabled", true);
+    bool enable_world_map() {
+        return get_settings().get_boolean("EnableWorldMap", false);
     }
 
-    bool native_controller_support_enabled() {
-        return get_settings().get_boolean("Flags", "NativeControllerSupportEnabled", true);
+    bool enable_native_controller_support() {
+        return get_settings().get_boolean("EnableNativeControllerSupport", true);
     }
 
     float map_icon_transparency() {
-        return get_settings().get_float("Values", "MapIconTransparency", 0.f);
+        return get_settings().get_float("MapIconTransparency", 0.f);
     }
 
     float camera_shake_intensity() {
-        return get_settings().get_float("Values", "CameraShakeIntensity", 1.f);
+        return get_settings().get_float("CameraShakeIntensity", 1.f);
     }
 
     float map_pan_speed() {
-        return get_settings().get_float("Values", "MapPanSpeed", 1.f);
+        return get_settings().get_float("MapPanSpeed", 1.f);
     }
 
     bool shriek_is_shrek() {
-        return get_settings().get_boolean("Flags", "ShriekIsShrek", false);
+        return get_settings().get_boolean("ShriekIsShrek", false);
     }
 
     bool enable_minimap() {
-        return get_settings().get_boolean("Flags", "EnableMinimap", false);
+        return get_settings().get_boolean("EnableMinimap", false);
     }
 
     std::string ori_model_texture() {
-        return get_settings().get_string("Paths", "OriModelTexture", "");
+        return get_settings().get_string("OriModelTexture", "");
     }
 
-    std::string ori_model_emissivity_mask_texture() { return get_settings().get_string("Paths", "OriModelEmissivityMaskTexture", ""); }
+    std::string ori_model_emissivity_mask_texture() { return get_settings().get_string("OriModelEmissivityMaskTexture", ""); }
 
     std::string seedgen_daemon_arguments() {
-        return get_settings().get_string("Values", "SeedgenDaemonArguments", "");
+        return get_settings().get_string("SeedgenDaemonArguments", "");
     }
 
     // Set overrides
 
-    void dev_mode(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "Dev"}] = value;
+    void developer_mode(bool value) {
+        get_settings().overrides()["DeveloperMode"] = value;
     }
 
-    void cursor_locked(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "CursorLock"}] = value;
+    void lock_cursor(bool value) {
+        get_settings().overrides()["LockCursor"] = value;
     }
 
-    void netcode_disabled(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "DisableNetcode"}] = value;
+    void server_tls(bool value) {
+        get_settings().overrides()["ServerTLS"] = value;
     }
 
-    void insecure(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "Insecure"}] = value;
+    void server_host(std::string value) {
+        get_settings().overrides()["ServerHost"] = value;
     }
 
-    void host(std::string value) {
-        get_settings().overrides()[common::settings::key_t{"Paths", "Host"}] = value;
-    }
-
-    void udp_port(int value) {
-        get_settings().overrides()[common::settings::key_t{"Paths", "UdpPort"}] = value;
-    }
-
-    void start_in_logic_filter(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "SelectInLogicFilterByDefault"}] = value;
+    void select_in_logic_filter_by_default(bool value) {
+        get_settings().overrides()["SelectInLogicFilterByDefault"] = value;
     }
 
     void hide_quest_filter(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "HideQuestFilter"}] = value;
+        get_settings().overrides()["HideQuestFilter"] = value;
     }
 
     void hide_warp_filter(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "HideWarpFilter"}] = value;
+        get_settings().overrides()["HideWarpFilter"] = value;
     }
 
     void hide_collectible_filter(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "HideCollectableFilter"}] = value;
+        get_settings().overrides()["HideCollectableFilter"] = value;
     }
 
     void burrow_mouse_control(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "BurrowMouseControl"}] = value;
+        get_settings().overrides()["BurrowMouseControl"] = value;
     }
 
     void grapple_mouse_control(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "GrappleMouseControl"}] = value;
+        get_settings().overrides()["GrappleMouseControl"] = value;
     }
 
     void water_dash_mouse_control(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "WaterDashMouseControl"}] = value;
+        get_settings().overrides()["WaterDashMouseControl"] = value;
     }
 
     void hybrid_mouse_control(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "HybridMouseControl"}] = value;
+        get_settings().overrides()["HybridMouseControl"] = value;
     }
 
-    void invert_swim(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "InvertSwim"}] = value;
+    void invert_fast_swim(bool value) {
+        get_settings().overrides()["InvertFastSwim"] = value;
     }
 
-    void autoaim(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "DisableAutoaim"}] = value;
+    void disable_auto_aim(bool value) {
+        get_settings().overrides()["DisableAutoAim"] = value;
     }
 
-    void show_secrets(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "DisableShowSecrets"}] = !value;
+    void show_all_secrets(bool value) {
+        get_settings().overrides()["ShowAllSecrets"] = value;
     }
 
     void always_show_warps(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "AlwaysShowWarps"}] = value;
+        get_settings().overrides()["AlwaysShowWarps"] = value;
     }
 
     void always_show_keystone_doors(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "AlwaysShowKeystoneDoors"}] = value;
+        get_settings().overrides()["AlwaysShowKeystoneDoors"] = value;
     }
 
     void always_show_keystones(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "AlwaysShowKeystones"}] = value;
+        get_settings().overrides()["AlwaysShowKeystones"] = value;
     }
 
-    void world_map_enabled(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "WorldMapEnabled"}] = value;
+    void enable_world_map(bool value) {
+        get_settings().overrides()["EnableWorldMap"] = value;
     }
 
     void map_icon_transparency(float value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "MapIconTransparency"}] = value;
+        get_settings().overrides()["MapIconTransparency"] = value;
     }
 
     void camera_shake_intensity(float value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "CameraShakeIntensity"}] = value;
+        get_settings().overrides()["CameraShakeIntensity"] = value;
     }
 
     void shriek_is_shrek(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "ShriekIsShrek"}] = value;
+        get_settings().overrides()["ShriekIsShrek"] = value;
     }
 
     void enable_minimap(bool value) {
-        get_settings().overrides()[common::settings::key_t{"Flags", "EnableMinimap"}] = value;
+        get_settings().overrides()["EnableMinimap"] = value;
     }
 } // namespace core::settings

@@ -44,7 +44,7 @@ namespace randomizer::online {
         NetworkClient();
         ~NetworkClient();
 
-        void websocket_connect(std::string_view url);
+        void websocket_connect(std::string_view host, bool tls, std::string_view path);
         bool websocket_want_connection() const { return m_reconnect_websocket; }
         bool websocket_connected() const;
         bool websocket_send(Network::Packet const& packet);
@@ -57,7 +57,7 @@ namespace randomizer::online {
             return websocket_send(packet);
         }
 
-        void udp_open(std::string_view server, int port);
+        void udp_open(std::string_view host, int port);
         bool udp_is_open() const;
         void udp_send(Network::Packet const& packet);
 
@@ -91,6 +91,7 @@ namespace randomizer::online {
         common::EventBus<State>& event_bus() { return m_event_bus; }
 
     private:
+        void websocket_connect(const std::string& url);
         void websocket_handle_message(ix::WebSocketMessagePtr const& msg);
         void udp_handle_message(std::vector<char> const& msg);
         void udp_handle_error(int error);
@@ -104,6 +105,7 @@ namespace randomizer::online {
         status_callback m_status_listener;
         common::EventBus<State> m_event_bus;
 
+        std::string m_host;
         bool m_reconnect_websocket;
         bool m_reopen_udp;
 

@@ -257,7 +257,7 @@ namespace randomizer {
             universe.register_packet_handlers(client);
 
             // TODO: Don't just do this on game ready.
-            modloader::cursor_lock(core::settings::cursor_locked());
+            modloader::cursor_lock(core::settings::lock_cursor());
 
             text_processor = std::make_shared<core::text::CompositeTextProcessor>();
             text_processor->compose(std::make_shared<text_processors::UberStateProcessor>());
@@ -282,7 +282,7 @@ namespace randomizer {
 
         IL2CPP_INTERCEPT(GameController, void, ParseCommandLineArgs, (app::GameController * this_ptr)) {
             next::GameController::ParseCommandLineArgs(this_ptr);
-            core::api::game::debug_menu::set_debug_enabled(core::settings::start_debug_enabled());
+            core::api::game::debug_menu::set_debug_enabled(core::settings::debug_controls());
         }
 
         [[maybe_unused]]
@@ -411,14 +411,12 @@ namespace randomizer {
             server_disconnect();
         }
 
-        const auto insecure = core::settings::insecure();
-        const auto host = core::settings::host();
-        const auto udp_port = core::settings::udp_port();
+        const auto tls = core::settings::server_tls();
+        const auto host = core::settings::server_host();
         multiverse_id_to_connect_to = multiverse_id;
 
-        const std::string websocket_url = std::format("{}://{}/api/client-websocket/{}/wotw", insecure ? "ws" : "wss", host, multiverse_id);
-        client.websocket_connect(websocket_url);
-        client.udp_open(host, udp_port);
+        const auto path = std::format("/api/client-websocket/{}/wotw", multiverse_id);
+        client.websocket_connect(host, tls, path);
     }
 
     void server_disconnect() {

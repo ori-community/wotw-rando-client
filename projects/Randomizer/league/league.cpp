@@ -193,12 +193,12 @@ namespace randomizer::league {
             submission_status = SubmissionStatus::Uploading;
             core::events::schedule_task_for_next_update(update_status_text_box);
 
-            const auto host = core::settings::host();
-            const auto insecure = core::settings::insecure();
+            const auto host = core::settings::server_host();
+            const auto tls = core::settings::server_tls();
             const auto multiverse_id = get_multiverse_id().value();
             const auto jwt = randomizer::online::get_jwt();
 
-            submit_thread = std::make_shared<std::thread>([host, insecure, multiverse_id, jwt, save_slot_index]() {
+            submit_thread = std::make_shared<std::thread>([host, tls, multiverse_id, jwt, save_slot_index]() {
                 il2cpp::attach_thread();
 
                 upload_attempt.store(0);
@@ -214,7 +214,7 @@ namespace randomizer::league {
                     }
 
                     try {
-                        httplib::Client client(std::format("{}://{}", insecure ? "http" : "https", host));
+                        httplib::Client client(std::format("{}://{}", tls ? "https" : "http", host));
 
                         auto result = client.Post(std::format("/api/league/{}/submission", multiverse_id), {
                             {"User-Agent", std::format("OriAndTheWillOfTheWispsRandomizer/{}", randomizer_version().to_string())},

@@ -107,7 +107,7 @@ namespace randomizer::game::map {
             next::AreaMapUI::Show(this_ptr, set_menu_audio_state);
             auto icon_manager = this_ptr->fields._IconManager_k__BackingField;
             check_and_initialize_filter_labels(icon_manager);
-            if (!start_in_logic_filter_done_since_new_game && core::settings::start_in_logic_filter() && filter_enabled(Filters::InLogic)) {
+            if (!start_in_logic_filter_done_since_new_game && core::settings::select_in_logic_filter_by_default() && filter_enabled(Filters::InLogic)) {
                 current_filter = Filters::InLogic;
                 AreaMapUI::set_IconFilter(this_ptr, static_cast<app::AreaMapIconFilter__Enum>(Filters::InLogic));
                 dirty_filter = true;

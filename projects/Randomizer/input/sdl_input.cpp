@@ -41,7 +41,7 @@ namespace {
 
     [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-        enable_native_controller_support = core::settings::native_controller_support_enabled();
+        enable_native_controller_support = core::settings::enable_native_controller_support();
 
         if (enable_native_controller_support) {
             if (!SDL_Init(SDL_INIT_GAMEPAD)) {
