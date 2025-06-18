@@ -27,7 +27,7 @@ namespace randomizer::game::map {
         core::Property<bool>& label_visible() { return m_label_visible; }
         core::Property<float>& opacity() { return m_opacity; }
         core::Property<bool>& can_teleport() { return m_can_teleport; }
-        core::Property<app::GameObject*>& game_object() { return m_game_object; }
+        core::Property<std::optional<il2cpp::WeakGCRef<app::GameObject>>>& game_object() { return m_game_object; }
 
         void remove_scaler() const;
         void apply_scaler(app::Vector2 const& position) const;
