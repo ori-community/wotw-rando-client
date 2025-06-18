@@ -58,7 +58,8 @@ namespace randomizer::seed {
 
     std::pair<SourceStatus, std::optional<std::shared_ptr<SeedArchive>>> ArchipelagoSeedSource::poll() {
         // TODO: Make Archipelago work with v5
-        return std::make_pair(SourceStatus::Loading, std::nullopt);
+        m_error = "Archipelago is not supported in v5 yet";
+        return std::make_pair(SourceStatus::Error, std::nullopt);
 
         // return archipelago_client().current_seed_generator().has_value()
         //     ? std::make_pair(SourceStatus::Ready, std::make_optional(archipelago_client().current_seed_generator()->get_seed_file()))
