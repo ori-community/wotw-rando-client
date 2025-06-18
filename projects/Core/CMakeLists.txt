@@ -10,6 +10,7 @@ set(
         SOURCE_FILES
         "animation/animation.cpp"
         "api/faderb.cpp"
+        "api/input.cpp"
         "api/game/death_listener.cpp"
         "api/game/debug_menu.cpp"
         "api/game/game.cpp"
@@ -56,7 +57,7 @@ set(
         "events/unity_update_loop.cpp"
         "input/input_lock.cpp"
         "input/mouse.cpp"
-        "input/midi.cpp"
+        "input/midi_input.cpp"
         "input/simulator.cpp"
         "ipc/ipc.cpp"
         "ipc/console.cpp"
@@ -82,6 +83,7 @@ set(
         PUBLIC_HEADER_FILES
         "animation/animation.h"
         "api/faderb.h"
+        "api/input.h"
         "api/game/death_listener.h"
         "api/game/debug_menu.h"
         "api/game/game.h"
@@ -142,6 +144,7 @@ set(
         "id_registry.h"
         "input/input_lock.h"
         "input/mouse.h"
+        "input/midi_input.h"
         "input/simulator.h"
         "ipc/ipc.h"
         "ipc/console.h"

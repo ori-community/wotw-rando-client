@@ -295,6 +295,9 @@ namespace core::input {
         register_button_simulator(input->fields.DialogueOption2, Action::DialogueOption2);
         register_button_simulator(input->fields.DialogueOption3, Action::DialogueOption3);
         register_button_simulator(input->fields.DialogueExit, Action::DialogueExit);
+        register_button_simulator(input->fields.OpenAreaMap, Action::OpenAreaMap);
+        register_button_simulator(input->fields.OpenShards, Action::OpenShards);
+        register_button_simulator(input->fields.OpenInventory, Action::OpenInventory);
         register_button_simulator(input->fields.OpenMapsShardsInventory, Action::OpenMapsShardsInventory);
         register_button_simulator(input->fields.OpenWeaponWheel, Action::OpenWeaponWheel);
         register_button_simulator(input->fields.PauseScreen, Action::PauseScreen);

@@ -148,7 +148,13 @@ namespace {
     }
 
     app::GameObject* create_default_icon(const MapIcon icon) {
-        const auto manager = types::AreaMapUI::get_class()->static_fields->Instance->fields._IconManager_k__BackingField;
+        const auto area_map_ui = types::AreaMapUI::get_class()->static_fields->Instance;
+
+        if (area_map_ui == nullptr) {
+            return nullptr;
+        }
+
+        const auto manager = area_map_ui->fields._IconManager_k__BackingField;
         const auto prefab = AreaMapIconManager::GetIcon(manager, static_cast<app::WorldMapIconType__Enum>(icon));
         if (prefab == nullptr) {
             return nullptr;
@@ -183,6 +189,11 @@ CORE_DLLEXPORT app::GameObject* map_icon_to_game_object(const MapIcon icon) {
     }
 
     const auto game_object = create_default_icon(custom_icon->second.base_icon);
+
+    if (game_object == nullptr) {
+        return nullptr;
+    }
+
     apply_offset(game_object, custom_icon->second.base_icon);
     apply_offset(game_object, icon);
     const auto area_map_icon = il2cpp::unity::get_component<app::AreaMapIcon>(game_object, types::AreaMapIcon::get_class());

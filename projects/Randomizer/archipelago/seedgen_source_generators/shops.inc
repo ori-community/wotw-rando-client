@@ -1,0 +1,132 @@
+#pragma once
+
+#include <Randomizer/archipelago/archipelago_seedgen.h>
+
+namespace randomizer::archipelago::seedgen_source_generators {
+    const ArchipelagoSeedGeneratorOptionSourceGenerator shops = {
+        []() -> std::string { return "shops"; },
+        [](const ArchipelagoSeedGeneratorOptions& options) -> std::unordered_set<std::string> {
+            return {
+                "TwillenShop.Overcharge",
+                "TwillenShop.TripleJump",
+                "TwillenShop.Wingclip",
+                "TwillenShop.Swap",
+                "TwillenShop.LightHarvest",
+                "TwillenShop.Vitality",
+                "TwillenShop.Energy",
+                "TwillenShop.Finesse",
+                "OpherShop.WaterBreath",
+                "OpherShop.Spike",
+                "OpherShop.SpiritSmash",
+                "OpherShop.Teleport",
+                "OpherShop.SpiritStar",
+                "OpherShop.Blaze",
+                "OpherShop.Sentry",
+                "OpherShop.ExplodingSpike",
+                "OpherShop.ShockSmash",
+                "OpherShop.StaticStar",
+                "OpherShop.ChargeBlaze",
+                "OpherShop.RapidSentry",
+                "LupoShop.HCMapIcon",
+                "LupoShop.ECMapIcon",
+                "LupoShop.ShardMapIcon",
+            };
+        },
+        [](const ArchipelagoSeedGeneratorOptions& options) -> std::optional<std::string> {
+            return R"WOTWR(
+3|1|8|2|101|int|200
+3|1|17|0|2|1|[ap_shop_icon(TwillenShop.Overcharge)]
+3|1|17|1|2|1|[ap_item_on_location(TwillenShop.Overcharge)]
+3|1|17|2|2|1|[ap_shop_description(TwillenShop.Overcharge)]
+3|1|8|2|102|int|200
+3|1|17|0|2|2|[ap_shop_icon(TwillenShop.TripleJump)]
+3|1|17|1|2|2|[ap_item_on_location(TwillenShop.TripleJump)]
+3|1|17|2|2|2|[ap_shop_description(TwillenShop.TripleJump)]
+3|1|8|2|103|int|200
+3|1|17|0|2|3|[ap_shop_icon(TwillenShop.Wingclip)]
+3|1|17|1|2|3|[ap_item_on_location(TwillenShop.Wingclip)]
+3|1|17|2|2|3|[ap_shop_description(TwillenShop.Wingclip)]
+3|1|8|2|105|int|200
+3|1|17|0|2|5|[ap_shop_icon(TwillenShop.Swap)]
+3|1|17|1|2|5|[ap_item_on_location(TwillenShop.Swap)]
+3|1|17|2|2|5|[ap_shop_description(TwillenShop.Swap)]
+3|1|8|2|119|int|200
+3|1|17|0|2|19|[ap_shop_icon(TwillenShop.LightHarvest)]
+3|1|17|1|2|19|[ap_item_on_location(TwillenShop.LightHarvest)]
+3|1|17|2|2|19|[ap_shop_description(TwillenShop.LightHarvest)]
+3|1|8|2|122|int|200
+3|1|17|0|2|22|[ap_shop_icon(TwillenShop.Vitality)]
+3|1|17|1|2|22|[ap_item_on_location(TwillenShop.Vitality)]
+3|1|17|2|2|22|[ap_shop_description(TwillenShop.Vitality)]
+3|1|8|2|126|int|200
+3|1|17|0|2|26|[ap_shop_icon(TwillenShop.Energy)]
+3|1|17|1|2|26|[ap_item_on_location(TwillenShop.Energy)]
+3|1|17|2|2|26|[ap_shop_description(TwillenShop.Energy)]
+3|1|8|2|140|int|200
+3|1|17|0|2|40|[ap_shop_icon(TwillenShop.Finesse)]
+3|1|17|1|2|40|[ap_item_on_location(TwillenShop.Finesse)]
+3|1|17|2|2|40|[ap_shop_description(TwillenShop.Finesse)]
+3|1|8|1|10023|int|200
+3|1|17|0|1|23|[ap_shop_icon(OpherShop.WaterBreath)]
+3|1|17|1|1|23|[ap_item_on_location(OpherShop.WaterBreath)]
+3|1|17|2|1|23|[ap_shop_description(OpherShop.WaterBreath)]
+3|1|8|1|10074|int|200
+3|1|17|0|1|74|[ap_shop_icon(OpherShop.Spike)]
+3|1|17|1|1|74|[ap_item_on_location(OpherShop.Spike)]
+3|1|17|2|1|74|[ap_shop_description(OpherShop.Spike)]
+3|1|8|1|10098|int|200
+3|1|17|0|1|98|[ap_shop_icon(OpherShop.SpiritSmash)]
+3|1|17|1|1|98|[ap_item_on_location(OpherShop.SpiritSmash)]
+3|1|17|2|1|98|[ap_shop_description(OpherShop.SpiritSmash)]
+3|1|8|1|10105|int|200
+3|1|17|0|1|105|[ap_shop_icon(OpherShop.Teleport)]
+3|1|17|1|1|105|[ap_item_on_location(OpherShop.Teleport)]
+3|1|17|2|1|105|[ap_shop_description(OpherShop.Teleport)]
+3|1|8|1|10106|int|200
+3|1|17|0|1|106|[ap_shop_icon(OpherShop.SpiritStar)]
+3|1|17|1|1|106|[ap_item_on_location(OpherShop.SpiritStar)]
+3|1|17|2|1|106|[ap_shop_description(OpherShop.SpiritStar)]
+3|1|8|1|10115|int|200
+3|1|17|0|1|115|[ap_shop_icon(OpherShop.Blaze)]
+3|1|17|1|1|115|[ap_item_on_location(OpherShop.Blaze)]
+3|1|17|2|1|115|[ap_shop_description(OpherShop.Blaze)]
+3|1|8|1|10116|int|200
+3|1|17|0|1|116|[ap_shop_icon(OpherShop.Sentry)]
+3|1|17|1|1|116|[ap_item_on_location(OpherShop.Sentry)]
+3|1|17|2|1|116|[ap_shop_description(OpherShop.Sentry)]
+3|1|8|1|11074|int|200
+3|1|17|0|1|1074|[ap_shop_icon(OpherShop.ExplodingSpike)]
+3|1|17|1|1|1074|[ap_item_on_location(OpherShop.ExplodingSpike)]
+3|1|17|2|1|1074|[ap_shop_description(OpherShop.ExplodingSpike)]
+3|1|8|1|11098|int|200
+3|1|17|0|1|1098|[ap_shop_icon(OpherShop.ShockSmash)]
+3|1|17|1|1|1098|[ap_item_on_location(OpherShop.ShockSmash)]
+3|1|17|2|1|1098|[ap_shop_description(OpherShop.ShockSmash)]
+3|1|8|1|11106|int|200
+3|1|17|0|1|1106|[ap_shop_icon(OpherShop.StaticStar)]
+3|1|17|1|1|1106|[ap_item_on_location(OpherShop.StaticStar)]
+3|1|17|2|1|1106|[ap_shop_description(OpherShop.StaticStar)]
+3|1|8|1|11115|int|200
+3|1|17|0|1|1115|[ap_shop_icon(OpherShop.ChargeBlaze)]
+3|1|17|1|1|1115|[ap_item_on_location(OpherShop.ChargeBlaze)]
+3|1|17|2|1|1115|[ap_shop_description(OpherShop.ChargeBlaze)]
+3|1|8|1|11116|int|200
+3|1|17|0|1|1116|[ap_shop_icon(OpherShop.RapidSentry)]
+3|1|17|1|1|1116|[ap_item_on_location(OpherShop.RapidSentry)]
+3|1|17|2|1|1116|[ap_shop_description(OpherShop.RapidSentry)]
+3|1|8|15|19397|int|200
+3|1|17|0|15|19396|[ap_shop_icon(LupoShop.HCMapIcon)]
+3|1|17|1|15|19396|[ap_item_on_location(LupoShop.HCMapIcon)]
+3|1|17|2|15|19396|[ap_shop_description(LupoShop.HCMapIcon)]
+3|1|8|15|57988|int|200
+3|1|17|0|15|57987|[ap_shop_icon(LupoShop.ECMapIcon)]
+3|1|17|1|15|57987|[ap_item_on_location(LupoShop.ECMapIcon)]
+3|1|17|2|15|57987|[ap_shop_description(LupoShop.ECMapIcon)]
+3|1|8|15|41667|int|200
+3|1|17|0|15|41666|[ap_shop_icon(LupoShop.ShardMapIcon)]
+3|1|17|1|15|41666|[ap_item_on_location(LupoShop.ShardMapIcon)]
+3|1|17|2|15|41666|[ap_shop_description(LupoShop.ShardMapIcon)]
+)WOTWR";
+        },
+    };
+}

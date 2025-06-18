@@ -5,6 +5,8 @@
 #include <Modloader/app/methods/CapsuleCrushDetector.h>
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/GameplayCamera.h>
+#include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberState.h>
+#include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateDescriptor.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateInventory.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateShards.h>
 #include <Modloader/app/methods/PlayerAbilities.h>
@@ -100,14 +102,17 @@ namespace core::api::game::player {
             {app::AbilityType__Enum::DamageUpgradeB,   app::EquipmentType__Enum::AutoAbility_DamageUpgradeB},
         };
 
-        app::PlayerUberStateStats* get_stats() {
+        app::PlayerUberState* get_player_uber_state() {
             const auto player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;
-            return player_group->fields.PlayerUberState->fields.m_state->fields.Stats;
+            return Moon::uberSerializationWisp::PlayerUberStateDescriptor::get_Value(player_group->fields.PlayerUberState);
+        }
+
+        app::PlayerUberStateStats* get_stats() {
+            return get_player_uber_state()->fields.Stats;
         }
 
         app::PlayerUberStateInventory* get_inventory() {
-            const auto player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;
-            return player_group->fields.PlayerUberState->fields.m_state->fields.Inventory;
+            return get_player_uber_state()->fields.Inventory;
         }
 
         app::PlayerSpiritShards* get_player_spirit_shards() {
@@ -116,8 +121,7 @@ namespace core::api::game::player {
         }
 
         app::PlayerUberStateShards* get_shards() {
-            const auto player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;
-            return player_group->fields.PlayerUberState->fields.m_state->fields.Shards;
+            return get_player_uber_state()->fields.Shards;
         }
 
         float get_health() { return get_stats()->fields.m_health; }
@@ -526,6 +530,16 @@ namespace core::api::game::player {
             ScopedSetter setter(prevent_default_pickup_handlers, false);
             SeinEnergy::RestoreAllEnergy(sein->fields.Energy);
         }
+    }
+
+    bool is_alive() {
+        const auto sein = player::sein();
+
+        if (sein == nullptr) {
+            return false;
+        }
+
+        return SeinCharacter::get_IsAlive(sein);
     }
 
     const Property<float>& health() { return health_property; }

@@ -20,26 +20,27 @@ namespace randomizer::location_data {
 
     class LocationCollection {
     public:
-        using location_id = core::api::uber_states::UberStateCondition;
-
         void read(std::filesystem::path path, location_data_parser parser);
 
-        GameArea area(location_id const& id) const;
+        GameArea area(const core::api::uber_states::UberStateCondition& id) const;
 
         GameArea area(std::string const& name) const;
 
-        bool should_queue_reach_check(core::api::uber_states::UberState const& state) const;
+        std::optional<Location> location(const core::api::uber_states::UberStateCondition& condition) const;
 
-        std::optional<Location> location(location_id const& id) const;
+        std::optional<Location> location(const std::string& name) const;
 
-        std::optional<Location> location(std::string const& name) const;
+        std::vector<Location> locations(GameArea area) const;
 
-        std::vector<Location> const& locations(GameArea area) const;
+        std::vector<Location> locations_on_state(const core::api::uber_states::UberState& state) const;
+
+        std::vector<Location> const& locations() const;
 
     private:
-        std::unordered_set<core::api::uber_states::UberState> m_location_states;
-        std::unordered_map<location_id, std::pair<GameArea, int>> m_id_to_location;
-        std::unordered_map<std::string, std::pair<GameArea, int>> m_name_to_location;
-        std::unordered_map<GameArea, std::vector<Location>> m_area_to_locations;
+        std::vector<Location> m_locations;
+        std::unordered_map<core::api::uber_states::UberStateCondition, int> m_condition_to_location_index;
+        std::unordered_map<core::api::uber_states::UberState, std::vector<int>> m_uber_state_to_location_indices;
+        std::unordered_map<std::string, int> m_name_to_location_index;
+        std::unordered_map<GameArea, std::vector<int>> m_area_to_location_indexes;
     };
 } // namespace randomizer::location_data

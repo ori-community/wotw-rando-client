@@ -10,7 +10,7 @@
  * This module can map input buttons to a MIDI sink.
  * Used for auralizing tricks with strict timings.
  */
-namespace core::input::midi {
+namespace core::input::midi_output {
     using namespace app::classes;
 
     std::optional<libremidi::midi_out> midi;
@@ -35,11 +35,11 @@ namespace core::input::midi {
 
             midi = std::make_optional<libremidi::midi_out>();
             midi->open_port(port);
-            modloader::info("midi", std::format("MIDI interface initialized: {}", port.display_name));
+            modloader::info("midi_out", std::format("MIDI interface initialized: {}", port.display_name));
             return;
         }
 
-        modloader::warn("midi", "Could not open MIDI interface");
+        modloader::warn("midi_out", "Could not open MIDI interface");
     });
 
     auto on_after_unity_update_loop = api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {

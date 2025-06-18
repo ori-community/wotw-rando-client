@@ -298,7 +298,7 @@ namespace randomizer::game::map {
             make_icon(
                 small ? MapIcon::DoorSmallUnknown : MapIcon::DoorUnknown,
                 "Unvisited Door",
-                doors::get_door_name_from_door_id(door_id),
+                std::format("{} (Unvisited)", doors::get_door_name_from_door_id(door_id)),
                 {x, y},
                 std::make_optional([small, door_id] -> bool {
                     if (small && !SHOW_SMALL_DOORS_STATE.get<bool>()) {

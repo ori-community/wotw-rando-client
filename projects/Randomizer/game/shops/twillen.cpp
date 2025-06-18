@@ -37,13 +37,15 @@ namespace {
     using namespace app::classes::UnityEngine;
     using namespace randomizer::game::shops;
 
+    auto is_completing_purchase = false;
+
     const std::set<app::SpiritShardType__Enum> TWILLEN_SHARDS{app::SpiritShardType__Enum::GlassCannon, app::SpiritShardType__Enum::TripleJump, app::SpiritShardType__Enum::AntiAir,
                                                               app::SpiritShardType__Enum::Swap,
                                                               app::SpiritShardType__Enum::SpiritLightLuck, app::SpiritShardType__Enum::Vitality, app::SpiritShardType__Enum::Energy,
                                                               app::SpiritShardType__Enum::CombatLuck};
 
     IL2CPP_INTERCEPT(PlayerSpiritShards, bool, HasShard, (app::PlayerSpiritShards * this_ptr, app::SpiritShardType__Enum shard_type)) {
-        if (is_in_shop(ShopType::Twillen) && TWILLEN_SHARDS.find(shard_type) != TWILLEN_SHARDS.end()) {
+        if (!is_completing_purchase && is_in_shop(ShopType::Twillen) && TWILLEN_SHARDS.contains(shard_type)) {
             return is_owned(*twillen_shop().slot(shard_type));
         }
 
@@ -98,6 +100,8 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SpiritShardsShopScreen, void, CompletePurchase, (app::SpiritShardsShopScreen * this_ptr)) {
+        ScopedSetter _(is_completing_purchase, true);
+
         auto* const shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
         auto sound = SpiritShardsShopScreen::get_PurchaseCompleteSound(this_ptr);
         il2cpp::invoke(this_ptr, "PlaySoundEvent", sound);

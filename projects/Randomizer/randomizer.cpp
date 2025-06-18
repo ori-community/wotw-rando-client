@@ -10,6 +10,7 @@
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/types/GameController.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/archipelago/archipelago.h>
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/game/pickups/quests.h>
 #include <Randomizer/game/shops/shop.h>
@@ -25,6 +26,7 @@
 #include <Randomizer/text_processors/multiplayer.h>
 #include <Randomizer/text_processors/shard.h>
 #include <Randomizer/text_processors/uber_state.h>
+#include <Randomizer/text_processors/archipelago.h>
 #include <Randomizer/uber_states/uber_state_intercepts.h>
 #include <fstream>
 #include <magic_enum/magic_enum.hpp>
@@ -40,6 +42,7 @@ namespace randomizer {
         online::MultiplayerUniverse universe;
         seedgen_interface::SeedgenService seedgen_service_instance;
         std::shared_ptr<core::text::CompositeTextProcessor> text_processor;
+        archipelago::ArchipelagoClient ap_client;
 
         online::NetworkMonitor monitor;
         core::dev::StatusDisplay status({
@@ -54,7 +57,7 @@ namespace randomizer {
         auto seed_archive_save_data = std::make_shared<seed::SeedArchiveSaveMetaData>();
 
         std::shared_ptr<seed::SeedSource> new_game_seed_source = std::make_shared<seed::InvalidSeedSource>("empty");
-        std::shared_ptr<seed::SeedArchive> new_game_seed_archive;  // Set by spawning_and_preloading.cpp
+        std::shared_ptr<seed::SeedArchive> new_game_seed_archive; // Set by spawning_and_preloading.cpp
 
         bool reach_check_queued = false;
         bool reach_check_in_progress = false;
@@ -85,11 +88,14 @@ namespace randomizer {
             return true;
         }
 
+        [[maybe_unused]]
         auto on_before_shutdown = core::api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::Before, [](auto, auto) {
             server_disconnect();
+            ap_client.disconnect();
         });
 
         std::vector<std::function<void()>> input_unlocked_callbacks;
+        [[maybe_unused]]
         auto on_input_locked_handler = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
             if (!core::api::game::player::can_move()) {
                 return;
@@ -102,6 +108,7 @@ namespace randomizer {
             input_unlocked_callbacks.clear();
         });
 
+        [[maybe_unused]]
         auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
             core::message_controller().clear_recent_messages();
 
@@ -121,6 +128,7 @@ namespace randomizer {
             game::pickups::quests::clear_queued_quest_messages_on_next_update();
         });
 
+        [[maybe_unused]]
         auto on_respawn = core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [](auto, auto) {
             core::message_controller().clear_central();
             game_seed().trigger(seed::SeedClientEvent::Respawn);
@@ -139,14 +147,19 @@ namespace randomizer {
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
         });
 
-        void load_seed(const bool show_message) {
+        void load_location_collection() {
             event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::Before);
             randomizer_location_collection.read(modloader::base_path() / "loc_data.csv", location_data::parse_location_data);
             event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::After);
+        }
+
+        void load_seed(const bool show_message) {
+            load_location_collection();
 
             randomizer_seed.read(seed_archive_save_data->seed_archive, seed::parse, show_message);
         }
 
+        [[maybe_unused]]
         auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
             pause_timer = true;
 
@@ -165,6 +178,7 @@ namespace randomizer {
             game_seed().trigger(seed::SeedClientEvent::Spawn);
         });
 
+        [[maybe_unused]]
         auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, [](auto, auto) {
             if (reach_check_queued && do_reach_check()) {
                 reach_check_queued = false;
@@ -178,6 +192,7 @@ namespace randomizer {
             game_seed().process_timers(delta_time);
         });
 
+        [[maybe_unused]]
         auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(
             GameEvent::FinishedLoadingSave,
             EventTiming::After,
@@ -188,6 +203,7 @@ namespace randomizer {
             }
         );
 
+        [[maybe_unused]]
         auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
             check_seed_difficulty_enforcement();
             randomizer_seed.trigger(seed::SeedClientEvent::Respawn);
@@ -231,6 +247,7 @@ namespace randomizer {
             }
         });
 
+        [[maybe_unused]]
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             seedgen_service().query_relevant_uber_states();
 
@@ -250,6 +267,7 @@ namespace randomizer {
             text_processor->compose(std::make_shared<text_processors::ShardProcessor>());
             text_processor->compose(std::make_shared<text_processors::LegacyProcessor>());
             text_processor->compose(std::make_shared<text_processors::MultiplayerProcessor>());
+            text_processor->compose(std::make_shared<text_processors::ArchipelagoProcessor>());
 
             core::message_controller().central_display().text_processor(text_processor);
             core::message_controller().recent_display().text_processor(text_processor);
@@ -258,6 +276,7 @@ namespace randomizer {
             register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, seed_meta_save_data);
             register_slot(SaveMetaSlot::SeedArchiveData, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, seed_archive_save_data);
 
+            load_location_collection();
             load_new_game_source();
         });
 
@@ -266,6 +285,7 @@ namespace randomizer {
             core::api::game::debug_menu::set_debug_enabled(core::settings::start_debug_enabled());
         }
 
+        [[maybe_unused]]
         auto on_title_screen_loaded = core::api::scenes::single_event_bus().register_handler("wotwTitleScreen", [](const auto meta_data, auto) {
             if (meta_data->state == app::SceneState__Enum::Loaded) {
                 randomizer_seed.clear();
@@ -437,6 +457,8 @@ namespace randomizer {
     seed::Seed& game_seed() { return randomizer_seed; }
 
     online::NetworkClient& network_client() { return client; }
+
+    archipelago::ArchipelagoClient& archipelago_client() { return ap_client; }
 
     online::MultiplayerUniverse& multiplayer_universe() { return universe; }
     seedgen_interface::SeedgenService& seedgen_service() { return seedgen_service_instance; }

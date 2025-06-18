@@ -8,6 +8,12 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
 set(
         SOURCE_FILES
+        "archipelago/archipelago.cpp"
+        "archipelago/archipelago_data_package.cpp"
+        "archipelago/archipelago_ids.cpp"
+        "archipelago/archipelago_protocol.cpp"
+        "archipelago/archipelago_save_meta.cpp"
+        "archipelago/archipelago_seedgen.cpp"
         "conditions/condition_override.cpp"
         "conditions/condition_uber_state.cpp"
         "conditions/new_setup_state_override.cpp"
@@ -83,12 +89,13 @@ set(
         "game/behaviour_changes/deflector_without_bash.cpp"
         "game/behaviour_changes/faster_teleportation.cpp"
         "game/behaviour_changes/feeding_grounds_allow_burrow.cpp"
+        "game/behaviour_changes/fix_frog_from_hell.cpp"
+        "game/behaviour_changes/fix_grenades.cpp"
         "game/behaviour_changes/family_reunion_moki_hut_state.cpp"
         "game/behaviour_changes/fix_hand_to_hand_gorlek_delay.cpp"
         "game/behaviour_changes/fix_hand_to_hand_mapstone_delay.cpp"
         "game/behaviour_changes/fix_kwolok_not_stopping_when_abandoning_challenge.cpp"
         "game/behaviour_changes/fix_shop_anywhere.cpp"
-        "game/behaviour_changes/fix_straight_grenades.cpp"
         "game/behaviour_changes/flap_without_glide.cpp"
         "game/behaviour_changes/instant_tp_activation.cpp"
         "game/behaviour_changes/keep_shriek_health_bar_visible.cpp"
@@ -159,6 +166,7 @@ set(
         "ghosts.cpp"
         "ghosts_playground.cpp"
         "input/action_registration.cpp"
+        "input/better_keyboard_aiming.cpp"
         "input/controller_bindings.cpp"
         "input/helpers.cpp"
         "input/rando_bindings.cpp"
@@ -194,6 +202,7 @@ set(
         "stats/game_stats.cpp"
         "text_processors/ability.cpp"
         "text_processors/action.cpp"
+        "text_processors/archipelago.cpp"
         "text_processors/control.cpp"
         "text_processors/helpers.cpp"
         "text_processors/legacy.cpp"
@@ -214,6 +223,12 @@ set(
 
 set(
         PUBLIC_HEADER_FILES
+        "archipelago/archipelago.h"
+        "archipelago/archipelago_data_package.h"
+        "archipelago/archipelago_ids.h"
+        "archipelago/archipelago_protocol.h"
+        "archipelago/archipelago_save_meta.h"
+        "archipelago/archipelago_seedgen.h"
         "conditions/condition_override.h"
         "conditions/condition_uber_state.h"
         "conditions/new_setup_state_override.h"
@@ -352,6 +367,7 @@ set(
         "stats/game_stats.h"
         "text_processors/ability.h"
         "text_processors/action.h"
+        "text_processors/archipelago.h"
         "text_processors/control.h"
         "text_processors/helpers.h"
         "text_processors/legacy.h"
@@ -447,6 +463,9 @@ target_link_libraries(${PROJECT_NAME} libzippp::libzippp)
 
 find_package(SDL3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} SDL3::SDL3)
+
+find_package(stduuid CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} stduuid)
 
 message(STATUS "Assigning source groups.")
 

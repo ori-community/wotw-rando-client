@@ -27,6 +27,7 @@ set(
         "settings.h"
         "thread_safe_container.h"
         "variant_cast.h"
+        "vx.h"
 )
 
 set(
