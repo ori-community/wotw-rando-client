@@ -56,10 +56,13 @@ namespace randomizer::seed {
     std::optional<server_connection_t> ServerSeedSource::get_server_connection() { return RandoServerConnection(m_multiverse_id); }
     bool ServerSeedSource::allows_rereading() { return false; }
 
-    std::pair<SourceStatus, std::optional<std::string>> ArchipelagoSeedSource::poll() {
-        return archipelago_client().current_seed_generator().has_value()
-            ? std::make_pair(SourceStatus::Ready, std::make_optional(archipelago_client().current_seed_generator()->get_seed_file()))
-            : std::make_pair(SourceStatus::Loading, std::nullopt);
+    std::pair<SourceStatus, std::optional<std::shared_ptr<SeedArchive>>> ArchipelagoSeedSource::poll() {
+        // TODO: Make Archipelago work with v5
+        return std::make_pair(SourceStatus::Loading, std::nullopt);
+
+        // return archipelago_client().current_seed_generator().has_value()
+        //     ? std::make_pair(SourceStatus::Ready, std::make_optional(archipelago_client().current_seed_generator()->get_seed_file()))
+        //     : std::make_pair(SourceStatus::Loading, std::nullopt);
     }
     std::string ArchipelagoSeedSource::get_description() { return std::format("AP:\n  URL: {}\n  Player: {}", m_url, m_slot_name); }
     std::string ArchipelagoSeedSource::to_source_string() { return std::format("archipelago:{}|{}|{}", m_url, m_slot_name, m_password); }

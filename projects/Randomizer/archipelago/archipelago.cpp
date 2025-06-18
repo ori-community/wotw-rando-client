@@ -15,7 +15,6 @@
 #include <Randomizer/archipelago/archipelago_save_meta.h>
 #include <Randomizer/location_data/location.h>
 #include <Randomizer/randomizer.h>
-#include <Randomizer/seed/items/value_modifier.h>
 
 #define UUID_SYSTEM_GENERATOR
 #include <uuid.h>

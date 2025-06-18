@@ -87,7 +87,7 @@ namespace randomizer::seed {
 
     class ArchipelagoSeedSource : public SeedSource {
     public:
-        std::pair<SourceStatus, std::optional<std::string>> poll() override;
+        std::pair<SourceStatus, std::optional<std::shared_ptr<SeedArchive>>> poll() override;
         std::string get_description() override;
         std::string to_source_string() override;
         std::optional<server_connection_t> get_server_connection() override;
