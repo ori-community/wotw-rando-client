@@ -459,6 +459,7 @@ namespace randomizer::online {
         }
 
         if (
+            !m_game_difficulty_settings_overrides.has_value() ||
             message.overrides().easy() != static_cast<int>(m_game_difficulty_settings_overrides->easy) ||
             message.overrides().normal() != static_cast<int>(m_game_difficulty_settings_overrides->normal) ||
             message.overrides().hard() != static_cast<int>(m_game_difficulty_settings_overrides->hard)
