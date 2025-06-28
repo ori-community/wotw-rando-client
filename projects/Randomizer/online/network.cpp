@@ -175,7 +175,9 @@ namespace randomizer::online {
                 break;
             case ix::WebSocketMessageType::Ping:
             case ix::WebSocketMessageType::Pong:
+                return;
             case ix::WebSocketMessageType::Fragment:
+                modloader::win::console::console_send("Fragment?");
                 return;
         }
     }

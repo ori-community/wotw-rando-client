@@ -69,7 +69,9 @@ namespace core::messages {
             data.handle->time_left = *data.handle->time_left - delta_time;
             const auto message_visible = data.message->get_visibility() == api::messages::MessageBox::Visibility::Visible ||
                 data.message->get_visibility() == api::messages::MessageBox::Visibility::FadingIn;
+
             if (message_visible && *data.handle->time_left <= data.message->fade_out().get()) {
+                data.handle->state = message_handle_t::MessageState::FadingOut;
                 data.message->hide(data.info.instant_fade);
             }
 

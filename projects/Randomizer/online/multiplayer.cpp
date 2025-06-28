@@ -374,7 +374,11 @@ namespace randomizer::online {
         std::shared_ptr<core::api::messages::MessageBox> box = nullptr;
         if (message->has_id()) {
             auto it = m_message_boxes.find(message->id());
-            if (it != m_message_boxes.end() && it->second->state != message_handle_t::MessageState::Finished) {
+            if (
+                it != m_message_boxes.end() &&
+                it->second->state != message_handle_t::MessageState::Finished &&
+                it->second->state != message_handle_t::MessageState::FadingOut
+            ) {
                 box = it->second->message.lock();
                 it->second->time_left = message->time();
             }
@@ -404,7 +408,7 @@ namespace randomizer::online {
         box->show_box().set(message->withbox());
 
         if (is_constructed) {
-            auto sync = core::message_controller().queue(
+            auto message_handle_ptr = core::message_controller().queue(
                 box,
                 {
                     .duration = message->has_time() ? std::optional(message->time()) : std::nullopt,
@@ -415,7 +419,7 @@ namespace randomizer::online {
             );
 
             if (message->has_id()) {
-                m_message_boxes[message->id()] = std::move(sync);
+                m_message_boxes[message->id()] = std::move(message_handle_ptr);
             }
         }
     }

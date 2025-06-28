@@ -11,7 +11,8 @@ namespace core::messages {
             Queued,
             InterruptedByPriorityMessage,
             Visible,
-            Finished
+            FadingOut,
+            Finished,
         };
 
         MessageState state = MessageState::Queued;
