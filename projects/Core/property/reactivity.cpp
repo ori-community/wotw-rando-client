@@ -119,7 +119,7 @@ namespace core::reactivity {
         return pre;
     }
 
-    std::shared_ptr<ReactiveEffect> watch_effect(const std::function<void()>& func, const std::source_location& location) {
+    std::shared_ptr<const ReactiveEffect> watch_effect(const std::function<void()>& func, const std::source_location& location) {
         return watch_effect().effect(func, location).finalize();
     }
 

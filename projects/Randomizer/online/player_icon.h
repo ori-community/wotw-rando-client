@@ -55,7 +55,7 @@ namespace randomizer::online {
             app::Renderer* renderer;
         };
 
-        std::vector<std::shared_ptr<core::reactivity::ReactiveEffect>> m_reactive_effects;
+        std::vector<std::shared_ptr<const core::reactivity::ReactiveEffect>> m_reactive_effects;
         common::registration_handle_t m_on_area_map_destroyed;
 
         app::Vector2 m_previous_dot_position = { 0 };

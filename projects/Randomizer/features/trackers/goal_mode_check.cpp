@@ -28,7 +28,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::GameObject>> shriek_barrier_go;
     std::optional<il2cpp::WeakGCRef<app::GameObject>> shriek_barrier_killbox;
     std::optional<il2cpp::WeakGCRef<app::CameraScrollLock>> shriek_barrier_scroll_lock;
-    std::shared_ptr<core::reactivity::ReactiveEffect> shriek_barrier_effect;
+    std::shared_ptr<const core::reactivity::ReactiveEffect> shriek_barrier_effect;
     bool shriek_barrier_active = false;
     bool was_showing_hint = false;
     float animation_position = 0.0f;
@@ -88,7 +88,7 @@ namespace {
 
                 auto children = il2cpp::unity::get_children(**shriek_barrier_go);
 
-                // Delete earlyZ mesh because it's one mesh but we're moving parts of it
+                // Delete earlyZ mesh because it's one mesh, but we're moving parts of it
                 const auto early_z_it = children.begin() + 2;
                 il2cpp::unity::destroy_object(*early_z_it);
                 children.erase(early_z_it);
@@ -136,7 +136,7 @@ namespace {
                 il2cpp::unity::set_parent(collider.get_game_object(), **shriek_barrier_go);
 
                 // Reactive effect
-                shriek_barrier_effect = core::reactivity::watch_effect([] {
+                shriek_barrier_effect = core::reactivity::watch_effect().effect([] {
                     shriek_barrier_active = !randomizer::game_seed().finished_goals();
 
                     if (shriek_barrier_killbox.has_value() && shriek_barrier_killbox->is_valid()) {
@@ -146,7 +146,7 @@ namespace {
                     if (shriek_barrier_scroll_lock.has_value() && shriek_barrier_scroll_lock->is_valid()) {
                         il2cpp::unity::set_active(**shriek_barrier_scroll_lock, shriek_barrier_active);
                     }
-                });
+                }).finalize();
 
                 // Animation & Hint message box
                 animation_position = shriek_barrier_active ? 1.f : 0.f;

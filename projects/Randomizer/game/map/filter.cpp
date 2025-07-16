@@ -146,7 +146,7 @@ namespace randomizer::game::map {
 
         void on_new_game(GameEvent game_event, EventTiming timing) { start_in_logic_filter_done_since_new_game = false; }
 
-        std::shared_ptr<core::reactivity::ReactiveEffect> inlogic_toggle_reactive;
+        std::shared_ptr<const core::reactivity::ReactiveEffect> inlogic_toggle_reactive;
         auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             inlogic_toggle_reactive = //
                 core::reactivity::watch_effect()

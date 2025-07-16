@@ -39,7 +39,7 @@ namespace randomizer::game::map {
         void initialize_reactives();
         void update_opacity(float opacity) const;
 
-        std::vector<std::shared_ptr<core::reactivity::ReactiveEffect>> m_reactive_effects;
+        std::vector<std::shared_ptr<const core::reactivity::ReactiveEffect>> m_reactive_effects;
 
         core::Property<std::string> m_name;
         core::Property<std::string> m_label;

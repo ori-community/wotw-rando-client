@@ -46,7 +46,7 @@ namespace randomizer::main_menu_seed_info {
         bool is_in_main_menu = false;
         bool is_in_save_slots_ui_on_enable = false;
 
-        std::vector<std::shared_ptr<core::reactivity::ReactiveEffect>> reactive_effects;
+        std::vector<std::shared_ptr<const core::reactivity::ReactiveEffect>> reactive_effects;
 
         il2cpp::WeakGCRef<app::MessageBox> name_message_box;
         il2cpp::WeakGCRef<app::MessageBox> status_message_box;

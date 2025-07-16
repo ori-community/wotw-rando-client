@@ -27,7 +27,7 @@ namespace randomizer::doors {
     namespace {
         using namespace app::classes;
 
-        std::vector<std::shared_ptr<core::reactivity::ReactiveEffect>> effects;
+        std::vector<std::shared_ptr<const core::reactivity::ReactiveEffect>> effects;
         auto queue_placing_ori_on_ground = false;
         std::optional<app::Vector3> queued_ground_placement = std::nullopt;
 
