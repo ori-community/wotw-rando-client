@@ -120,7 +120,7 @@ namespace core::reactivity {
     };
 
     CORE_DLLEXPORT builder::BeforeEffectBuilder watch_effect();
-    CORE_DLLEXPORT std::shared_ptr<ReactiveEffect> watch_effect(
+    CORE_DLLEXPORT std::shared_ptr<const ReactiveEffect> watch_effect(
         const std::function<void()>& func,
         const std::source_location& location = std::source_location::current()
     );
@@ -150,12 +150,12 @@ namespace core::reactivity {
                 return *this;
             }
 
-            std::shared_ptr<ReactiveEffect> finalize() {
+            std::shared_ptr<const ReactiveEffect> finalize() {
                 register_trigger_on_load();
                 return m_effect;
             }
 
-            void finalize_inplace(std::shared_ptr<ReactiveEffect>& ptr) const {
+            void finalize_inplace(std::shared_ptr<const ReactiveEffect>& ptr) const {
                 register_trigger_on_load();
                 ptr = m_effect;
             }
@@ -182,11 +182,11 @@ namespace core::reactivity {
 
             FinalizeOnlyBuilder after(const std::function<void()>& func) const;
 
-            std::shared_ptr<ReactiveEffect> finalize() {
+            std::shared_ptr<const ReactiveEffect> finalize() {
                 register_trigger_on_load();
                 return m_effect;
             }
-            void finalize_inplace(std::shared_ptr<ReactiveEffect>& ptr) const {
+            void finalize_inplace(std::shared_ptr<const ReactiveEffect>& ptr) const {
                 register_trigger_on_load();
                 ptr = m_effect;
             }
@@ -216,11 +216,11 @@ namespace core::reactivity {
             AfterEffectBuilder effect(std::vector<api::uber_states::UberState> const& states, const std::source_location& location = std::source_location::current()) const;
             AfterEffectBuilder effect(std::function<void()> const& func, const std::source_location& location = std::source_location::current()) const;
 
-            std::shared_ptr<ReactiveEffect> finalize() {
+            std::shared_ptr<const ReactiveEffect> finalize() {
                 register_trigger_on_load();
                 return m_effect;
             }
-            void finalize_inplace(std::shared_ptr<ReactiveEffect>& ptr) const {
+            void finalize_inplace(std::shared_ptr<const ReactiveEffect>& ptr) const {
                 register_trigger_on_load();
                 ptr = m_effect;
             }

@@ -14,7 +14,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::PlayerInsideZoneChecker>> trigger_player_inside_zone_checker;
     std::vector<il2cpp::WeakGCRef<app::GameObject>> objects_to_disable;
 
-    std::shared_ptr<core::reactivity::ReactiveEffect> effect;
+    std::shared_ptr<const core::reactivity::ReactiveEffect> effect;
 
     core::api::uber_states::UberState modification_enabled_state(UberStateGroup::RandoConfig, 100);
 

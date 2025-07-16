@@ -200,7 +200,7 @@ namespace {
         }
     }
 
-    std::vector<std::shared_ptr<core::reactivity::ReactiveEffect>> effects;
+    std::vector<std::shared_ptr<const core::reactivity::ReactiveEffect>> effects;
     auto _ = event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         core::reactivity::watch_effect()
                 .effect({blaze, blaze_cost})

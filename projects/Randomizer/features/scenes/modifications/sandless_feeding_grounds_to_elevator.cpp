@@ -13,7 +13,7 @@ namespace {
     std::vector<il2cpp::WeakGCRef<app::GameObject>> objects_to_disable;
     std::optional<il2cpp::WeakGCRef<app::GameObject>> early_z_mesh;
 
-    std::shared_ptr<core::reactivity::ReactiveEffect> effect;
+    std::shared_ptr<const core::reactivity::ReactiveEffect> effect;
 
     core::api::uber_states::UberState modification_enabled_state(UberStateGroup::RandoConfig, 101);
 
