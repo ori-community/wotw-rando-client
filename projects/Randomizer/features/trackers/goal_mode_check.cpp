@@ -146,7 +146,7 @@ namespace {
                     if (shriek_barrier_scroll_lock.has_value() && shriek_barrier_scroll_lock->is_valid()) {
                         il2cpp::unity::set_active(**shriek_barrier_scroll_lock, shriek_barrier_active);
                     }
-                }).finalize();
+                }).trigger_on_load().finalize();
 
                 // Animation & Hint message box
                 animation_position = shriek_barrier_active ? 1.f : 0.f;
