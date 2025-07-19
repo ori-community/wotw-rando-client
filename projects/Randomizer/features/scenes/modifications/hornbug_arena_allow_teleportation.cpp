@@ -7,7 +7,7 @@
 namespace {
     using namespace app::classes;
 
-    auto on_scene_loade_handler = core::api::scenes::event_bus().register_handler(
+    auto on_scene_loaded_handler = core::api::scenes::event_bus().register_handler(
         [](auto metadata) {
             if (metadata->state != app::SceneState__Enum::Loaded) {
                 return;

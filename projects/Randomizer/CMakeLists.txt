@@ -60,6 +60,7 @@ set(
         "features/npcs/twillen_everywhere.cpp"
         "features/recording_utils.cpp"
         "features/scenes/modifications/double_jump_spring.cpp"
+        "features/scenes/modifications/fix_luma_to_marsh_plank_x_rotation.cpp"
         "features/scenes/modifications/hornbug_arena_allow_teleportation.cpp"
         "features/scenes/modifications/keep_epilogue_loaded_during_shriek_escape.cpp"
         "features/scenes/modifications/kwolok_escape_sl_softlock_fix.cpp"

@@ -364,6 +364,11 @@ namespace il2cpp {
         }
 
         template<typename Return = app::Component_1>
+        std::vector<Return*> get_components(void* obj, void* klass) {
+            return get_components<Return>(static_cast<app::GameObject*>(obj), static_cast<Il2CppClass*>(klass));
+        }
+
+        template<typename Return = app::Component_1>
         Return* get_component(void* obj, Il2CppClass* klass) {
             Il2CppObject* il2cpp_object = reinterpret_cast<Il2CppObject*>(obj);
             if (is_assignable(il2cpp_object, internal::get_game_object_class()))
