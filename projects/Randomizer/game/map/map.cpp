@@ -244,6 +244,7 @@ namespace randomizer::game::map {
             ScopedSetter _(is_handling_map_scrolling, true);
             next::AreaMapNavigation::HandleMapScrolling(this_ptr);
         }
+
         [[maybe_unused]]
         auto on_area_map_destroyed = core::api::game::event_bus().register_handler(GameEvent::DestroyAreaMap, EventTiming::Before, [](auto, auto) {
             for (auto const& icon_set: icons | std::views::values) {
