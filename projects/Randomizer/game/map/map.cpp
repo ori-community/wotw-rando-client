@@ -1,5 +1,6 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/ui.h>
+#include <Core/api/input.h>
 #include <Core/settings.h>
 #include <Modloader/app/methods/AreaMapIconManager.h>
 #include <Modloader/app/methods/AreaMapNavigation.h>
@@ -213,7 +214,7 @@ namespace randomizer::game::map {
         }
 
         IL2CPP_INTERCEPT(GameMapUI, app::Vector2, get_FocusLocation, (app::GameMapUI* this_ptr)) {
-            if (force_focus_location_to_center_once) {
+            if (force_focus_location_to_center_once || core::api::input::get_current_control_scheme() == app::ControlScheme__Enum::Keyboard) {
                 force_focus_location_to_center_once = false;
                 return math::convert(
                     AreaMapNavigation::WorldToMapPosition(
@@ -243,7 +244,7 @@ namespace randomizer::game::map {
             ScopedSetter _(is_handling_map_scrolling, true);
             next::AreaMapNavigation::HandleMapScrolling(this_ptr);
         }
-
+        [[maybe_unused]]
         auto on_area_map_destroyed = core::api::game::event_bus().register_handler(GameEvent::DestroyAreaMap, EventTiming::Before, [](auto, auto) {
             for (auto const& icon_set: icons | std::views::values) {
                 for (auto const& icon: icon_set) {
