@@ -3,8 +3,8 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/events/action.h>
 #include <Modloader/app/methods/Moon/Timeline/ActivateAnimatorSystem.h>
-#include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UberShaderAPI.h>
+#include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/types/NewSetupStateController.h>
 #include <Modloader/app/types/Renderer.h>
 #include "Core/api/uber_states/uber_state.h"
@@ -35,7 +35,7 @@ namespace {
     void set_color(app::GameObject* go, app::Color color) {
         if (il2cpp::unity::is_valid(go)) {
             const auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(go, types::Renderer::get_class(), true);
-            for (const auto& renderer : renderers) {
+            for (const auto& renderer: renderers) {
                 UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, color);
             }
         }
@@ -44,16 +44,23 @@ namespace {
     void downswim_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
 
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"waterGroupParent", "waterGroupA", "diseasedWaterSwampNightcrawlerA (2)", "backCenter", "water (7)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"waterGroupParent", "waterGroupA", "diseasedWaterSwampNightcrawlerA (2)", "frontCenter", "water (5)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"waterGroupParent", "waterGroupA", "diseasedWaterSwampNightcrawlerA (2)", "frontCenter", "water (6)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"waterGroupParent", "waterGroupA", "earlyZMesh_waterGroupA"})
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"waterGroupParent", "waterGroupA", "diseasedWaterSwampNightcrawlerA (2)", "backCenter", "water (7)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"waterGroupParent", "waterGroupA", "diseasedWaterSwampNightcrawlerA (2)", "frontCenter", "water (5)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"waterGroupParent", "waterGroupA", "diseasedWaterSwampNightcrawlerA (2)", "frontCenter", "water (6)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"waterGroupParent", "waterGroupA", "earlyZMesh_waterGroupA"})
         );
 
         for (auto go: gos_to_disable) {
@@ -66,12 +73,16 @@ namespace {
     void under_downswim_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
 
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"setups", "poisonedWater", "diseasedWaterSwampNightcrawlerA (1)", "frontCenter", "water (4)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"setups", "poisonedWater", "diseasedWaterSwampNightcrawlerA (1)", "frontCenter", "water (5)"}
-        ));
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"setups", "poisonedWater", "diseasedWaterSwampNightcrawlerA (1)", "frontCenter", "water (4)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"setups", "poisonedWater", "diseasedWaterSwampNightcrawlerA (1)", "frontCenter", "water (5)"}
+            )
+        );
 
         for (auto go: gos_to_disable) {
             if (il2cpp::unity::is_valid(go)) {
@@ -97,23 +108,29 @@ namespace {
     void silent_swim_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
 
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{
-                "artSetups", "water", "poisonedWater", "corruptedWaterNew", "diseasedWaterSwampNightcrawlerA (1)", "effects", "vignetteMaskC (3)"
-            }
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{
-                "artSetups", "water", "poisonedWater", "corruptedWaterNew", "diseasedWaterSwampNightcrawlerA (1)", "effects", "vignetteMaskC (5)"
-            }
-        ));
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{
+                    "artSetups", "water", "poisonedWater", "corruptedWaterNew", "diseasedWaterSwampNightcrawlerA (1)", "effects", "vignetteMaskC (3)"
+                }
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{
+                    "artSetups", "water", "poisonedWater", "corruptedWaterNew", "diseasedWaterSwampNightcrawlerA (1)", "effects", "vignetteMaskC (5)"
+                }
+            )
+        );
         app::GameObject* dark_overlay_go = il2cpp::unity::find_child(
             scene_root_go,
             std::vector<std::string>{
-                "artSetups", "water", "poisonedWater", "corruptedWaterNew", "diseasedWaterSwampNightcrawlerA (1)", "frontCenter", "water (4)"});
-        if (!silent_swim_dark_overlay_ref.is_valid()){
+                "artSetups", "water", "poisonedWater", "corruptedWaterNew", "diseasedWaterSwampNightcrawlerA (1)", "frontCenter", "water (4)"
+            }
+        );
+        if (!silent_swim_dark_overlay_ref.is_valid()) {
             silent_swim_dark_overlay_ref = il2cpp::WeakGCRef<app::GameObject>(il2cpp::unity::instantiate_object(dark_overlay_go));
             il2cpp::unity::set_parent(*silent_swim_dark_overlay_ref, il2cpp::unity::get_parent(dark_overlay_go));
             il2cpp::unity::set_local_position(*silent_swim_dark_overlay_ref, il2cpp::unity::get_local_position(dark_overlay_go));
@@ -131,10 +148,12 @@ namespace {
         il2cpp::unity::set_position(dark_overlay_go_3, app::Vector3{350.8, -4234.7, -3.3});
         il2cpp::unity::set_local_scale(dark_overlay_go_3, app::Vector3{45.f, 18.f, 1.f});
 
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{"artSetups", "water", "poisonedWater", "corruptedWaterNew", "diseasedWaterSwampNightcrawlerA (1)", "uberWaters"}
-        ));
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{"artSetups", "water", "poisonedWater", "corruptedWaterNew", "diseasedWaterSwampNightcrawlerA (1)", "uberWaters"}
+            )
+        );
 
         clean_state_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"artSetups", "water", "cleanWater"});
 
@@ -152,18 +171,8 @@ namespace {
             ->fields.Booleans->fields._items
             ->vector[0] = true; // if the setup controller is in the dirty water state it takes the clean water go and sets it to true
         UnityEngine::GameObject::set_active(clean_state_go, !corruption_visible); // if the corruption is removed, these states need to be enabled
-        set_color(
-            dark_overlay_go,
-            corruption_visible
-            ? app::Color {0, 0, 0, 1}
-            : app::Color {1, 0, 0.5, 0.75}
-        );
-        set_color(
-            dark_overlay_go_2,
-            corruption_visible
-            ? app::Color {0, 0, 0, 1}
-            : app::Color {1, 0, 0.5, 0.75}
-        );
+        set_color(dark_overlay_go, corruption_visible ? app::Color{0, 0, 0, 1} : app::Color{1, 0, 0.5, 0.75});
+        set_color(dark_overlay_go_2, corruption_visible ? app::Color{0, 0, 0, 1} : app::Color{1, 0, 0.5, 0.75});
     }
 
     void under_wellspring_water_visuals_a_controller(app::GameObject* scene_root_go, bool corruption_visible) {
@@ -173,35 +182,25 @@ namespace {
             il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"artSetups", "corruptState", "diseasedWaterNew", "backCenter", "water (5)"}),
             corruption_visible
         );
-        app::GameObject*  black_rectangle_go = il2cpp::unity::find_child(
+        app::GameObject* black_rectangle_go = il2cpp::unity::find_child(
             scene_root_go, std::vector<std::string>{"artSetups", "corruptState", "diseasedWaterNew", "frontCenter", "waterTempSolution"}
         );
 
-        if(!wellspring_black_rectangle_ref.is_valid()){
+        if (!wellspring_black_rectangle_ref.is_valid()) {
             wellspring_black_rectangle_ref = il2cpp::WeakGCRef<app::GameObject>(il2cpp::unity::instantiate_object(black_rectangle_go));
             il2cpp::unity::set_parent(*wellspring_black_rectangle_ref, il2cpp::unity::get_parent(black_rectangle_go));
             il2cpp::unity::set_local_position(*wellspring_black_rectangle_ref, il2cpp::unity::get_local_position(black_rectangle_go));
         }
         app::GameObject* black_rectangle_go_2 = *wellspring_black_rectangle_ref;
-        il2cpp::unity::set_position(black_rectangle_go  , app::Vector3{-739.0, -4108.f, -5.1});
+        il2cpp::unity::set_position(black_rectangle_go, app::Vector3{-739.0, -4108.f, -5.1});
         il2cpp::unity::set_local_scale(black_rectangle_go, app::Vector3{25.f, 30.f, 1.f});
-        set_color(
-            black_rectangle_go,
-            corruption_visible
-            ? app::Color {0, 0, 0, 1}
-            : app::Color {1, 0, 0.5, 0.75}
-        );
+        set_color(black_rectangle_go, corruption_visible ? app::Color{0, 0, 0, 1} : app::Color{1, 0, 0.5, 0.75});
 
         il2cpp::unity::set_position(black_rectangle_go_2, app::Vector3{-767.1, -4130.f, -5.1});
         il2cpp::unity::set_local_scale(black_rectangle_go_2, app::Vector3{50.f, 35.f, 1.f});
-        set_color(
-            black_rectangle_go_2,
-            corruption_visible
-                ? app::Color {0, 0, 0, 1}
-                : app::Color {1, 0, 0.5, 0.75}
-        );
+        set_color(black_rectangle_go_2, corruption_visible ? app::Color{0, 0, 0, 1} : app::Color{1, 0, 0.5, 0.75});
 
-        if(!wellspring_black_rectangle_ref_2.is_valid()){
+        if (!wellspring_black_rectangle_ref_2.is_valid()) {
             wellspring_black_rectangle_ref_2 = il2cpp::WeakGCRef<app::GameObject>(il2cpp::unity::instantiate_object(black_rectangle_go));
             il2cpp::unity::set_parent(*wellspring_black_rectangle_ref_2, il2cpp::unity::get_parent(black_rectangle_go));
             il2cpp::unity::set_local_position(*wellspring_black_rectangle_ref_2, il2cpp::unity::get_local_position(black_rectangle_go));
@@ -210,12 +209,7 @@ namespace {
         app::GameObject* black_rectangle_go_3 = *wellspring_black_rectangle_ref_2;
         il2cpp::unity::set_position(black_rectangle_go_3, app::Vector3{-808.0, -4130.f, -5.1});
         il2cpp::unity::set_local_scale(black_rectangle_go_3, app::Vector3{50.f, 28.f, 1.f});
-        set_color(
-            black_rectangle_go_3,
-            corruption_visible
-                ? app::Color {0, 0, 0, 1}
-                : app::Color {1, 0, 0.5, 0.75}
-        );
+        set_color(black_rectangle_go_3, corruption_visible ? app::Color{0, 0, 0, 1} : app::Color{1, 0, 0.5, 0.75});
     }
 
     void under_wellspring_water_visuals_b_controller(app::GameObject* scene_root_go, bool corruption_visible) {
@@ -235,12 +229,16 @@ namespace {
     void wellspring_top_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
 
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "corruptedGroup", "diseasedWaterWatermillInterior", "waterCards", "water (4)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "corruptedGroup", "diseasedWaterWatermillInterior", "waterCards", "water (8)"}
-        ));
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "corruptedGroup", "diseasedWaterWatermillInterior", "waterCards", "water (4)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "corruptedGroup", "diseasedWaterWatermillInterior", "waterCards", "water (8)"}
+            )
+        );
 
         for (auto go: gos_to_disable) {
             if (il2cpp::unity::is_valid(go)) {
@@ -252,15 +250,21 @@ namespace {
     void wellspring_waterdash_switch_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
 
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artInteractives", "diseasedWater", "diseasedWaterWatermillInterior", "waterCards", "water (4)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artInteractives", "diseasedWater", "diseasedWaterWatermillInterior", "waterCards", "water (6)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artInteractives", "diseasedWater", "diseasedWaterWatermillInterior", "waterCards", "water (8)"}
-        ));
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artInteractives", "diseasedWater", "diseasedWaterWatermillInterior", "waterCards", "water (4)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artInteractives", "diseasedWater", "diseasedWaterWatermillInterior", "waterCards", "water (6)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artInteractives", "diseasedWater", "diseasedWaterWatermillInterior", "waterCards", "water (8)"}
+            )
+        );
 
         for (auto go: gos_to_disable) {
             if (il2cpp::unity::is_valid(go)) {
@@ -272,21 +276,31 @@ namespace {
     void marsh_to_pools_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
 
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "diseasedWaterWatermillInterior", "cubicTransparencyMaskC"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "diseasedWaterWatermillInterior", "cubicTransparencyMaskC (1)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "diseasedWaterWatermillInterior", "waterCards", "water (10)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "diseasedWaterWatermillInterior", "waterCards", "water (4)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "diseasedWaterWatermillInterior", "waterCards", "water (6)"}
-        ));
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "diseasedWaterWatermillInterior", "cubicTransparencyMaskC"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "diseasedWaterWatermillInterior", "cubicTransparencyMaskC (1)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "diseasedWaterWatermillInterior", "waterCards", "water (10)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "diseasedWaterWatermillInterior", "waterCards", "water (4)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "diseasedWaterWatermillInterior", "waterCards", "water (6)"}
+            )
+        );
         gos_to_disable.push_back(
             il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "earlyZMesh_corruptWater"})
         );
@@ -301,12 +315,17 @@ namespace {
     void marsh_resilience_shard_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
 
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "diseasedWater", "diseasedWaterSwampNightcrawlerA (1)", "backCenter", "water (5)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "diseasedWater", "diseasedWaterSwampNightcrawlerA (1)", "frontCenter", "water (4)"}
-        ));
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "water", "diseasedWater", "diseasedWaterSwampNightcrawlerA (1)", "backCenter", "water (5)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{"artSetups", "water", "diseasedWater", "diseasedWaterSwampNightcrawlerA (1)", "frontCenter", "water (4)"}
+            )
+        );
 
         for (auto go: gos_to_disable) {
             if (il2cpp::unity::is_valid(go)) {
@@ -318,22 +337,30 @@ namespace {
     void west_marsh_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
 
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{"artSetups", "water", "diseasedWater", "manualToggle", "diseasedWaterSwampNightcrawlerB", "backCenter", "water (5)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{"artSetups", "water", "diseasedWater", "manualToggle", "diseasedWaterSwampNightcrawlerB", "frontCenter", "water (4)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{"artSetups", "water", "diseasedWater", "manualToggle", "diseasedWaterSwampNightcrawlerB", "frontCenter", "water (5)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{"artSetups", "water", "diseasedWater", "manualToggle", "diseasedWaterSwampNightcrawlerC", "backCenter", "water (5)"}
-        ));
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{"artSetups", "water", "diseasedWater", "manualToggle", "diseasedWaterSwampNightcrawlerB", "backCenter", "water (5)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{"artSetups", "water", "diseasedWater", "manualToggle", "diseasedWaterSwampNightcrawlerB", "frontCenter", "water (4)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{"artSetups", "water", "diseasedWater", "manualToggle", "diseasedWaterSwampNightcrawlerB", "frontCenter", "water (5)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{"artSetups", "water", "diseasedWater", "manualToggle", "diseasedWaterSwampNightcrawlerC", "backCenter", "water (5)"}
+            )
+        );
         gos_to_disable.push_back(
             il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"artSetups", "water", "diseasedWater", "manualToggle", "corruptCover (1)"})
         );
@@ -351,15 +378,22 @@ namespace {
     void marsh_east_longswim_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
 
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "diseasedWater", "diseasedWaterSwampNightcrawlerB (1)", "backCenter", "water (5)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "diseasedWater", "diseasedWaterSwampNightcrawlerB (1)", "frontCenter", "water (4)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "diseasedWater", "diseasedWaterSwampNightcrawlerB (1)", "corruptCover"}
-        ));
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "water", "diseasedWater", "diseasedWaterSwampNightcrawlerB (1)", "backCenter", "water (5)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{"artSetups", "water", "diseasedWater", "diseasedWaterSwampNightcrawlerB (1)", "frontCenter", "water (4)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "water", "diseasedWater", "diseasedWaterSwampNightcrawlerB (1)", "corruptCover"}
+            )
+        );
 
         for (auto go: gos_to_disable) {
             if (il2cpp::unity::is_valid(go)) {
@@ -371,76 +405,86 @@ namespace {
     void marsh_above_burrows_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
 
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{
-                "art",
-                "flattened",
-                "hugeCell",
-                "water (1)_2_31",
-                "waterGroupB",
-                "diseasedWater",
-                "diseasedWaterSwampNightcrawlerA (1)",
-                "backCenter",
-                "water (5)"
-            }
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{
-                "art",
-                "flattened",
-                "hugeCell",
-                "water (1)_2_31",
-                "waterGroupB",
-                "diseasedWater",
-                "diseasedWaterSwampNightcrawlerA (1)",
-                "frontCenter",
-                "water (4)"
-            }
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{
-                "art",
-                "flattened",
-                "hugeCell",
-                "water (1)_2_31",
-                "waterGroupB",
-                "diseasedWater",
-                "diseasedWaterSwampNightcrawlerA (1)",
-                "frontCenter",
-                "water (5)"
-            }
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{
-                "art",
-                "flattened",
-                "hugeCell",
-                "water (1)_2_31",
-                "waterGroupB",
-                "diseasedWater",
-                "diseasedWaterSwampNightcrawlerA (1)",
-                "corruptionUnderwater (1)",
-                "diseasedWaterTentaclesB"
-            }
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{
-                "art",
-                "flattened",
-                "hugeCell",
-                "water (1)_2_31",
-                "waterGroupB",
-                "diseasedWater",
-                "diseasedWaterSwampNightcrawlerA (1)",
-                "corruptionUnderwater (1)",
-                "gravityElementVeinsD"
-            }
-        ));
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{
+                    "art",
+                    "flattened",
+                    "hugeCell",
+                    "water (1)_2_31",
+                    "waterGroupB",
+                    "diseasedWater",
+                    "diseasedWaterSwampNightcrawlerA (1)",
+                    "backCenter",
+                    "water (5)"
+                }
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{
+                    "art",
+                    "flattened",
+                    "hugeCell",
+                    "water (1)_2_31",
+                    "waterGroupB",
+                    "diseasedWater",
+                    "diseasedWaterSwampNightcrawlerA (1)",
+                    "frontCenter",
+                    "water (4)"
+                }
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{
+                    "art",
+                    "flattened",
+                    "hugeCell",
+                    "water (1)_2_31",
+                    "waterGroupB",
+                    "diseasedWater",
+                    "diseasedWaterSwampNightcrawlerA (1)",
+                    "frontCenter",
+                    "water (5)"
+                }
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{
+                    "art",
+                    "flattened",
+                    "hugeCell",
+                    "water (1)_2_31",
+                    "waterGroupB",
+                    "diseasedWater",
+                    "diseasedWaterSwampNightcrawlerA (1)",
+                    "corruptionUnderwater (1)",
+                    "diseasedWaterTentaclesB"
+                }
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{
+                    "art",
+                    "flattened",
+                    "hugeCell",
+                    "water (1)_2_31",
+                    "waterGroupB",
+                    "diseasedWater",
+                    "diseasedWaterSwampNightcrawlerA (1)",
+                    "corruptionUnderwater (1)",
+                    "gravityElementVeinsD"
+                }
+            )
+        );
 
         auto water_veins = il2cpp::unity::find_children(
             scene_root_go,
@@ -473,12 +517,16 @@ namespace {
     void west_glades_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
 
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "corrupt", "corruptWaterTop", "waterCards (1)", "water (4)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "corrupt", "corruptWaterBottom", "waterCards (1)", "water (4)"}
-        ));
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "water", "corrupt", "corruptWaterTop", "waterCards (1)", "water (4)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "water", "corrupt", "corruptWaterBottom", "waterCards (1)", "water (4)"}
+            )
+        );
 
         for (auto go: gos_to_disable) {
             if (il2cpp::unity::is_valid(go)) {
@@ -493,18 +541,26 @@ namespace {
         gos_to_disable.push_back(
             il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "earlyZMesh_corruptWater"})
         );
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "water (1)", "wideGradientCards", "foregroundBottomGradient (1)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "water (1)", "wideGradientCards", "linearLightGradientMask (2)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "water (1)", "wideGradientCards", "linearLightGradientMask (3)"}
-        ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "water (1)", "wideGradientCards", "linearLightGradientMask (4)"}
-        ));
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "water (1)", "wideGradientCards", "foregroundBottomGradient (1)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "water (1)", "wideGradientCards", "linearLightGradientMask (2)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "water (1)", "wideGradientCards", "linearLightGradientMask (3)"}
+            )
+        );
+        gos_to_disable.push_back(
+            il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "water (1)", "wideGradientCards", "linearLightGradientMask (4)"}
+            )
+        );
 
         for (auto go: gos_to_disable) {
             if (il2cpp::unity::is_valid(go)) {
@@ -541,7 +597,9 @@ namespace {
             metadata->scene->fields.MetaData->fields.ScenePaddingBoundaries->fields._items->vector[4].m_XMin = -845.f;
             metadata->scene->fields.MetaData->fields.ScenePaddingBoundaries->fields._items->vector[4].m_Width = 146.5f;
 
-            auto water_distortion_go = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, std::vector<std::string>{"artSetups", "cleanState", "cleanedWaterEntrance", "waterDistortions"});
+            auto water_distortion_go = il2cpp::unity::find_child(
+                metadata->scene->fields.SceneRoot, std::vector<std::string>{"artSetups", "cleanState", "cleanedWaterEntrance", "waterDistortions"}
+            );
             auto art_setups_go = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, std::vector<std::string>{"artSetups"});
             il2cpp::unity::set_parent(water_distortion_go, art_setups_go);
             UnityEngine::GameObject::set_active(water_distortion_go, true);
