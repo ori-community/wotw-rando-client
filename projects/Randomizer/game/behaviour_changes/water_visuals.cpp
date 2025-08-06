@@ -19,8 +19,11 @@ namespace {
     il2cpp::WeakGCRef<app::GameObject> wellspring_background_rectangle_ref;
     il2cpp::WeakGCRef<app::GameObject> wellspring_black_rectangle_ref;
     il2cpp::WeakGCRef<app::GameObject> wellspring_black_rectangle_ref_2;
+
     il2cpp::WeakGCRef<app::GameObject> silent_swim_dark_overlay_ref;
     il2cpp::WeakGCRef<app::GameObject> silent_swim_dark_overlay_ref_2;
+    il2cpp::WeakGCRef<app::GameObject> silent_swim_dark_overlay_ref_3;
+
     struct CustomWaterModifier {
         std::function<void(app::GameObject*, bool)> update_function;
         std::optional<il2cpp::WeakGCRef<app::GameObject>> scene_root_ref;
@@ -108,7 +111,6 @@ namespace {
     app::GameObject* clean_state_go = nullptr;
     void silent_swim_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
-        //TODO: Fix colours and overlapping on the last square
         gos_to_disable.push_back(
             il2cpp::unity::find_child(
                 scene_root_go,
@@ -131,14 +133,17 @@ namespace {
                 "artSetups", "water", "poisonedWater", "corruptedWaterNew", "diseasedWaterSwampNightcrawlerA (1)", "frontCenter", "water (4)"
             }
         );
+        il2cpp::unity::set_position(dark_overlay_go, app::Vector3{246.0, -4255.5, -3.2});
+        il2cpp::unity::set_local_scale(dark_overlay_go, app::Vector3{88.5, 28.9, 1.f});
+
         if (!silent_swim_dark_overlay_ref.is_valid()) {
             silent_swim_dark_overlay_ref = il2cpp::WeakGCRef<app::GameObject>(il2cpp::unity::instantiate_object(dark_overlay_go));
             il2cpp::unity::set_parent(*silent_swim_dark_overlay_ref, il2cpp::unity::get_parent(dark_overlay_go));
             il2cpp::unity::set_local_position(*silent_swim_dark_overlay_ref, il2cpp::unity::get_local_position(dark_overlay_go));
         }
         app::GameObject* dark_overlay_go_2 = *silent_swim_dark_overlay_ref;
-        il2cpp::unity::set_position(dark_overlay_go_2, app::Vector3{300.4, -4226.3, -3.3});
-        il2cpp::unity::set_local_scale(dark_overlay_go_2, app::Vector3{45.f, 18.f, 1.f});
+        il2cpp::unity::set_position(dark_overlay_go_2, app::Vector3{300.4, -4223.9, -3.3});
+        il2cpp::unity::set_local_scale(dark_overlay_go_2, app::Vector3{45.f, 15.f, 1.f});
 
         if (!silent_swim_dark_overlay_ref_2.is_valid()) {
             silent_swim_dark_overlay_ref_2 = il2cpp::WeakGCRef<app::GameObject>(il2cpp::unity::instantiate_object(dark_overlay_go));
@@ -146,8 +151,17 @@ namespace {
             il2cpp::unity::set_local_position(*silent_swim_dark_overlay_ref_2, il2cpp::unity::get_local_position(dark_overlay_go));
         }
         app::GameObject* dark_overlay_go_3 = *silent_swim_dark_overlay_ref_2;
-        il2cpp::unity::set_position(dark_overlay_go_3, app::Vector3{350.8, -4234.7, -3.3});
-        il2cpp::unity::set_local_scale(dark_overlay_go_3, app::Vector3{45.f, 18.f, 1.f});
+        il2cpp::unity::set_position(dark_overlay_go_3, app::Vector3{351.f, -4254.7, -3.3});
+        il2cpp::unity::set_local_scale(dark_overlay_go_3, app::Vector3{45.f, 35.f, 1.f});
+
+        if (!silent_swim_dark_overlay_ref_3.is_valid()) {
+            silent_swim_dark_overlay_ref_3 = il2cpp::WeakGCRef<app::GameObject>(il2cpp::unity::instantiate_object(dark_overlay_go));
+            il2cpp::unity::set_parent(*silent_swim_dark_overlay_ref_3, il2cpp::unity::get_parent(dark_overlay_go));
+            il2cpp::unity::set_local_position(*silent_swim_dark_overlay_ref_3, il2cpp::unity::get_local_position(dark_overlay_go));
+        }
+        app::GameObject* dark_overlay_go_4 = *silent_swim_dark_overlay_ref_3;
+        il2cpp::unity::set_position(dark_overlay_go_4, app::Vector3{325.7, -4260.0, -3.2});
+        il2cpp::unity::set_local_scale(dark_overlay_go_4, app::Vector3{30.5, 28.9, 1.f});
 
         gos_to_disable.push_back(
             il2cpp::unity::find_child(
@@ -172,8 +186,8 @@ namespace {
             ->fields.Booleans->fields._items
             ->vector[0] = true; // if the setup controller is in the dirty water state it takes the clean water go and sets it to true
         UnityEngine::GameObject::set_active(clean_state_go, !corruption_visible); // if the corruption is removed, these states need to be enabled
-        set_color(dark_overlay_go, corruption_visible ? app::Color{0, 0, 0, 1} : app::Color{1, 0, 0.5, 0.75});
-        set_color(dark_overlay_go_2, corruption_visible ? app::Color{0, 0, 0, 1} : app::Color{1, 0, 0.5, 0.75});
+        set_color(dark_overlay_go, corruption_visible ? app::Color{0, 0, 0, 1} : app::Color{0, 0, 0, 0.8});
+        set_color(dark_overlay_go_2, corruption_visible ? app::Color{0, 0, 0, 1} : app::Color{0, 0, 0, 0.8});
     }
 
     void under_wellspring_water_visuals_a_controller(app::GameObject* scene_root_go, bool corruption_visible) {
