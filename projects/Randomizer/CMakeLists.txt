@@ -142,6 +142,7 @@ set(
         "game/pickups/bonus/sentry_upgrades.cpp"
         "game/pickups/bonus/spear_attack_speed.cpp"
         "game/pickups/bonus/sword_attack_speed.cpp"
+        "game/pickups/bonus/ultra_flap.cpp"
         "game/pickups/bonus/velocity.cpp"
         "game/pickups/bonus/flash.cpp"
         "game/pickups/pickups.cpp"

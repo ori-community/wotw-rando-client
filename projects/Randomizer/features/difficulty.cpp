@@ -15,9 +15,9 @@ IL2CPP_INTERCEPT(GameController, app::GameController_GameModeBalanceSettings*, g
 IL2CPP_INTERCEPT(SeinDamageReciever, void, OnRecieveDamage, (app::SeinDamageReciever * this_ptr, app::Damage* damage)) {
     const auto sein = core::api::game::player::sein();
 
-    if (sein == nullptr || !sein->fields.Abilities->fields.InteractionWrapper->fields.State->fields.m_isInNPCInteraction) {
-        next::SeinDamageReciever::OnRecieveDamage(this_ptr, damage);
-    } else {
+    if (sein != nullptr && sein->fields.Abilities->fields.InteractionWrapper->fields.State->fields.m_isInNPCInteraction || damage->fields.m_damageType == app::DamageType__Enum::Wind) {
         damage->fields.m_ignored = true;
+    } else {
+        next::SeinDamageReciever::OnRecieveDamage(this_ptr, damage);
     }
 }

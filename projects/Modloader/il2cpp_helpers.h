@@ -353,12 +353,16 @@ namespace il2cpp {
             }
 
             Il2CppObject* il2cpp_object = reinterpret_cast<Il2CppObject*>(obj);
-            if (is_assignable(il2cpp_object, internal::get_game_object_class()))
+
+            if (is_assignable(il2cpp_object, internal::get_game_object_class())) {
                 return get_components<Return>(reinterpret_cast<app::GameObject*>(obj), klass);
-            else if (is_assignable(il2cpp_object, internal::get_component_class()))
+            }
+
+            if (is_assignable(il2cpp_object, internal::get_component_class())) {
                 return get_components<Return>(get_game_object(obj), klass);
-            else
-                return {};
+            }
+
+            return {};
         }
 
         template<typename Return = app::Component_1>
@@ -395,17 +399,22 @@ namespace il2cpp {
         template<typename Return = app::Component_1>
         std::vector<Return*> get_components_in_children(void* obj, Il2CppClass* klass, bool include_inactive = false) {
             Il2CppObject* il2cpp_object = reinterpret_cast<Il2CppObject*>(obj);
+
             if (is_assignable(il2cpp_object, internal::get_game_object_class())) {
                 auto components = get_components_in_children_untyped(reinterpret_cast<app::GameObject*>(obj), klass, include_inactive);
                 std::vector<Return*> output;
-                for (auto component: components)
+                for (auto component: components) {
                     output.push_back(reinterpret_cast<Return*>(component));
+                }
 
                 return output;
-            } else if (is_assignable(il2cpp_object, internal::get_component_class()))
+            }
+
+            if (is_assignable(il2cpp_object, internal::get_component_class())) {
                 return get_components_in_children<Return>(get_game_object(obj), klass, include_inactive);
-            else
-                return {};
+            }
+
+            return {};
         }
 
         template<typename Return = app::Component_1>
