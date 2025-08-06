@@ -16,11 +16,14 @@
 namespace {
 
     core::api::uber_states::UberState water_transparent_state(UberStateGroup::RandoConfig, 204);
-    il2cpp::WeakGCRef<app::GameObject> black_rectangle_ref;
+    il2cpp::WeakGCRef<app::GameObject> wellspring_black_rectangle_ref;
+    il2cpp::WeakGCRef<app::GameObject> wellspring_black_rectangle_ref_2;
+    il2cpp::WeakGCRef<app::GameObject> silent_swim_dark_overlay_ref;
+    il2cpp::WeakGCRef<app::GameObject> silent_swim_dark_overlay_ref_2;
     struct CustomWaterModifier {
         std::function<void(app::GameObject*, bool)> update_function;
         std::optional<il2cpp::WeakGCRef<app::GameObject>> scene_root_ref;
-        std::shared_ptr<core::reactivity::ReactiveEffect> effect = nullptr;
+        std::shared_ptr<const core::reactivity::ReactiveEffect> effect = nullptr;
     };
 
     void set_active(app::GameObject* go, bool active) {
@@ -106,12 +109,28 @@ namespace {
                 "artSetups", "water", "poisonedWater", "corruptedWaterNew", "diseasedWaterSwampNightcrawlerA (1)", "effects", "vignetteMaskC (5)"
             }
         ));
-        gos_to_disable.push_back(il2cpp::unity::find_child(
+        app::GameObject* dark_overlay_go = il2cpp::unity::find_child(
             scene_root_go,
             std::vector<std::string>{
-                "artSetups", "water", "poisonedWater", "corruptedWaterNew", "diseasedWaterSwampNightcrawlerA (1)", "frontCenter", "water (4)"
-            }
-        ));
+                "artSetups", "water", "poisonedWater", "corruptedWaterNew", "diseasedWaterSwampNightcrawlerA (1)", "frontCenter", "water (4)"});
+        if (!silent_swim_dark_overlay_ref.is_valid()){
+            silent_swim_dark_overlay_ref = il2cpp::WeakGCRef<app::GameObject>(il2cpp::unity::instantiate_object(dark_overlay_go));
+            il2cpp::unity::set_parent(*silent_swim_dark_overlay_ref, il2cpp::unity::get_parent(dark_overlay_go));
+            il2cpp::unity::set_local_position(*silent_swim_dark_overlay_ref, il2cpp::unity::get_local_position(dark_overlay_go));
+        }
+        app::GameObject* dark_overlay_go_2 = *silent_swim_dark_overlay_ref;
+        il2cpp::unity::set_position(dark_overlay_go_2, app::Vector3{300.4, -4226.3, -3.3});
+        il2cpp::unity::set_local_scale(dark_overlay_go_2, app::Vector3{45.f, 18.f, 1.f});
+
+        if (!silent_swim_dark_overlay_ref_2.is_valid()) {
+            silent_swim_dark_overlay_ref_2 = il2cpp::WeakGCRef<app::GameObject>(il2cpp::unity::instantiate_object(dark_overlay_go));
+            il2cpp::unity::set_parent(*silent_swim_dark_overlay_ref_2, il2cpp::unity::get_parent(dark_overlay_go));
+            il2cpp::unity::set_local_position(*silent_swim_dark_overlay_ref_2, il2cpp::unity::get_local_position(dark_overlay_go));
+        }
+        app::GameObject* dark_overlay_go_3 = *silent_swim_dark_overlay_ref_2;
+        il2cpp::unity::set_position(dark_overlay_go_3, app::Vector3{350.8, -4234.7, -3.3});
+        il2cpp::unity::set_local_scale(dark_overlay_go_3, app::Vector3{45.f, 18.f, 1.f});
+
         gos_to_disable.push_back(il2cpp::unity::find_child(
             scene_root_go,
             std::vector<std::string>{"artSetups", "water", "poisonedWater", "corruptedWaterNew", "diseasedWaterSwampNightcrawlerA (1)", "uberWaters"}
@@ -133,6 +152,18 @@ namespace {
             ->fields.Booleans->fields._items
             ->vector[0] = true; // if the setup controller is in the dirty water state it takes the clean water go and sets it to true
         UnityEngine::GameObject::set_active(clean_state_go, !corruption_visible); // if the corruption is removed, these states need to be enabled
+        set_color(
+            dark_overlay_go,
+            corruption_visible
+            ? app::Color {0, 0, 0, 1}
+            : app::Color {1, 0, 0.5, 0.75}
+        );
+        set_color(
+            dark_overlay_go_2,
+            corruption_visible
+            ? app::Color {0, 0, 0, 1}
+            : app::Color {1, 0, 0.5, 0.75}
+        );
     }
 
     void under_wellspring_water_visuals_a_controller(app::GameObject* scene_root_go, bool corruption_visible) {
@@ -146,32 +177,44 @@ namespace {
             scene_root_go, std::vector<std::string>{"artSetups", "corruptState", "diseasedWaterNew", "frontCenter", "waterTempSolution"}
         );
 
-        if(!black_rectangle_ref.is_valid()){
-            black_rectangle_ref = il2cpp::WeakGCRef<app::GameObject>(il2cpp::unity::instantiate_object(black_rectangle_go));
-            il2cpp::unity::set_parent(*black_rectangle_ref, il2cpp::unity::get_parent(black_rectangle_go));
-            il2cpp::unity::set_local_position(*black_rectangle_ref, il2cpp::unity::get_local_position(black_rectangle_go));
+        if(!wellspring_black_rectangle_ref.is_valid()){
+            wellspring_black_rectangle_ref = il2cpp::WeakGCRef<app::GameObject>(il2cpp::unity::instantiate_object(black_rectangle_go));
+            il2cpp::unity::set_parent(*wellspring_black_rectangle_ref, il2cpp::unity::get_parent(black_rectangle_go));
+            il2cpp::unity::set_local_position(*wellspring_black_rectangle_ref, il2cpp::unity::get_local_position(black_rectangle_go));
         }
-        app::GameObject* black_rectangle_go_2 = *black_rectangle_ref;
-        
-        auto first_rectangle_pos = il2cpp::unity::get_local_position(black_rectangle_go);
-        il2cpp::unity::set_position(black_rectangle_go, app::Vector3{-739.0, -4120.0, -5.1}); // I love magic numbers
-        il2cpp::unity::set_local_scale(black_rectangle_go, app::Vector3{25.f, 40.f, 1.f});
+        app::GameObject* black_rectangle_go_2 = *wellspring_black_rectangle_ref;
+        il2cpp::unity::set_position(black_rectangle_go  , app::Vector3{-739.0, -4108.f, -5.1});
+        il2cpp::unity::set_local_scale(black_rectangle_go, app::Vector3{25.f, 30.f, 1.f});
         set_color(
             black_rectangle_go,
             corruption_visible
             ? app::Color {0, 0, 0, 1}
-            : app::Color {0.5, 0, 0.5, 0.85}
+            : app::Color {1, 0, 0.5, 0.75}
         );
 
- 
-        auto second_rectangle_pos = il2cpp::unity::get_local_position(black_rectangle_go_2);
-        il2cpp::unity::set_position(black_rectangle_go_2, app::Vector3{-775.4, -4155.5, -5.1});
-        il2cpp::unity::set_local_scale(black_rectangle_go_2, app::Vector3{38.f, 30.f, 1.f});
+        il2cpp::unity::set_position(black_rectangle_go_2, app::Vector3{-767.1, -4130.f, -5.1});
+        il2cpp::unity::set_local_scale(black_rectangle_go_2, app::Vector3{50.f, 35.f, 1.f});
         set_color(
             black_rectangle_go_2,
             corruption_visible
                 ? app::Color {0, 0, 0, 1}
-                : app::Color {0.5, 0, 0.5, 0.85}
+                : app::Color {1, 0, 0.5, 0.75}
+        );
+
+        if(!wellspring_black_rectangle_ref_2.is_valid()){
+            wellspring_black_rectangle_ref_2 = il2cpp::WeakGCRef<app::GameObject>(il2cpp::unity::instantiate_object(black_rectangle_go));
+            il2cpp::unity::set_parent(*wellspring_black_rectangle_ref_2, il2cpp::unity::get_parent(black_rectangle_go));
+            il2cpp::unity::set_local_position(*wellspring_black_rectangle_ref_2, il2cpp::unity::get_local_position(black_rectangle_go));
+        }
+
+        app::GameObject* black_rectangle_go_3 = *wellspring_black_rectangle_ref_2;
+        il2cpp::unity::set_position(black_rectangle_go_3, app::Vector3{-808.0, -4130.f, -5.1});
+        il2cpp::unity::set_local_scale(black_rectangle_go_3, app::Vector3{50.f, 28.f, 1.f});
+        set_color(
+            black_rectangle_go_3,
+            corruption_visible
+                ? app::Color {0, 0, 0, 1}
+                : app::Color {1, 0, 0.5, 0.75}
         );
     }
 
@@ -490,6 +533,19 @@ namespace {
     };
 
     void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
+        if (metadata->state == app::SceneState__Enum::Loaded && metadata->scene_name == "waterMillEntrance") {
+            /**
+             * We extend the WaterMillEntrance scene padding because moon in their infinite wisdom divided the swim area between 2 seperate scenes
+             * and the scene darkening effects were unloading mid swim :)))
+             */
+            metadata->scene->fields.MetaData->fields.ScenePaddingBoundaries->fields._items->vector[4].m_XMin = -845.f;
+            metadata->scene->fields.MetaData->fields.ScenePaddingBoundaries->fields._items->vector[4].m_Width = 146.5f;
+
+            auto water_distortion_go = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, std::vector<std::string>{"artSetups", "cleanState", "cleanedWaterEntrance", "waterDistortions"});
+            auto art_setups_go = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, std::vector<std::string>{"artSetups"});
+            il2cpp::unity::set_parent(water_distortion_go, art_setups_go);
+            UnityEngine::GameObject::set_active(water_distortion_go, true);
+        }
         if (metadata->state != app::SceneState__Enum::Enabled) {
             return;
         }
@@ -508,5 +564,6 @@ namespace {
                                   .finalize();
         }
     }
+    [[maybe_unused]]
     auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
 } // namespace
