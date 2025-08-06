@@ -595,6 +595,30 @@ namespace {
                 UnityEngine::GameObject::set_active(go, corruption_visible);
             }
         }
+
+        std::vector<app::GameObject*> gos_to_make_transparent;
+
+        auto effects_go = il2cpp::unity::find_child(
+            scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "diseasedWaterSwampNightcrawler", "effects"}
+        );
+        std::vector<app::GameObject*> children = il2cpp::unity::get_children(effects_go);
+        for (const auto& child : children) {
+            gos_to_make_transparent.push_back(child);
+        }
+
+        auto fc_go = il2cpp::unity::find_child(
+            scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "diseasedWaterSwampNightcrawler", "frontCenter"}
+        );
+        std::vector<app::GameObject*> gradient_masks = il2cpp::unity::get_children(fc_go);
+        for (const auto& gradient_mask : gradient_masks) {
+            gos_to_make_transparent.push_back(gradient_mask);
+        }
+
+        for (auto go: gos_to_make_transparent) {
+            if (il2cpp::unity::is_valid(go)) {
+                        set_color(go, corruption_visible ? app::Color{0, 0, 0, 1} : app::Color{0, 0, 0, 0.3});
+            }
+        }
     }
 
     std::unordered_map<std::string, CustomWaterModifier> water_visuals_map = {
