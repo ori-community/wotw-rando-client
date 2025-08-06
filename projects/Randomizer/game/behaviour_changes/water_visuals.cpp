@@ -16,6 +16,7 @@
 namespace {
 
     core::api::uber_states::UberState water_transparent_state(UberStateGroup::RandoConfig, 204);
+    il2cpp::WeakGCRef<app::GameObject> wellspring_background_rectangle_ref;
     il2cpp::WeakGCRef<app::GameObject> wellspring_black_rectangle_ref;
     il2cpp::WeakGCRef<app::GameObject> wellspring_black_rectangle_ref_2;
     il2cpp::WeakGCRef<app::GameObject> silent_swim_dark_overlay_ref;
@@ -43,7 +44,7 @@ namespace {
 
     void downswim_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
-
+        //TODO: Bring back the black overlay but make it transparent
         gos_to_disable.push_back(
             il2cpp::unity::find_child(
                 scene_root_go, std::vector<std::string>{"waterGroupParent", "waterGroupA", "diseasedWaterSwampNightcrawlerA (2)", "backCenter", "water (7)"}
@@ -107,7 +108,7 @@ namespace {
     app::GameObject* clean_state_go = nullptr;
     void silent_swim_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
-
+        //TODO: Fix colours and overlapping on the last square
         gos_to_disable.push_back(
             il2cpp::unity::find_child(
                 scene_root_go,
@@ -178,26 +179,39 @@ namespace {
     void under_wellspring_water_visuals_a_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
 
-        set_active(
-            il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"artSetups", "corruptState", "diseasedWaterNew", "backCenter", "water (5)"}),
-            corruption_visible
+        app::GameObject* background_rectangle_go = il2cpp::unity::find_child(
+            scene_root_go, std::vector<std::string>{"artSetups", "corruptState", "diseasedWaterNew", "backCenter", "water (5)"}
         );
+        il2cpp::unity::set_position(background_rectangle_go, app::Vector3{-832.3, -4092.6, 2.5});
+        il2cpp::unity::set_local_scale(background_rectangle_go, app::Vector3{35.f, 20.2, 1.f});
+
+        if (!wellspring_background_rectangle_ref.is_valid()) {
+            wellspring_background_rectangle_ref = il2cpp::WeakGCRef<app::GameObject>(il2cpp::unity::instantiate_object(background_rectangle_go));
+            il2cpp::unity::set_parent(*wellspring_background_rectangle_ref, il2cpp::unity::get_parent(background_rectangle_go));
+            il2cpp::unity::set_local_position(*wellspring_background_rectangle_ref, il2cpp::unity::get_local_position(background_rectangle_go));
+        }
+
+        app::GameObject* background_rectangle_go_2 = *wellspring_background_rectangle_ref;
+        il2cpp::unity::set_position(background_rectangle_go_2, app::Vector3{-742.3, -4092.6, 2.5});
+        il2cpp::unity::set_local_scale(background_rectangle_go_2, app::Vector3{20.f, 20.2, 1.f});
+
         app::GameObject* black_rectangle_go = il2cpp::unity::find_child(
             scene_root_go, std::vector<std::string>{"artSetups", "corruptState", "diseasedWaterNew", "frontCenter", "waterTempSolution"}
         );
+
+        il2cpp::unity::set_position(black_rectangle_go, app::Vector3{-739.0, -4108.f, -5.1});
+        il2cpp::unity::set_local_scale(black_rectangle_go, app::Vector3{20.f, 30.f, 1.f});
+        set_color(black_rectangle_go, corruption_visible ? app::Color{0, 0, 0, 1} : app::Color{1, 0, 0.5, 0.75});
 
         if (!wellspring_black_rectangle_ref.is_valid()) {
             wellspring_black_rectangle_ref = il2cpp::WeakGCRef<app::GameObject>(il2cpp::unity::instantiate_object(black_rectangle_go));
             il2cpp::unity::set_parent(*wellspring_black_rectangle_ref, il2cpp::unity::get_parent(black_rectangle_go));
             il2cpp::unity::set_local_position(*wellspring_black_rectangle_ref, il2cpp::unity::get_local_position(black_rectangle_go));
         }
-        app::GameObject* black_rectangle_go_2 = *wellspring_black_rectangle_ref;
-        il2cpp::unity::set_position(black_rectangle_go, app::Vector3{-739.0, -4108.f, -5.1});
-        il2cpp::unity::set_local_scale(black_rectangle_go, app::Vector3{25.f, 30.f, 1.f});
-        set_color(black_rectangle_go, corruption_visible ? app::Color{0, 0, 0, 1} : app::Color{1, 0, 0.5, 0.75});
 
+        app::GameObject* black_rectangle_go_2 = *wellspring_black_rectangle_ref;
         il2cpp::unity::set_position(black_rectangle_go_2, app::Vector3{-767.1, -4130.f, -5.1});
-        il2cpp::unity::set_local_scale(black_rectangle_go_2, app::Vector3{50.f, 35.f, 1.f});
+        il2cpp::unity::set_local_scale(black_rectangle_go_2, app::Vector3{35.f, 35.f, 1.f});
         set_color(black_rectangle_go_2, corruption_visible ? app::Color{0, 0, 0, 1} : app::Color{1, 0, 0.5, 0.75});
 
         if (!wellspring_black_rectangle_ref_2.is_valid()) {
@@ -275,7 +289,7 @@ namespace {
 
     void marsh_to_pools_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
-
+        //TODO: Bring back the dark overlay and make it transparent
         gos_to_disable.push_back(
             il2cpp::unity::find_child(
                 scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "diseasedWaterWatermillInterior", "cubicTransparencyMaskC"}
@@ -377,7 +391,7 @@ namespace {
 
     void marsh_east_longswim_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
-
+        //TODO: Use the purple background from the right side and stretch it to whole water section, remove the darkness in the front cuz it ugly
         gos_to_disable.push_back(
             il2cpp::unity::find_child(
                 scene_root_go, std::vector<std::string>{"artSetups", "water", "diseasedWater", "diseasedWaterSwampNightcrawlerB (1)", "backCenter", "water (5)"}
@@ -537,7 +551,7 @@ namespace {
 
     void glades_town_water_visuals_controller(app::GameObject* scene_root_go, bool corruption_visible) {
         std::vector<app::GameObject*> gos_to_disable;
-
+        //TODO: Make the lupo water path less dark
         gos_to_disable.push_back(
             il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"artSetups", "water", "corruptWater", "earlyZMesh_corruptWater"})
         );
