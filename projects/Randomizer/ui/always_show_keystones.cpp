@@ -7,7 +7,7 @@
 
 namespace randomizer::ui {
     namespace {
-        IL2CPP_INTERCEPT(SeinUI, void, FixedUpdate, (app::SeinUI * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SeinUI, FixedUpdate, app::SeinUI * this_ptr) {
             if (core::settings::always_show_keystones()) {
                 this_ptr->fields.m_showKeystonesTimer = this_ptr->fields.ShowKeyStoneTime;
             }

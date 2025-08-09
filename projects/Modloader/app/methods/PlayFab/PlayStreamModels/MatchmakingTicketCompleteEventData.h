@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/MatchmakingTicketCompleteEventData.h>
 
 namespace app::classes::PlayFab::PlayStreamModels::MatchmakingTicketCompleteEventData {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MatchmakingTicketCompleteEventData * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::MatchmakingTicketCompleteEventData* this_ptr)
 }

@@ -104,32 +104,32 @@ namespace randomizer::features::wheel {
         }
 
         bool dont_fade = false;
-        IL2CPP_INTERCEPT(MoonTimelineUiFader, void, FadeIn, (app::MoonTimelineUiFader * this_ptr)) {
+        IL2CPP_INTERCEPT(void, MoonTimelineUiFader, FadeIn, app::MoonTimelineUiFader * this_ptr) {
             if (!dont_fade)
                 next::MoonTimelineUiFader::FadeIn(this_ptr);
         }
 
         void update_wheel_position();
 
-        IL2CPP_INTERCEPT(EquipmentWheel, void, Show, (app::EquipmentWheel * this_ptr)) {
+        IL2CPP_INTERCEPT(void, EquipmentWheel, Show, app::EquipmentWheel * this_ptr) {
             is_wheel_visible = true;
             next::EquipmentWheel::Show(this_ptr);
             update_wheel_position();
         }
 
-        IL2CPP_INTERCEPT(EquipmentWheel, void, Hide, (app::EquipmentWheel * this_ptr, bool change)) {
+        IL2CPP_INTERCEPT(void, EquipmentWheel, Hide, app::EquipmentWheel * this_ptr, bool change) {
             next::EquipmentWheel::Hide(this_ptr, change);
             is_wheel_visible = false;
             custom_wheel_on = false;
         }
 
-        IL2CPP_INTERCEPT(EquipmentWheel, void, HideImmediate, (app::EquipmentWheel * this_ptr)) {
+        IL2CPP_INTERCEPT(void, EquipmentWheel, HideImmediate, app::EquipmentWheel * this_ptr) {
             next::EquipmentWheel::HideImmediate(this_ptr);
             is_wheel_visible = false;
             custom_wheel_on = false;
         }
 
-        IL2CPP_INTERCEPT(MenuScreenManager, void, HideEquipmentWhell, (app::MenuScreenManager * this_ptr)) {
+        IL2CPP_INTERCEPT(void, MenuScreenManager, HideEquipmentWhell, app::MenuScreenManager * this_ptr) {
             if (wheel_behavior == WheelBehavior::Standalone && custom_wheel_input)
                 return;
 
@@ -216,7 +216,7 @@ namespace randomizer::features::wheel {
 
         bool override_set_active = false;
         bool override_set_active_value = false;
-        IL2CPP_INTERCEPT(CleverMenuItem, void, RefreshVisible, (app::CleverMenuItem * this_ptr)) {
+        IL2CPP_INTERCEPT(void, CleverMenuItem, RefreshVisible, app::CleverMenuItem * this_ptr) {
             if (custom_wheel_on && this_ptr->fields.m_selectionManager == wheel_selection_manager) {
                 override_set_active = true;
                 override_set_active_value = true;
@@ -226,7 +226,7 @@ namespace randomizer::features::wheel {
             override_set_active = false;
         }
 
-        IL2CPP_INTERCEPT(EquipmentRadialSelection, void, Populate, (app::EquipmentRadialSelection * this_ptr, app::List_1_System_Object_* inventory_items, app::Object* grid_context)) {
+        IL2CPP_INTERCEPT(void, EquipmentRadialSelection, Populate, app::EquipmentRadialSelection * this_ptr, app::List_1_System_Object_* inventory_items, app::Object* grid_context) {
             wheel_selection_manager = this_ptr->fields.m_navigationManager;
             custom_wheel_on = !wheels.empty() && custom_wheel_input;
             if (custom_wheel_on) {
@@ -251,21 +251,21 @@ namespace randomizer::features::wheel {
             }
         }
 
-        IL2CPP_INTERCEPT(UnityEngine::GameObject, void, SetActive, (app::GameObject * this_ptr, bool value)) {
+        IL2CPP_INTERCEPT(void, UnityEngine::GameObject, SetActive, app::GameObject * this_ptr, bool value) {
             if (override_set_active)
                 value = override_set_active_value;
 
             next::UnityEngine::GameObject::SetActive(this_ptr, value);
         }
 
-        IL2CPP_INTERCEPT(CleverMenuItem, bool, get_IsVisible, (app::CleverMenuItem * this_ptr)) {
+        IL2CPP_INTERCEPT(bool, CleverMenuItem, get_IsVisible, app::CleverMenuItem * this_ptr) {
             if (custom_wheel_on && this_ptr->fields.m_selectionManager == wheel_selection_manager)
                 return true;
 
             return next::CleverMenuItem::get_IsVisible(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(CleverMenuItem, bool, get_IsActivated, (app::CleverMenuItem * this_ptr)) {
+        IL2CPP_INTERCEPT(bool, CleverMenuItem, get_IsActivated, app::CleverMenuItem * this_ptr) {
             if (custom_wheel_on && this_ptr->fields.m_selectionManager == wheel_selection_manager)
                 return true;
 
@@ -273,7 +273,7 @@ namespace randomizer::features::wheel {
         }
 
         // Only used the first time you use the wheel.
-        IL2CPP_INTERCEPT(EquipmentWheel, bool, HasElement, (app::EquipmentType__Enum type)) {
+        IL2CPP_INTERCEPT(bool, EquipmentWheel, HasElement, app::EquipmentType__Enum type) {
             if (custom_wheel_on) {
                 auto* entry = get_wheel_entry(type);
                 return entry != nullptr && entry->enabled;
@@ -282,7 +282,7 @@ namespace randomizer::features::wheel {
             return next::EquipmentWheel::HasElement(type);
         }
 
-        IL2CPP_INTERCEPT(CleverMenuItemSelectionManager, app::CleverMenuItem*, get_CleverMenuItemUnderCursor, (app::CleverMenuItemSelectionManager * this_ptr)) {
+        IL2CPP_INTERCEPT(app::CleverMenuItem*, CleverMenuItemSelectionManager, get_CleverMenuItemUnderCursor, app::CleverMenuItemSelectionManager * this_ptr) {
             disable_has_ability_overwrite = true;
             const int count = CleverMenuItemSelectionManager::get_MenuItemsCount(this_ptr);
             auto cursor = Core::Input::get_CursorPositionUI();
@@ -315,7 +315,7 @@ namespace randomizer::features::wheel {
             return item;
         }
 
-        IL2CPP_INTERCEPT(EquipmentWheelUIDetails, void, UpdateContext, (app::EquipmentWheelUIDetails * this_ptr, bool to_right)) {
+        IL2CPP_INTERCEPT(void, EquipmentWheelUIDetails, UpdateContext, app::EquipmentWheelUIDetails * this_ptr, bool to_right) {
             if (custom_wheel_on) {
                 auto* name_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
                 auto* description_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
@@ -342,7 +342,7 @@ namespace randomizer::features::wheel {
                 next::EquipmentWheelUIDetails::UpdateContext(this_ptr, to_right);
         }
 
-        IL2CPP_INTERCEPT(SpellUIItem, void, UpdateSpellIcon, (app::SpellUIItem * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SpellUIItem, UpdateSpellIcon, app::SpellUIItem * this_ptr) {
             auto* renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
             if (custom_wheel_on) {
                 CustomWheelEntry* entry = this_ptr->fields.m_spell != nullptr ? get_wheel_entry(this_ptr->fields.m_spell->fields.m_type) : nullptr;
@@ -366,7 +366,7 @@ namespace randomizer::features::wheel {
             }
         }
 
-        IL2CPP_INTERCEPT(SpellUIItem, void, UpdateSpellProperties, (app::SpellUIItem * this_ptr, bool initialize)) {
+        IL2CPP_INTERCEPT(void, SpellUIItem, UpdateSpellProperties, app::SpellUIItem * this_ptr, bool initialize) {
             // CustomWheelEntry* entry = this_ptr->fields.m_spell != nullptr ? get_wheel_entry(this_ptr->fields.m_spell->fields.m_type) : nullptr;
             if (custom_wheel_on) {
                 UnityEngine::GameObject::SetActive(this_ptr->fields.EquippedGOB, false);
@@ -379,7 +379,7 @@ namespace randomizer::features::wheel {
                 next::SpellUIItem::UpdateSpellProperties(this_ptr, initialize);
         }
 
-        IL2CPP_INTERCEPT(EquipmentWheel, void, OnPressButton, (app::EquipmentWheel * this_ptr, app::SpellInventory_Binding__Enum binding)) {
+        IL2CPP_INTERCEPT(void, EquipmentWheel, OnPressButton, app::EquipmentWheel * this_ptr, app::SpellInventory_Binding__Enum binding) {
             if (custom_wheel_on) {
                 auto* item = EquipmentWheel::get_SelectedSpellUIItem(this_ptr);
                 if (item != nullptr && item->fields.m_spell != nullptr) {
@@ -459,7 +459,7 @@ namespace randomizer::features::wheel {
             il2cpp::invoke(manager->fields.OnRadialItemChanged, "Invoke");
         }
 
-        IL2CPP_INTERCEPT(CleverMenuItemSelectionManager, void, RefreshVisible, (app::CleverMenuItemSelectionManager * this_ptr)) {
+        IL2CPP_INTERCEPT(void, CleverMenuItemSelectionManager, RefreshVisible, app::CleverMenuItemSelectionManager * this_ptr) {
             next::CleverMenuItemSelectionManager::RefreshVisible(this_ptr);
             // This is stupid but required because this function is called in a lambda.
             if (is_wheel_visible)

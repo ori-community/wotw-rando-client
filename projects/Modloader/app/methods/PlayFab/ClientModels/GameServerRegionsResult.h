@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/GameServerRegionsResult.h>
 
 namespace app::classes::PlayFab::ClientModels::GameServerRegionsResult {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GameServerRegionsResult * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::GameServerRegionsResult* this_ptr)
 }

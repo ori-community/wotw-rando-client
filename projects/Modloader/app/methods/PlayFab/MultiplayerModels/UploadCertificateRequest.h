@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/UploadCertificateRequest.h>
 
 namespace app::classes::PlayFab::MultiplayerModels::UploadCertificateRequest {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::UploadCertificateRequest * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::UploadCertificateRequest* this_ptr)
 }

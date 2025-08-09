@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/PurchaseItemRequest.h>
 
 namespace app::classes::PlayFab::ClientModels::PurchaseItemRequest {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::PurchaseItemRequest * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::PurchaseItemRequest* this_ptr)
 }

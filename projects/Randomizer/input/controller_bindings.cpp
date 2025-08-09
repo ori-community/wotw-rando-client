@@ -122,7 +122,7 @@ namespace randomizer::input {
         }
 
         bool initialized = false;
-        IL2CPP_INTERCEPT(PlayerInput, void, AddControllerControls, (app::PlayerInput * this_ptr)) {
+        IL2CPP_INTERCEPT(void, PlayerInput, AddControllerControls, app::PlayerInput * this_ptr) {
             // If we fail to read the bindings we want to use default game bindings.
             auto bindings_read = read_keyboard_or_controller_bindings(base_path() / CONTROLLER_REBIND_FILE, on_binding_read);
 

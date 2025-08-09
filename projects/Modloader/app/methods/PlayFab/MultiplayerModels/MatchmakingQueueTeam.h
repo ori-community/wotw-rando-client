@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/MatchmakingQueueTeam.h>
 
 namespace app::classes::PlayFab::MultiplayerModels::MatchmakingQueueTeam {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MatchmakingQueueTeam * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::MatchmakingQueueTeam* this_ptr)
 }

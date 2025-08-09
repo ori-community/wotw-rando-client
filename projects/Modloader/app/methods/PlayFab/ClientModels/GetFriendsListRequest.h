@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/GetFriendsListRequest.h>
 
 namespace app::classes::PlayFab::ClientModels::GetFriendsListRequest {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GetFriendsListRequest * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::GetFriendsListRequest* this_ptr)
 }

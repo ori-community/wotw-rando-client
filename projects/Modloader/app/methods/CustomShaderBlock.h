@@ -5,5 +5,5 @@
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::CustomShaderBlock {
-    IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::CustomShaderBlock * this_ptr, app::String* name))
+    IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, app::CustomShaderBlock* this_ptr, app::String* name)
 }

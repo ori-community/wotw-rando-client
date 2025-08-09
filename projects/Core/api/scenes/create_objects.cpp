@@ -74,7 +74,7 @@ namespace core::api::scenes {
             }
         }
 
-        IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
+        IL2CPP_INTERCEPT(void, GameController, FixedUpdate, app::GameController * this_ptr) {
             next::GameController::FixedUpdate(this_ptr);
 
             for (const auto& object_spawn_by_scene : pending_object_spawns_by_scene)

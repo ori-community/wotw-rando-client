@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/GetBuildRequest.h>
 
 namespace app::classes::PlayFab::MultiplayerModels::GetBuildRequest {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GetBuildRequest * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::GetBuildRequest* this_ptr)
 }

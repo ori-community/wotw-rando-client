@@ -5,5 +5,5 @@
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Reflection::AssemblyConfigurationAttribute {
-    IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::AssemblyConfigurationAttribute * this_ptr, app::String* configuration))
+    IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, app::AssemblyConfigurationAttribute* this_ptr, app::String* configuration)
 }

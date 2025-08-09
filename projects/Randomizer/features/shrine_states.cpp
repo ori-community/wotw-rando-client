@@ -11,7 +11,7 @@ using namespace modloader;
 using namespace app::classes;
 
 namespace {
-    IL2CPP_INTERCEPT(EnemyArenaController, void, OnEnable, (app::EnemyArenaController * this_ptr)) {
+    IL2CPP_INTERCEPT(void, EnemyArenaController, OnEnable, app::EnemyArenaController * this_ptr) {
         next::EnemyArenaController::OnEnable(this_ptr);
 
         auto completed_state_id = this_ptr->fields.CompletedState->fields._.m_id->fields.m_id;

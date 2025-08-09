@@ -1,9 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
-#include <Modloader/app/structs/PlayFabEvents_PlayFabResultEvent_1_PlayFab_ClientModels_GetStoreItemsResult_.h>
 #include <Modloader/app/structs/GetStoreItemsResult.h>
+#include <Modloader/app/structs/PlayFabEvents_PlayFabResultEvent_1_PlayFab_ClientModels_GetStoreItemsResult_.h>
 
 namespace app::classes::PlayFab::Events::PlayFabEvents_PlayFabResultEvent_1_PlayFab_ClientModels_GetStoreItemsResult_ {
-    IL2CPP_REGISTER_METHOD(0x00673B90, void, Invoke, (app::PlayFabEvents_PlayFabResultEvent_1_PlayFab_ClientModels_GetStoreItemsResult_ * this_ptr, app::GetStoreItemsResult* result))
+    IL2CPP_REGISTER_METHOD(
+        0x00673B90,
+        void,
+        Invoke,
+        app::PlayFabEvents_PlayFabResultEvent_1_PlayFab_ClientModels_GetStoreItemsResult_* this_ptr,
+        app::GetStoreItemsResult* result
+    )
 }

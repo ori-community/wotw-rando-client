@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/RemovePlayerTagRequest.h>
 
 namespace app::classes::PlayFab::ServerModels::RemovePlayerTagRequest {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::RemovePlayerTagRequest * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::RemovePlayerTagRequest* this_ptr)
 }

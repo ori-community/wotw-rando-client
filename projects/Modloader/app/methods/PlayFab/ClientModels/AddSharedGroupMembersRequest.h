@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/AddSharedGroupMembersRequest.h>
 
 namespace app::classes::PlayFab::ClientModels::AddSharedGroupMembersRequest {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::AddSharedGroupMembersRequest * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::AddSharedGroupMembersRequest* this_ptr)
 }

@@ -25,7 +25,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(SavePedestalController, void, BeginTeleportation, (app::Vector2 teleport_target_world_position)) {
+    IL2CPP_INTERCEPT(void, SavePedestalController, BeginTeleportation, app::Vector2 teleport_target_world_position) {
         unlock_cinematics();
         next::SavePedestalController::BeginTeleportation(teleport_target_world_position);
 

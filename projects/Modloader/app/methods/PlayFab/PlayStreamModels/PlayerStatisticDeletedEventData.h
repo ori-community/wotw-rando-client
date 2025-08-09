@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/PlayerStatisticDeletedEventData.h>
 
 namespace app::classes::PlayFab::PlayStreamModels::PlayerStatisticDeletedEventData {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::PlayerStatisticDeletedEventData * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::PlayerStatisticDeletedEventData* this_ptr)
 }

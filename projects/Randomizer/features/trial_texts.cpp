@@ -120,7 +120,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(Moon::Race::RaceData, void, Awake, (app::RaceData * this_ptr)) {
+    IL2CPP_INTERCEPT(void, Moon::Race::RaceData, Awake, app::RaceData * this_ptr) {
         next::Moon::Race::RaceData::Awake(this_ptr);
 
         auto location = determine_trial_location_from_trial_state(this_ptr->fields.m_raceState);

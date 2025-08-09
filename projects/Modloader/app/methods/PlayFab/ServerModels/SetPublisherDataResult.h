@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/SetPublisherDataResult.h>
 
 namespace app::classes::PlayFab::ServerModels::SetPublisherDataResult {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SetPublisherDataResult * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::SetPublisherDataResult* this_ptr)
 }

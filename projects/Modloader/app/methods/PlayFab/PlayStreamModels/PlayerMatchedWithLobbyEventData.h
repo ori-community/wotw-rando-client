@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/PlayerMatchedWithLobbyEventData.h>
 
 namespace app::classes::PlayFab::PlayStreamModels::PlayerMatchedWithLobbyEventData {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::PlayerMatchedWithLobbyEventData * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::PlayerMatchedWithLobbyEventData* this_ptr)
 }

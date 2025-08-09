@@ -23,7 +23,7 @@ namespace {
     bool initialized = false;
     int default_max_chakrams = 1;
 
-    IL2CPP_INTERCEPT(SeinChakramSpell, void, EnterMove, (app::SeinChakramSpell * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinChakramSpell, EnterMove, app::SeinChakramSpell* this_ptr) {
         if (!initialized) {
             default_max_chakrams = this_ptr->fields.MaxChakrams;
             initialized = true;
@@ -42,19 +42,19 @@ namespace {
         ChakramProjectile::Initialize(spell->fields.m_projectile, spell);
     }
 
-    IL2CPP_INTERCEPT(ChakramProjectile, void, UpdateDamage, (app::ChakramProjectile * this_ptr)) {
+    IL2CPP_INTERCEPT(void, ChakramProjectile, UpdateDamage, app::ChakramProjectile * this_ptr) {
         next::ChakramProjectile::UpdateDamage(this_ptr);
         this_ptr->fields._.m_damageDealer->fields.m_damageAmount *= shuriken_damage_multiplier.get<float>();
     }
 
-    IL2CPP_INTERCEPT(ChakramProjectile, void, Initialize, (app::ChakramProjectile * this_ptr, app::SeinChakramSpell* sein_chakram_spell)) {
+    IL2CPP_INTERCEPT(void, ChakramProjectile, Initialize, app::ChakramProjectile * this_ptr, app::SeinChakramSpell* sein_chakram_spell) {
         next::ChakramProjectile::Initialize(this_ptr, sein_chakram_spell);
         this_ptr->fields._.CanProjectileBeBashed = shuriken_bashable.get<bool>();
     }
 
     auto destroy_spell_after_explosion = false;
     auto projectile_is_exploding = false;
-    IL2CPP_INTERCEPT(ChakramProjectile, void, ExplodeProjectile, (app::ChakramProjectile * this_ptr)) {
+    IL2CPP_INTERCEPT(void, ChakramProjectile, ExplodeProjectile, app::ChakramProjectile * this_ptr) {
         modloader::ScopedSetter _(projectile_is_exploding, true);
         destroy_spell_after_explosion = false;
 
@@ -65,7 +65,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(ChakramProjectile, void, OnDisable, (app::ChakramProjectile * this_ptr)) {
+    IL2CPP_INTERCEPT(void, ChakramProjectile, OnDisable, app::ChakramProjectile * this_ptr) {
         next::ChakramProjectile::OnDisable(this_ptr);
 
         if (projectile_is_exploding) {
@@ -73,31 +73,21 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(SeinChakramSpell, void, ChakramCaught, (app::SeinChakramSpell * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinChakramSpell, ChakramCaught, app::SeinChakramSpell * this_ptr) {
         // noop because Shuriken code is extremely fucked
     }
 
-    IL2CPP_INTERCEPT(SeinChakramSpell, void, ReleaseProjectileSingle, (app::SeinChakramSpell * this_ptr, float angle_offset)) {
+    IL2CPP_INTERCEPT(void, SeinChakramSpell, ReleaseProjectileSingle, app::SeinChakramSpell * this_ptr, float angle_offset) {
         auto original_projectile = this_ptr->fields.m_projectile;
         next::SeinChakramSpell::ReleaseProjectileSingle(this_ptr, angle_offset);
         auto direction = original_projectile->fields._._Direction_k__BackingField;
         auto angle = MoonMath_Angle::AngleFromVector(app::Vector2(direction.x, direction.y));
 
-        auto spread = shuriken_multishot_spread.get<float>();  // degrees
+        auto spread = shuriken_multishot_spread.get<float>(); // degrees
         auto count = shuriken_multishot_count.get<int>();
         for (int i = 1; i <= count; ++i) {
             core::events::schedule_task(0.05f * (1 + static_cast<float>(i / 2)), [=]() {
-                throw_shuriken(
-                    this_ptr,
-                    angle +
-                    (
-                        static_cast<float>((i + 1) / 2) *
-                        (
-                            spread / static_cast<float>(count) *
-                            (i % 2 == 0 ? 1.f : -1.f)
-                        )
-                    )
-                );
+                throw_shuriken(this_ptr, angle + (static_cast<float>((i + 1) / 2) * (spread / static_cast<float>(count) * (i % 2 == 0 ? 1.f : -1.f))));
             });
         }
     }

@@ -10,7 +10,7 @@ namespace {
 
     core::api::uber_states::UberState keep_health_bar_state(UberStateGroup::RandoConfig, 22);
 
-    IL2CPP_INTERCEPT(PetrifiedOwlBossEntity, bool, ShouldShowHealthBar, (app::PetrifiedOwlBossEntity* this_ptr)) {
+    IL2CPP_INTERCEPT(bool, PetrifiedOwlBossEntity, ShouldShowHealthBar, app::PetrifiedOwlBossEntity* this_ptr) {
         if (!keep_health_bar_state.get<bool>()) {
             return next::PetrifiedOwlBossEntity::ShouldShowHealthBar(this_ptr);
         }

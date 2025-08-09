@@ -9,7 +9,7 @@ namespace {
 
     core::api::uber_states::UberState patch2_kickback_enabled(UberStateGroup::RandoConfig, 17);
 
-    IL2CPP_INTERCEPT(SeinDamageReciever, void, HandleGroundAnimationAndKickback, (app::SeinDamageReciever * this_ptr, app::Damage* damage, bool kickback_enabled, float* hurt_timeremaining, app::ActiveAnimationHandle* active_animation, app::SeinDamageReceiverPuppet* puppet)) {
+    IL2CPP_INTERCEPT(void, SeinDamageReciever, HandleGroundAnimationAndKickback, app::SeinDamageReciever * this_ptr, app::Damage* damage, bool kickback_enabled, float* hurt_timeremaining, app::ActiveAnimationHandle* active_animation, app::SeinDamageReceiverPuppet* puppet) {
         if (!patch2_kickback_enabled.get<bool>()) {
             next::SeinDamageReciever::HandleGroundAnimationAndKickback(this_ptr, damage, kickback_enabled, hurt_timeremaining, active_animation, puppet);
             return;

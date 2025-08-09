@@ -6,7 +6,7 @@
 
 namespace {
     core::api::uber_states::UberState spirit_light_spent(UberStateGroup::RandoStats, 4);
-    IL2CPP_INTERCEPT(SpellUIExperience, bool, Spend, (app::SpellUIExperience * this_ptr, int amount)) {
+    IL2CPP_INTERCEPT(bool, SpellUIExperience, Spend, app::SpellUIExperience * this_ptr, int amount) {
         bool worked = next::SpellUIExperience::Spend(this_ptr, amount);
         if (worked)
             spirit_light_spent.set(amount + spirit_light_spent.get());

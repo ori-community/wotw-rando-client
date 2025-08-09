@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/PlayerStatisticVersion.h>
 
 namespace app::classes::PlayFab::ClientModels::PlayerStatisticVersion {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::PlayerStatisticVersion * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::PlayerStatisticVersion* this_ptr)
 }

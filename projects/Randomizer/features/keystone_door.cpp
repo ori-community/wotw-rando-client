@@ -21,7 +21,7 @@
 using namespace app::classes;
 
 namespace {
-    IL2CPP_INTERCEPT(SeinLogicCycle, bool, get_AllowInteraction, (app::SeinLogicCycle * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, SeinLogicCycle, get_AllowInteraction, app::SeinLogicCycle * this_ptr) {
         // Override this for the keystone door in wastes.
         if (SeinLogicCycle::GetFlags(this_ptr, app::SeinLogicCycle_StateFlags__Enum::IsDigging) != app::SeinLogicCycle_StateFlags__Enum::Clear)
             return true;
@@ -30,16 +30,16 @@ namespace {
     }
 
     // No it's not KeystoneDoor
-    IL2CPP_INTERCEPT(MoonDoorWithSlots, bool, get_SeinInRange, (app::MoonDoorWithSlots * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, MoonDoorWithSlots, get_SeinInRange, app::MoonDoorWithSlots * this_ptr) {
         // Allow open Keystone doors from both sides
         return MoonDoorWithSlots::get_DistanceToSein(this_ptr) <= this_ptr->fields.Radius;
     }
 
-    IL2CPP_INTERCEPT(MoonCustomDoorWithSlots, bool, get_CanPlayerTriggerAutomatically, (app::MoonCustomDoorWithSlots * this_ptr)) { return false; }
+    IL2CPP_INTERCEPT(bool, MoonCustomDoorWithSlots, get_CanPlayerTriggerAutomatically, app::MoonCustomDoorWithSlots * this_ptr) { return false; }
 
     // TODO: Use condition framework instead.
     core::api::uber_states::UberState kwolok_door_available(UberStateGroup::RandoConfig, 6);
-    IL2CPP_INTERCEPT(UberStateValueCondition, bool, Validate, (app::UberStateValueCondition * this_ptr, app::IContext* context)) {
+    IL2CPP_INTERCEPT(bool, UberStateValueCondition, Validate, app::UberStateValueCondition * this_ptr, app::IContext* context) {
         auto ref = this_ptr->fields.Descriptor;
         if (ref != nullptr && il2cpp::invoke<app::Boolean__Boxed>(ref, "get_HasAReference")->fields &&
             il2cpp::invoke<app::Boolean__Boxed>(ref, "CanResolve", 0)->fields) {

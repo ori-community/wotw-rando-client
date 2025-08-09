@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/LogStatement_3.h>
 
 namespace app::classes::PlayFab::PlayStreamModels::LogStatement {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::LogStatement_3 * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::LogStatement_3* this_ptr)
 }

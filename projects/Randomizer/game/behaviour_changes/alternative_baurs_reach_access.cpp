@@ -14,7 +14,7 @@ namespace {
         {app::AbilityType__Enum::GlowSpell, core::api::uber_states::UberState(7, 421)},
     };
 
-    IL2CPP_INTERCEPT(BaurEntity, void, ResolveDamage, (app::BaurEntity * this_ptr, app::DamageResult result)) {
+    IL2CPP_INTERCEPT(void, BaurEntity, ResolveDamage, app::BaurEntity * this_ptr, app::DamageResult result) {
         const auto should_open = ability_should_open.contains(result.Damage->fields.m_abilityType) &&
             ability_should_open.at(result.Damage->fields.m_abilityType).get<bool>();
 

@@ -46,7 +46,7 @@ namespace core::api::uber_states {
             }
         }
 
-        IL2CPP_INTERCEPT(GameController, void, Update, (app::GameController * this_ptr)) {
+        IL2CPP_INTERCEPT(void, GameController, Update, app::GameController * this_ptr) {
             next::GameController::Update(this_ptr);
             for (auto const& id: polled_virtual_states) {
                 check_state_change(id, virtual_states[id].value.get());

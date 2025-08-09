@@ -10,7 +10,7 @@ namespace custom_cutscene_skips {
     namespace {
         std::vector<CustomCutsceneSkip> skips;
 
-        IL2CPP_INTERCEPT(SkipCutsceneController, bool, get_SkippingAvailable, (app::SkipCutsceneController * this_ptr)) {
+        IL2CPP_INTERCEPT(bool, SkipCutsceneController, get_SkippingAvailable, app::SkipCutsceneController * this_ptr) {
             for (const auto& skip : skips) {
                 if (skip.is_available()) {
                     return true;
@@ -20,7 +20,7 @@ namespace custom_cutscene_skips {
             return next::SkipCutsceneController::get_SkippingAvailable(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(SkipCutsceneController, void, SkipCutscene, (app::SkipCutsceneController * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SkipCutsceneController, SkipCutscene, app::SkipCutsceneController * this_ptr) {
             for (const auto& skip : skips) {
                 if (skip.is_available()) {
                     modloader::win::console::console_send("Running custom cutscene skip");

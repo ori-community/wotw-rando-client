@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/SteepWall.h>
 
 namespace app::classes::SteepWall {
-    IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::SteepWall * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, app::SteepWall* this_ptr)
 }

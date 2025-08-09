@@ -500,7 +500,7 @@ namespace randomizer::main_menu_seed_info {
         [[maybe_unused]]
         auto on_ready_handle = modloader::event_bus().register_handler(ModloaderEvent::GameReady, on_ready);
 
-        IL2CPP_INTERCEPT(SaveSlotsManager, void, set_CurrentSlotIndex, (int index)) {
+        IL2CPP_INTERCEPT(void, SaveSlotsManager, set_CurrentSlotIndex, int index) {
             next::SaveSlotsManager::set_CurrentSlotIndex(index);
 
             // Don't run the logic if we are currently in SaveSlotsUI::OnEnable
@@ -560,7 +560,7 @@ namespace randomizer::main_menu_seed_info {
             }
         }
 
-        IL2CPP_INTERCEPT(SetTitleScreenAction, void, Perform, (app::SetTitleScreenAction * this_ptr, app::IContext* context)) {
+        IL2CPP_INTERCEPT(void, SetTitleScreenAction, Perform, app::SetTitleScreenAction * this_ptr, app::IContext* context) {
             next::SetTitleScreenAction::Perform(this_ptr, context);
 
             if (this_ptr->fields.Screen == app::TitleScreenManager_Screen__Enum::ProfileSelected) {
@@ -599,7 +599,7 @@ namespace randomizer::main_menu_seed_info {
             update_difficulty_menu_items(true);
         });
 
-        IL2CPP_INTERCEPT(SaveSlotsUI, void, OnEnable, (app::SaveSlotsUI * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SaveSlotsUI, OnEnable, app::SaveSlotsUI * this_ptr) {
             modloader::ScopedSetter setter(is_in_save_slots_ui_on_enable, true);
             next::SaveSlotsUI::OnEnable(this_ptr);
         }

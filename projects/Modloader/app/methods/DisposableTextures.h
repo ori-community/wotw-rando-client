@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/DisposableTextures.h>
 
 namespace app::classes::DisposableTextures {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::DisposableTextures * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::DisposableTextures* this_ptr)
 }

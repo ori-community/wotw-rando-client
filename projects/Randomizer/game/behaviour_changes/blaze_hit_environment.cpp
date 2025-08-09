@@ -17,7 +17,7 @@ using namespace app::classes;
 namespace {
     constexpr bool default_blaze = false;
 
-    IL2CPP_INTERCEPT(SeinBlazeSpell, void, DealBlazeDamage, (app::SeinBlazeSpell * this_ptr, float range, float initial_damage, app::DamageWeight__Enum weight)) {
+    IL2CPP_INTERCEPT(void, SeinBlazeSpell, DealBlazeDamage, app::SeinBlazeSpell * this_ptr, float range, float initial_damage, app::DamageWeight__Enum weight) {
         if (default_blaze) {
             next::SeinBlazeSpell::DealBlazeDamage(this_ptr, range, initial_damage, weight);
             return;

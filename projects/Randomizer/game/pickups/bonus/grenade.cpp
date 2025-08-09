@@ -40,7 +40,7 @@ namespace {
         return grenade_count;
     }
 
-    IL2CPP_INTERCEPT(SpiritGrenade, bool, CanBeBashed, (app::SpiritGrenade * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, SpiritGrenade, CanBeBashed, app::SpiritGrenade* this_ptr) {
         return uncharged_bash_grenades.get<bool>() || next::SpiritGrenade::CanBeBashed(this_ptr);
     }
 
@@ -62,17 +62,23 @@ namespace {
     //     return SpiritGrenade::ShouldDealDamage(this_ptr, go);
     // }
 
-    IL2CPP_INTERCEPT(SeinGrenadeAttack, void, Start, (app::SeinGrenadeAttack * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinGrenadeAttack, Start, app::SeinGrenadeAttack* this_ptr) {
         this_ptr->fields.m_explodeWithSecondButtonPress = !extra_grenades.get<bool>();
         this_ptr->fields.m_forceExplodeGrenadeOnCollision = explode_on_collision.get<bool>();
         next::SeinGrenadeAttack::Start(this_ptr);
     }
 
     IL2CPP_INTERCEPT(
-        SeinGrenadeAttack,
         void,
+        SeinGrenadeAttack,
         SpawnGrenadeInternal,
-        (app::SeinGrenadeAttack * this_ptr, app::Vector2 velocity, bool bashable, float damage, app::Vector3 position, bool can_fracture, bool is_fractured_piece)
+        app::SeinGrenadeAttack* this_ptr,
+        app::Vector2 velocity,
+        bool bashable,
+        float damage,
+        app::Vector3 position,
+        bool can_fracture,
+        bool is_fractured_piece
     ) {
         const auto air_bashable = charge_in_air.get<bool>();
         if (!is_fractured_piece && air_bashable) {
@@ -86,8 +92,7 @@ namespace {
             for (int i = 0; i < multi_grenade; ++i) {
                 const float angle_offset = i * angle_increment;
                 const app::Vector2 new_velocity{
-                    .x = velocity.x + MULTI_GRENADE_OFFSET_MAGNITUDE * cosf(angle_offset),
-                    .y = velocity.y + MULTI_GRENADE_OFFSET_MAGNITUDE * sinf(angle_offset)
+                    .x = velocity.x + MULTI_GRENADE_OFFSET_MAGNITUDE * cosf(angle_offset), .y = velocity.y + MULTI_GRENADE_OFFSET_MAGNITUDE * sinf(angle_offset)
                 };
 
                 next::SeinGrenadeAttack::SpawnGrenadeInternal(this_ptr, new_velocity, bashable, damage, position, can_fracture, is_fractured_piece);
@@ -95,7 +100,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(SeinGrenadeAttack, void, UpdateNormal, (app::SeinGrenadeAttack * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinGrenadeAttack, UpdateNormal, app::SeinGrenadeAttack* this_ptr) {
         this_ptr->fields.MaxAimStrengthTime = static_cast<float>(MAX_AIM_STRENGTH_TIME * grenade_charge_time.get());
         this_ptr->fields.m_forceExplodeGrenadeOnCollision = explode_on_collision.get<bool>();
 
@@ -128,12 +133,12 @@ namespace {
         explode = false;
     }
 
-    IL2CPP_INTERCEPT(SeinGrenadeAttack, void, UpdateCharacterState, (app::SeinGrenadeAttack * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinGrenadeAttack, UpdateCharacterState, app::SeinGrenadeAttack* this_ptr) {
         modloader::ScopedSetter setter(override_on_ground, charge_in_air.get<bool>());
         next::SeinGrenadeAttack::UpdateCharacterState(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinCharacter, bool, get_IsOnGround, (app::SeinCharacter * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, SeinCharacter, get_IsOnGround, app::SeinCharacter* this_ptr) {
         if (override_on_ground) {
             return true;
         }
@@ -141,13 +146,11 @@ namespace {
         return next::SeinCharacter::get_IsOnGround(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinGrenadeAttack, bool, get_CanAim, (app::SeinGrenadeAttack * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, SeinGrenadeAttack, get_CanAim, app::SeinGrenadeAttack* this_ptr) {
         auto grenade_limit = extra_grenades.get<int>() + 1;
         grenade_limit *= grenade_multishot.get<int>() + 1;
         return count_grenades(this_ptr) < grenade_limit && this_ptr->fields.m_timeTillProjectileSpawn <= 0.0f;
     }
 } // namespace
 
-RANDOMIZER_C_DLLEXPORT void explode_grenades() {
-    explode = true;
-}
+RANDOMIZER_C_DLLEXPORT void explode_grenades() { explode = true; }

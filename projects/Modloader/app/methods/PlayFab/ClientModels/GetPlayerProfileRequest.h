@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/GetPlayerProfileRequest.h>
 
 namespace app::classes::PlayFab::ClientModels::GetPlayerProfileRequest {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GetPlayerProfileRequest * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::GetPlayerProfileRequest* this_ptr)
 }

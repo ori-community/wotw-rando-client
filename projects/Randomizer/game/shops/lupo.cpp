@@ -38,7 +38,7 @@ namespace {
     using namespace app::classes::CatlikeCoding::TextBox;
     using namespace randomizer::game::shops;
 
-    IL2CPP_INTERCEPT(MapmakerScreen, void, Init, (app::MapmakerScreen * this_ptr)) {
+    IL2CPP_INTERCEPT(void, MapmakerScreen, Init, app::MapmakerScreen * this_ptr) {
         for (const auto item: il2cpp::ArrayIterator(this_ptr->fields.Purchases)) {
             const auto previous_state_id = item->fields.UberState->fields._.m_id->fields.m_id;
             const auto target_uber_state = core::api::uber_states::UberState(UberStateGroup::LupoShop, previous_state_id);
@@ -48,11 +48,11 @@ namespace {
         next::MapmakerScreen::Init(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(MapmakerItem, int32_t, GetCost, (app::MapmakerItem * this_ptr)) {
+    IL2CPP_INTERCEPT(int32_t, MapmakerItem, GetCost, app::MapmakerItem * this_ptr) {
         return lupo_shop().slot(this_ptr->fields.UberState)->cost.get<int>();
     }
 
-    IL2CPP_INTERCEPT(MapmakerUISubItem, void, UpdateUpgradeIcon, (app::MapmakerUISubItem * this_ptr)) {
+    IL2CPP_INTERCEPT(void, MapmakerUISubItem, UpdateUpgradeIcon, app::MapmakerUISubItem * this_ptr) {
         const auto slot = lupo_shop().slot(this_ptr->fields.m_upgradeItem->fields.UberState);
         const auto& [name, description, icon] = slot->active_info();
         const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
@@ -71,7 +71,7 @@ namespace {
     };
 
     // Prevent Twillen from cleaning up (sorting) his shop
-    IL2CPP_INTERCEPT(MapmakerScreen___c, int32_t, _PopulateInventoryCanvasWithUpgrades_b__59_0, (app::MapmakerScreen_c * this_ptr, app::Object* a, app::Object* b)) {
+    IL2CPP_INTERCEPT(int32_t, MapmakerScreen___c, _PopulateInventoryCanvasWithUpgrades_b__59_0, app::MapmakerScreen_c * this_ptr, app::Object* a, app::Object* b) {
         const auto item_a = reinterpret_cast<app::MapmakerItem*>(a);
         const auto item_b = reinterpret_cast<app::MapmakerItem*>(b);
 
@@ -90,7 +90,7 @@ namespace {
         return false;
     }
 
-    IL2CPP_INTERCEPT(MapmakerScreen, bool, CanPurchase, (app::MapmakerScreen * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, MapmakerScreen, CanPurchase, app::MapmakerScreen * this_ptr) {
         const auto item = MapmakerScreen::get_SelectedUpgradeItem(this_ptr);
         if (!il2cpp::unity::is_valid(item)) {
             return false;
@@ -114,7 +114,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(MapmakerUISubItem, void, UpdateItem, (app::MapmakerUISubItem * this_ptr)) {
+    IL2CPP_INTERCEPT(void, MapmakerUISubItem, UpdateItem, app::MapmakerUISubItem * this_ptr) {
         MapmakerUISubItem::UpdateUpgradeIcon(this_ptr);
 
         const auto state = this_ptr->fields.m_upgradeItem->fields.UberState;
@@ -143,7 +143,7 @@ namespace {
         CleverMenuItem::set_IsDisabled(menu_item, !can_purchase);
     }
 
-    IL2CPP_INTERCEPT(MapmakerUIDetails, void, UpdateDetails, (app::MapmakerUIDetails * this_ptr)) {
+    IL2CPP_INTERCEPT(void, MapmakerUIDetails, UpdateDetails, app::MapmakerUIDetails * this_ptr) {
         const auto item = this_ptr->fields.m_item;
         const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
 
@@ -178,7 +178,7 @@ namespace {
         GameObject::SetActive(this_ptr->fields.OwnedGO, owned);
     }
 
-    IL2CPP_INTERCEPT(MapmakerUIItem, void, UpdateMapmakerItem, (app::MapmakerUIItem * this_ptr, app::MapmakerItem* item)) {
+    IL2CPP_INTERCEPT(void, MapmakerUIItem, UpdateMapmakerItem, app::MapmakerUIItem * this_ptr, app::MapmakerItem* item) {
         const auto slot = lupo_shop().slot(this_ptr->fields.m_upgradeItem->fields.UberState);
         const auto& [name, description, icon] = slot->active_info();
 
@@ -216,7 +216,7 @@ namespace {
         );
     }
 
-    IL2CPP_INTERCEPT(MapmakerScreen, void, CompletePurchase, (app::MapmakerScreen *this_ptr)) {
+    IL2CPP_INTERCEPT(void, MapmakerScreen, CompletePurchase, app::MapmakerScreen *this_ptr) {
         const auto item = MapmakerScreen::get_SelectedUpgradeItem(this_ptr);
         if (!il2cpp::unity::is_valid(item)) {
             return;

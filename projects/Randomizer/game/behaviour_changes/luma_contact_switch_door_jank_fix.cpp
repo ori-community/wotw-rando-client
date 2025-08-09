@@ -21,16 +21,15 @@ namespace {
         il2cpp::WeakGCRef<app::LagoonContactSwitchDoors> component;
         il2cpp::WeakGCRef<app::GameObject> physics;
 
-        bool is_valid() {
-            return component.is_valid() && physics.is_valid();
-        }
+        bool is_valid() { return component.is_valid() && physics.is_valid(); }
     };
 
     std::vector<LagoonContactSwitchDoorRef> switch_door_refs; // We save all active LagoonContactSwitchDoors and their physics GameObjects here
-    LagoonContactSwitchDoorRef* lagoon_contact_switch_door_ref_just_removed = nullptr; // This pointer points to the LagoonContactSwitchDoors that is about to be janked
+    LagoonContactSwitchDoorRef*
+        lagoon_contact_switch_door_ref_just_removed = nullptr; // This pointer points to the LagoonContactSwitchDoors that is about to be janked
     auto is_in_activate_animator_system_on_update = false;
 
-    IL2CPP_INTERCEPT(LagoonContactSwitchDoors, void, Awake, (app::LagoonContactSwitchDoors* this_ptr)) {
+    IL2CPP_INTERCEPT(void, LagoonContactSwitchDoors, Awake, app::LagoonContactSwitchDoors* this_ptr) {
         next::LagoonContactSwitchDoors::Awake(this_ptr);
 
         auto physics_go = il2cpp::unity::find_child(
@@ -46,25 +45,24 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(LagoonContactSwitchDoors, void, OnDestroy, (app::LagoonContactSwitchDoors* this_ptr)) {
-        std::erase_if(
-            switch_door_refs,
-            [&this_ptr](LagoonContactSwitchDoorRef& item) {
-                return !item.is_valid() || item.component.ref() == this_ptr;
-            }
-        );
+    IL2CPP_INTERCEPT(void, LagoonContactSwitchDoors, OnDestroy, app::LagoonContactSwitchDoors* this_ptr) {
+        std::erase_if(switch_door_refs, [&this_ptr](LagoonContactSwitchDoorRef& item) { return !item.is_valid() || item.component.ref() == this_ptr; });
 
         next::LagoonContactSwitchDoors::OnDestroy(this_ptr);
     }
 
     IL2CPP_INTERCEPT(
-        System::Collections::Generic::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_,
         bool,
+        System::Collections::Generic::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_,
         Remove_With_MethodInfo,
-        (app::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_* this_ptr, int32_t key, Il2CppMethodInfo* method_info)
+        app::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_* this_ptr,
+        int32_t key,
+        Il2CppMethodInfo* method_info
     ) {
         if (!is_in_activate_animator_system_on_update) {
-            return next::System::Collections::Generic::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_::Remove_With_MethodInfo(this_ptr, key, method_info);
+            return next::System::Collections::Generic::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_::Remove_With_MethodInfo(
+                this_ptr, key, method_info
+            );
         }
 
         for (auto entry: il2cpp::ArrayIterator(this_ptr->fields.entries)) {
@@ -89,26 +87,27 @@ namespace {
             }
         }
 
-        return next::System::Collections::Generic::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_::Remove_With_MethodInfo(this_ptr, key, method_info);
+        return next::System::Collections::Generic::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_::Remove_With_MethodInfo(
+            this_ptr, key, method_info
+        );
     }
 
-    IL2CPP_INTERCEPT(Moon::Timeline::ActivateAnimatorSystem, void, OnUpdate, (app::ActivateAnimatorSystem* this_ptr, float delta_time)) {
+    IL2CPP_INTERCEPT(void, Moon::Timeline::ActivateAnimatorSystem, OnUpdate, app::ActivateAnimatorSystem* this_ptr, float delta_time) {
         modloader::ScopedSetter _(is_in_activate_animator_system_on_update, true);
         next::Moon::Timeline::ActivateAnimatorSystem::OnUpdate(this_ptr, delta_time);
         lagoon_contact_switch_door_ref_just_removed = nullptr;
     }
 
-    IL2CPP_INTERCEPT(UnityEngine::GameObject, void, SetActive, (app::GameObject* this_ptr, bool active)) {
+    IL2CPP_INTERCEPT(void, UnityEngine::GameObject, SetActive, app::GameObject* this_ptr, bool active) {
         // If we encountered the SetActive call the resulted from the jank in ActivateAnimatorSystem,
         // prevent that call and determine whether the door should be open or not by ourself.
-        if (
-            lagoon_contact_switch_door_ref_just_removed != nullptr &&
-            lagoon_contact_switch_door_ref_just_removed->is_valid() &&
-            lagoon_contact_switch_door_ref_just_removed->physics.ref() == this_ptr
-        ) {
+        if (lagoon_contact_switch_door_ref_just_removed != nullptr && lagoon_contact_switch_door_ref_just_removed->is_valid() &&
+            lagoon_contact_switch_door_ref_just_removed->physics.ref() == this_ptr) {
             const auto open_timeline_state = lagoon_contact_switch_door_ref_just_removed->component.ref()->fields.Open->fields._._PlayState_k__BackingField;
-            const auto open_loop_timeline_state = lagoon_contact_switch_door_ref_just_removed->component.ref()->fields.OpenedLoop->fields._._PlayState_k__BackingField;
-            const auto is_open = open_timeline_state == app::AnimatorPlayState__Enum::Playing || open_loop_timeline_state == app::AnimatorPlayState__Enum::Playing;
+            const auto open_loop_timeline_state = lagoon_contact_switch_door_ref_just_removed->component.ref()
+                                                      ->fields.OpenedLoop->fields._._PlayState_k__BackingField;
+            const auto is_open = open_timeline_state == app::AnimatorPlayState__Enum::Playing ||
+                open_loop_timeline_state == app::AnimatorPlayState__Enum::Playing;
             const auto should_activate = !is_open;
 
             next::UnityEngine::GameObject::SetActive(this_ptr, should_activate);

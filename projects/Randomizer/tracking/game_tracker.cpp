@@ -306,7 +306,7 @@ namespace randomizer::timing {
             }
         );
 
-        IL2CPP_INTERCEPT(PlayerAbilities, void, SetAbility, (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability, bool value)) {
+        IL2CPP_INTERCEPT(void, PlayerAbilities, SetAbility, app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability, bool value) {
             if (value && !disable_ability_tracking && TRACKED_ABILITIES.contains(ability) && timer_should_run()) {
                 save_stats->report_ability_acquired(ability);
             }
@@ -316,12 +316,12 @@ namespace randomizer::timing {
 
         auto scenes_manager_on_teleport_called_since_last_sein_door_handler_fixed_update = false;
 
-        IL2CPP_INTERCEPT(ScenesManager, void, OnTeleport, (app::ScenesManager * this_ptr, bool update_camera_target, bool move_camera_to_target)) {
+        IL2CPP_INTERCEPT(void, ScenesManager, OnTeleport, app::ScenesManager * this_ptr, bool update_camera_target, bool move_camera_to_target) {
             next::ScenesManager::OnTeleport(this_ptr, update_camera_target, move_camera_to_target);
             scenes_manager_on_teleport_called_since_last_sein_door_handler_fixed_update = true;
         }
 
-        IL2CPP_INTERCEPT(SeinDoorHandler, void, FixedUpdate, (app::SeinDoorHandler* this_ptr)) {
+        IL2CPP_INTERCEPT(void, SeinDoorHandler, FixedUpdate, app::SeinDoorHandler* this_ptr) {
             scenes_manager_on_teleport_called_since_last_sein_door_handler_fixed_update = false;
 
             const auto previous_position = core::api::game::player::get_position();
@@ -342,7 +342,7 @@ namespace randomizer::timing {
             }
         }
 
-        IL2CPP_INTERCEPT(SavePedestalController, void, OnFadedToBlack, (app::SavePedestalController* this_ptr)) {
+        IL2CPP_INTERCEPT(void, SavePedestalController, OnFadedToBlack, app::SavePedestalController* this_ptr) {
             const auto previous_position = core::api::game::player::get_position();
             next::SavePedestalController::OnFadedToBlack(this_ptr);
 
@@ -361,7 +361,7 @@ namespace randomizer::timing {
 
         std::optional<app::Vector2> new_position_after_portal_teleportation = std::nullopt;
 
-        IL2CPP_INTERCEPT(Portal, void, PerformPortalTeleportation, (app::Portal * this_ptr, app::IPortalVisitor* portal_visitor)) {
+        IL2CPP_INTERCEPT(void, Portal, PerformPortalTeleportation, app::Portal * this_ptr, app::IPortalVisitor* portal_visitor) {
             const auto previous_position = core::api::game::player::get_position();
             new_position_after_portal_teleportation = std::nullopt;
 
@@ -385,7 +385,7 @@ namespace randomizer::timing {
             );
         }
 
-        IL2CPP_INTERCEPT(PlatformMovementPortalVisitor, void, set_Position, (app::PlatformMovementPortalVisitor* this_ptr, app::Vector3 value)) {
+        IL2CPP_INTERCEPT(void, PlatformMovementPortalVisitor, set_Position, app::PlatformMovementPortalVisitor* this_ptr, app::Vector3 value) {
             next::PlatformMovementPortalVisitor::set_Position(this_ptr, value);
             new_position_after_portal_teleportation = modloader::math::convert(value);
         }

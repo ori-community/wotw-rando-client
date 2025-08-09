@@ -173,7 +173,7 @@ namespace modloader {
     }
 
     bool initialized = false;
-    IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
+    IL2CPP_INTERCEPT(void, GameController, FixedUpdate, app::GameController * this_ptr) {
         if (!initialized) {
             auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());
             auto version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_version());

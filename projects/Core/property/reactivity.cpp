@@ -227,7 +227,7 @@ namespace core::reactivity {
         }
     }
 
-    IL2CPP_INTERCEPT(UberGCManager, void, RunGC, (bool is_debug)) {
+    IL2CPP_INTERCEPT(void, UberGCManager, RunGC, bool is_debug) {
         next::UberGCManager::RunGC(is_debug);
         garbage_collect();
     }

@@ -32,19 +32,19 @@ namespace core::api::game::player {
     CORE_DLLEXPORT bool prevent_default_pickup_handlers;
 
     namespace {
-        IL2CPP_INTERCEPT(SeinUI, void, ShakeSpiritLight_1, (app::SeinUI * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SeinUI, ShakeSpiritLight_1, app::SeinUI * this_ptr) {
             if (!prevent_default_pickup_handlers || ui::is_manually_shaking_resource_ui()) {
                 next::SeinUI::ShakeSpiritLight_1(this_ptr);
             }
         }
 
-        IL2CPP_INTERCEPT(SeinUI, void, ShakeKeystones, (app::SeinUI * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SeinUI, ShakeKeystones, app::SeinUI * this_ptr) {
             if (!prevent_default_pickup_handlers || ui::is_manually_shaking_resource_ui()) {
                 next::SeinUI::ShakeKeystones(this_ptr);
             }
         }
 
-        IL2CPP_INTERCEPT(SeinUI, void, ShakeSeeds_1, (app::SeinUI * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SeinUI, ShakeSeeds_1, app::SeinUI * this_ptr) {
             if (!prevent_default_pickup_handlers || ui::is_manually_shaking_resource_ui()) {
                 next::SeinUI::ShakeSeeds_1(this_ptr);
             }

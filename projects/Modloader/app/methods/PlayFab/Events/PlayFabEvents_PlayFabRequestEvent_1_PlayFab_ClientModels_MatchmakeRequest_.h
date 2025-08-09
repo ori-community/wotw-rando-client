@@ -1,9 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
-#include <Modloader/app/structs/PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_MatchmakeRequest_.h>
 #include <Modloader/app/structs/MatchmakeRequest.h>
+#include <Modloader/app/structs/PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_MatchmakeRequest_.h>
 
 namespace app::classes::PlayFab::Events::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_MatchmakeRequest_ {
-    IL2CPP_REGISTER_METHOD(0x00673B90, void, Invoke, (app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_MatchmakeRequest_ * this_ptr, app::MatchmakeRequest* request))
+    IL2CPP_REGISTER_METHOD(
+        0x00673B90,
+        void,
+        Invoke,
+        app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_MatchmakeRequest_* this_ptr,
+        app::MatchmakeRequest* request
+    )
 }

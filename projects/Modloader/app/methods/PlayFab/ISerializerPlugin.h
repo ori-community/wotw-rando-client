@@ -1,5 +1,4 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
-namespace app::classes::PlayFab::ISerializerPlugin {
-}
+namespace app::classes::PlayFab::ISerializerPlugin {}

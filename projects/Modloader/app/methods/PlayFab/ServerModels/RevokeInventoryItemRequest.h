@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/RevokeInventoryItemRequest.h>
 
 namespace app::classes::PlayFab::ServerModels::RevokeInventoryItemRequest {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::RevokeInventoryItemRequest * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::RevokeInventoryItemRequest* this_ptr)
 }

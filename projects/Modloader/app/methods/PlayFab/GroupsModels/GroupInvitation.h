@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/GroupInvitation.h>
 
 namespace app::classes::PlayFab::GroupsModels::GroupInvitation {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GroupInvitation * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::GroupInvitation* this_ptr)
 }

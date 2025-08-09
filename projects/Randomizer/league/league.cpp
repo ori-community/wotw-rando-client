@@ -162,7 +162,7 @@ namespace randomizer::league {
             });
         }
 
-        IL2CPP_INTERCEPT(ScenesManager, void, TestForFallOutOfWorld, (app::ScenesManager* this_ptr)) {
+        IL2CPP_INTERCEPT(void, ScenesManager, TestForFallOutOfWorld, app::ScenesManager* this_ptr) {
             if (is_showing_league_summary_screen) {
                 return;
             }
@@ -265,7 +265,7 @@ namespace randomizer::league {
             });
         }
 
-        IL2CPP_INTERCEPT(PetrifiedOwlBossDeathReactionBehaviour, void, OnExitTask, (app::PetrifiedOwlBossDeathReactionBehaviour * this_ptr, app::IContext* context)) {
+        IL2CPP_INTERCEPT(void, PetrifiedOwlBossDeathReactionBehaviour, OnExitTask, app::PetrifiedOwlBossDeathReactionBehaviour * this_ptr, app::IContext* context) {
             game_finished_uber_state.set(true);
             timing::force_set_game_finished(true);  // Need this because we immediately set the GameStateMachine to TitleScreen in league games...
 

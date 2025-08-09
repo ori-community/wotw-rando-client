@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/GetLeaderboardResult.h>
 
 namespace app::classes::PlayFab::ClientModels::GetLeaderboardResult {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GetLeaderboardResult * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::GetLeaderboardResult* this_ptr)
 }

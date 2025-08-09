@@ -44,7 +44,7 @@ namespace {
                                                               app::SpiritShardType__Enum::SpiritLightLuck, app::SpiritShardType__Enum::Vitality, app::SpiritShardType__Enum::Energy,
                                                               app::SpiritShardType__Enum::CombatLuck};
 
-    IL2CPP_INTERCEPT(PlayerSpiritShards, bool, HasShard, (app::PlayerSpiritShards * this_ptr, app::SpiritShardType__Enum shard_type)) {
+    IL2CPP_INTERCEPT(bool, PlayerSpiritShards, HasShard, app::PlayerSpiritShards * this_ptr, app::SpiritShardType__Enum shard_type) {
         if (!is_completing_purchase && is_in_shop(ShopType::Twillen) && TWILLEN_SHARDS.contains(shard_type)) {
             return is_owned(*twillen_shop().slot(shard_type));
         }
@@ -52,7 +52,7 @@ namespace {
         return next::PlayerSpiritShards::HasShard(this_ptr, shard_type);
     }
 
-    IL2CPP_INTERCEPT(SpiritShardUIShardBackdrop, void, SetUpgradeCount, (app::SpiritShardUIShardBackdrop * this_ptr, int actual, int total)) {
+    IL2CPP_INTERCEPT(void, SpiritShardUIShardBackdrop, SetUpgradeCount, app::SpiritShardUIShardBackdrop * this_ptr, int actual, int total) {
         if (is_in_shop(ShopType::Twillen)) {
             actual = 0;
             total = 0;
@@ -61,12 +61,12 @@ namespace {
         next::SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr, actual, total);
     }
 
-    IL2CPP_INTERCEPT(Moon::uberSerializationWisp::PlayerUberStateShards_Shard, bool, get_VisibleInShop, (app::PlayerUberStateShards_Shard * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, Moon::uberSerializationWisp::PlayerUberStateShards_Shard, get_VisibleInShop, app::PlayerUberStateShards_Shard * this_ptr) {
         auto const& slot = twillen_shop().slot(this_ptr->fields.m_type);
         return slot != nullptr && slot->visibility == SlotVisibility::Visible;
     }
 
-    IL2CPP_INTERCEPT(Moon::uberSerializationWisp::PlayerUberStateShards_Shard, bool, get_PurchasableInShop, (app::PlayerUberStateShards_Shard * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, Moon::uberSerializationWisp::PlayerUberStateShards_Shard, get_PurchasableInShop, app::PlayerUberStateShards_Shard * this_ptr) {
         auto const& slot = twillen_shop().slot(this_ptr->fields.m_type);
         return slot != nullptr && slot->visibility != SlotVisibility::Locked;
     }
@@ -86,20 +86,20 @@ namespace {
     };
 
     // Prevent Twillen from cleaning up (sorting) his shop
-    IL2CPP_INTERCEPT(SpiritShardsShopScreen___c, int32_t, _PopulateInventoryCanvasWithShards_b__68_0, (app::SpiritShardsShopScreen_c * this_ptr, app::Object* a, app::Object* b)) {
+    IL2CPP_INTERCEPT(int32_t, SpiritShardsShopScreen___c, _PopulateInventoryCanvasWithShards_b__68_0, app::SpiritShardsShopScreen_c * this_ptr, app::Object* a, app::Object* b) {
         const auto shard_a = reinterpret_cast<app::PlayerUberStateShards_Shard*>(a);
         const auto shard_b = reinterpret_cast<app::PlayerUberStateShards_Shard*>(b);
 
         return TWILLEN_SHOP_ORDER.at(shard_a->fields.m_type) - TWILLEN_SHOP_ORDER.at(shard_b->fields.m_type);
     }
 
-    IL2CPP_INTERCEPT(SpiritShardsShopScreen, void, UpdateContextCanvasShards, (app::SpiritShardsShopScreen * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SpiritShardsShopScreen, UpdateContextCanvasShards, app::SpiritShardsShopScreen * this_ptr) {
         modloader::ScopedSetter setter(overwrite_shard, is_in_shop(ShopType::Twillen));
         selected_shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
         next::SpiritShardsShopScreen::UpdateContextCanvasShards(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SpiritShardsShopScreen, void, CompletePurchase, (app::SpiritShardsShopScreen * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SpiritShardsShopScreen, CompletePurchase, app::SpiritShardsShopScreen * this_ptr) {
         ScopedSetter _(is_completing_purchase, true);
 
         auto* const shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
@@ -121,7 +121,7 @@ namespace {
     }
 
     bool locked_shard_overwrite = false;
-    IL2CPP_INTERCEPT(SpiritShardUIShardDetails, void, UpdateDetails, (app::SpiritShardUIShardDetails * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SpiritShardUIShardDetails, UpdateDetails, app::SpiritShardUIShardDetails * this_ptr) {
         auto* const item = overwrite_shard ? selected_shard : this_ptr->fields.m_item;
         auto type = item->fields.m_type;
         auto slot = twillen_shop().slot(this_ptr->fields.m_item->fields.m_type);
@@ -180,7 +180,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(SpiritShardUIShardDetails, void, ShowEmptyDetails, (app::SpiritShardUIShardDetails * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SpiritShardUIShardDetails, ShowEmptyDetails, app::SpiritShardUIShardDetails * this_ptr) {
         if (overwrite_shard && selected_shard != nullptr) {
             modloader::ScopedSetter setter(locked_shard_overwrite, true);
             this_ptr->fields.m_item = selected_shard;
@@ -191,7 +191,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(SpiritShardsShopScreen, void, Show, (app::SpiritShardsShopScreen * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SpiritShardsShopScreen, Show, app::SpiritShardsShopScreen * this_ptr) {
         // csharp_bridge::update_shop_data();
         auto sein = core::api::game::player::sein();
         if (sein != nullptr && sein->fields.PlayerSpiritShards != nullptr) {
@@ -206,7 +206,7 @@ namespace {
         next::SpiritShardsShopScreen::Show(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SpiritShardUIItem, void, UpdateShardIcon, (app::SpiritShardUIItem * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SpiritShardUIItem, UpdateShardIcon, app::SpiritShardUIItem * this_ptr) {
         if (is_in_shop(ShopType::Twillen)) {
             const auto slot = this_ptr->fields.m_spiritShard == nullptr ? nullptr : twillen_shop().slot(this_ptr->fields.m_spiritShard->fields.m_type);
             if (slot != nullptr) {
@@ -226,11 +226,11 @@ namespace {
         next::SpiritShardUIItem::UpdateShardIcon(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SpiritShardDescription, int, get_BuyCost, (app::SpiritShardDescription * this_ptr)) {
+    IL2CPP_INTERCEPT(int, SpiritShardDescription, get_BuyCost, app::SpiritShardDescription * this_ptr) {
         return twillen_shop().slot(static_cast<app::SpiritShardType__Enum>(this_ptr->fields.InitialBuyCost))->cost.get<int>();
     }
 
-    IL2CPP_INTERCEPT(SpiritShardShopUIItem, void, UpdateShard, (app::SpiritShardShopUIItem * this_ptr, app::PlayerUberStateShards_Shard* shard)) {
+    IL2CPP_INTERCEPT(void, SpiritShardShopUIItem, UpdateShard, app::SpiritShardShopUIItem * this_ptr, app::PlayerUberStateShards_Shard* shard) {
         auto owned = true;
         auto visible = false;
         if (shard != nullptr) {

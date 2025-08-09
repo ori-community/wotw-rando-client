@@ -44,7 +44,7 @@ namespace {
         next_dialogue_skip_timeout = std::max(0.f, next_dialogue_skip_timeout - TimeUtility::get_fixedDeltaTime());
     });
 
-    IL2CPP_INTERCEPT(NPCMessageBox, void, UpdateWriting, (app::NPCMessageBox * this_ptr)) {
+    IL2CPP_INTERCEPT(void, NPCMessageBox, UpdateWriting, app::NPCMessageBox * this_ptr) {
         auto previous_state = this_ptr->fields.m_state;
 
         next::NPCMessageBox::UpdateWriting(this_ptr);
@@ -64,7 +64,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(NPCMessageBox, void, FixedUpdate, (app::NPCMessageBox * this_ptr)) {
+    IL2CPP_INTERCEPT(void, NPCMessageBox, FixedUpdate, app::NPCMessageBox * this_ptr) {
         if (this_ptr->fields.m_state == app::NPCMessageBox_State__Enum::Writing && should_do_dialogue_skip()) {
             MessageBox::FinishWriting(this_ptr->fields.MessageBox);
         } else if (this_ptr->fields.m_state == app::NPCMessageBox_State__Enum::Completed && should_do_dialogue_skip()) {
@@ -92,7 +92,7 @@ namespace {
         next::NPCMessageBox::FixedUpdate(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(InteractiveMessageBox, void, FixedUpdate, (app::InteractiveMessageBox * this_ptr)) {
+    IL2CPP_INTERCEPT(void, InteractiveMessageBox, FixedUpdate, app::InteractiveMessageBox * this_ptr) {
         if (this_ptr->fields.m_state == app::InteractiveMessageBox_State__Enum::Writing && should_do_dialogue_skip()) {
             MessageBox::FinishWriting(this_ptr->fields.MessageBox);
         } else if (this_ptr->fields.m_state == app::InteractiveMessageBox_State__Enum::Completed && should_do_dialogue_skip()) {

@@ -18,7 +18,7 @@ namespace core::api {
         bool skip_fade_to_black = false;  // Skip fade to black when opening menus
         bool disable_menu_selection_navigation = false;  // Disables navigation in CleverMenuItemSelectionManager, see below
 
-        IL2CPP_INTERCEPT(FaderB, void, Fade, (app::FaderB * this_ptr, float fadeInDuration, float fadeStayDuration, float fadeOutDuration, app::Action *fadeInComplete, app::Action *fadeOutComplete, bool skipCameraMoveToTarget)) {
+        IL2CPP_INTERCEPT(void, FaderB, Fade, app::FaderB * this_ptr, float fadeInDuration, float fadeStayDuration, float fadeOutDuration, app::Action *fadeInComplete, app::Action *fadeOutComplete, bool skipCameraMoveToTarget) {
             if (!skip_fade_to_black) {
                 next::FaderB::Fade(this_ptr, fadeInDuration, fadeStayDuration, fadeOutDuration, fadeInComplete, fadeOutComplete, skipCameraMoveToTarget);
             }
@@ -28,13 +28,13 @@ namespace core::api {
          * In vanilla, there's a 100ms WaitForSeconds coroutine running before opening the menu.
          * We skip that by advancing the coroutine enumerator twice.
          */
-        IL2CPP_INTERCEPT(MenuScreenManager__PostFadeMenuOpen_d__100, bool, MoveNext, (app::MenuScreenManager_PostFadeMenuOpen_d_100 * this_ptr)) {
+        IL2CPP_INTERCEPT(bool, MenuScreenManager__PostFadeMenuOpen_d__100, MoveNext, app::MenuScreenManager_PostFadeMenuOpen_d_100 * this_ptr) {
             ScopedSetter setter(skip_fade_to_black, true);
             next::MenuScreenManager__PostFadeMenuOpen_d__100::MoveNext(this_ptr);
             return next::MenuScreenManager__PostFadeMenuOpen_d__100::MoveNext(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(FaderB, void, ExecuteGCIfNeeded, (app::FaderB* this_ptr)) {
+        IL2CPP_INTERCEPT(void, FaderB, ExecuteGCIfNeeded, app::FaderB* this_ptr) {
             if (Game::UI::get_Menu()->fields.m_isPaused) {
                 return;
             }
@@ -42,7 +42,7 @@ namespace core::api {
             next::FaderB::ExecuteGCIfNeeded(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(UberGCManager, void, OnCleanupOutsideOfGameplay, (app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum trigger)) {
+        IL2CPP_INTERCEPT(void, UberGCManager, OnCleanupOutsideOfGameplay, app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum trigger) {
             if (trigger == app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum::SpiritShardsScreen || trigger == app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum::GameMapUI ||
                 trigger == app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum::InventoryScreen2) {
                 return;
@@ -61,7 +61,7 @@ namespace core::api {
          * https://github.com/Kirefel/OriDeQol/blob/a3c3c3f114731454cfa2ae01db513a1570027bbf/KFT.OriBF.Qol/QTMBugfix.cs
          */
 
-        IL2CPP_INTERCEPT(CleverMenuItemSelectionManager, void, Start, (app::CleverMenuItemSelectionManager* this_ptr)) {
+        IL2CPP_INTERCEPT(void, CleverMenuItemSelectionManager, Start, app::CleverMenuItemSelectionManager* this_ptr) {
             const auto menu_up_pressed = types::Input_Cmd::get_class()->static_fields->MenuUp->fields.IsPressed;
             const auto menu_down_pressed = types::Input_Cmd::get_class()->static_fields->MenuDown->fields.IsPressed;
 
@@ -71,7 +71,7 @@ namespace core::api {
             next::CleverMenuItemSelectionManager::Start(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(CleverMenuItemSelectionManager, void, FixedUpdate, (app::CleverMenuItemSelectionManager* this_ptr)) {
+        IL2CPP_INTERCEPT(void, CleverMenuItemSelectionManager, FixedUpdate, app::CleverMenuItemSelectionManager* this_ptr) {
             const auto menu_up_pressed = types::Input_Cmd::get_class()->static_fields->MenuUp->fields.IsPressed;
             const auto menu_down_pressed = types::Input_Cmd::get_class()->static_fields->MenuDown->fields.IsPressed;
 
@@ -88,7 +88,7 @@ namespace core::api {
             next::CleverMenuItemSelectionManager::FixedUpdate(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(CleverMenuItemSelectionManager, void, MoveSelection, (app::CleverMenuItemSelectionManager* this_ptr, bool forward, int step)) {
+        IL2CPP_INTERCEPT(void, CleverMenuItemSelectionManager, MoveSelection, app::CleverMenuItemSelectionManager* this_ptr, bool forward, int step) {
             if (!disable_menu_selection_navigation) {
                 next::CleverMenuItemSelectionManager::MoveSelection(this_ptr, forward, step);
             }

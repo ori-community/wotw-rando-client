@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/UserNintendoSwitchDeviceIdInfo.h>
 
 namespace app::classes::PlayFab::ClientModels::UserNintendoSwitchDeviceIdInfo {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::UserNintendoSwitchDeviceIdInfo * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::UserNintendoSwitchDeviceIdInfo* this_ptr)
 }

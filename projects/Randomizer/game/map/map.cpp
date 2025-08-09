@@ -46,7 +46,7 @@ namespace randomizer::game::map {
             return app::WorldMapIconType__Enum::Keystone;
         }
 
-        IL2CPP_INTERCEPT(RuntimeWorldMapIcon, void, Show, (app::RuntimeWorldMapIcon * this_ptr)) {
+        IL2CPP_INTERCEPT(void, RuntimeWorldMapIcon, Show, app::RuntimeWorldMapIcon * this_ptr) {
             // For some stupid reason they set icons to WorldMapIconType__Enum_Invisible when a pickup is picked up...
             if (this_ptr->fields.Icon == app::WorldMapIconType__Enum::Invisible) {
                 this_ptr->fields.Icon = get_base_icon(this_ptr);
@@ -55,7 +55,7 @@ namespace randomizer::game::map {
             next::RuntimeWorldMapIcon::Show(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(AreaMapIconManager, void, UpdateLabelState, (app::AreaMapIconManager * this_ptr)) {
+        IL2CPP_INTERCEPT(void, AreaMapIconManager, UpdateLabelState, app::AreaMapIconManager * this_ptr) {
             next::AreaMapIconManager::UpdateLabelState(this_ptr);
             const auto show_labels = core::api::game::ui::area_map_open() &&
                 GameMapUI::get_ShowIconLabels(types::GameMapUI::get_class()->static_fields->Instance);
@@ -143,7 +143,7 @@ namespace randomizer::game::map {
             }
         }
 
-        IL2CPP_INTERCEPT(AreaMapIconManager, void, ShowAreaIcons, (app::AreaMapIconManager * this_ptr)) {
+        IL2CPP_INTERCEPT(void, AreaMapIconManager, ShowAreaIcons, app::AreaMapIconManager * this_ptr) {
             // Start ShowAreaIcons function.
             const auto world = types::GameWorld::get_class()->static_fields->Instance;
             for (const auto runtime_area: il2cpp::ListIterator(world->fields.RuntimeAreas)) {
@@ -195,7 +195,7 @@ namespace randomizer::game::map {
             last_filter = active_filter();
         }
 
-        IL2CPP_INTERCEPT(AreaMapUI, void, OnInstantiate, (app::AreaMapUI * this_ptr)) {
+        IL2CPP_INTERCEPT(void, AreaMapUI, OnInstantiate, app::AreaMapUI * this_ptr) {
             next::AreaMapUI::OnInstantiate(this_ptr);
             for (auto const& icon_set: icons | std::views::values) {
                 for (auto const& icon: icon_set) {
@@ -204,7 +204,7 @@ namespace randomizer::game::map {
             }
         }
 
-        IL2CPP_INTERCEPT(AreaMapUI, void, Init, (app::AreaMapUI * this_ptr)) {
+        IL2CPP_INTERCEPT(void, AreaMapUI, Init, app::AreaMapUI * this_ptr) {
             next::AreaMapUI::Init(this_ptr);
             for (auto const& icon_set: icons | std::views::values) {
                 for (auto const& icon: icon_set) {
@@ -213,7 +213,7 @@ namespace randomizer::game::map {
             }
         }
 
-        IL2CPP_INTERCEPT(GameMapUI, app::Vector2, get_FocusLocation, (app::GameMapUI* this_ptr)) {
+        IL2CPP_INTERCEPT(app::Vector2, GameMapUI, get_FocusLocation, app::GameMapUI* this_ptr) {
             if (force_focus_location_to_center_once || core::api::input::get_current_control_scheme() == app::ControlScheme__Enum::Keyboard) {
                 force_focus_location_to_center_once = false;
                 return math::convert(
@@ -227,12 +227,12 @@ namespace randomizer::game::map {
             return next::GameMapUI::get_FocusLocation(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(GameMapUI, void, FixedUpdate, (app::GameMapUI* this_ptr)) {
+        IL2CPP_INTERCEPT(void, GameMapUI, FixedUpdate, app::GameMapUI* this_ptr) {
             force_focus_location_to_center_once = true;
             next::GameMapUI::FixedUpdate(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(UnityEngine::AnimationCurve, float, Evaluate, (app::AnimationCurve* this_ptr, float time)) {
+        IL2CPP_INTERCEPT(float, UnityEngine::AnimationCurve, Evaluate, app::AnimationCurve* this_ptr, float time) {
             if (is_handling_map_scrolling) {
                 return next::UnityEngine::AnimationCurve::Evaluate(this_ptr, time) * core::settings::map_pan_speed();
             }
@@ -240,7 +240,7 @@ namespace randomizer::game::map {
             return next::UnityEngine::AnimationCurve::Evaluate(this_ptr, time);
         }
 
-        IL2CPP_INTERCEPT(AreaMapNavigation, void, HandleMapScrolling, (app::AreaMapNavigation* this_ptr)) {
+        IL2CPP_INTERCEPT(void, AreaMapNavigation, HandleMapScrolling, app::AreaMapNavigation* this_ptr) {
             ScopedSetter _(is_handling_map_scrolling, true);
             next::AreaMapNavigation::HandleMapScrolling(this_ptr);
         }
@@ -254,7 +254,7 @@ namespace randomizer::game::map {
             }
         });
 
-        IL2CPP_INTERCEPT(GameMapUI, bool, IsCursorOverTeleporter, (app::GameMapUI * this_ptr, app::Vector2* target)) {
+        IL2CPP_INTERCEPT(bool, GameMapUI, IsCursorOverTeleporter, app::GameMapUI * this_ptr, app::Vector2* target) {
             const auto cursor = GameMapUI::get_FocusLocation(this_ptr);
 
             // TODO: We might want to use a separate map for icons that can be teleported to.
@@ -293,7 +293,7 @@ namespace randomizer::game::map {
             return closest_icon != nullptr;
         }
 
-        IL2CPP_INTERCEPT(GameMapUI, void, set_ShowObjective, (app::GameMapUI * this_ptr, app::GameMapShowObjective* objective)) {
+        IL2CPP_INTERCEPT(void, GameMapUI, set_ShowObjective, app::GameMapUI * this_ptr, app::GameMapShowObjective* objective) {
             // NOOP
         }
     } // namespace

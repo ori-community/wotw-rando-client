@@ -33,7 +33,7 @@ namespace ability_override {
                 o->second(type);
         }
 
-        IL2CPP_INTERCEPT(SeinLogicCycle, bool, AllowSpell, (app::SeinLogicCycle * this_ptr, app::AbilityType__Enum type)) {
+        IL2CPP_INTERCEPT(bool, SeinLogicCycle, AllowSpell, app::SeinLogicCycle * this_ptr, app::AbilityType__Enum type) {
             if (has_override(type))
                 return true;
 
@@ -52,7 +52,7 @@ namespace ability_override {
         // Combo moves, sword, hammer, spear, shuriken, launch(charge jump), etc
         // void SeinComboHandler_PerformComboMove(SeinComboHandler* this, IComboMove* move);
 
-        IL2CPP_INTERCEPT(SeinGrenadeAttack, void, UpdateCharacterState, (app::SeinGrenadeAttack * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SeinGrenadeAttack, UpdateCharacterState, app::SeinGrenadeAttack * this_ptr) {
             if (has_override(app::AbilityType__Enum::Grenade)) {
                 SeinGrenadeAttack::UpdateCurrentThrow(this_ptr);
                 if (check_input(app::AbilityType__Enum::Grenade))
@@ -61,7 +61,7 @@ namespace ability_override {
                 next::SeinGrenadeAttack::UpdateCharacterState(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(SeinBlazeSpell, void, UpdateInput, (app::SeinBlazeSpell * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SeinBlazeSpell, UpdateInput, app::SeinBlazeSpell * this_ptr) {
             if (has_override(app::AbilityType__Enum::Blaze)) {
                 if (check_input(app::AbilityType__Enum::Blaze))
                     call_override(app::AbilityType__Enum::Blaze);
@@ -69,7 +69,7 @@ namespace ability_override {
                 next::SeinBlazeSpell::UpdateInput(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(SeinTurretSpell, void, UpdateCharacterState, (app::SeinTurretSpell * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SeinTurretSpell, UpdateCharacterState, app::SeinTurretSpell * this_ptr) {
             if (has_override(app::AbilityType__Enum::TurretSpell)) {
                 if (check_input(app::AbilityType__Enum::TurretSpell))
                     call_override(app::AbilityType__Enum::TurretSpell);
@@ -77,7 +77,7 @@ namespace ability_override {
                 next::SeinTurretSpell::UpdateCharacterState(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(SeinGlowSpell, void, UpdateCharacterState, (app::SeinGlowSpell * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SeinGlowSpell, UpdateCharacterState, app::SeinGlowSpell * this_ptr) {
             if (has_override(app::AbilityType__Enum::GlowSpell)) {
                 if (check_input(app::AbilityType__Enum::GlowSpell))
                     call_override(app::AbilityType__Enum::GlowSpell);
@@ -85,7 +85,7 @@ namespace ability_override {
                 next::SeinGlowSpell::UpdateCharacterState(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(SeinFeatherFlap, void, UpdateState, (app::SeinFeatherFlap * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SeinFeatherFlap, UpdateState, app::SeinFeatherFlap * this_ptr) {
             if (has_override(app::AbilityType__Enum::FeatherFlap)) {
                 if (check_input(app::AbilityType__Enum::FeatherFlap))
                     call_override(app::AbilityType__Enum::FeatherFlap);
@@ -93,7 +93,7 @@ namespace ability_override {
                 next::SeinFeatherFlap::UpdateState(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(SeinMeditateSpell, bool, get_ButtonDown, (app::SeinMeditateSpell * this_ptr)) {
+        IL2CPP_INTERCEPT(bool, SeinMeditateSpell, get_ButtonDown, app::SeinMeditateSpell * this_ptr) {
             auto value = next::SeinMeditateSpell::get_ButtonDown(this_ptr);
             auto o = overrides.find(app::AbilityType__Enum::Regenerate);
             if (o == overrides.end())

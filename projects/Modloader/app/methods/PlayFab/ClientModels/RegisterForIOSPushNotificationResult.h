@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/RegisterForIOSPushNotificationResult.h>
 
 namespace app::classes::PlayFab::ClientModels::RegisterForIOSPushNotificationResult {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::RegisterForIOSPushNotificationResult * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::RegisterForIOSPushNotificationResult* this_ptr)
 }

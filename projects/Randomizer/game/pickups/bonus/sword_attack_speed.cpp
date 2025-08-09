@@ -14,7 +14,7 @@ namespace {
     core::api::uber_states::UberState sword_speed(UberStateGroup::RandoUpgrade, 1);
 
     float initial_charge_time = -1.f;
-    IL2CPP_INTERCEPT(Moon::MeleeComboMoveSwordCharge, void, EnterMove, (app::MeleeComboMoveSwordCharge * this_ptr)) {
+    IL2CPP_INTERCEPT(void, Moon::MeleeComboMoveSwordCharge, EnterMove, app::MeleeComboMoveSwordCharge * this_ptr) {
         if (initial_charge_time < 0)
             initial_charge_time = this_ptr->fields.ChargeTime;
 
@@ -26,7 +26,7 @@ namespace {
         next::Moon::MeleeComboMoveSwordCharge::EnterMove(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(MeleeComboMoveSwordAirDown, void, EnterMove, (app::MeleeComboMoveSwordAirDown * this_ptr)) {
+    IL2CPP_INTERCEPT(void, MeleeComboMoveSwordAirDown, EnterMove, app::MeleeComboMoveSwordAirDown * this_ptr) {
         float sword_speed_multiplier = sword_speed.get<float>();
         if (this_ptr->fields._.AttackTimeline != nullptr)
             Moon::Timeline::MoonTimeline::SetTimeScale(this_ptr->fields._.AttackTimeline, sword_speed_multiplier);
@@ -34,7 +34,7 @@ namespace {
         next::MeleeComboMoveSwordAirDown::EnterMove(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(MeleeComboMoveSword, void, EnterMove, (app::MeleeComboMoveSword * this_ptr)) {
+    IL2CPP_INTERCEPT(void, MeleeComboMoveSword, EnterMove, app::MeleeComboMoveSword * this_ptr) {
         float sword_speed_multiplier = sword_speed.get<float>();
         if (this_ptr->fields.AttackTimeline != nullptr)
             Moon::Timeline::MoonTimeline::SetTimeScale(this_ptr->fields.AttackTimeline, sword_speed_multiplier);

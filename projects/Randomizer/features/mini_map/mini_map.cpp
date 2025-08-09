@@ -70,7 +70,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(AreaMapCanvas, void, GenerateAreaMaskTexture, (app::AreaMapCanvas * this_ptr, app::RenderTexture* destination)) {
+    IL2CPP_INTERCEPT(void, AreaMapCanvas, GenerateAreaMaskTexture, app::AreaMapCanvas * this_ptr, app::RenderTexture* destination) {
         if (!use_custom_map_mask) {
             next::AreaMapCanvas::GenerateAreaMaskTexture(this_ptr, destination);
             return;
@@ -128,7 +128,7 @@ namespace {
         AreaMapCanvas::BlurTextures(this_ptr, this_ptr->fields.m_worldmapCanvasRenderTexture, destination);
     }
 
-    IL2CPP_INTERCEPT(AreaMapUI, void, Init, (app::AreaMapUI* this_ptr)) {
+    IL2CPP_INTERCEPT(void, AreaMapUI, Init, app::AreaMapUI* this_ptr) {
         next::AreaMapUI::Init(this_ptr);
 
         if (core::settings::enable_minimap() && !minimap_go.has_value()) {
@@ -181,7 +181,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation, void, SetAreaState, (app::PlayerUberStateAreaMapInformation * this_ptr, app::GameWorldAreaID__Enum area_id, int index, app::WorldMapAreaState__Enum state, app::Vector3 position)) {
+    IL2CPP_INTERCEPT(void, Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation, SetAreaState, app::PlayerUberStateAreaMapInformation * this_ptr, app::GameWorldAreaID__Enum area_id, int index, app::WorldMapAreaState__Enum state, app::Vector3 position) {
         next::Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::SetAreaState(this_ptr, area_id, index, state, position);
         area_segment_updated_this_frame = true;
     }

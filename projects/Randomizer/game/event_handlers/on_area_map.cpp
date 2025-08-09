@@ -10,7 +10,7 @@
 namespace {
     core::api::uber_states::UberState current_map_area(UberStateGroup::Player, 51);
 
-    IL2CPP_INTERCEPT(AreaMapUI, void, Show, (app::AreaMapUI * this_ptr, bool set_menu_audio_state)) {
+    IL2CPP_INTERCEPT(void, AreaMapUI, Show, app::AreaMapUI * this_ptr, bool set_menu_audio_state) {
         core::api::game::event_bus().trigger_event(GameEvent::OpenAreaMap, EventTiming::Before);
         next::AreaMapUI::Show(this_ptr, set_menu_audio_state);
         // Maybe we need this?
@@ -18,14 +18,14 @@ namespace {
         core::api::game::event_bus().trigger_event(GameEvent::OpenAreaMap, EventTiming::After);
     }
 
-    IL2CPP_INTERCEPT(AreaMapUI, void, Hide, (app::AreaMapUI * this_ptr)) {
+    IL2CPP_INTERCEPT(void, AreaMapUI, Hide, app::AreaMapUI * this_ptr) {
         core::api::game::event_bus().trigger_event(GameEvent::CloseAreaMap, EventTiming::Before);
         next::AreaMapUI::Hide(this_ptr);
         current_map_area.set(static_cast<int>(GameArea::TOTAL));
         core::api::game::event_bus().trigger_event(GameEvent::CloseAreaMap, EventTiming::After);
     }
 
-    IL2CPP_INTERCEPT(GameMapUI, void, SetCurrentHighlightedArea, (app::GameMapUI * this_ptr, app::RuntimeGameWorldArea* area)) {
+    IL2CPP_INTERCEPT(void, GameMapUI, SetCurrentHighlightedArea, app::GameMapUI * this_ptr, app::RuntimeGameWorldArea* area) {
         next::GameMapUI::SetCurrentHighlightedArea(this_ptr, area);
         const auto highlighted_area = this_ptr->fields.m_currentHighlightedArea;
         if (highlighted_area != nullptr) {

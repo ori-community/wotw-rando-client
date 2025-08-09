@@ -1,9 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
-#include <Modloader/app/structs/PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_GetPlayFabIDsFromGoogleIDsReques_.h>
 #include <Modloader/app/structs/GetPlayFabIDsFromGoogleIDsRequest.h>
+#include <Modloader/app/structs/PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_GetPlayFabIDsFromGoogleIDsReques_.h>
 
 namespace app::classes::PlayFab::Events::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_GetPlayFabIDsFromGoogleIDsRequest_ {
-    IL2CPP_REGISTER_METHOD(0x00673B90, void, Invoke, (app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_GetPlayFabIDsFromGoogleIDsRequest_ * this_ptr, app::GetPlayFabIDsFromGoogleIDsRequest* request))
+    IL2CPP_REGISTER_METHOD(
+        0x00673B90,
+        void,
+        Invoke,
+        app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_GetPlayFabIDsFromGoogleIDsRequest_* this_ptr,
+        app::GetPlayFabIDsFromGoogleIDsRequest* request
+    )
 }

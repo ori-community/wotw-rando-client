@@ -8,7 +8,7 @@
 #include <Modloader/modloader.h>
 
 namespace {
-    IL2CPP_INTERCEPT(Projectile, bool, HandleMirrorStrike, (app::Projectile * this_ptr, app::Damage* damage)) {
+    IL2CPP_INTERCEPT(bool, Projectile, HandleMirrorStrike, app::Projectile * this_ptr, app::Damage* damage) {
         bool ret;
 
         if (core::api::game::player::ability(app::AbilityType__Enum::Bash).get()) {

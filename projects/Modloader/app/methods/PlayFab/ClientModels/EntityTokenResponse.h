@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/EntityTokenResponse.h>
 
 namespace app::classes::PlayFab::ClientModels::EntityTokenResponse {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::EntityTokenResponse * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::EntityTokenResponse* this_ptr)
 }

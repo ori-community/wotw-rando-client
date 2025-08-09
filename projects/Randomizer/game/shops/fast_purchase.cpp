@@ -10,7 +10,7 @@ namespace randomizer::game::shops {
         constexpr float FAST_PURCHASE_TIME = 0.01f;
         bool quick_buy = false;
 
-        IL2CPP_INTERCEPT(PurchaseThingScreen, void, PurchaseInput, (app::PurchaseThingScreen * this_ptr)) {
+        IL2CPP_INTERCEPT(void, PurchaseThingScreen, PurchaseInput, app::PurchaseThingScreen * this_ptr) {
             this_ptr->fields.PurchaseCooldown = 0.1f;
             this_ptr->fields.PurchaseTime = quick_buy ? FAST_PURCHASE_TIME : NORMAL_PURCHASE_TIME;
             next::PurchaseThingScreen::PurchaseInput(this_ptr);

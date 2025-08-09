@@ -296,7 +296,7 @@ namespace core::api::messages {
         MessageBoxVisibility::set_IsSuspended(m_message_box->fields.Visibility, false);
     }
 
-    IL2CPP_INTERCEPT(ScaleToTextBox, void, UpdateSize, (app::ScaleToTextBox * this_ptr)) {
+    IL2CPP_INTERCEPT(void, ScaleToTextBox, UpdateSize, app::ScaleToTextBox * this_ptr) {
         next::ScaleToTextBox::UpdateSize(this_ptr);
 
         if (this_ptr->fields.Background != nullptr) {

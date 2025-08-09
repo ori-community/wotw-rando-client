@@ -17,7 +17,7 @@ namespace {
     bool water_damage_override = false;
     core::api::uber_states::UberState clean_water_state(UberStateGroup::RandoState, 2000);
 
-    IL2CPP_INTERCEPT(Sein::World::Events, bool, get_WaterPurified, ()) { return !water_damage_override && clean_water_state.get<bool>(); }
+    IL2CPP_INTERCEPT(bool, Sein::World::Events, get_WaterPurified) { return !water_damage_override && clean_water_state.get<bool>(); }
 
     randomizer::conditions::applier_intercept create_applier_intercept(int32_t corrupted, int32_t clean) {
         return [corrupted, clean](auto, auto, auto, auto) -> int32_t { return clean_water_state.get<bool>() ? clean : corrupted; };

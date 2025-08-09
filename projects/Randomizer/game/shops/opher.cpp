@@ -23,7 +23,7 @@ namespace {
     using namespace app::classes;
     using namespace randomizer::game::shops;
 
-    IL2CPP_INTERCEPT(WeaponmasterItem, bool, get_IsOwned, (app::WeaponmasterItem * item)) {
+    IL2CPP_INTERCEPT(bool, WeaponmasterItem, get_IsOwned, app::WeaponmasterItem * item) {
         if (is_in_shop(ShopType::Opher)) {
             auto key = std::make_pair(
                 item->fields.Upgrade->fields.AcquiredAbilityType,
@@ -36,7 +36,7 @@ namespace {
         return next::WeaponmasterItem::get_IsOwned(item);
     }
 
-    IL2CPP_INTERCEPT(WeaponmasterItem, int, GetCostForLevel, (app::WeaponmasterItem * item, int level)) {
+    IL2CPP_INTERCEPT(int, WeaponmasterItem, GetCostForLevel, app::WeaponmasterItem * item, int level) {
         if (is_in_shop(ShopType::Opher)) {
             auto key = std::make_pair(
                 item->fields.Upgrade->fields.AcquiredAbilityType,
@@ -49,7 +49,7 @@ namespace {
         return next::WeaponmasterItem::GetCostForLevel(item, level);
     }
 
-    IL2CPP_INTERCEPT(WeaponmasterItem, void, DoPurchase, (app::WeaponmasterItem * this_ptr, app::PurchaseContext* context)) {
+    IL2CPP_INTERCEPT(void, WeaponmasterItem, DoPurchase, app::WeaponmasterItem * this_ptr, app::PurchaseContext* context) {
         auto level = Moon::SerializedByteUberState::get_Value(this_ptr->fields.Upgrade->fields.UpgradeLevel);
         if (level == 0) {
             DesiredUberStateComposite::WriteDesiredStates(this_ptr->fields.Upgrade->fields.ChangeStateOnPurchase);
@@ -77,12 +77,12 @@ namespace {
         buy_item(*opher_shop().slot(key));
     }
 
-    IL2CPP_INTERCEPT(UpgradableShardItem, bool, get_IsVisible, (app::UpgradableShardItem * z)) {
+    IL2CPP_INTERCEPT(bool, UpgradableShardItem, get_IsVisible, app::UpgradableShardItem * z) {
         // TODO: Is this needed?
         return true;
     }
 
-    IL2CPP_INTERCEPT(WeaponmasterItem, bool, get_IsVisible, (app::WeaponmasterItem * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, WeaponmasterItem, get_IsVisible, app::WeaponmasterItem * this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::WeaponmasterItem::get_class()) && this_ptr->fields.Upgrade != nullptr) {
             auto key = std::make_pair(
                 this_ptr->fields.Upgrade->fields.AcquiredAbilityType,
@@ -95,7 +95,7 @@ namespace {
         return true; // get_IsVisible(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(WeaponmasterItem, bool, get_IsLocked, (app::WeaponmasterItem * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, WeaponmasterItem, get_IsLocked, app::WeaponmasterItem * this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::WeaponmasterItem::get_class()) && this_ptr->fields.Upgrade != nullptr) {
             auto key = std::make_pair(
                 this_ptr->fields.Upgrade->fields.AcquiredAbilityType,
@@ -108,7 +108,7 @@ namespace {
         return false; // get_IsLocked(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(WeaponmasterItem, bool, get_UsesEnergy, (app::WeaponmasterItem * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, WeaponmasterItem, get_UsesEnergy, app::WeaponmasterItem * this_ptr) {
         auto key = std::make_pair(
             this_ptr->fields.Upgrade->fields.AcquiredAbilityType,
             this_ptr->fields.Upgrade->fields.RequiredAbility
@@ -117,7 +117,7 @@ namespace {
         return opher_shop().slot(key)->uses_energy;
     }
 
-    IL2CPP_INTERCEPT(WeaponmasterItem, bool, get_IsAffordable, (app::WeaponmasterItem * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, WeaponmasterItem, get_IsAffordable, app::WeaponmasterItem * this_ptr) {
         auto key = std::make_pair(
             this_ptr->fields.Upgrade->fields.AcquiredAbilityType,
             this_ptr->fields.Upgrade->fields.RequiredAbility
@@ -126,7 +126,7 @@ namespace {
         return core::api::game::player::spirit_light().get() >= opher_shop().slot(key)->cost.get<int>();
     }
 
-    IL2CPP_INTERCEPT(WeaponmasterItem, bool, TryPurchase, (app::WeaponmasterItem * this_ptr, app::Action_1_MessageProvider_* show_hint, app::UISoundSettingsAsset* sounds, app::ShopKeeperHints* hints)) {
+    IL2CPP_INTERCEPT(bool, WeaponmasterItem, TryPurchase, app::WeaponmasterItem * this_ptr, app::Action_1_MessageProvider_* show_hint, app::UISoundSettingsAsset* sounds, app::ShopKeeperHints* hints) {
         app::MessageProvider* selected_hint;
         if (!WeaponmasterItem::get_IsVisible(this_ptr)) {
             selected_hint = hints->fields.ShardNotDiscovered;

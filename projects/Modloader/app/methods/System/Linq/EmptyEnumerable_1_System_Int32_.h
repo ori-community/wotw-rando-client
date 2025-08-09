@@ -2,5 +2,5 @@
 #include <Modloader/interception_macros.h>
 
 namespace app::classes::System::Linq::EmptyEnumerable_1_System_Int32_ {
-    IL2CPP_REGISTER_METHOD(0x0287A010, void, cctor, ())
+    IL2CPP_REGISTER_METHOD(0x0287A010, void, cctor, )
 }

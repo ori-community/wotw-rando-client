@@ -114,7 +114,7 @@ namespace randomizer {
             return reinterpret_cast<app::IUberState*>(state);
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection * this_ptr)) {
+        IL2CPP_INTERCEPT(void, Moon::UberStateCollection, PrepareRuntimeDataType, app::UberStateCollection * this_ptr) {
             auto start_time = std::chrono::high_resolution_clock::now();
 
             std::vector<app::IUberState*> states = {

@@ -34,7 +34,7 @@ namespace {
         shrek->local_scale(app::Vector3{ state.scale, state.scale, state.scale });
     }
 
-    IL2CPP_INTERCEPT(PetrifiedOwlBossEntity, void, OnDamageReceived, (app::PetrifiedOwlBossEntity * this_ptr, app::DamageResult damage)) {
+    IL2CPP_INTERCEPT(void, PetrifiedOwlBossEntity, OnDamageReceived, app::PetrifiedOwlBossEntity * this_ptr, app::DamageResult damage) {
         next::PetrifiedOwlBossEntity::OnDamageReceived(this_ptr, damage);
 
         if (core::settings::shriek_is_shrek()) {

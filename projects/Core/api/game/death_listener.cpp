@@ -13,7 +13,7 @@ namespace core::api::death_listener {
         common::TimedEventBus<Death> _enemy_death_event_bus;
         common::TimedEventBus<Death> _player_death_event_bus;
 
-        IL2CPP_INTERCEPT(Moon::EnemyEntity, void, OnDied, (app::EnemyEntity * this_ptr, app::DamageResult result)) {
+        IL2CPP_INTERCEPT(void, Moon::EnemyEntity, OnDied, app::EnemyEntity * this_ptr, app::DamageResult result) {
             auto* go = il2cpp::unity::get_game_object(this_ptr);
             Death death{ go, result.Damage };
             _enemy_death_event_bus.trigger_event(EventTiming::Before, death);
@@ -21,7 +21,7 @@ namespace core::api::death_listener {
             _enemy_death_event_bus.trigger_event(EventTiming::After, death);
         }
 
-        IL2CPP_INTERCEPT(SeinDamageReciever, void, OnKill, (app::SeinDamageReciever * this_ptr, app::Damage* damage)) {
+        IL2CPP_INTERCEPT(void, SeinDamageReciever, OnKill, app::SeinDamageReciever * this_ptr, app::Damage* damage) {
             auto* go = damage->fields.m_sender;
             Death death{ go, damage };
             _player_death_event_bus.trigger_event(EventTiming::Before, death);

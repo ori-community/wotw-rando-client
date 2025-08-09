@@ -33,7 +33,7 @@ namespace {
     common::registration_handle_t in_trial_uber_state_changed_handle;
     common::registration_handle_t in_trial_should_sync_handle;
 
-    IL2CPP_INTERCEPT(RaceHandler, void, SetRaceInProgressState, (app::RaceHandler * this_ptr, bool in_progress)) {
+    IL2CPP_INTERCEPT(void, RaceHandler, SetRaceInProgressState, app::RaceHandler * this_ptr, bool in_progress) {
         if (in_progress) {
             // Make Reach trial keystones give you actual keystones
             in_trial_uber_state_changed_handle = core::api::uber_states::notification_bus().register_handler([](auto change) {

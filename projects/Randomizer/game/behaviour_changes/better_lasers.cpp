@@ -19,11 +19,11 @@ namespace {
      * when they are offscreen.
      */
 
-    IL2CPP_INTERCEPT(BlockableLaser, bool, IsLaserOnScreen, (app::BlockableLaser * this_ptr, app::Vector3 end_point)) {
+    IL2CPP_INTERCEPT(bool, BlockableLaser, IsLaserOnScreen, app::BlockableLaser * this_ptr, app::Vector3 end_point) {
         return true;
     }
 
-    IL2CPP_INTERCEPT(BlockableLaser, app::Damage*, DealLaserDamage, (app::BlockableLaser * this_ptr, app::GameObject* target)) {
+    IL2CPP_INTERCEPT(app::Damage*, BlockableLaser, DealLaserDamage, app::BlockableLaser * this_ptr, app::GameObject* target) {
         auto is_on_screen = next::BlockableLaser::IsLaserOnScreen(this_ptr, this_ptr->fields.m_cachedEnvHit.m_Point);
 
         if (is_on_screen) {
@@ -37,7 +37,7 @@ namespace {
     }
 
     // Fix laser going through walls on the first frame
-    IL2CPP_INTERCEPT(BlockableLaser, void, OnEnable, (app::BlockableLaser * this_ptr)) {
+    IL2CPP_INTERCEPT(void, BlockableLaser, OnEnable, app::BlockableLaser * this_ptr) {
         next::BlockableLaser::OnEnable(this_ptr);
 
         if (!this_ptr->fields.OptimizeStaticSetupAndOri) {
@@ -53,7 +53,7 @@ namespace {
     // The LegacyRotateAnimator component is not actually used, but causes
     // internal crashes when being removed, due to the Pool Spawning system depending
     // on its existence.
-    IL2CPP_INTERCEPT(LaserShooterEntity, void, OnAwake, (app::LaserShooterEntity * this_ptr)) {
+    IL2CPP_INTERCEPT(void, LaserShooterEntity, OnAwake, app::LaserShooterEntity * this_ptr) {
         next::LaserShooterEntity::OnAwake(this_ptr);
 
         for (auto component: il2cpp::unity::get_components_in_children<app::LegacyRotateAnimator>(this_ptr, types::LegacyRotateAnimator::get_class(), true)) {
@@ -63,7 +63,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(LegacyRotateAnimator, void, AnimateIt, (app::LegacyRotateAnimator* this_ptr, float value)) {
+    IL2CPP_INTERCEPT(void, LegacyRotateAnimator, AnimateIt, app::LegacyRotateAnimator* this_ptr, float value) {
         if (this_ptr->fields.RotateAxisFilter.z == -1.f) {
             return;
         }

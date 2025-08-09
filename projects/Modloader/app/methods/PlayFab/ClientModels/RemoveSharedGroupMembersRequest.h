@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/RemoveSharedGroupMembersRequest.h>
 
 namespace app::classes::PlayFab::ClientModels::RemoveSharedGroupMembersRequest {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::RemoveSharedGroupMembersRequest * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::RemoveSharedGroupMembersRequest* this_ptr)
 }

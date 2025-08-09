@@ -172,7 +172,7 @@ namespace core::api::game::in_game_timer {
             use_unity_unscaled_delta_time_for_next_n_frames = 0U;  // To prevent JSD detection from kicking in
         }
 
-        IL2CPP_INTERCEPT(GameController, void, GoBackToMainMenu, (app::GameController* this_ptr, bool select_save_slot, app::RestartReason__Enum restart_reason)) {
+        IL2CPP_INTERCEPT(void, GameController, GoBackToMainMenu, app::GameController* this_ptr, bool select_save_slot, app::RestartReason__Enum restart_reason) {
             // select_save_slot == true only happens when exiting from a Memory (Cutscene Replay)
             if (!select_save_slot) {
                 on_qtm_start();
@@ -181,18 +181,18 @@ namespace core::api::game::in_game_timer {
             next::GameController::GoBackToMainMenu(this_ptr, select_save_slot, restart_reason);
         }
 
-        IL2CPP_INTERCEPT(ReturnToTitleScreenAction, void, Perform, (app::ReturnToTitleScreenAction* this_ptr, app::IContext* context)) {
+        IL2CPP_INTERCEPT(void, ReturnToTitleScreenAction, Perform, app::ReturnToTitleScreenAction* this_ptr, app::IContext* context) {
             on_qtm_start();
             next::ReturnToTitleScreenAction::Perform(this_ptr, context);
         }
 
         auto is_in_title_screen_press_start_logic_fixed_update = false;
-        IL2CPP_INTERCEPT(TitleScreenPressStartLogic, void, FixedUpdate, (app::TitleScreenPressStartLogic* this_ptr)) {
+        IL2CPP_INTERCEPT(void, TitleScreenPressStartLogic, FixedUpdate, app::TitleScreenPressStartLogic* this_ptr) {
             ScopedSetter _(is_in_title_screen_press_start_logic_fixed_update, true);
             next::TitleScreenPressStartLogic::FixedUpdate(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(Core::Input, bool, get_OnAnyButtonPressed, ()) {
+        IL2CPP_INTERCEPT(bool, Core::Input, get_OnAnyButtonPressed) {
             if (is_in_title_screen_press_start_logic_fixed_update) {
                 title_screen_startup_waiting = false;
             }
@@ -200,24 +200,24 @@ namespace core::api::game::in_game_timer {
             return next::Core::Input::get_OnAnyButtonPressed();
         }
 
-        IL2CPP_INTERCEPT(TitleScreenPressStartLogic, void, OnStartPressedCallback, (app::TitleScreenPressStartLogic* this_ptr)) {
+        IL2CPP_INTERCEPT(void, TitleScreenPressStartLogic, OnStartPressedCallback, app::TitleScreenPressStartLogic* this_ptr) {
             title_screen_startup_waiting = false;
             use_unity_unscaled_delta_time_for_next_n_frames = 0U;  // In case we accidentally "JSD" back
             next::TitleScreenPressStartLogic::OnStartPressedCallback(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(LoadingFinishedCondition, bool, Validate, (app::LoadingFinishedCondition * this_ptr, app::IContext* context)) {
+        IL2CPP_INTERCEPT(bool, LoadingFinishedCondition, Validate, app::LoadingFinishedCondition * this_ptr, app::IContext* context) {
             const auto validation_passed = next::LoadingFinishedCondition::Validate(this_ptr, context);
             loading_finished_condition_is_blocking = !validation_passed;
             return validation_passed;
         }
 
-        IL2CPP_INTERCEPT(usedStandaloneScripts::DeltaTimeManagers::AverageBothDeltaTimeController, void, PreTimeManagerUpdate, (app::AverageBothDeltaTimeController * this_ptr)) {
+        IL2CPP_INTERCEPT(void, usedStandaloneScripts::DeltaTimeManagers::AverageBothDeltaTimeController, PreTimeManagerUpdate, app::AverageBothDeltaTimeController * this_ptr) {
             unity_delta_time = UnityEngine::Time::get_deltaTime();
             next::usedStandaloneScripts::DeltaTimeManagers::AverageBothDeltaTimeController::PreTimeManagerUpdate(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(GameSettings, void, set_CurrentControlScheme, (app::GameSettings* this_ptr, app::ControlScheme__Enum scheme)) {
+        IL2CPP_INTERCEPT(void, GameSettings, set_CurrentControlScheme, app::GameSettings* this_ptr, app::ControlScheme__Enum scheme) {
             next::GameSettings::set_CurrentControlScheme(this_ptr, scheme);
             did_switch_control_scheme_in_current_frame = true;
         }

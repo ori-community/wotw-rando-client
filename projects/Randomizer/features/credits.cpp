@@ -68,7 +68,7 @@ namespace randomizer::features::credits {
         }
 
         float time = 0.0f;
-        IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
+        IL2CPP_INTERCEPT(void, GameController, FixedUpdate, app::GameController * this_ptr) {
             next::GameController::FixedUpdate(this_ptr);
             const auto credits_controller = types::CreditsController::get_class()
                                  ->static_fields->Instance;

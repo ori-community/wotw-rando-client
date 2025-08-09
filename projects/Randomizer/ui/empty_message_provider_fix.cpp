@@ -56,7 +56,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(TranslatedMessageProvider_MessageItem, app::MessageDescriptor, GetDescriptor, (app::TranslatedMessageProvider_MessageItem * this_ptr, app::Language__Enum language)) {
+    IL2CPP_INTERCEPT(app::MessageDescriptor, TranslatedMessageProvider_MessageItem, GetDescriptor, app::TranslatedMessageProvider_MessageItem * this_ptr, app::Language__Enum language) {
         return {
             get_string_for_language(this_ptr, language),
             this_ptr->fields.Emotion,

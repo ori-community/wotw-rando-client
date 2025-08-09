@@ -46,7 +46,7 @@ namespace {
     // ---------------------------------------------------
     bool stop_shop_overwrite = false;
     bool should_shop_overwrite = false;
-    IL2CPP_INTERCEPT(ShopkeeperScreen, void, Show, (app::ShopkeeperScreen * this_ptr)) {
+    IL2CPP_INTERCEPT(void, ShopkeeperScreen, Show, app::ShopkeeperScreen * this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::WeaponmasterScreen::get_class()) || il2cpp::is_assignable(this_ptr, types::ShardUpgradeScreen::get_class())) {
             stop_shop_overwrite = false;
             should_shop_overwrite = true;
@@ -56,7 +56,7 @@ namespace {
         next::ShopkeeperScreen::Show(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(ShopkeeperScreen, void, PopulateInventoryCanvasWithUpgrades, (app::ShopkeeperScreen * this_ptr)) {
+    IL2CPP_INTERCEPT(void, ShopkeeperScreen, PopulateInventoryCanvasWithUpgrades, app::ShopkeeperScreen * this_ptr) {
         if (!il2cpp::is_assignable(this_ptr, types::WeaponmasterScreen::get_class())) {
             this_ptr->fields.SortedByCost = true; // This is needed to run the sort, but we override it with our custom sort function
         }
@@ -65,7 +65,7 @@ namespace {
     }
 
     float stop_overwrite_time = 4.0f;
-    IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
+    IL2CPP_INTERCEPT(void, GameController, FixedUpdate, app::GameController * this_ptr) {
         next::GameController::FixedUpdate(this_ptr);
         if (stop_shop_overwrite) {
             stop_overwrite_time -= TimeUtility::get_fixedDeltaTime();
@@ -76,20 +76,20 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(ShopkeeperScreen, void, Hide, (app::ShopkeeperScreen * this_ptr, bool change)) {
+    IL2CPP_INTERCEPT(void, ShopkeeperScreen, Hide, app::ShopkeeperScreen * this_ptr, bool change) {
         next::ShopkeeperScreen::Hide(this_ptr, change);
         stop_overwrite_time = 1.0f;
         stop_shop_overwrite = true;
     }
 
     app::ShopkeeperItem* selected_item;
-    IL2CPP_INTERCEPT(ShopkeeperScreen, void, UpdateContextCanvasShards, (app::ShopkeeperScreen * this_ptr)) {
+    IL2CPP_INTERCEPT(void, ShopkeeperScreen, UpdateContextCanvasShards, app::ShopkeeperScreen * this_ptr) {
         selected_item = ShopkeeperScreen::get_SelectedUpgradeItem(this_ptr);
         next::ShopkeeperScreen::UpdateContextCanvasShards(this_ptr);
     }
 
     bool locked_shop_overwrite = false;
-    IL2CPP_INTERCEPT(ShopkeeperUIDetails, void, ShowEmptyDetails, (app::ShopkeeperUIDetails * this_ptr)) {
+    IL2CPP_INTERCEPT(void, ShopkeeperUIDetails, ShowEmptyDetails, app::ShopkeeperUIDetails * this_ptr) {
         if (should_shop_overwrite && selected_item != nullptr) {
             modloader::ScopedSetter set(locked_shop_overwrite, true);
             ShopkeeperUIDetails::UpdateDetails(this_ptr);
@@ -112,7 +112,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(ShopkeeperUIDetails, void, UpdateDetails2, (app::ShopkeeperUIDetails * this_ptr)) {
+    IL2CPP_INTERCEPT(void, ShopkeeperUIDetails, UpdateDetails2, app::ShopkeeperUIDetails * this_ptr) {
         // TODO: Fix details panel on ophers shop.
         next::ShopkeeperUIDetails::UpdateDetails2(this_ptr);
         if (is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom)) {
@@ -140,7 +140,7 @@ namespace {
         description_provider = info->description.get_provider();
     }
 
-    IL2CPP_INTERCEPT(ShopkeeperUIDetails, void, UpdateDetails, (app::ShopkeeperUIDetails * this_ptr)) {
+    IL2CPP_INTERCEPT(void, ShopkeeperUIDetails, UpdateDetails, app::ShopkeeperUIDetails * this_ptr) {
         if (!is_in_shop(ShopType::Opher) && !is_in_shop(ShopType::Grom)) {
             next::ShopkeeperUIDetails::UpdateDetails(this_ptr);
             return;
@@ -178,7 +178,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(ShopkeeperUISubItem, void, UpdateItem, (app::ShopkeeperUISubItem * this_ptr)) {
+    IL2CPP_INTERCEPT(void, ShopkeeperUISubItem, UpdateItem, app::ShopkeeperUISubItem * this_ptr) {
         if (is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom)) {
             const auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsVisible")->fields;
             const auto is_owned = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsOwned")->fields;
@@ -238,7 +238,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(ShopkeeperUIItem, void, UpdateItem, (app::ShopkeeperUIItem * this_ptr, app::ShopkeeperItem* item)) {
+    IL2CPP_INTERCEPT(void, ShopkeeperUIItem, UpdateItem, app::ShopkeeperUIItem * this_ptr, app::ShopkeeperItem* item) {
         if (is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom)) {
             const auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsVisible")->fields;
             const auto is_owned = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsOwned")->fields;

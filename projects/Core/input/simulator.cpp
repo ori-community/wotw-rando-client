@@ -97,7 +97,7 @@ namespace core::input {
     }
 
     namespace {
-        IL2CPP_INTERCEPT(SmartInput::CompoundButtonInput, bool, GetValue, (app::CompoundButtonInput * this_ptr)) {
+        IL2CPP_INTERCEPT(bool, SmartInput::CompoundButtonInput, GetValue, app::CompoundButtonInput * this_ptr) {
             auto action = get_button_input_action(this_ptr);
             if (action != nullptr) {
                 auto& simulator = simulated_buttons[*action].simulator;
@@ -110,7 +110,7 @@ namespace core::input {
             return next::SmartInput::CompoundButtonInput::GetValue(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(SmartInput::CachedButtonInput, bool, GetButton, (app::CachedButtonInput * this_ptr)) {
+        IL2CPP_INTERCEPT(bool, SmartInput::CachedButtonInput, GetButton, app::CachedButtonInput * this_ptr) {
             auto action = get_button_input_action(reinterpret_cast<app::CompoundButtonInput*>(this_ptr));
             if (action != nullptr) {
                 auto& simulator = simulated_buttons[*action].simulator;
@@ -123,7 +123,7 @@ namespace core::input {
             return next::SmartInput::CachedButtonInput::GetButton(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(SmartInput::CompoundAxisInput, float, GetValue, (app::CompoundAxisInput * this_ptr)) {
+        IL2CPP_INTERCEPT(float, SmartInput::CompoundAxisInput, GetValue, app::CompoundAxisInput * this_ptr) {
             auto axis = get_axis_input_axis(this_ptr);
             if (axis != nullptr) {
                 auto& simulator = simulated_axes[*axis].simulator;
@@ -136,7 +136,7 @@ namespace core::input {
             return next::SmartInput::CompoundAxisInput::GetValue(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(SmartInput::CachedAxisInput, float, AxisValue, (app::CachedAxisInput * this_ptr)) {
+        IL2CPP_INTERCEPT(float, SmartInput::CachedAxisInput, AxisValue, app::CachedAxisInput * this_ptr) {
             auto axis = get_axis_input_axis(reinterpret_cast<app::CompoundAxisInput*>(this_ptr));
             if (axis != nullptr) {
                 auto& simulator = simulated_axes[*axis].simulator;
@@ -149,7 +149,7 @@ namespace core::input {
             return next::SmartInput::CachedAxisInput::AxisValue(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(UnityEngine::Input, app::Vector3, get_mousePosition, ()) {
+        IL2CPP_INTERCEPT(app::Vector3, UnityEngine::Input, get_mousePosition) {
             if (simulated_mouse_position.enabled) {
                 auto ui_cameras = types::UI_Cameras::get_class();
                 auto camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
@@ -160,7 +160,7 @@ namespace core::input {
             return next::UnityEngine::Input::get_mousePosition();
         }
 
-        IL2CPP_INTERCEPT(PlayerInput, void, FixedUpdate, (app::PlayerInput * this_ptr)) {
+        IL2CPP_INTERCEPT(void, PlayerInput, FixedUpdate, app::PlayerInput * this_ptr) {
             auto previous_mouse_position = types::Input_1::get_class()->static_fields->CursorPosition;
 
             for (const auto& item : simulated_buttons) {
@@ -191,12 +191,12 @@ namespace core::input {
             }
         }
 
-        IL2CPP_INTERCEPT(PlayerInput, void, ClearControls, (app::PlayerInput * this_ptr)) {
+        IL2CPP_INTERCEPT(void, PlayerInput, ClearControls, app::PlayerInput * this_ptr) {
             next::PlayerInput::ClearControls(this_ptr);
             core::input::clear_simulators();
         }
 
-        IL2CPP_INTERCEPT(PlayerInput, void, InitInputCache, (app::PlayerInput * this_ptr)) {
+        IL2CPP_INTERCEPT(void, PlayerInput, InitInputCache, app::PlayerInput * this_ptr) {
             next::PlayerInput::InitInputCache(this_ptr);
 
             api::game::event_bus().trigger_event(GameEvent::RegisteringInputSimulators, EventTiming::Before);

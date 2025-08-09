@@ -50,7 +50,7 @@ namespace {
 
     app::GameWorld* get_game_world() { return types::GameWorld::get_class()->static_fields->Instance; }
 
-    IL2CPP_INTERCEPT(CartographerEntity, int, get_MapCost, (app::CartographerEntity * this_ptr)) {
+    IL2CPP_INTERCEPT(int, CartographerEntity, get_MapCost, app::CartographerEntity* this_ptr) {
         this_ptr->fields.MapQuestCompletedMapCostModifier = 1.f;
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
@@ -65,7 +65,7 @@ namespace {
         return core::text::has_text(text_override) ? core::text::get_provider(text_override) : normal(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(CartographerEntity, app::MessageProvider*, get_IntroMessageProvider, (app::CartographerEntity * this_ptr)) {
+    IL2CPP_INTERCEPT(app::MessageProvider*, CartographerEntity, get_IntroMessageProvider, app::CartographerEntity* this_ptr) {
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
         auto cost = core::api::uber_states::UberState(UberStateGroup::LupoMapCosts, id).get<int>();
@@ -74,32 +74,32 @@ namespace {
         return handle_lupo_message(this_ptr, LupoSelection::Intro, next::CartographerEntity::get_IntroMessageProvider);
     }
 
-    IL2CPP_INTERCEPT(CartographerEntity, app::MessageProvider*, get_NoSaleMessage, (app::CartographerEntity * this_ptr)) {
+    IL2CPP_INTERCEPT(app::MessageProvider*, CartographerEntity, get_NoSaleMessage, app::CartographerEntity* this_ptr) {
         return handle_lupo_message(this_ptr, LupoSelection::NoSale, next::CartographerEntity::get_NoSaleMessage);
     }
 
-    IL2CPP_INTERCEPT(CartographerEntity, app::MessageProvider*, get_SalesPitchMessage, (app::CartographerEntity * this_ptr)) {
+    IL2CPP_INTERCEPT(app::MessageProvider*, CartographerEntity, get_SalesPitchMessage, app::CartographerEntity* this_ptr) {
         return handle_lupo_message(this_ptr, LupoSelection::SalesPitch, next::CartographerEntity::get_SalesPitchMessage);
     }
 
-    IL2CPP_INTERCEPT(CartographerEntity, app::MessageProvider*, get_InsufficientFundsMessage, (app::CartographerEntity * this_ptr)) {
+    IL2CPP_INTERCEPT(app::MessageProvider*, CartographerEntity, get_InsufficientFundsMessage, app::CartographerEntity* this_ptr) {
         return handle_lupo_message(this_ptr, LupoSelection::Broke, next::CartographerEntity::get_InsufficientFundsMessage);
     }
 
-    IL2CPP_INTERCEPT(CartographerEntity, app::MessageProvider*, get_ThanksMessage, (app::CartographerEntity * this_ptr)) {
+    IL2CPP_INTERCEPT(app::MessageProvider*, CartographerEntity, get_ThanksMessage, app::CartographerEntity* this_ptr) {
         return handle_lupo_message(this_ptr, LupoSelection::Thanks, next::CartographerEntity::get_ThanksMessage);
     }
 
-    IL2CPP_INTERCEPT(RuntimeWorldMapIcon, bool, IsVisible, (app::RuntimeWorldMapIcon * this_ptr, app::AreaMapUI* areaMap)) { return true; }
+    IL2CPP_INTERCEPT(bool, RuntimeWorldMapIcon, IsVisible, app::RuntimeWorldMapIcon* this_ptr, app::AreaMapUI* areaMap) { return true; }
 
     // region Quest List UI
 
-    IL2CPP_INTERCEPT(QuestsUI, void, OptionChangeCallback, (app::QuestsUI * this_ptr)) {
+    IL2CPP_INTERCEPT(void, QuestsUI, OptionChangeCallback, app::QuestsUI* this_ptr) {
         // Noop
     }
 
     bool allow_showing_description_ui = false;
-    IL2CPP_INTERCEPT(QuestsUI, void, OptionPressedCallback, (app::QuestsUI * this_ptr)) {
+    IL2CPP_INTERCEPT(void, QuestsUI, OptionPressedCallback, app::QuestsUI* this_ptr) {
         ScopedSetter setter(allow_showing_description_ui, true);
         randomizer::game::pickups::quests::set_allow_changing_active_quest(true);
         next::QuestsUI::OptionPressedCallback(this_ptr);
@@ -124,7 +124,7 @@ namespace {
         il2cpp::unity::set_active(this_ptr->fields.m_questDetailsUI->fields.Ore, false);
     }
 
-    IL2CPP_INTERCEPT(AreaMapNavigation, void, HandleMapScrolling, (app::AreaMapNavigation * this_ptr)) {
+    IL2CPP_INTERCEPT(void, AreaMapNavigation, HandleMapScrolling, app::AreaMapNavigation* this_ptr) {
         auto previous_x = this_ptr->fields.m_scrollPosition.x;
         auto previous_y = this_ptr->fields.m_scrollPosition.y;
 
@@ -138,19 +138,19 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(QuestsUI, void, UpdateDescriptionUI_1, (app::QuestsUI * this_ptr, app::RuntimeQuest* quest)) {
+    IL2CPP_INTERCEPT(void, QuestsUI, UpdateDescriptionUI_1, app::QuestsUI* this_ptr, app::RuntimeQuest* quest) {
         if (allow_showing_description_ui) {
             next::QuestsUI::UpdateDescriptionUI_1(this_ptr, quest);
         }
     }
 
-    IL2CPP_INTERCEPT(QuestsUI, void, UpdateDescriptionUI_2, (app::QuestsUI * this_ptr, app::Quest* quest)) {
+    IL2CPP_INTERCEPT(void, QuestsUI, UpdateDescriptionUI_2, app::QuestsUI* this_ptr, app::Quest* quest) {
         if (allow_showing_description_ui || quest == nullptr) {
             next::QuestsUI::UpdateDescriptionUI_2(this_ptr, quest);
         }
     }
 
-    IL2CPP_INTERCEPT(QuestsUI, app::Vector3, AddItems, (app::QuestsUI * this_ptr, app::Vector3 base_position, app::Quest_QuestType__Enum type)) {
+    IL2CPP_INTERCEPT(app::Vector3, QuestsUI, AddItems, app::QuestsUI* this_ptr, app::Vector3 base_position, app::Quest_QuestType__Enum type) {
         auto position = base_position;
 
         if (type == app::Quest_QuestType__Enum::Main) {
@@ -161,26 +161,26 @@ namespace {
     }
 
     bool handling_interact_button_on_map = false;
-    IL2CPP_INTERCEPT(GameMapUI, void, HandleInteractButton, (app::GameMapUI * this_ptr)) {
+    IL2CPP_INTERCEPT(void, GameMapUI, HandleInteractButton, app::GameMapUI* this_ptr) {
         ScopedSetter setter(handling_interact_button_on_map, true);
         next::GameMapUI::HandleInteractButton(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(QuestsUI, void, SelectQuest, (app::QuestsUI * this_ptr, app::Quest* quest)) {
+    IL2CPP_INTERCEPT(void, QuestsUI, SelectQuest, app::QuestsUI* this_ptr, app::Quest* quest) {
         if (!handling_interact_button_on_map) {
             next::QuestsUI::SelectQuest(this_ptr, quest);
             QuestsUI::UpdateDescriptionUI_2(this_ptr, quest);
         }
     }
 
-    IL2CPP_INTERCEPT(GameMapUI, bool, CanSelectQuest, (app::GameMapUI * this_ptr)) { return false; }
+    IL2CPP_INTERCEPT(bool, GameMapUI, CanSelectQuest, app::GameMapUI* this_ptr) { return false; }
 
-    IL2CPP_INTERCEPT(AreaMapNavigation, void, UpdateMapTarget, (app::AreaMapNavigation * this_ptr)) {
+    IL2CPP_INTERCEPT(void, AreaMapNavigation, UpdateMapTarget, app::AreaMapNavigation* this_ptr) {
         next::AreaMapNavigation::UpdateMapTarget(this_ptr);
         this_ptr->fields.m_focusTime = 0.35f;
     }
 
-    IL2CPP_INTERCEPT(AreaMapNavigation, void, SetTargetPosition, (app::AreaMapNavigation * this_ptr, app::Vector3 target_position)) {
+    IL2CPP_INTERCEPT(void, AreaMapNavigation, SetTargetPosition, app::AreaMapNavigation* this_ptr, app::Vector3 target_position) {
         next::AreaMapNavigation::SetTargetPosition(this_ptr, target_position);
         this_ptr->fields.m_focusTime = 0.35f;
         this_ptr->fields.m_focusOnPlayer = true;
@@ -192,10 +192,9 @@ namespace {
      * Always show "Focus Objective" on the map since "Focus Ori" is broken on KBM (they
      * calculate distance from the cursor instead of screen center).
      */
-    IL2CPP_INTERCEPT(GameMapUI, void, NormalInput, (app::GameMapUI * this_ptr)) {
+    IL2CPP_INTERCEPT(void, GameMapUI, NormalInput, app::GameMapUI* this_ptr) {
         const auto focus_ori_button = types::Input_Cmd::get_class()->static_fields->MapFocusOri;
-        const auto focus_ori_button_pressed = focus_ori_button->fields.IsPressed && !focus_ori_button->fields.WasPressed &&
-            !focus_ori_button->fields.Used;
+        const auto focus_ori_button_pressed = focus_ori_button->fields.IsPressed && !focus_ori_button->fields.WasPressed && !focus_ori_button->fields.Used;
 
         const auto focus_objective_button = types::Input_Cmd::get_class()->static_fields->MapFocusObjective;
         const auto focus_objective_button_pressed = focus_objective_button->fields.IsPressed && !focus_objective_button->fields.WasPressed &&
@@ -226,12 +225,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(
-        Moon::Timeline::DiscoverAreasEntity,
-        void,
-        ChangeState,
-        (app::DiscoverAreasEntity * this_ptr, app::DiscoverAreasEntity_State__Enum value)
-    ) {
+    IL2CPP_INTERCEPT(void, Moon::Timeline::DiscoverAreasEntity, ChangeState, app::DiscoverAreasEntity* this_ptr, app::DiscoverAreasEntity_State__Enum value) {
         // Since we don't want the map to show up, lets speedrun the timeline entity.
         if (value == app::DiscoverAreasEntity_State__Enum::Start) {
             auto menu = Game::UI::get_Menu();
@@ -249,7 +243,7 @@ namespace {
     float scaling_factor = 2.0f;
     float original_zoom = -1.0f;
     float original_scale = -1.0f;
-    IL2CPP_INTERCEPT(AreaMapUI, void, Awake, (app::AreaMapUI * this_ptr)) {
+    IL2CPP_INTERCEPT(void, AreaMapUI, Awake, app::AreaMapUI* this_ptr) {
         next::AreaMapUI::Awake(this_ptr);
         auto transition = types::GameMapTransitionManager::get_class();
         transition->static_fields->WorldMapEnabled = core::settings::world_map_enabled();

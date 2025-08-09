@@ -20,20 +20,20 @@ namespace {
     app::Vector3 portal_speed;
     float stomp_speed = 60.f;
 
-    IL2CPP_INTERCEPT(MeleeComboMoveHammerStomp, void, InterruptMove, (app::MeleeComboMoveHammerStomp * this_ptr)) {
+    IL2CPP_INTERCEPT(void, MeleeComboMoveHammerStomp, InterruptMove, app::MeleeComboMoveHammerStomp * this_ptr) {
         next::MeleeComboMoveHammerStomp::InterruptMove(this_ptr);
         stomp_speed = this_ptr->fields.Speed;
         state = HammerInterrupted;
     }
 
     core::api::uber_states::UberState stomp_through_portals(UberStateGroup::RandoConfig, 9);
-    IL2CPP_INTERCEPT(SeinController, void, OnGoThroughPortal, (app::SeinController * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinController, OnGoThroughPortal, app::SeinController * this_ptr) {
         next::SeinController::OnGoThroughPortal(this_ptr);
         if (state == HammerInterrupted && stomp_through_portals.get<bool>())
             state = CarryVelocityThroughPortal;
     }
 
-    IL2CPP_INTERCEPT(SeinController, void, FixedUpdate, (app::SeinController * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinController, FixedUpdate, app::SeinController * this_ptr) {
         next::SeinController::FixedUpdate(this_ptr);
 
         if (state == CarryVelocityThroughPortal) {
@@ -46,7 +46,7 @@ namespace {
         state = None;
     }
 
-    IL2CPP_INTERCEPT(Portal, app::Vector3, CalculateEndSpeed_1, (app::Portal * this_ptr, app::Portal* other, app::Vector3 speed)) {
+    IL2CPP_INTERCEPT(app::Vector3, Portal, CalculateEndSpeed_1, app::Portal * this_ptr, app::Portal* other, app::Vector3 speed) {
         auto output = next::Portal::CalculateEndSpeed_1(this_ptr, other, speed);
         portal_speed = output;
         return output;

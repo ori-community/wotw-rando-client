@@ -70,7 +70,7 @@ namespace {
     }
 
     bool use_mouse_aiming_for_axis_input = false;
-    IL2CPP_INTERCEPT(SeinDashNew, bool, ShouldDig, (app::SeinDashNew * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, SeinDashNew, ShouldDig, app::SeinDashNew * this_ptr) {
         bool should_mouse_control = core::settings::burrow_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
 
         if (current_control_scheme_is_kbm() && should_mouse_control)
@@ -81,7 +81,7 @@ namespace {
         return ret;
     }
 
-    IL2CPP_INTERCEPT(SeinDigging, void, UpdateCharacterState, (app::SeinDigging * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinDigging, UpdateCharacterState, app::SeinDigging * this_ptr) {
         bool should_mouse_control = core::settings::burrow_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
 
         if (current_control_scheme_is_kbm() && should_mouse_control)
@@ -91,7 +91,7 @@ namespace {
         use_mouse_aiming_for_axis_input = false;
     }
 
-    IL2CPP_INTERCEPT(SeinDashNew, bool, ShouldSwim, (app::SeinDashNew * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, SeinDashNew, ShouldSwim, app::SeinDashNew * this_ptr) {
         bool should_mouse_control = core::settings::water_dash_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
 
         if (current_control_scheme_is_kbm() && should_mouse_control) {
@@ -105,7 +105,7 @@ namespace {
         return ret;
     }
 
-    IL2CPP_INTERCEPT(SeinSwimming, void, UpdateCharacterState, (app::SeinSwimming * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinSwimming, UpdateCharacterState, app::SeinSwimming * this_ptr) {
         bool should_mouse_control = core::settings::water_dash_mouse_control() && (!core::settings::hybrid_mouse_control() || !is_movement_input_pressed());
 
         if (current_control_scheme_is_kbm() && should_mouse_control) {
@@ -118,7 +118,7 @@ namespace {
         deadzone_active = false;
     }
 
-    IL2CPP_INTERCEPT(Core::Input, app::Vector2, get_Axis, ()) {
+    IL2CPP_INTERCEPT(app::Vector2, Core::Input, get_Axis) {
         app::Vector2 ret{ 0 };
         auto player_input = types::PlayerInput::get_class()->static_fields->Instance;
         if (!player_input->fields.Active)
@@ -143,7 +143,7 @@ namespace {
 
     bool overwrite_target = false;
     app::Vector3 dir;
-    IL2CPP_INTERCEPT(SeinSpiritLeashAbility, void, FindClosestAttackHandler, (app::SeinSpiritLeashAbility * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinSpiritLeashAbility, FindClosestAttackHandler, app::SeinSpiritLeashAbility * this_ptr) {
         if (core::settings::grapple_mouse_control() && current_control_scheme_is_kbm()) {
             auto dir2 = get_mouse_dir();
             dir.x = dir2.x;
@@ -155,7 +155,7 @@ namespace {
         overwrite_target = false;
     }
 
-    IL2CPP_INTERCEPT(SeinSpiritLeashAbility, bool, IsInputTowardsTarget, (app::SeinSpiritLeashAbility * this_ptr, app::Vector3 target_dir, app::Vector3 input_dir, bool is_current_target, float* angle_difference)) {
+    IL2CPP_INTERCEPT(bool, SeinSpiritLeashAbility, IsInputTowardsTarget, app::SeinSpiritLeashAbility * this_ptr, app::Vector3 target_dir, app::Vector3 input_dir, bool is_current_target, float* angle_difference) {
         if (overwrite_target) {
             input_dir = dir;
         }
@@ -163,7 +163,7 @@ namespace {
         return next::SeinSpiritLeashAbility::IsInputTowardsTarget(this_ptr, target_dir, input_dir, is_current_target, angle_difference);
     }
 
-    IL2CPP_INTERCEPT(SeinCharacter, bool, get_FaceLeft, (app::SeinCharacter * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, SeinCharacter, get_FaceLeft, app::SeinCharacter * this_ptr) {
         if (overwrite_target) {
             return dir.x < 0;
         }

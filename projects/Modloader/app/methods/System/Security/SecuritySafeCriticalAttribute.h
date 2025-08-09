@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/SecuritySafeCriticalAttribute.h>
 
 namespace app::classes::System::Security::SecuritySafeCriticalAttribute {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SecuritySafeCriticalAttribute * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::SecuritySafeCriticalAttribute* this_ptr)
 }

@@ -276,7 +276,7 @@ namespace randomizer {
             load_new_game_source();
         });
 
-        IL2CPP_INTERCEPT(GameController, void, ParseCommandLineArgs, (app::GameController * this_ptr)) {
+        IL2CPP_INTERCEPT(void, GameController, ParseCommandLineArgs, app::GameController * this_ptr) {
             next::GameController::ParseCommandLineArgs(this_ptr);
             core::api::game::debug_menu::set_debug_enabled(core::settings::start_debug_enabled());
         }

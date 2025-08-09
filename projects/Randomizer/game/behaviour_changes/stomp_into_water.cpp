@@ -13,7 +13,7 @@ using namespace modloader::win::console;
 namespace {
     core::api::uber_states::UberState stomp_into_water_state(UberStateGroup::RandoConfig, STOMP_INTO_WATER_ID);
 
-    IL2CPP_INTERCEPT(MeleeComboMoveHammerStomp, void, OnHitWater, (app::MeleeComboMoveHammerStomp * this_ptr)) {
+    IL2CPP_INTERCEPT(void, MeleeComboMoveHammerStomp, OnHitWater, app::MeleeComboMoveHammerStomp * this_ptr) {
         auto should_extend_stomp =
             this_ptr->fields.m_currentState == app::MeleeComboMoveHammerStomp_State__Enum::Fall &&
             stomp_into_water_state.get<bool>();

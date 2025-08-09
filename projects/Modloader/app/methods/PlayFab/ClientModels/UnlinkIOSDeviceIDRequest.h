@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/UnlinkIOSDeviceIDRequest.h>
 
 namespace app::classes::PlayFab::ClientModels::UnlinkIOSDeviceIDRequest {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::UnlinkIOSDeviceIDRequest * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::UnlinkIOSDeviceIDRequest* this_ptr)
 }

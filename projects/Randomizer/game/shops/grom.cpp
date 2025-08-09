@@ -39,7 +39,7 @@ namespace {
         auto projects = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, std::vector<std::string>{"interactives", "builderProjects"});
         auto huts_a = il2cpp::unity::find_child(projects, "mokiHutsSetup");
         for (auto component:
-            il2cpp::unity::get_components<app::ChangeStateOnCondition>(huts_a, reinterpret_cast<Il2CppClass*>(types::ChangeStateOnCondition::get_class()))) {
+             il2cpp::unity::get_components<app::ChangeStateOnCondition>(huts_a, reinterpret_cast<Il2CppClass*>(types::ChangeStateOnCondition::get_class()))) {
             const auto state_data = component->fields.StateChange->fields._._.StateData->fields._items->vector[0];
             if (state_data->fields.m_desiredValue < 2) {
                 il2cpp::unity::destroy_object(component);
@@ -48,7 +48,7 @@ namespace {
 
         auto huts_b = il2cpp::unity::find_child(projects, "mokiHutsBSetup");
         for (auto component:
-            il2cpp::unity::get_components<app::ChangeStateOnCondition>(huts_b, reinterpret_cast<Il2CppClass*>(types::ChangeStateOnCondition::get_class()))) {
+             il2cpp::unity::get_components<app::ChangeStateOnCondition>(huts_b, reinterpret_cast<Il2CppClass*>(types::ChangeStateOnCondition::get_class()))) {
             const auto state_data = component->fields.StateChange->fields._._.StateData->fields._items->vector[0];
             if (state_data->fields.m_desiredValue < 2) {
                 il2cpp::unity::destroy_object(component);
@@ -89,7 +89,7 @@ namespace {
 
     // Why ores are treated as seeds, nobody knows.
     core::api::uber_states::UberState ore_spent(UberStateGroup::RandoStats, 6);
-    IL2CPP_INTERCEPT(SpellUISeeds, bool, Spend, (app::SpellUISeeds * this_ptr, int amount)) {
+    IL2CPP_INTERCEPT(bool, SpellUISeeds, Spend, app::SpellUISeeds* this_ptr, int amount) {
         bool worked = next::SpellUISeeds::Spend(this_ptr, amount);
         if (worked) {
             ore_spent.set(amount + ore_spent.get());
@@ -98,7 +98,7 @@ namespace {
         return worked;
     }
 
-    IL2CPP_INTERCEPT(BuilderItem, int, GetCostForLevel, (app::BuilderItem * this_ptr, int level)) {
+    IL2CPP_INTERCEPT(int, BuilderItem, GetCostForLevel, app::BuilderItem* this_ptr, int level) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
             auto slot = grom_shop().slot(this_ptr->fields.Project->fields.UberState);
             return slot != nullptr ? slot->cost.get<int>() : 0;
@@ -107,7 +107,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(BuilderItem, bool, get_IsVisible, (app::BuilderItem * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, BuilderItem, get_IsVisible, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
             auto slot = grom_shop().slot(this_ptr->fields.Project->fields.UberState);
             return slot != nullptr && slot->visibility == SlotVisibility::Visible;
@@ -116,7 +116,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(BuilderItem, bool, get_IsLocked, (app::BuilderItem * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, BuilderItem, get_IsLocked, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
             auto slot = grom_shop().slot(this_ptr->fields.Project->fields.UberState);
             return slot != nullptr && slot->visibility == SlotVisibility::Locked;
@@ -125,7 +125,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(BuilderItem, bool, get_IsAffordable, (app::BuilderItem * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, BuilderItem, get_IsAffordable, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
             return core::api::game::player::ore().get() >= BuilderItem::GetCostForLevel(this_ptr, 1);
         } else {
@@ -133,7 +133,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(BuilderItem, bool, get_IsOwned, (app::BuilderItem * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, BuilderItem, get_IsOwned, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
             const auto state = core::api::uber_states::UberState(this_ptr->fields.Project->fields.UberState);
             return state.get<int>() >= 3;
@@ -156,7 +156,7 @@ namespace {
         return {UberStateGroup::GromShop, cutscene_state};
     }
 
-    IL2CPP_INTERCEPT(BuilderItem, void, DoPurchase, (app::BuilderItem * this_ptr, app::PurchaseContext* context)) {
+    IL2CPP_INTERCEPT(void, BuilderItem, DoPurchase, app::BuilderItem* this_ptr, app::PurchaseContext* context) {
         if (get_cutscene_state(this_ptr->fields.Project).get<bool>()) {
             // The normal method calls a DelayedAction.Action
             next::BuilderItem::DoPurchase(this_ptr, context);
@@ -170,10 +170,13 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(
-        BuilderItem,
         bool,
+        BuilderItem,
         TryPurchase,
-        (app::BuilderItem * this_ptr, app::Action_1_MessageProvider_* show_hint_action, app::UISoundSettingsAsset* sounds, app::ShopKeeperHints* hints)
+        app::BuilderItem* this_ptr,
+        app::Action_1_MessageProvider_* show_hint_action,
+        app::UISoundSettingsAsset* sounds,
+        app::ShopKeeperHints* hints
     ) {
         if (!BuilderItem::get_IsVisible(this_ptr)) {
             return show_hint(show_hint_action, sounds, hints->fields.ShardNotDiscovered);
@@ -188,11 +191,11 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(EquipmentUIInventoryGrid, void, UpdateItemProperties, (app::EquipmentUIInventoryGrid * this_ptr, app::Object* context)) {
+    IL2CPP_INTERCEPT(void, EquipmentUIInventoryGrid, UpdateItemProperties, app::EquipmentUIInventoryGrid* this_ptr, app::Object* context) {
         next::EquipmentUIInventoryGrid::UpdateItemProperties(this_ptr, context);
     }
 
-    IL2CPP_INTERCEPT(BuilderScreen, void, CompletePurchase, (app::BuilderScreen * this_ptr)) {
+    IL2CPP_INTERCEPT(void, BuilderScreen, CompletePurchase, app::BuilderScreen* this_ptr) {
         const auto shopkeeper_screen = reinterpret_cast<app::ShopkeeperScreen*>(this_ptr);
         const auto item = reinterpret_cast<app::BuilderItem*>(ShopkeeperScreen::get_SelectedUpgradeItem(shopkeeper_screen));
         const auto should_play_cutscene = get_cutscene_state(item->fields.Project).get<bool>();
@@ -204,7 +207,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(Moon::Timeline::TimelineEntity, void, StartPlayback_2, (app::TimelineEntity* this_ptr, app::IContext* context)) {
+    IL2CPP_INTERCEPT(void, Moon::Timeline::TimelineEntity, StartPlayback_2, app::TimelineEntity* this_ptr, app::IContext* context) {
         // If we skip the cutscenes, Grom never gets into the "purchase successful" state, hence
         // he always complains about you when leaving him even though you purchased something.
         // This fix plays the correct timeline instead if you purchased something from Grom
@@ -222,7 +225,7 @@ namespace {
     }
 
     // Force project order because we disable SortByCost on shops
-    IL2CPP_INTERCEPT(BuilderScreen, void, Init, (app::BuilderScreen * this_ptr)) {
+    IL2CPP_INTERCEPT(void, BuilderScreen, Init, app::BuilderScreen* this_ptr) {
         this_ptr->fields._.SortedByCost = false;
 
         const auto project_teleporter = this_ptr->fields.Projects->vector[0];

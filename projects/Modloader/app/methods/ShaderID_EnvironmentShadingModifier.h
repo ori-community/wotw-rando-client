@@ -2,5 +2,5 @@
 #include <Modloader/interception_macros.h>
 
 namespace app::classes::ShaderID_EnvironmentShadingModifier {
-    IL2CPP_REGISTER_METHOD(0x005A6E80, void, cctor, ())
+    IL2CPP_REGISTER_METHOD(0x005A6E80, void, cctor, )
 }

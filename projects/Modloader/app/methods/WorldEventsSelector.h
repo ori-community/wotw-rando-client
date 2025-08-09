@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/WorldEventsSelector.h>
 
 namespace app::classes::WorldEventsSelector {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::WorldEventsSelector * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::WorldEventsSelector* this_ptr)
 }

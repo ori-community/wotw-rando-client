@@ -5,5 +5,11 @@
 #include <Modloader/app/structs/UpdatePlayerStatisticsRequest.h>
 
 namespace app::classes::PlayFab::Events::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_UpdatePlayerStatisticsRequest_ {
-    IL2CPP_REGISTER_METHOD(0x00673B90, void, Invoke, (app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_UpdatePlayerStatisticsRequest_ * this_ptr, app::UpdatePlayerStatisticsRequest* request))
+    IL2CPP_REGISTER_METHOD(
+        0x00673B90,
+        void,
+        Invoke,
+        app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_UpdatePlayerStatisticsRequest_* this_ptr,
+        app::UpdatePlayerStatisticsRequest* request
+    )
 }

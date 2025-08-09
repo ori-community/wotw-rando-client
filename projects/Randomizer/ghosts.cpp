@@ -66,7 +66,7 @@ namespace ghosts {
     bool intercept_ghost_player_on_enable = false;
     RandoGhost* currently_processing_frame_ghost = nullptr;
 
-    IL2CPP_INTERCEPT(GhostPlayer, void, OnEnable, (app::GhostPlayer * this_ptr)) {
+    IL2CPP_INTERCEPT(void, GhostPlayer, OnEnable, app::GhostPlayer * this_ptr) {
         if (intercept_ghost_player_on_enable) {
             this_ptr->fields.m_oriRig = nullptr;
             this_ptr->fields.OriRig = core::api::game::player::sein()->fields.OriRig;
@@ -75,7 +75,7 @@ namespace ghosts {
         next::GhostPlayer::OnEnable(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(GhostPlayer, void, FixedUpdate, (app::GhostPlayer * this_ptr)) {
+    IL2CPP_INTERCEPT(void, GhostPlayer, FixedUpdate, app::GhostPlayer * this_ptr) {
         // NOOP
         // We call it by ourselves to process multiple incoming frames in one game frame
 
@@ -87,7 +87,7 @@ namespace ghosts {
 
     bool disable_generic_puppet_animation_handlers = false;
 
-    IL2CPP_INTERCEPT(GenericPuppet, void, StartAnimationById, (app::GenericPuppet * this_ptr, int32_t resource_id, int32_t array_index, int32_t priority)) {
+    IL2CPP_INTERCEPT(void, GenericPuppet, StartAnimationById, app::GenericPuppet * this_ptr, int32_t resource_id, int32_t array_index, int32_t priority) {
         if (disable_generic_puppet_animation_handlers) {
             next::GenericPuppet::StartAnimationById(this_ptr, resource_id, array_index, priority);
             return;
@@ -111,7 +111,7 @@ namespace ghosts {
         next::GenericPuppet::StartAnimationById(this_ptr, resource_id, array_index, priority);
     }
 
-    IL2CPP_INTERCEPT(GenericPuppet, void, EndAnimationById, (app::GenericPuppet * this_ptr, int32_t resource_id, int32_t array_index)) {
+    IL2CPP_INTERCEPT(void, GenericPuppet, EndAnimationById, app::GenericPuppet * this_ptr, int32_t resource_id, int32_t array_index) {
         next::GenericPuppet::EndAnimationById(this_ptr, resource_id, array_index);
 
         if (currently_processing_frame_ghost != nullptr) {
@@ -330,29 +330,29 @@ namespace ghosts {
         this->extrapolated_time += delta;
     }
 
-    IL2CPP_INTERCEPT(GhostRecorder, void, StopRecorder, (app::GhostRecorder * this_ptr)) {
+    IL2CPP_INTERCEPT(void, GhostRecorder, StopRecorder, app::GhostRecorder * this_ptr) {
         // Noop
     }
 
-    IL2CPP_INTERCEPT(GhostRecorder, void, Cancel, (app::GhostRecorder * this_ptr)) {
+    IL2CPP_INTERCEPT(void, GhostRecorder, Cancel, app::GhostRecorder * this_ptr) {
         // Noop
     }
 
-    IL2CPP_INTERCEPT(GhostRecorder, void, WriteToFile, (app::GhostRecorder * this_ptr, app::String* path, bool allow_append)) {
+    IL2CPP_INTERCEPT(void, GhostRecorder, WriteToFile, app::GhostRecorder * this_ptr, app::String* path, bool allow_append) {
         // Noop
     }
 
-    IL2CPP_INTERCEPT(GhostManager, void, OnRaceFinish, (app::String * race_id, app::GhostRecorder* recorder, app::RaceTimer* timer, app::ScoreResult__Enum* result, app::ITrialData* trial_data)) {
+    IL2CPP_INTERCEPT(void, GhostManager, OnRaceFinish, app::String * race_id, app::GhostRecorder* recorder, app::RaceTimer* timer, app::ScoreResult__Enum* result, app::ITrialData* trial_data) {
         // Noop
     }
 
     // They disable pooling when recording for some reason which breaks
     // some enemies.
-    IL2CPP_INTERCEPT(InstantiateUtility, bool, get_ShouldUsePooling, ()) {
+    IL2CPP_INTERCEPT(bool, InstantiateUtility, get_ShouldUsePooling) {
         return true; // yes pool thanks
     }
 
-    IL2CPP_INTERCEPT(GhostGenericEventsPlugin, void, RecordInstantiate, (app::GhostGenericEventsPlugin * this_ptr, app::GenericPuppet* generic_puppet, int32_t resource_id, app::Vector3 position, app::Quaternion rotation)) {
+    IL2CPP_INTERCEPT(void, GhostGenericEventsPlugin, RecordInstantiate, app::GhostGenericEventsPlugin * this_ptr, app::GenericPuppet* generic_puppet, int32_t resource_id, app::Vector3 position, app::Quaternion rotation) {
         // Noop because it's not used in vanilla and breaks weapons
     }
 
@@ -387,7 +387,7 @@ namespace ghosts {
     std::vector<std::byte> last_frame_data;
     bool last_frame_data_new = false;
 
-    IL2CPP_INTERCEPT(GhostRecorder, void, FinalizeFrame, (app::GhostRecorder * this_ptr)) {
+    IL2CPP_INTERCEPT(void, GhostRecorder, FinalizeFrame, app::GhostRecorder * this_ptr) {
         next::GhostRecorder::FinalizeFrame(this_ptr);
 
         if (this_ptr == ghost_recorder) {
@@ -410,7 +410,7 @@ namespace ghosts {
         }
     }
 
-    IL2CPP_INTERCEPT(GhostRecorder, void, InitializeRecorder, (app::GhostRecorder * this_ptr, app::String* path)) {
+    IL2CPP_INTERCEPT(void, GhostRecorder, InitializeRecorder, app::GhostRecorder * this_ptr, app::String* path) {
         next::GhostRecorder::InitializeRecorder(this_ptr, path);
 
         /**

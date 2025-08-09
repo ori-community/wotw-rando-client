@@ -28,7 +28,7 @@ namespace {
     }
 
     // float next_update = 0.3f;
-    // IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController* this_ptr)) {
+    // IL2CPP_INTERCEPT(void, GameController, FixedUpdate, app::GameController* this_ptr) {
     //     next_update -= TimeUtility::get_fixedDeltaTime();
     //
     //     if (next_update < 0.f) {
@@ -51,7 +51,7 @@ namespace {
      * This emulates the sounds of the Howl fight. It's needed because we nuke the original
      * behavior below.
      */
-    IL2CPP_INTERCEPT(NightCrawlerFightController, void, FinishFight, (app::NightCrawlerFightController * this_ptr)) {
+    IL2CPP_INTERCEPT(void, NightCrawlerFightController, FinishFight, app::NightCrawlerFightController * this_ptr) {
         next::NightCrawlerFightController::FinishFight(this_ptr);
 
         core::api::audio::set_state(SoundStateGroupID::nightCrawlerDefeated_uber, SoundStateID::nightCrawlerDefeated);
@@ -70,7 +70,7 @@ namespace {
         entry->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({condition});
     }
 
-    IL2CPP_INTERCEPT(WotwUberStateWwiseStateManager, void, PopulateAffectedStates, (app::WotwUberStateWwiseStateManager * this_ptr )) {
+    IL2CPP_INTERCEPT(void, WotwUberStateWwiseStateManager, PopulateAffectedStates, app::WotwUberStateWwiseStateManager * this_ptr ) {
         // Modify this_ptr->fields.WotwUberStateToWwiseData->fields.InheritedMap here
         auto entries = this_ptr->fields.WotwUberStateToWwiseData->fields.InheritedMap->vector;
 

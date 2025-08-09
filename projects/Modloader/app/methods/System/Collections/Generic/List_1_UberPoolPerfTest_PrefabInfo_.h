@@ -1,13 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
-#include <Modloader/app/structs/UberPoolPerfTest_PrefabInfo.h>
 #include <Modloader/app/structs/List_1_UberPoolPerfTest_PrefabInfo_.h>
+#include <Modloader/app/structs/UberPoolPerfTest_PrefabInfo.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UberPoolPerfTest_PrefabInfo_ {
-    IL2CPP_REGISTER_METHOD(0x025EFC50, app::UberPoolPerfTest_PrefabInfo*, get_Item, (app::List_1_UberPoolPerfTest_PrefabInfo_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHOD(0x025EFC80, void, set_Item, (app::List_1_UberPoolPerfTest_PrefabInfo_ * this_ptr, int32_t index, app::UberPoolPerfTest_PrefabInfo* value))
-    IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_UberPoolPerfTest_PrefabInfo_ * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_UberPoolPerfTest_PrefabInfo_ * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_UberPoolPerfTest_PrefabInfo_ * this_ptr, app::UberPoolPerfTest_PrefabInfo* item))
+    IL2CPP_REGISTER_METHOD(0x025EFC50, app::UberPoolPerfTest_PrefabInfo*, get_Item, app::List_1_UberPoolPerfTest_PrefabInfo_* this_ptr, int32_t index)
+    IL2CPP_REGISTER_METHOD(
+        0x025EFC80,
+        void,
+        set_Item,
+        app::List_1_UberPoolPerfTest_PrefabInfo_* this_ptr,
+        int32_t index,
+        app::UberPoolPerfTest_PrefabInfo* value
+    )
+    IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, app::List_1_UberPoolPerfTest_PrefabInfo_* this_ptr)
+    IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, app::List_1_UberPoolPerfTest_PrefabInfo_* this_ptr)
+    IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, app::List_1_UberPoolPerfTest_PrefabInfo_* this_ptr, app::UberPoolPerfTest_PrefabInfo* item)
 } // namespace app::classes::System::Collections::Generic::List_1_UberPoolPerfTest_PrefabInfo_

@@ -99,7 +99,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(MaintainAspectRatio, void, LateUpdate, (app::MaintainAspectRatio* this_ptr)) {
+    IL2CPP_INTERCEPT(void, MaintainAspectRatio, LateUpdate, app::MaintainAspectRatio* this_ptr) {
         UnityEngine::Camera::set_rect(this_ptr->fields.m_camera, app::Rect(0.f, 0.f, 1.f, 1.f));
 
         const auto current_aspect_compensation_scale = get_aspect_compensation_scale();
@@ -110,12 +110,12 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(MenuScreenManager, void, ShowMenuScreen, (app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen, bool immediate, bool play_sound, bool pause)) {
+    IL2CPP_INTERCEPT(void, MenuScreenManager, ShowMenuScreen, app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen, bool immediate, bool play_sound, bool pause) {
         next::MenuScreenManager::ShowMenuScreen(this_ptr, screen, immediate, play_sound, pause);
         apply_screen_aspect_scaling(screen);
     }
 
-    IL2CPP_INTERCEPT(MenuScreenManager, void, ChangeScreen, (app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen)) {
+    IL2CPP_INTERCEPT(void, MenuScreenManager, ChangeScreen, app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen) {
         next::MenuScreenManager::ChangeScreen(this_ptr, screen);
         apply_screen_aspect_scaling(screen);
     }

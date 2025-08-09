@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/RammingEnemy_States.h>
 
 namespace app::classes::RammingEnemy_States {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::RammingEnemy_States * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::RammingEnemy_States* this_ptr)
 }

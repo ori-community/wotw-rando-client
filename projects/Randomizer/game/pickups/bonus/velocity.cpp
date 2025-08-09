@@ -33,17 +33,17 @@ namespace {
 
     float initial_jump_speed;
 
-    IL2CPP_INTERCEPT(SeinChargeJump, void, OnAwake, (app::SeinChargeJump * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinChargeJump, OnAwake, app::SeinChargeJump * this_ptr) {
         next::SeinChargeJump::OnAwake(this_ptr);
         initial_jump_speed = this_ptr->fields.JumpSpeed;
     }
 
-    IL2CPP_INTERCEPT(SeinChargeJump, void, EnterMove, (app::SeinChargeJump * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinChargeJump, EnterMove, app::SeinChargeJump * this_ptr) {
         this_ptr->fields.JumpSpeed = initial_jump_speed * launch_speed.get<float>();
         next::SeinChargeJump::EnterMove(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinDashNew, void, OnProcessRootMotion, (app::SeinDashNew * this_ptr, app::Vector3 root_velocity)) {
+    IL2CPP_INTERCEPT(void, SeinDashNew, OnProcessRootMotion, app::SeinDashNew * this_ptr, app::Vector3 root_velocity) {
         auto modifier = dash_distance.get<float>();
         root_velocity.x *= modifier;
         root_velocity.y *= modifier;
@@ -55,20 +55,20 @@ namespace {
     float initial_bash_speed;
     float initial_bash_enemy_force;
 
-    IL2CPP_INTERCEPT(SeinBashAttack, void, Start, (app::SeinBashAttack * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinBashAttack, Start, app::SeinBashAttack * this_ptr) {
         initial_bash_speed = this_ptr->fields.BashVelocity;
         initial_bash_enemy_force = this_ptr->fields.EnemyThrowForce;
         next::SeinBashAttack::Start(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinBashAttack, void, BeginBash, (app::SeinBashAttack * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinBashAttack, BeginBash, app::SeinBashAttack * this_ptr) {
         auto modifier = bash_speed.get<float>();
         this_ptr->fields.BashVelocity = initial_bash_speed * modifier;
         this_ptr->fields.EnemyThrowForce = initial_bash_enemy_force * modifier;
         next::SeinBashAttack::BeginBash(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinBashAttack, void, UpdateCharacterState, (app::SeinBashAttack * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinBashAttack, UpdateCharacterState, app::SeinBashAttack * this_ptr) {
         modloader::ScopedSetter setter(should_override_animation_curve_speed_for_bash, true);
         next::SeinBashAttack::UpdateCharacterState(this_ptr);
     }
@@ -77,7 +77,7 @@ namespace {
     float spirit_leash_default_hook_fling_speed_maximum;
     float spirit_leash_default_max_interrupt_speed_maximum;
     float spirit_leash_default_spirit_leash_max_pull_speed;
-    IL2CPP_INTERCEPT(SeinSpiritLeashAbility, void, EnterMove, (app::SeinSpiritLeashAbility * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinSpiritLeashAbility, EnterMove, app::SeinSpiritLeashAbility * this_ptr) {
         if (!spirit_leash_initialized) {
             spirit_leash_initialized = true;
             spirit_leash_default_hook_fling_speed_maximum = this_ptr->fields.HookFlingSpeedMaximum;
@@ -93,7 +93,7 @@ namespace {
         next::SeinSpiritLeashAbility::EnterMove(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(UnityEngine::AnimationCurve, float, Evaluate, (app::AnimationCurve * this_ptr, float value)) {
+    IL2CPP_INTERCEPT(float, UnityEngine::AnimationCurve, Evaluate, app::AnimationCurve * this_ptr, float value) {
         auto output = next::UnityEngine::AnimationCurve::Evaluate(this_ptr, value);
         if (should_override_animation_curve_speed_for_bash) {
             output *= bash_speed.get<float>();
@@ -107,7 +107,7 @@ namespace {
     float initial_burrow_dash_enter_speed;
     float initial_burrow_dash_exit_speed;
 
-    IL2CPP_INTERCEPT(SeinDigging, void, OnAwake, (app::SeinDigging * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinDigging, OnAwake, app::SeinDigging * this_ptr) {
         initial_burrow_speed = this_ptr->fields.DigSpeed;
         initial_burrow_dash_speed = this_ptr->fields.DashSpeed;
         initial_burrow_dash_enter_speed = this_ptr->fields.OutOfDigDashSpeed;
@@ -115,25 +115,25 @@ namespace {
         next::SeinDigging::OnAwake(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinDigging, void, UpdateDiggingState, (app::SeinDigging * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinDigging, UpdateDiggingState, app::SeinDigging * this_ptr) {
         auto modifier = burrow_speed.get<float>();
         this_ptr->fields.DigSpeed = initial_burrow_speed * modifier;
         next::SeinDigging::UpdateDiggingState(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinDigging, void, StartDashing, (app::SeinDigging * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinDigging, StartDashing, app::SeinDigging * this_ptr) {
         auto modifier = burrow_dash_speed.get<float>();
         this_ptr->fields.DashSpeed = initial_burrow_dash_speed * modifier;
         next::SeinDigging::StartDashing(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinDigging, void, StartOutOfZoneDashing, (app::SeinDigging * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinDigging, StartOutOfZoneDashing, app::SeinDigging * this_ptr) {
         auto modifier = burrow_dash_speed.get<float>();
         this_ptr->fields.OutOfDigDashSpeed = initial_burrow_dash_enter_speed * (1.f + (modifier - 1.f) / 1.5f);  // Affect less than normal dash
         next::SeinDigging::StartOutOfZoneDashing(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinDigging, void, EndDigging, (app::SeinDigging * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinDigging, EndDigging, app::SeinDigging * this_ptr) {
         auto modifier = burrow_dash_speed.get<float>();
         this_ptr->fields.DashExitDigSpeed = initial_burrow_dash_exit_speed * (1.f + (modifier - 1.f) / 1.5f);  // Affect less than normal dash
         next::SeinDigging::EndDigging(this_ptr);
@@ -144,7 +144,7 @@ namespace {
     float initial_swim_dash_enter_speed;
     float initial_swim_dash_exit_speed;
 
-    IL2CPP_INTERCEPT(SeinSwimming, void, OnAwake, (app::SeinSwimming * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinSwimming, OnAwake, app::SeinSwimming * this_ptr) {
         initial_swim_speed = this_ptr->fields.SwimSpeed;
         initial_swim_dash_speed = this_ptr->fields.DashMaxSpeed;
         initial_swim_dash_enter_speed = this_ptr->fields.DashIntoWaterCurveMaxSpeed;
@@ -152,19 +152,19 @@ namespace {
         next::SeinSwimming::OnAwake(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinSwimming, void, StartDashing, (app::SeinSwimming * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinSwimming, StartDashing, app::SeinSwimming * this_ptr) {
         auto modifier = swim_dash_speed.get<float>();
         this_ptr->fields.DashMaxSpeed = initial_swim_dash_speed * modifier;
         next::SeinSwimming::StartDashing(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinSwimming, void, OnEnterDashIntoWater, (app::SeinSwimming * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinSwimming, OnEnterDashIntoWater, app::SeinSwimming * this_ptr) {
         auto modifier = swim_dash_speed.get<float>();
         this_ptr->fields.DashIntoWaterCurveMaxSpeed = initial_swim_dash_enter_speed * (1.f + (modifier - 1.f) / 1.5f);  // Affect less than water dash
         next::SeinSwimming::OnEnterDashIntoWater(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinSwimming, void, OnEnterDashingOutOfWater, (app::SeinSwimming * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinSwimming, OnEnterDashingOutOfWater, app::SeinSwimming * this_ptr) {
         auto modifier = swim_dash_speed.get<float>();
         this_ptr->fields.DashExitCurveMaxSpeed = initial_swim_dash_exit_speed * (1.f + (modifier - 1.f) / 1.5f);  // Affect less than water dash
         next::SeinSwimming::OnEnterDashingOutOfWater(this_ptr);
@@ -177,7 +177,7 @@ namespace {
     float jump_height_second = 0.f;
     float jump_height_third = 0.f;
 
-    IL2CPP_INTERCEPT(SeinJump, void, OnAwake, (app::SeinJump * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinJump, OnAwake, app::SeinJump * this_ptr) {
         next::SeinJump::OnAwake(this_ptr);
         jump_height_backflip = this_ptr->fields.BackflipJumpHeight;
         jump_height_crouch = this_ptr->fields.CrouchJumpHeight;
@@ -187,7 +187,7 @@ namespace {
         jump_height_third = this_ptr->fields.ThirdJumpHeight;
     }
 
-    IL2CPP_INTERCEPT(SeinJump, void, UpdateCharacterState, (app::SeinJump * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinJump, UpdateCharacterState, app::SeinJump * this_ptr) {
         auto modifier = jump_height.get<float>();
         this_ptr->fields.BackflipJumpHeight = jump_height_backflip * modifier;
         this_ptr->fields.CrouchJumpHeight = jump_height_crouch * modifier;
@@ -201,7 +201,7 @@ namespace {
     bool double_jump_strength_initialized = false;
     float double_jump_strength;
 
-    IL2CPP_INTERCEPT(SeinDoubleJump, void, UpdateCharacterState, (app::SeinDoubleJump * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinDoubleJump, UpdateCharacterState, app::SeinDoubleJump * this_ptr) {
         if (!double_jump_strength_initialized) {
             double_jump_strength = this_ptr->fields.JumpStrength;
             double_jump_strength_initialized = true;
@@ -217,7 +217,7 @@ namespace {
     app::Vector2 wall_jump_strength_under_ceiling;
     float wall_jump_strength_under_ceiling_magnitude;
 
-    IL2CPP_INTERCEPT(SeinWallJump, void, OnAwake, (app::SeinWallJump * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinWallJump, OnAwake, app::SeinWallJump * this_ptr) {
         next::SeinWallJump::OnAwake(this_ptr);
 
         wall_jump_strength = this_ptr->fields.JumpStrength;
@@ -232,7 +232,7 @@ namespace {
     }
 
     // Should we maybe increase modify x here as well?
-    IL2CPP_INTERCEPT(SeinWallJump, void, PerformWallJump_2, (app::SeinWallJump * this_ptr, bool to_left)) {
+    IL2CPP_INTERCEPT(void, SeinWallJump, PerformWallJump_2, app::SeinWallJump * this_ptr, bool to_left) {
         auto modifier = wall_jump.get<float>();
         this_ptr->fields.JumpStrength = wall_jump_strength;
         this_ptr->fields.JumpStrength.x *= wall_jump_strength_magnitude;

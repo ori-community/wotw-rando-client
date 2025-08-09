@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/NintendoSwitchPlayFabIdPair.h>
 
 namespace app::classes::PlayFab::ClientModels::NintendoSwitchPlayFabIdPair {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::NintendoSwitchPlayFabIdPair * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::NintendoSwitchPlayFabIdPair* this_ptr)
 }

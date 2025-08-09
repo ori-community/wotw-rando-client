@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/TitleStartedTaskEventData.h>
 
 namespace app::classes::PlayFab::PlayStreamModels::TitleStartedTaskEventData {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::TitleStartedTaskEventData * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::TitleStartedTaskEventData* this_ptr)
 }

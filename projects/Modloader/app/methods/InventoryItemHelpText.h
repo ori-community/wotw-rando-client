@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/InventoryItemHelpText.h>
 
 namespace app::classes::InventoryItemHelpText {
-    IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::InventoryItemHelpText * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, app::InventoryItemHelpText* this_ptr)
 }
