@@ -322,6 +322,7 @@ namespace randomizer {
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onWaterDash", 47, false),
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onFlap", 48, false),
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onRegenerate", 49, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onGrapple", 50, false),
 
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "gladesWave", 0, 0),
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "inkwaterWave", 1, 0),

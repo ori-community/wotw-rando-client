@@ -26,6 +26,7 @@
 #include <Modloader/app/methods/SeinSwimming.h>
 #include <Modloader/app/methods/SeinTurretSpell.h>
 #include <Modloader/app/methods/SeinWallJump.h>
+#include <Modloader/app/methods/SeinSpiritLeashAbility.h>
 #include <Modloader/app/types/MeleeComboMoveHammer.h>
 #include <Modloader/app/types/MeleeComboMoveHammerChargeable.h>
 #include <Modloader/app/types/MeleeComboMoveHammerSimple.h>
@@ -72,6 +73,7 @@ namespace {
     core::api::uber_states::UberState on_water_dash(UberStateGroup::RandoEvents, 47);
     core::api::uber_states::UberState on_flap(UberStateGroup::RandoEvents, 48);
     core::api::uber_states::UberState on_regenerate(UberStateGroup::RandoEvents, 49);
+    core::api::uber_states::UberState on_grapple(UberStateGroup::RandoEvents, 50);
 
     IL2CPP_INTERCEPT_WITH_ORDER(100, void, SeinJump, PerformJump, app::SeinJump* this_ptr) {
         auto is_ability = il2cpp::is_assignable(this_ptr, types::SeinJump::get_class());
@@ -103,7 +105,7 @@ namespace {
         }
         next::SeinDoubleJump::PerformDoubleJump(this_ptr);
         if (is_ability) {
-            on_double_jump.set(1);
+            on_double_jump.set(0);
         }
     }
 
@@ -123,7 +125,7 @@ namespace {
 
     IL2CPP_INTERCEPT_WITH_ORDER(100, void, SeinGlide, EnterGlide, app::SeinGlide* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::SeinGlide::get_class())) {
-            on_dash.set(1);
+            on_glide.set(1);
         }
         next::SeinGlide::EnterGlide(this_ptr);
     }
@@ -131,7 +133,7 @@ namespace {
     IL2CPP_INTERCEPT_WITH_ORDER(100, void, SeinGlide, ExitGlide, app::SeinGlide* this_ptr) {
         next::SeinGlide::ExitGlide(this_ptr);
         if (il2cpp::is_assignable(this_ptr, types::SeinGlide::get_class())) {
-            on_dash.set(0);
+            on_glide.set(0);
         }
     }
 
@@ -348,17 +350,14 @@ namespace {
         on_wall_jump.set(0);
     }
 
-    bool out_of_water = true;
     bool digging = false;
-    bool swimming_on_surface = false;
+    bool is_water_dashing = false;
     IL2CPP_INTERCEPT_WITH_ORDER(100, void, SeinDashNew, EnterMove, app::SeinDashNew* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::SeinDashNew::get_class())) {
             if (SeinDashNew::ShouldDig(this_ptr)) {
                 on_burrow.set(1);
                 digging = true;
-            } else if (SeinDashNew::ShouldSwim(this_ptr) || swimming_on_surface) {
-                on_water_dash.set(1);
-            } else if (on_water_dash.get<bool>()) {
+            } else if (!is_water_dashing) {
                 on_dash.set(1);
             }
         }
@@ -368,9 +367,8 @@ namespace {
     IL2CPP_INTERCEPT_WITH_ORDER(100, void, SeinDashNew, ExitMove, app::SeinDashNew* this_ptr) {
         next::SeinDashNew::ExitMove(this_ptr);
         if (il2cpp::is_assignable(this_ptr, types::SeinDashNew::get_class())) {
-            if (swimming_on_surface) {
-                on_water_dash.set(0);
-            } else if (digging && !out_of_water) { // Special case if we are starting to burrow while underwater
+            if (digging) {
+                digging = false;
                 on_burrow.set(0);
             } else if (on_dash.get<bool>()) {
                 on_dash.set(0);
@@ -392,16 +390,17 @@ namespace {
     }
 
     IL2CPP_INTERCEPT_WITH_ORDER(100, void, SeinSwimming, ChangeState, app::SeinSwimming* this_ptr, app::SeinSwimming_State__Enum state) {
-        out_of_water = state == app::SeinSwimming_State__Enum::OutOfWater;
-        swimming_on_surface = state == app::SeinSwimming_State__Enum::SwimmingOnSurface;
         switch (state) {
             case app::SeinSwimming_State__Enum::Dashing:
             case app::SeinSwimming_State__Enum::SurfaceDash:
+                is_water_dashing = true;
                 on_water_dash.set(1);
                 break;
             default:
-                if (on_water_dash.get<bool>())
+                is_water_dashing = false;
+                if (on_water_dash.get<bool>()) {
                     on_water_dash.set(0);
+                }
                 break;
         }
 
@@ -420,6 +419,16 @@ namespace {
         if (il2cpp::is_assignable(this_ptr, types::SeinFeatherFlap::get_class())) {
             on_flap.set(0);
         }
+    }
+
+    IL2CPP_INTERCEPT_WITH_ORDER(100, void, SeinSpiritLeashAbility, EnterMove, app::SeinSpiritLeashAbility* this_ptr) {
+        on_grapple.set(1);
+        next::SeinSpiritLeashAbility::EnterMove(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT_WITH_ORDER(100, void, SeinSpiritLeashAbility, ExitMove, app::SeinSpiritLeashAbility* this_ptr) {
+        next::SeinSpiritLeashAbility::ExitMove(this_ptr);
+        on_grapple.set(0);
     }
 
     IL2CPP_INTERCEPT_WITH_ORDER(100, void, SeinMeditateSpell, UpdateCharacterState, app::SeinMeditateSpell* this_ptr) {
