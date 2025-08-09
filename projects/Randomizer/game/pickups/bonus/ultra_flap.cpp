@@ -18,7 +18,7 @@ namespace {
     auto is_spawning_wind_fx = false;
     auto damage_amount_cache = 0.f;
 
-    IL2CPP_INTERCEPT(Damage, void, ctor, (app::Damage* this_ptr, float amount, app::Vector2 force, app::Vector3 position, app::DamageType__Enum type, app::AbilityType__Enum ability_type, app::GameObject* sender, int32_t damage_i_d, app::DamageOwner* owner, app::SpiritShardType__Enum shard_type, bool ignore_kickback, app::DamageWeight__Enum weight, float speed_transfer, bool bypass_players_invincibility)) {
+    IL2CPP_INTERCEPT( void,Damage, ctor, app::Damage* this_ptr, float amount, app::Vector2 force, app::Vector3 position, app::DamageType__Enum type, app::AbilityType__Enum ability_type, app::GameObject* sender, int32_t damage_i_d, app::DamageOwner* owner, app::SpiritShardType__Enum shard_type, bool ignore_kickback, app::DamageWeight__Enum weight, float speed_transfer, bool bypass_players_invincibility) {
         if (damage_amount_cache != 0.f) {
             amount = flap_damage_state.get<float>();
         }
@@ -45,7 +45,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(InstantiateUtility, app::GameObject*, InstantiateImmediate_4, (app::GameObject* original, app::Vector3 position, app::Quaternion rotation, app::Object_1* owner, bool record)) {
+    IL2CPP_INTERCEPT(app::GameObject*, InstantiateUtility, InstantiateImmediate_4, app::GameObject* original, app::Vector3 position, app::Quaternion rotation, app::Object_1* owner, bool record) {
         const auto instance = next::InstantiateUtility::InstantiateImmediate_4(original, position, rotation, owner, record);
 
         if (is_spawning_wind_fx) {
@@ -107,13 +107,13 @@ namespace {
         return instance;
     }
 
-    IL2CPP_INTERCEPT(SeinFeatherFlap, void, SpawnWindFX, (app::SeinFeatherFlap* this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinFeatherFlap, SpawnWindFX, app::SeinFeatherFlap* this_ptr) {
         modloader::ScopedSetter _(is_spawning_wind_fx, true);
         damage_amount_cache = flap_damage_state.get<float>();
         next::SeinFeatherFlap::SpawnWindFX(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(WindCollision, void, PerformKnockback, (app::WindCollision* this_ptr, app::GameObject* go, app::DamageOwner* damage_owner, app::AnimationCurve* distance_to_knockback)) {
+    IL2CPP_INTERCEPT(void, WindCollision, PerformKnockback, app::WindCollision* this_ptr, app::GameObject* go, app::DamageOwner* damage_owner, app::AnimationCurve* distance_to_knockback) {
         modloader::ScopedSetter _(is_performing_wind_knockback, true);
 
         // Add all colliders of targeted entities so they don't receive double damage
