@@ -111,6 +111,7 @@ set(
         "game/behaviour_changes/luma_trial_bubbles.cpp"
         "game/behaviour_changes/trials_leaderboards.cpp"
         "game/behaviour_changes/triple_jump_shockwave.cpp"
+        "game/behaviour_changes/water_visuals.cpp"
         "game/condition_intercepts/day_night_logic.cpp"
         "game/condition_intercepts/good_hollow.cpp"
         "game/condition_intercepts/grom_built_tps.cpp"
