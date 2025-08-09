@@ -191,7 +191,7 @@ namespace core::input {
             }
         }
 
-        IL2CPP_INTERCEPT(void, PlayerInput, ClearControls, app::PlayerInput * this_ptr) {
+        IL2CPP_INTERCEPT_WITH_ORDER(0, void, PlayerInput, ClearControls, app::PlayerInput * this_ptr) {
             next::PlayerInput::ClearControls(this_ptr);
             core::input::clear_simulators();
         }

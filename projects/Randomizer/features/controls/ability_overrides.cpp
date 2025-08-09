@@ -55,10 +55,12 @@ namespace ability_override {
         IL2CPP_INTERCEPT(void, SeinGrenadeAttack, UpdateCharacterState, app::SeinGrenadeAttack * this_ptr) {
             if (has_override(app::AbilityType__Enum::Grenade)) {
                 SeinGrenadeAttack::UpdateCurrentThrow(this_ptr);
-                if (check_input(app::AbilityType__Enum::Grenade))
+                if (check_input(app::AbilityType__Enum::Grenade)) {
                     call_override(app::AbilityType__Enum::Grenade);
-            } else
+                }
+            } else {
                 next::SeinGrenadeAttack::UpdateCharacterState(this_ptr);
+            }
         }
 
         IL2CPP_INTERCEPT(void, SeinBlazeSpell, UpdateInput, app::SeinBlazeSpell * this_ptr) {

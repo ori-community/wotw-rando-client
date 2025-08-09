@@ -14,6 +14,8 @@
 #include <Modloader/console_logging_handler.h>
 
 #include <Common/settings.h>
+#include <Core/api/game/game.h>
+#include <Core/enums/game_event.h>
 #include <filesystem>
 #include <functional>
 #include <semaphore>
@@ -173,7 +175,7 @@ namespace modloader {
     }
 
     bool initialized = false;
-    IL2CPP_INTERCEPT(void, GameController, FixedUpdate, app::GameController * this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(-1000, void, GameController, FixedUpdate, app::GameController * this_ptr) {
         if (!initialized) {
             auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());
             auto version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_version());

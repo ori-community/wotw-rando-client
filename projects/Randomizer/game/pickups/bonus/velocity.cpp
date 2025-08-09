@@ -61,7 +61,7 @@ namespace {
         next::SeinBashAttack::Start(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(void, SeinBashAttack, BeginBash, app::SeinBashAttack * this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(8, void, SeinBashAttack, BeginBash, app::SeinBashAttack * this_ptr) {
         auto modifier = bash_speed.get<float>();
         this_ptr->fields.BashVelocity = initial_bash_speed * modifier;
         this_ptr->fields.EnemyThrowForce = initial_bash_enemy_force * modifier;
@@ -93,7 +93,7 @@ namespace {
         next::SeinSpiritLeashAbility::EnterMove(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(float, UnityEngine::AnimationCurve, Evaluate, app::AnimationCurve * this_ptr, float value) {
+    IL2CPP_INTERCEPT_WITH_ORDER(10, float, UnityEngine::AnimationCurve, Evaluate, app::AnimationCurve * this_ptr, float value) {
         auto output = next::UnityEngine::AnimationCurve::Evaluate(this_ptr, value);
         if (should_override_animation_curve_speed_for_bash) {
             output *= bash_speed.get<float>();

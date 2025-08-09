@@ -33,7 +33,7 @@ namespace {
         return next::GameController::get_InputLocked(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(void, SavePedestalController, BeginTeleportation, app::Vector2 teleport_target_world_position) {
+    IL2CPP_INTERCEPT_WITH_ORDER(80, void, SavePedestalController, BeginTeleportation, app::Vector2 teleport_target_world_position) {
         next::SavePedestalController::BeginTeleportation(teleport_target_world_position);
 
         const auto sein = core::api::game::player::sein();

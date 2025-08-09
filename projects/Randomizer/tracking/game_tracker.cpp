@@ -306,7 +306,7 @@ namespace randomizer::timing {
             }
         );
 
-        IL2CPP_INTERCEPT(void, PlayerAbilities, SetAbility, app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability, bool value) {
+        IL2CPP_INTERCEPT_WITH_ORDER(100, void, PlayerAbilities, SetAbility, app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability, bool value) {
             if (value && !disable_ability_tracking && TRACKED_ABILITIES.contains(ability) && timer_should_run()) {
                 save_stats->report_ability_acquired(ability);
             }
@@ -321,7 +321,7 @@ namespace randomizer::timing {
             scenes_manager_on_teleport_called_since_last_sein_door_handler_fixed_update = true;
         }
 
-        IL2CPP_INTERCEPT(void, SeinDoorHandler, FixedUpdate, app::SeinDoorHandler* this_ptr) {
+        IL2CPP_INTERCEPT_WITH_ORDER(100, void, SeinDoorHandler, FixedUpdate, app::SeinDoorHandler* this_ptr) {
             scenes_manager_on_teleport_called_since_last_sein_door_handler_fixed_update = false;
 
             const auto previous_position = core::api::game::player::get_position();
@@ -342,7 +342,7 @@ namespace randomizer::timing {
             }
         }
 
-        IL2CPP_INTERCEPT(void, SavePedestalController, OnFadedToBlack, app::SavePedestalController* this_ptr) {
+        IL2CPP_INTERCEPT_WITH_ORDER(100, void, SavePedestalController, OnFadedToBlack, app::SavePedestalController* this_ptr) {
             const auto previous_position = core::api::game::player::get_position();
             next::SavePedestalController::OnFadedToBlack(this_ptr);
 

@@ -599,7 +599,7 @@ namespace randomizer::main_menu_seed_info {
             update_difficulty_menu_items(true);
         });
 
-        IL2CPP_INTERCEPT(void, SaveSlotsUI, OnEnable, app::SaveSlotsUI * this_ptr) {
+        IL2CPP_INTERCEPT_WITH_ORDER(0, void, SaveSlotsUI, OnEnable, app::SaveSlotsUI * this_ptr) {
             modloader::ScopedSetter setter(is_in_save_slots_ui_on_enable, true);
             next::SaveSlotsUI::OnEnable(this_ptr);
         }

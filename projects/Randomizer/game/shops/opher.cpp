@@ -82,7 +82,7 @@ namespace {
         return true;
     }
 
-    IL2CPP_INTERCEPT(bool, WeaponmasterItem, get_IsVisible, app::WeaponmasterItem * this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(10, bool, WeaponmasterItem, get_IsVisible, app::WeaponmasterItem * this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::WeaponmasterItem::get_class()) && this_ptr->fields.Upgrade != nullptr) {
             auto key = std::make_pair(
                 this_ptr->fields.Upgrade->fields.AcquiredAbilityType,
@@ -92,7 +92,7 @@ namespace {
             return opher_shop().slot(key)->visibility == SlotVisibility::Visible;
         }
 
-        return true; // get_IsVisible(this_ptr);
+        return next::WeaponmasterItem::get_IsVisible(this_ptr);
     }
 
     IL2CPP_INTERCEPT(bool, WeaponmasterItem, get_IsLocked, app::WeaponmasterItem * this_ptr) {

@@ -232,7 +232,7 @@ namespace randomizer::game::map {
             next::GameMapUI::FixedUpdate(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(float, UnityEngine::AnimationCurve, Evaluate, app::AnimationCurve* this_ptr, float time) {
+        IL2CPP_INTERCEPT_WITH_ORDER(0, float, UnityEngine::AnimationCurve, Evaluate, app::AnimationCurve* this_ptr, float time) {
             if (is_handling_map_scrolling) {
                 return next::UnityEngine::AnimationCurve::Evaluate(this_ptr, time) * core::settings::map_pan_speed();
             }
@@ -240,7 +240,7 @@ namespace randomizer::game::map {
             return next::UnityEngine::AnimationCurve::Evaluate(this_ptr, time);
         }
 
-        IL2CPP_INTERCEPT(void, AreaMapNavigation, HandleMapScrolling, app::AreaMapNavigation* this_ptr) {
+        IL2CPP_INTERCEPT_WITH_ORDER(-10, void, AreaMapNavigation, HandleMapScrolling, app::AreaMapNavigation* this_ptr) {
             ScopedSetter _(is_handling_map_scrolling, true);
             next::AreaMapNavigation::HandleMapScrolling(this_ptr);
         }

@@ -35,7 +35,7 @@ namespace {
     // we set the damage type back to Grenade to still make it possible to melt
     // ice and light lanterns while smuggling the information about Sentry
     // into the ability_type field of the Damage.
-    IL2CPP_INTERCEPT(void, Damage, ctor, app::Damage * this_ptr, float amount, app::Vector2 force, app::Vector3 position, app::DamageType__Enum type, app::AbilityType__Enum ability_type, app::GameObject* sender, int32_t damage_i_d, app::DamageOwner* owner, app::SpiritShardType__Enum shard_type, bool ignore_kickback, app::DamageWeight__Enum weight, float speed_transfer, bool bypass_players_invincibility) {
+    IL2CPP_INTERCEPT_WITH_ORDER(0, void, Damage, ctor, app::Damage * this_ptr, float amount, app::Vector2 force, app::Vector3 position, app::DamageType__Enum type, app::AbilityType__Enum ability_type, app::GameObject* sender, int32_t damage_i_d, app::DamageOwner* owner, app::SpiritShardType__Enum shard_type, bool ignore_kickback, app::DamageWeight__Enum weight, float speed_transfer, bool bypass_players_invincibility) {
         if (is_inside_grenade_burst_deal_damage && type == app::DamageType__Enum::SpiritSentry) {
             type = app::DamageType__Enum::Grenade;
             ability_type = app::AbilityType__Enum::SpiritSentrySpell;

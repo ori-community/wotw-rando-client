@@ -260,7 +260,7 @@ namespace randomizer::game {
             }
         }
 
-        IL2CPP_INTERCEPT(void, SaveSlotsUI, OnEnable, app::SaveSlotsUI * this_ptr) {
+        IL2CPP_INTERCEPT_WITH_ORDER(0, void, SaveSlotsUI, OnEnable, app::SaveSlotsUI * this_ptr) {
             ScopedSetter setter(prevent_preload_on_selecting_empty_save, true);
             next::SaveSlotsUI::OnEnable(this_ptr);
         }

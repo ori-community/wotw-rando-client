@@ -133,7 +133,7 @@ namespace {
         explode = false;
     }
 
-    IL2CPP_INTERCEPT(void, SeinGrenadeAttack, UpdateCharacterState, app::SeinGrenadeAttack* this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(100, void, SeinGrenadeAttack, UpdateCharacterState, app::SeinGrenadeAttack* this_ptr) {
         modloader::ScopedSetter setter(override_on_ground, charge_in_air.get<bool>());
         next::SeinGrenadeAttack::UpdateCharacterState(this_ptr);
     }

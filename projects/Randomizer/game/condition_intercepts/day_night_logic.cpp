@@ -216,7 +216,7 @@ namespace {
         next::SwampNightDayTransition::UpdateStateBasedOnCondition(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(bool, PlayerAbilities, HasAbility, app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability) {
+    IL2CPP_INTERCEPT_WITH_ORDER(10, bool, PlayerAbilities, HasAbility, app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability) {
         return override_has_ability ? is_day() : next::PlayerAbilities::HasAbility(this_ptr, ability);
     }
 

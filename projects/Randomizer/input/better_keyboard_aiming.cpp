@@ -21,7 +21,7 @@ namespace {
         next::BashAttackGame::UpdateDPadAngle(smooth, angle_in_out, kbd_speed_in_out, kbd_angle_in_out, kbd_clockwise_in_out);
     }
 
-    IL2CPP_INTERCEPT(void, SeinBashAttack, BeginBash, app::SeinBashAttack* this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(10, void, SeinBashAttack, BeginBash, app::SeinBashAttack* this_ptr) {
         next::SeinBashAttack::BeginBash(this_ptr);
         updated_keyboard_angle_this_attack = false;
     }

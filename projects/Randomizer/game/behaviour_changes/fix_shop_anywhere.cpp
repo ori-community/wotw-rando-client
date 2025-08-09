@@ -8,12 +8,12 @@ namespace {
 
     core::api::uber_states::UberState fix_enabled_state(UberStateGroup::RandoConfig, 16);
 
-    IL2CPP_INTERCEPT(void, MenuScreenManager, ShowMenuScreen, app::MenuScreenManager* this_ptr, app::MenuScreenManager_Screens__Enum screen, bool immediate, bool play_sound, bool pause) {
+    IL2CPP_INTERCEPT_WITH_ORDER(-10, void, MenuScreenManager, ShowMenuScreen, app::MenuScreenManager* this_ptr, app::MenuScreenManager_Screens__Enum screen, bool immediate, bool play_sound, bool pause) {
         modloader::ScopedSetter _(is_in_menu_screen_manager_show_menu_screen, true);
         next::MenuScreenManager::ShowMenuScreen(this_ptr, screen, immediate, play_sound, pause);
     }
 
-    IL2CPP_INTERCEPT(void, MenuScreenManager, ChangeScreen, app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen) {
+    IL2CPP_INTERCEPT_WITH_ORDER(-100, void, MenuScreenManager, ChangeScreen, app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen) {
         if (
             (
                 screen == app::MenuScreenManager_Screens__Enum::ShardUpgradeShop ||

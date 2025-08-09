@@ -37,7 +37,7 @@ namespace {
         { std::make_pair(app::GameWorldAreaID__Enum::WillowsEnd, 6432), TeleporterType::Shriek },
     };
 
-    IL2CPP_INTERCEPT(void, Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation, SetAreaState, app::PlayerUberStateAreaMapInformation * this_ptr, app::GameWorldAreaID__Enum area_id, int index, app::WorldMapAreaState__Enum state, app::Vector3 position) {
+    IL2CPP_INTERCEPT_WITH_ORDER(0, void, Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation, SetAreaState, app::PlayerUberStateAreaMapInformation * this_ptr, app::GameWorldAreaID__Enum area_id, int index, app::WorldMapAreaState__Enum state, app::Vector3 position) {
         next::Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::SetAreaState(this_ptr, area_id, index, state, position);
         if (state != app::WorldMapAreaState__Enum::Visited) {
             return;

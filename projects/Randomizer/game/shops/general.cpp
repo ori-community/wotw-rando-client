@@ -65,8 +65,9 @@ namespace {
     }
 
     float stop_overwrite_time = 4.0f;
-    IL2CPP_INTERCEPT(void, GameController, FixedUpdate, app::GameController * this_ptr) {
-        next::GameController::FixedUpdate(this_ptr);
+
+    [[maybe_unused]]
+    auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
         if (stop_shop_overwrite) {
             stop_overwrite_time -= TimeUtility::get_fixedDeltaTime();
             if (stop_overwrite_time < 0.0f) {
@@ -74,7 +75,7 @@ namespace {
                 should_shop_overwrite = false;
             }
         }
-    }
+    });
 
     IL2CPP_INTERCEPT(void, ShopkeeperScreen, Hide, app::ShopkeeperScreen * this_ptr, bool change) {
         next::ShopkeeperScreen::Hide(this_ptr, change);

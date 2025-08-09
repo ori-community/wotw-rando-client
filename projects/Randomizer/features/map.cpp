@@ -192,7 +192,7 @@ namespace {
      * Always show "Focus Objective" on the map since "Focus Ori" is broken on KBM (they
      * calculate distance from the cursor instead of screen center).
      */
-    IL2CPP_INTERCEPT(void, GameMapUI, NormalInput, app::GameMapUI* this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(10, void, GameMapUI, NormalInput, app::GameMapUI* this_ptr) {
         const auto focus_ori_button = types::Input_Cmd::get_class()->static_fields->MapFocusOri;
         const auto focus_ori_button_pressed = focus_ori_button->fields.IsPressed && !focus_ori_button->fields.WasPressed && !focus_ori_button->fields.Used;
 

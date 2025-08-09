@@ -18,7 +18,7 @@ namespace {
     auto is_spawning_wind_fx = false;
     auto damage_amount_cache = 0.f;
 
-    IL2CPP_INTERCEPT( void,Damage, ctor, app::Damage* this_ptr, float amount, app::Vector2 force, app::Vector3 position, app::DamageType__Enum type, app::AbilityType__Enum ability_type, app::GameObject* sender, int32_t damage_i_d, app::DamageOwner* owner, app::SpiritShardType__Enum shard_type, bool ignore_kickback, app::DamageWeight__Enum weight, float speed_transfer, bool bypass_players_invincibility) {
+    IL2CPP_INTERCEPT_WITH_ORDER(0, void, Damage, ctor, app::Damage* this_ptr, float amount, app::Vector2 force, app::Vector3 position, app::DamageType__Enum type, app::AbilityType__Enum ability_type, app::GameObject* sender, int32_t damage_i_d, app::DamageOwner* owner, app::SpiritShardType__Enum shard_type, bool ignore_kickback, app::DamageWeight__Enum weight, float speed_transfer, bool bypass_players_invincibility) {
         if (damage_amount_cache != 0.f) {
             amount = flap_damage_state.get<float>();
         }

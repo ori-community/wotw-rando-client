@@ -107,13 +107,13 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(bool, BuilderItem, get_IsVisible, app::BuilderItem* this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(0, bool, BuilderItem, get_IsVisible, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
             auto slot = grom_shop().slot(this_ptr->fields.Project->fields.UberState);
             return slot != nullptr && slot->visibility == SlotVisibility::Visible;
-        } else {
-            return next::BuilderItem::get_IsVisible(this_ptr);
         }
+
+        return next::BuilderItem::get_IsVisible(this_ptr);
     }
 
     IL2CPP_INTERCEPT(bool, BuilderItem, get_IsLocked, app::BuilderItem* this_ptr) {

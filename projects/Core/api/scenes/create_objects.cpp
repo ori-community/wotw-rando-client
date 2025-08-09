@@ -74,12 +74,12 @@ namespace core::api::scenes {
             }
         }
 
-        IL2CPP_INTERCEPT(void, GameController, FixedUpdate, app::GameController * this_ptr) {
-            next::GameController::FixedUpdate(this_ptr);
-
-            for (const auto& object_spawn_by_scene : pending_object_spawns_by_scene)
+        [[maybe_unused]]
+        auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+            for (const auto& object_spawn_by_scene : pending_object_spawns_by_scene) {
                 force_load_scene(object_spawn_by_scene.first, &on_loading_callback);
-        }
+            }
+        });
     } // namespace
 
     void add_item(const std::string& name, app::Vector3 position, std::optional<app::Vector3> rotation, std::optional<app::Vector3> scale, std::string_view scene, std::vector<std::string> path) {

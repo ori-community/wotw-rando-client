@@ -16,10 +16,12 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
+#include <Core/api/game/game.h>
+#include <Core/enums/game_event.h>
+#include <Core/events/task.h>
+#include <Core/mood_guid.h>
 #include <format>
 #include <string>
-#include <Core/mood_guid.h>
-#include <Core/events/task.h>
 
 using namespace app::classes;
 
@@ -68,10 +70,10 @@ namespace randomizer::features::credits {
         }
 
         float time = 0.0f;
-        IL2CPP_INTERCEPT(void, GameController, FixedUpdate, app::GameController * this_ptr) {
-            next::GameController::FixedUpdate(this_ptr);
-            const auto credits_controller = types::CreditsController::get_class()
-                                 ->static_fields->Instance;
+
+        [[maybe_unused]]
+        auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+            const auto credits_controller = types::CreditsController::get_class()->static_fields->Instance;
             if (credits_controller != nullptr && CreditsController::IsCreditsTimelinePlaying(credits_controller)) {
                 if (!Game::UI::get_MainMenuVisible()) {
                     time = Moon::Timeline::MoonTimeline::get_CurrentTime(credits_controller->fields.CreditsTimeline);
@@ -82,7 +84,7 @@ namespace randomizer::features::credits {
                 credits.reset();
                 credits.unload();
             }
-        }
+        });
 
         [[maybe_unused]]
         auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);

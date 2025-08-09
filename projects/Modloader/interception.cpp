@@ -35,24 +35,36 @@ namespace modloader {
         void commit_intercepts() {
             std::unordered_map<void*, void*> intercept_cache;
 
+            #ifdef DEBUG
+            std::unordered_map<void*, std::vector<const Intercept*>> binding_pointer_to_unordered_intercepts;
+            #endif
+
             detours::start_transaction();
 
             std::ranges::sort(intercepts(), [](const Intercept* a, const Intercept* b) {
-                return a->sort_order < b->sort_order;
+                return a->sort_order.value_or(0) < b->sort_order.value_or(0);
             });
 
             for (const auto& intercept: intercepts()) {
                 *intercept->original_pointer = *intercept->binding_pointer;
 
+                #ifdef DEBUG
+                if (!intercept->sort_order.has_value()) {
+                    binding_pointer_to_unordered_intercepts[*intercept->binding_pointer].push_back(intercept);
+                }
+                #endif
+
                 if (intercept->intercept_pointer) {
                     auto it = intercept_cache.find(*intercept->binding_pointer);
                     if (it != intercept_cache.end()) {
-                        debug("initialize", std::format("Changing intercept address ({}, {})", *intercept->original_pointer, it->second));
+                        debug("intercept", std::format("Changing intercept address ({}, {})", *intercept->original_pointer, it->second));
                         *intercept->original_pointer = it->second;
                     }
 
                     void* detour = detours::do_intercept(
-                        std::format("{} ({}, {})", intercept->name.data(), memory::get_game_assembly_address(), reinterpret_cast<uint64_t>(*intercept->binding_pointer)),
+                        std::format(
+                            "{} ({}, {})", intercept->name.data(), memory::get_game_assembly_address(), reinterpret_cast<uint64_t>(*intercept->binding_pointer)
+                        ),
                         intercept->original_pointer,
                         intercept->intercept_pointer
                     );
@@ -64,6 +76,35 @@ namespace modloader {
             }
 
             detours::commit("intercepts");
+
+            #ifdef DEBUG
+            for (const auto& equal_unordered_intercepts: binding_pointer_to_unordered_intercepts | std::views::values) {
+                if (equal_unordered_intercepts.size() <= 1) {
+                    continue;
+                }
+
+                warn(
+                    "intercept",
+                    std::format(
+                        "Intercept {} exists multiple times with undefined sorting order. "
+                        "Please use IL2CPP_INTERCEPT_WITH_ORDER and assign orders explicitly:",
+                        equal_unordered_intercepts.at(0)->name
+                    )
+                );
+
+                for (const auto& unordered_intercept: equal_unordered_intercepts) {
+                    warn(
+                        "intercept",
+                        std::format(
+                            "- {} ({}:{})",
+                            unordered_intercept->name,
+                            unordered_intercept->location.file_name(),
+                            unordered_intercept->location.line()
+                        )
+                    );
+                }
+            }
+            #endif
         }
 
         void initialize() {
@@ -84,17 +125,23 @@ namespace modloader {
         }
 
         Binding::Binding(uint64_t address, void** ptr, std::string_view s) :
-            name(s), offset(address), pointer(ptr) {
+            name(s),
+            offset(address),
+            pointer(ptr) {
             bindings().push_back(this);
         }
 
-        Intercept::Intercept(void** binding_ptr, void** original, void* intercepted, std::string_view name, int order)
-            : Intercept(binding_ptr, original, intercepted, name) {
+        Intercept::Intercept(void** binding_ptr, void** original, void* intercepted, std::string_view name, int order, std::source_location location) :
+            Intercept(binding_ptr, original, intercepted, name, location) {
             sort_order = order;
         }
 
-        Intercept::Intercept(void** binding_ptr, void** original, void* intercepted, std::string_view name) :
-            name(name), binding_pointer(binding_ptr), original_pointer(original), intercept_pointer(intercepted) {
+        Intercept::Intercept(void** binding_ptr, void** original, void* intercepted, std::string_view name, std::source_location location) :
+            name(name),
+            binding_pointer(binding_ptr),
+            original_pointer(original),
+            intercept_pointer(intercepted),
+            location(location) {
             intercepts().push_back(this);
         }
     } // namespace interception

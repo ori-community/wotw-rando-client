@@ -98,7 +98,7 @@ namespace {
         lagoon_contact_switch_door_ref_just_removed = nullptr;
     }
 
-    IL2CPP_INTERCEPT(void, UnityEngine::GameObject, SetActive, app::GameObject* this_ptr, bool active) {
+    IL2CPP_INTERCEPT_WITH_ORDER(10, void, UnityEngine::GameObject, SetActive, app::GameObject* this_ptr, bool active) {
         // If we encountered the SetActive call the resulted from the jank in ActivateAnimatorSystem,
         // prevent that call and determine whether the door should be open or not by ourself.
         if (lagoon_contact_switch_door_ref_just_removed != nullptr && lagoon_contact_switch_door_ref_just_removed->is_valid() &&

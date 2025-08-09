@@ -110,7 +110,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(void, MenuScreenManager, ShowMenuScreen, app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen, bool immediate, bool play_sound, bool pause) {
+    IL2CPP_INTERCEPT_WITH_ORDER(0, void, MenuScreenManager, ShowMenuScreen, app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen, bool immediate, bool play_sound, bool pause) {
         next::MenuScreenManager::ShowMenuScreen(this_ptr, screen, immediate, play_sound, pause);
         apply_screen_aspect_scaling(screen);
     }

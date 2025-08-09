@@ -68,7 +68,7 @@ namespace {
 
     bool skipped_logos = false;
     float t = 0.f;
-    IL2CPP_INTERCEPT(void, IntroLogosSkip, Update, app::IntroLogosSkip * this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(-10, void, IntroLogosSkip, Update, app::IntroLogosSkip * this_ptr) {
         t += TimeUtility::get_deltaTime();
         if (!skipped_logos && t > 0.3f) {
             IntroLogosSkip::SkipLogos(this_ptr);

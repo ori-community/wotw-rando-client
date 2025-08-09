@@ -7,6 +7,8 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
+#include <Core/api/game/game.h>
+#include <Core/enums/game_event.h>
 #include <unordered_map>
 #include <utility>
 
@@ -46,12 +48,12 @@ namespace core::api::uber_states {
             }
         }
 
-        IL2CPP_INTERCEPT(void, GameController, Update, app::GameController * this_ptr) {
-            next::GameController::Update(this_ptr);
+        [[maybe_unused]]
+        auto on_update = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::Before, [](auto, auto) {
             for (auto const& id: polled_virtual_states) {
                 check_state_change(id, virtual_states[id].value.get());
             }
-        }
+        });
 
         [[maybe_unused]] auto virtual_notifier = notification_bus().register_handler(virtual_notify_change);
     } // namespace

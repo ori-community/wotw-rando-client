@@ -7,7 +7,7 @@
 #include <Core/api/game/player.h>
 
 namespace {
-    IL2CPP_INTERCEPT(void, SavePedestalController, BeginTeleportation, app::Vector2 position) {
+    IL2CPP_INTERCEPT_WITH_ORDER(100, void, SavePedestalController, BeginTeleportation, app::Vector2 position) {
         core::api::game::event_bus().trigger_event(GameEvent::Teleport, EventTiming::Before);
         next::SavePedestalController::BeginTeleportation(position);
     }

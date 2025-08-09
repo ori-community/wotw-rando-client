@@ -252,8 +252,9 @@ namespace randomizer::features::wheel {
         }
 
         IL2CPP_INTERCEPT(void, UnityEngine::GameObject, SetActive, app::GameObject * this_ptr, bool value) {
-            if (override_set_active)
+            if (override_set_active) {
                 value = override_set_active_value;
+            }
 
             next::UnityEngine::GameObject::SetActive(this_ptr, value);
         }

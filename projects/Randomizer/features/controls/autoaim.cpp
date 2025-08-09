@@ -49,7 +49,7 @@ namespace {
         next::SeinChakramSpell::UpdateCharacterState(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(void, SeinBowAttack, UpdateCharacterState, app::SeinBowAttack * this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(10, void, SeinBowAttack, UpdateCharacterState, app::SeinBowAttack * this_ptr) {
         modloader::ScopedSetter setter(overwrite_attackables, !core::settings::autoaim());
         next::SeinBowAttack::UpdateCharacterState(this_ptr);
     }
