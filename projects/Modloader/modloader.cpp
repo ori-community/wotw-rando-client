@@ -133,7 +133,7 @@ namespace modloader {
         }
 
         trace(MessageType::Info, "initialize", "Performing intercepts.");
-        interception::interception_init();
+        interception::initialize();
 
         il2cpp::load_all_types();
         event_bus().trigger_event(ModloaderEvent::InjectionComplete);
@@ -166,7 +166,7 @@ namespace modloader {
         shutdown_requested = true;
         app::classes::J2i::Net::XInputWrapper::XboxController::StopPolling();
         wait_for_exit.acquire();
-        interception::interception_detach();
+        interception::detach();
         // TODO: Make these not do weird things to our memory. (Crashes with a DEP violation)
         //win::bootstrap::bootstrap_shutdown();
         //win::common::free_library_and_exit_thread("Modloader.dll");
