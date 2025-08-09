@@ -28,6 +28,8 @@
 #include <Randomizer/game/map/filter.h>
 #include <Randomizer/game/map/map.h>
 #include <Randomizer/game/pickups/quests.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/tracking/game_tracker.h>
 #include <unordered_map>
 
 using namespace modloader;
@@ -258,6 +260,29 @@ namespace {
         this_ptr->fields._Navigation_k__BackingField->fields.AreaMapZoomLevel = original_zoom / scaling_factor;
         this_ptr->fields._Navigation_k__BackingField->fields.WorldMapZoomLevel = original_zoom / scaling_factor;
         this_ptr->fields._IconScaler_k__BackingField->fields.MaxScaleFactor = original_scale / scaling_factor;
+    }
+
+    IL2CPP_INTERCEPT(void, RuntimeGameWorldArea, UpdateCompletionAmount, app::RuntimeGameWorldArea* this_ptr) {
+        const auto pickup_count_by_area = randomizer::game_seed().info().pickup_count_by_area;
+        const auto game_area = convert_to_game_area(this_ptr->fields.Area->fields.WorldMapAreaUniqueID);
+
+        const auto total_pickups_in_this_area_it = pickup_count_by_area.find(game_area);
+        const auto total_pickups_in_this_area = total_pickups_in_this_area_it == pickup_count_by_area.end()
+            ? 0
+            : total_pickups_in_this_area_it->second;
+
+        if (total_pickups_in_this_area == 0) {
+            this_ptr->fields.m_completionAmount = 1.f;
+            return;
+        }
+
+        const auto checkpoint_stats = randomizer::timing::get_checkpoint_game_stats();
+        const auto collected_pickups_in_this_area_it = checkpoint_stats.pickups_per_area.find(game_area);
+        const auto collected_pickups_in_this_area = collected_pickups_in_this_area_it == checkpoint_stats.pickups_per_area.end()
+            ? 0
+            : collected_pickups_in_this_area_it->second;
+
+        this_ptr->fields.m_completionAmount = static_cast<float>(collected_pickups_in_this_area) / static_cast<float>(total_pickups_in_this_area);
     }
 
     bool discover_everything() {
