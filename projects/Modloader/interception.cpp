@@ -88,6 +88,11 @@ namespace modloader {
             bindings().push_back(this);
         }
 
+        Intercept::Intercept(void** binding_ptr, void** original, void* intercepted, std::string_view name, int order)
+            : Intercept(binding_ptr, original, intercepted, name) {
+            sort_order = order;
+        }
+
         Intercept::Intercept(void** binding_ptr, void** original, void* intercepted, std::string_view name) :
             name(name), binding_pointer(binding_ptr), original_pointer(original), intercept_pointer(intercepted) {
             intercepts().push_back(this);
