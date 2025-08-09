@@ -33,6 +33,7 @@ namespace randomizer::archipelago {
         std::string get_shop_icon(const location_data::Location& location);
         const std::optional<ArchipelagoSeedGenerator>& current_seed_generator();
         common::EventBus<State>& event_bus() { return m_event_bus; }
+        bool is_active() const { return m_is_active; }
 
     private:
         void send_message(const nlohmann::json& message);
@@ -41,7 +42,11 @@ namespace randomizer::archipelago {
         void handle_server_message(messages::ap_server_message_t const& message);
         std::string get_player_name(int player);
 
-        bool m_should_connect = false;
+        /**
+         * Whether the AP client is active and should try
+         * to connect to the game.
+         */
+        bool m_is_active = false;
         ix::WebSocket m_websocket;
         std::string m_slot_name; // aka player name
         int m_slot_id {0};

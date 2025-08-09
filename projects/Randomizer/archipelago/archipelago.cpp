@@ -44,6 +44,10 @@ namespace randomizer::archipelago {
     // On location checked
     [[maybe_unused]]
     auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
+        if (!archipelago_client().is_active()) {
+            return;
+        }
+
         const auto locations_on_state = location_collection().locations_on_state(params.state);
         for (const auto& location: locations_on_state) {
             // If we just collected this location, ...
@@ -63,8 +67,10 @@ namespace randomizer::archipelago {
 
     [[maybe_unused]]
     auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
-        archipelago_client().request_sync();
-        modloader::debug("archipelago", "Resync requested: Restore Checkpoint");
+        if (archipelago_client().is_active()) {
+            archipelago_client().request_sync();
+            modloader::debug("archipelago", "Resync requested: Restore Checkpoint");
+        }
     });
 
     [[maybe_unused]]
@@ -84,7 +90,7 @@ namespace randomizer::archipelago {
         m_websocket.setPingInterval(30);
         m_websocket.disableAutomaticReconnection();
         m_websocket.start();
-        m_should_connect = true;
+        m_is_active = true;
         modloader::debug("archipelago", "AP client connected.");
     }
 
@@ -92,7 +98,7 @@ namespace randomizer::archipelago {
         m_scouted_locations.clear();
         m_shop_icons.clear();
         m_current_seed_generator = std::nullopt;
-        m_should_connect = false;
+        m_is_active = false;
         m_websocket.stop();
         modloader::debug("archipelago", "AP client disconnected.");
     }
@@ -153,10 +159,10 @@ namespace randomizer::archipelago {
                 auto closed_reason = std::format("websocket closed '{}': {}", msg->closeInfo.code, msg->closeInfo.reason);
                 modloader::warn("archipelago", closed_reason);
 
-                if (m_should_connect) {
+                if (m_is_active) {
                     // If we are in here we did not expect this disconnect, underlying socket will auto reconnect.
                     core::events::schedule_task(3.f, [this] {
-                        if (m_should_connect && !is_connected()) {
+                        if (m_is_active && !is_connected()) {
                             connect(m_websocket.getUrl(), m_slot_name, m_password);
                         }
                     });
@@ -176,7 +182,7 @@ namespace randomizer::archipelago {
                     .show_box = true,
                 });
                 core::events::schedule_task(10.f, [this]() {
-                    if (m_should_connect) {
+                    if (m_is_active) {
                         connect(m_websocket.getUrl(), m_slot_name, m_password);
                     }
                 });
