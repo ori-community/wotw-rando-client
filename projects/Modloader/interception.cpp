@@ -42,7 +42,7 @@ namespace modloader {
             detours::start_transaction();
 
             std::ranges::sort(intercepts(), [](const Intercept* a, const Intercept* b) {
-                return a->sort_order.value_or(0) < b->sort_order.value_or(0);
+                return a->sort_order.value_or(0) > b->sort_order.value_or(0);
             });
 
             for (const auto& intercept: intercepts()) {
