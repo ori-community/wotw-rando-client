@@ -14,12 +14,19 @@ namespace modloader::interception {
     };
 
     struct IL2CPP_MODLOADER_DLLEXPORT Intercept {
+        Intercept(void** binding_ptr, void** original, void* intercepted, std::string_view name, int order);
         Intercept(void** binding_ptr, void** original, void* intercepted, std::string_view name);
 
         std::string_view name;
         void** binding_pointer;
         void** original_pointer;
         void* intercept_pointer;
+
+        /**
+         * Sort order of this intercept. Usually used with the IL2CPP_INTERCEPT_WITH_ORDER macro.
+         * Higher values will be intercepted later, so intercepts with lower values
+         * will run before intercepts with higher values.
+         */
         int sort_order = 0;
     };
 
