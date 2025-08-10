@@ -377,7 +377,7 @@ namespace randomizer::online {
             if (
                 it != m_message_boxes.end() &&
                 it->second->state != message_handle_t::QueuedMessageState::Finished &&
-                it->second->state != message_handle_t::MessageState::FadingOut
+                it->second->state != message_handle_t::QueuedMessageState::FadingOut
             ) {
                 box = it->second->message.lock();
                 it->second->time_left = message->time();

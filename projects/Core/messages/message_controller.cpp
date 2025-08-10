@@ -72,7 +72,7 @@ namespace core::messages {
                 data.message->get_visibility() == api::messages::MessageBox::Visibility::FadingIn;
 
             if (message_visible && *data.handle->time_left <= data.message->fade_out().get()) {
-                data.handle->state = message_handle_t::MessageState::FadingOut;
+                data.handle->state = message_handle_t::QueuedMessageState::FadingOut;
                 data.message->hide(data.info.instant_fade);
             }
 

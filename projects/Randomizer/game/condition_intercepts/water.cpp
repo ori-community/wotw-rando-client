@@ -21,7 +21,7 @@ namespace {
         return !water_damage_override && clean_water_state.get<bool>();
     }
 
-    [[maybe_unused]] std::shared_ptr<core::reactivity::ReactiveEffect> water_effect;
+    [[maybe_unused]] std::shared_ptr<const core::reactivity::ReactiveEffect> water_effect;
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         water_effect = core::reactivity::watch_effect().effect({clean_water_state}).after([] {

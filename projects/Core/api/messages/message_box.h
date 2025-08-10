@@ -97,7 +97,7 @@ namespace core::api::messages {
         Property<float> m_right_padding{1.f};
         Property<bool> m_expand_background_to_box{false};
 
-        std::shared_ptr<reactivity::ReactiveEffect> m_tighten_effect;
+        std::shared_ptr<const reactivity::ReactiveEffect> m_tighten_effect;
     };
 
     NLOHMANN_JSON_SERIALIZE_ENUM(

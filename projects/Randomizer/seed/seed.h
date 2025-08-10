@@ -46,7 +46,7 @@ namespace randomizer::seed {
             std::variant<int, core::api::uber_states::UberState> condition;
             bool previous_value = false;
             int command_id = 0;
-            std::shared_ptr<core::reactivity::ReactiveEffect> reactive_effect;
+            std::shared_ptr<const core::reactivity::ReactiveEffect> reactive_effect;
         };
 
         std::vector<Condition> conditions;
