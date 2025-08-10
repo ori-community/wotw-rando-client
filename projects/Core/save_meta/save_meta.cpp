@@ -225,18 +225,18 @@ namespace core::save_meta {
             return read_save_meta_from_byte_array(data, false);
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateValueStore, void, ctor_2, (app::UberStateValueStore * this_ptr, app::Byte__Array* data)) {
+        IL2CPP_INTERCEPT(void, Moon::UberStateValueStore, ctor_2, app::UberStateValueStore * this_ptr, app::Byte__Array* data) {
             _before_uber_value_store_loaded_event_bus.trigger_event(data);
             next::Moon::UberStateValueStore::ctor_2(this_ptr, read_save_meta_from_byte_array_with_current_parameters(data).vanilla_data);
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateValueStore, void, ctor_3, (app::UberStateValueStore * this_ptr, app::Byte__Array* data, int actual_size)) {
+        IL2CPP_INTERCEPT(void, Moon::UberStateValueStore, ctor_3, app::UberStateValueStore * this_ptr, app::Byte__Array* data, int actual_size) {
             _before_uber_value_store_loaded_event_bus.trigger_event(data);
             auto result = read_save_meta_from_byte_array_with_current_parameters(data);
             next::Moon::UberStateValueStore::ctor_3(this_ptr, result.vanilla_data, result.vanilla_data_size);
         }
 
-        IL2CPP_INTERCEPT(SaveGameController, void, LoadUberState_1, (app::SaveGameController * this_ptr, app::String* file_name)) {
+        IL2CPP_INTERCEPT(void, SaveGameController, LoadUberState_1, app::SaveGameController * this_ptr, app::String* file_name) {
             ScopedSetter setter1(is_loading_save_file, true);
 
             auto backup_slot = SaveSlotsManager::get_BackupIndex();
@@ -245,7 +245,7 @@ namespace core::save_meta {
             next::SaveGameController::LoadUberState_1(this_ptr, file_name);
         }
 
-        IL2CPP_INTERCEPT(SaveGameController, void, LoadUberState_2, (app::SaveGameController * this_ptr, app::Byte__Array* data)) {
+        IL2CPP_INTERCEPT(void, SaveGameController, LoadUberState_2, app::SaveGameController * this_ptr, app::Byte__Array* data) {
             ScopedSetter setter1(is_loading_save_file, true);
 
             auto backup_slot = SaveSlotsManager::get_BackupIndex();
@@ -254,7 +254,7 @@ namespace core::save_meta {
             next::SaveGameController::LoadUberState_2(this_ptr, data);
         }
 
-        IL2CPP_INTERCEPT(SaveGameController, bool, PerformLoad, (app::SaveGameController * this_ptr)) {
+        IL2CPP_INTERCEPT(bool, SaveGameController, PerformLoad, app::SaveGameController * this_ptr) {
             auto save_slot_index = SaveSlotsManager::get_CurrentSlotIndex();
             auto backup_slot = SaveSlotsManager::get_BackupIndex();
 
@@ -281,14 +281,14 @@ namespace core::save_meta {
             return next::SaveGameController::PerformLoad(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(GameController, void, ctor, (app::GameController * this_ptr)) {
+        IL2CPP_INTERCEPT(void, GameController, ctor, app::GameController * this_ptr) {
             next::GameController::ctor(this_ptr);
 
             // Reserve 2MB for temporary checkpoints
             this_ptr->fields.SaveGameController->fields.m_saveSnapshot = types::Byte::create_array(1024 * 1024 * 2);
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateValueStore, app::Byte__Array*, ToByteArray, (app::UberStateValueStore * this_ptr)) {
+        IL2CPP_INTERCEPT(app::Byte__Array*, Moon::UberStateValueStore, ToByteArray, app::UberStateValueStore * this_ptr) {
             utils::ByteStream game_save_data(next::Moon::UberStateValueStore::ToByteArray(this_ptr));
 
             // Get SaveMeta data
@@ -299,7 +299,7 @@ namespace core::save_meta {
             return types::Byte::create_array(stream.peek_to_end());
         }
 
-        IL2CPP_INTERCEPT(DeathUberStateManager, void, OnDeath, ()) {
+        IL2CPP_INTERCEPT(void, DeathUberStateManager, OnDeath) {
             ScopedSetter setter(is_dying, true);
             next::DeathUberStateManager::OnDeath();
         }

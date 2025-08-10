@@ -8,7 +8,7 @@ namespace randomizer::game::map {
     bool teleport_anywhere = false;
 
     namespace {
-        IL2CPP_INTERCEPT(RuntimeWorldMapIcon, bool, CanBeTeleportedTo, (app::RuntimeWorldMapIcon * this_ptr)) {
+        IL2CPP_INTERCEPT(bool, RuntimeWorldMapIcon, CanBeTeleportedTo, app::RuntimeWorldMapIcon * this_ptr) {
             if (teleport_anywhere && core::api::game::debug_menu::should_prevent_cheats())
                 return true;
 

@@ -43,35 +43,35 @@
 using namespace app::classes;
 
 namespace {
-    IL2CPP_INTERCEPT(frameworks::loading::Prewarmers::ShaderPrewarmOperation, bool, Begin, (app::ShaderPrewarmOperation * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, frameworks::loading::Prewarmers::ShaderPrewarmOperation, Begin, app::ShaderPrewarmOperation * this_ptr) {
         // next::frameworks::loading::Prewarmers::ShaderPrewarmOperation::Begin(this_ptr);
         this_ptr->fields._._PercentDone_k__BackingField = 100.f;
         this_ptr->fields._._IsDone_k__BackingField = true;
         return true;
     }
 
-    IL2CPP_INTERCEPT(frameworks::loading::Prewarmers::AtlasPrewarmOperation, bool, Begin, (app::AtlasPrewarmOperation * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, frameworks::loading::Prewarmers::AtlasPrewarmOperation, Begin, app::AtlasPrewarmOperation * this_ptr) {
         next::frameworks::loading::Prewarmers::AtlasPrewarmOperation::Begin(this_ptr);
         this_ptr->fields._._PercentDone_k__BackingField = 100.f;
         this_ptr->fields._._IsDone_k__BackingField = true;
         return true;
     }
 
-    IL2CPP_INTERCEPT(frameworks::loading::Prewarmers::LoadPoolingPrewarmOperation, bool, Begin, (app::LoadPoolingPrewarmOperation * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, frameworks::loading::Prewarmers::LoadPoolingPrewarmOperation, Begin, app::LoadPoolingPrewarmOperation * this_ptr) {
         next::frameworks::loading::Prewarmers::LoadPoolingPrewarmOperation::Begin(this_ptr);
         this_ptr->fields._._PercentDone_k__BackingField = 100.f;
         this_ptr->fields._._IsDone_k__BackingField = true;
         return true;
     }
 
-    IL2CPP_INTERCEPT(frameworks::loading::Prewarmers::LoadPoolingPrewarmInstancesOperation, bool, Begin, (app::LoadPoolingPrewarmInstancesOperation * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, frameworks::loading::Prewarmers::LoadPoolingPrewarmInstancesOperation, Begin, app::LoadPoolingPrewarmInstancesOperation * this_ptr) {
         next::frameworks::loading::Prewarmers::LoadPoolingPrewarmInstancesOperation::Begin(this_ptr);
         this_ptr->fields._._PercentDone_k__BackingField = 100.f;
         this_ptr->fields._._IsDone_k__BackingField = true;
         return true;
     }
 
-    IL2CPP_INTERCEPT(frameworks::loading::Prewarmers::PoolingPrewarmOperation, bool, Begin, (app::PoolingPrewarmOperation * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, frameworks::loading::Prewarmers::PoolingPrewarmOperation, Begin, app::PoolingPrewarmOperation * this_ptr) {
         next::frameworks::loading::Prewarmers::PoolingPrewarmOperation::Begin(this_ptr);
         this_ptr->fields._._PercentDone_k__BackingField = 100.f;
         this_ptr->fields._._IsDone_k__BackingField = true;
@@ -80,7 +80,7 @@ namespace {
 
     bool skipped_logos = false;
     float t = 0.f;
-    IL2CPP_INTERCEPT(IntroLogosSkip, void, Update, (app::IntroLogosSkip * this_ptr)) {
+    IL2CPP_INTERCEPT_WITH_ORDER(-10, void, IntroLogosSkip, Update, app::IntroLogosSkip * this_ptr) {
         t += TimeUtility::get_deltaTime();
         if (!skipped_logos && t > 0.3f) {
             IntroLogosSkip::SkipLogos(this_ptr);
@@ -89,7 +89,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(ScenesManager, void, UnloadAllScenes, (app::ScenesManager * this_ptr)) {
+    IL2CPP_INTERCEPT(void, ScenesManager, UnloadAllScenes, app::ScenesManager * this_ptr) {
         return;
 
         if (!ScenesManagerSettings::get_DontUnloadScenes(this_ptr->fields.Settings)) {

@@ -15,7 +15,7 @@ using namespace app::classes;
 namespace {
     bool overwrite_attackables = false;
 
-    // IL2CPP_INTERCEPT(SeinSpiritSpearSpell, void, FindClosestAttackTarget, (app::SeinSpiritSpearSpell * this_ptr)) {
+    // IL2CPP_INTERCEPT(void, SeinSpiritSpearSpell, FindClosestAttackTarget, app::SeinSpiritSpearSpell * this_ptr) {
     //     overwrite_attackables = !core::settings::autoaim();
     //     next::SeinSpiritSpearSpell::FindClosestAttackTarget(this_ptr);
     //     overwrite_attackables = false;
@@ -39,7 +39,7 @@ namespace {
         );
     });
 
-    IL2CPP_INTERCEPT(SeinChakramSpell, void, UpdateCharacterState, (app::SeinChakramSpell * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinChakramSpell, UpdateCharacterState, app::SeinChakramSpell * this_ptr) {
         this_ptr->fields.AutoAimEnabled = !core::settings::disable_auto_aim();
         // Maybe we still want this on?
         if (this_ptr->fields.m_prefabChakramProjectile != nullptr) {
@@ -49,12 +49,12 @@ namespace {
         next::SeinChakramSpell::UpdateCharacterState(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinBowAttack, void, UpdateCharacterState, (app::SeinBowAttack * this_ptr)) {
+    IL2CPP_INTERCEPT_WITH_ORDER(10, void, SeinBowAttack, UpdateCharacterState, app::SeinBowAttack * this_ptr) {
         modloader::ScopedSetter setter(overwrite_attackables, core::settings::disable_auto_aim());
         next::SeinBowAttack::UpdateCharacterState(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(Game::Targets, app::IEnumerable_1_IAttackable_*, get_Attackables, ()) {
+    IL2CPP_INTERCEPT(app::IEnumerable_1_IAttackable_*, Game::Targets, get_Attackables) {
         return overwrite_attackables
             ? reinterpret_cast<app::IEnumerable_1_IAttackable_*>(types::IAttackable::create_array(0))
             : next::Game::Targets::get_Attackables();

@@ -14,7 +14,7 @@ namespace {
     float default_delay_between_heals = 0.5f;
     float default_heal_duration = 0.5f;
 
-    IL2CPP_INTERCEPT(SeinMeditateSpell, void, UpdateLoop, (app::SeinMeditateSpell * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinMeditateSpell, UpdateLoop, app::SeinMeditateSpell * this_ptr) {
         if (!initialized) {
             default_delay_before_charging = this_ptr->fields.DelayBeforeCharging;
             default_delay_between_heals = this_ptr->fields.DelayBetweenHeals;

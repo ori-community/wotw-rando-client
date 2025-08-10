@@ -31,7 +31,7 @@ namespace {
         return it != damage_override_states.end() && it->second.get<bool>();
     }
 
-    IL2CPP_INTERCEPT(AttackableSwitch, bool, DoesReactTo, (app::AttackableSwitch * this_ptr, app::DamageType__Enum damage_type)) {
+    IL2CPP_INTERCEPT(bool, AttackableSwitch, DoesReactTo, app::AttackableSwitch * this_ptr, app::DamageType__Enum damage_type) {
         if (is_overridden(damage_type)) {
             auto* parent = il2cpp::unity::get_parent(il2cpp::unity::get_transform(il2cpp::unity::get_game_object(this_ptr)));
             const auto parent_name = il2cpp::unity::get_object_name(parent);

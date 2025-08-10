@@ -131,10 +131,10 @@ namespace randomizer::game::pickups::quests {
         };
 
         // noop only - reward triggers on uberstate change.
-        IL2CPP_INTERCEPT(QuestsController, void, ApplyReward, (app::QuestsController * this_ptr, app::QuestReward* reward)) {
+        IL2CPP_INTERCEPT(void, QuestsController, ApplyReward, app::QuestsController * this_ptr, app::QuestReward* reward) {
         }
 
-        IL2CPP_INTERCEPT(RaceHandler, void, ApplyReward, (app::RaceHandler * this_ptr)) {
+        IL2CPP_INTERCEPT(void, RaceHandler, ApplyReward, app::RaceHandler * this_ptr) {
         }
 
         app::Quest *make_quest(CustomQuest custom_quest) {
@@ -161,7 +161,7 @@ namespace randomizer::game::pickups::quests {
             return quest;
         }
 
-        IL2CPP_INTERCEPT(QuestsController, void, Awake, (app::QuestsController * this_ptr)) {
+        IL2CPP_INTERCEPT(void, QuestsController, Awake, app::QuestsController * this_ptr) {
             const auto quests = this_ptr->fields.Quests;
             std::vector<std::pair<app::Quest *, CustomQuest>> custom_quest_instances;
             for (int i = 0; i < quests->fields._size; ++i) {
@@ -200,7 +200,7 @@ namespace randomizer::game::pickups::quests {
         }
 
         // Mark all main and side quests as Assigned by default
-        IL2CPP_INTERCEPT(RuntimeQuest, app::Quest_QuestState__Enum, get_State, (app::RuntimeQuest * this_ptr)) {
+        IL2CPP_INTERCEPT(app::Quest_QuestState__Enum, RuntimeQuest, get_State, app::RuntimeQuest * this_ptr) {
             auto result = next::RuntimeQuest::get_State(this_ptr);
 
             //            if (
@@ -224,13 +224,13 @@ namespace randomizer::game::pickups::quests {
             return result;
         }
 
-        IL2CPP_INTERCEPT(QuestsController, void, set_ActiveRuntimeQuest, (app::QuestsController * this_ptr, app::RuntimeQuest* runtime_quest)) {
+        IL2CPP_INTERCEPT(void, QuestsController, set_ActiveRuntimeQuest, app::QuestsController * this_ptr, app::RuntimeQuest* runtime_quest) {
             if (allow_changing_active_quest) {
                 next::QuestsController::set_ActiveRuntimeQuest(this_ptr, runtime_quest);
             }
         }
 
-        IL2CPP_INTERCEPT(QuestsController, void, SetActiveQuest, (app::QuestsController * this_ptr, app::RuntimeQuest* runtime_quest, bool with_sound)) {
+        IL2CPP_INTERCEPT(void, QuestsController, SetActiveQuest, app::QuestsController * this_ptr, app::RuntimeQuest* runtime_quest, bool with_sound) {
             if (allow_changing_active_quest) {
                 next::QuestsController::SetActiveQuest(this_ptr, runtime_quest, with_sound);
 
@@ -265,7 +265,7 @@ namespace randomizer::game::pickups::quests {
         }
 
         bool quest_reporting = false;
-        IL2CPP_INTERCEPT(QuestsController, void, CompleteQuest, (app::QuestsController * this_ptr, app::Quest* quest)) {
+        IL2CPP_INTERCEPT(void, QuestsController, CompleteQuest, app::QuestsController * this_ptr, app::Quest* quest) {
             if (quest_reporting) {
                 const auto uber_state = Quest::get_UberState(quest);
                 const auto cast_uber_state = il2cpp::safe_il2cpp_cast<app::SerializedIntUberState>(uber_state, types::SerializedIntUberState::get_class());
@@ -337,7 +337,7 @@ namespace randomizer::game::pickups::quests {
         );
 
         bool clear_quest_messages_on_next_update = false;
-        IL2CPP_INTERCEPT(QuestsController, void, Update, (app::QuestsController * this_ptr)) {
+        IL2CPP_INTERCEPT(void, QuestsController, Update, app::QuestsController * this_ptr) {
             if (clear_quest_messages_on_next_update) {
                 System::Collections::Generic::Queue_1_QuestsController_QueuedQuestMessage_::Clear(this_ptr->fields.m_queuedQuestMessages);
                 clear_quest_messages_on_next_update = false;

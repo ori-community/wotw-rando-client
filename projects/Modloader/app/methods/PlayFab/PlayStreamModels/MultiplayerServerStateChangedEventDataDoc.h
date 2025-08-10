@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/MultiplayerServerStateChangedEventDataDoc.h>
 
 namespace app::classes::PlayFab::PlayStreamModels::MultiplayerServerStateChangedEventDataDoc {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MultiplayerServerStateChangedEventDataDoc * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::MultiplayerServerStateChangedEventDataDoc* this_ptr)
 }

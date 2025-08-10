@@ -2,5 +2,5 @@
 #include <Modloader/interception_macros.h>
 
 namespace app::classes::ShaderID_CameraFilterPack_Gradients_NeonGradient {
-    IL2CPP_REGISTER_METHOD(0x02B66740, void, cctor, ())
+    IL2CPP_REGISTER_METHOD(0x02B66740, void, cctor, )
 }

@@ -64,7 +64,7 @@ namespace core::api::game {
             }
         }
 
-        IL2CPP_INTERCEPT(GameController, void, Update, (app::GameController * this_ptr)) {
+        IL2CPP_INTERCEPT(void, GameController, Update, app::GameController * this_ptr) {
             if (!initialized) {
                 return;
             }
@@ -74,7 +74,7 @@ namespace core::api::game {
             game_event_bus.trigger_event(GameEvent::Update, EventTiming::After);
         }
 
-        IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
+        IL2CPP_INTERCEPT(void, GameController, FixedUpdate, app::GameController * this_ptr) {
             if (!initialized) {
                 return;
             }
@@ -99,7 +99,7 @@ namespace core::api::game {
             UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(simple_fps), false);
         });
 
-        IL2CPP_INTERCEPT(GameController, void, OnApplicationFocus, (app::GameController * this_ptr, bool focus_status)) {
+        IL2CPP_INTERCEPT(void, GameController, OnApplicationFocus, app::GameController * this_ptr, bool focus_status) {
             if (focus_status) {
                 core::settings::reload();
 
@@ -114,7 +114,7 @@ namespace core::api::game {
             game_event_bus.trigger_event(evt, EventTiming::After);
         }
 
-        IL2CPP_INTERCEPT(GameController, void, OnApplicationQuit, (app::GameController * this_ptr)) {
+        IL2CPP_INTERCEPT(void, GameController, OnApplicationQuit, app::GameController * this_ptr) {
             game_event_bus.trigger_event(GameEvent::Shutdown, EventTiming::Before);
             next::GameController::OnApplicationQuit(this_ptr);
             game_event_bus.trigger_event(GameEvent::Shutdown, EventTiming::After);

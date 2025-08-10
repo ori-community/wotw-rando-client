@@ -5,5 +5,11 @@
 #include <Modloader/app/structs/UpdateUserDataRequest_1.h>
 
 namespace app::classes::PlayFab::Events::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ServerModels_UpdateUserDataRequest_ {
-    IL2CPP_REGISTER_METHOD(0x00673B90, void, Invoke, (app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ServerModels_UpdateUserDataRequest_ * this_ptr, app::UpdateUserDataRequest_1* request))
+    IL2CPP_REGISTER_METHOD(
+        0x00673B90,
+        void,
+        Invoke,
+        app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ServerModels_UpdateUserDataRequest_* this_ptr,
+        app::UpdateUserDataRequest_1* request
+    )
 }

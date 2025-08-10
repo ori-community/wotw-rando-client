@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/GetAllSegmentsRequest.h>
 
 namespace app::classes::PlayFab::ServerModels::GetAllSegmentsRequest {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GetAllSegmentsRequest * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::GetAllSegmentsRequest* this_ptr)
 }

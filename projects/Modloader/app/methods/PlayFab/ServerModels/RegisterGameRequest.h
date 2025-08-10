@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/RegisterGameRequest.h>
 
 namespace app::classes::PlayFab::ServerModels::RegisterGameRequest {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::RegisterGameRequest * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::RegisterGameRequest* this_ptr)
 }

@@ -22,7 +22,7 @@ namespace {
     core::api::uber_states::UberState allow_tp_underwater_state(UberStateGroup::RandoConfig, 18);
     core::api::uber_states::UberState allow_tp_in_combat_shrines_state(UberStateGroup::RandoConfig, 19);
 
-    IL2CPP_INTERCEPT(GameController, bool, get_InputLocked, (app::GameController* this_ptr)) {
+    IL2CPP_INTERCEPT(bool, GameController, get_InputLocked, app::GameController* this_ptr) {
         const auto save_pedestal_controller_instance = types::SavePedestalController::get_class()->static_fields->Instance;
 
         // This is so Ori can't lose breath while teleporting
@@ -33,7 +33,7 @@ namespace {
         return next::GameController::get_InputLocked(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SavePedestalController, void, BeginTeleportation, (app::Vector2 teleport_target_world_position)) {
+    IL2CPP_INTERCEPT_WITH_ORDER(80, void, SavePedestalController, BeginTeleportation, app::Vector2 teleport_target_world_position) {
         next::SavePedestalController::BeginTeleportation(teleport_target_world_position);
 
         const auto sein = core::api::game::player::sein();
@@ -84,7 +84,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(SavePedestalController, void, OnFinishedTeleporting, (app::SavePedestalController* this_ptr)) {
+    IL2CPP_INTERCEPT(void, SavePedestalController, OnFinishedTeleporting, app::SavePedestalController* this_ptr) {
         next::SavePedestalController::OnFinishedTeleporting(this_ptr);
 
         const auto sein = core::api::game::player::sein();
@@ -98,7 +98,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(SavePedestalController, app::SavePedestalController_CanTeleportResult__Enum, CanTeleportWithResult, ()) {
+    IL2CPP_INTERCEPT(app::SavePedestalController_CanTeleportResult__Enum, SavePedestalController, CanTeleportWithResult) {
         if (!RaceSystem::get_IsIdle()) {
             return app::SavePedestalController_CanTeleportResult__Enum::Denied_Racing;
         }

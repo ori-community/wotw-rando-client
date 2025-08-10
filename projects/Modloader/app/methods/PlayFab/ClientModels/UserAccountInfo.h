@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/UserAccountInfo.h>
 
 namespace app::classes::PlayFab::ClientModels::UserAccountInfo {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::UserAccountInfo * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::UserAccountInfo* this_ptr)
 }

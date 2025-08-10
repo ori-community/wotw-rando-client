@@ -119,7 +119,7 @@ namespace randomizer {
             return reinterpret_cast<app::IUberState*>(state);
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection * this_ptr)) {
+        IL2CPP_INTERCEPT(void, Moon::UberStateCollection, PrepareRuntimeDataType, app::UberStateCollection * this_ptr) {
             auto start_time = std::chrono::high_resolution_clock::now();
 
             std::vector<app::IUberState*> states = {
@@ -302,6 +302,7 @@ namespace randomizer {
 
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "flashTickInterval", 94, 1.0),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "shurikenBashable", 95, false),
+                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "flapDamage", 96, 0.0),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "overflowPickupUpgrade", 150, false),
 
@@ -326,6 +327,7 @@ namespace randomizer {
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onWaterDash", 47, false),
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onFlap", 48, false),
                 add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onRegenerate", 49, false),
+                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onGrapple", 50, false),
 
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "gladesWave", 0, 0),
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "inkwaterWave", 1, 0),

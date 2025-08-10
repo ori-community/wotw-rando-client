@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/CreateRemoteUserRequest.h>
 
 namespace app::classes::PlayFab::MultiplayerModels::CreateRemoteUserRequest {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::CreateRemoteUserRequest * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::CreateRemoteUserRequest* this_ptr)
 }

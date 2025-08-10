@@ -13,7 +13,7 @@
 namespace {
     // Dont reactivate teleporters we have visited if we for some reason set teleporter uber states to false.
     bool overwrite_is_visited = false;
-    IL2CPP_INTERCEPT(RuntimeGameWorldArea, bool, IsVisited_2, (app::RuntimeGameWorldArea * this_ptr, app::Vector3 position)) {
+    IL2CPP_INTERCEPT(bool, RuntimeGameWorldArea, IsVisited_2, app::RuntimeGameWorldArea * this_ptr, app::Vector3 position) {
         if (overwrite_is_visited) {
             return false;
         }
@@ -43,7 +43,7 @@ namespace {
     };
 
     core::api::uber_states::UberState should_overwrite_is_visited(UberStateGroup::RandoConfig, 1);
-    IL2CPP_INTERCEPT(SavePedestalController, bool, IsTeleporterActiveAtMapPosition, (app::Vector2 position)) {
+    IL2CPP_INTERCEPT(bool, SavePedestalController, IsTeleporterActiveAtMapPosition, app::Vector2 position) {
         modloader::ScopedSetter setter(overwrite_is_visited, should_overwrite_is_visited.get<bool>());
         auto ret = next::SavePedestalController::IsTeleporterActiveAtMapPosition(position);
         if (ret) {

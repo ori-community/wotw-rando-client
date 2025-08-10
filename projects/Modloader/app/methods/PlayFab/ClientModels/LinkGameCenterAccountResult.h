@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/LinkGameCenterAccountResult.h>
 
 namespace app::classes::PlayFab::ClientModels::LinkGameCenterAccountResult {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::LinkGameCenterAccountResult * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::LinkGameCenterAccountResult* this_ptr)
 }

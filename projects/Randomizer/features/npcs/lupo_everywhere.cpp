@@ -15,7 +15,7 @@ using namespace app::classes;
 namespace {
     core::api::uber_states::UberState has_sword(static_cast<UberStateGroup>(48248), 49214);
 
-    IL2CPP_INTERCEPT(QuestNodeWisps, void, SelectInteraction, (app::QuestNodeWisps * this_ptr)) {
+    IL2CPP_INTERCEPT(void, QuestNodeWisps, SelectInteraction, app::QuestNodeWisps * this_ptr) {
         const auto path = il2cpp::unity::get_path(this_ptr);
         if (path == "swampTorchIntroductionA/npcSetup/mapMakerSetup/mapMakerEntity(Clone)/dialogs/questGraph") {
             const auto interaction_sets = this_ptr->fields.QuestSetup->fields.QuestInteractionSets;

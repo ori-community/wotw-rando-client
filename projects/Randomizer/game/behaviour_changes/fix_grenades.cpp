@@ -12,12 +12,12 @@ namespace {
      * Since grenades are pooled, this grenade will never unsuspend.
      */
 
-    IL2CPP_INTERCEPT(SpiritGrenade, void, Start, (app::SpiritGrenade * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SpiritGrenade, Start, app::SpiritGrenade * this_ptr) {
         this_ptr->fields._IsSuspended_k__BackingField = false;
         next::SpiritGrenade::Start(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SpiritGrenade, void, SetTrajectory, (app::SpiritGrenade * this_ptr, app::Vector2 speed)) {
+    IL2CPP_INTERCEPT(void, SpiritGrenade, SetTrajectory, app::SpiritGrenade * this_ptr, app::Vector2 speed) {
         if (!this_ptr->fields.Bashable && !this_ptr->fields.Fractures) {
             const auto rigid_body = il2cpp::unity::get_component<app::Rigidbody>(this_ptr, types::Rigidbody::get_class());
             UnityEngine::Rigidbody::set_isKinematic(rigid_body, false);

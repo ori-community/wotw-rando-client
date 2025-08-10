@@ -5,5 +5,11 @@
 #include <Modloader/app/structs/SendPushNotificationRequest.h>
 
 namespace app::classes::PlayFab::Events::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ServerModels_SendPushNotificationRequest_ {
-    IL2CPP_REGISTER_METHOD(0x00673B90, void, Invoke, (app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ServerModels_SendPushNotificationRequest_ * this_ptr, app::SendPushNotificationRequest* request))
+    IL2CPP_REGISTER_METHOD(
+        0x00673B90,
+        void,
+        Invoke,
+        app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ServerModels_SendPushNotificationRequest_* this_ptr,
+        app::SendPushNotificationRequest* request
+    )
 }

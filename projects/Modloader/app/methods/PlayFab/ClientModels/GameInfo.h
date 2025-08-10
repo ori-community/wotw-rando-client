@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/GameInfo.h>
 
 namespace app::classes::PlayFab::ClientModels::GameInfo {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GameInfo * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::GameInfo* this_ptr)
 }

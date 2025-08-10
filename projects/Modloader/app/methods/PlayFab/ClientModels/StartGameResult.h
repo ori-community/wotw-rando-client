@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/StartGameResult.h>
 
 namespace app::classes::PlayFab::ClientModels::StartGameResult {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::StartGameResult * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::StartGameResult* this_ptr)
 }

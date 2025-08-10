@@ -2,5 +2,5 @@
 #include <Modloader/interception_macros.h>
 
 namespace app::classes::ShaderID_CameraFilterPack_FX_EarthQuake {
-    IL2CPP_REGISTER_METHOD(0x02B63030, void, cctor, ())
+    IL2CPP_REGISTER_METHOD(0x02B63030, void, cctor, )
 }

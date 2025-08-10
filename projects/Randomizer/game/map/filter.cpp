@@ -70,7 +70,7 @@ namespace randomizer::game::map {
         }
 
         bool ignore_filter_input = false;
-        IL2CPP_INTERCEPT(AreaMapUI, void, set_IconFilter, (app::AreaMapUI * this_ptr, app::AreaMapIconFilter__Enum value)) {
+        IL2CPP_INTERCEPT(void, AreaMapUI, set_IconFilter, app::AreaMapUI * this_ptr, app::AreaMapIconFilter__Enum value) {
             if (!ignore_filter_input) {
                 next::AreaMapUI::set_IconFilter(this_ptr, value);
             }
@@ -94,7 +94,7 @@ namespace randomizer::game::map {
         }
 
         bool dirty_filter = false;
-        IL2CPP_INTERCEPT(AreaMapUI, void, CycleFilter, (app::AreaMapUI * this_ptr)) {
+        IL2CPP_INTERCEPT(void, AreaMapUI, CycleFilter, app::AreaMapUI * this_ptr) {
             auto icon_manager = this_ptr->fields._IconManager_k__BackingField;
             check_and_initialize_filter_labels(icon_manager);
 
@@ -103,7 +103,7 @@ namespace randomizer::game::map {
             dirty_filter = true;
         }
 
-        IL2CPP_INTERCEPT(AreaMapUI, void, Show, (app::AreaMapUI * this_ptr, bool set_menu_audio_state)) {
+        IL2CPP_INTERCEPT(void, AreaMapUI, Show, app::AreaMapUI * this_ptr, bool set_menu_audio_state) {
             next::AreaMapUI::Show(this_ptr, set_menu_audio_state);
             auto icon_manager = this_ptr->fields._IconManager_k__BackingField;
             check_and_initialize_filter_labels(icon_manager);
@@ -115,7 +115,7 @@ namespace randomizer::game::map {
             }
         }
 
-        IL2CPP_INTERCEPT(GameMapUI, void, NormalInput, (app::GameMapUI * this_ptr)) {
+        IL2CPP_INTERCEPT(void, GameMapUI, NormalInput, app::GameMapUI * this_ptr) {
             {
                 modloader::ScopedSetter set(ignore_filter_input, true);
                 next::GameMapUI::NormalInput(this_ptr);

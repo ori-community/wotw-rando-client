@@ -16,7 +16,7 @@ namespace {
 
     constexpr float DEFAULT_FIRE_RATE = 0.15f;
 
-    IL2CPP_INTERCEPT(SpiritTurret, void, UpdateShooting, (app::SpiritTurret * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SpiritTurret, UpdateShooting, app::SpiritTurret * this_ptr) {
         if (sentry_shots.get<int>() == 0) {
             return;
         }
@@ -25,7 +25,7 @@ namespace {
         return next::SpiritTurret::UpdateShooting(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinTurretSpell, void, SpawnSpiritTurret, (app::SeinTurretSpell * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinTurretSpell, SpawnSpiritTurret, app::SeinTurretSpell * this_ptr) {
         if (!initialized) {
             default_sentry_limit = this_ptr->fields.BalancingData->fields.MaxTurretsAtOnce;
             initialized = true;

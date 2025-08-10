@@ -30,7 +30,7 @@ namespace core::events {
     std::unordered_map<int, std::shared_ptr<BaseActionStore>> stored_functions;
 
     void custom_action_handler() {}
-    IL2CPP_INTERCEPT(System::Action, void, Invoke, (app::Action * this_ptr)) {
+    IL2CPP_INTERCEPT(void, System::Action, Invoke, app::Action * this_ptr) {
         const auto custom_action_handler_ptr = &custom_action_handler;
         if (this_ptr->fields._._.method_ptr == custom_action_handler_ptr) {
             auto target = reinterpret_cast<ActionStore<void(int)>*>(this_ptr->fields._._.m_target);

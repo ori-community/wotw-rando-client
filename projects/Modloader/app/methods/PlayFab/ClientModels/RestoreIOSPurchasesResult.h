@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/RestoreIOSPurchasesResult.h>
 
 namespace app::classes::PlayFab::ClientModels::RestoreIOSPurchasesResult {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::RestoreIOSPurchasesResult * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::RestoreIOSPurchasesResult* this_ptr)
 }

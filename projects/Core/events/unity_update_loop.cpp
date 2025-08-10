@@ -8,7 +8,7 @@ namespace core::events {
         void* unityplayer_update_rva = (void*)(modloader::win::memory::resolve_unity_player_rva(0x824700));
         void unityplayer_update();
 
-        modloader::interception::intercept unityplayer_update_intercept(
+        modloader::interception::Intercept unityplayer_update_intercept(
             reinterpret_cast<void**>(&unityplayer_update_rva),
             reinterpret_cast<void**>(&next_unityplayer_update),
             reinterpret_cast<void*>(unityplayer_update),

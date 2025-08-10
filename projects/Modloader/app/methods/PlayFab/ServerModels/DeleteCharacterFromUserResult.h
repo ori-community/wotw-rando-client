@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/DeleteCharacterFromUserResult.h>
 
 namespace app::classes::PlayFab::ServerModels::DeleteCharacterFromUserResult {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::DeleteCharacterFromUserResult * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::DeleteCharacterFromUserResult* this_ptr)
 }

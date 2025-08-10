@@ -20,56 +20,56 @@ extern bool temporary_glide_switch;
 namespace {
     int current_slot = -1;
 
-    IL2CPP_INTERCEPT(GameController, void, CreateCheckpoint, (app::GameController * this_ptr, bool doPerformSave, bool respectRestrictCheckpointZone)) {
+    IL2CPP_INTERCEPT(void, GameController, CreateCheckpoint, app::GameController * this_ptr, bool doPerformSave, bool respectRestrictCheckpointZone) {
         core::api::game::event_bus().trigger_event(GameEvent::CreateCheckpoint, EventTiming::Before);
         next::GameController::CreateCheckpoint(this_ptr, doPerformSave, respectRestrictCheckpointZone);
         core::api::game::event_bus().trigger_event(GameEvent::CreateCheckpoint, EventTiming::After);
     }
 
-    IL2CPP_INTERCEPT(NewGameAction, void, Perform, (app::NewGameAction * this_ptr, app::IContext* context)) {
+    IL2CPP_INTERCEPT(void, NewGameAction, Perform, app::NewGameAction * this_ptr, app::IContext* context) {
         current_slot = SaveSlotsManager::get_CurrentSlotIndex();
         core::api::game::event_bus().trigger_event(GameEvent::NewGame, EventTiming::Before);
         next::NewGameAction::Perform(this_ptr, context);
         core::api::game::event_bus().trigger_event(GameEvent::NewGame, EventTiming::After);
     }
 
-    IL2CPP_INTERCEPT(SaveGameController, void, SaveToFile_2, (app::SaveGameController * this_ptr, int32_t slotIndex, int32_t backupIndex, app::Byte__Array* bytes)) {
+    IL2CPP_INTERCEPT(void, SaveGameController, SaveToFile_2, app::SaveGameController * this_ptr, int32_t slotIndex, int32_t backupIndex, app::Byte__Array* bytes) {
         core::api::game::event_bus().trigger_event(GameEvent::CreateSave, EventTiming::Before);
         next::SaveGameController::SaveToFile_2(this_ptr, slotIndex, backupIndex, bytes);
         core::api::game::event_bus().trigger_event(GameEvent::CreateSave, EventTiming::After);
     }
 
-    IL2CPP_INTERCEPT(SaveSlotBackupsManager, void, PerformBackup, (app::SaveSlotBackupsManager * this_ptr, app::SaveSlotBackup* saveSlot, int32_t backupIndex, app::String* backupName)) {
+    IL2CPP_INTERCEPT(void, SaveSlotBackupsManager, PerformBackup, app::SaveSlotBackupsManager * this_ptr, app::SaveSlotBackup* saveSlot, int32_t backupIndex, app::String* backupName) {
         core::api::game::event_bus().trigger_event(GameEvent::CreateBackup, EventTiming::Before);
         next::SaveSlotBackupsManager::PerformBackup(this_ptr, saveSlot, backupIndex, backupName);
         core::api::game::event_bus().trigger_event(GameEvent::CreateBackup, EventTiming::After);
     }
 
-    IL2CPP_INTERCEPT(SaveGameController, void, OnFinishedLoading, (app::SaveGameController * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SaveGameController, OnFinishedLoading, app::SaveGameController * this_ptr) {
         core::api::game::event_bus().trigger_event(GameEvent::FinishedLoadingSave, EventTiming::Before);
         next::SaveGameController::OnFinishedLoading(this_ptr);
         core::api::game::event_bus().trigger_event(GameEvent::FinishedLoadingSave, EventTiming::After);
     }
 
-    IL2CPP_INTERCEPT(SaveGameController, void, RestoreCheckpoint, (app::SaveGameController * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SaveGameController, RestoreCheckpoint, app::SaveGameController * this_ptr) {
         core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::Before);
         next::SaveGameController::RestoreCheckpoint(this_ptr);
         core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::After);
     }
 
-    IL2CPP_INTERCEPT(RestoreCheckpointController, void, RestoreCheckpoint, (app::RestoreCheckpointController * this_ptr, bool load_from_disc)) {
+    IL2CPP_INTERCEPT(void, RestoreCheckpointController, RestoreCheckpoint, app::RestoreCheckpointController * this_ptr, bool load_from_disc) {
         core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::Before);
         next::RestoreCheckpointController::RestoreCheckpoint(this_ptr, load_from_disc);
         core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::After);
     }
 
-    IL2CPP_INTERCEPT(SeinHealthController, void, OnRespawn, (app::SeinHealthController * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinHealthController, OnRespawn, app::SeinHealthController * this_ptr) {
         core::api::game::event_bus().trigger_event(GameEvent::Respawn, EventTiming::Before);
         next::SeinHealthController::OnRespawn(this_ptr);
         core::api::game::event_bus().trigger_event(GameEvent::Respawn, EventTiming::After);
     }
 
-    IL2CPP_INTERCEPT(Moon::UberStateController, void, SetState, (app::UberStateValueStore * store)) {
+    IL2CPP_INTERCEPT(void, Moon::UberStateController, SetState, app::UberStateValueStore * store) {
         core::api::game::event_bus().trigger_event(GameEvent::UberStateValueStoreLoaded, EventTiming::Before);
         next::Moon::UberStateController::SetState(store);
         core::api::game::event_bus().trigger_event(GameEvent::UberStateValueStoreLoaded, EventTiming::After);

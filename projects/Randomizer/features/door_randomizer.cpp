@@ -97,8 +97,8 @@ namespace randomizer::doors {
             {"waterMillOutsideDoorB",   {"wellspringFirstFloorEntranceTop", {"waterMillEntrance"}, "waterMillInsideDoorB"}                                 },
             {"waterMillInsideDoorB",    {"wellspringFirstFloorExitTop", {"waterMillAExit"}, "waterMillOutsideDoorB"}                                       },
             {"waterMillOutsideDoorC",   {"wellspringSecondFloorEntrance", {"waterMillEntrance"}, "waterMillInsideDoorC"}                                   },
-            {"waterMillInsideDoorC",    {"wellspringSecondFloorExit", {"waterMillBEntrance", "waterMillBCorridorB"}, "waterMillOutsideDoorC"}                                     },
-            {"waterMillOutsideDoorD",   {"wellspringThirdFloorEntrance", {"waterMillEntranceTop", "waterMillEntrance"}, "waterMillInsideDoorD"}                                 },
+            {"waterMillInsideDoorC",    {"wellspringSecondFloorExit", {"waterMillBEntrance", "waterMillBCorridorB"}, "waterMillOutsideDoorC"}              },
+            {"waterMillOutsideDoorD",   {"wellspringThirdFloorEntrance", {"waterMillEntranceTop", "waterMillEntrance"}, "waterMillInsideDoorD"}            },
             {"waterMillInsideDoorD",    {"wellspringThirdFloorExit", {"waterMillCEntrance"}, "waterMillOutsideDoorD"}                                      },
             {"baursReachHutEntrance",   {"reachSeedHutEntrance", {"baursReachGetAbility"}, "baursReachHutExit"}                                            },
             {"baursReachHutExit",       {"reachSeedHutExit", {"baursReachHutInterior"}, "baursReachHutEntrance"}                                           },
@@ -175,10 +175,10 @@ namespace randomizer::doors {
                 DoorLoadingZone zone{
                     scene_name,
                     {
-                        door_position.x - 20.f,
-                        door_position.y - 20.f,
-                        40.f, 40.f,
-                    }
+                      door_position.x - 20.f,
+                      door_position.y - 20.f,
+                      40.f, 40.f,
+                      }
                 };
 
                 const auto scenes_manager = core::api::scenes::get_scenes_manager();
@@ -197,9 +197,11 @@ namespace randomizer::doors {
                     }
                 }
 
-                modloader::warn("door_randomizer", std::format("Could not setup target loading zone '{}' for target door '{}'", scene_name, *from_door.target_door_name));
+                modloader::warn(
+                    "door_randomizer", std::format("Could not setup target loading zone '{}' for target door '{}'", scene_name, *from_door.target_door_name)
+                );
 
-                next_scene:;
+            next_scene:;
             }
         }
 
@@ -255,7 +257,7 @@ namespace randomizer::doors {
             }
         });
 
-        IL2CPP_INTERCEPT(ScenesManager, void, Awake, (app::ScenesManager * this_ptr)) {
+        IL2CPP_INTERCEPT(void, ScenesManager, Awake, app::ScenesManager* this_ptr) {
             for (auto& scene: il2cpp::ListIterator(this_ptr->fields.AllScenes)) {
                 auto it = scene_loading_zones_related_to_doors.find(il2cpp::convert_csstring(scene->fields.Scene));
                 if (it != scene_loading_zones_related_to_doors.end()) {
@@ -269,17 +271,17 @@ namespace randomizer::doors {
             next::ScenesManager::Awake(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(SeinDoorHandler, void, OnGoneThroughDoor, (app::SeinDoorHandler * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SeinDoorHandler, OnGoneThroughDoor, app::SeinDoorHandler* this_ptr) {
             next::SeinDoorHandler::OnGoneThroughDoor(this_ptr);
             core::api::game::save();
         }
 
-        IL2CPP_INTERCEPT(SeinDoorHandler, void, FadeOutOnTimelineEnd, (app::SeinDoorHandler * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SeinDoorHandler, FadeOutOnTimelineEnd, app::SeinDoorHandler* this_ptr) {
             next::SeinDoorHandler::FadeOutOnTimelineEnd(this_ptr);
             core::api::game::save();
         }
 
-        IL2CPP_INTERCEPT(SeinDoorHandler, void, FixedUpdate, (app::SeinDoorHandler * this_ptr)) {
+        IL2CPP_INTERCEPT(void, SeinDoorHandler, FixedUpdate, app::SeinDoorHandler* this_ptr) {
             if (this_ptr->fields.m_state == app::SeinDoorHandler_State__Enum::WaitingForScene) {
                 // Make sure the target door has z = 0, otherwise the downwards raycast
                 // fails on some doors because Moon jank
@@ -304,10 +306,14 @@ namespace randomizer::doors {
         }
 
         IL2CPP_INTERCEPT(
-            CharacterPlatformMovement,
             bool,
+            CharacterPlatformMovement,
             TeleportAndPlaceOnGround_2,
-            (app::CharacterPlatformMovement * this_ptr, app::Vector3 target, app::RaycastHit* hit, float lift, float distance)
+            app::CharacterPlatformMovement* this_ptr,
+            app::Vector3 target,
+            app::RaycastHit* hit,
+            float lift,
+            float distance
         ) {
             if (queue_placing_ori_on_ground) {
                 queued_ground_placement = target;
@@ -317,7 +323,7 @@ namespace randomizer::doors {
             return next::CharacterPlatformMovement::TeleportAndPlaceOnGround_2(this_ptr, target, hit, lift, distance);
         }
 
-        IL2CPP_INTERCEPT(SeinDoorHandler, void, EnterIntoDoor, (app::SeinDoorHandler * this_ptr, app::LegacyDoor* door)) {
+        IL2CPP_INTERCEPT(void, SeinDoorHandler, EnterIntoDoor, app::SeinDoorHandler* this_ptr, app::LegacyDoor* door) {
             const auto door_name = il2cpp::unity::get_object_name(door);
 
             const auto it = doors.find(door_name);
@@ -360,7 +366,7 @@ namespace randomizer::doors {
             this_ptr->fields.m_createCheckpoint = false;
         }
 
-        IL2CPP_INTERCEPT(SeinDoorHandler, app::LegacyDoor*, GetTargetDoor, (app::SeinDoorHandler * this_ptr, app::LegacyDoor* door)) {
+        IL2CPP_INTERCEPT(app::LegacyDoor*, SeinDoorHandler, GetTargetDoor, app::SeinDoorHandler* this_ptr, app::LegacyDoor* door) {
             const auto door_name = il2cpp::unity::get_object_name(door);
 
             const auto current_it = doors.find(door_name);

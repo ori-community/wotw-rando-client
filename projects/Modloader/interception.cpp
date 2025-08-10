@@ -1,4 +1,5 @@
 #include <Modloader/modloader.h>
+#include <ranges>
 
 #include <Modloader/interception.h>
 #include <Modloader/windows_api/detours.h>
@@ -12,96 +13,136 @@ namespace modloader {
     extern std::filesystem::path modloader_config_path;
 
     namespace interception {
-        binding* first_binding = nullptr;
-        binding* last_binding = nullptr;
-        intercept* first_intercept = nullptr;
-        intercept* last_intercept = nullptr;
+        // These two are functions to guarantee initialization order.
+        // Otherwise, the storage vectors might not have been initialized
+        // when they are accessed.
+        std::vector<Intercept*>& intercepts() {
+            static std::vector<Intercept*> storage;
+            return storage;
+        }
 
-        void internal_bindings() {
-            auto current = last_binding;
-            while (current != nullptr) {
-                *current->pointer = reinterpret_cast<void*>(memory::resolve_rva(current->offset));
-                current = current->prev;
+        std::vector<Binding*>& bindings() {
+            static std::vector<Binding*> storage;
+            return storage;
+        }
+
+        void commit_bindings() {
+            for (auto& binding: bindings()) {
+                *binding->pointer = reinterpret_cast<void*>(memory::resolve_rva(binding->offset));
             }
         }
 
-        void internal_intercepts() {
+        void commit_intercepts() {
             std::unordered_map<void*, void*> intercept_cache;
+
+            #ifdef DEBUG
+            std::unordered_map<void*, std::vector<const Intercept*>> binding_pointer_to_unordered_intercepts;
+            #endif
 
             detours::start_transaction();
 
-            auto current = last_intercept;
-            while (current != nullptr) {
-                *current->original_pointer = *current->binding_pointer;
+            std::ranges::sort(intercepts(), [](const Intercept* a, const Intercept* b) {
+                return a->sort_order.value_or(0) > b->sort_order.value_or(0);
+            });
 
-                if (current->intercept_pointer) {
-                    auto it = intercept_cache.find(*current->binding_pointer);
+            for (const auto& intercept: intercepts()) {
+                *intercept->original_pointer = *intercept->binding_pointer;
+
+                #ifdef DEBUG
+                if (!intercept->sort_order.has_value()) {
+                    binding_pointer_to_unordered_intercepts[*intercept->binding_pointer].push_back(intercept);
+                }
+                #endif
+
+                if (intercept->intercept_pointer) {
+                    auto it = intercept_cache.find(*intercept->binding_pointer);
                     if (it != intercept_cache.end()) {
-                        debug("initialize", std::format("Changing intercept address ({}, {})", *current->original_pointer, it->second));
-                        *current->original_pointer = it->second;
+                        debug("intercept", std::format("Changing intercept address ({}, {})", *intercept->original_pointer, it->second));
+                        *intercept->original_pointer = it->second;
                     }
 
                     void* detour = detours::do_intercept(
-                        std::format("{} ({}, {})", current->name.data(), memory::get_game_assembly_address(), reinterpret_cast<uint64_t>(*current->binding_pointer)),
-                        current->original_pointer,
-                        current->intercept_pointer
+                        std::format(
+                            "{} ({}, {})", intercept->name.data(), memory::get_game_assembly_address(), reinterpret_cast<uint64_t>(*intercept->binding_pointer)
+                        ),
+                        intercept->original_pointer,
+                        intercept->intercept_pointer
                     );
 
                     if (detour != nullptr) {
-                        intercept_cache[*current->binding_pointer] = detour;
+                        intercept_cache[*intercept->binding_pointer] = detour;
                     }
                 }
-
-                current = current->prev;
             }
 
             detours::commit("intercepts");
-        }
 
-        void interception_init() {
-            internal_bindings();
-            internal_intercepts();
-        }
-
-        void interception_detach() {
-            detours::start_transaction();
-
-            auto current = last_intercept;
-            while (current) {
-                if (current->intercept_pointer) {
-                    detours::detach(current->original_pointer, current->intercept_pointer);
+            #ifdef DEBUG
+            for (const auto& equal_unordered_intercepts: binding_pointer_to_unordered_intercepts | std::views::values) {
+                if (equal_unordered_intercepts.size() <= 1) {
+                    continue;
                 }
 
-                current = current->prev;
+                warn(
+                    "intercept",
+                    std::format(
+                        "Intercept {} exists multiple times with undefined sorting order. "
+                        "Please use IL2CPP_INTERCEPT_WITH_ORDER and assign orders explicitly:",
+                        equal_unordered_intercepts.at(0)->name
+                    )
+                );
+
+                for (const auto& unordered_intercept: equal_unordered_intercepts) {
+                    warn(
+                        "intercept",
+                        std::format(
+                            "- {} ({}:{})",
+                            unordered_intercept->name,
+                            unordered_intercept->location.file_name(),
+                            unordered_intercept->location.line()
+                        )
+                    );
+                }
+            }
+            #endif
+        }
+
+        void initialize() {
+            commit_bindings();
+            commit_intercepts();
+        }
+
+        void detach() {
+            detours::start_transaction();
+
+            for (const auto& intercept: intercepts() | std::views::reverse) {
+                if (intercept->intercept_pointer) {
+                    detours::detach(intercept->original_pointer, intercept->intercept_pointer);
+                }
             }
 
             detours::commit("detach");
         }
 
-        binding::binding(uint64_t address, void** ptr, std::string_view s) :
-            name(s), offset(address), pointer(ptr), next(nullptr) {
-            prev = last_binding;
-            if (prev != nullptr) {
-                prev->next = prev;
-            }
-
-            last_binding = this;
-            if (first_binding == nullptr) {
-                first_binding = this;
-            }
+        Binding::Binding(uint64_t address, void** ptr, std::string_view s) :
+            name(s),
+            offset(address),
+            pointer(ptr) {
+            bindings().push_back(this);
         }
 
-        intercept::intercept(void** binding_ptr, void** original, void* intercepted, std::string_view s) :
-            name(s), binding_pointer(binding_ptr), original_pointer(original), intercept_pointer(intercepted), next(nullptr) {
-            prev = last_intercept;
-            if (prev != nullptr) {
-                prev->next = prev;
-            }
+        Intercept::Intercept(void** binding_ptr, void** original, void* intercepted, std::string_view name, int order, std::source_location location) :
+            Intercept(binding_ptr, original, intercepted, name, location) {
+            sort_order = order;
+        }
 
-            last_intercept = this;
-            if (first_intercept == nullptr) {
-                first_intercept = this;
-            }
+        Intercept::Intercept(void** binding_ptr, void** original, void* intercepted, std::string_view name, std::source_location location) :
+            name(name),
+            binding_pointer(binding_ptr),
+            original_pointer(original),
+            intercept_pointer(intercepted),
+            location(location) {
+            intercepts().push_back(this);
         }
     } // namespace interception
 } // namespace modloader

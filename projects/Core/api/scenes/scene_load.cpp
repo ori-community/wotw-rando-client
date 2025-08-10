@@ -37,7 +37,7 @@ namespace core::api::scenes {
     }
 
     namespace {
-        IL2CPP_INTERCEPT(SceneManagerScene, void, ChangeState, (app::SceneManagerScene * this_ptr, app::SceneState__Enum state)) {
+        IL2CPP_INTERCEPT(void, SceneManagerScene, ChangeState, app::SceneManagerScene * this_ptr, app::SceneState__Enum state) {
             next::SceneManagerScene::ChangeState(this_ptr, state);
 
             auto scene_name_csstring = this_ptr->fields.MetaData->fields.Scene;
@@ -88,7 +88,7 @@ namespace core::api::scenes {
             }
         }
 
-        IL2CPP_INTERCEPT(ScenesManager, bool, CancelScene, (app::ScenesManager * this_ptr, app::SceneManagerScene* scene)) {
+        IL2CPP_INTERCEPT(bool, ScenesManager, CancelScene, app::ScenesManager * this_ptr, app::SceneManagerScene* scene) {
             auto scene_name_csstring = scene->fields.MetaData->fields.Scene;
             auto scene_name = il2cpp::convert_csstring(scene_name_csstring);
 

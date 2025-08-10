@@ -21,7 +21,7 @@ namespace {
             Moon::Timeline::MoonTimeline::SetTimeScale(timeline, time_scale);
     }
 
-    IL2CPP_INTERCEPT(MeleeComboMoveHammerSimple, void, EnterMove, (app::MeleeComboMoveHammerSimple * this_ptr)) {
+    IL2CPP_INTERCEPT(void, MeleeComboMoveHammerSimple, EnterMove, app::MeleeComboMoveHammerSimple * this_ptr) {
         auto hammer_speed_multiplier = hammer_speed.get<float>();
 
         set_timeline_time_scale_if_not_null(this_ptr->fields.PrepareAttackTimeline, hammer_speed_multiplier);
@@ -30,7 +30,7 @@ namespace {
         next::MeleeComboMoveHammerSimple::EnterMove(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(MeleeComboMoveHammer, void, EnterMove, (app::MeleeComboMoveHammer * this_ptr)) {
+    IL2CPP_INTERCEPT(void, MeleeComboMoveHammer, EnterMove, app::MeleeComboMoveHammer * this_ptr) {
         auto hammer_speed_multiplier = hammer_speed.get<float>();
 
         set_timeline_time_scale_if_not_null(this_ptr->fields.PrepareTimeline, hammer_speed_multiplier);
@@ -40,7 +40,7 @@ namespace {
         next::MeleeComboMoveHammer::EnterMove(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(MeleeComboMoveHammerChargeable, void, EnterMove, (app::MeleeComboMoveHammerChargeable * this_ptr)) {
+    IL2CPP_INTERCEPT(void, MeleeComboMoveHammerChargeable, EnterMove, app::MeleeComboMoveHammerChargeable * this_ptr) {
         auto hammer_speed_multiplier = hammer_speed.get<float>();
 
         set_timeline_time_scale_if_not_null(this_ptr->fields.PrepareTimeline, hammer_speed_multiplier);
@@ -51,7 +51,7 @@ namespace {
         next::MeleeComboMoveHammerChargeable::EnterMove(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(MeleeComboMoveHammerStomp, void, EnterStartState, (app::MeleeComboMoveHammerStomp * this_ptr)) {
+    IL2CPP_INTERCEPT(void, MeleeComboMoveHammerStomp, EnterStartState, app::MeleeComboMoveHammerStomp * this_ptr) {
         auto hammer_speed_multiplier = hammer_speed.get<float>();
 
         set_timeline_time_scale_if_not_null(this_ptr->fields.LoopTimeline, hammer_speed_multiplier);

@@ -1,5 +1,4 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
-namespace app::classes::Moon::IMoonTypeEditableResolver {
-}
+namespace app::classes::Moon::IMoonTypeEditableResolver {}

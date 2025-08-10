@@ -19,19 +19,19 @@ namespace {
 
     auto use_custom_animation_handling = false;
 
-    IL2CPP_INTERCEPT(SavePedestalController, void, BeginTeleportation, (app::Vector2 teleport_target_world_position)) {
+    IL2CPP_INTERCEPT_WITH_ORDER(0, void, SavePedestalController, BeginTeleportation, app::Vector2 teleport_target_world_position) {
         use_custom_animation_handling = fix_enabled_state.get<bool>();
         next::SavePedestalController::BeginTeleportation(teleport_target_world_position);
     }
 
-    IL2CPP_INTERCEPT(SavePedestalController, void, OnFinishedTeleportingStartAnimation, ()) {
+    IL2CPP_INTERCEPT_WITH_ORDER(-10, void, SavePedestalController, OnFinishedTeleportingStartAnimation) {
         // reimplemented in moon_animator event bus
         if (!use_custom_animation_handling) {
             next::SavePedestalController::OnFinishedTeleportingStartAnimation();
         }
     }
 
-    IL2CPP_INTERCEPT(SavePedestalController, void, OnFinishedTeleportingFinishAnimation, (app::SavePedestalController * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SavePedestalController, OnFinishedTeleportingFinishAnimation, app::SavePedestalController * this_ptr) {
         // reimplemented in moon_animator event bus
         if (!use_custom_animation_handling) {
             next::SavePedestalController::OnFinishedTeleportingFinishAnimation(this_ptr);

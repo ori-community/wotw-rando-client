@@ -54,5 +54,4 @@ namespace core::api::graphics::shaders {
     CORE_DLLEXPORT void duplicate_materials(app::GameObject* go);
 
     CORE_DLLEXPORT ShaderInfo get_info(app::Renderer* renderer);
-    CORE_DLLEXPORT void set_color(app::GameObject* go, app::Color& color);
 } // namespace core::shaders

@@ -74,7 +74,7 @@ namespace randomizer::conditions {
             return map->fields._.FallbackSetupStateIndex;
         }
 
-        IL2CPP_INTERCEPT(NewSetupStateController, app::SetupState*, get_ActiveState, (app::NewSetupStateController * this_ptr)) {
+        IL2CPP_INTERCEPT(app::SetupState*, NewSetupStateController, get_ActiveState, app::NewSetupStateController * this_ptr) {
             auto state = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "Resolve", 0);
             auto mapping = this_ptr->fields.StateHolder->fields._._.Mapping;
             int32_t mapping_result = 0;

@@ -10,6 +10,8 @@
 #include <Modloader/app/methods/GameMapSavePedestal.h>
 #include <Modloader/app/methods/Moon/BooleanUberState.h>
 #include <Modloader/app/methods/Moon/ByteUberState.h>
+#include <Modloader/app/methods/Moon/ConditionUberState.h>
+#include <Modloader/app/methods/Moon/CountUberState.h>
 #include <Modloader/app/methods/Moon/FloatUberState.h>
 #include <Modloader/app/methods/Moon/IntUberState.h>
 #include <Modloader/app/methods/Moon/SerializedBooleanUberState.h>
@@ -18,8 +20,6 @@
 #include <Modloader/app/methods/Moon/SerializedIntUberState.h>
 #include <Modloader/app/methods/Moon/UberStateCollection.h>
 #include <Modloader/app/methods/Moon/UberStateController.h>
-#include <Modloader/app/methods/Moon/CountUberState.h>
-#include <Modloader/app/methods/Moon/ConditionUberState.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/SerializedBoolUberStateWrapper.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/SerializedByteUberStateWrapper.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/SerializedFloatUberStateWrapper.h>
@@ -74,101 +74,94 @@ namespace core::api::uber_states {
             return type != class_to_type_map.end() ? type->second : UberStateType::Unknown;
         }
 
-        IL2CPP_INTERCEPT(Moon::SerializedBooleanUberState, void, set_Value, (app::SerializedBooleanUberState * this_ptr, bool value)) {
+        IL2CPP_INTERCEPT(void, Moon::SerializedBooleanUberState, set_Value, app::SerializedBooleanUberState* this_ptr, bool value) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(Moon::SerializedByteUberState, void, set_Value, (app::SerializedByteUberState * this_ptr, uint8_t value)) {
+        IL2CPP_INTERCEPT(void, Moon::SerializedByteUberState, set_Value, app::SerializedByteUberState* this_ptr, uint8_t value) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(Moon::SerializedFloatUberState, void, set_Value, (app::SerializedFloatUberState * this_ptr, float value)) {
+        IL2CPP_INTERCEPT(void, Moon::SerializedFloatUberState, set_Value, app::SerializedFloatUberState* this_ptr, float value) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(Moon::SerializedIntUberState, void, set_Value, (app::SerializedIntUberState * this_ptr, int value)) {
+        IL2CPP_INTERCEPT(void, Moon::SerializedIntUberState, set_Value, app::SerializedIntUberState* this_ptr, int value) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(Moon::BooleanUberState, void, set_Value, (app::BooleanUberState * this_ptr, bool value)) {
+        IL2CPP_INTERCEPT(void, Moon::BooleanUberState, set_Value, app::BooleanUberState* this_ptr, bool value) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(Moon::ByteUberState, void, set_Value, (app::ByteUberState * this_ptr, uint8_t value)) {
+        IL2CPP_INTERCEPT(void, Moon::ByteUberState, set_Value, app::ByteUberState* this_ptr, uint8_t value) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(Moon::FloatUberState, void, set_Value, (app::FloatUberState * this_ptr, float value)) {
+        IL2CPP_INTERCEPT(void, Moon::FloatUberState, set_Value, app::FloatUberState* this_ptr, float value) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(Moon::IntUberState, void, set_Value, (app::IntUberState * this_ptr, int value)) {
+        IL2CPP_INTERCEPT(void, Moon::IntUberState, set_Value, app::IntUberState* this_ptr, int value) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(Moon::uberSerializationWisp::SavePedestalUberState, void, set_HasGameBeenSaved, (app::SavePedestalUberState * this_ptr, bool value)) {
+        IL2CPP_INTERCEPT(void, Moon::uberSerializationWisp::SavePedestalUberState, set_HasGameBeenSaved, app::SavePedestalUberState* this_ptr, bool value) {
             // NOOP
         }
 
-        IL2CPP_INTERCEPT(
-            Moon::uberSerializationWisp::SavePedestalUberState,
-            void,
-            set_IsTeleporterActive,
-            (app::SavePedestalUberState * this_ptr, bool value)
-        ) {
+        IL2CPP_INTERCEPT(void, Moon::uberSerializationWisp::SavePedestalUberState, set_IsTeleporterActive, app::SavePedestalUberState* this_ptr, bool value) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr));
             uber_state.set(value ? 1.0 : 0.0);
         }
 
-        IL2CPP_INTERCEPT(GameMapSavePedestal, void, set_IsTeleporterActive, (app::GameMapSavePedestal * this_ptr, bool value)) {
+        IL2CPP_INTERCEPT(void, GameMapSavePedestal, set_IsTeleporterActive, app::GameMapSavePedestal* this_ptr, bool value) {
             SavePedestalUberState::set_IsTeleporterActive(this_ptr->fields.SeralizedState, value);
             SavePedestalController::OnTeleporterActivationStateChanged();
         }
 
         IL2CPP_INTERCEPT(
+            void,
             Moon::UberStateVisualization::SerializedBoolUberStateWrapper,
-            void,
             SetValue,
-            (app::SerializedBoolUberStateWrapper * this_ptr, bool value)
+            app::SerializedBoolUberStateWrapper* this_ptr,
+            bool value
         ) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state));
             uber_state.set(value);
         }
 
         IL2CPP_INTERCEPT(
+            void,
             Moon::UberStateVisualization::SerializedByteUberStateWrapper,
-            void,
             SetValue,
-            (app::SerializedByteUberStateWrapper * this_ptr, uint8_t value)
+            app::SerializedByteUberStateWrapper* this_ptr,
+            uint8_t value
         ) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state));
             uber_state.set(value);
         }
 
         IL2CPP_INTERCEPT(
+            void,
             Moon::UberStateVisualization::SerializedFloatUberStateWrapper,
-            void,
             SetValue,
-            (app::SerializedFloatUberStateWrapper * this_ptr, float value)
+            app::SerializedFloatUberStateWrapper* this_ptr,
+            float value
         ) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(
-            Moon::UberStateVisualization::SerializedIntUberStateWrapper,
-            void,
-            SetValue,
-            (app::SerializedIntUberStateWrapper * this_ptr, int value)
-        ) {
+        IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::SerializedIntUberStateWrapper, SetValue, app::SerializedIntUberStateWrapper* this_ptr, int value) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state));
             uber_state.set(value);
         }
@@ -546,7 +539,7 @@ namespace core::api::uber_states {
             case UberStateType::SerializedBooleanUberState:
             case UberStateType::SavePedestalUberState:
             default:
-return false;
+                return false;
         }
     }
 

@@ -48,7 +48,7 @@ namespace core::api::game::debug_menu {
         }
     });
 
-    IL2CPP_INTERCEPT(CheatsHandler, void, ActivateDebug, (app::CheatsHandler* this_ptr)) {
+    IL2CPP_INTERCEPT(void, CheatsHandler, ActivateDebug, app::CheatsHandler* this_ptr) {
         if (prevent_cheats) {
             return;
         }
@@ -57,7 +57,7 @@ namespace core::api::game::debug_menu {
         next::CheatsHandler::ActivateDebug(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(CheatsHandler, void, ActivateDebugMenu, (app::CheatsHandler* this_ptr)) {
+    IL2CPP_INTERCEPT(void, CheatsHandler, ActivateDebugMenu, app::CheatsHandler* this_ptr) {
         if (prevent_cheats) {
             return;
         }
@@ -130,7 +130,7 @@ namespace core::api::game::debug_menu {
             restore_state_selection(view);
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateVisualization::UberStateVisualizationView, void, UpdateWithModel, (app::UberStateVisualizationView * this_ptr, app::UberStateValueStore* uber_state_value_store)) {
+        IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::UberStateVisualizationView, UpdateWithModel, app::UberStateVisualizationView * this_ptr, app::UberStateValueStore* uber_state_value_store) {
             {
                 modloader::ScopedSetter _(is_building_list, true);
                 next::Moon::UberStateVisualization::UberStateVisualizationView::UpdateWithModel(this_ptr, uber_state_value_store);
@@ -139,7 +139,7 @@ namespace core::api::game::debug_menu {
             restore_group_selection(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateVisualization::UberStateVisualizationView, void, OnGroupsListViewSelectionChanged, (app::UberStateVisualizationView * this_ptr, app::ListViewItem* selected_item)) {
+        IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::UberStateVisualizationView, OnGroupsListViewSelectionChanged, app::UberStateVisualizationView * this_ptr, app::ListViewItem* selected_item) {
             {
                 modloader::ScopedSetter _(is_building_list, true);
                 next::Moon::UberStateVisualization::UberStateVisualizationView::OnGroupsListViewSelectionChanged(this_ptr, selected_item);
@@ -162,7 +162,7 @@ namespace core::api::game::debug_menu {
             restore_state_selection(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateVisualization::UberStateVisualizationView, void, OnStatesListViewSelectionChanged, (app::UberStateVisualizationView * this_ptr, app::ListViewItem* selected_item)) {
+        IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::UberStateVisualizationView, OnStatesListViewSelectionChanged, app::UberStateVisualizationView * this_ptr, app::ListViewItem* selected_item) {
             next::Moon::UberStateVisualization::UberStateVisualizationView::OnStatesListViewSelectionChanged(this_ptr, selected_item);
 
             if (is_building_list) {
@@ -184,7 +184,7 @@ namespace core::api::game::debug_menu {
         std::pair<int32_t, int32_t> current_uber_state;
         auto is_rendering_uber_state_wrapper = false;
 
-        IL2CPP_INTERCEPT(UnityEngine::GUILayout, app::String*, TextField, (app::String * text, app::GUILayoutOption__Array* options)) {
+        IL2CPP_INTERCEPT(app::String*, UnityEngine::GUILayout, TextField, app::String * text, app::GUILayoutOption__Array* options) {
             if (!is_rendering_uber_state_wrapper) {
                 return next::UnityEngine::GUILayout::TextField(text, options);
             }
@@ -202,21 +202,21 @@ namespace core::api::game::debug_menu {
             return new_text;
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateVisualization::SerializedIntUberStateWrapper, void, OnGui, (app::SerializedIntUberStateWrapper * this_ptr)) {
+        IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::SerializedIntUberStateWrapper, OnGui, app::SerializedIntUberStateWrapper * this_ptr) {
             modloader::ScopedSetter _(is_rendering_uber_state_wrapper, true);
             current_uber_state.first = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
             current_uber_state.second = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
             next::Moon::UberStateVisualization::SerializedIntUberStateWrapper::OnGui(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateVisualization::SerializedByteUberStateWrapper, void, OnGui, (app::SerializedByteUberStateWrapper * this_ptr)) {
+        IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::SerializedByteUberStateWrapper, OnGui, app::SerializedByteUberStateWrapper * this_ptr) {
             modloader::ScopedSetter _(is_rendering_uber_state_wrapper, true);
             current_uber_state.first = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
             current_uber_state.second = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
             next::Moon::UberStateVisualization::SerializedByteUberStateWrapper::OnGui(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(Moon::UberStateVisualization::SerializedFloatUberStateWrapper, void, OnGui, (app::SerializedFloatUberStateWrapper * this_ptr)) {
+        IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::SerializedFloatUberStateWrapper, OnGui, app::SerializedFloatUberStateWrapper * this_ptr) {
             modloader::ScopedSetter _(is_rendering_uber_state_wrapper, true);
             current_uber_state.first = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
             current_uber_state.second = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
@@ -226,7 +226,7 @@ namespace core::api::game::debug_menu {
 
     namespace better_hierarchy_menu {
         auto draw_gui_area_without_style = false;
-        IL2CPP_INTERCEPT(UnityEngine::GUILayout, void, BeginArea_4, (app::Rect screen_rect, app::GUIStyle* style)) {
+        IL2CPP_INTERCEPT(void, UnityEngine::GUILayout, BeginArea_4, app::Rect screen_rect, app::GUIStyle* style) {
             if (draw_gui_area_without_style) {
                 UnityEngine::GUILayout::BeginArea_1(screen_rect);
                 return;
@@ -235,12 +235,12 @@ namespace core::api::game::debug_menu {
             next::UnityEngine::GUILayout::BeginArea_4(screen_rect, style);
         }
 
-        IL2CPP_INTERCEPT(HierarchyDebugMenu, bool, Draw, (app::HierarchyDebugMenu * this_ptr, app::Rect rect, bool is_selected)) {
+        IL2CPP_INTERCEPT(bool, HierarchyDebugMenu, Draw, app::HierarchyDebugMenu * this_ptr, app::Rect rect, bool is_selected) {
             modloader::ScopedSetter _(draw_gui_area_without_style, true);
             return next::HierarchyDebugMenu::Draw(this_ptr, rect, is_selected);
         }
 
-        IL2CPP_INTERCEPT(DebugMenu, void, Awake, (app::DebugMenu * this_ptr)) {
+        IL2CPP_INTERCEPT(void, DebugMenu, Awake, app::DebugMenu * this_ptr) {
             next::DebugMenu::Awake(this_ptr);
 
             const auto texture = types::Texture2D::create();

@@ -17,7 +17,7 @@ using namespace app::classes;
 using namespace modloader;
 
 namespace text_style {
-    // IL2CPP_INTERCEPT(CatlikeCoding::TextBox::TextBox, void, GenerateMetaData, (app::TextBox * this_ptr)) {
+    // IL2CPP_INTERCEPT(void, CatlikeCoding::TextBox::TextBox, GenerateMetaData, app::TextBox * this_ptr) {
     //     next::CatlikeCoding::TextBox::TextBox::GenerateMetaData(this_ptr);
     //     this_ptr->fields.currentStyle.lineHeight = 0.0f;
     //     this_ptr->fields.currentStyle.lineDescent.baseline = 0.f;

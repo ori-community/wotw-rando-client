@@ -5,5 +5,5 @@
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Reflection::AssemblyCopyrightAttribute {
-    IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::AssemblyCopyrightAttribute * this_ptr, app::String* copyright))
+    IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, app::AssemblyCopyrightAttribute* this_ptr, app::String* copyright)
 }

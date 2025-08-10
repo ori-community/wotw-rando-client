@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/SceneNavigationInfo.h>
 
 namespace app::classes::SceneNavigationInfo {
-    IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::SceneNavigationInfo * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, app::SceneNavigationInfo* this_ptr)
 }

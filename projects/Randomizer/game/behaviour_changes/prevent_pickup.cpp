@@ -5,7 +5,7 @@
 
 namespace {
     core::api::uber_states::UberState prevent_pickup(UberStateGroup::RandoConfig, 8);
-    IL2CPP_INTERCEPT(PickupBase, void, Collected, (app::PickupBase * this_ptr)) {
+    IL2CPP_INTERCEPT(void, PickupBase, Collected, app::PickupBase * this_ptr) {
         if (prevent_pickup.get<bool>())
             return;
 

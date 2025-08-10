@@ -29,7 +29,7 @@ namespace randomizer::game::teleportation {
      * with teleporting to coordinates where at least one of X and Y is exactly on a scene boundary
      * and were hence considered out of bounds by the vanilla game.
      */
-    IL2CPP_INTERCEPT(RuntimeSceneMetaData, bool, IsInsideSceneBounds_3, (app::RuntimeSceneMetaData * this_ptr, app::Rect rect)) {
+    IL2CPP_INTERCEPT(bool, RuntimeSceneMetaData, IsInsideSceneBounds_3, app::RuntimeSceneMetaData * this_ptr, app::Rect rect) {
         for (const auto& boundary: il2cpp::ListIterator(this_ptr->fields.SceneBoundaries)) {
             const auto rect_min = app::Vector2{ rect.m_XMin, rect.m_YMin };
             const auto rect_max = app::Vector2{ rect.m_XMin + rect.m_Width, rect.m_YMin + rect.m_Height };
@@ -49,7 +49,7 @@ namespace randomizer::game::teleportation {
         return false;
     }
 
-    IL2CPP_INTERCEPT(RuntimeSceneMetaData, bool, IsInTotal_1, (app::RuntimeSceneMetaData * this_ptr, app::Vector3 position)) {
+    IL2CPP_INTERCEPT(bool, RuntimeSceneMetaData, IsInTotal_1, app::RuntimeSceneMetaData * this_ptr, app::Vector3 position) {
         RuntimeSceneMetaData::DoTotal(this_ptr);
 
         const auto& total = this_ptr->fields.m_totalRect;
@@ -63,7 +63,7 @@ namespace randomizer::game::teleportation {
             position.y <= total_max.y;
     }
 
-    IL2CPP_INTERCEPT(InstantLoadScenesController, void, CompleteLoading, (app::InstantLoadScenesController* this_ptr)) {
+    IL2CPP_INTERCEPT(void, InstantLoadScenesController, CompleteLoading, app::InstantLoadScenesController* this_ptr) {
         if (teleport_in_progress) {
             const auto scenes_manager = core::api::scenes::get_scenes_manager();
             modloader::ScopedSetter _(scenes_manager->klass->static_fields->DoExtraSceneCleanUp, false);
@@ -74,7 +74,7 @@ namespace randomizer::game::teleportation {
         }
     }
 
-    IL2CPP_INTERCEPT(ScenesManager, bool, UnloadScene, (app::ScenesManager * this_ptr, app::SceneManagerScene* scene, bool keep_in_memory, bool instant)) {
+    IL2CPP_INTERCEPT(bool, ScenesManager, UnloadScene, app::ScenesManager * this_ptr, app::SceneManagerScene* scene, bool keep_in_memory, bool instant) {
         if (teleport_in_progress) {
             return false;
         }

@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/MeshRenderer.h>
 
 namespace app::classes::UnityEngine::MeshRenderer {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, DontStripMeshRenderer, (app::MeshRenderer * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, DontStripMeshRenderer, app::MeshRenderer* this_ptr)
 }

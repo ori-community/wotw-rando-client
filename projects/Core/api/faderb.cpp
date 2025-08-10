@@ -31,7 +31,7 @@ namespace core::api::faderb {
         skip_black_screen_cleanup = skip;
     }
 
-    IL2CPP_INTERCEPT(FaderB, void, DoBlackScreenCleanup, (app::FaderB * this_ptr)) {
+    IL2CPP_INTERCEPT(void, FaderB, DoBlackScreenCleanup, app::FaderB * this_ptr) {
         if (skip_black_screen_cleanup) {
             return;
         }
@@ -39,19 +39,19 @@ namespace core::api::faderb {
         next::FaderB::DoBlackScreenCleanup(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(FaderB, void, OnFadeInFinished, (app::FaderB * this_ptr)) {
+    IL2CPP_INTERCEPT(void, FaderB, OnFadeInFinished, app::FaderB * this_ptr) {
         game::event_bus().trigger_event(GameEvent::FaderBFadeInFinished, EventTiming::Before);
         next::FaderB::OnFadeInFinished(this_ptr);
         game::event_bus().trigger_event(GameEvent::FaderBFadeInFinished, EventTiming::After);
     }
 
-    IL2CPP_INTERCEPT(FaderB, void, OnFadeOutFinished, (app::FaderB * this_ptr)) {
+    IL2CPP_INTERCEPT(void, FaderB, OnFadeOutFinished, app::FaderB * this_ptr) {
         game::event_bus().trigger_event(GameEvent::FaderBFadeOutFinished, EventTiming::Before);
         next::FaderB::OnFadeOutFinished(this_ptr);
         game::event_bus().trigger_event(GameEvent::FaderBFadeOutFinished, EventTiming::After);
     }
 
-    IL2CPP_INTERCEPT(FaderB, void, SetOpacity, (app::FaderB * this_ptr, float opacity)) {
+    IL2CPP_INTERCEPT(void, FaderB, SetOpacity, app::FaderB * this_ptr, float opacity) {
         next::FaderB::SetOpacity(this_ptr, opacity);
 
         if (DEBUG_DISABLE_FADERB) {

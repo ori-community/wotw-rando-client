@@ -37,7 +37,7 @@ namespace randomizer::game::map {
         }
 
         std::unordered_map<app::GameWorldAreaID__Enum, app::RuntimeGameWorldArea*> areas;
-        IL2CPP_INTERCEPT(RuntimeGameWorldArea, void, ctor, (app::RuntimeGameWorldArea * this_ptr, app::GameWorldArea* area)) {
+        IL2CPP_INTERCEPT(void, RuntimeGameWorldArea, ctor, app::RuntimeGameWorldArea * this_ptr, app::GameWorldArea* area) {
             next::RuntimeGameWorldArea::ctor(this_ptr, area);
             areas[area->fields.WorldMapAreaUniqueID] = this_ptr;
             resolve_icons(this_ptr);

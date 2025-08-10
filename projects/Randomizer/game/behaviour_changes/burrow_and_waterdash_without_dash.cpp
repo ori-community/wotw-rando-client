@@ -17,18 +17,18 @@ using namespace app::classes;
 namespace {
     auto override_has_ability = false;
 
-    IL2CPP_INTERCEPT(SeinPrefabFactory, void, EnsureRightPrefabsAreThereForAbilities, (app::SeinPrefabFactory * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinPrefabFactory, EnsureRightPrefabsAreThereForAbilities, app::SeinPrefabFactory * this_ptr) {
         override_has_ability = true;
         next::SeinPrefabFactory::EnsureRightPrefabsAreThereForAbilities(this_ptr);
         override_has_ability = false;
     }
 
-    IL2CPP_INTERCEPT(SeinLogicCycle, bool, get_AllowDashNew, (app::SeinLogicCycle * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, SeinLogicCycle, get_AllowDashNew, app::SeinLogicCycle * this_ptr) {
         modloader::ScopedSetter _(override_has_ability, true);
         return next::SeinLogicCycle::get_AllowDashNew(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(PlayerAbilities, bool, HasAbility, (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability)) {
+    IL2CPP_INTERCEPT(bool, PlayerAbilities, HasAbility, app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability) {
         // There's a cache. Bypass that for Dash.
         if (ability == app::AbilityType__Enum::DashNew) {
             const auto descriptor = Moon::uberSerializationWisp::PlayerUberStateDescriptor::get_Value(this_ptr->fields.StateDescriptor);
@@ -38,7 +38,7 @@ namespace {
         return next::PlayerAbilities::HasAbility(this_ptr, ability);
     }
 
-    IL2CPP_INTERCEPT(Moon::uberSerializationWisp::PlayerUberStateAbilities, bool, HasAbility, (app::PlayerUberStateAbilities * this_ptr, app::AbilityType__Enum ability)) {
+    IL2CPP_INTERCEPT(bool, Moon::uberSerializationWisp::PlayerUberStateAbilities, HasAbility, app::PlayerUberStateAbilities * this_ptr, app::AbilityType__Enum ability) {
         if (override_has_ability && ability == app::AbilityType__Enum::DashNew) {
             return
                 next::Moon::uberSerializationWisp::PlayerUberStateAbilities::HasAbility(this_ptr, app::AbilityType__Enum::DashNew) ||
@@ -49,7 +49,7 @@ namespace {
         return next::Moon::uberSerializationWisp::PlayerUberStateAbilities::HasAbility(this_ptr, ability);
     }
 
-    IL2CPP_INTERCEPT(SeinDashNew, bool, get_CanDash, (app::SeinDashNew * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, SeinDashNew, get_CanDash, app::SeinDashNew * this_ptr) {
         auto result = next::SeinDashNew::get_CanDash(this_ptr);
 
         if (!core::api::game::player::ability(app::AbilityType__Enum::DashNew).get()) {

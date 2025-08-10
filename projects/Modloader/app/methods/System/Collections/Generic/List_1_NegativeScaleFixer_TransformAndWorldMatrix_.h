@@ -6,7 +6,18 @@
 #include <Modloader/app/structs/NegativeScaleFixer_TransformAndWorldMatrix.h>
 
 namespace app::classes::System::Collections::Generic::List_1_NegativeScaleFixer_TransformAndWorldMatrix_ {
-    IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_NegativeScaleFixer_TransformAndWorldMatrix_ * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_NegativeScaleFixer_TransformAndWorldMatrix_, GetEnumerator, (app::List_1_NegativeScaleFixer_TransformAndWorldMatrix_ * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_NegativeScaleFixer_TransformAndWorldMatrix_ * this_ptr, app::NegativeScaleFixer_TransformAndWorldMatrix* item))
+    IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, app::List_1_NegativeScaleFixer_TransformAndWorldMatrix_* this_ptr)
+    IL2CPP_REGISTER_METHOD(
+        0x025F0B10,
+        app::List_1_T_Enumerator_NegativeScaleFixer_TransformAndWorldMatrix_,
+        GetEnumerator,
+        app::List_1_NegativeScaleFixer_TransformAndWorldMatrix_* this_ptr
+    )
+    IL2CPP_REGISTER_METHOD(
+        0x02F1E150,
+        void,
+        Add,
+        app::List_1_NegativeScaleFixer_TransformAndWorldMatrix_* this_ptr,
+        app::NegativeScaleFixer_TransformAndWorldMatrix* item
+    )
 } // namespace app::classes::System::Collections::Generic::List_1_NegativeScaleFixer_TransformAndWorldMatrix_

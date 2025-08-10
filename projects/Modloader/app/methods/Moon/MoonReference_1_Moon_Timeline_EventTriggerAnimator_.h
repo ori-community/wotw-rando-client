@@ -6,5 +6,11 @@
 #include <Modloader/app/structs/MoonReference_1_Moon_Timeline_EventTriggerAnimator_.h>
 
 namespace app::classes::Moon::MoonReference_1_Moon_Timeline_EventTriggerAnimator_ {
-    IL2CPP_REGISTER_METHOD(0x02720AC0, app::EventTriggerAnimator*, Resolve, (app::MoonReference_1_Moon_Timeline_EventTriggerAnimator_ * this_ptr, app::IMoonResolverContext* context))
+    IL2CPP_REGISTER_METHOD(
+        0x02720AC0,
+        app::EventTriggerAnimator*,
+        Resolve,
+        app::MoonReference_1_Moon_Timeline_EventTriggerAnimator_* this_ptr,
+        app::IMoonResolverContext* context
+    )
 }

@@ -17,7 +17,7 @@ using namespace app::classes;
 namespace {
     bool toggle_default = false;
     core::api::uber_states::UberState air_no_deceleration(UberStateGroup::RandoConfig, FORCE_AIR_NO_DECELERATION_ID);
-    IL2CPP_INTERCEPT(CharacterAirNoDeceleration, void, UpdateCharacterState, (app::CharacterAirNoDeceleration * this_ptr)) {
+    IL2CPP_INTERCEPT(void, CharacterAirNoDeceleration, UpdateCharacterState, app::CharacterAirNoDeceleration * this_ptr) {
         if (toggle_default) {
             next::CharacterAirNoDeceleration::UpdateCharacterState(this_ptr);
             return;

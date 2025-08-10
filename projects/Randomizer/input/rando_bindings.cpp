@@ -100,7 +100,7 @@ namespace randomizer::input {
             add_midi_binding(action, input);
         }
 
-        IL2CPP_INTERCEPT(PlayerInput, void, ClearControls, (app::PlayerInput * this_ptr)) {
+        IL2CPP_INTERCEPT_WITH_ORDER(0, void, PlayerInput, ClearControls, app::PlayerInput * this_ptr) {
             next::PlayerInput::ClearControls(this_ptr);
             for (auto& bind: rando_bindings | std::views::values) {
                 bind.kbm_bindings.clear();
@@ -151,14 +151,14 @@ namespace randomizer::input {
         }
         #endif
 
-        IL2CPP_INTERCEPT(SavePedestalController, void, BeginTeleportation, (app::Vector2 teleport_target_world_position)) {
+        IL2CPP_INTERCEPT_WITH_ORDER(10, void, SavePedestalController, BeginTeleportation, app::Vector2 teleport_target_world_position) {
             auto player_input = types::PlayerInput::get_class()->static_fields->Instance;
             auto prev = player_input->fields.Active;
             next::SavePedestalController::BeginTeleportation(teleport_target_world_position);
             player_input->fields.Active = prev;
         }
 
-        IL2CPP_INTERCEPT(PlayerInput, void, RefreshControls, (app::PlayerInput * this_ptr)) {
+        IL2CPP_INTERCEPT(void, PlayerInput, RefreshControls, app::PlayerInput * this_ptr) {
             next::PlayerInput::RefreshControls(this_ptr);
 
             for (auto& [action, info] : rando_bindings) {

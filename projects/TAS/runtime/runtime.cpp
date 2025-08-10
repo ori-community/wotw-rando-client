@@ -39,7 +39,7 @@ namespace tas::runtime {
     bool framestep_requested = false;
 
     namespace {
-        IL2CPP_INTERCEPT(UnityEngine::Time, float, get_deltaTime, ()) {
+        IL2CPP_INTERCEPT(float, UnityEngine::Time, get_deltaTime) {
             auto fps = static_cast<int>(state.current_timeline.get_fps());
             auto delta_time = state.current_timeline.get_delta_time();
 
@@ -52,15 +52,15 @@ namespace tas::runtime {
             return delta_time;
         }
 
-        IL2CPP_INTERCEPT(UnityEngine::Time, float, get_fixedDeltaTime, ()) {
+        IL2CPP_INTERCEPT(float, UnityEngine::Time, get_fixedDeltaTime) {
             return state.current_timeline.get_delta_time();
         }
 
-        IL2CPP_INTERCEPT(SinMovement, void, UpdateMovement, (app::SinMovement * this_ptr, float time)) {
+        IL2CPP_INTERCEPT(void, SinMovement, UpdateMovement, app::SinMovement * this_ptr, float time) {
             // Disable camera swaying
         }
 
-        IL2CPP_INTERCEPT(ScenesManager, bool, get_InstantLoadScenes, (app::ScenesManager * this_ptr)) {
+        IL2CPP_INTERCEPT(bool, ScenesManager, get_InstantLoadScenes, app::ScenesManager * this_ptr) {
             return true;
         }
 

@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/DoorVisuals.h>
 
 namespace app::classes::DoorVisuals {
-    IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::DoorVisuals * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, app::DoorVisuals* this_ptr)
 }

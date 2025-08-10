@@ -60,7 +60,7 @@ namespace {
         }
     });
 
-    IL2CPP_INTERCEPT(IntroLogosSkip, void, Update, (app::IntroLogosSkip* this_ptr)) {
+    IL2CPP_INTERCEPT(void, IntroLogosSkip, Update, app::IntroLogosSkip* this_ptr) {
         if (GameStateMachine::get_CurrentState(GameStateMachine::get_Instance()) == app::GameStateMachine_State__Enum::Logos) {
             if (!this_ptr->fields.TimelineRunning->fields.m_isRunning && this_ptr->fields.MoonStudiosLogoTimeline->fields._._PlayState_k__BackingField != app::AnimatorPlayState__Enum::Playing) {
                 return;
@@ -73,7 +73,7 @@ namespace {
     }
 
     // Warning: This method runs in a thread!
-    IL2CPP_INTERCEPT(J2i::Net::XInputWrapper::XboxController, void, UpdateState, (app::XboxController* this_ptr)) {
+    IL2CPP_INTERCEPT(void, J2i::Net::XInputWrapper::XboxController, UpdateState, app::XboxController* this_ptr) {
         if (!enable_native_controller_support) {
             next::J2i::Net::XInputWrapper::XboxController::UpdateState(this_ptr);
             return;
@@ -141,7 +141,7 @@ namespace {
         J2i::Net::XInputWrapper::XboxController::OnStateChanged(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(J2i::Net::XInputWrapper::XboxController, void, Vibrate_2, (app::XboxController * this_ptr, double left_motor, double right_motor, app::TimeSpan length)) {
+    IL2CPP_INTERCEPT(void, J2i::Net::XInputWrapper::XboxController, Vibrate_2, app::XboxController * this_ptr, double left_motor, double right_motor, app::TimeSpan length) {
         if (!enable_native_controller_support) {
             next::J2i::Net::XInputWrapper::XboxController::Vibrate_2(this_ptr, left_motor, right_motor, length);
             return;

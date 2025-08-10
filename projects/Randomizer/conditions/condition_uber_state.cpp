@@ -11,7 +11,7 @@ namespace randomizer::conditions {
     namespace {
         std::unordered_map<std::pair<UberStateGroup, int>, condition_uber_state_intercept, pair_hash> intercepts;
 
-        IL2CPP_INTERCEPT(Moon::ConditionUberState, bool, EvaluateConditions, (app::ConditionUberState * this_ptr)) {
+        IL2CPP_INTERCEPT(bool, Moon::ConditionUberState, EvaluateConditions, app::ConditionUberState * this_ptr) {
             auto group = static_cast<UberStateGroup>(this_ptr->fields.Group->fields._.m_id->fields.m_id);
             auto it = intercepts.find(std::make_pair(group, this_ptr->fields._.m_id->fields.m_id));
             if (it != intercepts.end()) {

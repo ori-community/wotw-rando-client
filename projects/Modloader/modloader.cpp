@@ -14,6 +14,8 @@
 #include <Modloader/console_logging_handler.h>
 
 #include <Common/settings.h>
+#include <Core/api/game/game.h>
+#include <Core/enums/game_event.h>
 #include <filesystem>
 #include <functional>
 #include <semaphore>
@@ -135,7 +137,7 @@ namespace modloader {
         }
 
         trace(MessageType::Info, "initialize", "Performing intercepts.");
-        interception::interception_init();
+        interception::initialize();
 
         il2cpp::load_all_types();
         event_bus().trigger_event(ModloaderEvent::InjectionComplete);
@@ -168,14 +170,14 @@ namespace modloader {
         shutdown_requested = true;
         app::classes::J2i::Net::XInputWrapper::XboxController::StopPolling();
         wait_for_exit.acquire();
-        interception::interception_detach();
+        interception::detach();
         // TODO: Make these not do weird things to our memory. (Crashes with a DEP violation)
         //win::bootstrap::bootstrap_shutdown();
         //win::common::free_library_and_exit_thread("Modloader.dll");
     }
 
     bool initialized = false;
-    IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
+    IL2CPP_INTERCEPT_WITH_ORDER(-1000, void, GameController, FixedUpdate, app::GameController * this_ptr) {
         if (!initialized) {
             auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());
             auto version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_version());

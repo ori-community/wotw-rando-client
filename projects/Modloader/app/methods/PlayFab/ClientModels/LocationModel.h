@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/LocationModel.h>
 
 namespace app::classes::PlayFab::ClientModels::LocationModel {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::LocationModel * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::LocationModel* this_ptr)
 }

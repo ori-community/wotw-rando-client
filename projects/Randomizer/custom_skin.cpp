@@ -47,7 +47,7 @@ RANDOMIZER_C_DLLEXPORT void apply_sein_character_texture() {
 }
 
 namespace {
-    IL2CPP_INTERCEPT(SeinCharacter, void, Awake, (app::SeinCharacter* this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinCharacter, Awake, app::SeinCharacter* this_ptr) {
         next::SeinCharacter::Awake(this_ptr);
         apply_sein_character_texture();
     }

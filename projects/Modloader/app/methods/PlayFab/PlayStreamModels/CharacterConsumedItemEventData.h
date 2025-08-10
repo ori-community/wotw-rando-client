@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/CharacterConsumedItemEventData.h>
 
 namespace app::classes::PlayFab::PlayStreamModels::CharacterConsumedItemEventData {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::CharacterConsumedItemEventData * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::CharacterConsumedItemEventData* this_ptr)
 }

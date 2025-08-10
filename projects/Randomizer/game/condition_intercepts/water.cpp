@@ -17,8 +17,10 @@ namespace {
     bool water_damage_override = false;
     core::api::uber_states::UberState clean_water_state(UberStateGroup::RandoState, 2000);
 
-    IL2CPP_INTERCEPT(Sein::World::Events, bool, get_WaterPurified, ()) {
-        return !water_damage_override && clean_water_state.get<bool>();
+    IL2CPP_INTERCEPT(bool, Sein::World::Events, get_WaterPurified) { return !water_damage_override && clean_water_state.get<bool>(); }
+
+    randomizer::conditions::applier_intercept create_applier_intercept(int32_t corrupted, int32_t clean) {
+        return [corrupted, clean](auto, auto, auto, auto) -> int32_t { return clean_water_state.get<bool>() ? clean : corrupted; };
     }
 
     [[maybe_unused]] std::shared_ptr<const core::reactivity::ReactiveEffect> water_effect;
@@ -65,8 +67,8 @@ namespace {
                 "kwoloksHollowGetDash/dynamicSettings /waterStateController",
                 "kwoloksCavernH/dynamicSettings /waterStateController",
             },
-            { 569716315, 2044614461 },
-            ai_create(569716315, 2044614461)
+            {569716315, 2044614461},
+            create_applier_intercept(569716315, 2044614461)
         );
         // notClean  / Clean
         randomizer::conditions::register_new_setup_intercept(
@@ -76,88 +78,64 @@ namespace {
                 "swampWalljumpChallengeB/dynamicSetups/waterStateController",
                 "kwoloksCavernO/dynamicSetups/waterStateController",
             },
-            { 135459242, 2010339656 },
-            ai_create(135459242, 2010339656)
+            {135459242, 2010339656},
+            create_applier_intercept(135459242, 2010339656)
         );
         // corrupted / clean
         randomizer::conditions::register_new_setup_intercept(
-            { "lumaPoolsP/dynamicSetups/waterStateController" },
-            { 742737118, 669048353 },
-            ai_create(742737118, 669048353)
+            {"lumaPoolsP/dynamicSetups/waterStateController"}, {742737118, 669048353}, create_applier_intercept(742737118, 669048353)
         );
         // corrupted / clean
         randomizer::conditions::register_new_setup_intercept(
-            { "wellspringGladesHubBackground/dynamicSetups/waterStateController" },
-            { 739518878, -1861424606 },
-            ai_create(739518878, -1861424606)
+            {"wellspringGladesHubBackground/dynamicSetups/waterStateController"}, {739518878, -1861424606}, create_applier_intercept(739518878, -1861424606)
         );
         // Corrupted / Clean
         randomizer::conditions::register_new_setup_intercept(
-            { "wellspringGladesHub/dynamicSetups/waterStateController", "wellspringGladesHubB/dynamicSetups/waterStateController" },
-            { 2054782292, -357160486 },
-            ai_create(2054782292, -357160486)
+            {"wellspringGladesHub/dynamicSetups/waterStateController", "wellspringGladesHubB/dynamicSetups/waterStateController"},
+            {2054782292, -357160486},
+            create_applier_intercept(2054782292, -357160486)
         );
         // Corrupted / Clean
         randomizer::conditions::register_new_setup_intercept(
-            { "waterMillCEntrance/dynamicSetups/waterSetup" },
-            { 1639966459, 127921689 },
-            ai_create(1639966459, 127921689)
+            {"waterMillCEntrance/dynamicSetups/waterSetup"}, {1639966459, 127921689}, create_applier_intercept(1639966459, 127921689)
         );
         // Corrupted / Clean
         randomizer::conditions::register_new_setup_intercept(
-            { "wotwSaveRoomC__clone0__clone1/dynamicSetups/waterSetup" },
-            { -1876259767, -1976832348 },
-            ai_create(-1876259767, -1976832348)
+            {"wotwSaveRoomC__clone0__clone1/dynamicSetups/waterSetup"}, {-1876259767, -1976832348}, create_applier_intercept(-1876259767, -1976832348)
         );
         // Corrupted / Clean
         randomizer::conditions::register_new_setup_intercept(
-            { "waterMillPool__clone0/dynamicSetups/waterSetup" },
-            { -1947088109, 385303388 },
-            ai_create(-1947088109, 385303388)
+            {"waterMillPool__clone0/dynamicSetups/waterSetup"}, {-1947088109, 385303388}, create_applier_intercept(-1947088109, 385303388)
         );
         // Poisoned / Clean
         randomizer::conditions::register_new_setup_intercept(
-            { "kwoloksCavernE/setups/poisonWaterToggle" },
-            { 378117992, -760384866 },
-            ai_create(378117992, -760384866)
+            {"kwoloksCavernE/setups/poisonWaterToggle"}, {378117992, -760384866}, create_applier_intercept(378117992, -760384866)
         );
         // corrupted / clean
         randomizer::conditions::register_new_setup_intercept(
-            { "kwoloksCavernF/dynamicSetups/waterStateController" },
-            { -144265033, 685358568 },
-            ai_create(-144265033, 685358568)
+            {"kwoloksCavernF/dynamicSetups/waterStateController"}, {-144265033, 685358568}, create_applier_intercept(-144265033, 685358568)
         );
         // corrupted / clean
         randomizer::conditions::register_new_setup_intercept(
-            { "kwoloksCavernBackgroundA/dynamicSetups/waterStateController" },
-            { -882028644, -1833484193 },
-            ai_create(-882028644, -1833484193)
+            {"kwoloksCavernBackgroundA/dynamicSetups/waterStateController"}, {-882028644, -1833484193}, create_applier_intercept(-882028644, -1833484193)
         );
         // corrupted / clean
         randomizer::conditions::register_new_setup_intercept(
-            { "kwoloksCavernB/dynamicSetups/waterStateController" },
-            { -1848734555, 30971136 },
-            ai_create(-1848734555, 30971136)
+            {"kwoloksCavernB/dynamicSetups/waterStateController"}, {-1848734555, 30971136}, create_applier_intercept(-1848734555, 30971136)
         );
         // Corrupted / Clean
         randomizer::conditions::register_new_setup_intercept(
-            { "kwoloksCavernStomperSideRoom/dynamicSetups/waterStateController" },
-            { 1762013712, 816885685 },
-            ai_create(1762013712, 816885685)
+            {"kwoloksCavernStomperSideRoom/dynamicSetups/waterStateController"}, {1762013712, 816885685}, create_applier_intercept(1762013712, 816885685)
         );
 
         //-> -1629508673 : NotStarted
         //-> -1353113975 : Started
         //-> -2075520848 : Finished
         randomizer::conditions::register_new_setup_intercept(
-            { "waterMillEscapeABBackground/escapeSetups" },
-            { -1629508673, -1353113975, -2075520848 },
+            {"waterMillEscapeABBackground/escapeSetups"},
+            {-1629508673, -1353113975, -2075520848},
             [](auto, auto, auto state, auto) -> int32_t {
-                if (state == -1353113975)
-                    water_damage_override = true;
-                else
-                    water_damage_override = false;
-
+                water_damage_override = static_cast<bool>(state == -1353113975);
                 return state;
             }
         );

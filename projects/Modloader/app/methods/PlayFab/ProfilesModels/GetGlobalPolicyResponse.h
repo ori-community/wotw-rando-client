@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/GetGlobalPolicyResponse.h>
 
 namespace app::classes::PlayFab::ProfilesModels::GetGlobalPolicyResponse {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GetGlobalPolicyResponse * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::GetGlobalPolicyResponse* this_ptr)
 }

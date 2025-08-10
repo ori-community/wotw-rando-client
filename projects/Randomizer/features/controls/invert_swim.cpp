@@ -17,7 +17,7 @@ namespace {
     constexpr float DEFAULT_SWIM_SPEED = 6.f;
 
     core::api::uber_states::UberState swim_speed(UberStateGroup::RandoUpgrade, 85);
-    IL2CPP_INTERCEPT(SeinSwimming, void, UpdateSwimMovingUnderwaterState, (app::SeinSwimming * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinSwimming, UpdateSwimMovingUnderwaterState, app::SeinSwimming * this_ptr) {
         this_ptr->fields.SwimSpeed = DEFAULT_SWIM_SPEED * swim_speed.get<float>();
         this_ptr->fields.HoldAToSwimLoop = false;
 

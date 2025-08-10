@@ -36,46 +36,46 @@ using namespace app::classes::UnityEngine;
 using namespace app::classes::CatlikeCoding::TextBox;
 
 namespace {
-    IL2CPP_INTERCEPT(MessageControllerB, app::GameObject*, ShowSpiritTreeTextMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* provider, app::Vector3 position)) {
+    IL2CPP_INTERCEPT(app::GameObject*, MessageControllerB, ShowSpiritTreeTextMessage, app::MessageControllerB * this_ptr, app::MessageProvider* provider, app::Vector3 position) {
         return nullptr;
     }
 
-    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowAbilityMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::EquipmentType__Enum ability)) {
+    IL2CPP_INTERCEPT(app::MessageBox*, MessageControllerB, ShowAbilityMessage, app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::EquipmentType__Enum ability) {
         return nullptr;
     }
 
-    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowShardMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::GameObject* avatar, app::SpiritShardType__Enum shard_type)) {
+    IL2CPP_INTERCEPT(app::MessageBox*, MessageControllerB, ShowShardMessage, app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::GameObject* avatar, app::SpiritShardType__Enum shard_type) {
         return nullptr;
     }
 
-    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowSpellMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::EquipmentType__Enum ability)) {
+    IL2CPP_INTERCEPT(app::MessageBox*, MessageControllerB, ShowSpellMessage, app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::EquipmentType__Enum ability) {
         return nullptr;
     }
 
-    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowCompleteQuestMessage, (app::MessageControllerB * t, app::MessageProvider* p, app::Quest* q)) {
+    IL2CPP_INTERCEPT(app::MessageBox*, MessageControllerB, ShowCompleteQuestMessage, app::MessageControllerB * t, app::MessageProvider* p, app::Quest* q) {
         return nullptr;
     }
 
-    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowUpdatedQuestMessage, (app::MessageControllerB * t, app::MessageProvider* p, app::Quest* q)) {
+    IL2CPP_INTERCEPT(app::MessageBox*, MessageControllerB, ShowUpdatedQuestMessage, app::MessageControllerB * t, app::MessageProvider* p, app::Quest* q) {
         return nullptr;
     }
 
-    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowHelpMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::GameObject* avatar)) {
+    IL2CPP_INTERCEPT(app::MessageBox*, MessageControllerB, ShowHelpMessage, app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::GameObject* avatar) {
         return nullptr;
     }
 
-    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowHintSmallMessage_1, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::Vector3 position, float duration)) {
+    IL2CPP_INTERCEPT(app::MessageBox*, MessageControllerB, ShowHintSmallMessage_1, app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::Vector3 position, float duration) {
         return nullptr;
     }
 
-    IL2CPP_INTERCEPT(SwimBoostHelper, void, Update, (app::SwimBoostHelper * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SwimBoostHelper, Update, app::SwimBoostHelper * this_ptr) {
         // NOOP
         // This is the method showing the "Hold A to swim faster" message
     }
 
-    IL2CPP_INTERCEPT(MessageZoneB, void, FixedUpdate, (app::MessageZoneB * this_ptr)) {}
+    IL2CPP_INTERCEPT(void, MessageZoneB, FixedUpdate, app::MessageZoneB * this_ptr) {}
 
-    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowPickupMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::PickupContext* context, bool lockInput)) {
+    IL2CPP_INTERCEPT(app::MessageBox*, MessageControllerB, ShowPickupMessage, app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::PickupContext* context, bool lockInput) {
         if (context->fields.PickupType == app::PickupMessageIcon_PickupType__Enum::QuestItem) {
             auto arr = MessageProvider::GetAllMessages(context->fields.Name);
             if (arr->max_length > 0) {

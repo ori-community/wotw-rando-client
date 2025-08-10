@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/CreateSharedGroupResult.h>
 
 namespace app::classes::PlayFab::ClientModels::CreateSharedGroupResult {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::CreateSharedGroupResult * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::CreateSharedGroupResult* this_ptr)
 }

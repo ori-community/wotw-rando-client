@@ -1142,7 +1142,7 @@ namespace randomizer::area_segment_states {
         }
     }
 
-    IL2CPP_INTERCEPT(Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation, void, SetAreaState, (app::PlayerUberStateAreaMapInformation * this_ptr, app::GameWorldAreaID__Enum area_id, int index, app::WorldMapAreaState__Enum state, app::Vector3 position)) {
+    IL2CPP_INTERCEPT_WITH_ORDER(100, void, Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation, SetAreaState, app::PlayerUberStateAreaMapInformation * this_ptr, app::GameWorldAreaID__Enum area_id, int index, app::WorldMapAreaState__Enum state, app::Vector3 position) {
         const auto virtual_state_id = static_cast<int>(area_id) * 10000 + index;
         const auto uber_state = core::api::uber_states::UberState(UberStateGroup::MapSegments, virtual_state_id);
         const auto previous_value = uber_state.get<double>();

@@ -65,7 +65,7 @@ namespace randomizer::conditions {
                 EntityTargetting::RefreshAttackable(et);
         }
 
-        IL2CPP_INTERCEPT(EntityTargetting, void, OnUpdate, (app::EntityTargetting * this_ptr, float dt)) {
+        IL2CPP_INTERCEPT(void, EntityTargetting, OnUpdate, app::EntityTargetting * this_ptr, float dt) {
             refresh_values(this_ptr);
             return next::EntityTargetting::OnUpdate(this_ptr, dt);
         }

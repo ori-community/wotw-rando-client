@@ -4,7 +4,7 @@
 #include <Modloader/app/methods/Bubblemaker.h>
 
 namespace {
-    IL2CPP_INTERCEPT(Bubble, void, OnPoolSpawned, (app::Bubble* this_ptr)) {
+    IL2CPP_INTERCEPT(void, Bubble, OnPoolSpawned, app::Bubble* this_ptr) {
         next::Bubble::OnPoolSpawned(this_ptr);
 
         // Reset to default values so recycled bubbles don't have random values
@@ -12,7 +12,7 @@ namespace {
         il2cpp::unity::set_local_scale(this_ptr, this_ptr->fields.BaseLocalScale);
     }
 
-    IL2CPP_INTERCEPT(Bubblemaker, void, SpawnBubble, (app::Bubblemaker* this_ptr)) {
+    IL2CPP_INTERCEPT(void, Bubblemaker, SpawnBubble, app::Bubblemaker* this_ptr) {
         // Prevent fake bubbles to spawn due to lazily resetting MoonTimelines
         if (this_ptr->fields.RaceOverride && this_ptr->fields.m_raceTimeLastUpdate == 0.0) {
             return;
@@ -21,7 +21,7 @@ namespace {
         next::Bubblemaker::SpawnBubble(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(Bubblemaker, void, OnSyncRaceTimer, (app::Bubblemaker* this_ptr, float time)) {
+    IL2CPP_INTERCEPT(void, Bubblemaker, OnSyncRaceTimer, app::Bubblemaker* this_ptr, float time) {
         // Reset all timers on race restart, they forgot that...
         // This isn't too important since it doesn't actually spawn bubbles,
         // but it displays weird animations

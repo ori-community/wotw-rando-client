@@ -11,7 +11,7 @@ using namespace modloader;
 using namespace app::classes;
 
 namespace {
-    IL2CPP_INTERCEPT(EntityPlaceholder, void, Spawn, (app::EntityPlaceholder* this_ptr)) {
+    IL2CPP_INTERCEPT(void, EntityPlaceholder, Spawn, app::EntityPlaceholder* this_ptr) {
         next::EntityPlaceholder::Spawn(this_ptr);
 
         if (il2cpp::is_assignable(this_ptr, types::MinerNPCPlaceholder::get_class())) {

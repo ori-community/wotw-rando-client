@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/UserCustomIdInfo.h>
 
 namespace app::classes::PlayFab::ClientModels::UserCustomIdInfo {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::UserCustomIdInfo * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::UserCustomIdInfo* this_ptr)
 }

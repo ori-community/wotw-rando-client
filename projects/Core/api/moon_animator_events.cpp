@@ -9,7 +9,7 @@ namespace core::api::moon_animator {
     common::EventBus<const MoonAnimationEvent&> animation_event_bus_instance;
 
     // MoonAnimator_ActiveAnimation_OnRemovedFromAnimator
-    IL2CPP_INTERCEPT(Moon::MoonAnimator_ActiveAnimation, void, OnRemovedFromAnimator, (app::MoonAnimator_ActiveAnimation * this_ptr)) {
+    IL2CPP_INTERCEPT(void, Moon::MoonAnimator_ActiveAnimation, OnRemovedFromAnimator, app::MoonAnimator_ActiveAnimation * this_ptr) {
         next::Moon::MoonAnimator_ActiveAnimation::OnRemovedFromAnimator(this_ptr);
 
         // MoonAnimation is the only thing implementing IAnimation, so this is safe

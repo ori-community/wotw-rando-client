@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/GetCharacterInventoryResult.h>
 
 namespace app::classes::PlayFab::ClientModels::GetCharacterInventoryResult {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GetCharacterInventoryResult * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::GetCharacterInventoryResult* this_ptr)
 }

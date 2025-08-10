@@ -12,7 +12,7 @@ namespace {
         return tree_abilities.find(tree) != tree_abilities.end();
     }
 
-    IL2CPP_INTERCEPT(Moon::uberSerializationWisp::DesiredPlayerAbilityState, bool, IsFulfilled, (app::DesiredPlayerAbilityState * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, Moon::uberSerializationWisp::DesiredPlayerAbilityState, IsFulfilled, app::DesiredPlayerAbilityState * this_ptr) {
         if (is_tree(this_ptr->fields.Ability)) {
             return core::api::uber_states::UberState(UberStateGroup::Tree, static_cast<int>(this_ptr->fields.Ability)).get<bool>();
         } else {
@@ -20,7 +20,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(GetAbilityOnCondition, void, AssignAbility, (app::GetAbilityOnCondition * this_ptr)) {
+    IL2CPP_INTERCEPT(void, GetAbilityOnCondition, AssignAbility, app::GetAbilityOnCondition * this_ptr) {
         auto ability = this_ptr->fields.Ability->fields.Ability;
         if (is_tree(ability)) {
             core::api::uber_states::UberState(UberStateGroup::Tree, static_cast<int>(ability)).set(1);

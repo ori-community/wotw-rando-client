@@ -12,12 +12,12 @@ using namespace app::classes;
 namespace {
     auto is_abandoning_challenge = false;
 
-    IL2CPP_INTERCEPT(PerformBackOutAction__AbandonChallange_d__8, bool, MoveNext, (app::PerformBackOutAction_AbandonChallange_d_8* this_ptr)) {
+    IL2CPP_INTERCEPT(bool, PerformBackOutAction__AbandonChallange_d__8, MoveNext, app::PerformBackOutAction_AbandonChallange_d_8* this_ptr) {
         modloader::ScopedSetter _(is_abandoning_challenge, true);
         return next::PerformBackOutAction__AbandonChallange_d__8::MoveNext(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(Moon::Timeline::TimelineEntity, void, StopPlayback, (app::TimelineEntity* this_ptr)) {
+    IL2CPP_INTERCEPT(void, Moon::Timeline::TimelineEntity, StopPlayback, app::TimelineEntity* this_ptr) {
         if (!is_abandoning_challenge) {
             next::Moon::Timeline::TimelineEntity::StopPlayback(this_ptr);
             return;

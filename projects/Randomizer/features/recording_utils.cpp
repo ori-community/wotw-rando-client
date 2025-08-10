@@ -73,7 +73,7 @@ namespace {
 
     core::api::uber_states::UberState prevent_pickup_state(UberStateGroup::RandoConfig, 8);
 
-    IL2CPP_INTERCEPT(UberPostProcess, void, ApplySettings_2, (app::UberPostProcess * this_ptr, app::CameraSettings* settingsAsset)) {
+    IL2CPP_INTERCEPT(void, UberPostProcess, ApplySettings_2, app::UberPostProcess * this_ptr, app::CameraSettings* settingsAsset) {
         next::UberPostProcess::ApplySettings_2(this_ptr, settingsAsset);
 
         if (!enable_vignette) {
@@ -82,11 +82,11 @@ namespace {
         }
     }
 
-    // IL2CPP_INTERCEPT(CameraOffsetController, void, set_Offset, (app::CameraOffsetController * this_ptr, app::Vector3 offset)) {
+    // IL2CPP_INTERCEPT(void, CameraOffsetController, set_Offset, app::CameraOffsetController * this_ptr, app::Vector3 offset) {
     //     next::CameraOffsetController::set_Offset(this_ptr, app::Vector3{offset.x, offset.y + 1.f, offset.z});
     // }
 
-    IL2CPP_INTERCEPT(CameraOffsetController, void, UpdateOffset, (app::CameraOffsetController * this_ptr, bool instant, float time_delta)) {
+    IL2CPP_INTERCEPT(void, CameraOffsetController, UpdateOffset, app::CameraOffsetController * this_ptr, bool instant, float time_delta) {
         if (orishot_state != OrishotState::None) {
             this_ptr->fields.AdditiveDefaultOffset = app::Vector3{ 0.f, 0.f, 0.f };
             this_ptr->fields.ApplyExtraZoom = false;
@@ -102,7 +102,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(CameraTarget, void, UpdateTargetPosition, (app::CameraTarget * this_ptr)) {
+    IL2CPP_INTERCEPT(void, CameraTarget, UpdateTargetPosition, app::CameraTarget * this_ptr) {
         if (orishot_state != OrishotState::None) {
             this_ptr->fields.TargetPosition = app::Vector3{
                     camera_target_x,
@@ -118,7 +118,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(FaderB, void, FixedUpdate, (app::FaderB * this_ptr)) {
+    IL2CPP_INTERCEPT(void, FaderB, FixedUpdate, app::FaderB * this_ptr) {
         if (orishot_state != OrishotState::None) {
             this_ptr->fields.CurrentState = app::FaderB_State__Enum::Invisible;
             return;
@@ -127,7 +127,7 @@ namespace {
         next::FaderB::FixedUpdate(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(GameplayCamera, void, ForceCameraToObayScrollLockConstraints, (app::GameplayCamera * this_ptr)) {
+    IL2CPP_INTERCEPT(void, GameplayCamera, ForceCameraToObayScrollLockConstraints, app::GameplayCamera * this_ptr) {
         if (orishot_state != OrishotState::None) {
             return;
         }
@@ -135,7 +135,7 @@ namespace {
         next::GameplayCamera::ForceCameraToObayScrollLockConstraints(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(ScenesManager, bool, CanDisable, (app::ScenesManager * this_ptr, app::RuntimeSceneMetaData* meta_data)) {
+    IL2CPP_INTERCEPT(bool, ScenesManager, CanDisable, app::ScenesManager * this_ptr, app::RuntimeSceneMetaData* meta_data) {
         if (orishot_state != OrishotState::None && orishot_state != OrishotState::PositionOriAndUnload) {
             return false;
         }
@@ -143,7 +143,7 @@ namespace {
         return next::ScenesManager::CanDisable(this_ptr, meta_data);
     }
 
-    IL2CPP_INTERCEPT(Game::UI_Hints, app::MessageBox*, Show, (app::MessageProvider * message_provider, app::HintLayer__Enum layer, float duration, app::Vector3 hint_offset)) {
+    IL2CPP_INTERCEPT(app::MessageBox*, Game::UI_Hints, Show, app::MessageProvider * message_provider, app::HintLayer__Enum layer, float duration, app::Vector3 hint_offset) {
         if (orishot_state != OrishotState::None) {
             return nullptr;
         }
@@ -151,7 +151,7 @@ namespace {
         return next::Game::UI_Hints::Show(message_provider, layer, duration, hint_offset);
     }
 
-    IL2CPP_INTERCEPT(Game::UI_Hints, app::MessageBox*, ShowAndPersist, (app::ManagedHintConfiguration config)) {
+    IL2CPP_INTERCEPT(app::MessageBox*, Game::UI_Hints, ShowAndPersist, app::ManagedHintConfiguration config) {
         if (orishot_state != OrishotState::None) {
             return nullptr;
         }
@@ -159,7 +159,7 @@ namespace {
         return next::Game::UI_Hints::ShowAndPersist(config);
     }
 
-    IL2CPP_INTERCEPT(UnityEngine::Time, float, get_deltaTime, ()) {
+    IL2CPP_INTERCEPT(float, UnityEngine::Time, get_deltaTime) {
         if (orishot_state != OrishotState::None && orishot_state != OrishotState::RunScenes) {
             UnityEngine::Time::set_fixedDeltaTime(FLT_EPSILON);
             UnityEngine::Time::set_maximumDeltaTime(FLT_EPSILON);
@@ -170,7 +170,7 @@ namespace {
         return next::UnityEngine::Time::get_deltaTime();
     }
 
-    IL2CPP_INTERCEPT(Moon::Timeline::TimelineEntity, void, OnUpdate, (app::TimelineEntity* this_ptr, float delta_time)) {
+    IL2CPP_INTERCEPT(void, Moon::Timeline::TimelineEntity, OnUpdate, app::TimelineEntity* this_ptr, float delta_time) {
         if (orishot_state != OrishotState::None && orishot_state != OrishotState::RunScenes) {
             next::Moon::Timeline::TimelineEntity::OnUpdate(this_ptr, FLT_MIN);
             return;

@@ -37,7 +37,7 @@ namespace core::api::game::ui {
         );
 
         common::registration_handle_t on_after_faderb_fade_out_finished;
-        IL2CPP_INTERCEPT(TitleScreenManager, void, Start, (app::TitleScreenManager * this_ptr)) {
+        IL2CPP_INTERCEPT(void, TitleScreenManager, Start, app::TitleScreenManager * this_ptr) {
             game::event_bus().trigger_event(GameEvent::TitleScreenStartup, EventTiming::Before);
             next::TitleScreenManager::Start(this_ptr);
             on_after_faderb_fade_out_finished = game::event_bus().register_handler(
@@ -50,7 +50,7 @@ namespace core::api::game::ui {
             );
         }
 
-        IL2CPP_INTERCEPT(AreaMapUI, void, OnDestroy, (app::AreaMapUI * this_ptr)) {
+        IL2CPP_INTERCEPT(void, AreaMapUI, OnDestroy, app::AreaMapUI * this_ptr) {
             event_bus().trigger_event(GameEvent::DestroyAreaMap, EventTiming::Before);
             next::AreaMapUI::OnDestroy(this_ptr);
             event_bus().trigger_event(GameEvent::DestroyAreaMap, EventTiming::After);

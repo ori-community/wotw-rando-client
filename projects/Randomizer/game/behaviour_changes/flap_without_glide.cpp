@@ -11,7 +11,7 @@ using namespace modloader;
 using namespace app::classes;
 
 namespace {
-    IL2CPP_INTERCEPT(WindCollision, void, OnTriggerEnter, (app::WindCollision * this_ptr, app::Collider* collider)) {
+    IL2CPP_INTERCEPT(void, WindCollision, OnTriggerEnter, app::WindCollision * this_ptr, app::Collider* collider) {
         ScopedSetter setter(randomizer::timing::disable_ability_tracking, true);
         const auto previous_glide_state = core::api::game::player::ability(app::AbilityType__Enum::Glide).get();
 

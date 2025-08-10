@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/GameCenterPlayFabIdPair.h>
 
 namespace app::classes::PlayFab::ClientModels::GameCenterPlayFabIdPair {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GameCenterPlayFabIdPair * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::GameCenterPlayFabIdPair* this_ptr)
 }

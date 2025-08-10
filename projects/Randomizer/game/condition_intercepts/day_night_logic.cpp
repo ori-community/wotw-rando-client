@@ -42,7 +42,7 @@ namespace {
     std::optional<bool> is_day_condition(std::string_view, void*) { return is_day(); }
 
     // Fix for Lupo in Marsh not selling map.
-    IL2CPP_INTERCEPT(QuestNodeSetup_QuestInteraction, bool, get_Eligible, (app::QuestNodeSetup_QuestInteraction * this_ptr)) {
+    IL2CPP_INTERCEPT(bool, QuestNodeSetup_QuestInteraction, get_Eligible, app::QuestNodeSetup_QuestInteraction * this_ptr) {
         force_day_time = true;
         auto ret = next::QuestNodeSetup_QuestInteraction::get_Eligible(this_ptr);
         force_day_time = false;
@@ -224,15 +224,15 @@ namespace {
         }
     });
 
-    IL2CPP_INTERCEPT(SwampNightDayTransition, bool, DayTimeCondition, (app::SwampNightDayTransition * this_ptr)) { return is_day(); }
+    IL2CPP_INTERCEPT(bool, SwampNightDayTransition, DayTimeCondition, app::SwampNightDayTransition * this_ptr) { return is_day(); }
 
     bool override_has_ability = false;
-    IL2CPP_INTERCEPT(SwampNightDayTransition, void, UpdateStateBasedOnCondition, (app::SwampNightDayTransition * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SwampNightDayTransition, UpdateStateBasedOnCondition, app::SwampNightDayTransition * this_ptr) {
         modloader::ScopedSetter setter(override_has_ability, true);
         next::SwampNightDayTransition::UpdateStateBasedOnCondition(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(PlayerAbilities, bool, HasAbility, (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability)) {
+    IL2CPP_INTERCEPT_WITH_ORDER(10, bool, PlayerAbilities, HasAbility, app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability) {
         return override_has_ability ? is_day() : next::PlayerAbilities::HasAbility(this_ptr, ability);
     }
 

@@ -52,36 +52,36 @@ namespace core::api::game::trials {
         }
 
         IL2CPP_INTERCEPT(
-            Moon::Race::LeaderBoardService,
             void,
+            Moon::Race::LeaderBoardService,
             UploadReplay_1,
-            (app::LeaderBoardService * this_ptr, app::String* race_id, float duration, app::String* replay_data, app::ITrialData* trial_data)
+            app::LeaderBoardService * this_ptr, app::String* race_id, float duration, app::String* replay_data, app::ITrialData* trial_data
         ) {
             // NOOP
         }
 
         IL2CPP_INTERCEPT(
-            Moon::Race::LeaderBoardService,
             bool,
+            Moon::Race::LeaderBoardService,
             UploadReplay_2,
-            (app::LeaderBoardService * this_ptr, app::String* race_id, float duration, app::String* replay_data, app::ReplayValidatorData* data)
+            app::LeaderBoardService * this_ptr, app::String* race_id, float duration, app::String* replay_data, app::ReplayValidatorData* data
         ) {
             return false; // NOOP
         }
 
-        IL2CPP_INTERCEPT(Moon::Race::Networking::WebService, void, UploadData, (app::String * site_id, app::ReplayData* data)) {
+        IL2CPP_INTERCEPT(void, Moon::Race::Networking::WebService, UploadData, app::String * site_id, app::ReplayData* data) {
             // NOOP
         }
 
-        IL2CPP_INTERCEPT(GhostManager, app::String*, GetRaceDirectory, (app::String * race_id)) {
+        IL2CPP_INTERCEPT(app::String*, GhostManager, GetRaceDirectory, app::String * race_id) {
             return get_suffixed_ghost_directory("ghosts", race_id);
         }
 
-        IL2CPP_INTERCEPT(GhostManager, app::String*, GetOfflineRaceDirectory, (app::String * race_id)) {
+        IL2CPP_INTERCEPT(app::String*, GhostManager, GetOfflineRaceDirectory, app::String * race_id) {
             return get_suffixed_ghost_directory("offlineGhosts", race_id);
         }
 
-        IL2CPP_INTERCEPT(RaceFinishIcon, void, SetRaceData, (app::RaceFinishIcon * this_ptr, float elapsed_time, bool show_trial_reward)) {
+        IL2CPP_INTERCEPT(void, RaceFinishIcon, SetRaceData, app::RaceFinishIcon * this_ptr, float elapsed_time, bool show_trial_reward) {
             // TODO: Instead of not showing the reward change the text to show the correct reward instead and disable the spirit light icon
             next::RaceFinishIcon::SetRaceData(this_ptr, elapsed_time, false);
         }

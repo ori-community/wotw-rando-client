@@ -501,7 +501,7 @@ namespace randomizer::main_menu_seed_info {
         [[maybe_unused]]
         auto on_ready_handle = modloader::event_bus().register_handler(ModloaderEvent::GameReady, on_ready);
 
-        IL2CPP_INTERCEPT(SaveSlotsManager, void, set_CurrentSlotIndex, (int index)) {
+        IL2CPP_INTERCEPT(void, SaveSlotsManager, set_CurrentSlotIndex, int index) {
             next::SaveSlotsManager::set_CurrentSlotIndex(index);
 
             // Don't run the logic if we are currently in SaveSlotsUI::OnEnable
@@ -573,7 +573,7 @@ namespace randomizer::main_menu_seed_info {
             });
         }
 
-        IL2CPP_INTERCEPT(SetTitleScreenAction, void, Perform, (app::SetTitleScreenAction * this_ptr, app::IContext* context)) {
+        IL2CPP_INTERCEPT(void, SetTitleScreenAction, Perform, app::SetTitleScreenAction * this_ptr, app::IContext* context) {
             // Moon forgot this, and it causes the game to start if you quickly press escape
             // and then enter when being in the difficulty selection
             types::Input_Cmd::get_class()->static_fields->MenuSelect->fields.Used = true;
@@ -623,7 +623,7 @@ namespace randomizer::main_menu_seed_info {
             });
         });
 
-        IL2CPP_INTERCEPT(SaveSlotsUI, void, OnEnable, (app::SaveSlotsUI * this_ptr)) {
+        IL2CPP_INTERCEPT_WITH_ORDER(0, void, SaveSlotsUI, OnEnable, app::SaveSlotsUI * this_ptr) {
             modloader::ScopedSetter setter(is_in_save_slots_ui_on_enable, true);
             next::SaveSlotsUI::OnEnable(this_ptr);
         }

@@ -224,7 +224,7 @@ namespace randomizer::game {
             return save_slots_ui_klass->static_fields->Instance;
         }
 
-        IL2CPP_INTERCEPT(TitleScreenManager, void, SetScreen, (app::TitleScreenManager_Screen__Enum screen)) {
+        IL2CPP_INTERCEPT(void, TitleScreenManager, SetScreen, app::TitleScreenManager_Screen__Enum screen) {
             next::TitleScreenManager::SetScreen(screen);
 
             if (screen == app::TitleScreenManager_Screen__Enum::SaveSlots) {
@@ -260,7 +260,7 @@ namespace randomizer::game {
             }
         }
 
-        IL2CPP_INTERCEPT(SaveSlotsUI, void, OnEnable, (app::SaveSlotsUI * this_ptr)) {
+        IL2CPP_INTERCEPT_WITH_ORDER(0, void, SaveSlotsUI, OnEnable, app::SaveSlotsUI * this_ptr) {
             ScopedSetter setter(prevent_preload_on_selecting_empty_save, true);
             next::SaveSlotsUI::OnEnable(this_ptr);
         }

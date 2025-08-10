@@ -13,7 +13,7 @@ namespace {
     float impact_duration = 1.0f;
     float input_duration = 1.0f;
 
-    IL2CPP_INTERCEPT(SeinSpiritSpearSpell, void, UpdateCharacterState, (app::SeinSpiritSpearSpell * this_ptr)) {
+    IL2CPP_INTERCEPT(void, SeinSpiritSpearSpell, UpdateCharacterState, app::SeinSpiritSpearSpell * this_ptr) {
         if (!initialized) {
             charge_duration = this_ptr->fields.ChargeDuration;
             settle_duration = this_ptr->fields.SettleTime;

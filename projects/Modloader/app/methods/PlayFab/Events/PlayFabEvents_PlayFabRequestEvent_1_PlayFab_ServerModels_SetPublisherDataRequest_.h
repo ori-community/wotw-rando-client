@@ -5,5 +5,11 @@
 #include <Modloader/app/structs/SetPublisherDataRequest.h>
 
 namespace app::classes::PlayFab::Events::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ServerModels_SetPublisherDataRequest_ {
-    IL2CPP_REGISTER_METHOD(0x00673B90, void, Invoke, (app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ServerModels_SetPublisherDataRequest_ * this_ptr, app::SetPublisherDataRequest* request))
+    IL2CPP_REGISTER_METHOD(
+        0x00673B90,
+        void,
+        Invoke,
+        app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ServerModels_SetPublisherDataRequest_* this_ptr,
+        app::SetPublisherDataRequest* request
+    )
 }

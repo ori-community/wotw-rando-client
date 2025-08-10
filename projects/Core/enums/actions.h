@@ -71,6 +71,7 @@ enum class Action {
     ToggleCursorLock,
     ToggleAlwaysShowKeystones,
     ToggleAutoaim,
+    ToggleKeyboardOnlyAndKBM,
 
     ShowDevFlag,
     ToggleDebug,

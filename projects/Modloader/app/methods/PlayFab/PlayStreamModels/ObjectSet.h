@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/ObjectSet.h>
 
 namespace app::classes::PlayFab::PlayStreamModels::ObjectSet {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ObjectSet * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::ObjectSet* this_ptr)
 }

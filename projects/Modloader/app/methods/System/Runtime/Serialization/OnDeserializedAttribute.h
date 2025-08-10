@@ -4,5 +4,5 @@
 #include <Modloader/app/structs/OnDeserializedAttribute.h>
 
 namespace app::classes::System::Runtime::Serialization::OnDeserializedAttribute {
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::OnDeserializedAttribute * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, app::OnDeserializedAttribute* this_ptr)
 }

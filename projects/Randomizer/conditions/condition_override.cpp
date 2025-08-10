@@ -24,32 +24,32 @@ namespace randomizer::conditions {
         intercepts[type][std::string(path)] = callback;
     }
 
-    IL2CPP_INTERCEPT(SeinAbilityCondition, bool, Validate, (app::SeinAbilityCondition * this_ptr, app::IContext* context)) {
+    IL2CPP_INTERCEPT(bool, SeinAbilityCondition, Validate, app::SeinAbilityCondition * this_ptr, app::IContext* context) {
         const auto value = intercept(ConditionType::SeinAbilityCondition, this_ptr);
         return value.has_value() ? value.value() : next::SeinAbilityCondition::Validate(this_ptr, context);
     }
 
-    IL2CPP_INTERCEPT(HasAbilityCondition, bool, Validate, (app::HasAbilityCondition * this_ptr, app::IContext* context)) {
+    IL2CPP_INTERCEPT(bool, HasAbilityCondition, Validate, app::HasAbilityCondition * this_ptr, app::IContext* context) {
         const auto value = intercept(ConditionType::HasAbilityCondition, this_ptr);
         return value.has_value() ? value.value() : next::HasAbilityCondition::Validate(this_ptr, context);
     }
 
-    IL2CPP_INTERCEPT(UberStateConditionWrapper, bool, Validate, (app::UberStateConditionWrapper * this_ptr, app::IContext* context)) {
+    IL2CPP_INTERCEPT(bool, UberStateConditionWrapper, Validate, app::UberStateConditionWrapper * this_ptr, app::IContext* context) {
         const auto value = intercept(ConditionType::UberStateConditionWrapper, this_ptr);
         return value.has_value() ? value.value() : next::UberStateConditionWrapper::Validate(this_ptr, context);
     }
 
-    IL2CPP_INTERCEPT(PlayerInsideZoneChecker, bool, Validate, (app::PlayerInsideZoneChecker * this_ptr, app::IContext* context)) {
+    IL2CPP_INTERCEPT(bool, PlayerInsideZoneChecker, Validate, app::PlayerInsideZoneChecker * this_ptr, app::IContext* context) {
         const auto value = intercept(ConditionType::PlayerInsideZoneChecker, this_ptr);
         return value.has_value() ? value.value() : next::PlayerInsideZoneChecker::Validate(this_ptr, context);
     }
 
-    IL2CPP_INTERCEPT(VisibleOnWorldMap, bool, get_MeetsRevealCondition, (app::VisibleOnWorldMap* this_ptr)) {
+    IL2CPP_INTERCEPT(bool, VisibleOnWorldMap, get_MeetsRevealCondition, app::VisibleOnWorldMap* this_ptr) {
         const auto value = intercept(ConditionType::VisibleOnWorldMap, this_ptr);
         return value.has_value() ? value.value() : next::VisibleOnWorldMap::get_MeetsRevealCondition(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(VisibleOnWorldMap, bool, ShouldRevealWhenOnScreen, (app::VisibleOnWorldMap* this_ptr)) {
+    IL2CPP_INTERCEPT(bool, VisibleOnWorldMap, ShouldRevealWhenOnScreen, app::VisibleOnWorldMap* this_ptr) {
         const auto value = intercept(ConditionType::VisibleOnWorldMap, this_ptr);
         return value.has_value() ? value.value() : next::VisibleOnWorldMap::ShouldRevealWhenOnScreen(this_ptr);
     }

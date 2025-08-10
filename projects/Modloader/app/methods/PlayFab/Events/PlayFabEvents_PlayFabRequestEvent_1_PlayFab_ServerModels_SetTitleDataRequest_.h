@@ -5,5 +5,11 @@
 #include <Modloader/app/structs/SetTitleDataRequest.h>
 
 namespace app::classes::PlayFab::Events::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ServerModels_SetTitleDataRequest_ {
-    IL2CPP_REGISTER_METHOD(0x00673B90, void, Invoke, (app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ServerModels_SetTitleDataRequest_ * this_ptr, app::SetTitleDataRequest* request))
+    IL2CPP_REGISTER_METHOD(
+        0x00673B90,
+        void,
+        Invoke,
+        app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ServerModels_SetTitleDataRequest_* this_ptr,
+        app::SetTitleDataRequest* request
+    )
 }
