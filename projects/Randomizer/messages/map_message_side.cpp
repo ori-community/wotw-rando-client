@@ -77,7 +77,7 @@ namespace {
         map_side_background->enabled(false);
     }
 
-    IL2CPP_INTERCEPT(GameMapUI, void, UpdateQuests, (app::GameMapUI * this_ptr)) {
+    IL2CPP_INTERCEPT(void, GameMapUI, UpdateQuests, app::GameMapUI * this_ptr) {
         const auto quest_icons_ui = types::QuestIconsUI::get_class()->static_fields->Instance;
         const auto filter = this_ptr->fields.m_areaMap->fields._IconManager_k__BackingField->fields.Filter;
         if (filter == app::AreaMapIconFilter__Enum::Quests) {

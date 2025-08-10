@@ -117,7 +117,7 @@ namespace {
     }
 
     /*
-    IL2CPP_INTERCEPT(ScenesManager, void, AdditivelyLoadSceneFile, (app::ScenesManager * this_ptr, app::RuntimeSceneMetaData* runtime_meta, bool async, bool keep_preloaded, bool load_dependant_scenes, bool scene_already_loaded)) {
+    IL2CPP_INTERCEPT(void, ScenesManager, AdditivelyLoadSceneFile, app::ScenesManager * this_ptr, app::RuntimeSceneMetaData* runtime_meta, bool async, bool keep_preloaded, bool load_dependant_scenes, bool scene_already_loaded) {
         const auto name = il2cpp::convert_csstring(runtime_meta->fields.Scene);
         modloader::win::console::console_send(name);
 
@@ -128,12 +128,12 @@ namespace {
         next::ScenesManager::AdditivelyLoadSceneFile(this_ptr, runtime_meta, async, keep_preloaded, load_dependant_scenes, scene_already_loaded);
     }
 
-    IL2CPP_INTERCEPT(TitleScreenPressStartLogic, void, OnEnable, (app::TitleScreenPressStartLogic* this_ptr)) {
+    IL2CPP_INTERCEPT(void, TitleScreenPressStartLogic, OnEnable, app::TitleScreenPressStartLogic* this_ptr) {
         core::api::faderb::fade_out(0.5f);
         next::TitleScreenPressStartLogic::OnEnable(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(TitleScreenPressStartLogic, void, FixedUpdate, (app::TitleScreenPressStartLogic* this_ptr)) {
+    IL2CPP_INTERCEPT(void, TitleScreenPressStartLogic, FixedUpdate, app::TitleScreenPressStartLogic* this_ptr) {
         const auto game_state_machine = GameStateMachine::get_Instance();
         if (
             game_state_machine->fields._CurrentState_k__BackingField != app::GameStateMachine_State__Enum::StartScreen &&
@@ -162,7 +162,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(GoToSceneController, bool, CheckStartInScene, (app::MoonGuid * guid)) {
+    IL2CPP_INTERCEPT(bool, GoToSceneController, CheckStartInScene, app::MoonGuid * guid) {
         if (types::GoToSceneController::get_class()->static_fields->Instance == nullptr) {
             return true;
         }

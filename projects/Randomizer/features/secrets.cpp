@@ -7,7 +7,7 @@
 using namespace app::classes;
 
 namespace {
-    IL2CPP_INTERCEPT(bool, PlayerSpiritShards, IsGlobalShardEquipped_1, (app::PlayerSpiritShards * this_ptr, app::SpiritShardType__Enum value)) {
+    IL2CPP_INTERCEPT(bool, PlayerSpiritShards, IsGlobalShardEquipped_1, app::PlayerSpiritShards * this_ptr, app::SpiritShardType__Enum value) {
         if (core::settings::show_all_secrets() && value == app::SpiritShardType__Enum::Sense) {
             return true;
         }

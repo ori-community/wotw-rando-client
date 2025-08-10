@@ -263,7 +263,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, RuntimeGameWorldArea, UpdateCompletionAmount, app::RuntimeGameWorldArea* this_ptr) {
-        const auto pickup_count_by_area = randomizer::game_seed().info().pickup_count_by_area;
+        const auto pickup_count_by_area = randomizer::game_seed().parser_output().meta.pickup_count_by_area;
         const auto game_area = convert_to_game_area(this_ptr->fields.Area->fields.WorldMapAreaUniqueID);
 
         const auto total_pickups_in_this_area_it = pickup_count_by_area.find(game_area);

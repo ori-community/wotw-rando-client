@@ -94,7 +94,7 @@ namespace core::api::messages {
             };
         }
 
-        IL2CPP_INTERCEPT(TextBoxExtended, app::Rect, GetRect, (app::TextBox* text_box)) {
+        IL2CPP_INTERCEPT(app::Rect, TextBoxExtended, GetRect, app::TextBox* text_box) {
             // Check for marker game object to see if we want to do custom logic.
             auto transform = il2cpp::unity::get_transform(text_box);
             transform = il2cpp::unity::get_parent(transform);

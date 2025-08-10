@@ -268,7 +268,7 @@ namespace randomizer::game {
         [[maybe_unused]] common::registration_handle_t on_seed_meta_data_loaded;
         // endregion
 
-        IL2CPP_INTERCEPT(RunActionOnce, void, Perform, (app::RunActionOnce * this_ptr, app::IContext* context)) {
+        IL2CPP_INTERCEPT(void, RunActionOnce, Perform, app::RunActionOnce * this_ptr, app::IContext* context) {
             // If the player started a new empty save slot...
             if (empty_slot_pressed_action_sequence_handle.has_value() && this_ptr->fields.Action == reinterpret_cast<app::ActionMethod*>(empty_slot_pressed_action_sequence_handle.value().ref()) &&
                 start_game_sequence_handle.has_value()) {
