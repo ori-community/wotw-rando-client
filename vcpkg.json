@@ -7,7 +7,7 @@
     "version>=" : "2024-07-29#1"
   }, {
     "name" : "ixwebsocket",
-    "version>=" : "11.4.5#0",
+    "version>=" : "11.4.6",
     "default-features" : false,
     "features" : [ "openssl" ]
   }, {
@@ -15,7 +15,7 @@
     "version>=" : "1.2.5"
   }, {
     "name" : "cppzmq",
-    "version>=" : "4.10.0"
+    "version>=" : "4.11.0"
   }, {
     "name" : "detours",
     "version>=" : "4.0.1#8"
@@ -24,35 +24,32 @@
     "version>=" : "0.15.3"
   }, {
     "name" : "openssl",
-    "version>=" : "3.2.1#2"
+    "version>=" : "3.5.1"
   }, {
     "name" : "libzippp",
     "version>=" : "7.1-1.10.1"
   }, {
     "name" : "libzip",
-    "version>=" : "1.10.1",
+    "version>=" : "1.11.4",
     "features" : [ "zstd" ]
   }, {
     "name" : "libremidi",
     "version>=" : "4.5.0"
   }, {
     "name" : "magic-enum",
-    "version>=" : "0.9.5"
+    "version>=" : "0.9.7"
   }, {
     "name" : "neargye-semver",
     "version>=" : "0.3.1"
   }, {
     "name" : "nlohmann-json",
-    "version>=" : "3.11.3"
-  }, {
-    "name" : "openssl",
-    "version>=" : "3.4.0"
+    "version>=" : "3.12.0"
   }, {
     "name" : "stduuid",
     "version>=" : "1.2.3"
   }, {
     "name" : "sdl3",
-    "version>=" : "3.2.0"
+    "version>=" : "3.2.18"
   }, {
     "name" : "protobuf",
     "version>=" : "3.21.12#4"
