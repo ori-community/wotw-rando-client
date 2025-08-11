@@ -94,7 +94,7 @@ namespace il2cpp {
             handle = std::make_shared<GCHandle>(il2cpp::gchandle_new(obj, pinned));
         }
 
-        T* ref() {
+        T* ref() const {
             if (handle == nullptr) {
                 return nullptr;
             }
@@ -102,7 +102,7 @@ namespace il2cpp {
             return reinterpret_cast<T*>(handle->target());
         }
 
-        T* operator*() {
+        T* operator*() const {
             return ref();
         }
     };
@@ -119,7 +119,7 @@ namespace il2cpp {
             handle = std::make_shared<GCHandle>(il2cpp::gchandle_new_weak(obj, track_resurrection));
         }
 
-        T* ref() {
+        T* ref() const {
             if (handle == nullptr) {
                 return nullptr;
             }
@@ -127,11 +127,11 @@ namespace il2cpp {
             return reinterpret_cast<T*>(handle->target());
         }
 
-        T* operator*() {
+        T* operator*() const {
             return ref();
         }
 
-        bool is_valid() {
+        bool is_valid() const {
             return il2cpp::unity::is_valid(ref());
         }
     };

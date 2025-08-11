@@ -124,6 +124,7 @@ set(
         "game/event_handlers/on_teleport.cpp"
         "game/event_handlers/on_trial.cpp"
         "game/camera_shake.cpp"
+        "game/enemy_spawning.cpp"
         "game/map/filter.cpp"
         "game/map/icon.cpp"
         "game/map/map.cpp"
