@@ -5,10 +5,8 @@
 #include <Core/api/graphics/shaders.h>
 #include <Core/api/graphics/textures.h>
 #include <Core/api/system/message_provider.h>
-#include <Core/core.h>
 #include <Core/enums/text_id.h>
 #include <Core/property.h>
-#include <Core/settings.h>
 #include <Core/text/text_database.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
@@ -37,8 +35,6 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
-#include <Randomizer/features/wheel.h>
-#include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/randomizer.h>
 #include <array>
 #include <unordered_map>
