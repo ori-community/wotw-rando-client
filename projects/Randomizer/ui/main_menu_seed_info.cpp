@@ -600,11 +600,15 @@ namespace randomizer::main_menu_seed_info {
             poll_current_seed_source_until_not_loading = false;
 
             if (source_seed_archive.has_value()) {
-                const auto meta = randomizer::seed::parse_meta_data(*source_seed_archive);
-                current_seed_meta_data_result = variant_cast(meta);
+                try {
+                    const auto meta = randomizer::seed::parse_meta_data(*source_seed_archive);
+                    current_seed_meta_data_result = variant_cast(meta);
 
-                if (std::holds_alternative<seed::SeedMetaData>(meta)) {
-                    randomizer::game::preload_spawn_async(std::get<seed::SeedMetaData>(meta).spawn);
+                    if (std::holds_alternative<seed::SeedMetaData>(meta)) {
+                        randomizer::game::preload_spawn_async(std::get<seed::SeedMetaData>(meta).spawn);
+                    }
+                } catch (const std::exception& e) {
+                    current_seed_meta_data_result = e.what();
                 }
             } else if (get_new_game_seed_source()->get_error().has_value()) {
                 current_seed_meta_data_result = get_new_game_seed_source()->get_error().value();
