@@ -17,7 +17,7 @@ namespace {
     using namespace modloader::win;
     using namespace app::classes;
 
-    const std::unordered_map<int, std::string> STATE_FLAGS{
+    const std::vector<std::pair<int, std::string>> STATE_FLAGS{
         // {0,             "Clear"                         },
         {1,             "IsPlayingAnimation"            },
         {2,             "IsCrouching"                   },
