@@ -21,6 +21,7 @@ set(
         "api/game/game.cpp"
         "api/game/in_game_timer.cpp"
         "api/game/player.cpp"
+        "api/game/state_flags_display.cpp"
         "api/game/trials.cpp"
         "api/game/ui.cpp"
         "api/game/pickup_prevention/energy_cell.cpp"
