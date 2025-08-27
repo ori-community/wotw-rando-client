@@ -4,6 +4,7 @@ enum class GameEvent {
     Update,
     FixedUpdate,
     UnityUpdateLoop,
+    GUI,
 
     /**
      * Called when TAS framestepping is enabled, TAS runs its update loop.

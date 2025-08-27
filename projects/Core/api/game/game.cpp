@@ -64,6 +64,16 @@ namespace core::api::game {
             }
         }
 
+        IL2CPP_INTERCEPT(void, GameController, OnGUI, app::GameController * this_ptr) {
+            if (!initialized) {
+                return;
+            }
+
+            game_event_bus.trigger_event(GameEvent::GUI, EventTiming::Before);
+            next::GameController::OnGUI(this_ptr);
+            game_event_bus.trigger_event(GameEvent::GUI, EventTiming::After);
+        }
+
         IL2CPP_INTERCEPT(void, GameController, Update, app::GameController * this_ptr) {
             if (!initialized) {
                 return;
