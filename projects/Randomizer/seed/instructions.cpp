@@ -200,6 +200,7 @@ namespace randomizer::seed {
             register_instruction<FloatToString>(factories);
             register_instruction<FreeMessage>(factories);
             register_instruction<FreeMessageAlignment>(factories);
+            register_instruction<FreeMessageBoxWidth>(factories);
             register_instruction<FreeMessageCoordinateSystem>(factories);
             register_instruction<FreeMessageHide>(factories);
             register_instruction<FreeMessageHorizontalAnchor>(factories);
