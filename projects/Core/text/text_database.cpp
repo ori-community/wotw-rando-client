@@ -174,6 +174,7 @@ namespace core::text {
         register_text(*static_text_entry::CurrencyPlural, "Quatloos");
         register_text(*static_text_entry::CurrencyPlural, "Quills");
         register_text(*static_text_entry::CurrencyPlural, "Rings");
+        register_text(*static_text_entry::CurrencyPlural, "Rosaries");
         register_text(*static_text_entry::CurrencyPlural, "Rubies");
         register_text(*static_text_entry::CurrencyPlural, "Runes");
         register_text(*static_text_entry::CurrencyPlural, "Rupees");
@@ -261,6 +262,7 @@ namespace core::text {
         register_text(*static_text_entry::CurrencySingular, "Quatloo");
         register_text(*static_text_entry::CurrencySingular, "Quill");
         register_text(*static_text_entry::CurrencySingular, "Ring");
+        register_text(*static_text_entry::CurrencySingular, "Rosary");
         register_text(*static_text_entry::CurrencySingular, "Ruby");
         register_text(*static_text_entry::CurrencySingular, "Rune");
         register_text(*static_text_entry::CurrencySingular, "Rupee");
