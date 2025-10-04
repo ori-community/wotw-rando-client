@@ -28,6 +28,7 @@ namespace randomizer::archipelago {
         void notify_game_finished();
         void request_sync();
         void handle_queued_server_messages();
+        void handle_deathlink();
         std::string get_item_display_text(const location_data::Location& location);
         std::string get_shop_description(const location_data::Location& location);
         std::string get_shop_icon(const location_data::Location& location);
@@ -54,6 +55,7 @@ namespace randomizer::archipelago {
         std::unordered_set<ids::archipelago_id_t> m_pending_locations;
         std::unordered_map<std::string, messages::NetworkSlot> m_slots;
         std::unordered_map<int, messages::NetworkPlayer> m_player_map;
+        bool m_deathlink_enabled = false;
         std::unordered_map<ids::archipelago_id_t, std::string> m_shop_icons;
         std::unordered_map<ids::archipelago_id_t, messages::NetworkItem> m_scouted_locations;
         std::mutex m_queued_server_messages_mutex;
