@@ -5,6 +5,7 @@
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
+#include <Core/api/game/death_listener.h>
 #include <Core/core.h>
 #include <Core/events/task.h>
 #include <Core/utils/json_serializers.h>
@@ -77,6 +78,14 @@ namespace randomizer::archipelago {
     auto on_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
         archipelago_client().handle_queued_server_messages();
     });
+
+    [[maybe_unused]]
+    auto on_death = core::api::death_listener::player_death_event_bus().register_handler(
+        EventTiming::Before,
+        [](auto, auto) {
+            archipelago_client().handle_deathlink();
+        }
+    );
 
     ArchipelagoClient::ArchipelagoClient() {
         m_websocket.setOnMessageCallback([this](const auto& msg) { on_websocket_message(msg); });
@@ -200,6 +209,16 @@ namespace randomizer::archipelago {
             handle_server_message(message);
         }
         m_queued_server_messages.clear();
+    }
+
+    void ArchipelagoClient::handle_deathlink() {
+        if (m_deathlink_enabled) {
+            modloader::info("archipelago", "Player died");
+            std::chrono::time_point<std::chrono::system_clock> timestamp = std::chrono::system_clock::now();
+            float death_time = std::chrono::duration_cast<std::chrono::seconds>(timestamp.time_since_epoch()).count();
+            send_message(messages::Bounce{std::vector<std::string>{"DeathLink"}, messages::DeathPacket{death_time, m_slot_name}});
+            modloader::info("archipelago", "Sent Bounce packet for deathlink.");
+        }
     }
 
     std::string ArchipelagoClient::get_item_display_text(const location_data::Location& location) {
@@ -488,17 +507,9 @@ namespace randomizer::archipelago {
                 },
                 [this](const messages::RoomInfo& message) {
                     modloader::debug("archipelago", "Parsing RoomInfo Packet");
-                    modloader::debug(
-                        "archipelago", std::format("AP server version: {}.{}.{}", message.version.major, message.version.minor, message.version.build)
-                    );
-                    modloader::debug(
-                        "archipelago",
-                        std::format(
-                            "AP generator version: {}.{}.{}", message.generator_version.major, message.generator_version.minor, message.generator_version.build
-                        )
-                    );
-                    modloader::debug("archipelago", std::format("Hint cost: {}, Location points: {}.", message.hint_cost, message.location_check_points));
-
+                    if (std::ranges::find(message.tags, "DeathLink") != message.tags.end()) {
+                        m_deathlink_enabled = true;
+                    }
                     // Update data package
                     const auto outdated_games = m_data_package.get_outdated_game_data_packages(message.datapackage_checksums);
                     if (!outdated_games.empty()) {
@@ -660,6 +671,20 @@ namespace randomizer::archipelago {
                 [this](const messages::DataPackage& message) {
                     modloader::debug("archipelago", "Parsing DataPackage Packet");
                     m_data_package.add_game_data(message.data.games);
+                },
+                [this](const messages::Bounce& message) {
+                    modloader::debug("archipelago", "Parsing Bounced Packet");
+                    if (std::ranges::find(message.tags, "DeathLink") != message.tags.end()
+                        && m_deathlink_enabled
+                        && message.data.source != m_slot_name) {
+                        modloader::info("archipelago", std::format("{} died: kill the player.", message.data.source));
+                        core::message_controller().queue_central({
+                            .text = core::Property<std::string>(std::format("{} died.", message.data.source)),
+                            .show_box = true,
+                        });
+                        const auto& health = core::api::game::player::health();
+                        health.set(-1.0f);  // Set health to a negative value, to kill the player.
+                    }
                 },
             };
     }

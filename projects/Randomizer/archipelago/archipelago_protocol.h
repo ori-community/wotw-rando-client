@@ -118,6 +118,14 @@ namespace randomizer::archipelago::messages {
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(JSONMessage, text);
     };
 
+    struct DeathPacket {
+        float time = 0.0f;
+        std::string source = "";
+
+        // Use a default, to avoid a crash if someone sent an undesired Bounced packet (since they can put arbitrary data inside).
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(DeathPacket, time, source);
+    };
+
     // Messages client -> server
     struct Connect {
         std::string password;
@@ -265,8 +273,18 @@ namespace randomizer::archipelago::messages {
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(DataPackage, data);
     };
 
+    // This data structure is used for sending Bounce packets, and receiving Bounced packets
+    struct Bounce {
+        std::vector<std::string> tags {""};
+        DeathPacket data{0.0f, ""};
+        std::string cmd = "Bounce";
+
+        // Use a default, to avoid a crash if someone sent an undesired Bounced packet
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(Bounce, cmd, tags, data);
+    };
+
     using ap_server_message_t = std::
-        variant<Connected, ConnectionRefused, RoomInfo, ReceivedItems, LocationInfo, RoomUpdate, PrintJSON, InvalidPacket, DataPackage>;
+        variant<Connected, ConnectionRefused, RoomInfo, ReceivedItems, LocationInfo, RoomUpdate, PrintJSON, InvalidPacket, DataPackage, Bounce>;
 
     std::optional<ap_server_message_t> parse_server_message(const nlohmann::json& message);
 } // namespace randomizer::archipelago::messages
