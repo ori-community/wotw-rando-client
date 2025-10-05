@@ -97,6 +97,7 @@ namespace randomizer::archipelago {
         m_websocket.stop();
         m_websocket.setUrl(std::string(url));
         m_websocket.setPingInterval(30);
+        m_websocket.enablePerMessageDeflate();
         m_websocket.disableAutomaticReconnection();
         m_websocket.start();
         m_is_active = true;
