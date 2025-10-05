@@ -29,6 +29,10 @@ namespace randomizer::archipelago::seedgen_source_generators {
                 flags.push_back("All Quests");
             }
 
+            if (options.goal_relics) {
+                flags.push_back("Relics");
+            }
+
             if (options.better_wellspring) {
                 flags.push_back("Better Wellspring");
             }
@@ -79,6 +83,10 @@ namespace randomizer::archipelago::seedgen_source_generators {
 
             if (options.skip_shrine) {
                 flags.push_back("No Combat Shrines");
+            }
+
+            if (options.door_rando) {
+                flags.push_back("Randomized Doors");
             }
 
             std::string result = "Flags: ";

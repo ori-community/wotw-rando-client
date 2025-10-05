@@ -19,7 +19,9 @@ namespace randomizer::archipelago::seedgen_source_generators {
 
             config_line += R"config(],"hard":)config";
             config_line += options.hard ? "true" : "false";
-            config_line += R"config(,"randomizeDoors":false,"goals":[],"headers":[],"headerConfig":[],"inlineHeaders":[]}],"disableLogicFilter":false,"online":false,"createGame":"None"})config";
+            config_line += R"config(,"randomizeDoors":)config";
+            config_line += options.door_rando ? "true" : "false";
+            config_line += R"config(,"goals":[],"headers":[],"headerConfig":[],"inlineHeaders":[]}],"disableLogicFilter":false,"online":false,"createGame":"None"})config";
 
             return config_line;
         },
