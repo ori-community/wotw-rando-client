@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Randomizer/archipelago/archipelago_ids.h>
+#include <Randomizer/archipelago/archipelago_seedgen.h>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
 #include <unordered_set>
@@ -120,10 +121,11 @@ namespace randomizer::archipelago::messages {
 
     struct DeathPacket {
         float time = 0.0f;
-        std::string source = "";
+        std::string source;
+        std::string cause;
 
         // Use a default, to avoid a crash if someone sent an undesired Bounced packet (since they can put arbitrary data inside).
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(DeathPacket, time, source);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(DeathPacket, time, cause, source);
     };
 
     // Messages client -> server
@@ -139,6 +141,14 @@ namespace randomizer::archipelago::messages {
         std::string cmd = "Connect";
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(Connect, cmd, password, game, name, uuid, version, items_handling, tags, slot_data);
+    };
+
+    struct ConnectUpdate {
+        int items_handling;
+        std::vector<std::string> tags;
+        std::string cmd = "ConnectUpdate";
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(ConnectUpdate, cmd, items_handling, tags);
     };
 
     struct LocationChecks {
@@ -175,7 +185,7 @@ namespace randomizer::archipelago::messages {
         std::vector<NetworkPlayer> players;
         std::vector<ids::archipelago_id_t> missing_locations;
         std::vector<ids::archipelago_id_t> checked_locations;
-        nlohmann::json slot_data;
+        ArchipelagoSeedGeneratorOptions slot_data;
         std::unordered_map<std::string, NetworkSlot> slot_info;
         int hint_points;
 

@@ -471,8 +471,12 @@ namespace randomizer::archipelago {
                         collect_location(location_id);
                     }
 
-                    auto d = message.slot_data.dump(2);
                     m_current_seed_generator = ArchipelagoSeedGenerator(message.slot_data);
+                    if (message.slot_data.death_link) {
+                        m_deathlink_enabled = true;
+                        send_message(messages::ConnectUpdate{0b111, {"AP", "DeathLink"}});
+                    }
+
 
                     messages::LocationScouts location_scouts_message;
 
@@ -508,9 +512,6 @@ namespace randomizer::archipelago {
                 },
                 [this](const messages::RoomInfo& message) {
                     modloader::debug("archipelago", "Parsing RoomInfo Packet");
-                    if (std::ranges::find(message.tags, "DeathLink") != message.tags.end()) {
-                        m_deathlink_enabled = true;
-                    }
                     // Update data package
                     const auto outdated_games = m_data_package.get_outdated_game_data_packages(message.datapackage_checksums);
                     if (!outdated_games.empty()) {
@@ -679,8 +680,9 @@ namespace randomizer::archipelago {
                         && m_deathlink_enabled
                         && message.data.source != m_slot_name) {
                         modloader::info("archipelago", std::format("{} died: kill the player.", message.data.source));
+                        std::string death_message = (message.data.cause.empty()) ? std::format("{} died.", message.data.source) : message.data.cause;
                         core::message_controller().queue_central({
-                            .text = core::Property<std::string>(std::format("{} died.", message.data.source)),
+                            .text = core::Property<std::string>(death_message),
                             .show_box = true,
                         });
                         const auto& health = core::api::game::player::health();
