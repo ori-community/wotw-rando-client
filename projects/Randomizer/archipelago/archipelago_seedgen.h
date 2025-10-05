@@ -35,6 +35,7 @@ namespace randomizer::archipelago {
         bool glades_done;
         std::unordered_map<std::string, std::string> shop_icons;
         bool bonus;
+        bool death_link;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(
             ArchipelagoSeedGeneratorOptions,
@@ -65,7 +66,8 @@ namespace randomizer::archipelago {
             open_mode,
             glades_done,
             shop_icons,
-            bonus
+            bonus,
+            death_link
         );
     };
 
