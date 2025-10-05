@@ -15,6 +15,7 @@ namespace randomizer::archipelago {
         bool goal_trees;
         bool goal_quests;
         bool goal_wisps;
+        bool goal_relics;
         bool hard;
         bool qol;
         bool hints;
@@ -35,9 +36,13 @@ namespace randomizer::archipelago {
         bool glades_done;
         std::unordered_map<std::string, std::string> shop_icons;
         bool bonus;
+        bool door_rando;
+        std::vector<std::pair<int, int>> door_pair;
+        std::unordered_map<std::string, std::string> relic_locs;
         bool death_link;
+        int ap_version;
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
             ArchipelagoSeedGeneratorOptions,
             difficulty,
             glitches,
@@ -47,6 +52,7 @@ namespace randomizer::archipelago {
             goal_trees,
             goal_quests,
             goal_wisps,
+            goal_relics,
             hard,
             qol,
             hints,
@@ -67,7 +73,11 @@ namespace randomizer::archipelago {
             glades_done,
             shop_icons,
             bonus,
-            death_link
+            door_rando,
+            door_pair,
+            relic_locs,
+            death_link,
+            ap_version
         );
     };
 
