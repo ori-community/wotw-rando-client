@@ -37,7 +37,7 @@ namespace randomizer::archipelago {
         std::unordered_map<std::string, std::string> shop_icons;
         bool bonus;
         bool door_rando;
-        std::vector<std::pair<int, int>> door_pair;
+        std::vector<int> door_data;
         std::unordered_map<std::string, std::string> relic_locs;
         bool death_link;
         int ap_version;
@@ -74,7 +74,7 @@ namespace randomizer::archipelago {
             shop_icons,
             bonus,
             door_rando,
-            door_pair,
+            door_data,
             relic_locs,
             death_link,
             ap_version
