@@ -25,6 +25,7 @@
 #include <Randomizer/archipelago/seedgen_source_generators/trial_hints.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/bonus.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/doors.inc>
+#include <Randomizer/archipelago/seedgen_source_generators/relics.inc>
 #include <Randomizer/randomizer.h>
 
 // TODO: Replace this with invoking seedgen to generate a "plando" in v5
@@ -56,6 +57,7 @@ namespace randomizer::archipelago {
         seedgen_source_generators::qol,
         seedgen_source_generators::shrine_hints,
         seedgen_source_generators::doors,
+        seedgen_source_generators::relics,
         seedgen_source_generators::config,
     };
 
