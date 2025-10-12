@@ -101,7 +101,6 @@ namespace randomizer::seed {
         auto on_update = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [](auto, auto) {
             if (!core::api::game::in_game()) {
                 game_seed().environment().queued_message_boxes.clear();
-                game_seed().environment().message_boxes_with_timeouts.clear();
                 game_seed().environment().free_message_boxes.clear();
                 game_seed().environment().timers.clear();
                 return;
@@ -124,18 +123,16 @@ namespace randomizer::seed {
             }
 
             std::unordered_set<int> to_destroy;
-            for (const auto id: game_seed().environment().message_boxes_with_timeouts) {
-                auto& box = game_seed().environment().free_message_boxes.at(id);
-                if (box.timeout.has_value()) {
-                    box.timeout.value() -= core::api::game::delta_time();
-                    if (box.timeout.value() < 0) {
+            for (auto& [id, free_message_box]: game_seed().environment().free_message_boxes) {
+                if (free_message_box.timeout.has_value()) {
+                    free_message_box.timeout.value() -= core::api::game::delta_time();
+                    if (free_message_box.timeout.value() < 0) {
                         to_destroy.emplace(id);
                     }
                 }
             }
 
             for (const auto id: to_destroy) {
-                game_seed().environment().message_boxes_with_timeouts.erase(id);
                 game_seed().environment().free_message_boxes.erase(id);
             }
 
@@ -154,14 +151,7 @@ namespace randomizer::seed {
                 try {
                     return T::from_json(j);
                 } catch (const InstructionError& e) {
-                    modloader::error(
-                        "instructions",
-                        std::format(
-                            "Failed to parse instruction {}: {}",
-                            T::INSTRUCTION_NAME,
-                            e.what()
-                        )
-                    );
+                    modloader::error("instructions", std::format("Failed to parse instruction {}: {}", T::INSTRUCTION_NAME, e.what()));
                     throw;
                 }
             });
@@ -272,20 +262,12 @@ namespace randomizer::seed {
         }
     }
 
-    void destroy_free_message_boxes() {
-        game_seed().environment().free_message_boxes.clear();
-    }
+    void destroy_free_message_boxes() { game_seed().environment().free_message_boxes.clear(); }
 
     PersistentSeedMemory::PersistentSeedMemory() {
-        on_new_game_registration_handle = core::api::game::event_bus().register_handler(
-            GameEvent::NewGameInitialized,
-            EventTiming::Before,
-            [this](auto, auto) {
-                queue_input_unlocked_callback([this] {
-                    memory = SeedMemory();
-                });
-            }
-        );
+        on_new_game_registration_handle = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [this](auto, auto) {
+            queue_input_unlocked_callback([this] { memory = SeedMemory(); });
+        });
     }
 
     std::vector<std::byte> PersistentSeedMemory::serialize() {
@@ -297,7 +279,7 @@ namespace randomizer::seed {
         stream.write(memory.floats.values.size());
         stream.write(reinterpret_cast<std::byte*>(memory.floats.values.data()), memory.floats.values.size() * sizeof(float));
         stream.write(memory.strings.values.size());
-        for (const auto& str : memory.strings.values) {
+        for (const auto& str: memory.strings.values) {
             stream.write(str.size());
             stream.write_string(str);
         }
@@ -344,7 +326,7 @@ namespace randomizer::seed {
     nlohmann::json SeedExecutionEnvironment::json_serialize() {
         nlohmann::json j;
         auto j_warp_icons = nlohmann::json::array();
-        for (const auto& [id, icon] : warp_icons) {
+        for (const auto& [id, icon]: warp_icons) {
             nlohmann::json j_warp_icon;
             j_warp_icon["id"] = id;
             j_warp_icon["label"] = icon->label().get_unprocessed();
@@ -355,7 +337,7 @@ namespace randomizer::seed {
         j["warp_icons"] = j_warp_icons;
 
         auto j_free_message_boxes = nlohmann::json::array();
-        for (const auto& [id, free_message_box] : free_message_boxes) {
+        for (const auto& [id, free_message_box]: free_message_boxes) {
             nlohmann::json j_free_message_box;
 
             j_free_message_box["id"] = id;
@@ -369,8 +351,8 @@ namespace randomizer::seed {
             j_free_message_box["show_background"] = free_message_box.message->show_background().get();
 
             const auto visibility = free_message_box.message->get_visibility();
-            j_free_message_box["visible"] = visibility == core::api::messages::MessageBox::Visibility::Visible
-                || visibility == core::api::messages::MessageBox::Visibility::FadingIn;
+            j_free_message_box["visible"] = visibility == core::api::messages::MessageBox::Visibility::Visible ||
+                visibility == core::api::messages::MessageBox::Visibility::FadingIn;
 
             if (free_message_box.timeout.has_value()) {
                 j_free_message_box["timeout"] = free_message_box.timeout;
@@ -387,7 +369,7 @@ namespace randomizer::seed {
     void SeedExecutionEnvironment::json_deserialize(nlohmann::json& j) {
         warp_icons.clear();
         const auto& j_warp_icons = j["warp_icons"];
-        for (const auto& j_warp_icon : j_warp_icons) {
+        for (const auto& j_warp_icon: j_warp_icons) {
             const auto warp_icon = instructions::CreateWarpIcon::create_icon();
             warp_icon->label().set(j_warp_icon["label"].get<std::string_view>());
             warp_icon->position().set(j_warp_icon["position"]);
@@ -396,7 +378,7 @@ namespace randomizer::seed {
 
         free_message_boxes.clear();
         const auto& j_free_message_boxes = j["free_message_boxes"];
-        for (const auto& j_free_message_box : j_free_message_boxes) {
+        for (const auto& j_free_message_box: j_free_message_boxes) {
             const auto free_message_box = std::make_shared<core::api::messages::MessageBox>();
             free_message_box->text_processor(general_text_processor());
             free_message_box->coordinate_system().set(j_free_message_box["coordinate_system"]);
@@ -415,14 +397,12 @@ namespace randomizer::seed {
             free_message_boxes[id].message = free_message_box;
             if (j_free_message_box.contains("timeout")) {
                 free_message_boxes[id].timeout = j_free_message_box["timeout"];
-                message_boxes_with_timeouts.emplace(id);
             }
         }
     }
 
     void SeedExecutionEnvironment::reset() {
         queued_message_boxes.clear();
-        message_boxes_with_timeouts.clear();
         timers.clear();
         prevent_grant = false;
         map_spoiler_data.clear();

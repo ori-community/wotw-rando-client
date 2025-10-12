@@ -22,7 +22,6 @@ INSTRUCTION(QueuedMessage)
         if (id.has_value()) {
             environment.queued_message_boxes[id.value()] = {.handle = handle};
             environment.free_message_boxes.erase(id.value());
-            environment.message_boxes_with_timeouts.erase(id.value());
         }
     }
 

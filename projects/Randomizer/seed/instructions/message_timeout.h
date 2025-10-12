@@ -17,7 +17,6 @@ INSTRUCTION(MessageTimeout)
         const auto free_it = environment.free_message_boxes.find(id);
         if (free_it != environment.free_message_boxes.end()) {
             free_it->second.timeout = memory.floats.get(0);
-            environment.message_boxes_with_timeouts.emplace(free_it->first);
         }
     }
 

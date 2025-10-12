@@ -10,7 +10,6 @@ INSTRUCTION(MessageDestroy)
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         environment.free_message_boxes.erase(id);
-        environment.message_boxes_with_timeouts.erase(id);
         if (environment.queued_message_boxes.contains(id)) {
             environment.queued_message_boxes.at(id).handle->time_left = 0;
         }

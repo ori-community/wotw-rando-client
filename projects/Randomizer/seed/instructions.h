@@ -169,7 +169,6 @@ namespace randomizer::seed {
 
         // Non-Serialized
         std::unordered_map<std::size_t, QueuedMessageBox> queued_message_boxes;
-        std::unordered_set<std::size_t> message_boxes_with_timeouts;
         std::vector<SeedTimer> timers;
         bool prevent_grant = false;
         std::unordered_map<std::string, ItemSpoilerData> map_spoiler_data;
