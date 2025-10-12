@@ -187,15 +187,36 @@ namespace randomizer::archipelago {
                 break;
             }
             case ix::WebSocketMessageType::Error: {
-                core::message_controller().queue_central({
-                    .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}). Retrying in 10s.\nIf the port changed, please create a new save file.", m_websocket.getUrl())),
-                    .show_box = true,
-                });
-                core::events::schedule_task(10.f, [this]() {
-                    if (m_is_active) {
-                        connect(m_websocket.getUrl(), m_slot_name, m_password);
+                if (m_first_connection_attempt) {
+                    m_first_connection_attempt = false;
+                    load_new_game_source();
+
+                    auto source = get_new_game_seed_source();
+
+                    auto server_connection = source->get_server_connection();
+
+                    if (server_connection.has_value()) {
+                        *server_connection | vx::match{
+                            [](const seed::RandoServerConnection& connection) {},
+                            [](const seed::ArchipelagoServerConnection& connection) {
+                                core::events::schedule_task(0.f, [connection]() {
+                                    archipelago_client().connect(connection.url, connection.slot_name, connection.password);
+                                });
+                            }
+                        };
                     }
-                });
+                }
+                else {
+                    core::message_controller().queue_central({
+                        .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}). Retrying in 10s.\nIf the port changed, please create a new save file.", m_websocket.getUrl())),
+                        .show_box = true,
+                    });
+                    core::events::schedule_task(10.f, [this]() {
+                        if (m_is_active) {
+                            connect(m_websocket.getUrl(), m_slot_name, m_password);
+                        }
+                    });
+                }
                 break;
             }
             case ix::WebSocketMessageType::Ping:
