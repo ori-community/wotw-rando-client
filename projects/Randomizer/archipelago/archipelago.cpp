@@ -371,6 +371,9 @@ namespace randomizer::archipelago {
                     case ids::ResourceType::Nothing: {
                         break;
                     }
+                    case ids::ResourceType::Relic: {  // A relic is placed by seedgen, no need to show the item message
+                        break;
+                    }
                     case ids::ResourceType::SpiritLight: {
                         const auto& spirit_light = core::api::game::player::spirit_light();
                         const auto& spirit_light_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 3);
