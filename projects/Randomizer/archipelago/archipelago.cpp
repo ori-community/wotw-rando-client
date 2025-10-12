@@ -475,6 +475,15 @@ namespace randomizer::archipelago {
                     }
 
                     m_current_seed_generator = ArchipelagoSeedGenerator(message.slot_data);
+
+                    if (message.slot_data.ap_version < m_min_version) {
+                        core::message_controller().queue_central({
+                            .text = core::Property<std::string>("The seed is generated from an outdated AP World.\nPlease update it, or downgrade the client to a version compatible with this AP World."),
+                            .show_box = true,
+                        });
+                        modloader::warn("archipelago", std::format("Outdated AP World. Version {}, expected at least {}.", message.slot_data.ap_version, m_min_version));
+                    }
+
                     if (message.slot_data.death_link) {
                         m_deathlink_enabled = true;
                         send_message(messages::ConnectUpdate{0b111, {"AP", "DeathLink"}});
