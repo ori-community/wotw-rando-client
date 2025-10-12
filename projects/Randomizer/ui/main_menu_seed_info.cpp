@@ -225,6 +225,7 @@ namespace randomizer::main_menu_seed_info {
                     randomizer::server_connect(connection.multiverse_id);
                 },
                 [](const seed::ArchipelagoServerConnection& connection) {
+                    archipelago_client().disconnect();
                     archipelago_client().connect(connection.url, connection.slot_name, connection.password);
                 }
             };

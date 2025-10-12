@@ -186,7 +186,7 @@ namespace randomizer::archipelago {
                 }
                 break;
             }
-            case ix::WebSocketMessageType::Error:
+            case ix::WebSocketMessageType::Error: {
                 core::message_controller().queue_central({
                     .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}). Retrying in 10s.\nIf the port changed, please create a new save file.", m_websocket.getUrl())),
                     .show_box = true,
@@ -197,6 +197,7 @@ namespace randomizer::archipelago {
                     }
                 });
                 break;
+            }
             case ix::WebSocketMessageType::Ping:
             case ix::WebSocketMessageType::Pong:
             case ix::WebSocketMessageType::Fragment:
