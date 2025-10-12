@@ -79,7 +79,7 @@ namespace core::api::messages {
         bool m_cached_show_box = false;
 
         Property<std::string> m_text;
-        Property<app::Vector3> m_position{{0.5, 0.1, 0}};
+        Property<app::Vector3> m_position{{0.5, 0.114, 0}};  // This is approximately the position of "normal" item messages
         Property<CoordinateSystem> m_coordinate_system{CoordinateSystem::Relative};
         Property<bool> m_show_background = Property<bool>(true);
         Property<float> m_fade_in;
