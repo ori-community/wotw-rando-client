@@ -530,6 +530,17 @@ namespace randomizer::archipelago {
                         send_message(messages::GetDataPackage{outdated_games});
                         modloader::debug("archipelago", "Sent GetDataPackage packet to AP server.");
                     }
+                    if (archipelago_save_data->ap_seed.empty()) {
+                        archipelago_save_data->ap_seed = message.seed_name;
+                    }
+                    if (archipelago_save_data->ap_seed != message.seed_name) {
+                        core::message_controller().queue_central({
+                            .text = core::Property<std::string>("This save is from a different Archipelago game than the current one.\nPlease load the right save, or make a new one."),
+                            .show_box = true,
+                        });
+                        modloader::warn("archipelago", std::format("The AP seeds don't match. Saved seed: {}, current seed: {}", archipelago_save_data->ap_seed, message.seed_name));
+                        disconnect();
+                    }
                 },
                 [this](const messages::ReceivedItems& message) {
                     if (!GameStateMachine::get_IsGame()) {
