@@ -298,7 +298,7 @@ namespace core::api::messages {
             case CoordinateSystem::Relative: {
                 const auto [left, top, width, height] = screen_position::get_rect();
                 pos.x = left + pos.x * width;
-                pos.y = top + pos.y * height;
+                pos.y = top - pos.y * height;
                 break;
             }
             case CoordinateSystem::Absolute: {
