@@ -112,18 +112,15 @@ namespace randomizer {
         auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
             core::message_controller().clear_recent_messages();
 
-            queue_input_unlocked_callback([]() {
-                pause_timer = false;
-                randomizer_seed.trigger(seed::SeedClientEvent::Spawn);
-                randomizer_seed.trigger(seed::SeedClientEvent::Reload);
-                core::api::game::save(true);
-                queue_reach_check();
-                uber_states::disable_reverts() = false;
+            pause_timer = false;
+            randomizer_seed.trigger(seed::SeedClientEvent::Reload, true);
+            core::api::game::save(true);
+            queue_reach_check();
+            uber_states::disable_reverts() = false;
 
-                if (network_client().wants_connection()) {
-                    multiplayer_universe().report_player_save_guid(core::save_meta::get_current_save_guid());
-                }
-            });
+            if (network_client().wants_connection()) {
+                multiplayer_universe().report_player_save_guid(core::save_meta::get_current_save_guid());
+            }
 
             game::pickups::quests::clear_queued_quest_messages_on_next_update();
         });
@@ -131,7 +128,7 @@ namespace randomizer {
         [[maybe_unused]]
         auto on_respawn = core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [](auto, auto) {
             core::message_controller().clear_central();
-            game_seed().trigger(seed::SeedClientEvent::Respawn);
+            game_seed().trigger(seed::SeedClientEvent::Respawn, true);
             queue_reach_check();
         });
 
@@ -175,7 +172,7 @@ namespace randomizer {
 
             core::api::game::player::shard_slots().set(3);
 
-            game_seed().trigger(seed::SeedClientEvent::Spawn);
+            game_seed().trigger(seed::SeedClientEvent::Spawn, true);
         });
 
         [[maybe_unused]]

@@ -28,18 +28,37 @@ using namespace app::classes;
 
 namespace {
     bool force_day_time = false;
-    core::api::uber_states::UberState day_night_state(UberStateGroup::RandoState, 401);
-    core::api::uber_states::UberState regen_tree_drained(UberStateGroup::RandoState, 402);
+
+    const auto RAIN_LIFTED_IN_INKWATER = core::api::uber_states::UberState(UberStateGroup::RandoState, 401);
+    const auto REGEN_TREE_DRAINED = core::api::uber_states::UberState(UberStateGroup::RandoState, 402);
+    const auto USE_RAIN_LIFTED_IN_INKWATER_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoState, 34);
+    const auto USE_REGEN_TREE_DRAINED_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoState, 35);
 
     bool is_day() {
         if (force_day_time) {
             return true;
         }
 
-        return day_night_state.get<bool>();
+        return RAIN_LIFTED_IN_INKWATER.get<bool>();
     }
 
-    std::optional<bool> is_day_condition(std::string_view, void*) { return is_day(); }
+    std::optional<bool> is_day_condition(std::string_view, void*) {
+        if (!USE_RAIN_LIFTED_IN_INKWATER_RANDO_STATE.get<bool>()) {
+            return std::nullopt;
+        }
+
+        return is_day();
+    }
+
+    randomizer::conditions::applier_intercept_fn make_day_night_applier_intercept_fn(int day_state, int night_state) {
+        return [=](auto, auto, auto original_state) {
+            if (!USE_RAIN_LIFTED_IN_INKWATER_RANDO_STATE.get<bool>()) {
+                return original_state;
+            }
+
+            return is_day() ? day_state : night_state;
+        };
+    }
 
     // Fix for Lupo in Marsh not selling map.
     IL2CPP_INTERCEPT(bool, QuestNodeSetup_QuestInteraction, get_Eligible, app::QuestNodeSetup_QuestInteraction * this_ptr) {
@@ -69,7 +88,11 @@ namespace {
         }
     }
 
-    int32_t regen_tree(app::NewSetupStateController* controller, std::string const&, int32_t, int32_t) {
+    int32_t regen_tree(app::NewSetupStateController* controller, std::string const&, int32_t original_state) {
+        if (!USE_REGEN_TREE_DRAINED_RANDO_STATE.get<bool>()) {
+            return original_state;
+        }
+
         const auto base_object = core::api::scenes::get_game_object("swampSaveRoomA/artSetups");
         const auto day = il2cpp::unity::find_child(base_object, "#dayTime");
         const auto night = il2cpp::unity::find_child(base_object, "#nightTime");
@@ -120,8 +143,8 @@ namespace {
         using entry_t = app::GameObject* const;
         auto const& enable_day_night = is_day() ? std::span<entry_t>(day_objects) : std::span<entry_t>(night_objects);
         auto const& disable_day_night = !is_day() ? std::span<entry_t>(day_objects) : std::span<entry_t>(night_objects);
-        auto const& enable_water_or_dry = regen_tree_drained.get<bool>() ? std::span<entry_t>(dry_objects) : std::span<entry_t>(wet_objects);
-        auto const& disable_water_or_dry = !regen_tree_drained.get<bool>() ? std::span<entry_t>(dry_objects) : std::span<entry_t>(wet_objects);
+        auto const& enable_water_or_dry = REGEN_TREE_DRAINED.get<bool>() ? std::span<entry_t>(dry_objects) : std::span<entry_t>(wet_objects);
+        auto const& disable_water_or_dry = !REGEN_TREE_DRAINED.get<bool>() ? std::span<entry_t>(dry_objects) : std::span<entry_t>(wet_objects);
         for (const auto game_object: enable_day_night) {
             il2cpp::unity::set_active(game_object, true);
         }
@@ -150,13 +173,13 @@ namespace {
             il2cpp::unity::set_parent(platform_b, platform_group);
         }
 
-        il2cpp::unity::set_active(platform_group, !regen_tree_drained.get<bool>());
+        il2cpp::unity::set_active(platform_group, !REGEN_TREE_DRAINED.get<bool>());
 
         const auto log = core::api::scenes::get_game_object("swampSaveRoomA/physics/movingBranch/log/logcore");
         const auto leaves_day = core::api::scenes::get_game_object("swampSaveRoomA/artSetups/spiritTablet/art/leavesDay");
         const auto leaves_night = core::api::scenes::get_game_object("swampSaveRoomA/artSetups/spiritTablet/art/leavesNight");
 
-        il2cpp::unity::set_active(log, regen_tree_drained.get<bool>());
+        il2cpp::unity::set_active(log, REGEN_TREE_DRAINED.get<bool>());
         il2cpp::unity::set_active(leaves_day, is_day());
         il2cpp::unity::set_active(leaves_night, !is_day());
 
@@ -203,8 +226,8 @@ namespace {
         );
     }
 
-    int32_t move_howl(app::NewSetupStateController* this_ptr, std::string const&, int32_t state, int32_t) {
-        state = is_day() ? -1375966924 : 1361521887;
+    int32_t always_spawn_howl(app::NewSetupStateController* this_ptr, std::string const&, int32_t original_state) {
+        const auto state = is_day() ? -1375966924 : 1361521887;
         const auto setup = il2cpp::unity::get_game_object(il2cpp::unity::get_parent(il2cpp::unity::get_transform(this_ptr)));
 
         const auto howl = il2cpp::unity::find_child(setup, {std::string_view("#night"), "nightcrawlerChase"});
@@ -219,7 +242,7 @@ namespace {
     }
 
     auto uber_state_notify = core::api::uber_states::notification_bus().register_handler([](auto params) {
-        if (params.state == day_night_state || params.state == regen_tree_drained) {
+        if (params.state == RAIN_LIFTED_IN_INKWATER || params.state == REGEN_TREE_DRAINED) {
             randomizer::conditions::apply_all_states();
         }
     });
@@ -262,13 +285,9 @@ namespace {
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         using namespace randomizer::conditions;
-        register_new_setup_intercept({"swampTorchIntroductionA/*setups/*timesOfDay"}, {-1052258879, 1819061226}, [](auto, auto, auto, auto) -> int32_t {
-            return is_day() ? -1052258879 : 1819061226;
-        });
+        register_new_setup_intercept({"swampTorchIntroductionA/*setups/*timesOfDay"}, {-1052258879, 1819061226}, make_day_night_applier_intercept_fn(-1052258879, 1819061226));
 
-        register_new_setup_intercept({"swampIntroBottom/artSetups/dayNightSetup"}, {-1815347985, -1605692968}, [](auto, auto, auto, auto) -> int32_t {
-            return is_day() ? -1815347985 : -1605692968;
-        });
+        register_new_setup_intercept({"swampIntroBottom/artSetups/dayNightSetup"}, {-1815347985, -1605692968}, make_day_night_applier_intercept_fn(-1815347985, -1605692968));
 
         register_new_setup_intercept(
             {
@@ -276,13 +295,13 @@ namespace {
                 "shoreSearchShot/art/timesOfDayTransition",
             },
             {-598230906, -1926205078},
-            [](auto, auto, auto, auto) -> int32_t { return is_day() ? -598230906 : -1926205078; }
+            make_day_night_applier_intercept_fn(-598230906, -1926205078)
         );
 
         register_new_setup_intercept(
             {"willOfTheWispsLagoonConnection/artSetups/timesOfDayTransition"},
             {1340727368, -76384365},
-            [](auto, auto, auto, auto) -> int32_t { return is_day() ? 1340727368 : -76384365; }
+            make_day_night_applier_intercept_fn(1340727368, -76384365)
         );
 
         register_new_setup_intercept(
@@ -292,27 +311,27 @@ namespace {
                 "doubleJumpEscalationB__clone0/*timesOfDay",
             },
             {-1834135337, -949591271},
-            [](auto, auto, auto, auto) -> int32_t { return is_day() ? -1834135337 : -949591271; }
+            make_day_night_applier_intercept_fn(-1834135337, -949591271)
         );
 
         register_new_setup_intercept(
             {"swampNightcrawlerBshortcut/*setups/timesOfDayTransition"},
             {1001861749, 787945376},
-            [](auto, auto, auto, auto) -> int32_t { return is_day() ? 1001861749 : 787945376; }
+            make_day_night_applier_intercept_fn(1001861749, 787945376)
         );
 
         // Sword Cutscene rain
         register_new_setup_intercept(
             {"swampGetSpiritBlade/timesOfDayController", "swampGetSpiritBlade/timesOfDayTransition"},
             {-480342150, 907153171},
-            [](auto, auto, auto, auto) -> int32_t { return is_day() ? 907153171 : -480342150; }
+            make_day_night_applier_intercept_fn(907153171, -480342150)
         );
 
         // Remove regen tree water and move day water around (288338807 : day, -1643391836 : night).
         register_new_setup_intercept({"swampSaveRoomA/timesOfDayTransition"}, {288338807, -1643391836}, regen_tree);
 
-        // Move howl between modifiers depending on if its day or night time. (-1375966924 : day, 1361521887 : night)
-        register_new_setup_intercept({"swampNightcrawlerA/artSetups/timesOfDayTransition"}, {-1375966924, 1361521887}, move_howl);
+        // Move howl between modifiers depending on if its day or nighttime. (-1375966924 : day, 1361521887 : night)
+        register_new_setup_intercept({"swampNightcrawlerA/artSetups/timesOfDayTransition"}, {-1375966924, 1361521887}, always_spawn_howl);
 
         register_condition_intercept(ConditionType::SeinAbilityCondition, "swampNightcrawlerCavernD/enemies/enemyActivator", &is_day_condition);
         register_condition_intercept(ConditionType::SeinAbilityCondition, "swampNightcrawlerCavernA/interactives/enemies/enemyActivator", &is_day_condition);

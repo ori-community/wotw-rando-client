@@ -21,10 +21,12 @@ namespace {
 
     auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         randomizer::game_seed().prevent_grants(&is_running_race);
+
+        // Disable the Burrow tree while running spirit trials
         randomizer::conditions::register_new_setup_intercept(
             {"getDigAbilityRoom__clone0/interactives/spellPickup/spellPickupSetup"},
             {-239885777, -934455551},
-            [](auto, auto, auto original_state, auto) -> int32_t {
+            [](auto, auto, auto original_state) -> int32_t {
                 return is_running_race() ? -239885777 : original_state;
             }
         );

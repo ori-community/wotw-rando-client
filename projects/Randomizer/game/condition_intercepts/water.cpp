@@ -19,8 +19,8 @@ namespace {
 
     IL2CPP_INTERCEPT(bool, Sein::World::Events, get_WaterPurified) { return !water_damage_override && clean_water_state.get<bool>(); }
 
-    randomizer::conditions::applier_intercept create_applier_intercept(int32_t corrupted, int32_t clean) {
-        return [corrupted, clean](auto, auto, auto, auto) -> int32_t { return clean_water_state.get<bool>() ? clean : corrupted; };
+    randomizer::conditions::applier_intercept_fn create_applier_intercept(int32_t corrupted, int32_t clean) {
+        return [corrupted, clean](auto, auto, auto) -> int32_t { return clean_water_state.get<bool>() ? clean : corrupted; };
     }
 
     [[maybe_unused]] std::shared_ptr<const core::reactivity::ReactiveEffect> water_effect;
@@ -30,9 +30,9 @@ namespace {
             randomizer::conditions::apply_all_states();
         }).trigger_on_load().finalize();
 
-        std::function<randomizer::conditions::applier_intercept(int32_t, int32_t)> ai_create = [](int32_t corrupted,
-                                                                                                  int32_t clean) -> randomizer::conditions::applier_intercept {
-            return [corrupted, clean](auto, auto, auto, auto) -> int32_t {
+        std::function<randomizer::conditions::applier_intercept_fn(int32_t, int32_t)> ai_create = [](int32_t corrupted,
+                                                                                                  int32_t clean) -> randomizer::conditions::applier_intercept_fn {
+            return [corrupted, clean](auto, auto, auto) -> int32_t {
                 return clean_water_state.get<bool>() ? clean : corrupted;
             };
         };
@@ -134,7 +134,7 @@ namespace {
         randomizer::conditions::register_new_setup_intercept(
             {"waterMillEscapeABBackground/escapeSetups"},
             {-1629508673, -1353113975, -2075520848},
-            [](auto, auto, auto state, auto) -> int32_t {
+            [](auto, auto, auto state) -> int32_t {
                 water_damage_override = static_cast<bool>(state == -1353113975);
                 return state;
             }

@@ -34,7 +34,7 @@ namespace {
         randomizer::conditions::register_new_setup_intercept(
             { path },
             { -151413539, 1018051603, -236466678 },
-            [state](auto, auto, auto original_state, auto) -> int32_t {
+            [state](auto, auto, auto original_state) -> int32_t {
                 if (state.get<bool>()) {
                     return -236466678;
                 }
@@ -48,7 +48,7 @@ namespace {
         randomizer::conditions::register_new_setup_intercept(
             { path },
             { enabled, disabled },
-            [state, enabled, disabled](auto, auto, auto, auto) -> int32_t {
+            [state, enabled, disabled](auto, auto, auto) -> int32_t {
                 return state.get<bool>() ? enabled : disabled;
             }
         );
@@ -71,7 +71,7 @@ namespace {
         randomizer::conditions::register_new_setup_intercept(
             { "wellspringGladesHubSetups/interactives/builderProjects/spiritWell" },
             { -1683158848, 1457677579 },
-            [](auto, auto, auto, auto) -> int32_t {
+            [](auto, auto, auto) -> int32_t {
                 return grom_spirit_well_built.get<bool>() ? 1457677579 : -1683158848;
             }
         );
@@ -79,7 +79,7 @@ namespace {
         randomizer::conditions::register_new_setup_intercept(
             { "swampIntroTop/artSetups/interactives/savePedestalSetup" },
             { 763396887, 800721598, -1090989360 },
-            [](auto, auto, auto, auto) -> int32_t {
+            [](auto, auto, auto) -> int32_t {
                 return grom_spirit_well_built.get<bool>() ? -1090989360 : 800721598;
             }
         );

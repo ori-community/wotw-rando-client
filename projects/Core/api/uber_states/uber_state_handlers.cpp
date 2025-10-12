@@ -68,7 +68,6 @@ namespace core::api::uber_states {
         // Because for some reason if we only call it once we lose wall jump.
         scenes::load_default_values();
         scenes::load_default_values();
-        UberState(static_cast<UberStateGroup>(21786), 48748).set(1);
         game::player::set_position(position);
 
         apply_all();

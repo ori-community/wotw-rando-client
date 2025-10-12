@@ -5,8 +5,8 @@
 #include <Randomizer/conditions/new_setup_state_override.h>
 
 #include <Modloader/app/methods/Moon/UberStateController.h>
-#include <Modloader/app/methods/NewSetupStateController.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerStateMap_Mapping.h>
+#include <Modloader/app/methods/NewSetupStateController.h>
 #include <Modloader/app/types/NewSetupStateController.h>
 #include <Modloader/app/types/PlayerStateMap.h>
 #include <Modloader/app/types/PlayerStateMap_Mapping.h>
@@ -31,28 +31,32 @@ using namespace app::classes::Moon;
 namespace randomizer::conditions {
     namespace {
         std::unordered_map<int32_t, std::unordered_set<std::string>> debug_show;
-        std::unordered_map<applier_key, applier_intercept, pair_hash> applier_intercepts;
+        std::unordered_map<applier_key, applier_intercept_fn, pair_hash> applier_intercepts;
         std::unordered_map<applier_key, int32_t, pair_hash> dynamic_applier_redirects;
 
         auto display_new_setup_debug = 1;
 
         void register_debug_show(applier_key key) {
-            if (!key.first.empty())
+            if (!key.first.empty()) {
                 debug_show[key.second].emplace(key.first);
+            }
         }
 
         void display_debug_show(applier_key key) {
-            if (display_new_setup_debug == 0)
+            if (display_new_setup_debug == 0) {
                 return;
+            }
 
             auto it = debug_show.find(key.second);
-            if (it == debug_show.end())
+            if (it == debug_show.end()) {
                 return;
+            }
 
-            if (it->second.find(key.first) == it->second.end())
+            if (!it->second.contains(key.first)) {
                 console::console_send(std::format("{} -> {}", key.second, key.first));
-            else if (display_new_setup_debug == 2)
+            } else if (display_new_setup_debug == 2) {
                 console::console_send(std::format("triggered {}:{}", key.second, key.first));
+            }
         }
 
         // Override this to check trees instead of abilities.
@@ -63,7 +67,9 @@ namespace randomizer::conditions {
                 if (tree.valid()) {
                     output = UberState(0, static_cast<int>(entry.m_ability)).get<bool>() ^ (entry.m_matchType != 0);
                 } else {
-                    output = Moon::uberSerializationWisp::PlayerStateMap_Mapping::Matches(types::PlayerStateMap_Mapping::box(entry), reinterpret_cast<app::IUberState*>(state));
+                    output = Moon::uberSerializationWisp::PlayerStateMap_Mapping::Matches(
+                        types::PlayerStateMap_Mapping::box(entry), reinterpret_cast<app::IUberState*>(state)
+                    );
                 }
 
                 if (output) {
@@ -74,7 +80,7 @@ namespace randomizer::conditions {
             return map->fields._.FallbackSetupStateIndex;
         }
 
-        IL2CPP_INTERCEPT(app::SetupState*, NewSetupStateController, get_ActiveState, app::NewSetupStateController * this_ptr) {
+        IL2CPP_INTERCEPT(app::SetupState*, NewSetupStateController, get_ActiveState, app::NewSetupStateController* this_ptr) {
             auto state = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "Resolve", 0);
             auto mapping = this_ptr->fields.StateHolder->fields._._.Mapping;
             int32_t mapping_result = 0;
@@ -86,12 +92,14 @@ namespace randomizer::conditions {
 
             auto path = il2cpp::unity::get_path(this_ptr);
             auto key = std::make_pair(path, mapping_result);
-            display_debug_show(key); {
+            display_debug_show(key);
+            {
                 const auto it = applier_intercepts.find(key);
                 if (it != applier_intercepts.end()) {
-                    mapping_result = it->second(this_ptr, path, mapping_result, 0);
+                    mapping_result = it->second(this_ptr, path, mapping_result);
                 }
-            } {
+            }
+            {
                 const auto it = dynamic_applier_redirects.find(key);
                 if (it != dynamic_applier_redirects.end()) {
                     mapping_result = it->second;
@@ -156,50 +164,51 @@ namespace randomizer::conditions {
 
         void show_state_paths(std::string const& command, std::vector<console::CommandParam> const& params) {
             auto roots = core::api::scenes::get_roots_from_active();
-            std::reverse(roots.begin(), roots.end());
+            std::ranges::reverse(roots);
             while (!roots.empty()) {
                 auto go = roots.back();
                 roots.pop_back();
-                auto nssc = il2cpp::unity::get_component(go, types::NewSetupStateController::get_class());
-                if (nssc != nullptr)
+                auto setup_state_controller = il2cpp::unity::get_component(go, types::NewSetupStateController::get_class());
+                if (setup_state_controller != nullptr) {
                     console::console_send(il2cpp::unity::get_path(go));
+                }
 
                 auto children = il2cpp::unity::get_children(go);
                 roots.insert(roots.end(), children.begin(), children.end());
             }
         }
 
-        auto on_game_ready = modloader::event_bus().register_handler(
-            ModloaderEvent::GameReady,
-            [](auto) {
-                console::register_command({"debug", "intercept_state"}, intercept_state);
-                console::register_command({"debug", "show_state"}, show_state);
-                console::register_command({"debug", "show_state_paths"}, show_state_paths);
+        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+            console::register_command({"debug", "intercept_state"}, intercept_state);
+            console::register_command({"debug", "show_state"}, show_state);
+            console::register_command({"debug", "show_state_paths"}, show_state_paths);
 
-                // Bubble spawner at entrance of pools.
-                register_new_setup_redirect(std::make_pair("lumaPoolsA/interactives/stateController", 631536139), 1230316956, false);
-            }
-        );
+            // Bubble spawner at entrance of pools.
+            register_new_setup_redirect(std::make_pair("lumaPoolsA/interactives/stateController", 631536139), 1230316956, false);
+        });
     } // namespace
 
-    void register_new_setup_intercept(applier_key key, applier_intercept callback) {
-        if (applier_intercepts.find(key) != applier_intercepts.end())
+    void register_new_setup_intercept(applier_key key, applier_intercept_fn callback) {
+        if (applier_intercepts.find(key) != applier_intercepts.end()) {
             info("init", "registering same applier state twice, overwriting.");
+        }
 
         applier_intercepts[key] = std::move(callback);
         register_debug_show(key);
     }
 
-    void register_new_setup_intercept(std::vector<applier_key> const& states, applier_intercept callback) {
-        for (auto state: states)
+    void register_new_setup_intercept(std::vector<applier_key> const& states, applier_intercept_fn callback) {
+        for (auto state: states) {
             register_new_setup_intercept(state, callback);
+        }
     }
 
-    void register_new_setup_intercept(std::vector<std::string_view> const& paths, std::vector<int32_t> const& states, applier_intercept callback) {
+    void register_new_setup_intercept(std::vector<std::string_view> const& paths, std::vector<int32_t> const& states, applier_intercept_fn callback) {
         for (auto path: paths) {
             std::string spath(path);
-            for (auto state: states)
+            for (auto state: states) {
                 register_new_setup_intercept({spath, state}, callback);
+            }
         }
     }
 
@@ -208,24 +217,24 @@ namespace randomizer::conditions {
             dynamic_applier_redirects[key] = new_state;
             register_debug_show(key);
         } else {
-            if (applier_intercepts.find(key) != applier_intercepts.end())
+            if (applier_intercepts.contains(key)) {
                 info("init", "registering same applier state twice, overwriting.");
+            }
 
-            applier_intercepts[key] = [new_state](auto, auto, auto, auto) -> int32_t { return new_state; };
+            applier_intercepts[key] = [new_state](auto, auto, auto) -> int32_t { return new_state; };
             register_debug_show(key);
         }
     }
 
     void register_new_setup_redirect(std::vector<std::pair<applier_key, int32_t>> const& states, bool dynamic) {
-        for (auto state: states)
+        for (auto state: states) {
             register_new_setup_redirect(state.first, state.second, dynamic);
+        }
     }
 
     void register_new_setup_redirect(std::string_view view, std::pair<int32_t, int32_t> const& states, bool dynamic) {
         register_new_setup_redirect({std::string(view), states.first}, states.second, dynamic);
     }
 
-    void apply_all_states() {
-        UberStateController::ApplyAll(app::UberStateApplyContext__Enum::ValueChanged);
-    }
+    void apply_all_states() { UberStateController::ApplyAll(app::UberStateApplyContext__Enum::ValueChanged); }
 } // namespace randomizer::conditions

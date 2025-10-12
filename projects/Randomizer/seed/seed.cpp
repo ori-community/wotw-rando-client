@@ -174,7 +174,7 @@ namespace randomizer::seed {
         m_environment->reset();
     }
 
-    void Seed::trigger(const SeedClientEvent event) {
+    void Seed::trigger(const SeedClientEvent event, bool force) {
         if (m_parse_output->data.events[event].empty()) {
             // Lessen spam on seed debugger.
             return;
@@ -182,7 +182,7 @@ namespace randomizer::seed {
 
         dev::seed_debugger::seed_event_start(event);
 
-        if (!should_grant()) {
+        if (!force && !should_grant()) {
             dev::seed_debugger::seed_event_end(event);
             return;
         }

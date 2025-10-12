@@ -403,7 +403,7 @@ namespace randomizer::game {
             GameplayCamera::DisableGoThroughScrollLocks(camera, reinterpret_cast<app::Object_1*>(game_state_machine));
 
             handling_start = true;
-            intro_cutscene.set(1);
+
             for (const auto& scene_name: pending_scenes_to_preload) {
                 core::api::scenes::force_load_scene(scene_name, nullptr, true, false);
             }

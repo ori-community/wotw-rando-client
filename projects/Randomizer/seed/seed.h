@@ -143,7 +143,7 @@ namespace randomizer::seed {
         SeedParseOutput const& parser_output() const { return *m_parse_output; }
         int total_pickups() const { return m_parse_output->meta.total_pickups; }
 
-        void trigger(SeedClientEvent event);
+        void trigger(SeedClientEvent event, bool force = false);
         void prevent_grants(const std::function<bool()>& callback) { m_prevent_grant_callbacks.push_back(callback); }
         void execute_command(std::size_t id);
 

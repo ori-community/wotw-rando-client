@@ -45,6 +45,9 @@ target_include_directories(
         ${WOTWR_BASE_INCLUDES}
 )
 
+find_path(TCLAP_INCLUDE_DIRS "tclap/Arg.h")
+target_include_directories(${PROJECT_NAME} PRIVATE ${TCLAP_INCLUDE_DIRS})
+
 message(STATUS "Assigning source groups.")
 
 set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};")
