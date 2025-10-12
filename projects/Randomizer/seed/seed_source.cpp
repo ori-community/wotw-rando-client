@@ -34,7 +34,7 @@ namespace randomizer::seed {
             split_str(options_string, options, '|');
 
             if (options.size() < 3) {
-                modloader::error("seed_source", "Archipelago seed sources need to give 4 options: url|slot_name|password");
+                modloader::error("seed_source", "Archipelago seed sources need to give 3 options: url|slot_name|password");
             } else {
                 // TODO: Pipes are not supported as passwords for now since they are almost never used according to Archipelago
                 return std::make_shared<ArchipelagoSeedSource>(
