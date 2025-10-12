@@ -30,20 +30,24 @@ using namespace app::classes::UnityEngine;
 
 namespace core::api::messages {
     namespace {
-        app::Rect get_rect_base(app::TextBox* text_box) {
+        IL2CPP_INTERCEPT(app::Rect, TextBoxExtended, GetRect, app::TextBox* text_box) {
             const auto [anchor_x, anchor_y] = TextBoxExtended::ComputeAnchor(text_box);
             const auto line_count = CatlikeCoding::TextBox::TextBox::get_LineCount(text_box);
-            auto left_edge = 3.402823e+38f;
+            auto left_edge = FLT_MAX;
+
             if (line_count == 0) {
                 return app::Rect{
                     text_box->fields.boundsTop,
-                    3.402823e+38,
+                    FLT_MAX,
                     0.0,
                     0.0,
                 };
             }
 
-            float right_edge = 0.0;
+            // The default for this in the vanilla code is 0, which is wrong and results in
+            // wrong box sizes for left-aligned textboxes most of the time.
+            auto right_edge = -FLT_MAX;
+
             for (auto i = 0; i < line_count; i = i + 1) {
                 const auto line_info = CatlikeCoding::TextBox::TextBox::GetLineInfo(text_box, i);
                 const auto front = line_info.firstCharIndex;
@@ -66,11 +70,10 @@ namespace core::api::messages {
                 }
 
                 const float new_right_edge = *reinterpret_cast<float*>(&back_meta_data.color.r) * bitmap_font_char->fields.width + back_meta_data.scale + anchor_x;
-                // The code below is the special case when aligned/anchored to the left.
-                //if (right_edge <= new_right_edge) {
-                //    right_edge = new_right_edge;
-                //}
-                right_edge = new_right_edge;
+
+                if (right_edge <= new_right_edge) {
+                    right_edge = new_right_edge;
+                }
             }
 
             const auto start_line_info = CatlikeCoding::TextBox::TextBox::GetLineInfo(text_box, 0);
@@ -83,39 +86,6 @@ namespace core::api::messages {
             };
 
             return output;
-        }
-
-        app::Rect get_rect_full(const app::TextBox* text_box) {
-            return app::Rect{
-                text_box->fields.boundsLeft,
-                text_box->fields.boundsTop,
-                text_box->fields.boundsRight - text_box->fields.boundsLeft,
-                text_box->fields.boundsBottom - text_box->fields.boundsTop,
-            };
-        }
-
-        IL2CPP_INTERCEPT(app::Rect, TextBoxExtended, GetRect, app::TextBox* text_box) {
-            // Check for marker game object to see if we want to do custom logic.
-            auto transform = il2cpp::unity::get_transform(text_box);
-            transform = il2cpp::unity::get_parent(transform);
-            const auto marker = il2cpp::unity::find_child(transform, MessageBox::MESSAGE_BOX_MARKER);
-            // This can happen on the frame the message box is destroyed.
-            if (marker == nullptr) {
-                return next::TextBoxExtended::GetRect(text_box);
-            }
-
-            float data = il2cpp::unity::get_local_position(marker).x;
-            const auto marker_id = *reinterpret_cast<int*>(&data);
-            const auto message_box = MessageBox::find_with_id(marker_id);
-            if (message_box == nullptr) {
-                return next::TextBoxExtended::GetRect(text_box);
-            }
-
-            if (message_box->expand_background_to_box().get()) {
-                return get_rect_full(text_box);
-            }
-
-            return get_rect_base(text_box);
         }
     }
 }

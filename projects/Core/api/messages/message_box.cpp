@@ -6,6 +6,7 @@
 #include <Core/utils/position_converter.h>
 
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
+#include <Modloader/app/methods/CatlikeCoding/TextBox/BitmapFont.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/MessageBoxVisibility.h>
 #include <Modloader/app/methods/ScaleToTextBox.h>
@@ -23,6 +24,7 @@
 #include <Modloader/app/types/UI.h>
 #include <Modloader/il2cpp_math.h>
 #include <Modloader/modloader.h>
+#include <Modloader/windows_api/console.h>
 
 using namespace modloader;
 using namespace app::classes;
@@ -32,6 +34,126 @@ namespace core::api::messages {
     namespace {
         int next_message_id = 0;
         std::unordered_map<int, MessageBox*> message_boxes;
+
+        // app::Rect compute_textbox_rect(app::TextBox* text_box) {
+        //     const auto [anchor_x, anchor_y] = TextBoxExtended::ComputeAnchor(text_box);
+        //     const auto line_count = CatlikeCoding::TextBox::TextBox::get_LineCount(text_box);
+        //     auto left_edge = 3.402823e+38f;
+        //     if (line_count == 0) {
+        //         return app::Rect{
+        //             text_box->fields.boundsTop,
+        //             3.402823e+38,
+        //             0.0,
+        //             0.0,
+        //         };
+        //     }
+        //
+        //     if (text_box->fields.charMetaData == nullptr) {
+        //         return app::Rect{};
+        //     }
+        //
+        //     float right_edge = 0.0;
+        //     for (auto i = 0; i < line_count; i = i + 1) {
+        //         const auto line_info = CatlikeCoding::TextBox::TextBox::GetLineInfo(text_box, i);
+        //         const auto front = line_info.firstCharIndex;
+        //         auto back = line_info.lastCharIndex;
+        //         app::CharMetaData back_meta_data{};
+        //         while (true) {
+        //             back_meta_data = text_box->fields.charMetaData->vector[back];
+        //             if (back <= front || back_meta_data.type == app::CharType__Enum::Visible) {
+        //                 break;
+        //             }
+        //
+        //             --back;
+        //         }
+        //
+        //         if (back_meta_data.font == nullptr) {
+        //             return app::Rect{};
+        //         }
+        //
+        //
+        //         const auto bitmap_font_char = CatlikeCoding::TextBox::BitmapFont::get_Item(back_meta_data.font, text_box->fields.charMetaData->vector[back].id);
+        //         const auto scale = text_box->fields.charMetaData->vector[front].scale + anchor_x;
+        //         if (scale <= left_edge) {
+        //             left_edge = scale;
+        //         }
+        //
+        //         const float new_right_edge = *reinterpret_cast<float*>(&back_meta_data.color.r) * bitmap_font_char->fields.width + back_meta_data.scale + anchor_x;
+        //         // The code below is the special case when aligned/anchored to the left.
+        //         //if (right_edge <= new_right_edge) {
+        //         //    right_edge = new_right_edge;
+        //         //}
+        //         right_edge = new_right_edge;
+        //     }
+        //
+        //     const auto start_line_info = CatlikeCoding::TextBox::TextBox::GetLineInfo(text_box, 0);
+        //     const auto end_line_info = CatlikeCoding::TextBox::TextBox::GetLineInfo(text_box, line_count - 1);
+        //     const auto output = app::Rect{
+        //         left_edge,
+        //         start_line_info.top + anchor_y,
+        //         right_edge - left_edge,
+        //         (start_line_info.top + anchor_y) - (end_line_info.bottom + anchor_y),
+        //     };
+        //
+        //     return output;
+        // }
+
+        /**
+         * This function computes a position offset to make the inner box adhere to the horizontal and vertical
+         * anchors set for a message box. The vanilla game moves the invisible outer box, resulting in unexpected
+         * behaviors.
+         */
+        app::Vector2 compute_anchor_offset(const app::MessageBox* message_box, const app::HorizontalAnchorMode__Enum horizontal_anchor_mode, const app::VerticalAnchorMode__Enum vertical_anchor_mode) {
+            // The message box itself needs to have vertical and horizontal anchor set to middle/center for this
+            // function to calculate the correct offsets.
+            assert(message_box->fields.TextBox->fields.verticalAnchor == app::VerticalAnchorMode__Enum::Middle);
+            assert(message_box->fields.TextBox->fields.horizontalAnchor == app::HorizontalAnchorMode__Enum::Center);
+
+            const auto textbox_rect = app::Rect{
+                message_box->fields.TextBox->fields.boundsLeft,
+                message_box->fields.TextBox->fields.boundsTop,
+                message_box->fields.TextBox->fields.boundsRight - message_box->fields.TextBox->fields.boundsLeft,
+                message_box->fields.TextBox->fields.boundsTop - message_box->fields.TextBox->fields.boundsBottom,
+            };
+            const auto textbox_rect_x_center = textbox_rect.m_XMin + textbox_rect.m_Width * 0.5f;
+            const auto text_rect = TextBoxExtended::GetRect(message_box->fields.TextBox);
+            const auto text_rect_x_center = text_rect.m_XMin + text_rect.m_Width * 0.5f;
+
+            app::Vector2 offset{
+                textbox_rect_x_center - text_rect_x_center,
+                0.0,
+            };
+
+            switch (horizontal_anchor_mode) {
+                case app::HorizontalAnchorMode__Enum::Left:
+                    offset.x += text_rect.m_Width * 0.5f;
+                    break;
+                case app::HorizontalAnchorMode__Enum::Center:
+                    break;
+                case app::HorizontalAnchorMode__Enum::Right:
+                    offset.x -= text_rect.m_Width * 0.5f;
+                    break;
+            }
+
+            // Note that the height is negative because Moon
+            switch (vertical_anchor_mode) {
+                case app::VerticalAnchorMode__Enum::Top:
+                    offset.y += text_rect.m_Height * 0.5f;
+                    break;
+                case app::VerticalAnchorMode__Enum::Middle:
+                    break;
+                case app::VerticalAnchorMode__Enum::Bottom:
+                    offset.y -= text_rect.m_Height * 0.5f;
+                    break;
+            }
+
+            // Moon delighted us with some non-1 scaling values on text boxes, so we need to account for that
+            const auto text_box_scale = il2cpp::unity::get_local_scale(message_box->fields.TextBox);
+            offset.x *= text_box_scale.x;
+            offset.y *= text_box_scale.y;
+
+            return offset;
+        }
     }
 
     MessageBox* MessageBox::find_with_id(const int id) {
@@ -131,30 +253,9 @@ namespace core::api::messages {
             [this](auto value) {
                 m_message_box->fields.TextBox->fields.alignment = value;
                 app::classes::MessageBox::RefreshText_1(m_message_box);
-                auto anchor = TextBoxExtended::ComputeAnchor(m_message_box->fields.TextBox);
-                auto rect = TextBoxExtended::GetRect(m_message_box->fields.TextBox);
-                auto meta_collection = m_message_box->fields.TextBox->fields.charMetaData;
-                auto meta = meta_collection->vector[0];
-                auto meta2 = meta_collection->vector[meta_collection->max_length - 1];
                 ScaleToTextBox::UpdateSize(m_scaler);
             },
             [this] { return m_message_box->fields.TextBox->fields.alignment; }
-        );
-        m_box_horizontal_anchor = Property<app::HorizontalAnchorMode__Enum>(
-            [this](auto value) {
-                m_message_box->fields.TextBox->fields.horizontalAnchor = value;
-                app::classes::MessageBox::RefreshText_1(m_message_box);
-                ScaleToTextBox::UpdateSize(m_scaler);
-            },
-            [this] { return m_message_box->fields.TextBox->fields.horizontalAnchor; }
-        );
-        m_box_vertical_anchor = Property<app::VerticalAnchorMode__Enum>(
-            [this](auto value) {
-                m_message_box->fields.TextBox->fields.verticalAnchor = value;
-                app::classes::MessageBox::RefreshText_1(m_message_box);
-                ScaleToTextBox::UpdateSize(m_scaler);
-            },
-            [this] { return m_message_box->fields.TextBox->fields.verticalAnchor; }
         );
         m_top_padding = Property<float>(
             [this](auto value) {
@@ -184,12 +285,6 @@ namespace core::api::messages {
             },
             [this] { return m_scaler->fields.BottomRightPadding.x; }
         );
-
-        m_tighten_effect = reactivity::watch_effect().effect([this] {
-            auto value = m_expand_background_to_box.get();
-        }).after([this]() {
-            ScaleToTextBox::UpdateSize(m_scaler);
-        }).finalize();
 
         m_on_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) { on_fixed_update(); });
 
@@ -305,6 +400,10 @@ namespace core::api::messages {
                 break;
             }
         }
+
+        const auto anchor_offset = compute_anchor_offset(m_message_box, m_box_horizontal_anchor.get(), m_box_vertical_anchor.get());
+        pos.x += anchor_offset.x;
+        pos.y += anchor_offset.y;
 
         const auto transform = il2cpp::unity::get_transform(m_game_object);
         Transform::set_position(transform, pos);

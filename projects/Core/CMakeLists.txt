@@ -29,6 +29,7 @@ set(
         "api/graphics/textures.cpp"
         "api/messages/message_box.cpp"
         "api/messages/text_style.cpp"
+        "api/messages/fix_text_box_rect_computation.cpp"
         "api/moon_animator_events.cpp"
         "api/scenes/create_objects.cpp"
         "api/scenes/polygon.cpp"
@@ -77,7 +78,6 @@ set(
         "utils/operations.cpp"
         "utils/position_converter.cpp"
         "utils/stb_image.cpp"
-        api/messages/message_box_positioning.cpp
 )
 
 set(

@@ -62,7 +62,6 @@ namespace core::api::messages {
         [[nodiscard]] const Property<float>& bottom_padding() { return m_bottom_padding; }
         [[nodiscard]] const Property<float>& left_padding() { return m_left_padding; }
         [[nodiscard]] const Property<float>& right_padding() { return m_right_padding; }
-        [[nodiscard]] const Property<bool>& expand_background_to_box() { return m_expand_background_to_box; }
 
     private:
         int m_id;
@@ -80,7 +79,7 @@ namespace core::api::messages {
         bool m_cached_show_box = false;
 
         Property<std::string> m_text;
-        Property<app::Vector3> m_position{{0, 0, 0}};
+        Property<app::Vector3> m_position{{0.5, 0.1, 0}};
         Property<CoordinateSystem> m_coordinate_system{CoordinateSystem::Relative};
         Property<bool> m_show_background = Property<bool>(true);
         Property<float> m_fade_in;
@@ -88,14 +87,13 @@ namespace core::api::messages {
         Property<app::Color> m_text_color;
         Property<float> m_text_line_spacing;
         Property<float> m_box_width;
-        Property<app::AlignmentMode__Enum> m_text_alignment;
-        Property<app::HorizontalAnchorMode__Enum> m_box_horizontal_anchor;
-        Property<app::VerticalAnchorMode__Enum> m_box_vertical_anchor;
+        Property<app::AlignmentMode__Enum> m_text_alignment{app::AlignmentMode__Enum::Center};
+        Property<app::HorizontalAnchorMode__Enum> m_box_horizontal_anchor{app::HorizontalAnchorMode__Enum::Center};
+        Property<app::VerticalAnchorMode__Enum> m_box_vertical_anchor{app::VerticalAnchorMode__Enum::Top};
         Property<float> m_top_padding{0.f};
         Property<float> m_bottom_padding{0.f};
         Property<float> m_left_padding{1.f};
         Property<float> m_right_padding{1.f};
-        Property<bool> m_expand_background_to_box{false};
 
         std::shared_ptr<const reactivity::ReactiveEffect> m_tighten_effect;
     };
