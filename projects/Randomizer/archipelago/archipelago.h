@@ -49,6 +49,7 @@ namespace randomizer::archipelago {
          */
         bool m_is_active = false;
         int m_min_version = 1;  // Minimum AP World version required
+        bool m_first_connection_attempt = true;
         ix::WebSocket m_websocket;
         std::string m_slot_name; // aka player name
         int m_slot_id {0};
