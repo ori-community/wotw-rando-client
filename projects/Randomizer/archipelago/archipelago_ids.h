@@ -42,6 +42,7 @@ namespace randomizer::archipelago::ids {
         ShardSlot = 0b100,
         HealthFragment = 0b101,
         EnergyFragment = 0b110,
+        Relic = 0b111,
     };
 
     struct Location {
