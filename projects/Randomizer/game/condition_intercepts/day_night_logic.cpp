@@ -31,8 +31,8 @@ namespace {
 
     const auto RAIN_LIFTED_IN_INKWATER = core::api::uber_states::UberState(UberStateGroup::RandoState, 401);
     const auto REGEN_TREE_DRAINED = core::api::uber_states::UberState(UberStateGroup::RandoState, 402);
-    const auto USE_RAIN_LIFTED_IN_INKWATER_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoState, 34);
-    const auto USE_REGEN_TREE_DRAINED_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoState, 35);
+    const auto USE_RAIN_LIFTED_IN_INKWATER_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoConfig, 34);
+    const auto USE_REGEN_TREE_DRAINED_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoConfig, 35);
 
     bool is_day() {
         if (force_day_time) {
