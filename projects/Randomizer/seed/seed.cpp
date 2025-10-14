@@ -109,7 +109,6 @@ namespace randomizer::seed {
 
                     dev::seed_debugger::condition_end(std::get<int>(condition.condition));
                 })
-                .trigger_on_load()
                 .finalize();
             } else {
                 auto state = std::get<core::api::uber_states::UberState>(condition.condition);
