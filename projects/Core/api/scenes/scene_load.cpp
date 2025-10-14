@@ -139,10 +139,8 @@ namespace core::api::scenes {
             return false;
         }
 
-        auto scene_name = il2cpp::convert_csstring(scene->fields.Scene);
         auto game_state_machine = types::GameStateMachine::get_class()->static_fields->m_instance;
-        return game_state_machine->fields._CurrentState_k__BackingField != app::GameStateMachine_State__Enum::Game ||
-            (scene_name != "wotwTitleScreen" && scene_name != "kuFlyAway");
+        return game_state_machine->fields._CurrentState_k__BackingField == app::GameStateMachine_State__Enum::Game;
     }
 
     bool scene_is_loading(std::string_view scene) {
