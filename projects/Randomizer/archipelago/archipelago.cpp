@@ -87,6 +87,11 @@ namespace randomizer::archipelago {
         }
     );
 
+    [[maybe_unused]]
+    auto on_save_loaded = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [](auto, auto) {
+        archipelago_client().compare_seed();
+    });
+
     ArchipelagoClient::ArchipelagoClient() {
         m_websocket.setOnMessageCallback([this](const auto& msg) { on_websocket_message(msg); });
     }
@@ -248,6 +253,24 @@ namespace randomizer::archipelago {
                     });
                 }
             };
+        }
+    }
+
+    void ArchipelagoClient::compare_seed() {
+        if (archipelago_save_data->ap_seed.empty()) {
+            archipelago_save_data->ap_seed = m_ap_seed;
+        }
+        if (archipelago_save_data->ap_seed != m_ap_seed) {
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>("This save is from a different Archipelago game than the current one.\nYou must use the right save, or make a new one."),
+                .duration = 10.f,
+                .show_box = true,
+                .prioritized = true,
+            });
+            modloader::warn("archipelago", std::format("The AP seeds don't match. Saved seed: {}, current seed: {}", archipelago_save_data->ap_seed, m_ap_seed));
+            core::events::schedule_task_for_next_update([this]() {
+                disconnect();
+            });
         }
     }
 
@@ -513,7 +536,9 @@ namespace randomizer::archipelago {
                     if (message.slot_data.ap_version < m_min_version) {
                         core::message_controller().queue_central({
                             .text = core::Property<std::string>("The seed was generated with an outdated AP World. Things might be broken.\nPlease update it, or downgrade the client to a version compatible with this AP World."),
+                            .duration = 10.f,
                             .show_box = true,
+                            .prioritized = true,
                         });
                         modloader::warn("archipelago", std::format("Outdated AP World. Version {}, expected at least {}.", message.slot_data.ap_version, m_min_version));
                     }
@@ -556,7 +581,9 @@ namespace randomizer::archipelago {
                             modloader::error("archipelago", std::format("Connection refused: {}.", error));
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>(std::format("Connection to Archipelago refused: {}.", error)),
+                                .duration = 5.f,
                                 .show_box = true,
+                                .prioritized = true,
                             });
                         }
                     }
@@ -569,17 +596,7 @@ namespace randomizer::archipelago {
                         send_message(messages::GetDataPackage{outdated_games});
                         modloader::debug("archipelago", "Sent GetDataPackage packet to AP server.");
                     }
-                    if (archipelago_save_data->ap_seed.empty()) {
-                        archipelago_save_data->ap_seed = message.seed_name;
-                    }
-                    if (archipelago_save_data->ap_seed != message.seed_name) {
-                        core::message_controller().queue_central({
-                            .text = core::Property<std::string>("This save is from a different Archipelago game than the current one.\nPlease load the right save, or make a new one."),
-                            .show_box = true,
-                        });
-                        modloader::warn("archipelago", std::format("The AP seeds don't match. Saved seed: {}, current seed: {}", archipelago_save_data->ap_seed, message.seed_name));
-                        disconnect();
-                    }
+                    m_ap_seed = message.seed_name;
                 },
                 [this](const messages::ReceivedItems& message) {
                     if (!GameStateMachine::get_IsGame()) {
