@@ -115,7 +115,6 @@ namespace randomizer::archipelago {
         m_current_seed_generator = std::nullopt;
         m_is_active = false;
         m_websocket.stop();
-        m_first_connection_attempt = true;
         modloader::debug("archipelago", "AP client disconnected.");
     }
 
@@ -194,7 +193,9 @@ namespace randomizer::archipelago {
             }
             case ix::WebSocketMessageType::Error: {
                 if (m_first_connection_attempt) {
-                    update_connection_info();
+                    core::events::schedule_task_for_next_update([this]() {
+                        update_connection_info();
+                    });
                 }
                 else {
                     core::message_controller().queue_central({
@@ -594,7 +595,9 @@ namespace randomizer::archipelago {
                 [this](const messages::ConnectionRefused& message) {
                     modloader::debug("archipelago", "Parsing ConnectionRefused Packet");
                     if (m_first_connection_attempt) {
-                        update_connection_info();
+                        core::events::schedule_task_for_next_update([this]() {
+                            update_connection_info();
+                        });
                     }
                     else {
                         for (const std::string& error: message.errors) {
