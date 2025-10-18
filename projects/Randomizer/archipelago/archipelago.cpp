@@ -225,12 +225,30 @@ namespace randomizer::archipelago {
     }
 
     void ArchipelagoClient::handle_deathlink() {
-        if (m_deathlink_enabled) {
+        if (m_death_from_deathlink) {
+            m_death_from_deathlink = false;
+        }
+        else if (m_deathlink_enabled) {
             modloader::info("archipelago", "Player died");
-            std::chrono::time_point<std::chrono::system_clock> timestamp = std::chrono::system_clock::now();
-            float death_time = std::chrono::duration_cast<std::chrono::seconds>(timestamp.time_since_epoch()).count();
-            send_message(messages::Bounce{std::vector<std::string>{"DeathLink"}, messages::DeathPacket{death_time, m_slot_name}});
-            modloader::info("archipelago", "Sent Bounce packet for deathlink.");
+            m_deathlink_lives--;
+            if (m_deathlink_lives == 0) {  // Send a deathlink packet.
+                m_deathlink_lives = m_deathlink_max_lives;
+                std::chrono::time_point<std::chrono::system_clock> timestamp = std::chrono::system_clock::now();
+                float death_time = std::chrono::duration_cast<std::chrono::seconds>(timestamp.time_since_epoch()).count();
+                send_message(messages::Bounce{std::vector<std::string>{"DeathLink"}, messages::DeathPacket{death_time, m_slot_name}});
+                core::message_controller().queue_central({
+                    .text = core::Property<std::string>("You triggered a death link"),
+                    .show_box = true,
+                });
+                modloader::info("archipelago", "Sent Bounce packet for death link.");
+            }
+            else {
+                std::string life_text = (m_deathlink_lives == 1) ? "life" : "lives";
+                core::message_controller().queue_central({
+                    .text = core::Property<std::string>(std::format("{} {} left", m_deathlink_lives, life_text)),
+                    .show_box = true,
+                });
+            }
         }
     }
 
@@ -543,8 +561,10 @@ namespace randomizer::archipelago {
                         modloader::warn("archipelago", std::format("Outdated AP World. Version {}, expected at least {}.", message.slot_data.ap_version, m_min_version));
                     }
 
-                    if (message.slot_data.death_link) {
+                    if (message.slot_data.death_link != 0) {
                         m_deathlink_enabled = true;
+                        m_deathlink_lives = message.slot_data.death_link;
+                        m_deathlink_max_lives = message.slot_data.death_link;
                         send_message(messages::ConnectUpdate{0b111, {"AP", "DeathLink"}});
                     }
 
@@ -764,6 +784,7 @@ namespace randomizer::archipelago {
                             .text = core::Property<std::string>(death_message),
                             .show_box = true,
                         });
+                        m_death_from_deathlink = true;
                         const auto& health = core::api::game::player::health();
                         health.set(-1.0f);  // Set health to a negative value, to kill the player.
                     }

@@ -68,5 +68,8 @@ namespace randomizer::archipelago {
         std::optional<ArchipelagoSeedGenerator> m_current_seed_generator;
         common::EventBus<State> m_event_bus;
         std::string m_ap_seed;
+        int m_deathlink_max_lives;  // How many times the player has to die to trigger a death link
+        int m_deathlink_lives;
+        bool m_death_from_deathlink;  // True if the death was triggered by someone else
     };
 } // namespace randomizer::archipelago

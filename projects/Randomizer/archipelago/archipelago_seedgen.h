@@ -39,7 +39,7 @@ namespace randomizer::archipelago {
         bool door_rando;
         std::vector<int> door_data;
         std::vector<std::pair<int, ids::archipelago_id_t>> relic_locs;
-        bool death_link;
+        int death_link;
         int ap_version;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
