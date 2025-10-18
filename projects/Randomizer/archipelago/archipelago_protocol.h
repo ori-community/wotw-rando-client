@@ -140,7 +140,7 @@ namespace randomizer::archipelago::messages {
         bool slot_data;
         std::string cmd = "Connect";
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(Connect, cmd, password, game, name, uuid, version, items_handling, tags, slot_data);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_ONLY_SERIALIZE(Connect, cmd, password, game, name, uuid, version, items_handling, tags, slot_data);
     };
 
     struct ConnectUpdate {
@@ -148,34 +148,34 @@ namespace randomizer::archipelago::messages {
         std::vector<std::string> tags;
         std::string cmd = "ConnectUpdate";
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(ConnectUpdate, cmd, items_handling, tags);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_ONLY_SERIALIZE(ConnectUpdate, cmd, items_handling, tags);
     };
 
     struct LocationChecks {
         std::unordered_set<ids::archipelago_id_t> locations;
         std::string cmd = "LocationChecks";
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(LocationChecks, cmd, locations);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_ONLY_SERIALIZE(LocationChecks, cmd, locations);
     };
 
     struct StatusUpdate {
         int status;
         std::string cmd = "StatusUpdate";
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(StatusUpdate, cmd, status);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_ONLY_SERIALIZE(StatusUpdate, cmd, status);
     };
 
     struct Sync {
         std::string cmd = "Sync";
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(Sync, cmd);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_ONLY_SERIALIZE(Sync, cmd);
     };
 
     struct GetDataPackage {
         std::vector<std::string> games;
         std::string cmd = "GetDataPackage";
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(GetDataPackage, cmd, games);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_ONLY_SERIALIZE(GetDataPackage, cmd, games);
     };
 
     // Messages server -> client
