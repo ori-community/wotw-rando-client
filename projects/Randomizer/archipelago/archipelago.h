@@ -42,6 +42,7 @@ namespace randomizer::archipelago {
         void on_websocket_message(ix::WebSocketMessagePtr const& msg);
         void handle_server_message(messages::ap_server_message_t const& message);
         std::string get_player_name(int player);
+        void update_connection_info();
 
         /**
          * Whether the AP client is active and should try

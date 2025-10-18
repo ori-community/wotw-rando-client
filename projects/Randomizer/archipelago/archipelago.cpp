@@ -110,6 +110,7 @@ namespace randomizer::archipelago {
         m_current_seed_generator = std::nullopt;
         m_is_active = false;
         m_websocket.stop();
+        m_first_connection_attempt = true;
         modloader::debug("archipelago", "AP client disconnected.");
     }
 
@@ -188,27 +189,11 @@ namespace randomizer::archipelago {
             }
             case ix::WebSocketMessageType::Error: {
                 if (m_first_connection_attempt) {
-                    m_first_connection_attempt = false;
-                    load_new_game_source();
-
-                    auto source = get_new_game_seed_source();
-
-                    auto server_connection = source->get_server_connection();
-
-                    if (server_connection.has_value()) {
-                        *server_connection | vx::match{
-                            [](const seed::RandoServerConnection& connection) {},
-                            [](const seed::ArchipelagoServerConnection& connection) {
-                                core::events::schedule_task(0.f, [connection]() {
-                                    archipelago_client().connect(connection.url, connection.slot_name, connection.password);
-                                });
-                            }
-                        };
-                    }
+                    update_connection_info();
                 }
                 else {
                     core::message_controller().queue_central({
-                        .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}). Retrying in 10s.\nIf the port changed, please create a new save file.", m_websocket.getUrl())),
+                        .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}). Retrying in 10s.", m_websocket.getUrl())),
                         .show_box = true,
                     });
                     core::events::schedule_task(10.f, [this]() {
@@ -243,6 +228,29 @@ namespace randomizer::archipelago {
             modloader::info("archipelago", "Sent Bounce packet for deathlink.");
         }
     }
+
+    // Get the connection info from .newgameseedsource, and try to connect with it.
+    void ArchipelagoClient::update_connection_info() {
+        m_first_connection_attempt = false;
+        load_new_game_source();
+
+        const auto source = get_new_game_seed_source();
+        const auto server_connection = source->get_server_connection();
+
+        if (server_connection.has_value()) {
+            *server_connection | vx::match{
+                [](const seed::RandoServerConnection& connection) {},
+                [this](const seed::ArchipelagoServerConnection& connection) {
+                    m_slot_name = connection.slot_name;
+                    m_password = connection.password;
+                    core::events::schedule_task(0.f, [connection, this]() {
+                        archipelago_client().connect(connection.url, m_slot_name, m_password);
+                    });
+                }
+            };
+        }
+    }
+
 
     std::string ArchipelagoClient::get_item_display_text(const location_data::Location& location) {
         const auto location_id = ids::get_location_id(location);
@@ -485,6 +493,10 @@ namespace randomizer::archipelago {
             vx::match{
                 [this](const messages::Connected& message) {
                     modloader::debug("archipelago", "Parsing Connected Packet");
+                    core::message_controller().queue_central({
+                        .text = core::Property<std::string>("Connected to Archipelago"),
+                        .show_box = true,
+                    });
                     m_player_map[0] = messages::NetworkPlayer{0, 0, "Archipelago", "Archipelago"};
                     m_slot_id = message.slot;
                     for (auto& player: message.players) {
@@ -500,7 +512,7 @@ namespace randomizer::archipelago {
 
                     if (message.slot_data.ap_version < m_min_version) {
                         core::message_controller().queue_central({
-                            .text = core::Property<std::string>("The seed is generated from an outdated AP World.\nPlease update it, or downgrade the client to a version compatible with this AP World."),
+                            .text = core::Property<std::string>("The seed was generated with an outdated AP World. Things might be broken.\nPlease update it, or downgrade the client to a version compatible with this AP World."),
                             .show_box = true,
                         });
                         modloader::warn("archipelago", std::format("Outdated AP World. Version {}, expected at least {}.", message.slot_data.ap_version, m_min_version));
@@ -534,14 +546,19 @@ namespace randomizer::archipelago {
 
                     m_event_bus.trigger_event(State::Connected);
                 },
-                [](const messages::ConnectionRefused& message) {
+                [this](const messages::ConnectionRefused& message) {
                     modloader::debug("archipelago", "Parsing ConnectionRefused Packet");
-                    for (const std::string& error: message.errors) {
-                        modloader::error("archipelago", std::format("Connection refused: {}.", error));
-                        core::message_controller().queue_central({
-                            .text = core::Property<std::string>(std::format("Connection to Archipelago refused: {}.\nIf the port changed, please create a new save file.", error)),
-                            .show_box = true,
-                        });
+                    if (m_first_connection_attempt) {
+                        update_connection_info();
+                    }
+                    else {
+                        for (const std::string& error: message.errors) {
+                            modloader::error("archipelago", std::format("Connection refused: {}.", error));
+                            core::message_controller().queue_central({
+                                .text = core::Property<std::string>(std::format("Connection to Archipelago refused: {}.", error)),
+                                .show_box = true,
+                            });
+                        }
                     }
                 },
                 [this](const messages::RoomInfo& message) {
