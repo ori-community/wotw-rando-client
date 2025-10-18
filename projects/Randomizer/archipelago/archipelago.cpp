@@ -730,7 +730,8 @@ namespace randomizer::archipelago {
                         }
                     } else if (message.type == "Join") {
                         std::string player_name = get_player_name(message.slot);
-                        if (player_name != get_player_name(m_slot_id)) {
+                        // Don't display the join/left messages if there are a lot of people in the game
+                        if (player_name != get_player_name(m_slot_id) && m_player_map.size() <= 5) {
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>(std::format("{} joined the game.", player_name)),
                                 .show_box = true,
@@ -738,7 +739,8 @@ namespace randomizer::archipelago {
                         }
                     } else if (message.type == "Part") {
                         std::string player_name = get_player_name(message.slot);
-                        if (player_name != get_player_name(m_slot_id)) {
+                        // Don't display the join/left messages if there are a lot of people in the game
+                        if (player_name != get_player_name(m_slot_id) && m_player_map.size() <= 5) {
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>(std::format("{} left the game.", player_name)),
                                 .show_box = true,
@@ -795,6 +797,3 @@ namespace randomizer::archipelago {
             };
     }
 } // namespace randomizer::archipelago
-
-// TODO list:
-// Add death link support (see core/api/game/death_listener + add the tag in Connect packet)
