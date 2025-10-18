@@ -29,6 +29,7 @@ namespace randomizer::archipelago {
         void request_sync();
         void handle_queued_server_messages();
         void handle_deathlink();
+        void compare_seed();
         std::string get_item_display_text(const location_data::Location& location);
         std::string get_shop_description(const location_data::Location& location);
         std::string get_shop_icon(const location_data::Location& location);
@@ -66,5 +67,6 @@ namespace randomizer::archipelago {
         ArchipelagoDataPackage m_data_package;
         std::optional<ArchipelagoSeedGenerator> m_current_seed_generator;
         common::EventBus<State> m_event_bus;
+        std::string m_ap_seed;
     };
 } // namespace randomizer::archipelago
