@@ -43,14 +43,13 @@ namespace randomizer::archipelago {
         void on_websocket_message(ix::WebSocketMessagePtr const& msg);
         void handle_server_message(messages::ap_server_message_t const& message);
         std::string get_player_name(int player);
-        void update_connection_info();
+        void try_connection_with_new_game_seed_source();
 
         /**
          * Whether the AP client is active and should try
          * to connect to the game.
          */
         bool m_is_active = false;
-        int m_min_version = 1;  // Minimum AP World version required
         bool m_first_connection_attempt = true;
         ix::WebSocket m_websocket;
         std::string m_slot_name; // aka player name
@@ -59,7 +58,6 @@ namespace randomizer::archipelago {
         std::unordered_set<ids::archipelago_id_t> m_pending_locations;
         std::unordered_map<std::string, messages::NetworkSlot> m_slots;
         std::unordered_map<int, messages::NetworkPlayer> m_player_map;
-        bool m_deathlink_enabled = false;
         std::unordered_map<ids::archipelago_id_t, std::string> m_shop_icons;
         std::unordered_map<ids::archipelago_id_t, messages::NetworkItem> m_scouted_locations;
         std::mutex m_queued_server_messages_mutex;
@@ -68,8 +66,9 @@ namespace randomizer::archipelago {
         std::optional<ArchipelagoSeedGenerator> m_current_seed_generator;
         common::EventBus<State> m_event_bus;
         std::string m_ap_seed;
+        bool m_deathlink_enabled = false;
         int m_deathlink_max_lives = 0;  // How many times the player has to die to trigger a death link
         int m_deathlink_lives = 0;
-        bool m_death_from_deathlink;  // True if the death was triggered by someone else
+        bool m_death_from_deathlink;  // True if the latest death was caused by someone else dying
     };
 } // namespace randomizer::archipelago
