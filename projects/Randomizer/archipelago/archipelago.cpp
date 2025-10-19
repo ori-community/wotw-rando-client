@@ -21,6 +21,9 @@
 #define UUID_SYSTEM_GENERATOR
 #include <uuid.h>
 
+constexpr int MIN_AP_VERSION = 1;  // Minimum AP World version required
+constexpr int MAX_PLAYERS_TO_SHOW_JOIN_LEAVE_MESSAGES = 5;
+
 namespace randomizer::archipelago {
     const std::string UNKNOWN_ITEM_TEXT = "@Unknown Item@";
 
@@ -162,7 +165,7 @@ namespace randomizer::archipelago {
                         "Ori and the Will of the Wisps",
                         m_slot_name,
                         uuids::to_string(uuid),
-                        messages::NetworkVersion{0, 5, 0, "Version"},
+                        messages::NetworkVersion{0, 6, 3, "Version"},
                         0b111,
                         {"AP"},
                         true,
@@ -194,10 +197,9 @@ namespace randomizer::archipelago {
             case ix::WebSocketMessageType::Error: {
                 if (m_first_connection_attempt) {
                     core::events::schedule_task_for_next_update([this]() {
-                        update_connection_info();
+                        try_connection_with_new_game_seed_source();
                     });
-                }
-                else {
+                } else {
                     core::message_controller().queue_central({
                         .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}). Retrying in 10s.", m_websocket.getUrl())),
                         .show_box = true,
@@ -226,53 +228,51 @@ namespace randomizer::archipelago {
     }
 
     void ArchipelagoClient::handle_deathlink() {
+        if (!m_deathlink_enabled) {
+            return;
+        }
         if (m_death_from_deathlink) {
             m_death_from_deathlink = false;
+            return;
         }
-        else if (m_deathlink_enabled) {
-            modloader::info("archipelago", "Player died");
-            m_deathlink_lives--;
-            if (m_deathlink_lives == 0) {  // Send a deathlink packet.
-                m_deathlink_lives = m_deathlink_max_lives;
-                std::chrono::time_point<std::chrono::system_clock> timestamp = std::chrono::system_clock::now();
-                float death_time = std::chrono::duration_cast<std::chrono::seconds>(timestamp.time_since_epoch()).count();
-                send_message(messages::Bounce{std::vector<std::string>{"DeathLink"}, messages::DeathPacket{death_time, m_slot_name}});
-                core::message_controller().queue_central({
-                    .text = core::Property<std::string>("You triggered a death link"),
-                    .show_box = true,
-                });
-                modloader::info("archipelago", "Sent Bounce packet for death link.");
-            }
-            else {
-                std::string life_text = (m_deathlink_lives == 1) ? "life" : "lives";
-                core::message_controller().queue_central({
-                    .text = core::Property<std::string>(std::format("{} {} left", m_deathlink_lives, life_text)),
-                    .show_box = true,
-                });
-            }
+
+        modloader::info("archipelago", "Player died");
+        m_deathlink_lives--;
+        if (m_deathlink_lives == 0) {  // Send a deathlink packet.
+            m_deathlink_lives = m_deathlink_max_lives;
+            std::chrono::time_point<std::chrono::system_clock> timestamp = std::chrono::system_clock::now();
+            float death_time = std::chrono::duration_cast<std::chrono::seconds>(timestamp.time_since_epoch()).count();
+            send_message(messages::Bounce{std::vector<std::string>{"DeathLink"}, messages::DeathPacket{death_time, m_slot_name}});
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>("You triggered a death link"),
+                .show_box = true,
+            });
+            modloader::info("archipelago", "Sent Bounce packet for death link.");
+        } else {
+            std::string life_text = (m_deathlink_lives == 1) ? "life" : "lives";
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>(std::format("{} {} left", m_deathlink_lives, life_text)),
+                .show_box = true,
+            });
         }
     }
 
     // Get the connection info from .newgameseedsource, and try to connect with it.
-    void ArchipelagoClient::update_connection_info() {
+    void ArchipelagoClient::try_connection_with_new_game_seed_source() {
         m_first_connection_attempt = false;
         load_new_game_source();
 
         const auto source = get_new_game_seed_source();
         const auto server_connection = source->get_server_connection();
 
-        if (server_connection.has_value()) {
-            *server_connection | vx::match{
-                [](const seed::RandoServerConnection& connection) {},
-                [this](const seed::ArchipelagoServerConnection& connection) {
-                    m_slot_name = connection.slot_name;
-                    m_password = connection.password;
-                    core::events::schedule_task(0.f, [connection, this]() {
-                        archipelago_client().connect(connection.url, m_slot_name, m_password);
-                    });
-                }
-            };
-        }
+        if (server_connection.has_value() && std::holds_alternative<seed::ArchipelagoServerConnection>(*server_connection)) {
+            auto connection = std::get<seed::ArchipelagoServerConnection>(*server_connection);
+            m_slot_name = connection.slot_name;
+            m_password = connection.password;
+            core::events::schedule_task(0.f, [connection, this]() {
+                archipelago_client().connect(connection.url, m_slot_name, m_password);
+            });
+        };
     }
 
     void ArchipelagoClient::compare_seed() {
@@ -435,8 +435,7 @@ namespace randomizer::archipelago {
                             state.set(state.get<int>() + 1);
                         }
                     }
-                }
-                else { state.set(state.get<int>() + 1); }
+                } else { state.set(state.get<int>() + 1); }
             },
             [this](const ids::ResourceItem& item) {
                 switch (item.type) {
@@ -552,14 +551,14 @@ namespace randomizer::archipelago {
 
                     m_current_seed_generator = ArchipelagoSeedGenerator(message.slot_data);
 
-                    if (message.slot_data.ap_version < m_min_version) {
+                    if (message.slot_data.ap_version < MIN_AP_VERSION) {
                         core::message_controller().queue_central({
-                            .text = core::Property<std::string>("The seed was generated with an outdated AP World. Things might be broken.\nPlease update it, or downgrade the client to a version compatible with this AP World."),
+                            .text = core::Property<std::string>("The seed was generated with an outdated AP World. Things might be broken.\nPlease update it or downgrade the client to a version compatible with this AP World."),
                             .duration = 10.f,
                             .show_box = true,
                             .prioritized = true,
                         });
-                        modloader::warn("archipelago", std::format("Outdated AP World. Version {}, expected at least {}.", message.slot_data.ap_version, m_min_version));
+                        modloader::warn("archipelago", std::format("Outdated AP World. Version {}, expected at least {}.", message.slot_data.ap_version, MIN_AP_VERSION));
                     }
 
                     if (message.slot_data.death_link != 0) {
@@ -596,10 +595,9 @@ namespace randomizer::archipelago {
                     modloader::debug("archipelago", "Parsing ConnectionRefused Packet");
                     if (m_first_connection_attempt) {
                         core::events::schedule_task_for_next_update([this]() {
-                            update_connection_info();
+                            try_connection_with_new_game_seed_source();
                         });
-                    }
-                    else {
+                    } else {
                         for (const std::string& error: message.errors) {
                             modloader::error("archipelago", std::format("Connection refused: {}.", error));
                             core::message_controller().queue_central({
@@ -730,8 +728,7 @@ namespace randomizer::archipelago {
                         }
                     } else if (message.type == "Join") {
                         std::string player_name = get_player_name(message.slot);
-                        // Don't display the join/left messages if there are a lot of people in the game
-                        if (player_name != get_player_name(m_slot_id) && m_player_map.size() <= 5) {
+                        if (player_name != get_player_name(m_slot_id) && m_player_map.size() <= MAX_PLAYERS_TO_SHOW_JOIN_LEAVE_MESSAGES) {
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>(std::format("{} joined the game.", player_name)),
                                 .show_box = true,
@@ -739,8 +736,7 @@ namespace randomizer::archipelago {
                         }
                     } else if (message.type == "Part") {
                         std::string player_name = get_player_name(message.slot);
-                        // Don't display the join/left messages if there are a lot of people in the game
-                        if (player_name != get_player_name(m_slot_id) && m_player_map.size() <= 5) {
+                        if (player_name != get_player_name(m_slot_id) && m_player_map.size() <= MAX_PLAYERS_TO_SHOW_JOIN_LEAVE_MESSAGES) {
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>(std::format("{} left the game.", player_name)),
                                 .show_box = true,

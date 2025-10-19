@@ -37,8 +37,8 @@ namespace randomizer::archipelago {
         std::unordered_map<std::string, std::string> shop_icons;
         bool bonus;
         bool door_rando;
-        std::vector<int> door_data;
-        std::vector<std::pair<int, ids::archipelago_id_t>> relic_locs;
+        std::vector<int> door_connections;  // Door connections (index → door ID)
+        std::vector<std::pair<int, ids::archipelago_id_t>> relic_locs;  // Relic locations (GameArea, location ID)
         int death_link;
         int ap_version;
 
@@ -74,7 +74,7 @@ namespace randomizer::archipelago {
             shop_icons,
             bonus,
             door_rando,
-            door_data,
+            door_connections,
             relic_locs,
             death_link,
             ap_version
