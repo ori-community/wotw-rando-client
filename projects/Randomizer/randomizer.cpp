@@ -283,13 +283,6 @@ namespace randomizer {
             core::api::game::debug_menu::set_debug_enabled(core::settings::debug_controls());
         }
 
-        [[maybe_unused]]
-        auto on_title_screen_loaded = core::api::scenes::single_event_bus().register_handler("wotwTitleScreen", [](const auto meta_data, auto) {
-            if (meta_data->state == app::SceneState__Enum::Loaded) {
-                randomizer_seed.clear();
-            }
-        });
-
         auto on_modloader_injection_complete = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
             core::api::graphics::textures::register_custom_protocol("bundle", [](const std::string& path) -> app::Texture2D* {
                 if (seed_archive_save_data->seed_archive == nullptr) {

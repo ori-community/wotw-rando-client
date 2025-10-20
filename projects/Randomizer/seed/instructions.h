@@ -153,8 +153,46 @@ namespace randomizer::seed {
     };
 
     struct FreeMessageBox {
-        std::shared_ptr<core::api::messages::MessageBox> message;
+        std::shared_ptr<core::api::messages::MessageBox> message_box;
+        std::optional<float> timeout = std::nullopt;
+    };
+
+    struct SerializedFreeMessageBox {
+        core::api::messages::CoordinateSystem coordinate_system;
+        app::Vector3 position;
+        std::string text;
+        app::AlignmentMode__Enum text_alignment;
+        float box_width;
+        app::HorizontalAnchorMode__Enum horizontal_anchor;
+        app::VerticalAnchorMode__Enum vertical_anchor;
+        bool show_background;
         std::optional<float> timeout;
+        bool visible;
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+            SerializedFreeMessageBox,
+            coordinate_system,
+            position,
+            text,
+            text_alignment,
+            box_width,
+            horizontal_anchor,
+            vertical_anchor,
+            show_background,
+            timeout,
+            visible
+        );
+    };
+
+    struct SerializedWarpIcon {
+        std::string label;
+        app::Vector2 position;
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+            SerializedWarpIcon,
+            label,
+            position
+        );
     };
 
     struct SeedExecutionEnvironment final : public core::save_meta::JsonSaveMetaSerializable {
@@ -169,7 +207,7 @@ namespace randomizer::seed {
         const auto& get_timers() const { return m_timers; }
         const auto& get_map_spoiler_data() const { return m_map_spoiler_data; }
 
-        SeedExecutionEnvironment() = default;
+        SeedExecutionEnvironment();
         SeedExecutionEnvironment(const SeedExecutionEnvironment& other) = delete;
         SeedExecutionEnvironment(SeedExecutionEnvironment&& other) = delete;
 
@@ -286,15 +324,35 @@ namespace randomizer::seed {
         void set_map_spoiler_data(const std::string& location_id, const ItemSpoilerData& spoiler_data);
 
     private:
-        // Serialized
+        // Serialized properties.
+        // These are only serialized on-demand in json_serialize():
+        std::unordered_map<std::size_t, SerializedFreeMessageBox> m_serialized_free_message_boxes;
+        std::unordered_map<std::size_t, SerializedWarpIcon> m_serialized_warp_icons;
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+            SeedExecutionEnvironment,
+            m_serialized_free_message_boxes,
+            m_serialized_warp_icons
+        );
+
+        // Runtime
         std::unordered_map<std::size_t, std::shared_ptr<game::map::Icon>> m_warp_icons;
         std::unordered_map<std::size_t, FreeMessageBox> m_free_message_boxes;
-
-        // Non-Serialized
         std::unordered_map<std::size_t, QueuedMessageBox> m_queued_message_boxes;
         std::vector<SeedTimer> m_timers;
         bool m_prevent_grant = false;
         std::unordered_map<std::string, ItemSpoilerData> m_map_spoiler_data;
+        std::vector<common::registration_handle_t> m_event_bus_handles;
+
+        /**
+         * Restore serialized data (free message boxes, warp icons etc.) to runtime data.
+         * By default, runtime entities is not deserialized immediately because deserialization
+         * happens in multiple places in the game where you don't want to immediately create
+         * runtime entities. E.g. when dying or in the main menu you don't want free message boxes
+         * to appear. Instead, the runtime entities are only create on Respawn and FinishedLoadingSave
+         * events.
+         */
+        void restore_serialized_data_to_runtime();
     };
 
     std::unique_ptr<IInstruction> create_instruction(const nlohmann::json& j);

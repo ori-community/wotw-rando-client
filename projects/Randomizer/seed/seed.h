@@ -135,8 +135,6 @@ namespace randomizer::seed {
 
         void read(const std::shared_ptr<SeedArchive>& seed_archive, const seed_parser parser, const bool show_message = true);
         void show_tags_message() const;
-        void reload(const bool show_message = true);
-        void clear();
 
         bool should_grant() const;
 
@@ -154,7 +152,6 @@ namespace randomizer::seed {
 
     private:
         location_data::LocationCollection const& m_location_data;
-        seed_parser m_last_parser = nullptr;
         std::shared_ptr<SeedArchive> m_seed_archive;
         std::shared_ptr<SeedParseOutput> m_parse_output = std::make_shared<SeedParseOutput>();
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
