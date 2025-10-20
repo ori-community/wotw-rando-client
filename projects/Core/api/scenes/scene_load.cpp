@@ -62,7 +62,6 @@ namespace core::api::scenes {
             if (scenes_to_load.contains(scene_name)) {
                 auto pending_scene = scenes_to_load[scene_name];
 
-                app::GameObject* scene_root_go = nullptr;
 
                 if (
                     state == app::SceneState__Enum::Loaded ||
@@ -71,7 +70,6 @@ namespace core::api::scenes {
                     state == app::SceneState__Enum::Disabling ||
                     state == app::SceneState__Enum::Disabled
                 ) {
-                    scene_root_go = il2cpp::unity::get_game_object(scene_manager_scene->fields.SceneRoot);
                     scene_manager_scene->fields.PreventUnloading = pending_scene.keep_preloaded;
                 }
 
