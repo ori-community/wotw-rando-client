@@ -179,6 +179,7 @@ namespace randomizer::seed {
             register_instruction<Save>(factories);
             register_instruction<SaveAt>(factories);
             register_instruction<SetBoolean>(factories);
+            register_instruction<SetDebuggerTrace>(factories);
             register_instruction<SetFloat>(factories);
             register_instruction<SetInteger>(factories);
             register_instruction<SetMapMessage>(factories);
@@ -188,8 +189,10 @@ namespace randomizer::seed {
             register_instruction<SetShopItemLocked>(factories);
             register_instruction<SetShopItemName>(factories);
             register_instruction<SetShopItemPrice>(factories);
+            register_instruction<SetSideMapMessage>(factories);
             register_instruction<SetSpoilerMapIcon>(factories);
             register_instruction<SetString>(factories);
+            register_instruction<SetTextWithId>(factories);
             register_instruction<SetWarpIconLabel>(factories);
             register_instruction<SetWheelItemColor>(factories);
             register_instruction<SetWheelItemCommand>(factories);
