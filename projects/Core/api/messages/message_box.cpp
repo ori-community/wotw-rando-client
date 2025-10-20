@@ -419,18 +419,20 @@ namespace core::api::messages {
         if (m_message_box == nullptr) { // NOLINT
             return Visibility::Hidden;
         }
-        else if (m_message_box->fields.Visibility->fields.m_time >= 1.0f) {
+
+        if (m_message_box->fields.Visibility->fields.m_time >= 1.0f) {
             return Visibility::Visible;
         }
-        else if (m_message_box->fields.Visibility->fields.m_time <= 0.0f) {
+
+        if (m_message_box->fields.Visibility->fields.m_time <= 0.0f) {
             return Visibility::Hidden;
         }
-        else if (m_message_box->fields.Visibility->fields.m_timeSpeed < 0.0f) {
+
+        if (m_message_box->fields.Visibility->fields.m_timeSpeed < 0.0f) {
             return Visibility::FadingOut;
         }
-        else {
-            return Visibility::FadingIn;
-        }
+
+        return Visibility::FadingIn;
     }
 
     void MessageBox::show(const bool instant, const bool play_sound) {
@@ -440,13 +442,16 @@ namespace core::api::messages {
         }
 
         m_message_box->fields.Visibility->fields.m_delayTime = FLT_MAX;
+        m_message_box->fields.Visibility->fields.WaitDuration = FLT_MAX;
         m_message_box->fields.Visibility->fields.m_timeSpeed = 1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionInDuration, FLT_EPSILON);
-        m_message_box->fields.Visibility->fields.m_time = instant ? 1.0f : 0.0f;
+        m_message_box->fields.Visibility->fields.m_time = instant ? 2.f : 0.0f;
+        on_fixed_update();
     }
 
     void MessageBox::hide(const bool instant) const {
         m_message_box->fields.Visibility->fields.m_timeSpeed = -1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionOutDuration, FLT_EPSILON);
         m_message_box->fields.Visibility->fields.m_delayTime = 0.0f;
+        m_message_box->fields.Visibility->fields.WaitDuration = 0.0f;
         m_message_box->fields.Visibility->fields.m_time = instant ? 0.0f : std::min(m_message_box->fields.Visibility->fields.m_time, 1.0f);
         MessageBoxVisibility::set_IsSuspended(m_message_box->fields.Visibility, false);
     }
