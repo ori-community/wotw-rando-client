@@ -209,7 +209,7 @@ namespace randomizer {
         });
 
         auto on_teleport = core::api::game::event_bus().register_handler(GameEvent::Teleport, EventTiming::Before, [](auto, auto) {
-            game_seed().trigger(seed::SeedClientEvent::Teleport);
+
         });
 
         const std::unordered_set<core::api::uber_states::UberState> TELEPORTER_UBER_STATES{
