@@ -382,6 +382,7 @@ set(
         "trial.h"
         "tracking/game_tracker.h"
         "uber_states/random_value_generator.h"
+        "uber_states/uber_state_initialization.h"
         "uber_states/uber_state_intercepts.h"
         seed/instructions/set_text_with_id.h
 )

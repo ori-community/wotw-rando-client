@@ -7,7 +7,6 @@ namespace {
         { UberStateGroup::Tree, "trees" },
         { UberStateGroup::OpherShop, "opherShop" },
         { UberStateGroup::TwillenShop, "twillenShop" },
-        { UberStateGroup::RandoEvents, "randoEvents" },
         { UberStateGroup::RandoUpgrade, "randoUpgrades" },
         { UberStateGroup::Player, "player" },
         { UberStateGroup::RandoState, "randoState" },

@@ -5,7 +5,6 @@
 #include <Core/dev/timing.h>
 #include <Core/enums/uber_state.h>
 #include <Core/input/mouse.h>
-#include <Core/input/simulator.h>
 #include <Core/settings.h>
 #include <Modloader/app/methods/Moon/UberStateCollection.h>
 #include <Modloader/app/types/BooleanUberState.h>
@@ -25,6 +24,7 @@
 #include <Randomizer/features/area_segment_states.h>
 #include <Randomizer/features/door_randomizer.h>
 #include <Randomizer/randomizer.h>
+#include <Randomizer/uber_states/uber_state_initialization.h>
 #include <chrono>
 
 #include "random_value_generator.h"
@@ -34,6 +34,13 @@ using namespace app::classes;
 using namespace core::api::uber_states;
 
 namespace randomizer {
+    namespace uber_states::readonly {
+        core::Property<bool>& player_is_teleporting() {
+            static core::Property<bool> state;
+            return state;
+        }
+    } // namespace uber_states::readonly
+
     namespace {
         app::UberID* create_uber_id_ptr(int id) {
             auto uber_id = types::UberID::create();
@@ -90,7 +97,7 @@ namespace randomizer {
         }
 
         template<typename T, typename V>
-        app::IUberState* add_state(UberStateGroup group, const std::string& state_name, int state_id, V default_value) {
+        app::IUberState* add_state(UberStateGroup group, const std::string& state_name, int state_id, V default_value, bool read_only = false) {
             auto klass = get_klass<T>();
 
             if (!uber_state_so_cache.contains(klass)) {
@@ -306,28 +313,28 @@ namespace randomizer {
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "overflowPickupUpgrade", 150, false),
 
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onTeleport", 20, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onJump", 30, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onDoubleJump", 31, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onDash", 32, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onBash", 33, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onGlide", 34, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onSword", 35, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onHammer", 36, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onSpear", 37, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onShuriken", 38, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onGrenade", 39, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onBow", 40, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onBlaze", 41, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onSentry", 42, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onFlash", 43, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onLaunch", 44, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onWallJump", 45, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onBurrow", 46, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onWaterDash", 47, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onFlap", 48, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onRegenerate", 49, false),
-                add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onGrapple", 50, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onTeleport", 20, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onJump", 30, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onDoubleJump", 31, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onDash", 32, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onBash", 33, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onGlide", 34, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onSword", 35, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onHammer", 36, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onSpear", 37, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onShuriken", 38, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onGrenade", 39, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onBow", 40, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onBlaze", 41, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onSentry", 42, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onFlash", 43, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onLaunch", 44, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onWallJump", 45, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onBurrow", 46, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onWaterDash", 47, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onFlap", 48, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onRegenerate", 49, false),
+                // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onGrapple", 50, false),
 
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "gladesWave", 0, 0),
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "inkwaterWave", 1, 0),
@@ -510,15 +517,6 @@ namespace randomizer {
             info("initialize", "Custom uber states initialized.");
             next::Moon::UberStateCollection::PrepareRuntimeDataType(this_ptr);
 
-            register_virtual_event_state(UberStateGroup::RandoEvents, 100, "onRequestInkwaterTrialText");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 101, "onRequestHollowTrialText");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 102, "onRequestWellspringTrialText");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 103, "onRequestWoodsTrialText");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 104, "onRequestReachTrialText");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 105, "onRequestDepthsTrialText");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 106, "onRequestLumaTrialText");
-            register_virtual_event_state(UberStateGroup::RandoEvents, 107, "onRequestWastesTrialText");
-
             using namespace core::api::game::player;
             register_virtual_state({ValueType::Integer, UberStateGroup::Player, 0, "spiritLight", false, VirtualStateInfo::UpdateMode::Poll}, spirit_light().wrap<double>());
             register_virtual_state({ValueType::Integer, UberStateGroup::Player, 1, "gorlekOre", false, VirtualStateInfo::UpdateMode::Poll}, ore().wrap<double>());
@@ -528,6 +526,7 @@ namespace randomizer {
             register_virtual_state({ValueType::Float, UberStateGroup::Player, 11, "health", false, VirtualStateInfo::UpdateMode::Poll}, health().wrap<double>());
             register_virtual_state({ValueType::Float, UberStateGroup::Player, 12, "maxEnergy", false, VirtualStateInfo::UpdateMode::Poll}, max_energy().wrap<double>());
             register_virtual_state({ValueType::Float, UberStateGroup::Player, 13, "energy", false, VirtualStateInfo::UpdateMode::Poll}, energy().wrap<double>());
+            register_virtual_state({ValueType::Boolean, UberStateGroup::Player, 100, "isTeleporting", true, VirtualStateInfo::UpdateMode::ReactiveEffect}, uber_states::readonly::player_is_teleporting().wrap<double>());
 
             register_virtual_state(
                 {

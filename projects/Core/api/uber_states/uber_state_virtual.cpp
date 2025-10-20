@@ -68,7 +68,6 @@ namespace core::api::uber_states {
             auto& state = virtual_states[uber_id];
             reactivity::watch_effect()
                 .effect(state.value)
-                .after([uber_id]() { check_state_change(uber_id, virtual_states[uber_id].value.get()); })
                 .finalize_inplace(state.effect);
         }
     }
