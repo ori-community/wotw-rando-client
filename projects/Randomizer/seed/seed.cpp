@@ -81,7 +81,7 @@ namespace randomizer::seed {
                     .before([state]{ dev::seed_debugger::binding_start(state); })
                     .effect({state});
 
-                modloader::ScopedSetter setter(m_should_handle_command, false);
+                modloader::ScopedSetter setter(m_is_reading_seed, false);
                 condition.reactive_effect = builder.after([&, state] {
                     if (!should_grant()) {
                         dev::seed_debugger::binding_end(state);
@@ -136,7 +136,7 @@ namespace randomizer::seed {
         dev::seed_debugger::command_start(id);
 
         if (m_parse_output->data.commands.size() <= id) {
-            throw std::exception("Instructed to execute command");
+            throw std::exception(std::format("Command ID {} out of bounds", id).c_str());
         }
 
         for (const auto& command: m_parse_output->data.commands.at(id)) {
@@ -168,7 +168,13 @@ namespace randomizer::seed {
 
         dev::seed_debugger::seed_event_start(event);
 
-        if (!force && !should_grant()) {
+        std::unique_ptr<modloader::ScopedSetter<bool>> force_grant_scoped_setter;
+
+        if (force) {
+            force_grant_scoped_setter = std::make_unique<modloader::ScopedSetter<bool>>(m_forcing_grant, force);
+        }
+
+        if (!should_grant()) {
             dev::seed_debugger::seed_event_end(event);
             return;
         }
@@ -177,11 +183,19 @@ namespace randomizer::seed {
             execute_command(command);
         }
 
+        if (force) {
+            force_grant_scoped_setter.reset();
+        }
+
         dev::seed_debugger::seed_event_end(event);
     }
 
     bool Seed::should_grant() const {
-        return core::api::game::in_game() && m_should_handle_command &&
+        if (m_forcing_grant) {
+            return true;
+        }
+
+        return core::api::game::in_game() && !m_is_reading_seed &&
             std::ranges::all_of(m_prevent_grant_callbacks, [](const auto& callback) { return !callback(); });
     }
 

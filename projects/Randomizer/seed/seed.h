@@ -158,7 +158,8 @@ namespace randomizer::seed {
         std::vector<Timer> m_timers;
         std::shared_ptr<SeedExecutionEnvironment> m_environment = std::make_shared<SeedExecutionEnvironment>();
 
-        bool m_should_handle_command = true;
+        bool m_is_reading_seed = true;
+        bool m_forcing_grant = false;
         std::vector<IInstruction*> m_command_stack;
         SeedMemory m_memory;
         std::shared_ptr<PersistentSeedMemory> m_persistent_memory = std::make_shared<PersistentSeedMemory>();
