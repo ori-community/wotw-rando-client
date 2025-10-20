@@ -48,9 +48,9 @@ jobs:
       - name: Bootstrap vcpkg
         shell: pwsh
         run: |
-          cd ${{ github.workspace }}/vcpkg
+          cd C:/vcpkg
           git pull
-          ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat
+          ./bootstrap-vcpkg.bat
       - name: Add NuGet sources
         shell: pwsh
         run: |
