@@ -15,19 +15,9 @@ namespace core::input {
         api::uber_states::UberState lock_state(UberStateGroup::Player, 1000);
         constexpr auto FULL_MASK = static_cast<app::SeinAbilityRestrictZoneMask__Enum>(0xffffff);
 
-        IL2CPP_INTERCEPT(float, CharacterLeftRightMovement, get_HorizontalInput, app::CharacterLeftRightMovement* this_ptr) {
-            if (lock_state.get<bool>() || !locks.empty()) {
-                return 0.f;
-            }
-
-            return next::CharacterLeftRightMovement::get_HorizontalInput(this_ptr);
-        }
-
         IL2CPP_INTERCEPT(void, CharacterLeftRightMovement, FixedUpdate, app::CharacterLeftRightMovement* this_ptr) {
-            if (lock_state.get<bool>() || !locks.empty()) {
-                modloader::ScopedSetter<float> setter(this_ptr->fields.m_horizontalInput, 0.0);
-            }
-
+            const auto lock_value = lock_state.get<bool>() || !locks.empty();
+            modloader::ScopedSetter setter(this_ptr->fields.Settings->fields.LockInput, lock_value, modloader::ScopedSetter<bool>::OP_OR);
             next::CharacterLeftRightMovement::FixedUpdate(this_ptr);
         }
 
