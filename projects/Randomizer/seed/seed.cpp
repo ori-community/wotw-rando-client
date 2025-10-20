@@ -81,7 +81,7 @@ namespace randomizer::seed {
                     .before([state]{ dev::seed_debugger::binding_start(state); })
                     .effect({state});
 
-                modloader::ScopedSetter setter(m_is_reading_seed, false);
+                modloader::ScopedSetter setter(m_is_reading_seed, true);
                 condition.reactive_effect = builder.after([&, state] {
                     if (!should_grant()) {
                         dev::seed_debugger::binding_end(state);
