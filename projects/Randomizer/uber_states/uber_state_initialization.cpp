@@ -33,12 +33,16 @@ using namespace modloader;
 using namespace app::classes;
 using namespace core::api::uber_states;
 
+#define STATIC_PROPERTY(type, name, default_value)                                                                                                             \
+    core::Property<type>& name() {                                                                                                           \
+        static core::Property<type> state(default_value);                                                                                   \
+        return state;                                                                                                                                          \
+    }
+
 namespace randomizer {
     namespace uber_states::readonly {
-        core::Property<bool>& player_is_teleporting() {
-            static core::Property<bool> state;
-            return state;
-        }
+        STATIC_PROPERTY(int, player_current_map_area, static_cast<int>(GameArea::TOTAL))
+        STATIC_PROPERTY(bool, player_is_teleporting, false)
     } // namespace uber_states::readonly
 
     namespace {
@@ -455,7 +459,6 @@ namespace randomizer {
                 add_state<app::SerializedByteUberState>(UberStateGroup::LupoShop, "shardMapIcons", 41666, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoShop, "shardMapIconsCost", 41667, 0),
 
-                add_state<app::IntUberState>(UberStateGroup::Player, "currentMapArea", 51, static_cast<int>(GameArea::TOTAL)),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Player, "inputLocked", 1000, 0),
 
                 // Dash has special handling, see burrow_and_waterdash_without_dash.cpp
@@ -526,6 +529,7 @@ namespace randomizer {
             register_virtual_state({ValueType::Float, UberStateGroup::Player, 11, "health", false, VirtualStateInfo::UpdateMode::Poll}, health().wrap<double>());
             register_virtual_state({ValueType::Float, UberStateGroup::Player, 12, "maxEnergy", false, VirtualStateInfo::UpdateMode::Poll}, max_energy().wrap<double>());
             register_virtual_state({ValueType::Float, UberStateGroup::Player, 13, "energy", false, VirtualStateInfo::UpdateMode::Poll}, energy().wrap<double>());
+            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 51, "currentMapArea", true, VirtualStateInfo::UpdateMode::ReactiveEffect}, uber_states::readonly::player_current_map_area().wrap<double>());
             register_virtual_state({ValueType::Boolean, UberStateGroup::Player, 100, "isTeleporting", true, VirtualStateInfo::UpdateMode::ReactiveEffect}, uber_states::readonly::player_is_teleporting().wrap<double>());
 
             register_virtual_state(
