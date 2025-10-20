@@ -12,8 +12,7 @@
 
 namespace randomizer::features::wheel {
     void initialize_item(
-        int wheel, int item, std::string name, std::string desc,
-        std::string texture, wheel_callback callback)
+        int wheel, int item, const std::string& name, const std::string& desc, const std::string& texture, const wheel_callback& callback)
     {
         const auto position = static_cast<WheelItemPosition>(item);
         set_wheel_item_name(wheel,  position, name);
@@ -196,7 +195,7 @@ namespace randomizer::features::wheel {
                             }
 
                             if (bind == WheelBind::Ability1 || bind == WheelBind::Ability3) {
-                                seed::destroy_free_message_boxes();
+                                game_seed().environment().clear_free_message_boxes();
                             }
                         });
         initialize_item(9001, 11, "Next", "Go to next page of actions", "file:assets/icons/wheel/menu.blue.png",

@@ -375,17 +375,17 @@ namespace randomizer::game::map {
                     in_logic_icon->label().set(icon_label(location, location.condition));
                     spoiler_icon->position().set(location.map_position.value());
                     spoiler_icon->name().set(location.name);
-                    spoiler_icon->label().assign([](auto&) {}, [condition, game_finished, location] -> std::string {
-                        const auto data_it = game_seed().environment().map_spoiler_data.find(location.name);
-                        if (data_it != game_seed().environment().map_spoiler_data.end()) {
+                    spoiler_icon->label().assign([](auto&) {}, [location] -> std::string {
+                        const auto data_it = game_seed().environment().get_map_spoiler_data().find(location.name);
+                        if (data_it != game_seed().environment().get_map_spoiler_data().end()) {
                             return data_it->second.label;
                         }
 
                         return "???";
                     });
-                    spoiler_icon->icon().assign([](auto) {}, [condition, game_finished, location] {
-                        const auto data_it = game_seed().environment().map_spoiler_data.find(location.name);
-                        if (data_it != game_seed().environment().map_spoiler_data.end()) {
+                    spoiler_icon->icon().assign([](auto) {}, [location] {
+                        const auto data_it = game_seed().environment().get_map_spoiler_data().find(location.name);
+                        if (data_it != game_seed().environment().get_map_spoiler_data().end()) {
                             return data_it->second.icon;
                         }
 

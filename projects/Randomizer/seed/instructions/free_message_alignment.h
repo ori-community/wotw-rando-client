@@ -11,9 +11,9 @@ INSTRUCTION(FreeMessageAlignment)
     app::AlignmentMode__Enum alignment;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        if (environment.free_message_boxes.contains(id)) {
-            environment.free_message_boxes[id].message->text_alignment().set(alignment);
-        }
+        environment.modify_free_message_box(id, [&] (auto& message_box) {
+            message_box.text_alignment().set(alignment);
+        });
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

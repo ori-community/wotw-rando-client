@@ -9,15 +9,8 @@ INSTRUCTION(MessageTimeout)
     std::size_t id;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        const auto queued_it = environment.queued_message_boxes.find(id);
-        if (queued_it != environment.queued_message_boxes.end() && !queued_it->second.handle->message.expired()) {
-            queued_it->second.handle->time_left = memory.floats.get(0);
-        }
-
-        const auto free_it = environment.free_message_boxes.find(id);
-        if (free_it != environment.free_message_boxes.end()) {
-            free_it->second.timeout = memory.floats.get(0);
-        }
+        environment.set_queued_message_box_timeout(id, memory.floats.get(0));
+        environment.set_free_message_box_timeout(id, memory.floats.get(0));
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

@@ -20,8 +20,7 @@ INSTRUCTION(QueuedMessage)
         );
 
         if (id.has_value()) {
-            environment.queued_message_boxes[id.value()] = {.handle = handle};
-            environment.free_message_boxes.erase(id.value());
+            environment.add_queued_message_box(id.value(), handle);
         }
     }
 

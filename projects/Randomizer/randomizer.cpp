@@ -171,6 +171,7 @@ namespace randomizer {
             }
 
             core::api::game::player::shard_slots().set(3);
+            game_seed().environment().reset();
 
             game_seed().trigger(seed::SeedClientEvent::Spawn, true);
         });

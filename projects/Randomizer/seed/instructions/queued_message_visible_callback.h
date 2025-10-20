@@ -10,10 +10,7 @@ INSTRUCTION(QueuedMessageVisibleCallback)
     std::size_t id;
     std::size_t command;
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        const auto it = environment.queued_message_boxes.find(id);
-        if (it != environment.queued_message_boxes.end()) {
-            it->second.visible_callback = command;
-        }
+		environment.set_queued_message_box_visible_callback(id, command);
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

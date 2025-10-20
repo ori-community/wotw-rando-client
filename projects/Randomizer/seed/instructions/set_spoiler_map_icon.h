@@ -11,7 +11,7 @@ INSTRUCTION(SetSpoilerMapIcon)
     MapIcon icon;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        seed.environment().map_spoiler_data[location] = {icon, memory.strings.get(0)};
+        environment.set_map_spoiler_data(location, {icon, memory.strings.get(0)});
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

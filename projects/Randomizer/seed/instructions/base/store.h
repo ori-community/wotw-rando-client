@@ -13,8 +13,16 @@ TEMPLATE_INSTRUCTION(Store, typename T)
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         core::api::uber_states::UberState state(group, member);
-        modloader::ScopedSetter setter(environment.prevent_grant, !trigger_events);
-        state.set(memory.get<T>(0));
+
+        const auto grant_fn = [&] {
+            state.set(memory.get<T>(0));
+        };
+
+        if (trigger_events) {
+            grant_fn();
+        } else {
+            environment.execute_without_grants(grant_fn);
+        }
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

@@ -9,9 +9,9 @@ INSTRUCTION(FreeMessageHide)
     std::size_t id;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        if (environment.free_message_boxes.contains(id)) {
-            environment.free_message_boxes[id].message->hide(false);
-        }
+        environment.modify_free_message_box(id, [&] (auto& message_box) {
+            message_box.hide(false);
+        });
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

@@ -9,10 +9,8 @@ INSTRUCTION(MessageDestroy)
     std::size_t id;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        environment.free_message_boxes.erase(id);
-        if (environment.queued_message_boxes.contains(id)) {
-            environment.queued_message_boxes.at(id).handle->time_left = 0;
-        }
+        environment.remove_free_message_box(id);
+        environment.set_queued_message_box_timeout(id, 0.f);
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

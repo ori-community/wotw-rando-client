@@ -9,7 +9,7 @@ INSTRUCTION(CreateWarpIcon)
 
     std::size_t id;
 
-static std::shared_ptr<game::map::Icon> create_icon() {
+    static std::shared_ptr<game::map::Icon> create_icon() {
         const auto icon = add_icon(
             game::map::FilterFlag::All | game::map::FilterFlag::Teleports | game::map::FilterFlag::InLogic | game::map::FilterFlag::Spoilers,
             true
@@ -25,7 +25,7 @@ static std::shared_ptr<game::map::Icon> create_icon() {
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         const auto icon = create_icon();
         icon->position().set(memory.floats.get(0), memory.floats.get(1));
-        environment.warp_icons[id] = icon;
+        environment.set_warp_icon(id, icon);
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

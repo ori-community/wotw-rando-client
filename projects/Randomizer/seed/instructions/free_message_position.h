@@ -9,9 +9,9 @@ INSTRUCTION(FreeMessagePosition)
     std::size_t id;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        if (environment.free_message_boxes.contains(id)) {
-            environment.free_message_boxes[id].message->position().set(memory.floats.get(0), memory.floats.get(1), 0.f);
-        }
+        environment.modify_free_message_box(id, [&] (auto& message_box) {
+            message_box.position().set(memory.floats.get(0), memory.floats.get(1), 0.f);
+        });
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

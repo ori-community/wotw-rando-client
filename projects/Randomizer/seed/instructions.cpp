@@ -94,53 +94,19 @@ namespace randomizer::seed {
     namespace {
         [[maybe_unused]]
         auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-            game_seed().prevent_grants([]() { return game_seed().environment().prevent_grant; });
+            game_seed().prevent_grants([]() { return game_seed().environment().should_prevent_grant(); });
         });
 
         [[maybe_unused]]
         auto on_update = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [](auto, auto) {
             if (!core::api::game::in_game()) {
-                game_seed().environment().queued_message_boxes.clear();
-                game_seed().environment().free_message_boxes.clear();
-                game_seed().environment().timers.clear();
+                game_seed().environment().reset();
                 return;
             }
 
-            for (auto& message: game_seed().environment().queued_message_boxes | std::views::values) {
-                if (message.last_state == message.handle->state) {
-                    continue;
-                }
-
-                if (message.handle->state == core::messages::QueuedMessageHandle::QueuedMessageState::Visible && message.visible_callback.has_value()) {
-                    game_seed().execute_command(message.visible_callback.value());
-                }
-
-                if (message.last_state == core::messages::QueuedMessageHandle::QueuedMessageState::Visible && message.hidden_callback.has_value()) {
-                    game_seed().execute_command(message.hidden_callback.value());
-                }
-
-                message.last_state = message.handle->state;
-            }
-
-            std::unordered_set<int> to_destroy;
-            for (auto& [id, free_message_box]: game_seed().environment().free_message_boxes) {
-                if (free_message_box.timeout.has_value()) {
-                    free_message_box.timeout.value() -= core::api::game::delta_time();
-                    if (free_message_box.timeout.value() < 0) {
-                        to_destroy.emplace(id);
-                    }
-                }
-            }
-
-            for (const auto id: to_destroy) {
-                game_seed().environment().free_message_boxes.erase(id);
-            }
-
-            for (const auto& timer: game_seed().environment().timers) {
-                if (!core::api::game::game_controller()->fields._IsSuspended_k__BackingField && timer.toggle.get<bool>()) {
-                    timer.value.set(timer.value.get<float>() + core::api::game::delta_time());
-                }
-            }
+            game_seed().environment().process_queued_message_box_visibility_callbacks();
+            game_seed().environment().process_free_message_boxes(core::api::game::delta_time());
+            game_seed().environment().process_timers(core::api::game::delta_time());
         });
 
         using instruction_factories_t = std::unordered_map<std::string, std::function<std::unique_ptr<IInstruction>(const nlohmann::json& j)>>;
@@ -244,26 +210,6 @@ namespace randomizer::seed {
         })();
     } // namespace
 
-    std::unique_ptr<IInstruction> create_instruction(const nlohmann::json& j) {
-        if (j.is_string()) {
-            const auto it = instruction_factories.find(j.get<std::string>());
-            if (it == instruction_factories.end()) {
-                throw RandoException("Unknown command");
-            }
-
-            return std::move(it->second(j));
-        } else {
-            const auto it = instruction_factories.find(j.begin().key());
-            if (it == instruction_factories.end()) {
-                throw RandoException("Unknown command");
-            }
-
-            return std::move(it->second(j.begin().value()));
-        }
-    }
-
-    void destroy_free_message_boxes() { game_seed().environment().free_message_boxes.clear(); }
-
     PersistentSeedMemory::PersistentSeedMemory() {
         on_new_game_registration_handle = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [this](auto, auto) {
             queue_input_unlocked_callback([this] { memory = SeedMemory(); });
@@ -310,23 +256,10 @@ namespace randomizer::seed {
         }
     }
 
-    SeedExecutionEnvironment::SeedExecutionEnvironment() {
-        on_new_game_registration_handle = core::api::game::event_bus().register_handler(
-            GameEvent::NewGameInitialized,
-            EventTiming::Before,
-            [this](GameEvent event, EventTiming timing) {
-                queue_input_unlocked_callback([this] {
-                    warp_icons.clear();
-                    free_message_boxes.clear();
-                });
-            }
-        );
-    }
-
     nlohmann::json SeedExecutionEnvironment::json_serialize() {
         nlohmann::json j;
         auto j_warp_icons = nlohmann::json::array();
-        for (const auto& [id, icon]: warp_icons) {
+        for (const auto& [id, icon]: m_warp_icons) {
             nlohmann::json j_warp_icon;
             j_warp_icon["id"] = id;
             j_warp_icon["label"] = icon->label().get_unprocessed();
@@ -337,7 +270,7 @@ namespace randomizer::seed {
         j["warp_icons"] = j_warp_icons;
 
         auto j_free_message_boxes = nlohmann::json::array();
-        for (const auto& [id, free_message_box]: free_message_boxes) {
+        for (const auto& [id, free_message_box]: m_free_message_boxes) {
             nlohmann::json j_free_message_box;
 
             j_free_message_box["id"] = id;
@@ -367,16 +300,16 @@ namespace randomizer::seed {
     }
 
     void SeedExecutionEnvironment::json_deserialize(nlohmann::json& j) {
-        warp_icons.clear();
+        m_warp_icons.clear();
         const auto& j_warp_icons = j["warp_icons"];
         for (const auto& j_warp_icon: j_warp_icons) {
             const auto warp_icon = instructions::CreateWarpIcon::create_icon();
             warp_icon->label().set(j_warp_icon["label"].get<std::string_view>());
             warp_icon->position().set(j_warp_icon["position"]);
-            warp_icons[j_warp_icon["id"]] = warp_icon;
+            m_warp_icons[j_warp_icon["id"]] = warp_icon;
         }
 
-        free_message_boxes.clear();
+        m_free_message_boxes.clear();
         const auto& j_free_message_boxes = j["free_message_boxes"];
         for (const auto& j_free_message_box: j_free_message_boxes) {
             const auto free_message_box = std::make_shared<core::api::messages::MessageBox>();
@@ -394,17 +327,164 @@ namespace randomizer::seed {
             free_message_box->show(true, false);
 
             const auto id = j_free_message_box["id"];
-            free_message_boxes[id].message = free_message_box;
+            m_free_message_boxes[id].message = free_message_box;
             if (j_free_message_box.contains("timeout")) {
-                free_message_boxes[id].timeout = j_free_message_box["timeout"];
+                m_free_message_boxes[id].timeout = j_free_message_box["timeout"];
             }
         }
     }
 
     void SeedExecutionEnvironment::reset() {
-        queued_message_boxes.clear();
-        timers.clear();
-        prevent_grant = false;
-        map_spoiler_data.clear();
+        m_free_message_boxes.clear();
+        m_queued_message_boxes.clear();
+        m_timers.clear();
+        m_prevent_grant = false;
+        m_map_spoiler_data.clear();
+    }
+
+    void SeedExecutionEnvironment::process_queued_message_box_visibility_callbacks() {
+        for (auto& message: m_queued_message_boxes | std::views::values) {
+            if (message.last_state == message.handle->state) {
+                continue;
+            }
+
+            if (message.handle->state == core::messages::QueuedMessageHandle::QueuedMessageState::Visible && message.visible_callback.has_value()) {
+                game_seed().execute_command(message.visible_callback.value());
+            }
+
+            if (message.last_state == core::messages::QueuedMessageHandle::QueuedMessageState::Visible && message.hidden_callback.has_value()) {
+                game_seed().execute_command(message.hidden_callback.value());
+            }
+
+            message.last_state = message.handle->state;
+        }
+    }
+
+    void SeedExecutionEnvironment::process_free_message_boxes(float delta) {
+        std::unordered_set<int> to_destroy;
+        for (auto& [id, free_message_box]: m_free_message_boxes) {
+            if (free_message_box.timeout.has_value()) {
+                free_message_box.timeout.value() -= delta;
+                if (free_message_box.timeout.value() < 0) {
+                    to_destroy.emplace(id);
+                }
+            }
+        }
+
+        for (const auto id: to_destroy) {
+            m_free_message_boxes.erase(id);
+        }
+    }
+
+    void SeedExecutionEnvironment::process_timers(float delta) const {
+        for (const auto& timer: m_timers) {
+            if (!core::api::game::game_controller()->fields._IsSuspended_k__BackingField && timer.toggle.get<bool>()) {
+                timer.value.set(timer.value.get<float>() + delta);
+            }
+        }
+    }
+
+    void SeedExecutionEnvironment::clear_free_message_boxes() { m_free_message_boxes.clear(); }
+
+    void SeedExecutionEnvironment::set_warp_icon(const std::size_t id, const std::shared_ptr<game::map::Icon>& icon) { m_warp_icons[id] = icon; }
+
+    void SeedExecutionEnvironment::modify_warp_icon(const std::size_t id, const std::function<void(game::map::Icon&)>& fn) {
+        if (!m_warp_icons.contains(id)) {
+            return;
+        }
+
+        fn(*m_warp_icons[id]);
+    }
+
+    auto SeedExecutionEnvironment::erase_warp_icon(std::size_t id) -> void {
+        const auto icon = m_warp_icons.find(id);
+        if (icon != m_warp_icons.end()) {
+            m_warp_icons.erase(icon);
+        }
+    }
+
+    void SeedExecutionEnvironment::add_timer(const SeedTimer& timer) { m_timers.push_back(timer); }
+
+    void SeedExecutionEnvironment::execute_without_grants(const std::function<void()>& fn) {
+        modloader::ScopedSetter _(m_prevent_grant, true);
+        fn();
+    }
+
+    void SeedExecutionEnvironment::add_free_message_box(std::size_t id, const std::shared_ptr<core::api::messages::MessageBox>& message_box) {
+        m_free_message_boxes[id].message = message_box;
+        m_queued_message_boxes.erase(id);
+    }
+
+    void SeedExecutionEnvironment::add_queued_message_box(std::size_t id, const message_handle_ptr_t& handle) {
+        m_queued_message_boxes[id] = {.handle = handle};
+        m_free_message_boxes.erase(id);
+    }
+
+    void SeedExecutionEnvironment::modify_free_message_box(std::size_t id, const std::function<void(core::api::messages::MessageBox&)>& fn) {
+        if (!m_free_message_boxes.contains(id)) {
+            return;
+        }
+
+        fn(*m_free_message_boxes[id].message);
+    }
+
+    void SeedExecutionEnvironment::modify_queued_message_box(std::size_t id, const std::function<void(core::api::messages::MessageBox&)>& fn) {
+        if (!m_queued_message_boxes.contains(id)) {
+            return;
+        }
+
+        fn(*m_queued_message_boxes[id].handle->message.lock());
+    }
+
+    void SeedExecutionEnvironment::set_queued_message_box_hidden_callback(const std::size_t id, std::size_t callback_command_id) {
+        const auto it = m_queued_message_boxes.find(id);
+        if (it != m_queued_message_boxes.end()) {
+            it->second.hidden_callback = callback_command_id;
+        }
+    }
+
+    void SeedExecutionEnvironment::set_queued_message_box_visible_callback(const std::size_t id, std::size_t callback_command_id) {
+        const auto it = m_queued_message_boxes.find(id);
+        if (it != m_queued_message_boxes.end()) {
+            it->second.visible_callback = callback_command_id;
+        }
+    }
+
+    void SeedExecutionEnvironment::remove_free_message_box(const std::size_t id) {
+        m_free_message_boxes.erase(id);
+    }
+
+    void SeedExecutionEnvironment::set_queued_message_box_timeout(const std::size_t id, float timeout) const {
+        if (m_queued_message_boxes.contains(id)) {
+            m_queued_message_boxes.at(id).handle->time_left = timeout;
+        }
+    }
+
+    void SeedExecutionEnvironment::set_free_message_box_timeout(std::size_t id, float timeout) {
+        if (m_free_message_boxes.contains(id)) {
+            m_free_message_boxes.at(id).timeout = timeout;
+        }
+    }
+
+    void SeedExecutionEnvironment::set_map_spoiler_data(const std::string& location_id, const ItemSpoilerData& spoiler_data) {
+        m_map_spoiler_data[location_id] = spoiler_data;
+    }
+
+    std::unique_ptr<IInstruction> create_instruction(const nlohmann::json& j) {
+        if (j.is_string()) {
+            const auto it = instruction_factories.find(j.get<std::string>());
+            if (it == instruction_factories.end()) {
+                throw RandoException("Unknown command");
+            }
+
+            return std::move(it->second(j));
+        } else {
+            const auto it = instruction_factories.find(j.begin().key());
+            if (it == instruction_factories.end()) {
+                throw RandoException("Unknown command");
+            }
+
+            return std::move(it->second(j.begin().value()));
+        }
     }
 } // namespace randomizer::seed

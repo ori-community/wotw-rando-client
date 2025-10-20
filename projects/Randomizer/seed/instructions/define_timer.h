@@ -11,7 +11,7 @@ INSTRUCTION(DefineTimer)
     core::api::uber_states::UberState value;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        environment.timers.push_back({toggle, value});
+        environment.add_timer({toggle, value});
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

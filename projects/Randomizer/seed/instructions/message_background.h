@@ -9,15 +9,12 @@ INSTRUCTION(MessageBackground)
     std::size_t id;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        const auto queued_it = environment.queued_message_boxes.find(id);
-        if (queued_it != environment.queued_message_boxes.end() && !queued_it->second.handle->message.expired()) {
-            queued_it->second.handle->message.lock()->show_background().set(memory.booleans.get(0));
-        }
+        const auto modification_fn = [&](core::api::messages::MessageBox& message_box) {
+            message_box.show_background().set(memory.booleans.get(0));
+        };
 
-        const auto free_it = environment.free_message_boxes.find(id);
-        if (free_it != environment.free_message_boxes.end()) {
-            free_it->second.message->show_background().set(memory.booleans.get(0));
-        }
+        environment.modify_queued_message_box(id, modification_fn);
+        environment.modify_free_message_box(id, modification_fn);
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

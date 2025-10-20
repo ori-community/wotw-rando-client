@@ -12,9 +12,9 @@ INSTRUCTION(FreeMessageCoordinateSystem)
     core::api::messages::CoordinateSystem coordinate_system;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        if (environment.free_message_boxes.contains(id)) {
-            environment.free_message_boxes[id].message->coordinate_system().set(coordinate_system);
-        }
+        environment.modify_free_message_box(id, [&] (auto& message_box) {
+            message_box.coordinate_system().set(coordinate_system);
+        });
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

@@ -9,10 +9,7 @@ INSTRUCTION(DestroyWarpIcon)
     std::size_t id;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        const auto icon = environment.warp_icons.find(id);
-        if (icon != environment.warp_icons.end()) {
-            environment.warp_icons.erase(icon);
-        }
+        environment.erase_warp_icon(id);
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
