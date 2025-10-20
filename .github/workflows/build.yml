@@ -7,14 +7,20 @@ on:
     tags:
       - '*'
 
+permissions:
+  packages: write
+
 jobs:
   build:
-    runs-on: windows-2022
+    runs-on: windows-2025
 
     env:
       WORKDIR: D:/build
       SCCACHE_GHA_ENABLED: "true"
-      VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+      USERNAME: <OWNER>
+      VCPKG_EXE: ${{ github.workspace }}/vcpkg/vcpkg
+      FEED_URL: https://nuget.pkg.github.com/ori-community/index.json
+      VCPKG_BINARY_SOURCES: "clear;nuget,https://nuget.pkg.github.com/ori-community/index.json,readwrite"
 
     steps:
       - name: Enable Git support for long file paths
@@ -27,11 +33,6 @@ jobs:
         run: choco install ninja
       - name: Set up directories
         run: "md -Path 'C:\\moon\\randomizer'"
-      - name: Extract tag
-        uses: olegtarasov/get-tag@v2.1
-        id: tagName
-        with:
-          tagRegex: "v?([^-]*)"
       - name: Check out repository code
         uses: actions/checkout@v4
       - uses: actions/github-script@v7
@@ -44,12 +45,25 @@ jobs:
           $path = Resolve-Path .
           New-Item -Path ${{ env.WORKDIR }} -ItemType SymbolicLink -Value $path
       - uses: ilammy/msvc-dev-cmd@v1
-      - name: Update vcpkg repository
-        shell: cmd
+      - name: Bootstrap vcpkg
+        shell: pwsh
         run: |
-          cd /d C:\vcpkg
+          cd ${{ github.workspace }}/vcpkg
           git pull
-          .\bootstrap-vcpkg.bat
+          ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat
+      - name: Add NuGet sources
+        shell: pwsh
+        run: |
+          .$(${{ env.VCPKG_EXE }} fetch nuget) `
+            sources add `
+            -Source "${{ env.FEED_URL }}" `
+            -StorePasswordInClearText `
+            -Name GitHubPackages `
+            -UserName "${{ env.USERNAME }}" `
+            -Password "${{ secrets.GITHUB_TOKEN }}"
+          .$(${{ env.VCPKG_EXE }} fetch nuget) `
+            setapikey "${{ secrets.GITHUB_TOKEN }}" `
+            -Source "${{ env.FEED_URL }}"
       - name: Generate solution
         shell: cmd
         working-directory: ${{ env.WORKDIR }}
