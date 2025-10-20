@@ -257,11 +257,11 @@ namespace randomizer::input {
         { ControllerButton::RightStickDown, "<xbox>6</><xbox>4</>"},
     };
 
-    std::string controller_action_to_string(Action action) {
+    std::optional<std::string> controller_action_to_string(Action action) {
         std::string key;
         const auto it = bindings.find(action);
         if (it == bindings.end() || it->second.empty()) {
-            return key;
+            return std::nullopt;
         }
 
         const auto& binding = it->second.front();

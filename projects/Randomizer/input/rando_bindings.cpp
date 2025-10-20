@@ -20,6 +20,7 @@
 
 #include <Core/events/task.h>
 #include <Modloader/app/structs/ControlScheme__Enum.h>
+#include <magic_enum/magic_enum.hpp>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -247,13 +248,16 @@ namespace randomizer::input {
 
     std::string action_to_string(Action action) {
         if (get_current_control_scheme() == app::ControlScheme__Enum::Controller) {
-            return controller_action_to_string(action);
+            const auto controller_action_string = controller_action_to_string(action);
+            if (controller_action_string.has_value()) {
+                return *controller_action_string;
+            }
         }
 
         std::string key;
         const auto it = rando_bindings.find(action);
         if (it == rando_bindings.end() || it->second.kbm_bindings.empty()) {
-            return key;
+            return std::format("[{}]", magic_enum::enum_name(action));
         }
 
         const auto& binding = it->second.kbm_bindings.front();
