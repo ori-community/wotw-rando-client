@@ -332,5 +332,3 @@ namespace core {
         SideMapMessage = 201,
     };
 } // namespace core
-
-using text_id = core::TextID;

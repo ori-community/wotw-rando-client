@@ -354,8 +354,8 @@ namespace randomizer::features::wheel {
                     name_message_box->fields.MessageProvider = core::api::system::create_message_provider(entry->name.get());
                     description_message_box->fields.MessageProvider = core::api::system::create_message_provider(entry->description.get());
                 } else {
-                    name_message_box->fields.MessageProvider = core::text::get_provider(text_id::EmptyName);
-                    description_message_box->fields.MessageProvider = core::text::get_provider(text_id::Empty);
+                    name_message_box->fields.MessageProvider = core::text::get_provider(core::TextID::EmptyName);
+                    description_message_box->fields.MessageProvider = core::text::get_provider(core::TextID::Empty);
                 }
 
                 UnityEngine::GameObject::SetActive(this_ptr->fields.UsesEnergyGO, false);

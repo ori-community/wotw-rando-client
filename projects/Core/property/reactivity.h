@@ -59,7 +59,7 @@ namespace core::reactivity {
     inline MemoryType MemoryDependency::resolve_type<std::string>() { return MemoryType::String; }
 
     struct TextDatabaseDependency {
-        text_id id;
+        core::TextID id;
 
         auto operator<=>(const TextDatabaseDependency&) const = default;
     };

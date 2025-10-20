@@ -36,13 +36,13 @@ namespace randomizer::game::pickups::quests {
             int state_offset = 0;
 
             bool override_name = false;
-            text_id name;
+            core::TextID name;
 
             bool override_description = false;
-            text_id description;
+            core::TextID description;
 
             bool override_short_description = false;
-            text_id short_description;
+            core::TextID short_description;
 
             AddToChainMode add_to_chain_mode = NONE;
 
@@ -61,25 +61,25 @@ namespace randomizer::game::pickups::quests {
                 return *this;
             }
 
-            CustomQuest &with_name(const text_id n) {
+            CustomQuest &with_name(const core::TextID n) {
                 this->override_name = true;
                 this->name = n;
                 return *this;
             }
 
-            CustomQuest &with_description(const text_id d) {
+            CustomQuest &with_description(const core::TextID d) {
                 this->override_description = true;
                 this->description = d;
                 return *this;
             }
 
-            CustomQuest &with_short_description(const text_id d) {
+            CustomQuest &with_short_description(const core::TextID d) {
                 this->override_short_description = true;
                 this->short_description = d;
                 return *this;
             }
 
-            CustomQuest &with_descriptions(text_id d) {
+            CustomQuest &with_descriptions(core::TextID d) {
                 return this->with_description(d).with_short_description(d);
             }
 

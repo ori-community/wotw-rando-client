@@ -100,21 +100,21 @@ namespace {
     std::string_view get_text_for_spirit_trial(SpiritTrialLocation location) {
         switch (location) {
             case SpiritTrialLocation::Marsh:
-                return core::text::get_text(text_id::TrialTextMarsh);
+                return core::text::get_text(core::TextID::TrialTextMarsh);
             case SpiritTrialLocation::Hollow:
-                return core::text::get_text(text_id::TrialTextHollow);
+                return core::text::get_text(core::TextID::TrialTextHollow);
             case SpiritTrialLocation::Wellspring:
-                return core::text::get_text(text_id::TrialTextWellspring);
+                return core::text::get_text(core::TextID::TrialTextWellspring);
             case SpiritTrialLocation::Woods:
-                return core::text::get_text(text_id::TrialTextWoods);
+                return core::text::get_text(core::TextID::TrialTextWoods);
             case SpiritTrialLocation::Reach:
-                return core::text::get_text(text_id::TrialTextReach);
+                return core::text::get_text(core::TextID::TrialTextReach);
             case SpiritTrialLocation::Depths:
-                return core::text::get_text(text_id::TrialTextDepths);
+                return core::text::get_text(core::TextID::TrialTextDepths);
             case SpiritTrialLocation::Pools:
-                return core::text::get_text(text_id::TrialTextPools);
+                return core::text::get_text(core::TextID::TrialTextPools);
             case SpiritTrialLocation::Wastes:
-                return core::text::get_text(text_id::TrialTextWastes);
+                return core::text::get_text(core::TextID::TrialTextWastes);
             default:
                 throw std::exception("Unexpected trial location.");
         }

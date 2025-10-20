@@ -26,7 +26,7 @@ namespace core::text {
 
     class SaveSlotTextMetaData final : public save_meta::JsonSaveMetaSerializable {
     public:
-        std::unordered_map<text_id, TextEntry> text_entries;
+        std::unordered_map<core::TextID, TextEntry> text_entries;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
             SaveSlotTextMetaData,
@@ -46,22 +46,22 @@ namespace core::text {
     auto text_data = std::make_shared<SaveSlotTextMetaData>();
 
     void initialize_shop_slot(const int slot) {
-        register_text(static_cast<text_id>(slot), "Empty");
-        register_text(static_cast<text_id>(slot + 1), " ");
-        register_text(static_cast<text_id>(slot + 2), "Locked");
-        register_text(static_cast<text_id>(slot + 3), " ");
-        register_text(static_cast<text_id>(slot + 4), "Undiscovered");
-        register_text(static_cast<text_id>(slot + 5), "What could it be?");
+        register_text(static_cast<core::TextID>(slot), "Empty");
+        register_text(static_cast<core::TextID>(slot + 1), " ");
+        register_text(static_cast<core::TextID>(slot + 2), "Locked");
+        register_text(static_cast<core::TextID>(slot + 3), " ");
+        register_text(static_cast<core::TextID>(slot + 4), "Undiscovered");
+        register_text(static_cast<core::TextID>(slot + 5), "What could it be?");
     }
 
     void reset_to_default_values() {
         text_data->text_entries.clear();
 
-        register_text(text_id::Empty, " ");
-        register_text(text_id::EmptyName, "Empty");
+        register_text(core::TextID::Empty, " ");
+        register_text(core::TextID::EmptyName, "Empty");
 
         register_text(
-            text_id::LupoWillowSalesPitch,
+            core::TextID::LupoWillowSalesPitch,
             "Given the circumstances I would usually give you this for free,\n"
             "but a speedrunner has got to eat...  [AreaMapCost] #Spirit Light#[SpiritLight]"
         );
@@ -91,28 +91,28 @@ namespace core::text {
             initialize_shop_slot(12000 + (slot * 10));
         }
 
-        register_text(text_id::QuestReward, "Well, it's randomized");
-        register_text(text_id::QuestReward, "Ask Shriek");
-        register_text(text_id::QuestReward, "OriThink");
-        register_text(text_id::QuestReward, "Nobody knows");
-        register_text(text_id::QuestReward, "Only one way to find out...");
-        register_text(text_id::QuestReward, "Probably nothing, maybe something");
-        register_text(text_id::QuestReward, "Something");
-        register_text(text_id::QuestMissingKeyStep0, "Talk to Tokk near the Keystone");
-        register_text(text_id::QuestHandToHandStep0, "Meet a Moki near where you fought Hornbug");
-        register_text(text_id::QuestTreeKeeperStep0, "Meet the Tree Keeper in the Silent Woods");
+        register_text(core::TextID::QuestReward, "Well, it's randomized");
+        register_text(core::TextID::QuestReward, "Ask Shriek");
+        register_text(core::TextID::QuestReward, "OriThink");
+        register_text(core::TextID::QuestReward, "Nobody knows");
+        register_text(core::TextID::QuestReward, "Only one way to find out...");
+        register_text(core::TextID::QuestReward, "Probably nothing, maybe something");
+        register_text(core::TextID::QuestReward, "Something");
+        register_text(core::TextID::QuestMissingKeyStep0, "Talk to Tokk near the Keystone");
+        register_text(core::TextID::QuestHandToHandStep0, "Meet a Moki near where you fought Hornbug");
+        register_text(core::TextID::QuestTreeKeeperStep0, "Meet the Tree Keeper in the Silent Woods");
 
-        register_text(text_id::TrialTextReach, " ");
-        register_text(text_id::TrialTextDepths, " ");
-        register_text(text_id::TrialTextMarsh, " ");
-        register_text(text_id::TrialTextHollow, " ");
-        register_text(text_id::TrialTextPools, " ");
-        register_text(text_id::TrialTextWastes, " ");
-        register_text(text_id::TrialTextWellspring, " ");
-        register_text(text_id::TrialTextWoods, " ");
+        register_text(core::TextID::TrialTextReach, " ");
+        register_text(core::TextID::TrialTextDepths, " ");
+        register_text(core::TextID::TrialTextMarsh, " ");
+        register_text(core::TextID::TrialTextHollow, " ");
+        register_text(core::TextID::TrialTextPools, " ");
+        register_text(core::TextID::TrialTextWastes, " ");
+        register_text(core::TextID::TrialTextWellspring, " ");
+        register_text(core::TextID::TrialTextWoods, " ");
 
-        register_text(text_id::MapMessage, " ");
-        register_text(text_id::SideMapMessage, "This is a test for the side panel\nThis is a test for the side panel\nThis is a test for the side panel\nThis is a test for the side panel");
+        register_text(core::TextID::MapMessage, " ");
+        register_text(core::TextID::SideMapMessage, "This is a test for the side panel\nThis is a test for the side panel\nThis is a test for the side panel\nThis is a test for the side panel");
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
@@ -128,17 +128,17 @@ namespace core::text {
         return api::system::create_message_provider(entry.text);
     }
 
-    void register_text(const text_id id, std::string_view text) {
+    void register_text(const core::TextID id, std::string_view text) {
         auto& entry = text_data->text_entries[id];
         entry.text.emplace_back(text);
         notify_changed(reactivity::TextDatabaseDependency { id });
     }
 
-    void register_text(const text_id id, const std::wstring_view text) {
+    void register_text(const core::TextID id, const std::wstring_view text) {
         register_text(id, convert_wstring_to_string(std::wstring(text)));
     }
 
-    void clear_text(const text_id id) {
+    void clear_text(const core::TextID id) {
         auto& entry = text_data->text_entries[id];
         entry.text.clear();
         const auto provider = get_provider(entry);
@@ -148,18 +148,18 @@ namespace core::text {
         notify_changed(reactivity::TextDatabaseDependency { id });
     }
 
-    bool has_text(const text_id id) {
+    bool has_text(const core::TextID id) {
         notify_used(reactivity::TextDatabaseDependency { id });
         return get_text_count(id) > 0;
     }
 
-    int get_text_count(const text_id id) {
+    int get_text_count(const core::TextID id) {
         notify_used(reactivity::TextDatabaseDependency { id });
         const auto& entry = text_data->text_entries[id];
         return static_cast<int>(entry.text.size());
     }
 
-    std::string_view get_text(const text_id id, int i) {
+    std::string_view get_text(const core::TextID id, int i) {
         notify_used(reactivity::TextDatabaseDependency { id });
         const auto& entry = text_data->text_entries[id];
         if (entry.text.empty()) {
@@ -169,7 +169,7 @@ namespace core::text {
         return entry.text.at(i);
     }
 
-    std::wstring get_text_w(const text_id id, const int i) {
+    std::wstring get_text_w(const core::TextID id, const int i) {
         notify_used(reactivity::TextDatabaseDependency { id });
 
         // Can't return a wstring_view here as we are converting the data so it would get destroyed as we returned.
@@ -181,13 +181,13 @@ namespace core::text {
         return convert_string_to_wstring(entry.text.at(i));
     }
 
-    std::vector<std::string> const& get_all_text(const text_id id) {
+    std::vector<std::string> const& get_all_text(const core::TextID id) {
         notify_used(reactivity::TextDatabaseDependency { id });
         const auto& entry = text_data->text_entries[id];
         return entry.text;
     }
 
-    std::string get_concatenated_text(const text_id id, const std::string_view delimiter) {
+    std::string get_concatenated_text(const core::TextID id, const std::string_view delimiter) {
         notify_used(reactivity::TextDatabaseDependency { id });
         std::string text;
         const auto& entry = text_data->text_entries[id];
@@ -202,7 +202,7 @@ namespace core::text {
         return text;
     }
 
-    std::string_view get_random_text(const text_id id) {
+    std::string_view get_random_text(const core::TextID id) {
         notify_used(reactivity::TextDatabaseDependency { id });
         const auto& entry = text_data->text_entries[id];
         if (entry.text.empty()) {
@@ -213,7 +213,7 @@ namespace core::text {
         return entry.text[index];
     }
 
-    std::string_view get_random_text_with_hash(const text_id id, const std::size_t hash) {
+    std::string_view get_random_text_with_hash(const core::TextID id, const std::size_t hash) {
         notify_used(reactivity::TextDatabaseDependency { id });
         const auto& entry = text_data->text_entries[id];
         if (entry.text.empty()) {
@@ -224,14 +224,14 @@ namespace core::text {
         return entry.text[index];
     }
 
-    app::MessageProvider* get_provider(const text_id id, const int i) {
+    app::MessageProvider* get_provider(const core::TextID id, const int i) {
         notify_used(reactivity::TextDatabaseDependency{id});
         const auto& entry = text_data->text_entries[id];
         const auto text = entry.text.empty() ? "" : entry.text[i];
         return api::system::create_message_provider(text);
     }
 
-    app::MessageProvider* get_random_provider(const text_id id) {
+    app::MessageProvider* get_random_provider(const core::TextID id) {
         auto& entry = text_data->text_entries[id];
         int index = entry.text.empty() ? 0 : random(0, static_cast<int>(entry.text.size() - 1));
         return get_provider(id, index);

@@ -6,7 +6,7 @@
 #include <Randomizer/text_processors/ability.h>
 
 namespace randomizer::messages {
-    core::Property<std::string> map_message_text(text_id::MapMessage);
+    core::Property<std::string> map_message_text(core::TextID::MapMessage);
     std::shared_ptr<const core::reactivity::ReactiveEffect> on_map_message_changed;
     std::shared_ptr<core::api::messages::MessageBox> box;
 

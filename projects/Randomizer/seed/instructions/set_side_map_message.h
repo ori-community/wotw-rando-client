@@ -6,7 +6,7 @@
 
 INSTRUCTION(SetSideMapMessage)
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        core::text::register_text(text_id::SideMapMessage, memory.strings.get(0));
+        core::text::register_text(core::TextID::SideMapMessage, memory.strings.get(0));
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
