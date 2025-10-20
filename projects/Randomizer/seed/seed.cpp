@@ -160,7 +160,7 @@ namespace randomizer::seed {
         dev::seed_debugger::command_end(id);
     }
 
-    void Seed::trigger(const SeedClientEvent event, bool force) {
+    void Seed::trigger(const SeedClientEvent event, bool force_outside_game) {
         if (m_parse_output->data.events[event].empty()) {
             // Lessen spam on seed debugger.
             return;
@@ -168,11 +168,7 @@ namespace randomizer::seed {
 
         dev::seed_debugger::seed_event_start(event);
 
-        std::unique_ptr<modloader::ScopedSetter<bool>> force_grant_scoped_setter;
-
-        if (force) {
-            force_grant_scoped_setter = std::make_unique<modloader::ScopedSetter<bool>>(m_forcing_grant, force);
-        }
+        modloader::ScopedSetter _(m_force_grant_outside_game, force_outside_game, modloader::ScopedSetter<bool>::OP_OR);
 
         if (!should_grant()) {
             dev::seed_debugger::seed_event_end(event);
@@ -183,19 +179,11 @@ namespace randomizer::seed {
             execute_command(command);
         }
 
-        if (force) {
-            force_grant_scoped_setter.reset();
-        }
-
         dev::seed_debugger::seed_event_end(event);
     }
 
     bool Seed::should_grant() const {
-        if (m_forcing_grant) {
-            return true;
-        }
-
-        return core::api::game::in_game() && !m_is_reading_seed &&
+        return (m_force_grant_outside_game || core::api::game::in_game()) && !m_is_reading_seed &&
             std::ranges::all_of(m_prevent_grant_callbacks, [](const auto& callback) { return !callback(); });
     }
 

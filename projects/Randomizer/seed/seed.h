@@ -141,7 +141,12 @@ namespace randomizer::seed {
         SeedParseOutput const& parser_output() const { return *m_parse_output; }
         int total_pickups() const { return m_parse_output->meta.total_pickups; }
 
-        void trigger(SeedClientEvent event, bool force = false);
+        /**
+         * Triggers a client event
+         * @param event The client event to trigger
+         * @param force_outside_game True if this client event should be executed even when not in game (e.g. main menu or during initialization)
+         */
+        void trigger(SeedClientEvent event, bool force_outside_game = false);
         void prevent_grants(const std::function<bool()>& callback) { m_prevent_grant_callbacks.push_back(callback); }
         void execute_command(std::size_t id);
 
@@ -158,8 +163,8 @@ namespace randomizer::seed {
         std::vector<Timer> m_timers;
         std::shared_ptr<SeedExecutionEnvironment> m_environment = std::make_shared<SeedExecutionEnvironment>();
 
-        bool m_is_reading_seed = true;
-        bool m_forcing_grant = false;
+        bool m_is_reading_seed = false;
+        bool m_force_grant_outside_game = false;
         std::vector<IInstruction*> m_command_stack;
         SeedMemory m_memory;
         std::shared_ptr<PersistentSeedMemory> m_persistent_memory = std::make_shared<PersistentSeedMemory>();
