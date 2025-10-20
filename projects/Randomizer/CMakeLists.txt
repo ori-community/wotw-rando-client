@@ -331,7 +331,7 @@ set(
         "seed/instructions/message_timeout.h"
         "seed/instructions/queued_message.h"
         "seed/instructions/queued_message_hidden_callback.h"
-        "seed/instructions/queued_message_visible_callback.h"
+        "seed/instructions/queued_message_shown_callback.h"
         "seed/instructions/reset_all_wheels.h"
         "seed/instructions/round.h"
         "seed/instructions/save.h"

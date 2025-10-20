@@ -51,7 +51,7 @@
 #include <Randomizer/seed/instructions/message_timeout.h>
 #include <Randomizer/seed/instructions/queued_message.h>
 #include <Randomizer/seed/instructions/queued_message_hidden_callback.h>
-#include <Randomizer/seed/instructions/queued_message_visible_callback.h>
+#include <Randomizer/seed/instructions/queued_message_shown_callback.h>
 #include <Randomizer/seed/instructions/reset_all_wheels.h>
 #include <Randomizer/seed/instructions/round.h>
 #include <Randomizer/seed/instructions/save.h>
@@ -173,7 +173,7 @@ namespace randomizer::seed {
             register_instruction<MessageTimeout>(factories);
             register_instruction<QueuedMessage>(factories);
             register_instruction<QueuedMessageHiddenCallback>(factories);
-            register_instruction<QueuedMessageVisibleCallback>(factories);
+            register_instruction<QueuedMessageShownCallback>(factories);
             register_instruction<ResetAllWheels>(factories);
             register_instruction<Round>(factories);
             register_instruction<Save>(factories);
