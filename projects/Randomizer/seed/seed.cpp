@@ -69,7 +69,9 @@ namespace randomizer::seed {
                     condition.previous_value = m_memory.booleans.get(0);
                     if (m_memory.booleans.get(0)) {
                         dev::seed_debugger::condition_triggered(std::get<int>(condition.condition));
-                        execute_command(condition.command_id);
+                        core::reactivity::run_after_effects([&] {
+                            execute_command(condition.command_id);
+                        });
                     }
 
                     dev::seed_debugger::condition_end(std::get<int>(condition.condition));

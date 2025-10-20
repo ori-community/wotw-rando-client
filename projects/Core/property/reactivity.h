@@ -274,6 +274,13 @@ namespace core::reactivity {
      * \return Reserved ID
      */
     CORE_DLLEXPORT unsigned int reserve_property_id();
+
+    /**
+     * Schedule a function to run at the end of the current effect notification queue.
+     * It does NOT wait for parent effect notification queues to finish!
+     * Can only be called while being inside a reactive effect context.
+     */
+    CORE_DLLEXPORT void run_after_effects(const std::function<void()>& fn);
 } // namespace core::reactivity
 
 struct WeakPtrCompare {

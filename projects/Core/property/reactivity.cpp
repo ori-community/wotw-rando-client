@@ -1,6 +1,7 @@
 #include <functional>
 #include <set>
 #include <unordered_set>
+#include <stack>
 
 #include <Core/id_registry.h>
 #include <Core/property.h>
@@ -23,6 +24,8 @@ namespace core::reactivity {
         std::unordered_map<dependency_t, std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare>> effects_by_dependency;
         std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare> trigger_on_load_effects;
     };
+
+    std::stack<std::vector<std::function<void()>>> run_after_effects_fns_stack;
 
     auto& dependency_tracker() {
         static DependencyTracker tracker;
@@ -143,6 +146,8 @@ namespace core::reactivity {
     }
 
     void run_effects(const std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare>& effects) {
+        run_after_effects_fns_stack.emplace();
+
         for (const auto& effect_ptr: effects) {
             if (!effect_ptr.expired()) {
                 auto effect = effect_ptr.lock();
@@ -156,6 +161,7 @@ namespace core::reactivity {
                     effect->effect_function();
                 } catch (...) {
                     pop_tracking_context(effect);
+                    run_after_effects_fns_stack.pop();
                     throw;
                 }
                 pop_tracking_context(effect);
@@ -165,6 +171,11 @@ namespace core::reactivity {
                 }
             }
         }
+
+        for (const auto &fn: run_after_effects_fns_stack.top()) {
+            fn();
+        }
+        run_after_effects_fns_stack.pop();
     }
 
     void notify_changed(const dependency_t& dependency) {
@@ -190,6 +201,14 @@ namespace core::reactivity {
 
     unsigned int reserve_property_id() {
         return ++dependency_tracker().next_property_id;
+    }
+
+    void run_after_effects(const std::function<void()>& fn) {
+        if (run_after_effects_fns_stack.empty()) {
+            throw new std::exception("Cannot call run_after_effects without an active effect context");
+        }
+
+        run_after_effects_fns_stack.top().push_back(fn);
     }
 
     /**
