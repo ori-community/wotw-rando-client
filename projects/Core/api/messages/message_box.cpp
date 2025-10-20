@@ -384,6 +384,8 @@ namespace core::api::messages {
             return;
         }
 
+        render_text_box();
+
         auto pos = m_position.get();
         switch (m_coordinate_system.get()) {
             case CoordinateSystem::World: {
@@ -411,8 +413,6 @@ namespace core::api::messages {
         if (m_message_box->fields.Visibility->fields.m_timeSpeed > 0) {
             m_message_box->fields.Visibility->fields.m_delayTime = FLT_MAX;
         }
-
-        render_text_box();
     }
 
     MessageBox::Visibility MessageBox::get_visibility() {
