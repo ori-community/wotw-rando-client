@@ -14,7 +14,6 @@ namespace {
         { UberStateGroup::RandoConfig, "randoConfig" },
         { UberStateGroup::Custom, "custom" },
         { UberStateGroup::BingoState, "bingoState" },
-        { UberStateGroup::Appliers, "appliers" },
         { UberStateGroup::Multiworld, "multiworld" },
         { UberStateGroup::RandoStats, "randoStats" },
         { UberStateGroup::LupoShop, "lupoShop" },

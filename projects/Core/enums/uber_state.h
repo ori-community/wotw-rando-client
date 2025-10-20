@@ -17,7 +17,6 @@ enum class UberStateGroup {
     RandoConfig = 7,
     Custom = 9, // Space for userland variables
     BingoState = 10,
-    Appliers = 11,
     Multiworld = 12,
     RandoStats = 14,
     LupoShop = 15,
