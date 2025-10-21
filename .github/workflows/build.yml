@@ -17,7 +17,7 @@ jobs:
     env:
       WORKDIR: D:/build
       SCCACHE_GHA_ENABLED: "true"
-      USERNAME: <OWNER>
+      USERNAME: ori-community
       VCPKG_EXE: C:/vcpkg/vcpkg
       FEED_URL: https://nuget.pkg.github.com/ori-community/index.json
       VCPKG_BINARY_SOURCES: "clear;nuget,https://nuget.pkg.github.com/ori-community/index.json,readwrite"
