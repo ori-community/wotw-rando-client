@@ -7,6 +7,8 @@
 #include <Randomizer/seed/seed.h>
 #include <magic_enum/magic_enum.hpp>
 
+#include "Common/vx.h"
+
 namespace randomizer::seed {
 
     Seed::Seed(location_data::LocationCollection const& location_data)
@@ -52,56 +54,58 @@ namespace randomizer::seed {
 
         // clang-format off
         for (auto& condition: m_parse_output->data.conditions) {
-            if (std::holds_alternative<int>(condition.condition)) {
-                auto builder = core::reactivity::watch_effect()
-                    .before([condition] { dev::seed_debugger::condition_start(std::get<int>(condition.condition)); })
-                    .effect([&] {
-                        execute_command(std::get<int>(condition.condition));
-                    });
-
-                condition.reactive_effect = builder.after([&] {
-                    const auto condition_changed = condition.previous_value != m_memory.booleans.get(0);
-
-                    if (condition_changed) {
-                        condition.previous_value = m_memory.booleans.get(0);
-                    }
-
-                    // When the condition did not change, or we should not grant, don't execute.
-                    // On load, we only want to update condition.previous_value so don't execute either.
-                    if (!should_grant() || !condition_changed || core::reactivity::is_effect_running_because_of_trigger_on_load()) {
-                        dev::seed_debugger::condition_end(std::get<int>(condition.condition));
-                        return;
-                    }
-
-                    if (m_memory.booleans.get(0)) {
-                        dev::seed_debugger::condition_triggered(std::get<int>(condition.condition));
-                        core::reactivity::run_after_effects([&] {
-                            execute_command(condition.command_id);
+            condition.condition | vx::match {
+                [&](const int& condition_command_id) {
+                    auto builder = core::reactivity::watch_effect()
+                        .before([&] { dev::seed_debugger::condition_start(condition_command_id); })
+                        .effect([&] {
+                            execute_command(condition_command_id);
                         });
-                    }
 
-                    dev::seed_debugger::condition_end(std::get<int>(condition.condition));
-                })
-                .trigger_on_load()  // This is to reset condition.previous_value
-                .finalize();
-            } else {
-                auto state = std::get<core::api::uber_states::UberState>(condition.condition);
-                auto builder = core::reactivity::watch_effect()
-                    .before([state]{ dev::seed_debugger::binding_start(state); })
-                    .effect({state});
+                    condition.reactive_effect = builder.after([&] {
+                        const auto condition_changed = condition.previous_value != m_memory.booleans.get(0);
 
-                modloader::ScopedSetter setter(m_is_reading_seed, true);
-                condition.reactive_effect = builder.after([&, state] {
-                    if (!should_grant()) {
-                        dev::seed_debugger::binding_end(state);
-                        return;
-                    }
+                        if (condition_changed) {
+                            condition.previous_value = m_memory.booleans.get(0);
+                        }
 
-                    execute_command(condition.command_id);
-                    dev::seed_debugger::binding_end(state);
-                }).finalize();
-                m_command_stack.clear();
-            }
+                        // When the condition did not change, or we should not grant, don't execute.
+                        // On load, we only want to update condition.previous_value so don't execute either.
+                        if (!should_grant() || !condition_changed || core::reactivity::is_effect_running_because_of_trigger_on_load()) {
+                            dev::seed_debugger::condition_end(std::get<int>(condition.condition));
+                            return;
+                        }
+
+                        if (m_memory.booleans.get(0)) {
+                            dev::seed_debugger::condition_triggered(std::get<int>(condition.condition));
+                            core::reactivity::run_after_effects([&] {
+                                execute_command(condition.command_id);
+                            });
+                        }
+
+                        dev::seed_debugger::condition_end(std::get<int>(condition.condition));
+                    })
+                    .trigger_on_load()  // This is to reset condition.previous_value
+                    .finalize();
+                },
+                [&](const core::api::uber_states::UberState& uber_state) {
+                    auto builder = core::reactivity::watch_effect()
+                        .before([&]{ dev::seed_debugger::binding_start(uber_state); })
+                        .effect({uber_state});
+
+                    modloader::ScopedSetter setter(m_is_reading_seed, true);
+                    condition.reactive_effect = builder.after([&] {
+                        if (!should_grant()) {
+                            dev::seed_debugger::binding_end(uber_state);
+                            return;
+                        }
+
+                        execute_command(condition.command_id);
+                        dev::seed_debugger::binding_end(uber_state);
+                    }).finalize();
+                    m_command_stack.clear();
+                },
+            };
         }
         // clang-format on
 
