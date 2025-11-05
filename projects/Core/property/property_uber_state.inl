@@ -3,54 +3,59 @@
 #include <memory>
 #include <variant>
 
+#include <Common/vx.h>
+
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/property/reactivity.h>
 
 template<typename T>
     requires core::is_uber_state<T>
-struct core::Property<T> {
-    using value_type = std::variant<std::shared_ptr<T>, set_get<T>, api::uber_states::UberState>;
+struct core::Property<T> : core::BaseProperty {
+    using value_type = std::variant<
+        std::shared_ptr<T>,
+        SetGet<T>,
+        api::uber_states::UberState
+    >;
 
     Property() { m_value = std::make_shared<T>(); }
     explicit Property(const T& value) { m_value = std::make_shared<T>(value); }
     explicit Property(const UberStateGroup group, const int state) { m_value = value_type(api::uber_states::UberState(group, state)); }
     explicit Property(const value_type& value) { m_value = value; }
-    explicit Property(setter<T> set, getter<T> get) { m_value = std::make_tuple(set, get); }
+    explicit Property(const SetGet<T>::setter_fn_t set, const SetGet<T>::getter_fn_t get) { m_value = SetGet(set, get); }
     Property(Property const& other) { operator=(other); }
 
     [[nodiscard]] T get() const {
-        switch (m_value.index()) {
-            case 0:
-                notify_used(reactivity::PropertyDependency(m_id));
-                return *std::get<0>(m_value);
-            case 1:
-                notify_used(reactivity::PropertyDependency(m_id));
-                return std::get<1>(std::get<1>(m_value))();
-            case 2:
-                notify_used(reactivity::PropertyDependency(m_id));
-                return std::get<2>(m_value).template get<T>();
-            default:
-                throw std::exception("Unhandled variant in Property");
-        }
+        T return_value;
+
+        notify_used();
+
+        m_value | vx::match {
+            [&](const std::shared_ptr<T>& value_ptr) {
+                return_value = *value_ptr;
+            },
+            [&](const SetGet<T>& set_get) {
+                return_value = set_get.get();
+            },
+            [&](const api::uber_states::UberState& uber_state) {
+                return_value = uber_state.get<T>();
+            },
+        };
+
+        return return_value;
     }
 
     void set(T const& value) const {
-        switch (m_value.index()) {
-            case 0: {
-                *std::get<0>(m_value) = value;
-                break;
-            }
-            case 1: {
-                std::get<0>(std::get<1>(m_value))(value);
-                break;
-            }
-            case 2: {
-                std::get<2>(m_value).template set<T>(value);
-                break;
-            }
-            default:
-                throw std::exception("Unhandled variant in Property");
-        }
+        m_value | vx::match {
+            [&](const std::shared_ptr<T>& value_ptr) {
+                *value_ptr = value;
+            },
+            [&](const SetGet<T>& set_get) {
+                set_get.set(value);
+            },
+            [&](const api::uber_states::UberState& uber_state) {
+                uber_state.set<T>(value);
+            },
+        };
 
         notify_changed();
     }
@@ -70,8 +75,8 @@ struct core::Property<T> {
         notify_changed();
     }
 
-    void assign(setter<T> set, getter<T> get) {
-        m_value = std::make_tuple(set, get);
+    void assign(const SetGet<T>::setter_fn_t set, const SetGet<T>::getter_fn_t get) {
+        m_value = SetGet(set, get);
         notify_changed();
     }
 
@@ -97,10 +102,6 @@ struct core::Property<T> {
         return Property<K>([&](auto value) mutable { set(value); }, [&]() { return get(); });
     }
 
-    void notify_changed() const {
-        reactivity::notify_changed(reactivity::PropertyDependency(m_id));
-    }
 private:
-    const unsigned int m_id = reactivity::reserve_property_id();
     value_type m_value = nullptr;
 };

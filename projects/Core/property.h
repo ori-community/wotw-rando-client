@@ -24,13 +24,40 @@ namespace core {
     };
 
     template<typename T>
-    using getter = std::function<T()>;
+    struct SetGet {
+        using setter_fn_t = std::function<void(const T&)>;
+        using getter_fn_t = std::function<T()>;
 
-    template<typename T>
-    using setter = std::function<void(T const &)>;
+    private:
+        setter_fn_t setter;
+        getter_fn_t getter;
 
-    template<typename T>
-    using set_get = std::tuple<setter<T>, getter<T>>;
+    public:
+        SetGet(const setter_fn_t& setter, const getter_fn_t& getter) :
+            setter(setter),
+            getter(getter) {}
+
+        void set(const T& value) const {
+            setter(value);
+        }
+
+        T get() const {
+            return getter();
+        }
+    };
+
+    struct BaseProperty {
+        void notify_changed() const {
+            reactivity::notify_changed(reactivity::PropertyDependency(m_id));
+        }
+
+        void notify_used() const {
+            reactivity::notify_used(reactivity::PropertyDependency(m_id));
+        }
+
+    protected:
+        const unsigned int m_id = reactivity::reserve_property_id();
+    };
 
     template<typename T>
     struct Property;

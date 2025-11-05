@@ -3,6 +3,8 @@
 #include <variant>
 #include <memory>
 
+#include <Common/vx.h>
+
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
 #include <Modloader/il2cpp_math.h>
@@ -10,10 +12,10 @@
 #include <Core/property/reactivity.h>
 
 template<typename T> requires core::is_not_uber_state<T>
-struct core::Property<T> {
+struct core::Property<T> : core::BaseProperty {
     using value_type = std::variant<
         std::shared_ptr<T>,
-        set_get<T>
+        SetGet<T>
     >;
 
     Property() {
@@ -28,8 +30,8 @@ struct core::Property<T> {
         m_value = value;
     }
 
-    explicit Property(setter<T> set, getter<T> get) {
-        m_value = std::make_tuple(set, get);
+    explicit Property(const SetGet<T>::setter_fn_t set, const SetGet<T>::getter_fn_t get) {
+        m_value = SetGet(set, get);
     }
 
     Property(Property const &other) {
@@ -37,33 +39,33 @@ struct core::Property<T> {
     }
 
     [[nodiscard]] T get() const {
-        switch (m_value.index()) {
-            case 0:
-                notify_used(reactivity::PropertyDependency(m_id));
-                return *std::get<0>(m_value);
-            case 1:
-                notify_used(reactivity::PropertyDependency(m_id));
-                return std::get<1>(std::get<1>(m_value))();
-            default:
-                throw std::exception("Unhandled variant in Property");
-        }
+        T return_value;
+
+        notify_used();
+
+        m_value | vx::match {
+            [&](const std::shared_ptr<T>& value_ptr) {
+                return_value = *value_ptr;
+            },
+            [&](const SetGet<T>& set_get) {
+                return_value = set_get.get();
+            },
+        };
+
+        return return_value;
     }
 
     void set(T const &value) const {
-        switch (m_value.index()) {
-            case 0: {
-                *std::get<0>(m_value) = value;
-                break;
-            }
-            case 1: {
-                std::get<0>(std::get<1>(m_value))(value);
-                break;
-            }
-            default:
-                throw std::exception("Unhandled variant in Property");
-        }
+        m_value | vx::match {
+            [&](const std::shared_ptr<T>& value_ptr) {
+                *value_ptr = value;
+            },
+            [&](const SetGet<T>& set_get) {
+                set_get.set(value);
+            },
+        };
 
-        notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed();
     }
 
     void set(const float x, const float y) const requires std::is_same_v<T, app::Vector2> {
@@ -88,12 +90,12 @@ struct core::Property<T> {
 
     void assign(value_type value) {
         m_value = value;
-        notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed();
     }
 
-    void assign(setter<T> set, getter<T> get) {
-        m_value = std::make_tuple(set, get);
-        notify_changed(reactivity::PropertyDependency(m_id));
+    void assign(const SetGet<T>::setter_fn_t set, const SetGet<T>::getter_fn_t get) {
+        m_value = SetGet(set, get);
+        notify_changed();
     }
 
     std::string to_string() const {
@@ -102,7 +104,7 @@ struct core::Property<T> {
 
     Property &operator=(const Property &other) {
         m_value = std::make_shared<T>(get());
-        notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed();
         return *this;
     }
 
@@ -119,6 +121,5 @@ struct core::Property<T> {
     }
 
 private:
-    const unsigned int m_id = reactivity::reserve_property_id();
     value_type m_value = nullptr;
 };

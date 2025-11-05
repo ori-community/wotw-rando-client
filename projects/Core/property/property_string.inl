@@ -3,6 +3,8 @@
 #include <variant>
 #include <memory>
 
+#include <Common/vx.h>
+
 #include <Core/text/text_database.h>
 #include <Core/text/text_processor.h>
 #include <Core/api/system/message_provider.h>
@@ -10,10 +12,10 @@
 #include <Core/property/reactivity.h>
 
 template<>
-struct core::Property<std::string> {
+struct core::Property<std::string> : core::BaseProperty {
     using value_type = std::variant<
         std::shared_ptr<std::string>,
-        set_get<std::string>,
+        SetGet<std::string>,
         core::TextID
     >;
 
@@ -29,8 +31,8 @@ struct core::Property<std::string> {
         m_value = value;
     }
 
-    explicit Property(const setter<std::string>& set, const getter<std::string>& get) {
-        m_value = std::make_tuple(set, get);
+    explicit Property(const SetGet<std::string>::setter_fn_t set, const SetGet<std::string>::getter_fn_t get) {
+        m_value = SetGet(set, get);
     }
 
     Property(Property const& other) {
@@ -53,24 +55,20 @@ struct core::Property<std::string> {
 
     [[nodiscard]] std::string get_unprocessed() const {
         std::string out;
-        switch (m_value.index()) {
-            case 0: {
-                out = *std::get<0>(m_value);
-                break;
-            }
-            case 1: {
-                out = std::get<1>(std::get<1>(m_value))();
-                break;
-            }
-            case 2: {
-                out = std::string(core::text::get_text(std::get<2>(m_value)));
-                break;
-            }
-            default:
-                throw std::exception("Unhandled variant in Property");
-        }
 
-        notify_used(reactivity::PropertyDependency(m_id));
+        m_value | vx::match {
+            [&](const std::shared_ptr<std::string>& string_ptr) {
+                out = *string_ptr;
+            },
+            [&](const core::SetGet<std::string>& set_get) {
+                out = set_get.get();
+            },
+            [&](const core::TextID& text_id) {
+                out = std::string(core::text::get_text(text_id));
+            },
+        };
+
+        notify_used();
         return out;
     }
 
@@ -87,26 +85,20 @@ struct core::Property<std::string> {
     // We do not want to make this const as we want to prevent setting the underlying value if we are const.
     // ReSharper disable once CppMemberFunctionMayBeConst
     void set(std::string const& value) const {
-        switch (m_value.index()) {
-            case 0: {
-                *std::get<0>(m_value) = value;
-                break;
-            }
-            case 1: {
-                std::get<0>(std::get<1>(m_value))(value);
-                break;
-            }
-            case 2: {
-                const auto id = std::get<2>(m_value);
-                text::clear_text(id);
-                text::register_text(id, value);
-                break;
-            }
-            default:
-                throw std::exception("Unhandled variant in Property");
-        }
+        m_value | vx::match {
+            [&](const std::shared_ptr<std::string>& string_ptr) {
+                *string_ptr = value;
+            },
+            [&](const core::SetGet<std::string>& set_get) {
+                set_get.set(value);
+            },
+            [&](const core::TextID& text_id) {
+                text::clear_text(text_id);
+                text::register_text(text_id, value);
+            },
+        };
 
-        notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed();
     }
 
     const std::shared_ptr<text::ITextProcessor>& processor() const {
@@ -159,12 +151,12 @@ struct core::Property<std::string> {
 
     void assign(const value_type& value) {
         m_value = value;
-        reactivity::notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed();
     }
 
-    void assign(setter<std::string> set, getter<std::string> get) {
-        m_value = std::make_tuple(set, get);
-        reactivity::notify_changed(reactivity::PropertyDependency(m_id));
+    void assign(SetGet<std::string>::setter_fn_t set, SetGet<std::string>::getter_fn_t get) {
+        m_value = SetGet(set, get);
+        notify_changed();
     }
 
     std::string to_string() const {
@@ -178,7 +170,7 @@ struct core::Property<std::string> {
 
         m_value = std::make_shared<std::string>(other.get_unprocessed());
         m_text_processor = other.m_text_processor;
-        reactivity::notify_changed(reactivity::PropertyDependency(m_id));
+        notify_changed();
         return *this;
     }
 
@@ -199,7 +191,6 @@ struct core::Property<std::string> {
     }
 
 private:
-    const unsigned int m_id = core::reactivity::reserve_property_id();
     std::shared_ptr<text::ITextProcessor> m_text_processor;
     value_type m_value = nullptr;
 };
