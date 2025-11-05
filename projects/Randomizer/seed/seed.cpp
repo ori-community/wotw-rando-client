@@ -59,14 +59,20 @@ namespace randomizer::seed {
                         execute_command(std::get<int>(condition.condition));
                     });
 
-                condition.previous_value = m_memory.booleans.get(0);
                 condition.reactive_effect = builder.after([&] {
-                    if (!should_grant() || condition.previous_value == m_memory.booleans.get(0)) {
+                    const auto condition_changed = condition.previous_value != m_memory.booleans.get(0);
+
+                    if (condition_changed) {
+                        condition.previous_value = m_memory.booleans.get(0);
+                    }
+
+                    // When the condition did not change, or we should not grant, don't execute.
+                    // On load, we only want to update condition.previous_value so don't execute either.
+                    if (!should_grant() || !condition_changed || core::reactivity::is_effect_running_because_of_trigger_on_load()) {
                         dev::seed_debugger::condition_end(std::get<int>(condition.condition));
                         return;
                     }
 
-                    condition.previous_value = m_memory.booleans.get(0);
                     if (m_memory.booleans.get(0)) {
                         dev::seed_debugger::condition_triggered(std::get<int>(condition.condition));
                         core::reactivity::run_after_effects([&] {
@@ -76,6 +82,7 @@ namespace randomizer::seed {
 
                     dev::seed_debugger::condition_end(std::get<int>(condition.condition));
                 })
+                .trigger_on_load()  // This is to reset condition.previous_value
                 .finalize();
             } else {
                 auto state = std::get<core::api::uber_states::UberState>(condition.condition);
