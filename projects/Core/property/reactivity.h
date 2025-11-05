@@ -100,7 +100,15 @@ namespace core::reactivity {
         std::function<void()> before_function = nullptr;
         std::function<void()> effect_function = nullptr;
         std::function<void()> after_function = nullptr;
+        std::vector<std::function<void()>> after_effect_fns;
         bool trigger_on_load = false;
+
+        void run_and_flush_after_effect_fns() {
+            for (auto & after_effect_fn: after_effect_fns) {
+                after_effect_fn();
+            }
+            after_effect_fns.clear();
+        }
     };
 
     namespace builder {
@@ -134,7 +142,7 @@ namespace core::reactivity {
             /**
              * \brief Registers this effect with the trigger_on_load system if enabled
              */
-            void register_trigger_on_load() const;
+            void finalize_effect() const;
 
             HasEffect() {}
 
@@ -151,18 +159,18 @@ namespace core::reactivity {
             }
 
             std::shared_ptr<const ReactiveEffect> finalize() {
-                register_trigger_on_load();
+                finalize_effect();
                 return m_effect;
             }
 
             void finalize_inplace(std::shared_ptr<const ReactiveEffect>& ptr) const {
-                register_trigger_on_load();
+                finalize_effect();
                 ptr = m_effect;
             }
 
             template<typename Container>
             void finalize(Container& c) {
-                register_trigger_on_load();
+                finalize_effect();
                 return c.push_back(m_effect);
             }
 
@@ -183,17 +191,18 @@ namespace core::reactivity {
             FinalizeOnlyBuilder after(const std::function<void()>& func) const;
 
             std::shared_ptr<const ReactiveEffect> finalize() {
-                register_trigger_on_load();
+                finalize_effect();
                 return m_effect;
             }
+
             void finalize_inplace(std::shared_ptr<const ReactiveEffect>& ptr) const {
-                register_trigger_on_load();
+                finalize_effect();
                 ptr = m_effect;
             }
 
             template<typename Container>
             void finalize(Container& c) {
-                register_trigger_on_load();
+                finalize_effect();
                 return c.push_back(m_effect);
             }
 
@@ -217,17 +226,17 @@ namespace core::reactivity {
             AfterEffectBuilder effect(std::function<void()> const& func, const std::source_location& location = std::source_location::current()) const;
 
             std::shared_ptr<const ReactiveEffect> finalize() {
-                register_trigger_on_load();
+                finalize_effect();
                 return m_effect;
             }
             void finalize_inplace(std::shared_ptr<const ReactiveEffect>& ptr) const {
-                register_trigger_on_load();
+                finalize_effect();
                 ptr = m_effect;
             }
 
             template<typename Container>
             void finalize(Container& c) {
-                register_trigger_on_load();
+                finalize_effect();
                 return c.push_back(m_effect);
             }
 
@@ -281,6 +290,11 @@ namespace core::reactivity {
      * Can only be called while being inside a reactive effect context.
      */
     CORE_DLLEXPORT void run_after_effects(const std::function<void()>& fn);
+
+    /**
+     * Returns true if the current effect was run by a trigger_on_load trigger.
+     */
+    CORE_DLLEXPORT bool is_effect_running_because_of_trigger_on_load();
 } // namespace core::reactivity
 
 struct WeakPtrCompare {

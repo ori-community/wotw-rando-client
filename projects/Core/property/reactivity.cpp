@@ -10,6 +10,7 @@
 
 #include <Modloader/app/methods/UberGCManager.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 
 namespace core::reactivity {
     struct TrackingContext {
@@ -25,7 +26,9 @@ namespace core::reactivity {
         std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare> trigger_on_load_effects;
     };
 
-    std::stack<std::vector<std::function<void()>>> run_after_effects_fns_stack;
+    bool is_in_effect_setup = false;  // True when we are currently inside before(), effect() or after() during effect setup
+    std::shared_ptr<ReactiveEffect> currently_running_effect = nullptr;  // Contains the currently running effect or nullptr, if no effect is running
+    bool is_running_trigger_on_load_effects = false;
 
     auto& dependency_tracker() {
         static DependencyTracker tracker;
@@ -69,12 +72,14 @@ namespace core::reactivity {
     }
 
     builder::FinalizeOnlyBuilder builder::AfterEffectBuilder::after(const std::function<void()>& func) const {
+        modloader::ScopedSetter _(is_in_effect_setup, true);
         m_effect->after_function = func;
         func();
         return FinalizeOnlyBuilder(m_effect);
     }
 
     builder::AfterEffectBuilder builder::EffectBuilder::effect(const std::function<void()>& func, const std::source_location& location) const {
+        modloader::ScopedSetter _(is_in_effect_setup, true);
         m_effect->effect_function = func;
         m_effect->effect_register_location = location;
 
@@ -111,6 +116,7 @@ namespace core::reactivity {
     }
 
     builder::EffectBuilder builder::BeforeEffectBuilder::before(const std::function<void()>& func) const {
+        modloader::ScopedSetter _(is_in_effect_setup, true);
         m_effect->before_function = func;
         func();
         return EffectBuilder(m_effect);
@@ -126,10 +132,16 @@ namespace core::reactivity {
         return watch_effect().effect(func, location).finalize();
     }
 
-    void builder::HasEffect::register_trigger_on_load() const {
+    /**
+     * Registers effects with trigger_on_load if enabled and
+     * flushes the local after_effect_fns queue.
+     */
+    void builder::HasEffect::finalize_effect() const {
         if (m_effect->trigger_on_load) {
             dependency_tracker().trigger_on_load_effects.emplace(std::weak_ptr(m_effect));
         }
+
+        m_effect->run_and_flush_after_effect_fns();
     }
 
     void notify_used(const dependency_t& dependency) {
@@ -146,22 +158,30 @@ namespace core::reactivity {
     }
 
     void run_effects(const std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare>& effects) {
-        run_after_effects_fns_stack.emplace();
+        std::vector<std::shared_ptr<ReactiveEffect>> processed_effects;
+        processed_effects.reserve(effects.size());
 
         for (const auto& effect_ptr: effects) {
             if (!effect_ptr.expired()) {
                 auto effect = effect_ptr.lock();
+                processed_effects.push_back(effect);
+
+                modloader::ScopedSetter _(currently_running_effect, effect);
 
                 if (effect->before_function != nullptr) {
                     effect->before_function();
-                };
+                }
 
                 push_tracking_context(effect);
                 try {
                     effect->effect_function();
                 } catch (...) {
                     pop_tracking_context(effect);
-                    run_after_effects_fns_stack.pop();
+
+                    // On error, clear previously collected after_effect_fns
+                    for (auto& processed_effect : processed_effects) {
+                        processed_effect->after_effect_fns.clear();
+                    }
                     throw;
                 }
                 pop_tracking_context(effect);
@@ -172,10 +192,23 @@ namespace core::reactivity {
             }
         }
 
-        for (const auto &fn: run_after_effects_fns_stack.top()) {
-            fn();
+        // Run all after_effect_fns
+        for (auto& processed_effect : processed_effects) {
+            processed_effect->run_and_flush_after_effect_fns();
         }
-        run_after_effects_fns_stack.pop();
+    }
+
+    void run_trigger_on_load_effects() {
+        modloader::ScopedSetter _(is_running_trigger_on_load_effects, true);
+        run_effects(dependency_tracker().trigger_on_load_effects);
+    }
+
+    bool is_effect_running_because_of_trigger_on_load() {
+        if (!is_in_effect_setup && currently_running_effect == nullptr) {
+            throw new std::exception("Cannot call is_effect_running_because_of_trigger_on_load outside an active effect context");
+        }
+
+        return is_running_trigger_on_load_effects;
     }
 
     void notify_changed(const dependency_t& dependency) {
@@ -204,11 +237,11 @@ namespace core::reactivity {
     }
 
     void run_after_effects(const std::function<void()>& fn) {
-        if (run_after_effects_fns_stack.empty()) {
-            throw new std::exception("Cannot call run_after_effects without an active effect context");
+        if (!is_in_effect_setup && currently_running_effect == nullptr) {
+            throw new std::exception("Cannot call run_after_effects outside an active effect context");
         }
 
-        run_after_effects_fns_stack.top().push_back(fn);
+        currently_running_effect->after_effect_fns.push_back(fn);
     }
 
     /**
@@ -252,10 +285,10 @@ namespace core::reactivity {
     }
 
     auto on_load = api::game::event_bus().register_handler(GameEvent::UberStateValueStoreLoaded, EventTiming::After, [](auto, auto) {
-        run_effects(dependency_tracker().trigger_on_load_effects);
+        run_trigger_on_load_effects();
     });
 
     auto on_new_game_initialized = api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
-        run_effects(dependency_tracker().trigger_on_load_effects);
+        run_trigger_on_load_effects();
     });
 }
