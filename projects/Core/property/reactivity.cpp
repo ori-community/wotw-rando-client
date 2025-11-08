@@ -26,8 +26,12 @@ namespace core::reactivity {
         std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare> trigger_on_load_effects;
     };
 
-    bool is_in_effect_setup = false;  // True when we are currently inside before(), effect() or after() during effect setup
-    std::shared_ptr<ReactiveEffect> currently_running_effect = nullptr;  // Contains the currently running effect or nullptr, if no effect is running
+    struct EffectContext {
+        bool is_in_setup;  // True when we are currently inside before(), effect() or after() during effect setup
+        std::shared_ptr<ReactiveEffect> effect;
+    };
+
+    std::optional<EffectContext> current_effect_context = std::nullopt;  // Contains the currently running effect context or nullptr, if no effect is running
     bool is_running_trigger_on_load_effects = false;
 
     auto& dependency_tracker() {
@@ -72,14 +76,22 @@ namespace core::reactivity {
     }
 
     builder::FinalizeOnlyBuilder builder::AfterEffectBuilder::after(const std::function<void()>& func) const {
-        modloader::ScopedSetter _(is_in_effect_setup, true);
+        modloader::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
+            .is_in_setup = true,
+            .effect = m_effect,
+        }));
+
         m_effect->after_function = func;
         func();
         return FinalizeOnlyBuilder(m_effect);
     }
 
     builder::AfterEffectBuilder builder::EffectBuilder::effect(const std::function<void()>& func, const std::source_location& location) const {
-        modloader::ScopedSetter _(is_in_effect_setup, true);
+        modloader::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
+            .is_in_setup = true,
+            .effect = m_effect,
+        }));
+
         m_effect->effect_function = func;
         m_effect->effect_register_location = location;
 
@@ -116,7 +128,11 @@ namespace core::reactivity {
     }
 
     builder::EffectBuilder builder::BeforeEffectBuilder::before(const std::function<void()>& func) const {
-        modloader::ScopedSetter _(is_in_effect_setup, true);
+        modloader::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
+            .is_in_setup = true,
+            .effect = m_effect,
+        }));
+
         m_effect->before_function = func;
         func();
         return EffectBuilder(m_effect);
@@ -166,7 +182,10 @@ namespace core::reactivity {
                 auto effect = effect_ptr.lock();
                 processed_effects.push_back(effect);
 
-                modloader::ScopedSetter _(currently_running_effect, effect);
+                modloader::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
+                    .is_in_setup = false,
+                    .effect = effect,
+                }));
 
                 if (effect->before_function != nullptr) {
                     effect->before_function();
@@ -204,8 +223,8 @@ namespace core::reactivity {
     }
 
     bool is_effect_running_because_of_trigger_on_load() {
-        if (!is_in_effect_setup && currently_running_effect == nullptr) {
-            throw new std::exception("Cannot call is_effect_running_because_of_trigger_on_load outside an active effect context");
+        if (!current_effect_context.has_value()) {
+            throw std::exception("Cannot call is_effect_running_because_of_trigger_on_load outside an active effect context");
         }
 
         return is_running_trigger_on_load_effects;
@@ -237,11 +256,11 @@ namespace core::reactivity {
     }
 
     void run_after_effects(const std::function<void()>& fn) {
-        if (!is_in_effect_setup && currently_running_effect == nullptr) {
-            throw new std::exception("Cannot call run_after_effects outside an active effect context");
+        if (!current_effect_context.has_value()) {
+            throw std::exception("Cannot call run_after_effects outside an active effect context");
         }
 
-        currently_running_effect->after_effect_fns.push_back(fn);
+        current_effect_context->effect->after_effect_fns.push_back(fn);
     }
 
     /**
