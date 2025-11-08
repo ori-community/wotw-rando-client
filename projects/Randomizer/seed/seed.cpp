@@ -11,8 +11,8 @@
 
 namespace randomizer::seed {
 
-    Seed::Seed(location_data::LocationCollection const& location_data)
-        : m_location_data(location_data) {
+    Seed::Seed(location_data::LocationCollection const& location_data) :
+        m_location_data(location_data) {
         register_slot(SaveMetaSlot::SeedEnvironment, SaveMetaSlotPersistence::None, m_environment);
         register_slot(SaveMetaSlot::SeedPersistentMemory, SaveMetaSlotPersistence::None, m_persistent_memory);
     }
@@ -53,59 +53,62 @@ namespace randomizer::seed {
         //  }
 
         // clang-format off
-        for (auto& condition: m_parse_output->data.conditions) {
-            condition.condition | vx::match {
-                [&](const int& condition_command_id) {
-                    auto builder = core::reactivity::watch_effect()
-                        .before([&] { dev::seed_debugger::condition_start(condition_command_id); })
-                        .effect([&] {
-                            execute_command(condition_command_id);
-                        });
+        {
+            modloader::ScopedSetter _(m_is_reading_seed, true);
 
-                    condition.reactive_effect = builder.after([&] {
-                        const auto condition_changed = condition.previous_value != m_memory.booleans.get(0);
-
-                        if (condition_changed) {
-                            condition.previous_value = m_memory.booleans.get(0);
-                        }
-
-                        // When the condition did not change, or we should not grant, don't execute.
-                        // On load, we only want to update condition.previous_value so don't execute either.
-                        if (!should_grant() || !condition_changed || core::reactivity::is_effect_running_because_of_trigger_on_load()) {
-                            dev::seed_debugger::condition_end(std::get<int>(condition.condition));
-                            return;
-                        }
-
-                        if (m_memory.booleans.get(0)) {
-                            dev::seed_debugger::condition_triggered(std::get<int>(condition.condition));
-                            core::reactivity::run_after_effects([&] {
-                                execute_command(condition.command_id);
+            for (auto& condition: m_parse_output->data.conditions) {
+                condition.condition | vx::match {
+                    [&](const int& condition_command_id) {
+                        auto builder = core::reactivity::watch_effect()
+                            .before([&] { dev::seed_debugger::condition_start(condition_command_id); })
+                            .effect([&] {
+                                execute_command(condition_command_id);
                             });
-                        }
 
-                        dev::seed_debugger::condition_end(std::get<int>(condition.condition));
-                    })
-                    .trigger_on_load()  // This is to reset condition.previous_value
-                    .finalize();
-                },
-                [&](const core::api::uber_states::UberState& uber_state) {
-                    auto builder = core::reactivity::watch_effect()
-                        .before([&]{ dev::seed_debugger::binding_start(uber_state); })
-                        .effect({uber_state});
+                        condition.reactive_effect = builder.after([&] {
+                            const auto condition_changed = condition.previous_value != m_memory.booleans.get(0);
 
-                    modloader::ScopedSetter setter(m_is_reading_seed, true);
-                    condition.reactive_effect = builder.after([&] {
-                        if (!should_grant()) {
+                            if (condition_changed) {
+                                condition.previous_value = m_memory.booleans.get(0);
+                            }
+
+                            // When the condition did not change, or we should not grant, don't execute.
+                            // On load, we only want to update condition.previous_value so don't execute either.
+                            if (!should_grant() || !condition_changed || core::reactivity::is_effect_running_because_of_trigger_on_load()) {
+                                dev::seed_debugger::condition_end(std::get<int>(condition.condition));
+                                return;
+                            }
+
+                            if (m_memory.booleans.get(0)) {
+                                dev::seed_debugger::condition_triggered(std::get<int>(condition.condition));
+                                core::reactivity::run_after_effects([&] {
+                                    execute_command(condition.command_id);
+                                });
+                            }
+
+                            dev::seed_debugger::condition_end(std::get<int>(condition.condition));
+                        })
+                        .trigger_on_load()  // This is to reset condition.previous_value
+                        .finalize();
+                    },
+                    [&](const core::api::uber_states::UberState& uber_state) {
+                        auto builder = core::reactivity::watch_effect()
+                            .before([&]{ dev::seed_debugger::binding_start(uber_state); })
+                            .effect({uber_state});
+
+                        condition.reactive_effect = builder.after([&] {
+                            if (!should_grant()) {
+                                dev::seed_debugger::binding_end(uber_state);
+                                return;
+                            }
+
+                            execute_command(condition.command_id);
                             dev::seed_debugger::binding_end(uber_state);
-                            return;
-                        }
-
-                        execute_command(condition.command_id);
-                        dev::seed_debugger::binding_end(uber_state);
-                    }).finalize();
-                    m_command_stack.clear();
-                },
-            };
+                        }).finalize();
+                        m_command_stack.clear();
+                    },
+                };
+            }
         }
         // clang-format on
 
@@ -159,12 +162,7 @@ namespace randomizer::seed {
                 command->execute(*this, m_memory, *m_environment);
             } catch (InstructionError& e) {
                 modloader::error(
-                    "instructions",
-                    std::format(
-                        "Stopped instruction execution due to error in instruction {}: {}",
-                        command->get_name(),
-                        e.what()
-                    )
+                    "instructions", std::format("Stopped instruction execution due to error in instruction {}: {}", command->get_name(), e.what())
                 );
                 break;
             }
@@ -201,7 +199,7 @@ namespace randomizer::seed {
     }
 
     void Seed::process_timers(float delta_time) const {
-        for (const auto & timer : m_timers) {
+        for (const auto& timer: m_timers) {
             if (timer.toggle.get<bool>()) {
                 timer.value.set(timer.value.get() + delta_time);
             }
@@ -212,17 +210,9 @@ namespace randomizer::seed {
 
     void SaveSlotSeedMetaData::json_deserialize(nlohmann::json& j) { j.get_to(*this); }
 
-    std::shared_ptr<SeedSource> SaveSlotSeedMetaData::get_source() const {
-        return seed::parse_source_string(seed_source_string);
-    }
+    std::shared_ptr<SeedSource> SaveSlotSeedMetaData::get_source() const { return seed::parse_source_string(seed_source_string); }
 
-    std::vector<std::byte> SeedArchiveSaveMetaData::save() {
-        return seed_archive != nullptr
-        ? seed_archive->get_archive_data()
-        : std::vector<std::byte>{};
-    }
+    std::vector<std::byte> SeedArchiveSaveMetaData::save() { return seed_archive != nullptr ? seed_archive->get_archive_data() : std::vector<std::byte>{}; }
 
-    void SeedArchiveSaveMetaData::load(utils::ByteStream& stream) {
-        seed_archive = std::make_shared<SeedArchive>(stream.buffer);
-    }
+    void SeedArchiveSaveMetaData::load(utils::ByteStream& stream) { seed_archive = std::make_shared<SeedArchive>(stream.buffer); }
 } // namespace randomizer::seed
