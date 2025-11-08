@@ -104,10 +104,15 @@ namespace core::reactivity {
         bool trigger_on_load = false;
 
         void run_and_flush_after_effect_fns() {
-            for (auto & after_effect_fn: after_effect_fns) {
+            // We make a copy here and clear the queue immediately, because after_effect_fns can
+            // invoke the same effect again that they originated from, resulting in a recursive
+            // infinite loop (stack overflow)
+            const auto queued_after_effect_fns = std::move(after_effect_fns);
+            after_effect_fns = std::vector<std::function<void()>>();
+
+            for (auto & after_effect_fn: queued_after_effect_fns) {
                 after_effect_fn();
             }
-            after_effect_fns.clear();
         }
     };
 
