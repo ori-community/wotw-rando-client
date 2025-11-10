@@ -20,6 +20,7 @@
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 #include <optional>
+#include <Core/api/uber_states/uber_state_handlers.h>
 
 using namespace app::classes;
 
@@ -162,6 +163,10 @@ namespace core::api::game::debug_menu {
             restore_state_selection(this_ptr);
         }
 
+        std::unordered_map<std::pair<int32_t, int32_t>, app::String*, pair_hash> uber_state_menu_input_states;
+        std::pair<int32_t, int32_t> current_uber_state;
+        auto is_rendering_uber_state_wrapper = false;
+
         IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::UberStateVisualizationView, OnStatesListViewSelectionChanged, app::UberStateVisualizationView * this_ptr, app::ListViewItem* selected_item) {
             next::Moon::UberStateVisualization::UberStateVisualizationView::OnStatesListViewSelectionChanged(this_ptr, selected_item);
 
@@ -178,11 +183,18 @@ namespace core::api::game::debug_menu {
 
                 ++index;
             }
+
+            uber_state_menu_input_states.clear();
         }
 
-        std::unordered_map<std::pair<int32_t, int32_t>, app::String*, pair_hash> uber_state_menu_input_states;
-        std::pair<int32_t, int32_t> current_uber_state;
-        auto is_rendering_uber_state_wrapper = false;
+        [[maybe_unused]]
+        auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
+            const auto id = std::make_pair(params.state.group_int(), params.state.state());
+            const auto uber_state_menu_input_state_it = uber_state_menu_input_states.find(id);
+            if (uber_state_menu_input_state_it != uber_state_menu_input_states.end()) {
+                uber_state_menu_input_state_it->second = il2cpp::string_new(std::format("{}", params.value));
+            }
+        });
 
         IL2CPP_INTERCEPT(app::String*, UnityEngine::GUILayout, TextField, app::String * text, app::GUILayoutOption__Array* options) {
             if (!is_rendering_uber_state_wrapper) {
