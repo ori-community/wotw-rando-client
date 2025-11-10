@@ -124,10 +124,15 @@ namespace randomizer::archipelago {
     bool ArchipelagoClient::is_connected() const { return m_websocket.getReadyState() == ix::ReadyState::Open; }
 
     void ArchipelagoClient::notify_location_collected(const location_data::Location& location) {
+
         ids::archipelago_id_t location_id{ids::get_location_id(location)};
 
-        m_pending_locations.insert(location_id); // Stores the locations that are checked, but not yet validated by the server: useful for resync
-        send_message(messages::LocationChecks{m_pending_locations});
+        m_pending_send_locations.insert(location_id);
+
+        if (!m_checked_seed) {
+            return;
+        }
+        send_message(messages::LocationChecks{m_pending_send_locations});
 
         modloader::debug("archipelago", std::format("Location checked: {}", location.name));
     }
@@ -290,7 +295,13 @@ namespace randomizer::archipelago {
             core::events::schedule_task_for_next_update([this]() {
                 disconnect();
             });
+            return;
         }
+        m_checked_seed = true;
+        // Sync items and locations, send locations
+        request_sync();
+        send_message(messages::LocationChecks{m_pending_send_locations});
+        collect_locations();
     }
 
 
@@ -371,13 +382,24 @@ namespace randomizer::archipelago {
         return m_player_map[player].alias;
     }
 
-    void collect_location(const ids::archipelago_id_t location_id) {
-        location_data::Location location{ids::get_location_from_id(location_id)};
-        core::api::uber_states::UberState state(location.condition.state.group_int(), location.condition.state.state());
-        state.set(std::max(state.get<double>(), location.condition.lower_bound_value()));
+    void ArchipelagoClient::collect_locations() {
+        if (!m_checked_seed) {
+            return;
+        }
+        for (ids::archipelago_id_t location_id: m_pending_collect_locations) {
+            location_data::Location location{ids::get_location_from_id(location_id)};
+
+            core::api::uber_states::UberState state(location.condition.state.group_int(), location.condition.state.state());
+            state.set(std::max(state.get<double>(), location.condition.lower_bound_value()));
+        }
+        m_pending_collect_locations.clear();
     }
 
     void ArchipelagoClient::grant_item(messages::NetworkItem const& net_item) {
+        if (!m_checked_seed) {
+            return;
+        }
+
         std::variant<ids::Location, ids::BooleanItem, ids::ResourceItem, ids::UpgradeItem> item = ids::get_item(net_item.item);
         const auto item_name = m_data_package.get_item_name(net_item.item, "Ori and the Will of the Wisps").value_or(UNKNOWN_ITEM_TEXT);
 
@@ -546,7 +568,9 @@ namespace randomizer::archipelago {
                     m_slots = message.slot_info;
 
                     for (const ids::archipelago_id_t location_id: message.checked_locations) {
-                        collect_location(location_id);
+                        m_pending_collect_locations.insert(location_id);
+                        m_pending_send_locations.erase(location_id); // Remove location from the cache if it existed in it.
+                        collect_locations();
                     }
 
                     m_current_seed_generator = ArchipelagoSeedGenerator(message.slot_data);
@@ -661,8 +685,9 @@ namespace randomizer::archipelago {
                     }
 
                     for (ids::archipelago_id_t location_id: message.checked_locations) {
-                        collect_location(location_id);
-                        m_pending_locations.erase(location_id); // Remove location from the cache if it existed in it.
+                        m_pending_collect_locations.insert(location_id);
+                        m_pending_send_locations.erase(location_id); // Remove location from the cache if it existed in it.
+                        collect_locations();
                     }
                 },
                 [this](const messages::PrintJSON& message) {
@@ -679,7 +704,7 @@ namespace randomizer::archipelago {
                             });
                             if (message.type == "ItemSend") {
                                 // This means that the server received the LocationCheck packet, so we can clear the cache.
-                                m_pending_locations.clear();
+                                m_pending_send_locations.clear();
                             }
                         }
 
