@@ -374,7 +374,24 @@ namespace randomizer::seed {
         }
     }
 
-    void SeedExecutionEnvironment::add_timer(const SeedTimer& timer) { m_timers.push_back(timer); }
+    void SeedExecutionEnvironment::add_timer(const SeedTimer& timer) {
+        const auto timer_exists = std::ranges::any_of(m_timers.begin(), m_timers.end(), [&timer](const auto& t) {
+            return t.value == timer.value;
+        });
+
+        if (timer_exists) {
+            modloader::warn(
+                "instructions",
+                std::format(
+                    "DefineTimer: Cannot define timer on {} because a timer already exists with that target.",
+                    timer.value
+                )
+            );
+            return;
+        }
+
+        m_timers.push_back(timer);
+    }
 
     void SeedExecutionEnvironment::execute_without_grants(const std::function<void()>& fn) {
         modloader::ScopedSetter _(m_prevent_grant, true);
