@@ -26,6 +26,8 @@
 #include <Modloader/app/structs/Int32__Boxed.h>
 #include <Modloader/app/structs/NewSetupStateController.h>
 #include <Modloader/app/structs/QuestNodeSetup.h>
+#include <Modloader/app/structs/AggregateCondition.h>
+#include <Modloader/app/structs/NotCondition.h>
 #include <Modloader/app/structs/QuestNodeSetup_QuestInteraction.h>
 #include <Modloader/app/structs/QuestNodeSetup_QuestInteractionSet.h>
 #include <Modloader/app/structs/QuestNodeSetup_QuestInteractionSetup.h>
@@ -36,6 +38,7 @@
 #include <Modloader/app/structs/TranslatedMessageProvider.h>
 #include <Modloader/app/structs/TranslatedMessageProvider_MessageItem.h>
 #include <Modloader/app/structs/UberStateConditionWrapper.h>
+#include <Modloader/app/structs/UberStateValueCondition.h>
 #include <Modloader/app/structs/VisibleOnWorldMap.h>
 #include <Modloader/app/structs/WotwUberStateWwiseStateManager.h>
 
@@ -313,6 +316,33 @@ namespace randomizer::ipc {
                 create_variable("condition_type", "scalar", cast->fields.m_conditionClassID),
                 visualize(state, "descriptor", verbose),
                 visualize(cast->fields.Data, "data", verbose),
+            });
+        }
+
+        void visualize_not_condition(nlohmann::json& j, void* obj, bool verbose) {
+            auto cast = reinterpret_cast<app::NotCondition*>(obj);
+            j["value"] = nlohmann::json::array({
+                visualize(cast->fields.Condition, "condition", verbose),
+            });
+        }
+
+        void visualize_aggregate_condition(nlohmann::json& j, void* obj, bool verbose) {
+            auto cast = reinterpret_cast<app::AggregateCondition*>(obj);
+            j["value"] = nlohmann::json::array({
+                create_variable("mode", "scalar", cast->fields.EvaluationMode),
+                visualize_array("conditions", cast->fields.Conditions, verbose),
+            });
+        }
+
+        void visualize_uber_state_value_condition(nlohmann::json& j, void* obj, bool verbose) {
+            auto cast = reinterpret_cast<app::UberStateValueCondition*>(obj);
+            auto state = il2cpp::invoke<app::Boolean__Boxed>(cast->fields.Descriptor, "CanResolve", 0)->fields
+                ? il2cpp::invoke<app::IUberState>(cast->fields.Descriptor, "Resolve", 0)
+                : nullptr;
+            j["value"] = nlohmann::json::array({
+                create_variable("value", "scalar", cast->fields.Value),
+                create_variable("mode", "scalar", cast->fields.Compare),
+                visualize(state, "descriptor", verbose),
             });
         }
 
@@ -615,7 +645,9 @@ namespace randomizer::ipc {
             { "StateChangeDefinition", visualize_state_change_definition },
 
             //{ "UberStateBoolCondition", visualize_uber_state_bool_condition },
-            //{ "UberStateValueCondition", visualize_uber_state_value_condition },
+            { "NotCondition", visualize_not_condition },
+            { "AggregateCondition", visualize_aggregate_condition },
+            { "UberStateValueCondition", visualize_uber_state_value_condition },
             { "UberStateCondition", visualize_uber_state_condition },
 
             { "DesiredUberStateGeneric", visualize_desired_uberstate_generic },
