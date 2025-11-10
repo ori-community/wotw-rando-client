@@ -10,6 +10,7 @@
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/methods/UnityEngine/Quaternion.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
+#include <Modloader/app/methods/TimelineStateCondition.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/Quaternion.h>
 #include <Modloader/il2cpp_helpers.h>
@@ -316,6 +317,19 @@ namespace randomizer::ipc {
                 create_variable("condition_type", "scalar", cast->fields.m_conditionClassID),
                 visualize(state, "descriptor", verbose),
                 visualize(cast->fields.Data, "data", verbose),
+            });
+        }
+
+        void visualize_timeline_state_condition(nlohmann::json& j, void* obj, bool verbose) {
+            auto cast = reinterpret_cast<app::TimelineStateCondition*>(obj);
+            auto timeline = TimelineStateCondition::get_Target(cast);
+
+            j["value"] = nlohmann::json::array({
+                create_variable("desired_state", "scalar", cast->fields.DesiredState),
+                create_variable("timeline", "scalar", il2cpp::unity::get_path(timeline)),
+                create_variable("must_play_and_finish", "scalar", cast->fields.MustPlayAndFinish),
+                create_variable("trigger_once", "scalar", cast->fields.TriggerOnce),
+                create_variable("use_event_trigger", "scalar", cast->fields.UseEventTrigger),
             });
         }
 
@@ -649,6 +663,7 @@ namespace randomizer::ipc {
             { "AggregateCondition", visualize_aggregate_condition },
             { "UberStateValueCondition", visualize_uber_state_value_condition },
             { "UberStateCondition", visualize_uber_state_condition },
+            { "TimelineStateCondition", visualize_timeline_state_condition },
 
             { "DesiredUberStateGeneric", visualize_desired_uberstate_generic },
             { "DesiredUberStateBool", visualize_desired_uberstate_bool },
