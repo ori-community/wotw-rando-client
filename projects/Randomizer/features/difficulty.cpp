@@ -15,7 +15,8 @@ IL2CPP_INTERCEPT(app::GameController_GameModeBalanceSettings*, GameController, g
 IL2CPP_INTERCEPT(void, SeinDamageReciever, OnRecieveDamage, app::SeinDamageReciever * this_ptr, app::Damage* damage) {
     const auto sein = core::api::game::player::sein();
 
-    if (sein != nullptr && sein->fields.Abilities->fields.InteractionWrapper->fields.State->fields.m_isInNPCInteraction || damage->fields.m_damageType == app::DamageType__Enum::Wind) {
+    const auto is_flap_damage = damage->fields.m_damageType == app::DamageType__Enum::Wind && damage->fields.m_abilityType == app::AbilityType__Enum::FeatherFlap;
+    if (sein != nullptr && sein->fields.Abilities->fields.InteractionWrapper->fields.State->fields.m_isInNPCInteraction || is_flap_damage) {
         damage->fields.m_ignored = true;
     } else {
         next::SeinDamageReciever::OnRecieveDamage(this_ptr, damage);

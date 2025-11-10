@@ -28,6 +28,8 @@ namespace randomizer::archipelago {
         void notify_game_finished();
         void request_sync();
         void handle_queued_server_messages();
+        void handle_deathlink();
+        void compare_seed();
         std::string get_item_display_text(const location_data::Location& location);
         std::string get_shop_description(const location_data::Location& location);
         std::string get_shop_icon(const location_data::Location& location);
@@ -41,12 +43,14 @@ namespace randomizer::archipelago {
         void on_websocket_message(ix::WebSocketMessagePtr const& msg);
         void handle_server_message(messages::ap_server_message_t const& message);
         std::string get_player_name(int player);
+        void try_connection_with_new_game_seed_source();
 
         /**
          * Whether the AP client is active and should try
          * to connect to the game.
          */
         bool m_is_active = false;
+        bool m_first_connection_attempt = true;
         ix::WebSocket m_websocket;
         std::string m_slot_name; // aka player name
         int m_slot_id {0};
@@ -61,5 +65,10 @@ namespace randomizer::archipelago {
         ArchipelagoDataPackage m_data_package;
         std::optional<ArchipelagoSeedGenerator> m_current_seed_generator;
         common::EventBus<State> m_event_bus;
+        std::string m_ap_seed;
+        bool m_deathlink_enabled = false;
+        int m_deathlink_max_lives = 0;  // How many times the player has to die to trigger a death link
+        int m_deathlink_lives = 0;
+        bool m_death_from_deathlink;  // True if the latest death was caused by someone else dying
     };
 } // namespace randomizer::archipelago

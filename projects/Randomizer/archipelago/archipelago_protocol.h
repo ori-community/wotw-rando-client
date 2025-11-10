@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Randomizer/archipelago/archipelago_ids.h>
+#include <Randomizer/archipelago/archipelago_seedgen.h>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
 #include <unordered_set>
@@ -118,6 +119,15 @@ namespace randomizer::archipelago::messages {
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(JSONMessage, text);
     };
 
+    struct DeathPacket {
+        float time = 0.0f;
+        std::string source;
+        std::string cause;
+
+        // Use a default, to avoid a crash if someone sent an undesired Bounced packet (since they can put arbitrary data inside).
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(DeathPacket, time, cause, source);
+    };
+
     // Messages client -> server
     struct Connect {
         std::string password;
@@ -130,34 +140,42 @@ namespace randomizer::archipelago::messages {
         bool slot_data;
         std::string cmd = "Connect";
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(Connect, cmd, password, game, name, uuid, version, items_handling, tags, slot_data);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_ONLY_SERIALIZE(Connect, cmd, password, game, name, uuid, version, items_handling, tags, slot_data);
+    };
+
+    struct ConnectUpdate {
+        int items_handling;
+        std::vector<std::string> tags;
+        std::string cmd = "ConnectUpdate";
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_ONLY_SERIALIZE(ConnectUpdate, cmd, items_handling, tags);
     };
 
     struct LocationChecks {
         std::unordered_set<ids::archipelago_id_t> locations;
         std::string cmd = "LocationChecks";
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(LocationChecks, cmd, locations);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_ONLY_SERIALIZE(LocationChecks, cmd, locations);
     };
 
     struct StatusUpdate {
         int status;
         std::string cmd = "StatusUpdate";
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(StatusUpdate, cmd, status);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_ONLY_SERIALIZE(StatusUpdate, cmd, status);
     };
 
     struct Sync {
         std::string cmd = "Sync";
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(Sync, cmd);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_ONLY_SERIALIZE(Sync, cmd);
     };
 
     struct GetDataPackage {
         std::vector<std::string> games;
         std::string cmd = "GetDataPackage";
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(GetDataPackage, cmd, games);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_ONLY_SERIALIZE(GetDataPackage, cmd, games);
     };
 
     // Messages server -> client
@@ -167,7 +185,7 @@ namespace randomizer::archipelago::messages {
         std::vector<NetworkPlayer> players;
         std::vector<ids::archipelago_id_t> missing_locations;
         std::vector<ids::archipelago_id_t> checked_locations;
-        nlohmann::json slot_data;
+        ArchipelagoSeedGeneratorOptions slot_data;
         std::unordered_map<std::string, NetworkSlot> slot_info;
         int hint_points;
 
@@ -265,8 +283,18 @@ namespace randomizer::archipelago::messages {
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(DataPackage, data);
     };
 
+    // This data structure is used for sending Bounce packets, and receiving Bounced packets
+    struct Bounce {
+        std::vector<std::string> tags {""};
+        DeathPacket data{0.0f, ""};
+        std::string cmd = "Bounce";
+
+        // Use a default, to avoid a crash if someone sent an undesired Bounced packet
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(Bounce, cmd, tags, data);
+    };
+
     using ap_server_message_t = std::
-        variant<Connected, ConnectionRefused, RoomInfo, ReceivedItems, LocationInfo, RoomUpdate, PrintJSON, InvalidPacket, DataPackage>;
+        variant<Connected, ConnectionRefused, RoomInfo, ReceivedItems, LocationInfo, RoomUpdate, PrintJSON, InvalidPacket, DataPackage, Bounce>;
 
     std::optional<ap_server_message_t> parse_server_message(const nlohmann::json& message);
 } // namespace randomizer::archipelago::messages

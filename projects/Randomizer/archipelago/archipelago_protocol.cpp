@@ -43,6 +43,10 @@ namespace randomizer::archipelago::messages {
             return message.get<DataPackage>();
         }
 
+        if (command == "Bounced") {
+            return message.get<Bounce>();
+        }
+
         modloader::warn("archipelago", std::format("Failed to parse server message: Unknown command {}", command));
         modloader::info("archipelago", message.dump());
 
