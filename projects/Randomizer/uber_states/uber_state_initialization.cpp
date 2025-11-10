@@ -472,7 +472,7 @@ namespace randomizer {
 
             // Custom states for userland variables
             constexpr int custom_int_count = 100;
-            constexpr int custom_bool_count = 50;
+            constexpr int custom_bool_count = 100;
             constexpr int custom_float_count = 25;
 
             auto next_id = 0;
