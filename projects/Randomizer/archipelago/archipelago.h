@@ -43,6 +43,7 @@ namespace randomizer::archipelago {
         void on_websocket_message(ix::WebSocketMessagePtr const& msg);
         void handle_server_message(messages::ap_server_message_t const& message);
         std::string get_player_name(int player);
+        void collect_locations();
         void try_connection_with_new_game_seed_source();
 
         /**
@@ -55,7 +56,10 @@ namespace randomizer::archipelago {
         std::string m_slot_name; // aka player name
         int m_slot_id {0};
         std::string m_password;
-        std::unordered_set<ids::archipelago_id_t> m_pending_locations;
+        // Store the locations that are checked, but not yet sent or validated by the server: useful for resync
+        std::unordered_set<ids::archipelago_id_t> m_pending_send_locations;
+        // Store the locations that are already collected in AP server (from a previous save file, or in coop), to then collect them in the game
+        std::unordered_set<ids::archipelago_id_t> m_pending_collect_locations;
         std::unordered_map<std::string, messages::NetworkSlot> m_slots;
         std::unordered_map<int, messages::NetworkPlayer> m_player_map;
         std::unordered_map<ids::archipelago_id_t, std::string> m_shop_icons;
@@ -66,6 +70,11 @@ namespace randomizer::archipelago {
         std::optional<ArchipelagoSeedGenerator> m_current_seed_generator;
         common::EventBus<State> m_event_bus;
         std::string m_ap_seed;
+        /**
+         * Whether the AP seed got checked and matches the one in the save.
+         * Prevent giving items/locations, and sending locations if false.
+         */
+        bool m_checked_seed = false;
         bool m_deathlink_enabled = false;
         int m_deathlink_max_lives = 0;  // How many times the player has to die to trigger a death link
         int m_deathlink_lives = 0;
