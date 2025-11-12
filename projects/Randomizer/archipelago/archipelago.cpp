@@ -95,6 +95,14 @@ namespace randomizer::archipelago {
         archipelago_client().compare_seed();
     });
 
+    [[maybe_unused]]
+    auto on_quit_to_menu = core::api::game::event_bus().register_handler(GameEvent::TitleScreenStartup, EventTiming::After, [](auto, auto) {
+        core::events::schedule_task_for_next_update([] {
+            archipelago_client().disconnect();
+            archipelago_client().reset_variables();
+        });
+    });
+
     ArchipelagoClient::ArchipelagoClient() {
         m_websocket.setOnMessageCallback([this](const auto& msg) { on_websocket_message(msg); });
     }
@@ -122,6 +130,30 @@ namespace randomizer::archipelago {
     }
 
     bool ArchipelagoClient::is_connected() const { return m_websocket.getReadyState() == ix::ReadyState::Open; }
+
+    void ArchipelagoClient::reset_variables() {
+        m_first_connection_attempt = true;
+        m_slot_name = "";
+        m_slot_id = 0;
+        m_password = "";
+        m_pending_send_locations.clear();
+        m_pending_collect_locations.clear();
+        m_slots.clear();
+        m_player_map.clear();
+        m_shop_icons.clear();
+        m_scouted_locations.clear();
+        m_queued_server_messages_mutex.unlock();
+        m_queued_server_messages.clear();
+        // No need to clear m_data_package, it doesn't contain info from a specific AP game
+        m_current_seed_generator = std::nullopt;
+        m_event_bus.clear();
+        m_ap_seed = "";
+        m_checked_seed = false;
+        m_deathlink_enabled = false;
+        m_deathlink_max_lives = 0;
+        m_deathlink_lives = 0;
+        m_death_from_deathlink = false;
+    }
 
     void ArchipelagoClient::notify_location_collected(const location_data::Location& location) {
 

@@ -24,6 +24,7 @@ namespace randomizer::archipelago {
         void connect(std::string_view url, std::string_view slot_name, std::string_view password);
         void disconnect();
         bool is_connected() const;
+        void reset_variables();
         void notify_location_collected(const location_data::Location& location);
         void notify_game_finished();
         void request_sync();
