@@ -471,24 +471,20 @@ namespace randomizer {
             dev::print_time(start_time, "Built state list");
 
             // Custom states for userland variables
-            constexpr int custom_int_count = 100;
-            constexpr int custom_bool_count = 100;
-            constexpr int custom_float_count = 25;
+            constexpr int custom_integer_count = 100;
+            constexpr int custom_boolean_count = 100;
+            constexpr int custom_float_count = 100;
 
-            auto next_id = 0;
-            for (int i = 0; i < custom_int_count; ++i) {
-                const auto id = next_id++;
-                states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Custom, std::format("int{:04d}", i), id, 0));
+            for (int i = 0; i < custom_boolean_count; ++i) {
+                states.push_back(add_state<app::SerializedBooleanUberState>(UberStateGroup::CustomBooleans, std::format("bool{:04d}", i), i, false));
             }
 
-            for (int i = 0; i < custom_bool_count; ++i) {
-                const auto id = next_id++;
-                states.push_back(add_state<app::SerializedBooleanUberState>(UberStateGroup::Custom, std::format("bool{:04d}", i), id, false));
+            for (int i = 0; i < custom_integer_count; ++i) {
+                states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::CustomIntegers, std::format("int{:04d}", i), i, 0));
             }
 
             for (int i = 0; i < custom_float_count; ++i) {
-                const auto id = next_id++;
-                states.push_back(add_state<app::SerializedFloatUberState>(UberStateGroup::Custom, std::format("float{:04d}", i), id, false));
+                states.push_back(add_state<app::SerializedFloatUberState>(UberStateGroup::CustomFloats, std::format("float{:04d}", i), i, 0.f));
             }
 
             // Doors
