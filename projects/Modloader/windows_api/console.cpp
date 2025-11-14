@@ -221,22 +221,31 @@ namespace modloader::win::console {
         initialized = false;
         failed = true;
         if (!AllocConsole()) {
-            return;
+            warn("console", std::format("Failed to allocate console: {}. Trying to deallocate existing console...", GetLastError()));
+
+            if (!FreeConsole()) {
+                warn("console", std::format("Failed to detach from existing console: {}", GetLastError()));
+                return;
+            }
+
+            if (!AllocConsole()) {
+                warn("console", std::format("Failed to allocate console: {}. Giving up.", GetLastError()));
+            }
         }
 
         auto err = freopen_s(&console_file, "CONOUT$", "w", stdout);
         if (err != 0) {
-            warn("initialize", std::format("failed to open console output 'stdout': {}", err));
+            warn("console", std::format("failed to open console output 'stdout': {}", err));
         }
 
         err = freopen_s(&console_file, "CONOUT$", "w", stderr);
         if (err != 0) {
-            warn("initialize", std::format("failed to open console output 'stderr': {}", err));
+            warn("console", std::format("failed to open console output 'stderr': {}", err));
         }
 
         err = freopen_s(&console_file, "CONIN$", "r", stdin);
         if (err != 0) {
-            warn("initialize", std::format("failed to open console input 'stdin': {}", err));
+            warn("console", std::format("failed to open console input 'stdin': {}", err));
         }
 
         std::cout.clear();
