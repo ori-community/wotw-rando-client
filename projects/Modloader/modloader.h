@@ -59,10 +59,16 @@ namespace modloader {
     };
 
     class ILoggingHandler {
+    protected:
+        LogLevel m_max_log_level = LogLevel::Debug;
+
+        virtual void write_internal(LogLevel level, std::string const& group, std::string const& message) = 0;
+
     public:
+        explicit ILoggingHandler(const LogLevel max_log_level) : m_max_log_level(max_log_level) {}
         virtual ~ILoggingHandler() = default;
 
-        virtual void write(MessageType type, std::string const& group, std::string const& message) = 0;
+        void write(LogLevel level, std::string const& group, std::string const& message);
     };
 
     IL2CPP_MODLOADER_DLLEXPORT common::EventBus<void, ModloaderEvent>& event_bus();

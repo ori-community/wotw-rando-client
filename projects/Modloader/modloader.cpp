@@ -38,6 +38,12 @@ namespace modloader {
         return inner_base_path;
     }
 
+    void ILoggingHandler::write(LogLevel level, std::string const& group, std::string const& message) {
+        if (static_cast<int>(level) <= static_cast<int>(m_max_log_level)) {
+            write_internal(level, group, message);
+        }
+    }
+
     common::EventBus<void, ModloaderEvent>& event_bus() {
         static common::EventBus<void, ModloaderEvent> bus;
         return bus;
@@ -46,14 +52,18 @@ namespace modloader {
     namespace {
         std::mutex logging_mutex;
         std::vector<std::weak_ptr<ILoggingHandler>> logging_handlers;
-        std::vector<std::tuple<MessageType, std::string, std::string>> message_buffer;
+        std::vector<std::tuple<LogLevel, std::string, std::string>> message_buffer;
 
         class BufferLoggingHandler final : public ILoggingHandler {
         public:
             static constexpr int MAX_MESSAGES = 1000;
             std::mutex m_mutex;
 
-            void write(MessageType type, std::string const& group, std::string const& message) override {
+            explicit BufferLoggingHandler(const LogLevel max_log_level) :
+                ILoggingHandler(max_log_level) {}
+
+        protected:
+            void write_internal(LogLevel type, std::string const& group, std::string const& message) override {
                 std::lock_guard guard(m_mutex);
                 message_buffer.emplace_back(type, group, message);
                 while (message_buffer.size() > MAX_MESSAGES) {
@@ -73,7 +83,7 @@ namespace modloader {
         return handler;
     }
 
-    void write_trace(const MessageType type, std::string const& group, std::string const& message) {
+    void write_trace(const LogLevel type, std::string const& group, std::string const& message) {
         std::lock_guard _(logging_mutex);
 
         for (auto it = logging_handlers.begin(); it != logging_handlers.end();) {
@@ -87,24 +97,24 @@ namespace modloader {
         }
     }
 
-    void trace(const MessageType type, std::string const& group, std::string const& message) {
+    void trace(const LogLevel type, std::string const& group, std::string const& message) {
         write_trace(type, group, message);
     }
 
     void debug(std::string const& group, std::string const& message) {
-        trace(MessageType::Debug, group, message);
+        trace(LogLevel::Debug, group, message);
     }
 
     void info(std::string const& group, std::string const& message) {
-        trace(MessageType::Info, group, message);
+        trace(LogLevel::Info, group, message);
     }
 
     void warn(std::string const& group, std::string const& message) {
-        trace(MessageType::Warning, group, message);
+        trace(LogLevel::Warning, group, message);
     }
 
     void error(std::string const& group, std::string const& message) {
-        trace(MessageType::Error, group, message);
+        trace(LogLevel::Error, group, message);
     }
 
     bool attached = false;
@@ -117,26 +127,26 @@ namespace modloader {
     IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(const std::filesystem::path& path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
         inner_base_path = path;
 
-        buffer_logging_handler = register_logging_handler(std::make_shared<BufferLoggingHandler>());
-        file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(base_path() / csv_path));
-        console_logging_handler = register_logging_handler(std::make_shared<ConsoleLoggingHandler>());
+        buffer_logging_handler = register_logging_handler(std::make_shared<BufferLoggingHandler>(LogLevel::Debug));
+        file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(base_path() / csv_path, LogLevel::Info));
+        console_logging_handler = register_logging_handler(std::make_shared<ConsoleLoggingHandler>(LogLevel::Debug));
 
-        trace(MessageType::Info, "initialize", "Loading settings.");
+        trace(LogLevel::Info, "initialize", "Loading settings.");
 
         common::settings::Settings settings(base_path() / "settings.json");
         if (settings.get_boolean("DeveloperMode", false)) {
             win::console::console_initialize();
         }
 
-        trace(MessageType::Info, "initialize", "Loading mods.");
+        trace(LogLevel::Info, "initialize", "Loading mods.");
         if (!win::bootstrap::bootstrap()) {
-            trace(MessageType::Info, "initialize", "Failed to bootstrap, shutting down.");
+            trace(LogLevel::Info, "initialize", "Failed to bootstrap, shutting down.");
             shutdown_requested = true;
             on_error("Failed to bootstrap, shutting down.");
             win::common::force_exit(0);
         }
 
-        trace(MessageType::Info, "initialize", "Performing intercepts.");
+        trace(LogLevel::Info, "initialize", "Performing intercepts.");
         interception::initialize();
 
         il2cpp::load_all_types();
@@ -182,9 +192,9 @@ namespace modloader {
             auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());
             auto version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_version());
             auto unity_version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_unityVersion());
-            trace(MessageType::Info, "initialize", std::format("Initializing Application {} ({})[{}].", product, version, unity_version));
+            trace(LogLevel::Info, "initialize", std::format("Initializing Application {} ({})[{}].", product, version, unity_version));
 
-            trace(MessageType::Info, "initialize", "Calling initialization callbacks.");
+            trace(LogLevel::Info, "initialize", "Calling initialization callbacks.");
             event_bus().trigger_event(ModloaderEvent::GameReady);
             initialized = true;
         }

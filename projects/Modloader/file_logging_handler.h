@@ -9,9 +9,10 @@
 namespace modloader {
     class FileLoggingHandler final : public ILoggingHandler {
     public:
-        explicit FileLoggingHandler(const std::filesystem::path& path);
+        explicit FileLoggingHandler(const std::filesystem::path& path, const LogLevel max_log_level);
 
-        void write(MessageType type, std::string const& group, std::string const& message) override;
+    protected:
+        void write_internal(LogLevel type, std::string const& group, std::string const& message) override;
 
     private:
         std::mutex m_mutex;

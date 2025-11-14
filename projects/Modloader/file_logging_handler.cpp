@@ -2,26 +2,26 @@
 #include <Modloader/file_logging_handler.h>
 
 namespace modloader {
-    FileLoggingHandler::FileLoggingHandler(const std::filesystem::path& path) :
-        m_stream(path) {
+    FileLoggingHandler::FileLoggingHandler(const std::filesystem::path& path, const LogLevel max_log_level) :
+        ILoggingHandler(max_log_level), m_stream(path) {
     }
 
-    std::string get_message_type_string(MessageType type) {
+    std::string get_message_type_string(LogLevel type) {
         switch (type) {
-            case MessageType::Error:
+            case LogLevel::Error:
                 return "ERROR";
-            case MessageType::Warning:
+            case LogLevel::Warning:
                 return "WARNING";
-            case MessageType::Info:
+            case LogLevel::Info:
                 return "INFO";
-            case MessageType::Debug:
+            case LogLevel::Debug:
                 return "DEBUG";
         }
 
         return "UNKNOWN";
     }
 
-    void FileLoggingHandler::write(MessageType type, std::string const& group, std::string const& message) {
+    void FileLoggingHandler::write_internal(LogLevel type, std::string const& group, std::string const& message) {
         std::string sanitized_group = csv::sanitize_csv_field(group);
         std::string sanitized_message = csv::sanitize_csv_field(message);
 

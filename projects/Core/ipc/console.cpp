@@ -15,18 +15,22 @@ using namespace core::ipc;
 namespace core::ipc::console {
     namespace {
         NLOHMANN_JSON_SERIALIZE_ENUM(
-                MessageType,
+                LogLevel,
                 {
-                        { MessageType::Debug, "Debug" },
-                        { MessageType::Info, "Info" },
-                        { MessageType::Warning, "Warning" },
-                        { MessageType::Error, "Error" },
+                        { LogLevel::Debug, "Debug" },
+                        { LogLevel::Info, "Info" },
+                        { LogLevel::Warning, "Warning" },
+                        { LogLevel::Error, "Error" },
                 }
         );
 
         class IPCLoggingHandler final : public ILoggingHandler {
-            public:
-            void write(MessageType type, std::string const& group, std::string const& message) override {
+        public:
+            explicit IPCLoggingHandler(LogLevel max_log_level) :
+                ILoggingHandler(max_log_level) {}
+
+        protected:
+            void write_internal(LogLevel type, std::string const& group, std::string const& message) override {
                 nlohmann::json json;
                 json["type"] = "log_message";
                 json["payload"]["type"] = type;
@@ -39,7 +43,7 @@ namespace core::ipc::console {
         std::shared_ptr<IPCLoggingHandler> ipc_logging_handler;
 
         void start_logging(const nlohmann::json& j) {
-            ipc_logging_handler = std::make_shared<IPCLoggingHandler>();
+            ipc_logging_handler = std::make_shared<IPCLoggingHandler>(LogLevel::Debug);
         }
 
         struct Command {
