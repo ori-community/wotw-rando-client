@@ -266,6 +266,8 @@ namespace modloader::win::console {
         console_input = std::async(read_command);
         initialized = true;
         failed = false;
+
+        info("console", "Console allocated");
     }
 
     void console_free() {
