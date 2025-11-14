@@ -57,6 +57,12 @@ namespace {
         core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::After);
     }
 
+    IL2CPP_INTERCEPT(void, SaveGameController, PerformSave, app::SaveGameController * this_ptr) {
+        // Don't prevent saving multiple times in the same frame
+        this_ptr->fields.m_lastSavedFrameIndex = -1;
+        next::SaveGameController::PerformSave(this_ptr);
+    }
+
     IL2CPP_INTERCEPT(void, RestoreCheckpointController, RestoreCheckpoint, app::RestoreCheckpointController * this_ptr, bool load_from_disc) {
         core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::Before);
         next::RestoreCheckpointController::RestoreCheckpoint(this_ptr, load_from_disc);
