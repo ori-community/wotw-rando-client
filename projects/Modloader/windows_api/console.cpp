@@ -380,14 +380,14 @@ namespace modloader::win::console {
     } // namespace
 
     bool try_convert_to_bool(std::string str, bool& value) {
-        std::transform(str.begin(), str.end(), str.begin(), [](auto c) { return std::tolower(c); });
+        std::ranges::transform(str, str.begin(), [](auto c) { return std::tolower(c); });
 
-        if (std::find(true_values.begin(), true_values.end(), str) != true_values.end()) {
+        if (std::ranges::find(true_values, str) != true_values.end()) {
             value = true;
             return true;
         }
 
-        if (std::find(false_values.begin(), false_values.end(), str) != false_values.end()) {
+        if (std::ranges::find(false_values, str) != false_values.end()) {
             value = false;
             return true;
         }
