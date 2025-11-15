@@ -5,11 +5,11 @@
 #include <nlohmann/json.hpp>
 
 enum class GameArea {
-    Inkwater,
+    Marsh,
     Hollow,
     Glades,
     Wellspring,
-    Luma,
+    Pools,
     Burrows,
     Reach,
     Woods,
@@ -25,11 +25,11 @@ enum class GameArea {
 NLOHMANN_JSON_SERIALIZE_ENUM(
     GameArea,
     {
-        { GameArea::Inkwater, "Inkwater" },
+        { GameArea::Marsh, "Inkwater" },
         { GameArea::Hollow, "Hollow" },
         { GameArea::Glades, "Glades" },
         { GameArea::Wellspring, "Wellspring" },
-        { GameArea::Luma, "Luma" },
+        { GameArea::Pools, "Luma" },
         { GameArea::Burrows, "Burrows" },
         { GameArea::Reach, "Reach" },
         { GameArea::Woods, "Woods" },

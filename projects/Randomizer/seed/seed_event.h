@@ -16,13 +16,13 @@ namespace randomizer::seed {
         Tick,
         Spawn,
         Respawn,
-        InkwaterTrialTextRequest,
+        MarshTrialTextRequest,
         HollowTrialTextRequest,
         WellspringTrialTextRequest,
         WoodsTrialTextRequest,
         ReachTrialTextRequest,
         DepthsTrialTextRequest,
-        LumaTrialTextRequest,
+        PoolsTrialTextRequest,
         WastesTrialTextRequest,
     };
 
@@ -41,13 +41,13 @@ namespace randomizer::seed {
             {SeedClientEvent::Respawn,                    "Respawn"                   },
             {SeedClientEvent::Tick,                       "Tick"                      },
             {SeedClientEvent::Spawn,                      "Spawn"                     },
-            {SeedClientEvent::InkwaterTrialTextRequest,   "InkwaterTrialTextRequest"  },
+            {SeedClientEvent::MarshTrialTextRequest,      "MarshTrialTextRequest"     },
             {SeedClientEvent::HollowTrialTextRequest,     "HollowTrialTextRequest"    },
             {SeedClientEvent::WellspringTrialTextRequest, "WellspringTrialTextRequest"},
             {SeedClientEvent::WoodsTrialTextRequest,      "WoodsTrialTextRequest"     },
             {SeedClientEvent::ReachTrialTextRequest,      "ReachTrialTextRequest"     },
             {SeedClientEvent::DepthsTrialTextRequest,     "DepthsTrialTextRequest"    },
-            {SeedClientEvent::LumaTrialTextRequest,       "LumaTrialTextRequest"      },
+            {SeedClientEvent::PoolsTrialTextRequest,      "PoolsTrialTextRequest"     },
             {SeedClientEvent::WastesTrialTextRequest,     "WastesTrialTextRequest"    },
     }
     );

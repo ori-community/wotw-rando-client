@@ -35,7 +35,7 @@ namespace {
     randomizer::seed::SeedClientEvent get_event_uber_state_for_spirit_trial(SpiritTrialLocation location) {
         switch (location) {
             case SpiritTrialLocation::Marsh:
-                return randomizer::seed::SeedClientEvent::InkwaterTrialTextRequest;
+                return randomizer::seed::SeedClientEvent::MarshTrialTextRequest;
             case SpiritTrialLocation::Hollow:
                 return randomizer::seed::SeedClientEvent::HollowTrialTextRequest;
             case SpiritTrialLocation::Wellspring:
@@ -47,7 +47,7 @@ namespace {
             case SpiritTrialLocation::Depths:
                 return randomizer::seed::SeedClientEvent::DepthsTrialTextRequest;
             case SpiritTrialLocation::Pools:
-                return randomizer::seed::SeedClientEvent::LumaTrialTextRequest;
+                return randomizer::seed::SeedClientEvent::PoolsTrialTextRequest;
             case SpiritTrialLocation::Wastes:
                 return randomizer::seed::SeedClientEvent::WastesTrialTextRequest;
             default:

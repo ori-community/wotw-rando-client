@@ -29,9 +29,9 @@ using namespace app::classes;
 namespace {
     bool force_day_time = false;
 
-    const auto RAIN_LIFTED_IN_INKWATER = core::api::uber_states::UberState(UberStateGroup::RandoState, 401);
+    const auto RAIN_LIFTED_IN_MARSH = core::api::uber_states::UberState(UberStateGroup::RandoState, 401);
     const auto REGEN_TREE_DRAINED = core::api::uber_states::UberState(UberStateGroup::RandoState, 402);
-    const auto USE_RAIN_LIFTED_IN_INKWATER_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoConfig, 34);
+    const auto USE_RAIN_LIFTED_IN_MARSH_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoConfig, 34);
     const auto USE_REGEN_TREE_DRAINED_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoConfig, 35);
 
     bool is_day() {
@@ -39,11 +39,11 @@ namespace {
             return true;
         }
 
-        return RAIN_LIFTED_IN_INKWATER.get<bool>();
+        return RAIN_LIFTED_IN_MARSH.get<bool>();
     }
 
     std::optional<bool> is_day_condition(std::string_view, void*) {
-        if (!USE_RAIN_LIFTED_IN_INKWATER_RANDO_STATE.get<bool>()) {
+        if (!USE_RAIN_LIFTED_IN_MARSH_RANDO_STATE.get<bool>()) {
             return std::nullopt;
         }
 
@@ -52,7 +52,7 @@ namespace {
 
     randomizer::conditions::applier_intercept_fn make_day_night_applier_intercept_fn(int day_state, int night_state) {
         return [=](auto, auto, auto original_state) {
-            if (!USE_RAIN_LIFTED_IN_INKWATER_RANDO_STATE.get<bool>()) {
+            if (!USE_RAIN_LIFTED_IN_MARSH_RANDO_STATE.get<bool>()) {
                 return original_state;
             }
 
@@ -242,7 +242,7 @@ namespace {
     }
 
     auto uber_state_notify = core::api::uber_states::notification_bus().register_handler([](auto params) {
-        if (params.state == RAIN_LIFTED_IN_INKWATER || params.state == REGEN_TREE_DRAINED) {
+        if (params.state == RAIN_LIFTED_IN_MARSH || params.state == REGEN_TREE_DRAINED) {
             randomizer::conditions::apply_all_states();
         }
     });

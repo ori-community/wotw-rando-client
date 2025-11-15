@@ -152,7 +152,7 @@ namespace randomizer {
                     UberStateGroup::Tree, "gladesAncestralLight", static_cast<int>(app::AbilityType__Enum::DamageUpgradeA), false
                 ),
                 add_state<app::SerializedBooleanUberState>(
-                    UberStateGroup::Tree, "inkwaterAncestralLight", static_cast<int>(app::AbilityType__Enum::DamageUpgradeB), false
+                    UberStateGroup::Tree, "marshAncestralLight", static_cast<int>(app::AbilityType__Enum::DamageUpgradeB), false
                 ),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "waterBreath", 23, false),
@@ -341,7 +341,7 @@ namespace randomizer {
                 // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onGrapple", 50, false),
 
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "gladesWave", 0, 0),
-                add_state<app::IntUberState>(UberStateGroup::Shrines, "inkwaterWave", 1, 0),
+                add_state<app::IntUberState>(UberStateGroup::Shrines, "marshWave", 1, 0),
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "howlsDenWave", 2, 0),
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "depthsWave", 3, 0),
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "woodsWave", 4, 0),
@@ -357,7 +357,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "spawnTuley", 300, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "spawnOpherEverywhere", 301, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "spawnTwillenEverywhere", 302, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "rainLiftedInInkwater", 401, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "rainLiftedInMarsh", 401, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "regenTreeDrained", 402, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "canOpenMokiFatherHut", 500, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "cleanWater", 2000, false),
@@ -413,7 +413,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useSpawnOpherEverywhereRandoState", 31, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useSpawnTwillenEverywhereRandoState", 32, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useCanOpenMokiFatherHutRandoState", 33, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useRainLiftedInInkwaterRandoState", 34, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useRainLiftedInMarshRandoState", 34, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useRegenTreeDrainedRandoState", 35, false),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeShriekEscapeSand", 100, false),
@@ -431,7 +431,7 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::UI, "launchFragmentsRequired", 2, 0),
 
                 add_state<app::SerializedIntUberState>(
-                    UberStateGroup::LupoMapCosts, "inkwater", static_cast<int>(app::GameWorldAreaID__Enum::InkwaterMarsh), 200
+                    UberStateGroup::LupoMapCosts, "marsh", static_cast<int>(app::GameWorldAreaID__Enum::InkwaterMarsh), 200
                 ),
                 add_state<app::SerializedIntUberState>(
                     UberStateGroup::LupoMapCosts, "hollow", static_cast<int>(app::GameWorldAreaID__Enum::KwoloksHollow), 150
@@ -443,7 +443,7 @@ namespace randomizer {
                     UberStateGroup::LupoMapCosts, "burrows", static_cast<int>(app::GameWorldAreaID__Enum::MidnightBurrow), 50
                 ),
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "reach", static_cast<int>(app::GameWorldAreaID__Enum::BaursReach), 150),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "luma", static_cast<int>(app::GameWorldAreaID__Enum::LumaPools), 150),
+                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "pools", static_cast<int>(app::GameWorldAreaID__Enum::LumaPools), 150),
                 add_state<app::SerializedIntUberState>(
                     UberStateGroup::LupoMapCosts, "depths", static_cast<int>(app::GameWorldAreaID__Enum::MouldwoodDepths), 150
                 ),
@@ -636,7 +636,7 @@ namespace randomizer {
                     []() -> double {
                         return UberState(static_cast<UberStateGroup>(28895), 25522).get() // Reach
                             + UberState(static_cast<UberStateGroup>(18793), 63291).get() // Depths
-                            + UberState(static_cast<UberStateGroup>(945), 49747).get() // Luma
+                            + UberState(static_cast<UberStateGroup>(945), 49747).get() // Pools
                             + UberState(static_cast<UberStateGroup>(10289), 22102).get() // Wastes
                             + UberState(static_cast<UberStateGroup>(46462), 59806).get(); // Hollow
                     }
@@ -732,7 +732,7 @@ namespace randomizer {
                 std::make_tuple(app::AbilityType__Enum::TurretSpell, "sentry"),
                 std::make_tuple(app::AbilityType__Enum::FeatherFlap, "flap"),
                 std::make_tuple(app::AbilityType__Enum::DamageUpgradeA, "gladesAncestralLight"),
-                std::make_tuple(app::AbilityType__Enum::DamageUpgradeB, "inkwaterAncestralLight"),
+                std::make_tuple(app::AbilityType__Enum::DamageUpgradeB, "marshAncestralLight"),
                 std::make_tuple(app::AbilityType__Enum::SpiritFlame, "spiritFlame"),
                 std::make_tuple(app::AbilityType__Enum::UltraDefense, "resilience"),
                 std::make_tuple(app::AbilityType__Enum::HealthEfficiency, "healthEfficiency"),
