@@ -305,6 +305,8 @@ namespace randomizer {
             std::string source_str{std::istreambuf_iterator(seed_source_file),
                                    std::istreambuf_iterator<char>()};
 
+            trim(source_str);
+
             event_bus().trigger_event(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::Before);
             new_game_seed_source = seed::parse_source_string(source_str);
             event_bus().trigger_event(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::After);
