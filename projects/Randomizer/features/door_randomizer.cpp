@@ -347,7 +347,7 @@ namespace randomizer::doors {
                     door->fields.AdditionalScenesToBlockOn = types::SceneMetaData::create_array(to_it->second.scene_names.size() - 1);
 
                     for (int i = 0; i < to_it->second.scene_names.size() - 1; ++i) {
-                        const auto runtime_scene_meta = core::api::scenes::get_runtime_scene_metadata(to_it->second.scene_names.at(i));
+                        const auto runtime_scene_meta = core::api::scenes::get_runtime_scene_metadata(to_it->second.scene_names.at(i + 1));
                         const auto scene_meta = types::SceneMetaData::create();
                         scene_meta->fields.SceneMoonGuid = runtime_scene_meta->fields.SceneMoonGuid;
 
