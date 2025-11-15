@@ -162,9 +162,7 @@ namespace randomizer::archipelago {
     }
 
     void ArchipelagoClient::notify_location_collected(const location_data::Location& location) {
-
         ids::archipelago_id_t location_id{ids::get_location_id(location)};
-
         m_pending_send_locations.insert(location_id);
 
         if (!m_checked_seed) {
@@ -172,7 +170,8 @@ namespace randomizer::archipelago {
             return;
         }
         send_message(messages::LocationChecks{m_pending_send_locations});
-
+        // m_pending_send_locations is not cleared here
+        // It is done when the AP server confirms that the locations got checked (in RoomUpdate and PrintJSON packets)
         modloader::debug("archipelago", std::format("Location checked: {}", location.name));
     }
 
@@ -451,7 +450,6 @@ namespace randomizer::archipelago {
     }
 
     void ArchipelagoClient::grant_item(messages::NetworkItem const& net_item) {
-
         std::variant<ids::Location, ids::BooleanItem, ids::ResourceItem, ids::UpgradeItem> item = ids::get_item(net_item.item);
         const auto item_name = m_data_package.get_item_name(net_item.item, "Ori and the Will of the Wisps").value_or(UNKNOWN_ITEM_TEXT);
 
