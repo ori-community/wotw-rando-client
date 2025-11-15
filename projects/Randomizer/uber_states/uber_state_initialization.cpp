@@ -133,12 +133,11 @@ namespace randomizer {
         IL2CPP_INTERCEPT(void, Moon::UberStateCollection, PrepareRuntimeDataType, app::UberStateCollection * this_ptr) {
             auto start_time = std::chrono::high_resolution_clock::now();
 
+            // clang-format off
             std::vector<app::IUberState*> states = {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "sword", static_cast<int>(app::AbilityType__Enum::Sword), false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "doubleJump", static_cast<int>(app::AbilityType__Enum::DoubleJump), false),
-                add_state<app::SerializedBooleanUberState>(
-                    UberStateGroup::Tree, "regenerateTree", static_cast<int>(app::AbilityType__Enum::MeditateSpell), false
-                ),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "regenerate", static_cast<int>(app::AbilityType__Enum::MeditateSpell), false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "bow", static_cast<int>(app::AbilityType__Enum::Bow), false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "dash", static_cast<int>(app::AbilityType__Enum::DashNew), false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "bash", static_cast<int>(app::AbilityType__Enum::Bash), false),
@@ -148,12 +147,8 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "grenade", static_cast<int>(app::AbilityType__Enum::Grenade), false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "burrow", static_cast<int>(app::AbilityType__Enum::Digging), false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "launch", static_cast<int>(app::AbilityType__Enum::ChargeJump), false),
-                add_state<app::SerializedBooleanUberState>(
-                    UberStateGroup::Tree, "gladesAncestralLight", static_cast<int>(app::AbilityType__Enum::DamageUpgradeA), false
-                ),
-                add_state<app::SerializedBooleanUberState>(
-                    UberStateGroup::Tree, "marshAncestralLight", static_cast<int>(app::AbilityType__Enum::DamageUpgradeB), false
-                ),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "gladesAncestralLight", static_cast<int>(app::AbilityType__Enum::DamageUpgradeA), false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "marshAncestralLight", static_cast<int>(app::AbilityType__Enum::DamageUpgradeB), false),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "waterBreath", 23, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherShop, "spear", 74, false),
@@ -430,26 +425,14 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::UI, "launchFragmentsCount", 1, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::UI, "launchFragmentsRequired", 2, 0),
 
-                add_state<app::SerializedIntUberState>(
-                    UberStateGroup::LupoMapCosts, "marsh", static_cast<int>(app::GameWorldAreaID__Enum::InkwaterMarsh), 200
-                ),
-                add_state<app::SerializedIntUberState>(
-                    UberStateGroup::LupoMapCosts, "hollow", static_cast<int>(app::GameWorldAreaID__Enum::KwoloksHollow), 150
-                ),
-                add_state<app::SerializedIntUberState>(
-                    UberStateGroup::LupoMapCosts, "wellspring", static_cast<int>(app::GameWorldAreaID__Enum::WaterMill), 150
-                ),
-                add_state<app::SerializedIntUberState>(
-                    UberStateGroup::LupoMapCosts, "burrows", static_cast<int>(app::GameWorldAreaID__Enum::MidnightBurrow), 50
-                ),
+                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "marsh", static_cast<int>(app::GameWorldAreaID__Enum::InkwaterMarsh), 200),
+                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "hollow", static_cast<int>(app::GameWorldAreaID__Enum::KwoloksHollow), 150),
+                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "wellspring", static_cast<int>(app::GameWorldAreaID__Enum::WaterMill), 150),
+                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "burrows", static_cast<int>(app::GameWorldAreaID__Enum::MidnightBurrow), 50),
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "reach", static_cast<int>(app::GameWorldAreaID__Enum::BaursReach), 150),
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "pools", static_cast<int>(app::GameWorldAreaID__Enum::LumaPools), 150),
-                add_state<app::SerializedIntUberState>(
-                    UberStateGroup::LupoMapCosts, "depths", static_cast<int>(app::GameWorldAreaID__Enum::MouldwoodDepths), 150
-                ),
-                add_state<app::SerializedIntUberState>(
-                    UberStateGroup::LupoMapCosts, "wastes", static_cast<int>(app::GameWorldAreaID__Enum::WindsweptWastes), 150
-                ),
+                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "depths", static_cast<int>(app::GameWorldAreaID__Enum::MouldwoodDepths), 150),
+                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "wastes", static_cast<int>(app::GameWorldAreaID__Enum::WindsweptWastes), 150),
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "willow", static_cast<int>(app::GameWorldAreaID__Enum::WillowsEnd), 50),
 
                 add_state<app::SerializedByteUberState>(UberStateGroup::LupoShop, "hcMapIcons", 19396, 0),
@@ -467,6 +450,7 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandomValueGenerator, "seed", 0, 0),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandomValueGenerator, "useSeed", 1, false),
             };
+            // clang-format on
 
             dev::print_time(start_time, "Built state list");
 
