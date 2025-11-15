@@ -79,6 +79,6 @@ namespace randomizer::archipelago {
         bool m_deathlink_enabled = false;
         int m_deathlink_max_lives = 0;  // How many times the player has to die to trigger a death link
         int m_deathlink_lives = 0;
-        bool m_death_from_deathlink;  // True if the latest death was caused by someone else dying
+        bool m_death_from_deathlink = false;  // True if the latest death was caused by someone else dying
     };
 } // namespace randomizer::archipelago
