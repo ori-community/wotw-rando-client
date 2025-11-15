@@ -36,8 +36,6 @@ using namespace modloader;
 using namespace app::classes;
 
 namespace {
-    enum class LupoSelection { Intro = 0, SalesPitch = 1, NoSale = 2, Broke = 3, Thanks = 4 };
-
     std::unordered_map<app::GameWorldAreaID__Enum, core::TextID> text_overrides{
         {app::GameWorldAreaID__Enum::InkwaterMarsh,   core::TextID::LupoMarshIntroduction     },
         {app::GameWorldAreaID__Enum::KwoloksHollow,   core::TextID::LupoHollowIntroduction    },
@@ -51,46 +49,6 @@ namespace {
     };
 
     app::GameWorld* get_game_world() { return types::GameWorld::get_class()->static_fields->Instance; }
-
-    IL2CPP_INTERCEPT(int, CartographerEntity, get_MapCost, app::CartographerEntity* this_ptr) {
-        this_ptr->fields.MapQuestCompletedMapCostModifier = 1.f;
-        auto area = CartographerEntity::get_CurrentArea(this_ptr);
-        auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
-        return core::api::uber_states::UberState(UberStateGroup::LupoMapCosts, id).get<int>();
-    }
-
-    using normal_function = app::MessageProvider* (*)(app::CartographerEntity*);
-
-    app::MessageProvider* handle_lupo_message(app::CartographerEntity* this_ptr, LupoSelection selection, normal_function normal) {
-        auto area = CartographerEntity::get_CurrentArea(this_ptr);
-        auto text_override = static_cast<core::TextID>(static_cast<int>(text_overrides[area->fields.WorldMapAreaUniqueID]) + static_cast<int>(selection));
-        return core::text::has_text(text_override) ? core::text::get_provider(text_override) : normal(this_ptr);
-    }
-
-    IL2CPP_INTERCEPT(app::MessageProvider*, CartographerEntity, get_IntroMessageProvider, app::CartographerEntity* this_ptr) {
-        auto area = CartographerEntity::get_CurrentArea(this_ptr);
-        auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
-        auto cost = core::api::uber_states::UberState(UberStateGroup::LupoMapCosts, id).get<int>();
-        area->fields.LupoData.AreaMapSpiritLevelCost = cost;
-        area->fields.LupoDataOnCondition.AreaMapSpiritLevelCost = cost;
-        return handle_lupo_message(this_ptr, LupoSelection::Intro, next::CartographerEntity::get_IntroMessageProvider);
-    }
-
-    IL2CPP_INTERCEPT(app::MessageProvider*, CartographerEntity, get_NoSaleMessage, app::CartographerEntity* this_ptr) {
-        return handle_lupo_message(this_ptr, LupoSelection::NoSale, next::CartographerEntity::get_NoSaleMessage);
-    }
-
-    IL2CPP_INTERCEPT(app::MessageProvider*, CartographerEntity, get_SalesPitchMessage, app::CartographerEntity* this_ptr) {
-        return handle_lupo_message(this_ptr, LupoSelection::SalesPitch, next::CartographerEntity::get_SalesPitchMessage);
-    }
-
-    IL2CPP_INTERCEPT(app::MessageProvider*, CartographerEntity, get_InsufficientFundsMessage, app::CartographerEntity* this_ptr) {
-        return handle_lupo_message(this_ptr, LupoSelection::Broke, next::CartographerEntity::get_InsufficientFundsMessage);
-    }
-
-    IL2CPP_INTERCEPT(app::MessageProvider*, CartographerEntity, get_ThanksMessage, app::CartographerEntity* this_ptr) {
-        return handle_lupo_message(this_ptr, LupoSelection::Thanks, next::CartographerEntity::get_ThanksMessage);
-    }
 
     IL2CPP_INTERCEPT(bool, RuntimeWorldMapIcon, IsVisible, app::RuntimeWorldMapIcon* this_ptr, app::AreaMapUI* areaMap) { return true; }
 

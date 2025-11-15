@@ -100,8 +100,8 @@ namespace {
 
     IL2CPP_INTERCEPT(int, BuilderItem, GetCostForLevel, app::BuilderItem* this_ptr, int level) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
-            auto slot = grom_shop().slot(this_ptr->fields.Project->fields.UberState);
-            return slot != nullptr ? slot->cost.get<int>() : 0;
+            auto& slot = shops().grom_shop().slot(this_ptr->fields.Project->fields.UberState).value().get();
+            return slot.cost.get();
         } else {
             return next::BuilderItem::GetCostForLevel(this_ptr, level);
         }
@@ -109,8 +109,8 @@ namespace {
 
     IL2CPP_INTERCEPT_WITH_ORDER(0, bool, BuilderItem, get_IsVisible, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
-            auto slot = grom_shop().slot(this_ptr->fields.Project->fields.UberState);
-            return slot != nullptr && slot->visibility() == SlotVisibility::Visible;
+            auto& slot = shops().grom_shop().slot(this_ptr->fields.Project->fields.UberState).value().get();
+            return slot.visibility() == SlotVisibility::Visible;
         }
 
         return next::BuilderItem::get_IsVisible(this_ptr);
@@ -118,8 +118,8 @@ namespace {
 
     IL2CPP_INTERCEPT(bool, BuilderItem, get_IsLocked, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
-            auto slot = grom_shop().slot(this_ptr->fields.Project->fields.UberState);
-            return slot != nullptr && slot->visibility() == SlotVisibility::Locked;
+            auto& slot = shops().grom_shop().slot(this_ptr->fields.Project->fields.UberState).value().get();
+            return slot.visibility() == SlotVisibility::Locked;
         } else {
             return next::BuilderItem::get_IsLocked(this_ptr);
         }
@@ -128,9 +128,9 @@ namespace {
     IL2CPP_INTERCEPT(bool, BuilderItem, get_IsAffordable, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
             return core::api::game::player::ore().get() >= BuilderItem::GetCostForLevel(this_ptr, 1);
-        } else {
-            return next::BuilderItem::get_IsAffordable(this_ptr);
         }
+
+        return next::BuilderItem::get_IsAffordable(this_ptr);
     }
 
     IL2CPP_INTERCEPT(bool, BuilderItem, get_IsOwned, app::BuilderItem* this_ptr) {

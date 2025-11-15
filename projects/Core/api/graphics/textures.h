@@ -42,11 +42,11 @@ namespace core::api::graphics::textures {
         void set_color(app::Color color);
         void clear_overrides();
 
-        std::string const& get_path() { return path; }
+        std::string const& get_path() { return identifier; }
 
     private:
         bool initialized = true;
-        std::string path;
+        std::string identifier;
         std::optional<GCHandleId> texture;
         MaterialParams local;
 
@@ -54,12 +54,12 @@ namespace core::api::graphics::textures {
         void reload_file_texture();
 
         CORE_DLLEXPORT friend std::shared_ptr<TextureData> create_texture();
-        CORE_DLLEXPORT friend std::shared_ptr<TextureData> get_texture(std::string_view path);
+        CORE_DLLEXPORT friend std::shared_ptr<TextureData> get_texture_from_identifier(std::string_view identifier);
         CORE_DLLEXPORT friend void reload_all_file_textures();
     };
 
     CORE_DLLEXPORT std::shared_ptr<TextureData> create_texture();
-    CORE_DLLEXPORT std::shared_ptr<TextureData> get_texture(std::string_view path);
+    CORE_DLLEXPORT std::shared_ptr<TextureData> get_texture_from_identifier(std::string_view identifier);
     CORE_DLLEXPORT void apply_default(app::Renderer* renderer);
     CORE_DLLEXPORT void dont_unload_texture(app::Texture* texture);
 } // namespace core::textures

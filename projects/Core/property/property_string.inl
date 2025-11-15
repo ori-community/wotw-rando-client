@@ -154,7 +154,7 @@ struct core::Property<std::string> : core::BaseProperty {
         notify_changed();
     }
 
-    void assign(SetGet<std::string>::setter_fn_t set, SetGet<std::string>::getter_fn_t get) {
+    void assign(const SetGet<std::string>::setter_fn_t& set, const SetGet<std::string>::getter_fn_t& get) {
         m_value = SetGet(set, get);
         notify_changed();
     }
@@ -172,6 +172,10 @@ struct core::Property<std::string> : core::BaseProperty {
         m_text_processor = other.m_text_processor;
         notify_changed();
         return *this;
+    }
+
+    std::string operator*() const {
+        return get();
     }
 
     void text_processor(std::shared_ptr<text::ITextProcessor> const& text_processor) {

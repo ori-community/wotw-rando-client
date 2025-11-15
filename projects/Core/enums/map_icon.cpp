@@ -99,7 +99,7 @@ namespace {
     struct IconData {
         IconData(const MapIcon icon, const std::string_view texture_path, const float scale) :
             base_icon(icon),
-            texture(core::api::graphics::textures::get_texture(texture_path)),
+            texture(core::api::graphics::textures::get_texture_from_identifier(texture_path)),
             scale(scale) {}
 
         MapIcon base_icon;

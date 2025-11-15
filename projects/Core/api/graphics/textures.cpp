@@ -159,8 +159,8 @@ namespace core::api::graphics::textures {
             return nullptr;
 
         auto texture_ptr = il2cpp::gchandle_target<app::Texture2D>(texture.value());
-        if (!il2cpp::unity::is_valid(texture_ptr) && path.starts_with("file:")) {
-            info("textures", std::format("had to reload file texture {}", path));
+        if (!il2cpp::unity::is_valid(texture_ptr) && identifier.starts_with("file:")) {
+            info("textures", std::format("had to reload file texture {}", identifier));
             reload_file_texture();
             texture_ptr = il2cpp::gchandle_target<app::Texture2D>(texture.value());
         }
@@ -177,20 +177,23 @@ namespace core::api::graphics::textures {
 
         // TODO: Add refcount decrement.
 
-        auto it = files.find(path);
+        auto it = files.find(identifier);
         if (it != files.end())
             files.erase(it);
 
         load_texture();
-        auto& collection = file_instances[path];
-        for (auto data: collection)
-            if (!data.expired())
+        auto& collection = file_instances[identifier];
+        for (auto data: collection) {
+            if (!data.expired()) {
                 data.lock()->texture = texture;
+            }
+        }
     }
 
     void apply_default(app::Renderer* renderer) {
-        if (default_params.find(renderer) == default_params.end())
+        if (!default_params.contains(renderer)) {
             add_default_param(renderer);
+        }
 
         auto& pair = default_params[renderer];
         auto& param = pair.second;
@@ -225,7 +228,7 @@ namespace core::api::graphics::textures {
 
     std::shared_ptr<TextureData> create_texture() {
         auto data = std::make_shared<TextureData>();
-        data->path = "custom";
+        data->identifier = "custom";
         data->initialized = true;
         return data;
     }
@@ -270,9 +273,9 @@ namespace core::api::graphics::textures {
     void TextureData::load_texture() {
         try {
             texture = 0;
-            auto separator = path.find(':', 0);
-            auto type = std::string(path.substr(0, separator));
-            auto value = std::string(path.substr(separator + 1));
+            auto separator = identifier.find(':', 0);
+            auto type = std::string(identifier.substr(0, separator));
+            auto value = std::string(identifier.substr(separator + 1));
             if (type.empty()) {
                 return;
             }
@@ -358,7 +361,7 @@ namespace core::api::graphics::textures {
                 texture = il2cpp::gchandle_new(texture_ptr, false);
                 dont_unload_texture(reinterpret_cast<app::Texture*>(texture_ptr));
             } else if (type == "file") {
-                auto it = files.find(path);
+                auto it = files.find(identifier);
                 if (it != files.end()) {
                     texture = it->second;
                     return;
@@ -396,7 +399,7 @@ namespace core::api::graphics::textures {
                 Texture::set_wrapMode(reinterpret_cast<app::Texture*>(texture_ptr), app::TextureWrapMode__Enum::Clamp);
                 stbi_image_free(png_data);
                 texture = il2cpp::gchandle_new(texture_ptr, false);
-                files[path] = texture.value();
+                files[identifier] = texture.value();
                 dont_unload_texture(reinterpret_cast<app::Texture*>(texture_ptr));
             } else {
                 modloader::warn("textures", std::format("unknown texture protocol used when loading texture '{}'.", type));
@@ -454,17 +457,17 @@ namespace core::api::graphics::textures {
         return false;
     }
 
-    std::shared_ptr<TextureData> get_texture(std::string_view path) {
+    std::shared_ptr<TextureData> get_texture_from_identifier(std::string_view identifier) {
         auto data = std::make_shared<TextureData>();
-        data->path = std::string(path);
+        data->identifier = std::string(identifier);
         data->load_texture();
         if (data->texture == 0) {
             return data;
         }
 
         data->initialized = true;
-        if (path.starts_with("file:")) {
-            file_instances[data->path].push_back(data);
+        if (identifier.starts_with("file:")) {
+            file_instances[data->identifier].push_back(data);
         }
 
         return data;

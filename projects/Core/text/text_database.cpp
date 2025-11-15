@@ -45,51 +45,11 @@ namespace core::text {
 
     auto text_data = std::make_shared<SaveSlotTextMetaData>();
 
-    void initialize_shop_slot(const int slot) {
-        register_text(static_cast<core::TextID>(slot), "Empty");
-        register_text(static_cast<core::TextID>(slot + 1), " ");
-        register_text(static_cast<core::TextID>(slot + 2), "Locked");
-        register_text(static_cast<core::TextID>(slot + 3), " ");
-        register_text(static_cast<core::TextID>(slot + 4), "Undiscovered");
-        register_text(static_cast<core::TextID>(slot + 5), "What could it be?");
-    }
-
     void reset_to_default_values() {
         text_data->text_entries.clear();
 
         register_text(core::TextID::Empty, " ");
         register_text(core::TextID::EmptyName, "Empty");
-
-        register_text(
-            core::TextID::LupoWillowSalesPitch,
-            "Given the circumstances I would usually give you this for free,\n"
-            "but a speedrunner has got to eat...  [AreaMapCost] #Spirit Light#[SpiritLight]"
-        );
-
-        // Opher shop slots
-        for (auto slot = 0; slot < 12; ++slot) {
-            initialize_shop_slot(13000 + (slot * 10));
-        }
-
-        // Twillen shop slots
-        for (auto slot = 0; slot < 8; ++slot) {
-            initialize_shop_slot(14000 + (slot * 10));
-        }
-
-        // Lupo shop slots
-        for (auto slot = 0; slot < 3; ++slot) {
-            initialize_shop_slot(10000 + (slot * 10));
-        }
-
-        // Grom shop slots
-        for (auto slot = 0; slot < 7; ++slot) {
-            initialize_shop_slot(11000 + (slot * 10));
-        }
-
-        // Tuley shop slots
-        for (auto slot = 0; slot < 6; ++slot) {
-            initialize_shop_slot(12000 + (slot * 10));
-        }
 
         register_text(core::TextID::QuestReward, "Well, it's randomized");
         register_text(core::TextID::QuestReward, "Ask Shriek");

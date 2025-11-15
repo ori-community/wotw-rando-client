@@ -576,7 +576,7 @@ namespace randomizer::features::wheel {
         if (texture.empty()) {
             entry.texture_data = nullptr;
         } else {
-            entry.texture_data = core::api::graphics::textures::get_texture(texture);
+            entry.texture_data = core::api::graphics::textures::get_texture_from_identifier(texture);
             if (entry.texture_data == nullptr) {
                 warn("wheel", std::format("failed to find texture {}", texture));
                 return false;

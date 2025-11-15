@@ -95,6 +95,10 @@ struct core::Property<T> : core::BaseProperty {
         return *this;
     }
 
+    T operator*() const {
+        return get();
+    }
+
     Property make_shallow_copy() const { return Property(get()); }
 
     template<typename K>

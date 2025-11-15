@@ -20,8 +20,6 @@ namespace core::input {
 
             return next::GameController::get_InputLocked(this_ptr);
         }
-
-
     }
 
     common::registration_handle_t scoped_input_lock() {

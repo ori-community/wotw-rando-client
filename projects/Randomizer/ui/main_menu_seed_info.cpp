@@ -397,7 +397,7 @@ namespace randomizer::main_menu_seed_info {
                     sprite->local_scale({24, 20, 1});
                     sprite->local_position({-72, -40, 0});
 
-                    sprite->texture(core::api::graphics::textures::get_texture("file:assets/textures/gradient_transparent_dark.png"));
+                    sprite->texture(core::api::graphics::textures::get_texture_from_identifier("file:assets/textures/gradient_transparent_dark.png"));
 
                     easy_mode_menu_item_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::CleverMenuItem>(
                             il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. easyMode"}), types::CleverMenuItem::get_class()));

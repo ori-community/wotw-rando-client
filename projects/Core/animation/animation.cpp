@@ -43,7 +43,7 @@ namespace core::animation {
                 frame_definition.duration = frame.value("duration", 1.0f);
                 anim->duration += frame_definition.duration;
                 frame_definition.real_duration = anim->duration;
-                frame_definition.texture = api::graphics::textures::get_texture(frame.value("texture", std::string("")));
+                frame_definition.texture = api::graphics::textures::get_texture_from_identifier(frame.value("texture", std::string("")));
                 app::Vector2 texture_size;
                 auto has_texture_size = frame.contains("texture_size");
                 if (has_texture_size) {

@@ -424,16 +424,6 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::UI, "launchFragmentsCount", 1, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::UI, "launchFragmentsRequired", 2, 0),
 
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "marsh", static_cast<int>(app::GameWorldAreaID__Enum::InkwaterMarsh), 200),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "hollow", static_cast<int>(app::GameWorldAreaID__Enum::KwoloksHollow), 150),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "wellspring", static_cast<int>(app::GameWorldAreaID__Enum::WaterMill), 150),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "burrows", static_cast<int>(app::GameWorldAreaID__Enum::MidnightBurrow), 50),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "reach", static_cast<int>(app::GameWorldAreaID__Enum::BaursReach), 150),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "pools", static_cast<int>(app::GameWorldAreaID__Enum::LumaPools), 150),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "depths", static_cast<int>(app::GameWorldAreaID__Enum::MouldwoodDepths), 150),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "wastes", static_cast<int>(app::GameWorldAreaID__Enum::WindsweptWastes), 150),
-                add_state<app::SerializedIntUberState>(UberStateGroup::LupoMapCosts, "willow", static_cast<int>(app::GameWorldAreaID__Enum::WillowsEnd), 50),
-
                 add_state<app::SerializedByteUberState>(UberStateGroup::LupoShop, "hcMapIcons", 19396, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoShop, "hcMapIconsCost", 19397, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::LupoShop, "ecMapIcons", 57987, 0),

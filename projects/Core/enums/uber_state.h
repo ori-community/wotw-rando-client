@@ -21,7 +21,6 @@ enum class UberStateGroup {
     Multiworld = 12,
     RandoStats = 14,
     LupoShop = 15,
-    LupoMapCosts = 16,
     GromShop = 17,
     Shrines = 19,
     TuleyShop = 20,

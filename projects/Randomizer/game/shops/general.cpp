@@ -33,6 +33,8 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
+#include "opher.h"
+
 namespace {
     using namespace modloader;
     using namespace app::classes;
@@ -103,14 +105,13 @@ namespace {
     std::shared_ptr<core::api::graphics::textures::TextureData> shop_icon(app::ShopkeeperItem* item) {
         if (is_in_shop(ShopType::Opher)) {
             auto opher_item = reinterpret_cast<app::WeaponmasterItem*>(item);
-            auto key = std::make_pair(opher_item->fields.Upgrade->fields.AcquiredAbilityType, opher_item->fields.Upgrade->fields.RequiredAbility);
-
-            return opher_shop().slot(key)->active_info().icon;
-        } else {
-            // Grom
-            auto grom_item = reinterpret_cast<app::BuilderItem*>(item);
-            return grom_shop().slot(grom_item->fields.Project->fields.UberState)->active_info().icon;
+            auto& slot = opher::get_slot(opher_item->fields.Upgrade->fields.AcquiredAbilityType, opher_item->fields.Upgrade->fields.RequiredAbility);
+            return slot.icon();
         }
+
+        // Grom
+        auto grom_item = reinterpret_cast<app::BuilderItem*>(item);
+        return shops().grom_shop().slot(grom_item->fields.Project->fields.UberState).value().get().icon();
     }
 
     IL2CPP_INTERCEPT(void, ShopkeeperUIDetails, UpdateDetails2, app::ShopkeeperUIDetails * this_ptr) {
@@ -124,21 +125,22 @@ namespace {
         }
     }
 
-    void set_providers(app::ShopkeeperItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider) {
-        SlotInfo const* info = nullptr;
+    void set_message_providers(app::ShopkeeperItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider) {
+        const auto apply_providers = [&](const ShopUIShopSlot& slot) {
+            name_provider = slot.name.get_provider();
+            description_provider = slot.description.get_provider();
+        };
+
         if (is_in_shop(ShopType::Opher)) {
             const auto opher_item = reinterpret_cast<app::WeaponmasterItem*>(item);
-            const auto key = std::make_pair(opher_item->fields.Upgrade->fields.AcquiredAbilityType, opher_item->fields.Upgrade->fields.RequiredAbility);
-
-            info = &opher_shop().slot(key)->active_info();
+            const auto& slot = opher::get_slot(opher_item->fields.Upgrade->fields.AcquiredAbilityType, opher_item->fields.Upgrade->fields.RequiredAbility);
+            apply_providers(slot);
         } else {
             // Grom
             const auto grom_item = reinterpret_cast<app::BuilderItem*>(item);
-            info = &grom_shop().slot(grom_item->fields.Project->fields.UberState)->active_info();
+            const auto& slot = shops().grom_shop().slot(grom_item->fields.Project->fields.UberState);
+            apply_providers(slot.value().get());
         }
-
-        name_provider = info->name.get_provider();
-        description_provider = info->description.get_provider();
     }
 
     IL2CPP_INTERCEPT(void, ShopkeeperUIDetails, UpdateDetails, app::ShopkeeperUIDetails * this_ptr) {
@@ -153,7 +155,7 @@ namespace {
 
         app::MessageProvider* name_provider = nullptr;
         app::MessageProvider* description_provider = nullptr;
-        set_providers(this_ptr->fields.m_item, name_provider, description_provider);
+        set_message_providers(this_ptr->fields.m_item, name_provider, description_provider);
 
         auto* const name_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
         auto* const description_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());

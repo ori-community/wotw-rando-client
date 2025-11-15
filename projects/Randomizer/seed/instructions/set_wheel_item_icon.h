@@ -22,6 +22,6 @@ INSTRUCTION(SetWheelItemIcon)
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
-        return std::make_unique<SetWheelItemIcon>(j.at(0).get<int>(), parse_enum<features::wheel::WheelItemPosition>(j.at(1)), parse_texture(j.at(2)));
+        return std::make_unique<SetWheelItemIcon>(j.at(0).get<int>(), parse_enum<features::wheel::WheelItemPosition>(j.at(1)), get_texture_identifier_from_json(j.at(2)));
     }
 };

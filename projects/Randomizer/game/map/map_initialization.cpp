@@ -61,20 +61,21 @@ namespace randomizer::game::map {
             }
         }
 
-        IconVisibilityResult check_shop(std::vector<shops::ShopSlot*> const& slots) {
+        template <typename SHOP_T = shops::ShopCollection::opher_shop_t>
+        IconVisibilityResult check_shop(SHOP_T& shop) {
             if (active_filter() == Filters::Spoilers) {
                 return IconVisibilityResult::Show;
             }
 
             bool in_logic = false;
             bool all_bought = true;
-            for (auto const& slot: slots) {
-                if (all_bought && !slot->state.get<bool>()) {
+            for (auto const& slot: shop.slots() | std::ranges::views::values) {
+                if (all_bought && !slot.is_purchased_state.template get<bool>()) {
                     all_bought = false;
                 }
 
                 if (!in_logic) {
-                    const auto location = location_collection().location(core::api::uber_states::UberStateCondition(slot->state));
+                    const auto location = location_collection().location(core::api::uber_states::UberStateCondition(slot.is_purchased_state));
 
                     if (location.has_value() && current_reach_check_result().is_reachable(*location)) {
                         in_logic = true;
@@ -97,19 +98,20 @@ namespace randomizer::game::map {
                     : IconVisibilityResult::ShowTransparent;
         }
 
+        template <typename SHOP_T = shops::ShopCollection::opher_shop_t>
         std::shared_ptr<Icon> make_npc_icon(
             const MapIcon map_icon,
             std::string const& label,
             std::string const& name,
             const app::Vector2 position,
-            std::vector<shops::ShopSlot*> const& slots
+            SHOP_T& shop
         ) {
             auto icon = add_icon(FilterFlag::InLogic | FilterFlag::Spoilers, false);
             icon->icon().set(map_icon);
             icon->label().set(label);
             icon->name().set(name);
             icon->position().set(position);
-            add_icon_visibility_callback(icon, [slots](auto) { return check_shop(slots); });
+            add_icon_visibility_callback(icon, [&](auto) { return check_shop(shop); });
 
             return icon;
         }
@@ -140,14 +142,14 @@ namespace randomizer::game::map {
         }
 
         void npc_icons() {
-            make_npc_icon(MapIcon::Weaponmaster, "Opher", "MarshPastOpher.Opher", {-597.1f, -4291.3f}, shops::opher_shop().slots());
-            make_npc_icon(MapIcon::Shardtrader, "Twillen", "WestHollow.Twillen", {-281.3f, -4236.4f}, shops::twillen_shop().slots());
-            make_npc_icon(MapIcon::Weaponmaster, "Opher", "GladesTown.Opher", {-203.9f, -4146.4f}, shops::opher_shop().slots());
-            make_npc_icon(MapIcon::Mapmaker, "Lupo", "GladesTown.Lupo", {-212.3f, -4158.8f}, shops::lupo_shop().slots());
-            make_npc_icon(MapIcon::Shardtrader, "Twillen", "GladesTown.Twillen", {-410.5f, -4158.9f}, shops::twillen_shop().slots());
-            make_npc_icon(MapIcon::Builder, "Grom", "GladesTown.Grom", {-319.1f, -4150.1f}, shops::grom_shop().slots());
-            make_npc_icon(MapIcon::Gardener, "Tuley", "GladesTown.Tuley", {-170.0f, -4137.7f}, shops::tuley_shop().slots());
-            make_npc_icon(MapIcon::Weaponmaster, "Opher", "InnerWellspring.Opher", {-1259.7f, -3675.5f}, shops::opher_shop().slots());
+            make_npc_icon(MapIcon::Weaponmaster, "Opher", "MarshPastOpher.Opher", {-597.1f, -4291.3f}, shops::shops().opher_shop());
+            make_npc_icon(MapIcon::Shardtrader, "Twillen", "WestHollow.Twillen", {-281.3f, -4236.4f}, shops::shops().twillen_shop());
+            make_npc_icon(MapIcon::Weaponmaster, "Opher", "GladesTown.Opher", {-203.9f, -4146.4f}, shops::shops().opher_shop());
+            make_npc_icon(MapIcon::Mapmaker, "Lupo", "GladesTown.Lupo", {-212.3f, -4158.8f}, shops::shops().lupo_shop());
+            make_npc_icon(MapIcon::Shardtrader, "Twillen", "GladesTown.Twillen", {-410.5f, -4158.9f}, shops::shops().twillen_shop());
+            make_npc_icon(MapIcon::Builder, "Grom", "GladesTown.Grom", {-319.1f, -4150.1f}, shops::shops().grom_shop());
+            make_npc_icon(MapIcon::Gardener, "Tuley", "GladesTown.Tuley", {-170.0f, -4137.7f}, shops::shops().tuley_shop());
+            make_npc_icon(MapIcon::Weaponmaster, "Opher", "InnerWellspring.Opher", {-1259.7f, -3675.5f}, shops::shops().opher_shop());
         }
 
         void one_way_walls() {

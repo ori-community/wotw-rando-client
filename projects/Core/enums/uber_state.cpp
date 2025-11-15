@@ -18,7 +18,6 @@ namespace {
         { UberStateGroup::Multiworld, "multiworld" },
         { UberStateGroup::RandoStats, "randoStats" },
         { UberStateGroup::LupoShop, "lupoShop" },
-        { UberStateGroup::LupoMapCosts, "lupoMapCosts" },
         { UberStateGroup::GromShop, "gromShop" },
         { UberStateGroup::Shrines, "shrines" },
         { UberStateGroup::TuleyShop, "tuleyShop" },

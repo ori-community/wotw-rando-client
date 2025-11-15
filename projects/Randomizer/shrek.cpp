@@ -30,7 +30,7 @@ namespace {
         const auto state = states[index];
         core::api::graphics::textures::MaterialParams params;
         params.uvs = std::optional<app::Vector4>({ 0.f, 0.f, 1.f, 1.f });
-        shrek->texture(core::api::graphics::textures::get_texture(state.texture_path), std::make_optional(params));
+        shrek->texture(core::api::graphics::textures::get_texture_from_identifier(state.texture_path), std::make_optional(params));
         shrek->local_scale(app::Vector3{ state.scale, state.scale, state.scale });
     }
 

@@ -137,7 +137,6 @@ namespace randomizer {
             universe.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
-            game::shops::reset_shop_data();
             randomizer_seed.trigger(seed::SeedClientEvent::Reload);
             queue_reach_check();
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::Before);

@@ -39,7 +39,7 @@ namespace core::messages {
             bottom_left.z = -0.2f;
             recent_pickups_background->local_position(bottom_left);
 
-            recent_pickups_background->texture(core::api::graphics::textures::get_texture("file:assets/textures/gradient_corner_bottom_left.png"));
+            recent_pickups_background->texture(core::api::graphics::textures::get_texture_from_identifier("file:assets/textures/gradient_corner_bottom_left.png"));
 
             const auto scale_position_component = il2cpp::unity::add_component<app::ScalePositionForAspectRatio>(
                 recent_pickups_background->get_game_object(), types::ScalePositionForAspectRatio::get_class()

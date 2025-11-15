@@ -14,12 +14,18 @@ INSTRUCTION(SetShopItemLocked)
         const core::api::uber_states::UberState state(group, member);
         const auto slot = game::shops::shop_slot_from_state(state);
 
-        if (slot == nullptr) {
+        if (!slot.has_value()) {
             modloader::error("instructions", std::format("[SetShopItemLocked] Did not find shop slot for state {}", state));
             return;
         }
 
-        slot->is_locked = memory.booleans.get(0);
+        if (slot.value() | vx::is<std::reference_wrapper<game::shops::ShopUIShopSlot>>) {
+            const auto& ui_shop_slot = (slot.value() | vx::as<std::reference_wrapper<game::shops::ShopUIShopSlot>>).get();
+            ui_shop_slot.is_locked.set(memory.booleans.get(0));
+            return;
+        }
+
+        modloader::error("instructions", std::format("[SetShopItemLocked] Incompatible shop slot for state {}", state));
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

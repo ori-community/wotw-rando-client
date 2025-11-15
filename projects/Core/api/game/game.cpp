@@ -149,9 +149,13 @@ namespace core::api::game {
         return TimeUtility::get_deltaTime();
     }
 
+    app::GameStateMachine__Class* game_state_machine_class;
     app::GameStateMachine_State__Enum game_state() {
-        return types::GameStateMachine::get_class()
-            ->static_fields->m_instance->fields._CurrentState_k__BackingField;
+        if (game_state_machine_class == nullptr) {
+            game_state_machine_class = types::GameStateMachine::get_class();
+        }
+
+        return game_state_machine_class->static_fields->m_instance->fields._CurrentState_k__BackingField;
     }
 
     bool in_game() {
