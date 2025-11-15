@@ -20,9 +20,9 @@ extern bool temporary_glide_switch;
 namespace {
     int current_slot = -1;
 
-    IL2CPP_INTERCEPT(void, GameController, CreateCheckpoint, app::GameController * this_ptr, bool doPerformSave, bool respectRestrictCheckpointZone) {
+    IL2CPP_INTERCEPT_WITH_ORDER(0, void, GameController, CreateCheckpoint, app::GameController * this_ptr, bool do_perform_save, bool respect_restrict_checkpoint_zone) {
         core::api::game::event_bus().trigger_event(GameEvent::CreateCheckpoint, EventTiming::Before);
-        next::GameController::CreateCheckpoint(this_ptr, doPerformSave, respectRestrictCheckpointZone);
+        next::GameController::CreateCheckpoint(this_ptr, do_perform_save, respect_restrict_checkpoint_zone);
         core::api::game::event_bus().trigger_event(GameEvent::CreateCheckpoint, EventTiming::After);
     }
 
