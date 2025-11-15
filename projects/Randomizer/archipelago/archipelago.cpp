@@ -96,6 +96,11 @@ namespace randomizer::archipelago {
     });
 
     [[maybe_unused]]
+    auto on_save_creation = core::api::game::event_bus().register_handler(GameEvent::CreateSave, EventTiming::After, [](auto, auto) {
+        archipelago_client().compare_seed();
+    });
+
+    [[maybe_unused]]
     auto on_quit_to_menu = core::api::game::event_bus().register_handler(GameEvent::TitleScreenStartup, EventTiming::After, [](auto, auto) {
         core::events::schedule_task_for_next_update([] {
             archipelago_client().disconnect();
@@ -142,7 +147,6 @@ namespace randomizer::archipelago {
         m_player_map.clear();
         m_shop_icons.clear();
         m_scouted_locations.clear();
-        m_queued_server_messages_mutex.unlock();
         m_queued_server_messages.clear();
         // No need to clear m_data_package, it doesn't contain info from a specific AP game
         m_current_seed_generator = std::nullopt;
@@ -153,6 +157,8 @@ namespace randomizer::archipelago {
         m_deathlink_max_lives = 0;
         m_deathlink_lives = 0;
         m_death_from_deathlink = false;
+
+        modloader::info("archipelago", "AP client got reset");
     }
 
     void ArchipelagoClient::notify_location_collected(const location_data::Location& location) {
@@ -162,6 +168,7 @@ namespace randomizer::archipelago {
         m_pending_send_locations.insert(location_id);
 
         if (!m_checked_seed) {
+            modloader::info("archipelago", "Seed not checked yet: skip sending locations");
             return;
         }
         send_message(messages::LocationChecks{m_pending_send_locations});
@@ -323,7 +330,11 @@ namespace randomizer::archipelago {
     }
 
     void ArchipelagoClient::compare_seed() {
-        if (archipelago_save_data->ap_seed.empty()) {
+        if (m_checked_seed) {
+            return;
+        }
+
+        if (archipelago_save_data->ap_seed.empty()) {  // This is the case on file creation
             archipelago_save_data->ap_seed = m_ap_seed;
         }
         if (archipelago_save_data->ap_seed != m_ap_seed) {
@@ -339,6 +350,7 @@ namespace randomizer::archipelago {
             });
             return;
         }
+        modloader::info("archipelago", "Seed check successful");
         m_checked_seed = true;
         // Sync items and locations, send locations
         request_sync();
@@ -426,6 +438,7 @@ namespace randomizer::archipelago {
 
     void ArchipelagoClient::collect_locations() {
         if (!m_checked_seed) {
+            modloader::info("archipelago", "Seed not checked yet: skip collecting locations");
             return;
         }
         for (ids::archipelago_id_t location_id: m_pending_collect_locations) {
@@ -438,9 +451,6 @@ namespace randomizer::archipelago {
     }
 
     void ArchipelagoClient::grant_item(messages::NetworkItem const& net_item) {
-        if (!m_checked_seed) {
-            return;
-        }
 
         std::variant<ids::Location, ids::BooleanItem, ids::ResourceItem, ids::UpgradeItem> item = ids::get_item(net_item.item);
         const auto item_name = m_data_package.get_item_name(net_item.item, "Ori and the Will of the Wisps").value_or(UNKNOWN_ITEM_TEXT);
@@ -697,6 +707,11 @@ namespace randomizer::archipelago {
                             "Message index: {}, Saved index: {}, Message length {}", message.index, archipelago_save_data->last_item_index, message.items.size()
                         )
                     );
+
+                    if (!m_checked_seed) {
+                        modloader::info("archipelago", "Seed not checked yet: skip giving items");
+                        return;
+                    }
 
                     if (message.index == archipelago_save_data->last_item_index + 1) {
                         for (auto& item: message.items) {
