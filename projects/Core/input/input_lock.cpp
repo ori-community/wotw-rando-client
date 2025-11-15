@@ -1,7 +1,6 @@
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/input/input_lock.h>
-#include <Modloader/app/methods/CharacterLeftRightMovement.h>
-#include <Modloader/app/methods/RestrictAbilityController.h>
+#include <Modloader/app/methods/GameController.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <unordered_set>
@@ -13,66 +12,16 @@ namespace core::input {
         uint32_t next_id = 0;
         std::unordered_set<uint32_t> locks;
         api::uber_states::UberState lock_state(UberStateGroup::Player, 1000);
-        constexpr auto FULL_MASK = static_cast<app::SeinAbilityRestrictZoneMask__Enum>(0xffffff);
 
-        IL2CPP_INTERCEPT(void, CharacterLeftRightMovement, FixedUpdate, app::CharacterLeftRightMovement* this_ptr) {
-            const auto lock_value = lock_state.get<bool>() || !locks.empty();
-            modloader::ScopedSetter setter(this_ptr->fields.Settings->fields.LockInput, lock_value, modloader::ScopedSetter<bool>::OP_OR);
-            next::CharacterLeftRightMovement::FixedUpdate(this_ptr);
-        }
-
-        IL2CPP_INTERCEPT(app::SeinAbilityRestrictZoneMask__Enum, RestrictAbilityController, GetCurrentRestrictZoneMask) {
-            if (lock_state.get<bool>() || !locks.empty()) {
-                return FULL_MASK;
-            }
-
-            return next::RestrictAbilityController::GetCurrentRestrictZoneMask();
-        }
-
-        IL2CPP_INTERCEPT(bool, RestrictAbilityController, IsRestricted_1, app::SeinAbilityRestrictZoneMask__Enum restrict_masks) {
+        IL2CPP_INTERCEPT_WITH_ORDER(10, bool, GameController, get_InputLocked, app::GameController* this_ptr) {
             if (lock_state.get<bool>() || !locks.empty()) {
                 return true;
             }
 
-            return next::RestrictAbilityController::IsRestricted_1(restrict_masks);
+            return next::GameController::get_InputLocked(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(bool, RestrictAbilityController, IsRestricted_2,
-            app::SeinAbilityRestrictZoneMask__Enum current_mask,
-            app::SeinAbilityRestrictZoneMask__Enum restrict_masks) {
-            if (lock_state.get<bool>() || !locks.empty()) {
-                return true;
-            }
 
-            return next::RestrictAbilityController::IsRestricted_2(current_mask, restrict_masks);
-        }
-
-        IL2CPP_INTERCEPT(bool, RestrictAbilityController, IsRestricted_3, app::AbilityType__Enum ability, app::SeinAbilityRestrictZoneMask__Enum restrict_mask) {
-            if (lock_state.get<bool>() || !locks.empty()) {
-                return true;
-            }
-
-            return next::RestrictAbilityController::IsRestricted_3(ability, restrict_mask);
-        }
-
-        IL2CPP_INTERCEPT(bool, RestrictAbilityController, IsRestricted_4,
-            app::SeinAbilityRestrictZoneMask__Enum current_mask,
-            app::AbilityType__Enum ability,
-            app::SeinAbilityRestrictZoneMask__Enum restrict_masks) {
-            if (lock_state.get<bool>() || !locks.empty()) {
-                return true;
-            }
-
-            return next::RestrictAbilityController::IsRestricted_4(current_mask, ability, restrict_masks);
-        }
-
-        IL2CPP_INTERCEPT(bool, RestrictAbilityController, IsRestricted_5, app::Input_Command__Enum button, app::SeinAbilityRestrictZoneMask__Enum restrict_mask) {
-            if (lock_state.get<bool>() || !locks.empty()) {
-                return true;
-            }
-
-            return next::RestrictAbilityController::IsRestricted_5(button, restrict_mask);
-        }
     }
 
     common::registration_handle_t scoped_input_lock() {

@@ -22,7 +22,7 @@ namespace {
     core::api::uber_states::UberState allow_tp_underwater_state(UberStateGroup::RandoConfig, 18);
     core::api::uber_states::UberState allow_tp_in_combat_shrines_state(UberStateGroup::RandoConfig, 19);
 
-    IL2CPP_INTERCEPT(bool, GameController, get_InputLocked, app::GameController* this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(20, bool, GameController, get_InputLocked, app::GameController* this_ptr) {
         const auto save_pedestal_controller_instance = types::SavePedestalController::get_class()->static_fields->Instance;
 
         // This is so Ori can't lose breath while teleporting
