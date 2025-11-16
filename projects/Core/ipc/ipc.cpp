@@ -80,15 +80,15 @@ namespace core::ipc {
                 zmq::message_t zmq_message(message.dump());
 
                 try {
-                    if (*socket) {
-                        socket->send(zmq_message, zmq::send_flags::none);
+                    if (socket->handle() != nullptr) {
+                        socket->send(zmq_message, zmq::send_flags::dontwait);
                     } else {
-                        warn("IPC", "ZeroMQ send Error: Socket not valid");
+                        warn("ipc", "ZeroMQ send Error: Socket not valid");
                     }
                 } catch (const zmq::error_t& e) {
-                    warn("IPC", std::format("ZeroMQ send Error: {} {}", e.num(), e.what()));
+                    warn("ipc", std::format("ZeroMQ send Error: {} {}", e.num(), e.what()));
                 } catch (...) {
-                    warn("IPC", "ZeroMQ send Error: Unknown");
+                    warn("ipc", "ZeroMQ send Error: Unknown");
                 }
             }
         }
@@ -106,8 +106,10 @@ namespace core::ipc {
                 first = false;
                 try {
                     socket = std::make_unique<zmq::socket_t>(*context, zmq::socket_type::dealer);
+                    socket->set(zmq::sockopt::connect_timeout, 5000);
                     socket->connect("tcp://127.0.0.1:31414");
                 } catch (...) {
+                    socket = nullptr;
                 }
             } while (!*socket && !shutdown_ipc_thread);
 
@@ -126,6 +128,7 @@ namespace core::ipc {
 
                 if (zmq_thread == nullptr) {
                     zmq_thread = std::make_unique<std::thread>(zmq_thread_fn);
+                    debug("ipc", std::format("Started ZeroMQ thread with ID {}", zmq_thread->get_id()));
                 }
             }
         );
@@ -182,12 +185,14 @@ namespace core::ipc {
 
     void on_shutdown(GameEvent game_event, EventTiming timing) {
         shutdown_ipc_thread = true;
+
         zmq_thread->join();
         zmq_thread = nullptr;
 
         if (socket) {
             socket->set(zmq::sockopt::linger, 0);
             socket->close();
+            socket = nullptr;
         }
 
         if (context) {
