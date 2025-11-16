@@ -508,4 +508,26 @@ namespace randomizer::seed {
             return std::move(it->second(j.begin().value()));
         }
     }
+
+    void to_json(nlohmann::json& j, const SeedTimer& timer) {
+        j = nlohmann::json{
+                {"toggle",
+                 {
+                     {"group", timer.toggle.group_int()},
+                     {"state", timer.toggle.state()},
+                 }},
+                {"value",
+                 {
+                     {"group", timer.value.group_int()},
+                     {"state", timer.value.state()},
+                 }}
+        };
+    }
+
+    void from_json(const nlohmann::json& j, SeedTimer& timer) {
+        const auto j_toggle = j.at("toggle");
+        const auto j_value = j.at("value");
+        timer.toggle = core::api::uber_states::UberState(j_toggle.at("group").get<int>(), j_toggle.at("state").get<int>());
+        timer.value = core::api::uber_states::UberState(j_value.at("group").get<int>(), j_value.at("state").get<int>());
+    }
 } // namespace randomizer::seed

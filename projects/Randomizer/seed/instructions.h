@@ -144,6 +144,8 @@ namespace randomizer::seed {
         core::api::uber_states::UberState toggle;
         core::api::uber_states::UberState value;
     };
+    void to_json(nlohmann::json& j, const SeedTimer& timer);
+    void from_json(const nlohmann::json& j, SeedTimer& timer);
 
     struct QueuedMessageBox {
         core::messages::QueuedMessageHandle::QueuedMessageState last_state = core::messages::QueuedMessageHandle::QueuedMessageState::Queued;
@@ -328,18 +330,19 @@ namespace randomizer::seed {
         // These are only serialized on-demand in json_serialize():
         std::unordered_map<std::size_t, SerializedFreeMessageBox> m_serialized_free_message_boxes;
         std::unordered_map<std::size_t, SerializedWarpIcon> m_serialized_warp_icons;
+        std::vector<SeedTimer> m_timers;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(
             SeedExecutionEnvironment,
             m_serialized_free_message_boxes,
-            m_serialized_warp_icons
+            m_serialized_warp_icons,
+            m_timers
         );
 
         // Runtime
         std::unordered_map<std::size_t, std::shared_ptr<game::map::Icon>> m_warp_icons;
         std::unordered_map<std::size_t, FreeMessageBox> m_free_message_boxes;
         std::unordered_map<std::size_t, QueuedMessageBox> m_queued_message_boxes;
-        std::vector<SeedTimer> m_timers;
         bool m_prevent_grant = false;
         std::unordered_map<std::string, ItemSpoilerData> m_map_spoiler_data;
         std::vector<common::registration_handle_t> m_event_bus_handles;
