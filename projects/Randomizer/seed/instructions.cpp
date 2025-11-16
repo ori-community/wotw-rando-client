@@ -348,8 +348,9 @@ namespace randomizer::seed {
     }
 
     void SeedExecutionEnvironment::process_timers(float delta) const {
+        const auto game_controller = core::api::game::game_controller();
         for (const auto& timer: m_timers) {
-            if (!core::api::game::game_controller()->fields._IsSuspended_k__BackingField && timer.toggle.get<bool>()) {
+            if (!game_controller->fields._IsSuspended_k__BackingField && timer.toggle.get<bool>()) {
                 timer.value.set(timer.value.get<float>() + delta);
             }
         }
