@@ -15,6 +15,8 @@ namespace randomizer::dev::seed_debugger {
             std::unordered_map<core::api::uber_states::UberState, debugger_types> binding_breakpoints;
 
             std::unordered_map<DebuggerType, int> active_breaks;
+
+            bool enabled = false;
         };
 
         DebuggerState debugger_state;
@@ -30,6 +32,9 @@ namespace randomizer::dev::seed_debugger {
         debugger_state.condition_breakpoints.clear();
         debugger_state.condition_triggered_breakpoints.clear();
         debugger_state.command_breakpoints.clear();
+        debugger_state.seed_event_breakpoints.clear();
+        debugger_state.binding_breakpoints.clear();
+        debugger_state.enabled = false;
     }
 
     void add_breakpoint(const DebuggerType debugger, const BreakpointType type, const std::size_t id) {
@@ -46,6 +51,8 @@ namespace randomizer::dev::seed_debugger {
         default:
             throw RandoException("add_breakpoint called for unhandled type");
         }
+
+        debugger_state.enabled = true;
     }
 
     bool remove_breakpoint(const DebuggerType debugger, const BreakpointType type, const std::size_t id) {
@@ -72,6 +79,7 @@ namespace randomizer::dev::seed_debugger {
 
     void add_seed_event_breakpoint(const DebuggerType debugger, const seed::SeedClientEvent event) {
         debugger_state.seed_event_breakpoints[event].emplace(debugger);
+        debugger_state.enabled = true;
     }
 
     bool remove_seed_event_breakpoint(const DebuggerType debugger, const seed::SeedClientEvent event) {
@@ -89,6 +97,7 @@ namespace randomizer::dev::seed_debugger {
 
     void add_binding_breakpoint(const DebuggerType debugger, const core::api::uber_states::UberState state) {
         debugger_state.binding_breakpoints[state].emplace(debugger);
+        debugger_state.enabled = true;
     }
 
     bool remove_binding_breakpoint(const DebuggerType debugger, const core::api::uber_states::UberState state) {
@@ -120,9 +129,11 @@ namespace randomizer::dev::seed_debugger {
     }
 
     void trigger_event(const Event event) {
-        auto size = context_stack.size();
-        const auto& back = context_stack.back();
-        const auto active_breaks = debugger_state.active_breaks;
+        if (!debugger_state.enabled) {
+            return;
+        }
+
+        const auto& active_breaks = debugger_state.active_breaks;
         for (const auto type: active_breaks | std::views::keys) {
             event_bus().trigger_event(type, event, context_stack.back());
         }
@@ -142,40 +153,68 @@ namespace randomizer::dev::seed_debugger {
     }
 
     void seed_event_start(const seed::SeedClientEvent event) {
+        if (!debugger_state.enabled) {
+            return;
+        }
+
         context_stack.emplace_back(std::make_optional<seed_event_t>(event), std::nullopt, nullptr);
         handle_break_check(debugger_state.seed_event_breakpoints[event], true);
         trigger_event(Event::SeedEventStart);
     }
 
     void seed_event_end(const seed::SeedClientEvent event) {
+        if (!debugger_state.enabled) {
+            return;
+        }
+
         trigger_event(Event::SeedEventEnd);
         handle_break_check(debugger_state.seed_event_breakpoints[event], false);
         context_stack.pop_back();
     }
 
     void binding_start(const core::api::uber_states::UberState state) {
+        if (!debugger_state.enabled) {
+            return;
+        }
+
         context_stack.emplace_back(std::make_optional<seed_event_t>(state), std::nullopt, nullptr);
         handle_break_check(debugger_state.binding_breakpoints[state], true);
         trigger_event(Event::BindingStart);
     }
 
     void binding_end(const core::api::uber_states::UberState state) {
+        if (!debugger_state.enabled) {
+            return;
+        }
+
         trigger_event(Event::BindingEnd);
         handle_break_check(debugger_state.binding_breakpoints[state], false);
         context_stack.pop_back();
     }
 
     void condition_start(const std::size_t id) {
+        if (!debugger_state.enabled) {
+            return;
+        }
+
         context_stack.emplace_back(std::make_optional<seed_event_t>(id), std::nullopt, nullptr);
         handle_break_check(debugger_state.condition_breakpoints[id], true);
         trigger_event(Event::ConditionStart);
     }
 
     void condition_triggered(const std::size_t id) {
+        if (!debugger_state.enabled) {
+            return;
+        }
+
         handle_break_check(debugger_state.condition_triggered_breakpoints[id], true);
     }
 
     void condition_end(const std::size_t id) {
+        if (!debugger_state.enabled) {
+            return;
+        }
+
         trigger_event(Event::ConditionEnd);
         handle_break_check(debugger_state.condition_breakpoints[id], false);
         handle_break_check(debugger_state.condition_triggered_breakpoints[id], false);
@@ -183,6 +222,10 @@ namespace randomizer::dev::seed_debugger {
     }
 
     void command_start(const std::size_t id) {
+        if (!debugger_state.enabled) {
+            return;
+        }
+
         const auto seed_event = context_stack.empty() ? std::nullopt : context_stack.back().event;
         context_stack.emplace_back(seed_event, id, nullptr);
         handle_break_check(debugger_state.command_breakpoints[id], true);
@@ -190,12 +233,20 @@ namespace randomizer::dev::seed_debugger {
     }
 
     void command_end(const std::size_t id) {
+        if (!debugger_state.enabled) {
+            return;
+        }
+
         trigger_event(Event::CommandEnd);
         handle_break_check(debugger_state.command_breakpoints[id], false);
         context_stack.pop_back();
     }
 
     void instruction(const seed::IInstruction* instruction) {
+        if (!debugger_state.enabled) {
+            return;
+        }
+
         const auto& [event, command_id, _] = context_stack.back();
         context_stack.emplace_back(event, command_id, instruction);
         trigger_event(Event::Instruction);
