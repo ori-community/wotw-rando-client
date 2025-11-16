@@ -31,7 +31,7 @@ namespace modloader {
 
     std::filesystem::path inner_base_path = "C:\\moon\\";
     std::filesystem::path modloader_config_path = "modloader_config.json";
-    std::filesystem::path csv_path = "modloader_log.csv";
+    std::filesystem::path modloader_log_path = "modloader_log.csv";
     std::atomic<bool> shutdown_requested = false;
 
     std::filesystem::path base_path() {
@@ -52,34 +52,10 @@ namespace modloader {
     namespace {
         std::mutex logging_mutex;
         std::vector<std::weak_ptr<ILoggingHandler>> logging_handlers;
-        std::vector<std::tuple<LogLevel, std::string, std::string>> message_buffer;
-
-        class BufferLoggingHandler final : public ILoggingHandler {
-        public:
-            static constexpr int MAX_MESSAGES = 1000;
-            std::mutex m_mutex;
-
-            explicit BufferLoggingHandler(const LogLevel max_log_level) :
-                ILoggingHandler(max_log_level) {}
-
-        protected:
-            void write_internal(LogLevel type, std::string const& group, std::string const& message) override {
-                std::lock_guard guard(m_mutex);
-                message_buffer.emplace_back(type, group, message);
-                while (message_buffer.size() > MAX_MESSAGES) {
-                    message_buffer.erase(message_buffer.begin());
-                }
-            }
-        };
     } // namespace
 
     std::shared_ptr<ILoggingHandler> register_logging_handler(std::shared_ptr<ILoggingHandler> handler) {
         logging_handlers.push_back(handler);
-
-        for (const auto& [type, group, message]: message_buffer) {
-            handler->write(type, group, message);
-        }
-
         return handler;
     }
 
@@ -127,8 +103,7 @@ namespace modloader {
     IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(const std::filesystem::path& path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
         inner_base_path = path;
 
-        buffer_logging_handler = register_logging_handler(std::make_shared<BufferLoggingHandler>(LogLevel::Debug));
-        file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(base_path() / csv_path, LogLevel::Info));
+        file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(base_path() / modloader_log_path, LogLevel::Info));
         console_logging_handler = register_logging_handler(std::make_shared<ConsoleLoggingHandler>(LogLevel::Debug));
 
         trace(LogLevel::Info, "initialize", "Loading settings.");

@@ -19,7 +19,7 @@ namespace modloader::win::console {
     IL2CPP_MODLOADER_DLLEXPORT void console_initialize();
     IL2CPP_MODLOADER_DLLEXPORT void console_free();
     IL2CPP_MODLOADER_DLLEXPORT void console_poll();
-    IL2CPP_MODLOADER_DLLEXPORT void console_send(std::string str);
+    IL2CPP_MODLOADER_DLLEXPORT void console_send(const std::string& str);
     IL2CPP_MODLOADER_DLLEXPORT void console_flush();
     IL2CPP_MODLOADER_DLLEXPORT bool console_is_initialized();
 

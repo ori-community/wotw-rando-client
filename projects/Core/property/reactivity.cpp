@@ -27,7 +27,7 @@ namespace core::reactivity {
 
     struct EffectContext {
         bool is_in_setup;  // True when we are currently inside before(), effect() or after() during effect setup
-        std::shared_ptr<ReactiveEffect> effect;
+        std::weak_ptr<ReactiveEffect> effect;
     };
 
     std::optional<EffectContext> current_effect_context = std::nullopt;  // Contains the currently running effect context or nullptr, if no effect is running
@@ -183,7 +183,7 @@ namespace core::reactivity {
 
                 modloader::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
                     .is_in_setup = false,
-                    .effect = effect,
+                    .effect = effect_ptr,
                 }));
 
                 if (effect->before_function != nullptr) {
@@ -246,7 +246,7 @@ namespace core::reactivity {
             return;
         }
 
-        const auto effects = effects_it->second;
+        const auto& effects = effects_it->second;
         run_effects(effects);
     }
 
@@ -259,7 +259,9 @@ namespace core::reactivity {
             throw std::exception("Cannot call run_after_effects outside an active effect context");
         }
 
-        current_effect_context->effect->after_effect_fns.push_back(fn);
+        if (!current_effect_context->effect.expired()) {
+            current_effect_context->effect.lock()->after_effect_fns.push_back(fn);
+        }
     }
 
     /**

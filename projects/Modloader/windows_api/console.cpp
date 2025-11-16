@@ -17,6 +17,8 @@
 
 namespace modloader::win::console {
     namespace {
+        constexpr int MAX_MESSAGES_QUEUED_TO_OUTPUT = 1024 * 16;
+
         std::string read_command() {
             std::string command;
             std::getline(std::cin, command);
@@ -39,7 +41,7 @@ namespace modloader::win::console {
         bool failed = false;
         FILE* console_file;
         std::future<std::string> console_input;
-        std::vector<std::string> messages;
+        std::vector<std::string> messages_queued_to_output;
         std::mutex message_mutex;
 
         std::regex integer_regex("^[+-]?[0-9]+$");
@@ -337,22 +339,25 @@ namespace modloader::win::console {
         console_flush();
     }
 
-    void console_send(std::string str) {
-        message_mutex.lock();
-        messages.push_back(std::move(str));
-        message_mutex.unlock();
+    void console_send(const std::string& str) {
+        std::lock_guard _(message_mutex);
+        if (messages_queued_to_output.size() > MAX_MESSAGES_QUEUED_TO_OUTPUT) {
+            return;
+        }
+
+        messages_queued_to_output.emplace_back(str);
     }
 
     void console_flush() {
         if (failed) {
             // If we did not create a console window clear the message queue.
             message_mutex.lock();
-            messages.clear();
+            messages_queued_to_output.clear();
             message_mutex.unlock();
         } else {
             message_mutex.lock();
-            auto messages_copy = messages;
-            messages.clear();
+            auto messages_copy = messages_queued_to_output;
+            messages_queued_to_output.clear();
             message_mutex.unlock();
 
             for (auto const& message: messages_copy) {

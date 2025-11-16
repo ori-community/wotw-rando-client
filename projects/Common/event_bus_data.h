@@ -86,7 +86,7 @@ namespace common {
             if (!m_data.contains(id)) {
                 auto event_bus = std::make_shared<event_bus_data>();
                 event_bus->self = event_bus;
-                m_data.emplace(id, event_bus);
+                m_data.emplace(id, std::move(event_bus));
             }
 
             auto event_bus = m_data[id];
