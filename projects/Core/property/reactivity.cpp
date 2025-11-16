@@ -14,7 +14,6 @@
 
 namespace core::reactivity {
     struct TrackingContext {
-        ReactiveEffect& effect;
         std::unordered_set<dependency_t> dependencies;
     };
 
@@ -52,8 +51,8 @@ namespace core::reactivity {
     /**
      * \brief Start a new tracking context which tracks dependencies until `pop_tracking_context` is called.
      */
-    void push_tracking_context(const std::shared_ptr<ReactiveEffect>& ref) {
-        dependency_tracker().active_tracking_contexts.emplace_back(*ref);
+    void push_tracking_context() {
+        dependency_tracker().active_tracking_contexts.emplace_back();
     }
 
     /**
@@ -61,8 +60,8 @@ namespace core::reactivity {
      * \param ref The ComputedRef dependencies should get inserted into
      */
     void pop_tracking_context(const std::shared_ptr<ReactiveEffect>& ref) {
-        for (const auto& [_, dependencies]: dependency_tracker().active_tracking_contexts) {
-            for (const auto& dependency: dependencies) {
+        for (const auto& context: dependency_tracker().active_tracking_contexts) {
+            for (const auto& dependency: context.dependencies) {
                 dependency_tracker().effects_by_dependency[dependency].emplace(std::weak_ptr(ref));
                 ref->dependencies.insert(dependency);
             }
@@ -95,7 +94,7 @@ namespace core::reactivity {
         m_effect->effect_function = func;
         m_effect->effect_register_location = location;
 
-        push_tracking_context(m_effect);
+        push_tracking_context();
         try {
             func();
         } catch (...) {
@@ -191,7 +190,7 @@ namespace core::reactivity {
                     effect->before_function();
                 }
 
-                push_tracking_context(effect);
+                push_tracking_context();
                 try {
                     effect->effect_function();
                 } catch (...) {
