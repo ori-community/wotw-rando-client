@@ -35,7 +35,6 @@ namespace ghosts {
         void extrapolate(float delta);
     };
 
-    app::GhostRecorder* create_recorder();
     bool has_new_frame_data();
     std::vector<std::byte> get_frame_data();
     std::vector<std::byte> serialize_frame(app::GhostFrame* frame);
