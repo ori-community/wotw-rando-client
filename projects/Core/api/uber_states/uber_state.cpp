@@ -332,13 +332,15 @@ namespace core::api::uber_states {
     }
 
     double UberState::inner_get() const {
-        if (type() == UberStateType::Unknown) {
+        const auto state_type = type();
+
+        if (state_type == UberStateType::Unknown) {
             warn("uber_state", std::format("uber state ({}|{}) doesn't exist or is an unknown type", static_cast<int>(m_group), m_state));
             return 0.0;
         }
 
         notify_used(reactivity::UberStateDependency{static_cast<int>(m_group), m_state});
-        switch (type()) {
+        switch (state_type) {
             case UberStateType::VirtualUberState:
                 return get_virtual_value(m_group, m_state);
             case UberStateType::BooleanUberState:
