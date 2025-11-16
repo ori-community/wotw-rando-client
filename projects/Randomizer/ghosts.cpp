@@ -4,6 +4,7 @@
 #include <Core/api/messages/text_style.h>
 #include <Modloader/app/methods/GenericPuppet.h>
 #include <Modloader/app/methods/GhostCharacterAbilitiesPlugin.h>
+#include <Modloader/app/methods/GhostCharacterData.h>
 #include <Modloader/app/methods/GhostCharacterPlugin.h>
 #include <Modloader/app/methods/GhostFrame.h>
 #include <Modloader/app/methods/GhostGenericEventsPlugin.h>
@@ -27,12 +28,15 @@
 #include <Modloader/app/types/BinaryReader.h>
 #include <Modloader/app/types/BinaryWriter.h>
 #include <Modloader/app/types/Byte.h>
+#include <Modloader/app/types/GameObject.h>
+#include <Modloader/app/types/GenericPuppet.h>
 #include <Modloader/app/types/GhostCharacterAbilitiesPlugin.h>
 #include <Modloader/app/types/GhostCharacterPlugin.h>
 #include <Modloader/app/types/GhostFrame.h>
 #include <Modloader/app/types/GhostGenericEventsPlugin.h>
 #include <Modloader/app/types/GhostManager.h>
 #include <Modloader/app/types/GhostPlayer.h>
+#include <Modloader/app/types/GhostRecorder.h>
 #include <Modloader/app/types/GhostRecorderData.h>
 #include <Modloader/app/types/GhostStateMachinePlugin.h>
 #include <Modloader/app/types/MemoryStream.h>
@@ -41,18 +45,15 @@
 #include <Modloader/app/types/OriGhostRigVisuals_GhostVisualSettings.h>
 #include <Modloader/app/types/SkinnedMeshRenderer.h>
 #include <Modloader/il2cpp_helpers.h>
-#include <Randomizer/ghosts/plugins.h>
-#include <Randomizer/constants.h>
 #include <Randomizer/ghosts.h>
+#include <Randomizer/ghosts/plugins.h>
+#include <queue>
 
 #include <Core/utils/misc.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
-#include <Randomizer/macros.h>
 
 #include <Core/utils/byte_stream.h>
-#include <Modloader/windows_api/console.h>
-#include <sstream>
 #include <string>
 #include <utility>
 
@@ -150,10 +151,10 @@ namespace ghosts {
         this->ghost_player->fields.GhostRecorderData = ghost_recorder_data;
 
         // Register plugins
-        auto const character_plugin = types::GhostCharacterPlugin::create();
-        auto const character_abilities_plugin = types::GhostCharacterAbilitiesPlugin::create();
-        auto const state_machine_plugin = types::GhostStateMachinePlugin::create();
-        auto const generic_events_plugin = types::GhostGenericEventsPlugin::create();
+        const auto character_plugin = types::GhostCharacterPlugin::create();
+        const auto character_abilities_plugin = types::GhostCharacterAbilitiesPlugin::create();
+        const auto state_machine_plugin = types::GhostStateMachinePlugin::create();
+        const auto generic_events_plugin = types::GhostGenericEventsPlugin::create();
 
         GhostCharacterPlugin::ctor(character_plugin);
         GhostCharacterAbilitiesPlugin::ctor(character_abilities_plugin);
@@ -357,44 +358,107 @@ namespace ghosts {
         // Noop because it's not used in vanilla and breaks weapons
     }
 
-    app::GhostRecorder* create_recorder() {
-        auto const ghost_recorder = GhostManager::GetOrCreateRecorder();
+    bool is_creating_rando_ghost_recorder_component = false;
+    app::GhostRecorder* ghost_recorder = nullptr;
+    app::GhostGenericEventsPlugin* ghost_generic_events_plugin = nullptr;
+    bool also_record_to_rando_ghost_generic_events_plugin = false;
+    std::vector<std::byte> last_frame_data;
+    bool last_frame_data_new = false;
 
-        auto const character_plugin = types::GhostCharacterPlugin::create();
-        auto const character_abilities_plugin = types::GhostCharacterAbilitiesPlugin::create();
-        auto const state_machine_plugin = types::GhostStateMachinePlugin::create();
-        auto const generic_events_plugin = types::GhostGenericEventsPlugin::create();
+    void create_recorder() {
+        const auto ghost_recorder_go = types::GameObject::create();
+        UnityEngine::GameObject::ctor_1(ghost_recorder_go, il2cpp::string_new("ghostRecorder"));
+
+        is_creating_rando_ghost_recorder_component = true;
+        ghost_recorder = il2cpp::unity::add_component<app::GhostRecorder>(ghost_recorder_go, types::GhostRecorder::get_class());
+        ghost_recorder->klass->static_fields->Instance = ghost_recorder;
+        is_creating_rando_ghost_recorder_component = false;
+        core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, ghost_recorder_go);
+
+        const auto path = il2cpp::unity::get_path(ghost_recorder);
+
+        const auto character_plugin = types::GhostCharacterPlugin::create();
+        const auto character_abilities_plugin = types::GhostCharacterAbilitiesPlugin::create();
+        const auto state_machine_plugin = types::GhostStateMachinePlugin::create();
+        ghost_generic_events_plugin = types::GhostGenericEventsPlugin::create();
 
         GhostCharacterPlugin::ctor(character_plugin);
         GhostCharacterAbilitiesPlugin::ctor(character_abilities_plugin);
         GhostStateMachinePlugin::ctor(state_machine_plugin);
-        GhostGenericEventsPlugin::ctor(generic_events_plugin);
+        GhostGenericEventsPlugin::ctor(ghost_generic_events_plugin);
 
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(character_plugin));
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(character_abilities_plugin));
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(state_machine_plugin));
-        GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(generic_events_plugin));
+        GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(ghost_generic_events_plugin));
 
         GhostRecorder::InitializeRecorder(ghost_recorder, il2cpp::string_new("C:\\ghost"));
         GhostRecorder::StartRecorder(ghost_recorder);
-        GhostRecorder::set_Mask(ghost_recorder, app::SuspendableMask__Enum::None);
 
         MemoryStream::SetLength(ghost_recorder->klass->static_fields->m_stream, 0);
+
         il2cpp::gchandle_new(ghost_recorder, true);
+        il2cpp::gchandle_new(ghost_generic_events_plugin, true);
+    }
+
+    IL2CPP_INTERCEPT(app::GhostRecorder*, GhostManager, GetOrCreateRecorder) {
+        if (ghost_recorder == nullptr) {
+            create_recorder();
+        }
 
         return ghost_recorder;
     }
 
-    app::GhostRecorder* ghost_recorder = nullptr;
-    std::vector<std::byte> last_frame_data;
-    bool last_frame_data_new = false;
-
-    IL2CPP_INTERCEPT(void, GhostRecorder, set_IsSuspended, app::GhostRecorder * this_ptr, bool suspended) {
-        if (this_ptr == ghost_recorder) {
+    IL2CPP_INTERCEPT(void, GhostRecorder, Awake, app::GhostRecorder* this_ptr) {
+        if (is_creating_rando_ghost_recorder_component || this_ptr == ghost_recorder) {
             return;
         }
 
-        next::GhostRecorder::set_IsSuspended(this_ptr, suspended);
+        next::GhostRecorder::Awake(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(void, GhostCharacterData, Record, app::BinaryWriter* binary_writer, app::GhostCharacterData* previous) {
+        if (ghost_recorder != nullptr && ghost_recorder->fields.m_binaryWriter == binary_writer) {
+            if (core::api::game::game_controller()->fields._IsSuspended_k__BackingField) {
+                // Simulate 0 speed when game is paused
+                modloader::ScopedSetter _(core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed, {0, 0, 0});
+
+                // Force update position
+                previous->fields.Position = {0, 0, 0};
+
+                next::GhostCharacterData::Record(binary_writer, previous);
+                return;
+            }
+        }
+
+        next::GhostCharacterData::Record(binary_writer, previous);
+    }
+
+    IL2CPP_INTERCEPT(void, GhostRecorder, FixedUpdate, app::GhostRecorder * this_ptr) {
+        if (this_ptr == ghost_recorder) {
+            this_ptr->fields._IsSuspended_k__BackingField = false;
+
+            std::queue<app::GhostGenericEventsPlugin*> previous_ghost_generic_events_plugins;
+
+            auto puppets = types::GenericPuppet::create_array(this_ptr->klass->static_fields->s_puppets->fields._count);
+            il2cpp::invoke(this_ptr->klass->static_fields->s_puppets, "CopyTo", puppets);
+
+            for (auto& puppet: il2cpp::ArrayIterator(puppets)) {
+                previous_ghost_generic_events_plugins.push(puppet->fields.m_ghostGenericEventsPlugin);
+                puppet->fields.m_ghostGenericEventsPlugin = ghost_generic_events_plugin;
+            }
+
+            next::GhostRecorder::FixedUpdate(this_ptr);
+
+            for (auto& puppet: il2cpp::ArrayIterator(puppets)) {
+                puppet->fields.m_ghostGenericEventsPlugin = previous_ghost_generic_events_plugins.front();
+                previous_ghost_generic_events_plugins.pop();
+            }
+
+            return;
+        }
+
+        next::GhostRecorder::FixedUpdate(this_ptr);
     }
 
     IL2CPP_INTERCEPT(void, GhostRecorder, FinalizeFrame, app::GhostRecorder * this_ptr) {
@@ -488,7 +552,6 @@ namespace ghosts {
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-        ghost_recorder = ghosts::create_recorder();
-        ghost_recorder->fields._IsSuspended_k__BackingField = false;
+        GhostManager::GetOrCreateRecorder();
     });
 } // namespace ghosts
