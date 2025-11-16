@@ -51,6 +51,7 @@
 #include <Randomizer/macros.h>
 
 #include <Core/utils/byte_stream.h>
+#include <Modloader/windows_api/console.h>
 #include <sstream>
 #include <string>
 #include <utility>
@@ -376,6 +377,7 @@ namespace ghosts {
 
         GhostRecorder::InitializeRecorder(ghost_recorder, il2cpp::string_new("C:\\ghost"));
         GhostRecorder::StartRecorder(ghost_recorder);
+        GhostRecorder::set_Mask(ghost_recorder, app::SuspendableMask__Enum::None);
 
         MemoryStream::SetLength(ghost_recorder->klass->static_fields->m_stream, 0);
         il2cpp::gchandle_new(ghost_recorder, true);
@@ -386,6 +388,14 @@ namespace ghosts {
     app::GhostRecorder* ghost_recorder = nullptr;
     std::vector<std::byte> last_frame_data;
     bool last_frame_data_new = false;
+
+    IL2CPP_INTERCEPT(void, GhostRecorder, set_IsSuspended, app::GhostRecorder * this_ptr, bool suspended) {
+        if (this_ptr == ghost_recorder) {
+            return;
+        }
+
+        next::GhostRecorder::set_IsSuspended(this_ptr, suspended);
+    }
 
     IL2CPP_INTERCEPT(void, GhostRecorder, FinalizeFrame, app::GhostRecorder * this_ptr) {
         next::GhostRecorder::FinalizeFrame(this_ptr);
@@ -479,19 +489,6 @@ namespace ghosts {
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         ghost_recorder = ghosts::create_recorder();
+        ghost_recorder->fields._IsSuspended_k__BackingField = false;
     });
 } // namespace ghosts
-
-RANDOMIZER_C_DLLEXPORT char* get_current_ghost_frame_data(int& size) {
-    if (!ghosts::has_new_frame_data()) {
-        size = 0;
-        return nullptr;
-    }
-
-    ghosts::last_frame_data_new = false;
-    size = ghosts::last_frame_data.size();
-
-    // modloader::win::console::console_send(std::format("B {} bytes", size));
-
-    return reinterpret_cast<char*>(ghosts::last_frame_data.data());
-}
