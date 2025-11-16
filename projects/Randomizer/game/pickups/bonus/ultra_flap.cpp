@@ -16,16 +16,16 @@ namespace {
     core::api::uber_states::UberState flap_damage_state(UberStateGroup::RandoUpgrade, 96);
     auto is_performing_wind_knockback = false;
     auto is_spawning_wind_fx = false;
-    auto damage_amount_cache = 0.f;
+    auto flap_damage_amount_cache = 0.f;
 
     IL2CPP_INTERCEPT_WITH_ORDER(0, void, Damage, ctor, app::Damage* this_ptr, float amount, app::Vector2 force, app::Vector3 position, app::DamageType__Enum type, app::AbilityType__Enum ability_type, app::GameObject* sender, int32_t damage_i_d, app::DamageOwner* owner, app::SpiritShardType__Enum shard_type, bool ignore_kickback, app::DamageWeight__Enum weight, float speed_transfer, bool bypass_players_invincibility) {
-        if (damage_amount_cache != 0.f) {
+        if (flap_damage_amount_cache != 0.f) {
             amount = flap_damage_state.get<float>();
         }
 
         next::Damage::ctor(this_ptr, amount, force, position, type, ability_type, sender, damage_i_d, owner, shard_type, ignore_kickback, weight, speed_transfer, bypass_players_invincibility);
 
-        if (damage_amount_cache != 0.f) {
+        if (flap_damage_amount_cache != 0.f) {
             this_ptr->fields.TickRate = 8.f;
             this_ptr->fields.m_stunDuration = 2.f;
             this_ptr->fields.NumberOfTicks = 3;
@@ -95,7 +95,7 @@ namespace {
                 {"windSequence", "graphicBox", "wind", "sharedBlowingSnow"},
             };
 
-            if (damage_amount_cache != 0.f) {
+            if (flap_damage_amount_cache != 0.f) {
                 apply_shader_info(instance, extreme_emission_paths, shader_info_extreme);
                 apply_shader_info(instance, high_emission_paths, shader_info_high);
             } else {
@@ -108,8 +108,8 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, SeinFeatherFlap, SpawnWindFX, app::SeinFeatherFlap* this_ptr) {
-        modloader::ScopedSetter _(is_spawning_wind_fx, true);
-        damage_amount_cache = flap_damage_state.get<float>();
+        modloader::ScopedSetter _1(is_spawning_wind_fx, true);
+        modloader::ScopedSetter _2(flap_damage_amount_cache, flap_damage_state.get<float>());
         next::SeinFeatherFlap::SpawnWindFX(this_ptr);
     }
 
