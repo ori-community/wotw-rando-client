@@ -320,7 +320,7 @@ namespace randomizer::league {
                 core::events::schedule_task(2.f, [] {
                     AkSoundEngine::StopAll_3();
                     core::api::faderb::fade_out(1.f);
-                    core::api::audio::play_sound(SoundEventID::LeagueSubmitted);
+                    core::api::audio::play_event(SoundEventID::LeagueSubmitted);
 
                     const auto save_controller = core::api::game::save_controller();
                     start_submission_thread(SaveGameController::get_CurrentSlotIndex(save_controller));

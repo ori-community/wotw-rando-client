@@ -13,8 +13,8 @@
 #include <string_view>
 
 namespace core::api::audio {
-    CORE_DLLEXPORT app::WwiseEventSystem_SoundHandle play_sound(SoundEventID event_id, app::ISoundHost* host = nullptr);
-    CORE_DLLEXPORT void play_sound_at(SoundEventID event_id, app::Vector3 location);
+    CORE_DLLEXPORT app::WwiseEventSystem_SoundHandle play_event(SoundEventID event_id, app::ISoundHost* host = nullptr);
+    CORE_DLLEXPORT void play_event_at(SoundEventID event_id, app::Vector3 location);
     CORE_DLLEXPORT void set_state(SoundStateGroupID group_id, SoundStateID state_id);
 
     class CORE_DLLEXPORT SoundActor {

@@ -21,7 +21,7 @@ namespace {
                 }
 
                 using namespace std::chrono_literals;
-                core::api::audio::play_sound(SoundEventID::KnockKnockWellspring);
+                core::api::audio::play_event(SoundEventID::KnockKnockWellspring);
 
                 core::events::schedule_task_for_next_update([] {
                     std::this_thread::sleep_for(2100ms);

@@ -52,7 +52,7 @@ namespace core::api::audio {
         });
     } // namespace
 
-    app::WwiseEventSystem_SoundHandle play_sound(SoundEventID event_id, app::ISoundHost* host) {
+    app::WwiseEventSystem_SoundHandle play_event(SoundEventID event_id, app::ISoundHost* host) {
         auto wwise = types::Wwise::get_class();
         auto wes = wwise->static_fields->m_eventsSystem;
         if (host == nullptr) {
@@ -66,7 +66,7 @@ namespace core::api::audio {
         return handle;
     }
 
-    void play_sound_at(SoundEventID event_id, app::Vector3 location) {
+    void play_event_at(SoundEventID event_id, app::Vector3 location) {
         auto wwise = types::Wwise::get_class();
         auto go_system = wwise->static_fields->m_gameObjectSystem;
 

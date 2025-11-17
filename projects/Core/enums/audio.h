@@ -2,6 +2,9 @@
 #include <nlohmann/json.hpp>
 
 enum class SoundEventID : uint32_t {
+    // Game
+    silence_lumaPools = 1094311291,
+
     // Randomizer
     LeagueSubmitted = 2697705149,
     KnockKnockWellspring = 965810158,
