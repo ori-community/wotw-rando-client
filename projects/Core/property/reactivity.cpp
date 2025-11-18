@@ -2,6 +2,7 @@
 #include <set>
 #include <unordered_set>
 #include <stack>
+#include <algorithm>
 
 #include <Core/id_registry.h>
 #include <Core/property.h>
@@ -21,8 +22,8 @@ namespace core::reactivity {
         unsigned int next_property_id = 0;
         std::vector<TrackingContext> active_tracking_contexts;
         std::multiset<size_t> reactivity_blockers;
-        std::unordered_map<dependency_t, std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare>> effects_by_dependency;
-        std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare> trigger_on_load_effects;
+        std::unordered_map<dependency_t, std::unordered_map<ReactiveEffect::id_t, std::weak_ptr<ReactiveEffect>>> effects_by_dependency;
+        std::unordered_map<ReactiveEffect::id_t, std::weak_ptr<ReactiveEffect>> trigger_on_load_effects;
     };
 
     struct EffectContext {
@@ -32,10 +33,15 @@ namespace core::reactivity {
 
     std::optional<EffectContext> current_effect_context = std::nullopt;  // Contains the currently running effect context or nullptr, if no effect is running
     bool is_running_trigger_on_load_effects = false;
+    ReactiveEffect::id_t next_reactive_effect_id = 0;
 
     auto& dependency_tracker() {
         static DependencyTracker tracker;
         return tracker;
+    }
+
+    ReactiveEffect::ReactiveEffect() {
+        id = ++next_reactive_effect_id;
     }
 
     ScopedReactivityBlocker::ScopedReactivityBlocker()
@@ -60,11 +66,33 @@ namespace core::reactivity {
      * \param ref The ComputedRef dependencies should get inserted into
      */
     void pop_tracking_context(const std::shared_ptr<ReactiveEffect>& ref) {
-        for (const auto& context: dependency_tracker().active_tracking_contexts) {
-            for (const auto& dependency: context.dependencies) {
-                dependency_tracker().effects_by_dependency[dependency].emplace(std::weak_ptr(ref));
-                ref->dependencies.insert(dependency);
+        auto& current_context_dependencies = dependency_tracker().active_tracking_contexts.back();
+
+        auto& previous_dependencies = ref->dependencies;
+        auto& current_dependencies = current_context_dependencies.dependencies;
+
+        std::vector<dependency_t> dependencies_that_no_longer_exist;
+        std::vector<dependency_t> new_dependencies;
+
+        for (auto& previous_dependency: previous_dependencies) {
+            if (!current_dependencies.contains(previous_dependency)) {
+                dependencies_that_no_longer_exist.push_back(previous_dependency);
             }
+        }
+        for (auto& current_dependency : current_dependencies) {
+            if (!previous_dependencies.contains(current_dependency)) {
+                new_dependencies.push_back(current_dependency);
+            }
+        }
+
+        for (auto& previous_dependency: dependencies_that_no_longer_exist) {
+            dependency_tracker().effects_by_dependency[previous_dependency].erase(ref->id);
+            ref->dependencies.erase(previous_dependency);
+        }
+
+        for (const auto& new_dependency: new_dependencies) {
+            dependency_tracker().effects_by_dependency[new_dependency].emplace(ref->id, std::weak_ptr(ref));
+            ref->dependencies.insert(new_dependency);
         }
 
         dependency_tracker().active_tracking_contexts.pop_back();
@@ -153,7 +181,7 @@ namespace core::reactivity {
      */
     void builder::HasEffect::finalize_effect() const {
         if (m_effect->trigger_on_load) {
-            dependency_tracker().trigger_on_load_effects.emplace(std::weak_ptr(m_effect));
+            dependency_tracker().trigger_on_load_effects.emplace(m_effect->id, std::weak_ptr(m_effect));
         }
 
         m_effect->run_and_flush_after_effect_fns();
@@ -172,7 +200,7 @@ namespace core::reactivity {
         dependency_tracker().active_tracking_contexts.back().dependencies.emplace(dependency);
     }
 
-    void run_effects(const std::set<std::weak_ptr<ReactiveEffect>, WeakPtrCompare>& effects) {
+    void run_effects(const std::ranges::input_range auto&& effects) {
         std::vector<std::shared_ptr<ReactiveEffect>> processed_effects;
         processed_effects.reserve(effects.size());
 
@@ -218,7 +246,7 @@ namespace core::reactivity {
 
     void run_trigger_on_load_effects() {
         modloader::ScopedSetter _(is_running_trigger_on_load_effects, true);
-        run_effects(dependency_tracker().trigger_on_load_effects);
+        run_effects(dependency_tracker().trigger_on_load_effects | std::ranges::views::values);
     }
 
     bool is_effect_running_because_of_trigger_on_load() {
@@ -246,8 +274,7 @@ namespace core::reactivity {
             return;
         }
 
-        const auto& effects = effects_it->second;
-        run_effects(effects);
+        run_effects(effects_it->second | std::ranges::views::values);
     }
 
     unsigned int reserve_property_id() {
@@ -274,7 +301,7 @@ namespace core::reactivity {
             auto effects_it = effect_collection_it->second.begin();
 
             while (effects_it != effect_collection_it->second.end()) {
-                if (effects_it->expired()) {
+                if (effects_it->second.expired()) {
                     effects_it = effect_collection_it->second.erase(effects_it);
                 } else {
                     ++effects_it;
@@ -291,7 +318,7 @@ namespace core::reactivity {
         auto trigger_on_load_effects_it = dependency_tracker().trigger_on_load_effects.begin();
 
         while (trigger_on_load_effects_it != dependency_tracker().trigger_on_load_effects.end()) {
-            if (trigger_on_load_effects_it->expired()) {
+            if (trigger_on_load_effects_it->second.expired()) {
                 trigger_on_load_effects_it = dependency_tracker().trigger_on_load_effects.erase(trigger_on_load_effects_it);
             } else {
                 ++trigger_on_load_effects_it;

@@ -95,6 +95,9 @@ struct std::hash<core::reactivity::PropertyDependency> {
 
 namespace core::reactivity {
     struct ReactiveEffect {
+        using id_t = size_t;
+
+        id_t id;
         std::source_location effect_register_location;
         std::unordered_set<dependency_t> dependencies;
         std::function<void()> before_function = nullptr;
@@ -102,6 +105,8 @@ namespace core::reactivity {
         std::function<void()> after_function = nullptr;
         std::vector<std::function<void()>> after_effect_fns;
         bool trigger_on_load = false;
+
+        ReactiveEffect();
 
         void run_and_flush_after_effect_fns() {
             // We make a copy here and clear the queue immediately, because after_effect_fns can
