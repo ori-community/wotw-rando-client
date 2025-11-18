@@ -152,7 +152,7 @@ namespace randomizer::game::shops::twillen {
         IL2CPP_INTERCEPT(void, SpiritShardUIShardDetails, UpdateDetails, app::SpiritShardUIShardDetails* this_ptr) {
             auto* const item = overwrite_shard ? selected_shard : this_ptr->fields.m_item;
             auto type = item->fields.m_type;
-            auto& slot = get_slot(this_ptr->fields.m_item->fields.m_type);
+            auto slot = overwrite_shard ? std::make_optional(get_slot(this_ptr->fields.m_item->fields.m_type)) : std::nullopt;
             auto* const settings = types::SpiritShardSettings::get_class()->static_fields->Instance;
             auto* const description = il2cpp::invoke<app::SpiritShardDescription>(settings->fields.Descriptions, "GetValue", &type);
             if ((!item->fields.m_gained && this_ptr->fields.RequireOwned) || locked_shard_overwrite) {
@@ -161,7 +161,7 @@ namespace randomizer::game::shops::twillen {
 
             auto* const renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
             if (overwrite_shard) {
-                const auto icon = slot.icon();
+                const auto& icon = slot->icon();
                 if (icon == nullptr) {
                     core::api::graphics::textures::apply_default(renderer);
                 } else {
@@ -187,8 +187,8 @@ namespace randomizer::game::shops::twillen {
             auto* const description_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
 
             if (overwrite_shard) {
-                name_box->fields.MessageProvider = slot.name.get_provider();
-                description_box->fields.MessageProvider = slot.description.get_provider();
+                name_box->fields.MessageProvider = slot->name.get_provider();
+                description_box->fields.MessageProvider = slot->description.get_provider();
             } else if (type == app::SpiritShardType__Enum::None) {
                 name_box->fields.MessageProvider = this_ptr->fields.LockedName;
                 description_box->fields.MessageProvider = this_ptr->fields.LockedDescription;
