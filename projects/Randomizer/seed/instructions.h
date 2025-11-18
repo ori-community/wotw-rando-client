@@ -147,6 +147,36 @@ namespace randomizer::seed {
     void to_json(nlohmann::json& j, const SeedTimer& timer);
     void from_json(const nlohmann::json& j, SeedTimer& timer);
 
+    struct SeedBoxTrigger {
+        struct RuntimeState {
+            bool player_was_inside_box_in_previous_frame = false;
+        };
+
+        float x_min;
+        float x_max;
+        float y_min;
+        float y_max;
+
+        std::optional<std::size_t> on_enter_command_id = std::nullopt;
+        std::optional<std::size_t> on_leave_command_id = std::nullopt;
+
+        RuntimeState runtime_state;
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+            SeedBoxTrigger,
+            x_min,
+            x_max,
+            y_min,
+            y_max,
+            on_enter_command_id,
+            on_leave_command_id
+        );
+
+        bool is_inside(const app::Vector2& point) const {
+            return x_min <= point.x && point.x <= x_max && y_min <= point.y && point.y <= y_max;
+        }
+    };
+
     struct QueuedMessageBox {
         core::messages::QueuedMessageHandle::QueuedMessageState last_state = core::messages::QueuedMessageHandle::QueuedMessageState::Queued;
         message_handle_ptr_t handle;
@@ -209,7 +239,7 @@ namespace randomizer::seed {
         const auto& get_timers() const { return m_timers; }
         const auto& get_map_spoiler_data() const { return m_map_spoiler_data; }
 
-        SeedExecutionEnvironment();
+        SeedExecutionEnvironment(Seed& seed);
         SeedExecutionEnvironment(const SeedExecutionEnvironment& other) = delete;
         SeedExecutionEnvironment(SeedExecutionEnvironment&& other) = delete;
 
@@ -235,6 +265,12 @@ namespace randomizer::seed {
          * Advance timers by the given delta time
          */
         void process_timers(float delta) const;
+
+        /**
+         * Processes box triggers. Should be called after changing Ori's
+         * position (e.g. teleporting), at least once per frame.
+         */
+        void process_box_triggers() const;
 
         /**
          * Clear free message boxes. This should only be used for testing/debug purposes and
@@ -325,18 +361,36 @@ namespace randomizer::seed {
          */
         void set_map_spoiler_data(const std::string& location_id, const ItemSpoilerData& spoiler_data);
 
+        /**
+         * Adds or sets a box trigger
+         */
+        void set_box_trigger(std::size_t id, const SeedBoxTrigger& box_trigger);
+
+        /**
+         * Calls a lambda with a reference to a box trigger to be able to make modifications to it (e.g. changing the box).
+         * Does nothing if a bix trigger with the given ID does not exist.
+         */
+        void modify_box_trigger(std::size_t id, const std::function<void(SeedBoxTrigger&)>& fn);
+
+        /**
+         * Destroys a box trigger.
+         */
+        void destroy_box_trigger(std::size_t id);
+
     private:
         // Serialized properties.
         // These are only serialized on-demand in json_serialize():
         std::unordered_map<std::size_t, SerializedFreeMessageBox> m_serialized_free_message_boxes;
         std::unordered_map<std::size_t, SerializedWarpIcon> m_serialized_warp_icons;
         std::vector<SeedTimer> m_timers;
+        std::unordered_map<std::size_t, SeedBoxTrigger> m_box_triggers;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(
             SeedExecutionEnvironment,
             m_serialized_free_message_boxes,
             m_serialized_warp_icons,
-            m_timers
+            m_timers,
+            m_box_triggers
         );
 
         // Runtime
@@ -346,6 +400,7 @@ namespace randomizer::seed {
         bool m_prevent_grant = false;
         std::unordered_map<std::string, ItemSpoilerData> m_map_spoiler_data;
         std::vector<common::registration_handle_t> m_event_bus_handles;
+        Seed& m_seed;
 
         /**
          * Restore serialized data (free message boxes, warp icons etc.) to runtime data.

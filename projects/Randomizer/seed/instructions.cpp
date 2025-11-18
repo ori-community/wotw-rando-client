@@ -19,6 +19,10 @@
 #include <Randomizer/seed/instructions/copy_string.h>
 #include <Randomizer/seed/instructions/create_warp_icon.h>
 #include <Randomizer/seed/instructions/debug_log.h>
+#include <Randomizer/seed/instructions/box_trigger.h>
+#include <Randomizer/seed/instructions/box_trigger_destroy.h>
+#include <Randomizer/seed/instructions/box_trigger_enter_callback.h>
+#include <Randomizer/seed/instructions/box_trigger_leave_callback.h>
 #include <Randomizer/seed/instructions/define_timer.h>
 #include <Randomizer/seed/instructions/destroy_warp_icon.h>
 #include <Randomizer/seed/instructions/destroy_wheel_item.h>
@@ -107,6 +111,7 @@ namespace randomizer::seed {
             game_seed().environment().process_queued_message_box_visibility_callbacks();
             game_seed().environment().process_free_message_boxes(core::api::game::delta_time());
             game_seed().environment().process_timers(core::api::game::delta_time());
+            game_seed().environment().process_box_triggers();
         });
 
         using instruction_factories_t = std::unordered_map<std::string, std::function<std::unique_ptr<IInstruction>(const nlohmann::json& j)>>;
@@ -141,6 +146,10 @@ namespace randomizer::seed {
             register_instruction<CopyString>(factories);
             register_instruction<CreateWarpIcon>(factories);
             register_instruction<DebugLog>(factories);
+            register_instruction<BoxTrigger>(factories);
+            register_instruction<BoxTriggerDestroy>(factories);
+            register_instruction<BoxTriggerEnterCallback>(factories);
+            register_instruction<BoxTriggerLeaveCallback>(factories);
             register_instruction<DefineTimer>(factories);
             register_instruction<DestroyWarpIcon>(factories);
             register_instruction<DestroyWheelItem>(factories);
@@ -259,7 +268,7 @@ namespace randomizer::seed {
         }
     }
 
-    SeedExecutionEnvironment::SeedExecutionEnvironment() {
+    SeedExecutionEnvironment::SeedExecutionEnvironment(Seed& seed) : m_seed(seed) {
         m_event_bus_handles.push_back(core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [this](auto, auto) {
             restore_serialized_data_to_runtime();
         }));
@@ -352,6 +361,26 @@ namespace randomizer::seed {
         for (const auto& timer: m_timers) {
             if (!game_controller->fields._IsSuspended_k__BackingField && timer.toggle.get<bool>()) {
                 timer.value.set(timer.value.get<float>() + delta);
+            }
+        }
+    }
+
+    void SeedExecutionEnvironment::process_box_triggers() const {
+        for (auto& box_trigger: m_box_triggers | std::views::values) {
+            const auto player_is_inside = box_trigger.is_inside(modloader::math::to_vec2(core::api::game::player::get_position()));
+
+            if (player_is_inside == box_trigger.runtime_state.player_was_inside_box_in_previous_frame) {
+                continue;
+            }
+
+            if (player_is_inside) {
+                if (box_trigger.on_enter_command_id.has_value()) {
+                    m_seed.execute_command(*box_trigger.on_enter_command_id);
+                }
+            } else {
+                if (box_trigger.on_leave_command_id.has_value()) {
+                    m_seed.execute_command(*box_trigger.on_leave_command_id);
+                }
             }
         }
     }
@@ -457,6 +486,22 @@ namespace randomizer::seed {
 
     void SeedExecutionEnvironment::set_map_spoiler_data(const std::string& location_id, const ItemSpoilerData& spoiler_data) {
         m_map_spoiler_data[location_id] = spoiler_data;
+    }
+
+    void SeedExecutionEnvironment::set_box_trigger(std::size_t id, const SeedBoxTrigger& box_trigger) {
+        m_box_triggers[id] = box_trigger;
+    }
+
+    void SeedExecutionEnvironment::modify_box_trigger(std::size_t id, const std::function<void(SeedBoxTrigger&)>& fn) {
+        if (!m_box_triggers.contains(id)) {
+            return;
+        }
+
+        fn(m_box_triggers[id]);
+    }
+
+    void SeedExecutionEnvironment::destroy_box_trigger(std::size_t id) {
+        m_box_triggers.erase(id);
     }
 
     void SeedExecutionEnvironment::restore_serialized_data_to_runtime() {

@@ -19,6 +19,7 @@ namespace {
     IL2CPP_INTERCEPT_WITH_ORDER(10, void, GameController, CreateCheckpoint, app::GameController * this_ptr, bool do_perform_save, bool respect_restrict_checkpoint_zone) {
         if (is_in_on_faded_to_black) {
             randomizer::uber_states::readonly::player_is_teleporting().set(false);
+            randomizer::game_seed().environment().process_box_triggers();
         }
 
         next::GameController::CreateCheckpoint(this_ptr, do_perform_save, respect_restrict_checkpoint_zone);

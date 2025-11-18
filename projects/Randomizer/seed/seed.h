@@ -161,7 +161,7 @@ namespace randomizer::seed {
         std::shared_ptr<SeedParseOutput> m_parse_output = std::make_shared<SeedParseOutput>();
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
         std::vector<Timer> m_timers;
-        std::shared_ptr<SeedExecutionEnvironment> m_environment = std::make_shared<SeedExecutionEnvironment>();
+        std::shared_ptr<SeedExecutionEnvironment> m_environment = std::make_shared<SeedExecutionEnvironment>(*this);
 
         bool m_is_reading_seed = false;
         bool m_force_grant_outside_game = false;

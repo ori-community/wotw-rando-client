@@ -514,6 +514,7 @@ namespace randomizer {
                     [](const double x) {
                         const auto pos = get_position();
                         set_position(static_cast<float>(x), pos.y);
+                        game_seed().environment().process_box_triggers();
                     },
                     []() -> double { return get_position().x; }
                 )
@@ -532,6 +533,7 @@ namespace randomizer {
                     [](const double y) {
                         const auto pos = get_position();
                         set_position(pos.x, static_cast<float>(y));
+                        game_seed().environment().process_box_triggers();
                     },
                     []() -> double { return get_position().y; }
                 )
