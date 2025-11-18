@@ -19,9 +19,15 @@ INSTRUCTION(SetShopItemPrice)
             return;
         }
 
-        if (slot.value() | vx::is<std::reference_wrapper<game::shops::ShopUIShopSlot>>) {
-            const auto& ui_shop_slot = (slot.value() | vx::as<std::reference_wrapper<game::shops::ShopUIShopSlot>>).get();
-            ui_shop_slot.cost.set(memory.integers.get(0));
+        if (*slot | vx::is<std::reference_wrapper<game::shops::ShopUIShopSlot>>) {
+            const auto& shop_slot = (slot.value() | vx::as<std::reference_wrapper<game::shops::ShopUIShopSlot>>).get();
+            shop_slot.cost.set(memory.integers.get(0));
+            return;
+        }
+
+        if (*slot | vx::is<std::reference_wrapper<game::shops::CostOnlyShopSlot>>) {
+            const auto& shop_slot = (slot.value() | vx::as<std::reference_wrapper<game::shops::CostOnlyShopSlot>>).get();
+            shop_slot.cost.set(memory.integers.get(0));
             return;
         }
 
