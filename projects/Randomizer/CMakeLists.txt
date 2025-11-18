@@ -318,6 +318,7 @@ set(
         "seed/instructions/float_to_string.h"
         "seed/instructions/free_message.h"
         "seed/instructions/free_message_alignment.h"
+        "seed/instructions/free_message_box_width.h"
         "seed/instructions/free_message_hide.h"
         "seed/instructions/free_message_horizontal_anchor.h"
         "seed/instructions/free_message_position.h"
