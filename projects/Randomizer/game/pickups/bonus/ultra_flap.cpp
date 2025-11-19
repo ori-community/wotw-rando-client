@@ -95,7 +95,7 @@ namespace {
                 {"windSequence", "graphicBox", "wind", "sharedBlowingSnow"},
             };
 
-            if (flap_damage_amount_cache != 0.f) {
+            if (flap_damage_state.get<float>() != 0.f) {
                 apply_shader_info(instance, extreme_emission_paths, shader_info_extreme);
                 apply_shader_info(instance, high_emission_paths, shader_info_high);
             } else {
