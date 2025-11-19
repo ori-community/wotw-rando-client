@@ -35,6 +35,6 @@ INSTRUCTION(SetShopItemIcon)
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
-        return std::make_unique<SetShopItemIcon>(j.at(0).at("group").get<int>(), j.at(0).at("member").get<int>(), get_texture_identifier_from_json(j.at(1)));
+        return std::make_unique<SetShopItemIcon>(j.at(0).at(0).get<int>(), j.at(0).at(1).get<int>(), get_texture_identifier_from_json(j.at(1)));
     }
 };

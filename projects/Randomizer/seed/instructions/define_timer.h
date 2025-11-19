@@ -19,8 +19,8 @@ INSTRUCTION(DefineTimer)
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
-        core::api::uber_states::UberState toggle(j.at(0).at("group").get<int>(), j.at(0).at("member").get<int>());
-        core::api::uber_states::UberState value(j.at(1).at("group").get<int>(), j.at(1).at("member").get<int>());
+        core::api::uber_states::UberState toggle(j.at(0).at(0).get<int>(), j.at(0).at(1).get<int>());
+        core::api::uber_states::UberState value(j.at(1).at(0).get<int>(), j.at(1).at(1).get<int>());
         return std::make_unique<DefineTimer>(toggle, value);
     }
 };

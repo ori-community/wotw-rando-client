@@ -80,7 +80,7 @@ namespace randomizer::seed {
                     current_item = "Binding";
                     auto& condition = output->data.conditions.emplace_back();
                     const auto& binding = trigger.at("Binding");
-                    const auto state = core::api::uber_states::UberState(binding.at("group").get<int>(), binding.at("member").get<int>());
+                    const auto state = core::api::uber_states::UberState(binding.at(0).get<int>(), binding.at(1).get<int>());
                     condition.condition = state;
                     condition.command_id = event.at(1).get<int>();
 

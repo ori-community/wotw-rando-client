@@ -4,6 +4,6 @@
 
 INSTRUCTION_DERIVE(FetchFloat, Fetch, float)
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
-        return std::make_unique<FetchFloat>(j.at("group").get<int>(), j.at("member").get<int>());
+        return std::make_unique<FetchFloat>(j.at(0).get<int>(), j.at(1).get<int>());
     }
 };
