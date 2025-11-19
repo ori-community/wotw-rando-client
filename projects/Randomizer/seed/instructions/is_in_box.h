@@ -3,7 +3,7 @@
 #include <Randomizer/seed/instruction_utils.h>
 #include <Randomizer/seed/seed.h>
 
-INSTRUCTION(IsInHitbox)
+INSTRUCTION(IsInBox)
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         const app::Rect box{
             memory.floats.get(0),
@@ -16,10 +16,10 @@ INSTRUCTION(IsInHitbox)
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-        return std::format("IsInHitbox -> {}, {}, {}, {}", memory.floats.get(0), memory.floats.get(1), memory.floats.get(2), memory.floats.get(3));
+        return std::format("IsInBox -> {}, {}, {}, {}", memory.floats.get(0), memory.floats.get(1), memory.floats.get(2), memory.floats.get(3));
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
-        return std::make_unique<IsInHitbox>();
+        return std::make_unique<IsInBox>();
     }
 };

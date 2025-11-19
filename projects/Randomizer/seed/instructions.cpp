@@ -47,7 +47,7 @@
 #include <Randomizer/seed/instructions/free_message_vertical_anchor.h>
 #include <Randomizer/seed/instructions/integer_to_float.h>
 #include <Randomizer/seed/instructions/integer_to_string.h>
-#include <Randomizer/seed/instructions/is_in_hitbox.h>
+#include <Randomizer/seed/instructions/is_in_box.h>
 #include <Randomizer/seed/instructions/logic_operation.h>
 #include <Randomizer/seed/instructions/message_background.h>
 #include <Randomizer/seed/instructions/message_destroy.h>
@@ -174,7 +174,7 @@ namespace randomizer::seed {
             register_instruction<FreeMessageVerticalAnchor>(factories);
             register_instruction<IntegerToFloat>(factories);
             register_instruction<IntegerToString>(factories);
-            register_instruction<IsInHitbox>(factories);
+            register_instruction<IsInBox>(factories);
             register_instruction<LogicOperation>(factories);
             register_instruction<MessageBackground>(factories);
             register_instruction<MessageDestroy>(factories);

@@ -331,7 +331,7 @@ set(
         "seed/instructions/free_message_vertical_anchor.h"
         "seed/instructions/integer_to_float.h"
         "seed/instructions/integer_to_string.h"
-        "seed/instructions/is_in_hitbox.h"
+        "seed/instructions/is_in_box.h"
         "seed/instructions/logic_operation.h"
         "seed/instructions/message_background.h"
         "seed/instructions/message_destroy.h"
