@@ -3,39 +3,37 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(BoxTrigger)
-    explicit BoxTrigger(std::size_t id, float x_min, float x_max, float y_min, float y_max) :
-                id(id),
-                x_min(x_min),
-                x_max(x_max),
-                y_min(y_min),
-                y_max(y_max) {}
+    explicit BoxTrigger(std::size_t id) :
+            id(id) {}
 
     std::size_t id;
-    float x_min;
-    float x_max;
-    float y_min;
-    float y_max;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+        const auto x_1 = memory.floats.get(0);
+        const auto y_1 = memory.floats.get(1);
+        const auto x_2 = memory.floats.get(3);
+        const auto y_2 = memory.floats.get(4);
+
         environment.set_box_trigger(id, {
-            .x_min = x_min,
-            .x_max = x_max,
-            .y_min = y_min,
-            .y_max = y_max,
+            .x_min = x_1 < x_2 ? x_1 : x_2,
+            .y_min = y_1 < y_2 ? y_1 : y_2,
+            .x_max = x_1 > x_2 ? x_1 : x_2,
+            .y_max = y_1 > y_2 ? y_1 : y_2,
         });
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-        return std::format("BoxTrigger -> id = {}, x_min = {}, x_max = {}, y_min = {}, y_max = {}", id, x_min, x_max, y_min, y_max);
+        const auto x_1 = memory.floats.get(0);
+        const auto y_1 = memory.floats.get(1);
+        const auto x_2 = memory.floats.get(3);
+        const auto y_2 = memory.floats.get(4);
+
+        return std::format("BoxTrigger -> id = {}, x_1 = {}, y_1 = {}, x_2 = {}, y_2 = {}", id, x_1, y_1, x_2, y_2);
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
         return std::make_unique<BoxTrigger>(
-            j.at("id").get<std::size_t>(),
-            j.at("x_min").get<float>(),
-            j.at("x_max").get<float>(),
-            j.at("y_min").get<float>(),
-            j.at("y_max").get<float>()
+            j.at(0).get<std::size_t>()
         );
     }
 };

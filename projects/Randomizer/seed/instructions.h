@@ -153,8 +153,8 @@ namespace randomizer::seed {
         };
 
         float x_min;
-        float x_max;
         float y_min;
+        float x_max;
         float y_max;
 
         std::optional<std::size_t> on_enter_command_id = std::nullopt;
@@ -165,8 +165,8 @@ namespace randomizer::seed {
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(
             SeedBoxTrigger,
             x_min,
-            x_max,
             y_min,
+            x_max,
             y_max,
             on_enter_command_id,
             on_leave_command_id
