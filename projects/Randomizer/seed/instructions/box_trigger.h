@@ -33,7 +33,7 @@ INSTRUCTION(BoxTrigger)
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
         return std::make_unique<BoxTrigger>(
-            j.at(0).get<std::size_t>()
+            j.get<std::size_t>()
         );
     }
 };
