@@ -22,8 +22,8 @@ INSTRUCTION(BoxTriggerLeaveCallback)
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
         return std::make_unique<BoxTriggerLeaveCallback>(
-            j.at("id").get<std::size_t>(),
-            j.at("command_id").get<std::optional<std::size_t>>()
+            j.at(0).get<std::size_t>(),
+            j.at(1).get<std::optional<std::size_t>>()
         );
     }
 };
