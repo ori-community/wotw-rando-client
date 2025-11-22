@@ -1,13 +1,9 @@
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/events/action.h>
 #include <Core/events/task.h>
-#include <Randomizer/macros.h>
 
 #include <Modloader/app/methods/ChakramProjectile.h>
 #include <Modloader/app/methods/MoonMath_Angle.h>
-#include <Modloader/app/methods/Sein/World/Events.h>
 #include <Modloader/app/methods/SeinChakramSpell.h>
-#include <Modloader/app/methods/SeinChakramSpell_BalancingData.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
@@ -60,22 +56,25 @@ namespace {
 
         next::ChakramProjectile::ExplodeProjectile(this_ptr);
 
-        if (destroy_spell_after_explosion) {
-            this_ptr->fields.m_seinChakramSpell = nullptr;
-        }
+        // TODO[DoubleShurikenGlitch]
+        // if (destroy_spell_after_explosion) {
+        //     this_ptr->fields.m_seinChakramSpell = nullptr;
+        // }
     }
 
     IL2CPP_INTERCEPT(void, ChakramProjectile, OnDisable, app::ChakramProjectile * this_ptr) {
         next::ChakramProjectile::OnDisable(this_ptr);
 
-        if (projectile_is_exploding) {
-            destroy_spell_after_explosion = true;
-        }
+        // TODO[DoubleShurikenGlitch]
+        // if (projectile_is_exploding) {
+        //     destroy_spell_after_explosion = true;
+        // }
     }
 
-    IL2CPP_INTERCEPT(void, SeinChakramSpell, ChakramCaught, app::SeinChakramSpell * this_ptr) {
-        // noop because Shuriken code is extremely fucked
-    }
+    // TODO[DoubleShurikenGlitch]
+    // IL2CPP_INTERCEPT(void, SeinChakramSpell, ChakramCaught, app::SeinChakramSpell * this_ptr) {
+    //     // noop because Shuriken code is extremely fucked
+    // }
 
     IL2CPP_INTERCEPT(void, SeinChakramSpell, ReleaseProjectileSingle, app::SeinChakramSpell * this_ptr, float angle_offset) {
         auto original_projectile = this_ptr->fields.m_projectile;
