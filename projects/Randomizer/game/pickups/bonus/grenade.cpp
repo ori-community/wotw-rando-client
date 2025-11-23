@@ -13,8 +13,8 @@
 using namespace app::classes;
 
 namespace {
-    const bool SHOULD_EXPLODE_WHEN_GOING_OVER_LIMIT = true;
-    const float MAX_AIM_STRENGTH_TIME = 0.4f; // This is the default time.
+    constexpr bool SHOULD_EXPLODE_WHEN_GOING_OVER_LIMIT = true;
+    constexpr float MAX_AIM_STRENGTH_TIME = 0.4f; // This is the default time.
 
     core::api::uber_states::UberState extra_grenades(UberStateGroup::RandoUpgrade, 40);
     core::api::uber_states::UberState explode_on_collision(UberStateGroup::RandoUpgrade, 41);
