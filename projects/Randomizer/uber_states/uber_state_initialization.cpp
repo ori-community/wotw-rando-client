@@ -302,8 +302,6 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "shurikenBashable", 95, false),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "flapDamage", 96, 0.0),
 
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "overflowPickupUpgrade", 150, false),
-
                 // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onTeleport", 20, false),
                 // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onJump", 30, false),
                 // add_state<app::BooleanUberState>(UberStateGroup::RandoEvents, "onDoubleJump", 31, false),
