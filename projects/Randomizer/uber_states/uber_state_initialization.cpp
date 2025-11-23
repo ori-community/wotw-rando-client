@@ -244,8 +244,8 @@ namespace randomizer {
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "bowRapidFireMultiplier", 10, 1),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "spearSpeedMultiplier", 11, 1),
 
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "healthRegeneration", 30, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "energyRegeneration", 31, 0),
+                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "healthRegenerationPerMinute", 30, 0),
+                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "energyRegenerationPerMinute", 31, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "extraDoubleJumps", 35, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "extraDashes", 36, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "extraSentries", 37, 0),
