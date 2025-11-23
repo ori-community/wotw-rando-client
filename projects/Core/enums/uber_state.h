@@ -26,10 +26,9 @@ enum class UberStateGroup {
     TuleyShop = 20,
     GladesProjects = 21,
     MapSegments = 22,
-    Goals = 23,
+    ItemTracker = 23,
     Skills = 24,
     Shards = 25,
-    UI = 26, // Values that control UI *only* and have no other effect in the randomizer by default. Headers can still work with them.
     Doors = 27,
     KnownDoorConnections = 28,
     Settings = 29,

@@ -382,10 +382,6 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "lines", 1, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "rank", 2, 0),
 
-                add_state<app::SerializedByteUberState>(UberStateGroup::Goals, "totalRelicCount", 500, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::Goals, "currentRelicCount", 501, 0),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::Goals, "currentAreaHasUncollectedRelic", 505, false),
-
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "preventMapReactivateTps", 1, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "allowOpeningEyestoneDoor", 6, true),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "preventPickup", PREVENT_PICKUP_ID, false),
@@ -421,8 +417,12 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "baurSneezeWithBlaze", 420, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "baurSneezeWithFlash", 421, false),
 
-                add_state<app::SerializedIntUberState>(UberStateGroup::UI, "launchFragmentsCount", 1, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::UI, "launchFragmentsRequired", 2, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "launchFragmentsCount", 1, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "launchFragmentsRequired", 2, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::ItemTracker, "totalRelicCount", 500, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::ItemTracker, "currentRelicCount", 501, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::ItemTracker, "currentTreeCount", 502, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::ItemTracker, "currentAreaHasUncollectedRelic", 505, false),
 
                 add_state<app::SerializedByteUberState>(UberStateGroup::LupoShop, "hcMapIcons", 19396, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoShop, "hcMapIconsCost", 19397, 0),
@@ -573,7 +573,7 @@ namespace randomizer {
             register_virtual_state(
                 {
                     .type = ValueType::Byte,
-                    .group = UberStateGroup::Goals,
+                    .group = UberStateGroup::ItemTracker,
                     .state = 502,
                     .name = "currentTreeCount",
                     .readonly = true,
@@ -601,7 +601,7 @@ namespace randomizer {
             register_virtual_state(
                 {
                     .type = ValueType::Byte,
-                    .group = UberStateGroup::Goals,
+                    .group = UberStateGroup::ItemTracker,
                     .state = 503,
                     .name = "currentWispCount",
                     .readonly = true,
@@ -620,7 +620,7 @@ namespace randomizer {
             register_virtual_state(
                 {
                     .type = ValueType::Byte,
-                    .group = UberStateGroup::Goals,
+                    .group = UberStateGroup::ItemTracker,
                     .state = 504,
                     .name = "currentQuestCount",
                     .readonly = true,
