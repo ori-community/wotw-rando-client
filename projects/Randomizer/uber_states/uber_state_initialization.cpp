@@ -404,18 +404,18 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "allowSpawningEnemiesNearby", 103, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "showSmallDoors", 200, false),
 
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "spiritWellPlayCutscene", 300, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "housesAPlayCutscene", 301, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "housesBPlayCutscene", 302, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "housesCPlayCutscene", 303, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeThornsPlayCutscene", 304, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "openCavePlayCutscene", 305, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "beautifyPlayCutscene", 306, false),
-
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoConfig, "forceNoAirDecelerationFlag", FORCE_AIR_NO_DECELERATION_ID, 0),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "baurSneezeWithBlaze", 420, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "baurSneezeWithFlash", 421, false),
+
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "spiritWellPlayCutscene", 500, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "housesAPlayCutscene", 501, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "housesBPlayCutscene", 502, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "housesCPlayCutscene", 503, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeThornsPlayCutscene", 504, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "openCavePlayCutscene", 505, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "beautifyPlayCutscene", 506, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "launchFragmentsCount", 1, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "launchFragmentsRequired", 2, 0),

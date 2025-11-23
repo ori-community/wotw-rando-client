@@ -153,13 +153,13 @@ namespace {
 
     core::api::uber_states::UberState get_cutscene_state(const app::NpcProjectItem* project) {
         switch (const auto project_id = project->fields.UberState->fields._.m_id->fields.m_id) {
-            case 16825: return {UberStateGroup::RandoConfig, 300};
-            case 51230: return {UberStateGroup::RandoConfig, 301};
-            case 23607: return {UberStateGroup::RandoConfig, 302};
-            case 40448: return {UberStateGroup::RandoConfig, 303};
-            case 18751: return {UberStateGroup::RandoConfig, 304};
-            case 16586: return {UberStateGroup::RandoConfig, 305};
-            case 15068: return {UberStateGroup::RandoConfig, 306};
+            case 16825: return {UberStateGroup::RandoConfig, 500};
+            case 51230: return {UberStateGroup::RandoConfig, 501};
+            case 23607: return {UberStateGroup::RandoConfig, 502};
+            case 40448: return {UberStateGroup::RandoConfig, 503};
+            case 18751: return {UberStateGroup::RandoConfig, 504};
+            case 16586: return {UberStateGroup::RandoConfig, 505};
+            case 15068: return {UberStateGroup::RandoConfig, 506};
             default: throw std::runtime_error(std::format("No cutscene state exists for Glades project {}", project_id));
         }
     }
