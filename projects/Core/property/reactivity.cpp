@@ -246,7 +246,10 @@ namespace core::reactivity {
 
     void run_trigger_on_load_effects() {
         modloader::ScopedSetter _(is_running_trigger_on_load_effects, true);
-        run_effects(dependency_tracker().trigger_on_load_effects | std::ranges::views::values);
+
+        if (!dependency_tracker().trigger_on_load_effects.empty()) {
+            run_effects(dependency_tracker().trigger_on_load_effects | std::ranges::views::values);
+        }
     }
 
     bool is_effect_running_because_of_trigger_on_load() {
@@ -274,7 +277,9 @@ namespace core::reactivity {
             return;
         }
 
-        run_effects(effects_it->second | std::ranges::views::values);
+        if (!effects_it->second.empty()) {
+            run_effects(effects_it->second | std::ranges::views::values);
+        }
     }
 
     unsigned int reserve_property_id() {
