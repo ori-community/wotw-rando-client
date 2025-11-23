@@ -256,7 +256,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "bashableUnchargedGrenades", 42, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "chargedAirGrenades", 43, false),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "grenadeChargeDurationMultiplier", 44, 1.0f),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "grenadeMultishot", 45, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "grenadeMultishotCount", 45, 0),
 
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "sentryShots", 46, 3),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "sentryFireRateSpeed", 47, 1.0),
