@@ -210,14 +210,6 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "openCaveCost", 16587, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "beautifyCost", 15069, 0),
 
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "spiritWellPlayCutscene", 16827, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "housesAPlayCutscene", 51232, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "housesBPlayCutscene", 23609, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "housesCPlayCutscene", 40450, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "removeThornsPlayCutscene", 18753, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "openCavePlayCutscene", 16588, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "beautifyPlayCutscene", 15070, false),
-
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "lightcatchersPlanted", 47651, 0),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "selaFlowersPlanted", 16254, 0),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "blueMoonPlanted", 33011, 0),
@@ -411,6 +403,14 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "knockKnockWellspring", 102, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "allowSpawningEnemiesNearby", 103, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "showSmallDoors", 200, false),
+
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "spiritWellPlayCutscene", 300, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "housesAPlayCutscene", 301, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "housesBPlayCutscene", 302, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "housesCPlayCutscene", 303, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeThornsPlayCutscene", 304, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "openCavePlayCutscene", 305, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "beautifyPlayCutscene", 306, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoConfig, "forceNoAirDecelerationFlag", FORCE_AIR_NO_DECELERATION_ID, 0),
 

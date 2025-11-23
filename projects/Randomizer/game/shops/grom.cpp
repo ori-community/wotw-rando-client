@@ -151,9 +151,17 @@ namespace {
         return false;
     }
 
-    core::api::uber_states::UberState get_cutscene_state(app::NpcProjectItem* project) {
-        const auto cutscene_state = 2 + project->fields.UberState->fields._.m_id->fields.m_id;
-        return {UberStateGroup::GromShop, cutscene_state};
+    core::api::uber_states::UberState get_cutscene_state(const app::NpcProjectItem* project) {
+        switch (const auto project_id = project->fields.UberState->fields._.m_id->fields.m_id) {
+            case 16825: return {UberStateGroup::RandoConfig, 300};
+            case 51230: return {UberStateGroup::RandoConfig, 301};
+            case 23607: return {UberStateGroup::RandoConfig, 302};
+            case 40448: return {UberStateGroup::RandoConfig, 303};
+            case 18751: return {UberStateGroup::RandoConfig, 304};
+            case 16586: return {UberStateGroup::RandoConfig, 305};
+            case 15068: return {UberStateGroup::RandoConfig, 306};
+            default: throw std::runtime_error(std::format("No cutscene state exists for Glades project {}", project_id));
+        }
     }
 
     IL2CPP_INTERCEPT(void, BuilderItem, DoPurchase, app::BuilderItem* this_ptr, app::PurchaseContext* context) {
@@ -180,15 +188,21 @@ namespace {
     ) {
         if (!BuilderItem::get_IsVisible(this_ptr)) {
             return show_hint(show_hint_action, sounds, hints->fields.ShardNotDiscovered);
-        } else if (BuilderItem::get_IsLocked(this_ptr)) {
-            return show_hint(show_hint_action, sounds, hints->fields.IsLocked);
-        } else if (BuilderItem::get_IsOwned(this_ptr)) {
-            return show_hint(show_hint_action, sounds, hints->fields.MaxedOut);
-        } else if (BuilderItem::GetCostForLevel(this_ptr, 1) > core::api::game::player::ore().get()) {
-            return show_hint(show_hint_action, sounds, hints->fields.NotEnoughOre);
-        } else {
-            return true;
         }
+
+        if (BuilderItem::get_IsLocked(this_ptr)) {
+            return show_hint(show_hint_action, sounds, hints->fields.IsLocked);
+        }
+
+        if (BuilderItem::get_IsOwned(this_ptr)) {
+            return show_hint(show_hint_action, sounds, hints->fields.MaxedOut);
+        }
+
+        if (BuilderItem::GetCostForLevel(this_ptr, 1) > core::api::game::player::ore().get()) {
+            return show_hint(show_hint_action, sounds, hints->fields.NotEnoughOre);
+        }
+
+        return true;
     }
 
     IL2CPP_INTERCEPT(void, EquipmentUIInventoryGrid, UpdateItemProperties, app::EquipmentUIInventoryGrid* this_ptr, app::Object* context) {
