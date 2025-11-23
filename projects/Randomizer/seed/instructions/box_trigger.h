@@ -11,8 +11,8 @@ INSTRUCTION(BoxTrigger)
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         const auto x_1 = memory.floats.get(0);
         const auto y_1 = memory.floats.get(1);
-        const auto x_2 = memory.floats.get(3);
-        const auto y_2 = memory.floats.get(4);
+        const auto x_2 = memory.floats.get(2);
+        const auto y_2 = memory.floats.get(3);
 
         environment.set_box_trigger(id, {
             .x_min = x_1 < x_2 ? x_1 : x_2,
@@ -25,8 +25,8 @@ INSTRUCTION(BoxTrigger)
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
         const auto x_1 = memory.floats.get(0);
         const auto y_1 = memory.floats.get(1);
-        const auto x_2 = memory.floats.get(3);
-        const auto y_2 = memory.floats.get(4);
+        const auto x_2 = memory.floats.get(2);
+        const auto y_2 = memory.floats.get(3);
 
         return std::format("BoxTrigger -> id = {}, x_1 = {}, y_1 = {}, x_2 = {}, y_2 = {}", id, x_1, y_1, x_2, y_2);
     }
