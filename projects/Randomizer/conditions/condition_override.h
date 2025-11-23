@@ -10,6 +10,7 @@ namespace randomizer {
             SeinAbilityCondition,
             HasAbilityCondition,
             UberStateConditionWrapper,
+            UberStateValueCondition,
             VisibleOnWorldMap,
             PlayerInsideZoneChecker,
         };

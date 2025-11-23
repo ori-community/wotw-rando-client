@@ -37,32 +37,31 @@ namespace {
 
     IL2CPP_INTERCEPT(bool, MoonCustomDoorWithSlots, get_CanPlayerTriggerAutomatically, app::MoonCustomDoorWithSlots * this_ptr) { return false; }
 
-    // TODO: Use condition framework instead.
-    core::api::uber_states::UberState kwolok_door_available(UberStateGroup::RandoConfig, 6);
-    IL2CPP_INTERCEPT(bool, UberStateValueCondition, Validate, app::UberStateValueCondition * this_ptr, app::IContext* context) {
-        auto ref = this_ptr->fields.Descriptor;
-        if (ref != nullptr && il2cpp::invoke<app::Boolean__Boxed>(ref, "get_HasAReference")->fields &&
-            il2cpp::invoke<app::Boolean__Boxed>(ref, "CanResolve", 0)->fields) {
-            auto descriptor = il2cpp::invoke<app::IUberState>(ref, "Resolve", 0);
-            core::api::uber_states::UberState state(descriptor);
-            if (state.group() == static_cast<UberStateGroup>(21786) && (state.state() == 27433 || state.state() == 37225)) {
-                return kwolok_door_available.get<bool>();
-            }
-        }
-
-        return next::UberStateValueCondition::Validate(this_ptr, context);
-    }
+    core::api::uber_states::UberState use_allow_opening_eyestone_door_state(UberStateGroup::RandoConfig, 6);
+    core::api::uber_states::UberState allow_opening_eyestone_door(UberStateGroup::RandoState, 501);
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         randomizer::conditions::register_condition_intercept(
             randomizer::conditions::ConditionType::PlayerInsideZoneChecker,
             "kwoloksHollowEntrance/artSetups/frogHeadSetup/doorWithTwoSlots/doorWithTwoSlots/canUseKeystonesZone",
             [](auto, auto) {
-            const auto position = core::api::game::player::get_position();
+                const auto position = core::api::game::player::get_position();
 
-            return UnityEngine::Rect::Contains_2(types::Rect::box(app::Rect{-358.9f, -4235.f, 16.f, 11.f}), position) ||
-                UnityEngine::Rect::Contains_2(types::Rect::box(app::Rect{-312.8f, -4239.8f, 19.f, 12.f}), position);
-        }
+                return UnityEngine::Rect::Contains_2(types::Rect::box(app::Rect{-358.9f, -4235.f, 16.f, 11.f}), position) ||
+                    UnityEngine::Rect::Contains_2(types::Rect::box(app::Rect{-312.8f, -4239.8f, 19.f, 12.f}), position);
+            }
+        );
+
+        randomizer::conditions::register_condition_intercept(
+            randomizer::conditions::ConditionType::UberStateValueCondition,
+            "kwoloksHollowEntrance/artSetups/frogHeadSetup",
+            [](auto, auto) -> std::optional<bool> {
+                if (!use_allow_opening_eyestone_door_state.get<bool>()) {
+                    return std::nullopt;
+                }
+
+                return allow_opening_eyestone_door.get<bool>();
+            }
         );
     });
 

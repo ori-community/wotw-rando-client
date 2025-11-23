@@ -5,6 +5,7 @@
 #include <Modloader/app/methods/UberStateConditionWrapper.h>
 #include <Modloader/app/methods/VisibleOnWorldMap.h>
 #include <Modloader/app/methods/PlayerInsideZoneChecker.h>
+#include <Modloader/app/methods/UberStateValueCondition.h>
 #include <Modloader/interception_macros.h>
 
 #include <optional>
@@ -37,6 +38,11 @@ namespace randomizer::conditions {
     IL2CPP_INTERCEPT(bool, UberStateConditionWrapper, Validate, app::UberStateConditionWrapper * this_ptr, app::IContext* context) {
         const auto value = intercept(ConditionType::UberStateConditionWrapper, this_ptr);
         return value.has_value() ? value.value() : next::UberStateConditionWrapper::Validate(this_ptr, context);
+    }
+
+    IL2CPP_INTERCEPT(bool, UberStateValueCondition, Validate, app::UberStateValueCondition * this_ptr, app::IContext* context) {
+        const auto value = intercept(ConditionType::UberStateValueCondition, this_ptr);
+        return value.has_value() ? value.value() : next::UberStateValueCondition::Validate(this_ptr, context);
     }
 
     IL2CPP_INTERCEPT(bool, PlayerInsideZoneChecker, Validate, app::PlayerInsideZoneChecker * this_ptr, app::IContext* context) {

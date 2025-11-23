@@ -368,6 +368,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "rainLiftedInMarsh", 401, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "regenTreeDrained", 402, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "canOpenMokiFatherHut", 500, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "allowOpeningEyestoneDoor", 501, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "cleanWater", 2000, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "squares", 0, 0),
@@ -375,7 +376,7 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "rank", 2, 0),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "preventMapReactivateTps", 1, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "allowOpeningEyestoneDoor", 6, true),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useAllowOpeningEyestoneDoorState", 6, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "preventPickup", PREVENT_PICKUP_ID, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "stompThroughPortals", STOMP_THROUGH_PORTALS_ID, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "stompIntoWater", STOMP_INTO_WATER_ID, false),
