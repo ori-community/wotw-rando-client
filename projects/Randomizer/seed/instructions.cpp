@@ -365,13 +365,15 @@ namespace randomizer::seed {
         }
     }
 
-    void SeedExecutionEnvironment::process_box_triggers() const {
+    void SeedExecutionEnvironment::process_box_triggers() {
         for (auto& box_trigger: m_box_triggers | std::views::values) {
             const auto player_is_inside = box_trigger.is_inside(modloader::math::to_vec2(core::api::game::player::get_position()));
 
-            if (player_is_inside == box_trigger.runtime_state.player_was_inside_box_in_previous_frame) {
+            if (player_is_inside == box_trigger.runtime_state.player_was_inside_box_at_last_check) {
                 continue;
             }
+
+            box_trigger.runtime_state.player_was_inside_box_at_last_check = player_is_inside;
 
             if (player_is_inside) {
                 if (box_trigger.on_enter_command_id.has_value()) {

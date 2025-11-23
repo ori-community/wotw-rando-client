@@ -149,7 +149,7 @@ namespace randomizer::seed {
 
     struct SeedBoxTrigger {
         struct RuntimeState {
-            bool player_was_inside_box_in_previous_frame = false;
+            bool player_was_inside_box_at_last_check = false;
         };
 
         float x_min;
@@ -270,7 +270,7 @@ namespace randomizer::seed {
          * Processes box triggers. Should be called after changing Ori's
          * position (e.g. teleporting), at least once per frame.
          */
-        void process_box_triggers() const;
+        void process_box_triggers();
 
         /**
          * Clear free message boxes. This should only be used for testing/debug purposes and
