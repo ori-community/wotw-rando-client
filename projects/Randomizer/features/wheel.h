@@ -61,4 +61,5 @@ namespace randomizer::features::wheel {
     void set_wheel_behavior(int behavior);
     void clear_wheels();
     void initialize_default_wheel();
+    void force_hide_wheel();
 } // namespace randomizer::features::wheel

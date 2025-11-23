@@ -20,6 +20,7 @@
 #include <Modloader/app/methods/MoonMath_Line.h>
 #include <Modloader/app/methods/MoonTimelineUiFader.h>
 #include <Modloader/app/methods/RaceSystem.h>
+#include <Modloader/app/methods/SeinController.h>
 #include <Modloader/app/methods/SpellUIItem.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
@@ -39,6 +40,8 @@
 #include <array>
 #include <unordered_map>
 #include <unordered_set>
+#include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
 
 using namespace modloader;
 using namespace app::classes;
@@ -82,6 +85,7 @@ namespace randomizer::features::wheel {
         bool custom_wheel_input = false;
         bool custom_wheel_on = false;
         bool is_about_to_show_a_menu_screen = false;
+        bool is_force_hiding_wheel = false;
         int wheel_index = 0;
         std::unordered_map<int, CustomWheel> wheels;
 
@@ -122,13 +126,11 @@ namespace randomizer::features::wheel {
         IL2CPP_INTERCEPT(void, EquipmentWheel, Hide, app::EquipmentWheel* this_ptr, bool change) {
             next::EquipmentWheel::Hide(this_ptr, change);
             is_wheel_visible = false;
-            custom_wheel_on = false;
         }
 
         IL2CPP_INTERCEPT(void, EquipmentWheel, HideImmediate, app::EquipmentWheel* this_ptr) {
             next::EquipmentWheel::HideImmediate(this_ptr);
             is_wheel_visible = false;
-            custom_wheel_on = false;
         }
 
         IL2CPP_INTERCEPT(
@@ -146,15 +148,15 @@ namespace randomizer::features::wheel {
         }
 
         IL2CPP_INTERCEPT(void, MenuScreenManager, HideEquipmentWhell, app::MenuScreenManager* this_ptr) {
-            if (wheel_behavior == WheelBehavior::Standalone && custom_wheel_input && !is_about_to_show_a_menu_screen) {
+            if (wheel_behavior == WheelBehavior::Standalone && custom_wheel_input && !is_about_to_show_a_menu_screen && !is_force_hiding_wheel) {
                 return;
             }
 
             return next::MenuScreenManager::HideEquipmentWhell(this_ptr);
         }
 
-        bool can_show_wheel() {
-            if (wheels.empty() || wheels[wheel_index].entries.empty()) {
+        bool can_show_custom_wheel() {
+            if (is_force_hiding_wheel || wheels.empty() || wheels[wheel_index].entries.empty()) {
                 return false;
             }
 
@@ -166,9 +168,48 @@ namespace randomizer::features::wheel {
             return RaceSystem::get_IsIdle();
         }
 
+        bool can_show_vanilla_wheel() {
+            const auto menu_screen_manager = types::UI::get_class()->static_fields->m_sMenu;
+
+            if (menu_screen_manager->fields.m_isPaused || !MenuScreenManager::CanOpenMenus(menu_screen_manager, false)) {
+                return false;
+            }
+
+            if (
+                !core::api::game::player::ability(app::AbilityType__Enum::Sword).get() &&
+                !core::api::game::player::ability(app::AbilityType__Enum::Bow).get() &&
+                !core::api::game::player::ability(app::AbilityType__Enum::SpiritSpearSpell).get() &&
+                !core::api::game::player::ability(app::AbilityType__Enum::Hammer).get() &&
+                !core::api::game::player::ability(app::AbilityType__Enum::ChakramSpell).get() &&
+                !core::api::game::player::ability(app::AbilityType__Enum::Grenade).get() &&
+                !core::api::game::player::ability(app::AbilityType__Enum::MeditateSpell).get() &&
+                !core::api::game::player::ability(app::AbilityType__Enum::FeatherFlap).get() &&
+                !core::api::game::player::ability(app::AbilityType__Enum::Blaze).get() &&
+                !core::api::game::player::ability(app::AbilityType__Enum::GlowSpell).get() &&
+                !core::api::game::player::ability(app::AbilityType__Enum::TurretSpell).get() &&
+                !core::api::game::player::ability(app::AbilityType__Enum::ChargeJump).get()
+            ) {
+                return false;
+            }
+
+            if (RaceSystem::get_ShouldLockEquipment(RaceSystem::get_Instance())) {
+                return false;
+            }
+
+            if (core::api::game::game_controller()->fields.m_lockByAction) {
+                return false;
+            }
+
+            if (SeinController::get_InputLocked(core::api::game::player::sein()->fields.Controller)) {
+                return false;
+            }
+
+            return true;
+        }
+
         void handle_custom_wheel(bool pressed) {
             if (pressed) {
-                if (!can_show_wheel()) {
+                if (!can_show_custom_wheel()) {
                     return;
                 }
 
@@ -197,11 +238,11 @@ namespace randomizer::features::wheel {
                 switch (wheel_behavior) {
                     case WheelBehavior::Standalone: {
                         custom_wheel_input = false;
-                        if (!types::Input_Cmd::get_class()->static_fields->OpenWeaponWheel->fields.IsPressed) {
+                        if (types::Input_Cmd::get_class()->static_fields->OpenWeaponWheel->fields.IsPressed && can_show_vanilla_wheel()) {
+                            refresh_wheel();
+                        } else {
                             auto* menu_screen_manager = types::UI::get_class()->static_fields->m_sMenu;
                             MenuScreenManager::HideEquipmentWhell(menu_screen_manager);
-                        } else {
-                            refresh_wheel();
                         }
 
                         if (!wheels[wheel_index].sticky) {
@@ -269,6 +310,14 @@ namespace randomizer::features::wheel {
             }
 
             update_wheel_position();
+        }
+
+        IL2CPP_INTERCEPT(void, MenuScreenManager, OnEquipmentWheelKeyPress, app::MenuScreenManager* this_ptr) {
+            if (!can_show_vanilla_wheel()) {
+                return;
+            }
+
+            next::MenuScreenManager::OnEquipmentWheelKeyPress(this_ptr);
         }
 
         IL2CPP_INTERCEPT(void, UnityEngine::GameObject, SetActive, app::GameObject* this_ptr, bool value) {
@@ -692,5 +741,13 @@ namespace randomizer::features::wheel {
         wheel_index = 0;
         wheels.clear();
         refresh_wheel();
+    }
+
+    void force_hide_wheel() {
+        ScopedSetter _(is_force_hiding_wheel, true);
+
+        custom_wheel_input = false;
+        const auto menu_screen_manager = types::UI::get_class()->static_fields->m_sMenu;
+        MenuScreenManager::HideEquipmentWhell(menu_screen_manager);
     }
 } // namespace randomizer::features::wheel
