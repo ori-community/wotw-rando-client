@@ -11,11 +11,14 @@
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/SeinCharacter.h>
+#include <Modloader/app/methods/MenuScreenManager.h>
 #include <Modloader/app/types/AreaMapUI.h>
 #include <Modloader/app/types/InstantLoadScenesController.h>
 #include <Modloader/app/types/QuestsUI.h>
 #include <Modloader/app/types/SavePedestalController.h>
+#include <Modloader/app/types/UI.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/features/wheel.h>
 #include <Randomizer/game/teleport.h>
 
 using namespace app::classes;
@@ -103,6 +106,10 @@ namespace randomizer::game::teleportation {
     }
 
     void teleport(const app::Vector2 position) {
+        randomizer::features::wheel::force_hide_wheel();
+        const auto menu_screen_manager = types::UI::get_class()->static_fields->m_sMenu;
+        MenuScreenManager::HideMenuScreen(menu_screen_manager, false, true);
+
         SavePedestalController::BeginTeleportation(position);
     }
 
