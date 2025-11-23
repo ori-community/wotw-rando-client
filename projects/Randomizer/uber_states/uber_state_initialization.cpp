@@ -264,17 +264,6 @@ namespace randomizer {
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "shurikenMultishotCount", 48, 0),
                 add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "shurikenMultishotSpread", 49, 35.f),
 
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "hammerSpeed", 50, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "swordSpeed", 51, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "blazeEfficiency", 52, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "spearEfficiency", 53, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "shurikenEfficiency", 54, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "sentryEfficiency", 55, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "bowEfficiency", 56, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "regenerateEfficiency", 57, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "flashEfficiency", 58, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "grenadeEfficiency", 59, 0),
-
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "bowAsFireSource", 70, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "blazeAsFireSource", 71, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "swordAsFireSource", 72, false),
