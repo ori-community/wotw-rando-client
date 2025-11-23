@@ -65,6 +65,8 @@
 #include <Randomizer/seed/instructions/set_float.h>
 #include <Randomizer/seed/instructions/set_integer.h>
 #include <Randomizer/seed/instructions/set_map_message.h>
+#include <Randomizer/seed/instructions/close_menu.h>
+#include <Randomizer/seed/instructions/close_weapon_wheel.h>
 #include <Randomizer/seed/instructions/set_shop_item_description.h>
 #include <Randomizer/seed/instructions/set_shop_item_hidden.h>
 #include <Randomizer/seed/instructions/set_shop_item_icon.h>
@@ -192,6 +194,8 @@ namespace randomizer::seed {
             register_instruction<SetFloat>(factories);
             register_instruction<SetInteger>(factories);
             register_instruction<SetMapMessage>(factories);
+            register_instruction<CloseMenu>(factories);
+            register_instruction<CloseWeaponWheel>(factories);
             register_instruction<SetShopItemDescription>(factories);
             register_instruction<SetShopItemHidden>(factories);
             register_instruction<SetShopItemIcon>(factories);
