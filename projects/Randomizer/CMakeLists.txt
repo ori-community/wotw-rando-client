@@ -100,6 +100,7 @@ set(
         "game/behaviour_changes/fix_kwoloks_hollow_cutscene_skip.cpp"
         "game/behaviour_changes/fix_shields_not_breaking_with_fracture.cpp"
         "game/behaviour_changes/fix_shop_anywhere.cpp"
+        "game/behaviour_changes/fix_wellspring_escape_end_cutscene_game_area.cpp"
         "game/behaviour_changes/flap_without_glide.cpp"
         "game/behaviour_changes/instant_tp_activation.cpp"
         "game/behaviour_changes/keep_shriek_health_bar_visible.cpp"

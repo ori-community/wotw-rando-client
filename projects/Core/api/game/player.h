@@ -3,14 +3,25 @@
 #include <Core/property.h>
 #include <Core/enums/game_areas.h>
 #include <Core/macros.h>
-
-#include <Modloader/app/structs/AbilityType__Enum.h>
-#include <Modloader/app/structs/EquipmentType__Enum.h>
 #include <Modloader/app/structs/SeinCharacter.h>
 #include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
-#include <Modloader/app/structs/SpiritShardType__Enum.h>
 
 namespace core::api::game::player {
+    using current_area_override_callback_t = std::function<std::optional<GameArea>()>;
+
+    struct CORE_DLLEXPORT CurrentAreaOverrideHandle {
+        CurrentAreaOverrideHandle(int id);
+        ~CurrentAreaOverrideHandle();
+
+        CurrentAreaOverrideHandle(CurrentAreaOverrideHandle&& other) = delete;
+        CurrentAreaOverrideHandle(CurrentAreaOverrideHandle const& other) = delete;
+
+        [[nodiscard]] int get_id() const;
+
+    private:
+        int id;
+    };
+
     CORE_DLLEXPORT extern bool prevent_default_pickup_handlers;
 
     CORE_DLLEXPORT app::SeinCharacter* sein();
@@ -53,5 +64,6 @@ namespace core::api::game::player {
     CORE_DLLEXPORT const Property<bool>& ability(app::AbilityType__Enum type);
 
     CORE_DLLEXPORT GameArea get_current_area();
+    CORE_DLLEXPORT std::unique_ptr<CurrentAreaOverrideHandle> add_current_area_override(const current_area_override_callback_t& callback);
     CORE_DLLEXPORT app::PlayerUberStateAreaMapInformation* get_area_map_information();
 } // namespace core::api::game::player

@@ -28,8 +28,9 @@ using namespace modloader;
 using namespace app::classes;
 
 namespace core::api::game::player {
-
-    CORE_DLLEXPORT bool prevent_default_pickup_handlers;
+    bool prevent_default_pickup_handlers = false;
+    int next_current_area_override_id = 0;
+    std::map<int, current_area_override_callback_t> current_area_overrides;
 
     namespace {
         IL2CPP_INTERCEPT(void, SeinUI, ShakeSpiritLight_1, app::SeinUI * this_ptr) {
@@ -411,6 +412,16 @@ namespace core::api::game::player {
         Property<int> shard_slots_property(set_shard_slots, get_shard_slots);
     } // namespace
 
+    CurrentAreaOverrideHandle::CurrentAreaOverrideHandle(int id) : id(id) {}
+
+    CurrentAreaOverrideHandle::~CurrentAreaOverrideHandle() {
+        current_area_overrides.erase(id);
+    }
+
+    int CurrentAreaOverrideHandle::get_id() const {
+        return id;
+    }
+
     app::SeinCharacter* sein() {
         if (!types::Characters::get_class()->static_fields->HasSein) {
             return nullptr;
@@ -508,12 +519,27 @@ namespace core::api::game::player {
     }
 
     GameArea get_current_area() {
+        if (!current_area_overrides.empty()) {
+            for (auto& current_area_override_callback: current_area_overrides | std::views::reverse | std::views::values) {
+                const auto value = current_area_override_callback();
+                if (value.has_value()) {
+                    return *value;
+                }
+            }
+        }
+
         const auto game_world = types::GameWorld::get_class()->static_fields->Instance;
         if (game_world == nullptr || game_world->fields.CurrentArea == nullptr || game_world->fields.CurrentArea->fields.Area == nullptr) {
             return convert_to_game_area(app::GameWorldAreaID__Enum::None);
         }
 
         return convert_to_game_area(game_world->fields.CurrentArea->fields.Area->fields.WorldMapAreaUniqueID);
+    }
+
+    std::unique_ptr<CurrentAreaOverrideHandle> add_current_area_override(const current_area_override_callback_t& callback) {
+        const auto id = ++next_current_area_override_id;
+        current_area_overrides.emplace(id, callback);
+        return std::make_unique<CurrentAreaOverrideHandle>(id);
     }
 
     void refill_health() {
