@@ -250,7 +250,7 @@ namespace randomizer::archipelago {
                     });
                     // Users often forget to enable secure connection when connecting to archipelago.gg
                     // This displays an extra message to help them find the issue
-                    if (m_websocket.getUrl().starts_with("ws://archipelago")) {
+                    if (m_websocket.getUrl().starts_with("ws://archipelago.gg:")) {
                         core::message_controller().queue_central({
                             .text = core::Property<std::string>("You need to enable secure connection to connect to the archipelago website."),
                             .duration = 8.f,
