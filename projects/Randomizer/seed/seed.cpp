@@ -1,7 +1,6 @@
 #include <Core/api/game/game.h>
 #include <Core/core.h>
 #include <Randomizer/dev/seed_debugger.h>
-#include <Randomizer/game/map/map.h>
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/seed.h>
@@ -214,5 +213,5 @@ namespace randomizer::seed {
 
     std::vector<std::byte> SeedArchiveSaveMetaData::save() { return seed_archive != nullptr ? seed_archive->get_archive_data() : std::vector<std::byte>{}; }
 
-    void SeedArchiveSaveMetaData::load(utils::ByteStream& stream) { seed_archive = std::make_shared<SeedArchive>(stream.buffer); }
+    void SeedArchiveSaveMetaData::load(core::utils::ByteStream& stream) { seed_archive = std::make_shared<SeedArchive>(stream.buffer); }
 } // namespace randomizer::seed

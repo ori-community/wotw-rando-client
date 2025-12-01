@@ -1,6 +1,6 @@
 #include "byte_stream.h"
 
-namespace utils {
+namespace core::utils {
     ByteStream::ByteStream() {}
 
     ByteStream::ByteStream(const std::vector<std::byte>& buffer) {

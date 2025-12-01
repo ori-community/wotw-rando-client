@@ -75,7 +75,7 @@ namespace core::api::graphics {
             }
 
             il2cpp::unity::set_active(icon, false);
-            game::add_to_container(game::RandoContainer::GameObjects, icon);
+            game::add_to_container(game::GameObjectContainer::Miscellaneous, icon);
 
             if (USE_CUSTOM_SHADER) {
                 const auto shader = Shader::Find(il2cpp::string_new("Hidden/UberShader/59F9A629AA8A0ABB2D0B3EAE1933B13F"));
@@ -207,7 +207,7 @@ namespace core::api::graphics {
 
         il2cpp::unity::set_active(m_root, false);
         if (parent == nullptr) {
-            add_to_container(game::RandoContainer::GameObjects, m_root);
+            add_to_container(game::GameObjectContainer::Miscellaneous, m_root);
         } else {
             il2cpp::unity::set_parent(m_root, parent);
         }

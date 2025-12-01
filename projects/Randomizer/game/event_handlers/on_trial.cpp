@@ -32,8 +32,8 @@ namespace {
         );
     });
 
-    common::registration_handle_t in_trial_uber_state_changed_handle;
-    common::registration_handle_t in_trial_should_sync_handle;
+    common::Droppable::ptr_t in_trial_uber_state_changed_handle;
+    common::Droppable::ptr_t in_trial_should_sync_handle;
 
     IL2CPP_INTERCEPT(void, RaceHandler, SetRaceInProgressState, app::RaceHandler * this_ptr, bool in_progress) {
         if (in_progress) {

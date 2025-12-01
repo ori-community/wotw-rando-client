@@ -81,7 +81,7 @@ namespace ghosts::plugins {
             frames_until_record = record_interval_frames_range(rng);
 
             if (!active_animations_map.empty()) {
-                utils::ByteStream stream;
+                core::utils::ByteStream stream;
 
                 stream.write<int>(static_cast<int>(active_animations_map.size()));
 
@@ -101,7 +101,7 @@ namespace ghosts::plugins {
         return {};
     }
 
-    void UpdateActiveAnimationsPlugin::play(utils::ByteStream& stream, RandoGhost& ghost) {
+    void UpdateActiveAnimationsPlugin::play(core::utils::ByteStream& stream, RandoGhost& ghost) {
         auto puppets_count = stream.read<int>();
 
         std::unordered_map<int, std::unordered_map<int, ActiveAnimation>> desired_active_animations_map;

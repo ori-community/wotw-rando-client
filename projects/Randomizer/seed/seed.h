@@ -3,10 +3,8 @@
 #include "archive.h"
 
 
-#include <Core/enums/map_icon.h>
-#include "seed_source.h"
+#include <Randomizer/seed/seed_source.h>
 
-#include <Core/api/uber_states/uber_state_condition.h>
 #include <Core/enums/game_areas.h>
 #include <Core/property.h>
 
@@ -46,7 +44,7 @@ namespace randomizer::seed {
             std::variant<int, core::api::uber_states::UberState> condition;
             bool previous_value = false;
             int command_id = 0;
-            std::shared_ptr<const core::reactivity::ReactiveEffect> reactive_effect;
+            core::reactivity::ReactiveEffect::ptr_t reactive_effect;
         };
 
         std::vector<Condition> conditions;
@@ -192,6 +190,6 @@ namespace randomizer::seed {
         std::shared_ptr<SeedArchive> seed_archive;
 
         std::vector<std::byte> save() override;
-        void load(utils::ByteStream& stream) override;
+        void load(core::utils::ByteStream& stream) override;
     };
 } // namespace randomizer::seed

@@ -8,13 +8,12 @@
 #include <Modloader/app/structs/GameStateMachine_State__Enum.h>
 
 namespace core::api::game {
-    enum class RandoContainer {
+    enum class GameObjectContainer {
+        Main,
+        Miscellaneous,
         Animation,
-        GameObjects,
-        MapIcons,
         Messages,
-        Multiplayer,
-        Randomizer,
+        Multiplayer,  // TODO: Remove
     };
 
     struct CORE_DLLEXPORT SaveOptions {
@@ -52,8 +51,8 @@ namespace core::api::game {
     CORE_DLLEXPORT app::GameStateMachine_State__Enum game_state();
     CORE_DLLEXPORT bool in_game();
 
-    CORE_DLLEXPORT app::GameObject* container(RandoContainer c);
-    CORE_DLLEXPORT void add_to_container(RandoContainer c, app::GameObject* go);
+    CORE_DLLEXPORT app::GameObject* container(GameObjectContainer c);
+    CORE_DLLEXPORT void add_to_container(GameObjectContainer c, app::GameObject* go);
     CORE_DLLEXPORT app::GameController* game_controller();
     CORE_DLLEXPORT app::SaveGameController* save_controller();
     CORE_DLLEXPORT bool is_paused();

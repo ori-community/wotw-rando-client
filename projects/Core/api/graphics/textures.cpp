@@ -244,7 +244,7 @@ namespace core::api::graphics::textures {
         texture_holder = types::GameObject::create();
         il2cpp::invoke(texture_holder, ".ctor");
         il2cpp::invoke(texture_holder, "set_name", il2cpp::string_new("TextureHolder"));
-        core::api::game::add_to_container(core::api::game::RandoContainer::Randomizer, texture_holder);
+        core::api::game::add_to_container(core::api::game::GameObjectContainer::Main, texture_holder);
         // TODO: Use UberShaderPrefabWarmer if we can figure out how to instantiate the List<Texture> class.
         auto holder = il2cpp::unity::add_component<app::SpiritShardUIShardBackdrop>(texture_holder, types::SpiritShardUIShardBackdrop::get_class());
         il2cpp::invoke(holder, ".ctor");

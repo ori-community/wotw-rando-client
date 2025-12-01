@@ -36,7 +36,7 @@ namespace core::api::game::ui {
             }
         );
 
-        common::registration_handle_t on_after_faderb_fade_out_finished;
+        common::Droppable::ptr_t on_after_faderb_fade_out_finished;
         IL2CPP_INTERCEPT(void, TitleScreenManager, Start, app::TitleScreenManager * this_ptr) {
             game::event_bus().trigger_event(GameEvent::TitleScreenStartup, EventTiming::Before);
             next::TitleScreenManager::Start(this_ptr);

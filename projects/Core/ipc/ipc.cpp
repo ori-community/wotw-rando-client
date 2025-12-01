@@ -97,10 +97,10 @@ namespace core::ipc {
             bool first = true;
             do {
                 if (first) {
-                    info("IPC", "ZeroMQ connecting");
+                    info("ipc", "ZeroMQ connecting");
                 } else {
                     win::sleep(100);
-                    info("IPC", "ZeroMQ failed to connect, retrying...");
+                    info("ipc", "ZeroMQ failed to connect, retrying...");
                 }
 
                 first = false;

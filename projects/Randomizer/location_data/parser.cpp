@@ -23,22 +23,18 @@ namespace randomizer::location_data {
                 trim(item);
             }
 
-            if (parts[9] != "0" && parts[10] != "0") {
+            if (!parts[7].empty() && !parts[8].empty()) {
                 app::Vector2 position{};
-                if (!string_convert(parts[9], position.x) || !string_convert(parts[10], position.y)) {
-                    continue;
+                if (string_convert(parts[7], position.x) && string_convert(parts[8], position.y)) {
+                    location.position = position;
                 }
-
-                location.position = position;
             }
 
-            if (parts[11] != "0" && parts[12] != "0") {
+            if (!parts[9].empty() && !parts[10].empty()) {
                 app::Vector2 position{};
-                if (!string_convert(parts[11], position.x) || !string_convert(parts[12], position.y)) {
-                    continue;
+                if (string_convert(parts[9], position.x) && string_convert(parts[10], position.y)) {
+                    location.map_position = position;
                 }
-
-                location.map_position = position;
             }
 
             location.area = name_to_area(parts[1]);
@@ -47,22 +43,18 @@ namespace randomizer::location_data {
             }
 
             location.name = parts[0];
-            auto type = magic_enum::enum_cast<LocationType>(parts[2] == "Resource" ? parts[3] : parts[2]);
+            auto type = magic_enum::enum_cast<LocationType>(parts[2]);
             if (!type.has_value()) {
                 continue;
             }
 
-            if (type.value() == LocationType::Quest && parts[3] == "Seed") {
+            if (type.value() == LocationType::QuestItem && parts[3] == "Seed") {
                 type = LocationType::Seed;
-            }
-
-            if (type.value() == LocationType::Shop && parts[3] == "LupoZoneMap") {
-                type = LocationType::MapShop;
             }
 
             location.type = type.value();
             auto success = parse_condition(
-                {parts[5], parts[7] + (parts[8].empty() ? "" : ">=" + parts[8])},
+                {parts[4], parts[5] + (parts[6].empty() ? "" : ">=" + parts[6])},
                 location.condition
             );
 

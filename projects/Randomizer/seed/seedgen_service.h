@@ -82,6 +82,6 @@ namespace randomizer::seedgen_interface {
         common::ThreadSafeContainer<std::vector<core::api::uber_states::UberState>> m_relevant_uber_states;
         nlohmann::json m_seedgen_info;
         bool m_seedgen_info_sent_to_seedgen = false;
-        common::registration_handle_t m_on_seedgen_daemon_started_handler;
+        common::Droppable::ptr_t m_on_seedgen_daemon_started_handler;
     };
 } // namespace randomizer::seedgen_interface

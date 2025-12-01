@@ -31,7 +31,7 @@
 #include <Randomizer/seed/parser.h>
 #include <magic_enum/magic_enum.hpp>
 
-using namespace utils;
+using namespace core::utils;
 using namespace app::classes;
 
 namespace randomizer::main_menu_seed_info {
@@ -43,7 +43,7 @@ namespace randomizer::main_menu_seed_info {
         bool is_in_main_menu = false;
         bool is_in_save_slots_ui_on_enable = false;
 
-        std::vector<std::shared_ptr<const core::reactivity::ReactiveEffect>> reactive_effects;
+        std::vector<core::reactivity::ReactiveEffect::ptr_t> reactive_effects;
 
         il2cpp::WeakGCRef<app::MessageBox> name_message_box;
         il2cpp::WeakGCRef<app::MessageBox> status_message_box;
@@ -61,11 +61,11 @@ namespace randomizer::main_menu_seed_info {
         core::Property<std::string> status_property("Offline");
         core::Property<std::string> description_property;
 
-        common::registration_handle_t on_seed_loaded_handle;
-        common::registration_handle_t on_network_status_handle;
-        common::registration_handle_t on_archipelago_client_status_handle;
-        common::registration_handle_t on_multiverse_update_handle;
-        common::registration_handle_t on_game_difficulty_settings_overrides_update_handle;
+        common::Droppable::ptr_t on_seed_loaded_handle;
+        common::Droppable::ptr_t on_network_status_handle;
+        common::Droppable::ptr_t on_archipelago_client_status_handle;
+        common::Droppable::ptr_t on_multiverse_update_handle;
+        common::Droppable::ptr_t on_game_difficulty_settings_overrides_update_handle;
 
         bool poll_current_seed_source_until_not_loading = false;
         std::shared_ptr<seed::SeedSource> current_seed_source = nullptr;

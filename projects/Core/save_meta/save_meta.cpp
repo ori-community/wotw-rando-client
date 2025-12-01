@@ -52,19 +52,19 @@ namespace core::save_meta {
         return this->serialize();
     }
 
-    void SaveMetaSerializable::load(utils::ByteStream& stream) {
+    void SaveMetaSerializable::load(core::utils::ByteStream& stream) {
         this->deserialize(stream);
     }
 
     std::vector<std::byte> JsonSaveMetaSerializable::serialize() {
         auto str = this->json_serialize().dump();
-        utils::ByteStream stream;
+        core::utils::ByteStream stream;
         stream.write<unsigned long>(str.length());
         stream.write_string(str);
         return stream.buffer;
     }
 
-    void JsonSaveMetaSerializable::deserialize(utils::ByteStream& stream) {
+    void JsonSaveMetaSerializable::deserialize(core::utils::ByteStream& stream) {
         auto length = stream.read<unsigned long>();
         auto str = stream.read_string(length);
 
@@ -80,7 +80,7 @@ namespace core::save_meta {
         MoodGuid current_save_guid;
 
         MoodGuid read_guid_from_save(app::Byte__Array* data) {
-            utils::ByteStream stream(data);
+            core::utils::ByteStream stream(data);
 
             if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
                 stream.skip<int>();
@@ -113,7 +113,7 @@ namespace core::save_meta {
             SaveMetaSlotPersistence minimum_persistence = SaveMetaSlotPersistence::None,
             bool exclude_persistences = false
         ) {
-            utils::ByteStream stream(data);
+            core::utils::ByteStream stream(data);
 
             if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
                 stream.skip<int>();
@@ -157,7 +157,7 @@ namespace core::save_meta {
                         slot_config.last_saved_data_initialized = true;
                     }
 
-                    utils::ByteStream slot_data(buffer);
+                    core::utils::ByteStream slot_data(buffer);
                     slots[slot].handler->load(slot_data);
                 }
 
@@ -177,8 +177,8 @@ namespace core::save_meta {
             };
         }
 
-        utils::ByteStream get_save_meta_data(SaveMetaSlotPersistence minimum_persistence = SaveMetaSlotPersistence::None) {
-            utils::ByteStream stream;
+        core::utils::ByteStream get_save_meta_data(SaveMetaSlotPersistence minimum_persistence = SaveMetaSlotPersistence::None) {
+            core::utils::ByteStream stream;
 
             stream.write<int>(SAVE_META_FILE_MAGIC);
             stream.write<int>(SAVE_META_FILE_VERSION);
@@ -289,7 +289,7 @@ namespace core::save_meta {
         }
 
         IL2CPP_INTERCEPT(app::Byte__Array*, Moon::UberStateValueStore, ToByteArray, app::UberStateValueStore * this_ptr) {
-            utils::ByteStream game_save_data(next::Moon::UberStateValueStore::ToByteArray(this_ptr));
+            core::utils::ByteStream game_save_data(next::Moon::UberStateValueStore::ToByteArray(this_ptr));
 
             // Get SaveMeta data
             auto stream = get_save_meta_data(is_dying ? SaveMetaSlotPersistence::ThroughDeaths : SaveMetaSlotPersistence::None);
@@ -322,7 +322,7 @@ namespace core::save_meta {
         const std::unordered_map<SaveMetaSlot, std::shared_ptr<SaveMetaHandler>>&slots_to_read
     ) {
         std::unordered_set<SaveMetaSlot> successfully_read_slots;
-        utils::ByteStream stream(data);
+        core::utils::ByteStream stream(data);
 
         if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
             stream.skip<int>();
@@ -346,7 +346,7 @@ namespace core::save_meta {
 
                 const auto buffer = stream.read(length);
 
-                utils::ByteStream slot_data(buffer);
+                core::utils::ByteStream slot_data(buffer);
                 slots_to_read.at(slot)->load(slot_data);
 
                 successfully_read_slots.emplace(slot);

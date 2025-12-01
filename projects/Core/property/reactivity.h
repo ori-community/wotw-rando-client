@@ -16,6 +16,7 @@
 namespace core {
     template<typename T>
     struct Property;
+    struct BaseProperty;
 }
 
 namespace core::reactivity {
@@ -96,6 +97,7 @@ struct std::hash<core::reactivity::PropertyDependency> {
 namespace core::reactivity {
     struct ReactiveEffect {
         using id_t = size_t;
+        using ptr_t = std::shared_ptr<const ReactiveEffect>;
 
         id_t id;
         std::source_location effect_register_location;
@@ -138,7 +140,7 @@ namespace core::reactivity {
     };
 
     CORE_DLLEXPORT builder::BeforeEffectBuilder watch_effect();
-    CORE_DLLEXPORT std::shared_ptr<const ReactiveEffect> watch_effect(
+    CORE_DLLEXPORT ReactiveEffect::ptr_t watch_effect(
         const std::function<void()>& func,
         const std::source_location& location = std::source_location::current()
     );
@@ -154,6 +156,8 @@ namespace core::reactivity {
              */
             void finalize_effect() const;
 
+            static void set_effect_dependencies(const std::shared_ptr<ReactiveEffect>& effect, const std::unordered_set<dependency_t>& dependencies);
+
             HasEffect() {}
 
             std::shared_ptr<ReactiveEffect> m_effect;
@@ -168,12 +172,12 @@ namespace core::reactivity {
                 return *this;
             }
 
-            std::shared_ptr<const ReactiveEffect> finalize() {
+            ReactiveEffect::ptr_t finalize() {
                 finalize_effect();
                 return m_effect;
             }
 
-            void finalize_inplace(std::shared_ptr<const ReactiveEffect>& ptr) const {
+            void finalize_inplace(ReactiveEffect::ptr_t& ptr) const {
                 finalize_effect();
                 ptr = m_effect;
             }
@@ -192,6 +196,7 @@ namespace core::reactivity {
         class CORE_DLLEXPORT AfterEffectBuilder : public HasEffect {
         public:
             friend class EffectBuilder;
+            friend class BeforeEffectBuilder;
 
             AfterEffectBuilder& trigger_on_load() {
                 m_effect->trigger_on_load = true;
@@ -200,12 +205,12 @@ namespace core::reactivity {
 
             FinalizeOnlyBuilder after(const std::function<void()>& func) const;
 
-            std::shared_ptr<const ReactiveEffect> finalize() {
+            ReactiveEffect::ptr_t finalize() {
                 finalize_effect();
                 return m_effect;
             }
 
-            void finalize_inplace(std::shared_ptr<const ReactiveEffect>& ptr) const {
+            void finalize_inplace(ReactiveEffect::ptr_t& ptr) const {
                 finalize_effect();
                 ptr = m_effect;
             }
@@ -231,15 +236,21 @@ namespace core::reactivity {
             }
 
             template<typename T>
-            AfterEffectBuilder effect(Property<T> const& property, const std::source_location& location = std::source_location::current()) const;
+            AfterEffectBuilder effect(const Property<T>& property, const std::source_location& location = std::source_location::current()) const {
+                set_effect_dependencies(m_effect, {property.get_dependency()});
+                m_effect->effect_register_location = location;
+                return AfterEffectBuilder(m_effect);
+            }
+            AfterEffectBuilder effect(const BaseProperty*& property, const std::source_location& location = std::source_location::current()) const;
+            AfterEffectBuilder effect(const std::vector<const BaseProperty*>& properties, const std::source_location& location = std::source_location::current()) const;
             AfterEffectBuilder effect(std::vector<api::uber_states::UberState> const& states, const std::source_location& location = std::source_location::current()) const;
             AfterEffectBuilder effect(std::function<void()> const& func, const std::source_location& location = std::source_location::current()) const;
 
-            std::shared_ptr<const ReactiveEffect> finalize() {
+            ReactiveEffect::ptr_t finalize() {
                 finalize_effect();
                 return m_effect;
             }
-            void finalize_inplace(std::shared_ptr<const ReactiveEffect>& ptr) const {
+            void finalize_inplace(ReactiveEffect::ptr_t& ptr) const {
                 finalize_effect();
                 ptr = m_effect;
             }
@@ -267,7 +278,13 @@ namespace core::reactivity {
             EffectBuilder before(std::function<void()> const& func) const;
 
             template<typename T>
-            AfterEffectBuilder effect(Property<T> const& property, const std::source_location& location = std::source_location::current()) const;
+            AfterEffectBuilder effect(const Property<T>& property, const std::source_location& location = std::source_location::current()) const {
+                set_effect_dependencies(m_effect, {property.get_dependency()});
+                m_effect->effect_register_location = location;
+                return AfterEffectBuilder(m_effect);
+            }
+            AfterEffectBuilder effect(const BaseProperty*& property, const std::source_location& location = std::source_location::current()) const;
+            AfterEffectBuilder effect(const std::vector<const BaseProperty*>& properties, const std::source_location& location = std::source_location::current()) const;
             AfterEffectBuilder effect(std::vector<api::uber_states::UberState> const& states, const std::source_location& location = std::source_location::current()) const;
             AfterEffectBuilder effect(std::function<void()> const& func, const std::source_location& location = std::source_location::current()) const;
 

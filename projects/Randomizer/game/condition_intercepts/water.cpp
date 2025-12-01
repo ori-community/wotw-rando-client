@@ -23,7 +23,7 @@ namespace {
         return [corrupted, clean](auto, auto, auto) -> int32_t { return clean_water_state.get<bool>() ? clean : corrupted; };
     }
 
-    [[maybe_unused]] std::shared_ptr<const core::reactivity::ReactiveEffect> water_effect;
+    [[maybe_unused]] core::reactivity::ReactiveEffect::ptr_t water_effect;
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         water_effect = core::reactivity::watch_effect().effect({clean_water_state}).after([] {

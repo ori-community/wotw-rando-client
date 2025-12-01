@@ -9,7 +9,7 @@ namespace {
     using namespace app::classes;
 
     std::optional<il2cpp::WeakGCRef<app::GameObject>> broken_plank_go_ref;
-    common::registration_handle_t on_update_handle = nullptr;
+    common::Droppable::ptr_t on_update_handle = nullptr;
 
     auto on_scene_loaded = core::api::scenes::single_event_bus().register_handler("lumaSwampTransitionA", [](auto metadata, auto) {
         if (metadata->state == app::SceneState__Enum::Disabled) {

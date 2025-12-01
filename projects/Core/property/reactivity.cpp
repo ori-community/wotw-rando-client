@@ -62,14 +62,11 @@ namespace core::reactivity {
     }
 
     /**
-     * \brief Stop the current tracking context
-     * \param ref The ComputedRef dependencies should get inserted into
+     * Updates an effect to have the given dependencies. Also updates the reactivity system's internal state.
      */
-    void pop_tracking_context(const std::shared_ptr<ReactiveEffect>& ref) {
-        auto& current_context_dependencies = dependency_tracker().active_tracking_contexts.back();
-
+    void set_effect_dependencies(const std::shared_ptr<ReactiveEffect>& ref, const std::unordered_set<dependency_t>& dependencies) {
         auto& previous_dependencies = ref->dependencies;
-        auto& current_dependencies = current_context_dependencies.dependencies;
+        auto& current_dependencies = dependencies;
 
         std::vector<dependency_t> dependencies_that_no_longer_exist;
         std::vector<dependency_t> new_dependencies;
@@ -94,6 +91,16 @@ namespace core::reactivity {
             dependency_tracker().effects_by_dependency[new_dependency].emplace(ref->id, std::weak_ptr(ref));
             ref->dependencies.insert(new_dependency);
         }
+    }
+
+    /**
+     * \brief Stop the current tracking context
+     * \param ref The ComputedRef dependencies should get inserted into
+     */
+    void pop_tracking_context(const std::shared_ptr<ReactiveEffect>& ref) {
+        auto& current_context_dependencies = dependency_tracker().active_tracking_contexts.back();
+
+        set_effect_dependencies(ref, current_context_dependencies.dependencies);
 
         dependency_tracker().active_tracking_contexts.pop_back();
         auto const& reactivity_blockers = dependency_tracker().reactivity_blockers;
@@ -134,12 +141,32 @@ namespace core::reactivity {
         return AfterEffectBuilder(m_effect);
     }
 
+    builder::AfterEffectBuilder builder::EffectBuilder::effect(const BaseProperty*& property, const std::source_location& location) const {
+        set_effect_dependencies(m_effect, {property->get_dependency()});
+        m_effect->effect_register_location = location;
+        return AfterEffectBuilder(m_effect);
+    }
+
+    builder::AfterEffectBuilder builder::EffectBuilder::effect(const std::vector<const BaseProperty*>& properties, const std::source_location& location) const {
+        std::unordered_set<dependency_t> dependencies;
+        for (const auto& property: properties) {
+            dependencies.insert(property->get_dependency());
+        }
+        set_effect_dependencies(m_effect, dependencies);
+        m_effect->effect_register_location = location;
+
+        return AfterEffectBuilder(m_effect);
+    }
+
     builder::AfterEffectBuilder builder::EffectBuilder::effect(std::vector<api::uber_states::UberState> const& states, const std::source_location& location) const {
-        return effect([states]() {
-            for (auto state: states) {
-                [[maybe_unused]] auto x = state.get();
-            }
-        }, location);
+        std::unordered_set<dependency_t> dependencies;
+        for (const auto& state: states) {
+            dependencies.insert(UberStateDependency{state.group_int(), state.state()});
+        }
+        set_effect_dependencies(m_effect, dependencies);
+        m_effect->effect_register_location = location;
+
+        return AfterEffectBuilder(m_effect);
     }
 
     builder::AfterEffectBuilder builder::BeforeEffectBuilder::effect(const std::function<void()>& func, const std::source_location& location) const {
@@ -147,11 +174,31 @@ namespace core::reactivity {
     }
 
     builder::AfterEffectBuilder builder::BeforeEffectBuilder::effect(std::vector<api::uber_states::UberState> const& states, const std::source_location& location) const {
-        return effect([states]() {
-            for (auto state: states) {
-                [[maybe_unused]] auto x = state.get();
-            }
-        }, location);
+        std::unordered_set<dependency_t> dependencies;
+        for (const auto& state: states) {
+            dependencies.insert(UberStateDependency{state.group_int(), state.state()});
+        }
+        set_effect_dependencies(m_effect, dependencies);
+        m_effect->effect_register_location = location;
+
+        return AfterEffectBuilder(m_effect);
+    }
+
+    builder::AfterEffectBuilder builder::BeforeEffectBuilder::effect(const BaseProperty*& property, const std::source_location& location) const {
+        set_effect_dependencies(m_effect, {property->get_dependency()});
+        m_effect->effect_register_location = location;
+        return AfterEffectBuilder(m_effect);
+    }
+
+    builder::AfterEffectBuilder builder::BeforeEffectBuilder::effect(const std::vector<const BaseProperty*>& properties, const std::source_location& location) const {
+        std::unordered_set<dependency_t> dependencies;
+        for (const auto& property: properties) {
+            dependencies.insert(property->get_dependency());
+        }
+        set_effect_dependencies(m_effect, dependencies);
+        m_effect->effect_register_location = location;
+
+        return AfterEffectBuilder(m_effect);
     }
 
     builder::EffectBuilder builder::BeforeEffectBuilder::before(const std::function<void()>& func) const {
@@ -171,7 +218,7 @@ namespace core::reactivity {
         return pre;
     }
 
-    std::shared_ptr<const ReactiveEffect> watch_effect(const std::function<void()>& func, const std::source_location& location) {
+    ReactiveEffect::ptr_t watch_effect(const std::function<void()>& func, const std::source_location& location) {
         return watch_effect().effect(func, location).finalize();
     }
 
@@ -185,6 +232,10 @@ namespace core::reactivity {
         }
 
         m_effect->run_and_flush_after_effect_fns();
+    }
+
+    void builder::HasEffect::set_effect_dependencies(const std::shared_ptr<ReactiveEffect>& effect, const std::unordered_set<dependency_t>& dependencies) {
+        ::core::reactivity::set_effect_dependencies(effect, dependencies);
     }
 
     void notify_used(const dependency_t& dependency) {
@@ -218,19 +269,22 @@ namespace core::reactivity {
                     effect->before_function();
                 }
 
-                push_tracking_context();
-                try {
-                    effect->effect_function();
-                } catch (...) {
-                    pop_tracking_context(effect);
+                // Effects with static dependencies don't have an effect function, so we don't need to start tracking
+                if (effect->effect_function != nullptr) {
+                    push_tracking_context();
+                    try {
+                        effect->effect_function();
+                    } catch (...) {
+                        pop_tracking_context(effect);
 
-                    // On error, clear previously collected after_effect_fns
-                    for (auto& processed_effect : processed_effects) {
-                        processed_effect->after_effect_fns.clear();
+                        // On error, clear previously collected after_effect_fns
+                        for (auto& processed_effect : processed_effects) {
+                            processed_effect->after_effect_fns.clear();
+                        }
+                        throw;
                     }
-                    throw;
+                    pop_tracking_context(effect);
                 }
-                pop_tracking_context(effect);
 
                 if (effect->after_function != nullptr) {
                     effect->after_function();
@@ -268,7 +322,7 @@ namespace core::reactivity {
         }
 
         if (!active_contexts.empty()) {
-            throw std::exception("Dependencies must not be changed inside a non-blocked reactive effect");
+            throw std::runtime_error("Dependencies must not be changed inside a non-blocked reactive effect");
         }
 
         const auto effects_it = dependency_tracker().effects_by_dependency.find(dependency);

@@ -14,9 +14,9 @@ namespace ghosts::plugins {
     public:
         virtual ~RandoGhostPlugin() = default;
         virtual std::vector<std::byte> record(app::GhostRecorder* recorder) = 0;
-        virtual void play(utils::ByteStream& stream, RandoGhost& ghost) = 0;
+        virtual void play(core::utils::ByteStream& stream, RandoGhost& ghost) = 0;
     };
 
-    void play_rando_ghost_plugins(utils::ByteStream& stream, RandoGhost& ghost);
+    void play_rando_ghost_plugins(core::utils::ByteStream& stream, RandoGhost& ghost);
     std::vector<std::byte> record_rando_ghost_plugins(app::GhostRecorder* recorder);
 }
