@@ -3,10 +3,8 @@
 #include "archive.h"
 
 
-#include <Core/enums/map_icon.h>
-#include "seed_source.h"
+#include <Randomizer/seed/seed_source.h>
 
-#include <Core/api/uber_states/uber_state_condition.h>
 #include <Core/enums/game_areas.h>
 #include <Core/property.h>
 

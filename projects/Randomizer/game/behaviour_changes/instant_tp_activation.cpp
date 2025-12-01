@@ -11,7 +11,6 @@
 
 #include <Randomizer/seed/seed.h>
 
-#include <Randomizer/game/map/map.h>
 #include <unordered_map>
 
 #include "Core/api/uber_states/uber_state_handlers.h"
@@ -73,10 +72,11 @@ namespace {
     auto on_luma_pools_water_drained = core::api::uber_states::single_notification_bus().register_handler(
         core::api::uber_states::UberState(5377, 63173),
         [](auto params, auto) {
-            if (params.state.template get<bool>() && randomizer::game::map::is_visited(app::GameWorldAreaID__Enum::LumaPools, 6073)) {
-                // Give Luma Pools TP.
-                core::api::uber_states::UberState(945, 26601).set(true);
-            }
+            // TODO[Map]:
+            // if (params.state.template get<bool>() && randomizer::game::map::is_visited(app::GameWorldAreaID__Enum::LumaPools, 6073)) {
+            //     // Give Luma Pools TP.
+            //     core::api::uber_states::UberState(945, 26601).set(true);
+            // }
         }
     );
 } // namespace

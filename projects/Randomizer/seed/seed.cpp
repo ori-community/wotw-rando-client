@@ -1,7 +1,6 @@
 #include <Core/api/game/game.h>
 #include <Core/core.h>
 #include <Randomizer/dev/seed_debugger.h>
-#include <Randomizer/game/map/map.h>
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/seed.h>

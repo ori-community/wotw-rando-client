@@ -53,7 +53,6 @@ set(
         "features/keyboard_multibind.cpp"
         "features/keystone_door.cpp"
         "features/knock_knock_wellspring.cpp"
-        "features/map.cpp"
         "features/npcs/lupo_everywhere.cpp"
         "features/npcs/opher_everywhere.cpp"
         "features/npcs/tokk_everywhere.cpp"
@@ -128,13 +127,6 @@ set(
         "game/event_handlers/on_trial.cpp"
         "game/camera_shake.cpp"
         "game/enemy_spawning.cpp"
-        "game/map/filter.cpp"
-        "game/map/icon.cpp"
-        "game/map/map.cpp"
-        "game/map/map_initialization.cpp"
-        "game/map/player_color.cpp"
-        "game/map/teleport_anywhere.cpp"
-        "game/map/tree_visibility_fix.cpp"
         "game/music.cpp"
         "game/pickups/bonus/grenade.cpp"
         "game/pickups/bonus/bow_attack_speed.cpp"
@@ -183,6 +175,15 @@ set(
         "league/league.cpp"
         "location_data/location_collection.cpp"
         "location_data/parser.cpp"
+        "map/area_percentage.cpp"
+        "map/fix_focus_objective_button.cpp"
+        "map/fix_keyboard_map_focus.cpp"
+        "map/map_icons.cpp"
+        "map/map_pan.cpp"
+        "map/map_zoom.cpp"
+        "map/quest_list_ui.cpp"
+        "map/reveal_map.cpp"
+        "map/skip_map_objective_cutscenes.cpp"
         "messages/credits_controller.cpp"
         "messages/credit_entries/base_entry.cpp"
         "messages/credit_entries/text_entry.cpp"
@@ -248,9 +249,6 @@ set(
         "features/controls/invert_swim.h"
         "features/credits.h"
         "features/cutscene_skips/custom_cutscene_skips.h"
-        "game/map/filter.h"
-        "game/map/icon.h"
-        "game/map/teleport_anywhere.h"
         "game/pickups/quests.h"
         "game/shops/lupo_maps.h"
         "game/shops/opher.h"
@@ -269,6 +267,7 @@ set(
         "location_data/location_collection.h"
         "location_data/parser.h"
         "macros.h"
+        "map/map_icons.h"
         "messages/credits_controller.h"
         "messages/credit_entries/base_entry.h"
         "messages/credit_entries/text_entry.h"
@@ -482,6 +481,9 @@ target_link_libraries(${PROJECT_NAME} SDL3::SDL3)
 
 find_package(stduuid CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} stduuid)
+
+find_package(frozen CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} frozen::frozen frozen::frozen-headers)
 
 message(STATUS "Assigning source groups.")
 

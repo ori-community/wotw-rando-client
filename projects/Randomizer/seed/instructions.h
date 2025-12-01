@@ -3,7 +3,6 @@
 #include <Core/messages/message_handle.h>
 #include <Core/utils/json_serializers.h>
 #include <Core/save_meta/save_meta.h>
-#include <Randomizer/game/map/icon.h>
 #include <memory>
 #include <nlohmann/adl_serializer.hpp>
 #include <string>
@@ -229,7 +228,8 @@ namespace randomizer::seed {
 
     struct SeedExecutionEnvironment final : public core::save_meta::JsonSaveMetaSerializable {
         struct ItemSpoilerData {
-            MapIcon icon;
+            // TODO[Map]:
+            // MapIcon icon;
             std::string label;
         };
 
@@ -281,13 +281,15 @@ namespace randomizer::seed {
         /**
          * Add or override a warp icon ("custom TP")
          */
-        void set_warp_icon(std::size_t id, const std::shared_ptr<game::map::Icon>& icon);
+        // TODO[Map]:
+        void set_warp_icon(std::size_t id, const std::shared_ptr<std::any>& icon);
 
         /**
          * Calls a lambda with a reference to a warp icon to be able to make modifications to it (e.g. change label).
          * Does nothing if a warp icon with the given ID does not exist.
          */
-        void modify_warp_icon(std::size_t id, const std::function<void(game::map::Icon&)>& fn);
+        // TODO[Map]:
+        void modify_warp_icon(std::size_t id, const std::function<void(std::any&)>& fn);
 
         /**
          * Erase a warp icon. Does nothing when the given ID does not exist.
@@ -394,7 +396,8 @@ namespace randomizer::seed {
         );
 
         // Runtime
-        std::unordered_map<std::size_t, std::shared_ptr<game::map::Icon>> m_warp_icons;
+        // TODO[Map]:
+        std::unordered_map<std::size_t, std::shared_ptr<std::any>> m_warp_icons;
         std::unordered_map<std::size_t, FreeMessageBox> m_free_message_boxes;
         std::unordered_map<std::size_t, QueuedMessageBox> m_queued_message_boxes;
         bool m_prevent_grant = false;
