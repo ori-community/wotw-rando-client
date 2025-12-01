@@ -9,7 +9,7 @@ namespace ghosts::plugins {
         {RandoGhostFrameDataType::UpdateActiveAnimations, std::make_shared<UpdateActiveAnimationsPlugin>()}
     };
 
-    void play_rando_ghost_plugins(utils::ByteStream& stream, RandoGhost& ghost) {
+    void play_rando_ghost_plugins(core::utils::ByteStream& stream, RandoGhost& ghost) {
         while (stream.available()) {
             auto data_type = static_cast<RandoGhostFrameDataType>(stream.peek());
 

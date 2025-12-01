@@ -23,20 +23,20 @@ namespace randomizer::location_data {
     };
 
     std::unordered_map<std::string, GameArea> name_to_area_map{
-        {"Inkwater Marsh",    GameArea::Marsh  },
-        {"Kwoloks Hollow",    GameArea::Hollow    },
-        {"Wellspring Glades", GameArea::Glades    },
-        {"The Wellspring",    GameArea::Wellspring},
-        {"Luma Pools",        GameArea::Pools      },
-        {"Midnight Burrows",  GameArea::Burrows   },
-        {"Baurs Reach",       GameArea::Reach     },
-        {"Silent Woods",      GameArea::Woods     },
-        {"Mouldwood Depths",  GameArea::Depths    },
-        {"Windswept Wastes",  GameArea::Wastes    },
-        {"Windtorn Ruins",    GameArea::Ruins     },
-        {"Willows End",       GameArea::Willow    },
-        {"Shop",              GameArea::Shop      },
-        {"Void",              GameArea::Void      },
+        {"Marsh",      GameArea::Marsh     },
+        {"Hollow",     GameArea::Hollow    },
+        {"Glades",     GameArea::Glades    },
+        {"Wellspring", GameArea::Wellspring},
+        {"Pools",      GameArea::Pools     },
+        {"Burrows",    GameArea::Burrows   },
+        {"Reach",      GameArea::Reach     },
+        {"Woods",      GameArea::Woods     },
+        {"Depths",     GameArea::Depths    },
+        {"Wastes",     GameArea::Wastes    },
+        {"Ruins",      GameArea::Ruins     },
+        {"Willow",     GameArea::Willow    },
+        {"Shop",       GameArea::Shop      },
+        {"Void",       GameArea::Void      },
     };
 
     std::unordered_map<GameArea, std::string> area_to_short_name_map{

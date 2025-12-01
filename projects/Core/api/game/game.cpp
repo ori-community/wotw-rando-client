@@ -41,26 +41,26 @@ namespace core::api::game {
         bool initialized = false;
         common::TimedEventBus<void, GameEvent> game_event_bus;
 
-        std::unordered_map<RandoContainer, app::GameObject*> containers;
-        app::GameObject* main_container_object = nullptr;
+        std::unordered_map<GameObjectContainer, app::GameObject*> containers;
+        std::optional<il2cpp::GCRef<app::GameObject>> main_container_ref;
 
         bool save_requested = false;
         SaveOptions save_request_options{};
 
-        void make_container(RandoContainer container) { // NOLINT
-            auto obj = types::GameObject::create();
-            UnityEngine::GameObject::ctor_1(obj, il2cpp::string_new(magic_enum::enum_name(container)));
+        void make_container(GameObjectContainer container) { // NOLINT
+            const auto go = types::GameObject::create();
+            UnityEngine::GameObject::ctor_1(go, il2cpp::string_new(magic_enum::enum_name(container)));
 
-            containers[container] = obj;
-            if (container == RandoContainer::Randomizer) {
-                UnityEngine::Object::DontDestroyOnLoad(reinterpret_cast<app::Object_1*>(obj));
-                main_container_object = obj;
+            containers[container] = go;
+            if (container == GameObjectContainer::Main) {
+                UnityEngine::Object::DontDestroyOnLoad(reinterpret_cast<app::Object_1*>(go));
+                main_container_ref = il2cpp::GCRef(go);
             } else {
-                if (main_container_object == nullptr) {
-                    make_container(RandoContainer::Randomizer);
+                if (!main_container_ref.has_value()) {
+                    make_container(GameObjectContainer::Main);
                 }
 
-                il2cpp::unity::set_parent(obj, main_container_object);
+                il2cpp::unity::set_parent(go, **main_container_ref);
             }
         }
 
@@ -99,7 +99,7 @@ namespace core::api::game {
             }
         }
 
-        common::registration_handle_t on_title_screen_loaded = scenes::single_event_bus().register_handler("wotwTitleScreen", [](auto, auto) {
+        common::Droppable::ptr_t on_title_screen_loaded = scenes::single_event_bus().register_handler("wotwTitleScreen", [](auto, auto) {
             initialized = true;
             on_title_screen_loaded = nullptr;
         });
@@ -172,7 +172,7 @@ namespace core::api::game {
         return game_controller()->fields.SaveGameController;
     }
 
-    app::GameObject* container(RandoContainer c) {
+    app::GameObject* container(GameObjectContainer c) {
         auto it = containers.find(c);
         if (it == containers.end()) {
             make_container(c);
@@ -182,7 +182,7 @@ namespace core::api::game {
         return it->second;
     }
 
-    void add_to_container(RandoContainer c, app::GameObject* go) {
+    void add_to_container(GameObjectContainer c, app::GameObject* go) {
         il2cpp::unity::set_parent(go, container(c));
     }
 
@@ -310,18 +310,4 @@ namespace core::api::game {
         GameStateMachine::SetToGame(GameStateMachine::get_Instance());
         load(true);
     }
-
-    auto on_map_opened = event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, [](auto, auto) {
-        auto it = containers.find(RandoContainer::MapIcons);
-        if (it != containers.end()) {
-            UnityEngine::GameObject::SetActive(it->second, true);
-        }
-    });
-
-    auto on_map_closed = event_bus().register_handler(GameEvent::CloseAreaMap, EventTiming::After, [](auto, auto) {
-        auto it = containers.find(RandoContainer::MapIcons);
-        if (it != containers.end()) {
-            UnityEngine::GameObject::SetActive(it->second, false);
-        }
-    });
 } // namespace core::api::game

@@ -7,7 +7,6 @@
 
 #include <Randomizer/features/credits.h>
 #include <Randomizer/features/wheel.h>
-#include <Randomizer/game/map/teleport_anywhere.h>
 #include <Randomizer/randomizer.h>
 
 namespace randomizer::features::wheel {
@@ -136,7 +135,7 @@ namespace randomizer::features::wheel {
         initialize_item(9001, 4, "Display coordinates", "Displays your current\ncoordinates as a message", "file:assets/icons/wheel/show_coordinates.blue.png",
                         [](auto, auto, auto) {
                             static core::api::messages::MessageBox box;
-                            static common::registration_handle_t handle;
+                            static common::Droppable::ptr_t handle;
                             if (handle == nullptr) {
                                 box.coordinate_system().set(core::api::messages::CoordinateSystem::Relative);
                                 box.text_alignment().set(app::AlignmentMode__Enum::Left);
@@ -164,11 +163,12 @@ namespace randomizer::features::wheel {
                                 return;
                             }
 
-                            game::map::teleport_anywhere = !game::map::teleport_anywhere;
-                            core::message_controller().queue_central({
-                                .text = core::Property<std::string>::format("Teleport anywhere {}", game::map::teleport_anywhere ? "enabled" : "disabled"),
-                                .prioritized = true,
-                            });
+                            // TODO[Map]:
+                            // game::map::teleport_anywhere = !game::map::teleport_anywhere;
+                            // core::message_controller().queue_central({
+                            //     .text = core::Property<std::string>::format("Teleport anywhere {}", game::map::teleport_anywhere ? "enabled" : "disabled"),
+                            //     .prioritized = true,
+                            // });
                         });
         initialize_item(9001, 6, "Unlock spoilers", "Unlock spoilers filter on the map", "file:assets/icons/wheel/unlock_spoilers.blue.png",
                         [](auto, auto, auto) {

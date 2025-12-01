@@ -1,9 +1,15 @@
 #pragma once
 
+#include <Common/event_bus.h>
 #include <Core/macros.h>
 #include <string>
 
 namespace core::settings {
+    enum class SettingsEvent {
+        Load,
+    };
+
+    CORE_DLLEXPORT common::TimedEventBus<void, SettingsEvent>& event_bus();
     CORE_DLLEXPORT void reload();
     CORE_DLLEXPORT bool developer_mode();
     CORE_DLLEXPORT bool lock_cursor();
@@ -11,7 +17,6 @@ namespace core::settings {
     CORE_DLLEXPORT bool server_tls();
     CORE_DLLEXPORT std::string server_host();
     CORE_DLLEXPORT bool funny_money();
-    CORE_DLLEXPORT bool select_in_logic_filter_by_default();
     CORE_DLLEXPORT bool hide_quest_filter();
     CORE_DLLEXPORT bool hide_warp_filter();
     CORE_DLLEXPORT bool hide_collectible_filter();
@@ -27,7 +32,7 @@ namespace core::settings {
     CORE_DLLEXPORT bool always_show_keystones();
     CORE_DLLEXPORT bool enable_world_map();
     CORE_DLLEXPORT bool enable_native_controller_support();
-    CORE_DLLEXPORT float map_icon_transparency();
+    CORE_DLLEXPORT bool show_transparent_out_of_logic_icons();
     CORE_DLLEXPORT float camera_shake_intensity();
     CORE_DLLEXPORT float map_pan_speed();
     CORE_DLLEXPORT bool shriek_is_shrek();
@@ -41,7 +46,6 @@ namespace core::settings {
     CORE_DLLEXPORT void lock_cursor(bool value);
     CORE_DLLEXPORT void server_tls(bool value);
     CORE_DLLEXPORT void server_host(std::string value);
-    CORE_DLLEXPORT void select_in_logic_filter_by_default(bool value);
     CORE_DLLEXPORT void hide_quest_filter(bool value);
     CORE_DLLEXPORT void hide_warp_filter(bool value);
     CORE_DLLEXPORT void hide_collectible_filter(bool value);
@@ -56,7 +60,7 @@ namespace core::settings {
     CORE_DLLEXPORT void always_show_keystone_doors(bool value);
     CORE_DLLEXPORT void always_show_keystones(bool value);
     CORE_DLLEXPORT void enable_world_map(bool value);
-    CORE_DLLEXPORT void map_icon_transparency(float value);
+    CORE_DLLEXPORT void show_transparent_out_of_logic_icons(bool value);
     CORE_DLLEXPORT void camera_shake_intensity(float value);
     CORE_DLLEXPORT void shriek_is_shrek(bool value);
     CORE_DLLEXPORT void enable_minimap(bool value);

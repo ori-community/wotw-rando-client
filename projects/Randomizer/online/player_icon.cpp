@@ -155,7 +155,7 @@ namespace randomizer::online {
         }
 
         set_layer_recursive(*m_root, static_cast<int>(Layer::UI));
-        add_to_container(core::api::game::RandoContainer::Multiplayer, *m_root);
+        add_to_container(core::api::game::GameObjectContainer::Multiplayer, *m_root);
 
         const auto transform = il2cpp::unity::get_transform(*m_icon);
         const app::Vector3 scale{MAP_SPRITE_SCALE, MAP_SPRITE_SCALE, 1.0f};

@@ -33,12 +33,12 @@ namespace common {
             m_data.clear();
         }
 
-        [[nodiscard]] registration_handle_t register_handler(Identifiers... ids, event_handler handler) {
+        [[nodiscard]] Droppable::ptr_t register_handler(Identifiers... ids, event_handler handler) {
             return m_data.get_bus_data(ids...)->register_handler(handler);
         }
 
-        [[nodiscard]] std::vector<registration_handle_t> register_handlers(std::vector<identifier> ids, event_handler handler) {
-            std::vector<registration_handle_t> handles;
+        [[nodiscard]] std::vector<Droppable::ptr_t> register_handlers(std::vector<identifier> ids, event_handler handler) {
+            std::vector<Droppable::ptr_t> handles;
             for (auto id : ids) {
                 handles.push_back(m_data.get_bus_data(id)->register_handler(handler));
             }

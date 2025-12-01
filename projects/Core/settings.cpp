@@ -15,8 +15,15 @@ namespace core::settings {
         return *settings;
     }
 
+    common::TimedEventBus<void, SettingsEvent>& event_bus() {
+        static common::TimedEventBus<void, SettingsEvent> value;
+        return value;
+    }
+
     void reload() {
+        event_bus().trigger_event(SettingsEvent::Load, EventTiming::Before);
         get_settings().reload();
+        event_bus().trigger_event(SettingsEvent::Load, EventTiming::After);
     }
 
     bool developer_mode() {
@@ -41,10 +48,6 @@ namespace core::settings {
 
     bool funny_money() {
         return get_settings().get_boolean("FunnyMoney", false);
-    }
-
-    bool select_in_logic_filter_by_default() {
-        return get_settings().get_boolean("SelectInLogicFilterByDefault", true);
     }
 
     bool hide_quest_filter() {
@@ -107,8 +110,8 @@ namespace core::settings {
         return get_settings().get_boolean("EnableNativeControllerSupport", true);
     }
 
-    float map_icon_transparency() {
-        return get_settings().get_float("MapIconTransparency", 0.f);
+    bool show_transparent_out_of_logic_icons() {
+        return get_settings().get_boolean("ShowTransparentOutOfLogicIcons", true);
     }
 
     float camera_shake_intensity() {
@@ -153,10 +156,6 @@ namespace core::settings {
 
     void server_host(std::string value) {
         get_settings().overrides()["ServerHost"] = value;
-    }
-
-    void select_in_logic_filter_by_default(bool value) {
-        get_settings().overrides()["SelectInLogicFilterByDefault"] = value;
     }
 
     void hide_quest_filter(bool value) {
@@ -215,8 +214,8 @@ namespace core::settings {
         get_settings().overrides()["EnableWorldMap"] = value;
     }
 
-    void map_icon_transparency(float value) {
-        get_settings().overrides()["MapIconTransparency"] = value;
+    void show_transparent_out_of_logic_icons(bool value) {
+        get_settings().overrides()["ShowTransparentOutOfLogicIcons"] = value;
     }
 
     void camera_shake_intensity(float value) {

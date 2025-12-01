@@ -11,6 +11,8 @@
 #include <Modloader/app/types/ScalePositionForAspectRatio.h>
 #include <Randomizer/randomizer.h>
 
+#include "Randomizer/map/map_filter.h"
+
 using namespace app::classes;
 
 namespace {
@@ -34,10 +36,12 @@ namespace {
         );
         ScalePositionForAspectRatio::ctor(scale_position_component);
         map_side_background->enabled(false);
+
+
     });
 
     core::Property<std::string> map_message_side_text(core::TextID::SideMapMessage);
-    std::shared_ptr<const core::reactivity::ReactiveEffect> on_map_message_side_changed;
+    core::reactivity::ReactiveEffect::ptr_t on_map_message_side_changed;
     std::shared_ptr<core::api::messages::MessageBox> box;
 
     void update_side_map_message() {
@@ -77,29 +81,23 @@ namespace {
         map_side_background->enabled(false);
     }
 
-    IL2CPP_INTERCEPT(void, GameMapUI, UpdateQuests, app::GameMapUI * this_ptr) {
-        const auto quest_icons_ui = types::QuestIconsUI::get_class()->static_fields->Instance;
-        const auto filter = this_ptr->fields.m_areaMap->fields._IconManager_k__BackingField->fields.Filter;
-        if (filter == app::AreaMapIconFilter__Enum::Quests) {
-            quest_icons_ui->fields.AreaMapIconMode = app::QuestIconMode__Enum::ShowAll;
-            QuestIconsUI::Show(quest_icons_ui);
-            QuestsUI::Show(this_ptr->fields.m_questsUI);
-            hide_map_message_side();
-        } else {
-            quest_icons_ui->fields.AreaMapIconMode = app::QuestIconMode__Enum::Hidden;
-            QuestsUI::Hide(this_ptr->fields.m_questsUI, false);
-            show_map_message_side();
-        }
-    }
+    core::reactivity::ReactiveEffect::ptr_t visibility_effect;
 
     auto on_area_map_open = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, [](auto, auto) {
-        const auto filter = types::AreaMapUI::get_class()->static_fields->Instance->fields._IconManager_k__BackingField->fields.Filter;
-        if (filter != app::AreaMapIconFilter__Enum::Quests) {
-            show_map_message_side();
-        }
+        visibility_effect = core::reactivity::watch_effect()
+            .effect(randomizer::map::filter::current_map_filter())
+            .after([] {
+                if (!randomizer::map::filter::quests_ui_should_be_visible()) {
+                    show_map_message_side();
+                } else {
+                    hide_map_message_side();
+                }
+            })
+            .finalize();
     });
 
     auto on_area_map_closed = core::api::game::event_bus().register_handler(GameEvent::CloseAreaMap, EventTiming::After, [](auto, auto) {
+        visibility_effect = nullptr;
         hide_map_message_side();
     });
 } // namespace

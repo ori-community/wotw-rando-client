@@ -11,18 +11,19 @@ namespace randomizer::location_data {
     enum class LocationType {
         SpiritLight = 0,
         Shard = 1,
-        Life = 2,
-        Energy = 3,
-        Ore = 4,
+        HealthFragment = 2,
+        EnergyFragment = 3,
+        GorlekOre = 4,
         ShardSlot = 5,
         Keystone = 6,
         Eyestone = 7,
-        Quest = 8,
-        Ability = 9,
+        QuestItem = 8,
+        Skill = 9,
         Shop = 10,
         Wisp = 11,
         Seed = 12,
-        MapShop = 13,
+        Lupo = 13,
+        RaceStart = 14,
         Unknown = 15
     };
 

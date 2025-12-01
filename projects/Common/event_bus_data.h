@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Common/ext.h>
-#include <Common/registration_handle.h>
+#include <Common/droppable.h>
 
 #include <memory>
 #include <unordered_map>
@@ -21,11 +21,11 @@ namespace common {
         bool currently_triggering = false;
         int next = 0;
 
-        [[nodiscard]] registration_handle_t register_handler(EventHandler handler) {
+        [[nodiscard]] Droppable::ptr_t register_handler(EventHandler handler) {
             int id = next++;
             event_handlers[id] = handler;
             auto ptr = self;
-            return std::make_unique<RegistrationHandle>([id, ptr]() { handle_delete(ptr, id); });
+            return std::make_unique<Droppable>([id, ptr]() { handle_delete(ptr, id); });
         }
 
         void start_trigger() {

@@ -209,7 +209,7 @@ namespace {
     }
 
     std::optional<il2cpp::WeakGCRef<app::GameObject>> mokk_the_brave_setup_ref = std::nullopt;
-    std::shared_ptr<const core::reactivity::ReactiveEffect> mokk_the_brave_effect = nullptr;
+    core::reactivity::ReactiveEffect::ptr_t mokk_the_brave_effect = nullptr;
 
     void update_mokk_the_brave_presence() {
         if (!mokk_the_brave_setup_ref.has_value() || !mokk_the_brave_setup_ref->is_valid()) {

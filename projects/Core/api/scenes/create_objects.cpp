@@ -53,7 +53,7 @@ namespace core::api::scenes {
 
                     spawn->game_object = il2cpp::unity::instantiate_object(prefab);
                     il2cpp::invoke(spawn->game_object, "set_name", il2cpp::string_new(spawn->name));
-                    core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, spawn->game_object);
+                    core::api::game::add_to_container(core::api::game::GameObjectContainer::Miscellaneous, spawn->game_object);
                     auto transform = il2cpp::unity::get_transform(spawn->game_object);
                     Transform::set_position(transform, spawn->position);
                     if (spawn->scale.has_value())

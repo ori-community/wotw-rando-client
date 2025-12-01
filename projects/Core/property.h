@@ -55,6 +55,10 @@ namespace core {
             reactivity::notify_used(reactivity::PropertyDependency(m_id));
         }
 
+        [[nodiscard]] reactivity::PropertyDependency get_dependency() const {
+            return reactivity::PropertyDependency(m_id);
+        }
+
     protected:
         const unsigned int m_id = reactivity::reserve_property_id();
     };
@@ -66,15 +70,3 @@ namespace core {
 #include <Core/property/property_string.inl>
 #include <Core/property/property_uber_state.inl>
 #include <Core/property/property_non_uber_state.inl>
-
-namespace core::reactivity::builder {
-    template<typename T>
-    AfterEffectBuilder EffectBuilder::effect(Property<T> const& property, const std::source_location& location) const {
-        return effect([&property]{ [[maybe_unused]] auto out = property.get(); }, location);
-    }
-
-    template<typename T>
-    AfterEffectBuilder BeforeEffectBuilder::effect(Property<T> const& property, const std::source_location& location) const {
-        return effect([&property]{ [[maybe_unused]] auto out = property.get(); }, location);
-    }
-}

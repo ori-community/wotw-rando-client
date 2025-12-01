@@ -13,6 +13,7 @@
 
 #include <string>
 #include <vector>
+#include <frozen/string.h>
 
 using GCHandleId = uint32_t;
 
@@ -92,19 +93,28 @@ namespace il2cpp {
 
         explicit GCRef(T* obj, bool pinned = false) {
             handle = std::make_shared<GCHandle>(il2cpp::gchandle_new(obj, pinned));
+            m_cache = obj;
         }
 
-        T* ref() const {
+        T* ref() {
             if (handle == nullptr) {
                 return nullptr;
             }
 
-            return reinterpret_cast<T*>(handle->target());
+            if (m_cache == nullptr) {
+                m_cache = reinterpret_cast<T*>(handle->target());
+            }
+
+            return m_cache;
         }
 
-        T* operator*() const {
+        T* operator*() {
             return ref();
         }
+
+    private:
+        // Caching is safe because this version of IL2Cpp uses a non-moving garbage collector (Boehm-Demers-Weiser)
+        T* m_cache = nullptr;
     };
 
     template<typename T>

@@ -46,7 +46,7 @@ namespace randomizer::game::shops {
     private:
         // nullopt = cache dirty, value + nullptr = cache is valid but texture is not
         std::optional<std::shared_ptr<core::api::graphics::textures::TextureData>> icon_cache;
-        std::shared_ptr<const core::reactivity::ReactiveEffect> icon_effect;
+        core::reactivity::ReactiveEffect::ptr_t icon_effect;
     };
 
     /**

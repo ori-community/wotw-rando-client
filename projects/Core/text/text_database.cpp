@@ -72,7 +72,7 @@ namespace core::text {
         register_text(core::TextID::TrialTextWoods, " ");
 
         register_text(core::TextID::MapMessage, " ");
-        register_text(core::TextID::SideMapMessage, "This is a test for the side panel\nThis is a test for the side panel\nThis is a test for the side panel\nThis is a test for the side panel");
+        register_text(core::TextID::SideMapMessage, "");
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {

@@ -28,11 +28,11 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::GameObject>> shriek_barrier_go;
     std::optional<il2cpp::WeakGCRef<app::GameObject>> shriek_barrier_killbox;
     std::optional<il2cpp::WeakGCRef<app::CameraScrollLock>> shriek_barrier_scroll_lock;
-    std::shared_ptr<const core::reactivity::ReactiveEffect> shriek_barrier_effect;
+    core::reactivity::ReactiveEffect::ptr_t shriek_barrier_effect;
     bool shriek_barrier_active = false;
     bool was_showing_hint = false;
     float animation_position = 0.0f;
-    common::registration_handle_t on_update_animation_handle;
+    common::Droppable::ptr_t on_update_animation_handle;
 
     void update_animation_state() {
         const auto eased_animation_position = static_cast<float>(common::math::ease(animation_position, 0.225));

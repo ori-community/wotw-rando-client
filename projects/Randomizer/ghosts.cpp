@@ -219,7 +219,7 @@ namespace ghosts {
         this->ghost_player->fields.GhostRecorderData->fields.CurrentVersion = 8;
         this->ghost_player->fields.GhostRecorderData->fields.Duration = FLT_MAX;
 
-        utils::ByteStream stream(frame_data);
+        core::utils::ByteStream stream(frame_data);
         plugins::play_rando_ghost_plugins(stream, *this);
 
         auto data = stream.peek_to_end();
@@ -373,7 +373,7 @@ namespace ghosts {
         ghost_recorder = il2cpp::unity::add_component<app::GhostRecorder>(ghost_recorder_go, types::GhostRecorder::get_class());
         ghost_recorder->klass->static_fields->Instance = ghost_recorder;
         is_creating_rando_ghost_recorder_component = false;
-        core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, ghost_recorder_go);
+        core::api::game::add_to_container(core::api::game::GameObjectContainer::Miscellaneous, ghost_recorder_go);
 
         const auto path = il2cpp::unity::get_path(ghost_recorder);
 

@@ -34,8 +34,8 @@ using namespace app::classes;
 using namespace core::api::uber_states;
 
 #define STATIC_PROPERTY(type, name, default_value)                                                                                                             \
-    core::Property<type>& name() {                                                                                                           \
-        static core::Property<type> state(default_value);                                                                                   \
+    core::Property<type>& name() {                                                                                                                             \
+        static core::Property<type> state(default_value);                                                                                                      \
         return state;                                                                                                                                          \
     }
 
@@ -349,6 +349,7 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "exploderKills", 45, 0),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "shriekBarrier", 0, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "enableSpoilerFilter", 100, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "spawnTuley", 300, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "spawnOpherEverywhere", 301, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "spawnTwillenEverywhere", 302, false),

@@ -233,7 +233,7 @@ namespace randomizer::seed {
     }
 
     std::vector<std::byte> PersistentSeedMemory::serialize() {
-        utils::ByteStream stream;
+        core::utils::ByteStream stream;
         stream.write(memory.booleans.values.size());
         stream.write(reinterpret_cast<std::byte*>(memory.booleans.values.data()), memory.booleans.values.size() * sizeof(char));
         stream.write(memory.integers.values.size());
@@ -249,7 +249,7 @@ namespace randomizer::seed {
         return stream.buffer;
     }
 
-    void PersistentSeedMemory::deserialize(utils::ByteStream& stream) {
+    void PersistentSeedMemory::deserialize(core::utils::ByteStream& stream) {
         memory = SeedMemory();
 
         auto length = stream.read<std::size_t>();
@@ -304,10 +304,11 @@ namespace randomizer::seed {
 
         m_serialized_warp_icons.clear();
         for (const auto& [id, icon]: m_warp_icons) {
-            m_serialized_warp_icons[id] = {
-                icon->label().get_unprocessed(),
-                icon->position().get(),
-            };
+            // TODO[Map]:
+            // m_serialized_warp_icons[id] = {
+            //     icon->label().get_unprocessed(),
+            //     icon->position().get(),
+            // };
         }
 
         nlohmann::json j = *this;
@@ -323,7 +324,7 @@ namespace randomizer::seed {
         m_queued_message_boxes.clear();
         m_timers.clear();
         m_prevent_grant = false;
-        m_map_spoiler_data.clear();
+        m_spoiler_map_icons.clear();
     }
 
     void SeedExecutionEnvironment::process_queued_message_box_visibility_callbacks() {
@@ -393,9 +394,9 @@ namespace randomizer::seed {
 
     void SeedExecutionEnvironment::clear_free_message_boxes() { m_free_message_boxes.clear(); }
 
-    void SeedExecutionEnvironment::set_warp_icon(const std::size_t id, const std::shared_ptr<game::map::Icon>& icon) { m_warp_icons[id] = icon; }
+    void SeedExecutionEnvironment::set_warp_icon(const std::size_t id, const std::shared_ptr<std::any>& icon) { m_warp_icons[id] = icon; }
 
-    void SeedExecutionEnvironment::modify_warp_icon(const std::size_t id, const std::function<void(game::map::Icon&)>& fn) {
+    void SeedExecutionEnvironment::modify_warp_icon(const std::size_t id, const std::function<void(std::any&)>& fn) {
         if (!m_warp_icons.contains(id)) {
             return;
         }
@@ -490,8 +491,8 @@ namespace randomizer::seed {
         }
     }
 
-    void SeedExecutionEnvironment::set_map_spoiler_data(const std::string& location_id, const ItemSpoilerData& spoiler_data) {
-        m_map_spoiler_data[location_id] = spoiler_data;
+    void SeedExecutionEnvironment::set_spoiler_map_icon(const std::string& location_id, const map::icons::MapIcon::ptr_t& map_icon) {
+        m_spoiler_map_icons[location_id] = map_icon;
     }
 
     void SeedExecutionEnvironment::set_box_trigger(std::size_t id, const SeedBoxTrigger& box_trigger) {
@@ -535,12 +536,13 @@ namespace randomizer::seed {
         }
 
         m_warp_icons.clear();
-        for (const auto& [id, serialized_icon] : m_serialized_warp_icons) {
-            const auto warp_icon = instructions::CreateWarpIcon::create_icon();
-            warp_icon->label().set(serialized_icon.label);
-            warp_icon->position().set(serialized_icon.position);
-            m_warp_icons[id] = warp_icon;
-        }
+        // TODO[Map]:
+        // for (const auto& [id, serialized_icon] : m_serialized_warp_icons) {
+        //     const auto warp_icon = instructions::CreateWarpIcon::create_icon();
+        //     warp_icon->label().set(serialized_icon.label);
+        //     warp_icon->position().set(serialized_icon.position);
+        //     m_warp_icons[id] = warp_icon;
+        // }
     }
 
     std::unique_ptr<IInstruction> create_instruction(const nlohmann::json& j) {

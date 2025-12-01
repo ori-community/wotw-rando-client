@@ -1,5 +1,4 @@
 #include <Randomizer/features/credits.h>
-#include <Randomizer/game/map/teleport_anywhere.h>
 #include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/randomizer.h>
 
@@ -118,11 +117,12 @@ namespace randomizer::input {
         });
 
         auto on_teleport_cheat_before = single_input_bus().register_handler(Action::TeleportCheat, EventTiming::Before, [](auto, auto) {
-            game::map::teleport_anywhere = !game::map::teleport_anywhere;
-            core::message_controller().queue_central({
-                .text = core::Property<std::string>::format("Teleport anywhere {}", game::map::teleport_anywhere ? "enabled" : "disabled"),
-                .prioritized = true,
-            });
+            // TODO[Map]:
+            // game::map::teleport_anywhere = !game::map::teleport_anywhere;
+            // core::message_controller().queue_central({
+            //     .text = core::Property<std::string>::format("Teleport anywhere {}", game::map::teleport_anywhere ? "enabled" : "disabled"),
+            //     .prioritized = true,
+            // });
         });
 
         auto on_unlock_spoilers_before = single_input_bus().register_handler(Action::UnlockSpoilers, EventTiming::Before, [](auto, auto) {

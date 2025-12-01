@@ -124,7 +124,7 @@ namespace {
         {2149056584,    "ResetComboCooldown"            },
     };
 
-    common::registration_handle_t on_after_gui;
+    common::Droppable::ptr_t on_after_gui;
     std::optional<il2cpp::GCRef<app::GUIStyle>> gui_style;
 
     void set_state_flags_display(std::string const&, std::vector<console::CommandParam> const& params) {

@@ -7,7 +7,7 @@
 
 namespace randomizer::messages {
     core::Property<std::string> map_message_text(core::TextID::MapMessage);
-    std::shared_ptr<const core::reactivity::ReactiveEffect> on_map_message_changed;
+    core::reactivity::ReactiveEffect::ptr_t on_map_message_changed;
     std::shared_ptr<core::api::messages::MessageBox> box;
 
     void update_map_message() {

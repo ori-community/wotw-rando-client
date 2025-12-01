@@ -3,10 +3,9 @@
 #include <string>
 #include <vector>
 #include <Core/macros.h>
-
 #include <Modloader/app/structs/Byte__Array.h>
 
-namespace utils {
+namespace core::utils {
     struct CORE_DLLEXPORT ByteStream {
         std::vector<std::byte> buffer;
         unsigned long position = 0;

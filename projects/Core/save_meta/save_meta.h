@@ -21,15 +21,15 @@ namespace core::save_meta {
     public:
         virtual ~SaveMetaHandler() = default;
         virtual std::vector<std::byte> save() = 0;
-        virtual void load(utils::ByteStream& stream) = 0;
+        virtual void load(core::utils::ByteStream& stream) = 0;
     };
 
     class CORE_DLLEXPORT SaveMetaSerializable : public SaveMetaHandler {
     public:
         virtual std::vector<std::byte> serialize() = 0;
-        virtual void deserialize(utils::ByteStream& stream) = 0;
+        virtual void deserialize(core::utils::ByteStream& stream) = 0;
         std::vector<std::byte> save() override;
-        void load(utils::ByteStream& stream) override;
+        void load(core::utils::ByteStream& stream) override;
     };
 
     struct SlotDeserializedEventArgs {
@@ -40,7 +40,7 @@ namespace core::save_meta {
     class CORE_DLLEXPORT JsonSaveMetaSerializable : public SaveMetaSerializable {
     public:
         std::vector<std::byte> serialize() override;
-        void deserialize(utils::ByteStream& stream) override;
+        void deserialize(core::utils::ByteStream& stream) override;
         virtual nlohmann::json json_serialize() = 0;
         virtual void json_deserialize(nlohmann::json& j) = 0;
     };
