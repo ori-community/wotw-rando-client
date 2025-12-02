@@ -94,6 +94,19 @@ namespace randomizer::archipelago {
         archipelago_client().compare_seed();
     });
 
+    [[maybe_unused]]
+    auto on_save_creation = core::api::game::event_bus().register_handler(GameEvent::CreateSave, EventTiming::After, [](auto, auto) {
+        archipelago_client().compare_seed();
+    });
+
+    [[maybe_unused]]
+    auto on_quit_to_menu = core::api::game::event_bus().register_handler(GameEvent::TitleScreenStartup, EventTiming::After, [](auto, auto) {
+        core::events::schedule_task_for_next_update([] {
+            archipelago_client().disconnect();
+            archipelago_client().reset_variables();
+        });
+    });
+
     ArchipelagoClient::ArchipelagoClient() {
         m_websocket.setOnMessageCallback([this](const auto& msg) { on_websocket_message(msg); });
     }
@@ -122,12 +135,42 @@ namespace randomizer::archipelago {
 
     bool ArchipelagoClient::is_connected() const { return m_websocket.getReadyState() == ix::ReadyState::Open; }
 
+    void ArchipelagoClient::reset_variables() {
+        m_first_connection_attempt = true;
+        m_slot_name = "";
+        m_slot_id = 0;
+        m_password = "";
+        m_pending_send_locations.clear();
+        m_pending_collect_locations.clear();
+        m_slots.clear();
+        m_player_map.clear();
+        m_shop_icons.clear();
+        m_scouted_locations.clear();
+        m_queued_server_messages.clear();
+        // No need to clear m_data_package, it doesn't contain info from a specific AP game
+        m_current_seed_generator = std::nullopt;
+        m_event_bus.clear();
+        m_ap_seed = "";
+        m_checked_seed = false;
+        m_deathlink_enabled = false;
+        m_deathlink_max_lives = 0;
+        m_deathlink_lives = 0;
+        m_death_from_deathlink = false;
+
+        modloader::info("archipelago", "AP client got reset");
+    }
+
     void ArchipelagoClient::notify_location_collected(const location_data::Location& location) {
         ids::archipelago_id_t location_id{ids::get_location_id(location)};
+        m_pending_send_locations.insert(location_id);
 
-        m_pending_locations.insert(location_id); // Stores the locations that are checked, but not yet validated by the server: useful for resync
-        send_message(messages::LocationChecks{m_pending_locations});
-
+        if (!m_checked_seed) {
+            modloader::info("archipelago", "Seed not checked yet: skip sending locations");
+            return;
+        }
+        send_message(messages::LocationChecks{m_pending_send_locations});
+        // m_pending_send_locations is not cleared here
+        // It is done when the AP server confirms that the locations got checked (in RoomUpdate and PrintJSON packets)
         modloader::debug("archipelago", std::format("Location checked: {}", location.name));
     }
 
@@ -201,8 +244,18 @@ namespace randomizer::archipelago {
                 } else {
                     core::message_controller().queue_central({
                         .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}). Retrying in 10s.", m_websocket.getUrl())),
+                        .duration = 8.f,
                         .show_box = true,
                     });
+                    // Users often forget to enable secure connection when connecting to archipelago.gg
+                    // This displays an extra message to help them find the issue
+                    if (m_websocket.getUrl().starts_with("ws://archipelago.gg:")) {
+                        core::message_controller().queue_central({
+                            .text = core::Property<std::string>("You need to enable secure connection to connect to the archipelago website."),
+                            .duration = 8.f,
+                            .show_box = true,
+                        });
+                    }
                     core::events::schedule_task(10.f, [this]() {
                         if (m_is_active) {
                             connect(m_websocket.getUrl(), m_slot_name, m_password);
@@ -275,7 +328,11 @@ namespace randomizer::archipelago {
     }
 
     void ArchipelagoClient::compare_seed() {
-        if (archipelago_save_data->ap_seed.empty()) {
+        if (m_checked_seed) {
+            return;
+        }
+
+        if (archipelago_save_data->ap_seed.empty()) {  // This is the case on file creation
             archipelago_save_data->ap_seed = m_ap_seed;
         }
         if (archipelago_save_data->ap_seed != m_ap_seed) {
@@ -289,7 +346,14 @@ namespace randomizer::archipelago {
             core::events::schedule_task_for_next_update([this]() {
                 disconnect();
             });
+            return;
         }
+        modloader::info("archipelago", "Seed check successful");
+        m_checked_seed = true;
+        // Sync items and locations, send locations
+        request_sync();
+        send_message(messages::LocationChecks{m_pending_send_locations});
+        collect_locations();
     }
 
 
@@ -370,10 +434,18 @@ namespace randomizer::archipelago {
         return m_player_map[player].alias;
     }
 
-    void collect_location(const ids::archipelago_id_t location_id) {
-        location_data::Location location{ids::get_location_from_id(location_id)};
-        core::api::uber_states::UberState state(location.condition.state.group_int(), location.condition.state.state());
-        state.set(std::max(state.get<double>(), location.condition.lower_bound_value()));
+    void ArchipelagoClient::collect_locations() {
+        if (!m_checked_seed) {
+            modloader::info("archipelago", "Seed not checked yet: skip collecting locations");
+            return;
+        }
+        for (ids::archipelago_id_t location_id: m_pending_collect_locations) {
+            location_data::Location location{ids::get_location_from_id(location_id)};
+
+            core::api::uber_states::UberState state(location.condition.state.group_int(), location.condition.state.state());
+            state.set(std::max(state.get<double>(), location.condition.lower_bound_value()));
+        }
+        m_pending_collect_locations.clear();
     }
 
     void ArchipelagoClient::grant_item(messages::NetworkItem const& net_item) {
@@ -545,7 +617,9 @@ namespace randomizer::archipelago {
                     m_slots = message.slot_info;
 
                     for (const ids::archipelago_id_t location_id: message.checked_locations) {
-                        collect_location(location_id);
+                        m_pending_collect_locations.insert(location_id);
+                        m_pending_send_locations.erase(location_id); // Remove location from the cache if it existed in it.
+                        collect_locations();
                     }
 
                     m_current_seed_generator = ArchipelagoSeedGenerator(message.slot_data);
@@ -631,6 +705,11 @@ namespace randomizer::archipelago {
                         )
                     );
 
+                    if (!m_checked_seed) {
+                        modloader::info("archipelago", "Seed not checked yet: skip giving items");
+                        return;
+                    }
+
                     if (message.index == archipelago_save_data->last_item_index + 1) {
                         for (auto& item: message.items) {
                             grant_item(item);
@@ -660,8 +739,9 @@ namespace randomizer::archipelago {
                     }
 
                     for (ids::archipelago_id_t location_id: message.checked_locations) {
-                        collect_location(location_id);
-                        m_pending_locations.erase(location_id); // Remove location from the cache if it existed in it.
+                        m_pending_collect_locations.insert(location_id);
+                        m_pending_send_locations.erase(location_id); // Remove location from the cache if it existed in it.
+                        collect_locations();
                     }
                 },
                 [this](const messages::PrintJSON& message) {
@@ -678,7 +758,7 @@ namespace randomizer::archipelago {
                             });
                             if (message.type == "ItemSend") {
                                 // This means that the server received the LocationCheck packet, so we can clear the cache.
-                                m_pending_locations.clear();
+                                m_pending_send_locations.clear();
                             }
                         }
 
