@@ -83,26 +83,24 @@ namespace modloader {
                     continue;
                 }
 
-                warn(
-                    "intercept",
-                    std::format(
-                        "Intercept {} exists multiple times with undefined sorting order. "
-                        "Please use IL2CPP_INTERCEPT_WITH_ORDER and assign orders explicitly:",
-                        equal_unordered_intercepts.at(0)->name
-                    )
+                std::string error_message;
+
+                error_message += std::format(
+                    "Intercept {} exists multiple times with undefined sorting order. "
+                    "Please use IL2CPP_INTERCEPT_WITH_ORDER and assign orders explicitly:",
+                    equal_unordered_intercepts.at(0)->name
                 );
 
                 for (const auto& unordered_intercept: equal_unordered_intercepts) {
-                    warn(
-                        "intercept",
-                        std::format(
-                            "- {} ({}:{})",
-                            unordered_intercept->name,
-                            unordered_intercept->location.file_name(),
-                            unordered_intercept->location.line()
-                        )
+                    error_message += std::format(
+                        "\n- {} ({}:{})",
+                        unordered_intercept->name,
+                        unordered_intercept->location.file_name(),
+                        unordered_intercept->location.line()
                     );
                 }
+
+                throw std::runtime_error(error_message);
             }
             #endif
         }
