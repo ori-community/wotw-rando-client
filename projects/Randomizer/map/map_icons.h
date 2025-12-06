@@ -1,5 +1,9 @@
 #pragma once
 
+#include <optional>
+#include <Modloader/il2cpp_helpers.h>
+#include <Core/property.h>
+
 namespace randomizer::map::icons {
     struct MapIcon {
         enum class Type {
@@ -90,12 +94,50 @@ namespace randomizer::map::icons {
             DoorUnknown = 114,
         };
 
-    private:
-        /** The cached game object */
-        std::optional<il2cpp::GCRef<app::GameObject>> m_game_object = std::nullopt;
+        MapIcon();
+        ~MapIcon();
 
         /** The icon type */
-        Type m_type = Type::HealthFragment;
+        core::Property<Type> m_type{Type::HealthFragment};
+
+        /** Whether the icon is visible on the map */
+        core::Property<bool> m_visible{false};
+
+        /** The position of the icon in world coordinates */
+        core::Property<app::Vector2> m_world_position{{0.f, 0.f}};
+
+    private:
+        struct Handles {
+            std::shared_ptr<const core::reactivity::ReactiveEffect> visible_effect;
+            std::shared_ptr<const core::reactivity::ReactiveEffect> type_effect;
+            std::shared_ptr<const core::reactivity::ReactiveEffect> position_effect;
+            common::registration_handle_t position_update_requested_event;
+            common::registration_handle_t area_map_opened_event;
+        };
+
+        /** The cached game object */
+        std::optional<il2cpp::WeakGCRef<app::GameObject>> m_game_object = std::nullopt;
+
+        /** Reactive effects for this map icon */
+        Handles m_handles;
+
+        /** Add the game object to the map if it doesn't have a parent currently but exists */
+        bool try_add_icon_to_map_if_missing();
+
+        /** Destroy the current game object if exists and try to recreate it. Returns true if successful. */
+        bool try_recreate_game_object();
+
+        /** If there is no current game object, try to create one. Returns true if already exists or successful. */
+        bool try_create_game_object_if_not_exists();
+
+        /** Destroy the game object if it exists */
+        void destroy_game_object_if_exists();
+
+        /** Sets the icon's actual map position and scale (resembling vanilla IconPlacementScaler) if the game object exists */
+        void try_update_map_position_and_scale();
+
+        /** Returns the game object or nullopt if it doesn't exit or is invalid */
+        std::optional<app::GameObject*> get_game_object();
     };
 
     using map_icon_handle_t = std::shared_ptr<MapIcon>;

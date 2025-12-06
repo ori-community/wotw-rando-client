@@ -268,6 +268,8 @@ namespace core::reactivity {
 
             template<typename T>
             AfterEffectBuilder effect(Property<T> const& property, const std::source_location& location = std::source_location::current()) const;
+            template<typename T>
+            AfterEffectBuilder effect(std::vector<Property<T>> const& properties, const std::source_location& location = std::source_location::current()) const;
             AfterEffectBuilder effect(std::vector<api::uber_states::UberState> const& states, const std::source_location& location = std::source_location::current()) const;
             AfterEffectBuilder effect(std::function<void()> const& func, const std::source_location& location = std::source_location::current()) const;
 

@@ -293,7 +293,7 @@ namespace core::api::scenes {
         auto cname = il2cpp::string_new(name);
         auto meta = ScenesManager::GetSceneInformation(manager, cname);
         if (meta == nullptr || !ScenesManager::SceneIsLoaded(manager, meta->fields.SceneMoonGuid)) {
-            auto container = core::api::game::container(core::api::game::RandoContainer::Randomizer);
+            auto container = core::api::game::container(core::api::game::GameObjectContainer::Main);
             auto scene = UnityEngine::GameObject::get_scene(container);
             auto dont_destroy_on_load = il2cpp::unity::get_root_game_objects(scene);
             for (auto game_object: dont_destroy_on_load) {
@@ -331,7 +331,7 @@ namespace core::api::scenes {
             game_objects.push_back(il2cpp::unity::get_game_object(scene->fields.SceneRoot));
         }
 
-        auto container = core::api::game::container(core::api::game::RandoContainer::Randomizer);
+        auto container = core::api::game::container(core::api::game::GameObjectContainer::Main);
         auto scene = UnityEngine::GameObject::get_scene(container);
         auto dont_destroy_on_load = il2cpp::unity::get_root_game_objects(scene);
         game_objects.insert(game_objects.end(), dont_destroy_on_load.begin(), dont_destroy_on_load.end());

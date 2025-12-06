@@ -164,7 +164,7 @@ namespace core::api::messages {
     MessageBox::MessageBox() {
         const auto controller = types::UI::get_class()->static_fields->MessageController;
         m_game_object = reinterpret_cast<app::GameObject*>(Object::Instantiate_3(reinterpret_cast<app::Object_1*>(controller->fields.HintSmallMessage)));
-        add_to_container(game::RandoContainer::Messages, m_game_object);
+        add_to_container(game::GameObjectContainer::Messages, m_game_object);
 
         il2cpp::unity::destroy_object(il2cpp::unity::get_component_in_children<app::DestroyOnRestoreCheckpoint>(m_game_object, types::DestroyOnRestoreCheckpoint::get_class()));
         il2cpp::unity::destroy_object(il2cpp::unity::get_component_in_children<app::ParticleSuspender>(m_game_object, types::ParticleSuspender::get_class()));

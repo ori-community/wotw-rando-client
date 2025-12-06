@@ -1,10 +1,16 @@
 #include <Core/api/game/game.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/settings.h>
+#include <Modloader/app/methods/AreaMapNavigation.h>
 #include <Modloader/app/methods/AreaMapIcon.h>
 #include <Modloader/app/methods/AreaMapIconManager.h>
 #include <Modloader/app/methods/QuestIconsUI.h>
 #include <Modloader/app/methods/RuntimeWorldMapIcon.h>
+#include <Modloader/app/methods/GameMapPins.h>
+#include <Modloader/app/methods/AreaMapUI.h>
+#include <Modloader/app/methods/UnityEngine/GameObject.h>
+#include <Modloader/app/types/AreaMapIcon.h>
+#include <Modloader/app/types/GameMapPins.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/map/map_icons.h>
@@ -13,8 +19,15 @@
 #include <frozen/unordered_map.h>
 
 #include <Core/api/game/ui.h>
+#include <Modloader/app/methods/IconPlacementScaler.h>
 
 namespace randomizer::map::icons {
+    enum class Event {
+        IconPositionUpdateRequested,  // Emitted when the vanilla map wants to update icon positions
+    };
+
+    common::EventBus<void, Event> local_event_bus;
+
     namespace {
         using namespace app::classes;
 
@@ -33,6 +46,18 @@ namespace randomizer::map::icons {
 
         IL2CPP_INTERCEPT(void, RuntimeWorldMapIcon, Show, app::RuntimeWorldMapIcon* this_ptr) {
             // NOOP
+        }
+
+        IL2CPP_INTERCEPT(void, RuntimeWorldMapIcon, Hide, app::RuntimeWorldMapIcon* this_ptr) {
+            // NOOP
+        }
+
+        IL2CPP_INTERCEPT(void, GameMapPins, UpdatePinsOnMap, app::GameMapPins* this_ptr, bool visible) {
+            // NOOP
+        }
+
+        IL2CPP_INTERCEPT(void, IconPlacementScaler, UpdateIconPositions, app::IconPlacementScaler* this_ptr, bool force_update) {
+            local_event_bus.trigger_event(Event::IconPositionUpdateRequested);
         }
 
         IL2CPP_INTERCEPT(bool, AreaMapIcon, ShouldShowAttentionMarker, app::AreaMapIcon* this_ptr, app::GameWorldAreaID__Enum area_id) { return false; }
@@ -114,14 +139,14 @@ namespace randomizer::map::icons {
         Special,
     };
 
-    std::optional<app::GameObject*> get_vanilla_icon_prefab(const app::WorldMapIconType__Enum type) {
+    std::optional<app::GameObject*> instantiate_vanilla_map_icon(const app::WorldMapIconType__Enum type) {
         const auto area_map = core::api::game::ui::area_map();
 
         if (area_map == nullptr) {
             return std::nullopt;
         }
 
-        return AreaMapIconManager::GetIcon(area_map->fields._IconManager_k__BackingField, type);
+        return il2cpp::unity::instantiate_object(AreaMapIconManager::GetIcon(area_map->fields._IconManager_k__BackingField, type));
     }
 
     /**
@@ -230,4 +255,154 @@ namespace randomizer::map::icons {
         {MapIcon::Type::DoorUnknown,          {app::WorldMapIconType__Enum::WatermillDoor, "file:assets/map_icons/door_unknown.png", 1.4f}     },
     };
     // clang-format on
+
+    MapIcon::MapIcon() {
+        m_handles.visible_effect = core::reactivity::watch_effect()
+            .effect(m_visible)
+            .after([&] {
+                const auto game_object = get_game_object();
+
+                if (m_visible.get()) {
+                    if (game_object.has_value()) {
+                        il2cpp::unity::set_active(*game_object, true);
+                    }
+
+                    // Set up effects that are only needed when the icon is visible
+                    m_handles.type_effect = core::reactivity::watch_effect()
+                        .effect(m_type)
+                        .after([&] {
+                            try_recreate_game_object();
+                        })
+                        .finalize();
+
+                    m_handles.position_effect = core::reactivity::watch_effect()
+                        .effect(m_world_position)
+                        .after([&] {
+                            if (!try_create_game_object_if_not_exists()) {
+                                return;
+                            }
+
+                            try_update_map_position_and_scale();
+                        })
+                        .finalize();
+
+                    m_handles.position_update_requested_event = local_event_bus.register_handler(Event::IconPositionUpdateRequested, [&](auto) {
+                        try_update_map_position_and_scale();
+                    });
+
+                    m_handles.area_map_opened_event = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::Before, [&](auto, auto) {
+                        try_create_game_object_if_not_exists();
+                    });
+                } else {
+                    if (game_object.has_value()) {
+                        il2cpp::unity::set_active(*game_object, false);
+                    }
+
+                    // Remove reactive effects because we don't need to update icons that are invisible
+                    m_handles.type_effect = nullptr;
+                    m_handles.position_effect = nullptr;
+                    m_handles.position_update_requested_event = nullptr;
+                    m_handles.area_map_opened_event = nullptr;
+                }
+            })
+            .finalize();
+    }
+
+    MapIcon::~MapIcon() {
+        destroy_game_object_if_exists();
+    }
+
+    void MapIcon::destroy_game_object_if_exists() {
+        const auto game_object = get_game_object();
+        if (!game_object.has_value()) {
+            return;
+        }
+
+        il2cpp::unity::destroy_object(*game_object);
+        m_game_object.reset();
+    }
+
+    void MapIcon::try_update_map_position_and_scale() {
+        const auto area_map_ui = core::api::game::ui::area_map();
+
+        if (area_map_ui == nullptr || !m_game_object.has_value()) {
+            return;
+        }
+
+        const auto map_position = AreaMapNavigation::WorldToMapPosition(area_map_ui->fields._Navigation_k__BackingField, m_world_position.get());
+        il2cpp::unity::set_local_position(**m_game_object, map_position);
+
+        // TODO: Calculate and apply scale based on map zoom
+    }
+
+    std::optional<app::GameObject*> MapIcon::get_game_object() {
+        if (!m_game_object.has_value()) {
+            return std::nullopt;
+        }
+
+        const auto game_object = **m_game_object;
+
+        if (!il2cpp::unity::is_valid(game_object)) {
+            return std::nullopt;
+        }
+
+        return game_object;
+    }
+
+    bool MapIcon::try_add_icon_to_map_if_missing() {
+        const auto game_object = get_game_object();
+
+        if (!game_object.has_value()) {
+            return false;
+        }
+
+        if (il2cpp::unity::get_parent(*game_object) != nullptr) {
+            return true;
+        }
+
+        const auto game_map_pins = types::GameMapPins::get_class()->static_fields->Instance;
+
+        if (game_map_pins == nullptr) {
+            return false;
+        }
+
+        // This is where the vanilla map places its icons
+        il2cpp::unity::set_parent(*game_object, game_map_pins->fields.MapPinHolder);
+
+        return true;
+    }
+
+    bool MapIcon::try_recreate_game_object() {
+        destroy_game_object_if_exists();
+
+        const auto& recipe = MAP_ICON_RECIPES.at(m_type.get());
+        const auto game_object = instantiate_vanilla_map_icon(recipe.vanilla_icon_prefab_type);
+
+        if (!game_object.has_value()) {
+            return false;
+        }
+
+        const auto area_map_icon = il2cpp::unity::get_component<app::AreaMapIcon>(*game_object, types::AreaMapIcon::get_class());
+        il2cpp::unity::set_active(area_map_icon->fields.MapIconActive, recipe.variant == VanillaIconPrefabVariant::Active);
+        il2cpp::unity::set_active(area_map_icon->fields.MapIconInactive, recipe.variant == VanillaIconPrefabVariant::Inactive);
+        il2cpp::unity::set_active(area_map_icon->fields.MapIconSpecial, recipe.variant == VanillaIconPrefabVariant::Special);
+
+        // TODO: Apply label offsets
+        // TODO: Load custom textures
+
+        m_game_object = il2cpp::WeakGCRef(*game_object);
+        try_add_icon_to_map_if_missing();
+
+        return true;
+    }
+
+    bool MapIcon::try_create_game_object_if_not_exists() {
+        const auto game_object = get_game_object();
+
+        if (game_object.has_value()) {
+            return try_add_icon_to_map_if_missing();
+        }
+
+        return try_recreate_game_object();
+    }
 } // namespace randomizer::map::icons

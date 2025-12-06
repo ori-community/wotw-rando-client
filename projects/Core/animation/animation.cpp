@@ -91,7 +91,7 @@ namespace core::animation {
         m_root = types::GameObject::create();
         il2cpp::invoke(m_root, ".ctor");
         il2cpp::invoke(m_root, "set_name", il2cpp::string_new("rando_animation"));
-        core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, m_root);
+        core::api::game::add_to_container(core::api::game::GameObjectContainer::Miscellaneous, m_root);
         m_sprite.set_parent(m_root);
     }
 

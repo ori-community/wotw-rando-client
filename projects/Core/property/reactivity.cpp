@@ -136,8 +136,8 @@ namespace core::reactivity {
 
     builder::AfterEffectBuilder builder::EffectBuilder::effect(std::vector<api::uber_states::UberState> const& states, const std::source_location& location) const {
         return effect([states]() {
-            for (auto state: states) {
-                [[maybe_unused]] auto x = state.get();
+            for (const auto& state: states) {
+                notify_used(UberStateDependency{state.group_int(), state.state()});
             }
         }, location);
     }
@@ -148,8 +148,8 @@ namespace core::reactivity {
 
     builder::AfterEffectBuilder builder::BeforeEffectBuilder::effect(std::vector<api::uber_states::UberState> const& states, const std::source_location& location) const {
         return effect([states]() {
-            for (auto state: states) {
-                [[maybe_unused]] auto x = state.get();
+            for (const auto& state: states) {
+                notify_used(UberStateDependency{state.group_int(), state.state()});
             }
         }, location);
     }

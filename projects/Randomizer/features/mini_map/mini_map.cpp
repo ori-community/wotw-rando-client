@@ -177,7 +177,7 @@ namespace {
 
             BaseAnimator::set_Speed(reinterpret_cast<app::BaseAnimator*>(*minimap_animator), 8.f);
 
-            core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, *minimap_go);
+            core::api::game::add_to_container(core::api::game::GameObjectContainer::Miscellaneous, *minimap_go);
         }
     }
 

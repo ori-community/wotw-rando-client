@@ -70,11 +70,20 @@ namespace core {
 namespace core::reactivity::builder {
     template<typename T>
     AfterEffectBuilder EffectBuilder::effect(Property<T> const& property, const std::source_location& location) const {
-        return effect([&property]{ [[maybe_unused]] auto out = property.get(); }, location);
+        return effect([&property] { property.notify_used(); }, location);
     }
 
     template<typename T>
     AfterEffectBuilder BeforeEffectBuilder::effect(Property<T> const& property, const std::source_location& location) const {
-        return effect([&property]{ [[maybe_unused]] auto out = property.get(); }, location);
+        return effect([&property] { property.notify_used(); }, location);
     }
-}
+
+    template<typename T>
+    AfterEffectBuilder BeforeEffectBuilder::effect(std::vector<Property<T>> const& properties, const std::source_location& location) const {
+        return effect([&properties] {
+            for (const auto& property: properties) {
+                property.notify_used();
+            }
+        }, location);
+    }
+} // namespace core::reactivity::builder

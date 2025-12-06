@@ -180,6 +180,7 @@ set(
         "map/fix_keyboard_map_focus.cpp"
         "map/map_icons.cpp"
         "map/map_pan.cpp"
+        "map/map_playground.cpp"
         "map/map_zoom.cpp"
         "map/quest_list_ui.cpp"
         "map/reveal_map.cpp"
