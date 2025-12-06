@@ -15,7 +15,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> destruction_timeline;
     std::optional<il2cpp::WeakGCRef<app::GameObject>> bone_bridge_go;
 
-    common::registration_handle_t uber_state_bus_handle;
+    common::Droppable::ptr_t uber_state_bus_handle;
 
     auto on_scene_loaded_handler = core::api::scenes::event_bus().register_handler(
         [](auto metadata) {

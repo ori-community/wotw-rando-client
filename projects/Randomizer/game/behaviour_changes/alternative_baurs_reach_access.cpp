@@ -25,7 +25,7 @@ namespace {
     }
 
     std::optional<il2cpp::WeakGCRef<app::SeinAbilityRestrictZone>> restrict_zone;
-    std::shared_ptr<const core::reactivity::ReactiveEffect> restrict_zone_effect;
+    core::reactivity::ReactiveEffect::ptr_t restrict_zone_effect;
 
     void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
         if (metadata->state != app::SceneState__Enum::Loaded) {

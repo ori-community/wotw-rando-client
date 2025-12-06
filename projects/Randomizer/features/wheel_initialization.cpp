@@ -135,7 +135,7 @@ namespace randomizer::features::wheel {
         initialize_item(9001, 4, "Display coordinates", "Displays your current\ncoordinates as a message", "file:assets/icons/wheel/show_coordinates.blue.png",
                         [](auto, auto, auto) {
                             static core::api::messages::MessageBox box;
-                            static common::registration_handle_t handle;
+                            static common::Droppable::ptr_t handle;
                             if (handle == nullptr) {
                                 box.coordinate_system().set(core::api::messages::CoordinateSystem::Relative);
                                 box.text_alignment().set(app::AlignmentMode__Enum::Left);

@@ -22,9 +22,9 @@ namespace core::input {
         }
     }
 
-    common::registration_handle_t scoped_input_lock() {
+    common::Droppable::ptr_t scoped_input_lock() {
         auto id = next_id++;
         locks.emplace(id);
-        return std::make_unique<common::RegistrationHandle>([id]{ locks.erase(id); });
+        return std::make_unique<common::Droppable>([id]{ locks.erase(id); });
     }
 } // namespace core::input

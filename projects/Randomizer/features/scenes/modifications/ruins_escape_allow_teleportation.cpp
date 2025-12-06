@@ -15,7 +15,7 @@ namespace {
     using namespace app::classes;
 
     std::optional<il2cpp::WeakGCRef<app::TeleportRestrictZone>> teleport_restrict_zone;
-    std::shared_ptr<const core::reactivity::ReactiveEffect> effect;
+    core::reactivity::ReactiveEffect::ptr_t effect;
 
     core::api::uber_states::UberState fix_enabled_state(UberStateGroup::RandoConfig, 21);
 

@@ -115,7 +115,7 @@ namespace randomizer::seed {
     class PersistentSeedMemory final : public core::save_meta::SaveMetaSerializable {
     public:
         SeedMemory memory;
-        common::registration_handle_t on_new_game_registration_handle;
+        common::Droppable::ptr_t on_new_game_registration_handle;
 
         PersistentSeedMemory();
         PersistentSeedMemory(const PersistentSeedMemory& other) = delete;
@@ -402,7 +402,7 @@ namespace randomizer::seed {
         std::unordered_map<std::size_t, QueuedMessageBox> m_queued_message_boxes;
         bool m_prevent_grant = false;
         std::unordered_map<std::string, ItemSpoilerData> m_map_spoiler_data;
-        std::vector<common::registration_handle_t> m_event_bus_handles;
+        std::vector<common::Droppable::ptr_t> m_event_bus_handles;
         Seed& m_seed;
 
         /**

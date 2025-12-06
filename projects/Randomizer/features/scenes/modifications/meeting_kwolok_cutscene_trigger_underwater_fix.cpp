@@ -12,7 +12,7 @@ namespace {
     using namespace app::classes;
 
     std::optional<il2cpp::WeakGCRef<app::PlayerInsideZoneChecker>> player_inside_zone_checker;
-    std::shared_ptr<const core::reactivity::ReactiveEffect> effect;
+    core::reactivity::ReactiveEffect::ptr_t effect;
 
     core::api::uber_states::UberState fix_enabled_state(UberStateGroup::RandoConfig, 13);
 

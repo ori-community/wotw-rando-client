@@ -58,7 +58,7 @@ namespace {
     struct TrialMessageBoxRef {
         SpiritTrialLocation location;
         il2cpp::WeakGCRef<app::MessageBox> message_box;
-        std::shared_ptr<const core::reactivity::ReactiveEffect> reactive_effect;
+        core::reactivity::ReactiveEffect::ptr_t reactive_effect;
 
         void update_message_box() {
             const auto text = get_text_for_spirit_trial(location);

@@ -18,7 +18,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> vine_h_original_timeline_ref;
     std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> vine_h_rando_timeline_ref;
     std::optional<il2cpp::WeakGCRef<app::ChangeStateOnCondition>> vine_h_change_state_on_condition_ref;
-    std::shared_ptr<const core::reactivity::ReactiveEffect> effect;
+    core::reactivity::ReactiveEffect::ptr_t effect;
 
     core::api::uber_states::UberState disable_cutscenes_state(UberStateGroup::RandoConfig, 20);
 

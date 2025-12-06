@@ -5,7 +5,11 @@
 #include <Core/property.h>
 
 namespace randomizer::map::icons {
-    struct MapIcon {
+    struct MapIcon : public std::enable_shared_from_this<MapIcon> {
+    public:
+        using ptr_t = std::shared_ptr<MapIcon>;
+        using id_t = std::size_t;
+
         enum class Type {
             Keystone = 0,
             Mapstone = 1,
@@ -94,26 +98,38 @@ namespace randomizer::map::icons {
             DoorUnknown = 114,
         };
 
+        /** Must be constructed as a shared_ptr */
         MapIcon();
         ~MapIcon();
 
         /** The icon type */
-        core::Property<Type> m_type{Type::HealthFragment};
+        core::Property<Type> type{Type::HealthFragment};
 
         /** Whether the icon is visible on the map */
-        core::Property<bool> m_visible{false};
+        core::Property<bool> visible{false};
 
         /** The position of the icon in world coordinates */
-        core::Property<app::Vector2> m_world_position{{0.f, 0.f}};
+        core::Property<app::Vector2> world_position{{0.f, 0.f}};
+
+        /** Whether the player can teleport to this icon */
+        core::Property<bool> can_be_teleported_to{false};
+
+        /** Returns the unique ID of this icon */
+        id_t get_id() const;
 
     private:
         struct Handles {
-            std::shared_ptr<const core::reactivity::ReactiveEffect> visible_effect;
-            std::shared_ptr<const core::reactivity::ReactiveEffect> type_effect;
-            std::shared_ptr<const core::reactivity::ReactiveEffect> position_effect;
-            common::registration_handle_t position_update_requested_event;
-            common::registration_handle_t area_map_opened_event;
+            core::reactivity::ReactiveEffect::ptr_t visible_effect;
+            core::reactivity::ReactiveEffect::ptr_t type_effect;
+            core::reactivity::ReactiveEffect::ptr_t position_effect;
+            core::reactivity::ReactiveEffect::ptr_t can_teleport_to_effect;
+            common::Droppable::ptr_t position_update_requested_event;
+            common::Droppable::ptr_t area_map_opened_event;
+            common::Droppable::ptr_t remove_from_map_icons_that_can_be_teleported_to_list;
         };
+
+        /** The ID of the icon. Unique and is not reused. */
+        const id_t m_id;
 
         /** The cached game object */
         std::optional<il2cpp::WeakGCRef<app::GameObject>> m_game_object = std::nullopt;

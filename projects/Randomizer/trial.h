@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Common/registration_handle.h>
+#include <Common/droppable.h>
 #include <Core/api/graphics/sprite.h>
 #include <Core/api/messages/message_box.h>
 #include <functional>
@@ -46,8 +46,8 @@ namespace randomizer {
         std::function<void(float)> m_failed_callback;
         std::function<void(float)> m_finish_callback;
 
-        common::registration_handle_t m_update_handle;
-        common::registration_handle_t m_input_handle;
+        common::Droppable::ptr_t m_update_handle;
+        common::Droppable::ptr_t m_input_handle;
         std::shared_ptr<core::api::messages::MessageBox> m_message_box;
 
         core::api::graphics::Sprite m_start_sprite;

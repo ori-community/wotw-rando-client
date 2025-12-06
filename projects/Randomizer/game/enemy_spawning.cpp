@@ -12,7 +12,7 @@ namespace {
         il2cpp::WeakGCRef<app::EntityPlaceholder> placeholder_ref;
         bool respawn_on_screen;
         float min_distance_from_player;
-        std::shared_ptr<const core::reactivity::ReactiveEffect> effect = nullptr;
+        core::reactivity::ReactiveEffect::ptr_t effect = nullptr;
 
         EntityPlaceholderDefaults(const il2cpp::WeakGCRef<app::EntityPlaceholder>& placeholder_ref, bool respawn_on_screen, float min_distance_from_player);
     };

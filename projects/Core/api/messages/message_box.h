@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Common/registration_handle.h>
+#include <Common/droppable.h>
 #include <Core/macros.h>
 #include <Core/property.h>
 #include <Modloader/app/structs/MessageBox.h>
@@ -70,7 +70,7 @@ namespace core::api::messages {
         void render_text_box();
         app::Transform* background_transform() const;
 
-        common::registration_handle_t m_on_update_handle;
+        common::Droppable::ptr_t m_on_update_handle;
         app::GameObject* m_game_object = nullptr;
         app::MessageBox* m_message_box = nullptr;
         app::ScaleToTextBox* m_scaler = nullptr;
@@ -95,7 +95,7 @@ namespace core::api::messages {
         Property<float> m_left_padding{1.f};
         Property<float> m_right_padding{1.f};
 
-        std::shared_ptr<const reactivity::ReactiveEffect> m_tighten_effect;
+        reactivity::ReactiveEffect::ptr_t m_tighten_effect;
     };
 
     NLOHMANN_JSON_SERIALIZE_ENUM(

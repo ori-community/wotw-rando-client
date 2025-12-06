@@ -37,7 +37,7 @@ namespace {
     });
 
     core::Property<std::string> map_message_side_text(core::TextID::SideMapMessage);
-    std::shared_ptr<const core::reactivity::ReactiveEffect> on_map_message_side_changed;
+    core::reactivity::ReactiveEffect::ptr_t on_map_message_side_changed;
     std::shared_ptr<core::api::messages::MessageBox> box;
 
     void update_side_map_message() {

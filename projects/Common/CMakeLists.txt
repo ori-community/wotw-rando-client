@@ -10,6 +10,7 @@ set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 set(
         SOURCE_FILES
         "csv.cpp"
+        "droppable.cpp"
         "ext.cpp"
         "settings.cpp"
         "math_utils.cpp"
@@ -19,6 +20,7 @@ set(
         PUBLIC_HEADER_FILES
         "blocking_queue.h"
         "csv.h"
+        "droppable.h"
         "event_bus.h"
         "event_bus_data.h"
         "event_timing.h"

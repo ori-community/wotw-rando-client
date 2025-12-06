@@ -7,6 +7,7 @@
 #include <Modloader/app/methods/QuestIconsUI.h>
 #include <Modloader/app/methods/RuntimeWorldMapIcon.h>
 #include <Modloader/app/methods/GameMapPins.h>
+#include <Modloader/app/methods/GameMapUI.h>
 #include <Modloader/app/methods/AreaMapUI.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/types/AreaMapIcon.h>
@@ -27,6 +28,7 @@ namespace randomizer::map::icons {
     };
 
     common::EventBus<void, Event> local_event_bus;
+    std::unordered_map<MapIcon::id_t, map_icon_handle_t> map_icons_that_can_be_teleported_to;
 
     namespace {
         using namespace app::classes;
@@ -61,6 +63,28 @@ namespace randomizer::map::icons {
         }
 
         IL2CPP_INTERCEPT(bool, AreaMapIcon, ShouldShowAttentionMarker, app::AreaMapIcon* this_ptr, app::GameWorldAreaID__Enum area_id) { return false; }
+
+        IL2CPP_INTERCEPT(bool, GameMapUI, IsCursorOverTeleporter, app::GameMapUI * this_ptr, app::Vector2* target) {
+            const auto cursor = GameMapUI::get_FocusLocation(this_ptr);
+
+            auto min_distance = 1.02 * 1.02;
+            bool found_icon_in_range = false;
+            for (auto const& icon: map_icons_that_can_be_teleported_to | std::views::values) {
+                const auto position = AreaMapNavigation::WorldToMapPosition(
+                    this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField, icon->world_position.get()
+                );
+
+                const auto difference = cursor - app::Vector2{position.x, position.y};
+                const auto magnitude_squared = difference.x * difference.x + difference.y * difference.y;
+                if (magnitude_squared < min_distance) {
+                    found_icon_in_range = true;
+                    *target = icon->world_position.get();
+                    min_distance = magnitude_squared;
+                }
+            }
+
+            return found_icon_in_range;
+        }
     } // namespace
 
     enum class VanillaIconPrefabType {
@@ -256,27 +280,28 @@ namespace randomizer::map::icons {
     };
     // clang-format on
 
-    MapIcon::MapIcon() {
+    MapIcon::id_t next_icon_id = 0;
+    MapIcon::MapIcon() : m_id(++next_icon_id) {
         m_handles.visible_effect = core::reactivity::watch_effect()
-            .effect(m_visible)
+            .effect(visible)
             .after([&] {
                 const auto game_object = get_game_object();
 
-                if (m_visible.get()) {
+                if (visible.get()) {
                     if (game_object.has_value()) {
                         il2cpp::unity::set_active(*game_object, true);
                     }
 
                     // Set up effects that are only needed when the icon is visible
                     m_handles.type_effect = core::reactivity::watch_effect()
-                        .effect(m_type)
+                        .effect(type)
                         .after([&] {
                             try_recreate_game_object();
                         })
                         .finalize();
 
                     m_handles.position_effect = core::reactivity::watch_effect()
-                        .effect(m_world_position)
+                        .effect(world_position)
                         .after([&] {
                             if (!try_create_game_object_if_not_exists()) {
                                 return;
@@ -306,10 +331,28 @@ namespace randomizer::map::icons {
                 }
             })
             .finalize();
+
+        m_handles.can_teleport_to_effect = core::reactivity::watch_effect()
+            .effect(can_be_teleported_to)
+            .after([&] {
+                if (can_be_teleported_to.get()) {
+                    map_icons_that_can_be_teleported_to.emplace(m_id, shared_from_this());
+                    m_handles.remove_from_map_icons_that_can_be_teleported_to_list = common::Droppable::create([&] {
+                         map_icons_that_can_be_teleported_to.erase(m_id);
+                    });
+                } else {
+                    m_handles.remove_from_map_icons_that_can_be_teleported_to_list = nullptr;
+                }
+            })
+            .finalize();
     }
 
     MapIcon::~MapIcon() {
         destroy_game_object_if_exists();
+    }
+
+    MapIcon::id_t MapIcon::get_id() const {
+        return m_id;
     }
 
     void MapIcon::destroy_game_object_if_exists() {
@@ -329,7 +372,7 @@ namespace randomizer::map::icons {
             return;
         }
 
-        const auto map_position = AreaMapNavigation::WorldToMapPosition(area_map_ui->fields._Navigation_k__BackingField, m_world_position.get());
+        const auto map_position = AreaMapNavigation::WorldToMapPosition(area_map_ui->fields._Navigation_k__BackingField, world_position.get());
         il2cpp::unity::set_local_position(**m_game_object, map_position);
 
         // TODO: Calculate and apply scale based on map zoom
@@ -375,7 +418,7 @@ namespace randomizer::map::icons {
     bool MapIcon::try_recreate_game_object() {
         destroy_game_object_if_exists();
 
-        const auto& recipe = MAP_ICON_RECIPES.at(m_type.get());
+        const auto& recipe = MAP_ICON_RECIPES.at(type.get());
         const auto game_object = instantiate_vanilla_map_icon(recipe.vanilla_icon_prefab_type);
 
         if (!game_object.has_value()) {

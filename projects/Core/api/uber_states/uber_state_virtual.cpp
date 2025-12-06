@@ -24,7 +24,7 @@ namespace core::api::uber_states {
             ValueType type{};
             std::string name;
             Property<double> value;
-            std::shared_ptr<const reactivity::ReactiveEffect> effect;
+            reactivity::ReactiveEffect::ptr_t effect;
             bool readonly{};
         };
 

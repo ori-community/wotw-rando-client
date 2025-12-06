@@ -26,31 +26,32 @@ namespace {
     [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         test_icon_1 = std::make_shared<MapIcon>();
-        test_icon_1->m_type.set(MapIcon::Type::EnergyFragment);
-        test_icon_1->m_world_position.set({-766, -4284});
-        test_icon_1->m_visible.set(true);
+        test_icon_1->type.set(MapIcon::Type::EnergyFragment);
+        test_icon_1->world_position.set({-766, -4284});
+        test_icon_1->visible.set(true);
     });
 
     [[maybe_unused]]
     auto on_binding1 = randomizer::input::single_input_bus().register_handler(Action::Binding1, EventTiming::After, [](auto, auto) {
         test_icon_2 = std::make_shared<MapIcon>();
-        test_icon_2->m_type.set(MapIcon::Type::EnergyFragment);
-        test_icon_2->m_world_position.set({-736, -4284});
-        test_icon_2->m_visible.set(true);
+        test_icon_2->type.set(MapIcon::Type::EnergyFragment);
+        test_icon_2->world_position.set({-736, -4284});
+        test_icon_2->visible.set(true);
     });
 
     [[maybe_unused]]
     auto on_binding2 = randomizer::input::single_input_bus().register_handler(Action::Binding2, EventTiming::After, [](auto, auto) {
         if (test_icon_2 != nullptr) {
-            test_icon_2->m_type.set(MapIcon::Type::BonusItem);
+            test_icon_2->type.set(MapIcon::Type::BonusItem);
         }
     });
 
     [[maybe_unused]]
     auto on_binding3 = randomizer::input::single_input_bus().register_handler(Action::Binding3, EventTiming::After, [](auto, auto) {
         test_icon_3 = std::make_shared<MapIcon>();
-        test_icon_3->m_type.set(MapIcon::Type::SavePedestal);
-        test_icon_3->m_visible.set(true);
+        test_icon_3->type.set(MapIcon::Type::SavePedestal);
+        test_icon_3->can_be_teleported_to.set(true);
+        test_icon_3->visible.set(true);
     });
 
     auto time = 0.f;
@@ -61,7 +62,7 @@ namespace {
 
             constexpr app::Vector2 center{-736, -4284};
             constexpr float radius = 50.f;
-            test_icon_3->m_world_position.set({
+            test_icon_3->world_position.set({
                 center.x + std::sin(time) * radius,
                 center.y + std::cos(time) * radius,
             });
