@@ -12,6 +12,7 @@
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/types/AreaMapIcon.h>
 #include <Modloader/app/types/GameMapPins.h>
+#include <Modloader/app/types/GameMapUI.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/map/map_icons.h>
@@ -25,6 +26,7 @@
 namespace randomizer::map::icons {
     enum class Event {
         IconPositionUpdateRequested,  // Emitted when the vanilla map wants to update icon positions
+        IconLabelUpdateRequested,  // Emitted when the vanilla map wants to update icon labels
     };
 
     common::EventBus<void, Event> local_event_bus;
@@ -60,6 +62,10 @@ namespace randomizer::map::icons {
 
         IL2CPP_INTERCEPT(void, IconPlacementScaler, UpdateIconPositions, app::IconPlacementScaler* this_ptr, bool force_update) {
             local_event_bus.trigger_event(Event::IconPositionUpdateRequested);
+        }
+
+        IL2CPP_INTERCEPT(void, AreaMapIconManager, UpdateLabelState, app::AreaMapIconManager* this_ptr) {
+            local_event_bus.trigger_event(Event::IconLabelUpdateRequested);
         }
 
         IL2CPP_INTERCEPT(bool, AreaMapIcon, ShouldShowAttentionMarker, app::AreaMapIcon* this_ptr, app::GameWorldAreaID__Enum area_id) { return false; }
@@ -315,6 +321,10 @@ namespace randomizer::map::icons {
                         try_update_map_position_and_scale();
                     });
 
+                    m_handles.label_update_requested_event = local_event_bus.register_handler(Event::IconLabelUpdateRequested, [&](auto) {
+                        try_update_label();
+                    });
+
                     m_handles.area_map_opened_event = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::Before, [&](auto, auto) {
                         try_create_game_object_if_not_exists();
                     });
@@ -327,6 +337,7 @@ namespace randomizer::map::icons {
                     m_handles.type_effect = nullptr;
                     m_handles.position_effect = nullptr;
                     m_handles.position_update_requested_event = nullptr;
+                    m_handles.label_update_requested_event = nullptr;
                     m_handles.area_map_opened_event = nullptr;
                 }
             })
@@ -376,6 +387,23 @@ namespace randomizer::map::icons {
         il2cpp::unity::set_local_position(**m_game_object, map_position);
 
         // TODO: Calculate and apply scale based on map zoom
+    }
+
+    void MapIcon::try_update_label() const {
+        const auto game_map_ui = types::GameMapUI::get_class()->static_fields->Instance;
+
+        if (game_map_ui == nullptr || !m_game_object.has_value()) {
+            return;
+        }
+
+        const auto area_map_icon = il2cpp::unity::get_component<app::AreaMapIcon>(**m_game_object, types::AreaMapIcon::get_class());
+
+        if (GameMapUI::get_ShowIconLabels(game_map_ui)) {
+            AreaMapIcon::SetMessageProvider(area_map_icon, label_text.get_provider());
+            AreaMapIcon::ShowLabel(area_map_icon);
+        } else {
+            AreaMapIcon::HideLabel(area_map_icon);
+        }
     }
 
     std::optional<app::GameObject*> MapIcon::get_game_object() {
@@ -435,6 +463,8 @@ namespace randomizer::map::icons {
 
         m_game_object = il2cpp::WeakGCRef(*game_object);
         try_add_icon_to_map_if_missing();
+        try_update_map_position_and_scale();
+        try_update_label();
 
         return true;
     }

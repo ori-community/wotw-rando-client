@@ -114,6 +114,9 @@ namespace randomizer::map::icons {
         /** Whether the player can teleport to this icon */
         core::Property<bool> can_be_teleported_to{false};
 
+        /** The text displayed below the icon when labels are shown */
+        core::Property<std::string> label_text{""};
+
         /** Returns the unique ID of this icon */
         id_t get_id() const;
 
@@ -124,6 +127,7 @@ namespace randomizer::map::icons {
             core::reactivity::ReactiveEffect::ptr_t position_effect;
             core::reactivity::ReactiveEffect::ptr_t can_teleport_to_effect;
             common::Droppable::ptr_t position_update_requested_event;
+            common::Droppable::ptr_t label_update_requested_event;
             common::Droppable::ptr_t area_map_opened_event;
             common::Droppable::ptr_t remove_from_map_icons_that_can_be_teleported_to_list;
         };
@@ -151,6 +155,9 @@ namespace randomizer::map::icons {
 
         /** Sets the icon's actual map position and scale (resembling vanilla IconPlacementScaler) if the game object exists */
         void try_update_map_position_and_scale();
+
+        /** Shows/Hides the icon label if the game object exists. If visible, also updates the label text */
+        void try_update_label() const;
 
         /** Returns the game object or nullopt if it doesn't exit or is invalid */
         std::optional<app::GameObject*> get_game_object();

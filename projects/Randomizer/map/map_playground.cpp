@@ -36,6 +36,7 @@ namespace {
         test_icon_2 = std::make_shared<MapIcon>();
         test_icon_2->type.set(MapIcon::Type::EnergyFragment);
         test_icon_2->world_position.set({-736, -4284});
+        test_icon_2->label_text.set("Hallo Welt");
         test_icon_2->visible.set(true);
     });
 
@@ -51,6 +52,7 @@ namespace {
         test_icon_3 = std::make_shared<MapIcon>();
         test_icon_3->type.set(MapIcon::Type::SavePedestal);
         test_icon_3->can_be_teleported_to.set(true);
+        test_icon_3->label_text.set("Catch me if you can!");
         test_icon_3->visible.set(true);
     });
 
