@@ -23,18 +23,22 @@ namespace randomizer::location_data {
                 trim(item);
             }
 
-            if (!parts[7].empty() && !parts[8].empty()) {
+            if (parts[7] != "0" && parts[8] != "0") {
                 app::Vector2 position{};
-                if (string_convert(parts[7], position.x) && string_convert(parts[8], position.y)) {
-                    location.position = position;
+                if (!string_convert(parts[7], position.x) || !string_convert(parts[8], position.y)) {
+                    continue;
                 }
+
+                location.position = position;
             }
 
-            if (!parts[9].empty() && !parts[10].empty()) {
+            if (parts[9] != "0" && parts[10] != "0") {
                 app::Vector2 position{};
-                if (string_convert(parts[9], position.x) && string_convert(parts[10], position.y)) {
-                    location.map_position = position;
+                if (!string_convert(parts[9], position.x) || !string_convert(parts[10], position.y)) {
+                    continue;
                 }
+
+                location.map_position = position;
             }
 
             location.area = name_to_area(parts[1]);
@@ -43,13 +47,17 @@ namespace randomizer::location_data {
             }
 
             location.name = parts[0];
-            auto type = magic_enum::enum_cast<LocationType>(parts[2]);
+            auto type = magic_enum::enum_cast<LocationType>(parts[2] == "Resource" ? parts[3] : parts[2]);
             if (!type.has_value()) {
                 continue;
             }
 
-            if (type.value() == LocationType::QuestItem && parts[3] == "Seed") {
+            if (type.value() == LocationType::Quest && parts[3] == "Seed") {
                 type = LocationType::Seed;
+            }
+
+            if (type.value() == LocationType::Shop && parts[3] == "LupoZoneMap") {
+                type = LocationType::MapShop;
             }
 
             location.type = type.value();
