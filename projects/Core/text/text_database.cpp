@@ -61,6 +61,7 @@ namespace core::text {
         register_text(core::TextID::QuestMissingKeyStep0, "Talk to Tokk near the Keystone");
         register_text(core::TextID::QuestHandToHandStep0, "Meet a Moki near where you fought Hornbug");
         register_text(core::TextID::QuestTreeKeeperStep0, "Meet the Tree Keeper in the Silent Woods");
+        register_text(core::TextID::QuestSilentTeethStep0, "Meet Kwolok");
 
         register_text(core::TextID::TrialTextReach, " ");
         register_text(core::TextID::TrialTextDepths, " ");

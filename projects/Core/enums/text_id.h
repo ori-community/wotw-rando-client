@@ -64,6 +64,8 @@ namespace core {
         QuestMissingKeyStep0 = 50,
         QuestHandToHandStep0 = 51,
         QuestTreeKeeperStep0 = 52,
+        QuestSilentTeethStep0 = 53,
+        QuestAnyWisp0 = 54,
 
         // Spirit Trial Texts (the ones that show up above the spirit trial start)
         TrialTextMarsh = 100,

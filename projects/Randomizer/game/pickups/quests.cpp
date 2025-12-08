@@ -128,6 +128,18 @@ namespace randomizer::game::pickups::quests {
             {core::MoodGuid(1738768222, 1239000801, 1986669468, 2137801590), CustomQuest(core::MoodGuid(1535569408, 50382679, 1649450080, -846359187), -1).chain(PREPEND)},
             /** Regrowing the Glades */
             {core::MoodGuid(-764284553, 1115842333, 1796016546, -1254651281), CustomQuest(core::MoodGuid(-830522577, 1668948132, 909007598, -64179817), -1).chain(PREPEND)},
+            /** Rebuilding the Glades */
+            {core::MoodGuid(-2036285343, 1120403039, -1729429111, -661752561), CustomQuest(core::MoodGuid(-912056363, -445171835, 542889844, -558562390), -1).chain(PREPEND)},
+            /** Silent Teeth */
+            {core::MoodGuid(997119475, 1309624776, -2139326310, 1996736007), CustomQuest(core::MoodGuid(824781462, 871703287, 1673171377, 115000104), -1).chain(PREPEND).with_description(core::TextID::QuestSilentTeethStep0)},
+            /** Shifting Sands */
+            {core::MoodGuid(-1294265843, 1100399426, -462292045, 141236591), CustomQuest(core::MoodGuid(125700802, 337033409, 418311508, 373555554), -1).chain(PREPEND)},
+            /** Lost in Paradise */
+            {core::MoodGuid(-63910940, 1236841047, -800343118, -508044804), CustomQuest(core::MoodGuid(523052641, 243624516, 784230010, 101131372), -1).chain(PREPEND)},
+            /** Breaking the Mould */
+            {core::MoodGuid(1256766772, 1182067845, -1553863032, 537767884), CustomQuest(core::MoodGuid(615941324, 486324752, 351868076, -2783620), -1).chain(PREPEND)},
+            /** Highest Reach */
+            {core::MoodGuid(473044814, 1087830965, -696084596, 1146729841), CustomQuest(core::MoodGuid(-15302087, 775472790, 251189495, -20782147), -1).chain(PREPEND)},
         };
 
         // noop only - reward triggers on uberstate change.
@@ -168,6 +180,9 @@ namespace randomizer::game::pickups::quests {
                 const auto quest = quests->fields._items->vector[i];
                 const auto guid = quest->fields._.MoonGuid;
                 const auto custom_quest = custom_quests.find(guid);
+
+                quest->fields.Type = app::Quest_QuestType__Enum::Side;
+
                 if (custom_quest != custom_quests.end()) {
                     custom_quest->second.predicate = quest;
                     auto quest_instance = make_quest(custom_quest->second);
@@ -203,16 +218,6 @@ namespace randomizer::game::pickups::quests {
         IL2CPP_INTERCEPT(app::Quest_QuestState__Enum, RuntimeQuest, get_State, app::RuntimeQuest * this_ptr) {
             auto result = next::RuntimeQuest::get_State(this_ptr);
 
-            //            if (
-            //                    this_ptr->fields.m_stateOffset == 0 &&
-            //                    this_ptr->fields.Type != app::Quest_QuestType__Enum::Rumor &&
-            //                    result == app::Quest_QuestState__Enum::Unassigned
-            //            ) {
-            //                return app::Quest_QuestState__Enum::Assigned;
-            //            }
-            //
-            //            return app::Quest_QuestState__Enum::Unassigned;
-
             if (this_ptr->fields.Type == app::Quest_QuestType__Enum::Rumor) {
                 return app::Quest_QuestState__Enum::Unassigned;
             }
@@ -238,7 +243,7 @@ namespace randomizer::game::pickups::quests {
                 //
                 // modloader::win::console::console_send(
                 //         std::format(
-                //                 "%d, %d, %d, %d",
+                //                 "{}, {}, {}, {}",
                 //                 runtime_quest->fields.MoonGuid->fields.A,
                 //                 runtime_quest->fields.MoonGuid->fields.B,
                 //                 runtime_quest->fields.MoonGuid->fields.C,
