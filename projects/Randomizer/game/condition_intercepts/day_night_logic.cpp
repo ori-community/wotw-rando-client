@@ -227,6 +227,10 @@ namespace {
     }
 
     int32_t always_spawn_howl(app::NewSetupStateController* this_ptr, std::string const&, int32_t original_state) {
+        if (!USE_RAIN_LIFTED_IN_MARSH_RANDO_STATE.get<bool>()) {
+            return original_state;
+        }
+
         const auto state = is_day() ? -1375966924 : 1361521887;
         const auto setup = il2cpp::unity::get_game_object(il2cpp::unity::get_parent(il2cpp::unity::get_transform(this_ptr)));
 
@@ -242,7 +246,12 @@ namespace {
     }
 
     auto uber_state_notify = core::api::uber_states::notification_bus().register_handler([](auto params) {
-        if (params.state == RAIN_LIFTED_IN_MARSH || params.state == REGEN_TREE_DRAINED) {
+        if (
+            params.state == RAIN_LIFTED_IN_MARSH ||
+            params.state == USE_RAIN_LIFTED_IN_MARSH_RANDO_STATE ||
+            params.state == USE_REGEN_TREE_DRAINED_RANDO_STATE ||
+            params.state == REGEN_TREE_DRAINED
+        ) {
             randomizer::conditions::apply_all_states();
         }
     });
@@ -251,7 +260,7 @@ namespace {
 
     bool override_has_ability = false;
     IL2CPP_INTERCEPT(void, SwampNightDayTransition, UpdateStateBasedOnCondition, app::SwampNightDayTransition * this_ptr) {
-        modloader::ScopedSetter setter(override_has_ability, true);
+        modloader::ScopedSetter setter(override_has_ability, USE_RAIN_LIFTED_IN_MARSH_RANDO_STATE.get<bool>());
         next::SwampNightDayTransition::UpdateStateBasedOnCondition(this_ptr);
     }
 
