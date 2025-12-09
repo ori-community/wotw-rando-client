@@ -39,6 +39,8 @@ namespace {
                 return MapIcon::Type::Mapmaker;
             case randomizer::location_data::LocationType::Unknown:
                 return MapIcon::Type::QuestItem;
+            case randomizer::location_data::LocationType::RaceStart:
+                return MapIcon::Type::RaceStart;
         }
 
         throw std::runtime_error("Unknown location type");
