@@ -51,9 +51,6 @@ namespace randomizer {
      */
     void check_seed_difficulty_enforcement();
 
-    void queue_reach_check();
-    const seedgen_interface::ReachCheckResult& current_reach_check_result();
-
     common::TimedMultiEventBus<RandomizerEvent>& event_bus();
     location_data::LocationCollection& location_collection();
     seed::Seed& game_seed();

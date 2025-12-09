@@ -567,8 +567,6 @@ namespace randomizer::archipelago {
             },
         };
 
-        queue_reach_check();
-
         if (m_slot_id == net_item.player) {
             modloader::debug("archipelago", std::format("Received item: {}", item_name));
             if (item_name != "Nothing") {

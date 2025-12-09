@@ -50,7 +50,6 @@ namespace {
             auto it = tps_by_position.find(std::make_pair(static_cast<int>(position.x), static_cast<int>(position.y)));
             if (it != tps_by_position.end() && !it->second.get<bool>()) {
                 it->second.set<bool>(true);
-                randomizer::queue_reach_check();
             }
         }
 

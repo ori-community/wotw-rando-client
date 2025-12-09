@@ -1,11 +1,14 @@
 #pragma once
 
 
+#include <functional>
+#include <mutex>
+
 namespace common {
     template <typename T>
     class ThreadSafeContainer {
     public:
-        ThreadSafeContainer() {}
+        ThreadSafeContainer() = default;
         explicit ThreadSafeContainer(T initial_value) : m_value(initial_value) {};
 
         template <typename R>

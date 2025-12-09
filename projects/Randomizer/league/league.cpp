@@ -215,7 +215,6 @@ namespace randomizer::league {
 
                     try {
                         httplib::Client client(std::format("{}://{}", tls ? "https" : "http", host));
-
                         auto result = client.Post(std::format("/api/league/{}/submission", multiverse_id), {
                             {"User-Agent", std::format("OriAndTheWillOfTheWispsRandomizer/{}", randomizer_version().to_string())},
                             {"Authorization", std::format("Bearer {}", jwt)}

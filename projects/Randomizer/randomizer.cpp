@@ -37,7 +37,6 @@ namespace randomizer {
     namespace {
         location_data::LocationCollection randomizer_location_collection;
         seed::Seed randomizer_seed(randomizer_location_collection);
-        seedgen_interface::ReachCheckResult _current_reach_check_result;
         online::NetworkClient client;
         online::MultiplayerUniverse universe;
         seedgen_interface::SeedgenService seedgen_service_instance;
@@ -64,29 +63,6 @@ namespace randomizer {
         bool pause_timer = false;
 
         std::optional<long> multiverse_id_to_connect_to = std::nullopt;
-
-        void on_reach_check_completed(const seedgen_interface::ReachCheckResult& result) {
-            reach_check_in_progress = false;
-
-            if (!_current_reach_check_result.is_same_as(result)) {
-                event_bus().trigger_event(RandomizerEvent::ReachableItemsChanged, EventTiming::Before);
-                _current_reach_check_result = result;
-                event_bus().trigger_event(RandomizerEvent::ReachableItemsChanged, EventTiming::After);
-            }
-
-            event_bus().trigger_event(RandomizerEvent::ReachCheck, EventTiming::After);
-        }
-
-        bool do_reach_check() {
-            if (reach_check_in_progress || !core::api::game::in_game()) {
-                return false;
-            }
-
-            reach_check_in_progress = true;
-            event_bus().trigger_event(RandomizerEvent::ReachCheck, EventTiming::Before);
-            seedgen_service().enqueue_reach_check(on_reach_check_completed);
-            return true;
-        }
 
         [[maybe_unused]]
         auto on_before_shutdown = core::api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::Before, [](auto, auto) {
@@ -115,7 +91,6 @@ namespace randomizer {
             pause_timer = false;
             randomizer_seed.trigger(seed::SeedClientEvent::Reload, true);
             core::api::game::save(true);
-            queue_reach_check();
             uber_states::disable_reverts() = false;
 
             if (network_client().wants_connection()) {
@@ -129,16 +104,15 @@ namespace randomizer {
         auto on_respawn = core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [](auto, auto) {
             core::message_controller().clear_central();
             game_seed().trigger(seed::SeedClientEvent::Respawn, true);
-            queue_reach_check();
         });
 
         auto on_after_seed_loaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
-            seedgen_service().set_seedgen_info(seed_archive_save_data->seed_archive->get_seedgen_info());
+            // TODO[InLogicFilter]:
+            // seedgen_service().set_seedgen_info(seed_archive_save_data->seed_archive->get_seedgen_info());
             universe.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
             randomizer_seed.trigger(seed::SeedClientEvent::Reload);
-            queue_reach_check();
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::Before);
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
         });
@@ -177,10 +151,6 @@ namespace randomizer {
 
         [[maybe_unused]]
         auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, [](auto, auto) {
-            if (reach_check_queued && do_reach_check()) {
-                reach_check_queued = false;
-            }
-
             const float delta_time = core::api::game::fixed_delta_time();
             monitor.update(delta_time);
             status.update(delta_time);
@@ -195,7 +165,6 @@ namespace randomizer {
             EventTiming::After,
             [](auto, auto) {
                 load_seed(false);
-                queue_reach_check();
                 check_seed_difficulty_enforcement();
             }
         );
@@ -204,11 +173,6 @@ namespace randomizer {
         auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
             check_seed_difficulty_enforcement();
             randomizer_seed.trigger(seed::SeedClientEvent::Respawn);
-            queue_reach_check();
-        });
-
-        auto on_teleport = core::api::game::event_bus().register_handler(GameEvent::Teleport, EventTiming::Before, [](auto, auto) {
-
         });
 
         const std::unordered_set<core::api::uber_states::UberState> TELEPORTER_UBER_STATES{
@@ -232,22 +196,8 @@ namespace randomizer {
             { core::api::uber_states::UberState(16155, 50867) },
         };
 
-        auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
-            if (
-                params.state.group() == UberStateGroup::Skills ||
-                params.state.group() == UberStateGroup::Player ||
-                params.state.group() == UberStateGroup::Shards ||
-                params.state.group() == UberStateGroup::RandoState ||
-                TELEPORTER_UBER_STATES.contains(params.state)
-            ) {
-                queue_reach_check();
-            }
-        });
-
         [[maybe_unused]]
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-            seedgen_service().query_relevant_uber_states();
-
             monitor.display(&status);
             monitor.network_client(&client);
 
@@ -329,16 +279,6 @@ namespace randomizer {
     }
 
     void queue_input_unlocked_callback(std::function<void()> const& callback) { input_unlocked_callbacks.push_back(callback); }
-
-    void queue_reach_check() {
-        if (!do_reach_check()) {
-            reach_check_queued = true;
-        }
-    }
-
-    const seedgen_interface::ReachCheckResult& current_reach_check_result() {
-        return _current_reach_check_result;
-    }
 
     void reread_seed_source() {
         const auto current_source = seed_meta_save_data->get_source();
