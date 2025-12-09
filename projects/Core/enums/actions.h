@@ -77,9 +77,7 @@ enum class Action {
     ToggleDebug,
     PrintCoordinates,
     ClearMessages,
-    TeleportCheat,
     UnlockSpoilers,
-    TogglePickupNamesOnSpoiler,
     ForceExit,
 
     // Passthrough actions. Used by the Launcher
@@ -159,9 +157,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(
                 { Action::ToggleDebug, "ToggleDebug" },
                 { Action::PrintCoordinates, "PrintCoordinates" },
                 { Action::ClearMessages, "ClearMessages" },
-                { Action::TeleportCheat, "TeleportCheat" },
                 { Action::UnlockSpoilers, "UnlockSpoilers" },
-                { Action::TogglePickupNamesOnSpoiler, "TogglePickupNamesOnSpoiler" },
                 { Action::ForceExit, "ForceExit" },
                 { Action::ToggleBingoBoardOverlay, "ToggleBingoBoardOverlay" },
         }

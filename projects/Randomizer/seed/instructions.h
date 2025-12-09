@@ -282,15 +282,13 @@ namespace randomizer::seed {
         /**
          * Add or override a warp icon ("custom TP")
          */
-        // TODO[Map]:
-        void set_warp_icon(std::size_t id, const std::shared_ptr<std::any>& icon);
+        void set_warp_icon(std::size_t id, const map::icons::MapIcon::ptr_t& icon);
 
         /**
          * Calls a lambda with a reference to a warp icon to be able to make modifications to it (e.g. change label).
          * Does nothing if a warp icon with the given ID does not exist.
          */
-        // TODO[Map]:
-        void modify_warp_icon(std::size_t id, const std::function<void(std::any&)>& fn);
+        void modify_warp_icon(std::size_t id, const std::function<void(map::icons::MapIcon::ptr_t&)>& fn);
 
         /**
          * Erase a warp icon. Does nothing when the given ID does not exist.
@@ -397,8 +395,7 @@ namespace randomizer::seed {
         );
 
         // Runtime
-        // TODO[Map]:
-        std::unordered_map<std::size_t, std::shared_ptr<std::any>> m_warp_icons;
+        std::unordered_map<std::size_t, map::icons::MapIcon::ptr_t> m_warp_icons;
         std::unordered_map<std::size_t, FreeMessageBox> m_free_message_boxes;
         std::unordered_map<std::size_t, QueuedMessageBox> m_queued_message_boxes;
         bool m_prevent_grant = false;

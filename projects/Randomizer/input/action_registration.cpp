@@ -116,15 +116,6 @@ namespace randomizer::input {
             // TODO: Copy coordinates into clipboard.
         });
 
-        auto on_teleport_cheat_before = single_input_bus().register_handler(Action::TeleportCheat, EventTiming::Before, [](auto, auto) {
-            // TODO[Map]:
-            // game::map::teleport_anywhere = !game::map::teleport_anywhere;
-            // core::message_controller().queue_central({
-            //     .text = core::Property<std::string>::format("Teleport anywhere {}", game::map::teleport_anywhere ? "enabled" : "disabled"),
-            //     .prioritized = true,
-            // });
-        });
-
         auto on_unlock_spoilers_before = single_input_bus().register_handler(Action::UnlockSpoilers, EventTiming::Before, [](auto, auto) {
             core::api::uber_states::UberState(34543, 11226).set(1);
             core::message_controller().queue_central({

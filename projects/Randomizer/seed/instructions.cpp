@@ -304,11 +304,10 @@ namespace randomizer::seed {
 
         m_serialized_warp_icons.clear();
         for (const auto& [id, icon]: m_warp_icons) {
-            // TODO[Map]:
-            // m_serialized_warp_icons[id] = {
-            //     icon->label().get_unprocessed(),
-            //     icon->position().get(),
-            // };
+            m_serialized_warp_icons[id] = {
+                icon->label_text.get_unprocessed(),
+                icon->world_position.get(),
+            };
         }
 
         nlohmann::json j = *this;
@@ -394,14 +393,14 @@ namespace randomizer::seed {
 
     void SeedExecutionEnvironment::clear_free_message_boxes() { m_free_message_boxes.clear(); }
 
-    void SeedExecutionEnvironment::set_warp_icon(const std::size_t id, const std::shared_ptr<std::any>& icon) { m_warp_icons[id] = icon; }
+    void SeedExecutionEnvironment::set_warp_icon(const std::size_t id, const map::icons::MapIcon::ptr_t& icon) { m_warp_icons[id] = icon; }
 
-    void SeedExecutionEnvironment::modify_warp_icon(const std::size_t id, const std::function<void(std::any&)>& fn) {
+    void SeedExecutionEnvironment::modify_warp_icon(const std::size_t id, const std::function<void(map::icons::MapIcon::ptr_t&)>& fn) {
         if (!m_warp_icons.contains(id)) {
             return;
         }
 
-        fn(*m_warp_icons[id]);
+        fn(m_warp_icons[id]);
     }
 
     auto SeedExecutionEnvironment::erase_warp_icon(std::size_t id) -> void {
@@ -536,13 +535,10 @@ namespace randomizer::seed {
         }
 
         m_warp_icons.clear();
-        // TODO[Map]:
-        // for (const auto& [id, serialized_icon] : m_serialized_warp_icons) {
-        //     const auto warp_icon = instructions::CreateWarpIcon::create_icon();
-        //     warp_icon->label().set(serialized_icon.label);
-        //     warp_icon->position().set(serialized_icon.position);
-        //     m_warp_icons[id] = warp_icon;
-        // }
+        for (const auto& [id, serialized_icon] : m_serialized_warp_icons) {
+            const auto warp_icon = instructions::CreateWarpIcon::create_warp_icon(serialized_icon.position, serialized_icon.label);
+            m_warp_icons[id] = warp_icon;
+        }
     }
 
     std::unique_ptr<IInstruction> create_instruction(const nlohmann::json& j) {

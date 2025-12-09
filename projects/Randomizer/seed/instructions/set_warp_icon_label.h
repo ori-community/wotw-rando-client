@@ -9,11 +9,9 @@ INSTRUCTION(SetWarpIconLabel)
     std::size_t id;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        // TODO[Map]:
-        // environment.modify_warp_icon(id, [&](game::map::Icon& icon) {
-        //     icon.name().set(std::format("custom_warp_icon -> {}", memory.strings.get(0)));
-        //     icon.label().set(memory.strings.get(0));
-        // });
+        environment.modify_warp_icon(id, [&](map::icons::MapIcon::ptr_t& icon) {
+            icon->label_text.set(memory.strings.get(0));
+        });
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

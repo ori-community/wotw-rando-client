@@ -3,7 +3,6 @@
 #include <Randomizer/seed/seed.h>
 #include <Randomizer/map/map_icons.h>
 
-// TODO[Map]:
 INSTRUCTION(SetSpoilerMapIcon)
     explicit SetSpoilerMapIcon(std::string location, const map::icons::MapIcon::Type icon) :
         location_name(std::move(location)),
