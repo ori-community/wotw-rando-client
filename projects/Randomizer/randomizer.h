@@ -2,7 +2,6 @@
 
 #include <Common/event_bus.h>
 
-#include <Randomizer/archipelago/archipelago.h>
 #include <Randomizer/location_data/location_collection.h>
 #include <Randomizer/online/multiplayer.h>
 #include <Randomizer/online/network.h>
@@ -55,7 +54,6 @@ namespace randomizer {
     location_data::LocationCollection& location_collection();
     seed::Seed& game_seed();
     online::NetworkClient& network_client();
-    archipelago::ArchipelagoClient& archipelago_client();
     online::MultiplayerUniverse& multiplayer_universe();
     seedgen_interface::SeedgenService& seedgen_service();
     std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor();

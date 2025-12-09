@@ -19,13 +19,7 @@ namespace randomizer::seed {
         long multiverse_id;
     };
 
-    struct ArchipelagoServerConnection {
-        std::string url;
-        std::string slot_name;
-        std::string password;
-    };
-
-    using server_connection_t = std::variant<RandoServerConnection, ArchipelagoServerConnection>;
+    using server_connection_t = std::variant<RandoServerConnection>;
 
     class SeedSource {
     public:
@@ -83,25 +77,6 @@ namespace randomizer::seed {
 
     private:
         long m_multiverse_id;
-    };
-
-    class ArchipelagoSeedSource : public SeedSource {
-    public:
-        std::pair<SourceStatus, std::optional<std::shared_ptr<SeedArchive>>> poll() override;
-        std::string get_description() override;
-        std::string to_source_string() override;
-        std::optional<server_connection_t> get_server_connection() override;
-        bool allows_rereading() override;
-
-        explicit ArchipelagoSeedSource(const std::string& url, const std::string& slot_name, const std::string& password) :
-            m_url(url),
-            m_slot_name(slot_name),
-            m_password(password) {}
-
-    private:
-        std::string m_url;
-        std::string m_slot_name;
-        std::string m_password;
     };
 
     class InvalidSeedSource: public SeedSource {

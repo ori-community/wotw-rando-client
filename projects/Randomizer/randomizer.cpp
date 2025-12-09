@@ -10,7 +10,6 @@
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/types/GameController.h>
 #include <Modloader/modloader.h>
-#include <Randomizer/archipelago/archipelago.h>
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/game/pickups/quests.h>
 #include <Randomizer/game/shops/shop.h>
@@ -26,7 +25,6 @@
 #include <Randomizer/text_processors/multiplayer.h>
 #include <Randomizer/text_processors/shard.h>
 #include <Randomizer/text_processors/uber_state.h>
-#include <Randomizer/text_processors/archipelago.h>
 #include <Randomizer/uber_states/uber_state_intercepts.h>
 #include <fstream>
 #include <magic_enum/magic_enum.hpp>
@@ -41,7 +39,6 @@ namespace randomizer {
         online::MultiplayerUniverse universe;
         seedgen_interface::SeedgenService seedgen_service_instance;
         std::shared_ptr<core::text::CompositeTextProcessor> text_processor;
-        archipelago::ArchipelagoClient ap_client;
 
         online::NetworkMonitor monitor;
         core::dev::StatusDisplay status({
@@ -67,7 +64,6 @@ namespace randomizer {
         [[maybe_unused]]
         auto on_before_shutdown = core::api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::Before, [](auto, auto) {
             server_disconnect();
-            ap_client.disconnect();
         });
 
         std::vector<std::function<void()>> input_unlocked_callbacks;
@@ -214,7 +210,6 @@ namespace randomizer {
             text_processor->compose(std::make_shared<text_processors::ShardProcessor>());
             text_processor->compose(std::make_shared<text_processors::LegacyProcessor>());
             text_processor->compose(std::make_shared<text_processors::MultiplayerProcessor>());
-            text_processor->compose(std::make_shared<text_processors::ArchipelagoProcessor>());
 
             core::message_controller().central_display().text_processor(text_processor);
             core::message_controller().recent_display().text_processor(text_processor);
@@ -387,8 +382,6 @@ namespace randomizer {
     seed::Seed& game_seed() { return randomizer_seed; }
 
     online::NetworkClient& network_client() { return client; }
-
-    archipelago::ArchipelagoClient& archipelago_client() { return ap_client; }
 
     online::MultiplayerUniverse& multiplayer_universe() { return universe; }
     seedgen_interface::SeedgenService& seedgen_service() { return seedgen_service_instance; }

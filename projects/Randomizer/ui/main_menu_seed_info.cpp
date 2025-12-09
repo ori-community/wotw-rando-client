@@ -63,7 +63,6 @@ namespace randomizer::main_menu_seed_info {
 
         common::Droppable::ptr_t on_seed_loaded_handle;
         common::Droppable::ptr_t on_network_status_handle;
-        common::Droppable::ptr_t on_archipelago_client_status_handle;
         common::Droppable::ptr_t on_multiverse_update_handle;
         common::Droppable::ptr_t on_game_difficulty_settings_overrides_update_handle;
 
@@ -71,7 +70,6 @@ namespace randomizer::main_menu_seed_info {
         std::shared_ptr<seed::SeedSource> current_seed_source = nullptr;
         std::variant<seed::SeedMetaData, seed::ParserError, generic_error_t> current_seed_meta_data_result = std::string("No seed loaded");
         auto current_network_state = online::NetworkClient::State::Closed;
-        auto current_archipelago_client_state = archipelago::ArchipelagoClient::State::Closed;
 
         common::EventBus<SeedMetaDataLoadedEventArgs> seed_meta_data_loaded_event_bus_instance;
 
@@ -92,16 +90,6 @@ namespace randomizer::main_menu_seed_info {
                 status_string += "Connected";
             }
 
-            if (!status_string.empty()) {
-                status_string += ", ";
-            }
-
-            if (current_archipelago_client_state == archipelago::ArchipelagoClient::State::Reconnecting) {
-                status_string += "Reconnecting (Archipelago)";
-            } else if (current_archipelago_client_state == archipelago::ArchipelagoClient::State::Connected) {
-                status_string += "Connected (Archipelago)";
-            }
-
             if (status_string.empty()) {
                 status_string = "Offline";
             }
@@ -111,11 +99,6 @@ namespace randomizer::main_menu_seed_info {
 
         void on_network_status(const online::NetworkClient::State state) {
             current_network_state = state;
-            update_connection_status();
-        }
-
-        void on_archipelago_client_status(const archipelago::ArchipelagoClient::State state) {
-            current_archipelago_client_state = state;
             update_connection_status();
         }
 
@@ -213,10 +196,6 @@ namespace randomizer::main_menu_seed_info {
                 core::api::game::debug_menu::set_should_prevent_cheats(false);
             }
 
-            if (!server_connection.has_value() || !std::holds_alternative<seed::ArchipelagoServerConnection>(*server_connection)) {
-                archipelago_client().disconnect();
-            }
-
             if (!server_connection.has_value()) {
                 return;
             }
@@ -225,10 +204,6 @@ namespace randomizer::main_menu_seed_info {
                 [](const seed::RandoServerConnection& connection) {
                     randomizer::server_connect(connection.multiverse_id);
                 },
-                [](const seed::ArchipelagoServerConnection& connection) {
-                    archipelago_client().disconnect();
-                    archipelago_client().connect(connection.url, connection.slot_name, connection.password);
-                }
             };
         }
 
@@ -470,7 +445,6 @@ namespace randomizer::main_menu_seed_info {
                     is_in_main_menu = true;
 
                     on_network_status_handle = network_client().event_bus().register_handler(on_network_status);
-                    on_archipelago_client_status_handle = archipelago_client().event_bus().register_handler(on_archipelago_client_status);
 
                     on_multiverse_update_handle = multiplayer_universe().event_bus().register_handler(
                         online::MultiplayerUniverse::Event::MultiverseUpdated, EventTiming::After, [](auto, auto) { update_text(); }
@@ -487,7 +461,6 @@ namespace randomizer::main_menu_seed_info {
                     is_in_main_menu = false;
                     on_seed_loaded_handle = nullptr;
                     on_network_status_handle = nullptr;
-                    on_archipelago_client_status_handle = nullptr;
                     on_multiverse_update_handle = nullptr;
                     break;
                 }

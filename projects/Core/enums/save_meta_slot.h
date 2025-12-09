@@ -13,5 +13,4 @@ enum class SaveMetaSlot {
     SeedEnvironment,
     SeedPersistentMemory,
     StaticText,
-    ArchipelagoData,
 };

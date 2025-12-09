@@ -24,23 +24,6 @@ namespace randomizer::seed {
             }
         }
 
-        if (source.starts_with("archipelago:")) {
-            const auto options_string = source.substr(12);
-            std::vector<std::string> options;
-            split_str(options_string, options, '|');
-
-            if (options.size() < 3) {
-                modloader::error("seed_source", "Archipelago seed sources need to give 3 options: url|slot_name|password");
-            } else {
-                // TODO: Pipes are not supported as passwords for now since they are almost never used according to Archipelago
-                return std::make_shared<ArchipelagoSeedSource>(
-                    options.at(0),
-                    options.at(1),
-                    options.at(2)
-                );
-            }
-        }
-
         return std::make_shared<InvalidSeedSource>(source);
     }
 
@@ -55,24 +38,6 @@ namespace randomizer::seed {
     std::string ServerSeedSource::to_source_string() { return std::format("server:{}", m_multiverse_id); }
     std::optional<server_connection_t> ServerSeedSource::get_server_connection() { return RandoServerConnection(m_multiverse_id); }
     bool ServerSeedSource::allows_rereading() { return false; }
-
-    std::pair<SourceStatus, std::optional<std::shared_ptr<SeedArchive>>> ArchipelagoSeedSource::poll() {
-        // TODO: Make Archipelago work with v5
-        m_error = "Archipelago is not supported in v5 yet";
-        return std::make_pair(SourceStatus::Error, std::nullopt);
-
-        // return archipelago_client().current_seed_generator().has_value()
-        //     ? std::make_pair(SourceStatus::Ready, std::make_optional(archipelago_client().current_seed_generator()->get_seed_file()))
-        //     : std::make_pair(SourceStatus::Loading, std::nullopt);
-    }
-    std::string ArchipelagoSeedSource::get_description() { return std::format("AP:\n  URL: {}\n  Player: {}", m_url, m_slot_name); }
-    std::string ArchipelagoSeedSource::to_source_string() { return std::format("archipelago:{}|{}|{}", m_url, m_slot_name, m_password); }
-    std::optional<server_connection_t> ArchipelagoSeedSource::get_server_connection() {
-        return ArchipelagoServerConnection(m_url, m_slot_name, m_password);
-    }
-    bool ArchipelagoSeedSource::allows_rereading() {
-        return false;
-    }
 
     FileSeedSource::FileSeedSource(const std::filesystem::path& path) {
         m_path = path;
