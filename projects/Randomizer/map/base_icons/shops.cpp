@@ -47,25 +47,25 @@ namespace {
         [](auto, auto) {
             icons = {
                 // MarshPastOpher.Opher
-                std::make_shared<MapIcon>(MapIcon::Type::Weaponmaster, "Opher", app::Vector2{-597.1f, -4291.3f}, shop_visibility_effect(shops().opher_shop()), MapIcon::ScaleMode::Linear),
+                std::make_shared<MapIcon>(MapIcon::Type::Weaponmaster, "Opher", app::Vector2{-597.1f, -4291.3f}, shop_visibility_effect(shops().opher_shop())),
                 // GladesTown.Opher
-                std::make_shared<MapIcon>(MapIcon::Type::Weaponmaster, "Opher", app::Vector2{-203.9f, -4146.4f}, shop_visibility_effect(shops().opher_shop()), MapIcon::ScaleMode::Linear),
+                std::make_shared<MapIcon>(MapIcon::Type::Weaponmaster, "Opher", app::Vector2{-203.9f, -4146.4f}, shop_visibility_effect(shops().opher_shop())),
                 // InnerWellspring.Opher
-                std::make_shared<MapIcon>(MapIcon::Type::Weaponmaster, "Opher", app::Vector2{-1259.7f, -3675.5f}, shop_visibility_effect(shops().opher_shop()), MapIcon::ScaleMode::Linear),
+                std::make_shared<MapIcon>(MapIcon::Type::Weaponmaster, "Opher", app::Vector2{-1259.7f, -3675.5f}, shop_visibility_effect(shops().opher_shop())),
 
                 // WestHollow.Twillen
-                std::make_shared<MapIcon>(MapIcon::Type::Shardtrader, "Twillen", app::Vector2{-281.3f, -4236.4f}, shop_visibility_effect(shops().twillen_shop()), MapIcon::ScaleMode::Linear),
+                std::make_shared<MapIcon>(MapIcon::Type::Shardtrader, "Twillen", app::Vector2{-281.3f, -4236.4f}, shop_visibility_effect(shops().twillen_shop())),
                 // GladesTown.Twillen
-                std::make_shared<MapIcon>(MapIcon::Type::Shardtrader, "Twillen", app::Vector2{-410.5f, -4158.9f}, shop_visibility_effect(shops().twillen_shop()), MapIcon::ScaleMode::Linear),
+                std::make_shared<MapIcon>(MapIcon::Type::Shardtrader, "Twillen", app::Vector2{-410.5f, -4158.9f}, shop_visibility_effect(shops().twillen_shop())),
 
                 // GladesTown.Grom
-                std::make_shared<MapIcon>(MapIcon::Type::Builder, "Grom", app::Vector2{-319.1f, -4150.1f}, shop_visibility_effect(shops().grom_shop()), MapIcon::ScaleMode::Linear),
+                std::make_shared<MapIcon>(MapIcon::Type::Builder, "Grom", app::Vector2{-319.1f, -4150.1f}, shop_visibility_effect(shops().grom_shop())),
 
                 // GladesTown.Lupo
-                std::make_shared<MapIcon>(MapIcon::Type::Builder, "Lupo", app::Vector2{-212.3f, -4158.8f}, shop_visibility_effect(shops().lupo_shop()), MapIcon::ScaleMode::Linear),
+                std::make_shared<MapIcon>(MapIcon::Type::Builder, "Lupo", app::Vector2{-212.3f, -4158.8f}, shop_visibility_effect(shops().lupo_shop())),
 
                 // GladesTown.Tuley (not implemented)
-                // std::make_shared<MapIcon>(MapIcon::Type::Gardener, "Tuley", app::Vector2{-170.0f, -4137.7f}, shop_visibility_effect(shops().tuley_shop()), MapIcon::ScaleMode::Linear),
+                // std::make_shared<MapIcon>(MapIcon::Type::Gardener, "Tuley", app::Vector2{-170.0f, -4137.7f}, shop_visibility_effect(shops().tuley_shop())),
             };
         }
     );
