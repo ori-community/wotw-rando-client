@@ -290,7 +290,7 @@ namespace randomizer::map::icons {
     // Polymorphism doesn't work in a constexpr context...
     using icon_recipe_t = std::variant<VanillaIconRecipe, CustomIconRecipe>;
 
-    constexpr frozen::unordered_map<MapIcon::Type, icon_recipe_t, 87> MAP_ICON_RECIPES = {
+    constexpr frozen::unordered_map<MapIcon::Type, icon_recipe_t, 88> MAP_ICON_RECIPES = {
         {MapIcon::Type::Keystone, VanillaIconRecipe(app::WorldMapIconType__Enum::Keystone)},
         {MapIcon::Type::Mapstone, VanillaIconRecipe(app::WorldMapIconType__Enum::Mapstone)},
         {MapIcon::Type::BreakableWall, VanillaIconRecipe(app::WorldMapIconType__Enum::BreakableWall)},
@@ -360,6 +360,7 @@ namespace randomizer::map::icons {
         {MapIcon::Type::Siira, VanillaIconRecipe(app::WorldMapIconType__Enum::Siira)},
         {MapIcon::Type::SavePedestalInactive, VanillaIconRecipe(app::WorldMapIconType__Enum::SavePedestal, VanillaIconPrefabVariant::Inactive)},
         {MapIcon::Type::RaceStartFinished, VanillaIconRecipe(app::WorldMapIconType__Enum::RaceStart, VanillaIconPrefabVariant::Special)},
+        {MapIcon::Type::RaceEndFinished, VanillaIconRecipe(app::WorldMapIconType__Enum::RaceEnd, VanillaIconPrefabVariant::Special)},
         {MapIcon::Type::CleanWater, CustomIconRecipe("file:assets/map_icons/clean_water.png", 1.f)},
         {MapIcon::Type::BonusItem, CustomIconRecipe("file:assets/map_icons/bonus_item.png", 1.f)},
         {MapIcon::Type::LaunchFragment, CustomIconRecipe("file:assets/map_icons/launch_fragment.png", 1.f)},

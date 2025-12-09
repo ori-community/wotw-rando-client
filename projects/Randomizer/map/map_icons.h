@@ -92,6 +92,7 @@ namespace randomizer::map::icons {
             Siira = 75,
             SavePedestalInactive = 76,
             RaceStartFinished = 77,
+            RaceEndFinished = 78,
             CleanWater = 100,
             BonusItem = 101,
             LaunchFragment = 102,
