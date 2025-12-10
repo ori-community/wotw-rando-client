@@ -318,7 +318,7 @@ namespace randomizer::map::icons {
         {MapIcon::Type::NPC, VanillaIconRecipe(app::WorldMapIconType__Enum::NPC)},
         {MapIcon::Type::QuestItem, VanillaIconRecipe(app::WorldMapIconType__Enum::QuestItem, -0.1f)},
         {MapIcon::Type::ShardSlotUpgrade, VanillaIconRecipe(app::WorldMapIconType__Enum::ShardSlotUpgrade)},
-        {MapIcon::Type::Teleporter, VanillaIconRecipe(app::WorldMapIconType__Enum::SavePedestal)},
+        {MapIcon::Type::Teleporter, VanillaIconRecipe(app::WorldMapIconType__Enum::Teleporter)},
         {MapIcon::Type::Ore, VanillaIconRecipe(app::WorldMapIconType__Enum::Ore)},
         {MapIcon::Type::QuestStart, VanillaIconRecipe(app::WorldMapIconType__Enum::QuestStart)},
         {MapIcon::Type::QuestEnd, VanillaIconRecipe(app::WorldMapIconType__Enum::QuestEnd)},
