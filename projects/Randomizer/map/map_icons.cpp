@@ -283,6 +283,11 @@ namespace randomizer::map::icons {
 
             UberShaderAPI::SetVector_1(renderer, app::UberShaderProperty_Vector__Enum::MainTexScaleAndOffset, {0, 0, 1, 1});
 
+            // Offset the icon label
+            auto label_position = il2cpp::unity::get_local_position(area_map_icon->fields.Label);
+            label_position.y += 0.1f;
+            il2cpp::unity::set_local_position(area_map_icon->fields.Label, label_position);
+
             return game_object;
         }
     };
