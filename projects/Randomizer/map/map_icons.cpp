@@ -295,7 +295,7 @@ namespace randomizer::map::icons {
     // Polymorphism doesn't work in a constexpr context...
     using icon_recipe_t = std::variant<VanillaIconRecipe, CustomIconRecipe>;
 
-    constexpr frozen::unordered_map<MapIcon::Type, icon_recipe_t, 88> MAP_ICON_RECIPES = {
+    constexpr frozen::unordered_map<MapIcon::Type, icon_recipe_t, 89> MAP_ICON_RECIPES = {
         {MapIcon::Type::Keystone, VanillaIconRecipe(app::WorldMapIconType__Enum::Keystone)},
         {MapIcon::Type::Mapstone, VanillaIconRecipe(app::WorldMapIconType__Enum::Mapstone)},
         {MapIcon::Type::BreakableWall, VanillaIconRecipe(app::WorldMapIconType__Enum::BreakableWall)},
@@ -336,7 +336,8 @@ namespace randomizer::map::icons {
         {MapIcon::Type::WatermillDoor, VanillaIconRecipe(app::WorldMapIconType__Enum::WatermillDoor)},
         {MapIcon::Type::TempleDoor, VanillaIconRecipe(app::WorldMapIconType__Enum::TempleDoor)},
         {MapIcon::Type::SmallDoor, VanillaIconRecipe(app::WorldMapIconType__Enum::SmallDoor)},
-        {MapIcon::Type::Shrine, VanillaIconRecipe(app::WorldMapIconType__Enum::Shrine)},
+        {MapIcon::Type::Shrine, VanillaIconRecipe(app::WorldMapIconType__Enum::Shrine, VanillaIconPrefabVariant::Inactive)},
+        {MapIcon::Type::ShrineFinished, VanillaIconRecipe(app::WorldMapIconType__Enum::Shrine)},
         {MapIcon::Type::Loremaster, VanillaIconRecipe(app::WorldMapIconType__Enum::Loremaster)},
         {MapIcon::Type::Weaponmaster, VanillaIconRecipe(app::WorldMapIconType__Enum::Weaponmaster)},
         {MapIcon::Type::Gardener, VanillaIconRecipe(app::WorldMapIconType__Enum::Gardener)},

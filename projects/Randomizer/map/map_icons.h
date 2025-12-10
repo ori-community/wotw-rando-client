@@ -64,6 +64,7 @@ namespace randomizer::map::icons {
             TempleDoor = 41,
             SmallDoor = 42,
             Shrine = 43,
+            ShrineFinished = 44,
             Loremaster = 50,
             Weaponmaster = 51,
             Gardener = 52,
