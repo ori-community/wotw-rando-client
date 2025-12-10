@@ -54,14 +54,14 @@ jobs:
       - name: Add NuGet sources
         shell: pwsh
         run: |
-          .$(${{ env.VCPKG_EXE }} fetch nuget) `
+          .$(${{ env.VCPKG_EXE }} fetch nuget 2>$null) `
             sources add `
             -Source "${{ env.FEED_URL }}" `
             -StorePasswordInClearText `
             -Name GitHubPackages `
             -UserName "${{ env.USERNAME }}" `
             -Password "${{ secrets.GITHUB_TOKEN }}"
-          .$(${{ env.VCPKG_EXE }} fetch nuget) `
+          .$(${{ env.VCPKG_EXE }} fetch nuget 2>$null) `
             setapikey "${{ secrets.GITHUB_TOKEN }}" `
             -Source "${{ env.FEED_URL }}"
       - name: Generate solution
