@@ -86,6 +86,7 @@ namespace randomizer::map::filter {
                     });
                 }
             })
+            .trigger_on_load()
             .finalize();
 
         current_map_filter().set(next_filter);
@@ -121,6 +122,18 @@ namespace randomizer::map::filter {
                 try_update_map_filter_label_and_quests_ui_if_dirty();
             })
             .finalize();
+    });
+
+    [[maybe_unused]]
+    auto on_before_finished_loading_save = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::Before, [](auto, auto) {
+        map_filter_label_and_quests_ui_dirty = true;
+        try_update_map_filter_label_and_quests_ui_if_dirty();
+    });
+
+    [[maybe_unused]]
+    auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
+        map_filter_label_and_quests_ui_dirty = true;
+        try_update_map_filter_label_and_quests_ui_if_dirty();
     });
 
     [[maybe_unused]]
