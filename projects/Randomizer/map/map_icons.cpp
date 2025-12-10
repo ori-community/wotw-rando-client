@@ -327,7 +327,7 @@ namespace randomizer::map::icons {
         {MapIcon::Type::EnergyFragment, VanillaIconRecipe(app::WorldMapIconType__Enum::EnergyFragment, 0.05f)},
         {MapIcon::Type::Seed, VanillaIconRecipe(app::WorldMapIconType__Enum::Seed)},
         {MapIcon::Type::RaceEnd, VanillaIconRecipe(app::WorldMapIconType__Enum::RaceEnd)},
-        {MapIcon::Type::Eyestone, VanillaIconRecipe(app::WorldMapIconType__Enum::Eyestone)},
+        {MapIcon::Type::Eyestone, CustomIconRecipe("file:assets/map_icons/eyestone.png", 1.f)},  // Vanilla Eyestone icon is empty
         {MapIcon::Type::WatermillDoor, VanillaIconRecipe(app::WorldMapIconType__Enum::WatermillDoor)},
         {MapIcon::Type::TempleDoor, VanillaIconRecipe(app::WorldMapIconType__Enum::TempleDoor)},
         {MapIcon::Type::SmallDoor, VanillaIconRecipe(app::WorldMapIconType__Enum::SmallDoor)},
