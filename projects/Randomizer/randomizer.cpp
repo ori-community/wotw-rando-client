@@ -13,14 +13,12 @@
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/game/pickups/quests.h>
 #include <Randomizer/game/shops/shop.h>
-#include <Randomizer/location_data/parser.h>
 #include <Randomizer/online/network_monitor.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/parser.h>
 #include <Randomizer/seed/seed_source.h>
 #include <Randomizer/text_processors/ability.h>
 #include <Randomizer/text_processors/action.h>
-#include <Randomizer/text_processors/control.h>
 #include <Randomizer/text_processors/legacy.h>
 #include <Randomizer/text_processors/multiplayer.h>
 #include <Randomizer/text_processors/shard.h>
@@ -33,8 +31,7 @@
 
 namespace randomizer {
     namespace {
-        location_data::LocationCollection randomizer_location_collection;
-        seed::Seed randomizer_seed(randomizer_location_collection);
+        seed::Seed randomizer_seed;
         online::NetworkClient client;
         online::MultiplayerUniverse universe;
         seedgen_interface::SeedgenService seedgen_service_instance;
@@ -103,8 +100,7 @@ namespace randomizer {
         });
 
         auto on_after_seed_loaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
-            // TODO[InLogicFilter]:
-            // seedgen_service().set_seedgen_info(seed_archive_save_data->seed_archive->get_seedgen_info());
+            seedgen_service().set_seedgen_info(seed_archive_save_data->seed_archive->get_seedgen_info());
             universe.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
@@ -113,15 +109,7 @@ namespace randomizer {
             event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
         });
 
-        void load_location_collection() {
-            event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::Before);
-            randomizer_location_collection.read(modloader::base_path() / "loc_data.csv", location_data::parse_location_data);
-            event_bus().trigger_event(RandomizerEvent::LocationCollectionLoaded, EventTiming::After);
-        }
-
         void load_seed(const bool show_message) {
-            load_location_collection();
-
             randomizer_seed.read(seed_archive_save_data->seed_archive, seed::parse, show_message);
         }
 
@@ -204,7 +192,6 @@ namespace randomizer {
 
             text_processor = std::make_shared<core::text::CompositeTextProcessor>();
             text_processor->compose(std::make_shared<text_processors::UberStateProcessor>());
-            text_processor->compose(std::make_shared<text_processors::ControlProcessor>());
             text_processor->compose(std::make_shared<text_processors::AbilityProcessor>());
             text_processor->compose(std::make_shared<text_processors::ActionProcessor>());
             text_processor->compose(std::make_shared<text_processors::ShardProcessor>());
@@ -218,7 +205,6 @@ namespace randomizer {
             register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, seed_meta_save_data);
             register_slot(SaveMetaSlot::SeedArchiveData, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, seed_archive_save_data);
 
-            load_location_collection();
             load_new_game_source();
         });
 
@@ -376,8 +362,6 @@ namespace randomizer {
         static common::TimedMultiEventBus<RandomizerEvent> randomizer_event_bus;
         return randomizer_event_bus;
     }
-
-    location_data::LocationCollection& location_collection() { return randomizer_location_collection; }
 
     seed::Seed& game_seed() { return randomizer_seed; }
 

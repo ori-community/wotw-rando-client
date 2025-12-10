@@ -18,42 +18,6 @@
 #undef GetFont
 #undef GetMessage
 
-namespace common {
-    std::optional<BooleanOperatorResult> parse_operator(std::string_view str) {
-        BooleanOperatorResult result{};
-        auto operator_start = std::string::npos;
-        auto operator_end = std::string::npos;
-        if ((operator_start = str.find(">=")) != std::string::npos) {
-            result.op = BooleanOperator::GreaterOrEquals;
-            operator_end = operator_start + 2;
-        } else if ((operator_start = str.find("<=")) != std::string::npos) {
-            result.op = BooleanOperator::LesserOrEquals;
-            operator_end = operator_start + 2;
-        } else if ((operator_start = str.find("==")) != std::string::npos) {
-            result.op = BooleanOperator::Equals;
-            operator_end = operator_start + 2;
-        } else if ((operator_start = str.find("!=")) != std::string::npos) {
-            result.op = BooleanOperator::NotEquals;
-            operator_end = operator_start + 2;
-        } else if ((operator_start = str.find('=')) != std::string::npos) {
-            result.op = BooleanOperator::Equals;
-            operator_end = operator_start + 1;
-        } else if ((operator_start = str.find('>')) != std::string::npos) {
-            result.op = BooleanOperator::Greater;
-            operator_end = operator_start + 1;
-        } else if ((operator_start = str.find('<')) != std::string::npos) {
-            result.op = BooleanOperator::Lesser;
-            operator_end = operator_start + 1;
-        } else {
-            return std::nullopt;
-        }
-
-        result.prefix = trim_copy(str.substr(0, operator_start));
-        result.suffix = trim_copy(str.substr(operator_end));
-        return result;
-    }
-} // namespace common
-
 std::string_view find_next_unbalanced(std::string_view text, std::string_view start, std::string_view end) {
     auto walker = text;
     int depth = 1;

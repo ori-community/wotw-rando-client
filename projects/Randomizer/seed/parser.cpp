@@ -44,7 +44,7 @@ namespace randomizer::seed {
         return data;
     }
 
-    bool parse(const std::shared_ptr<SeedArchive>& archive, location_data::LocationCollection const& location_data, const std::shared_ptr<SeedParseOutput>& output) {
+    bool parse(const std::shared_ptr<SeedArchive>& archive, const std::shared_ptr<SeedParseOutput>& output) {
         auto json = archive->get_assembly();
         std::string current_item;
 

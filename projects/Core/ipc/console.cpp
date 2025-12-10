@@ -75,12 +75,6 @@ namespace core::ipc::console {
                         ? std::make_optional(api::uber_states::UberState(std::stoi(parts[0]), std::stoi(parts[1])))
                         : std::nullopt;
                 }
-                case CommandParameterType::UberStateCondition: {
-                    api::uber_states::UberStateCondition condition;
-                    return parse_condition(content, condition)
-                        ? std::make_optional(condition)
-                        : std::nullopt;
-                }
                 default:
                     return std::nullopt;
             }

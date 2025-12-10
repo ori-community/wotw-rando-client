@@ -2,7 +2,6 @@
 
 #include <Common/event_bus.h>
 
-#include <Randomizer/location_data/location_collection.h>
 #include <Randomizer/online/multiplayer.h>
 #include <Randomizer/online/network.h>
 #include <Randomizer/seed/seedgen_service.h>
@@ -26,7 +25,6 @@ namespace randomizer {
     };
 
     enum class RandomizerEvent {
-        LocationCollectionLoaded,
         SeedLoaded,
         SeedLoadedPostGrant,
         ReachCheck,
@@ -51,7 +49,6 @@ namespace randomizer {
     void check_seed_difficulty_enforcement();
 
     common::TimedMultiEventBus<RandomizerEvent>& event_bus();
-    location_data::LocationCollection& location_collection();
     seed::Seed& game_seed();
     online::NetworkClient& network_client();
     online::MultiplayerUniverse& multiplayer_universe();

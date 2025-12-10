@@ -74,7 +74,7 @@
 #include <Randomizer/seed/instructions/set_shop_item_name.h>
 #include <Randomizer/seed/instructions/set_shop_item_price.h>
 #include <Randomizer/seed/instructions/set_side_map_message.h>
-#include <Randomizer/seed/instructions/set_spoiler_map_icon.h>
+#include <Randomizer/seed/instructions/create_spoiler_map_icon.h>
 #include <Randomizer/seed/instructions/set_string.h>
 #include <Randomizer/seed/instructions/set_text_with_id.h>
 #include <Randomizer/seed/instructions/set_warp_icon_label.h>
@@ -203,7 +203,7 @@ namespace randomizer::seed {
             register_instruction<SetShopItemName>(factories);
             register_instruction<SetShopItemPrice>(factories);
             register_instruction<SetSideMapMessage>(factories);
-            register_instruction<SetSpoilerMapIcon>(factories);
+            register_instruction<CreateSpoilerMapIcon>(factories);
             register_instruction<SetString>(factories);
             register_instruction<SetTextWithId>(factories);
             register_instruction<SetWarpIconLabel>(factories);
@@ -490,8 +490,8 @@ namespace randomizer::seed {
         }
     }
 
-    void SeedExecutionEnvironment::set_spoiler_map_icon(const std::string& location_id, const map::icons::MapIcon::ptr_t& map_icon) {
-        m_spoiler_map_icons[location_id] = map_icon;
+    void SeedExecutionEnvironment::set_spoiler_map_icon(const std::size_t id, const map::icons::MapIcon::ptr_t& map_icon) {
+        m_spoiler_map_icons[id] = map_icon;
     }
 
     void SeedExecutionEnvironment::set_box_trigger(std::size_t id, const SeedBoxTrigger& box_trigger) {

@@ -12,45 +12,6 @@
 #include <tuple>
 #include <vector>
 
-enum class BooleanOperator {
-    GreaterOrEquals = 0,
-    LesserOrEquals = 1,
-    Equals = 2,
-    NotEquals = 3,
-    Greater = 4,
-    Lesser = 5
-};
-
-struct BooleanOperatorResult {
-    BooleanOperator op;
-    std::string_view prefix;
-    std::string_view suffix;
-};
-
-namespace common {
-    std::optional<BooleanOperatorResult> parse_operator(std::string_view str);
-
-    template<typename A, typename B>
-    bool resolve_operator(A a, B b, const BooleanOperator op) requires std::is_same_v<A, B> {
-        switch (op) {
-            case BooleanOperator::GreaterOrEquals:
-                return a >= b;
-            case BooleanOperator::LesserOrEquals:
-                return a <= b;
-            case BooleanOperator::Equals:
-                return abs(a - b) <= std::numeric_limits<A>::epsilon();
-            case BooleanOperator::NotEquals:
-                return abs(a - b) > std::numeric_limits<A>::epsilon();
-            case BooleanOperator::Greater:
-                return a > b;
-            case BooleanOperator::Lesser:
-                return a < b;
-            default:
-                throw std::exception("Unknown operator");
-        }
-    }
-}
-
 struct pair_hash {
     // NOLINT
     template<class T1, class T2>

@@ -358,9 +358,9 @@ namespace randomizer::seed {
         void set_free_message_box_timeout(std::size_t id, float timeout);
 
         /**
-         * Set the spoiler data of a location
+         * Set a spoiler map icon
          */
-        void set_spoiler_map_icon(const std::string& location_id, const map::icons::MapIcon::ptr_t& map_icon);
+        void set_spoiler_map_icon(std::size_t location_id, const map::icons::MapIcon::ptr_t& map_icon);
 
         /**
          * Adds or sets a box trigger
@@ -399,7 +399,7 @@ namespace randomizer::seed {
         std::unordered_map<std::size_t, FreeMessageBox> m_free_message_boxes;
         std::unordered_map<std::size_t, QueuedMessageBox> m_queued_message_boxes;
         bool m_prevent_grant = false;
-        std::unordered_map<std::string, map::icons::MapIcon::ptr_t> m_spoiler_map_icons;
+        std::unordered_map<std::size_t, map::icons::MapIcon::ptr_t> m_spoiler_map_icons;
         std::vector<common::Droppable::ptr_t> m_event_bus_handles;
         Seed& m_seed;
 

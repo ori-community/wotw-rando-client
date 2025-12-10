@@ -6,85 +6,54 @@ namespace {
     using namespace randomizer::map::filter;
 
     std::vector<MapIcon::ptr_t> icons;
-
-    MapIcon::Type get_map_icon_type_from_location_type(const randomizer::location_data::LocationType location_type) {
-        switch (location_type) {
-            case randomizer::location_data::LocationType::SpiritLight:
-                return MapIcon::Type::Experience;
-            case randomizer::location_data::LocationType::Shard:
-                return MapIcon::Type::SpiritShard;
-            case randomizer::location_data::LocationType::HealthFragment:
-                return MapIcon::Type::HealthFragment;
-            case randomizer::location_data::LocationType::EnergyFragment:
-                return MapIcon::Type::EnergyFragment;
-            case randomizer::location_data::LocationType::GorlekOre:
-                return MapIcon::Type::Ore;
-            case randomizer::location_data::LocationType::ShardSlot:
-                return MapIcon::Type::ShardSlotUpgrade;
-            case randomizer::location_data::LocationType::Keystone:
-                return MapIcon::Type::Keystone;
-            case randomizer::location_data::LocationType::Eyestone:
-                return MapIcon::Type::Eyestone;
-            case randomizer::location_data::LocationType::QuestItem:
-                return MapIcon::Type::QuestItem;
-            case randomizer::location_data::LocationType::Skill:
-                return MapIcon::Type::AbilityPedestal;
-            case randomizer::location_data::LocationType::Shop:
-                return MapIcon::Type::NPC;
-            case randomizer::location_data::LocationType::Wisp:
-                return MapIcon::Type::Wisp;
-            case randomizer::location_data::LocationType::Seed:
-                return MapIcon::Type::Seed;
-            case randomizer::location_data::LocationType::Lupo:
-                return MapIcon::Type::Mapmaker;
-            case randomizer::location_data::LocationType::Unknown:
-                return MapIcon::Type::QuestItem;
-            case randomizer::location_data::LocationType::RaceStart:
-                return MapIcon::Type::RaceStart;
-        }
-
-        throw std::runtime_error("Unknown location type");
-    }
+    core::reactivity::ReactiveEffect::ptr_t map_icon_sets_update_effect;
 
     [[maybe_unused]]
-    auto on_location_collection_loaded = randomizer::event_bus().register_handler(
-        randomizer::RandomizerEvent::LocationCollectionLoaded,
-        EventTiming::After,
-        [](auto, auto) {
-            icons.clear();
+    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        map_icon_sets_update_effect = core::reactivity::watch_effect()
+            .effect(randomizer::seedgen_service().map_icon_sets())
+            .after([&] {
+                icons.clear();
 
-            for (const auto& location : randomizer::location_collection().locations()) {
-                if (!location.map_position.has_value()) {
-                    continue;
+                const auto& map_icon_sets = randomizer::seedgen_service().map_icon_sets().get();
+
+                if (!map_icon_sets.has_value()) {
+                    return;
                 }
 
-                if (location.type == randomizer::location_data::LocationType::Shop) {
-                    continue;
-                }
+                for (const auto& [map_icon_set_index, map_icon_set]: map_icon_sets->sets | std::views::enumerate) {
+                    for (const auto& position : map_icon_set.positions) {
+                        icons.push_back(
+                            std::make_shared<MapIcon>(
+                                map_icon_set.kind,
+                                map_icon_set.label,
+                                position,
+                                [=](const MapFilter& filter) {
+                                    if (filter != MapFilter::InLogic && filter != MapFilter::Collectibles) {
+                                        return MapIcon::Visibilities::invisible;
+                                    }
 
-                const auto map_icon = std::make_shared<MapIcon>(
-                    get_map_icon_type_from_location_type(location.type),
-                    location.name,
-                    *location.map_position,
-                    [location](const MapFilter filter) -> MapIcon::visibility_t {
-                        if (location.condition.resolve()) {
-                            return MapIcon::Visibilities::invisible;
-                        }
+                                    for (auto& condition: map_icon_set.visible_if_any) {
+                                        if (condition.resolve()) {
+                                            if (filter == MapFilter::InLogic) {
+                                                const auto& reachable_map_icon_indices = randomizer::seedgen_service().reachable_map_icon_set_indices().get();
 
-                        switch (filter) {
-                            case MapFilter::InLogic:
-                                // TODO[InLogicFilter]
-                                return MapIcon::Visibilities::out_of_logic();
-                            case MapFilter::Collectibles:
-                                return MapIcon::Visibilities::visible;
-                            default:
-                                return MapIcon::Visibilities::invisible;
-                        }
+                                                return reachable_map_icon_indices.contains(map_icon_set_index)
+                                                    ? MapIcon::Visibilities::visible
+                                                    : MapIcon::Visibilities::out_of_logic();
+                                            }
+
+                                            return MapIcon::Visibilities::visible;
+                                        }
+                                    }
+
+                                    return MapIcon::Visibilities::invisible;
+                                }
+                            )
+                        );
                     }
-                );
-
-                icons.push_back(map_icon);
-            }
-        }
-    );
+                }
+            })
+            .finalize();
+    });
 }

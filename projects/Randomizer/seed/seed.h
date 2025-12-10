@@ -8,7 +8,6 @@
 #include <Core/enums/game_areas.h>
 #include <Core/property.h>
 
-#include <Randomizer/location_data/location_collection.h>
 #include <Randomizer/seed/instructions.h>
 #include <Randomizer/seed/seed_event.h>
 
@@ -127,9 +126,9 @@ namespace randomizer::seed {
         };
 
         using seed_parser =
-            bool (*)(const std::shared_ptr<SeedArchive>& seed_archive, location_data::LocationCollection const& location_data, const std::shared_ptr<SeedParseOutput>& data);
+            bool (*)(const std::shared_ptr<SeedArchive>& seed_archive, const std::shared_ptr<SeedParseOutput>& data);
 
-        explicit Seed(location_data::LocationCollection const& location_data);
+        Seed();
 
         void read(const std::shared_ptr<SeedArchive>& seed_archive, const seed_parser parser, const bool show_message = true);
         void show_tags_message() const;
@@ -154,7 +153,6 @@ namespace randomizer::seed {
         void process_timers(float delta_time) const;
 
     private:
-        location_data::LocationCollection const& m_location_data;
         std::shared_ptr<SeedArchive> m_seed_archive;
         std::shared_ptr<SeedParseOutput> m_parse_output = std::make_shared<SeedParseOutput>();
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;

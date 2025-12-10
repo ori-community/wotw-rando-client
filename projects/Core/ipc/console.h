@@ -10,7 +10,6 @@ namespace core::ipc::console {
         Int,
         Float,
         UberState,
-        UberStateCondition,
     };
 
     struct CommandParameter {
@@ -20,7 +19,7 @@ namespace core::ipc::console {
         bool is_optional;
     };
 
-    using paramter_t = std::variant<std::string, int, float, api::uber_states::UberState, api::uber_states::UberStateCondition>;
+    using paramter_t = std::variant<std::string, int, float, api::uber_states::UberState>;
     using named_args_t = std::unordered_map<std::string, paramter_t>;
     using ipc_console_command_t = std::function<void(std::string const& command, named_args_t named_args)>;
     void register_command(std::string const& path, const std::vector<CommandParameter>& args, ipc_console_command_t command);

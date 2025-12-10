@@ -162,6 +162,11 @@ namespace modloader {
     }
 
     bool initialized = false;
+
+    bool is_game_ready() {
+        return initialized;
+    }
+
     IL2CPP_INTERCEPT_WITH_ORDER(-1000, void, GameController, FixedUpdate, app::GameController * this_ptr) {
         if (!initialized) {
             auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());

@@ -10,8 +10,7 @@
 
 namespace randomizer::seed {
 
-    Seed::Seed(location_data::LocationCollection const& location_data) :
-        m_location_data(location_data) {
+    Seed::Seed() {
         register_slot(SaveMetaSlot::SeedEnvironment, SaveMetaSlotPersistence::None, m_environment);
         register_slot(SaveMetaSlot::SeedPersistentMemory, SaveMetaSlotPersistence::None, m_persistent_memory);
     }
@@ -25,7 +24,7 @@ namespace randomizer::seed {
         data->locations = read_text_file(modloader::base_path() / "loc_data.csv");
         data->states = read_text_file(modloader::base_path() / "state_data.csv");
 
-        if (!parser(m_seed_archive, m_location_data, data)) {
+        if (!parser(m_seed_archive, data)) {
             std::string error_message = "Failed to load seed";
             if (!data->parser_error.empty()) {
                 error_message += ":\n" + data->parser_error;
@@ -41,15 +40,6 @@ namespace randomizer::seed {
         }
 
         m_parse_output = data;
-        // for (auto& inner_locations: m_data->locations | std::views::values) {
-        //     for (const auto& location: inner_locations | std::views::keys) {
-        //         auto area = m_location_data.area(location);
-        //         ++m_data->meta.pickup_count_by_area[area];
-        //         if (area != GameArea::Void) {
-        //             ++m_data->meta.total_pickups;
-        //         }
-        //     }
-        //  }
 
         // clang-format off
         {

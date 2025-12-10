@@ -58,11 +58,11 @@ namespace randomizer::map::icons {
     common::EventBus<void, Event> icons_event_bus;
     common::EventBus<IconScale> icons_scale_event_bus;
     std::unordered_map<MapIcon::id_t, map_icon_handle_t> map_icons_that_can_be_teleported_to;
-    bool show_transparent_out_of_logic_icons = true;
+    core::Property<bool> show_transparent_out_of_logic_icons{true};
 
     [[maybe_unused]]
     auto on_settings_loaded = core::settings::event_bus().register_handler(core::settings::SettingsEvent::Load, EventTiming::After, [](auto, auto) {
-        show_transparent_out_of_logic_icons = core::settings::show_transparent_out_of_logic_icons();
+        show_transparent_out_of_logic_icons.set(core::settings::show_transparent_out_of_logic_icons());
     });
 
     IconScale get_desired_icon_scale() {
@@ -384,7 +384,7 @@ namespace randomizer::map::icons {
     MapIcon::id_t next_icon_id = 0;
 
     MapIcon::visibility_t MapIcon::Visibilities::out_of_logic() {
-        return show_transparent_out_of_logic_icons
+        return show_transparent_out_of_logic_icons.get()
             ? std::make_optional(0.25)
             : std::nullopt;
     }
@@ -435,6 +435,8 @@ namespace randomizer::map::icons {
                     if (visibility == m_visibility.get()) {
                         return;
                     }
+
+                    m_visibility.set(visibility);
 
                     const auto game_object = get_game_object();
 
@@ -516,8 +518,6 @@ namespace randomizer::map::icons {
                         m_handles.area_map_opened_event = nullptr;
                         m_handles.icon_scale_update_requested_event = nullptr;
                     }
-
-                    m_visibility.set(visibility);
                 });
             })
             .trigger_on_load()
@@ -700,6 +700,11 @@ namespace randomizer::map::icons {
         const auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(*game_object, types::Renderer::get_class(), true);
         for (const auto& renderer : renderers) {
             m_original_renderer_colors.emplace(renderer, UberShaderAPI::GetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor));
+        }
+
+        const auto visibility = m_visibility.get();
+        if (visibility.has_value()) {
+            try_set_opacity(*visibility);
         }
 
         return true;
