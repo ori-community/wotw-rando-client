@@ -65,3 +65,8 @@ Debugging only works when launching the randomizer using the winhttp.dll proxy f
 After building the project, symlink the built winhttp.dll next to the game. For that, open a terminal with elevated privileges next to the game executable (oriwotw.exe) and run `mklink winhttp.dll C:\moon\randomizer\winhttp.dll`.
 Now you can load the randomizer by launching the game executable with `-m C:\moon\randomizer` as command line argument. If you don't supply any argument, the winhttp.dll proxy will do nothing.
 If you are using CLion, you can create a Run Configuration with the aforementioned settings to get a seamless debugging experience.
+
+
+### Working together with the launcher
+
+To prevent needing to copy files into the `development-install-dir` in the UI project after every rebuild, you can set the `WOTWR_INSTALL_DIR` CMake variable (`-DWOTWR_INSTALL_DIR=C:\path\to\development-install-dir\client`). Make sure to also update any launch configurations/tasks, especially the `-m` parameter!
