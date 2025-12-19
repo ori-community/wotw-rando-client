@@ -30,8 +30,8 @@ using namespace app::classes::UnityEngine;
 
 namespace randomizer::input {
     namespace {
-        const std::string KEYBOARD_REBIND_FILE = "keyboard_bindings.json";
-        const std::string MIDI_REBIND_FILE = "midi_bindings.json";
+        // const std::string KEYBOARD_REBIND_FILE = "keyboard_bindings.json";
+        // const std::string MIDI_REBIND_FILE = "midi_bindings.json";
 
         struct KeyboardMouseInput {
             std::vector<app::KeyCode__Enum> codes;
@@ -283,8 +283,8 @@ namespace randomizer::input {
     }
 
     void on_before_register_input_simulators(GameEvent game_event, EventTiming timing) {
-        read_keyboard_or_controller_bindings(base_path() / KEYBOARD_REBIND_FILE, on_keyboard_binding_read);
-        read_midi_bindings(base_path() / MIDI_REBIND_FILE, on_midi_binding_read);
+        read_keyboard_or_controller_bindings(get_user_data_path("randomizer/keyboard_bindings.json"), on_keyboard_binding_read);
+        read_midi_bindings(get_user_data_path("randomizer/midi_bindings.json"), on_midi_binding_read);
     }
 
     auto on_before_register_input_simulators_handle =
@@ -350,7 +350,7 @@ namespace randomizer::input {
                     }
 
                     nlohmann::json j;
-                    load_json_file(MIDI_REBIND_FILE, j);
+                    load_json_file(get_user_data_path("randomizer/midi_bindings.json"), j);
 
                     if (!j.contains(action_name)) {
                         j[action_name] = nlohmann::json::array();
@@ -358,7 +358,7 @@ namespace randomizer::input {
 
                     // Store new bind
                     j[action_name][0]["notes"] = pressed_notes;
-                    std::ofstream stream(base_path() / MIDI_REBIND_FILE);
+                    std::ofstream stream(get_user_data_path("randomizer/midi_bindings.json"));
                     stream << j.dump(2);
                     stream.close();
 
@@ -366,7 +366,7 @@ namespace randomizer::input {
                     for (auto& bind: rando_bindings | std::views::values) {
                         bind.midi_bindings.clear();
                     }
-                    read_midi_bindings(base_path() / MIDI_REBIND_FILE, on_midi_binding_read);
+                    read_midi_bindings(get_user_data_path("randomizer/midi_bindings.json"), on_midi_binding_read);
 
                     win::console::console_send(std::format("Saved '{}' = {}", action_name, pressed_notes));
                 });

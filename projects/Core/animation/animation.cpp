@@ -17,10 +17,13 @@
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 
+#include <memory>
 #include <nlohmann/json.hpp>
 
 #include <fstream>
 #include <unordered_map>
+
+#include "Core/fs.h"
 
 using namespace app::classes;
 using namespace modloader;
@@ -28,21 +31,28 @@ using namespace modloader;
 namespace core::animation {
     CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation> animation_cache;
 
-    std::shared_ptr<AnimationDefinition> load_animation(std::string path) {
+    std::shared_ptr<AnimationDefinition> load_animation(const std::filesystem::path& asset_path) {
+        const auto confined_asset_path = fs::get_confined_asset_path(asset_path);
+
+        auto animation_definition = std::make_shared<AnimationDefinition>();
+        if (!confined_asset_path.has_value()) {
+            return animation_definition;
+        }
+
         nlohmann::json j;
-        load_json_file(path, j);
-        std::shared_ptr<AnimationDefinition> anim(new AnimationDefinition());
+        load_json_file(*confined_asset_path, j);
+
         try {
-            anim->duration = 0.f;
+            animation_definition->duration = 0.f;
             auto frames = j.at("frames");
             for (auto frame : frames) {
-                auto& frame_definition = anim->frames.emplace_back();
+                auto& frame_definition = animation_definition->frames.emplace_back();
                 frame_definition.position = frame.value("position", app::Vector3{ 0.f, 0.f, 0.f });
                 frame_definition.scale = frame.value("scale", app::Vector3{ 1.f, 1.f, 1.f });
                 frame_definition.rotation = frame.value("rotation", 0.0f);
                 frame_definition.duration = frame.value("duration", 1.0f);
-                anim->duration += frame_definition.duration;
-                frame_definition.real_duration = anim->duration;
+                animation_definition->duration += frame_definition.duration;
+                frame_definition.real_duration = animation_definition->duration;
                 frame_definition.texture = api::graphics::textures::get_texture_from_identifier(frame.value("texture", std::string("")));
                 app::Vector2 texture_size;
                 auto has_texture_size = frame.contains("texture_size");
@@ -76,10 +86,10 @@ namespace core::animation {
                 frame_definition.params = std::optional(mat_params);
             }
         } catch (std::exception& ex) {
-            warn("anim_renderer", std::format("failed to read '{}{}' error '{}'", base_path().string(), path, ex.what()));
+            warn("anim_renderer", std::format("failed to read '{}' error '{}'", confined_asset_path->string(), ex.what()));
         }
 
-        return anim;
+        return animation_definition;
     }
 
     std::shared_ptr<AnimationDefinition> copy_animation(std::shared_ptr<AnimationDefinition> value) {

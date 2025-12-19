@@ -20,9 +20,6 @@ namespace randomizer::seed {
 
         event_bus().trigger_event(RandomizerEvent::SeedLoaded, EventTiming::Before);
         const auto data = std::make_shared<SeedParseOutput>();
-        data->areas = read_text_file(modloader::base_path() / "areas.wotw");
-        data->locations = read_text_file(modloader::base_path() / "loc_data.csv");
-        data->states = read_text_file(modloader::base_path() / "state_data.csv");
 
         if (!parser(m_seed_archive, data)) {
             std::string error_message = "Failed to load seed";

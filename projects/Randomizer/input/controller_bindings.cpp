@@ -33,8 +33,6 @@ using namespace app::classes::SmartInput;
 
 namespace randomizer::input {
     namespace {
-        const std::string CONTROLLER_REBIND_FILE = "controller_bindings.json";
-
         std::unordered_map<app::XboxControllerInput_Axis__Enum, GCHandleId> axis_map;
         std::unordered_map<ControllerButton, GCHandleId> buttons_map;
 
@@ -125,7 +123,7 @@ namespace randomizer::input {
         bool initialized = false;
         IL2CPP_INTERCEPT(void, PlayerInput, AddControllerControls, app::PlayerInput * this_ptr) {
             // If we fail to read the bindings we want to use default game bindings.
-            auto bindings_read = read_keyboard_or_controller_bindings(base_path() / CONTROLLER_REBIND_FILE, on_binding_read);
+            auto bindings_read = read_keyboard_or_controller_bindings(get_user_data_path("randomizer/controller_bindings.json"), on_binding_read);
 
             auto* player_input_rebinding_klass = types::PlayerInputRebinding::get_class();
             if (!bindings_read || !player_input_rebinding_klass->static_fields->USE_NEW_BINDINGS_TEST) {

@@ -1,7 +1,6 @@
-#include "hook.h"
+#include <InjectProxy/hook.h>
 #include <AtlBase.h>
 #include <InjectProxy/winhttp_proxy.h>
-#include <atlconv.h>
 #include <format>
 #include <tclap/CmdLine.h>
 #include <windows.h>
@@ -11,34 +10,16 @@
 #include <iostream>
 #include <semaphore>
 #include <thread>
-
-std::string convert_wstring_to_string(std::wstring_view str) {
-    CW2A cw2a(str.data());
-    return { cw2a };
-}
+#include <Common/env.h>
 
 void inject() {
-    /**
-    MessageBoxA(
-            nullptr,
-            (LPCSTR) "Hello from il2cpp_init. Injecting now...",
-            (LPCSTR) "Yooo??",
-            MB_ICONINFORMATION | MB_OK
-    );
-     **/
-
-    TCLAP::CmdLine cmd("Ori and the Will of the Wisps Modloader", ' ', "1.0");
+    TCLAP::CmdLine cmd("Ori and the Will of the Wisps Modloader (Proxy)", ' ', "1.0");
     cmd.ignoreUnmatched(true);
 
-    TCLAP::ValueArg<std::string> modloader_base_dir(
-        "m",
-        "modloader-base-dir",
-        "Directory that has the Modloader.dll",
-        false,
-        "",
-        "string"
-    );
-    cmd.add(modloader_base_dir);
+    TCLAP::ValueArg<std::string> modloader_install_data_dir("i", "install-data-directory", "Path to the install data directory", false, "", "string");
+    TCLAP::ValueArg<std::string> modloader_user_data_dir("u", "user-data-directory", "Path the the user data directory", false, "", "string");
+    cmd.add(modloader_install_data_dir);
+    cmd.add(modloader_user_data_dir);
 
     std::vector<std::string> arguments;
     int argc = 0;
@@ -51,40 +32,68 @@ void inject() {
 
     cmd.parse(arguments);
 
-    if (modloader_base_dir.isSet()) {
-        auto base_path = std::filesystem::path(modloader_base_dir.getValue());
-
-        auto modloader = LoadLibraryW((base_path / "Modloader.dll").c_str());
-        auto modloader_injection_entry_fn = reinterpret_cast<void (*)(const std::filesystem::path&, const std::function<void()>, const std::function<void(std::string_view)>)>(
-            GetProcAddress(modloader, "injection_entry")
-        );
-
-        std::binary_semaphore modloader_initialization_mutex(0);
-
-        std::thread thread([&modloader_injection_entry_fn, base_path, &modloader_initialization_mutex]() {
-            modloader_injection_entry_fn(
-                base_path,
-                [&modloader_initialization_mutex]() {
-                    modloader_initialization_mutex.release();
-                },
-                [&modloader_initialization_mutex](auto error_message) {
-                    MessageBoxA(
-                        nullptr,
-                        (LPCSTR)std::format("Modloader initialization failed: {}", error_message).c_str(),
-                        (LPCSTR) "Ori and the Will of the Wisps Modloader",
-                        MB_ICONERROR | MB_OK
-                    );
-
-                    modloader_initialization_mutex.release();
-                }
-            );
-        });
-
-        thread.detach();
-
-        std::cout << "Waiting for initialization to complete..." << std::endl;
-        modloader_initialization_mutex.acquire();
+    if (!modloader_install_data_dir.isSet()) {
+        return;
     }
+
+    std::filesystem::path user_data_path;
+    std::filesystem::path install_data_path = std::filesystem::path(modloader_install_data_dir.getValue());
+    std::cout << "Set install data directory from command line to '" << install_data_path.string() << "'" << std::endl;
+
+    if (modloader_user_data_dir.isSet()) {
+        user_data_path = std::filesystem::path(modloader_user_data_dir.getValue());
+        std::cout << "Set user data directory from command line to '" << user_data_path.string() << "'" << std::endl;
+    } else {
+        const auto appdata_variable = get_environment_variable("APPDATA");
+
+        if (!appdata_variable.has_value()) {
+            MessageBoxA(
+                nullptr,
+                static_cast<LPCSTR>(std::format("Failed to determine user data path. You will need to set the -{} flag.", modloader_user_data_dir.getFlag()).c_str()),
+                "Ori and the Will of the Wisps Modloader",
+                MB_ICONERROR | MB_OK
+            );
+            return;
+        }
+
+        user_data_path = std::filesystem::path(*appdata_variable) / "Ori and the Will of the Wisps Randomizer";
+        std::cout << "Derived user data directory from environment to '" << user_data_path.string() << "'" << std::endl;
+    }
+
+    auto modloader = LoadLibraryW((install_data_path / "client" / "Modloader.dll").c_str());
+    auto initialize_modloader_fn = reinterpret_cast<void (*)(
+        const std::filesystem::path& install_data_path,
+        const std::filesystem::path& user_data_path,
+        const std::function<void()>& on_success,
+        const std::function<void(std::string_view)>& on_error
+    )>(GetProcAddress(modloader, "initialize_modloader"));
+
+    std::binary_semaphore modloader_initialization_mutex(0);
+
+    std::thread thread([&initialize_modloader_fn, install_data_path, user_data_path, &modloader_initialization_mutex]() {
+        initialize_modloader_fn(
+            install_data_path,
+            user_data_path,
+            [&modloader_initialization_mutex]() {
+                modloader_initialization_mutex.release();
+            },
+            [&modloader_initialization_mutex](auto error_message) {
+                MessageBoxA(
+                    nullptr,
+                    static_cast<LPCSTR>(std::format("Modloader initialization failed: {}", error_message).c_str()),
+                    "Ori and the Will of the Wisps Modloader",
+                    MB_ICONERROR | MB_OK
+                );
+
+                modloader_initialization_mutex.release();
+            }
+        );
+    });
+
+    thread.detach();
+
+    std::cout << "Waiting for initialization to complete..." << std::endl;
+    modloader_initialization_mutex.acquire();
 }
 
 void (*il2cpp_init)(const char* domain_name);

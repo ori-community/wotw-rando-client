@@ -132,7 +132,7 @@ namespace randomizer::messages {
         }
     }
 
-    bool CreditsController::load(std::string_view path) {
+    bool CreditsController::load(const std::filesystem::path& path) {
         if (m_current_index != 0) {
             modloader::warn("credits_controller", "Can't reload while running.");
             return false;
@@ -140,12 +140,12 @@ namespace randomizer::messages {
 
         unload();
         if (!std::filesystem::exists(path)) {
-            modloader::warn("credits_controller", std::format("Can't reload, '{}' file does not exist.", path));
+            modloader::warn("credits_controller", std::format("Can't reload, '{}' file does not exist.", path.string()));
             return false;
         }
 
         int line_number = 0;
-        std::ifstream stream(path.data(), std::ifstream::in);
+        std::ifstream stream(path, std::ifstream::in);
         for (std::string line; std::getline(stream, line); ++line_number) {
             line = line.substr(0, line.find("//"));
             trim(line);

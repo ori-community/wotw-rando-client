@@ -17,7 +17,10 @@ enum class ModloaderEvent {
 
 namespace modloader {
     using shutdown_handler = void (*)();
-    IL2CPP_MODLOADER_DLLEXPORT std::filesystem::path base_path();
+    IL2CPP_MODLOADER_DLLEXPORT const std::filesystem::path& get_install_data_path();
+    IL2CPP_MODLOADER_DLLEXPORT const std::filesystem::path& get_user_data_path();
+    IL2CPP_MODLOADER_DLLEXPORT std::filesystem::path get_install_data_path(const std::filesystem::path& relative_path);
+    IL2CPP_MODLOADER_DLLEXPORT std::filesystem::path get_user_data_path(const std::filesystem::path& relative_path);
 
     template<typename T>
     struct ScopedSetter {

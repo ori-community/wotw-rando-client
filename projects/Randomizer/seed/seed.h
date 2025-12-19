@@ -113,9 +113,6 @@ namespace randomizer::seed {
         SeedData data;
 
         std::string content;
-        std::string areas;
-        std::string locations;
-        std::string states;
     };
 
     class Seed {

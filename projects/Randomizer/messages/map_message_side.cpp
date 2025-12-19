@@ -29,7 +29,7 @@ namespace {
         top_left.z = -1.0f;
         map_side_background->local_position(top_left);
 
-        map_side_background->texture(core::api::graphics::textures::get_texture_from_identifier("file:assets/textures/gradient_corner_bottom_left.png"));
+        map_side_background->texture(core::api::graphics::textures::get_texture_from_identifier("file:textures/gradient_corner_bottom_left.png"));
 
         const auto scale_position_component = il2cpp::unity::add_component<app::ScalePositionForAspectRatio>(
             map_side_background->get_game_object(), types::ScalePositionForAspectRatio::get_class()

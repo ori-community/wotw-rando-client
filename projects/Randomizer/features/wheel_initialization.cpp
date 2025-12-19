@@ -34,17 +34,17 @@ namespace randomizer::features::wheel {
     }
 
     void initialize_default_wheel() {
-        initialize_item(0, 11, "Rando Actions", "Contains default\nrandomizer actions", "file:assets/icons/wheel/menu.blue.png",
+        initialize_item(0, 11, "Rando Actions", "Contains default\nrandomizer actions", "file:icons/wheel/menu.blue.png",
                         [](auto, auto, auto) { set_active_wheel(9000); });
 
-        initialize_item(9000, 0, "Show last pickup", "Displays the message associated\nwith the last pickup.", "file:assets/icons/wheel/show_last_pickup.blue.png",
+        initialize_item(9000, 0, "Show last pickup", "Displays the message associated\nwith the last pickup.", "file:icons/wheel/show_last_pickup.blue.png",
                         [](auto, auto, auto) {
                             game_seed().trigger(seed::SeedClientEvent::RequeueLastMessage);
                             core::message_controller().show_recent_messages();
                         });
-        initialize_item(9000, 1, "Show progress, with hints.", "Displays current goal mode progress and bought hints.", "file:assets/icons/wheel/progress_summary.blue.png",
+        initialize_item(9000, 1, "Show progress, with hints.", "Displays current goal mode progress and bought hints.", "file:icons/wheel/progress_summary.blue.png",
                         [](auto, auto, auto) { game_seed().trigger(seed::SeedClientEvent::ShowProgress); });
-        initialize_item(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "file:assets/icons/wheel/warp_to_credits.blue.png",
+        initialize_item(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "file:icons/wheel/warp_to_credits.blue.png",
                         [](auto, auto, auto) {
                             if (core::api::uber_states::UberState(34543, 11226).get<bool>()) {
                                 features::credits::start();
@@ -55,7 +55,7 @@ namespace randomizer::features::wheel {
                                 });
                             }
                         });
-        initialize_item(9000, 3, "Toggle keystones", "Toggle to always show the keystone ui.", "file:assets/icons/game/keystone.png",
+        initialize_item(9000, 3, "Toggle keystones", "Toggle to always show the keystone ui.", "file:icons/game/keystone.png",
                         [](auto, auto, auto) {
                             core::settings::always_show_keystones(!core::settings::always_show_keystones());
                             core::message_controller().queue_central({
@@ -63,7 +63,7 @@ namespace randomizer::features::wheel {
                                 .prioritized = true,
                             });
                         });
-        initialize_item(9000, 4, "Toggle cursor lock", "Toggle to confine the mouse cursor to the window.", "file:assets/icons/wheel/cursor_lock.blue.png",
+        initialize_item(9000, 4, "Toggle cursor lock", "Toggle to confine the mouse cursor to the window.", "file:icons/wheel/cursor_lock.blue.png",
                         [](auto, auto, auto) {
                             core::settings::lock_cursor(!core::settings::lock_cursor());
                             modloader::cursor_lock(core::settings::lock_cursor());
@@ -73,7 +73,7 @@ namespace randomizer::features::wheel {
                                 .prioritized = true,
                             });
                         });
-        initialize_item(9000, 5, "Toggle autoaim", "Toggle auto aim for bow/shuriken.", "file:assets/icons/wheel/toggle_autoaim.blue.png",
+        initialize_item(9000, 5, "Toggle autoaim", "Toggle auto aim for bow/shuriken.", "file:icons/wheel/toggle_autoaim.blue.png",
                         [](auto, auto, auto) {
                             core::settings::disable_auto_aim(!core::settings::disable_auto_aim());
                             core::message_controller().queue_central({
@@ -81,20 +81,20 @@ namespace randomizer::features::wheel {
                                 .prioritized = true,
                             });
                         });
-        initialize_item(9000, 6, "Toggle minimap", "Toggle minimap overlay.", "file:assets/icons/wheel/minimap.png",
+        initialize_item(9000, 6, "Toggle minimap", "Toggle minimap overlay.", "file:icons/wheel/minimap.png",
                         [](auto, auto, auto) {
                             core::settings::enable_minimap(!core::settings::enable_minimap());
                         });
 
         if (randomizer::get_multiverse_id().has_value()) {
-            initialize_item(9000, 10, "Reconnect", "Reconnect to the server", "file:assets/icons/wheel/reload_seed.blue.png",
+            initialize_item(9000, 10, "Reconnect", "Reconnect to the server", "file:icons/wheel/reload_seed.blue.png",
                             [](auto, auto, auto) { randomizer::server_reconnect_current_multiverse(); });
         }
 
-        initialize_item(9000, 11, "Next", "Go to next page of actions", "file:assets/icons/wheel/menu.blue.png",
+        initialize_item(9000, 11, "Next", "Go to next page of actions", "file:icons/wheel/menu.blue.png",
                         [](auto, auto, auto) { set_active_wheel(9001); });
 
-        initialize_item(9001, 0, "Toggle dev", "Toggle developer tools", "file:assets/icons/wheel/dev_mode.blue.png",
+        initialize_item(9001, 0, "Toggle dev", "Toggle developer tools", "file:icons/wheel/dev_mode.blue.png",
                         [](auto, auto, auto) {
                             core::settings::developer_mode(!core::settings::developer_mode());
                             core::message_controller().queue_central({
@@ -103,7 +103,7 @@ namespace randomizer::features::wheel {
                             });
                             on_dev_changed();
                         });
-        initialize_item(9001, 1, "Toggle debug", "Toggle debug controls", "file:assets/icons/wheel/toggle_debug.blue.png",
+        initialize_item(9001, 1, "Toggle debug", "Toggle debug controls", "file:icons/wheel/toggle_debug.blue.png",
                         [](auto, auto, auto) {
                             if (core::api::game::debug_menu::should_prevent_cheats()) {
                                 core::message_controller().queue_central({
@@ -122,7 +122,7 @@ namespace randomizer::features::wheel {
                                 .prioritized = true,
                             });
                         });
-        initialize_item(9001, 2, "Reload file textures", "Reloads all 'file:' textures", "file:assets/icons/wheel/reload_file_textures.blue.png",
+        initialize_item(9001, 2, "Reload file textures", "Reloads all 'file:' textures", "file:icons/wheel/reload_file_textures.blue.png",
                         [](auto, auto, auto) {
                             core::api::graphics::textures::reload_all_file_textures();
                             core::message_controller().queue_central({
@@ -130,9 +130,9 @@ namespace randomizer::features::wheel {
                                 .prioritized = true,
                             });
                         });
-        initialize_item(9001, 3, "Reload sprites", "Reloads all sprite animations", "file:assets/icons/wheel/reload_file_textures.blue.png",
+        initialize_item(9001, 3, "Reload sprites", "Reloads all sprite animations", "file:icons/wheel/reload_file_textures.blue.png",
                         [](auto, auto, auto) {});
-        initialize_item(9001, 4, "Display coordinates", "Displays your current\ncoordinates as a message", "file:assets/icons/wheel/show_coordinates.blue.png",
+        initialize_item(9001, 4, "Display coordinates", "Displays your current\ncoordinates as a message", "file:icons/wheel/show_coordinates.blue.png",
                         [](auto, auto, auto) {
                             static core::api::messages::MessageBox box;
                             static common::Droppable::ptr_t handle;
@@ -153,7 +153,7 @@ namespace randomizer::features::wheel {
                                 box.hide();
                             }
                         });
-        initialize_item(9001, 6, "Unlock spoilers", "Unlock spoilers filter on the map", "file:assets/icons/wheel/unlock_spoilers.blue.png",
+        initialize_item(9001, 6, "Unlock spoilers", "Unlock spoilers filter on the map", "file:icons/wheel/unlock_spoilers.blue.png",
                         [](auto, auto, auto) {
                             if (core::api::game::debug_menu::should_prevent_cheats()) {
                                 core::message_controller().queue_central({
@@ -169,9 +169,9 @@ namespace randomizer::features::wheel {
                                 .prioritized = true,
                             });
                         });
-        initialize_item(9001, 9, "Force Exit", "Forcibly exit the game.", "file:assets/icons/wheel/force_exit.blue.png",
+        initialize_item(9001, 9, "Force Exit", "Forcibly exit the game.", "file:icons/wheel/force_exit.blue.png",
                         [](auto, auto, auto) { modloader::shutdown(); });
-        initialize_item(9001, 10, "Clear messages", "[Ability1] Clear all\n[Ability2] Clear queue\n[Ability3] Clear free", "file:assets/icons/wheel/clear_messages.blue.png",
+        initialize_item(9001, 10, "Clear messages", "[Ability1] Clear all\n[Ability2] Clear queue\n[Ability3] Clear free", "file:icons/wheel/clear_messages.blue.png",
                         [](auto, auto, auto bind) {
                             if (bind == WheelBind::Ability1 || bind == WheelBind::Ability2) {
                                 core::message_controller().clear_central();
@@ -181,7 +181,7 @@ namespace randomizer::features::wheel {
                                 game_seed().environment().clear_free_message_boxes();
                             }
                         });
-        initialize_item(9001, 11, "Next", "Go to next page of actions", "file:assets/icons/wheel/menu.blue.png",
+        initialize_item(9001, 11, "Next", "Go to next page of actions", "file:icons/wheel/menu.blue.png",
                         [](auto, auto, auto) { set_active_wheel(9000); });
         on_dev_changed();
     }

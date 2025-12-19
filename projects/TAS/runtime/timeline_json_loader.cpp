@@ -97,8 +97,8 @@ namespace tas::runtime::timeline {
         return false;
     }
 
-    bool load_from_json_file(Timeline& timeline, std::string path, nlohmann::json& j) {
-        if (load_json_file(std::move(path), j)) {
+    bool load_from_json_file(Timeline& timeline, const std::filesystem::path& user_path, nlohmann::json& j) {
+        if (load_json_file(modloader::get_user_data_path(user_path), j)) {
             return load_from_json(timeline, j);
         }
 

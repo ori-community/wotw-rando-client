@@ -56,7 +56,7 @@ namespace core::animation {
         std::vector<AnimationFrame> m_frames;
     };
 
-    CORE_DLLEXPORT std::shared_ptr<AnimationDefinition> load_animation(std::string path);
+    CORE_DLLEXPORT std::shared_ptr<AnimationDefinition> load_animation(const std::filesystem::path& asset_path);
     CORE_DLLEXPORT std::shared_ptr<AnimationDefinition> copy_animation(std::shared_ptr<AnimationDefinition> value);
     extern CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation> animation_cache;
 } // namespace core::animation

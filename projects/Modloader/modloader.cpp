@@ -15,7 +15,6 @@
 
 #include <Common/settings.h>
 #include <Core/api/game/game.h>
-#include <Core/enums/game_event.h>
 #include <filesystem>
 #include <functional>
 #include <semaphore>
@@ -29,13 +28,24 @@ namespace modloader {
     // Have this here so it is included in the assembly and can be used to examine thrown exceptions.
     Il2CppExceptionWrapper ex;
 
-    std::filesystem::path inner_base_path = "C:\\moon\\";
-    std::filesystem::path modloader_config_path = "modloader_config.json";
-    std::filesystem::path modloader_log_path = "modloader_log.csv";
+    std::filesystem::path install_data_path;
+    std::filesystem::path user_data_path;
     std::atomic<bool> shutdown_requested = false;
 
-    std::filesystem::path base_path() {
-        return inner_base_path;
+    const std::filesystem::path& get_install_data_path() {
+        return install_data_path;
+    }
+
+    const std::filesystem::path& get_user_data_path() {
+        return user_data_path;
+    }
+
+    std::filesystem::path get_install_data_path(const std::filesystem::path& relative_path) {
+        return install_data_path / relative_path;
+    }
+
+    std::filesystem::path get_user_data_path(const std::filesystem::path& relative_path) {
+        return user_data_path / relative_path;
     }
 
     void ILoggingHandler::write(LogLevel level, std::string const& group, std::string const& message) {
@@ -100,15 +110,16 @@ namespace modloader {
     std::shared_ptr<ILoggingHandler> console_logging_handler;
 
     std::binary_semaphore wait_for_exit(0);
-    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(const std::filesystem::path& path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
-        inner_base_path = path;
+    IL2CPP_MODLOADER_C_DLLEXPORT void initialize_modloader(const std::filesystem::path& passed_install_data_path, const std::filesystem::path& passed_user_data_path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
+        install_data_path = passed_install_data_path;
+        user_data_path = passed_user_data_path;
 
-        file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(base_path() / modloader_log_path, LogLevel::Info));
+        file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(get_user_data_path("randomizer/modloader_log.csv"), LogLevel::Info));
         console_logging_handler = register_logging_handler(std::make_shared<ConsoleLoggingHandler>(LogLevel::Debug));
 
         trace(LogLevel::Info, "initialize", "Loading settings.");
 
-        common::settings::Settings settings(base_path() / "settings.json");
+        common::settings::Settings settings(get_user_data_path("randomizer/settings.json"));
         if (settings.get_boolean("DeveloperMode", false)) {
             win::console::console_initialize();
         }
@@ -156,9 +167,6 @@ namespace modloader {
         app::classes::J2i::Net::XInputWrapper::XboxController::StopPolling();
         wait_for_exit.acquire();
         interception::detach();
-        // TODO: Make these not do weird things to our memory. (Crashes with a DEP violation)
-        //win::bootstrap::bootstrap_shutdown();
-        //win::common::free_library_and_exit_thread("Modloader.dll");
     }
 
     bool initialized = false;

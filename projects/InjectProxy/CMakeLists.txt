@@ -29,6 +29,11 @@ add_library(
         ${MISC_FILES}
 )
 
+target_link_libraries(
+        ${PROJECT_NAME}
+        Common
+)
+
 target_compile_definitions(
         ${PROJECT_NAME}
         PRIVATE COMPILING_INJECT_PROXY

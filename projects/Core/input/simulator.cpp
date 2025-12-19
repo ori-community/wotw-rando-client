@@ -237,7 +237,7 @@ namespace core::input {
                 core::api::graphics::textures::MaterialParams params;
                 params.uvs = std::optional<app::Vector4>({ 0.f, 0.f, 1.f, 1.f });
 
-                simulated_mouse_position_indicator->texture(core::api::graphics::textures::get_texture_from_identifier("file:assets/icons/cursor.png"), std::make_optional(params));
+                simulated_mouse_position_indicator->texture(core::api::graphics::textures::get_texture_from_identifier("file:icons/cursor.png"), std::make_optional(params));
                 simulated_mouse_position_indicator->set_parent(api::game::container(api::game::GameObjectContainer::Main));
                 simulated_mouse_position_indicator->layer(Layer::UI);
 

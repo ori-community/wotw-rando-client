@@ -14,6 +14,8 @@ set(
 
 set(
         PUBLIC_HEADER_FILES
+        "macros.h"
+        "loader_payload.h"
 )
 
 set(

@@ -10,8 +10,6 @@
 using namespace modloader::win;
 
 namespace modloader {
-    extern std::filesystem::path modloader_config_path;
-
     namespace interception {
         // These two are functions to guarantee initialization order.
         // Otherwise, the storage vectors might not have been initialized

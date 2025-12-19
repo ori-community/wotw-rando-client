@@ -19,8 +19,8 @@ namespace {
     };
 
     std::vector<ShrekState> states{
-        ShrekState{ "file:assets/shrek/0.png", 9.f },
-        ShrekState{ "file:assets/shrek/1.png", 8.f },
+        ShrekState{ "file:shrek/0.png", 9.f },
+        ShrekState{ "file:shrek/1.png", 8.f },
     };
 
     std::unique_ptr<core::api::graphics::Sprite> shrek;

@@ -31,6 +31,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "Core/fs.h"
+
 using namespace modloader;
 using namespace app::classes;
 using namespace app::classes::UnityEngine;
@@ -367,14 +369,18 @@ namespace core::api::graphics::textures {
                     return;
                 }
 
-                auto texture_path = (base_path() / value).string();
+                auto confined_asset_path = fs::get_confined_asset_path(value);
+
+                if (!confined_asset_path.has_value()) {
+                    return;
+                }
 
                 int x;
                 int y;
                 int n = 4;
                 stbi_set_flip_vertically_on_load(true);
 
-                unsigned char* png_data = stbi_load(texture_path.c_str(), &x, &y, &n, STBI_rgb_alpha);
+                unsigned char* png_data = stbi_load(confined_asset_path->string().c_str(), &x, &y, &n, STBI_rgb_alpha);
                 if (png_data == nullptr) {
                     const auto instance = types::SpiritShardSettings::get_class()->static_fields->Instance;
                     if (instance == nullptr) {
@@ -386,7 +392,7 @@ namespace core::api::graphics::textures {
                     auto shard_icons = instance->fields.Icons;
                     auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &icon);
                     texture = il2cpp::gchandle_new_weak(icons->fields.InventoryIcon, true);
-                    modloader::warn("textures", std::format("failed to load texture {} ({}).", texture_path, stbi_failure_reason()));
+                    modloader::warn("textures", std::format("failed to load texture {} ({}).", confined_asset_path->string(), stbi_failure_reason()));
                     return;
                 }
 

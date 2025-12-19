@@ -268,7 +268,7 @@ namespace randomizer::online {
     }
 
     std::string get_jwt() {
-        std::ifstream jwt_file(modloader::base_path() / ".jwt");
+        std::ifstream jwt_file(modloader::get_user_data_path("randomizer/.jwt"));
         std::stringstream output;
         output << jwt_file.rdbuf();
         std::string jwt = output.str();

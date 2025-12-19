@@ -16,7 +16,7 @@ namespace randomizer::messages {
     public:
         CreditsController();
 
-        bool load(std::string_view path);
+        bool load(const std::filesystem::path& path);
         bool unload();
 
         void update(float time);

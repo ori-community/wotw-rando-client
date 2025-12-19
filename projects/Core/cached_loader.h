@@ -7,14 +7,14 @@
 
 namespace core {
     template <typename T>
-    using loading_function = T (*)(std::string path);
+    using loading_function = T (*)(const std::filesystem::path& assets_path);
     template <typename T, typename I>
     using copy_function = T (*)(I value);
 
     template <typename T, typename I, loading_function<T> load_func, copy_function<T, I> copy_func>
     class CachedLoader {
     public:
-        CachedLoader() {}
+        CachedLoader() = default;
         CachedLoader(CachedLoader const&) = delete;
         CachedLoader(CachedLoader&&) = delete;
 

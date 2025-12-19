@@ -116,7 +116,7 @@ namespace tas::runtime {
             void load_timeline_from_file(const nlohmann::json& j) {
                 nlohmann::json tas_config;
 
-                if (load_from_json_file(state.current_timeline, j.value("path", "tas.json"), tas_config)) {
+                if (load_from_json_file(state.current_timeline, j.value("path", "randomizer/tas.json"), tas_config)) {
                     if (state.timeline_playback_active) {
                         state.current_timeline.seek(state.current_timeline.get_current_frame());
                     }

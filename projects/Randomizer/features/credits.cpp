@@ -28,7 +28,6 @@ using namespace app::classes;
 namespace randomizer::features::credits {
     namespace {
         constexpr float MOVE_DOWN_DISTANCE = 4.2f;
-        constexpr char CREDITS_PATH_FMT[] = "{}\\credits";
         randomizer::messages::CreditsController credits;
         auto requested_credits_immediately = false;
 
@@ -37,7 +36,7 @@ namespace randomizer::features::credits {
                 return;
             }
 
-            credits.load(std::format(CREDITS_PATH_FMT, modloader::base_path().string()));
+            credits.load(modloader::get_install_data_path("client/credits"));
             credits.reset();
 
             const auto credits_go = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, "credits");

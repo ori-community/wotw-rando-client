@@ -229,7 +229,7 @@ namespace randomizer {
     }
 
     void load_new_game_source() {
-        std::ifstream seed_source_file(modloader::base_path() / ".newgameseedsource", std::ios::binary);
+        std::ifstream seed_source_file(modloader::get_user_data_path("randomizer/.newgameseedsource"), std::ios::binary);
 
         if (seed_source_file.is_open()) {
             std::string source_str{std::istreambuf_iterator(seed_source_file),
@@ -245,7 +245,7 @@ namespace randomizer {
 
     semver::version randomizer_version() {
         semver::version version = semver::from_string("0.0.0");
-        const std::ifstream version_file(modloader::base_path() / "VERSION");
+        const std::ifstream version_file(modloader::get_install_data_path("VERSION"));
         if (version_file.is_open()) {
             std::stringstream version_buffer;
             version_buffer << version_file.rdbuf();
