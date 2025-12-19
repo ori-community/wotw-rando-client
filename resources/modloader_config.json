@@ -1,41 +1,7 @@
 {
-	"cpp": [
+	"libraries": [
 		"Core.dll",
 		"Randomizer.dll",
 		"RandomizerTester.dll"
-	],
-	"il2cpp_bindings": [
-		{ "address": "0x277d40", "name": "il2cpp_class_from_name" },
-		{ "address": "0x278490", "name": "il2cpp_domain_get" },
-		{ "address": "0x2784d0", "name": "il2cpp_domain_get_assemblies" },
-		{ "address": "0x1079b0", "name": "il2cpp_assembly_get_image" },
-		{ "address": "0x279270", "name": "il2cpp_object_new" },
-		{ "address": "0x277d90", "name": "il2cpp_class_get_properties" },
-		{ "address": "0x277ec0", "name": "il2cpp_class_get_methods" },
-		{ "address": "0x279260", "name": "il2cpp_object_get_virtual_method" },
-		{ "address": "0x279470", "name": "il2cpp_runtime_invoke" },
-		{ "address": "0x279720", "name": "il2cpp_thread_attach" },
-		{ "address": "0x279550", "name": "il2cpp_string_new_wrapper" },
-		{ "address": "0x2795c0", "name": "il2cpp_string_new_len" },
-		{ "address": "0x279570", "name": "il2cpp_string_new_utf16" },
-		{ "address": "0x11d3d0", "name": "il2cpp_class_get_type" },
-		{ "address": "0x279da0", "name": "il2cpp_type_get_assembly_qualified_name" },
-		{ "address": "0x002540", "name": "il2cpp_value_box" },
-		{ "address": "0x107b10", "name": "il2cpp_class_is_assignable_from" },
-		{ "address": "0x277d20", "name": "il2cpp_class_is_subclass_of" },
-		{ "address": "0x251fe0", "name": "il2cpp_class_has_parent" },
-		{ "address": "0x277be0", "name": "il2cpp_free" },
-		{ "address": "0x277d70", "name": "il2cpp_class_get_nested_types" },
-		{ "address": "0x278000", "name": "il2cpp_class_is_enum" },
-		{ "address": "0x277d30", "name": "il2cpp_class_from_type" },
-		{ "address": "0x278af0", "name": "il2cpp_gchandle_new" },
-		{ "address": "0x278b10", "name": "il2cpp_gchandle_new_weakref" },
-		{ "address": "0x278b50", "name": "il2cpp_gchandle_free" },
-		{ "address": "0x278b30", "name": "il2cpp_gchandle_get_target" },
-		{ "address": "0x277c50", "name": "il2cpp_array_new" },
-		{ "address": "0x277c80", "name": "il2cpp_array_new_specific" },
-		{ "address": "0x277c90", "name": "il2cpp_array_new_full" },
-		{ "address": "0xf32100", "name": "PlayerStateMap_Matches_Helper" },
-		{ "address": "0x19e3fa0", "name": "enumDictGetValue" }
 	]
 }

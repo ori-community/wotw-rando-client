@@ -63,9 +63,9 @@ namespace modloader {
                     debug("initialize", std::format("failed to parse '{}{}' error '{}' at byte '{}'", base_path().string(), modloader_config_path.string(), ex.id, ex.byte));
                 }
 
-                if (j.contains("cpp") && j["cpp"].is_array()) {
+                if (j.contains("libraries") && j["libraries"].is_array()) {
                     cpp_dlls.clear();
-                    auto cpp = j["cpp"];
+                    auto cpp = j["libraries"];
                     for (auto it = cpp.begin(); it != cpp.end(); ++it) {
                         if (it->is_string()) {
                             cpp_dlls.push_back((base_path() / it->get<std::string>()).string());
