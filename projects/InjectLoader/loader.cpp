@@ -16,7 +16,7 @@ INJECT_LOADER_C_DLLEXPORT void load_modloader(const inject_loader::Payload* payl
     std::filesystem::path install_data_path(payload->install_data_path);
     std::filesystem::path user_data_path(payload->user_data_path);
 
-    auto modloader = LoadLibraryW((install_data_path / "Modloader.dll").c_str());
+    auto modloader = LoadLibraryW((install_data_path / "client" / "Modloader.dll").c_str());
     auto initialize_modloader_fn = reinterpret_cast<void (*)(
         const std::filesystem::path& install_data_path,
         const std::filesystem::path& user_data_path,

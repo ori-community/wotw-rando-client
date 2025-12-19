@@ -48,9 +48,9 @@ bool guess_base_path_from_injector_location(std::filesystem::path& output_path) 
         return false;
     }
 
-    std::filesystem::path actual_path(path);
-    output_path = actual_path.parent_path();
-    std::cout << "Deriving base path from Injector.exe location: " << output_path << std::endl;
+    const std::filesystem::path actual_path(path);
+    output_path = std::filesystem::canonical(actual_path.parent_path().parent_path());  // traverse client/Injector.exe in reverse
+    std::cout << "Deriving install data from Injector.exe location: " << output_path << std::endl;
     return true;
 }
 
@@ -240,7 +240,7 @@ int main() {
     std::filesystem::path user_data_path;
 
     if (modloader_install_data_dir.isSet()) {
-        install_data_path = std::filesystem::path(modloader_install_data_dir.getValue());
+        install_data_path = std::filesystem::canonical(std::filesystem::path(modloader_install_data_dir.getValue()));
         std::cout << "Set install data directory from command line to '" << install_data_path.string() << "'" << std::endl;
     } else if (!guess_base_path_from_injector_location(install_data_path)) {
         std::cout << std::format("Failed to determine install data path. You will need to set the -{} flag.", modloader_install_data_dir.getFlag())
@@ -249,7 +249,7 @@ int main() {
     }
 
     if (modloader_user_data_dir.isSet()) {
-        user_data_path = std::filesystem::path(modloader_user_data_dir.getValue());
+        user_data_path = std::filesystem::canonical(std::filesystem::path(modloader_user_data_dir.getValue()));
         std::cout << "Set user data directory from command line to '" << user_data_path.string() << "'" << std::endl;
     } else {
         const auto appdata_variable = get_environment_variable("APPDATA");
@@ -259,7 +259,7 @@ int main() {
             return 1;
         }
 
-        user_data_path = std::filesystem::path(*appdata_variable) / R"(Ori and the Will of the Wisps Randomizer)";
+        user_data_path = std::filesystem::canonical(std::filesystem::path(*appdata_variable) / R"(Ori and the Will of the Wisps Randomizer)");
         std::cout << "Derived user data directory from environment to '" << user_data_path.string() << "'" << std::endl;
     }
 
@@ -269,14 +269,12 @@ int main() {
 
     auto process_name = use_win_store ? STORE_PROCESS_NAME : STEAM_PROCESS_NAME;
 
-    std::cout << "Searching for process '" << process_name << "'" << std::endl;
-
+    std::cout << "Waiting for process '" << process_name << "'" << std::endl;
     while (true) {
         if (FindWindow(nullptr, "OriAndTheWilloftheWisps") != nullptr) {
             break;
         }
         Sleep(1000);
-        std::cout << "Waiting for the game to start..." << std::endl;
     }
 
     Sleep(inject_delay);
@@ -318,7 +316,7 @@ int main() {
     CloseHandle(process_handle);
 
     // Wait 5 seconds to give others (like Community Patch) time to read from the shared memory slot
-    Sleep(60000);  // TODO
+    Sleep(5000);
 
     return 0;
 }
