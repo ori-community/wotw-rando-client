@@ -19,7 +19,7 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
-#include <Modloader/app/methods/ButtonIconUtility.h>
+#include <Modloader/fs.h>
 #include <algorithm>
 #include <magic_enum/magic_enum.hpp>
 #include <nlohmann/json.hpp>
@@ -123,7 +123,7 @@ namespace randomizer::input {
         bool initialized = false;
         IL2CPP_INTERCEPT(void, PlayerInput, AddControllerControls, app::PlayerInput * this_ptr) {
             // If we fail to read the bindings we want to use default game bindings.
-            auto bindings_read = read_keyboard_or_controller_bindings(get_user_data_path("randomizer/controller_bindings.json"), on_binding_read);
+            auto bindings_read = read_keyboard_or_controller_bindings(fs::get_randomizer_user_data_path("controller_bindings.json"), on_binding_read);
 
             auto* player_input_rebinding_klass = types::PlayerInputRebinding::get_class();
             if (!bindings_read || !player_input_rebinding_klass->static_fields->USE_NEW_BINDINGS_TEST) {

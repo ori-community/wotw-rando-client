@@ -1,8 +1,7 @@
-#include <Core/fs.h>
-
+#include <Modloader/fs.h>
 #include <Modloader/modloader.h>
 
-namespace core::fs {
+namespace modloader::fs {
     std::optional<std::filesystem::path> get_confined_asset_path(const std::filesystem::path& relative_path) {
         const auto canonical_assets_path = std::filesystem::canonical(modloader::get_install_data_path("client/assets"));
         auto canonical_asset_path = std::filesystem::canonical(canonical_assets_path / relative_path);
@@ -15,5 +14,13 @@ namespace core::fs {
         }
 
         return canonical_asset_path;
+    }
+
+    std::filesystem::path get_randomizer_user_data_path(const std::filesystem::path& relative_path) {
+        return modloader::get_user_data_path() / "randomizer" / relative_path;
+    }
+
+    std::filesystem::path get_logs_user_data_path(const std::filesystem::path& relative_path) {
+        return modloader::get_user_data_path() / "logs" / relative_path;
     }
 } // namespace core::fs

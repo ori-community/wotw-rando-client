@@ -3,27 +3,17 @@
 #include <Core/api/game/player.h>
 #include <Core/api/graphics/sprite.h>
 #include <Core/api/graphics/textures.h>
-#include <Core/dirty_value.h>
 #include <Core/utils/json_serializers.h>
-#include <Core/utils/operations.h>
 #include <Core/dev/object_visualizer.h>
 
-#include <Common/ext.h>
-
-#include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/il2cpp_math.h>
-#include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
-#include <Modloader/windows_api/console.h>
 
 #include <memory>
 #include <nlohmann/json.hpp>
 
-#include <fstream>
-#include <unordered_map>
-
-#include "Core/fs.h"
+#include <Modloader/fs.h>
 
 using namespace app::classes;
 using namespace modloader;

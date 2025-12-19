@@ -11,6 +11,7 @@
 #include <Modloader/windows_api/common.h>
 #include <Modloader/windows_api/console.h>
 #include <Modloader/file_logging_handler.h>
+#include <Modloader/fs.h>
 #include <Modloader/console_logging_handler.h>
 
 #include <Common/settings.h>
@@ -18,6 +19,7 @@
 #include <filesystem>
 #include <functional>
 #include <semaphore>
+
 
 
 //---------------------------------------------------Globals-----------------------------------------------------
@@ -114,7 +116,7 @@ namespace modloader {
         install_data_path = passed_install_data_path;
         user_data_path = passed_user_data_path;
 
-        file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(get_user_data_path("randomizer/modloader_log.csv"), LogLevel::Info));
+        file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(fs::get_logs_user_data_path("modloader_log.csv"), LogLevel::Info));
         console_logging_handler = register_logging_handler(std::make_shared<ConsoleLoggingHandler>(LogLevel::Debug));
 
         trace(LogLevel::Info, "initialize", "Loading settings.");

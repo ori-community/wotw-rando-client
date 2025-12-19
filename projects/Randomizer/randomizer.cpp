@@ -6,10 +6,9 @@
 #include <Core/core.h>
 #include <Core/input/input_lock.h>
 #include <Core/settings.h>
-#include <Modloader/app/methods/Game/UI_Hints.h>
 #include <Modloader/app/methods/GameController.h>
-#include <Modloader/app/types/GameController.h>
 #include <Modloader/modloader.h>
+#include <Modloader/fs.h>
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/game/pickups/quests.h>
 #include <Randomizer/game/shops/shop.h>
@@ -25,7 +24,6 @@
 #include <Randomizer/text_processors/uber_state.h>
 #include <Randomizer/uber_states/uber_state_intercepts.h>
 #include <fstream>
-#include <magic_enum/magic_enum.hpp>
 #include <utility>
 
 
@@ -229,7 +227,7 @@ namespace randomizer {
     }
 
     void load_new_game_source() {
-        std::ifstream seed_source_file(modloader::get_user_data_path("randomizer/.newgameseedsource"), std::ios::binary);
+        std::ifstream seed_source_file(modloader::fs::get_randomizer_user_data_path(".newgameseedsource"), std::ios::binary);
 
         if (seed_source_file.is_open()) {
             std::string source_str{std::istreambuf_iterator(seed_source_file),

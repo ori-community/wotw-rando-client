@@ -4,6 +4,7 @@
 #include <Core/api/game/game.h>
 #include <Core/events/task.h>
 #include <Modloader/modloader.h>
+#include <Modloader/fs.h>
 
 #include <ixwebsocket/IXNetSystem.h>
 #include <ixwebsocket/IXWebSocket.h>
@@ -268,7 +269,7 @@ namespace randomizer::online {
     }
 
     std::string get_jwt() {
-        std::ifstream jwt_file(modloader::get_user_data_path("randomizer/.jwt"));
+        std::ifstream jwt_file(modloader::fs::get_randomizer_user_data_path(".jwt"));
         std::stringstream output;
         output << jwt_file.rdbuf();
         std::string jwt = output.str();
