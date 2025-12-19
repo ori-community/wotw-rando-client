@@ -69,4 +69,4 @@ If you are using CLion, you can create a Run Configuration with the aforemention
 
 ### Working together with the launcher
 
-To prevent needing to copy files into the `development-install-dir` in the UI project after every rebuild, you can set the `WOTWR_INSTALL_DIR` CMake variable (`-DWOTWR_INSTALL_DIR=C:\path\to\development-install-dir\client`). Make sure to also update any launch configurations/tasks, especially the `-m` parameter!
+To prevent needing to copy files into the `development-install-data` in the UI project after every rebuild, you can set the `WOTWR_INSTALL_DIR` CMake variable (`-DWOTWR_INSTALL_DIR=C:\path\to\development-install-data\client`). Make sure to also update any launch configurations/tasks, especially the `-i` and `-u` parameters!
