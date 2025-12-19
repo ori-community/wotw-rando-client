@@ -1,7 +1,6 @@
 {
 	"libraries": [
 		"Core.dll",
-		"Randomizer.dll",
-		"RandomizerTester.dll"
+		"Randomizer.dll"
 	]
 }
