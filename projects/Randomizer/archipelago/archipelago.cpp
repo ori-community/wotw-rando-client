@@ -24,6 +24,9 @@
 
 constexpr int MIN_AP_VERSION = 1;  // Minimum AP World version required
 constexpr int MAX_PLAYERS_TO_SHOW_JOIN_LEAVE_MESSAGES = 5;
+constexpr int FLAG_PROGRESSION = 0b001;
+constexpr int FLAG_USEFUL = 0b010;
+constexpr int FLAG_TRAP = 0b100;
 
 namespace randomizer::archipelago {
     const std::string UNKNOWN_ITEM_TEXT = "@Unknown Item@";
@@ -434,11 +437,13 @@ namespace randomizer::archipelago {
 
         const auto item_it = m_scouted_locations.find(location_id);
         if (item_it == m_scouted_locations.end()) {
-            return "@Unknown Item@";
+            return UNKNOWN_ITEM_TEXT;
         }
 
+
         const std::string game = m_slots[std::to_string(item_it->second.player)].game;
-        auto item_name = m_data_package.get_item_name(item_it->second.item, game).value_or(UNKNOWN_ITEM_TEXT);
+        auto item_name = get_item_text(item_it->second);
+        // TODO handle differently for local items
 
         if (m_slot_id == item_it->second.player) {
             return item_name;
@@ -458,10 +463,6 @@ namespace randomizer::archipelago {
         const auto target_player_name = item_it->second.player == m_slot_id
             ? "you"
             : get_player_name(item_it->second.player);
-
-        constexpr int FLAG_PROGRESSION = 0b001;
-        constexpr int FLAG_USEFUL = 0b010;
-        constexpr int FLAG_TRAP = 0b100;
 
         if (item_it->second.flags & FLAG_PROGRESSION && item_it->second.flags & FLAG_TRAP) {
             return std::format("This item might be important, but you might want to avoid buying this for now. Ask {} about it.", target_player_name);
@@ -494,6 +495,26 @@ namespace randomizer::archipelago {
         }
 
         return icon_it->second;
+    }
+
+    // Get the item name, colorized depending on its classification
+    std::string ArchipelagoClient::get_item_text(messages::NetworkItem item) {
+        const std::string game = m_slots[std::to_string(item.player)].game;
+        std::string item_name = m_data_package.get_item_name(item.item, game).value_or(UNKNOWN_ITEM_TEXT);
+        // TODO sanitize name to remove markup from it
+        std::string item_markup = "";
+
+        if (item.flags & FLAG_PROGRESSION && item.flags & FLAG_USEFUL) {
+            item_markup = "*";
+        } else if (item.flags & FLAG_PROGRESSION) {
+            item_markup = "#";
+        } else if (item.flags & FLAG_USEFUL) {
+            item_markup = "$";
+        } else if (item.flags & FLAG_TRAP) {
+            item_markup = "@";
+        }
+
+        return item_markup + item_name + item_markup;
     }
 
     const std::optional<ArchipelagoSeedGenerator>& ArchipelagoClient::current_seed_generator() {
@@ -843,7 +864,7 @@ namespace randomizer::archipelago {
                             std::string game = m_slots[std::to_string(message.receiving)].game;
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>(
-                                    std::format("{} sent to {}.", m_data_package.get_item_name(message.item.item, game).value_or(UNKNOWN_ITEM_TEXT), get_player_name(message.receiving))
+                                    std::format("{} sent to {}.", get_item_text(message.item), get_player_name(message.receiving))
                                 ),
                                 .show_box = true,
                             });
