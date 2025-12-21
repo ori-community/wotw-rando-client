@@ -30,8 +30,10 @@ namespace randomizer::archipelago {
         void request_sync();
         void handle_queued_server_messages();
         void handle_deathlink();
+        void toggle_deathlink();
         void compare_seed();
-        void reset_inventory() const;
+        void reset_inventory();
+        void initialize_ap_wheel();
         std::string get_item_display_text(const location_data::Location& location);
         std::string get_shop_description(const location_data::Location& location);
         std::string get_shop_icon(const location_data::Location& location);
@@ -78,8 +80,8 @@ namespace randomizer::archipelago {
          */
         bool m_checked_seed = false;
         bool m_deathlink_enabled = false;
-        int m_deathlink_max_lives = 0;  // How many times the player has to die to trigger a death link
-        int m_deathlink_lives = 0;
+        int m_deathlink_max_lives = 1;  // How many times the player has to die to trigger a death link
+        int m_deathlink_lives = 1;
         bool m_death_from_deathlink = false;  // True if the latest death was caused by someone else dying
     };
 } // namespace randomizer::archipelago

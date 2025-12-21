@@ -17,6 +17,7 @@
 #include <Randomizer/location_data/location.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/items/value_modifier.h>
+#include <Randomizer/features/wheel.h>
 
 #define UUID_SYSTEM_GENERATOR
 #include <uuid.h>
@@ -161,10 +162,10 @@ namespace randomizer::archipelago {
         modloader::info("archipelago", "AP client got reset");
     }
 
-    // TODO upgrades, call in the wheel
+    // TODO upgrades
     // Reset inventory and the last item index.
-    void ArchipelagoClient::reset_inventory() const {
-        if (!m_is_active) {
+    void ArchipelagoClient::reset_inventory() {
+        if (!m_checked_seed) {
             return;
         }
         const auto& spirit_light = core::api::game::player::spirit_light();
@@ -193,6 +194,42 @@ namespace randomizer::archipelago {
         archipelago_save_data->received_ore = 0;
         archipelago_save_data->received_sl = 0;
         archipelago_save_data->last_item_index = 0;
+
+        request_sync();
+    }
+
+    void ArchipelagoClient::toggle_deathlink() {
+        if (m_deathlink_enabled) {
+            m_deathlink_enabled = false;
+            send_message(messages::ConnectUpdate{0b111, {"AP"}});
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>("Deathlink disabled"),
+                .prioritized = true,
+            });
+        } else {
+            m_deathlink_enabled = true;
+            m_death_from_deathlink = false;
+            send_message(messages::ConnectUpdate{0b111, {"AP", "DeathLink"}});
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>("Deathlink enabled"),
+                .prioritized = true,
+            });
+        }
+    }
+
+    void ArchipelagoClient::initialize_ap_wheel() {
+        features::wheel::initialize_item(0, 10, "Archipelago Actions", "Contains archipelago options", "file:assets/icons/archipelago/ap-normal.blue.png",
+                        [](auto, auto, auto) {
+                            features::wheel::set_active_wheel(9002);
+                        });
+        features::wheel::initialize_item(9002, 0, "Reset inventory", "Reset inventory\nin case it got desynced", "file:assets/icons/wheel/reload_seed.blue.png",
+                [](auto, auto, auto) {
+                    archipelago_client().reset_inventory();
+                });
+        features::wheel::initialize_item(9002, 0, "Toggle deathlink", "Enable or disable deathlink", "file:assets/icons/wheel/force_exit.blue.png",
+            [](auto, auto, auto) {
+                archipelago_client().toggle_deathlink();
+            });
     }
 
     void ArchipelagoClient::notify_location_collected(const location_data::Location& location) {

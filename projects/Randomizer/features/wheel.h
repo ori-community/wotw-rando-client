@@ -23,4 +23,5 @@ namespace randomizer::features::wheel {
     void set_wheel_behavior(int behavior);
     void clear_wheels();
     void initialize_default_wheel();
+    void initialize_item(int wheel, int item, std::string name, std::string desc, std::string texture, wheel_callback callback);
 } // namespace randomizer::features::wheel
