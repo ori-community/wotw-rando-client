@@ -524,15 +524,30 @@ namespace randomizer::archipelago {
         std::variant<ids::Location, ids::BooleanItem, ids::ResourceItem, ids::UpgradeItem> item = ids::get_item(net_item.item);
         const auto item_name = m_data_package.get_item_name(net_item.item, "Ori and the Will of the Wisps").value_or(UNKNOWN_ITEM_TEXT);
 
+        std::string color_markup = "";
+
         item | vx::match{
-            [this](const ids::BooleanItem& item) {
+            [this, &color_markup](const ids::BooleanItem& item) {
                 core::api::uber_states::UberState(item.uber_group, item.uber_state).set(true);
+                if (item.uber_group == 24) {  // Ability
+                    if (item.uber_state == 120 || item.uber_state == 121) {  // Ancestral light
+                        color_markup = "#";
+                    } else {
+                        color_markup = "*";
+                    }
+                } else if (item.uber_group == 25) {  // Shard
+                    color_markup = "$";
+                }
+                else {  // TODO check the color of bonus+ items
+                    color_markup = "#";
+                }
                 if (item.uber_group == 945 && item.uber_state == 58183) { // Central Luma TP
                     core::api::uber_states::UberState(5377, 63173).set(true);
                 }
             },
-            [this](const ids::UpgradeItem& item) {
+            [this, &color_markup](const ids::UpgradeItem& item) {
                 const auto state = core::api::uber_states::UberState(item.uber_group, item.uber_state);
+                color_markup = "#";  // TODO check color
                 if (item.uber_group == 4) {
                     switch (item.uber_state) {
                         case 45: {  // Splinter grenade
@@ -655,8 +670,9 @@ namespace randomizer::archipelago {
         } else {
             std::string sender_name = get_player_name(net_item.player);
             modloader::debug("archipelago", std::format("Received item: {} from {}", item_name, sender_name));
+            std::string item_text = color_markup + item_name + color_markup;
             core::message_controller().queue_central({
-                .text = core::Property<std::string>(std::format("{} from {}.", item_name, sender_name)),
+                .text = core::Property<std::string>(std::format("{} from {}.", item_text, sender_name)),
                 .show_box = true,
             });
         }
