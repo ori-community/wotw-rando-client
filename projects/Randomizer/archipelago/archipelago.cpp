@@ -161,6 +161,40 @@ namespace randomizer::archipelago {
         modloader::info("archipelago", "AP client got reset");
     }
 
+    // TODO upgrades, call in the wheel
+    // Reset inventory and the last item index.
+    void ArchipelagoClient::reset_inventory() const {
+        if (!m_is_active) {
+            return;
+        }
+        const auto& spirit_light = core::api::game::player::spirit_light();
+        const auto& spirit_light_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 3);
+        spirit_light.set(spirit_light.get() - archipelago_save_data->received_sl);
+        spirit_light_collected.set<int>(spirit_light_collected.get<int>() - archipelago_save_data->received_sl);
+        archipelago_save_data->received_ks = 0;
+
+        const auto& gorlek_ore = core::api::game::player::ore();
+        const auto& gorlek_ore_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 5);
+        gorlek_ore.set(gorlek_ore.get() - archipelago_save_data->received_ore);
+        gorlek_ore_collected.set<int>(gorlek_ore_collected.get<int>() - archipelago_save_data->received_ore);
+
+        const auto& keystone = core::api::game::player::keystones();
+        const auto& keystone_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 0);
+        keystone.set(keystone.get() - archipelago_save_data->received_ks);
+        keystone_collected.set<int>(keystone_collected.get<int>() - archipelago_save_data->received_ks);
+
+        core::api::game::player::shard_slots().set(3);
+
+        core::api::game::player::max_health().set(30);
+
+        core::api::game::player::max_energy().set(3.0f);
+
+        archipelago_save_data->received_ks = 0;
+        archipelago_save_data->received_ore = 0;
+        archipelago_save_data->received_sl = 0;
+        archipelago_save_data->last_item_index = 0;
+    }
+
     void ArchipelagoClient::notify_location_collected(const location_data::Location& location) {
         ids::archipelago_id_t location_id{ids::get_location_id(location)};
         m_pending_send_locations.insert(location_id);
@@ -522,6 +556,7 @@ namespace randomizer::archipelago {
                         const auto& spirit_light_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 3);
                         spirit_light.set(spirit_light.get() + item.value);
                         spirit_light_collected.set<int>(spirit_light_collected.get<int>() + item.value);
+                        archipelago_save_data->received_sl = archipelago_save_data->received_sl + item.value;
                         break;
                     }
                     case ids::ResourceType::GorlekOre: {
@@ -530,6 +565,7 @@ namespace randomizer::archipelago {
 
                         gorlek_ore.set(gorlek_ore.get() + 1);
                         gorlek_ore_collected.set<int>(gorlek_ore_collected.get<int>() + 1);
+                        archipelago_save_data->received_ore = archipelago_save_data->received_ore + 1;
                         break;
                     }
                     case ids::ResourceType::Keystone: {
@@ -538,6 +574,7 @@ namespace randomizer::archipelago {
 
                         keystone.set(keystone.get() + 1);
                         keystone_collected.set<int>(keystone_collected.get<int>() + 1);
+                        archipelago_save_data->received_ks = archipelago_save_data->received_ks + 1;
                         break;
                     }
                     case ids::ResourceType::ShardSlot: {

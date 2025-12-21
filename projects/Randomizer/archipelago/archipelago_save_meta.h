@@ -7,6 +7,9 @@ namespace randomizer::archipelago {
     public:
         int last_item_index {0};
         std::string ap_seed;
+        int received_sl {0};
+        int received_ore {0};
+        int received_ks {0};
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(ArchipelagoSaveData, last_item_index, ap_seed);
 
