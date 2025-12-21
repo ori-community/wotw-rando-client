@@ -147,6 +147,9 @@ namespace randomizer {
             universe.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
+            if (archipelago_client().is_active()) {
+                archipelago_client().initialize_ap_wheel();
+            }
             game::shops::reset_shop_data();
             randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 1), 0);
             seedgen_interop::request_states_update_on_next_reach_check();

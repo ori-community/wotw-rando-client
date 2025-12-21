@@ -439,11 +439,9 @@ namespace randomizer::archipelago {
         if (item_it == m_scouted_locations.end()) {
             return UNKNOWN_ITEM_TEXT;
         }
-
-
+        
         const std::string game = m_slots[std::to_string(item_it->second.player)].game;
         auto item_name = get_item_text(item_it->second);
-        // TODO handle differently for local items
 
         if (m_slot_id == item_it->second.player) {
             return item_name;
@@ -498,23 +496,49 @@ namespace randomizer::archipelago {
     }
 
     // Get the item name, colorized depending on its classification
-    std::string ArchipelagoClient::get_item_text(messages::NetworkItem item) {
-        const std::string game = m_slots[std::to_string(item.player)].game;
-        std::string item_name = m_data_package.get_item_name(item.item, game).value_or(UNKNOWN_ITEM_TEXT);
+    std::string ArchipelagoClient::get_item_text(messages::NetworkItem net_item) {
+        const std::string game = m_slots[std::to_string(net_item.player)].game;
+        std::string item_name = m_data_package.get_item_name(net_item.item, game).value_or(UNKNOWN_ITEM_TEXT);
         // TODO sanitize name to remove markup from it
-        std::string item_markup = "";
+        std::string color_markup = "";
 
-        if (item.flags & FLAG_PROGRESSION && item.flags & FLAG_USEFUL) {
-            item_markup = "*";
-        } else if (item.flags & FLAG_PROGRESSION) {
-            item_markup = "#";
-        } else if (item.flags & FLAG_USEFUL) {
-            item_markup = "$";
-        } else if (item.flags & FLAG_TRAP) {
-            item_markup = "@";
+        if (game == "Ori and the Will of the Wisps") {
+            std::variant<ids::Location, ids::BooleanItem, ids::ResourceItem, ids::UpgradeItem> item = ids::get_item(net_item.item);
+            item | vx::match{
+                [this, &color_markup](const ids::BooleanItem& item) {
+                    if (item.uber_group == 24) {  // Ability
+                        if (item.uber_state == 120 || item.uber_state == 121) {  // Ancestral light
+                            color_markup = "#";
+                        } else {
+                            color_markup = "*";
+                        }
+                    } else if (item.uber_group == 25) {  // Shard
+                        color_markup = "$";
+                    }
+                    else {  // TODO check the color of bonus+ items
+                        color_markup = "#";
+                    }
+                },
+                [this, &color_markup](const ids::UpgradeItem& item) {
+                    color_markup = "#";  // TODO check color
+                },
+                [this](const ids::ResourceItem& item) {},
+                [&net_item](const ids::Location&) {
+                    modloader::error("archipelago", std::format("AP ID {} corresponds to a location, expected an item.", net_item.item));
+                },
+            };
+        } else {
+            if (net_item.flags & FLAG_PROGRESSION && net_item.flags & FLAG_USEFUL) {
+                color_markup = "*";
+            } else if (net_item.flags & FLAG_PROGRESSION) {
+                color_markup = "#";
+            } else if (net_item.flags & FLAG_USEFUL) {
+                color_markup = "$";
+            } else if (net_item.flags & FLAG_TRAP) {
+                color_markup = "@";
+            }
         }
-
-        return item_markup + item_name + item_markup;
+        return color_markup + item_name + color_markup;
     }
 
     const std::optional<ArchipelagoSeedGenerator>& ArchipelagoClient::current_seed_generator() {
@@ -545,30 +569,15 @@ namespace randomizer::archipelago {
         std::variant<ids::Location, ids::BooleanItem, ids::ResourceItem, ids::UpgradeItem> item = ids::get_item(net_item.item);
         const auto item_name = m_data_package.get_item_name(net_item.item, "Ori and the Will of the Wisps").value_or(UNKNOWN_ITEM_TEXT);
 
-        std::string color_markup = "";
-
         item | vx::match{
-            [this, &color_markup](const ids::BooleanItem& item) {
+            [this](const ids::BooleanItem& item) {
                 core::api::uber_states::UberState(item.uber_group, item.uber_state).set(true);
-                if (item.uber_group == 24) {  // Ability
-                    if (item.uber_state == 120 || item.uber_state == 121) {  // Ancestral light
-                        color_markup = "#";
-                    } else {
-                        color_markup = "*";
-                    }
-                } else if (item.uber_group == 25) {  // Shard
-                    color_markup = "$";
-                }
-                else {  // TODO check the color of bonus+ items
-                    color_markup = "#";
-                }
                 if (item.uber_group == 945 && item.uber_state == 58183) { // Central Luma TP
                     core::api::uber_states::UberState(5377, 63173).set(true);
                 }
             },
-            [this, &color_markup](const ids::UpgradeItem& item) {
+            [this](const ids::UpgradeItem& item) {
                 const auto state = core::api::uber_states::UberState(item.uber_group, item.uber_state);
-                color_markup = "#";  // TODO check color
                 if (item.uber_group == 4) {
                     switch (item.uber_state) {
                         case 45: {  // Splinter grenade
@@ -691,7 +700,7 @@ namespace randomizer::archipelago {
         } else {
             std::string sender_name = get_player_name(net_item.player);
             modloader::debug("archipelago", std::format("Received item: {} from {}", item_name, sender_name));
-            std::string item_text = color_markup + item_name + color_markup;
+            std::string item_text = get_item_text(net_item);
             core::message_controller().queue_central({
                 .text = core::Property<std::string>(std::format("{} from {}.", item_text, sender_name)),
                 .show_box = true,
