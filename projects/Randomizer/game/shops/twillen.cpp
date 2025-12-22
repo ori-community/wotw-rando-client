@@ -46,6 +46,10 @@ namespace randomizer::game::shops::twillen {
         return slot.value().get();
     }
 
+    std::optional<std::reference_wrapper<ShopCollection::twillen_shop_t::slot_t>> get_slot_optional(app::SpiritShardType__Enum spirit_shard_type) {
+        return shops().twillen_shop().slot(get_slot_key_for_spirit_shard_type(spirit_shard_type));
+    }
+
     namespace {
         using namespace modloader;
         using namespace app::classes;
@@ -83,13 +87,13 @@ namespace randomizer::game::shops::twillen {
         }
 
         IL2CPP_INTERCEPT(bool, Moon::uberSerializationWisp::PlayerUberStateShards_Shard, get_VisibleInShop, app::PlayerUberStateShards_Shard* this_ptr) {
-            auto const& slot = get_slot(this_ptr->fields.m_type);
-            return slot.visibility() == SlotVisibility::Visible;
+            auto const& slot = get_slot_optional(this_ptr->fields.m_type);
+            return !slot.has_value() || slot->get().visibility() == SlotVisibility::Visible;
         }
 
         IL2CPP_INTERCEPT(bool, Moon::uberSerializationWisp::PlayerUberStateShards_Shard, get_PurchasableInShop, app::PlayerUberStateShards_Shard* this_ptr) {
-            auto const& slot = get_slot(this_ptr->fields.m_type);
-            return slot.visibility() != SlotVisibility::Locked;
+            auto const& slot = get_slot_optional(this_ptr->fields.m_type);
+            return !slot.has_value() || slot->get().visibility() == SlotVisibility::Visible;
         }
 
         bool overwrite_shard = false;
