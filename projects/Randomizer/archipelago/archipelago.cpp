@@ -158,8 +158,8 @@ namespace randomizer::archipelago {
         m_ap_seed = "";
         m_checked_seed = false;
         m_deathlink_enabled = false;
-        m_deathlink_max_lives = 0;
-        m_deathlink_lives = 0;
+        m_deathlink_max_lives = 1;
+        m_deathlink_lives = 1;
         m_death_from_deathlink = false;
 
         modloader::info("archipelago", "AP client got reset");
@@ -175,7 +175,6 @@ namespace randomizer::archipelago {
         const auto& spirit_light_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 3);
         spirit_light.set(spirit_light.get() - archipelago_save_data->received_sl);
         spirit_light_collected.set<int>(spirit_light_collected.get<int>() - archipelago_save_data->received_sl);
-        archipelago_save_data->received_ks = 0;
 
         const auto& gorlek_ore = core::api::game::player::ore();
         const auto& gorlek_ore_collected = core::api::uber_states::UberState(UberStateGroup::RandoStats, 5);
@@ -222,14 +221,19 @@ namespace randomizer::archipelago {
 
     void ArchipelagoClient::initialize_ap_wheel() {
         features::wheel::initialize_item(0, 10, "Archipelago Actions", "Contains archipelago options", "file:assets/icons/archipelago/ap-normal.blue.png",
-                        [](auto, auto, auto) {
-                            features::wheel::set_active_wheel(9002);
-                        });
+            [](auto, auto, auto) {
+                features::wheel::set_active_wheel(9002);
+            });
         features::wheel::initialize_item(9002, 0, "Reset inventory", "Reset inventory\nin case it got desynced", "file:assets/icons/wheel/reload_seed.blue.png",
-                [](auto, auto, auto) {
-                    archipelago_client().reset_inventory();
-                });
-        features::wheel::initialize_item(9002, 0, "Toggle deathlink", "Enable or disable deathlink", "file:assets/icons/wheel/force_exit.blue.png",
+            [](auto, auto, auto) {
+                archipelago_client().reset_inventory();
+            });
+        features::wheel::initialize_item(9002, 1, "Toggle deathlink", "Enable or disable deathlink", "file:assets/icons/wheel/force_exit.blue.png",
+            [](auto, auto, auto) {
+                archipelago_client().toggle_deathlink();
+            });
+        // TODO
+        features::wheel::initialize_item(9002, 2, "Hint status", "TODO", "file:assets/icons/archipelago/ap-important.blue.png",
             [](auto, auto, auto) {
                 archipelago_client().toggle_deathlink();
             });
@@ -365,7 +369,7 @@ namespace randomizer::archipelago {
 
         modloader::info("archipelago", "Player died");
         m_deathlink_lives--;
-        if (m_deathlink_lives == 0) {  // Send a deathlink packet.
+        if (m_deathlink_lives <= 0) {  // Send a deathlink packet.
             m_deathlink_lives = m_deathlink_max_lives;
             std::chrono::time_point<std::chrono::system_clock> timestamp = std::chrono::system_clock::now();
             float death_time = std::chrono::duration_cast<std::chrono::seconds>(timestamp.time_since_epoch()).count();
@@ -439,9 +443,9 @@ namespace randomizer::archipelago {
         if (item_it == m_scouted_locations.end()) {
             return UNKNOWN_ITEM_TEXT;
         }
-        
+
         const std::string game = m_slots[std::to_string(item_it->second.player)].game;
-        auto item_name = get_item_text(item_it->second);
+        auto item_name = get_item_text(item_it->second, game);
 
         if (m_slot_id == item_it->second.player) {
             return item_name;
@@ -455,7 +459,7 @@ namespace randomizer::archipelago {
 
         const auto item_it = m_scouted_locations.find(location_id);
         if (item_it == m_scouted_locations.end()) {
-            return "@Unknown Item@";
+            return UNKNOWN_ITEM_TEXT;
         }
 
         const auto target_player_name = item_it->second.player == m_slot_id
@@ -496,8 +500,7 @@ namespace randomizer::archipelago {
     }
 
     // Get the item name, colorized depending on its classification
-    std::string ArchipelagoClient::get_item_text(messages::NetworkItem net_item) {
-        const std::string game = m_slots[std::to_string(net_item.player)].game;
+    std::string ArchipelagoClient::get_item_text(const messages::NetworkItem& net_item, const std::string& game) {
         std::string item_name = m_data_package.get_item_name(net_item.item, game).value_or(UNKNOWN_ITEM_TEXT);
         // TODO sanitize name to remove markup from it
         std::string color_markup = "";
@@ -506,7 +509,7 @@ namespace randomizer::archipelago {
             std::variant<ids::Location, ids::BooleanItem, ids::ResourceItem, ids::UpgradeItem> item = ids::get_item(net_item.item);
             item | vx::match{
                 [this, &color_markup](const ids::BooleanItem& item) {
-                    if (item.uber_group == 24) {  // Ability
+                    if (item.uber_group == 24 || item.uber_group == 6) {  // Ability or Clean Water
                         if (item.uber_state == 120 || item.uber_state == 121) {  // Ancestral light
                             color_markup = "#";
                         } else {
@@ -547,7 +550,7 @@ namespace randomizer::archipelago {
 
     void ArchipelagoClient::notify_game_finished() { send_message(messages::StatusUpdate{messages::ClientStatus::ClientGoal}); }
 
-    std::string ArchipelagoClient::get_player_name(int player) {
+    std::string ArchipelagoClient::get_player_name(const int player) {
         return m_player_map[player].alias;
     }
 
@@ -556,7 +559,7 @@ namespace randomizer::archipelago {
             modloader::info("archipelago", "Seed not checked yet: skip collecting locations");
             return;
         }
-        for (ids::archipelago_id_t location_id: m_pending_collect_locations) {
+        for (const ids::archipelago_id_t location_id: m_pending_collect_locations) {
             location_data::Location location{ids::get_location_from_id(location_id)};
 
             core::api::uber_states::UberState state(location.condition.state.group_int(), location.condition.state.state());
@@ -688,19 +691,19 @@ namespace randomizer::archipelago {
         };
 
         queue_reach_check();
+        std::string item_text = get_item_text(net_item, "Ori and the Will of the Wisps");
 
         if (m_slot_id == net_item.player) {
             modloader::debug("archipelago", std::format("Received item: {}", item_name));
             if (item_name != "Nothing") {
                 core::message_controller().queue_central({
-                    .text = core::Property<std::string>(item_name),
+                    .text = core::Property<std::string>(item_text),
                     .show_box = true,
                 });
             }
         } else {
             std::string sender_name = get_player_name(net_item.player);
             modloader::debug("archipelago", std::format("Received item: {} from {}", item_name, sender_name));
-            std::string item_text = get_item_text(net_item);
             core::message_controller().queue_central({
                 .text = core::Property<std::string>(std::format("{} from {}.", item_text, sender_name)),
                 .show_box = true,
@@ -873,7 +876,7 @@ namespace randomizer::archipelago {
                             std::string game = m_slots[std::to_string(message.receiving)].game;
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>(
-                                    std::format("{} sent to {}.", get_item_text(message.item), get_player_name(message.receiving))
+                                    std::format("{} sent to {}.", get_item_text(message.item, game), get_player_name(message.receiving))
                                 ),
                                 .show_box = true,
                             });
