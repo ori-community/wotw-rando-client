@@ -60,6 +60,18 @@ void inject() {
         std::cout << "Derived user data directory from environment to '" << user_data_path.string() << "'" << std::endl;
     }
 
+    const std::filesystem::path modloader_dll_path(install_data_path / "client" / "Modloader.dll");
+
+    if (!std::filesystem::exists(modloader_dll_path)) {
+        MessageBoxA(
+                 nullptr,
+                 std::format("Modloader.dll not found at {}", modloader_dll_path.string()).c_str(),
+                 "Ori and the Will of the Wisps Modloader",
+                 MB_ICONERROR | MB_OK
+             );
+        return;
+    }
+
     auto modloader = LoadLibraryW((install_data_path / "client" / "Modloader.dll").c_str());
     auto initialize_modloader_fn = reinterpret_cast<void (*)(
         const std::filesystem::path& install_data_path,
