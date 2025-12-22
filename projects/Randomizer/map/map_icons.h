@@ -131,13 +131,6 @@ namespace randomizer::map::icons {
             const std::string& label_text,
             const app::Vector2& world_position,
             const visibility_effect_fn_t& visibility_effect_fn,
-            bool can_be_teleported_to
-        );
-        MapIcon(
-            Type type,
-            const std::string& label_text,
-            const app::Vector2& world_position,
-            const visibility_effect_fn_t& visibility_effect_fn,
             float rotation
         );
         MapIcon(
@@ -154,15 +147,6 @@ namespace randomizer::map::icons {
             const visibility_effect_fn_t& visibility_effect_fn,
             ScaleMode scale_mode,
             float rotation
-        );
-        MapIcon(
-            Type type,
-            const std::string& label_text,
-            const app::Vector2& world_position,
-            const visibility_effect_fn_t& visibility_effect_fn,
-            ScaleMode scale_mode,
-            float rotation,
-            bool can_be_teleported_to
         );
         ~MapIcon();
 

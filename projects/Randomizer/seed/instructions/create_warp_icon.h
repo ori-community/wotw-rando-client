@@ -15,13 +15,14 @@ INSTRUCTION(CreateWarpIcon)
             return map::icons::MapIcon::Visibilities::visible;
         };
 
-        return std::make_shared<map::icons::MapIcon>(
+        const auto map_icon = std::make_shared<map::icons::MapIcon>(
             map::icons::MapIcon::Type::SavePedestal,
             label,
             world_position,
-            custom_warp_visibility_effect,
-            true
+            custom_warp_visibility_effect
         );
+        map_icon->can_be_teleported_to.set(true);
+        return map_icon;
     }
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {

@@ -400,20 +400,14 @@ namespace randomizer::map::icons {
     MapIcon::MapIcon(Type type, const std::string& label_text, const app::Vector2& world_position)
     : MapIcon(type, label_text, world_position, [](auto) { return 1.f; }) {}
 
-    MapIcon::MapIcon(const Type type, const std::string& label_text, const app::Vector2& world_position, const visibility_effect_fn_t& visibility_effect_fn)
-        : MapIcon(type, label_text, world_position, visibility_effect_fn, false) {}
-
     MapIcon::MapIcon(const Type type, const std::string& label_text, const app::Vector2& world_position, const visibility_effect_fn_t& visibility_effect_fn, const float rotation)
-        : MapIcon(type, label_text, world_position, visibility_effect_fn, ScaleMode::Adaptive, rotation, false) {}
+        : MapIcon(type, label_text, world_position, visibility_effect_fn, ScaleMode::Adaptive, rotation) {}
 
     MapIcon::MapIcon(const Type type, const std::string& label_text, const app::Vector2& world_position, const visibility_effect_fn_t& visibility_effect_fn, const ScaleMode scale_mode)
-        : MapIcon(type, label_text, world_position, visibility_effect_fn, scale_mode, 0.f, false) {}
+        : MapIcon(type, label_text, world_position, visibility_effect_fn, scale_mode, 0.f) {}
 
-    MapIcon::MapIcon(const Type type, const std::string& label_text, const app::Vector2& world_position, const visibility_effect_fn_t& visibility_effect_fn, const ScaleMode scale_mode, const float rotation)
-        : MapIcon(type, label_text, world_position, visibility_effect_fn, scale_mode, rotation, false) {}
-
-    MapIcon::MapIcon(const Type type, const std::string& label_text, const app::Vector2& world_position, const visibility_effect_fn_t& visibility_effect_fn, const bool can_be_teleported_to)
-        : MapIcon(type, label_text, world_position, visibility_effect_fn, ScaleMode::Adaptive, 0.f, can_be_teleported_to) {}
+    MapIcon::MapIcon(const Type type, const std::string& label_text, const app::Vector2& world_position, const visibility_effect_fn_t& visibility_effect_fn)
+        : MapIcon(type, label_text, world_position, visibility_effect_fn, ScaleMode::Adaptive, 0.f) {}
 
     MapIcon::MapIcon(
         const Type type,
@@ -421,15 +415,13 @@ namespace randomizer::map::icons {
         const app::Vector2& world_position,
         const visibility_effect_fn_t& visibility_effect_fn,
         const ScaleMode scale_mode,
-        const float rotation,
-        const bool can_be_teleported_to
+        const float rotation
     ) :
         type(type),
         visibility_effect_fn(visibility_effect_fn),
         world_position(world_position),
         rotation(rotation),
         scale_mode(scale_mode),
-        can_be_teleported_to(can_be_teleported_to),
         label_text(label_text),
         m_id(++next_icon_id) {
 
@@ -794,29 +786,30 @@ namespace randomizer::map::icons {
             const core::api::uber_states::UberState& is_active_state,
             const std::string& label_text
         ) {
-            return std::make_tuple(
-                std::make_shared<MapIcon>(
-                    MapIcon::Type::SavePedestal,
-                    label_text,
-                    world_position,
-                    [is_active_state](auto) {
-                        return is_active_state.get<bool>()
-                            ? MapIcon::Visibilities::visible
-                            : MapIcon::Visibilities::invisible;
-                    },
-                    true
-                ),
-                std::make_shared<MapIcon>(
-                    MapIcon::Type::SavePedestalInactive,
-                    label_text,
-                    world_position,
-                    [is_active_state](auto) {
-                        return is_active_state.get<bool>()
-                            ? MapIcon::Visibilities::invisible
-                            : MapIcon::Visibilities::visible;
-                    }
-                )
+            const auto active_warp_icon = std::make_shared<MapIcon>(
+                MapIcon::Type::SavePedestal,
+                label_text,
+                world_position,
+                [is_active_state](auto) {
+                    return is_active_state.get<bool>()
+                        ? MapIcon::Visibilities::visible
+                        : MapIcon::Visibilities::invisible;
+                }
             );
+            active_warp_icon->can_be_teleported_to.set(true);
+
+            const auto inactive_warp_icon = std::make_shared<MapIcon>(
+                MapIcon::Type::SavePedestalInactive,
+                label_text,
+                world_position,
+                [is_active_state](auto) {
+                    return is_active_state.get<bool>()
+                        ? MapIcon::Visibilities::invisible
+                        : MapIcon::Visibilities::visible;
+                }
+            );
+
+            return std::make_tuple(active_warp_icon, inactive_warp_icon);
         }
     }
 } // namespace randomizer::map::icons
