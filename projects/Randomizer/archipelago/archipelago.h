@@ -37,7 +37,7 @@ namespace randomizer::archipelago {
         std::string get_item_display_text(const location_data::Location& location);
         std::string get_shop_description(const location_data::Location& location);
         std::string get_shop_icon(const location_data::Location& location);
-        std::string get_item_text(messages::NetworkItem item);
+        std::string get_item_text(const messages::NetworkItem& net_item, const std::string& game);
         const std::optional<ArchipelagoSeedGenerator>& current_seed_generator();
         common::EventBus<State>& event_bus() { return m_event_bus; }
         bool is_active() const { return m_is_active; }
