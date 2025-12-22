@@ -161,11 +161,15 @@ namespace randomizer::archipelago {
         m_deathlink_max_lives = 1;
         m_deathlink_lives = 1;
         m_death_from_deathlink = false;
+        m_hint_points = 0;
+        m_hint_points_per_pickup = 0;
+        m_hint_cost = 0;
 
         modloader::info("archipelago", "AP client got reset");
     }
 
     // TODO upgrades
+    // TODO Fix, doesn't work well with SL
     // Reset inventory and the last item index.
     void ArchipelagoClient::reset_inventory() {
         if (!m_checked_seed) {
@@ -232,10 +236,25 @@ namespace randomizer::archipelago {
             [](auto, auto, auto) {
                 archipelago_client().toggle_deathlink();
             });
-        // TODO
-        features::wheel::initialize_item(9002, 2, "Hint status", "TODO", "file:assets/icons/archipelago/ap-important.blue.png",
-            [](auto, auto, auto) {
-                archipelago_client().toggle_deathlink();
+        features::wheel::initialize_item(9002, 2, "Hint status", "Displays the number of hints\nand progress towards next hint", "file:assets/icons/archipelago/ap-important.blue.png",
+            [this](auto, auto, auto) {
+                // TODO remove one hint when parsing the right PrintJSON ? Also problem with reset inventory
+                int pickups_per_hint = m_hint_cost * 390 / 100;  // TODO replace 390 by the number of locations
+                int hint_amount = m_hint_points / pickups_per_hint;
+                int pickups_before_hint = pickups_per_hint - m_hint_points % pickups_per_hint;
+                std::string hint_amount_text;
+                if (hint_amount == 0) {
+                    hint_amount_text = "No hint available\n";
+                } else if (hint_amount == 1) {
+                    hint_amount_text = "1 hint available\n";
+                } else {
+                    hint_amount_text = std::format("{} hints available\n", hint_amount);
+                }
+                std::string hint_pickup_text = (pickups_before_hint == 1) ? "1 location before next hint" : std::format("{} locations before next hint", pickups_before_hint);
+                core::message_controller().queue_central({
+                    .text = core::Property<std::string>(hint_amount_text + hint_pickup_text),
+                    .prioritized = true,
+                });
             });
     }
 
@@ -695,6 +714,8 @@ namespace randomizer::archipelago {
 
         if (m_slot_id == net_item.player) {
             modloader::debug("archipelago", std::format("Received item: {}", item_name));
+            // Increment the hint points only for local items, the increment for non-local items is done when parsing PrintJSON packets
+            m_hint_points = m_hint_points + m_hint_points_per_pickup;
             if (item_name != "Nothing") {
                 core::message_controller().queue_central({
                     .text = core::Property<std::string>(item_text),
@@ -786,6 +807,8 @@ namespace randomizer::archipelago {
                         send_message(location_scouts_message);
                     }
 
+                    m_hint_points = message.hint_points;
+
                     m_event_bus.trigger_event(State::Connected);
                 },
                 [this](const messages::ConnectionRefused& message) {
@@ -815,6 +838,8 @@ namespace randomizer::archipelago {
                         modloader::debug("archipelago", "Sent GetDataPackage packet to AP server.");
                     }
                     m_ap_seed = message.seed_name;
+                    m_hint_points_per_pickup = message.location_check_points;
+                    m_hint_cost = message.hint_cost;
                 },
                 [this](const messages::ReceivedItems& message) {
                     if (!GameStateMachine::get_IsGame()) {
@@ -880,6 +905,8 @@ namespace randomizer::archipelago {
                                 ),
                                 .show_box = true,
                             });
+                            // Increment the hint points only for non-local items, the increment for local items is done in grant_item
+                            m_hint_points = m_hint_points + m_hint_points_per_pickup;
                             if (message.type == "ItemSend") {
                                 // This means that the server received the LocationCheck packet, so we can clear the cache.
                                 m_pending_send_locations.clear();
