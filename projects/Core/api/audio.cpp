@@ -14,6 +14,7 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/modloader.h>
 
+#include <Modloader/app/methods/Moon/Wwise/Wwise.h>
 #include <fstream>
 #include <string>
 #include <unordered_map>
@@ -53,17 +54,24 @@ namespace core::api::audio {
     } // namespace
 
     app::WwiseEventSystem_SoundHandle play_event(SoundEventID event_id, app::ISoundHost* host) {
-        auto wwise = types::Wwise::get_class();
-        auto wes = wwise->static_fields->m_eventsSystem;
+        auto event_system = Wwise::get_Events();
         if (host == nullptr) {
-            host = reinterpret_cast<app::ISoundHost*>(wwise->static_fields->_DefaultDevSoundHost_k__BackingField);
+            host = reinterpret_cast<app::ISoundHost*>(Wwise::get_DefaultDevSoundHost());
         }
 
         auto evt = create_event(event_id);
-        auto handle = WwiseEventSystem::AllocateHandle(wes, evt, host);
+        auto handle = WwiseEventSystem::AllocateHandle(event_system, evt, host);
         auto boxed = types::WwiseEventSystem_SoundHandle::box(handle);
         WwiseEventSystem_SoundHandle::Play(boxed);
         return handle;
+    }
+
+    void fire_and_forget(SoundEventID event_id, app::ISoundHost* host) {
+        if (host == nullptr) {
+            host = reinterpret_cast<app::ISoundHost*>(Wwise::get_DefaultDevSoundHost());
+        }
+
+        Moon::Wwise::WwiseEventSystem::FireAndForget_2(Wwise::get_Events(), static_cast<uint32_t>(event_id), host);
     }
 
     void play_event_at(SoundEventID event_id, app::Vector3 location) {

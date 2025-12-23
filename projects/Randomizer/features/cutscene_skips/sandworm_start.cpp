@@ -63,8 +63,7 @@ namespace {
             case Idle:
                 break;
             case TeleportOri:
-                core::api::game::player::set_position(2020.209f, -4027.096);
-                core::api::game::temporary_save(true, false);
+                core::api::game::temporary_save(true, false, true, app::Vector2{2020.209f, -4027.096});
                 next_frame_action = SnapCamera;
                 break;
             case SnapCamera:

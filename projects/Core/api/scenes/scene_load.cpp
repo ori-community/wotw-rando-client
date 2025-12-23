@@ -233,6 +233,10 @@ namespace core::api::scenes {
         }
     }
 
+    void allow_unload_all_scenes() {
+        ScenesManager::AllowUnloadingOnAllScenes(get_scenes_manager());
+    }
+
     void unload_scene(std::string_view scene_name, bool instant) {
         auto scene = ScenesManager::GetSceneManagerScene(get_scenes_manager(), il2cpp::string_new(scene_name));
         if (scene != nullptr) {

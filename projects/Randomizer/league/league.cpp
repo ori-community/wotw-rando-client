@@ -149,7 +149,7 @@ namespace randomizer::league {
         void leave_league_summary_screen() {
             is_showing_league_summary_screen = false;
 
-            core::api::faderb::fade_in(1.f);
+            core::api::faderb::fade_to_game_invisible(1.f);
             core::events::schedule_task(1.f, [] {
                 submission_status = SubmissionStatus::Idle;
                 black_background = nullptr;
@@ -318,7 +318,7 @@ namespace randomizer::league {
 
                 core::events::schedule_task(2.f, [] {
                     AkSoundEngine::StopAll_3();
-                    core::api::faderb::fade_out(1.f);
+                    core::api::faderb::fade_to_game_visible(1.f);
                     core::api::audio::play_event(SoundEventID::LeagueSubmitted);
 
                     const auto save_controller = core::api::game::save_controller();

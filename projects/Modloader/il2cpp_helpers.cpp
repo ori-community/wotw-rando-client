@@ -459,7 +459,7 @@ namespace il2cpp {
 
         app::Scene get_scene(app::GameObject* game_object) { return UnityEngine::GameObject::get_scene(game_object); }
 
-        std::vector<app::GameObject*> get_root_game_objects(app::Scene& scene) {
+        std::vector<app::GameObject*> get_root_game_objects(const app::Scene& scene) {
             std::vector<app::GameObject*> output;
             const auto boxed = types::Scene::box(scene);
             if (UnityEngine::SceneManagement::Scene::get_isLoaded(boxed)) {

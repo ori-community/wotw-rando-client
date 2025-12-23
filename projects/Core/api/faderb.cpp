@@ -19,12 +19,16 @@ namespace core::api::faderb {
         return cache;
     }
 
-    void fade_in(float duration) {
+    void fade_to_game_invisible(const float duration) {
         FaderB::FadeIn_2(get(), duration);
     }
 
-    void fade_out(float duration) {
+    void fade_to_game_visible(const float duration) {
         FaderB::FadeOut_2(get(), duration);
+    }
+
+    void set_black_screen_instantly() {
+        FaderB::DoFade(get(), app::FaderB_State__Enum::FadeStay, 0.f, INFINITY, 0.f);
     }
 
     void set_skip_black_screen_cleanup(bool skip) {

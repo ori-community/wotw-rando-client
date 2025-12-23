@@ -37,6 +37,7 @@ namespace core::settings {
     CORE_DLLEXPORT float map_pan_speed();
     CORE_DLLEXPORT bool shriek_is_shrek();
     CORE_DLLEXPORT bool enable_minimap();
+    CORE_DLLEXPORT bool enable_automatic_cutscene_skipping();
     CORE_DLLEXPORT std::string ori_model_texture();
     CORE_DLLEXPORT std::string ori_model_emissivity_mask_texture();
     CORE_DLLEXPORT std::string seedgen_daemon_arguments();
@@ -64,4 +65,5 @@ namespace core::settings {
     CORE_DLLEXPORT void camera_shake_intensity(float value);
     CORE_DLLEXPORT void shriek_is_shrek(bool value);
     CORE_DLLEXPORT void enable_minimap(bool value);
+    CORE_DLLEXPORT void enable_automatic_cutscene_skipping(bool value);
 } // namespace core::settings

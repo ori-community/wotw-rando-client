@@ -3,7 +3,9 @@
 
 namespace modloader {
     FileLoggingHandler::FileLoggingHandler(const std::filesystem::path& path, const LogLevel max_log_level) :
-        ILoggingHandler(max_log_level), m_stream(path) {
+        ILoggingHandler(max_log_level) {
+        std::filesystem::create_directories(std::filesystem::weakly_canonical(path).parent_path());
+        m_stream = std::ofstream(path);
     }
 
     std::string get_message_type_string(LogLevel type) {

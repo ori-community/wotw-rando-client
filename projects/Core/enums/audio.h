@@ -3,7 +3,9 @@
 
 enum class SoundEventID : uint32_t {
     // Game
+    ResetMusicStates = 1359740973,
     silence_lumaPools = 1094311291,
+    roomStop = 455063616,
 
     // Randomizer
     LeagueSubmitted = 2697705149,

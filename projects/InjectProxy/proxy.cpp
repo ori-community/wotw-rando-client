@@ -72,7 +72,7 @@ void inject() {
         return;
     }
 
-    auto modloader = LoadLibraryW((install_data_path / "client" / "Modloader.dll").c_str());
+    auto modloader = LoadLibraryW(modloader_dll_path.c_str());
     auto initialize_modloader_fn = reinterpret_cast<void (*)(
         const std::filesystem::path& install_data_path,
         const std::filesystem::path& user_data_path,

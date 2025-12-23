@@ -937,7 +937,7 @@ typedef struct MethodInfo
 typedef struct Il2CppRuntimeInterfaceOffsetPair
 {
     Il2CppClass* interfaceType;
-    int32_t offset;
+    uint32_t offset;
 } Il2CppRuntimeInterfaceOffsetPair;
 typedef void (*PInvokeMarshalToNativeFunc)(void* managedStructure, void* marshaledStructure);
 typedef void (*PInvokeMarshalFromNativeFunc)(void* marshaledStructure, void* managedStructure);

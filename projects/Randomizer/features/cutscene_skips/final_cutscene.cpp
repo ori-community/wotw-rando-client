@@ -85,7 +85,7 @@ namespace {
             Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(epilogue_master_timeline.ptr));
         }
 
-        core::api::faderb::fade_out(0.6f);
+        core::api::faderb::fade_to_game_visible(0.6f);
 
         next_frame_action = StartCredits;
     }

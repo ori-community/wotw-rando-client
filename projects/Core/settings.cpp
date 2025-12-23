@@ -131,6 +131,10 @@ namespace core::settings {
         return get_settings().get_boolean("EnableMinimap", false);
     }
 
+    bool enable_automatic_cutscene_skipping() {
+        return get_settings().get_boolean("EnableAutomaticCutsceneSkipping", false);
+    }
+
     std::string ori_model_texture() {
         return get_settings().get_string("OriModelTexture", "");
     }
@@ -229,5 +233,9 @@ namespace core::settings {
 
     void enable_minimap(bool value) {
         get_settings().overrides()["EnableMinimap"] = value;
+    }
+
+    void enable_automatic_cutscene_skipping(bool value) {
+        get_settings().overrides()["EnableAutomaticCutsceneSkipping"] = value;
     }
 } // namespace core::settings

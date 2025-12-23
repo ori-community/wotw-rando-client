@@ -41,6 +41,7 @@ namespace core::api::scenes {
     CORE_DLLEXPORT void force_load_scene(std::string_view scene, scene_loading_callback callback, bool keep_preloaded = false, bool async = true, bool load_dependant = true, bool queue_included = true);
     CORE_DLLEXPORT void unload_all_scenes();
     CORE_DLLEXPORT void allow_unload_scene(std::string_view scene_name);
+    CORE_DLLEXPORT void allow_unload_all_scenes();
     CORE_DLLEXPORT void unload_scene(std::string_view scene, bool instant = true);
     CORE_DLLEXPORT void remove_scene(std::string_view scene, bool instant = true);
 

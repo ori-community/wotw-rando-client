@@ -15,8 +15,7 @@ namespace modloader::win::bootstrap {
     namespace {
         std::unordered_set<HMODULE> loaded_external_libraries;
         std::vector<HMODULE> loaded_libraries;
-        std::vector<std::string> cpp_dlls = {"c:\\moon\\Core.dll"
-                                             "c:\\moon\\Randomizer.dll"};
+        std::vector<std::string> cpp_dlls = {};
 
         bool cpp_bootstrap() {
             bool failed = false;

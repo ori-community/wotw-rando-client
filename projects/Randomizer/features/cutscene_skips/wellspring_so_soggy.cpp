@@ -50,7 +50,7 @@ namespace {
         core::api::game::player::set_position(-763.04f, -4071.325f, true);
         core::api::game::player::snap_camera();
         GameController::CreateCheckpoint(core::api::game::game_controller(), true, false);
-        core::api::faderb::fade_out(0.6f);
+        core::api::faderb::fade_to_game_visible(0.6f);
     }
 
     auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);

@@ -10,10 +10,11 @@
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
 #include <memory>
+#include <stdexcept>
 
+#include <frozen/string.h>
 #include <string>
 #include <vector>
-#include <frozen/string.h>
 
 using GCHandleId = uint32_t;
 
@@ -65,6 +66,22 @@ namespace il2cpp {
     IL2CPP_MODLOADER_DLLEXPORT void gchandle_free(GCHandleId handle);
 
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
+
+    template <typename R = void, typename T, typename C>
+    R call_virtual(T* object, const VirtualInvokeData* virtual_method, C* interface_class) {
+        using fn_t = R (*)(T* this_ptr, const MethodInfo*);
+
+        for (int i = 0; i < object->klass->_1.interface_offsets_count; ++i) {
+            if (object->klass->interfaceOffsets[i].interfaceType == reinterpret_cast<Il2CppClass*>(interface_class)) {
+                auto actual_virtual_invoke_data = virtual_method;
+                actual_virtual_invoke_data += object->klass->interfaceOffsets[i].offset;
+                const fn_t fn = reinterpret_cast<fn_t>(*actual_virtual_invoke_data->methodPtr);
+                return fn(object, actual_virtual_invoke_data->method);
+            }
+        }
+
+        throw std::runtime_error("Invalid virtual call");
+    }
 
     namespace unity {
         IL2CPP_MODLOADER_DLLEXPORT bool is_valid(void* obj);
@@ -315,7 +332,7 @@ namespace il2cpp {
 
         IL2CPP_MODLOADER_DLLEXPORT app::Scene get_scene(app::GameObject* game_object);
 
-        IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> get_root_game_objects(app::Scene& scene);
+        IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> get_root_game_objects(const app::Scene& scene);
 
         IL2CPP_MODLOADER_DLLEXPORT app::String* get_object_csname(void* object);
 
