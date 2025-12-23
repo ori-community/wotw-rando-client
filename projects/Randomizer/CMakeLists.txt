@@ -440,6 +440,7 @@ target_link_libraries(
         Common
         Modloader
         Core
+        Tracy
 )
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC ZIP_CM_ZSTD)

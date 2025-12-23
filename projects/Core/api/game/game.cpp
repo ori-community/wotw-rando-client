@@ -31,6 +31,7 @@
 #include <Modloader/windows_api/common.h>
 
 #include <Core/settings.h>
+#include <Tracy/Tracy.hpp>
 #include <magic_enum/magic_enum.hpp>
 
 using namespace modloader;
@@ -85,6 +86,8 @@ namespace core::api::game {
         }
 
         IL2CPP_INTERCEPT(void, GameController, FixedUpdate, app::GameController * this_ptr) {
+            ZoneScopedN("FixedUpdate");
+
             if (!initialized) {
                 return;
             }
@@ -92,6 +95,7 @@ namespace core::api::game {
             game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::Before);
             next::GameController::FixedUpdate(this_ptr);
             game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::After);
+
             if (save_requested && can_save()) {
                 if (save(false, save_request_options)) {
                     save_requested = false;

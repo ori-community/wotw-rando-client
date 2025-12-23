@@ -203,6 +203,7 @@ target_link_libraries(
         ${PROJECT_NAME}
         Common
         Modloader
+        Tracy
 )
 
 find_package(nlohmann_json)
