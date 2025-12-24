@@ -62,8 +62,8 @@ git config --system core.longpaths true
 ### Set up debugging
 
 Debugging only works when launching the randomizer using the winhttp.dll proxy file (which is recommended in general for development).
-After building the project, symlink the built winhttp.dll next to the game. For that, open a terminal with elevated privileges next to the game executable (oriwotw.exe) and run `mklink winhttp.dll C:\moon\randomizer\winhttp.dll`.
-Now you can load the randomizer by launching the game executable with `-m C:\moon\randomizer` as command line argument. If you don't supply any argument, the winhttp.dll proxy will do nothing.
+After building the project, symlink the built winhttp.dll next to the game. For that, open a terminal with elevated privileges next to the game executable (oriwotw.exe) and run `mklink winhttp.dll C:\moon\randomizer\client\winhttp.dll`.
+Now you can load the randomizer by launching the game executable with `-i C:\moon\randomizer` as command line argument. If you don't supply any argument, the winhttp.dll proxy will do nothing.
 If you are using CLion, you can create a Run Configuration with the aforementioned settings to get a seamless debugging experience.
 
 

@@ -12,6 +12,7 @@
 #include <Modloader/app/methods/UberGCManager.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+#include <Profiler/tracy.h>
 
 namespace core::reactivity {
     struct TrackingContext {
@@ -255,9 +256,14 @@ namespace core::reactivity {
         std::vector<std::shared_ptr<ReactiveEffect>> processed_effects;
         processed_effects.reserve(effects.size());
 
-        for (const auto& effect_ptr: effects) {
+        for (const std::weak_ptr<ReactiveEffect>& effect_ptr: effects) {
             if (!effect_ptr.expired()) {
+                ZoneScopedN("Effect");
+
                 auto effect = effect_ptr.lock();
+
+
+                ZoneTextF("%s : %u", effect->effect_register_location.file_name(), effect->effect_register_location.line());
                 processed_effects.push_back(effect);
 
                 modloader::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
@@ -332,6 +338,7 @@ namespace core::reactivity {
         }
 
         if (!effects_it->second.empty()) {
+            ZoneScopedN("run_effects (on change)");
             run_effects(effects_it->second | std::ranges::views::values);
         }
     }
@@ -396,5 +403,17 @@ namespace core::reactivity {
 
     auto on_new_game_initialized = api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
         run_trigger_on_load_effects();
+    });
+
+    auto on_after_unity_update_loop = api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
+        TracyPlot(
+            "Effect Trigger Count",
+            static_cast<int64_t>(dependency_tracker().effects_by_dependency.size())
+        );
+
+        TracyPlot(
+            "Trigger on Load Effect Count",
+            static_cast<int64_t>(dependency_tracker().trigger_on_load_effects.size())
+        );
     });
 }

@@ -56,9 +56,6 @@
   }, {
     "name" : "frozen",
     "version>=" : "1.2.0"
-  }, {
-    "name" : "tracy",
-    "version>=" : "0.11.1#2"
   } ],
   "overrides" : [ {
     "name" : "protobuf",

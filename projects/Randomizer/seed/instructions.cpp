@@ -61,7 +61,6 @@
 #include <Randomizer/seed/instructions/save.h>
 #include <Randomizer/seed/instructions/save_at.h>
 #include <Randomizer/seed/instructions/set_boolean.h>
-#include <Randomizer/seed/instructions/set_debugger_trace.h>
 #include <Randomizer/seed/instructions/set_float.h>
 #include <Randomizer/seed/instructions/set_integer.h>
 #include <Randomizer/seed/instructions/set_map_message.h>
@@ -190,7 +189,6 @@ namespace randomizer::seed {
             register_instruction<Save>(factories);
             register_instruction<SaveAt>(factories);
             register_instruction<SetBoolean>(factories);
-            register_instruction<SetDebuggerTrace>(factories);
             register_instruction<SetFloat>(factories);
             register_instruction<SetInteger>(factories);
             register_instruction<SetMapMessage>(factories);

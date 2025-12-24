@@ -31,7 +31,7 @@
 #include <Modloader/windows_api/common.h>
 
 #include <Core/settings.h>
-#include <Tracy/Tracy.hpp>
+#include <Profiler/tracy.h>
 #include <magic_enum/magic_enum.hpp>
 
 using namespace modloader;

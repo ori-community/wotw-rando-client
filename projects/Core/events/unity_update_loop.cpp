@@ -1,6 +1,7 @@
 #include <Core/api/game/game.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Profiler/tracy.h>
 
 namespace core::events {
     namespace {
@@ -19,6 +20,7 @@ namespace core::events {
             api::game::event_bus().trigger_event(GameEvent::UnityUpdateLoop, EventTiming::Before);
             next_unityplayer_update();
             api::game::event_bus().trigger_event(GameEvent::UnityUpdateLoop, EventTiming::After);
+            FrameMark;
         }
     }
 } // namespace

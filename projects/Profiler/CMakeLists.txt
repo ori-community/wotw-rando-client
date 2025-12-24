@@ -1,4 +1,4 @@
-project("Tracy")
+project("Profiler")
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 message(STATUS "")
@@ -7,14 +7,27 @@ message(STATUS "Project ${PROJECT_NAME}:")
 set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 
+message(STATUS "Fetching Tracy")
+
+include(FetchContent)
+
+FetchContent_Declare(
+        tracy
+        GIT_REPOSITORY https://github.com/wolfpld/tracy.git
+        GIT_TAG v0.13.1
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
+        EXCLUDE_FROM_ALL
+)
+FetchContent_MakeAvailable(tracy)
+
 set(
         SOURCE_FILES
-        "tracy.cpp"
 )
 
 set(
         PUBLIC_HEADER_FILES
-        "macros.h"
+        "tracy.h"
 )
 
 set(
@@ -27,16 +40,6 @@ add_library(
         ${SOURCE_FILES}
         ${PUBLIC_HEADER_FILES}
         ${MISC_FILES}
-)
-
-target_link_libraries(
-        ${PROJECT_NAME}
-        Common
-)
-
-target_compile_definitions(
-        ${PROJECT_NAME}
-        PRIVATE COMPILING_INJECT_PROXY
 )
 
 set_target_properties(
@@ -55,8 +58,9 @@ target_include_directories(
         ${WOTWR_BASE_INCLUDES}
 )
 
-find_package(Tracy CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} Tracy::TracyClient)
+target_compile_definitions(TracyClient PRIVATE TRACY_IMPORTS)
+target_compile_definitions(TracyClient PUBLIC TRACY_EXPORTS)
+target_link_libraries(${PROJECT_NAME} PUBLIC TracyClient)
 
 message(STATUS "Assigning source groups.")
 

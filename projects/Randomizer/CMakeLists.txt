@@ -12,10 +12,6 @@ set(
         "conditions/condition_uber_state.cpp"
         "conditions/new_setup_state_override.cpp"
         "conditions/targeting_override.cpp"
-        #"dev/console_seed_debugger.cpp"
-        #"dev/cpp_seed_debugger.cpp"
-        "dev/file_seed_debugger.cpp"
-        "dev/seed_debugger.cpp"
         "ext/process.cpp"
         "ext/process_win.cpp"
         "features/area_segment_states.cpp"
@@ -239,7 +235,6 @@ set(
         "conditions/new_setup_state_override.h"
         "conditions/targeting_override.h"
         "constants.h"
-        "dev/seed_debugger.h"
         "ext/process.hpp"
         "features/area_segment_states.h"
         "features/door_randomizer.h"
@@ -440,7 +435,7 @@ target_link_libraries(
         Common
         Modloader
         Core
-        Tracy
+        Profiler
 )
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC ZIP_CM_ZSTD)

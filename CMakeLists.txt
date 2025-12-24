@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DENABLE_FAST_LOAD -DENABLE_MIDI_OUT -DENABLE_MIDI_IN -DDEBUG -DTRACY_ENABLE")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DENABLE_FAST_LOAD -DENABLE_MIDI_OUT -DENABLE_MIDI_IN -DDEBUG")
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
@@ -24,9 +24,14 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BUILD_DIRECTORY}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BUILD_DIRECTORY}/bin)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
 
-if(NOT WOTWR_INSTALL_DIR)
-    set(WOTWR_INSTALL_DIR C:/moon/randomizer)
-endif()
+if (ENABLE_PROFILER)
+    message(NOTICE "Enabling profiler")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DTRACY_ENABLE=1")
+endif ()
+
+if (NOT WOTWR_INSTALL_DIR)
+    set(WOTWR_INSTALL_DIR C:/moon/randomizer/client)
+endif ()
 
 set(WOTWR_PROJECTS_DIR ${CMAKE_ROOT_DIRECTORY}/projects)
 
@@ -97,7 +102,7 @@ add_custom_target(
         INSTALL_RUNTIME
         ALL
         cmake -DCOMPONENT=runtime -DBUILD_TYPE=$<CONFIG> -P ${CMAKE_BUILD_DIRECTORY}/cmake_install.cmake
-        DEPENDS Tracy Modloader Randomizer TAS Injector InjectProxy InjectLoader RandomizerTester
+        DEPENDS Profiler Modloader Randomizer TAS Injector InjectProxy InjectLoader RandomizerTester
 )
 
 set_target_properties(

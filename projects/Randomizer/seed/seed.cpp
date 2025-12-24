@@ -1,10 +1,9 @@
 #include <Core/api/game/game.h>
 #include <Core/core.h>
-#include <Randomizer/dev/seed_debugger.h>
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/seed.h>
-#include <magic_enum/magic_enum.hpp>
+#include <Profiler/tracy.h>
 
 #include "Common/vx.h"
 
@@ -46,7 +45,6 @@ namespace randomizer::seed {
                 condition.condition | vx::match {
                     [&](const int& condition_command_id) {
                         auto builder = core::reactivity::watch_effect()
-                            .before([&] { dev::seed_debugger::condition_start(condition_command_id); })
                             .effect([&] {
                                 execute_command(condition_command_id);
                             });
@@ -61,35 +59,28 @@ namespace randomizer::seed {
                             // When the condition did not change, or we should not grant, don't execute.
                             // On load, we only want to update condition.previous_value so don't execute either.
                             if (!should_grant() || !condition_changed || core::reactivity::is_effect_running_because_of_trigger_on_load()) {
-                                dev::seed_debugger::condition_end(std::get<int>(condition.condition));
                                 return;
                             }
 
                             if (m_memory.booleans.get(0)) {
-                                dev::seed_debugger::condition_triggered(std::get<int>(condition.condition));
                                 core::reactivity::run_after_effects([&] {
                                     execute_command(condition.command_id);
                                 });
                             }
-
-                            dev::seed_debugger::condition_end(std::get<int>(condition.condition));
                         })
                         .trigger_on_load()  // This is to reset condition.previous_value
                         .finalize();
                     },
                     [&](const core::api::uber_states::UberState& uber_state) {
                         auto builder = core::reactivity::watch_effect()
-                            .before([&]{ dev::seed_debugger::binding_start(uber_state); })
                             .effect({uber_state});
 
                         condition.reactive_effect = builder.after([&] {
                             if (!should_grant()) {
-                                dev::seed_debugger::binding_end(uber_state);
                                 return;
                             }
 
                             execute_command(condition.command_id);
-                            dev::seed_debugger::binding_end(uber_state);
                         }).finalize();
                         m_command_stack.clear();
                     },
@@ -135,16 +126,19 @@ namespace randomizer::seed {
     }
 
     void Seed::execute_command(const std::size_t id) {
-        dev::seed_debugger::command_start(id);
-
         if (m_parse_output->data.commands.size() <= id) {
             throw std::exception(std::format("Command ID {} out of bounds", id).c_str());
         }
 
         for (const auto& command: m_parse_output->data.commands.at(id)) {
-            dev::seed_debugger::instruction(command.get());
-
             try {
+                ZoneScopedN("Instruction");
+
+#ifdef TRACY_ENABLE
+                const auto command_text = command->to_string(*this, m_memory);
+                ZoneText(command_text.c_str(), command_text.size());
+#endif
+
                 command->execute(*this, m_memory, *m_environment);
             } catch (InstructionError& e) {
                 modloader::error(
@@ -153,8 +147,6 @@ namespace randomizer::seed {
                 break;
             }
         }
-
-        dev::seed_debugger::command_end(id);
     }
 
     void Seed::trigger(const SeedClientEvent event, bool force_outside_game) {
@@ -163,20 +155,15 @@ namespace randomizer::seed {
             return;
         }
 
-        dev::seed_debugger::seed_event_start(event);
-
         modloader::ScopedSetter _(m_force_grant_outside_game, force_outside_game, modloader::ScopedSetter<bool>::OP_OR);
 
         if (!should_grant()) {
-            dev::seed_debugger::seed_event_end(event);
             return;
         }
 
         for (const auto& command: m_parse_output->data.events[event]) {
             execute_command(command);
         }
-
-        dev::seed_debugger::seed_event_end(event);
     }
 
     bool Seed::should_grant() const {

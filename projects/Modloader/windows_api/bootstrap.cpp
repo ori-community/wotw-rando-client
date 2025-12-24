@@ -26,10 +26,10 @@ namespace modloader::win::bootstrap {
                     error("initialize", std::format("Failed to load library, aborting: {}", GetLastError()));
                     failed = true;
                     break;
-                } else {
-                    info("initialize", "Load successful");
-                    loaded_libraries.push_back(handle);
                 }
+
+                info("initialize", "Load successful");
+                loaded_libraries.push_back(handle);
             }
 
             if (failed) {
