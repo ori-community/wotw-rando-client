@@ -1,0 +1,468 @@
+#pragma once
+
+#include <Randomizer/archipelago/archipelago_seedgen.h>
+
+namespace randomizer::archipelago::seedgen_source_generators {
+
+    const ArchipelagoSeedGeneratorOptionSourceGenerator zone_hints = {
+        []() -> std::string { return "zone_hints"; },
+        [](const ArchipelagoSeedGeneratorOptions& options) -> std::unordered_set<std::string> {
+            if (!options.zone_hints) {
+                return {};
+            }
+
+            // The location names are hardcoded, but this needs to be rewritten in v5 anyway
+            std::unordered_set<std::string> filled_locations_names = {};  // Names of locations containing an AP item
+            constexpr int FLAG_QUESTS = 0b000000;
+            constexpr int FLAG_HAND_TO_HAND = 0b000010;
+            constexpr int FLAG_REBUILD = 0b000100;
+            constexpr int FLAG_TRIALS = 0b001000;
+            constexpr int FLAG_QOL = 0b010000;
+            constexpr int FLAG_MAPS = 0b100000;
+
+            if (options.location_flags & FLAG_QUESTS) {
+                std::vector<std::string> quest_locs = {
+                    "MarshSpawn.TokkKeystoneQuest",
+                    "MarshSpawn.MokkFangQuest",
+                    "MarshSpawn.TokkTabletQuest",
+                    "EastHollow.KwolokAmuletQuest",
+                    "EastHollow.WellspringDoneTalk",
+                    "OuterWellspring.TheLostCompass",
+                    "WoodsEntry.TreeSeed",
+                    "EastPools.KwolokAmuletQI",
+                    "LowerWastes.EerieGemQI",
+                    "GladesTown.TwillenGemQuest",
+                    "GladesTown.FamilyReunionKey",
+                    "GladesTown.MokiAcornQuest",
+                };
+                filled_locations_names.insert(quest_locs.begin(), quest_locs.end());
+            }
+            if (options.location_flags & FLAG_HAND_TO_HAND) {
+                std::vector<std::string> hand_locs = {
+                    "EastHollow.HandToHandMap",
+                    "GladesTown.HandToHandPouch",
+                    "InnerWellspring.HandToHandHerbs",
+                    "LowerReach.HandToHandSoup",
+                    "LowerReach.HandToHandHat",
+                    "GladesTown.HandToHandLantern",
+                    "LowerDepths.HandToHandSilk",
+                    "EastPools.HandToHandSpyglass",
+                    "GladesTown.HandToHandCanteen",
+                    "LowerWastes.HandToHandMapstone",
+                    "WindtornRuins.HandToHandComplete",
+                };
+                filled_locations_names.insert(hand_locs.begin(), hand_locs.end());
+            }
+            if (options.location_flags & FLAG_REBUILD) {
+                std::vector<std::string> rebuild_locs = {
+                    "GladesTown.RebuildTheGlades",
+                    "GladesTown.RegrowTheGlades",
+                };
+                filled_locations_names.insert(rebuild_locs.begin(), rebuild_locs.end());
+            }
+            if (options.location_flags & FLAG_TRIALS) {
+                std::vector<std::string> trials_locs = {
+                    "MarshPastOpher.SpiritTrial",
+                    "WestHollow.SpiritTrial",
+                    "OuterWellspring.SpiritTrial",
+                    "EastPools.SpiritTrial",
+                    "WoodsMain.SpiritTrial",
+                    "LowerReach.SpiritTrial",
+                    "LowerDepths.SpiritTrial",
+                    "LowerWastes.SpiritTrial",
+                };
+                filled_locations_names.insert(trials_locs.begin(), trials_locs.end());
+            }
+            if (options.location_flags & FLAG_QOL) {
+                std::vector<std::string> qol_locs = {
+                    "WoodsEntry.LastTreeBranch",
+                };
+                filled_locations_names.insert(qol_locs.begin(), qol_locs.end());
+            }
+            if (options.location_flags & FLAG_MAPS) {
+                std::vector<std::string> map_locs = {
+                    "MarshSpawn.LupoMap",
+                    "MidnightBurrows.LupoMap",
+                    "WestHollow.LupoMap",
+                    "InnerWellspring.LupoMap",
+                    "EastPools.LupoMap",
+                    "LowerReach.LupoMap",
+                    "LowerDepths.LupoMap",
+                    "WillowsEnd.LupoMap",
+                    "LowerWastes.LupoMap",
+                    "LupoShop.HCMapIcon",
+                    "LupoShop.ECMapIcon",
+                };
+                filled_locations_names.insert(map_locs.begin(), map_locs.end());
+            }
+            std::vector<std::string> base_locs = {
+                "MarshSpawn.RockHC",
+                "MarshSpawn.FirstPickupEX",
+                "MarshSpawn.GrappleHC",
+                "MarshSpawn.BridgeEX",
+                "MarshSpawn.ResilienceShard",
+                "MarshSpawn.ResilienceOre",
+                "MarshSpawn.BashEC",
+                "MarshSpawn.PreLupoEX",
+                "MarshSpawn.RegenTree",
+                "MarshSpawn.LeverEC",
+                "MarshSpawn.LeftTokkEX",
+                "MarshSpawn.FightRoomEX",
+                "MarshSpawn.CaveOre",
+                "MarshSpawn.LongSwimEX",
+                "MarshSpawn.BurrowOre",
+                "MarshSpawn.LifepactShard",
+                "MarshSpawn.BurrowsApproachLedgeEX",
+                "MarshSpawn.CrusherSwimEX",
+                "MarshSpawn.RecklessShard",
+                "MarshSpawn.MokkEX",
+                "MarshSpawn.FangEC",
+                "MarshSpawn.DamageTree",
+                "MarshSpawn.PoolsPathEX",
+                "MidnightBurrows.LeftKS",
+                "MidnightBurrows.RightKS",
+                "MidnightBurrows.UpperKS",
+                "MidnightBurrows.LowerKS",
+                "MidnightBurrows.DeflectorShard",
+                "HowlsDen.RightHC",
+                "HowlsDen.LeftHC",
+                "HowlsDen.AboveDoorKS",
+                "HowlsDen.MagnetShard",
+                "HowlsDen.BoneOre",
+                "HowlsDen.AboveTPEX",
+                "HowlsDen.LaserKS",
+                "HowlsDen.CombatShrine",
+                "HowlsDen.DoubleJumpEX",
+                "HowlsDen.StickyShard",
+                "HowlsDen.DoubleJumpTree",
+                "MarshPastOpher.TrialLeftEX",
+                "MarshPastOpher.TrialOre",
+                "MarshPastOpher.TrialEC",
+                "MarshPastOpher.TrialHC",
+                "MarshPastOpher.TrialRightEX",
+                "MarshPastOpher.CombatShrine",
+                "MarshPastOpher.SwingPoleEX",
+                "MarshPastOpher.LeftEyestone",
+                "MarshPastOpher.RightEyestone",
+                "MarshPastOpher.BowEC",
+                "MarshPastOpher.BowTree",
+                "MarshPastOpher.CeilingEX",
+                "MarshPastOpher.PoolsPathEC",
+                "MarshPastOpher.PoolsPathEX",
+                "WestHollow.CrusherHC",
+                "WestHollow.FarLeftEX",
+                "WestHollow.RockPuzzleEX",
+                "WestHollow.HiddenEC",
+                "WestHollow.QuickshotShard",
+                "WestHollow.SwimEC",
+                "WestHollow.TrialHC",
+                "WestHollow.FallingSlugEX",
+                "WestHollow.AboveDashEX",
+                "WestHollow.DashRightEX",
+                "WestHollow.CrusherEX",
+                "WestHollow.DashTree",
+                "EastHollow.GladesApproachOre",
+                "EastHollow.HornBeetleFightEX",
+                "EastHollow.SpikeLanternEX",
+                "EastHollow.SecretRoofEX",
+                "EastHollow.MortarEX",
+                "EastHollow.BashEC",
+                "EastHollow.BashHC",
+                "EastHollow.BashEX",
+                "EastHollow.BashTree",
+                "EastHollow.RightKwolokEX",
+                "EastHollow.SilentSwimEC",
+                "EastHollow.SplinterShard",
+                "EastHollow.KwolokSwimOre",
+                "EastHollow.KwolokSwimLeftEX",
+                "EastHollow.KwolokSwimRightEX",
+                "EastHollow.DepthsExteriorEX",
+                "GladesTown.HoleHutEC",
+                "GladesTown.AboveGromHC",
+                "GladesTown.LupoSwimHC",
+                "GladesTown.UpperOre",
+                "GladesTown.LowerOre",
+                "GladesTown.ArcingShard",
+                "GladesTown.BountyShard",
+                "GladesTown.LupoSoupEX",
+                "GladesTown.BraveMokiHutEX",
+                "GladesTown.MotayHutEX",
+                "GladesTown.HoleHutEX",
+                "GladesTown.UpperLeftEX",
+                "GladesTown.LupoSwimMiddleEX",
+                "GladesTown.CaveBurrowEX",
+                "GladesTown.BelowHoleHutEX",
+                "GladesTown.KeyMokiHutEX",
+                "GladesTown.AboveTpEX",
+                "GladesTown.AboveCaveEX",
+                "GladesTown.LupoSwimLeftEX",
+                "GladesTown.UpdraftCeilingEX",
+                "GladesTown.LeafPileEX",
+                "GladesTown.DamageTree",
+                "WestGlades.GrappleEX",
+                "WestGlades.AbovePlantEX",
+                "WestGlades.LowerPoolEX",
+                "WestGlades.UpperPoolEX",
+                "WestGlades.SwimEC",
+                "WestGlades.LeftOre",
+                "WestGlades.RightOre",
+                "WestGlades.ShrineHC",
+                "WestGlades.CombatShrine",
+                "OuterWellspring.RightWallOre",
+                "OuterWellspring.RightWallEC",
+                "OuterWellspring.RightWallEX",
+                "OuterWellspring.TrialOre",
+                "OuterWellspring.UltraGrappleShard",
+                "OuterWellspring.HiddenHC",
+                "OuterWellspring.EntranceRoofEX",
+                "OuterWellspring.WheelEX",
+                "OuterWellspring.BasementEC",
+                "OuterWellspring.LifeHarvestShard",
+                "OuterWellspring.SwimEX",
+                "OuterWellspring.SwimOre",
+                "InnerWellspring.ThornShard",
+                "InnerWellspring.ThornEX",
+                "InnerWellspring.ThreeWheelsEX",
+                "InnerWellspring.WaterSwitchEX",
+                "InnerWellspring.DrainHC",
+                "InnerWellspring.DrainEX",
+                "InnerWellspring.LaserOre",
+                "InnerWellspring.LeverEC",
+                "InnerWellspring.LupoEX",
+                "InnerWellspring.ShortcutWheelEX",
+                "InnerWellspring.GrappleTreeEX",
+                "InnerWellspring.GrappleTree",
+                "InnerWellspring.AboveSpinArenaEX",
+                "InnerWellspring.RotateRoomEX",
+                "InnerWellspring.RotateRoomOre",
+                "InnerWellspring.LibraryEX",
+                "InnerWellspring.AboveTpEX",
+                "InnerWellspring.SwimOre",
+                "InnerWellspring.EscapeRevisitEX",
+                "PoolsApproach.MarshPathCurrentEX",
+                "PoolsApproach.AboveWheelEX",
+                "PoolsApproach.MillPathHC",
+                "PoolsApproach.MillPathEC",
+                "PoolsApproach.MillPathEX",
+                "EastPools.RightOre",
+                "EastPools.TwoCrushersEX",
+                "EastPools.BubbleCurrentEX",
+                "EastPools.BelowLeverEX",
+                "EastPools.AboveDoorOre",
+                "EastPools.PurpleWallHC",
+                "EastPools.AboveTpEX",
+                "EastPools.LupoOre",
+                "EastPools.UltraBashShard",
+                "EastPools.FightRoomHC",
+                "EastPools.EnergyHarvestShard",
+                "EastPools.LupoEX",
+                "EastPools.BehindCrusherEX",
+                "UpperPools.LowerKS",
+                "UpperPools.UpperLeftKS",
+                "UpperPools.UpperMidKS",
+                "UpperPools.UpperRightKS",
+                "UpperPools.FishPoolEX",
+                "UpperPools.FishPoolOre",
+                "UpperPools.BubblesEC",
+                "UpperPools.RightBubblesEX",
+                "UpperPools.LeftBubblesEX",
+                "UpperPools.SwimDashTree",
+                "UpperPools.SwimDashCurrentEX",
+                "UpperPools.RoofEX",
+                "UpperPools.WaterfallEC",
+                "WestPools.BurrowEX",
+                "WestPools.BurrowOre",
+                "WestPools.TpEX",
+                "WestPools.EscapeRevisitEX",
+                "WoodsEntry.MudPitEX",
+                "WoodsEntry.LedgeOre",
+                "WoodsEntry.LeafPileEX",
+                "WoodsEntry.TpEX",
+                "WoodsEntry.LowerKS",
+                "WoodsEntry.UpperKS",
+                "WoodsMain.RightKS",
+                "WoodsMain.UpperKS",
+                "WoodsMain.LeftKS",
+                "WoodsMain.LowerKS",
+                "WoodsMain.BehindWallOre",
+                "WoodsMain.LowerLeafPileEX",
+                "WoodsMain.MiddleLeafPileEX",
+                "WoodsMain.UpperLeafPileEX",
+                "WoodsMain.YellowWallEX",
+                "WoodsMain.HiddenOre",
+                "WoodsMain.HiddenEX",
+                "WoodsMain.BelowKeystonesEX",
+                "WoodsMain.BehindDoorRoofEX",
+                "WoodsMain.PetrifiedHowlEX",
+                "WoodsMain.OverflowShard",
+                "WoodsMain.CombatShrine",
+                "WoodsMain.ShrineEX",
+                "WoodsMain.FeedingGroundsEX",
+                "LowerReach.BelowBaurEX",
+                "LowerReach.AboveBaurLowerEX",
+                "LowerReach.AboveBaurUpperEX",
+                "LowerReach.IcefallOre",
+                "LowerReach.IcefallEX",
+                "LowerReach.AboveDoorEX",
+                "LowerReach.MeltIceEX",
+                "LowerReach.BurrowEX",
+                "LowerReach.TPLeftEX",
+                "LowerReach.BelowLupoEX",
+                "LowerReach.BreakWallEX",
+                "LowerReach.WindBottomEX",
+                "LowerReach.WindHiddenEX",
+                "LowerReach.SnowballHC",
+                "LowerReach.RoofLeftEX",
+                "LowerReach.RoofRightEX",
+                "LowerReach.FractureShard",
+                "LowerReach.EscapeRevisitEX",
+                "LowerReach.RightKS",
+                "LowerReach.UpperLeftKS",
+                "LowerReach.MiddleLeftKS",
+                "LowerReach.BottomLeftKS",
+                "LowerReach.TrialEX",
+                "LowerReach.CatalystShard",
+                "UpperReach.LifeForceShard",
+                "UpperReach.LifeForceEX",
+                "UpperReach.LowerKS",
+                "UpperReach.UpperKS",
+                "UpperReach.MiddleLeftKS",
+                "UpperReach.MiddleRightKS",
+                "UpperReach.SoupOre",
+                "UpperReach.SwingPoleEX",
+                "UpperReach.SwimEX",
+                "UpperReach.LightBurstTree",
+                "UpperReach.TreeOre",
+                "UpperReach.WellEX",
+                "UpperReach.HiddenEX",
+                "UpperDepths.EntrySpikesEX",
+                "UpperDepths.EntryRoofEX",
+                "UpperDepths.EntryOre",
+                "UpperDepths.RightEntryKS",
+                "UpperDepths.LeftEntryKS",
+                "UpperDepths.SwimEC",
+                "UpperDepths.TeleporterEX",
+                "UpperDepths.LeftHealthKS",
+                "UpperDepths.RightHealthKS",
+                "UpperDepths.BossPathEX",
+                "UpperDepths.KeystoneHC",
+                "UpperDepths.HiveEX",
+                "LowerDepths.RaceStartHC",
+                "LowerDepths.BelowDoorOre",
+                "LowerDepths.SpiritSurgeShard",
+                "LowerDepths.CombatShrine",
+                "LowerDepths.SwimEC",
+                "LowerDepths.LeftEX",
+                "LowerDepths.RightEX",
+                "LowerDepths.FlashTree",
+                "LowerWastes.WestTPOre",
+                "LowerWastes.PurpleWallEX",
+                "LowerWastes.SunsetViewEX",
+                "LowerWastes.SandBridgeOre",
+                "LowerWastes.MuncherTunnelEC",
+                "LowerWastes.SandPotHC",
+                "LowerWastes.SandPotEX",
+                "LowerWastes.MuncherPitEX",
+                "LowerWastes.BottomRightEX",
+                "LowerWastes.BottomRightHC",
+                "LowerWastes.LastStandShard",
+                "LowerWastes.LastStandEX",
+                "LowerWastes.MuncherClimbEX",
+                "LowerWastes.SkeetoHiveEX",
+                "LowerWastes.BurrowTree",
+                "LowerWastes.BurrowTreeEX",
+                "LowerWastes.UpperPathEC",
+                "LowerWastes.UpperPathEX",
+                "LowerWastes.UpperPathHiddenEX",
+                "LowerWastes.UpperPathHC",
+                "LowerWastes.EastTPOre",
+                "UpperWastes.LowerKS",
+                "UpperWastes.UpperKS",
+                "UpperWastes.TurmoilShard",
+                "UpperWastes.KSDoorEX",
+                "UpperWastes.LedgeEC",
+                "UpperWastes.MissileSpawnEX",
+                "UpperWastes.PurpleWallEX",
+                "UpperWastes.PurpleWallHC",
+                "UpperWastes.RoofEX",
+                "UpperWastes.SpinLasersRightEX",
+                "UpperWastes.SpinLasersMiddleEX",
+                "UpperWastes.SpinLasersLowerEX",
+                "UpperWastes.WallOre",
+                "WindtornRuins.EscapeRevisitEC",
+                "WeepingRidge.Ore",
+                "WeepingRidge.LaunchTree",
+                "WeepingRidge.SpikeClimbEX",
+                "WeepingRidge.PortalEX",
+                "WillowsEnd.SpikesOre",
+                "WillowsEnd.EntryEX",
+                "WillowsEnd.PoisonfallHC",
+                "WillowsEnd.WindSpinOre",
+                "WillowsEnd.RedirectEX",
+                "WillowsEnd.UpperLeftEX",
+                "WillowsEnd.UpperRightEX",
+                "TwillenShop.Overcharge",
+                "TwillenShop.TripleJump",
+                "TwillenShop.Wingclip",
+                "TwillenShop.Swap",
+                "TwillenShop.LightHarvest",
+                "TwillenShop.Vitality",
+                "TwillenShop.Energy",
+                "TwillenShop.Finesse",
+                "OpherShop.WaterBreath",
+                "OpherShop.Spike",
+                "OpherShop.SpiritSmash",
+                "OpherShop.Teleport",
+                "OpherShop.SpiritStar",
+                "OpherShop.Blaze",
+                "OpherShop.Sentry",
+                "OpherShop.ExplodingSpike",
+                "OpherShop.ShockSmash",
+                "OpherShop.StaticStar",
+                "OpherShop.ChargeBlaze",
+                "OpherShop.RapidSentry",
+                "LupoShop.ShardMapIcon",
+            };
+            filled_locations_names.insert(base_locs.begin(), base_locs.end());
+            return filled_locations_names;
+        },
+        [](const ArchipelagoSeedGeneratorOptions& options) -> std::optional<std::string> {
+            if (!options.zone_hints) {
+                return std::nullopt;
+            }
+
+            return R"WOTWR(
+9|0=10|4|17|9|19|0|4|17|48248|18767|1|4|30|0|Inkwater Progression Items - $[15|4|[ap_how_many(0)]]\n
+9|0=10|4|17|9|19|1|4|17|48248|3638|1|4|30|0|Hollow Progression Items - $[15|4|[ap_how_many(1)]]\n
+9|0=10|4|17|9|19|2|4|17|15|19396|1|4|30|0|Glades Progression Items - $[15|4|[ap_how_many(2)]]\n
+9|0=10|4|17|9|19|3|4|17|48248|1590|1|4|30|0|Wellspring Progression Items - $[15|4|[ap_how_many(3)]]\n
+9|0=10|4|17|9|19|4|4|17|48248|1557|1|4|30|0|Luma Progression Items - $[15|4|[ap_how_many(4)]]\n
+9|0=10|4|17|9|19|5|4|17|48248|45538|1|4|30|0|Midnight Burrows Progression Items - $[15|4|[ap_how_many(5)]]\n
+9|0=10|4|17|9|19|6|4|17|48248|29604|1|4|30|0|Reach Progression Items - $[15|4|[ap_how_many(6)]]\n
+9|0=10|4|17|9|19|7|4|17|15|57987|1|4|30|0|Woods Progression Items - $[15|4|[ap_how_many(7)]]\n
+9|0=10|4|17|9|19|8|4|17|48248|48423|1|4|30|0|Mouldwood Progression Items - $[15|4|[ap_how_many(8)]]\n
+9|0=10|4|17|9|19|9|4|17|48248|61146|1|4|30|0|Wastes Progression Items - $[15|4|[ap_how_many(9)]]\n
+9|0=10|4|17|9|19|11|4|17|48248|4045|1|4|30|0|Willow Progression Items - $[15|4|[ap_how_many(11)]]\n
+48248|18767|6|Inkwater Progression Items - $[15|4|[ap_how_many(0)]]\n
+48248|3638|6|Hollow Progression Items - $[15|4|[ap_how_many(1)]]\n
+15|19396|6|Glades Progression Items Hint|f=0
+15|19396|8|9|0|int|36
+9|0=36|6|Glades Progression Items - $[15|4|[ap_how_many(2)]]\n
+3|1|8|15|19397|int|200
+3|1|17|0|15|19396|lupo:1
+48248|1590|6|Wellspring Progression Items - $[15|4|[ap_how_many(3)]]\n
+48248|1557|6|Luma Progression Items - $[15|4|[ap_how_many(4)]]\n
+48248|45538|6|Midnight Burrows Progression Items - $[15|4|[ap_how_many(5)]]\n
+48248|29604|6|Reach Progression Items - $[15|4|[ap_how_many(6)]]\n
+15|57987|6|Woods Progression Items Hint|f=0
+15|57987|8|9|0|int|37
+9|0=37|6|Woods Progression Items - $[15|4|[ap_how_many(7)]]\n
+3|1|8|15|57988|int|200
+3|1|17|0|15|57987|lupo:0
+48248|48423|6|Mouldwood Progression Items - $[15|4|[ap_how_many(8)]]\n
+48248|61146|6|Wastes Progression Items - $[15|4|[ap_how_many(9)]]\n
+48248|4045|6|Willow Progression Items - $[15|4|[ap_how_many(11)]]\n
+)WOTWR";
+        },
+    };
+}
