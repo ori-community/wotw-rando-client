@@ -518,11 +518,37 @@ namespace randomizer::archipelago {
         return icon_it->second;
     }
 
+    std::string ArchipelagoClient::parse_how_many(GameArea area) {
+        std::string output;
+        for (auto scout_data: m_scouted_locations) {
+            auto location = ids::get_location_from_id(scout_data.first);
+            bool is_progression = scout_data.second.flags & FLAG_PROGRESSION;
+            if (area == location.area && is_progression) {
+                const int group = location.condition.state.group_int();
+                const int state = location.condition.state.state();
+                const int value = location.condition.lower_bound_value();
+
+                if (value == 1) {
+                    output += std::format("{},{},", group, state);
+                }
+                else {
+                    output += std::format("{},{}>={},", group, state, value);
+                }
+            }
+        }
+
+        if (!output.empty()) {
+            output.pop_back();  // Remove the comma at the end
+        }
+
+        return output;
+    }
+
     // Get the item name, colorized depending on its classification
     std::string ArchipelagoClient::get_item_text(const messages::NetworkItem& net_item, const std::string& game) {
         std::string item_name = m_data_package.get_item_name(net_item.item, game).value_or(UNKNOWN_ITEM_TEXT);
         // TODO sanitize name to remove markup from it
-        std::string color_markup = "";
+        std::string color_markup;
 
         if (game == "Ori and the Will of the Wisps") {
             std::variant<ids::Location, ids::BooleanItem, ids::ResourceItem, ids::UpgradeItem> item = ids::get_item(net_item.item);

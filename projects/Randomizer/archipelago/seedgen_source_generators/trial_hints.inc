@@ -6,7 +6,7 @@ namespace randomizer::archipelago::seedgen_source_generators {
     const ArchipelagoSeedGeneratorOptionSourceGenerator trial_hints = {
         []() -> std::string { return "trial_hints"; },
         [](const ArchipelagoSeedGeneratorOptions& options) -> std::unordered_set<std::string> {
-            if (!options.hints) {
+            if (!options.trial_hints) {
                 return {};
             }
 
@@ -22,7 +22,7 @@ namespace randomizer::archipelago::seedgen_source_generators {
             };
         },
         [](const ArchipelagoSeedGeneratorOptions& options) -> std::optional<std::string> {
-            if (!options.hints) {
+            if (!options.trial_hints) {
                 return std::nullopt;
             }
 
