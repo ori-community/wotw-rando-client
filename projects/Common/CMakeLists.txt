@@ -1,5 +1,4 @@
 project("Common")
-string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 message(STATUS "")
 message(STATUS "Project ${PROJECT_NAME}:")
@@ -63,11 +62,6 @@ target_include_directories(
 
 find_package(nlohmann_json)
 target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
-
-message(STATUS "Assigning source groups.")
-
-set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};")
-set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
 
 install(
         TARGETS ${PROJECT_NAME}

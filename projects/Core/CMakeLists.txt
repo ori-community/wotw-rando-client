@@ -1,5 +1,4 @@
 project("Core")
-string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 message(STATUS "")
 message(STATUS "Project ${PROJECT_NAME}:")
@@ -203,8 +202,14 @@ target_link_libraries(
         ${PROJECT_NAME}
         Common
         Modloader
-        Profiler
 )
+
+if (ENABLE_PROFILER)
+    target_link_libraries(
+            ${PROJECT_NAME}
+            Profiler
+    )
+endif()
 
 find_package(nlohmann_json)
 target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
@@ -217,13 +222,6 @@ target_link_libraries(${PROJECT_NAME} cppzmq cppzmq-static)
 
 find_package(libremidi CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} libremidi)
-
-message(STATUS "Assigning source groups.")
-
-set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES}")
-set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
-
-message(STATUS "TESTING ${PROJECT_BINARY_DIR}")
 
 install(
         TARGETS ${PROJECT_NAME}

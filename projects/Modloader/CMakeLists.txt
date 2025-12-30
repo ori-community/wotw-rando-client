@@ -1,5 +1,4 @@
 project("Modloader")
-string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 message(STATUS "")
 message(STATUS "Project ${PROJECT_NAME}:")

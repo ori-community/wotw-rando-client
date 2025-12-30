@@ -1,5 +1,4 @@
 project("Injector")
-string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 message(STATUS "")
 message(STATUS "Project ${PROJECT_NAME}:")
@@ -48,11 +47,6 @@ target_include_directories(
 
 find_path(TCLAP_INCLUDE_DIRS "tclap/Arg.h")
 target_include_directories(${PROJECT_NAME} PRIVATE ${TCLAP_INCLUDE_DIRS})
-
-message(STATUS "Assigning source groups.")
-
-set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};")
-set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
 
 target_link_libraries(
         ${PROJECT_NAME}

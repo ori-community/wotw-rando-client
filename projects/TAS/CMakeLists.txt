@@ -1,5 +1,4 @@
 project("TAS")
-string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 message(STATUS "")
 message(STATUS "Project ${PROJECT_NAME}:")
@@ -90,13 +89,6 @@ target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
 
 find_package(magic_enum)
 target_link_libraries(${PROJECT_NAME} magic_enum::magic_enum)
-
-message(STATUS "Assigning source groups.")
-
-set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES}")
-set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
-
-message(STATUS "TESTING ${PROJECT_BINARY_DIR}")
 
 install(
         TARGETS ${PROJECT_NAME}
