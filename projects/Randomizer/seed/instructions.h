@@ -42,27 +42,15 @@ namespace randomizer::seed {
                 return values[index];
             }
 
-            bool get(const std::size_t index) const
-                requires(std::same_as<T, char>) {
-                check_size(index);
-                return static_cast<bool>(values[index]);
-            }
-
             void set(const std::size_t index, const T& value) {
                 check_size(index);
                 values[index] = value;
             }
 
-            void set(const std::size_t index, const bool& value)
-                requires(std::same_as<T, char>) {
-                check_size(index);
-                values[index] = static_cast<bool>(value);
-            }
-
             mutable std::vector<T> values;
         };
 
-        MemoryRegister<char> booleans;
+        MemoryRegister<bool> booleans;
         MemoryRegister<int> integers;
         MemoryRegister<float> floats;
         MemoryRegister<std::string> strings;

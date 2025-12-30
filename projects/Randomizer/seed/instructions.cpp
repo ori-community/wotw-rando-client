@@ -230,19 +230,50 @@ namespace randomizer::seed {
         });
     }
 
+    template<typename T>
+    void serialize_register(core::utils::ByteStream& stream, const SeedMemory::MemoryRegister<T>& memory_register) {
+        stream.write(memory_register.values.size());
+        for (const auto& value: memory_register.values) {
+            stream.write(value);
+        }
+    }
+
+    template<>
+    void serialize_register(core::utils::ByteStream& stream, const SeedMemory::MemoryRegister<std::string>& memory_register) {
+        stream.write(memory_register.values.size());
+        for (const auto& value: memory_register.values) {
+            stream.write<std::size_t>(value.size());
+            stream.write_string(value);
+        }
+    }
+
+    template<typename T>
+    void deserialize_register(core::utils::ByteStream& stream, SeedMemory::MemoryRegister<T>& memory_register) {
+        const auto length = stream.read<std::size_t>();
+
+        memory_register.values.resize(length);
+        for (auto i = 0; i < length; ++i) {
+            memory_register.values[i] = stream.read<T>();
+        }
+    }
+
+    template<>
+    void deserialize_register(core::utils::ByteStream& stream, SeedMemory::MemoryRegister<std::string>& memory_register) {
+        const auto length = stream.read<std::size_t>();
+
+        memory_register.values.resize(length);
+        for (auto i = 0; i < length; ++i) {
+            memory_register.values[i] = stream.read_string(stream.read<std::size_t>());
+        }
+    }
+
     std::vector<std::byte> PersistentSeedMemory::serialize() {
         core::utils::ByteStream stream;
-        stream.write(memory.booleans.values.size());
-        stream.write(reinterpret_cast<std::byte*>(memory.booleans.values.data()), memory.booleans.values.size() * sizeof(char));
-        stream.write(memory.integers.values.size());
-        stream.write(reinterpret_cast<std::byte*>(memory.integers.values.data()), memory.integers.values.size() * sizeof(int));
-        stream.write(memory.floats.values.size());
-        stream.write(reinterpret_cast<std::byte*>(memory.floats.values.data()), memory.floats.values.size() * sizeof(float));
-        stream.write(memory.strings.values.size());
-        for (const auto& str: memory.strings.values) {
-            stream.write(str.size());
-            stream.write_string(str);
-        }
+
+        serialize_register(stream, memory.booleans);
+        serialize_register(stream, memory.integers);
+        serialize_register(stream, memory.floats);
+        serialize_register(stream, memory.strings);
 
         return stream.buffer;
     }
@@ -250,24 +281,10 @@ namespace randomizer::seed {
     void PersistentSeedMemory::deserialize(core::utils::ByteStream& stream) {
         memory = SeedMemory();
 
-        auto length = stream.read<std::size_t>();
-        memory.booleans.values.resize(length);
-        stream.read(reinterpret_cast<std::byte*>(memory.booleans.values.data()), length * sizeof(char));
-
-        length = stream.read<std::size_t>();
-        memory.integers.values.resize(length);
-        stream.read(reinterpret_cast<std::byte*>(memory.integers.values.data()), length * sizeof(int));
-
-        length = stream.read<std::size_t>();
-        memory.floats.values.resize(length);
-        stream.read(reinterpret_cast<std::byte*>(memory.floats.values.data()), length * sizeof(float));
-
-        length = stream.read<std::size_t>();
-        memory.strings.values.resize(length);
-        for (auto i = 0; i < length; ++i) {
-            const auto str_length = stream.read<std::size_t>();
-            stream.read_string(str_length);
-        }
+        deserialize_register(stream, memory.booleans);
+        deserialize_register(stream, memory.integers);
+        deserialize_register(stream, memory.floats);
+        deserialize_register(stream, memory.strings);
     }
 
     SeedExecutionEnvironment::SeedExecutionEnvironment(Seed& seed) : m_seed(seed) {
