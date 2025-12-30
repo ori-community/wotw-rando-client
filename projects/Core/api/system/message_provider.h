@@ -1,15 +1,19 @@
 #pragma once
 
-#include <Modloader/app/types/TranslatedMessageProvider_MessageItem.h>
-#include <Modloader/app/types/TranslatedMessageProvider.h>
+#include <Core/macros.h>
+#include <Modloader/app/methods/TranslatedMessageProvider.h>
 #include <Modloader/app/structs/MessageProvider.h>
-#include <Modloader/app/structs/TranslatedMessageProvider.h>
+#include <Modloader/app/types/TranslatedMessageProvider.h>
+#include <Modloader/app/types/TranslatedMessageProvider_MessageItem.h>
 #include <Modloader/il2cpp_helpers.h>
+#include <Profiler/tracy.h>
 
 using namespace app::classes;
 
 namespace core::api::system {
-    template <typename T>
+    CORE_DLLEXPORT app::TranslatedMessageProvider* instantiate_empty_translated_message_provider();
+
+    template<typename T>
     void add_to_message_provider(app::TranslatedMessageProvider* provider, T message) {
         auto il2cpp_str = il2cpp::string_new(message);
         auto item = types::TranslatedMessageProvider_MessageItem::create();
@@ -41,27 +45,26 @@ namespace core::api::system {
         il2cpp::invoke(provider->fields.Messages, "Add", item);
     }
 
-    template <typename T, typename... Args>
+    template<typename T, typename... Args>
     void add_to_message_provider(app::TranslatedMessageProvider* provider, T message, Args... args) {
         add_to_message_provider(message);
         add_to_message_provider(provider, args...);
     }
 
-    template <typename... Args>
+    template<typename... Args>
     app::MessageProvider* create_message_provider(Args... args) {
-        auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>(types::TranslatedMessageProvider::get_class());
-        il2cpp::invoke(provider, ".ctor");
+        auto provider = instantiate_empty_translated_message_provider();
         add_to_message_provider(provider, args...);
         return reinterpret_cast<app::MessageProvider*>(provider);
     }
 
-    template <typename T>
+    template<typename T>
     app::MessageProvider* create_message_provider(std::vector<T> const& messages) {
-        auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>(types::TranslatedMessageProvider::get_class());
-        il2cpp::invoke(provider, ".ctor");
-        for (auto const& message : messages)
+        auto provider = instantiate_empty_translated_message_provider();
+        for (auto const& message: messages) {
             add_to_message_provider(provider, message);
+        }
 
         return reinterpret_cast<app::MessageProvider*>(provider);
     }
-} // namespace utils
+} // namespace core::api::system

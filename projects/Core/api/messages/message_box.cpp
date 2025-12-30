@@ -26,6 +26,7 @@
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 
+
 using namespace modloader;
 using namespace app::classes;
 using namespace app::classes::UnityEngine;

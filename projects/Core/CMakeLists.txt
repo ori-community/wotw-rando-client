@@ -33,6 +33,7 @@ set(
         "api/scenes/create_objects.cpp"
         "api/scenes/polygon.cpp"
         "api/scenes/scene_load.cpp"
+        "api/system/message_provider.cpp"
         "api/system/save_files.cpp"
         "api/audio.cpp"
         "api/screen_position.cpp"
