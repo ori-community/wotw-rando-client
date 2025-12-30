@@ -13,6 +13,7 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Profiler/tracy.h>
+#include <magic_enum/magic_enum.hpp>
 
 namespace core::reactivity {
     struct TrackingContext {
@@ -257,13 +258,10 @@ namespace core::reactivity {
         processed_effects.reserve(effects.size());
 
         for (const std::weak_ptr<ReactiveEffect>& effect_ptr: effects) {
-            if (!effect_ptr.expired()) {
+            if (auto effect = effect_ptr.lock()) {
                 ZoneScopedN("Effect");
+                ZoneTextF("%s:%u", effect->effect_register_location.file_name(), effect->effect_register_location.line());
 
-                auto effect = effect_ptr.lock();
-
-
-                ZoneTextF("%s : %u", effect->effect_register_location.file_name(), effect->effect_register_location.line());
                 processed_effects.push_back(effect);
 
                 modloader::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
@@ -339,6 +337,21 @@ namespace core::reactivity {
 
         if (!effects_it->second.empty()) {
             ZoneScopedN("run_effects (on change)");
+
+            #ifdef ENABLE_PROFILER
+            dependency | vx::match {
+                [&](const UberStateDependency& d) {
+                    ZoneTextF("UberState %d|%d", d.group, d.state);
+                },[&](const MemoryDependency& d) {
+                    ZoneTextF("Memory %s %d", magic_enum::enum_name(d.type).data(), d.id);
+                },[&](const TextDatabaseDependency& d) {
+                    ZoneTextF("Text %d", d.id);
+                },[&](const PropertyDependency& d) {
+                    ZoneTextF("Property %d", d.id);
+                },
+            };
+            #endif
+
             run_effects(effects_it->second | std::ranges::views::values);
         }
     }

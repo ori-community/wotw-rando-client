@@ -50,10 +50,11 @@ namespace randomizer::seed {
                             });
 
                         condition.reactive_effect = builder.after([&] {
-                            const auto condition_changed = condition.previous_value != m_memory.booleans.get(0);
+                            const auto new_value = m_memory.booleans.get(0);
+                            const auto condition_changed = condition.previous_value != new_value;
 
                             if (condition_changed) {
-                                condition.previous_value = m_memory.booleans.get(0);
+                                condition.previous_value = new_value;
                             }
 
                             // When the condition did not change, or we should not grant, don't execute.
@@ -62,7 +63,7 @@ namespace randomizer::seed {
                                 return;
                             }
 
-                            if (m_memory.booleans.get(0)) {
+                            if (new_value) {
                                 core::reactivity::run_after_effects([&] {
                                     execute_command(condition.command_id);
                                 });
@@ -134,7 +135,7 @@ namespace randomizer::seed {
             try {
                 ZoneScopedN("Instruction");
 
-#ifdef TRACY_ENABLE
+#ifdef ENABLE_PROFILER
                 const auto command_text = command->to_string(*this, m_memory);
                 ZoneText(command_text.c_str(), command_text.size());
 #endif
@@ -167,6 +168,7 @@ namespace randomizer::seed {
     }
 
     bool Seed::should_grant() const {
+        ZoneScopedN("should_grant");
         return (m_force_grant_outside_game || core::api::game::in_game()) && !m_is_reading_seed &&
             std::ranges::all_of(m_prevent_grant_callbacks, [](const auto& callback) { return !callback(); });
     }
