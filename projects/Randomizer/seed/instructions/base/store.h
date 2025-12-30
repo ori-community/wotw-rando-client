@@ -5,15 +5,15 @@ TEMPLATE_INSTRUCTION(Store, typename T)
     Store(const int group, const int member, const bool trigger_events) :
                 group(group),
                 member(member),
-                trigger_events(trigger_events) {}
+                trigger_events(trigger_events),
+                state(group, member) {}
 
-    int group;
-    int member;
-    bool trigger_events;
+    const int group;
+    const int member;
+    const bool trigger_events;
+    const core::api::uber_states::UberState state;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        core::api::uber_states::UberState state(group, member);
-
         const auto grant_fn = [&] {
             state.set(memory.get<T>(0));
         };
