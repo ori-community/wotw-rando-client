@@ -13,12 +13,6 @@ namespace randomizer::archipelago::seedgen_source_generators {
 
             // The location names are hardcoded, but this needs to be rewritten in v5 anyway
             std::unordered_set<std::string> filled_locations_names = {};  // Names of locations containing an AP item
-            constexpr int FLAG_QUESTS = 0b000000;
-            constexpr int FLAG_HAND_TO_HAND = 0b000010;
-            constexpr int FLAG_REBUILD = 0b000100;
-            constexpr int FLAG_TRIALS = 0b001000;
-            constexpr int FLAG_QOL = 0b010000;
-            constexpr int FLAG_MAPS = 0b100000;
 
             if (options.location_flags & FLAG_QUESTS) {
                 std::vector<std::string> quest_locs = {

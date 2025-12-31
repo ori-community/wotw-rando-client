@@ -6,6 +6,15 @@
 #include <Randomizer/archipelago/archipelago_ids.h>
 
 namespace randomizer::archipelago {
+
+    // Flags used with location_flags, to see which sets of locations are active
+    constexpr int FLAG_QUESTS = 0b000001;
+    constexpr int FLAG_HAND_TO_HAND = 0b000010;
+    constexpr int FLAG_REBUILD = 0b000100;
+    constexpr int FLAG_TRIALS = 0b001000;
+    constexpr int FLAG_QOL = 0b010000;
+    constexpr int FLAG_MAPS = 0b100000;
+
     struct ArchipelagoSeedGeneratorOptions {
         std::string difficulty;
         bool glitches;
