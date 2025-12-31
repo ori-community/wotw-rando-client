@@ -556,6 +556,11 @@ namespace il2cpp {
         }
     }
 
+    template<typename R, typename V>
+    R* box_ref(V& value) {
+        return reinterpret_cast<R*>(reinterpret_cast<std::size_t>(&value) - offsetof(R, fields));
+    }
+
     template<typename ListType = app::List_1_System_Int32_>
     struct ListIterator {
         struct ListIteratorState {
