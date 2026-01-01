@@ -32,11 +32,10 @@ namespace randomizer::map::filter {
         MapFilter next;
     };
 
-    constexpr frozen::unordered_map<MapFilter, MapIconFilterMetadata, 6> MAP_ICON_FILTER_METADATA = {
+    constexpr frozen::unordered_map<MapFilter, MapIconFilterMetadata, 5> MAP_ICON_FILTER_METADATA = {
         {MapFilter::InLogic,      {"In Logic", MapFilter::Collectibles}},
         {MapFilter::Collectibles, {"Collectibles", MapFilter::Quests}  },
-        {MapFilter::Quests,       {"Quests", MapFilter::Warps}         },
-        {MapFilter::Warps,        {"Warps", MapFilter::Players}        },
+        {MapFilter::Quests,       {"Quests", MapFilter::Players}       },
         {MapFilter::Players,      {"Players", MapFilter::Spoiler}      },
         {MapFilter::Spoiler,      {"Spoilers", MapFilter::InLogic}     },
     };
@@ -46,11 +45,9 @@ namespace randomizer::map::filter {
             case MapFilter::InLogic:
                 return true;  // TODO: Disable in-logic filter?
             case MapFilter::Collectibles:
-                return !core::settings::hide_collectible_filter();
+                return true;
             case MapFilter::Quests:
-                return !core::settings::hide_quest_filter();
-            case MapFilter::Warps:
-                return !core::settings::hide_warp_filter();
+                return true;
             case MapFilter::Players:
                 return multiplayer_universe().player_count() > 1;
             case MapFilter::Spoiler:

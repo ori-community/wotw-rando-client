@@ -7,7 +7,6 @@ namespace randomizer::map::filter {
         InLogic,
         Collectibles,
         Quests,
-        Warps,
         Players,
         Spoiler,
     };

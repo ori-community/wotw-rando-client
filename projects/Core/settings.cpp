@@ -51,18 +51,6 @@ namespace core::settings {
         return get_settings().get_boolean("FunnyMoney", false);
     }
 
-    bool hide_quest_filter() {
-        return get_settings().get_boolean("HideQuestFilter", false);
-    }
-
-    bool hide_warp_filter() {
-        return get_settings().get_boolean("HideWarpFilter", false);
-    }
-
-    bool hide_collectible_filter() {
-        return get_settings().get_boolean("HideCollectableFilter", false);
-    }
-
     bool burrow_mouse_control() {
         return get_settings().get_boolean("BurrowMouseControl", false);
     }
@@ -89,14 +77,6 @@ namespace core::settings {
 
     bool show_all_secrets() {
         return get_settings().get_boolean("ShowAllSecrets", true);
-    }
-
-    bool always_show_warps() {
-        return get_settings().get_boolean("AlwaysShowWarps", true);
-    }
-
-    bool always_show_keystone_doors() {
-        return get_settings().get_boolean("AlwaysShowKeystoneDoors", true);
     }
 
     bool always_show_keystones() {
@@ -163,18 +143,6 @@ namespace core::settings {
         get_settings().overrides()["ServerHost"] = value;
     }
 
-    void hide_quest_filter(bool value) {
-        get_settings().overrides()["HideQuestFilter"] = value;
-    }
-
-    void hide_warp_filter(bool value) {
-        get_settings().overrides()["HideWarpFilter"] = value;
-    }
-
-    void hide_collectible_filter(bool value) {
-        get_settings().overrides()["HideCollectableFilter"] = value;
-    }
-
     void burrow_mouse_control(bool value) {
         get_settings().overrides()["BurrowMouseControl"] = value;
     }
@@ -201,14 +169,6 @@ namespace core::settings {
 
     void show_all_secrets(bool value) {
         get_settings().overrides()["ShowAllSecrets"] = value;
-    }
-
-    void always_show_warps(bool value) {
-        get_settings().overrides()["AlwaysShowWarps"] = value;
-    }
-
-    void always_show_keystone_doors(bool value) {
-        get_settings().overrides()["AlwaysShowKeystoneDoors"] = value;
     }
 
     void always_show_keystones(bool value) {

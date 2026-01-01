@@ -17,9 +17,6 @@ namespace core::settings {
     CORE_DLLEXPORT bool server_tls();
     CORE_DLLEXPORT std::string server_host();
     CORE_DLLEXPORT bool funny_money();
-    CORE_DLLEXPORT bool hide_quest_filter();
-    CORE_DLLEXPORT bool hide_warp_filter();
-    CORE_DLLEXPORT bool hide_collectible_filter();
     CORE_DLLEXPORT bool burrow_mouse_control();
     CORE_DLLEXPORT bool hybrid_mouse_control();
     CORE_DLLEXPORT bool grapple_mouse_control();
@@ -27,8 +24,6 @@ namespace core::settings {
     CORE_DLLEXPORT bool invert_fast_swim();
     CORE_DLLEXPORT bool disable_auto_aim();
     CORE_DLLEXPORT bool show_all_secrets();
-    CORE_DLLEXPORT bool always_show_warps();
-    CORE_DLLEXPORT bool always_show_keystone_doors();
     CORE_DLLEXPORT bool always_show_keystones();
     CORE_DLLEXPORT bool enable_world_map();
     CORE_DLLEXPORT bool enable_native_controller_support();
@@ -47,9 +42,6 @@ namespace core::settings {
     CORE_DLLEXPORT void lock_cursor(bool value);
     CORE_DLLEXPORT void server_tls(bool value);
     CORE_DLLEXPORT void server_host(std::string value);
-    CORE_DLLEXPORT void hide_quest_filter(bool value);
-    CORE_DLLEXPORT void hide_warp_filter(bool value);
-    CORE_DLLEXPORT void hide_collectible_filter(bool value);
     CORE_DLLEXPORT void burrow_mouse_control(bool value);
     CORE_DLLEXPORT void hybrid_mouse_control(bool value);
     CORE_DLLEXPORT void grapple_mouse_control(bool value);
@@ -57,8 +49,6 @@ namespace core::settings {
     CORE_DLLEXPORT void invert_fast_swim(bool value);
     CORE_DLLEXPORT void disable_auto_aim(bool value);
     CORE_DLLEXPORT void show_all_secrets(bool value);
-    CORE_DLLEXPORT void always_show_warps(bool value);
-    CORE_DLLEXPORT void always_show_keystone_doors(bool value);
     CORE_DLLEXPORT void always_show_keystones(bool value);
     CORE_DLLEXPORT void enable_world_map(bool value);
     CORE_DLLEXPORT void show_transparent_out_of_logic_icons(bool value);
