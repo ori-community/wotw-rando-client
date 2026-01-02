@@ -95,6 +95,7 @@ set(
         "game/behaviour_changes/keep_shriek_health_bar_visible.cpp"
         "game/behaviour_changes/kwolok_boss_rubberbanding_fix.cpp"
         "game/behaviour_changes/luma_contact_switch_door_jank_fix.cpp"
+        "game/behaviour_changes/fix_cat_and_mouse_softlock.cpp"
         "game/behaviour_changes/patch2_kickback.cpp"
         "game/behaviour_changes/prevent_pickup.cpp"
         "game/behaviour_changes/stomp_into_water.cpp"

@@ -380,6 +380,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "disableWillowHeartCutscenes", 20, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "allowTeleportingAtRuinsMapstone", 21, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "keepShriekHealthBarDuringEscape", 22, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "catAndMouseSoftlockFixEnabled", 23, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useSpawnTuleyRandoState", 30, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useSpawnOpherEverywhereRandoState", 31, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useSpawnTwillenEverywhereRandoState", 32, false),
