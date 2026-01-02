@@ -12,7 +12,7 @@ using namespace app::classes;
 
 namespace {
     core::api::uber_states::UberState feeding_grounds_state(58674, 61616);
-    core::api::uber_states::UberState cat_and_mouse_softlock_fix_enabled_state(UberStateGroup::RandoConfig, 23);
+    core::api::uber_states::UberState fix_cat_and_mouse_softlock_state(UberStateGroup::RandoConfig, 23);
 
     std::optional<il2cpp::WeakGCRef<app::GameObject>> weeping_ridge_stone_go_ref;
     std::optional<il2cpp::WeakGCRef<app::GameObject>> woods_stone_go_ref;
@@ -127,7 +127,7 @@ namespace {
 
         effect = core::reactivity::watch_effect()
             .effect([] {
-                if (!cat_and_mouse_softlock_fix_enabled_state.get<bool>()) {
+                if (!fix_cat_and_mouse_softlock_state.get<bool>()) {
                     set_rocks_visible(false);
                     return;
                 }
