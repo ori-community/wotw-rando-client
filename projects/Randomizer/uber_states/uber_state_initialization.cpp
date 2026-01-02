@@ -202,13 +202,21 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "openCaveBuilt", 16586, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "beautifyBuilt", 15068, false),
 
-                add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "spiritWellCost", 16826, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "housesACost", 51231, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "housesBCost", 23608, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "housesCCost", 40449, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "removeThornsCost", 18752, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "openCaveCost", 16587, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "beautifyCost", 15069, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "repairTheSpiritWell", 16825, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "dwellingRepairs", 51230, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "roofsOverHeads", 23607, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "onwardsAndUpwards", 40448, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "thornySituation", 18751, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "clearTheCaveEntrance", 16586, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "theGorlekTouch", 15068, 0),
+
+                add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "repairTheSpiritWellCost", 16826, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "dwellingRepairsCost", 51231, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "roofsOverHeadsCost", 23608, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "onwardsAndUpwardsCost", 40449, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "thornySituationCost", 18752, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "clearTheCaveEntranceCost", 16587, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "theGorlekTouchCost", 15069, 0),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "lightcatchersPlanted", 47651, 0),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "selaFlowersPlanted", 16254, 0),
@@ -216,6 +224,13 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "stickyGrassPlanted", 64583, 0),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "springPlantsPlanted", 38393, 0),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::GladesProjects, "lastTreePlanted", 40006, 0),
+
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "lightcatchers", 47651, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "selaFlowers", 16254, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "blueMoon", 33011, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "stickyGrass", 64583, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "springPlants", 38393, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "lastTree", 40006, 0),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "lightcatchersCost", 47652, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::TuleyShop, "selaFlowersCost", 16255, 0),
@@ -638,39 +653,6 @@ namespace randomizer {
                     }
                 )
             );
-
-            std::array shop_data{
-                // Grom
-                std::make_tuple(UberStateGroup::GromShop, 16825, "spiritWellBought"),
-                std::make_tuple(UberStateGroup::GromShop, 51230, "housesABought"),
-                std::make_tuple(UberStateGroup::GromShop, 23607, "housesBBought"),
-                std::make_tuple(UberStateGroup::GromShop, 40448, "housesCBought"),
-                std::make_tuple(UberStateGroup::GromShop, 18751, "removeThornsBought"),
-                std::make_tuple(UberStateGroup::GromShop, 16586, "openCaveBought"),
-                std::make_tuple(UberStateGroup::GromShop, 15068, "beautifyBought"),
-                // Tuley
-                std::make_tuple(UberStateGroup::TuleyShop, 47651, "lightcatchers"),
-                std::make_tuple(UberStateGroup::TuleyShop, 16254, "selaFlowers"),
-                std::make_tuple(UberStateGroup::TuleyShop, 33011, "blueMoon"),
-                std::make_tuple(UberStateGroup::TuleyShop, 64583, "stickyGrass"),
-                std::make_tuple(UberStateGroup::TuleyShop, 38393, "springPlants"),
-                std::make_tuple(UberStateGroup::TuleyShop, 40006, "lastTree"),
-            };
-
-            for (auto const& [slot_group, state, name]: shop_data) {
-                register_virtual_state(
-                    {
-                        .type = ValueType::Boolean,
-                        .group = slot_group,
-                        .state = state,
-                        .name = name,
-                    },
-                    core::Property<double>(
-                        [state](const double x) { UberState(42178, state).set(x > 0.5 ? 3 : 1); },
-                        [state]() -> double { return UberState(42178, state).get<int>() >= 3 ? 1 : 0; }
-                    )
-                );
-            }
 
             constexpr std::array skills = {
                 std::make_tuple(app::AbilityType__Enum::Bash, "bash"),

@@ -1,4 +1,5 @@
 #include <Randomizer/game/shops/shop.h>
+#include <Randomizer/game/shops/grom.h>
 
 #include <Core/api/game/player.h>
 #include <Core/api/game/ui.h>
@@ -23,13 +24,27 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 
-namespace {
+namespace randomizer::game::shops::grom {
     using namespace modloader;
     using namespace app::classes;
     using namespace randomizer::game::shops;
 
     app::MoonTimeline* offer_accepted_timeline = nullptr;
     app::MoonTimeline* purchase_failed_timeline = nullptr;
+
+    core::api::uber_states::UberState get_slot_uber_state_from_vanilla_uber_state(const app::SerializedByteUberState* vanilla_uber_state) {
+        return core::api::uber_states::UberState(UberStateGroup::GromShop, vanilla_uber_state->fields._.m_id->fields.m_id);
+    }
+
+    ShopCollection::grom_shop_t::slot_t& get_slot(const app::SerializedByteUberState* vanilla_state) {
+        const auto slot = shops().grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(vanilla_state));
+
+        if (!slot.has_value()) {
+            throw std::exception("Missing Grom shop slot");
+        }
+
+        return slot.value().get();
+    }
 
     auto scene = core::api::scenes::single_event_bus().register_handler("wellspringGladesHubSetups", [](auto metadata, auto) {
         if (metadata->state != app::SceneState__Enum::Loaded) {
@@ -100,7 +115,7 @@ namespace {
 
     IL2CPP_INTERCEPT(int, BuilderItem, GetCostForLevel, app::BuilderItem* this_ptr, int level) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
-            auto& slot = shops().grom_shop().slot(this_ptr->fields.Project->fields.UberState).value().get();
+            auto& slot = shops().grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).value().get();
             return slot.cost.get();
         } else {
             return next::BuilderItem::GetCostForLevel(this_ptr, level);
@@ -109,7 +124,7 @@ namespace {
 
     IL2CPP_INTERCEPT_WITH_ORDER(0, bool, BuilderItem, get_IsVisible, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
-            auto& slot = shops().grom_shop().slot(this_ptr->fields.Project->fields.UberState).value().get();
+            auto& slot = shops().grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).value().get();
             return slot.visibility() == SlotVisibility::Visible;
         }
 
@@ -118,7 +133,7 @@ namespace {
 
     IL2CPP_INTERCEPT(bool, BuilderItem, get_IsLocked, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
-            auto& slot = shops().grom_shop().slot(this_ptr->fields.Project->fields.UberState).value().get();
+            auto& slot = shops().grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).value().get();
             return slot.visibility() == SlotVisibility::Locked;
         } else {
             return next::BuilderItem::get_IsLocked(this_ptr);
@@ -135,8 +150,8 @@ namespace {
 
     IL2CPP_INTERCEPT(bool, BuilderItem, get_IsOwned, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
-            const auto state = core::api::uber_states::UberState(this_ptr->fields.Project->fields.UberState);
-            return state.get<int>() >= 3;
+            const auto state = get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState);
+            return state.get<bool>();
         }
 
         return next::BuilderItem::get_IsOwned(this_ptr);
@@ -174,7 +189,7 @@ namespace {
         const auto cost = BuilderItem::GetCostForLevel(this_ptr, 1);
         const auto seed_ui = core::api::game::ui::get()->static_fields->SeinUI->fields.SeedsUI;
         SpellUISeeds::Spend(il2cpp::unity::get_component_in_children<app::SpellUISeeds>(seed_ui, types::SpellUISeeds::get_class()), cost);
-        core::api::uber_states::UberState(this_ptr->fields.Project->fields.UberState).set(2);
+        get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState).set(true);
     }
 
     IL2CPP_INTERCEPT(

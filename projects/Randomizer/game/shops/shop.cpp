@@ -84,21 +84,21 @@ namespace randomizer::game::shops {
             core::api::uber_states::UberState(48248, 4045), // Willow
         }),
         m_grom_shop({
-            core::api::uber_states::UberState(42178, 15068), // Beautify
-            core::api::uber_states::UberState(42178, 51230), // Houses
-            core::api::uber_states::UberState(42178, 23607), // Houses B
-            core::api::uber_states::UberState(42178, 40448), // Houses C
-            core::api::uber_states::UberState(42178, 16586), // Open Cave
-            core::api::uber_states::UberState(42178, 18751), // Remove Thorns
-            core::api::uber_states::UberState(42178, 16825), // Spirit Well
+            core::api::uber_states::UberState(UberStateGroup::GromShop, 15068), // Beautify
+            core::api::uber_states::UberState(UberStateGroup::GromShop, 51230), // Houses
+            core::api::uber_states::UberState(UberStateGroup::GromShop, 23607), // Houses B
+            core::api::uber_states::UberState(UberStateGroup::GromShop, 40448), // Houses C
+            core::api::uber_states::UberState(UberStateGroup::GromShop, 16586), // Open Cave
+            core::api::uber_states::UberState(UberStateGroup::GromShop, 18751), // Remove Thorns
+            core::api::uber_states::UberState(UberStateGroup::GromShop, 16825), // Spirit Well
         }),
         m_tuley_shop({
-            core::api::uber_states::UberState(42178, 47651), // Bash Plants
-            core::api::uber_states::UberState(42178, 16254), // Flowers
-            core::api::uber_states::UberState(42178, 33011), // Grapple Plants
-            core::api::uber_states::UberState(42178, 64583), // Grass
-            core::api::uber_states::UberState(42178, 38393), // Spring Plants
-            core::api::uber_states::UberState(42178, 40006), // Tree
+            core::api::uber_states::UberState(UberStateGroup::TuleyShop, 47651), // Bash Plants
+            core::api::uber_states::UberState(UberStateGroup::TuleyShop, 16254), // Flowers
+            core::api::uber_states::UberState(UberStateGroup::TuleyShop, 33011), // Grapple Plants
+            core::api::uber_states::UberState(UberStateGroup::TuleyShop, 64583), // Grass
+            core::api::uber_states::UberState(UberStateGroup::TuleyShop, 38393), // Spring Plants
+            core::api::uber_states::UberState(UberStateGroup::TuleyShop, 40006), // Tree
         }) {
         register_slots(m_opher_shop);
         register_slots(m_twillen_shop);

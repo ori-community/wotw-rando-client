@@ -243,6 +243,7 @@ set(
         "features/credits.h"
         "features/cutscene_skips/custom_cutscene_skips.h"
         "game/pickups/quests.h"
+        "game/shops/grom.h"
         "game/shops/lupo_maps.h"
         "game/shops/opher.h"
         "game/shops/shop.h"

@@ -33,6 +33,7 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
+#include "grom.h"
 #include "opher.h"
 
 namespace {
@@ -111,7 +112,7 @@ namespace {
 
         // Grom
         auto grom_item = reinterpret_cast<app::BuilderItem*>(item);
-        return shops().grom_shop().slot(grom_item->fields.Project->fields.UberState).value().get().icon();
+        return grom::get_slot(grom_item->fields.Project->fields.UberState).icon();
     }
 
     IL2CPP_INTERCEPT(void, ShopkeeperUIDetails, UpdateDetails2, app::ShopkeeperUIDetails * this_ptr) {
@@ -138,8 +139,8 @@ namespace {
         } else {
             // Grom
             const auto grom_item = reinterpret_cast<app::BuilderItem*>(item);
-            const auto& slot = shops().grom_shop().slot(grom_item->fields.Project->fields.UberState);
-            apply_providers(slot.value().get());
+            const auto& slot = grom::get_slot(grom_item->fields.Project->fields.UberState);
+            apply_providers(slot);
         }
     }
 
