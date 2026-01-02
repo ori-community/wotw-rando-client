@@ -267,7 +267,7 @@ namespace core::api::uber_states {
             set_virtual_value(m_group, m_state, value);
         } else {
             const auto uber_state = ptr();
-            if (settings::developer_mode() && enable_logging) {
+            if (ENABLE_LOGGING && settings::developer_mode()) {
                 if (prev != value) {
                     const auto text = std::format("uber state ({}|{}) set from {} to {}", static_cast<int>(m_group), m_state, prev, value);
                     debug("uber_state", text);
