@@ -10,7 +10,9 @@ namespace core::settings {
         static std::unique_ptr<common::settings::Settings> settings;
 
         if (settings == nullptr) {
+            event_bus().trigger_event(SettingsEvent::Load, EventTiming::Before);
             settings = std::make_unique<common::settings::Settings>(modloader::fs::get_randomizer_user_data_path("settings.json"));
+            event_bus().trigger_event(SettingsEvent::Load, EventTiming::After);
         }
 
         return *settings;
