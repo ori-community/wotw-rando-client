@@ -26,7 +26,7 @@ using namespace app::classes;
 using namespace modloader;
 
 namespace text_style {
-    IL2CPP_INTERCEPT(void, CatlikeCoding::TextBox::TextBox, GenerateMetaData, app::TextBox * this_ptr) {
+    IL2CPP_INTERCEPT(void, CatlikeCoding::TextBox::TextBox, GenerateMetaData, app::TextBox* this_ptr) {
         // This is a reimplementation of CatlikeCoding::TextBox::TextBox::GenerateMetaData.
         // By default, when changing styles, the vanilla game will still apply the previous or upcoming
         // style, even though no visible characters have been rendered yet or will be rendered after the
@@ -144,7 +144,7 @@ namespace text_style {
                 switch (id) {
                     case ' ': {
                         switch_to_queued_line_descent();
-                        cursor.x +=  this_ptr->fields.currentStyle.size * this_ptr->fields.currentStyle.font->fields.spaceAdvance;
+                        cursor.x += this_ptr->fields.currentStyle.size * this_ptr->fields.currentStyle.font->fields.spaceAdvance;
                     } break;
                     case '\n': {
                         current_line.lastCharIndex = input_character_index;
@@ -234,7 +234,11 @@ namespace text_style {
                         current_line.horizontalEnd = this_ptr->fields.width + CatlikeCoding::TextBox::TextBox::GetRightContour(this_ptr, current_line.baseline);
 
                         app::Vector2 vector2{
-                            current_line.horizontalStart - this_ptr->fields.charMetaData->vector[j].positionInBox.x,
+                            // You might wonder: Why would you subtract *scale* out of all things here?
+                            // And you would be correct to ask! The original code did use positionInBox.x here, but
+                            // it seems like the fields in the CharMetaData struct got rearranged by the compiler
+                            // so it doesn't match with the stored layout anymore. Yes, this was a headache.
+                            current_line.horizontalStart - this_ptr->fields.charMetaData->vector[j].scale,
                             current_line.baseline - cursor.y,
                         };
 
@@ -258,7 +262,7 @@ namespace text_style {
 
         this_ptr->fields.boundsBottom = cursor.y + line_descent_of_current_line.baselineToBottom - this_ptr->fields.paddingBottom;
 
-        if (!this_ptr->fields.overflowBox) {
+        if (!this_ptr->fields.overflowed) {
             current_line.lastCharIndex = this_ptr->fields.lastCharIndex;
             il2cpp::invoke(this_ptr->fields.lines, "Add", &current_line);
 
