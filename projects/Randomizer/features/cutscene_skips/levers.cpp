@@ -1,29 +1,21 @@
 #include <Core/events/task.h>
-#include <Modloader/app/methods/AK/Wwise/Event.h>
 #include <Modloader/app/methods/Lever.h>
-#include <Modloader/app/methods/PhysicalSystemManager.h>
 #include <Modloader/app/methods/Moon/Timeline/FaderAnimatorEntity.h>
-#include <Modloader/app/methods/Moon/Timeline/GameplayToCinematicEntity.h>
-#include <Modloader/app/methods/Moon/Timeline/LockInputEntity.h>
 #include <Modloader/app/methods/Moon/Timeline/MoonTimeline.h>
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
-#include <Modloader/app/methods/Moon/Timeline/WWiseSoundAnimatorEntity.h>
+#include <Modloader/app/methods/PhysicalSystemManager.h>
 #include <Modloader/app/types/FaderAnimatorEntity.h>
-#include <Modloader/app/types/GameplayToCinematicEntity.h>
-#include <Modloader/app/types/LockInputEntity.h>
-#include <Modloader/app/types/MoveCameraToPlayerAnimator.h>
 #include <Modloader/app/types/PhysicalSystemManager.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 #include <frozen/unordered_map.h>
-#include <frozen/unordered_set.h>
+#include <google/protobuf/message.h>
 
-#include "Core/api/audio.h"
-#include "Core/api/faderb.h"
-#include "Core/api/game/game.h"
-#include "Core/api/game/player.h"
-#include "custom_cutscene_skips.h"
+#include <Core/api/audio.h>
+#include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
+#include <Randomizer/features/cutscene_skips/custom_cutscene_skips.h>
 
 
 namespace {
@@ -36,21 +28,40 @@ namespace {
 
     struct LeverConfig {
         bool unskippable = false;
+        bool disable_fade_on_automatic_cutscene_skip = false;
         std::optional<app::Vector2> spawn_position = std::nullopt;
         std::optional<SoundEventID> sound_event = std::nullopt;
         std::optional<float> sound_event_delay = std::nullopt;
         bool reset_physical_system_managers_in_scene = false;
     };
 
-    constexpr frozen::unordered_map<frozen::string, LeverConfig, 5> LEVER_CONFIGS = {
+    constexpr frozen::unordered_map<frozen::string, LeverConfig, 18> LEVER_CONFIGS = {
         {"waterMillBRotatingRoom/artTimelines/rotatingRoomBase/newLeverSetupA/lever", LeverConfig{.spawn_position = app::Vector2{-1172.3, -3817.325}, .sound_event = SoundEventID::roomStop, .sound_event_delay = 5.f}},
         {"waterMillBRotatingRoom/artTimelines/rotatingRoomBase/newLeverSetupB/lever", LeverConfig{.spawn_position = app::Vector2{-1177.328, -3810.59}, .sound_event = SoundEventID::roomStop, .sound_event_delay = 5.f}},
         {"waterMillBRotatingRoom/artTimelines/rotatingRoomBase/newLeverSetupC/lever", LeverConfig{.spawn_position = app::Vector2{-1169.494, -3784.787}, .sound_event = SoundEventID::roomStop, .sound_event_delay = 5.f}},
         {"nightcrawlerCavernDoubleJumpEscalation/*leverGatePuzzleSetup (1)/platformBranchSetup/levers/lever", LeverConfig{.reset_physical_system_managers_in_scene = true}},
         {"weepingRidgeElevatorFight/elevatorSetup/elevator/elevatorRotPivot/lever", LeverConfig{.unskippable = true}},
+        {"waterMillPool__clone0/interactives/*leverGateLowerWater (1)/platformBranchSetup/levers/*waterSetupLeverA/lever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
+        {"wellspringEntranceSecretRoom/interactives/doors/lever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
+        {"lumaPoolsBubbleJumping/interactives/leverPuzzleSetup/lever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
+        {"lumaPoolsA/interactives/leverSetup/lever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
+        {"baursReachA/interactives/leverSetup/lever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
+        {"swampTorchIntroductionA/interactives/swampDoor/lever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
+        {"howlsOriginC/interactives/risingPortalsSetup/lever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
+        {"kwoloksCavernB/interactives/*waterSetupLeverA/kwolokCavernsLever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
+        {"kwoloksCavernTimedTongueEscalation/artSetups/doors/lever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
+        {"bashIntroductionA__clone0/interactives/lever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
+        {"e3DesertF/artSetups/*leverSetup/lever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
+        {"windtornRuinsA/interactives/doors/lever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
+        {"kwoloksHollowEntrance/interactives/waterLeverSetup/kwolokCavernsLever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
     };
 
     void on_lever_push(void(*next_fn)(app::Lever*), app::Lever* lever) {
+        if (lever->fields.LeverKind == app::LeverMode__Enum::LeftMiddleRightSpring) {
+            next_fn(lever);
+            return;
+        }
+
         active_lever_timeline = std::nullopt;
 
         const auto path = il2cpp::unity::get_path(lever);
@@ -109,6 +120,20 @@ namespace {
             Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(**active_lever_timeline));
     }
 
+    std::optional<custom_cutscene_skips::CustomCutsceneSkip::Metadata> skip_get_metadata() {
+        if (active_lever.has_value() && active_lever->is_valid()) {
+            const auto path = il2cpp::unity::get_path(**active_lever);
+            const auto config_it = LEVER_CONFIGS.find(frozen::string(path));
+            if (config_it != LEVER_CONFIGS.end()) {
+                return std::make_optional<custom_cutscene_skips::CustomCutsceneSkip::Metadata>({
+                    .fade_on_automatic_skip = !config_it->second.disable_fade_on_automatic_cutscene_skip,
+                });
+            }
+        }
+
+        return std::nullopt;
+    }
+
     void skip_invoke() {
         modloader::ScopedSetter _(is_stopping_timeline, true);
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(**active_lever_timeline));
@@ -155,6 +180,7 @@ namespace {
         custom_cutscene_skips::register_cutscene_skip(custom_cutscene_skips::CustomCutsceneSkip{
             .is_available = &skip_available,
             .invoke = &skip_invoke,
+            .get_metadata = &skip_get_metadata
         });
     });
 }
