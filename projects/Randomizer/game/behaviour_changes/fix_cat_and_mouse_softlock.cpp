@@ -125,34 +125,21 @@ namespace {
             below_teleporter_stone_go_ref = il2cpp::WeakGCRef(below_teleporter_stone_go);
         }
 
-        effect = core::reactivity::watch_effect([] {
-            if (!cat_and_mouse_softlock_fix_enabled_state.get<bool>()) {
-                set_rocks_visible(false);
-                return;
-            }
+        effect = core::reactivity::watch_effect()
+            .effect([] {
+                if (!cat_and_mouse_softlock_fix_enabled_state.get<bool>()) {
+                    set_rocks_visible(false);
+                    return;
+                }
 
-            const auto current_feeding_grounds_state = feeding_grounds_state.get<int>();
-            set_crackling_sticks_trigger_active(current_feeding_grounds_state < 3);
-            set_rocks_visible(current_feeding_grounds_state == 3);
-        });
+                const auto current_feeding_grounds_state = feeding_grounds_state.get<int>();
+                set_crackling_sticks_trigger_active(current_feeding_grounds_state < 3);
+                set_rocks_visible(current_feeding_grounds_state == 3);
+            })
+            .trigger_on_load()
+            .finalize();
     }
 
     [[maybe_unused]]
     auto on_scene_load_handle = core::api::scenes::single_event_bus().register_handler("petrifiedOwlFeedingGroundsRevised", &on_scene_load);
-
-    [[maybe_unused]]
-    auto on_feeding_grounds_state_changed = core::api::uber_states::single_notification_bus().register_handler(
-        feeding_grounds_state,
-        [](auto params, auto) {
-            const auto current_feeding_grounds_state = static_cast<int>(params.value);
-            set_rocks_visible(current_feeding_grounds_state == 3);
-            set_crackling_sticks_trigger_active(current_feeding_grounds_state < 3);
-        }
-    );
-
-    auto on_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
-        const auto current_feeding_grounds_state = feeding_grounds_state.get<int>();
-        set_rocks_visible(current_feeding_grounds_state == 3);
-        set_crackling_sticks_trigger_active(current_feeding_grounds_state < 3);
-    });
 } // namespace
