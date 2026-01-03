@@ -364,6 +364,7 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "exploderKills", 45, 0),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "shriekBarrier", 0, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "eastWoodsTrunkSlowWalkZoneEnabledState", 36, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "enableSpoilerFilter", 100, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "spawnTuley", 300, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "spawnOpherEverywhere", 301, false),
@@ -402,6 +403,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useCanOpenMokiFatherHutRandoState", 33, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useRainLiftedInMarshRandoState", 34, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useRegenTreeDrainedRandoState", 35, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useEastWoodsTrunkSlowWalkZoneEnabledState", 36, false),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeShriekEscapeSand", 100, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeFeedingGroundsToElevatorSand", 101, false),

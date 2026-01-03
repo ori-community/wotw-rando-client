@@ -188,17 +188,17 @@ namespace randomizer::conditions {
         });
     } // namespace
 
-    void register_new_setup_intercept(applier_key key, applier_intercept_fn callback) {
-        if (applier_intercepts.find(key) != applier_intercepts.end()) {
+    void register_new_setup_intercept(const applier_key& key, const applier_intercept_fn& callback) {
+        if (applier_intercepts.contains(key)) {
             info("init", "registering same applier state twice, overwriting.");
         }
 
-        applier_intercepts[key] = std::move(callback);
+        applier_intercepts[key] = callback;
         register_debug_show(key);
     }
 
-    void register_new_setup_intercept(std::vector<applier_key> const& states, applier_intercept_fn callback) {
-        for (auto state: states) {
+    void register_new_setup_intercept(std::vector<applier_key> const& states, const applier_intercept_fn& callback) {
+        for (const auto& state: states) {
             register_new_setup_intercept(state, callback);
         }
     }
