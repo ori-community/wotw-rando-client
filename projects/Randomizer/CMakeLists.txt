@@ -258,6 +258,7 @@ set(
         "input/helpers.h"
         "input/rando_bindings.h"
         "ipc/base_handlers.h"
+        "httplib.h"
         "macros.h"
         "map/fragments.h"
         "map/map_filter.h"

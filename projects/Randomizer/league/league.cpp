@@ -30,13 +30,9 @@
 #include <Core/settings.h>
 #include <Randomizer/features/credits.h>
 
-#define CPPHTTPLIB_OPENSSL_SUPPORT
 #include <Core/api/system/save_files.h>
 #include <Core/ipc/ipc.h>
-#include <Modloader/app/methods/Grdk/Wrapper.h>
-#include <Modloader/app/methods/System/IO/File.h>
-#include <httplib.h>
-#undef MessageBox
+#include <Randomizer/httplib.h>
 
 using namespace app::classes;
 

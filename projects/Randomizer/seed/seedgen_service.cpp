@@ -1,7 +1,7 @@
 #include <Randomizer/seed/seedgen_service.h>
 #include <Core/events/task.h>
 #include <Modloader/modloader.h>
-#include <httplib.h>
+#include <Randomizer/httplib.h>
 #include <magic_enum/magic_enum.hpp>
 #include <Core/api/uber_states/uber_state_condition.h>
 
@@ -94,8 +94,7 @@ namespace randomizer::seedgen_interface {
                         .body = request.body.has_value() ? request.body->dump() : "",
                     };
 
-                    modloader::debug("seedgen_http", std::format("-> {} {}", httplib_request.method, httplib_request.path));
-
+                    modloader::warn("seedgen_http", std::format("-> {} {}", httplib_request.method, httplib_request.path));
                     const auto result = client.send(httplib_request);
 
                     const auto result_error = result.error();
