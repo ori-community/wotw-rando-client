@@ -73,6 +73,8 @@ namespace randomizer::seedgen_interface {
 
     SeedgenService::HttpClient::HttpClient() {
         m_worker_thread = std::thread([&] {
+            il2cpp::attach_thread();
+
             httplib::Client client("http://127.0.0.1:51413");
 
             for (;;) {
@@ -83,7 +85,7 @@ namespace randomizer::seedgen_interface {
                 }
 
                 while (!m_request_queue.apply<bool>([&](auto& queue) { return queue.empty(); })) {
-                    const auto request = m_request_queue.apply<Request>([&](auto& queue) { return queue.front(); });
+                    const auto request = m_request_queue.apply<Request>([](auto& queue) { return queue.front(); });
 
                     const auto httplib_request = httplib::Request {
                         .method = std::string(magic_enum::enum_name(request.method)),
@@ -233,7 +235,7 @@ namespace randomizer::seedgen_interface {
     void SeedgenService::query_map_icon_sets(const response_fn<MapIconSets>& callback) {
         m_client.queue_request(HttpClient::Request {
             .method = HttpClient::Method::GET,
-            .path = "/reach-check/map-icons",
+            .path = "/logic/map-icons",
             .callback = [callback](const auto& status, const nlohmann::json& response) {
                 if (status == HttpClient::Status::OK) {
                     std::vector<MapIconSet> sets;
@@ -272,7 +274,7 @@ namespace randomizer::seedgen_interface {
     void SeedgenService::query_relevant_uber_states(const response_fn<RelevantUberStates>& callback) {
         m_client.queue_request(HttpClient::Request {
             .method = HttpClient::Method::GET,
-            .path = "/reach-check/relevant-uber-states",
+            .path = "/logic/relevant-uber-states",
             .callback = [callback](const auto& status, const nlohmann::json& response) {
                 if (status == HttpClient::Status::OK) {
                     std::vector<core::api::uber_states::UberState> states;
@@ -320,7 +322,7 @@ namespace randomizer::seedgen_interface {
 
         m_client.queue_request(HttpClient::Request {
             .method = HttpClient::Method::POST,
-            .path = "/reach-check",
+            .path = "/logic/reach-check",
             .body = body,
             .callback = [callback](const auto& status, const nlohmann::json& response) {
                 if (status == HttpClient::Status::OK) {
