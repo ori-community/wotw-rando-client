@@ -253,7 +253,7 @@ namespace randomizer::seedgen_interface {
 
                         sets.emplace_back(
                             map_icon_set_json["label"].get<std::string>(),
-                            map_icon_set_json["kind"].get<map::icons::MapIcon::Type>(),
+                            map_icon_set_json["icon"].get<map::icons::MapIcon::Type>(),
                             map_icon_set_json["positions"].get<std::vector<app::Vector2>>(),
                             visible_if_any
                         );
