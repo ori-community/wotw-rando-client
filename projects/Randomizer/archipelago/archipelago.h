@@ -34,6 +34,8 @@ namespace randomizer::archipelago {
         void compare_seed();
         void reset_inventory();
         void initialize_ap_wheel();
+        void clear_pending_respawn_locations();
+        void collect_locations();
         std::string get_item_display_text(const location_data::Location& location);
         std::string get_shop_description(const location_data::Location& location);
         std::string get_shop_icon(const location_data::Location& location);
@@ -49,7 +51,6 @@ namespace randomizer::archipelago {
         void on_websocket_message(ix::WebSocketMessagePtr const& msg);
         void handle_server_message(messages::ap_server_message_t const& message);
         std::string get_player_name(int player);
-        void collect_locations();
         void try_connection_with_new_game_seed_source();
 
         /**
@@ -66,6 +67,8 @@ namespace randomizer::archipelago {
         std::unordered_set<ids::archipelago_id_t> m_pending_send_locations;
         // Store the locations that are already collected in AP server (from a previous save file, or in coop), to then collect them in the game
         std::unordered_set<ids::archipelago_id_t> m_pending_collect_locations;
+        // Store the locations collected since the last save, to resync when respawning
+        std::unordered_set<ids::archipelago_id_t> m_pending_respawn_locations;
         std::unordered_map<std::string, messages::NetworkSlot> m_slots;
         std::unordered_map<int, messages::NetworkPlayer> m_player_map;
         std::unordered_map<ids::archipelago_id_t, std::string> m_shop_icons;

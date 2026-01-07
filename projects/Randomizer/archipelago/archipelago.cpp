@@ -78,6 +78,7 @@ namespace randomizer::archipelago {
         if (archipelago_client().is_active()) {
             archipelago_client().request_sync();
             modloader::debug("archipelago", "Resync requested: Restore Checkpoint");
+            archipelago_client().collect_locations();
         }
     });
 
@@ -97,6 +98,11 @@ namespace randomizer::archipelago {
     [[maybe_unused]]
     auto on_save_loaded = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [](auto, auto) {
         archipelago_client().compare_seed();
+    });
+
+    [[maybe_unused]]
+    auto on_check = core::api::game::event_bus().register_handler(GameEvent::CreateCheckpoint, EventTiming::After, [](auto, auto) {
+        archipelago_client().clear_pending_respawn_locations();
     });
 
     [[maybe_unused]]
@@ -147,6 +153,7 @@ namespace randomizer::archipelago {
         m_password = "";
         m_pending_send_locations.clear();
         m_pending_collect_locations.clear();
+        m_pending_respawn_locations.clear();
         m_slots.clear();
         m_player_map.clear();
         m_shop_icons.clear();
@@ -269,7 +276,12 @@ namespace randomizer::archipelago {
         send_message(messages::LocationChecks{m_pending_send_locations});
         // m_pending_send_locations is not cleared here
         // It is done when the AP server confirms that the locations got checked (in RoomUpdate and PrintJSON packets)
+        m_pending_respawn_locations.insert(location_id);
         modloader::debug("archipelago", std::format("Location checked: {}", location.name));
+    }
+
+    void ArchipelagoClient::clear_pending_respawn_locations() {
+        m_pending_respawn_locations.clear();
     }
 
     void ArchipelagoClient::on_websocket_message(ix::WebSocketMessagePtr const& msg) {
@@ -604,13 +616,18 @@ namespace randomizer::archipelago {
             modloader::info("archipelago", "Seed not checked yet: skip collecting locations");
             return;
         }
-        for (const ids::archipelago_id_t location_id: m_pending_collect_locations) {
+        // Collect locations from both pending collect and respawn locations
+        std::unordered_set<ids::archipelago_id_t> locations_to_collect;
+        locations_to_collect.insert(m_pending_respawn_locations.begin(), m_pending_respawn_locations.end());
+        locations_to_collect.insert(m_pending_collect_locations.begin(), m_pending_collect_locations.end());
+        for (const ids::archipelago_id_t location_id: locations_to_collect) {
             location_data::Location location{ids::get_location_from_id(location_id)};
 
             core::api::uber_states::UberState state(location.condition.state.group_int(), location.condition.state.state());
             state.set(std::max(state.get<double>(), location.condition.lower_bound_value()));
         }
         m_pending_collect_locations.clear();
+        // m_pending_respawn_locations is cleared when reaching a checkpoint
     }
 
     void ArchipelagoClient::grant_item(messages::NetworkItem const& net_item) {
