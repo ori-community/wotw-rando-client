@@ -357,15 +357,15 @@ namespace text_style {
         }
 
         char* out = nullptr;
-        auto font_scale = std::strtod(text.data(), &out);
+        auto font_scale = std::strtof(text.data(), &out);
         if (out != text.data() + text.size()) {
             return nullptr;
         }
 
         auto style = create_style(size_style);
         style->fields.hasFontScale = true;
-        //                                                         Vanilla font size
-        style->fields.fontScale = static_cast<float>(font_scale) * 1.14f;
+        //                                     Vanilla font size
+        style->fields.fontScale = font_scale * 1.14f;
         style->fields.absoluteFontScale = true;
 
         return style;
@@ -386,7 +386,9 @@ namespace text_style {
 
         auto style = create_style(line_size_style);
         style->fields.hasLineScale = true;
-        style->fields.lineScale = line_scale;
+
+        //                                     Vanilla line scale
+        style->fields.lineScale = line_scale * 0.819999972807f;
 
         return style;
     }
