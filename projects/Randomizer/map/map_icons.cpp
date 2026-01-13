@@ -783,15 +783,15 @@ namespace randomizer::map::icons {
     namespace utils {
         std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_warp_icon(
             const app::Vector2& world_position,
-            const core::api::uber_states::UberState& is_active_state,
+            const std::function<WarpIconState()>& get_state_fn,
             const std::string& label_text
         ) {
             const auto active_warp_icon = std::make_shared<MapIcon>(
                 MapIcon::Type::SavePedestal,
                 label_text,
                 world_position,
-                [is_active_state](auto) {
-                    return is_active_state.get<bool>()
+                [get_state_fn](auto) {
+                    return get_state_fn() == WarpIconState::Active
                         ? MapIcon::Visibilities::visible
                         : MapIcon::Visibilities::invisible;
                 }
@@ -802,14 +802,30 @@ namespace randomizer::map::icons {
                 MapIcon::Type::SavePedestalInactive,
                 label_text,
                 world_position,
-                [is_active_state](auto) {
-                    return is_active_state.get<bool>()
-                        ? MapIcon::Visibilities::invisible
-                        : MapIcon::Visibilities::visible;
+                [get_state_fn](auto) {
+                    return get_state_fn() == WarpIconState::Inactive
+                        ? MapIcon::Visibilities::visible
+                        : MapIcon::Visibilities::invisible;
                 }
             );
 
             return std::make_tuple(active_warp_icon, inactive_warp_icon);
+        }
+
+        std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_warp_icon(
+            const app::Vector2& world_position,
+            const core::api::uber_states::UberState& is_active_state,
+            const std::string& label_text
+        ) {
+            return create_warp_icon(
+                world_position,
+                [=] {
+                    return is_active_state.get<bool>()
+                        ? WarpIconState::Active
+                        : WarpIconState::Inactive;
+                },
+                label_text
+            );
         }
     }
 } // namespace randomizer::map::icons

@@ -11,10 +11,30 @@ namespace {
     [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         icons = {
-            utils::create_warp_icon({-799, -4310}, core::api::uber_states::UberState(21786, 10185), "Inkwater Marsh"),
+            utils::create_warp_icon({-799, -4310}, [] {
+                static core::api::uber_states::UberState teleporter_active(21786, 10185);
+                static core::api::uber_states::UberState teleporter_built(21, 16825);
+
+                if (!teleporter_built.get<bool>()) {
+                    return utils::WarpIconState::Invisible;
+                }
+
+                return teleporter_active.get<bool>()
+                    ? utils::WarpIconState::Active
+                    : utils::WarpIconState::Inactive;
+            }, "Inkwater Marsh"),
             utils::create_warp_icon({-328, -4536}, core::api::uber_states::UberState(11666, 61594), "Howl's Den"),
             utils::create_warp_icon({-150, -4238}, core::api::uber_states::UberState(937, 26601), "Kwolok's Hollow"),
-            utils::create_warp_icon({-307, -4153}, core::api::uber_states::UberState(42178, 42096), "Glades"),
+            utils::create_warp_icon({-307, -4153}, [] {
+                static core::api::uber_states::UberState teleporter_active(42178, 42096);
+                static core::api::uber_states::UberState teleporter_built(21, 16825);
+
+                if (teleporter_built.get<bool>() && teleporter_active.get<bool>()) {
+                    return utils::WarpIconState::Active;
+                }
+
+                return utils::WarpIconState::Inactive;
+            }, "Glades"),
             utils::create_warp_icon({-1308, -3675}, core::api::uber_states::UberState(53632, 18181), "Wellspring"),
             utils::create_warp_icon({-945, -4582}, core::api::uber_states::UberState(24922, 42531), "Midnight Burrows"),
             utils::create_warp_icon({611, -4162}, core::api::uber_states::UberState(58674, 7071), "Woods Entrance"),

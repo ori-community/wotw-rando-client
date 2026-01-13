@@ -238,6 +238,19 @@ namespace randomizer::map::icons {
     using map_icon_handle_t = std::shared_ptr<MapIcon>;
 
     namespace utils {
+        enum class WarpIconState {
+            Invisible,
+            Inactive,
+            Active,
+        };
+
+        /** Creates a teleporter icon tuple (active and inactive) based on a function returning a WarpIconState */
+        std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_warp_icon(
+            const app::Vector2& world_position,
+            const std::function<WarpIconState()>& get_state_fn,
+            const std::string& label_text = "Teleporter"
+        );
+
         /** Creates a teleporter icon tuple (active and inactive) based on an uber state */
         std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_warp_icon(
             const app::Vector2& world_position,
