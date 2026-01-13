@@ -361,6 +361,7 @@ set(
         "seed/instructions/store_boolean.h"
         "seed/instructions/store_float.h"
         "seed/instructions/store_integer.h"
+        "seed/instructions/string_length.h"
         "seed/instructions/switch_wheel.h"
         "seed/instructions/trigger_keybind.h"
         "seed/instructions/unequip.h"
