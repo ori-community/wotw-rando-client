@@ -63,17 +63,14 @@ namespace core::text {
         register_text(core::TextID::QuestTreeKeeperStep0, "Meet the Tree Keeper in the Silent Woods");
         register_text(core::TextID::QuestSilentTeethStep0, "Meet Kwolok");
 
-        register_text(core::TextID::TrialTextReach, " ");
-        register_text(core::TextID::TrialTextDepths, " ");
-        register_text(core::TextID::TrialTextMarsh, " ");
-        register_text(core::TextID::TrialTextHollow, " ");
-        register_text(core::TextID::TrialTextPools, " ");
-        register_text(core::TextID::TrialTextWastes, " ");
-        register_text(core::TextID::TrialTextWellspring, " ");
-        register_text(core::TextID::TrialTextWoods, " ");
-
-        register_text(core::TextID::MapMessage, " ");
-        register_text(core::TextID::SideMapMessage, "");
+        register_text(core::TextID::TrialTextReach, "");
+        register_text(core::TextID::TrialTextDepths, "");
+        register_text(core::TextID::TrialTextMarsh, "");
+        register_text(core::TextID::TrialTextHollow, "");
+        register_text(core::TextID::TrialTextPools, "");
+        register_text(core::TextID::TrialTextWastes, "");
+        register_text(core::TextID::TrialTextWellspring, "");
+        register_text(core::TextID::TrialTextWoods, "");
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {

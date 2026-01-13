@@ -373,6 +373,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "regenTreeDrained", 402, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "canOpenMokiFatherHut", 500, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "allowOpeningEyestoneDoor", 501, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "darkenTopLeftCornerOfMap", 600, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "cleanWater", 2000, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::BingoState, "squares", 0, 0),

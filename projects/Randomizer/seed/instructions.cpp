@@ -63,7 +63,6 @@
 #include <Randomizer/seed/instructions/set_boolean.h>
 #include <Randomizer/seed/instructions/set_float.h>
 #include <Randomizer/seed/instructions/set_integer.h>
-#include <Randomizer/seed/instructions/set_map_message.h>
 #include <Randomizer/seed/instructions/close_menu.h>
 #include <Randomizer/seed/instructions/close_weapon_wheel.h>
 #include <Randomizer/seed/instructions/set_shop_item_description.h>
@@ -72,7 +71,6 @@
 #include <Randomizer/seed/instructions/set_shop_item_locked.h>
 #include <Randomizer/seed/instructions/set_shop_item_name.h>
 #include <Randomizer/seed/instructions/set_shop_item_price.h>
-#include <Randomizer/seed/instructions/set_side_map_message.h>
 #include <Randomizer/seed/instructions/create_spoiler_map_icon.h>
 #include <Randomizer/seed/instructions/set_string.h>
 #include <Randomizer/seed/instructions/set_text_with_id.h>
@@ -191,7 +189,6 @@ namespace randomizer::seed {
             register_instruction<SetBoolean>(factories);
             register_instruction<SetFloat>(factories);
             register_instruction<SetInteger>(factories);
-            register_instruction<SetMapMessage>(factories);
             register_instruction<CloseMenu>(factories);
             register_instruction<CloseWeaponWheel>(factories);
             register_instruction<SetShopItemDescription>(factories);
@@ -200,7 +197,6 @@ namespace randomizer::seed {
             register_instruction<SetShopItemLocked>(factories);
             register_instruction<SetShopItemName>(factories);
             register_instruction<SetShopItemPrice>(factories);
-            register_instruction<SetSideMapMessage>(factories);
             register_instruction<CreateSpoilerMapIcon>(factories);
             register_instruction<SetString>(factories);
             register_instruction<SetTextWithId>(factories);

@@ -76,8 +76,5 @@ namespace core {
         TrialTextDepths = 105,
         TrialTextPools = 106,
         TrialTextWastes = 107,
-
-        MapMessage = 200,
-        SideMapMessage = 201,
     };
 } // namespace core
