@@ -152,6 +152,7 @@ set(
         "messages/message_display.h"
         "messages/message_handle.h"
         "mood_guid.h"
+        "property/dependency.h"
         "property/reactivity.h"
         "save_meta/save_meta.h"
         "settings.h"

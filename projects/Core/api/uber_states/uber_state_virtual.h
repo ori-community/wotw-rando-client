@@ -8,33 +8,113 @@
 #include <string>
 
 namespace core::api::uber_states {
-    using uber_id_t = std::pair<UberStateGroup, int>;
-    struct VirtualStateInfo {
-        enum class UpdateMode {
-            None,
-            Poll,  // Polls the virtual uber state every Update
-            ReactiveEffect,  // Creates a reactive effect on the getter
+    class CORE_DLLEXPORT VirtualUberState {
+    public:
+        using getter_fn_t = std::function<double()>;
+        using setter_fn_t = std::optional<std::function<void(double value)>>;
+
+        enum class ChangeDetectionMode {
+            /** Requires manually invoking notify_used with a UberStateDependency */
+            Manual,
+            /** Polls the getter function at the start of every Update tick */
+            Poll,
+            /** Makes the getter function reactive */
+            ReactiveEffect,
         };
 
-        ValueType type = ValueType::Boolean;
-        UberStateGroup group = UberStateGroup::Invalid;
-        int state = 0;
-        std::string name = "Uninitialized";
+        VirtualUberState(
+            int group,
+            int state,
+            ValueType value_type,
+            std::string name,
+            getter_fn_t getter_fn,
+            setter_fn_t setter_fn,
+            ChangeDetectionMode change_detection_mode
+        );
 
-        /** Whether this virtual state is read-only */
-        bool readonly = false;
+        /**
+         * Returns the current value of the virtual uber state.
+         * Note that invoking this function shadows any reactive effects that would be triggered inside
+         * the getter function. If you need inner reactive dependencies to trigger effects that use this
+         * uber state, set change detection mode to ReactiveEffect.
+         */
+        [[nodiscard]]
+        double get() const;
 
-        UpdateMode update_mode = UpdateMode::ReactiveEffect;
+        /** Sets the current value of the virtual uber state or prints an error if this virtual uber state is read-only */
+        void set(double value);
+
+        [[nodiscard]]
+        bool is_readonly() const;
+
+        const int m_group;
+        const int m_state;
+        const ValueType m_value_type;
+        const std::string m_name;
+    private:
+        void check_for_changes();
+        void notify_changed() const;
+
+        getter_fn_t m_getter_fn;
+        setter_fn_t m_setter_fn;
+        reactivity::ReactiveEffect::ptr_t m_effect;
+        common::Droppable::ptr_t m_poll_update_droppable;
+        std::optional<double> m_last_value_for_polling = std::nullopt;
     };
 
-    CORE_DLLEXPORT void register_virtual_state(VirtualStateInfo const& info, Property<double> const& value);
-    CORE_DLLEXPORT void register_virtual_event_state(UberStateGroup group, int state, const std::string& name);
-    CORE_DLLEXPORT void virtual_notify_change(UberStateCallbackParams const& params);
-    CORE_DLLEXPORT bool is_virtual_state(UberStateGroup group, int state);
-    CORE_DLLEXPORT std::string get_virtual_name(UberStateGroup group, int state);
-    CORE_DLLEXPORT ValueType get_virtual_type(UberStateGroup group, int state);
-    CORE_DLLEXPORT bool get_virtual_readonly(UberStateGroup group, int state);
-    CORE_DLLEXPORT double get_virtual_value(UberStateGroup group, int state);
-    CORE_DLLEXPORT void set_virtual_value(UberStateGroup group, int state, double value);
-    CORE_DLLEXPORT std::vector<uber_id_t> get_virtual_uber_ids();
+    CORE_DLLEXPORT bool is_virtual_uber_state(int group, int state);
+    CORE_DLLEXPORT bool is_virtual_uber_state(UberStateGroup group, int state);
+    CORE_DLLEXPORT VirtualUberState& get_virtual_uber_state(int group, int state);
+    CORE_DLLEXPORT VirtualUberState& get_virtual_uber_state(UberStateGroup group, int state);
+    CORE_DLLEXPORT std::vector<uber_id_t> get_virtual_uber_state_ids();
+
+    CORE_DLLEXPORT void register_virtual_uber_state(
+        UberStateGroup group,
+        int state,
+        ValueType value_type,
+        const std::string& name,
+        const VirtualUberState::getter_fn_t& getter_fn,
+        const VirtualUberState::setter_fn_t& setter_fn,
+        VirtualUberState::ChangeDetectionMode change_detection_mode
+    );
+
+    template<typename T>
+    void register_virtual_uber_state_from_property(
+        UberStateGroup group,
+        int state,
+        ValueType value_type,
+        const std::string& name,
+        const Property<T>& property,
+        VirtualUberState::ChangeDetectionMode change_detection_mode
+    ) {
+        register_virtual_uber_state(
+            group,
+            state,
+            value_type,
+            name,
+            [&] -> double { return property.get(); },
+            [&](double value) { property.set(value); },
+            change_detection_mode
+        );
+    }
+
+    template<typename T>
+    void register_read_only_virtual_uber_state_from_property(
+        UberStateGroup group,
+        int state,
+        ValueType value_type,
+        const std::string& name,
+        const Property<T>& property,
+        VirtualUberState::ChangeDetectionMode change_detection_mode
+    ) {
+        register_virtual_uber_state(
+            group,
+            state,
+            value_type,
+            name,
+            [&] -> double { return property.get(); },
+            std::nullopt,
+            change_detection_mode
+        );
+    }
 } // namespace core::api::uber_states

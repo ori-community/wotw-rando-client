@@ -2,16 +2,18 @@
 
 #include <Core/enums/uber_state.h>
 #include <Core/macros.h>
+#include <Core/property/dependency.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
 #include <Modloader/app/structs/IUberState.h>
 #include <Modloader/app/structs/SerializedBooleanUberState.h>
 #include <Modloader/app/structs/SerializedByteUberState.h>
 #include <Modloader/app/structs/SerializedFloatUberState.h>
 #include <Modloader/app/structs/SerializedIntUberState.h>
-
 #include <functional>
 
 namespace core::api::uber_states {
+    using uber_id_t = std::pair<int, int>;
+
     class CORE_DLLEXPORT UberState {
     public:
         UberState();

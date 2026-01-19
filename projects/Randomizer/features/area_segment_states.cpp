@@ -1,16 +1,9 @@
-#include <Randomizer/constants.h>
-
 #include <Common/ext.h>
-
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
 #include <Modloader/app/types/GameWorld.h>
 #include <Modloader/interception.h>
 #include <Modloader/interception_macros.h>
-
-
 #include <Randomizer/seed/seed.h>
-
-#include <fstream>
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state_virtual.h>
 #include <Randomizer/features/area_segment_states.h>
@@ -1105,39 +1098,32 @@ namespace randomizer::area_segment_states {
             auto area_id = static_cast<app::GameWorldAreaID__Enum>(state_id / 10000);
             auto face_id = state_id % 10000;
 
-            core::api::uber_states::register_virtual_state(
-                {
-                    .type = ValueType::Byte,
-                    .group = UberStateGroup::MapSegments,
-                    .state = state_id,
-                    .name = std::format("segment{}", state_id),
-                },
-                core::Property<double>(
-                    [area_id, face_id](auto value) {
-                        const auto info = core::api::game::player::get_area_map_information();
+            core::api::uber_states::register_virtual_uber_state(
+                UberStateGroup::MapSegments,
+                state_id,
+                ValueType::Byte,
+                std::format("segment{}", state_id),
+                [area_id, face_id]() {
+                    const auto info = core::api::game::player::get_area_map_information();
 
-                        if (info == nullptr) {
-                            return;
-                        }
-
-                        Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::SetAreaState(
-                            info,
-                            area_id,
-                            face_id,
-                            double_to_world_map_area_state(value),
-                            app::Vector3{0, 0, 0}
-                        );
-                    },
-                    [area_id, face_id]() {
-                        const auto info = core::api::game::player::get_area_map_information();
-
-                        if (info == nullptr) {
-                            return 0.0;
-                        }
-
-                        return static_cast<double>(Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::GetAreaState(info, area_id, face_id));
+                    if (info == nullptr) {
+                        return 0.0;
                     }
-                )
+
+                    return static_cast<double>(Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::GetAreaState(info, area_id, face_id));
+                },
+                [area_id, face_id](auto value) {
+                    const auto info = core::api::game::player::get_area_map_information();
+
+                    if (info == nullptr) {
+                        return;
+                    }
+
+                    Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::SetAreaState(
+                        info, area_id, face_id, double_to_world_map_area_state(value), app::Vector3{0, 0, 0}
+                    );
+                },
+                core::api::uber_states::VirtualUberState::ChangeDetectionMode::Manual
             );
         }
     }

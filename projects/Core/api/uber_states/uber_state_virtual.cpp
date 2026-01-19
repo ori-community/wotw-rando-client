@@ -1,10 +1,6 @@
 #include <Core/api/uber_states/uber_state_virtual.h>
 
-#include <Common/ext.h>
 
-#include <Modloader/app/methods/GameController.h>
-#include <Modloader/app/types/PlayerInput.h>
-#include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
 #include <Core/api/game/game.h>
@@ -20,108 +16,125 @@ using namespace app::classes;
 
 namespace core::api::uber_states {
     namespace {
-        struct VirtualUberState {
-            ValueType type{};
-            std::string name;
-            Property<double> value;
-            reactivity::ReactiveEffect::ptr_t effect;
-            bool readonly{};
-        };
-
-        std::unordered_map<uber_id_t, VirtualUberState, pair_hash> virtual_states;
-        std::vector<uber_id_t> polled_virtual_states;
-
-        std::unordered_map<uber_id_t, double, pair_hash> cached_values;
-        void check_state_change(const uber_id_t& uber_id, const double value) {
-            auto it = cached_values.find(uber_id);
-            if (it == cached_values.end()) {
-                cached_values[uber_id] = value;
-                it = cached_values.find(uber_id);
-            }
-
-            if (it != cached_values.end() && std::abs(it->second - value) >= FLT_EPSILON) {
-                const auto state = UberState(uber_id.first, uber_id.second);
-                const UberStateCallbackParams params{state, it->second, value};
-
-                reactivity::notify_changed(reactivity::UberStateDependency { static_cast<int>(uber_id.first), uber_id.second });
-                notification_bus().trigger_event(params);
-                single_notification_bus().trigger_event(state, params);
-            }
-        }
-
-        [[maybe_unused]]
-        auto on_update = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::Before, [](auto, auto) {
-            for (auto const& id: polled_virtual_states) {
-                check_state_change(id, virtual_states[id].value.get());
-            }
-        });
-
-        [[maybe_unused]] auto virtual_notifier = notification_bus().register_handler(virtual_notify_change);
+        std::unordered_map<uber_id_t, VirtualUberState, pair_hash> virtual_uber_states;
     } // namespace
 
-    void register_virtual_state(VirtualStateInfo const& info, const Property<double>& value) {
-        const auto uber_id = std::make_pair(info.group, info.state);
-        virtual_states[uber_id] = {.type = info.type, .name = info.name, .value = value, .readonly = info.readonly};
-        if (info.update_mode == VirtualStateInfo::UpdateMode::Poll) {
-            polled_virtual_states.push_back(uber_id);
-        } else if (info.update_mode == VirtualStateInfo::UpdateMode::ReactiveEffect) {
-            auto& state = virtual_states[uber_id];
-            reactivity::watch_effect()
-                .effect(state.value)
-                .finalize_inplace(state.effect);
+    VirtualUberState::VirtualUberState(
+        const int group,
+        const int state,
+        const ValueType value_type,
+        std::string name,
+        getter_fn_t getter_fn,
+        setter_fn_t setter_fn,
+        const ChangeDetectionMode change_detection_mode
+    ) :
+        m_group(group),
+        m_state(state),
+        m_value_type(value_type),
+        m_name(std::move(name)),
+        m_getter_fn(std::move(getter_fn)),
+        m_setter_fn(std::move(setter_fn)) {
+
+        switch (change_detection_mode) {
+            case ChangeDetectionMode::Manual:
+                break;
+            case ChangeDetectionMode::Poll:
+                m_poll_update_droppable = game::event_bus().register_handler(GameEvent::Update, EventTiming::Before, [this](auto, auto) {
+                    check_for_changes();
+                });
+                break;
+            case ChangeDetectionMode::ReactiveEffect:
+                m_effect = reactivity::watch_effect()
+                    .effect([this] {
+                        [[maybe_unused]]
+                        auto _ = this->m_getter_fn();
+                    })
+                    .after([this] {
+                        if (reactivity::is_in_effect_setup()) {
+                            return;
+                        }
+
+                        notify_changed();
+                    })
+                    .finalize();
+                break;
         }
     }
 
-    void register_virtual_event_state(UberStateGroup group, int state, const std::string& name) {
-        const auto uber_id = std::make_pair(group, state);
-        virtual_states[uber_id] = {
-            .type = ValueType::Boolean,
-            .name = name,
-            .value = core::Property<double>([](auto) {}, [] { return 1; }),
-            .readonly = true,
-        };
+    double VirtualUberState::get() const {
+        reactivity::ScopedReactivityBlocker _;
+        return m_getter_fn();
     }
 
-    bool is_virtual_state(UberStateGroup group, int state) { return virtual_states.contains(std::make_pair(group, state)); }
-
-    std::string get_virtual_name(UberStateGroup group, int state) {
-        const auto it = virtual_states.find(std::make_pair(group, state));
-        return it != virtual_states.end() ? it->second.name : "";
-    }
-
-    ValueType get_virtual_type(UberStateGroup group, int state) {
-        const auto it = virtual_states.find(std::make_pair(group, state));
-        return it != virtual_states.end() ? it->second.type : ValueType::Unknown;
-    }
-
-    bool get_virtual_readonly(UberStateGroup group, int state) {
-        const auto it = virtual_states.find(std::make_pair(group, state));
-        return it != virtual_states.end() ? it->second.readonly : true;
-    }
-
-    double get_virtual_value(UberStateGroup group, int state) {
-        const auto it = virtual_states.find(std::make_pair(group, state));
-        return it != virtual_states.end() ? it->second.value.get() : 0.0;
-    }
-
-    void set_virtual_value(UberStateGroup group, int state, double value) {
-        const auto it = virtual_states.find(std::make_pair(group, state));
-        if (it != virtual_states.end()) {
-            it->second.value.set(value);
-        }
-    }
-
-    std::vector<uber_id_t> get_virtual_uber_ids() {
-        auto keys = virtual_states | std::views::keys;
-        return {keys.begin(), keys.end()};
-    }
-
-    void virtual_notify_change(UberStateCallbackParams const& params) {
-        if (!is_virtual_state(params.state.group(), params.state.state())) {
-            return;
+    void VirtualUberState::set(const double value) {
+        if (!m_setter_fn.has_value()) {
+            throw std::runtime_error(std::format("set() called on virtual uber state {}|{} that does not have a setter", m_group, m_state));
         }
 
-        const auto value = params.state.get<double>();
-        cached_values[uber_id_t(params.state.group(), params.state.state())] = value;
+        m_setter_fn->operator()(value);
+        m_last_value_for_polling = value;
+        notify_changed();
+    }
+
+    bool VirtualUberState::is_readonly() const {
+        return !m_setter_fn.has_value();
+    }
+
+    void VirtualUberState::check_for_changes() {
+        const auto new_value = get();
+
+        if (m_last_value_for_polling.has_value() && new_value != *m_last_value_for_polling) {
+            notify_changed();
+        }
+
+        m_last_value_for_polling = new_value;
+    }
+
+    void VirtualUberState::notify_changed() const {
+        reactivity::notify_changed(reactivity::UberStateDependency{m_group, m_state});
+    }
+
+    bool is_virtual_uber_state(const int group, const int state) {
+        return virtual_uber_states.contains(std::make_pair(group, state));
+    }
+
+    bool is_virtual_uber_state(const UberStateGroup group, const int state) {
+        return is_virtual_uber_state(static_cast<int>(group), state);
+    }
+
+    VirtualUberState& get_virtual_uber_state(int group, int state) {
+        return virtual_uber_states.at(std::make_pair(group, state));
+    }
+
+    VirtualUberState& get_virtual_uber_state(UberStateGroup group, int state) {
+        return get_virtual_uber_state(static_cast<int>(group), state);
+    }
+
+    std::vector<uber_id_t> get_virtual_uber_state_ids() {
+        std::vector<uber_id_t> ids;
+        for (const auto & virtual_uber_state: virtual_uber_states | std::views::keys) {
+            ids.push_back(virtual_uber_state);
+        }
+        return ids;
+    }
+
+    void register_virtual_uber_state(
+        const UberStateGroup group,
+        const int state,
+        const ValueType value_type,
+        const std::string& name,
+        const VirtualUberState::getter_fn_t& getter_fn,
+        const VirtualUberState::setter_fn_t& setter_fn,
+        const VirtualUberState::ChangeDetectionMode change_detection_mode
+    ) {
+        const auto uber_id = std::make_pair(static_cast<int>(group), state);
+
+        assert(!virtual_uber_states.contains(uber_id));
+
+        virtual_uber_states.emplace(
+            std::piecewise_construct,
+            std::forward_as_tuple(uber_id),
+            std::forward_as_tuple(static_cast<int>(group), state, value_type, name, getter_fn, setter_fn, change_detection_mode)
+        );
     }
 } // namespace core::api::uber_states

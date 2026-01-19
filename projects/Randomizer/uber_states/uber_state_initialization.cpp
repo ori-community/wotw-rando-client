@@ -498,163 +498,56 @@ namespace randomizer {
             next::Moon::UberStateCollection::PrepareRuntimeDataType(this_ptr);
 
             using namespace core::api::game::player;
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 0, "spiritLight", false, VirtualStateInfo::UpdateMode::Poll}, spirit_light().wrap<double>());
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 1, "gorlekOre", false, VirtualStateInfo::UpdateMode::Poll}, ore().wrap<double>());
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 2, "keystones", false, VirtualStateInfo::UpdateMode::Poll}, keystones().wrap<double>());
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 3, "shardSlots", false, VirtualStateInfo::UpdateMode::Poll}, shard_slots().wrap<double>());
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 10, "maxHealth", false, VirtualStateInfo::UpdateMode::Poll}, max_health().wrap<double>());
-            register_virtual_state({ValueType::Float, UberStateGroup::Player, 11, "health", false, VirtualStateInfo::UpdateMode::Poll}, health().wrap<double>());
-            register_virtual_state({ValueType::Float, UberStateGroup::Player, 12, "maxEnergy", false, VirtualStateInfo::UpdateMode::Poll}, max_energy().wrap<double>());
-            register_virtual_state({ValueType::Float, UberStateGroup::Player, 13, "energy", false, VirtualStateInfo::UpdateMode::Poll}, energy().wrap<double>());
-            register_virtual_state({ValueType::Integer, UberStateGroup::Player, 51, "currentMapArea", true, VirtualStateInfo::UpdateMode::ReactiveEffect}, uber_states::readonly::player_current_map_area().wrap<double>());
-            register_virtual_state({ValueType::Boolean, UberStateGroup::Player, 100, "isTeleporting", true, VirtualStateInfo::UpdateMode::ReactiveEffect}, uber_states::readonly::player_is_teleporting().wrap<double>());
+            register_virtual_uber_state_from_property(UberStateGroup::Player, 0, ValueType::Integer, "spiritLight", spirit_light(), VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state_from_property(UberStateGroup::Player, 1, ValueType::Integer, "gorlekOre", ore(), VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state_from_property(UberStateGroup::Player, 2, ValueType::Integer, "keystones", keystones(), VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state_from_property(UberStateGroup::Player, 3, ValueType::Integer, "shardSlots", shard_slots(), VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state_from_property(UberStateGroup::Player, 10, ValueType::Integer, "maxHealth", max_health(), VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state_from_property(UberStateGroup::Player, 11, ValueType::Float, "health", health(), VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state_from_property(UberStateGroup::Player, 12, ValueType::Float, "maxEnergy", max_energy(), VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state_from_property(UberStateGroup::Player, 13, ValueType::Float, "energy", energy(), VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state(UberStateGroup::Player, 50, ValueType::Integer, "currentMapArea", [] { return static_cast<int>(get_current_area()); }, std::nullopt, VirtualUberState::ChangeDetectionMode::ReactiveEffect);
+            register_read_only_virtual_uber_state_from_property(UberStateGroup::Player, 51, ValueType::Integer, "currentMapArea", uber_states::readonly::player_current_map_area(), VirtualUberState::ChangeDetectionMode::ReactiveEffect);
+            register_read_only_virtual_uber_state_from_property(UberStateGroup::Player, 100, ValueType::Boolean, "isTeleporting", uber_states::readonly::player_is_teleporting(), VirtualUberState::ChangeDetectionMode::ReactiveEffect);
 
-            register_virtual_state(
-                {
-                    .type = ValueType::Float,
-                    .group = UberStateGroup::Player,
-                    .state = 40,
-                    .name = "positionX",
-                    .readonly = false,
-                    .update_mode = VirtualStateInfo::UpdateMode::Poll,
+            register_virtual_uber_state(
+                UberStateGroup::Player,
+                40,
+                ValueType::Float,
+                "positionX",
+                []() -> double { return get_position().x; },
+                [](const double x) {
+                    const auto pos = get_position();
+                    set_position(static_cast<float>(x), pos.y);
+                    game_seed().environment().process_box_triggers();
                 },
-                core::Property<double>(
-                    [](const double x) {
-                        const auto pos = get_position();
-                        set_position(static_cast<float>(x), pos.y);
-                        game_seed().environment().process_box_triggers();
-                    },
-                    []() -> double { return get_position().x; }
-                )
+                VirtualUberState::ChangeDetectionMode::Poll
             );
 
-            register_virtual_state(
-                {
-                    .type = ValueType::Float,
-                    .group = UberStateGroup::Player,
-                    .state = 41,
-                    .name = "positionY",
-                    .readonly = false,
-                    .update_mode = VirtualStateInfo::UpdateMode::Poll,
+            register_virtual_uber_state(
+                UberStateGroup::Player,
+                41,
+                ValueType::Float,
+                "positionY",
+                []() -> double { return get_position().y; },
+                [](const double y) {
+                    const auto pos = get_position();
+                    set_position(pos.x, static_cast<float>(y));
+                    game_seed().environment().process_box_triggers();
                 },
-                core::Property<double>(
-                    [](const double y) {
-                        const auto pos = get_position();
-                        set_position(pos.x, static_cast<float>(y));
-                        game_seed().environment().process_box_triggers();
-                    },
-                    []() -> double { return get_position().y; }
-                )
+                VirtualUberState::ChangeDetectionMode::Poll
             );
 
             uber_states::random_value_generator::register_virtual_uber_states();
 
-            register_virtual_state(
-                {
-                    .type = ValueType::Boolean,
-                    .group = UberStateGroup::Settings,
-                    .state = 0,
-                    .name = "randomSpiritLight",
-                    .readonly = true,
-                    .update_mode = VirtualStateInfo::UpdateMode::Poll,
-                },
-                core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentArea (5, 50) is read only."); },
-                    []() -> double { return core::settings::funny_money(); }
-                )
-            );
-
-            register_virtual_state(
-                {
-                    .type = ValueType::Byte,
-                    .group = UberStateGroup::Player,
-                    .state = 50,
-                    .name = "currentArea",
-                    .readonly = true,
-                    .update_mode = VirtualStateInfo::UpdateMode::Poll,
-                },
-                core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentArea (5, 50) is read only."); },
-                    []() -> double { return static_cast<double>(get_current_area()); }
-                )
-            );
-            register_virtual_state(
-                {
-                    .type = ValueType::Byte,
-                    .group = UberStateGroup::ItemTracker,
-                    .state = 502,
-                    .name = "currentTreeCount",
-                    .readonly = true,
-                },
-                core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentTreeCount (23, 502) is read only."); },
-                    []() -> double {
-                        return UberState(UberStateGroup::Tree, app::AbilityType__Enum::Sword).get() +
-                            UberState(UberStateGroup::Tree, app::AbilityType__Enum::DoubleJump).get() +
-                            UberState(UberStateGroup::Tree, app::AbilityType__Enum::MeditateSpell).get() +
-                            UberState(UberStateGroup::Tree, app::AbilityType__Enum::Bow).get() +
-                            UberState(UberStateGroup::Tree, app::AbilityType__Enum::DashNew).get() +
-                            UberState(UberStateGroup::Tree, app::AbilityType__Enum::Bash).get() +
-                            UberState(UberStateGroup::Tree, app::AbilityType__Enum::SpiritLeash).get() +
-                            UberState(UberStateGroup::Tree, app::AbilityType__Enum::WaterDash).get() +
-                            UberState(UberStateGroup::Tree, app::AbilityType__Enum::GlowSpell).get() +
-                            UberState(UberStateGroup::Tree, app::AbilityType__Enum::Grenade).get() +
-                            UberState(UberStateGroup::Tree, app::AbilityType__Enum::Digging).get() +
-                            UberState(UberStateGroup::Tree, app::AbilityType__Enum::ChargeJump).get() +
-                            UberState(UberStateGroup::Tree, app::AbilityType__Enum::DamageUpgradeA).get() +
-                            UberState(UberStateGroup::Tree, app::AbilityType__Enum::DamageUpgradeB).get();
-                    }
-                )
-            );
-            register_virtual_state(
-                {
-                    .type = ValueType::Byte,
-                    .group = UberStateGroup::ItemTracker,
-                    .state = 503,
-                    .name = "currentWispCount",
-                    .readonly = true,
-                },
-                core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentWispCount (23, 503) is read only."); },
-                    []() -> double {
-                        return UberState(static_cast<UberStateGroup>(28895), 25522).get() // Reach
-                            + UberState(static_cast<UberStateGroup>(18793), 63291).get() // Depths
-                            + UberState(static_cast<UberStateGroup>(945), 49747).get() // Pools
-                            + UberState(static_cast<UberStateGroup>(10289), 22102).get() // Wastes
-                            + UberState(static_cast<UberStateGroup>(46462), 59806).get(); // Hollow
-                    }
-                )
-            );
-            register_virtual_state(
-                {
-                    .type = ValueType::Byte,
-                    .group = UberStateGroup::ItemTracker,
-                    .state = 504,
-                    .name = "currentQuestCount",
-                    .readonly = true,
-                },
-                core::Property<double>(
-                    [](double x) { error("uber_state_virtual", "Invalid operation: uberstate currentQuestCount (23, 504) is read only."); },
-                    []() -> double {
-                        return static_cast<int>(UberState(static_cast<UberStateGroup>(937), 34641).get() > 3.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 35399).get() > 2.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 35087).get() > 2.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 45931).get() > 2.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 8973).get() > 2.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(48248), 51645).get() > 2.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(48248), 18458).get() > 3.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 20667).get() > 2.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 15983).get() > 2.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 27804).get() > 3.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 59708).get() > 2.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 61011).get() > 4.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 26318).get() > 10.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 33776).get() > 2.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 50597).get() > 3.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 44578).get() > 1.5) +
-                            static_cast<int>(UberState(static_cast<UberStateGroup>(14019), 26394).get() > 1.5);
-                    }
-                )
+            register_virtual_uber_state(
+                UberStateGroup::Settings,
+                0,
+                ValueType::Boolean,
+                "randomSpiritLight",
+                []() -> double { return core::settings::funny_money(); },
+                std::nullopt,
+                VirtualUberState::ChangeDetectionMode::Poll
             );
 
             constexpr std::array skills = {
@@ -693,17 +586,14 @@ namespace randomizer {
             };
 
             for (const auto& [type, name]: skills) {
-                register_virtual_state(
-                    {
-                        .type = ValueType::Boolean,
-                        .group = UberStateGroup::Skills,
-                        .state = static_cast<int>(type),
-                        .name = name,
-                    },
-                    core::Property<double>(
-                        [type](const double x) { ability(type).set(x > 0.5); },
-                        [type]() -> double { return ability(type).get(); }
-                    )
+                register_virtual_uber_state(
+                    UberStateGroup::Skills,
+                    static_cast<int>(type),
+                    ValueType::Boolean,
+                    name,
+                    [type]() -> double { return ability(type).get(); },
+                    [type](const double x) { ability(type).set(x > 0.5); },
+                    VirtualUberState::ChangeDetectionMode::Poll
                 );
             }
 
@@ -758,48 +648,35 @@ namespace randomizer {
             };
 
             for (const auto& [type, name]: shards) {
-                register_virtual_state(
-                    {
-                        .type = ValueType::Boolean,
-                        .group = UberStateGroup::Shards,
-                        .state = static_cast<int>(type),
-                        .name = name,
-                    },
-                    core::Property<double>(
-                        [type](const double x) { shard(type).set(x > 0.5); },
-                        [type]() -> double { return shard(type).get(); }
-                    )
+                register_virtual_uber_state(
+                    UberStateGroup::Shards,
+                    static_cast<int>(type),
+                    ValueType::Boolean,
+                    name,
+                    [type]() -> double { return shard(type).get(); },
+                    [type](const double x) { shard(type).set(x > 0.5); },
+                    VirtualUberState::ChangeDetectionMode::Poll
                 );
             }
 
-            register_virtual_state(
-                {
-                    .type = ValueType::Float,
-                    .group = UberStateGroup::Input,
-                    .state = 1,
-                    .name = "mouseWorldPositionX",
-                    .readonly = true,
-                    .update_mode = VirtualStateInfo::UpdateMode::Poll,
-                },
-                core::Property<double>(
-                    [](const double x) { error("uber_state_virtual", "Invalid operation: uberstate mouseWorldPositionX (28, 1) is read only."); },
-                    []() -> double { return core::input::mouse::get_world_position().x; }
-                )
+            register_virtual_uber_state(
+                UberStateGroup::Input,
+                1,
+                ValueType::Float,
+                "mouseWorldPositionX",
+                []() -> double { return core::input::mouse::get_world_position().x; },
+                std::nullopt,
+                VirtualUberState::ChangeDetectionMode::Poll
             );
 
-            register_virtual_state(
-                {
-                    .type = ValueType::Float,
-                    .group = UberStateGroup::Input,
-                    .state = 2,
-                    .name = "mouseWorldPositionY",
-                    .readonly = true,
-                    .update_mode = VirtualStateInfo::UpdateMode::Poll,
-                },
-                core::Property<double>(
-                    [](const double x) { error("uber_state_virtual", "Invalid operation: uberstate mouseWorldPositionY (28, 2) is read only."); },
-                    []() -> double { return core::input::mouse::get_world_position().y; }
-                )
+            register_virtual_uber_state(
+                UberStateGroup::Input,
+                2,
+                ValueType::Float,
+                "mouseWorldPositionY",
+                []() -> double { return core::input::mouse::get_world_position().y; },
+                std::nullopt,
+                VirtualUberState::ChangeDetectionMode::Poll
             );
 
             area_segment_states::register_virtual_uber_states();

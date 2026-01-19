@@ -228,7 +228,7 @@ namespace {
             collect_uber_state(uber_state);
         }
 
-        for (const auto [group, state]: core::api::uber_states::get_virtual_uber_ids()) {
+        for (const auto [group, state]: core::api::uber_states::get_virtual_uber_state_ids()) {
             core::api::uber_states::UberState uber_state(group, state);
             collect_uber_state(uber_state);
         }

@@ -318,6 +318,14 @@ namespace core::reactivity {
         return is_running_trigger_on_load_effects;
     }
 
+    bool is_in_effect_setup() {
+        if (!current_effect_context.has_value()) {
+            throw std::exception("Cannot call is_in_effect_setup outside an active effect context");
+        }
+
+        return current_effect_context->is_in_setup;
+    }
+
     void notify_changed(const dependency_t& dependency) {
         auto const& reactivity_blockers = dependency_tracker().reactivity_blockers;
         auto const& active_contexts = dependency_tracker().active_tracking_contexts;

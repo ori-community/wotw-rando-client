@@ -188,6 +188,7 @@ namespace core::api::uber_states {
         m_type(std::nullopt),
         m_group(static_cast<UberStateGroup>(group)),
         m_state(state) {
+
         if (VALIDATE_UBER_STATES_ON_CREATION && collection_initialized() && !valid()) {
             warn("uber_state", std::format("uber state ({}|{}) doesn't exist", static_cast<int>(m_group), m_state));
         }
@@ -225,13 +226,12 @@ namespace core::api::uber_states {
             return false;
         }
 
-        if (is_virtual_state(m_group, m_state)) {
+        if (is_virtual_uber_state(m_group, m_state)) {
             return true;
         }
 
         return ptr() != nullptr;
     }
-
 
     void UberState::set(const double value) const {
         if (type() == UberStateType::Unknown) {
@@ -263,8 +263,8 @@ namespace core::api::uber_states {
             }
         }
 
-        if (is_virtual_state(m_group, m_state)) {
-            set_virtual_value(m_group, m_state, value);
+        if (is_virtual_uber_state(m_group, m_state)) {
+            get_virtual_uber_state(m_group, m_state).set(value);
         } else {
             const auto uber_state = ptr();
             if (ENABLE_LOGGING && settings::developer_mode()) {
@@ -340,9 +340,10 @@ namespace core::api::uber_states {
         }
 
         notify_used(reactivity::UberStateDependency{static_cast<int>(m_group), m_state});
+
         switch (state_type) {
             case UberStateType::VirtualUberState:
-                return get_virtual_value(m_group, m_state);
+                return get_virtual_uber_state(m_group, m_state).get();
             case UberStateType::BooleanUberState:
                 return BooleanUberState::get_Value(reinterpret_cast<app::BooleanUberState*>(ptr()));
             case UberStateType::ByteUberState:
@@ -374,7 +375,7 @@ namespace core::api::uber_states {
     }
 
     bool UberState::has_volatile_value() const {
-        if (is_virtual_state(m_group, m_state)) {
+        if (is_virtual_uber_state(m_group, m_state)) {
             return false;
         }
 
@@ -413,8 +414,8 @@ namespace core::api::uber_states {
     }
 
     std::string UberState::state_name() const {
-        if (is_virtual_state(m_group, m_state)) {
-            return get_virtual_name(m_group, m_state);
+        if (is_virtual_uber_state(m_group, m_state)) {
+            return get_virtual_uber_state(m_group, m_state).m_name;
         }
 
         const auto uber_state = ptr();
@@ -427,7 +428,7 @@ namespace core::api::uber_states {
     }
 
     std::string UberState::group_name() const {
-        if (is_virtual_state(m_group, m_state)) {
+        if (is_virtual_uber_state(m_group, m_state)) {
             return custom_uber_state_group_name(m_group).value_or(std::string("unknownVirtual"));
         }
 
@@ -478,7 +479,7 @@ namespace core::api::uber_states {
             return m_type.value();
         }
 
-        if (is_virtual_state(m_group, m_state)) {
+        if (is_virtual_uber_state(m_group, m_state)) {
             m_type = UberStateType::VirtualUberState;
         } else {
             const auto uber_state = ptr();
@@ -495,7 +496,7 @@ namespace core::api::uber_states {
     ValueType UberState::value_type() const {
         switch (type()) {
             case UberStateType::VirtualUberState:
-                return get_virtual_type(m_group, m_state);
+                return get_virtual_uber_state(m_group, m_state).m_value_type;
             case UberStateType::FloatUberState:
             case UberStateType::SerializedFloatUberState:
                 return ValueType::Float;
@@ -525,7 +526,7 @@ namespace core::api::uber_states {
 
         switch (type()) {
             case UberStateType::VirtualUberState:
-                return get_virtual_readonly(m_group, m_state);
+                return get_virtual_uber_state(m_group, m_state).is_readonly();
             case UberStateType::CountUberState:
             case UberStateType::ConditionUberState:
             case UberStateType::PlayerUberStateDescriptor:

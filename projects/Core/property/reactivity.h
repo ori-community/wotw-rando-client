@@ -7,10 +7,8 @@
 #include <variant>
 
 #include <Core/macros.h>
-
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/text_id.h>
-
+#include <Core/property/dependency.h>
 #include <Common/event_bus.h>
 
 namespace core {
@@ -18,81 +16,6 @@ namespace core {
     struct Property;
     struct BaseProperty;
 }
-
-namespace core::reactivity {
-    enum class MemoryType {
-        Bool,
-        Int,
-        Float,
-        String,
-    };
-
-    struct UberStateDependency {
-        int group;
-        int state;
-
-        auto operator<=>(const UberStateDependency&) const = default;
-    };
-
-    struct MemoryDependency {
-        MemoryType type;
-        int id;
-
-        template<typename T>
-        static MemoryType resolve_type() { throw std::runtime_error("Unsupported type"); }
-
-        auto operator<=>(const MemoryDependency&) const = default;
-    };
-
-    template<>
-    inline MemoryType MemoryDependency::resolve_type<bool>() { return MemoryType::Bool; }
-
-    template<>
-    inline MemoryType MemoryDependency::resolve_type<char>() { return MemoryType::Bool; }
-
-    template<>
-    inline MemoryType MemoryDependency::resolve_type<int>() { return MemoryType::Int; }
-
-    template<>
-    inline MemoryType MemoryDependency::resolve_type<float>() { return MemoryType::Float; }
-
-    template<>
-    inline MemoryType MemoryDependency::resolve_type<std::string>() { return MemoryType::String; }
-
-    struct TextDatabaseDependency {
-        core::TextID id;
-
-        auto operator<=>(const TextDatabaseDependency&) const = default;
-    };
-
-    struct PropertyDependency {
-        unsigned int id;
-
-        auto operator<=>(const PropertyDependency&) const = default;
-    };
-
-    using dependency_t = std::variant<UberStateDependency, MemoryDependency, TextDatabaseDependency, PropertyDependency>;
-} // namespace core::reactivity
-
-template<>
-struct std::hash<core::reactivity::UberStateDependency> {
-    std::size_t operator()(const core::reactivity::UberStateDependency& value) const noexcept { return value.group * 1000000000 + value.state; }
-};
-
-template<>
-struct std::hash<core::reactivity::MemoryDependency> {
-    std::size_t operator()(const core::reactivity::MemoryDependency& value) const noexcept { return static_cast<std::size_t>(value.type) * 1000000000 + value.id; }
-};
-
-template<>
-struct std::hash<core::reactivity::TextDatabaseDependency> {
-    std::size_t operator()(const core::reactivity::TextDatabaseDependency& value) const noexcept { return static_cast<std::size_t>(value.id); }
-};
-
-template<>
-struct std::hash<core::reactivity::PropertyDependency> {
-    std::size_t operator()(const core::reactivity::PropertyDependency& value) const noexcept { return value.id; }
-};
 
 namespace core::reactivity {
     struct ReactiveEffect {
@@ -285,7 +208,7 @@ namespace core::reactivity {
             }
             AfterEffectBuilder effect(const BaseProperty*& property, const std::source_location& location = std::source_location::current()) const;
             AfterEffectBuilder effect(const std::vector<const BaseProperty*>& properties, const std::source_location& location = std::source_location::current()) const;
-            AfterEffectBuilder effect(std::vector<api::uber_states::UberState> const& states, const std::source_location& location = std::source_location::current()) const;
+            AfterEffectBuilder effect(std::vector<core::api::uber_states::UberState> const& states, const std::source_location& location = std::source_location::current()) const;
             AfterEffectBuilder effect(std::function<void()> const& func, const std::source_location& location = std::source_location::current()) const;
 
         private:
@@ -322,6 +245,11 @@ namespace core::reactivity {
      * Returns true if the current effect was run by a trigger_on_load trigger.
      */
     CORE_DLLEXPORT bool is_effect_running_because_of_trigger_on_load();
+
+    /**
+     * Returns true if an effect is currently being set up (inside before(), effect() or after())
+     */
+    CORE_DLLEXPORT bool is_in_effect_setup();
 } // namespace core::reactivity
 
 struct WeakPtrCompare {

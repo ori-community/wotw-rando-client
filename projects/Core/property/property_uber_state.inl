@@ -101,11 +101,6 @@ struct core::Property<T> : core::BaseProperty {
 
     Property make_shallow_copy() const { return Property(get()); }
 
-    template<typename K>
-    Property<K> wrap() const {
-        return Property<K>([&](auto value) mutable { set(value); }, [&]() { return get(); });
-    }
-
 private:
     value_type m_value = nullptr;
 };
