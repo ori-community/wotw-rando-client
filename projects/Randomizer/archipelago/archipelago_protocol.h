@@ -242,8 +242,9 @@ namespace randomizer::archipelago::messages {
     struct RoomUpdate {
         std::vector<NetworkPlayer> players;
         std::vector<ids::archipelago_id_t> checked_locations;
+        int hint_points = -1;  // Use -1 as default, so that we know when hint_points was not in the packet (i.e. it was not updated)
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(RoomUpdate, players, checked_locations);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(RoomUpdate, players, checked_locations, hint_points);
     };
 
     struct LocationScouts {

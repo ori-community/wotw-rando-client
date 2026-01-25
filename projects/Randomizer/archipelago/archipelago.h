@@ -33,14 +33,14 @@ namespace randomizer::archipelago {
         void toggle_deathlink();
         void compare_seed();
         void reset_inventory();
-        void initialize_ap_wheel();
+        void initialize_ap_wheel() const;
         void clear_pending_respawn_locations();
         void collect_locations();
         std::string get_item_display_text(const location_data::Location& location);
         std::string get_shop_description(const location_data::Location& location);
         std::string get_shop_icon(const location_data::Location& location);
-        std::string parse_how_many(GameArea area);
-        std::string get_item_text(const messages::NetworkItem& net_item, const std::string& game);
+        std::string parse_how_many(GameArea area) const;
+        std::string get_item_text(const messages::NetworkItem& net_item, const std::string& game) const;
         const std::optional<ArchipelagoSeedGenerator>& current_seed_generator();
         common::EventBus<State>& event_bus() { return m_event_bus; }
         bool is_active() const { return m_is_active; }
@@ -91,5 +91,6 @@ namespace randomizer::archipelago {
         int m_hint_points = 0;
         int m_hint_points_per_pickup = 0;
         int m_hint_cost = 0;
+        int m_location_count = 345;  // 345 is the minimum number of locations
     };
 } // namespace randomizer::archipelago

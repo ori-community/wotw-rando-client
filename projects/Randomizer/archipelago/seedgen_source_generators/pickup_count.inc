@@ -6,6 +6,7 @@
 
 namespace randomizer::archipelago::seedgen_source_generators {
 
+    // This header places an empty item in every location, so that they are counted in the pickup counter
     const ArchipelagoSeedGeneratorOptionSourceGenerator pickup_count = {
         []() -> std::string { return "pickup_count"; },
         [](const ArchipelagoSeedGeneratorOptions& options) -> std::unordered_set<std::string> {

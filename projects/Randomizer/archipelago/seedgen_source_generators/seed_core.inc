@@ -46,6 +46,7 @@ namespace randomizer::archipelago::seedgen_source_generators {
 3|0|8|7|17|bool|true
 3|0|8|7|18|bool|true
 3|0|8|7|19|bool|true
+3|0|8|7|103|bool|true
 9|0|8|9|0|int|0
 3|1|17|0|17|16825|grom:0
 3|1|17|1|17|16825|Repair the Spirit Well
