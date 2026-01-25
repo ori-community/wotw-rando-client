@@ -14,7 +14,7 @@ namespace randomizer::archipelago::seedgen_source_generators {
             config_line += R"config(","tricks":[)config";
 
             if (options.glitches) {
-                config_line += R"tricks("SwordSentryJump","SpearJump","WallHammerJump","AerialHammerJump","PauseHover","SwordJump","BlazeSwap","LaunchSwap","SpearBreak","ShurikenBreak","ExtendedHammer","CoyoteHammerJump","HammerJump","SentryRedirect","GrenadeJump","FlashSwap","RemoveKillPlane","HammerBreak","HammerSentryJump","GroundedHammerJump","GlideHammerJump","GlideJump","GrenadeRedirect","WaveDash","SentrySwap","SentryBurn","SentryBreak")tricks";
+                config_line += R"tricks("SwordSentryJump","DashBashChain","SpearJump","WallHammerJump","AerialHammerJump","SentryRedirect","GrenadeJump","FlashSwap","RemoveKillPlane","HammerBreak","HammerSentryJump","LaunchBashChain","GlideBashChain","GroundedHammerJump","GlideHammerJump","PauseFloat","SwordJump","BlazeSwap","LaunchSwap","SpearBreak","ShurikenBreak","Unpopular","DoubleJumpBashChain","HammerExtension","CoyoteHammerJump","GlideJump","GrenadeRedirect","WaveDash","SentrySwap","SentryBurn","SentryBreak")tricks";
             }
 
             config_line += R"config(],"hard":)config";
