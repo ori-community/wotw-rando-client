@@ -230,7 +230,7 @@ namespace randomizer::archipelago {
         }
     }
 
-    void ArchipelagoClient::initialize_ap_wheel() {
+    void ArchipelagoClient::initialize_ap_wheel() const {
         features::wheel::initialize_item(0, 10, "Archipelago Actions", "Contains archipelago options", "file:assets/icons/archipelago/ap-normal.blue.png",
             [](auto, auto, auto) {
                 features::wheel::set_active_wheel(9002);
@@ -246,7 +246,7 @@ namespace randomizer::archipelago {
         features::wheel::initialize_item(9002, 2, "Hint status", "Displays the number of hints\nand progress towards next hint", "file:assets/icons/archipelago/ap-important.blue.png",
             [this](auto, auto, auto) {
                 // TODO remove one hint when parsing the right PrintJSON ? Also problem with reset inventory
-                int pickups_per_hint = m_hint_cost * 390 / 100;  // TODO replace 390 by the number of locations
+                int pickups_per_hint = m_hint_cost * m_location_count / 100;
                 int hint_amount = m_hint_points / pickups_per_hint;
                 int pickups_before_hint = pickups_per_hint - m_hint_points % pickups_per_hint;
                 std::string hint_amount_text;
@@ -530,7 +530,7 @@ namespace randomizer::archipelago {
         return icon_it->second;
     }
 
-    std::string ArchipelagoClient::parse_how_many(GameArea area) {
+    std::string ArchipelagoClient::parse_how_many(GameArea area) const {
         std::string output;
         for (auto scout_data: m_scouted_locations) {
             auto location = ids::get_location_from_id(scout_data.first);
@@ -557,7 +557,7 @@ namespace randomizer::archipelago {
     }
 
     // Get the item name, colorized depending on its classification
-    std::string ArchipelagoClient::get_item_text(const messages::NetworkItem& net_item, const std::string& game) {
+    std::string ArchipelagoClient::get_item_text(const messages::NetworkItem& net_item, const std::string& game) const {
         std::string item_name = m_data_package.get_item_name(net_item.item, game).value_or(UNKNOWN_ITEM_TEXT);
         // TODO sanitize name to remove markup from it
         std::string color_markup;
@@ -575,12 +575,12 @@ namespace randomizer::archipelago {
                     } else if (item.uber_group == 25) {  // Shard
                         color_markup = "$";
                     }
-                    else {  // TODO check the color of bonus+ items
+                    else {
                         color_markup = "#";
                     }
                 },
                 [this, &color_markup](const ids::UpgradeItem& item) {
-                    color_markup = "#";  // TODO check color
+                    color_markup = "#";
                 },
                 [this](const ids::ResourceItem& item) {},
                 [&net_item](const ids::Location&) {
@@ -829,6 +829,24 @@ namespace randomizer::archipelago {
                         send_message(messages::ConnectUpdate{0b111, {"AP", "DeathLink"}});
                     }
 
+                    if (message.slot_data.location_flags & FLAG_QUESTS) {
+                        m_location_count += 12;
+                    }
+                    if (message.slot_data.location_flags & FLAG_HAND_TO_HAND) {
+                        m_location_count += 11;
+                    }
+                    if (message.slot_data.location_flags & FLAG_REBUILD) {
+                        m_location_count += 2;
+                    }
+                    if (message.slot_data.location_flags & FLAG_TRIALS) {
+                        m_location_count += 8;
+                    }
+                    if (message.slot_data.location_flags & FLAG_QOL) {
+                        m_location_count += 1;
+                    }
+                    if (message.slot_data.location_flags & FLAG_MAPS) {
+                        m_location_count += 11;
+                    }
 
                     messages::LocationScouts location_scouts_message;
 
@@ -934,6 +952,10 @@ namespace randomizer::archipelago {
                         m_pending_collect_locations.insert(location_id);
                         m_pending_send_locations.erase(location_id); // Remove location from the cache if it existed in it.
                         collect_locations();
+                    }
+
+                    if (message.hint_points != -1) {
+                        m_hint_points = message.hint_points;
                     }
                 },
                 [this](const messages::PrintJSON& message) {
