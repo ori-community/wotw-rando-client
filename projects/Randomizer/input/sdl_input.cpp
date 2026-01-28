@@ -1,14 +1,16 @@
-#include <mutex>
+#include <Core/api/game/game.h>
+#include <Core/enums/game_event.h>
 #include <Core/settings.h>
-#include <Modloader/modloader.h>
-#include <Modloader/interception_macros.h>
-#include <Modloader/app/methods/J2i/Net/XInputWrapper/XboxController.h>
 #include <Modloader/app/methods/Core/Input.h>
 #include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/IntroLogosSkip.h>
+#include <Modloader/app/methods/J2i/Net/XInputWrapper/XboxController.h>
 #include <Modloader/app/methods/System/TimeSpan.h>
 #include <Modloader/app/types/TimeSpan.h>
+#include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 #include <SDL3/SDL.h>
+#include <mutex>
 
 namespace {
     using namespace app::classes;
@@ -60,6 +62,16 @@ namespace {
         }
     });
 
+    [[maybe_unused]]
+    auto on_before_unity_update_loop = core::api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::Before, [](auto, auto) {
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_EVENT_GAMEPAD_ADDED || event.type == SDL_EVENT_GAMEPAD_REMOVED) {
+                detect_controller();
+            }
+        }
+    });
+
     IL2CPP_INTERCEPT(void, IntroLogosSkip, Update, app::IntroLogosSkip* this_ptr) {
         if (GameStateMachine::get_CurrentState(GameStateMachine::get_Instance()) == app::GameStateMachine_State__Enum::Logos) {
             if (!this_ptr->fields.TimelineRunning->fields.m_isRunning && this_ptr->fields.MoonStudiosLogoTimeline->fields._._PlayState_k__BackingField != app::AnimatorPlayState__Enum::Playing) {
@@ -77,13 +89,6 @@ namespace {
         if (!enable_native_controller_support) {
             next::J2i::Net::XInputWrapper::XboxController::UpdateState(this_ptr);
             return;
-        }
-
-        SDL_Event event;
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_EVENT_GAMEPAD_ADDED || event.type == SDL_EVENT_GAMEPAD_REMOVED) {
-                detect_controller();
-            }
         }
 
         if (gamepad == nullptr) {
