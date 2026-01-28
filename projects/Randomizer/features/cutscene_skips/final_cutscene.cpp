@@ -76,7 +76,7 @@ namespace {
             core::api::scenes::scene_state("creditsScreen") != app::SceneState__Enum::Enabled;
     }
 
-    void skip_invoke() {
+    void skip_invoke(const custom_cutscene_skips::CustomCutsceneSkip::InvokeParameters&) {
         // if (is_timeline_valid_and_playing("willowPowlBackground", shriek_death_reaction_timeline)) {
         //     Moon::Timeline::TimelineEntity::PausePlayback(reinterpret_cast<app::TimelineEntity*>(shriek_death_reaction_timeline.ptr));
         // }

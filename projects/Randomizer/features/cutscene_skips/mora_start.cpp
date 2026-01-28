@@ -55,7 +55,7 @@ namespace {
             Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(escape_end_timeline.ptr));
     }
 
-    void skip_invoke() {
+    void skip_invoke(const custom_cutscene_skips::CustomCutsceneSkip::InvokeParameters&) {
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(escape_end_timeline.ptr));
 
         core::api::uber_states::UberState mora_boss_state(static_cast<UberStateGroup>(18793), 26713);

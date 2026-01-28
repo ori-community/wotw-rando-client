@@ -16,6 +16,7 @@
 #include <Modloader/app/methods/Game/UI.h>
 #include <Modloader/app/methods/Moon/Wwise/SoundListener.h>
 #include <Modloader/app/types/ISkipCutscene.h>
+#include <Modloader/modloader.h>
 #include <frozen/unordered_map.h>
 
 #include "Core/api/audio.h"
@@ -30,6 +31,7 @@ namespace custom_cutscene_skips {
         float block_automatic_cutscene_skips_for_seconds = 0.f;
         float delay_fade_to_game_for_seconds = 0.f;
         bool automatic_cutscene_skipping_enabled_cache = false;
+        bool is_executing_automatic_cutscene_skip = false;
         std::optional<CustomCutsceneSkip::Metadata> skip_metadata_of_last_get_skipping_available_call = std::nullopt;
 
         struct VanillaCutsceneSkipConfig {
@@ -70,7 +72,9 @@ namespace custom_cutscene_skips {
             for (const auto& custom_skip : custom_skips) {
                 if (custom_skip.is_available()) {
                     modloader::win::console::console_send("Running custom cutscene skip");
-                    custom_skip.invoke();
+                    custom_skip.invoke(CustomCutsceneSkip::InvokeParameters {
+                        .is_automatic_skip = is_executing_automatic_cutscene_skip,
+                    });
                     return;
                 }
             }
@@ -131,24 +135,25 @@ namespace custom_cutscene_skips {
         if (SkipCutsceneController::get_SkippingAvailable(types::SkipCutsceneController::get_class()->static_fields->Instance)) {
             block_automatic_cutscene_skips_for_seconds = 10.f;
 
-            const auto execute_skip = [] {
+            const auto execute_automatic_skip = [] {
                 block_automatic_cutscene_skips_for_seconds = 0.f;
                 delay_fade_to_game_for_seconds = 0.f;
 
+                modloader::ScopedSetter _(is_executing_automatic_cutscene_skip, true);
                 SkipCutsceneController::SkipCutscene(types::SkipCutsceneController::get_class()->static_fields->Instance);
             };
 
             if (!skip_metadata_of_last_get_skipping_available_call.has_value() || skip_metadata_of_last_get_skipping_available_call->fade_on_automatic_skip) {
                 core::api::faderb::fade_to_game_invisible(0.4f);
                 core::events::schedule_task(0.4f, [=] {
-                    execute_skip();
+                    execute_automatic_skip();
 
                     core::events::schedule_task(delay_fade_to_game_for_seconds, [] {
                         core::api::faderb::fade_to_game_visible(0.3f);
                     });
                 });
             } else {
-                execute_skip();
+                execute_automatic_skip();
             }
         }
     });

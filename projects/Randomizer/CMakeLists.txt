@@ -31,6 +31,7 @@ set(
         "features/cutscene_skips/kwolok_boss_intro.cpp"
         "features/cutscene_skips/levers.cpp"
         "features/cutscene_skips/mora_start.cpp"
+        "features/cutscene_skips/new_setup_state_controller_transitions.cpp"
         "features/cutscene_skips/reach_escape.cpp"
         "features/cutscene_skips/sandworm_end.cpp"
         "features/cutscene_skips/sandworm_start.cpp"

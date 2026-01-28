@@ -50,7 +50,7 @@ namespace {
             Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(reach_escape_intro.ptr));
     }
 
-    void skip_invoke() {
+    void skip_invoke(const custom_cutscene_skips::CustomCutsceneSkip::InvokeParameters&) {
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(reach_escape_intro.ptr));
         next_frame_action = TeleportOri;
     }

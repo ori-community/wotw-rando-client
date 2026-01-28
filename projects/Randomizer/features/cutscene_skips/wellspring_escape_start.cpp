@@ -89,7 +89,7 @@ namespace {
             Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(wellspring_escape_effect_timeline.ptr));
     }
 
-    void skip_invoke() {
+    void skip_invoke(const custom_cutscene_skips::CustomCutsceneSkip::InvokeParameters&) {
         // Move kill hitbox out of the way
         UnityEngine::Transform::set_position(kill_hitbox_transform.ptr, app::Vector3{ 0.f, 0.f, 0.f });
         next_frame_action = ModifyTimelines;

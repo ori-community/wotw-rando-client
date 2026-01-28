@@ -82,9 +82,16 @@ namespace {
             );
 
             const auto open_door_cinematic_character_go = il2cpp::unity::find_child(
-                metadata->scene->fields.SceneRoot,
+                open_door_timeline_go,
                 std::vector<std::string>{
-                    "artSetups", "frogHeadSetup", "doorWithTwoSlots", "doorWithTwoSlots", "timelines", "doorOpeningTimeline", "openDoor", "cinematicCharacter"
+                    "cinematicCharacter"
+                }
+            );
+
+            const auto lock_input_go = il2cpp::unity::find_child(
+                open_door_timeline_go,
+                std::vector<std::string>{
+                    "lockInput"
                 }
             );
 
@@ -105,6 +112,11 @@ namespace {
             // Destroy this entity to prevent Ori from staying in the air when opening the door
             if (il2cpp::unity::is_valid(open_door_cinematic_character_go)) {
                 il2cpp::unity::destroy_object(open_door_cinematic_character_go);
+            }
+
+            // Destroy this entity to make the door behave similar to normal keystone doors, where you can keep moving
+            if (il2cpp::unity::is_valid(lock_input_go)) {
+                il2cpp::unity::destroy_object(lock_input_go);
             }
         }
     });

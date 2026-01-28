@@ -62,7 +62,7 @@ namespace {
             Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(kwolok_boss_farewell_timeline.ptr));
     }
 
-    void skip_invoke() {
+    void skip_invoke(const custom_cutscene_skips::CustomCutsceneSkip::InvokeParameters&) {
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(kwolok_boss_farewell_timeline.ptr));
         give_strength_if_not_given();
     }

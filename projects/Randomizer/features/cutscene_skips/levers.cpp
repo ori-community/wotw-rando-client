@@ -84,7 +84,7 @@ namespace {
         on_lever_push(next::Lever::OnPushLeverLeft, this_ptr);
     }
 
-    IL2CPP_INTERCEPT(void, Moon::Timeline::FaderAnimatorEntity, OnStartPlayback, app::FaderAnimatorEntity* this_ptr, app::IContext* context) {
+    IL2CPP_INTERCEPT_WITH_ORDER(11, void, Moon::Timeline::FaderAnimatorEntity, OnStartPlayback, app::FaderAnimatorEntity* this_ptr, app::IContext* context) {
         if (is_stopping_timeline) {
             return;
         }
@@ -92,7 +92,7 @@ namespace {
         next::Moon::Timeline::FaderAnimatorEntity::OnStartPlayback(this_ptr, context);
     }
 
-    IL2CPP_INTERCEPT(void, Moon::Timeline::FaderAnimatorEntity, OnStopPlayback, app::FaderAnimatorEntity* this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(11, void, Moon::Timeline::FaderAnimatorEntity, OnStopPlayback, app::FaderAnimatorEntity* this_ptr) {
         if (is_stopping_timeline) {
             return;
         }
@@ -100,18 +100,13 @@ namespace {
         next::Moon::Timeline::FaderAnimatorEntity::OnStopPlayback(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(void, Moon::Timeline::MoonTimeline, OnStartPlayback, app::MoonTimeline* this_ptr, app::IContext* context) {
+    IL2CPP_INTERCEPT_WITH_ORDER(11, void, Moon::Timeline::MoonTimeline, OnStartPlayback, app::MoonTimeline* this_ptr, app::IContext* context) {
         if (is_pushing_lever) {
-            modloader::win::console::console_send(il2cpp::unity::get_path(this_ptr));
             active_lever_timeline = il2cpp::WeakGCRef(this_ptr);
             is_pushing_lever = false;
         }
 
         next::Moon::Timeline::MoonTimeline::OnStartPlayback(this_ptr, context);
-    }
-
-    IL2CPP_INTERCEPT(void, PhysicalSystemManager, OnEnable, app::PhysicalSystemManager* this_ptr) {
-        next::PhysicalSystemManager::OnEnable(this_ptr);
     }
 
     bool skip_available() {
@@ -134,7 +129,7 @@ namespace {
         return std::nullopt;
     }
 
-    void skip_invoke() {
+    void skip_invoke(const custom_cutscene_skips::CustomCutsceneSkip::InvokeParameters&) {
         modloader::ScopedSetter _(is_stopping_timeline, true);
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(**active_lever_timeline));
 

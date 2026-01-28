@@ -55,7 +55,7 @@ namespace {
             escape_end_timeline_go.is_valid();
     }
 
-    void skip_invoke() {
+    void skip_invoke(const custom_cutscene_skips::CustomCutsceneSkip::InvokeParameters&) {
         // Just nuke the damn thing, what could go wrong
         il2cpp::unity::destroy_object(escape_end_timeline_go.ptr);
 

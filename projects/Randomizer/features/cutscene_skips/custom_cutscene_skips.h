@@ -8,8 +8,12 @@ namespace custom_cutscene_skips {
             bool fade_on_automatic_skip = true;
         };
 
+        struct InvokeParameters {
+            bool is_automatic_skip = false;
+        };
+
         bool (*is_available)(){};
-        void (*invoke)(){};
+        void (*invoke)(const InvokeParameters& parameters){};
         std::optional<Metadata> (*get_metadata)() = [] { return static_cast<std::optional<Metadata>>(std::nullopt); };
     };
 

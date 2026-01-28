@@ -45,7 +45,7 @@ namespace {
             Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(wellspring_so_soggy_timeline.ptr));
     }
 
-    void skip_invoke() {
+    void skip_invoke(const custom_cutscene_skips::CustomCutsceneSkip::InvokeParameters&) {
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(wellspring_so_soggy_timeline.ptr));
         core::api::game::player::set_position(-763.04f, -4071.325f, true);
         core::api::game::player::snap_camera();
