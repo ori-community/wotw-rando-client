@@ -37,38 +37,14 @@ namespace {
             }
         }
 
-        modloader::info("sdl_input", "Gamepad lost");
+        modloader::info("sdl_input", "No Gamepad detected");
         gamepad = nullptr;
     }
-
-    [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-        enable_native_controller_support = core::settings::enable_native_controller_support();
-
-        if (enable_native_controller_support) {
-            if (!SDL_Init(SDL_INIT_GAMEPAD)) {
-                modloader::error("sdl_input", std::format("Failed to initialize SDL, error {}", SDL_GetError()));
-            }
-
-            modloader::info("sdl_input", "SDL initialized");
-            detect_controller();
-        }
-    });
 
     [[maybe_unused]]
     auto on_shutdown = modloader::event_bus().register_handler(ModloaderEvent::Shutdown, [](auto) {
         if (enable_native_controller_support) {
             SDL_Quit();
-        }
-    });
-
-    [[maybe_unused]]
-    auto on_before_unity_update_loop = core::api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::Before, [](auto, auto) {
-        SDL_Event event;
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_EVENT_GAMEPAD_ADDED || event.type == SDL_EVENT_GAMEPAD_REMOVED) {
-                detect_controller();
-            }
         }
     });
 
@@ -84,11 +60,33 @@ namespace {
         }
     }
 
+    IL2CPP_INTERCEPT(void, J2i::Net::XInputWrapper::XboxController, PollerLoop) {
+        enable_native_controller_support = core::settings::enable_native_controller_support();
+
+        if (enable_native_controller_support) {
+            if (!SDL_Init(SDL_INIT_GAMEPAD)) {
+                modloader::error("sdl_input", std::format("Failed to initialize SDL, error {}", SDL_GetError()));
+            }
+
+            modloader::info("sdl_input", "SDL initialized");
+            detect_controller();
+        }
+
+        next::J2i::Net::XInputWrapper::XboxController::PollerLoop();
+    }
+
     // Warning: This method runs in a thread!
     IL2CPP_INTERCEPT(void, J2i::Net::XInputWrapper::XboxController, UpdateState, app::XboxController* this_ptr) {
         if (!enable_native_controller_support) {
             next::J2i::Net::XInputWrapper::XboxController::UpdateState(this_ptr);
             return;
+        }
+
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_EVENT_GAMEPAD_ADDED || event.type == SDL_EVENT_GAMEPAD_REMOVED) {
+                detect_controller();
+            }
         }
 
         if (gamepad == nullptr) {
