@@ -33,9 +33,10 @@ namespace randomizer::archipelago {
         void toggle_deathlink();
         void compare_seed();
         void reset_inventory();
-        void initialize_ap_wheel() const;
+        void initialize_ap_wheel();
         void clear_pending_respawn_locations();
         void collect_locations();
+        void hint_item(std::string item);
         std::string get_item_display_text(const location_data::Location& location);
         std::string get_shop_description(const location_data::Location& location);
         std::string get_shop_icon(const location_data::Location& location);
@@ -88,9 +89,5 @@ namespace randomizer::archipelago {
         int m_deathlink_max_lives = 1;  // How many times the player has to die to trigger a death link
         int m_deathlink_lives = 1;
         bool m_death_from_deathlink = false;  // True if the latest death was caused by someone else dying
-        int m_hint_points = 0;
-        int m_hint_points_per_pickup = 0;
-        int m_hint_cost = 0;
-        int m_location_count = 345;  // 345 is the minimum number of locations
     };
 } // namespace randomizer::archipelago

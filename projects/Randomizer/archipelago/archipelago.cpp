@@ -168,9 +168,6 @@ namespace randomizer::archipelago {
         m_deathlink_max_lives = 1;
         m_deathlink_lives = 1;
         m_death_from_deathlink = false;
-        m_hint_points = 0;
-        m_hint_points_per_pickup = 0;
-        m_hint_cost = 0;
 
         modloader::info("archipelago", "AP client got reset");
     }
@@ -230,7 +227,7 @@ namespace randomizer::archipelago {
         }
     }
 
-    void ArchipelagoClient::initialize_ap_wheel() const {
+    void ArchipelagoClient::initialize_ap_wheel() {
         features::wheel::initialize_item(0, 10, "Archipelago Actions", "Contains archipelago options", "file:assets/icons/archipelago/ap-normal.blue.png",
             [](auto, auto, auto) {
                 features::wheel::set_active_wheel(9002);
@@ -243,26 +240,14 @@ namespace randomizer::archipelago {
             [](auto, auto, auto) {
                 archipelago_client().toggle_deathlink();
             });
-        features::wheel::initialize_item(9002, 2, "Hint status", "Displays the number of hints\nand progress towards next hint", "file:assets/icons/archipelago/ap-important.blue.png",
+        features::wheel::initialize_item(9002, 2, "Hint status", "Displays current hints\nand your hint points", "file:assets/icons/archipelago/ap-important.blue.png",
             [this](auto, auto, auto) {
-                // TODO remove one hint when parsing the right PrintJSON ? Also problem with reset inventory
-                int pickups_per_hint = m_hint_cost * m_location_count / 100;
-                int hint_amount = m_hint_points / pickups_per_hint;
-                int pickups_before_hint = pickups_per_hint - m_hint_points % pickups_per_hint;
-                std::string hint_amount_text;
-                if (hint_amount == 0) {
-                    hint_amount_text = "No hint available\n";
-                } else if (hint_amount == 1) {
-                    hint_amount_text = "1 hint available\n";
-                } else {
-                    hint_amount_text = std::format("{} hints available\n", hint_amount);
-                }
-                std::string hint_pickup_text = (pickups_before_hint == 1) ? "1 location before next hint" : std::format("{} locations before next hint", pickups_before_hint);
-                core::message_controller().queue_central({
-                    .text = core::Property<std::string>(hint_amount_text + hint_pickup_text),
-                    .prioritized = true,
-                });
+                send_message(messages::Say("!hint"));
             });
+    }
+
+    void ArchipelagoClient::hint_item(std::string item) {
+        send_message(messages::Say(std::format("!hint {}", item)));
     }
 
     void ArchipelagoClient::notify_location_collected(const location_data::Location& location) {
@@ -757,8 +742,6 @@ namespace randomizer::archipelago {
 
         if (m_slot_id == net_item.player) {
             modloader::debug("archipelago", std::format("Received item: {}", item_name));
-            // Increment the hint points only for local items, the increment for non-local items is done when parsing PrintJSON packets
-            m_hint_points = m_hint_points + m_hint_points_per_pickup;
             if (item_name != "Nothing") {
                 core::message_controller().queue_central({
                     .text = core::Property<std::string>(item_text),
@@ -829,25 +812,6 @@ namespace randomizer::archipelago {
                         send_message(messages::ConnectUpdate{0b111, {"AP", "DeathLink"}});
                     }
 
-                    if (message.slot_data.location_flags & FLAG_QUESTS) {
-                        m_location_count += 12;
-                    }
-                    if (message.slot_data.location_flags & FLAG_HAND_TO_HAND) {
-                        m_location_count += 11;
-                    }
-                    if (message.slot_data.location_flags & FLAG_REBUILD) {
-                        m_location_count += 2;
-                    }
-                    if (message.slot_data.location_flags & FLAG_TRIALS) {
-                        m_location_count += 8;
-                    }
-                    if (message.slot_data.location_flags & FLAG_QOL) {
-                        m_location_count += 1;
-                    }
-                    if (message.slot_data.location_flags & FLAG_MAPS) {
-                        m_location_count += 11;
-                    }
-
                     messages::LocationScouts location_scouts_message;
 
                     for (const auto& required_location_name : m_current_seed_generator->required_location_scouts()) {
@@ -867,8 +831,6 @@ namespace randomizer::archipelago {
                     if (!location_scouts_message.locations.empty()) {
                         send_message(location_scouts_message);
                     }
-
-                    m_hint_points = message.hint_points;
 
                     m_event_bus.trigger_event(State::Connected);
                 },
@@ -899,8 +861,6 @@ namespace randomizer::archipelago {
                         modloader::debug("archipelago", "Sent GetDataPackage packet to AP server.");
                     }
                     m_ap_seed = message.seed_name;
-                    m_hint_points_per_pickup = message.location_check_points;
-                    m_hint_cost = message.hint_cost;
                 },
                 [this](const messages::ReceivedItems& message) {
                     if (!GameStateMachine::get_IsGame()) {
@@ -953,10 +913,6 @@ namespace randomizer::archipelago {
                         m_pending_send_locations.erase(location_id); // Remove location from the cache if it existed in it.
                         collect_locations();
                     }
-
-                    if (message.hint_points != -1) {
-                        m_hint_points = message.hint_points;
-                    }
                 },
                 [this](const messages::PrintJSON& message) {
                     modloader::debug("archipelago", std::format("Parsing PrintJSON of type: {}", message.type));
@@ -970,8 +926,6 @@ namespace randomizer::archipelago {
                                 ),
                                 .show_box = true,
                             });
-                            // Increment the hint points only for non-local items, the increment for local items is done in grant_item
-                            m_hint_points = m_hint_points + m_hint_points_per_pickup;
                             if (message.type == "ItemSend") {
                                 // This means that the server received the LocationCheck packet, so we can clear the cache.
                                 m_pending_send_locations.clear();
@@ -985,10 +939,11 @@ namespace randomizer::archipelago {
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>(std::format(
                                     "{} for {} is on {}.",
-                                    m_data_package.get_item_name(message.item.item, game).value_or(UNKNOWN_ITEM_TEXT),
+                                    get_item_text(message.item, game),
                                     get_player_name(message.receiving),
                                     m_data_package.get_location_name(message.item.location, "Ori and the Will of the Wisps").value_or("@Unknown Location@")
                                 )),
+                                .duration = 8.f,
                                 .show_box = true,
                             });
                         }
@@ -1039,7 +994,7 @@ namespace randomizer::archipelago {
                         }
                     } else if (message.type == "Chat") {
                         std::string player_name = get_player_name(message.slot);
-                        if (player_name != get_player_name(m_slot_id)) {
+                        if (player_name != get_player_name(m_slot_id) && !message.message.starts_with("!")) {  // ! means that it is a server command
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>(std::format("{}: {}", player_name, message.message)),
                                 .show_box = true,
@@ -1050,8 +1005,15 @@ namespace randomizer::archipelago {
                             .text = core::Property<std::string>(std::format("Server: {}", message.message)),
                             .show_box = true,
                         });
-                    } else if (message.type == "Tutorial" || message.type == "TagsChanged" || message.type == "CommandResult" ||
-                               message.type == "AdminCommandResult") {
+                    } else if (message.type == "CommandResult") {
+                        for (auto json_data: message.data) {
+                            core::message_controller().queue_central({
+                                .text = core::Property<std::string>(json_data.text),
+                                .duration = 5.f,
+                                .show_box = true,
+                            });
+                        }
+                    } else if (message.type == "Tutorial" || message.type == "TagsChanged" || message.type == "AdminCommandResult") {
                         // Skip these messages
                     } else { // TODO sometimes there is no type (eg Cheat console), see what to do
                         std::string text = message.type + ": ";
