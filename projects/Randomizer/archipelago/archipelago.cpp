@@ -934,14 +934,18 @@ namespace randomizer::archipelago {
 
                     } else if (message.type == "Hint") {
                         // Only display if the item is in this game, and not found yet.
-                        if (message.item.player == m_slot_id && !message.found) {
-                            std::string game = m_slots[std::to_string(message.receiving)].game;
+                        if ((message.item.player == m_slot_id || message.receiving == m_slot_id) && !message.found) {
+                            std::string location_game = m_slots[std::to_string(message.item.player)].game;
+                            std::string item_game = m_slots[std::to_string(message.receiving)].game;
+                            std::string player_item_text = message.receiving == m_slot_id ? "Your" : std::format("{}'s", get_player_name(message.receiving));
+                            std::string player_location_text = message.item.player == m_slot_id ? "" : std::format(" (in {}'s world)", get_player_name(message.item.player));
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>(std::format(
-                                    "{} for {} is on {}.",
-                                    get_item_text(message.item, game),
-                                    get_player_name(message.receiving),
-                                    m_data_package.get_location_name(message.item.location, "Ori and the Will of the Wisps").value_or("@Unknown Location@")
+                                    "{} {} is at {}{}.",
+                                    player_item_text,
+                                    get_item_text(message.item, item_game),
+                                    m_data_package.get_location_name(message.item.location, location_game).value_or("@Unknown Location@"),
+                                    player_location_text
                                 )),
                                 .duration = 8.f,
                                 .show_box = true,
