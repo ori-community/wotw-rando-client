@@ -23,7 +23,7 @@ namespace core::save_meta {
      * Normal Ori save files start with a 12 integer (as of patch 3).
      */
     constexpr int SAVE_META_FILE_MAGIC = 1;
-    constexpr int SAVE_META_FILE_VERSION = 1; // Reserved for future upgrades
+    constexpr int SAVE_META_FILE_VERSION = 2; // Reserved for future upgrades
 
     struct SaveMetaSlotConfiguration {
         std::shared_ptr<SaveMetaHandler> handler;
@@ -84,7 +84,11 @@ namespace core::save_meta {
 
             if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
                 stream.skip<int>();
-                stream.skip<int>(); // VERSION unused for now
+                const auto version = stream.read<int>();
+
+                if (version != SAVE_META_FILE_VERSION) {
+                    return {};
+                }
 
                 return stream.read<MoodGuid>();
             }
@@ -117,53 +121,58 @@ namespace core::save_meta {
 
             if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
                 stream.skip<int>();
-                stream.skip<int>(); // VERSION unused for now
 
-                auto guid = stream.read<MoodGuid>();
-                auto slot_count = stream.read<int>();
+                const auto version = stream.read<int>();
 
-                info("save_meta", std::format("Reading {} SaveMeta slots from save file {},{},{},{}", slot_count, guid.A, guid.B, guid.C, guid.D));
+                if (version != SAVE_META_FILE_VERSION) {
+                    warn("save_meta", std::format("Tried to read save file with incompatible version {}", version));
+                } else {
+                    auto guid = stream.read<MoodGuid>();
+                    auto slot_count = stream.read<int>();
 
-                for (int i = 0; i < slot_count; ++i) {
-                    auto slot = stream.read<SaveMetaSlot>();
-                    auto length = stream.read<unsigned long>();
+                    info("save_meta", std::format("Reading {} SaveMeta slots from save file {},{},{},{}", slot_count, guid.A, guid.B, guid.C, guid.D));
 
-                    info("save_meta", std::format("- Slot {}: length = {}", i, length));
+                    for (int i = 0; i < slot_count; ++i) {
+                        auto slot = stream.read<SaveMetaSlot>();
+                        auto length = stream.read<unsigned long>();
 
-                    if (!slots.contains(slot)) {
-                        info("save_meta", std::format("  Tried to load SaveMeta slot {} but no handler was provided for this slot", static_cast<int>(slot)));
-                        stream.skip(length);
-                        continue;
+                        info("save_meta", std::format("- Slot {}: length = {}", i, length));
+
+                        if (!slots.contains(slot)) {
+                            info("save_meta", std::format("  Tried to load SaveMeta slot {} but no handler was provided for this slot", static_cast<int>(slot)));
+                            stream.skip(length);
+                            continue;
+                        }
+
+                        auto slot_config = slots[slot];
+                        auto slot_persistence_int = static_cast<int>(slot_config.persistence);
+                        auto minimum_persistence_int = static_cast<int>(minimum_persistence);
+                        auto persistence_excluded = slot_persistence_int < minimum_persistence_int;
+
+                        if (exclude_persistences) {
+                            persistence_excluded = !persistence_excluded;
+                        }
+
+                        if (!load || persistence_excluded) {
+                            stream.skip(length);
+                            continue;
+                        }
+
+                        auto buffer = stream.read(length);
+
+                        if (!slot_config.last_saved_data_initialized) {
+                            slot_config.last_saved_data = buffer;
+                            slot_config.last_saved_data_initialized = true;
+                        }
+
+                        core::utils::ByteStream slot_data(buffer);
+                        slots[slot].handler->load(slot_data);
                     }
 
-                    auto slot_config = slots[slot];
-                    auto slot_persistence_int = static_cast<int>(slot_config.persistence);
-                    auto minimum_persistence_int = static_cast<int>(minimum_persistence);
-                    auto persistence_excluded = slot_persistence_int < minimum_persistence_int;
-
-                    if (exclude_persistences) {
-                        persistence_excluded = !persistence_excluded;
+                    if (load) {
+                        previous_save_guid = current_save_guid;
+                        current_save_guid = guid;
                     }
-
-                    if (!load || persistence_excluded) {
-                        stream.skip(length);
-                        continue;
-                    }
-
-                    auto buffer = stream.read(length);
-
-                    if (!slot_config.last_saved_data_initialized) {
-                        slot_config.last_saved_data = buffer;
-                        slot_config.last_saved_data_initialized = true;
-                    }
-
-                    core::utils::ByteStream slot_data(buffer);
-                    slots[slot].handler->load(slot_data);
-                }
-
-                if (load) {
-                    previous_save_guid = current_save_guid;
-                    current_save_guid = guid;
                 }
             } else {
                 info("save_meta", "Save file did not start with magic byte. Skipping.");
@@ -326,7 +335,12 @@ namespace core::save_meta {
 
         if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
             stream.skip<int>();
-            stream.skip<int>(); // VERSION unused for now
+            const auto version = stream.read<int>();
+
+            if (version != SAVE_META_FILE_VERSION) {
+                warn("save_meta", std::format("Tried to read save file with incompatible version {}", version));
+                return successfully_read_slots;
+            }
 
             auto guid = stream.read<MoodGuid>();
             auto slot_count = stream.read<int>();

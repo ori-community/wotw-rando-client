@@ -432,6 +432,8 @@ namespace randomizer {
                 add_state<app::SerializedByteUberState>(UberStateGroup::ItemTracker, "currentTreeCount", 502, 0),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::ItemTracker, "currentAreaHasUncollectedRelic", 505, false),
 
+                add_state<app::SerializedIntUberState>(UberStateGroup::Stats, "launchFragmentsCount", 1, 0),
+
                 add_state<app::SerializedByteUberState>(UberStateGroup::LupoShop, "hcMapIcons", 19396, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoShop, "hcMapIconsCost", 19397, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::LupoShop, "ecMapIcons", 57987, 0),

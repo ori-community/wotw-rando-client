@@ -13,4 +13,5 @@ enum class SaveMetaSlot {
     SeedEnvironment,
     SeedPersistentMemory,
     StaticText,
+    SaveFileGameStatsEvents,
 };

@@ -29,6 +29,7 @@ enum class UberStateGroup {
     ItemTracker = 23,
     Skills = 24,
     Shards = 25,
+    Stats = 26,
     Doors = 27,
     KnownDoorConnections = 28,
     Settings = 29,

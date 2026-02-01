@@ -26,37 +26,6 @@
 using namespace app::classes;
 
 namespace randomizer::timing {
-    constexpr bool ENABLE_DEBUG_LOGGING = false;
-
-    const std::unordered_set<app::AbilityType__Enum> TRACKED_ABILITIES{
-        app::AbilityType__Enum::Bash,
-        app::AbilityType__Enum::DoubleJump,
-        app::AbilityType__Enum::ChargeJump, // Launch
-        app::AbilityType__Enum::Glide,
-        app::AbilityType__Enum::WaterBreath,
-        app::AbilityType__Enum::Grenade,
-        app::AbilityType__Enum::SpiritLeash, // Grapple
-        app::AbilityType__Enum::GlowSpell, // Flash
-        app::AbilityType__Enum::SpiritSpearSpell, // Spear
-        app::AbilityType__Enum::MeditateSpell, // Regenerate but the actual one
-        app::AbilityType__Enum::Bow,
-        app::AbilityType__Enum::Hammer,
-        app::AbilityType__Enum::Sword,
-        app::AbilityType__Enum::Digging, // Burrow
-        app::AbilityType__Enum::DashNew, // Dash
-        app::AbilityType__Enum::WaterDash,
-        app::AbilityType__Enum::ChakramSpell, // Shuriken
-        app::AbilityType__Enum::Blaze,
-        app::AbilityType__Enum::TurretSpell, // Sentry
-        app::AbilityType__Enum::FeatherFlap, // Flap
-        app::AbilityType__Enum::DamageUpgradeA, // Ancestral Light 1
-        app::AbilityType__Enum::DamageUpgradeB, // Ancestral Light 2
-    };
-
-    const std::unordered_map<core::api::uber_states::UberState, WorldEvent> TRACKED_WORLD_EVENTS{
-        {core::api::uber_states::UberState(UberStateGroup::RandoState, 2000), WorldEvent::CleanWater},
-    };
-
     const core::api::uber_states::UberState game_finished_uber_state(34543, 11226);
 
     // Caches for some values that should not be read in the main menu
@@ -79,6 +48,16 @@ namespace randomizer::timing {
 
     std::shared_ptr<CheckpointGameStats> checkpoint_stats = std::make_shared<CheckpointGameStats>();
     std::shared_ptr<SaveFileGameStats> save_stats = std::make_shared<SaveFileGameStats>();
+    std::shared_ptr<SaveFileGameStatsEvents> save_stats_events = std::make_shared<SaveFileGameStatsEvents>(save_stats);
+
+    struct PositionCache {
+        /** The last position that has been recorded as a PositionEvent */
+        app::Vector2 last_recorded_position{};
+        /** The last known player position while event recording was active */
+        app::Vector2 last_known_position{};
+    };
+
+    std::optional<PositionCache> position_cache = std::nullopt;
 
     void queue_timer_state_report() {
         queue_timer_state_ipc_report = true;
@@ -105,6 +84,8 @@ namespace randomizer::timing {
         void reset_stats() {
             checkpoint_stats = std::make_shared<CheckpointGameStats>();
             save_stats = std::make_shared<SaveFileGameStats>();
+            save_stats_events = std::make_shared<SaveFileGameStatsEvents>(save_stats);
+            position_cache = std::nullopt;
 
             core::save_meta::register_slot(
                 SaveMetaSlot::CheckpointGameStats,
@@ -116,8 +97,17 @@ namespace randomizer::timing {
                 SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups,
                 save_stats
             );
+            core::save_meta::register_slot(
+                SaveMetaSlot::SaveFileGameStatsEvents,
+                SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups,
+                save_stats_events
+            );
 
             queue_timer_state_report();
+        }
+
+        void report_current_player_position() {
+            save_stats_events->report_position(modloader::math::to_vec2(core::api::game::player::get_position()));
         }
 
         auto on_new_game = core::api::game::event_bus().register_handler(
@@ -127,6 +117,7 @@ namespace randomizer::timing {
                 queue_input_unlocked_callback([] {
                     reset_stats();
                     loaded_any_save_file = true;
+                    report_current_player_position();
                 });
             }
         );
@@ -136,6 +127,7 @@ namespace randomizer::timing {
             EventTiming::Before,
             [](GameEvent event, EventTiming timing) {
                 loaded_any_save_file = true;
+                report_current_player_position();
             }
         );
 
@@ -162,11 +154,19 @@ namespace randomizer::timing {
                 }
 
                 if (death_position_before_respawn.has_value()) {
-                    save_stats->report_teleport(
+                    const auto player_position = modloader::math::to_vec2(core::api::game::player::get_position());
+
+                    save_stats_events->report_displacement(
                         death_position_before_respawn.value(),
-                        modloader::math::to_vec2(core::api::game::player::get_position()),
-                        SaveFileGameStats::TeleportReason::Death
+                        player_position,
+                        SaveFileGameStatsEvents::DisplacementReason::Death,
+                        save_stats->time_since_last_checkpoint
                     );
+
+                    if (position_cache.has_value()) {
+                        position_cache->last_known_position = player_position;
+                        position_cache->last_recorded_position = player_position;
+                    }
 
                     death_position_before_respawn = std::nullopt;
                 }
@@ -175,6 +175,7 @@ namespace randomizer::timing {
             }
         );
 
+        [[maybe_unused]]
         auto on_death = core::api::death_listener::player_death_event_bus().register_handler(
             EventTiming::Before,
             [](auto, auto) {
@@ -183,20 +184,57 @@ namespace randomizer::timing {
                 }
 
                 death_position_before_respawn = modloader::math::to_vec2(core::api::game::player::get_position());
-                save_stats->report_death(core::api::game::player::get_current_area());
             }
         );
 
-        float time_to_next_debug_print = 0.f;
+        void report_position_throttled() {
+            // Don't run position reporting when we're dead
+            if (death_position_before_respawn.has_value() || !timer_should_run()) {
+                return;
+            }
 
+            const auto current_position = modloader::math::to_vec2(core::api::game::player::get_position());
+
+            // Never record (0, 0) positions
+            if (current_position.x == 0.f && current_position.y == 0.f) {
+                return;
+            }
+
+            if (!position_cache.has_value()) {
+                save_stats_events->report_position(current_position);
+                position_cache = PositionCache{
+                    .last_recorded_position = current_position,
+                    .last_known_position = current_position,
+                };
+
+                return;
+            }
+
+            if (modloader::math::distance2(position_cache->last_known_position, current_position) > std::pow(20, 2)) {
+                // We did a jump and need to cut the line
+                save_stats_events->report_displacement(
+                    position_cache->last_known_position, current_position, SaveFileGameStatsEvents::DisplacementReason::Unknown
+                );
+                position_cache->last_recorded_position = current_position;
+            } else if (modloader::math::distance2(position_cache->last_recorded_position, current_position) > 1.0) {
+                save_stats_events->report_position(current_position);
+                position_cache->last_recorded_position = current_position;
+            }
+
+            position_cache->last_known_position = current_position;
+        }
+
+        [[maybe_unused]]
         auto on_fixed_update = core::api::game::event_bus().register_handler(
             GameEvent::FixedUpdate,
             EventTiming::After,
             [](auto, auto) {
-                // Only set these values when in game because the main menu sets some wonky states
                 if (GameStateMachine::get_IsGame()) {
+                    // Only set these values when in game because the main menu sets some wonky states
                     game_finished = game_finished_uber_state.get<bool>();
                     current_game_area = core::api::game::player::get_current_area();
+
+                    report_position_throttled();
                 } else {
                     current_game_area = GameArea::Void;
                 }
@@ -220,27 +258,6 @@ namespace randomizer::timing {
 
                 timer_state_ipc_reporting_throttled_for -= TimeUtility::get_fixedDeltaTime();
                 timer_state_server_reporting_throttled_for -= TimeUtility::get_fixedDeltaTime();
-
-                if (ENABLE_DEBUG_LOGGING) {
-                    time_to_next_debug_print -= TimeUtility::get_fixedDeltaTime();
-                    if (time_to_next_debug_print <= 0.f) {
-                        modloader::win::console::console_send("");
-                        modloader::win::console::console_send(std::format("time = {}, pickups = {}", save_stats->in_game_time, checkpoint_stats->total_pickups));
-                        modloader::win::console::console_send(
-                            std::format("max_ppm = {}, at = {}", save_stats->max_ppm_over_timespan, save_stats->max_ppm_over_timespan_at)
-                        );
-                        modloader::win::console::console_send(
-                            std::format("time_lost_to_deaths = {}", save_stats->time_lost_to_deaths)
-                        );
-                        modloader::win::console::console_send(
-                            std::format(
-                                "got bash at = {}",
-                                save_stats->ability_timestamps.contains(app::AbilityType__Enum::Bash) ? save_stats->ability_timestamps.at(app::AbilityType__Enum::Bash) : -1.f
-                            )
-                        );
-                        time_to_next_debug_print = 0.5f;
-                    }
-                }
             }
         );
 
@@ -260,19 +277,6 @@ namespace randomizer::timing {
 
             queue_timer_state_report();
         });
-
-        auto uber_state_notify = core::api::uber_states::notification_bus().register_handler(
-            [](auto params) {
-                if (!params.state.template get<bool>() || game_finished_uber_state.get<bool>()) {
-                    return;
-                }
-
-                auto world_event_it = TRACKED_WORLD_EVENTS.find(params.state);
-                if (world_event_it != TRACKED_WORLD_EVENTS.end()) {
-                    save_stats->report_world_event(world_event_it->second);
-                }
-            }
-        );
 
         auto on_ready = modloader::event_bus().register_handler(
             ModloaderEvent::GameReady,
@@ -306,14 +310,6 @@ namespace randomizer::timing {
             }
         );
 
-        IL2CPP_INTERCEPT_WITH_ORDER(100, void, PlayerAbilities, SetAbility, app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability, bool value) {
-            if (value && !disable_ability_tracking && TRACKED_ABILITIES.contains(ability) && timer_should_run()) {
-                save_stats->report_ability_acquired(ability);
-            }
-
-            next::PlayerAbilities::SetAbility(this_ptr, ability, value);
-        }
-
         auto scenes_manager_on_teleport_called_since_last_sein_door_handler_fixed_update = false;
 
         IL2CPP_INTERCEPT(void, ScenesManager, OnTeleport, app::ScenesManager * this_ptr, bool update_camera_target, bool move_camera_to_target) {
@@ -334,11 +330,18 @@ namespace randomizer::timing {
             if (scenes_manager_on_teleport_called_since_last_sein_door_handler_fixed_update) {
                 const auto new_position = core::api::game::player::get_position();
 
-                save_stats->report_teleport(
+                const auto new_position_vec2 = modloader::math::to_vec2(new_position);
+
+                save_stats_events->report_displacement(
                     modloader::math::to_vec2(previous_position),
-                    modloader::math::to_vec2(new_position),
-                    SaveFileGameStats::TeleportReason::Door
+                    new_position_vec2,
+                    SaveFileGameStatsEvents::DisplacementReason::Door
                 );
+
+                if (position_cache.has_value()) {
+                    position_cache->last_known_position = new_position_vec2;
+                    position_cache->last_recorded_position = new_position_vec2;
+                }
             }
         }
 
@@ -352,11 +355,18 @@ namespace randomizer::timing {
 
             const auto new_position = core::api::game::player::get_position();
 
-            save_stats->report_teleport(
+            const auto new_position_vec2 = modloader::math::to_vec2(new_position);
+
+            save_stats_events->report_displacement(
                 modloader::math::to_vec2(previous_position),
-                modloader::math::to_vec2(new_position),
-                SaveFileGameStats::TeleportReason::Teleporter
+                new_position_vec2,
+                SaveFileGameStatsEvents::DisplacementReason::Teleporter
             );
+
+            if (position_cache.has_value()) {
+                position_cache->last_known_position = new_position_vec2;
+                position_cache->last_recorded_position = new_position_vec2;
+            }
         }
 
         std::optional<app::Vector2> new_position_after_portal_teleportation = std::nullopt;
@@ -380,9 +390,14 @@ namespace randomizer::timing {
                 return;
             }
 
-            save_stats->report_teleport(
-                modloader::math::to_vec2(previous_position), *new_position_after_portal_teleportation, SaveFileGameStats::TeleportReason::Portal
+            save_stats_events->report_displacement(
+                modloader::math::to_vec2(previous_position), *new_position_after_portal_teleportation, SaveFileGameStatsEvents::DisplacementReason::Portal
             );
+
+            if (position_cache.has_value()) {
+                position_cache->last_known_position = *new_position_after_portal_teleportation;
+                position_cache->last_recorded_position = *new_position_after_portal_teleportation;
+            }
         }
 
         IL2CPP_INTERCEPT(void, PlatformMovementPortalVisitor, set_Position, app::PlatformMovementPortalVisitor* this_ptr, app::Vector3 value) {
@@ -390,15 +405,6 @@ namespace randomizer::timing {
             new_position_after_portal_teleportation = modloader::math::to_vec2(value);
         }
     } // namespace
-
-    void notify_pickup_collected(const GameArea area, const std::string& location_name) {
-        if (!timer_should_run()) {
-            return;
-        }
-
-        checkpoint_stats->report_pickup(area);
-        save_stats->report_pickup(area, location_name);
-    }
 
     void override_in_game_time(float in_game_time) {
         save_stats->in_game_time = in_game_time;
@@ -412,6 +418,10 @@ namespace randomizer::timing {
 
     const SaveFileGameStats& get_save_file_game_stats() {
         return *save_stats;
+    }
+
+    SaveFileGameStatsEvents& get_save_file_game_stats_events() {
+        return *save_stats_events;
     }
 
     const CheckpointGameStats& get_checkpoint_game_stats() {

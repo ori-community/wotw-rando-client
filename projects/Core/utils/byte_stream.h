@@ -29,15 +29,27 @@ namespace core::utils {
             this->write(reinterpret_cast<const std::byte*>(string.data()), string.length());
         }
 
-        template <typename T = std::byte>
-        T peek() {
-            return *reinterpret_cast<T*>(&this->buffer[this->position]);
+        void write_string_with_length(const std::string& string) {
+            this->write(string.length());
+            this->write_string(string);
         }
 
-        std::string peek_string(unsigned long length) {
+        template <typename T = std::byte>
+        T peek() const {
+            return *reinterpret_cast<const T*>(&this->buffer[this->position]);
+        }
+
+        std::string peek_string(unsigned long length) const {
             return {
                 reinterpret_cast<const char*>(&this->buffer[this->position]),
                 length
+            };
+        }
+
+        std::string peek_with_length() const {
+            return {
+                reinterpret_cast<const char*>(&this->buffer[this->position + sizeof(std::size_t)]),
+                peek<unsigned long>()
             };
         }
 
@@ -61,6 +73,10 @@ namespace core::utils {
             auto value = peek_string(length);
             skip(length);
             return value;
+        }
+
+        std::string read_string_with_length() {
+            return read_string(read<unsigned long>());
         }
 
         void skip(unsigned long count);

@@ -8,6 +8,12 @@
 #include <Randomizer/seed/instructions/arithmetic_float.h>
 #include <Randomizer/seed/instructions/arithmetic_integer.h>
 #include <Randomizer/seed/instructions/boolean_to_string.h>
+#include <Randomizer/seed/instructions/box_trigger.h>
+#include <Randomizer/seed/instructions/box_trigger_destroy.h>
+#include <Randomizer/seed/instructions/box_trigger_enter_callback.h>
+#include <Randomizer/seed/instructions/box_trigger_leave_callback.h>
+#include <Randomizer/seed/instructions/close_menu.h>
+#include <Randomizer/seed/instructions/close_weapon_wheel.h>
 #include <Randomizer/seed/instructions/compare_boolean.h>
 #include <Randomizer/seed/instructions/compare_float.h>
 #include <Randomizer/seed/instructions/compare_integer.h>
@@ -17,12 +23,11 @@
 #include <Randomizer/seed/instructions/copy_float.h>
 #include <Randomizer/seed/instructions/copy_integer.h>
 #include <Randomizer/seed/instructions/copy_string.h>
+#include <Randomizer/seed/instructions/create_game_stats_map_entry.h>
+#include <Randomizer/seed/instructions/create_game_stats_timeline_entry.h>
+#include <Randomizer/seed/instructions/create_spoiler_map_icon.h>
 #include <Randomizer/seed/instructions/create_warp_icon.h>
 #include <Randomizer/seed/instructions/debug_log.h>
-#include <Randomizer/seed/instructions/box_trigger.h>
-#include <Randomizer/seed/instructions/box_trigger_destroy.h>
-#include <Randomizer/seed/instructions/box_trigger_enter_callback.h>
-#include <Randomizer/seed/instructions/box_trigger_leave_callback.h>
 #include <Randomizer/seed/instructions/define_timer.h>
 #include <Randomizer/seed/instructions/destroy_warp_icon.h>
 #include <Randomizer/seed/instructions/destroy_wheel_item.h>
@@ -63,15 +68,12 @@
 #include <Randomizer/seed/instructions/set_boolean.h>
 #include <Randomizer/seed/instructions/set_float.h>
 #include <Randomizer/seed/instructions/set_integer.h>
-#include <Randomizer/seed/instructions/close_menu.h>
-#include <Randomizer/seed/instructions/close_weapon_wheel.h>
 #include <Randomizer/seed/instructions/set_shop_item_description.h>
 #include <Randomizer/seed/instructions/set_shop_item_hidden.h>
 #include <Randomizer/seed/instructions/set_shop_item_icon.h>
 #include <Randomizer/seed/instructions/set_shop_item_locked.h>
 #include <Randomizer/seed/instructions/set_shop_item_name.h>
 #include <Randomizer/seed/instructions/set_shop_item_price.h>
-#include <Randomizer/seed/instructions/create_spoiler_map_icon.h>
 #include <Randomizer/seed/instructions/set_string.h>
 #include <Randomizer/seed/instructions/set_text_with_id.h>
 #include <Randomizer/seed/instructions/set_warp_icon_label.h>
@@ -135,6 +137,12 @@ namespace randomizer::seed {
             register_instruction<ArithmeticFloat>(factories);
             register_instruction<ArithmeticInteger>(factories);
             register_instruction<BooleanToString>(factories);
+            register_instruction<BoxTrigger>(factories);
+            register_instruction<BoxTriggerDestroy>(factories);
+            register_instruction<BoxTriggerEnterCallback>(factories);
+            register_instruction<BoxTriggerLeaveCallback>(factories);
+            register_instruction<CloseMenu>(factories);
+            register_instruction<CloseWeaponWheel>(factories);
             register_instruction<CompareBoolean>(factories);
             register_instruction<CompareFloat>(factories);
             register_instruction<CompareInteger>(factories);
@@ -144,12 +152,11 @@ namespace randomizer::seed {
             register_instruction<CopyFloat>(factories);
             register_instruction<CopyInteger>(factories);
             register_instruction<CopyString>(factories);
+            register_instruction<CreateGameStatsMapEntry>(factories);
+            register_instruction<CreateGameStatsTimelineEntry>(factories);
+            register_instruction<CreateSpoilerMapIcon>(factories);
             register_instruction<CreateWarpIcon>(factories);
             register_instruction<DebugLog>(factories);
-            register_instruction<BoxTrigger>(factories);
-            register_instruction<BoxTriggerDestroy>(factories);
-            register_instruction<BoxTriggerEnterCallback>(factories);
-            register_instruction<BoxTriggerLeaveCallback>(factories);
             register_instruction<DefineTimer>(factories);
             register_instruction<DestroyWarpIcon>(factories);
             register_instruction<DestroyWheelItem>(factories);
@@ -190,15 +197,12 @@ namespace randomizer::seed {
             register_instruction<SetBoolean>(factories);
             register_instruction<SetFloat>(factories);
             register_instruction<SetInteger>(factories);
-            register_instruction<CloseMenu>(factories);
-            register_instruction<CloseWeaponWheel>(factories);
             register_instruction<SetShopItemDescription>(factories);
             register_instruction<SetShopItemHidden>(factories);
             register_instruction<SetShopItemIcon>(factories);
             register_instruction<SetShopItemLocked>(factories);
             register_instruction<SetShopItemName>(factories);
             register_instruction<SetShopItemPrice>(factories);
-            register_instruction<CreateSpoilerMapIcon>(factories);
             register_instruction<SetString>(factories);
             register_instruction<SetTextWithId>(factories);
             register_instruction<SetWarpIconLabel>(factories);
