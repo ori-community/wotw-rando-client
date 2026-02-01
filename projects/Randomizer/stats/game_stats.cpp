@@ -120,6 +120,8 @@ namespace randomizer::timing {
                 [&](const MapEntryEvent& event) {
                     data.write_string_with_length(event.icon);
                     data.write_string_with_length(event.label);
+                    data.write(event.x);
+                    data.write(event.y);
                 },
             };
         }
