@@ -33,10 +33,9 @@ namespace randomizer::archipelago {
         void toggle_deathlink();
         void compare_seed();
         void reset_inventory();
-        void initialize_ap_wheel();
         void clear_pending_respawn_locations();
         void collect_locations();
-        void hint_item(std::string item);
+        void hint_item(std::string item_name);
         std::string get_item_display_text(const location_data::Location& location);
         std::string get_shop_description(const location_data::Location& location);
         std::string get_shop_icon(const location_data::Location& location);
