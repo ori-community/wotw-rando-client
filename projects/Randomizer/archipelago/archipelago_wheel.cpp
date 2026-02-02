@@ -153,36 +153,36 @@ namespace randomizer::archipelago::wheel {
                 archipelago_client().hint_item("Sentry");
             });
 
-        // Early teleporters (9104)  TODO icons
+        // Early teleporters (9104)
         features::wheel::initialize_item(9104, 11, "Go back", "Return to the previous page", "file:assets/icons/wheel/menu.blue.png",
             [](auto, auto, auto) {
                 features::wheel::set_active_wheel(9101);
             });
-        features::wheel::initialize_item(9104, 0, "Inkwater Marsh TP", "", "spell:1002",
+        features::wheel::initialize_item(9104, 0, "Inkwater Marsh TP", "", "spell:1003",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Inkwater Marsh TP");
             });
-        features::wheel::initialize_item(9104, 1, "Howl's Den TP", "", "spell:1001",
+        features::wheel::initialize_item(9104, 1, "Howl's Den TP", "", "spell:3004",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Howl's Den TP");
             });
-        features::wheel::initialize_item(9104, 2, "Midnight Burrows TP", "", "spell:2012",
+        features::wheel::initialize_item(9104, 2, "Midnight Burrows TP", "", "spell:4007",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Midnight Burrows TP");
             });
-        features::wheel::initialize_item(9104, 3, "Kwolok's Hollow TP", "", "spell:1000",
+        features::wheel::initialize_item(9104, 3, "Kwolok's Hollow TP", "", "spell:3000",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Kwolok's Hollow TP");
             });
-        features::wheel::initialize_item(9104, 4, "Glades TP", "", "spell:2015",
+        features::wheel::initialize_item(9104, 4, "Glades TP", "", "grom:3",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Glades TP");
             });
-        features::wheel::initialize_item(9104, 5, "Wellspring TP", "", "spell:2010",
+        features::wheel::initialize_item(9104, 5, "Wellspring TP", "", "spell:3001",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Wellspring TP");
             });
-        features::wheel::initialize_item(9104, 6, "Woods Entrance TP", "", "spell:2013",
+        features::wheel::initialize_item(9104, 6, "Woods Entrance TP", "", "spell:4002",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Woods Entrance TP");
             });
@@ -191,48 +191,48 @@ namespace randomizer::archipelago::wheel {
                 archipelago_client().hint_item("Woods Exit TP");
             });
 
-        // Late teleporters (9105)  TODO icons
+        // Late teleporters (9105)
         features::wheel::initialize_item(9105, 11, "Go back", "Return to the previous page", "file:assets/icons/wheel/menu.blue.png",
             [](auto, auto, auto) {
                 features::wheel::set_active_wheel(9101);
             });
-        features::wheel::initialize_item(9105, 0, "Baur's Reach TP", "", "spell:1002",
+        features::wheel::initialize_item(9105, 0, "Baur's Reach TP", "", "spell:2010",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Baur's Reach TP");
             });
-        features::wheel::initialize_item(9105, 1, "Mouldwood Depths TP", "", "spell:1001",
+        features::wheel::initialize_item(9105, 1, "Mouldwood Depths TP", "", "spell:2004",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Mouldwood Depths TP");
             });
-        features::wheel::initialize_item(9105, 2, "Central Luma TP", "", "spell:2012",
+        features::wheel::initialize_item(9105, 2, "Central Luma TP", "", "file:assets/icons/game/water.png",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Central Luma TP");
             });
-        features::wheel::initialize_item(9105, 3, "Luma Boss TP", "", "spell:1000",
+        features::wheel::initialize_item(9105, 3, "Luma Boss TP", "", "spell:4004",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Luma Boss TP");
             });
-        features::wheel::initialize_item(9105, 4, "Glades TP", "", "spell:2015",
-            [](auto, auto, auto) {
-                archipelago_client().hint_item("Glades TP");
-            });
-        features::wheel::initialize_item(9105, 5, "Feeding Grounds TP", "", "spell:2010",
+        features::wheel::initialize_item(9105, 4, "Feeding Grounds TP", "", "shard:3",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Feeding Grounds TP");
             });
-        features::wheel::initialize_item(9105, 6, "Central Wastes TP", "", "spell:2013",
+        features::wheel::initialize_item(9105, 5, "Central Wastes TP", "", "spell:3002",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Central Wastes TP");
             });
-        features::wheel::initialize_item(9105, 7, "Outer Ruins TP", "", "spell:3005",
+        features::wheel::initialize_item(9105, 6, "Outer Ruins TP", "", "file:assets/icons/wheel/wisps_progress.png",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Outer Ruins TP");
             });
-        features::wheel::initialize_item(9105, 8, "Willow's End TP", "", "spell:3005",
+        features::wheel::initialize_item(9105, 7, "Inner Ruins TP", "", "spell:2018",
+            [](auto, auto, auto) {
+                archipelago_client().hint_item("Inner Ruins TP");
+            });
+        features::wheel::initialize_item(9105, 8, "Willow's End TP", "", "spell:2019",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Willow's End TP");
             });
-        features::wheel::initialize_item(9105, 9, "Outer Ruins TP", "", "spell:3005",
+        features::wheel::initialize_item(9105, 9, "Shriek TP", "", "file:assets/icons/wheel/tree_progress.blue.png",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Shriek TP");
             });
