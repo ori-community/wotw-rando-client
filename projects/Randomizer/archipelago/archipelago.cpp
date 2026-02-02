@@ -227,27 +227,14 @@ namespace randomizer::archipelago {
         }
     }
 
-    void ArchipelagoClient::initialize_ap_wheel() {
-        features::wheel::initialize_item(0, 10, "Archipelago Actions", "Contains archipelago options", "file:assets/icons/archipelago/ap-normal.blue.png",
-            [](auto, auto, auto) {
-                features::wheel::set_active_wheel(9002);
-            });
-        features::wheel::initialize_item(9002, 0, "Reset inventory", "Reset inventory\nin case it got desynced", "file:assets/icons/wheel/reload_seed.blue.png",
-            [](auto, auto, auto) {
-                archipelago_client().reset_inventory();
-            });
-        features::wheel::initialize_item(9002, 1, "Toggle deathlink", "Enable or disable deathlink", "file:assets/icons/wheel/force_exit.blue.png",
-            [](auto, auto, auto) {
-                archipelago_client().toggle_deathlink();
-            });
-        features::wheel::initialize_item(9002, 2, "Hint status", "Displays current hints\nand your hint points", "file:assets/icons/archipelago/ap-important.blue.png",
-            [this](auto, auto, auto) {
-                send_message(messages::Say("!hint"));
-            });
-    }
-
-    void ArchipelagoClient::hint_item(std::string item) {
-        send_message(messages::Say(std::format("!hint {}", item)));
+    // Try to create a hint for the item, or get hint information if item_name is empty
+    void ArchipelagoClient::hint_item(std::string item_name) {
+        if (item_name.empty()) {
+            send_message(messages::Say("!hint"));
+            return;
+        }
+        // Create a hint for the item
+        send_message(messages::Say(std::format("!hint {}", item_name)));
     }
 
     void ArchipelagoClient::notify_location_collected(const location_data::Location& location) {

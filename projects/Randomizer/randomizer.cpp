@@ -10,6 +10,7 @@
 #include <Modloader/app/types/GameController.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/archipelago/archipelago.h>
+#include <Randomizer/archipelago/archipelago_wheel.h>
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/game/pickups/quests.h>
 #include <Randomizer/game/shops/shop.h>
@@ -148,7 +149,7 @@ namespace randomizer {
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
             if (archipelago_client().is_active()) {
-                archipelago_client().initialize_ap_wheel();
+                archipelago::wheel::initialize_ap_wheel();
             }
             game::shops::reset_shop_data();
             randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::RandoEvents, 1), 0);
