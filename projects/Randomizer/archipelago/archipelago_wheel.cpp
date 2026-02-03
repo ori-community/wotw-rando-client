@@ -22,7 +22,7 @@ namespace randomizer::archipelago::wheel {
             [](auto, auto, auto) {
                 archipelago_client().hint_item("");
             });
-        features::wheel::initialize_item(9100, 3, "Create a hint", "Select an item to hint", "file:assets/icons/wheel/quest_progress.blue.png",
+        features::wheel::initialize_item(9100, 3, "Create a hint", "Select an item to hint", "file:assets/icons/wheel/quests_progress.blue.png",
             [](auto, auto, auto) {
                 features::wheel::set_active_wheel(9101);
             });
@@ -44,7 +44,7 @@ namespace randomizer::archipelago::wheel {
             [](auto, auto, auto) {
                 features::wheel::set_active_wheel(9104);
             });
-        features::wheel::initialize_item(9101, 2, "Teleporters (page 2)", "Select a teleporter (after woods)", "file:assets/icons/game/teleporter.png",
+        features::wheel::initialize_item(9101, 3, "Teleporters (page 2)", "Select a teleporter (after woods)", "file:assets/icons/game/teleporter.png",
             [](auto, auto, auto) {
                 features::wheel::set_active_wheel(9105);
             });
@@ -158,6 +158,10 @@ namespace randomizer::archipelago::wheel {
             [](auto, auto, auto) {
                 features::wheel::set_active_wheel(9101);
             });
+        features::wheel::initialize_item(9104, 10, "Teleporters (page 2)", "Go to the other teleporter page", "file:assets/icons/game/teleporter.png",
+            [](auto, auto, auto) {
+                features::wheel::set_active_wheel(9105);
+            });
         features::wheel::initialize_item(9104, 0, "Inkwater Marsh TP", "", "spell:1003",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Inkwater Marsh TP");
@@ -195,6 +199,10 @@ namespace randomizer::archipelago::wheel {
         features::wheel::initialize_item(9105, 11, "Go back", "Return to the previous page", "file:assets/icons/wheel/menu.blue.png",
             [](auto, auto, auto) {
                 features::wheel::set_active_wheel(9101);
+            });
+        features::wheel::initialize_item(9105, 10, "Teleporters (page 1)", "Go to the other teleporter page", "file:assets/icons/game/teleporter.png",
+            [](auto, auto, auto) {
+                features::wheel::set_active_wheel(9104);
             });
         features::wheel::initialize_item(9105, 0, "Baur's Reach TP", "", "spell:2010",
             [](auto, auto, auto) {
@@ -269,6 +277,22 @@ namespace randomizer::archipelago::wheel {
         features::wheel::initialize_item(9106, 6, "Energy (Shard)", "", "shard:26",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Energy (Shard)");
+            });
+        features::wheel::initialize_item(9106, 7, "Overcharge", "", "shard:1",
+            [](auto, auto, auto) {
+                archipelago_client().hint_item("Overcharge");
+            });
+        features::wheel::initialize_item(9106, 8, "Swap", "", "shard:5",
+            [](auto, auto, auto) {
+                archipelago_client().hint_item("Swap");
+            });
+        features::wheel::initialize_item(9106, 9, "Ultra Bash", "", "shard:32",
+            [](auto, auto, auto) {
+                archipelago_client().hint_item("Ultra Bash");
+            });
+        features::wheel::initialize_item(9106, 10, "Ultra Grapple", "", "shard:33",
+            [](auto, auto, auto) {
+                archipelago_client().hint_item("Ultra Grapple");
             });
 
         // Collectibles (9107)
