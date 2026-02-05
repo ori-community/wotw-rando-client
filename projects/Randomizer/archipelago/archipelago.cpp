@@ -17,7 +17,6 @@
 #include <Randomizer/location_data/location.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/items/value_modifier.h>
-#include <Randomizer/features/wheel.h>
 
 #define UUID_SYSTEM_GENERATOR
 #include <uuid.h>
@@ -172,9 +171,7 @@ namespace randomizer::archipelago {
         modloader::info("archipelago", "AP client got reset");
     }
 
-    // TODO upgrades
-    // TODO Fix, doesn't work well with SL
-    // Reset inventory and the last item index.
+    // Reset inventory and the last item index. Only triggered manually (from the wheel) in case of a desync.
     void ArchipelagoClient::reset_inventory() {
         if (!m_checked_seed) {
             return;
@@ -199,6 +196,14 @@ namespace randomizer::archipelago {
         core::api::game::player::max_health().set(30);
 
         core::api::game::player::max_energy().set(3.0f);
+
+        // TODO Also reset Bonus+ upgrades and efficiencies
+        core::api::uber_states::UberState(4, 30).set(0);  // Health regeneration
+        core::api::uber_states::UberState(4, 31).set(0);  // Energy regeneration
+        core::api::uber_states::UberState(4, 35).set(0);  // Extra double jump
+        core::api::uber_states::UberState(4, 36).set(0);  // Extra air dash
+        core::api::uber_states::UberState(9, 8).set(0);  // Jumpgrades
+        core::api::uber_states::UberState(9, 5).set(0);  // Skill velocity
 
         archipelago_save_data->received_ks = 0;
         archipelago_save_data->received_ore = 0;
@@ -997,7 +1002,7 @@ namespace randomizer::archipelago {
                             .show_box = true,
                         });
                     } else if (message.type == "CommandResult") {
-                        for (auto json_data: message.data) {
+                        for (const auto& json_data: message.data) {
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>(json_data.text),
                                 .duration = 5.f,
