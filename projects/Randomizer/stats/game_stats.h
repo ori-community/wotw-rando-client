@@ -155,7 +155,7 @@ namespace randomizer::timing {
                 y(y) {}
         };
 
-        enum class DisplacementReason {
+        enum class DisplacementReason : uint32_t {
             Unknown,
             Teleporter,
             Death,

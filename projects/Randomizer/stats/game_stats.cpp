@@ -94,7 +94,7 @@ namespace randomizer::timing {
         core::utils::ByteStream data;
 
         for (const auto& e: m_event_stream) {
-            data.write(e.index());
+            data.write(static_cast<std::uint32_t>(e.index()));
 
             std::visit([&](auto&& event) {
                 data.write(event.in_game_time);
@@ -133,43 +133,59 @@ namespace randomizer::timing {
         m_event_stream.clear();
 
         while (stream.available()) {
-            const auto type_index = stream.read<std::size_t>();
+            const auto type_index = stream.read<std::uint32_t>();
+            const auto time = stream.read<float>();
 
             switch (type_index) {
-                case 0:  // PositionEvent
-                    m_event_stream.emplace_back(PositionEvent(
-                        stream.read<float>(),
-                        stream.read<float>(),
-                        stream.read<float>()
-                    ));
-                    break;
-                case 1:  // DisplacementEvent
+                case 0: {  // PositionEvent
+                    const auto x = stream.read<float>();
+                    const auto y = stream.read<float>();
+
+                    m_event_stream.emplace_back(PositionEvent(time, x, y));
+                } break;
+                case 1: {  // DisplacementEvent
+                    const auto reason = stream.read<DisplacementReason>();
+                    const auto from_x = stream.read<float>();
+                    const auto from_y = stream.read<float>();
+                    const auto to_x = stream.read<float>();
+                    const auto to_y = stream.read<float>();
+                    const auto time_lost = stream.read<float>();
+
                     m_event_stream.emplace_back(DisplacementEvent(
-                        stream.read<float>(),
-                        stream.read<DisplacementReason>(),
-                        stream.read<float>(),
-                        stream.read<float>(),
-                        stream.read<float>(),
-                        stream.read<float>(),
-                        stream.read<float>()
+                        time,
+                        reason,
+                        from_x,
+                        from_y,
+                        to_x,
+                        to_y,
+                        time_lost
                     ));
                     break;
-                case 2:  // TimelineEntryEvent
+                } break;
+                case 2: {  // TimelineEntryEvent
+                    const auto label = stream.read_string_with_length();
+                    const auto icon = stream.read_string_with_length();
+
                     m_event_stream.emplace_back(TimelineEntryEvent(
-                        stream.read<float>(),
-                        stream.read_string_with_length(),
-                        stream.read_string_with_length()
+                        time,
+                        label,
+                        icon
                     ));
-                    break;
-                case 3:  // MapEntryEvent
+                } break;
+                case 3: {  // MapEntryEvent
+                    const auto label = stream.read_string_with_length();
+                    const auto icon = stream.read_string_with_length();
+                    const auto x = stream.read<float>();
+                    const auto y = stream.read<float>();
+
                     m_event_stream.emplace_back(MapEntryEvent(
-                        stream.read<float>(),
-                        stream.read_string_with_length(),
-                        stream.read_string_with_length(),
-                        stream.read<float>(),
-                        stream.read<float>()
+                        time,
+                        label,
+                        icon,
+                        x,
+                        y
                     ));
-                    break;
+                } break;
                 default:
                     throw std::runtime_error(std::format("Unknown event type: {}", type_index));
             }
