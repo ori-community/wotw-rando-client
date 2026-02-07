@@ -21,7 +21,7 @@
 #define UUID_SYSTEM_GENERATOR
 #include <uuid.h>
 
-constexpr int MIN_AP_VERSION = 1;  // Minimum AP World version required
+constexpr int MIN_AP_VERSION = 2;  // Minimum AP World version required
 constexpr int MAX_PLAYERS_TO_SHOW_JOIN_LEAVE_MESSAGES = 5;
 constexpr int FLAG_PROGRESSION = 0b001;
 constexpr int FLAG_USEFUL = 0b010;
@@ -167,6 +167,7 @@ namespace randomizer::archipelago {
         m_deathlink_max_lives = 1;
         m_deathlink_lives = 1;
         m_death_from_deathlink = false;
+        m_reset_inventory = false;
 
         modloader::info("archipelago", "AP client got reset");
     }
@@ -197,18 +198,17 @@ namespace randomizer::archipelago {
 
         core::api::game::player::max_energy().set(3.0f);
 
-        // TODO Also reset Bonus+ upgrades and efficiencies
         core::api::uber_states::UberState(4, 30).set(0);  // Health regeneration
         core::api::uber_states::UberState(4, 31).set(0);  // Energy regeneration
         core::api::uber_states::UberState(4, 35).set(0);  // Extra double jump
         core::api::uber_states::UberState(4, 36).set(0);  // Extra air dash
-        core::api::uber_states::UberState(9, 8).set(0);  // Jumpgrades
-        core::api::uber_states::UberState(9, 5).set(0);  // Skill velocity
 
         archipelago_save_data->received_ks = 0;
         archipelago_save_data->received_ore = 0;
         archipelago_save_data->received_sl = 0;
         archipelago_save_data->last_item_index = 0;
+
+        m_reset_inventory = true;
 
         request_sync();
     }
@@ -620,6 +620,22 @@ namespace randomizer::archipelago {
             },
             [this](const ids::UpgradeItem& item) {
                 const auto state = core::api::uber_states::UberState(item.uber_group, item.uber_state);
+                // Skip upgrades when inventory just got reset, except for health/energy regen and extra jump/dash
+                if (m_reset_inventory) {
+                    if (item.uber_group != 4) { return; }
+                    switch (item.uber_state) {  // item.uber_group == 4
+                        case 30:
+                        case 31:
+                        case 35:
+                        case 36: {
+                            state.set(state.get<int>() + 1);
+                            return;
+                        }
+                        default: {
+                            return;
+                        }
+                    }
+                }
                 if (item.uber_group == 4) {
                     switch (item.uber_state) {
                         case 45: {  // Splinter grenade
@@ -728,6 +744,8 @@ namespace randomizer::archipelago {
                 modloader::error("archipelago", std::format("AP ID {} corresponds to a location, expected an item.", net_item.item));
             },
         };
+
+        if (m_reset_inventory) { return; }  // Skip displaying item messages if the inventory got reset
 
         queue_reach_check();
         std::string item_text = get_item_text(net_item, "Ori and the Will of the Wisps");
@@ -885,6 +903,13 @@ namespace randomizer::archipelago {
                             grant_item(message.items[index]);
                         }
                         archipelago_save_data->last_item_index = static_cast<int>(message.items.size() - 1);
+                        if (m_reset_inventory) {
+                            m_reset_inventory = false;
+                            core::message_controller().queue_central({
+                                .text = core::Property<std::string>("Inventory got reset"),
+                                .show_box = true,
+                            });
+                        }
                     } else {
                         request_sync();
                     }
