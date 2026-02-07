@@ -451,12 +451,10 @@ namespace randomizer::archipelago::seedgen_source_generators {
 
                     if (value == 1) {
                         output += std::format("{}|{}|6|\n", group, state);
-                    }
-                    else {
+                    } else {
                         output += std::format("{}|{}>={}|6|\n", group, state, value);
                     }
-                }
-                else {
+                } else {
                     modloader::error("archipelago", std::format("Location {} doesn't exist", location_name));
                 }
             }
