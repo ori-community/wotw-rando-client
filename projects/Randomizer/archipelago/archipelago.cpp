@@ -519,8 +519,7 @@ namespace randomizer::archipelago {
 
                 if (value == 1) {
                     output += std::format("{},{},", group, state);
-                }
-                else {
+                } else {
                     output += std::format("{},{}>={},", group, state, value);
                 }
             }
@@ -551,8 +550,7 @@ namespace randomizer::archipelago {
                         }
                     } else if (item.uber_group == 25) {  // Shard
                         color_markup = "$";
-                    }
-                    else {
+                    } else {
                         color_markup = "#";
                     }
                 },
