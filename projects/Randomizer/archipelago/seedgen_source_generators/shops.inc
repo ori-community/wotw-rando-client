@@ -6,7 +6,7 @@ namespace randomizer::archipelago::seedgen_source_generators {
     const ArchipelagoSeedGeneratorOptionSourceGenerator shops = {
         []() -> std::string { return "shops"; },
         [](const ArchipelagoSeedGeneratorOptions& options) -> std::unordered_set<std::string> {
-            return {
+            std::unordered_set<std::string> shop_locations {
                 "TwillenShop.Overcharge",
                 "TwillenShop.TripleJump",
                 "TwillenShop.Wingclip",
@@ -27,13 +27,15 @@ namespace randomizer::archipelago::seedgen_source_generators {
                 "OpherShop.StaticStar",
                 "OpherShop.ChargeBlaze",
                 "OpherShop.RapidSentry",
-                "LupoShop.HCMapIcon",
-                "LupoShop.ECMapIcon",
                 "LupoShop.ShardMapIcon",
             };
+            if (options.location_flags & FLAG_MAPS) {
+                shop_locations.insert({"LupoShop.HCMapIcon", "LupoShop.ECMapIcon"});
+            }
+            return shop_locations;
         },
         [](const ArchipelagoSeedGeneratorOptions& options) -> std::optional<std::string> {
-            return R"WOTWR(
+            std::string output = R"WOTWR(
 3|1|8|2|101|int|200
 3|1|17|0|2|1|[ap_shop_icon(TwillenShop.Overcharge)]
 3|1|17|1|2|1|[ap_item_on_location(TwillenShop.Overcharge)]
@@ -114,6 +116,13 @@ namespace randomizer::archipelago::seedgen_source_generators {
 3|1|17|0|1|1116|[ap_shop_icon(OpherShop.RapidSentry)]
 3|1|17|1|1|1116|[ap_item_on_location(OpherShop.RapidSentry)]
 3|1|17|2|1|1116|[ap_shop_description(OpherShop.RapidSentry)]
+3|1|8|15|41667|int|200
+3|1|17|0|15|41666|[ap_shop_icon(LupoShop.ShardMapIcon)]
+3|1|17|1|15|41666|[ap_item_on_location(LupoShop.ShardMapIcon)]
+3|1|17|2|15|41666|[ap_shop_description(LupoShop.ShardMapIcon)]
+)WOTWR";
+            if (options.location_flags & FLAG_MAPS) {
+                output.append(R"WOTWR(
 3|1|8|15|19397|int|200
 3|1|17|0|15|19396|[ap_shop_icon(LupoShop.HCMapIcon)]
 3|1|17|1|15|19396|[ap_item_on_location(LupoShop.HCMapIcon)]
@@ -122,11 +131,9 @@ namespace randomizer::archipelago::seedgen_source_generators {
 3|1|17|0|15|57987|[ap_shop_icon(LupoShop.ECMapIcon)]
 3|1|17|1|15|57987|[ap_item_on_location(LupoShop.ECMapIcon)]
 3|1|17|2|15|57987|[ap_shop_description(LupoShop.ECMapIcon)]
-3|1|8|15|41667|int|200
-3|1|17|0|15|41666|[ap_shop_icon(LupoShop.ShardMapIcon)]
-3|1|17|1|15|41666|[ap_item_on_location(LupoShop.ShardMapIcon)]
-3|1|17|2|15|41666|[ap_shop_description(LupoShop.ShardMapIcon)]
-)WOTWR";
+)WOTWR");
+            }
+            return output;
         },
     };
 }

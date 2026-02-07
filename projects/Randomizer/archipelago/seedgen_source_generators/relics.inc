@@ -19,10 +19,8 @@ namespace randomizer::archipelago::seedgen_source_generators {
 
                 if (value == 1) {
                     relic_header += std::format("{}|{}|14|{}\n", group, state, std::get<0>(relic));
-                }
-                else {
+                } else {
                     relic_header += std::format("{}|{}>={}|14|{}\n", group, state, value, std::get<0>(relic));
-
                 }
             }
             return relic_header;

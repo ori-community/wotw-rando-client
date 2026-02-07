@@ -254,6 +254,13 @@ namespace randomizer::archipelago::messages {
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(LocationScouts, locations, create_as_hint, cmd);
     };
 
+    struct Say {
+        std::string text;
+        std::string cmd = "Say";
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(Say, text, cmd);
+    };
+
     struct PrintJSON {
         std::vector<JSONMessage> data;
         std::string type;

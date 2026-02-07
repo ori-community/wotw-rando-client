@@ -6,7 +6,7 @@ namespace randomizer::archipelago::seedgen_source_generators {
     const ArchipelagoSeedGeneratorOptionSourceGenerator shrine_hints = {
         []() -> std::string { return "shrine_hints"; },
         [](const ArchipelagoSeedGeneratorOptions& options) -> std::unordered_set<std::string> {
-            if (!options.hints) {
+            if (!options.shrine_hints) {
                 return {};
             }
 
@@ -19,7 +19,7 @@ namespace randomizer::archipelago::seedgen_source_generators {
             };
         },
         [](const ArchipelagoSeedGeneratorOptions& options) -> std::optional<std::string> {
-            if (!options.hints) {
+            if (!options.shrine_hints) {
                 return std::nullopt;
             }
 

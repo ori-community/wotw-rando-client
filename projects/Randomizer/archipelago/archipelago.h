@@ -30,10 +30,17 @@ namespace randomizer::archipelago {
         void request_sync();
         void handle_queued_server_messages();
         void handle_deathlink();
+        void toggle_deathlink();
         void compare_seed();
+        void reset_inventory();
+        void clear_pending_respawn_locations();
+        void collect_locations();
+        void hint_item(std::string item_name);
         std::string get_item_display_text(const location_data::Location& location);
         std::string get_shop_description(const location_data::Location& location);
         std::string get_shop_icon(const location_data::Location& location);
+        std::string parse_how_many(GameArea area) const;
+        std::string get_item_text(const messages::NetworkItem& net_item, const std::string& game) const;
         const std::optional<ArchipelagoSeedGenerator>& current_seed_generator();
         common::EventBus<State>& event_bus() { return m_event_bus; }
         bool is_active() const { return m_is_active; }
@@ -44,7 +51,6 @@ namespace randomizer::archipelago {
         void on_websocket_message(ix::WebSocketMessagePtr const& msg);
         void handle_server_message(messages::ap_server_message_t const& message);
         std::string get_player_name(int player);
-        void collect_locations();
         void try_connection_with_new_game_seed_source();
 
         /**
@@ -61,6 +67,8 @@ namespace randomizer::archipelago {
         std::unordered_set<ids::archipelago_id_t> m_pending_send_locations;
         // Store the locations that are already collected in AP server (from a previous save file, or in coop), to then collect them in the game
         std::unordered_set<ids::archipelago_id_t> m_pending_collect_locations;
+        // Store the locations collected since the last save, to resync when respawning
+        std::unordered_set<ids::archipelago_id_t> m_pending_respawn_locations;
         std::unordered_map<std::string, messages::NetworkSlot> m_slots;
         std::unordered_map<int, messages::NetworkPlayer> m_player_map;
         std::unordered_map<ids::archipelago_id_t, std::string> m_shop_icons;
@@ -77,8 +85,9 @@ namespace randomizer::archipelago {
          */
         bool m_checked_seed = false;
         bool m_deathlink_enabled = false;
-        int m_deathlink_max_lives = 0;  // How many times the player has to die to trigger a death link
-        int m_deathlink_lives = 0;
+        int m_deathlink_max_lives = 1;  // How many times the player has to die to trigger a death link
+        int m_deathlink_lives = 1;
         bool m_death_from_deathlink = false;  // True if the latest death was caused by someone else dying
+        bool m_reset_inventory = false;  // True if the inventory just got reset from reset_inventory
     };
 } // namespace randomizer::archipelago

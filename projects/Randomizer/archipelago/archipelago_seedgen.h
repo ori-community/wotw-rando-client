@@ -6,6 +6,15 @@
 #include <Randomizer/archipelago/archipelago_ids.h>
 
 namespace randomizer::archipelago {
+
+    // Flags used with location_flags, to see which sets of locations are active
+    constexpr int FLAG_QUESTS = 0b000001;
+    constexpr int FLAG_HAND_TO_HAND = 0b000010;
+    constexpr int FLAG_REBUILD = 0b000100;
+    constexpr int FLAG_TRIALS = 0b001000;
+    constexpr int FLAG_QOL = 0b010000;
+    constexpr int FLAG_MAPS = 0b100000;
+
     struct ArchipelagoSeedGeneratorOptions {
         std::string difficulty;
         bool glitches;
@@ -18,7 +27,9 @@ namespace randomizer::archipelago {
         bool goal_relics;
         bool hard;
         bool qol;
-        bool hints;
+        bool shrine_hints;
+        bool trial_hints;
+        bool zone_hints;
         bool knowledge_hints;
         bool better_spawn;
         bool better_wellspring;
@@ -41,6 +52,7 @@ namespace randomizer::archipelago {
         std::vector<std::pair<int, ids::archipelago_id_t>> relic_locs;  // Relic locations (GameArea, location ID)
         int death_link;
         int ap_version;
+        int location_flags;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
             ArchipelagoSeedGeneratorOptions,
@@ -55,7 +67,9 @@ namespace randomizer::archipelago {
             goal_relics,
             hard,
             qol,
-            hints,
+            shrine_hints,
+            trial_hints,
+            zone_hints,
             knowledge_hints,
             better_spawn,
             better_wellspring,
@@ -77,7 +91,8 @@ namespace randomizer::archipelago {
             door_connections,
             relic_locs,
             death_link,
-            ap_version
+            ap_version,
+            location_flags
         );
     };
 
@@ -98,7 +113,7 @@ namespace randomizer::archipelago {
     private:
         void collect_required_location_scouts();
 
-        std::unordered_set<std::string> m_required_location_scouts;
+        std::unordered_set<std::string> m_required_location_scouts;  // Names of locations that need to be scouted
         ArchipelagoSeedGeneratorOptions m_options;
     };
 }
