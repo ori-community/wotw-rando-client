@@ -9,7 +9,6 @@ namespace randomizer::seed {
   class SeedArchive {
   public:
     explicit SeedArchive(const std::vector<std::byte>& data);
-    explicit SeedArchive(const std::vector<char>& data);
     ~SeedArchive();
 
     nlohmann::json get_assembly() const;

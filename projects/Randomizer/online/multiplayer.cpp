@@ -517,8 +517,10 @@ namespace randomizer::online {
     }
 
     void MultiplayerUniverse::set_seed(std::shared_ptr<Network::SetSeedMessage> const& message) {
-        // TODO
-        // seed::set_server_seed_archive(message->seed_content());
+        const auto bytes = std::as_bytes(std::span{message->seed_content().begin(), message->seed_content().end()});
+        seed::set_server_seed_archive(std::make_shared<seed::SeedArchive>(
+            std::vector(bytes.begin(), bytes.end())
+        ));
     }
 
     void MultiplayerUniverse::set_restrict_to_save_guid(const std::optional<core::MoodGuid>& value) { m_restrict_to_save_guid = value; }

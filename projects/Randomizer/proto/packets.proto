@@ -150,7 +150,7 @@ message RequestSeedMessage {
 }
 
 message SetSeedMessage {
-  string seed_content = 1;
+  bytes seed_content = 1;
 }
 
 message PlayerPositionMessage  {
