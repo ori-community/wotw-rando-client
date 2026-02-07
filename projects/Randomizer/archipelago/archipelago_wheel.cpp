@@ -4,7 +4,7 @@
 
 namespace randomizer::archipelago::wheel {
     void initialize_ap_wheel() {
-        features::wheel::initialize_item(0, 10, "Archipelago Actions", "Contains archipelago options", "file:assets/icons/archipelago/ap-normal.blue.png",
+        features::wheel::initialize_item(0, 9, "Archipelago Actions", "Contains archipelago options", "file:assets/icons/archipelago/ap-normal.blue.png",
         [](auto, auto, auto) {
             features::wheel::set_active_wheel(9100);
         });

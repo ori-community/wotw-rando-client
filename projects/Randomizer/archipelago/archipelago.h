@@ -88,5 +88,6 @@ namespace randomizer::archipelago {
         int m_deathlink_max_lives = 1;  // How many times the player has to die to trigger a death link
         int m_deathlink_lives = 1;
         bool m_death_from_deathlink = false;  // True if the latest death was caused by someone else dying
+        bool m_reset_inventory = false;  // True if the inventory just got reset from reset_inventory
     };
 } // namespace randomizer::archipelago
