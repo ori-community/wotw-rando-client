@@ -38,7 +38,7 @@ namespace randomizer::messages {
         CreditsController& m_credits;
     };
 
-    CreditsController::CreditsController() { // NOLINT(MSC51-CPP)
+    CreditsController::CreditsController() {
         const auto text_processor = std::make_shared<core::text::CompositeTextProcessor>();
         text_processor->compose<CreditsController::TextProcessor>(*this);
         m_text_processor = text_processor;
@@ -90,6 +90,7 @@ namespace randomizer::messages {
         message_box.box_vertical_anchor().set(vertical);
         message_box.fade_in().set(fade_in);
         message_box.fade_out().set(fade_out);
+        message_box.coordinate_system().set(core::api::messages::CoordinateSystem::Absolute);
         message_box.show_background().set(false);
 
         m_entries.push_back(std::make_shared<credit_entries::TextEntry>(start_time, length, id));
