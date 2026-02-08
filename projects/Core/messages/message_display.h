@@ -52,7 +52,7 @@ namespace core::messages {
         Property<std::optional<int>>& max_in_queue() { return m_max_in_queue; };
 
         Property<app::AlignmentMode__Enum>& alignment() { return m_alignment; }
-        Property<app::HorizontalAnchorMode__Enum>& horizontal_anchor() { return m_horizontal_anchor; }
+        Property<app::HorizontalAnchorMode__Enum>& horizontal_anchor() { return m_message_horizontal_anchor; }
         Property<app::VerticalAnchorMode__Enum>& message_vertical_anchor() { return m_message_vertical_anchor; }
         Property<MessageDisplayAnchor>& display_vertical_anchor() { return m_display_vertical_anchor; }
         Property<MessageDisplayExpandDirection>& expand_direction() { return m_expand_direction; }
@@ -83,7 +83,7 @@ namespace core::messages {
         Property<std::optional<int>> m_max_in_queue;
 
         Property<app::AlignmentMode__Enum> m_alignment;
-        Property<app::HorizontalAnchorMode__Enum> m_horizontal_anchor;
+        Property<app::HorizontalAnchorMode__Enum> m_message_horizontal_anchor;
         Property<app::VerticalAnchorMode__Enum> m_message_vertical_anchor;
         Property<MessageDisplayAnchor> m_display_vertical_anchor;
         Property<MessageDisplayExpandDirection> m_expand_direction;

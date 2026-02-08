@@ -10,7 +10,6 @@ message Packet {
     UberStateUpdateMessage = 3;
     SyncBingoUniversesMessage = 4;
     InitGameSyncMessage = 5;
-    PrintTextMessage_Deprecated = 6;
     UberStateBatchUpdateMessage = 7;
     MultiverseInfoMessage = 8;
     AuthenticateMessage = 9;

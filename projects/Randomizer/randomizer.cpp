@@ -37,7 +37,6 @@ namespace randomizer {
 
         online::NetworkMonitor monitor;
         core::dev::StatusDisplay status({
-            .position = app::Vector3{0.2f, -0.2f, 0},
             .margins = {-0.09f, -0.09f},
             .alignment = app::AlignmentMode__Enum::Left,
             .horizontal_anchor = app::HorizontalAnchorMode__Enum::Left,

@@ -26,7 +26,7 @@ namespace core::messages {
         m_max_line_count(max_line_count)
         , m_max_in_queue(max_in_queue)
         , m_alignment(app::AlignmentMode__Enum::Center)
-        , m_horizontal_anchor(app::HorizontalAnchorMode__Enum::Center)
+        , m_message_horizontal_anchor(app::HorizontalAnchorMode__Enum::Center)
         , m_message_vertical_anchor(app::VerticalAnchorMode__Enum::Middle) {
     }
 
@@ -231,7 +231,7 @@ namespace core::messages {
         data.message->bottom_padding().set(data.info.padding.z);
         data.message->right_padding().set(data.info.padding.w);
         data.message->text_alignment().set(m_alignment.get());
-        data.message->box_horizontal_anchor().set(m_horizontal_anchor.get());
+        data.message->box_horizontal_anchor().set(m_message_horizontal_anchor.get());
         data.message->box_vertical_anchor().set(m_message_vertical_anchor.get());
         data.message->coordinate_system().set(api::messages::CoordinateSystem::Absolute);
         data.message->text_line_spacing().set(data.info.line_spacing);
@@ -250,7 +250,7 @@ namespace core::messages {
         }
 
         if (!data.info.text.get().empty()) {
-            data.message->show(false, data.info.play_sound);
+            data.message->show(data.info.instant_fade, data.info.play_sound);
         }
 
         data.handle->state = message_handle_t::QueuedMessageState::Visible;

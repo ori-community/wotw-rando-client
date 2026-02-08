@@ -22,11 +22,9 @@ namespace core::dev {
         struct StatusEntry {
             std::string format = "{}";
             float size = 0.75;
-            bool play_sound = false; // TODO: Make this take a sound event to play instead.
         };
 
         int max_line_count = 5;
-        app::Vector3 position;
         app::Vector4 padding;
         app::Vector2 margins;
         std::optional<StatusHeader> header;
