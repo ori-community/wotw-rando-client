@@ -18,6 +18,6 @@ INSTRUCTION(WorldName)
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
-        return std::make_unique<WorldName>(j.at(0).get<int>());
+        return std::make_unique<WorldName>(j.get<int>());
     }
 };
