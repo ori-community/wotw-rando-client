@@ -81,7 +81,7 @@ namespace custom_cutscene_skips {
 
             // Handle vanilla cutscene skips
             core::api::faderb::set_black_screen_instantly();
-            core::api::audio::fire_and_forget(SoundEventID::ResetMusicStates);
+            core::api::audio::fire_and_forget(Game::UI::get_Menu()->fields.Sounds->fields.ResetMusicStatesEvent);
 
             if (SkipCutsceneController::get_HasValidSkip(this_ptr)) {
                 core::api::scenes::allow_unload_all_scenes();
@@ -108,7 +108,9 @@ namespace custom_cutscene_skips {
                 }
             }
 
-            core::api::faderb::fade_to_game_visible(0.6);
+            if (!is_executing_automatic_cutscene_skip) {
+                core::api::faderb::fade_to_game_visible(0.6);
+            }
         }
     } // namespace
 
