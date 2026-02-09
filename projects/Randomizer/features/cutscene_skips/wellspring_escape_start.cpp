@@ -1,15 +1,16 @@
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
 #include <Modloader/il2cpp_helpers.h>
 
-#include "custom_cutscene_skips.h"
 #include <Common/event_bus.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/utils/misc.h>
+#include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/modloader.h>
+#include "custom_cutscene_skips.h"
 
 using namespace utils;
 using namespace app::classes;
@@ -28,6 +29,7 @@ namespace {
     app::Vector3 kill_hitbox_original_position{};
 
     DeferredSkipAction next_frame_action = Idle;
+    float blocked_for = 0.f;
 
     void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
         if (metadata->state != app::SceneState__Enum::Loaded) {
@@ -81,7 +83,8 @@ namespace {
     }
 
     bool skip_available() {
-        return core::api::scenes::scene_is_loaded("waterMillCBossRoom") &&
+        return blocked_for <= 0.f &&
+            core::api::scenes::scene_is_loaded("waterMillCBossRoom") &&
             wellspring_escape_start_timeline.is_valid() &&
             wellspring_escape_effect_timeline.is_valid() &&
             kill_hitbox_transform.is_valid() &&
@@ -93,9 +96,14 @@ namespace {
         // Move kill hitbox out of the way
         UnityEngine::Transform::set_position(kill_hitbox_transform.ptr, app::Vector3{ 0.f, 0.f, 0.f });
         next_frame_action = ModifyTimelines;
+        blocked_for = 1.f;
     }
 
     void on_fixed_update(GameEvent game_event, EventTiming timing) {
+        if (blocked_for > 0.f) {
+            blocked_for -= TimeUtility::get_fixedDeltaTime();
+        }
+
         switch (next_frame_action) {
             case Idle:
                 break;
