@@ -43,9 +43,10 @@ namespace custom_cutscene_skips {
         // e.g. skip is available, skip is invoked, then the skip still reports being available for a bit.
         // This map defines durations for which automatic cutscene skipping is disabled after
         // skipping a certain cutscene.
-        constexpr frozen::unordered_map<frozen::string, VanillaCutsceneSkipConfig, 2> AUTOMATIC_CUTSCENE_SKIP_BLOCK_TIMES_FOR_VANILLA_CUTSCENES{
+        constexpr frozen::unordered_map<frozen::string, VanillaCutsceneSkipConfig, 3> AUTOMATIC_CUTSCENE_SKIP_BLOCK_TIMES_FOR_VANILLA_CUTSCENES{
             {"willowCeremonyMaster/cutsceneSkip", {0.5f}},
             {"kwoloksHollowEntrance/artSetups/pedestalRising/skipCutscene", {1.0f}},
+            {"swampGetSpiritBlade/getSpiritEdgeSetup/skipCutscene", {1.0f}},
         };
 
         IL2CPP_INTERCEPT(bool, SkipCutsceneController, get_SkippingAvailable, app::SkipCutsceneController * this_ptr) {
