@@ -253,7 +253,7 @@ namespace core::reactivity {
         dependency_tracker().active_tracking_contexts.back().dependencies.emplace(dependency);
     }
 
-    void run_effects(const std::ranges::input_range auto&& effects) {
+    void run_effects(const std::ranges::range auto&& effects) {
         std::vector<std::shared_ptr<ReactiveEffect>> processed_effects;
         processed_effects.reserve(effects.size());
 
@@ -306,7 +306,7 @@ namespace core::reactivity {
         modloader::ScopedSetter _(is_running_trigger_on_load_effects, true);
 
         if (!dependency_tracker().trigger_on_load_effects.empty()) {
-            run_effects(dependency_tracker().trigger_on_load_effects | std::ranges::views::values);
+            run_effects(std::ranges::to<std::vector>(dependency_tracker().trigger_on_load_effects | std::ranges::views::values));
         }
     }
 
@@ -360,7 +360,7 @@ namespace core::reactivity {
             };
             #endif
 
-            run_effects(effects_it->second | std::ranges::views::values);
+            run_effects(std::ranges::to<std::vector>(effects_it->second | std::ranges::views::values));
         }
     }
 

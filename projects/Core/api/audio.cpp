@@ -66,6 +66,14 @@ namespace core::api::audio {
         return handle;
     }
 
+    void fire_and_forget(app::Event_1* event, app::ISoundHost* host) {
+        if (host == nullptr) {
+            host = reinterpret_cast<app::ISoundHost*>(Wwise::get_DefaultDevSoundHost());
+        }
+
+        Moon::Wwise::WwiseEventSystem::FireAndForget_1(Wwise::get_Events(), event, host);
+    }
+
     void fire_and_forget(SoundEventID event_id, app::ISoundHost* host) {
         if (host == nullptr) {
             host = reinterpret_cast<app::ISoundHost*>(Wwise::get_DefaultDevSoundHost());
