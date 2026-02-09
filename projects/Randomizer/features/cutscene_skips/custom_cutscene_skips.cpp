@@ -3,6 +3,7 @@
 #include <Modloader/app/methods/SkipCutsceneController.h>
 #include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/types/SkipCutsceneController.h>
+#include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/interception_macros.h>
 
 #include <Modloader/windows_api/console.h>
@@ -14,6 +15,7 @@
 #include <Core/events/task.h>
 #include <Modloader/app/methods/AK/Wwise/State.h>
 #include <Modloader/app/methods/Game/UI.h>
+#include <Modloader/app/methods/GameplayCamera.h>
 #include <Modloader/app/methods/Moon/Wwise/SoundListener.h>
 #include <Modloader/app/types/ISkipCutscene.h>
 #include <Modloader/modloader.h>
@@ -113,6 +115,10 @@ namespace custom_cutscene_skips {
             if (!is_executing_automatic_cutscene_skip) {
                 core::api::faderb::fade_to_game_visible(0.6);
             }
+
+            core::events::schedule_task_for_next_update([] {
+                GameplayCamera::MoveCameraToTargetInstantly(types::UI_Cameras::get_class()->static_fields->Current, true);
+            });
         }
     } // namespace
 
