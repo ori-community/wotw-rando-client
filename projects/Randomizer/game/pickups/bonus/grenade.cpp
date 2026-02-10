@@ -5,6 +5,7 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Randomizer/constants.h>
 #include <Randomizer/macros.h>
+#include <random>
 
 #include <Core/api/uber_states/uber_state.h>
 #include <Modloader/interception_macros.h>
@@ -16,16 +17,15 @@ namespace {
     constexpr bool SHOULD_EXPLODE_WHEN_GOING_OVER_LIMIT = true;
     constexpr float MAX_AIM_STRENGTH_TIME = 0.4f; // This is the default time.
 
-    core::api::uber_states::UberState extra_grenades(UberStateGroup::RandoUpgrade, 40);
-    core::api::uber_states::UberState explode_on_collision(UberStateGroup::RandoUpgrade, 41);
-    core::api::uber_states::UberState uncharged_bash_grenades(UberStateGroup::RandoUpgrade, 42);
-    core::api::uber_states::UberState charge_in_air(UberStateGroup::RandoUpgrade, 43);
-    core::api::uber_states::UberState grenade_charge_time(UberStateGroup::RandoUpgrade, 44);
-    core::api::uber_states::UberState grenade_multishot(UberStateGroup::RandoUpgrade, 45);
+    core::api::uber_states::UberState extra_grenades_state(UberStateGroup::RandoUpgrade, 40);
+    core::api::uber_states::UberState explode_on_collision_state(UberStateGroup::RandoUpgrade, 41);
+    core::api::uber_states::UberState uncharged_bash_grenades_state(UberStateGroup::RandoUpgrade, 42);
+    core::api::uber_states::UberState charge_in_air_state(UberStateGroup::RandoUpgrade, 43);
+    core::api::uber_states::UberState grenade_charge_time_state(UberStateGroup::RandoUpgrade, 44);
+    core::api::uber_states::UberState grenade_multishot_state(UberStateGroup::RandoUpgrade, 45);
 
     constexpr float MULTI_GRENADE_OFFSET_MAGNITUDE = 2.0f;
 
-    bool explode = false;
     bool override_on_ground = false;
     bool is_charged = false;
 
@@ -41,7 +41,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(bool, SpiritGrenade, CanBeBashed, app::SpiritGrenade* this_ptr) {
-        return uncharged_bash_grenades.get<bool>() || next::SpiritGrenade::CanBeBashed(this_ptr);
+        return uncharged_bash_grenades_state.get<bool>() || next::SpiritGrenade::CanBeBashed(this_ptr);
     }
 
     // IL2CPP_BINDING(UnityEngine, Collision, app::GameObject*, get_gameObject, (app::Collision* this_ptr))
@@ -63,8 +63,8 @@ namespace {
     // }
 
     IL2CPP_INTERCEPT(void, SeinGrenadeAttack, Start, app::SeinGrenadeAttack* this_ptr) {
-        this_ptr->fields.m_explodeWithSecondButtonPress = !extra_grenades.get<bool>();
-        this_ptr->fields.m_forceExplodeGrenadeOnCollision = explode_on_collision.get<bool>();
+        this_ptr->fields.m_explodeWithSecondButtonPress = !extra_grenades_state.get<bool>();
+        this_ptr->fields.m_forceExplodeGrenadeOnCollision = explode_on_collision_state.get<bool>();
         next::SeinGrenadeAttack::Start(this_ptr);
     }
 
@@ -80,61 +80,54 @@ namespace {
         bool can_fracture,
         bool is_fractured_piece
     ) {
-        const auto air_bashable = charge_in_air.get<bool>();
+        const auto air_bashable = charge_in_air_state.get<bool>();
         if (!is_fractured_piece && air_bashable) {
             bashable = is_charged;
         }
 
         next::SeinGrenadeAttack::SpawnGrenadeInternal(this_ptr, velocity, bashable, damage, position, can_fracture, is_fractured_piece);
-        const auto multi_grenade = grenade_multishot.get<int>();
+        auto multi_grenade = grenade_multishot_state.get<int>();
+
+        // Extra Grenades * Multishot * 3 Fracture Pieces
+        this_ptr->fields.MaxSpamGrenades = (1 + extra_grenades_state.get<int>()) * (1 + multi_grenade) * 3;
+
         if (!is_fractured_piece && multi_grenade > 0) {
-            const float angle_increment = 2 * PI / multi_grenade;
-            for (int i = 0; i < multi_grenade; ++i) {
-                const float angle_offset = i * angle_increment;
+            for (; multi_grenade > 0; --multi_grenade) {
+                static std::random_device random_device;
+                static std::mt19937 rng(std::bit_cast<int32_t>(random_device()));
+                static std::uniform_real_distribution distribution(-3.f, 3.f);
+
+                const auto x_offset = distribution(rng);
+                const auto y_offset = distribution(rng);
+
                 const app::Vector2 new_velocity{
-                    .x = velocity.x + MULTI_GRENADE_OFFSET_MAGNITUDE * cosf(angle_offset), .y = velocity.y + MULTI_GRENADE_OFFSET_MAGNITUDE * sinf(angle_offset)
+                    .x = velocity.x + x_offset + std::copysign(1.f, x_offset),
+                    .y = velocity.y + y_offset + std::copysign(1.f, y_offset),
                 };
 
-                next::SeinGrenadeAttack::SpawnGrenadeInternal(this_ptr, new_velocity, bashable, damage, position, can_fracture, is_fractured_piece);
+                next::SeinGrenadeAttack::SpawnGrenadeInternal(this_ptr, new_velocity, false, damage, position, can_fracture, false);
             }
         }
     }
 
     IL2CPP_INTERCEPT(void, SeinGrenadeAttack, UpdateNormal, app::SeinGrenadeAttack* this_ptr) {
-        this_ptr->fields.MaxAimStrengthTime = static_cast<float>(MAX_AIM_STRENGTH_TIME * grenade_charge_time.get());
-        this_ptr->fields.m_forceExplodeGrenadeOnCollision = explode_on_collision.get<bool>();
+        this_ptr->fields.MaxAimStrengthTime = static_cast<float>(MAX_AIM_STRENGTH_TIME * grenade_charge_time_state.get());
+        this_ptr->fields.m_forceExplodeGrenadeOnCollision = explode_on_collision_state.get<bool>();
 
         is_charged = (this_ptr->fields.m_aimStrength - this_ptr->fields.MaxAimStrength) < 0.001f;
-        const auto custom_explode = extra_grenades.get<bool>();
-        if (custom_explode && explode) {
-            std::vector<app::IGreanade*> grenades;
-            for (const auto grenade: il2cpp::ListIterator(this_ptr->fields.m_grenades)) {
-                if (!SeinGrenadeAttack::IsFracturedPiece(this_ptr, grenade)) {
-                    grenades.push_back(grenade);
-                }
-            }
-
-            for (const auto grenade: grenades) {
-                il2cpp::invoke(grenade, "Explode");
-                il2cpp::invoke(this_ptr->fields.m_grenades, "Remove", grenade);
-            }
-        }
 
         if (SHOULD_EXPLODE_WHEN_GOING_OVER_LIMIT) {
-            auto grenade_limit = extra_grenades.get<int>() + 1;
-            grenade_limit *= grenade_multishot.get<int>() + 1;
+            auto grenade_limit = extra_grenades_state.get<int>() + 1;
+            grenade_limit *= grenade_multishot_state.get<int>() + 1;
             const auto grenade_count = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_grenades, "get_Count")->fields;
             this_ptr->fields.m_explodeWithSecondButtonPress = grenade_count >= grenade_limit;
-        } else {
-            this_ptr->fields.m_explodeWithSecondButtonPress = !custom_explode;
         }
 
         next::SeinGrenadeAttack::UpdateNormal(this_ptr);
-        explode = false;
     }
 
     IL2CPP_INTERCEPT_WITH_ORDER(100, void, SeinGrenadeAttack, UpdateCharacterState, app::SeinGrenadeAttack* this_ptr) {
-        modloader::ScopedSetter setter(override_on_ground, charge_in_air.get<bool>());
+        modloader::ScopedSetter setter(override_on_ground, charge_in_air_state.get<bool>());
         next::SeinGrenadeAttack::UpdateCharacterState(this_ptr);
     }
 
@@ -147,10 +140,8 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(bool, SeinGrenadeAttack, get_CanAim, app::SeinGrenadeAttack* this_ptr) {
-        auto grenade_limit = extra_grenades.get<int>() + 1;
-        grenade_limit *= grenade_multishot.get<int>() + 1;
+        auto grenade_limit = extra_grenades_state.get<int>() + 1;
+        grenade_limit *= grenade_multishot_state.get<int>() + 1;
         return count_grenades(this_ptr) < grenade_limit && this_ptr->fields.m_timeTillProjectileSpawn <= 0.0f;
     }
 } // namespace
-
-RANDOMIZER_C_DLLEXPORT void explode_grenades() { explode = true; }
