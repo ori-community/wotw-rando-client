@@ -117,7 +117,6 @@ set(
         "dirty_value.h"
         "property.h"
         "property/property_non_uber_state.inl"
-        "property/property_string.inl"
         "property/property_uber_state.inl"
         "enums/actions.h"
         "enums/buttons.h"
