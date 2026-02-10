@@ -15,35 +15,6 @@ namespace randomizer::messages {
 
     std::regex collection_replacement("#([-+]?\\d*)");
 
-    class CreditsController::TextProcessor final : public core::text::ITextProcessor {
-    public:
-        explicit TextProcessor(CreditsController& credits)
-                : m_credits(credits) {}
-
-        ~TextProcessor() override = default;
-
-        void process(ITextProcessor const& base_processor, std::string& text) const override {
-            auto new_text = text;
-            std::sregex_iterator it(text.begin(), text.end(), collection_replacement);
-            for (const std::sregex_iterator end; it != end; ++it) {
-                auto id = std::stoi(it->str().substr(2));
-                auto const& replacement = m_credits.m_string_collection[id];
-                new_text.replace(it->position(), it->size(), replacement[m_credits.m_random_value % replacement.size()]);
-            }
-
-            text = new_text;
-        }
-
-    private:
-        CreditsController& m_credits;
-    };
-
-    CreditsController::CreditsController() {
-        const auto text_processor = std::make_shared<core::text::CompositeTextProcessor>();
-        text_processor->compose<CreditsController::TextProcessor>(*this);
-        m_text_processor = text_processor;
-    }
-
     void CreditsController::parse_text_entry(std::string const& line, int line_number, std::vector<std::string> const& parts) {
         if (parts.size() < 7 || parts.size() > 12) {
             modloader::warn("credits_controller", std::format("malformed text entry on line '{}'", line_number));
@@ -83,7 +54,6 @@ namespace randomizer::messages {
 
         auto& [initial_position, message_box] = m_message_boxes.try_emplace(id).first->second;
         message_box.position().set(app::Vector3{ x, y, Z_VALUE });
-        message_box.text_processor(m_text_processor);
         message_box.text().set(parts[6]);
         message_box.text_alignment().set(alignment);
         message_box.box_horizontal_anchor().set(horizontal);

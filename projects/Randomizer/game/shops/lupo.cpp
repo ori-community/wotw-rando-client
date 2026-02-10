@@ -30,6 +30,7 @@
 #include <Modloader/modloader.h>
 
 #include <Core/api/game/ui.h>
+#include <Core/api/system/message_provider.h>
 
 namespace {
     using namespace modloader;
@@ -100,7 +101,7 @@ namespace {
         switch (slot.visibility()) {
             case SlotVisibility::Hidden:
             case SlotVisibility::Locked:
-                return show_hint(this_ptr, slot.description.get_provider());
+                return show_hint(this_ptr, core::api::system::create_message_provider(slot.description));
             default:
                 if (item->fields.UberState->fields.m_value >= item->fields.MaxLevel) {
                     return show_hint(this_ptr, this_ptr->fields.Hints.MaxedOut);
@@ -168,13 +169,13 @@ namespace {
         const auto name_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
         const auto name_text_component = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.NameGO, types::TextBox::get_class());
         name_text_component->fields.color = color;
-        name_message_box->fields.MessageProvider = slot.name.get_provider();
+        name_message_box->fields.MessageProvider = core::api::system::create_message_provider(slot.name);
         MessageBox::RefreshText_1(name_message_box);
 
         const auto description_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
         const auto description_text_component = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.DescriptionGO, types::TextBox::get_class());
         description_text_component->fields.color = color;
-        description_message_box->fields.MessageProvider = slot.description.get_provider();
+        description_message_box->fields.MessageProvider = core::api::system::create_message_provider(slot.description);
         MessageBox::RefreshText_1(description_message_box);
 
         GameObject::SetActive(this_ptr->fields.PurchasableGO, !owned && can_purchase);
@@ -187,8 +188,8 @@ namespace {
         const auto value = core::api::uber_states::UberState(this_ptr->fields.m_upgradeItem->fields.UberState).get<int>();
         const auto can_afford = il2cpp::unity::is_valid(item) && core::api::game::player::spirit_light().get() >= MapmakerItem::GetCost(item);
 
-        item->fields.Name = slot.name.get_provider();
-        item->fields.Description = slot.description.get_provider();
+        item->fields.Name = core::api::system::create_message_provider(slot.name);
+        item->fields.Description = core::api::system::create_message_provider(slot.description);
 
         const auto is_available = value < item->fields.MaxLevel && can_afford;
         GameObject::SetActive(this_ptr->fields.AvailableToBuyGO, slot.visibility() == SlotVisibility::Visible && is_available);

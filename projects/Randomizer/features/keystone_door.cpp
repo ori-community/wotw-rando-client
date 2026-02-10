@@ -2,6 +2,7 @@
 
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
+#include <Core/api/system/message_provider.h>
 #include <Core/api/uber_states/uber_state.h>
 
 #include <Modloader/app/methods/MoonCustomDoorWithSlots.h>

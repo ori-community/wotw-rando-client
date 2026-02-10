@@ -8,6 +8,7 @@ INSTRUCTION(CloseMenu)
     explicit CloseMenu() = default;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+        using namespace app::classes;
         const auto menu_screen_manager = types::UI::get_class()->static_fields->m_sMenu;
         MenuScreenManager::HideMenuScreen(menu_screen_manager, false, true);
     }

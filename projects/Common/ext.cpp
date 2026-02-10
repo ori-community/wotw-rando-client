@@ -12,7 +12,6 @@
 #endif
 
 #include <AtlBase.h>
-#include <atlconv.h>
 
 #undef MessageBox
 #undef GetFont
@@ -47,6 +46,18 @@ std::string_view find_next_unbalanced(std::string_view text, std::string_view st
 void replace_all(std::string& str, std::string_view find, std::string_view replace) {
     for (auto i = str.find(find); i != std::wstring_view::npos; i = str.find(find)) {
         str.replace(str.begin() + i, str.begin() + i + find.size(), replace);
+    }
+}
+
+void replace_all_lazy(std::string& str, std::string_view find, const std::function<std::string()>& fn) {
+    std::optional<std::string> evaluated;
+
+    for (auto i = str.find(find); i != std::wstring_view::npos; i = str.find(find)) {
+        if (!evaluated.has_value()) {
+            evaluated = fn();
+        }
+
+        str.replace(str.begin() + i, str.begin() + i + find.size(), *evaluated);
     }
 }
 

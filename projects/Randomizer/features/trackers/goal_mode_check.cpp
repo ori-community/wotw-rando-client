@@ -23,14 +23,12 @@ using namespace app::classes;
 
 namespace {
     constexpr app::Vector3 SHRIEK_BARRIER_POSITION = app::Vector3{550.f, -3685.f, 0.f};
-    constexpr app::Rect SHRIEK_BARRIER_HINT_RECT = app::Rect{582.f, -3620.f, 30.f, 30.f};
 
     std::optional<il2cpp::WeakGCRef<app::GameObject>> shriek_barrier_go;
     std::optional<il2cpp::WeakGCRef<app::GameObject>> shriek_barrier_killbox;
     std::optional<il2cpp::WeakGCRef<app::CameraScrollLock>> shriek_barrier_scroll_lock;
     core::reactivity::ReactiveEffect::ptr_t shriek_barrier_effect;
     bool shriek_barrier_active = false;
-    bool was_showing_hint = false;
     float animation_position = 0.0f;
     common::Droppable::ptr_t on_update_animation_handle;
 
@@ -166,27 +164,6 @@ namespace {
                         shriek_barrier_killbox = std::nullopt;
                         on_update_animation_handle = nullptr;
                     }
-
-                    auto is_in_hint_rect = modloader::math::in_rect(core::api::game::player::get_position(), SHRIEK_BARRIER_HINT_RECT);
-                    auto should_show_hint = shriek_barrier_active && is_in_hint_rect;
-
-                    if (should_show_hint && !was_showing_hint) {
-                        std::shared_ptr<core::text::ITextProcessor> processor = randomizer::general_text_processor();
-                        std::string hint_text("[goal_mode_progress()] [relic_progress()]");
-                        processor->process(hint_text);
-                        trim(hint_text);
-
-                        Game::UI_Hints::Show(
-                            core::api::system::create_message_provider(hint_text),
-                            app::HintLayer__Enum::Gameplay,
-                            99999999.f,
-                            app::Vector3{0.f, 0.f, 0.f}
-                        );
-                    } else if (!should_show_hint && was_showing_hint) {
-                        Game::UI_Hints::HideExistingHint();
-                    }
-
-                    was_showing_hint = should_show_hint;
                 });
             }
         }

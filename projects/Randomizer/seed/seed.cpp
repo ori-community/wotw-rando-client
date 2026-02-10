@@ -119,7 +119,7 @@ namespace randomizer::seed {
         }
 
         core::message_controller().queue_central({
-            .text = core::Property<std::string>::format("Loaded Seed{}{}", slug_string, tags),
+            .text = core::Property<std::string>(std::format("Loaded Seed{}{}", slug_string, tags)),
             .duration = 5.f,
             .show_box = true,
             .prioritized = true,

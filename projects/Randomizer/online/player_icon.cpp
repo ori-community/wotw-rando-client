@@ -3,6 +3,7 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/game/ui.h>
+#include <Core/api/system/message_provider.h>
 #include <Core/dev/object_visualizer.h>
 #include <Core/enums/layer.h>
 #include <Core/utils/misc.h>

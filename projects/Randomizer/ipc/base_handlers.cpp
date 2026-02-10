@@ -39,7 +39,7 @@ namespace randomizer::ipc {
             randomizer::load_new_game_source();
 
             core::message_controller().queue_central({
-                .text = core::Property<std::string>::format("Start an empty save file to play"),
+                .text = core::Property<std::string>(std::format("Start an empty save file to play")),
                 .show_box = true,
                 .prioritized = true,
             });
@@ -142,7 +142,7 @@ namespace randomizer::ipc {
 
             const auto message_box = message_registry.get(message_id);
             if (p.contains("text")) {
-                message_box->text().process_and_set(p.at("text").get<std::string>());
+                message_box->text().set(p.at("text").get<std::string>());
             }
 
             if (p.contains("position")) {

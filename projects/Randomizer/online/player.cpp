@@ -54,7 +54,7 @@ namespace randomizer::online {
 
     void Player::set_name(const std::string_view value) {
         m_name = std::string(value);
-        m_map_icon->name().set(value);
+        m_map_icon->name().set(m_name);
     }
 
     void Player::set_icon(const PlayerIcon::Type value) const {

@@ -1,4 +1,5 @@
 #include <Core/api/system/message_provider.h>
+#include <Modloader/app/types/TranslatedMessageProvider.h>
 
 
 namespace core::api::system {
@@ -15,5 +16,11 @@ namespace core::api::system {
         }
 
         return il2cpp::unity::instantiate_object(**empty_instance_cache);
+    }
+
+    app::MessageProvider* create_message_provider(const Property<std::string>& property) {
+        auto provider = instantiate_empty_translated_message_provider();
+        add_to_message_provider(provider, property.get());
+        return reinterpret_cast<app::MessageProvider*>(provider);
     }
 } // namespace core::api::system

@@ -10,6 +10,7 @@
 #include <Core/api/graphics/sprite.h>
 #include <Core/api/messages/text_style.h>
 #include <Core/api/scenes/scene_load.h>
+#include <Core/api/system/message_provider.h>
 #include <Core/api/system/save_files.h>
 #include <Core/events/action.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
@@ -22,9 +23,9 @@
 #include <Modloader/app/methods/SetTitleScreenAction.h>
 #include <Modloader/app/types/CleverMenuItem.h>
 #include <Modloader/app/types/GameStateMachine.h>
+#include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/XboxLiveIdentityUI.h>
-#include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/game/spawning_and_preloading.h>
 #include <Randomizer/randomizer.h>

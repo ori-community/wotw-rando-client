@@ -76,6 +76,10 @@ struct core::Property<T> : core::BaseProperty {
         set(app::Vector3{x, y, z});
     }
 
+    void set(const char* value) const requires std::is_same_v<T, std::string> {
+        set(std::string(value));
+    }
+
     void add(T const& value) const requires can_add<T> {
         set(get() + value);
     }
@@ -88,7 +92,7 @@ struct core::Property<T> : core::BaseProperty {
         set(get() + app::Vector3{x, y, z});
     }
 
-    void assign(value_type value) {
+    void assign(const value_type& value) {
         m_value = value;
         notify_changed();
     }
@@ -103,7 +107,11 @@ struct core::Property<T> : core::BaseProperty {
     }
 
     Property &operator=(const Property &other) {
-        m_value = std::make_shared<T>(get());
+        if (other.m_id == m_id) {
+            return *this;
+        }
+
+        m_value = std::make_shared<T>(other.get());
         notify_changed();
         return *this;
     }

@@ -5,7 +5,6 @@
 
 #include <Core/api/messages/message_box.h>
 #include <Core/messages/message_handle.h>
-#include <Core/text/text_processor.h>
 
 #include <memory>
 #include <optional>
@@ -41,9 +40,6 @@ namespace core::messages {
 
         message_handle_ptr_t push(MessageInfo info);
         void clear();
-
-        void text_processor(auto text_processor) { m_text_processor = std::move(text_processor); }
-        auto& text_processor() { return m_text_processor; }
 
         void update(float delta_time);
 
@@ -93,7 +89,5 @@ namespace core::messages {
         std::optional<MessageData> m_active_priority_message;
         std::vector<MessageData> m_messages;
         std::vector<MessageData> m_active_messages;
-
-        std::shared_ptr<text::ITextProcessor> m_text_processor;
     };
 } // namespace core::messages

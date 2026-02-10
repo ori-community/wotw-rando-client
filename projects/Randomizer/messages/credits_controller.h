@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Core/api/messages/message_box.h>
-#include <Core/text/text_processor.h>
 
 #include <Randomizer/messages/credit_entries/base_entry.h>
 
@@ -14,8 +13,6 @@
 namespace randomizer::messages {
     class CreditsController {
     public:
-        CreditsController();
-
         bool load(const std::filesystem::path& path);
         bool unload();
 
@@ -34,12 +31,9 @@ namespace randomizer::messages {
         void parse_move_entry(std::string const& line, int line_number, std::vector<std::string> const& parts);
         void parse_collection_entry(std::string const& line, int line_number, std::vector<std::string> const& parts);
 
-        class TextProcessor;
-
         std::mt19937 m_random_generator;
         int m_random_value = 0;
 
-        std::shared_ptr<core::text::ITextProcessor> m_text_processor;
         std::unordered_map<int, Text> m_message_boxes;
         std::vector<std::shared_ptr<credit_entries::BaseEntry>> m_entries;
         std::vector<std::shared_ptr<credit_entries::BaseEntry>> m_active_entries;

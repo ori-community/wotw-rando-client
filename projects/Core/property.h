@@ -67,6 +67,5 @@ namespace core {
     struct Property;
 }
 
-#include <Core/property/property_string.inl>
 #include <Core/property/property_uber_state.inl>
 #include <Core/property/property_non_uber_state.inl>

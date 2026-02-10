@@ -17,6 +17,8 @@
 #include <Modloader/app/types/UI_Hints.h>
 
 namespace core::messages {
+    using namespace app::classes;
+
     namespace {
         constexpr int MAX_RECENT_MESSAGES = 7;
 
@@ -180,7 +182,6 @@ namespace core::messages {
             // Copy processed text
             auto message_copy = info;
             auto text = message_copy.text.get();
-            m_central_display.text_processor()->process(text);
             message_copy.text.set(text);
 
             m_recent_messages.emplace_back(message_copy);

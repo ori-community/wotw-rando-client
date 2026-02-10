@@ -59,11 +59,6 @@ namespace randomizer::features::wheel {
         struct CustomWheelEntry {
             using binding_action = void (*)(CustomWheelEntry const& entry, app::SpellUIItem* item, WheelBind binding);
 
-            CustomWheelEntry() {
-                name.text_processor(general_text_processor());
-                description.text_processor(general_text_processor());
-            }
-
             core::Property<std::string> name;
             core::Property<std::string> description;
             std::shared_ptr<core::api::graphics::textures::TextureData> texture_data = nullptr;

@@ -224,8 +224,7 @@ namespace core::messages {
     void MessageDisplay::show_message_box(MessageData& data, int& total_lines, app::Vector3& position) {
         data.message = std::make_shared<api::messages::MessageBox>();
         data.message->show_background().set(data.info.show_box);
-        data.message->text_processor(m_text_processor);
-        data.message->text().process_and_set(data.info.text.get());
+        data.message->text().set(data.info.text.get());
         data.message->top_padding().set(data.info.padding.x);
         data.message->left_padding().set(data.info.padding.y);
         data.message->bottom_padding().set(data.info.padding.z);

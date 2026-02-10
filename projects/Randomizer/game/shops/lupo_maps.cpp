@@ -1,8 +1,11 @@
 #include <Randomizer/game/shops/lupo_maps.h>
+#include <Core/api/system/message_provider.h>
 #include <Modloader/app/methods/CartographerEntity.h>
 
 
 namespace randomizer::game::shops::lupo_maps {
+    using namespace app::classes;
+
     core::api::uber_states::UberState get_slot_key_for_game_world_area(app::GameWorldAreaID__Enum game_world_area) {
         switch (game_world_area) {
             case app::GameWorldAreaID__Enum::InkwaterMarsh:

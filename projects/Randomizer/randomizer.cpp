@@ -16,24 +16,19 @@
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/parser.h>
 #include <Randomizer/seed/seed_source.h>
-#include <Randomizer/text_processors/ability.h>
-#include <Randomizer/text_processors/action.h>
-#include <Randomizer/text_processors/legacy.h>
-#include <Randomizer/text_processors/multiplayer.h>
-#include <Randomizer/text_processors/shard.h>
-#include <Randomizer/text_processors/uber_state.h>
 #include <Randomizer/uber_states/uber_state_intercepts.h>
 #include <fstream>
 #include <utility>
 
 
 namespace randomizer {
+    using namespace app::classes;
+
     namespace {
         seed::Seed randomizer_seed;
         online::NetworkClient client;
         online::MultiplayerUniverse universe;
         seedgen_interface::SeedgenService seedgen_service_instance;
-        std::shared_ptr<core::text::CompositeTextProcessor> text_processor;
 
         online::NetworkMonitor monitor;
         core::dev::StatusDisplay status({
@@ -187,16 +182,6 @@ namespace randomizer {
             // TODO: Don't just do this on game ready.
             modloader::cursor_lock(core::settings::lock_cursor());
 
-            text_processor = std::make_shared<core::text::CompositeTextProcessor>();
-            text_processor->compose(std::make_shared<text_processors::UberStateProcessor>());
-            text_processor->compose(std::make_shared<text_processors::AbilityProcessor>());
-            text_processor->compose(std::make_shared<text_processors::ActionProcessor>());
-            text_processor->compose(std::make_shared<text_processors::ShardProcessor>());
-            text_processor->compose(std::make_shared<text_processors::LegacyProcessor>());
-            text_processor->compose(std::make_shared<text_processors::MultiplayerProcessor>());
-
-            core::message_controller().central_display().text_processor(text_processor);
-            core::message_controller().recent_display().text_processor(text_processor);
             seed_meta_save_data = std::make_unique<seed::SaveSlotSeedMetaData>();
 
             register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, seed_meta_save_data);
@@ -263,7 +248,7 @@ namespace randomizer {
 
         if (!current_source->allows_rereading()) {
             core::message_controller().queue_central({
-                .text = core::Property<std::string>::format("Cannot re-read this seed."),
+                .text = core::Property<std::string>(std::format("Cannot re-read this seed.")),
                 .show_box = true,
                 .prioritized = true,
             });
@@ -279,14 +264,14 @@ namespace randomizer {
                 break;
             case seed::SourceStatus::Loading:
                 core::message_controller().queue_central({
-                    .text = core::Property<std::string>::format("The seed source is still loading. Please try again later..."),
+                    .text = core::Property<std::string>(std::format("The seed source is still loading. Please try again later...")),
                     .show_box = true,
                     .prioritized = true,
                 });
                 break;
             case seed::SourceStatus::Error:
                 core::message_controller().queue_central({
-                    .text = core::Property<std::string>::format("Error reading seed source: {}", current_source->get_error().value()),
+                    .text = core::Property<std::string>(std::format("Error reading seed source: {}", current_source->get_error().value())),
                     .show_box = true,
                     .prioritized = true,
                 });
@@ -367,7 +352,6 @@ namespace randomizer {
     online::MultiplayerUniverse& multiplayer_universe() { return universe; }
     seedgen_interface::SeedgenService& seedgen_service() { return seedgen_service_instance; }
 
-    std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor() { return text_processor; }
     std::shared_ptr<seed::SeedSource> get_new_game_seed_source() { return new_game_seed_source; }
 
     void set_new_game_seed_archive(const std::shared_ptr<seed::SeedArchive>& archive) { new_game_seed_archive = archive; }

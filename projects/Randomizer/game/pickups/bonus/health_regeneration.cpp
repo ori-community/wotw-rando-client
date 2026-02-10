@@ -4,6 +4,8 @@
 #include <Modloader/app/methods/GameStateMachine.h>
 
 namespace {
+    using namespace app::classes;
+
     core::api::uber_states::UberState health_regeneration_per_minute(UberStateGroup::RandoUpgrade, 30);
 
     [[maybe_unused]]

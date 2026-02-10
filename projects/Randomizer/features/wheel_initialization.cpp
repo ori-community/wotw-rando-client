@@ -59,7 +59,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::settings::always_show_keystones(!core::settings::always_show_keystones());
                             core::message_controller().queue_central({
-                                .text = core::Property<std::string>::format("Always show keystones: {}", core::settings::always_show_keystones()),
+                                .text = core::Property<std::string>(std::format("Always show keystones: {}", core::settings::always_show_keystones())),
                                 .prioritized = true,
                             });
                         });
@@ -69,7 +69,7 @@ namespace randomizer::features::wheel {
                             modloader::cursor_lock(core::settings::lock_cursor());
 
                             core::message_controller().queue_central({
-                                .text = core::Property<std::string>::format("Cursor locked: {}", core::settings::lock_cursor()),
+                                .text = core::Property<std::string>(std::format("Cursor locked: {}", core::settings::lock_cursor())),
                                 .prioritized = true,
                             });
                         });
@@ -77,7 +77,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::settings::disable_auto_aim(!core::settings::disable_auto_aim());
                             core::message_controller().queue_central({
-                                .text = core::Property<std::string>::format("Auto Aim {}", core::settings::disable_auto_aim() ? "disabled" : "enabled"),
+                                .text = core::Property<std::string>(std::format("Auto Aim {}", core::settings::disable_auto_aim() ? "disabled" : "enabled")),
                                 .prioritized = true,
                             });
                         });
@@ -98,7 +98,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::settings::developer_mode(!core::settings::developer_mode());
                             core::message_controller().queue_central({
-                                .text = core::Property<std::string>::format("Dev mode: {}", core::settings::developer_mode()),
+                                .text = core::Property<std::string>(std::format("Dev mode: {}", core::settings::developer_mode())),
                                 .prioritized = true,
                             });
                             on_dev_changed();
@@ -118,7 +118,7 @@ namespace randomizer::features::wheel {
                             );
 
                             core::message_controller().queue_central({
-                                .text = core::Property<std::string>::format("Debug: {}", core::api::game::debug_menu::is_debug_enabled()),
+                                .text = core::Property<std::string>(std::format("Debug: {}", core::api::game::debug_menu::is_debug_enabled())),
                                 .prioritized = true,
                             });
                         });
@@ -126,7 +126,7 @@ namespace randomizer::features::wheel {
                         [](auto, auto, auto) {
                             core::api::graphics::textures::reload_all_file_textures();
                             core::message_controller().queue_central({
-                                .text = core::Property<std::string>::format("Texture files reloaded."),
+                                .text = core::Property<std::string>(std::format("Texture files reloaded.")),
                                 .prioritized = true,
                             });
                         });
@@ -146,7 +146,7 @@ namespace randomizer::features::wheel {
                                 box.show(false, false);
                                 handle = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [](auto, auto) {
                                     const auto [x, y, z] = core::api::game::player::get_position();
-                                    box.text().set_format("{:.3f}, {:.3f}", x, y);
+                                    box.text().set(std::format("{:.3f}, {:.3f}", x, y));
                                 });
                             } else {
                                 handle = nullptr;

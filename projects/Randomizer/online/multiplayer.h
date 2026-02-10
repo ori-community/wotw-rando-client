@@ -45,6 +45,7 @@ namespace randomizer::online {
         app::Color local_player_color() const { return m_color; }
         std::optional<PlayerInfo> local_player() const;
         Network::WorldInfo const* get_world(int id) const;
+        int get_world_count() const;
         auto multiverse_info() const { return m_current_multiverse_info; }
         void report_player_ready(bool ready) const;
         void report_in_game_time(float in_game_time, bool is_finished) const;

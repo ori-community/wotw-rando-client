@@ -9,11 +9,13 @@
 #include <frozen/unordered_map.h>
 #include <Core/settings.h>
 #include <Randomizer/randomizer.h>
-
 #include <Core/api/game/game.h>
+#include <Core/api/system/message_provider.h>
 
 
 namespace randomizer::map::filter {
+    using namespace app::classes;
+
     core::Property<MapFilter>& current_map_filter() {
         static core::Property<MapFilter> value{MapFilter::InLogic};
         return value;

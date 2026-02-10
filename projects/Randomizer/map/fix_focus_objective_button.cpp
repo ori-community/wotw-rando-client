@@ -1,16 +1,11 @@
 #include <Core/api/game/game.h>
-#include <Core/api/uber_states/uber_state.h>
-#include <Core/settings.h>
-#include <Core/text/text_database.h>
+#include <Core/api/system/message_provider.h>
 #include <Modloader/app/methods/GameMapUI.h>
 #include <Modloader/app/methods/MessageBox.h>
-#include <Modloader/app/methods/QuestsUI.h>
 #include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/modloader.h>
 #include <Randomizer/randomizer.h>
-
-#include "map_filter.h"
+#include <Randomizer/map/map_filter.h>
 
 namespace {
     using namespace app::classes;

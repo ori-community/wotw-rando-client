@@ -308,7 +308,7 @@ namespace randomizer::seed {
             m_serialized_free_message_boxes[id] = {
                 free_message_box.message_box->coordinate_system().get(),
                 free_message_box.message_box->position().get(),
-                free_message_box.message_box->text().get_unprocessed(),
+                free_message_box.message_box->text().get(),
                 free_message_box.message_box->text_alignment().get(),
                 free_message_box.message_box->box_width().get(),
                 free_message_box.message_box->box_horizontal_anchor().get(),
@@ -322,7 +322,7 @@ namespace randomizer::seed {
         m_serialized_warp_icons.clear();
         for (const auto& [id, icon]: m_warp_icons) {
             m_serialized_warp_icons[id] = {
-                icon->label_text.get_unprocessed(),
+                icon->label_text.get(),
                 icon->world_position.get(),
             };
         }
@@ -531,7 +531,6 @@ namespace randomizer::seed {
         m_free_message_boxes.clear();
         for (const auto [id, serialized_box]: m_serialized_free_message_boxes) {
             const auto free_message_box = std::make_shared<core::api::messages::MessageBox>();
-            free_message_box->text_processor(general_text_processor());
             free_message_box->coordinate_system().set(serialized_box.coordinate_system);
             free_message_box->position().set(serialized_box.position);
             free_message_box->text().set(serialized_box.text);

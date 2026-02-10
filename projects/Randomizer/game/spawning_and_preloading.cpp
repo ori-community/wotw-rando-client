@@ -14,6 +14,7 @@
 
 #include <Randomizer/game/spawning_and_preloading.h>
 
+#include <Core/api/system/message_provider.h>
 #include <Modloader/app/methods/ActionSequence.h>
 #include <Modloader/app/methods/CameraPivotZone.h>
 #include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
@@ -28,8 +29,8 @@
 #include <Modloader/app/methods/SaveSlotsUI.h>
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/TitleScreenManager.h>
-#include <Modloader/app/methods/WaitAction.h>
 #include <Modloader/app/methods/UnityEngine/Behaviour.h>
+#include <Modloader/app/methods/WaitAction.h>
 #include <Modloader/app/types/ActionSequence.h>
 #include <Modloader/app/types/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/types/FaderBFadeInAction.h>
@@ -276,7 +277,7 @@ namespace randomizer::game {
                 const auto [source_status, source_seed_archive] = get_new_game_seed_source()->poll();
                 if (source_status != seed::SourceStatus::Ready || !source_seed_archive.has_value()) {
                     core::message_controller().queue_central({
-                        .text = core::Property<std::string>::format("You cannot start a game without a seed"),
+                        .text = core::Property<std::string>("You cannot start a game without a seed"),
                         .show_box = true,
                         .prioritized = true,
                     });
@@ -285,7 +286,7 @@ namespace randomizer::game {
 
                 if (core::api::game::debug_menu::should_prevent_cheats() && core::api::game::debug_menu::was_debug_active_this_session()) {
                     core::message_controller().queue_central({
-                        .text = core::Property<std::string>::format(
+                        .text = core::Property<std::string>(
                             "It is #forbidden# to play this game with #Debug Mode# enabled.\n"
                             "Please start the game without Debug Mode.\n"
                             "Disabling Debug Mode after starting the game is not enough because\n"
@@ -525,7 +526,7 @@ namespace randomizer::game {
             const auto [source_status, source_seed_archive] = get_new_game_seed_source()->poll();
             if (source_status != seed::SourceStatus::Ready || !source_seed_archive.has_value()) {
                 core::message_controller().queue_central({
-                    .text = core::Property<std::string>::format("You cannot start a game without a seed"),
+                    .text = core::Property<std::string>("You cannot start a game without a seed"),
                     .show_box = true,
                     .prioritized = true,
                 });
@@ -534,7 +535,7 @@ namespace randomizer::game {
 
             if (core::api::game::debug_menu::should_prevent_cheats() && core::api::game::debug_menu::was_debug_active_this_session()) {
                 core::message_controller().queue_central({
-                    .text = core::Property<std::string>::format(
+                    .text = core::Property<std::string>(
                         "It is #forbidden# to play this game with #Debug Mode# enabled.\n"
                         "Please start the game without Debug Mode.\n"
                         "Disabling Debug Mode after starting the game is not enough because\n"

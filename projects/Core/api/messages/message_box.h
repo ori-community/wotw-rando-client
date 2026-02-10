@@ -46,7 +46,6 @@ namespace core::api::messages {
         [[nodiscard]] app::Rect bounds() const;
 
         [[nodiscard]] const Property<std::string>& text() { return m_text; }
-        void text_processor(const std::shared_ptr<text::ITextProcessor>& text_processor) { m_text.text_processor(text_processor); }
 
         [[nodiscard]] const Property<app::Vector3>& position() { return m_position; }
         [[nodiscard]] const Property<CoordinateSystem>& coordinate_system() { return m_coordinate_system; }

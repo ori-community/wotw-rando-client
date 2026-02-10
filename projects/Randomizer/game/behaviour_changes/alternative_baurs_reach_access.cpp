@@ -8,6 +8,7 @@
 
 
 namespace {
+    using namespace app::classes;
 
     const std::unordered_map<app::AbilityType__Enum, core::api::uber_states::UberState> ability_should_open{
         {app::AbilityType__Enum::Blaze,     core::api::uber_states::UberState(7, 420)},

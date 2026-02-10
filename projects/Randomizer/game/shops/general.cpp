@@ -2,6 +2,7 @@
 #include <Randomizer/randomizer.h>
 
 #include <Core/api/game/game.h>
+#include <Core/api/system/message_provider.h>
 #include <Core/text/text_database.h>
 
 #include <Modloader/app/methods/BuilderItem.h>
@@ -128,8 +129,8 @@ namespace {
 
     void set_message_providers(app::ShopkeeperItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider) {
         const auto apply_providers = [&](const ShopUIShopSlot& slot) {
-            name_provider = slot.name.get_provider();
-            description_provider = slot.description.get_provider();
+            name_provider = core::api::system::create_message_provider(slot.name);
+            description_provider = core::api::system::create_message_provider(slot.description);
         };
 
         if (is_in_shop(ShopType::Opher)) {

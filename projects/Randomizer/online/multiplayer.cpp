@@ -191,6 +191,10 @@ namespace randomizer::online {
 
     Network::WorldInfo const* MultiplayerUniverse::get_world(const int id) const { return id < 0 || id >= m_current_world_infos.size() ? nullptr : m_current_world_infos[id]; }
 
+    int MultiplayerUniverse::get_world_count() const {
+        return m_current_world_infos.size();
+    }
+
     void MultiplayerUniverse::report_player_ready(const bool ready) const {
         Network::ReportPlayerRaceReadyMessage message;
         message.set_raceready(ready);
@@ -236,20 +240,22 @@ namespace randomizer::online {
         if (universe != nullptr) {
             m_current_universe_info = universe;
             m_current_world_infos.clear();
-            std::unordered_map<std::string, PlayerInfo> info_players;
+            std::unordered_map<std::string, PlayerInfo> player_id_to_player_info;
+
             for (auto& world: universe->worlds()) {
                 m_current_world_infos.push_back(&world);
-                for (auto const& memberhip: world.memberships()) {
-                    auto& player = info_players[memberhip.user().id()];
+
+                for (auto const& membership: world.memberships()) {
+                    auto& player = player_id_to_player_info[membership.user().id()];
                     player.universe_id = universe->id();
                     player.world = world;
                     player.universe = *universe;
-                    player.user = memberhip.user();
+                    player.user = membership.user();
                 }
             }
 
             std::unordered_map<std::string, PlayerInfo> to_add;
-            for (auto& info_player: info_players) {
+            for (auto& info_player: player_id_to_player_info) {
                 if (info_player.first == m_id) {
                     continue;
                 }
@@ -265,7 +271,7 @@ namespace randomizer::online {
                     continue;
                 }
 
-                if (!info_players.contains(player.first)) {
+                if (!player_id_to_player_info.contains(player.first)) {
                     to_remove[player.first] = player.second;
                 }
             }
@@ -281,7 +287,7 @@ namespace randomizer::online {
             std::unordered_set<std::string> connected_user_ids;
             connected_user_ids.insert_range(message->connecteduserids());
 
-            m_players = info_players;
+            m_players = player_id_to_player_info;
             for (auto& [id, player]: m_players) {
                 if (id == m_id) {
                     continue;
@@ -396,7 +402,7 @@ namespace randomizer::online {
             position.y = pos2.y();
         }
 
-        box->text().process_and_set(message->text());
+        box->text().set(message->text());
         box->position().set(position);
         box->coordinate_system().set(static_cast<core::api::messages::CoordinateSystem>(message->coordinatesystem()));
         box->text_alignment().set(static_cast<app::AlignmentMode__Enum>(message->alignment()));
@@ -482,7 +488,7 @@ namespace randomizer::online {
         if (message->preventcheats() && core::api::game::debug_menu::was_debug_active_this_session()) {
             randomizer::server_disconnect();
             core::message_controller().queue_central({
-                .text = core::Property<std::string>::format(
+                .text = core::Property<std::string>(
                     "It is #forbidden# to play this game with #Debug Mode# enabled.\n"
                     "Please start the game without Debug Mode.\n"
                     "Disabling Debug Mode after starting the game is not enough because\n"

@@ -11,6 +11,7 @@
 #include <string>
 #include <tuple>
 #include <vector>
+#include <functional>
 
 struct pair_hash {
     // NOLINT
@@ -180,6 +181,7 @@ template<>
 bool string_convert(std::string_view str, double& value, std::size_t* position);
 
 void replace_all(std::string& str, std::string_view find, std::string_view replace);
+void replace_all_lazy(std::string& str, std::string_view find, const std::function<std::string()>& fn);
 
 void replace_all(std::wstring& str, std::wstring_view find, std::wstring_view replace);
 

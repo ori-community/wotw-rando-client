@@ -10,7 +10,7 @@ INSTRUCTION(MessageText)
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         const auto modification_fn = [&](core::api::messages::MessageBox& message_box) {
-            message_box.text().process_and_set(memory.strings.get(0));
+            message_box.text().set(memory.strings.get(0));
         };
 
         environment.modify_queued_message_box(id, modification_fn);

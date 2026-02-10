@@ -28,10 +28,13 @@
 #include <frozen/unordered_map.h>
 
 #include <Core/api/game/ui.h>
+#include <Core/api/system/message_provider.h>
 #include <Core/settings.h>
 #include <Modloader/app/methods/IconPlacementScaler.h>
 
 namespace randomizer::map::icons {
+    using namespace app::classes;
+
     enum class Event {
         IconPositionUpdateRequested,  // Emitted when the vanilla map wants to update icon positions
         IconLabelUpdateRequested,  // Emitted when the vanilla map wants to update icon labels
@@ -607,7 +610,7 @@ namespace randomizer::map::icons {
         const auto area_map_icon = il2cpp::unity::get_component<app::AreaMapIcon>(**m_game_object, types::AreaMapIcon::get_class());
 
         if (GameMapUI::get_ShowIconLabels(game_map_ui)) {
-            AreaMapIcon::SetMessageProvider(area_map_icon, label_text.get_provider());
+            AreaMapIcon::SetMessageProvider(area_map_icon, core::api::system::create_message_provider(label_text));
             AreaMapIcon::ShowLabel(area_map_icon);
         } else {
             AreaMapIcon::HideLabel(area_map_icon);

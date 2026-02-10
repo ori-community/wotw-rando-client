@@ -28,6 +28,7 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
+#include <Core/api/system/message_provider.h>
 #include <Modloader/app/methods/SpellUIExperience.h>
 #include <set>
 
@@ -191,8 +192,8 @@ namespace randomizer::game::shops::twillen {
             auto* const description_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
 
             if (overwrite_shard) {
-                name_box->fields.MessageProvider = slot->name.get_provider();
-                description_box->fields.MessageProvider = slot->description.get_provider();
+                name_box->fields.MessageProvider = core::api::system::create_message_provider(slot->name);
+                description_box->fields.MessageProvider = core::api::system::create_message_provider(slot->description);
             } else if (type == app::SpiritShardType__Enum::None) {
                 name_box->fields.MessageProvider = this_ptr->fields.LockedName;
                 description_box->fields.MessageProvider = this_ptr->fields.LockedDescription;

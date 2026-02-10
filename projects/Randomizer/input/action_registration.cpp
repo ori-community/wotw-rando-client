@@ -68,7 +68,7 @@ namespace randomizer::input {
             core::settings::lock_cursor(!core::settings::lock_cursor());
             modloader::cursor_lock(core::settings::lock_cursor());
             core::message_controller().queue_central({
-                .text = core::Property<std::string>::format("Cursor Lock {}", modloader::cursor_lock() ? "enabled" : "disabled"),
+                .text = core::Property<std::string>(std::format("Cursor Lock {}", modloader::cursor_lock() ? "enabled" : "disabled")),
                 .prioritized = true,
             });
         });
@@ -76,14 +76,14 @@ namespace randomizer::input {
         auto on_toggle_always_show_keystones_before = single_input_bus().register_handler(Action::ToggleAlwaysShowKeystones, EventTiming::Before, [](auto, auto) {
             core::settings::always_show_keystones(!core::settings::always_show_keystones());
             core::message_controller().queue_central({
-                .text = core::Property<std::string>::format("Debug {}", core::settings::always_show_keystones() ? "enabled" : "disabled"),
+                .text = core::Property<std::string>(std::format("Debug {}", core::settings::always_show_keystones() ? "enabled" : "disabled")),
                 .prioritized = true,
             });
         });
 
         auto on_show_dev_flag_before = single_input_bus().register_handler(Action::ShowDevFlag, EventTiming::Before, [](auto, auto) {
             core::message_controller().queue_central({
-                .text = core::Property<std::string>::format("Dev: {}", core::settings::developer_mode() ? "True" : "False"),
+                .text = core::Property<std::string>(std::format("Dev: {}", core::settings::developer_mode() ? "True" : "False")),
                 .prioritized = true,
             });
         });
@@ -102,7 +102,7 @@ namespace randomizer::input {
             );
 
             core::message_controller().queue_central({
-                .text = core::Property<std::string>::format("Debug: {}", core::api::game::debug_menu::is_debug_enabled()),
+                .text = core::Property<std::string>(std::format("Debug: {}", core::api::game::debug_menu::is_debug_enabled())),
                 .prioritized = true,
             });
         });
@@ -110,7 +110,7 @@ namespace randomizer::input {
         auto on_print_coordinates_before = single_input_bus().register_handler(Action::PrintCoordinates, EventTiming::Before, [](auto, auto) {
             auto position = core::api::game::player::get_position();
             core::message_controller().queue_central({
-                .text = core::Property<std::string>::format("[ {}, {}, {} ]", position.x, position.y, position.z),
+                .text = core::Property<std::string>(std::format("[ {}, {}, {} ]", position.x, position.y, position.z)),
                 .prioritized = true,
             });
             // TODO: Copy coordinates into clipboard.

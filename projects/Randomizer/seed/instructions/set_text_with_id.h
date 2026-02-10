@@ -1,4 +1,5 @@
 #pragma once
+#include <Core/text/text_database.h>
 #include <Randomizer/seed/instruction_utils.h>
 #include <Randomizer/seed/seed.h>
 
