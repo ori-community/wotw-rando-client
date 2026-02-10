@@ -131,6 +131,8 @@ namespace randomizer::seed {
             throw std::exception(std::format("Command ID {} out of bounds", id).c_str());
         }
 
+        const auto _queued_message_pickup_position_scope = m_environment->scope_queued_message_pickup_position();
+
         for (const auto& command: m_parse_output->data.commands.at(id)) {
             try {
                 ZoneScopedN("Instruction");

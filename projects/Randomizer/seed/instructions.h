@@ -227,6 +227,7 @@ namespace randomizer::seed {
         const auto& get_free_message_boxes() const { return m_free_message_boxes; }
         const auto& get_timers() const { return m_timers; }
         const auto& get_spoiler_map_icons() const { return m_spoiler_map_icons; }
+        const auto& get_queued_message_pickup_position_in_current_scope() const { return m_queued_message_pickup_position_in_current_scope; };
 
         SeedExecutionEnvironment(Seed& seed);
         SeedExecutionEnvironment(const SeedExecutionEnvironment& other) = delete;
@@ -366,6 +367,19 @@ namespace randomizer::seed {
          */
         void destroy_box_trigger(std::size_t id);
 
+        /**
+         * When the returned droppable is dropped, it sets the queued message pickup
+         * position back to the value it had when this function was called.
+         */
+        [[nodiscard]]
+        common::Droppable::ptr_t scope_queued_message_pickup_position();
+
+        /**
+         * Sets the queued message pickup position. This is scoped to the current
+         * seed command, see scope_queued_message_pickup_position.
+         */
+        void set_queued_message_pickup_position_in_current_scope(app::Vector2 position);
+
     private:
         // Serialized properties.
         // These are only serialized on-demand in json_serialize():
@@ -390,6 +404,7 @@ namespace randomizer::seed {
         std::unordered_map<std::size_t, map::icons::MapIcon::ptr_t> m_spoiler_map_icons;
         std::vector<common::Droppable::ptr_t> m_event_bus_handles;
         Seed& m_seed;
+        std::optional<app::Vector2> m_queued_message_pickup_position_in_current_scope = std::nullopt;
 
         /**
          * Restore serialized data (free message boxes, warp icons etc.) to runtime data.

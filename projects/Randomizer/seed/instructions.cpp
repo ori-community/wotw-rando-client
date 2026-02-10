@@ -60,6 +60,7 @@
 #include <Randomizer/seed/instructions/message_timeout.h>
 #include <Randomizer/seed/instructions/queued_message.h>
 #include <Randomizer/seed/instructions/queued_message_hidden_callback.h>
+#include <Randomizer/seed/instructions/queued_message_scoped_pickup_position.h>
 #include <Randomizer/seed/instructions/queued_message_shown_callback.h>
 #include <Randomizer/seed/instructions/reset_all_wheels.h>
 #include <Randomizer/seed/instructions/round.h>
@@ -189,6 +190,7 @@ namespace randomizer::seed {
             register_instruction<MessageTimeout>(factories);
             register_instruction<QueuedMessage>(factories);
             register_instruction<QueuedMessageHiddenCallback>(factories);
+            register_instruction<QueuedMessageScopedPickupPosition>(factories);
             register_instruction<QueuedMessageShownCallback>(factories);
             register_instruction<ResetAllWheels>(factories);
             register_instruction<Round>(factories);
@@ -525,6 +527,17 @@ namespace randomizer::seed {
 
     void SeedExecutionEnvironment::destroy_box_trigger(std::size_t id) {
         m_box_triggers.erase(id);
+    }
+
+    common::Droppable::ptr_t SeedExecutionEnvironment::scope_queued_message_pickup_position() {
+        const auto previous_value = this->m_queued_message_pickup_position_in_current_scope;
+        return common::Droppable::create([this, previous_value] {
+            this->m_queued_message_pickup_position_in_current_scope = previous_value;
+        });
+    }
+
+    void SeedExecutionEnvironment::set_queued_message_pickup_position_in_current_scope(app::Vector2 position) {
+        this->m_queued_message_pickup_position_in_current_scope = position;
     }
 
     void SeedExecutionEnvironment::restore_serialized_data_to_runtime() {

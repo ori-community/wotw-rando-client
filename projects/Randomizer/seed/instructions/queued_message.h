@@ -9,12 +9,16 @@ INSTRUCTION(QueuedMessage)
 
     std::optional<std::size_t> id;
     bool prioritized;
+
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         const auto handle = core::message_controller().queue_central(
             {
                 .text = core::Property<std::string>(memory.strings.get(0)),
                 .duration = memory.floats.get(0),
                 .prioritized = prioritized,
+                .pickup_position = environment.get_queued_message_pickup_position_in_current_scope().transform([](const app::Vector2& position) {
+                    return modloader::math::to_vec3(position);
+                })
             },
             true
         );
