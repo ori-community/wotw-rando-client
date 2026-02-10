@@ -33,7 +33,7 @@ namespace core::api::uber_states {
 
         [[nodiscard]] bool valid() const;
 
-        static constexpr bool ENABLE_LOGGING = true;
+        static constexpr bool ENABLE_LOGGING = false;
 
         void set(double value) const;
 
