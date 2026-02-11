@@ -3,14 +3,15 @@
 #include <Core/ipc/ipc.h>
 #include <Core/utils/json_serializers.h>
 
+#include <Core/api/game/debug_menu.h>
 #include <fstream>
 
-#include <Modloader/app/methods/AK/Wwise/BaseType.h>
 #include <Modloader/app/methods/AK/Wwise/BaseGroupType.h>
+#include <Modloader/app/methods/AK/Wwise/BaseType.h>
+#include <Modloader/app/methods/TimelineStateCondition.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/methods/UnityEngine/Quaternion.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
-#include <Modloader/app/methods/TimelineStateCondition.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/Quaternion.h>
 #include <Modloader/il2cpp_helpers.h>
@@ -807,6 +808,10 @@ namespace randomizer::ipc {
         }
 
         void destroy_game_object(const nlohmann::json& j) {
+            if (!core::api::game::debug_menu::is_debug_enabled()) {
+                return;
+            }
+
             std::vector<float> values;
 
             auto& payload = j.at("payload");
@@ -820,6 +825,10 @@ namespace randomizer::ipc {
         }
 
         void set_game_object_active(const nlohmann::json& j) {
+            if (!core::api::game::debug_menu::is_debug_enabled()) {
+                return;
+            }
+
             std::vector<float> values;
             auto& payload = j.at("payload");
             auto path = payload.value("path", "");
@@ -833,6 +842,10 @@ namespace randomizer::ipc {
         }
 
         void get_game_object(const nlohmann::json& j) {
+            if (!core::api::game::debug_menu::is_debug_enabled()) {
+                return;
+            }
+
             std::vector<float> values;
             auto id = j.at("id").get<int>();
             nlohmann::json response;
@@ -853,6 +866,10 @@ namespace randomizer::ipc {
         }
 
         void get_children(const nlohmann::json& j) {
+            if (!core::api::game::debug_menu::is_debug_enabled()) {
+                return;
+            }
+
             std::vector<float> values;
             auto id = j.at("id").get<int>();
             nlohmann::json response;
