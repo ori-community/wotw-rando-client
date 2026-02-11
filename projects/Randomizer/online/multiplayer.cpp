@@ -15,6 +15,7 @@
 
 #include <Core/api/game/debug_menu.h>
 #include <Core/save_meta/save_meta.h>
+#include <Modloader/fs.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/stats/game_stats.h>
 #include <Randomizer/tracking/game_tracker.h>
@@ -524,9 +525,17 @@ namespace randomizer::online {
 
     void MultiplayerUniverse::set_seed(std::shared_ptr<Network::SetSeedMessage> const& message) {
         const auto bytes = std::as_bytes(std::span{message->seed_content().begin(), message->seed_content().end()});
-        seed::set_server_seed_archive(std::make_shared<seed::SeedArchive>(
-            std::vector(bytes.begin(), bytes.end())
-        ));
+
+#ifdef DEBUG
+        // With DEBUG enabled, save the received seed for introspection
+        const auto output_path = modloader::fs::get_randomizer_user_data_path("debug_server_seed.wotwr");
+        modloader::debug("multiplayer", std::format("Saved server seed to {}", output_path.string()));
+        std::ofstream output_stream(output_path, std::ios::binary | std::ios::out | std::ios::trunc);
+        output_stream.write(reinterpret_cast<const char*>(bytes.data()), bytes.size());
+        output_stream.close();
+#endif
+
+        seed::set_server_seed_archive(std::make_shared<seed::SeedArchive>(std::vector(bytes.begin(), bytes.end())));
     }
 
     void MultiplayerUniverse::set_restrict_to_save_guid(const std::optional<core::MoodGuid>& value) { m_restrict_to_save_guid = value; }
