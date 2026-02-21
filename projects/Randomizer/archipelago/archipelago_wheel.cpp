@@ -102,6 +102,10 @@ namespace randomizer::archipelago::wheel {
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Launch");
             });
+        features::wheel::initialize_item(9102, 10, "Launch Fragment", "", "file:assets/icons/bonus/launchfragment.png",
+            [](auto, auto, auto) {
+                archipelago_client().hint_item("Launch Fragment");
+            });
 
         // Wheel skills (9103)
         features::wheel::initialize_item(9103, 11, "Go back", "Return to the previous page", "file:assets/icons/wheel/menu.blue.png",
