@@ -202,6 +202,7 @@ namespace randomizer::archipelago {
         core::api::uber_states::UberState(4, 31).set(0);  // Energy regeneration
         core::api::uber_states::UberState(4, 35).set(0);  // Extra double jump
         core::api::uber_states::UberState(4, 36).set(0);  // Extra air dash
+        core::api::uber_states::UberState(26, 1).set(0);  // Launch fragments
 
         archipelago_save_data->received_ks = 0;
         archipelago_save_data->received_ore = 0;
@@ -555,7 +556,8 @@ namespace randomizer::archipelago {
                     }
                 },
                 [this, &color_markup](const ids::UpgradeItem& item) {
-                    color_markup = "#";
+                    // Blue for launch fragments, yellow otherwise
+                    color_markup = item.uber_group == 26 && item.uber_state == 1 ? "*" : "#";
                 },
                 [this](const ids::ResourceItem& item) {},
                 [&net_item](const ids::Location&) {
@@ -618,8 +620,12 @@ namespace randomizer::archipelago {
             },
             [this](const ids::UpgradeItem& item) {
                 const auto state = core::api::uber_states::UberState(item.uber_group, item.uber_state);
-                // Skip upgrades when inventory just got reset, except for health/energy regen and extra jump/dash
+                // Skip upgrades when inventory just got reset, except for health/energy regen, extra jump/dash, launch frags
                 if (m_reset_inventory) {
+                    if (item.uber_group == 26 && item.uber_state == 1) {  // Launch fragment
+                        state.set(state.get<int>() + 1);
+                        return;
+                    }
                     if (item.uber_group != 4) { return; }
                     switch (item.uber_state) {  // item.uber_group == 4
                         case 30:

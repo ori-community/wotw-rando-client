@@ -50,6 +50,7 @@ namespace randomizer::archipelago {
         bool door_rando;
         std::vector<int> door_connections;  // Door connections (index → door ID)
         std::vector<std::pair<int, ids::archipelago_id_t>> relic_locs;  // Relic locations (GameArea, location ID)
+        int launch_frag;
         int death_link;
         int ap_version;
         int location_flags;
@@ -90,6 +91,7 @@ namespace randomizer::archipelago {
             door_rando,
             door_connections,
             relic_locs,
+            launch_frag,
             death_link,
             ap_version,
             location_flags

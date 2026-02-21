@@ -8,6 +8,7 @@
 #include <Randomizer/archipelago/seedgen_source_generators/seed_core.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/glades_done.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/knowledge_hints.inc>
+#include <Randomizer/archipelago/seedgen_source_generators/launch_fragments.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/no_arenas.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/no_bosses.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/no_demi_bosses.inc>
@@ -44,6 +45,7 @@ namespace randomizer::archipelago {
         seedgen_source_generators::better_wellspring,
         seedgen_source_generators::glades_done,
         seedgen_source_generators::knowledge_hints,
+        seedgen_source_generators::launch_fragments,
         seedgen_source_generators::no_arenas,
         seedgen_source_generators::no_bosses,
         seedgen_source_generators::no_demi_bosses,
