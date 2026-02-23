@@ -11,6 +11,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::GameObject>> broken_plank_go_ref;
     common::registration_handle_t on_update_handle = nullptr;
 
+    [[maybe_unused]]
     auto on_scene_loaded = core::api::scenes::single_event_bus().register_handler("lumaSwampTransitionA", [](auto metadata, auto) {
         if (metadata->state == app::SceneState__Enum::Disabled) {
             on_update_handle = nullptr;
@@ -35,7 +36,7 @@ namespace {
         );
 
         on_update_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
-            if (!broken_plank_go_ref.has_value()) {
+            if (!broken_plank_go_ref.has_value() || !broken_plank_go_ref->is_valid()) {
                 return;
             }
 
