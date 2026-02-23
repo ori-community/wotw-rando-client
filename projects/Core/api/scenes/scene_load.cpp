@@ -16,6 +16,7 @@
 #include <Modloader/windows_api/console.h>
 
 #include <Modloader/app/methods/SceneRoot.h>
+#include <magic_enum/magic_enum.hpp>
 #include <set>
 #include <unordered_set>
 
@@ -30,7 +31,7 @@ namespace core::api::scenes {
     };
 
     std::unordered_map<std::string, PendingScene> scenes_to_load;
-    bool scene_loader_debug_logging = false;
+    constexpr bool SCENE_LOADER_DEBUG_LOGGING = false;
 
     app::ScenesManager* get_scenes_manager() {
         return types::Scenes::get_class()->static_fields->Manager;
@@ -46,8 +47,8 @@ namespace core::api::scenes {
             auto scene_meta = ScenesManager::GetSceneInformation(scenes_manager, scene_name_csstring);
             auto scene_manager_scene = ScenesManager::GetFromCurrentScenes_1(scenes_manager, scene_meta);
 
-            if (scene_loader_debug_logging) {
-                console::console_send(std::format("{} -> {}", scene_name, static_cast<int>(state)));
+            if (SCENE_LOADER_DEBUG_LOGGING) {
+                modloader::debug("scene_load", std::format("{} -> {}", scene_name, magic_enum::enum_name(state)));
             }
 
             SceneLoadEventMetadata event{
@@ -384,12 +385,12 @@ namespace core::api::scenes {
             return;
         }
 
-        if (!console::try_get_bool(params[0], scene_loader_debug_logging)) {
+        if (!console::try_get_bool(params[0], SCENE_LOADER_DEBUG_LOGGING)) {
             console::console_send("Invalid argument. Expected boolean (on/off)");
             return;
         }
 
-        console::console_send(std::format("Debug logging {}", scene_loader_debug_logging ? "enabled" : "disabled"));
+        console::console_send(std::format("Debug logging {}", SCENE_LOADER_DEBUG_LOGGING ? "enabled" : "disabled"));
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(
