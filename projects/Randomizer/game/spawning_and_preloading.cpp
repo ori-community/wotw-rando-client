@@ -62,13 +62,13 @@ namespace randomizer::game {
         std::set<std::string> pending_scenes_to_preload;
         std::set<std::string> scenes_to_preload;
 
-        std::optional<il2cpp::WeakGCRef<app::GameObject>> ui_go_handle;
-        std::optional<il2cpp::WeakGCRef<app::ActionSequence>> start_game_sequence_handle;
-        std::optional<il2cpp::WeakGCRef<app::CleverMenuItemSelectionManager>> full_game_main_menu_selection_manager_handle;
-        std::optional<il2cpp::WeakGCRef<app::ActionSequence>> empty_slot_pressed_action_sequence_handle;
-        std::optional<il2cpp::WeakGCRef<app::MessageBox>> easy_mode_text_handle;
-        std::optional<il2cpp::WeakGCRef<app::MessageBox>> normal_mode_text_handle;
-        std::optional<il2cpp::WeakGCRef<app::MessageBox>> hard_mode_text_handle;
+        std::optional<il2cpp::WeakGCRef<app::GameObject>> ui_go_ref;
+        std::optional<il2cpp::WeakGCRef<app::ActionSequence>> start_game_sequence_ref;
+        std::optional<il2cpp::WeakGCRef<app::CleverMenuItemSelectionManager>> full_game_main_menu_selection_manager_ref;
+        std::optional<il2cpp::WeakGCRef<app::ActionSequence>> empty_slot_pressed_action_sequence_ref;
+        std::optional<il2cpp::WeakGCRef<app::MessageBox>> easy_mode_text_ref;
+        std::optional<il2cpp::WeakGCRef<app::MessageBox>> normal_mode_text_ref;
+        std::optional<il2cpp::WeakGCRef<app::MessageBox>> hard_mode_text_ref;
         std::shared_ptr<core::api::messages::MessageBox> lobby_status_text_box;
 
         void update_lobby_ui(bool update_text_only = false) {
@@ -147,8 +147,9 @@ namespace randomizer::game {
                 return;
             }
 
-            if (ui_go_handle.has_value() && ui_go_handle->is_valid()) {
-                il2cpp::unity::set_active(**ui_go_handle, !is_in_lobby && !is_starting_game);
+            const auto ui_go = ui_go_ref.and_then([](auto& ref) { return *ref; });
+            if (ui_go.has_value()) {
+                il2cpp::unity::set_active(*ui_go, !is_in_lobby && !is_starting_game);
                 main_menu_seed_info::update_difficulty_menu_items();
             }
 
@@ -156,18 +157,18 @@ namespace randomizer::game {
         }
 
         void run_start_new_game_sequence() {
-            if (start_game_sequence_handle.has_value()) {
-                auto action = start_game_sequence_handle.value().ref();
+            const auto start_game_sequence = start_game_sequence_ref.and_then([](auto& ref) { return *ref; });
 
-                if (il2cpp::unity::is_valid(action)) {
-                    is_in_lobby = false;
-                    is_starting_game = true;
-                    core::api::faderb::set_skip_black_screen_cleanup(true);
-                    core::api::faderb::fade_to_game_invisible(0.4f);
-                    core::events::schedule_task(0.4f, [action]() { ActionSequence::Perform_1(action); });
-                    update_lobby_ui();
-                }
+            if (!start_game_sequence.has_value()) {
+                return;
             }
+
+            is_in_lobby = false;
+            is_starting_game = true;
+            core::api::faderb::set_skip_black_screen_cleanup(true);
+            core::api::faderb::fade_to_game_invisible(0.4f);
+            core::events::schedule_task(0.4f, [start_game_sequence]() { ActionSequence::Perform_1(*start_game_sequence); });
+            update_lobby_ui();
         }
 
         void check_if_preloaded_and_report_ready() {
@@ -183,19 +184,22 @@ namespace randomizer::game {
                 prepend_to_difficulty = "JOIN RACE in ";
             }
 
-            if (easy_mode_text_handle.has_value() && **easy_mode_text_handle != nullptr) {
-                (**easy_mode_text_handle)->fields.MessageProvider = core::api::system::create_message_provider(std::format("{}EASY MODE", prepend_to_difficulty));
-                MessageBox::RefreshText_1(**easy_mode_text_handle);
+            const auto easy_mode_text = easy_mode_text_ref.and_then([](auto& ref) { return *ref; });
+            if (easy_mode_text.has_value()) {
+                (*easy_mode_text)->fields.MessageProvider = core::api::system::create_message_provider(std::format("{}EASY MODE", prepend_to_difficulty));
+                MessageBox::RefreshText_1(*easy_mode_text);
             }
 
-            if (normal_mode_text_handle.has_value() && **normal_mode_text_handle != nullptr) {
-                (**normal_mode_text_handle)->fields.MessageProvider = core::api::system::create_message_provider(std::format("{}NORMAL MODE", prepend_to_difficulty));
-                MessageBox::RefreshText_1(**normal_mode_text_handle);
+            const auto normal_mode_text = normal_mode_text_ref.and_then([](auto& ref) { return *ref; });
+            if (normal_mode_text.has_value()) {
+                (*normal_mode_text)->fields.MessageProvider = core::api::system::create_message_provider(std::format("{}NORMAL MODE", prepend_to_difficulty));
+                MessageBox::RefreshText_1(*normal_mode_text);
             }
 
-            if (hard_mode_text_handle.has_value() && **hard_mode_text_handle != nullptr) {
-                (**hard_mode_text_handle)->fields.MessageProvider = core::api::system::create_message_provider(std::format("{}HARD MODE", prepend_to_difficulty));
-                MessageBox::RefreshText_1(**hard_mode_text_handle);
+            const auto hard_mode_text = hard_mode_text_ref.and_then([](auto& ref) { return *ref; });
+            if (hard_mode_text.has_value()) {
+                (*hard_mode_text)->fields.MessageProvider = core::api::system::create_message_provider(std::format("{}HARD MODE", prepend_to_difficulty));
+                MessageBox::RefreshText_1(*hard_mode_text);
             }
         }
 
@@ -271,8 +275,12 @@ namespace randomizer::game {
 
         IL2CPP_INTERCEPT(void, RunActionOnce, Perform, app::RunActionOnce * this_ptr, app::IContext* context) {
             // If the player started a new empty save slot...
-            if (empty_slot_pressed_action_sequence_handle.has_value() && this_ptr->fields.Action == reinterpret_cast<app::ActionMethod*>(empty_slot_pressed_action_sequence_handle.value().ref()) &&
-                start_game_sequence_handle.has_value()) {
+            const auto empty_slot_pressed_action_sequence = empty_slot_pressed_action_sequence_ref.and_then([](auto& ref) { return *ref; });
+            if (
+                empty_slot_pressed_action_sequence.has_value() &&
+                this_ptr->fields.Action == reinterpret_cast<app::ActionMethod*>(*empty_slot_pressed_action_sequence) &&
+                start_game_sequence_ref.has_value()
+            ) {
 
                 const auto [source_status, source_seed_archive] = get_new_game_seed_source()->poll();
                 if (source_status != seed::SourceStatus::Ready || !source_seed_archive.has_value()) {
@@ -308,8 +316,7 @@ namespace randomizer::game {
                     set_full_game_main_menu_selection_manager_active(false);
                     start_new_game();
                 }
-            }
-            else {
+            } else {
                 next::RunActionOnce::Perform(this_ptr, context);
             }
         }
@@ -345,20 +352,20 @@ namespace randomizer::game {
                 // We shorten the wait time to 0.4s. We use that time to fade to black.
                 auto empty_slot_pressed_action_sequence_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "emptySlotPressed(newGame)"});
                 auto empty_slot_pressed_action_sequence = il2cpp::unity::get_component<app::ActionSequence>(empty_slot_pressed_action_sequence_go, types::ActionSequence::get_class());
-                empty_slot_pressed_action_sequence_handle = il2cpp::WeakGCRef(empty_slot_pressed_action_sequence);
+                empty_slot_pressed_action_sequence_ref = il2cpp::WeakGCRef(empty_slot_pressed_action_sequence);
 
                 // Save handles
-                ui_go_handle = il2cpp::WeakGCRef(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui"}));
+                ui_go_ref = il2cpp::WeakGCRef(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui"}));
                 auto full_game_main_menu_go_handle = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu"});
-                full_game_main_menu_selection_manager_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::CleverMenuItemSelectionManager>(full_game_main_menu_go_handle, types::CleverMenuItemSelectionManager::get_class()));
-                start_game_sequence_handle =
+                full_game_main_menu_selection_manager_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::CleverMenuItemSelectionManager>(full_game_main_menu_go_handle, types::CleverMenuItemSelectionManager::get_class()));
+                start_game_sequence_ref =
                         il2cpp::WeakGCRef(il2cpp::unity::get_component<app::ActionSequence>(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "startGameSequence"}), types::ActionSequence::get_class()));
 
-                easy_mode_text_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
+                easy_mode_text_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
                         il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. easyMode", "text"}), types::MessageBox::get_class()));
-                normal_mode_text_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
+                normal_mode_text_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
                         il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. normalMode", "text"}), types::MessageBox::get_class()));
-                hard_mode_text_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
+                hard_mode_text_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
                         il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. hardMode", "text"}), types::MessageBox::get_class()));
 
                 #ifdef ENABLE_FAST_LOAD
@@ -522,7 +529,7 @@ namespace randomizer::game {
 
     // Called by main_menu_seed_info
     void start_new_game() {
-        if (start_game_sequence_handle.has_value()) {
+        if (start_game_sequence_ref.has_value()) {
             const auto [source_status, source_seed_archive] = get_new_game_seed_source()->poll();
             if (source_status != seed::SourceStatus::Ready || !source_seed_archive.has_value()) {
                 core::message_controller().queue_central({
@@ -561,8 +568,10 @@ namespace randomizer::game {
     }
 
     void set_full_game_main_menu_selection_manager_active(bool active) {
-        if (full_game_main_menu_selection_manager_handle.has_value() && full_game_main_menu_selection_manager_handle->is_valid()) {
-            UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(**full_game_main_menu_selection_manager_handle), active);
+        const auto full_game_main_menu_selection_manager = full_game_main_menu_selection_manager_ref.and_then([](auto& ref) { return *ref; });
+
+        if (full_game_main_menu_selection_manager.has_value()) {
+            UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(*full_game_main_menu_selection_manager), active);
         }
     }
 } // namespace randomizer::game

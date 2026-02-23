@@ -11,7 +11,7 @@
 namespace {
     using namespace app::classes;
 
-    std::optional<il2cpp::WeakGCRef<app::PlayerInsideZoneChecker>> trigger_player_inside_zone_checker;
+    std::optional<il2cpp::WeakGCRef<app::PlayerInsideZoneChecker>> trigger_player_inside_zone_checker_ref;
     std::vector<il2cpp::WeakGCRef<app::GameObject>> objects_to_disable;
 
     core::reactivity::ReactiveEffect::ptr_t effect;
@@ -23,21 +23,27 @@ namespace {
             auto any_affected_reference_valid = false;
             const auto modification_enabled = modification_enabled_state.get<bool>();
 
-            if (trigger_player_inside_zone_checker.has_value() && trigger_player_inside_zone_checker->is_valid()) {
-                any_affected_reference_valid = true;
+            if (trigger_player_inside_zone_checker_ref.has_value()) {
+                const auto trigger_player_inside_zone_checker = **trigger_player_inside_zone_checker_ref;
 
-                (**trigger_player_inside_zone_checker)->fields._.Size.y = modification_enabled
-                    ? 95.4f  // Modified
-                    : 27.7000008f;  // Vanilla
+                if (trigger_player_inside_zone_checker.has_value()) {
+                    any_affected_reference_valid = true;
 
-                ObjectInsideZoneChecker::UpdateBounds(reinterpret_cast<app::ObjectInsideZoneChecker*>(**trigger_player_inside_zone_checker));
+                    (*trigger_player_inside_zone_checker)->fields._.Size.y = modification_enabled
+                        ? 95.4f  // Modified
+                        : 27.7000008f;  // Vanilla
+
+                    ObjectInsideZoneChecker::UpdateBounds(reinterpret_cast<app::ObjectInsideZoneChecker*>(*trigger_player_inside_zone_checker));
+                }
             }
 
             auto it = objects_to_disable.begin();
             while (it != objects_to_disable.end()) {
-                if (it->is_valid()) {
+                const auto item = **it;
+
+                if (item.has_value()) {
                     any_affected_reference_valid = true;
-                    il2cpp::unity::set_active(**it, !modification_enabled);
+                    il2cpp::unity::set_active(*item, !modification_enabled);
 
                     ++it;
                 } else {
@@ -102,7 +108,7 @@ namespace {
                     }
                 );
 
-                trigger_player_inside_zone_checker = il2cpp::WeakGCRef(
+                trigger_player_inside_zone_checker_ref = il2cpp::WeakGCRef(
                     il2cpp::unity::get_component<app::PlayerInsideZoneChecker>(zone_checker_go, types::PlayerInsideZoneChecker::get_class())
                 );
 

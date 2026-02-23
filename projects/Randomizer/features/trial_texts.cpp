@@ -57,14 +57,26 @@ namespace {
 
     struct TrialMessageBoxRef {
         SpiritTrialLocation location;
-        il2cpp::WeakGCRef<app::MessageBox> message_box;
+        il2cpp::WeakGCRef<app::MessageBox> message_box_ref;
         core::reactivity::ReactiveEffect::ptr_t reactive_effect;
 
-        void update_message_box() {
+        /**
+         * Updates the trial message box.
+         * Returns true if succeeded, or false if the reference is invalid.
+         */
+        bool update_message_box() const {
+            const auto message_box = *message_box_ref;
+
+            if (!message_box.has_value()) {
+                return false;
+            }
+
             const auto text = get_text_for_spirit_trial(location);
             text_style::create_styles((*message_box)->fields.TextBox, text);
             (*message_box)->fields.MessageProvider = core::api::system::create_message_provider(text);
             MessageBox::RefreshText_1(*message_box);
+
+            return true;
         }
     };
 
@@ -169,7 +181,7 @@ namespace {
                 location.value(),
                 TrialMessageBoxRef{
                     .location = location.value(),
-                    .message_box = il2cpp::WeakGCRef(message_box),
+                    .message_box_ref = il2cpp::WeakGCRef(message_box),
                 }
             );
 
@@ -187,9 +199,7 @@ namespace {
 
                     auto ref = ref_it->second;
 
-                    if (ref.message_box.is_valid()) {
-                        ref.update_message_box();
-                    } else {
+                    if (!ref.update_message_box()) {
                         trial_text_boxes.erase(location.value());
                     }
                 })

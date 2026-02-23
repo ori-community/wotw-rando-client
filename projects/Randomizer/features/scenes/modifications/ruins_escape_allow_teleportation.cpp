@@ -14,7 +14,7 @@
 namespace {
     using namespace app::classes;
 
-    std::optional<il2cpp::WeakGCRef<app::TeleportRestrictZone>> teleport_restrict_zone;
+    std::optional<il2cpp::WeakGCRef<app::TeleportRestrictZone>> teleport_restrict_zone_ref;
     core::reactivity::ReactiveEffect::ptr_t effect;
 
     core::api::uber_states::UberState fix_enabled_state(UberStateGroup::RandoConfig, 21);
@@ -37,13 +37,16 @@ namespace {
                 }
             );
 
-            teleport_restrict_zone = il2cpp::WeakGCRef(
+            teleport_restrict_zone_ref = il2cpp::WeakGCRef(
                 il2cpp::unity::get_component<app::TeleportRestrictZone>(teleport_restrict_zone_go, types::TeleportRestrictZone::get_class())
             );
 
             effect = core::reactivity::watch_effect([] {
-                if (teleport_restrict_zone.has_value() && teleport_restrict_zone->is_valid()) {
-                    auto cage_structure_tool = (**teleport_restrict_zone)->fields.CageStructureTool;
+                if (
+                    const auto teleport_restrict_zone = teleport_restrict_zone_ref.and_then([](auto& ref) { return *ref; });
+                    teleport_restrict_zone.has_value()
+                ) {
+                    auto cage_structure_tool = (*teleport_restrict_zone)->fields.CageStructureTool;
 
                     if (fix_enabled_state.get<bool>()) {
                         cage_structure_tool->fields.Vertices->fields._items->vector[0]->fields.Position = app::Vector3{-94.740479f, -140.710449f, 0.f};

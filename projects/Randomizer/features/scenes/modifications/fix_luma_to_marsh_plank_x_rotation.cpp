@@ -11,6 +11,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::GameObject>> broken_plank_go_ref;
     common::Droppable::ptr_t on_update_handle = nullptr;
 
+    [[maybe_unused]]
     auto on_scene_loaded = core::api::scenes::single_event_bus().register_handler("lumaSwampTransitionA", [](auto metadata, auto) {
         if (metadata->state == app::SceneState__Enum::Disabled) {
             on_update_handle = nullptr;
@@ -40,9 +41,14 @@ namespace {
             }
 
             const auto broken_plank_go = **broken_plank_go_ref;
-            const auto rotation = il2cpp::unity::get_local_rotation(broken_plank_go);
+
+            if (!broken_plank_go.has_value()) {
+                return;
+            }
+
+            const auto rotation = il2cpp::unity::get_local_rotation(*broken_plank_go);
             if (std::abs(rotation.x) > 0.1f) {
-                il2cpp::unity::set_local_rotation(broken_plank_go, {0.f, rotation.y, rotation.z});
+                il2cpp::unity::set_local_rotation(*broken_plank_go, {0.f, rotation.y, rotation.z});
             }
         });
     });

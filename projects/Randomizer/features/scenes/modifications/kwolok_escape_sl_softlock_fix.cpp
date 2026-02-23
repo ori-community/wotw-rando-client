@@ -6,12 +6,11 @@
 #include <Core/property/reactivity.h>
 #include <Modloader/app/methods/ObjectInsideZoneChecker.h>
 #include <Modloader/app/types/PlayerInsideZoneChecker.h>
-#include <Modloader/windows_api/console.h>
 
 namespace {
     using namespace app::classes;
 
-    std::optional<il2cpp::WeakGCRef<app::PlayerInsideZoneChecker>> player_inside_zone_checker;
+    std::optional<il2cpp::WeakGCRef<app::PlayerInsideZoneChecker>> player_inside_zone_checker_ref;
     core::reactivity::ReactiveEffect::ptr_t effect;
 
     core::api::uber_states::UberState fix_enabled_state(UberStateGroup::RandoConfig, 15);
@@ -34,24 +33,32 @@ namespace {
                     }
                 );
 
-                player_inside_zone_checker = il2cpp::WeakGCRef(
+                player_inside_zone_checker_ref = il2cpp::WeakGCRef(
                     il2cpp::unity::get_component<app::PlayerInsideZoneChecker>(zone_checker_go, types::PlayerInsideZoneChecker::get_class())
                 );
 
                 effect = core::reactivity::watch_effect([] {
-                    if (player_inside_zone_checker.has_value() && player_inside_zone_checker->is_valid()) {
-                        if (fix_enabled_state.get<bool>()) {
-                            (**player_inside_zone_checker)->fields._.Anchor.y = 0.208f;  // Fixed
-                            (**player_inside_zone_checker)->fields._.Size.y = 0.5625f;  // Fixed
-                        } else {
-                            (**player_inside_zone_checker)->fields._.Anchor.y = 0.f;  // Vanilla
-                            (**player_inside_zone_checker)->fields._.Size.y = 1.f;  // Vanilla
-                        }
-
-                        ObjectInsideZoneChecker::UpdateBounds(reinterpret_cast<app::ObjectInsideZoneChecker*>(**player_inside_zone_checker));
-                    } else {
+                    if (!player_inside_zone_checker_ref.has_value()) {
                         effect = nullptr;
+                        return;
                     }
+
+                    const auto player_inside_zone_checker = **player_inside_zone_checker_ref;
+
+                    if (!player_inside_zone_checker.has_value()) {
+                        effect = nullptr;
+                        return;
+                    }
+
+                    if (fix_enabled_state.get<bool>()) {
+                        (*player_inside_zone_checker)->fields._.Anchor.y = 0.208f;  // Fixed
+                        (*player_inside_zone_checker)->fields._.Size.y = 0.5625f;  // Fixed
+                    } else {
+                        (*player_inside_zone_checker)->fields._.Anchor.y = 0.f;  // Vanilla
+                        (*player_inside_zone_checker)->fields._.Size.y = 1.f;  // Vanilla
+                    }
+
+                    ObjectInsideZoneChecker::UpdateBounds(reinterpret_cast<app::ObjectInsideZoneChecker*>(*player_inside_zone_checker));
                 });
             }
         }

@@ -554,26 +554,34 @@ namespace randomizer::map::icons {
         }
 
         il2cpp::unity::destroy_object(*game_object);
-        m_game_object.reset();
+        m_game_object_ref.reset();
     }
 
     void MapIcon::try_update_map_position() const {
         const auto area_map_ui = core::api::game::ui::area_map();
 
-        if (area_map_ui == nullptr || !m_game_object.has_value()) {
+        if (area_map_ui == nullptr || !m_game_object_ref.has_value()) {
+            return;
+        }
+
+        const auto game_object = **m_game_object_ref;
+
+        if (!game_object.has_value()) {
             return;
         }
 
         const auto map_position = AreaMapNavigation::WorldToMapPosition(area_map_ui->fields._Navigation_k__BackingField, world_position.get());
-        il2cpp::unity::set_local_position(**m_game_object, map_position);
+        il2cpp::unity::set_local_position(*game_object, map_position);
     }
 
     void MapIcon::try_update_rotation() const {
-        if (!m_game_object.has_value()) {
+        const auto game_object = m_game_object_ref.and_then([](auto& ref) { return *ref; });
+
+        if (!game_object.has_value()) {
             return;
         }
 
-        const auto area_map_icon = il2cpp::unity::get_component<app::AreaMapIcon>(**m_game_object, types::AreaMapIcon::get_class());
+        const auto area_map_icon = il2cpp::unity::get_component<app::AreaMapIcon>(*game_object, types::AreaMapIcon::get_class());
 
         const auto target_rotation = app::Vector3{0, 0, rotation.get()};
 
@@ -591,23 +599,31 @@ namespace randomizer::map::icons {
     }
 
     void MapIcon::try_set_scale(const IconScale& scale) const {
-        if (!m_game_object.has_value()) {
+        const auto game_object = m_game_object_ref.and_then([](auto& ref) { return *ref; });
+
+        if (!game_object.has_value()) {
             return;
         }
 
         const float scale_factor = scale.get_factor_for(scale_mode.get());
 
-        il2cpp::unity::set_local_scale(**m_game_object, app::Vector3{scale_factor, scale_factor, 1.f});
+        il2cpp::unity::set_local_scale(*game_object, app::Vector3{scale_factor, scale_factor, 1.f});
     }
 
     void MapIcon::try_update_label() const {
         const auto game_map_ui = types::GameMapUI::get_class()->static_fields->Instance;
 
-        if (game_map_ui == nullptr || !m_game_object.has_value()) {
+        if (game_map_ui == nullptr || !m_game_object_ref.has_value()) {
             return;
         }
 
-        const auto area_map_icon = il2cpp::unity::get_component<app::AreaMapIcon>(**m_game_object, types::AreaMapIcon::get_class());
+        const auto game_object = **m_game_object_ref;
+
+        if (!game_object.has_value()) {
+            return;
+        }
+
+        const auto area_map_icon = il2cpp::unity::get_component<app::AreaMapIcon>(*game_object, types::AreaMapIcon::get_class());
 
         if (GameMapUI::get_ShowIconLabels(game_map_ui)) {
             AreaMapIcon::SetMessageProvider(area_map_icon, core::api::system::create_message_provider(label_text));
@@ -635,17 +651,7 @@ namespace randomizer::map::icons {
     }
 
     std::optional<app::GameObject*> MapIcon::get_game_object() const {
-        if (!m_game_object.has_value()) {
-            return std::nullopt;
-        }
-
-        const auto game_object = **m_game_object;
-
-        if (!il2cpp::unity::is_valid(game_object)) {
-            return std::nullopt;
-        }
-
-        return game_object;
+        return m_game_object_ref.and_then([](auto& ref) { return *ref; });
     }
 
     bool MapIcon::try_add_icon_to_map_if_missing() const {
@@ -688,7 +694,7 @@ namespace randomizer::map::icons {
             return false;
         }
 
-        m_game_object = il2cpp::WeakGCRef(*game_object);
+        m_game_object_ref = il2cpp::WeakGCRef(*game_object);
         try_add_icon_to_map_if_missing();
         try_update_map_position();
         try_update_label();

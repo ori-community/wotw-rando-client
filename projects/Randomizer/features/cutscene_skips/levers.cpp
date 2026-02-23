@@ -23,8 +23,8 @@ namespace {
 
     bool is_pushing_lever = false;
     bool is_stopping_timeline = false;
-    std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> active_lever_timeline = std::nullopt;
-    std::optional<il2cpp::WeakGCRef<app::Lever>> active_lever = std::nullopt;
+    std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> active_lever_timeline_ref = std::nullopt;
+    std::optional<il2cpp::WeakGCRef<app::Lever>> active_lever_ref = std::nullopt;
 
     struct LeverConfig {
         bool unskippable = false;
@@ -62,7 +62,7 @@ namespace {
             return;
         }
 
-        active_lever_timeline = std::nullopt;
+        active_lever_timeline_ref = std::nullopt;
 
         const auto path = il2cpp::unity::get_path(lever);
         const auto config_it = LEVER_CONFIGS.find(frozen::string(path));
@@ -72,7 +72,7 @@ namespace {
         }
 
         modloader::ScopedSetter _(is_pushing_lever, true);
-        active_lever = il2cpp::WeakGCRef(lever);
+        active_lever_ref = il2cpp::WeakGCRef(lever);
         next_fn(lever);
     }
 
@@ -102,7 +102,7 @@ namespace {
 
     IL2CPP_INTERCEPT_WITH_ORDER(11, void, Moon::Timeline::MoonTimeline, OnStartPlayback, app::MoonTimeline* this_ptr, app::IContext* context) {
         if (is_pushing_lever) {
-            active_lever_timeline = il2cpp::WeakGCRef(this_ptr);
+            active_lever_timeline_ref = il2cpp::WeakGCRef(this_ptr);
             is_pushing_lever = false;
         }
 
@@ -110,14 +110,17 @@ namespace {
     }
 
     bool skip_available() {
+        const auto active_lever_timeline = active_lever_timeline_ref.and_then([](auto& ref) { return *ref; });
+
         return active_lever_timeline.has_value() &&
-            active_lever_timeline->is_valid() &&
-            Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(**active_lever_timeline));
+            Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(*active_lever_timeline));
     }
 
     std::optional<custom_cutscene_skips::CustomCutsceneSkip::Metadata> skip_get_metadata() {
-        if (active_lever.has_value() && active_lever->is_valid()) {
-            const auto path = il2cpp::unity::get_path(**active_lever);
+        const auto active_lever = active_lever_ref.and_then([](auto& ref) { return *ref; });
+
+        if (active_lever.has_value()) {
+            const auto path = il2cpp::unity::get_path(*active_lever);
             const auto config_it = LEVER_CONFIGS.find(frozen::string(path));
             if (config_it != LEVER_CONFIGS.end()) {
                 return std::make_optional<custom_cutscene_skips::CustomCutsceneSkip::Metadata>({
@@ -130,40 +133,48 @@ namespace {
     }
 
     void skip_invoke(const custom_cutscene_skips::CustomCutsceneSkip::InvokeParameters&) {
-        modloader::ScopedSetter _(is_stopping_timeline, true);
-        Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(**active_lever_timeline));
+        const auto active_lever_timeline = active_lever_timeline_ref.and_then([](auto& ref) { return *ref; });
 
-        if (active_lever.has_value() && active_lever->is_valid()) {
-            const auto path = il2cpp::unity::get_path(**active_lever);
-            const auto config_it = LEVER_CONFIGS.find(frozen::string(path));
-            if (config_it != LEVER_CONFIGS.end()) {
-                if (config_it->second.sound_event.has_value()) {
-                    if (config_it->second.sound_event_delay.has_value()) {
-                        const auto sound_event = *config_it->second.sound_event;
-                        core::events::schedule_task(*config_it->second.sound_event_delay, [sound_event] {
-                            core::api::audio::fire_and_forget(sound_event);
-                        });
-                    } else {
-                        core::api::audio::fire_and_forget(*config_it->second.sound_event);
-                    }
-                }
+        if (active_lever_timeline.has_value()) {
+            modloader::ScopedSetter _(is_stopping_timeline, true);
+            Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(*active_lever_timeline));
+        }
 
-                if (config_it->second.spawn_position.has_value()) {
-                    core::api::game::player::set_position(config_it->second.spawn_position->x, config_it->second.spawn_position->y, false);
-                    core::api::game::save();
-                    core::events::schedule_task_for_next_update([] {
-                        core::api::game::player::snap_camera();
+        const auto active_lever = active_lever_ref.and_then([](auto& ref) { return *ref; });
+
+        if (!active_lever.has_value()) {
+            return;
+        }
+
+        const auto path = il2cpp::unity::get_path(*active_lever);
+        const auto config_it = LEVER_CONFIGS.find(frozen::string(path));
+        if (config_it != LEVER_CONFIGS.end()) {
+            if (config_it->second.sound_event.has_value()) {
+                if (config_it->second.sound_event_delay.has_value()) {
+                    const auto sound_event = *config_it->second.sound_event;
+                    core::events::schedule_task(*config_it->second.sound_event_delay, [sound_event] {
+                        core::api::audio::fire_and_forget(sound_event);
                     });
+                } else {
+                    core::api::audio::fire_and_forget(*config_it->second.sound_event);
                 }
+            }
 
-                if (config_it->second.reset_physical_system_managers_in_scene) {
-                    const auto lever_scene = il2cpp::unity::get_scene(il2cpp::unity::get_game_object(**active_lever));
-                    const auto root_objects = il2cpp::unity::get_root_game_objects(lever_scene);
+            if (config_it->second.spawn_position.has_value()) {
+                core::api::game::player::set_position(config_it->second.spawn_position->x, config_it->second.spawn_position->y, false);
+                core::api::game::save();
+                core::events::schedule_task_for_next_update([] {
+                    core::api::game::player::snap_camera();
+                });
+            }
 
-                    for (const auto& root_object: root_objects) {
-                        for (const auto & physical_system_manager: il2cpp::unity::get_components_in_children<app::PhysicalSystemManager>(root_object, types::PhysicalSystemManager::get_class())) {
-                            PhysicalSystemManager::ResetPhysicalSystemToTheLastState(physical_system_manager, true);
-                        }
+            if (config_it->second.reset_physical_system_managers_in_scene) {
+                const auto lever_scene = il2cpp::unity::get_scene(il2cpp::unity::get_game_object(*active_lever));
+                const auto root_objects = il2cpp::unity::get_root_game_objects(lever_scene);
+
+                for (const auto& root_object: root_objects) {
+                    for (const auto & physical_system_manager: il2cpp::unity::get_components_in_children<app::PhysicalSystemManager>(root_object, types::PhysicalSystemManager::get_class())) {
+                        PhysicalSystemManager::ResetPhysicalSystemToTheLastState(physical_system_manager, true);
                     }
                 }
             }

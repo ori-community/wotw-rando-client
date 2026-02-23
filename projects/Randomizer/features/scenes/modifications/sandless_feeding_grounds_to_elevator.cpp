@@ -11,7 +11,7 @@ namespace {
     using namespace app::classes;
 
     std::vector<il2cpp::WeakGCRef<app::GameObject>> objects_to_disable;
-    std::optional<il2cpp::WeakGCRef<app::GameObject>> early_z_mesh;
+    std::optional<il2cpp::WeakGCRef<app::GameObject>> early_z_mesh_ref;
 
     core::reactivity::ReactiveEffect::ptr_t effect;
 
@@ -30,7 +30,7 @@ namespace {
 
                 objects_to_disable.emplace_back(il2cpp::unity::find_child(scene_root_go, std::vector<std::string> {"artSetups", "desertSandZoneTileA"}));
                 objects_to_disable.emplace_back(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"artSetups", "sandZones", "sandZoneBaseB", "outB (1)", "desertSandZoneOutlineCs (1)"}));
-                early_z_mesh = il2cpp::WeakGCRef(
+                early_z_mesh_ref = il2cpp::WeakGCRef(
                     il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"earlyZParent", "earlyZMesh-regular-cell[68,26,0]-0"})
                 );
 
@@ -39,25 +39,33 @@ namespace {
 
                     auto it = objects_to_disable.begin();
                     while (it != objects_to_disable.end()) {
-                        if (it->is_valid()) {
-                            il2cpp::unity::set_active(**it, !modification_enabled);
+                        const auto object = **it;
+
+                        if (object.has_value()) {
+                            il2cpp::unity::set_active(*object, !modification_enabled);
 
                             ++it;
                         } else {
-                            it = objects_to_disable.erase(it); // Delete invalid references
+                            it = objects_to_disable.erase(it);  // Delete invalid references
                         }
                     }
 
-                    if (early_z_mesh.has_value() && early_z_mesh->is_valid()) {
-                        il2cpp::unity::set_local_scale(
-                            **early_z_mesh,
-                            modification_enabled
-                                ? app::Vector3{0, 0, 0}
-                                : app::Vector3{1, 1, 1}
-                        );
+                    auto updated_early_z_mesh = false;
+                    if (early_z_mesh_ref.has_value()) {
+                        const auto early_z_mesh = **early_z_mesh_ref;
+
+                        if (early_z_mesh.has_value()) {
+                            updated_early_z_mesh = true;
+                            il2cpp::unity::set_local_scale(
+                                *early_z_mesh,
+                                modification_enabled
+                                    ? app::Vector3{0, 0, 0}
+                                    : app::Vector3{1, 1, 1}
+                            );
+                        }
                     }
 
-                    if (objects_to_disable.empty() && (!early_z_mesh.has_value() || !early_z_mesh->is_valid())) {
+                    if (objects_to_disable.empty() && !updated_early_z_mesh) {
                         effect = nullptr;
                     }
                 });

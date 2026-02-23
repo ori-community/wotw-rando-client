@@ -46,17 +46,17 @@ namespace randomizer::main_menu_seed_info {
 
         std::vector<core::reactivity::ReactiveEffect::ptr_t> reactive_effects;
 
-        il2cpp::WeakGCRef<app::MessageBox> name_message_box;
-        il2cpp::WeakGCRef<app::MessageBox> status_message_box;
-        il2cpp::WeakGCRef<app::MessageBox> description_message_box;
-        il2cpp::WeakGCRef<app::GameObject> separator_go;
+        il2cpp::WeakGCRef<app::MessageBox> name_message_box_ref;
+        il2cpp::WeakGCRef<app::MessageBox> status_message_box_ref;
+        il2cpp::WeakGCRef<app::MessageBox> description_message_box_ref;
+        il2cpp::WeakGCRef<app::GameObject> separator_go_ref;
         std::unique_ptr<core::api::graphics::Sprite> sprite;
 
-        std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> easy_mode_menu_item_handle;
-        std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> normal_mode_menu_item_handle;
-        std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> hard_mode_menu_item_handle;
-        std::optional<il2cpp::WeakGCRef<app::GameObject>> question_dialog_go_handle;
-        std::optional<il2cpp::WeakGCRef<app::MessageBox>> question_dialog_message_box;
+        std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> easy_mode_menu_item_ref;
+        std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> normal_mode_menu_item_ref;
+        std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> hard_mode_menu_item_ref;
+        std::optional<il2cpp::WeakGCRef<app::GameObject>> question_dialog_go_ref;
+        std::optional<il2cpp::WeakGCRef<app::MessageBox>> question_dialog_message_box_ref;
 
         core::Property<std::string> name_property;
         core::Property<std::string> status_property("Offline");
@@ -181,10 +181,14 @@ namespace randomizer::main_menu_seed_info {
         }
 
         template<typename T>
-        void do_if_valid(std::optional<il2cpp::WeakGCRef<T>> object, const std::function<void(T*)> action) {
-            if (object.has_value() && **object != nullptr) {
-                action(**object);
+        void do_if_valid(std::optional<il2cpp::WeakGCRef<T>> optional_ref, const std::function<void(T*)> action) {
+            const auto object = optional_ref.and_then([](auto& ref) { return *ref; });
+
+            if (!object.has_value()) {
+                return;
             }
+
+            action(*object);
         }
 
         void set_current_server_connection(const std::optional<seed::server_connection_t>& server_connection) {
@@ -212,7 +216,8 @@ namespace randomizer::main_menu_seed_info {
             core::reactivity::watch_effect()
                 .effect(name_property)
                 .after([]() {
-                    if (name_message_box.is_valid()) {
+                    const auto name_message_box = *name_message_box_ref;
+                    if (name_message_box.has_value()) {
                         set_text(*name_message_box, name_property.get());
                     }
                 })
@@ -221,7 +226,8 @@ namespace randomizer::main_menu_seed_info {
             core::reactivity::watch_effect()
                 .effect(status_property)
                 .after([]() {
-                    if (status_message_box.is_valid()) {
+                    const auto status_message_box = *status_message_box_ref;
+                    if (status_message_box.has_value()) {
                         set_text(*status_message_box, status_property.get());
                     }
                 })
@@ -230,7 +236,8 @@ namespace randomizer::main_menu_seed_info {
             core::reactivity::watch_effect()
                 .effect(description_property)
                 .after([]() {
-                    if (description_message_box.is_valid()) {
+                    const auto description_message_box = *description_message_box_ref;
+                    if (description_message_box.has_value()) {
                         set_text(*description_message_box, description_property.get());
                     }
                 })
@@ -238,27 +245,35 @@ namespace randomizer::main_menu_seed_info {
         }
 
         void hide_question_dialog() {
-            if (question_dialog_go_handle.has_value() && question_dialog_go_handle->is_valid()) {
-                il2cpp::unity::set_active(**question_dialog_go_handle, false);
-                randomizer::game::set_full_game_main_menu_selection_manager_active(true);
+            const auto question_dialog_message_box = question_dialog_message_box_ref.and_then([](auto& ref) { return *ref; });
 
-                update_difficulty_menu_items(true);
+            if (!question_dialog_message_box.has_value()) {
+                return;
             }
+
+            il2cpp::unity::set_active(*question_dialog_message_box, false);
+            randomizer::game::set_full_game_main_menu_selection_manager_active(true);
+
+            update_difficulty_menu_items(true);
         }
 
         void show_question_dialog(const std::string& text) {
-            if (question_dialog_message_box.has_value() && question_dialog_message_box->is_valid()) {
-                (**question_dialog_message_box)->fields.MessageProvider = core::api::system::create_message_provider(text);
+            const auto question_dialog_message_box = question_dialog_message_box_ref.and_then([](auto& ref) { return *ref; });
+
+            if (question_dialog_message_box.has_value()) {
+                (*question_dialog_message_box)->fields.MessageProvider = core::api::system::create_message_provider(text);
 
                 // Prevent line wrapping
-                (**question_dialog_message_box)->fields.TextBox->fields.width = 10000.f;
+                (*question_dialog_message_box)->fields.TextBox->fields.width = 10000.f;
 
-                app::classes::MessageBox::RefreshText_1(**question_dialog_message_box);
+                app::classes::MessageBox::RefreshText_1(*question_dialog_message_box);
             }
 
-            if (question_dialog_go_handle.has_value() && question_dialog_go_handle->is_valid()) {
+            const auto question_dialog_go = question_dialog_go_ref.and_then([](auto& ref) { return *ref; });
+
+            if (question_dialog_go.has_value()) {
                 randomizer::game::set_full_game_main_menu_selection_manager_active(false);
-                il2cpp::unity::set_active(**question_dialog_go_handle, true);
+                il2cpp::unity::set_active(*question_dialog_go, true);
             }
         }
 
@@ -344,17 +359,16 @@ namespace randomizer::main_menu_seed_info {
                     il2cpp::unity::destroy_object(il2cpp::unity::find_child(online_group, "UserBackground"));
 
                     const auto handle_textbox_go = il2cpp::unity::find_child(online_group, "handle");
-                    name_message_box = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(handle_textbox_go, types::MessageBox::get_class()));
+                    const auto name_message_box = il2cpp::unity::get_component<app::MessageBox>(handle_textbox_go, types::MessageBox::get_class());
+                    name_message_box_ref = il2cpp::WeakGCRef(name_message_box);
 
                     const auto online_status_textbox_go = il2cpp::unity::find_child(online_group, std::vector<std::string>{"onlineStatus", "onlineStatus"});
-                    status_message_box = il2cpp::WeakGCRef(
-                        il2cpp::unity::get_component<app::MessageBox>(online_status_textbox_go, types::MessageBox::get_class())
-                    );
+                    const auto status_message_box = il2cpp::unity::get_component<app::MessageBox>(online_status_textbox_go, types::MessageBox::get_class());
+                    status_message_box_ref = il2cpp::WeakGCRef(status_message_box);
 
                     const auto switch_profile_textbox_go = il2cpp::unity::find_child(online_group, "switchProfile");
-                    description_message_box = il2cpp::WeakGCRef(
-                        il2cpp::unity::get_component<app::MessageBox>(switch_profile_textbox_go, types::MessageBox::get_class())
-                    );
+                    const auto description_message_box = il2cpp::unity::get_component<app::MessageBox>(switch_profile_textbox_go, types::MessageBox::get_class());
+                    description_message_box_ref = il2cpp::WeakGCRef(description_message_box);
 
                     // Move separator, online status and description down a bit
                     const auto separator_go = il2cpp::unity::find_child(online_group, "separator");
@@ -363,10 +377,10 @@ namespace randomizer::main_menu_seed_info {
                     il2cpp::unity::set_local_position(separator_go, app::Vector3{-69.8f, -32.4f, 0.3f});
                     il2cpp::unity::set_local_position(switch_profile_textbox_go, app::Vector3{-74.3f, -32.6f, -0.5f});
 
-                    (*description_message_box)->fields.TextBox->fields.maxHeight = 9999999;
-                    set_text(*name_message_box, name_property.get());
-                    set_text(*status_message_box, status_property.get());
-                    set_text(*description_message_box, description_property.get());
+                    description_message_box->fields.TextBox->fields.maxHeight = 9999999;
+                    set_text(name_message_box, name_property.get());
+                    set_text(status_message_box, status_property.get());
+                    set_text(description_message_box, description_property.get());
 
                     sprite = std::make_unique<core::api::graphics::Sprite>(online_group);
                     sprite->enabled(true);
@@ -375,23 +389,50 @@ namespace randomizer::main_menu_seed_info {
 
                     sprite->texture(core::api::graphics::textures::get_texture_from_identifier("file:textures/gradient_transparent_dark.png"));
 
-                    easy_mode_menu_item_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::CleverMenuItem>(
-                            il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. easyMode"}), types::CleverMenuItem::get_class()));
-                    normal_mode_menu_item_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::CleverMenuItem>(
-                            il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. normalMode"}), types::CleverMenuItem::get_class()));
-                    hard_mode_menu_item_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::CleverMenuItem>(
-                            il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. hardMode"}), types::CleverMenuItem::get_class()));
-                    question_dialog_go_handle = il2cpp::WeakGCRef(
-                        il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "hardModeConfirmQuestion"}));
-                    question_dialog_message_box = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
-                        il2cpp::unity::find_child(**question_dialog_go_handle, "title"), types::MessageBox::get_class()));
+                    const auto easy_mode_menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(
+                        il2cpp::unity::find_child(
+                            scene_root_go,
+                            std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. easyMode"}
+                        ),
+                        types::CleverMenuItem::get_class()
+                    );
+                    easy_mode_menu_item_ref = il2cpp::WeakGCRef(easy_mode_menu_item);
 
-                    const auto question_dialog_background = il2cpp::unity::find_child(**question_dialog_go_handle, "messageBackgroundA");
+                    const auto normal_mode_menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(
+                        il2cpp::unity::find_child(
+                            scene_root_go,
+                            std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. normalMode"}
+                        ),
+                        types::CleverMenuItem::get_class()
+                    );
+                    normal_mode_menu_item_ref = il2cpp::WeakGCRef(normal_mode_menu_item);
+
+                    const auto hard_mode_menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(
+                        il2cpp::unity::find_child(
+                            scene_root_go,
+                            std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. hardMode"}
+                        ),
+                        types::CleverMenuItem::get_class()
+                    );
+                    hard_mode_menu_item_ref = il2cpp::WeakGCRef(hard_mode_menu_item);
+
+                    const auto question_dialog_go = il2cpp::unity::find_child(
+                        scene_root_go,
+                        std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "hardModeConfirmQuestion"}
+                    );
+                    question_dialog_go_ref = il2cpp::WeakGCRef(question_dialog_go);
+
+                    const auto question_dialog_message_box = il2cpp::unity::get_component<app::MessageBox>(
+                        il2cpp::unity::find_child(question_dialog_go, "title"), types::MessageBox::get_class()
+                    );
+                    question_dialog_message_box_ref = il2cpp::WeakGCRef(question_dialog_message_box);
+
+                    const auto question_dialog_background = il2cpp::unity::find_child(question_dialog_go, "messageBackgroundA");
 
                     // Make question box a little larger
                     il2cpp::unity::set_local_scale(question_dialog_background, {13.f, 3.2f, 0.7f});
                     il2cpp::unity::set_local_position(question_dialog_background, app::Vector3{0.35f, 0.6f, -1.7f});
-                    il2cpp::unity::set_local_position(**question_dialog_message_box, app::Vector3{0.f, 1.f, -2.f});
+                    il2cpp::unity::set_local_position(question_dialog_message_box, app::Vector3{0.f, 1.f, -2.f});
 
                     if (!easy_press_action.has_value()) {
                         easy_press_action = core::events::create_action([](auto) {
@@ -423,19 +464,19 @@ namespace randomizer::main_menu_seed_info {
                         });
                     }
 
-                    (**easy_mode_menu_item_handle)->fields.Pressed = nullptr;
-                    (**easy_mode_menu_item_handle)->fields.PressedCallback = easy_press_action->action.ref();
+                    easy_mode_menu_item->fields.Pressed = nullptr;
+                    easy_mode_menu_item->fields.PressedCallback = easy_press_action->action.ref();
 
-                    (**normal_mode_menu_item_handle)->fields.Pressed = nullptr;
-                    (**normal_mode_menu_item_handle)->fields.PressedCallback = normal_press_action->action.ref();
+                    normal_mode_menu_item->fields.Pressed = nullptr;
+                    normal_mode_menu_item->fields.PressedCallback = normal_press_action->action.ref();
 
-                    (**hard_mode_menu_item_handle)->fields.Pressed = nullptr;
-                    (**hard_mode_menu_item_handle)->fields.PressedCallback = hard_press_action->action.ref();
+                    hard_mode_menu_item->fields.Pressed = nullptr;
+                    hard_mode_menu_item->fields.PressedCallback = hard_press_action->action.ref();
 
                     const auto question_dialog_yes_button = il2cpp::unity::get_component<app::CleverMenuItem>(
-                            il2cpp::unity::find_child(**question_dialog_go_handle, "yes"), types::CleverMenuItem::get_class());
+                            il2cpp::unity::find_child(question_dialog_go, "yes"), types::CleverMenuItem::get_class());
                     const auto question_dialog_no_button = il2cpp::unity::get_component<app::CleverMenuItem>(
-                            il2cpp::unity::find_child(**question_dialog_go_handle, "no"), types::CleverMenuItem::get_class());
+                            il2cpp::unity::find_child(question_dialog_go, "no"), types::CleverMenuItem::get_class());
 
                     question_dialog_yes_button->fields.Pressed = nullptr;
                     question_dialog_yes_button->fields.PressedCallback = question_yes_press_action->action.ref();
@@ -641,9 +682,9 @@ namespace randomizer::main_menu_seed_info {
             }
         }
 
-        do_if_valid<app::CleverMenuItem>(easy_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, show_easy); });
-        do_if_valid<app::CleverMenuItem>(normal_mode_menu_item_handle, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, show_normal); });
-        do_if_valid<app::CleverMenuItem>(hard_mode_menu_item_handle, [&](auto menu_item) {
+        do_if_valid<app::CleverMenuItem>(easy_mode_menu_item_ref, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, show_easy); });
+        do_if_valid<app::CleverMenuItem>(normal_mode_menu_item_ref, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, show_normal); });
+        do_if_valid<app::CleverMenuItem>(hard_mode_menu_item_ref, [&](auto menu_item) {
             il2cpp::unity::set_active(menu_item, show_hard);
             menu_item->fields.m_isDisabled = true;
 

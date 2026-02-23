@@ -44,7 +44,7 @@ namespace {
     bool is_stopping_timeline = false;
 
     std::optional<app::Vector2> restore_velocity_after_skip = std::nullopt;
-    std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> active_transition_timeline = std::nullopt;
+    std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> active_transition_timeline_ref = std::nullopt;
     std::optional<TransitionConfig> active_transition_config = std::nullopt;
 
     constexpr frozen::unordered_map<frozen::string, TransitionConfig, 21> TRANSITION_CONFIGS = {
@@ -146,7 +146,7 @@ namespace {
 
             const auto it = TRANSITION_CONFIGS.find(frozen::string(path));
             if (it != TRANSITION_CONFIGS.end()) {
-                active_transition_timeline = il2cpp::WeakGCRef(this_ptr);
+                active_transition_timeline_ref = il2cpp::WeakGCRef(this_ptr);
                 active_transition_config = it->second;
             }
         }
@@ -155,9 +155,10 @@ namespace {
     }
 
     bool skip_available() {
+        const auto active_transition_timeline = active_transition_timeline_ref.and_then([](auto& ref) { return *ref; });
+
         return active_transition_timeline.has_value() &&
-            active_transition_timeline->is_valid() &&
-            Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(**active_transition_timeline));
+            Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(*active_transition_timeline));
     }
 
     std::optional<custom_cutscene_skips::CustomCutsceneSkip::Metadata> skip_get_metadata() {
@@ -182,8 +183,14 @@ namespace {
     }
 
     void skip_invoke(const custom_cutscene_skips::CustomCutsceneSkip::InvokeParameters& parameters) {
+        const auto active_transition_timeline = active_transition_timeline_ref.and_then([](auto& ref) { return *ref; });
+
+        if (!active_transition_timeline.has_value()) {
+            return;
+        }
+
         modloader::ScopedSetter _(is_stopping_timeline, true);
-        Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(**active_transition_timeline));
+        Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(*active_transition_timeline));
         active_transition_config = std::nullopt;
 
         if (parameters.is_automatic_skip && restore_velocity_after_skip.has_value()) {

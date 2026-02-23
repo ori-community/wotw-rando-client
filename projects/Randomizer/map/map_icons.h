@@ -193,7 +193,7 @@ namespace randomizer::map::icons {
         const id_t m_id;
 
         /** The cached game object */
-        std::optional<il2cpp::WeakGCRef<app::GameObject>> m_game_object = std::nullopt;
+        std::optional<il2cpp::WeakGCRef<app::GameObject>> m_game_object_ref = std::nullopt;
 
         /** Reactive effects for this map icon */
         Handles m_handles;

@@ -25,7 +25,7 @@ namespace {
         next::BaurEntity::ResolveDamage(this_ptr, result);
     }
 
-    std::optional<il2cpp::WeakGCRef<app::SeinAbilityRestrictZone>> restrict_zone;
+    std::optional<il2cpp::WeakGCRef<app::SeinAbilityRestrictZone>> restrict_zone_ref;
     core::reactivity::ReactiveEffect::ptr_t restrict_zone_effect;
 
     void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
@@ -41,17 +41,24 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(ability_restrict_zone_go)) {
-                restrict_zone = il2cpp::WeakGCRef(
+                restrict_zone_ref = il2cpp::WeakGCRef(
                     il2cpp::unity::get_component<app::SeinAbilityRestrictZone>(ability_restrict_zone_go, types::SeinAbilityRestrictZone::get_class())
                 );
+
                 restrict_zone_effect = core::reactivity::watch_effect([] {
-                    if (restrict_zone->is_valid()) {
-                        auto mask = static_cast<int>((**restrict_zone)->fields.RestrictMask);
+                    if (
+                        const auto restrict_zone = restrict_zone_ref.and_then([](auto& ref) { return *ref; });
+                        restrict_zone.has_value()
+                    ) {
+                        auto mask = static_cast<int>((*restrict_zone)->fields.RestrictMask);
                         // Flash is not restricted by the Attack mask so it does not need to be handled
                         if (ability_should_open.at(app::AbilityType__Enum::Blaze).get<bool>()) {
                             mask = mask & ~static_cast<int>(app::SeinAbilityRestrictZoneMask__Enum::Attack);
                         }
-                        (**restrict_zone)->fields.RestrictMask = static_cast<app::SeinAbilityRestrictZoneMask__Enum>(mask);
+                        (*restrict_zone)->fields.RestrictMask = static_cast<app::SeinAbilityRestrictZoneMask__Enum>(mask);
+                    } else {
+                        restrict_zone_ref = std::nullopt;
+                        restrict_zone_effect = nullptr;
                     }
                 });
             }

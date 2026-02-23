@@ -22,28 +22,37 @@ namespace {
     core::reactivity::ReactiveEffect::ptr_t effect = nullptr;
 
     void set_rocks_visible(const bool visible) {
-        if (
-            !weeping_ridge_stone_go_ref.has_value() ||
-            !weeping_ridge_stone_go_ref->is_valid() ||
-            !woods_stone_go_ref.has_value() ||
-            !woods_stone_go_ref->is_valid() ||
-            !below_teleporter_stone_go_ref.has_value() ||
-            !below_teleporter_stone_go_ref->is_valid()
-        ) {
+        const auto weeping_ridge_stone_go = weeping_ridge_stone_go_ref.and_then([](auto& ref) { return *ref; });
+
+        if (!weeping_ridge_stone_go.has_value()) {
             return;
         }
 
-        il2cpp::unity::set_active(**weeping_ridge_stone_go_ref, visible);
-        il2cpp::unity::set_active(**woods_stone_go_ref, visible);
-        il2cpp::unity::set_active(**below_teleporter_stone_go_ref, visible);
+        const auto woods_stone_go = woods_stone_go_ref.and_then([](auto& ref) { return *ref; });
+
+        if (!woods_stone_go.has_value()) {
+            return;
+        }
+
+        const auto below_teleporter_stone_go = below_teleporter_stone_go_ref.and_then([](auto& ref) { return *ref; });
+
+        if (!below_teleporter_stone_go.has_value()) {
+            return;
+        }
+
+        il2cpp::unity::set_active(*weeping_ridge_stone_go, visible);
+        il2cpp::unity::set_active(*woods_stone_go, visible);
+        il2cpp::unity::set_active(*below_teleporter_stone_go, visible);
     }
 
     void set_crackling_sticks_trigger_active(const bool active) {
-        if (!crackling_sticks_trigger_go_ref.has_value() || !crackling_sticks_trigger_go_ref->is_valid()) {
+        const auto crackling_sticks_trigger_go = crackling_sticks_trigger_go_ref.and_then([](auto& ref) { return *ref; });
+
+        if (!crackling_sticks_trigger_go.has_value()) {
             return;
         }
 
-        il2cpp::unity::set_active(**crackling_sticks_trigger_go_ref, active);
+        il2cpp::unity::set_active(*crackling_sticks_trigger_go, active);
     }
 
     void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata, const std::string&) {

@@ -11,7 +11,7 @@
 namespace {
     using namespace app::classes;
 
-    std::optional<il2cpp::WeakGCRef<app::PlayerInsideZoneChecker>> player_inside_zone_checker;
+    std::optional<il2cpp::WeakGCRef<app::PlayerInsideZoneChecker>> player_inside_zone_checker_ref;
     core::reactivity::ReactiveEffect::ptr_t effect;
 
     core::api::uber_states::UberState fix_enabled_state(UberStateGroup::RandoConfig, 13);
@@ -33,22 +33,30 @@ namespace {
                     }
                 );
 
-                player_inside_zone_checker = il2cpp::WeakGCRef(
+                player_inside_zone_checker_ref = il2cpp::WeakGCRef(
                     il2cpp::unity::get_component<app::PlayerInsideZoneChecker>(emerge_trigger_go, types::PlayerInsideZoneChecker::get_class())
                 );
 
                 effect = core::reactivity::watch_effect([] {
-                    if (player_inside_zone_checker.has_value() && player_inside_zone_checker->is_valid()) {
-                        if (fix_enabled_state.get<bool>()) {
-                            (**player_inside_zone_checker)->fields._.Anchor.y = 31.f;  // Fixed
-                        } else {
-                            (**player_inside_zone_checker)->fields._.Anchor.y = 14.6099997;  // Vanilla
-                        }
-
-                        ObjectInsideZoneChecker::UpdateBounds(reinterpret_cast<app::ObjectInsideZoneChecker*>(**player_inside_zone_checker));
-                    } else {
+                    if (!player_inside_zone_checker_ref.has_value()) {
                         effect = nullptr;
+                        return;
                     }
+
+                    const auto player_inside_zone_checker = **player_inside_zone_checker_ref;
+
+                    if (!player_inside_zone_checker.has_value()) {
+                        effect = nullptr;
+                        return;
+                    }
+
+                    if (fix_enabled_state.get<bool>()) {
+                        (*player_inside_zone_checker)->fields._.Anchor.y = 31.f;  // Fixed
+                    } else {
+                        (*player_inside_zone_checker)->fields._.Anchor.y = 14.6099997;  // Vanilla
+                    }
+
+                    ObjectInsideZoneChecker::UpdateBounds(reinterpret_cast<app::ObjectInsideZoneChecker*>(*player_inside_zone_checker));
                 });
             }
         }

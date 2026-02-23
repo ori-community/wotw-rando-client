@@ -14,7 +14,7 @@ using namespace utils;
 using namespace app::classes;
 
 namespace {
-    std::vector<il2cpp::WeakGCRef<app::MoonTimeline>> vine_timelines;
+    std::vector<il2cpp::WeakGCRef<app::MoonTimeline>> vine_timeline_refs;
     std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> vine_h_original_timeline_ref;
     std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> vine_h_rando_timeline_ref;
     std::optional<il2cpp::WeakGCRef<app::ChangeStateOnCondition>> vine_h_change_state_on_condition_ref;
@@ -30,7 +30,7 @@ namespace {
         if (metadata->scene_name == "willowsEndSetups") {
             auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
 
-            vine_timelines.clear();
+            vine_timeline_refs.clear();
 
             std::vector<std::vector<std::string>> timeline_paths {
                 {"vineSetups", "vineASetup", "vineAFadeoutTimeline"},
@@ -47,7 +47,7 @@ namespace {
                 const auto core_go = il2cpp::unity::find_child(scene_root_go, timeline_path);
 
                 if (il2cpp::unity::is_valid(core_go)) {
-                    vine_timelines.emplace_back(il2cpp::unity::get_component<app::MoonTimeline>(core_go, types::MoonTimeline::get_class()));
+                    vine_timeline_refs.emplace_back(il2cpp::unity::get_component<app::MoonTimeline>(core_go, types::MoonTimeline::get_class()));
                 }
             }
 
@@ -114,30 +114,36 @@ namespace {
 
             il2cpp::unity::set_parent(vine_h_no_cutscene_timeline_go, vine_h_setup_go);
 
-            // Setup the reactive effect
+            // Set up the reactive effect
             effect = core::reactivity::watch_effect([] {
                 const auto disable_cutscenes = disable_cutscenes_state.get<bool>();
 
-                auto vines_it = vine_timelines.begin();
-                while (vines_it != vine_timelines.end()) {
-                    if (!vines_it->is_valid()) {
-                        vines_it = vine_timelines.erase(vines_it);
+                auto vines_ref_it = vine_timeline_refs.begin();
+                while (vines_ref_it != vine_timeline_refs.end()) {
+                    const auto vine = **vines_ref_it;
+
+                    if (!vine.has_value()) {
+                        vines_ref_it = vine_timeline_refs.erase(vines_ref_it);
                         continue;
                     }
 
-                    (**vines_it)->fields._._PlayState_k__BackingField = disable_cutscenes
+                    (*vine)->fields._._PlayState_k__BackingField = disable_cutscenes
                         ? app::AnimatorPlayState__Enum::None
                         : app::AnimatorPlayState__Enum::Stopped;
-                    ++vines_it;
+                    ++vines_ref_it;
                 }
 
-                if (vine_h_change_state_on_condition_ref.has_value() && vine_h_change_state_on_condition_ref->is_valid()) {
-                    (**vine_h_change_state_on_condition_ref)->fields.StateChange->fields._._.StateData->fields._items->vector[0]->fields.m_transition->fields.m_volatileValue = disable_cutscenes
-                        ? **vine_h_rando_timeline_ref
-                        : **vine_h_original_timeline_ref;
+                const auto vine_h_change_state_on_condition = vine_h_change_state_on_condition_ref.and_then([](auto& ref) { return *ref; });
+                const auto vine_h_rando_timeline = vine_h_rando_timeline_ref.and_then([](auto& ref) { return *ref; });
+                const auto vine_h_original_timeline = vine_h_original_timeline_ref.and_then([](auto& ref) { return *ref; });
+
+                if (vine_h_change_state_on_condition.has_value() && vine_h_rando_timeline.has_value() && vine_h_original_timeline.has_value()) {
+                    (*vine_h_change_state_on_condition)->fields.StateChange->fields._._.StateData->fields._items->vector[0]->fields.m_transition->fields.m_volatileValue = disable_cutscenes
+                        ? *vine_h_rando_timeline
+                        : *vine_h_original_timeline;
                 }
 
-                if (vine_timelines.empty()) {
+                if (vine_timeline_refs.empty()) {
                     effect = nullptr;
                 }
             });

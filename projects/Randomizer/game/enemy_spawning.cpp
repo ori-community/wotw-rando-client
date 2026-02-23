@@ -28,12 +28,16 @@ namespace {
 
         const auto placeholder = *defaults.placeholder_ref;
 
+        if (!placeholder.has_value()) {
+            return;
+        }
+
         if (allow_spawning_enemies_nearby.get<bool>()) {
-            placeholder->fields.RespawnOnScreen = true;
-            placeholder->fields.MinDistanceFromPlayer = 0.f;
+            (*placeholder)->fields.RespawnOnScreen = true;
+            (*placeholder)->fields.MinDistanceFromPlayer = 0.f;
         } else {
-            placeholder->fields.RespawnOnScreen = defaults.respawn_on_screen;
-            placeholder->fields.MinDistanceFromPlayer = defaults.min_distance_from_player;
+            (*placeholder)->fields.RespawnOnScreen = defaults.respawn_on_screen;
+            (*placeholder)->fields.MinDistanceFromPlayer = defaults.min_distance_from_player;
         }
     }
 

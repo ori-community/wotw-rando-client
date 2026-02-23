@@ -55,15 +55,27 @@ namespace randomizer::online {
         });
 
         m_reactive_effects.push_back(core::reactivity::watch_effect([&]() {
-            if (m_icon_visible.get() && il2cpp::unity::is_valid(*m_icon)) {
+            if (m_icon_visible.get()) {
+                const auto icon = *m_icon_ref;
+
+                if (!icon.has_value()) {
+                    return;
+                }
+
                 auto color = m_dynamic_color.get();
-                utils::set_color(*m_icon, color);
+                utils::set_color(*icon, color);
             }
         }));
 
         m_reactive_effects.push_back(core::reactivity::watch_effect([&]() {
-            if (m_icon_visible.get() && il2cpp::unity::is_valid(*m_text)) {
-                const auto message_box = il2cpp::unity::get_component<app::MessageBox>(*m_text, types::MessageBox::get_class());
+            if (m_icon_visible.get()) {
+                const auto text = *m_text_ref;
+
+                if (!text.has_value()) {
+                    return;
+                }
+
+                const auto message_box = il2cpp::unity::get_component<app::MessageBox>(*text, types::MessageBox::get_class());
                 message_box->fields.MessageProvider = core::api::system::create_message_provider(m_dynamic_name.get());
                 MessageBox::RefreshText_1(message_box);
             }
@@ -74,7 +86,9 @@ namespace randomizer::online {
     }
 
     PlayerIcon::~PlayerIcon() {
-        if (!m_root.is_valid()) {
+        const auto root = *m_root_ref;
+
+        if (!root.has_value()) {
             return;
         }
 
@@ -85,15 +99,15 @@ namespace randomizer::online {
                 il2cpp::unity::destroy_object(dot.dot);
             }
 
-            IconPlacementScaler::RemoveIcon(area_map->fields._IconScaler_k__BackingField, *m_root);
+            IconPlacementScaler::RemoveIcon(area_map->fields._IconScaler_k__BackingField, *root);
         }
 
-        il2cpp::unity::destroy_object(*m_root);
+        il2cpp::unity::destroy_object(*root);
     }
 
     void PlayerIcon::recreate() {
-        if (m_root.is_valid()) {
-            il2cpp::unity::destroy_object(*m_root);
+        if (const auto root = *m_root_ref; root.has_value()) {
+            il2cpp::unity::destroy_object(*root);
         }
 
         if (m_icon_visible.get()) {
@@ -129,36 +143,44 @@ namespace randomizer::online {
         }
 
         const auto icons = area_map->fields._IconManager_k__BackingField->fields.Icons;
+        app::GameObject* root;
+        app::GameObject* text;
+        app::GameObject* icon;
+
         switch (m_dynamic_type.get()) {
             case Type::Kii: {
-                m_root = il2cpp::WeakGCRef(il2cpp::unity::instantiate_object(icons->fields.Siira));
-                m_icon = il2cpp::WeakGCRef(il2cpp::unity::find_child(*m_root, "npcTreeKeeperTraderMapIcon"));
-                m_text = il2cpp::WeakGCRef(il2cpp::unity::find_child(*m_root, "IconLabelPrefab"));
-                il2cpp::unity::set_active(il2cpp::unity::find_child(*m_root, "questObjective2MapIcon"), false);
+                root = il2cpp::unity::instantiate_object(icons->fields.Siira);
+                icon = il2cpp::unity::find_child(root, "npcTreeKeeperTraderMapIcon");
+                text = il2cpp::unity::find_child(root, "IconLabelPrefab");
+                il2cpp::unity::set_active(il2cpp::unity::find_child(root, "questObjective2MapIcon"), false);
                 break;
             }
             default: // Moki
             {
-                m_root = il2cpp::WeakGCRef(il2cpp::unity::instantiate_object(icons->fields.Moki));
-                m_icon = il2cpp::WeakGCRef(il2cpp::unity::find_child(*m_root, "npcMokiMapIcon"));
-                m_text = il2cpp::WeakGCRef(il2cpp::unity::find_child(*m_root, "IconLabelPrefab"));
-                il2cpp::unity::set_active(il2cpp::unity::find_child(*m_root, "questObjective2MapIcon"), false);
+                root = il2cpp::unity::instantiate_object(icons->fields.Moki);
+                icon = il2cpp::unity::find_child(root, "npcMokiMapIcon");
+                text = il2cpp::unity::find_child(root, "IconLabelPrefab");
+                il2cpp::unity::set_active(il2cpp::unity::find_child(root, "questObjective2MapIcon"), false);
                 break;
             }
         }
 
-        il2cpp::invoke(*m_root, "set_name", il2cpp::string_new("player_map_icon"));
-        il2cpp::unity::set_active(*m_text, true);
-        il2cpp::unity::set_active(*m_root, m_icon_visible.get());
-        const auto area_map_icon = il2cpp::unity::get_component(*m_root, types::AreaMapIcon::get_class());
+        m_root_ref = il2cpp::WeakGCRef(root);
+        m_icon_ref = il2cpp::WeakGCRef(icon);
+        m_text_ref = il2cpp::WeakGCRef(text);
+
+        il2cpp::invoke(root, "set_name", il2cpp::string_new("player_map_icon"));
+        il2cpp::unity::set_active(text, true);
+        il2cpp::unity::set_active(root, m_icon_visible.get());
+        const auto area_map_icon = il2cpp::unity::get_component(root, types::AreaMapIcon::get_class());
         if (area_map_icon != nullptr) {
             il2cpp::unity::destroy_object(area_map_icon);
         }
 
-        set_layer_recursive(*m_root, static_cast<int>(Layer::UI));
-        add_to_container(core::api::game::GameObjectContainer::Multiplayer, *m_root);
+        set_layer_recursive(root, static_cast<int>(Layer::UI));
+        add_to_container(core::api::game::GameObjectContainer::Multiplayer, root);
 
-        const auto transform = il2cpp::unity::get_transform(*m_icon);
+        const auto transform = il2cpp::unity::get_transform(icon);
         const app::Vector3 scale{MAP_SPRITE_SCALE, MAP_SPRITE_SCALE, 1.0f};
         Transform::set_localScale(transform, scale);
         auto pos = Transform::get_localPosition(transform);
@@ -169,10 +191,16 @@ namespace randomizer::online {
     }
 
     void PlayerIcon::update(bool online) {
-        if (!m_root.is_valid()) {
+        if (!m_root_ref.is_valid()) {
             if (!initialize()) {
                 return;
             }
+        }
+
+        const auto root = *m_root_ref;
+
+        if (!root.has_value()) {
+            return;
         }
 
         update_facing();
@@ -185,13 +213,13 @@ namespace randomizer::online {
         const bool should_be_visible = online && core::api::game::ui::area_map_open() && m_visible.get();
         if (should_be_visible != m_icon_visible.get()) {
             m_icon_visible.set(should_be_visible);
-            il2cpp::unity::set_active(*m_root, m_icon_visible.get());
+            il2cpp::unity::set_active(*root, m_icon_visible.get());
             for (const auto& dot: m_dots) {
                 il2cpp::unity::set_active(dot.dot, m_icon_visible.get());
             }
         }
 
-        if (*m_root != nullptr && should_make_dot()) {
+        if (*m_root_ref != nullptr && should_make_dot()) {
             add_dot();
         }
     }
@@ -245,7 +273,7 @@ namespace randomizer::online {
 
         set_server_position_on_icon(x, y);
 
-        if (m_root.is_valid() && online && should_make_dot()) {
+        if (m_root_ref.is_valid() && online && should_make_dot()) {
             add_dot();
         }
     }
@@ -275,17 +303,29 @@ namespace randomizer::online {
         }
     }
 
-    void PlayerIcon::apply_position() {
+    void PlayerIcon::apply_position() const {
         const app::Vector3 pos{m_map_position.x, m_map_position.y, 0.f};
         if (m_icon_visible.get()) {
+            const auto root = *m_root_ref;
+
+            if (!root.has_value()) {
+                return;
+            }
+
             const auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
-            IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, *m_root, pos, false);
+            IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, *root, pos, false);
         }
     }
 
-    void PlayerIcon::update_facing() {
+    void PlayerIcon::update_facing() const {
         if (m_icon_visible.get()) {
-            const auto transform = il2cpp::unity::get_transform(*m_icon);
+            const auto icon = *m_icon_ref;
+
+            if (!icon.has_value()) {
+                return;
+            }
+
+            const auto transform = il2cpp::unity::get_transform(*icon);
             app::Vector3 scale = Transform::get_localScale(transform);
             scale.x = math::lerp(scale.x, static_cast<float>(m_facing) * MAP_SPRITE_SCALE, 20.0f * TimeUtility::get_deltaTime());
             Transform::set_localScale(transform, scale);

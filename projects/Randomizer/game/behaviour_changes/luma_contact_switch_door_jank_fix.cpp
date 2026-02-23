@@ -18,15 +18,14 @@ using namespace app::classes;
  */
 namespace {
     struct LagoonContactSwitchDoorRef {
-        il2cpp::WeakGCRef<app::LagoonContactSwitchDoors> component;
-        il2cpp::WeakGCRef<app::GameObject> physics;
+        il2cpp::WeakGCRef<app::LagoonContactSwitchDoors> component_ref;
+        il2cpp::WeakGCRef<app::GameObject> physics_ref;
 
-        bool is_valid() { return component.is_valid() && physics.is_valid(); }
+        bool is_valid() const { return component_ref.is_valid() && physics_ref.is_valid(); }
     };
 
-    std::vector<LagoonContactSwitchDoorRef> switch_door_refs; // We save all active LagoonContactSwitchDoors and their physics GameObjects here
-    LagoonContactSwitchDoorRef*
-        lagoon_contact_switch_door_ref_just_removed = nullptr; // This pointer points to the LagoonContactSwitchDoors that is about to be janked
+    std::vector<LagoonContactSwitchDoorRef> switch_door_refs;  // We save all active LagoonContactSwitchDoors and their physics GameObjects here
+    LagoonContactSwitchDoorRef* lagoon_contact_switch_door_ref_just_removed = nullptr;  // This pointer points to the LagoonContactSwitchDoors that is about to be janked
     auto is_in_activate_animator_system_on_update = false;
 
     IL2CPP_INTERCEPT(void, LagoonContactSwitchDoors, Awake, app::LagoonContactSwitchDoors* this_ptr) {
@@ -46,7 +45,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, LagoonContactSwitchDoors, OnDestroy, app::LagoonContactSwitchDoors* this_ptr) {
-        std::erase_if(switch_door_refs, [&this_ptr](LagoonContactSwitchDoorRef& item) { return !item.is_valid() || item.component.ref() == this_ptr; });
+        std::erase_if(switch_door_refs, [&this_ptr](LagoonContactSwitchDoorRef& item) { return !item.is_valid() || item.component_ref.unsafe_ref() == this_ptr; });
 
         next::LagoonContactSwitchDoors::OnDestroy(this_ptr);
     }
@@ -73,8 +72,8 @@ namespace {
 
             // If found, check if the target GameObject is one of the stored LagoonContactSwitchDoors physics
             for (auto it = switch_door_refs.begin(); it != switch_door_refs.end();) {
-                if (it->is_valid()) {
-                    if (it->physics.ref() == entry.value.GameObject) {
+                if (const auto physics = (*it).physics_ref.ref(); physics.has_value()) {
+                    if (*physics == entry.value.GameObject) {
                         // Store it so we can check the SetActive call in a bit
                         lagoon_contact_switch_door_ref_just_removed = &*it;
                         break;
@@ -101,18 +100,23 @@ namespace {
     IL2CPP_INTERCEPT_WITH_ORDER(10, void, UnityEngine::GameObject, SetActive, app::GameObject* this_ptr, bool active) {
         // If we encountered the SetActive call the resulted from the jank in ActivateAnimatorSystem,
         // prevent that call and determine whether the door should be open or not by ourself.
-        if (lagoon_contact_switch_door_ref_just_removed != nullptr && lagoon_contact_switch_door_ref_just_removed->is_valid() &&
-            lagoon_contact_switch_door_ref_just_removed->physics.ref() == this_ptr) {
-            const auto open_timeline_state = lagoon_contact_switch_door_ref_just_removed->component.ref()->fields.Open->fields._._PlayState_k__BackingField;
-            const auto open_loop_timeline_state = lagoon_contact_switch_door_ref_just_removed->component.ref()
-                                                      ->fields.OpenedLoop->fields._._PlayState_k__BackingField;
-            const auto is_open = open_timeline_state == app::AnimatorPlayState__Enum::Playing ||
-                open_loop_timeline_state == app::AnimatorPlayState__Enum::Playing;
-            const auto should_activate = !is_open;
+        if (
+            lagoon_contact_switch_door_ref_just_removed != nullptr &&
+            lagoon_contact_switch_door_ref_just_removed->is_valid() &&
+            lagoon_contact_switch_door_ref_just_removed->physics_ref.ref() == this_ptr
+        ) {
+            const auto door_component = lagoon_contact_switch_door_ref_just_removed->component_ref.ref();
 
-            next::UnityEngine::GameObject::SetActive(this_ptr, should_activate);
-            lagoon_contact_switch_door_ref_just_removed = nullptr;
-            return;
+            if (door_component.has_value()) {
+                const auto open_timeline_state = (*door_component)->fields.Open->fields._._PlayState_k__BackingField;
+                const auto open_loop_timeline_state = (*door_component)->fields.OpenedLoop->fields._._PlayState_k__BackingField;
+                const auto is_open = open_timeline_state == app::AnimatorPlayState__Enum::Playing || open_loop_timeline_state == app::AnimatorPlayState__Enum::Playing;
+                const auto should_activate = !is_open;
+
+                next::UnityEngine::GameObject::SetActive(this_ptr, should_activate);
+                lagoon_contact_switch_door_ref_just_removed = nullptr;
+                return;
+            }
         }
 
         next::UnityEngine::GameObject::SetActive(this_ptr, active);

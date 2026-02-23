@@ -12,8 +12,8 @@
 namespace {
     using namespace app::classes;
 
-    std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> destruction_timeline;
-    std::optional<il2cpp::WeakGCRef<app::GameObject>> bone_bridge_go;
+    std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> destruction_timeline_ref;
+    std::optional<il2cpp::WeakGCRef<app::GameObject>> bone_bridge_go_ref;
 
     common::Droppable::ptr_t uber_state_bus_handle;
 
@@ -26,19 +26,24 @@ namespace {
             if (metadata->scene_name == "swampNightcrawlerCavernA") {
                 const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
 
-                bone_bridge_go = il2cpp::WeakGCRef(
-                    il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{
+                const auto bone_bridge_go = il2cpp::unity::find_child(
+                    scene_root_go,
+                    std::vector<std::string>{
                         "physics",
                         "*boneBridge",
-                    })
+                    }
                 );
 
-                const auto destruction_timeline_go = il2cpp::unity::find_child(**bone_bridge_go, std::vector<std::string>{
+                bone_bridge_go_ref = il2cpp::WeakGCRef(
+                    bone_bridge_go
+                );
+
+                const auto destruction_timeline_go = il2cpp::unity::find_child(bone_bridge_go, std::vector<std::string>{
                     "timelines",
                     "destruction",
                 });
 
-                destruction_timeline = il2cpp::WeakGCRef(
+                destruction_timeline_ref = il2cpp::WeakGCRef(
                     il2cpp::unity::get_component<app::MoonTimeline>(
                         destruction_timeline_go,
                         types::MoonTimeline::get_class()
@@ -49,20 +54,22 @@ namespace {
                     core::api::uber_states::UberState(21786, 808),  // swampStateGroup, boneBridgeBroken
                     [](const core::api::uber_states::UberStateCallbackParams& params, auto) {
                         if (
+                            const auto [destruction_timeline, bone_bridge_go] = std::make_tuple(
+                                destruction_timeline_ref.and_then([](auto& ref) { return *ref; }),
+                                bone_bridge_go_ref.and_then([](auto& ref) { return *ref; })
+                            );
                             destruction_timeline.has_value() &&
-                            destruction_timeline->is_valid() &&
-                            bone_bridge_go.has_value() &&
-                            bone_bridge_go->is_valid()
+                            bone_bridge_go.has_value()
                         ) {
                             if (params.previous_value < 0.5 && params.value > 0.5) {
-                                Moon::Timeline::TimelineEntity::StartPlayback_1(reinterpret_cast<app::TimelineEntity*>(**destruction_timeline));
+                                Moon::Timeline::TimelineEntity::StartPlayback_1(reinterpret_cast<app::TimelineEntity*>(*destruction_timeline));
                             } else if (params.previous_value > 0.5 && params.value < 0.5) {
-                                il2cpp::unity::set_active(**bone_bridge_go, false);
-                                il2cpp::unity::set_active(**bone_bridge_go, true);
+                                il2cpp::unity::set_active(*bone_bridge_go, false);
+                                il2cpp::unity::set_active(*bone_bridge_go, true);
                             }
                         } else {
-                            bone_bridge_go = std::nullopt;
-                            destruction_timeline = std::nullopt;
+                            bone_bridge_go_ref = std::nullopt;
+                            destruction_timeline_ref = std::nullopt;
                             uber_state_bus_handle = nullptr;
                         }
                     }

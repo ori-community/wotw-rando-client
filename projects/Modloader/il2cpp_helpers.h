@@ -11,6 +11,7 @@
 #include <Modloader/windows_api/memory.h>
 #include <memory>
 #include <stdexcept>
+#include <optional>
 
 #include <frozen/string.h>
 #include <string>
@@ -146,7 +147,11 @@ namespace il2cpp {
             handle = std::make_shared<GCHandle>(il2cpp::gchandle_new_weak(obj, track_resurrection));
         }
 
-        T* ref() const {
+        /**
+         * Tries to dereference the GC handle. Will cause scuffed things
+         * if the handle is invalid.
+         */
+        T* unsafe_ref() const {
             if (handle == nullptr) {
                 return nullptr;
             }
@@ -154,12 +159,30 @@ namespace il2cpp {
             return reinterpret_cast<T*>(handle->target());
         }
 
-        T* operator*() const {
+        /**
+         * Returns the GC handle target or nullopt if the target
+         * is invalid.
+         */
+        std::optional<T*> ref() const {
+            const auto target = unsafe_ref();
+
+            if (!il2cpp::unity::is_valid(target)) {
+                return std::nullopt;
+            }
+
+            return target;
+        }
+
+        /**
+         * Same as @see ref().
+         */
+        std::optional<T*> operator*() const {
             return ref();
         }
 
+        [[nodiscard]]
         bool is_valid() const {
-            return il2cpp::unity::is_valid(ref());
+            return il2cpp::unity::is_valid(unsafe_ref());
         }
     };
 

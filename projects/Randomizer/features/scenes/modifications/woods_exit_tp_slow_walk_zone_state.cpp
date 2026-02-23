@@ -41,15 +41,17 @@ namespace {
 
         effect = core::reactivity::watch_effect()
             .effect([] {
-                if (!ability_restrict_go_ref.has_value() || !ability_restrict_go_ref->is_valid()) {
+                const auto ability_restrict_go = ability_restrict_go_ref.and_then([](auto& ref) { return *ref; });
+
+                if (!ability_restrict_go.has_value()) {
                     effect = nullptr;
                     return;
                 }
 
                 if (use_east_woods_trunk_slow_walk_zone_enabled_state.get<bool>()) {
-                    il2cpp::unity::set_active(**ability_restrict_go_ref, east_woods_trunk_slow_walk_zone_enabled_state.get<bool>());
+                    il2cpp::unity::set_active(*ability_restrict_go, east_woods_trunk_slow_walk_zone_enabled_state.get<bool>());
                 } else {
-                    il2cpp::unity::set_active(**ability_restrict_go_ref, !original_state.get<bool>());
+                    il2cpp::unity::set_active(*ability_restrict_go, !original_state.get<bool>());
                 }
             })
             .trigger_on_load()

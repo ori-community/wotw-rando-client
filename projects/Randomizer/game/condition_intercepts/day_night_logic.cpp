@@ -212,7 +212,9 @@ namespace {
     core::reactivity::ReactiveEffect::ptr_t mokk_the_brave_effect = nullptr;
 
     void update_mokk_the_brave_presence() {
-        if (!mokk_the_brave_setup_ref.has_value() || !mokk_the_brave_setup_ref->is_valid()) {
+        const auto mokk_the_brave_setup = mokk_the_brave_setup_ref.and_then([](auto& ref) { return *ref; });
+
+        if (!mokk_the_brave_setup.has_value()) {
             mokk_the_brave_setup_ref = std::nullopt;
             return;
         }
@@ -221,7 +223,7 @@ namespace {
         core::api::uber_states::UberState howl_escape_done(21786, 40322);
 
         il2cpp::unity::set_active(
-            **mokk_the_brave_setup_ref,
+            *mokk_the_brave_setup,
             !howl_escape_started.get<bool>() || howl_escape_done.get<bool>()
         );
     }

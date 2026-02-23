@@ -24,9 +24,9 @@ using namespace app::classes;
 namespace {
     constexpr app::Vector3 SHRIEK_BARRIER_POSITION = app::Vector3{550.f, -3685.f, 0.f};
 
-    std::optional<il2cpp::WeakGCRef<app::GameObject>> shriek_barrier_go;
-    std::optional<il2cpp::WeakGCRef<app::GameObject>> shriek_barrier_killbox;
-    std::optional<il2cpp::WeakGCRef<app::CameraScrollLock>> shriek_barrier_scroll_lock;
+    std::optional<il2cpp::WeakGCRef<app::GameObject>> shriek_barrier_go_ref;
+    std::optional<il2cpp::WeakGCRef<app::GameObject>> shriek_barrier_killbox_ref;
+    std::optional<il2cpp::WeakGCRef<app::CameraScrollLock>> shriek_barrier_scroll_lock_ref;
     core::reactivity::ReactiveEffect::ptr_t shriek_barrier_effect;
     bool shriek_barrier_active = false;
     float animation_position = 0.0f;
@@ -35,11 +35,15 @@ namespace {
     void update_animation_state() {
         const auto eased_animation_position = static_cast<float>(common::math::ease(animation_position, 0.225));
 
-        if (shriek_barrier_go.has_value() && shriek_barrier_go->is_valid()) {
-            const auto inverse_animation_position = 1.f - eased_animation_position;
-            il2cpp::unity::set_active(**shriek_barrier_go, animation_position != 0.f);
-            il2cpp::unity::set_position(**shriek_barrier_go, SHRIEK_BARRIER_POSITION + app::Vector3{ inverse_animation_position * 50.f, 0.f, 0.f });
+        const auto shriek_barrier_go = shriek_barrier_go_ref.and_then([](auto& ref) { return *ref; });
+
+        if (shriek_barrier_go.has_value()) {
+            return;
         }
+
+        const auto inverse_animation_position = 1.f - eased_animation_position;
+        il2cpp::unity::set_active(*shriek_barrier_go, animation_position != 0.f);
+        il2cpp::unity::set_position(*shriek_barrier_go, SHRIEK_BARRIER_POSITION + app::Vector3{ inverse_animation_position * 50.f, 0.f, 0.f });
     }
 
     void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
@@ -75,16 +79,12 @@ namespace {
                 // Move door to the left
                 il2cpp::unity::set_local_position(door_go, app::Vector3 {-34.2f, -58.7, 0.f});
 
-                shriek_barrier_go = il2cpp::WeakGCRef(
-                    reinterpret_cast<app::GameObject*>(
-                        UnityEngine::Object::Instantiate_4(
-                            reinterpret_cast<app::Object_1 *>(clouds_go),
-                            il2cpp::unity::get_transform(art_setups_go)
-                        )
-                    )
+                const auto shriek_barrier_go = reinterpret_cast<app::GameObject*>(
+                    UnityEngine::Object::Instantiate_4(reinterpret_cast<app::Object_1*>(clouds_go), il2cpp::unity::get_transform(art_setups_go))
                 );
+                shriek_barrier_go_ref = il2cpp::WeakGCRef(shriek_barrier_go);
 
-                auto children = il2cpp::unity::get_children(**shriek_barrier_go);
+                auto children = il2cpp::unity::get_children(shriek_barrier_go);
 
                 // Delete earlyZ mesh because it's one mesh, but we're moving parts of it
                 const auto early_z_it = children.begin() + 2;
@@ -97,18 +97,19 @@ namespace {
                     il2cpp::unity::set_local_position(child_go, il2cpp::unity::get_local_position(child_go) + local_position_delta);
                 }
 
-                il2cpp::unity::set_position(**shriek_barrier_go, SHRIEK_BARRIER_POSITION);
-                il2cpp::unity::set_local_scale(**shriek_barrier_go, app::Vector3{-1.f, 1.f, 1.f});
-                il2cpp::unity::set_local_rotation(**shriek_barrier_go, app::Vector3{0.f, 0.f, 30.f});
+                il2cpp::unity::set_position(shriek_barrier_go, SHRIEK_BARRIER_POSITION);
+                il2cpp::unity::set_local_scale(shriek_barrier_go, app::Vector3{-1.f, 1.f, 1.f});
+                il2cpp::unity::set_local_rotation(shriek_barrier_go, app::Vector3{0.f, 0.f, 30.f});
 
                 // Add scroll lock because fancy
                 const auto scroll_lock_go = il2cpp::create_object<app::GameObject>(types::GameObject::get_class());
                 UnityEngine::GameObject::ctor_1(scroll_lock_go, il2cpp::string_new("scrollLock"));
-                shriek_barrier_scroll_lock = il2cpp::WeakGCRef(il2cpp::unity::add_component<app::CameraScrollLock>(scroll_lock_go, types::CameraScrollLock::get_class()));
-                CameraScrollLock::ctor(**shriek_barrier_scroll_lock);
-                (**shriek_barrier_scroll_lock)->fields.m_scrollType = app::CameraScrollLock_Type__Enum::Horizontal;
-                (**shriek_barrier_scroll_lock)->fields.LockMode = app::CameraScrollLock_ScrollLockMode__Enum::RightOrTop;
-                (**shriek_barrier_scroll_lock)->fields.UseFader = false;
+                const auto shriek_barrier_scroll_lock = il2cpp::unity::add_component<app::CameraScrollLock>(scroll_lock_go, types::CameraScrollLock::get_class());
+                shriek_barrier_scroll_lock_ref = il2cpp::WeakGCRef(shriek_barrier_scroll_lock);
+                CameraScrollLock::ctor(shriek_barrier_scroll_lock);
+                shriek_barrier_scroll_lock->fields.m_scrollType = app::CameraScrollLock_Type__Enum::Horizontal;
+                shriek_barrier_scroll_lock->fields.LockMode = app::CameraScrollLock_ScrollLockMode__Enum::RightOrTop;
+                shriek_barrier_scroll_lock->fields.UseFader = false;
                 il2cpp::unity::set_position(scroll_lock_go, app::Vector3{ 597.f, -3607.f, 0.f });
                 il2cpp::unity::set_local_scale(scroll_lock_go, app::Vector3{ 30.f, 30.f, 1.f });
                 il2cpp::unity::set_parent(scroll_lock_go, scene_root_go);
@@ -124,25 +125,27 @@ namespace {
                     {606.123657, -3613.2771},
                 });
 
-                il2cpp::unity::set_parent(collider.get_game_object(), **shriek_barrier_go);
+                il2cpp::unity::set_parent(collider.get_game_object(), shriek_barrier_go);
                 const auto damage_dealer = il2cpp::unity::add_component<app::DamageDealer>(collider.get_game_object(), types::DamageDealer::get_class());
                 damage_dealer->fields.m_damageAmount = 1000.f;
                 damage_dealer->fields.DamageType = app::DamageType__Enum::Lava;
                 damage_dealer->fields.m_isKillSurface = true;
 
-                shriek_barrier_killbox = il2cpp::WeakGCRef(collider.get_game_object());
-                il2cpp::unity::set_parent(collider.get_game_object(), **shriek_barrier_go);
+                shriek_barrier_killbox_ref = il2cpp::WeakGCRef(collider.get_game_object());
+                il2cpp::unity::set_parent(collider.get_game_object(), shriek_barrier_go);
 
                 // Reactive effect
                 shriek_barrier_effect = core::reactivity::watch_effect().effect([] {
                     shriek_barrier_active = core::api::uber_states::UberState(UberStateGroup::RandoState, 0).get<bool>();
 
-                    if (shriek_barrier_killbox.has_value() && shriek_barrier_killbox->is_valid()) {
-                        il2cpp::unity::set_active(**shriek_barrier_killbox, shriek_barrier_active);
+                    const auto shriek_barrier_killbox = shriek_barrier_killbox_ref.and_then([](auto& ref) { return *ref; });
+                    if (shriek_barrier_killbox.has_value()) {
+                        il2cpp::unity::set_active(*shriek_barrier_killbox, shriek_barrier_active);
                     }
 
-                    if (shriek_barrier_scroll_lock.has_value() && shriek_barrier_scroll_lock->is_valid()) {
-                        il2cpp::unity::set_active(**shriek_barrier_scroll_lock, shriek_barrier_active);
+                    const auto shriek_barrier_scroll_lock = shriek_barrier_scroll_lock_ref.and_then([](auto& ref) { return *ref; });
+                    if (shriek_barrier_scroll_lock.has_value()) {
+                        il2cpp::unity::set_active(*shriek_barrier_scroll_lock, shriek_barrier_active);
                     }
                 }).trigger_on_load().finalize();
 
@@ -151,7 +154,7 @@ namespace {
                 update_animation_state();
 
                 on_update_animation_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
-                    if (shriek_barrier_go.has_value() && shriek_barrier_go->is_valid()) {
+                    if (shriek_barrier_go_ref.has_value() && shriek_barrier_go_ref->is_valid()) {
                         if (animation_position != (shriek_barrier_active ? 1.f : 0.f)) {
                             animation_position = shriek_barrier_active
                                 ? std::min(1.f, animation_position + TimeUtility::get_fixedDeltaTime())
@@ -160,8 +163,8 @@ namespace {
                             update_animation_state();
                         }
                     } else {
-                        shriek_barrier_go = std::nullopt;
-                        shriek_barrier_killbox = std::nullopt;
+                        shriek_barrier_go_ref = std::nullopt;
+                        shriek_barrier_killbox_ref = std::nullopt;
                         on_update_animation_handle = nullptr;
                     }
                 });
@@ -169,5 +172,6 @@ namespace {
         }
     }
 
+    [[maybe_unused]]
     auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
 } // namespace

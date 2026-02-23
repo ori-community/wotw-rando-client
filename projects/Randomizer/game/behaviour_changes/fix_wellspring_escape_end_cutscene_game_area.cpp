@@ -11,15 +11,17 @@
 using namespace app::classes;
 
 namespace {
-    std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> end_timeline;
+    std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> end_timeline_ref;
     std::unique_ptr<core::api::game::player::CurrentAreaOverrideHandle> current_area_override = nullptr;
 
     std::optional<GameArea> current_area_override_fn() {
-        if (!end_timeline.has_value() || !end_timeline->is_valid()) {
+        const auto end_timeline = end_timeline_ref.and_then([](auto& ref) { return *ref; });
+
+        if (!end_timeline.has_value()) {
             return std::nullopt;
         }
 
-        return Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(**end_timeline))
+        return Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(*end_timeline))
             ? std::make_optional(GameArea::Wellspring)
             : std::nullopt;
     }
@@ -45,7 +47,7 @@ namespace {
         );
 
         if (il2cpp::unity::is_valid(end_timeline_go)) {
-            end_timeline = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MoonTimeline>(end_timeline_go, types::MoonTimeline::get_class()));
+            end_timeline_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MoonTimeline>(end_timeline_go, types::MoonTimeline::get_class()));
             current_area_override = core::api::game::player::add_current_area_override(current_area_override_fn);
         }
     }
