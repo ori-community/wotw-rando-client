@@ -260,9 +260,9 @@ namespace core::api::scenes {
         constexpr float RECT_HEIGHT = 80.f;
         const app::Rect rect {
             position.x - RECT_WIDTH / 2.f,
-            position.x + RECT_WIDTH / 2.f,
-            position.y - RECT_HEIGHT / 2.f,
-            position.y + RECT_HEIGHT / 2.f,
+            position.y - RECT_WIDTH / 2.f,
+            RECT_WIDTH,
+            RECT_HEIGHT,
         };
 
         for (const auto id: il2cpp::ListIterator(types::ScenesManager::get_class()->static_fields->m_tempHashList)) {
