@@ -217,8 +217,6 @@ namespace randomizer::game {
             }
         }
 
-        core::api::uber_states::UberState intro_cutscene(static_cast<UberStateGroup>(21786), 48748);
-
         // The game calls set_CurrentSlotIndex on startup. We set this variable to true
         // for this to not start preloading too early.
         bool prevent_preload_on_selecting_empty_save = false;
