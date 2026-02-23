@@ -37,12 +37,14 @@ namespace {
 
         on_update_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
             if (!broken_plank_go_ref.has_value()) {
+                on_update_handle = nullptr;
                 return;
             }
 
             const auto broken_plank_go = **broken_plank_go_ref;
 
             if (!broken_plank_go.has_value()) {
+                on_update_handle = nullptr;
                 return;
             }
 
