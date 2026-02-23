@@ -31,7 +31,7 @@ namespace core::api::scenes {
     };
 
     std::unordered_map<std::string, PendingScene> scenes_to_load;
-    constexpr bool SCENE_LOADER_DEBUG_LOGGING = false;
+    bool scene_loader_debug_logging_enabled = false;
 
     app::ScenesManager* get_scenes_manager() {
         return types::Scenes::get_class()->static_fields->Manager;
@@ -47,7 +47,7 @@ namespace core::api::scenes {
             auto scene_meta = ScenesManager::GetSceneInformation(scenes_manager, scene_name_csstring);
             auto scene_manager_scene = ScenesManager::GetFromCurrentScenes_1(scenes_manager, scene_meta);
 
-            if (SCENE_LOADER_DEBUG_LOGGING) {
+            if (scene_loader_debug_logging_enabled) {
                 modloader::debug("scene_load", std::format("{} -> {}", scene_name, magic_enum::enum_name(state)));
             }
 
@@ -385,12 +385,12 @@ namespace core::api::scenes {
             return;
         }
 
-        if (!console::try_get_bool(params[0], SCENE_LOADER_DEBUG_LOGGING)) {
+        if (!console::try_get_bool(params[0], scene_loader_debug_logging_enabled)) {
             console::console_send("Invalid argument. Expected boolean (on/off)");
             return;
         }
 
-        console::console_send(std::format("Debug logging {}", SCENE_LOADER_DEBUG_LOGGING ? "enabled" : "disabled"));
+        console::console_send(std::format("Debug logging {}", scene_loader_debug_logging_enabled ? "enabled" : "disabled"));
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(
