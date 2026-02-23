@@ -9,6 +9,7 @@
 #include <Modloader/app/structs/Vector3.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <assert.h>
 #include <memory>
 
 #include <string>
@@ -128,9 +129,11 @@ namespace il2cpp {
         }
 
         T* operator*() const {
+            assert(is_valid());
             return ref();
         }
 
+        [[nodiscard]]
         bool is_valid() const {
             return il2cpp::unity::is_valid(ref());
         }
