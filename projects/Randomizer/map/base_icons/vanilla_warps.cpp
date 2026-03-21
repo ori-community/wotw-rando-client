@@ -48,7 +48,7 @@ namespace {
             utils::create_warp_icon({2044, -3679}, core::api::uber_states::UberState(20120, 41398), "Outer Ruins"),
             utils::create_warp_icon({2130, -3984}, core::api::uber_states::UberState(10289, 4928), "Inner Ruins"),
             utils::create_warp_icon({422, -3864}, core::api::uber_states::UberState(16155, 41465), "Willow's End"),
-            utils::create_warp_icon({576, -3610}, core::api::uber_states::UberState(16155, 50867), "Shriek"),
+            utils::create_warp_icon({554, -3609}, core::api::uber_states::UberState(16155, 50867), "Shriek"),
         };
     });
 }
