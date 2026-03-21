@@ -1,9 +1,10 @@
-#include <Randomizer/seed/seedgen_service.h>
+#include <Core/api/uber_states/uber_state_condition.h>
 #include <Core/events/task.h>
+#include <Core/ipc/ipc.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/httplib.h>
+#include <Randomizer/seed/seedgen_service.h>
 #include <magic_enum/magic_enum.hpp>
-#include <Core/api/uber_states/uber_state_condition.h>
 
 
 namespace randomizer::seedgen_interface {
@@ -109,10 +110,11 @@ namespace randomizer::seedgen_interface {
                             )
                         );
 
+                        // Request the launcher to start the seedgen HTTP server
+                        core::ipc::send_message(core::ipc::make_request("start_seedgen_http_server"));
+
                         using namespace std::chrono_literals;
                         std::this_thread::sleep_for(2s);
-
-                        // TODO: Tell launcher to start the seedgen server or try ourselves...
 
                         continue;
                     }

@@ -11,5 +11,6 @@ namespace core::ipc {
     // TODO: Change this to an EventBus
     CORE_DLLEXPORT void register_request_handler(std::string_view name, request_handler handler);
     CORE_DLLEXPORT nlohmann::json respond_to(const nlohmann::json& request);
+    [[nodiscard]]
     CORE_DLLEXPORT nlohmann::json make_request(const std::string& method);
 } // namespace core::ipc

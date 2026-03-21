@@ -85,8 +85,6 @@ namespace randomizer::seedgen_interface {
             std::atomic<bool> m_should_shutdown_thread = false;
 
             common::ThreadSafeContainer<std::queue<Request>> m_request_queue;
-
-            std::unique_ptr<TinyProcessLib::Process> m_process;
         };
 
         /** Schedules an async update of m_map_icon_sets */
