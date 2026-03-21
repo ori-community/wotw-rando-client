@@ -251,7 +251,6 @@ set(
         "input/controller_bindings.h"
         "input/helpers.h"
         "input/rando_bindings.h"
-        "ipc/base_handlers.h"
         "httplib.h"
         "macros.h"
         "map/fragments.h"
