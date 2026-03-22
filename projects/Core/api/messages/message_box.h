@@ -36,7 +36,7 @@ namespace core::api::messages {
         // Called automatically.
         void on_fixed_update();
 
-        [[nodiscard]] Visibility get_visibility();
+        [[nodiscard]] Visibility get_visibility() const;
         void show(bool instant = false, bool play_sound = true);
         void hide(bool instant = false) const;
 

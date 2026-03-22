@@ -9,8 +9,9 @@ INSTRUCTION(FreeMessageShow)
     std::size_t id;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        environment.modify_free_message_box(id, [&] (auto& message_box) {
-            message_box.show(false, memory.booleans.get(0));
+        environment.modify_free_message_box(id, [&](auto& free_message_box) {
+            free_message_box.message_box->show(false, memory.booleans.get(0));
+            free_message_box.visible = true;
         });
     }
 

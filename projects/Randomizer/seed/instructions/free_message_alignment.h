@@ -11,8 +11,8 @@ INSTRUCTION(FreeMessageAlignment)
     app::AlignmentMode__Enum alignment;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        environment.modify_free_message_box(id, [&] (auto& message_box) {
-            message_box.text_alignment().set(alignment);
+        environment.modify_free_message_box(id, [&](auto& free_message_box) {
+            free_message_box.message_box->text_alignment().set(alignment);
         });
     }
 

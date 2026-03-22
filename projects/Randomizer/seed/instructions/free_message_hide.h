@@ -9,8 +9,9 @@ INSTRUCTION(FreeMessageHide)
     std::size_t id;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        environment.modify_free_message_box(id, [&] (auto& message_box) {
-            message_box.hide(false);
+        environment.modify_free_message_box(id, [&](auto& free_message_box) {
+            free_message_box.message_box->hide(false);
+            free_message_box.visible = false;
         });
     }
 

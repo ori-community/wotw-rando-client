@@ -176,6 +176,12 @@ namespace randomizer::seed {
     struct FreeMessageBox {
         std::shared_ptr<core::api::messages::MessageBox> message_box;
         std::optional<float> timeout = std::nullopt;
+
+        /**
+         * Kept separate from the message box because the message box has animations, and we
+         * just want to store a binary state.
+         */
+        bool visible = false;
     };
 
     struct SerializedFreeMessageBox {
@@ -308,7 +314,7 @@ namespace randomizer::seed {
          * Calls a lambda with a reference to a free message box to be able to make modifications to it (e.g. change text).
          * Does nothing if a free message box with the given ID does not exist.
          */
-        void modify_free_message_box(std::size_t id, const std::function<void(core::api::messages::MessageBox&)>& fn);
+        void modify_free_message_box(std::size_t id, const std::function<void(FreeMessageBox&)>& fn);
 
         /**
          * Calls a lambda with a reference to a queued message box to be able to make modifications to it (e.g. change text).

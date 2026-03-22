@@ -11,8 +11,8 @@ INSTRUCTION(FreeMessageHorizontalAnchor)
     app::HorizontalAnchorMode__Enum anchor;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        environment.modify_free_message_box(id, [&] (auto& message_box) {
-            message_box.box_horizontal_anchor().set(anchor);
+        environment.modify_free_message_box(id, [&](auto& free_message_box) {
+            free_message_box.message_box->box_horizontal_anchor().set(anchor);
         });
     }
 

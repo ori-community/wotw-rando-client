@@ -12,8 +12,8 @@ INSTRUCTION(FreeMessageCoordinateSystem)
     core::api::messages::CoordinateSystem coordinate_system;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        environment.modify_free_message_box(id, [&] (auto& message_box) {
-            message_box.coordinate_system().set(coordinate_system);
+        environment.modify_free_message_box(id, [&](auto& free_message_box) {
+            free_message_box.message_box->coordinate_system().set(coordinate_system);
         });
     }
 

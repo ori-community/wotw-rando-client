@@ -302,8 +302,7 @@ namespace core::api::messages {
         message_boxes.erase(m_id);
         if (get_visibility() == Visibility::Hidden) {
             il2cpp::unity::destroy_object(m_game_object);
-        }
-        else {
+        } else {
             if (m_message_box->fields.Visibility->fields.m_timeSpeed >= 0.0f) {
                 // We want messages to fade away gradually when deleted.
                 // If this is not desired then call hide(true) first.
@@ -416,8 +415,8 @@ namespace core::api::messages {
         }
     }
 
-    MessageBox::Visibility MessageBox::get_visibility() {
-        if (m_message_box == nullptr) { // NOLINT
+    MessageBox::Visibility MessageBox::get_visibility() const {
+        if (m_message_box == nullptr) {
             return Visibility::Hidden;
         }
 

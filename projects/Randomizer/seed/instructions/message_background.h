@@ -14,7 +14,7 @@ INSTRUCTION(MessageBackground)
         };
 
         environment.modify_queued_message_box(id, modification_fn);
-        environment.modify_free_message_box(id, modification_fn);
+        environment.modify_free_message_box(id, [&](auto& free_message_box) { modification_fn(*free_message_box.message_box); });
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

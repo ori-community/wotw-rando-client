@@ -304,9 +304,6 @@ namespace randomizer::seed {
     nlohmann::json SeedExecutionEnvironment::json_serialize() {
         m_serialized_free_message_boxes.clear();
         for (const auto& [id, free_message_box]: m_free_message_boxes) {
-            const auto is_visible = free_message_box.message_box->get_visibility() == core::api::messages::MessageBox::Visibility::Visible ||
-                free_message_box.message_box->get_visibility() == core::api::messages::MessageBox::Visibility::FadingIn;
-
             m_serialized_free_message_boxes[id] = {
                 free_message_box.message_box->coordinate_system().get(),
                 free_message_box.message_box->position().get(),
@@ -317,7 +314,7 @@ namespace randomizer::seed {
                 free_message_box.message_box->box_vertical_anchor().get(),
                 free_message_box.message_box->show_background().get(),
                 free_message_box.timeout,
-                is_visible,
+                free_message_box.visible,
             };
         }
 
@@ -467,12 +464,12 @@ namespace randomizer::seed {
         m_free_message_boxes.erase(id);
     }
 
-    void SeedExecutionEnvironment::modify_free_message_box(std::size_t id, const std::function<void(core::api::messages::MessageBox&)>& fn) {
+    void SeedExecutionEnvironment::modify_free_message_box(std::size_t id, const std::function<void(FreeMessageBox&)>& fn) {
         if (!m_free_message_boxes.contains(id)) {
             return;
         }
 
-        fn(*m_free_message_boxes[id].message_box);
+        fn(m_free_message_boxes[id]);
     }
 
     void SeedExecutionEnvironment::modify_queued_message_box(std::size_t id, const std::function<void(core::api::messages::MessageBox&)>& fn) {
@@ -564,6 +561,7 @@ namespace randomizer::seed {
             m_free_message_boxes[id] = {
                 .message_box = free_message_box,
                 .timeout = serialized_box.timeout,
+                .visible = serialized_box.visible,
             };
         }
 
