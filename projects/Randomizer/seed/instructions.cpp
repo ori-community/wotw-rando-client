@@ -343,6 +343,10 @@ namespace randomizer::seed {
         m_timers.clear();
         m_prevent_grant = false;
         m_spoiler_map_icons.clear();
+        m_serialized_free_message_boxes.clear();
+        m_serialized_warp_icons.clear();
+        m_box_triggers.clear();
+        m_warp_icons.clear();
     }
 
     void SeedExecutionEnvironment::process_queued_message_box_visibility_callbacks() {
@@ -542,7 +546,7 @@ namespace randomizer::seed {
 
     void SeedExecutionEnvironment::restore_serialized_data_to_runtime() {
         m_free_message_boxes.clear();
-        for (const auto [id, serialized_box]: m_serialized_free_message_boxes) {
+        for (const auto& [id, serialized_box]: m_serialized_free_message_boxes) {
             const auto free_message_box = std::make_shared<core::api::messages::MessageBox>();
             free_message_box->coordinate_system().set(serialized_box.coordinate_system);
             free_message_box->position().set(serialized_box.position);
