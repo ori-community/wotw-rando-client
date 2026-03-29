@@ -166,17 +166,18 @@ namespace {
         name_box->fields.MessageProvider = name_provider;
         description_box->fields.MessageProvider = description_provider;
 
-        MessageBox::RefreshText_1(name_box);
-        MessageBox::RefreshText_1(description_box);
-
-        // Need to do this as UpdateDetails2 overwrites the messageprovider.
-        auto* const temp = this_ptr->fields.LockedDescription;
         if (is_locked || locked_shop_overwrite) {
             this_ptr->fields.LockedDescription = description_box->fields.MessageProvider;
         }
 
         ShopkeeperUIDetails::UpdateDetails2(this_ptr);
-        description_box->fields.MessageProvider = temp;
+
+        // Need to do this again as UpdateDetails2 overwrites the message provider.
+        name_box->fields.MessageProvider = name_provider;
+        description_box->fields.MessageProvider = description_provider;
+
+        MessageBox::RefreshText_1(name_box);
+        MessageBox::RefreshText_1(description_box);
 
         if (this_ptr->fields.ShowEquipStatus) {
             SpellUIShardEquipStatus::SetEquipment(this_ptr->fields.m_equipStatus, app::EquipmentType__Enum::None);
