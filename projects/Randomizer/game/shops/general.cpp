@@ -127,7 +127,7 @@ namespace {
         }
     }
 
-    void set_message_providers(app::ShopkeeperItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider) {
+    void retrieve_message_providers(app::ShopkeeperItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider) {
         const auto apply_providers = [&](const ShopUIShopSlot& slot) {
             name_provider = core::api::system::create_message_provider(slot.name);
             description_provider = core::api::system::create_message_provider(slot.description);
@@ -145,7 +145,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(void, ShopkeeperUIDetails, UpdateDetails, app::ShopkeeperUIDetails * this_ptr) {
+    IL2CPP_INTERCEPT(void, ShopkeeperUIDetails, UpdateDetails, app::ShopkeeperUIDetails* this_ptr) {
         if (!is_in_shop(ShopType::Opher) && !is_in_shop(ShopType::Grom)) {
             next::ShopkeeperUIDetails::UpdateDetails(this_ptr);
             return;
@@ -157,7 +157,7 @@ namespace {
 
         app::MessageProvider* name_provider = nullptr;
         app::MessageProvider* description_provider = nullptr;
-        set_message_providers(this_ptr->fields.m_item, name_provider, description_provider);
+        retrieve_message_providers(this_ptr->fields.m_item, name_provider, description_provider);
 
         auto* const name_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
         auto* const description_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());

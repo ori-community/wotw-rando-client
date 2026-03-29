@@ -135,7 +135,7 @@ namespace randomizer::game::shops::opher {
             return false; // get_IsLocked(this_ptr);
         }
 
-        // Hide the "Uses Energy" label in the shop screen as it's easily replacable with a colored description.
+        // Hide the "Uses Energy" label in the shop screen as it's easily replaceable with a colored description.
         IL2CPP_INTERCEPT(bool, WeaponmasterItem, get_UsesEnergy, app::WeaponmasterItem* this_ptr) { return false; }
 
         IL2CPP_INTERCEPT(bool, WeaponmasterItem, get_IsAffordable, app::WeaponmasterItem* this_ptr) {
