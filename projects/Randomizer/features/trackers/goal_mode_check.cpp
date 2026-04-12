@@ -37,7 +37,7 @@ namespace {
 
         const auto shriek_barrier_go = shriek_barrier_go_ref.and_then([](auto& ref) { return *ref; });
 
-        if (shriek_barrier_go.has_value()) {
+        if (!shriek_barrier_go.has_value()) {
             return;
         }
 
