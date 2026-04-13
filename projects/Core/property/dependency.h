@@ -26,31 +26,6 @@ namespace core::reactivity {
         auto operator<=>(const UberStateDependency&) const = default;
     };
 
-    struct MemoryDependency {
-        MemoryType type;
-        int id;
-
-        template<typename T>
-        static MemoryType resolve_type() { throw std::runtime_error("Unsupported type"); }
-
-        auto operator<=>(const MemoryDependency&) const = default;
-    };
-
-    template<>
-    inline MemoryType MemoryDependency::resolve_type<bool>() { return MemoryType::Bool; }
-
-    template<>
-    inline MemoryType MemoryDependency::resolve_type<char>() { return MemoryType::Bool; }
-
-    template<>
-    inline MemoryType MemoryDependency::resolve_type<int>() { return MemoryType::Int; }
-
-    template<>
-    inline MemoryType MemoryDependency::resolve_type<float>() { return MemoryType::Float; }
-
-    template<>
-    inline MemoryType MemoryDependency::resolve_type<std::string>() { return MemoryType::String; }
-
     struct TextDatabaseDependency {
         core::TextID id;
 
@@ -63,17 +38,12 @@ namespace core::reactivity {
         auto operator<=>(const PropertyDependency&) const = default;
     };
 
-    using dependency_t = std::variant<UberStateDependency, MemoryDependency, TextDatabaseDependency, PropertyDependency>;
+    using dependency_t = std::variant<UberStateDependency, TextDatabaseDependency, PropertyDependency>;
 } // namespace core::reactivity
 
 template<>
 struct std::hash<core::reactivity::UberStateDependency> {
     std::size_t operator()(const core::reactivity::UberStateDependency& value) const noexcept { return value.group * 1000000000 + value.state; }
-};
-
-template<>
-struct std::hash<core::reactivity::MemoryDependency> {
-    std::size_t operator()(const core::reactivity::MemoryDependency& value) const noexcept { return static_cast<std::size_t>(value.type) * 1000000000 + value.id; }
 };
 
 template<>

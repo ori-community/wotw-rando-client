@@ -60,6 +60,8 @@ namespace randomizer::seed {
 
         template<typename T>
         void set(std::size_t index, const T& value);
+
+        void clear() const;
     };
 
     template<>
@@ -101,33 +103,6 @@ namespace randomizer::seed {
     inline void SeedMemory::set(const std::size_t index, const std::string& value) {
         strings.set(index, value);
     }
-
-    class PersistentSeedMemory final : public core::save_meta::SaveMetaSerializable {
-    public:
-        SeedMemory memory;
-        common::Droppable::ptr_t on_new_game_registration_handle;
-
-        PersistentSeedMemory();
-        PersistentSeedMemory(const PersistentSeedMemory& other) = delete;
-        PersistentSeedMemory(PersistentSeedMemory&& other) = delete;
-
-        std::vector<std::byte> serialize() override;
-        void deserialize(core::utils::ByteStream& stream) override;
-
-        template<typename T>
-        T get(const std::size_t index) const {
-            using namespace core::reactivity;
-            notify_used(MemoryDependency(MemoryDependency::resolve_type<T>(), index));
-            return memory.get<T>(index);
-        }
-
-        template<typename T>
-        void set(const std::size_t index, const T& value) {
-            using namespace core::reactivity;
-            notify_changed(MemoryDependency(MemoryDependency::resolve_type<T>(), index));
-            memory.set(index, value);
-        }
-    };
 
     struct SeedTimer {
         core::api::uber_states::UberState toggle;

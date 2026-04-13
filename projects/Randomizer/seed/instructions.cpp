@@ -228,12 +228,6 @@ namespace randomizer::seed {
         })();
     } // namespace
 
-    PersistentSeedMemory::PersistentSeedMemory() {
-        on_new_game_registration_handle = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [this](auto, auto) {
-            queue_input_unlocked_callback([this] { memory = SeedMemory(); });
-        });
-    }
-
     template<typename T>
     void serialize_register(core::utils::ByteStream& stream, const SeedMemory::MemoryRegister<T>& memory_register) {
         stream.write(memory_register.values.size());
@@ -269,26 +263,6 @@ namespace randomizer::seed {
         for (auto i = 0; i < length; ++i) {
             memory_register.values[i] = stream.read_string(stream.read<std::size_t>());
         }
-    }
-
-    std::vector<std::byte> PersistentSeedMemory::serialize() {
-        core::utils::ByteStream stream;
-
-        serialize_register(stream, memory.booleans);
-        serialize_register(stream, memory.integers);
-        serialize_register(stream, memory.floats);
-        serialize_register(stream, memory.strings);
-
-        return stream.buffer;
-    }
-
-    void PersistentSeedMemory::deserialize(core::utils::ByteStream& stream) {
-        memory = SeedMemory();
-
-        deserialize_register(stream, memory.booleans);
-        deserialize_register(stream, memory.integers);
-        deserialize_register(stream, memory.floats);
-        deserialize_register(stream, memory.strings);
     }
 
     SeedExecutionEnvironment::SeedExecutionEnvironment(Seed& seed) : m_seed(seed) {
@@ -588,6 +562,13 @@ namespace randomizer::seed {
 
             return std::move(it->second(j.begin().value()));
         }
+    }
+
+    void SeedMemory::clear() const {
+        booleans.values.clear();
+        integers.values.clear();
+        floats.values.clear();
+        strings.values.clear();
     }
 
     void to_json(nlohmann::json& j, const SeedTimer& timer) {

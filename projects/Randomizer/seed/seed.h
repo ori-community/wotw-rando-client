@@ -160,7 +160,6 @@ namespace randomizer::seed {
         bool m_force_grant_outside_game = false;
         std::vector<IInstruction*> m_command_stack;
         SeedMemory m_memory;
-        std::shared_ptr<PersistentSeedMemory> m_persistent_memory = std::make_shared<PersistentSeedMemory>();
     };
 
 

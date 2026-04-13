@@ -11,7 +11,6 @@ namespace randomizer::seed {
 
     Seed::Seed() {
         register_slot(SaveMetaSlot::SeedEnvironment, SaveMetaSlotPersistence::None, m_environment);
-        register_slot(SaveMetaSlot::SeedPersistentMemory, SaveMetaSlotPersistence::None, m_persistent_memory);
     }
 
     void Seed::read(const std::shared_ptr<SeedArchive>& seed_archive, const seed_parser parser, const bool show_message) {
