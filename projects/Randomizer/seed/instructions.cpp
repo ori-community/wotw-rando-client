@@ -97,8 +97,6 @@
 #include <functional>
 #include <utility>
 
-#include "Core/ipc/ipc.h"
-
 namespace randomizer::seed {
     namespace {
         [[maybe_unused]]
@@ -320,7 +318,6 @@ namespace randomizer::seed {
         m_serialized_warp_icons.clear();
         m_box_triggers.clear();
         m_warp_icons.clear();
-        m_item_tracker_goals.clear();
     }
 
     void SeedExecutionEnvironment::process_queued_message_box_visibility_callbacks() {
@@ -547,12 +544,6 @@ namespace randomizer::seed {
             const auto warp_icon = instructions::CreateWarpIcon::create_warp_icon(serialized_icon.position, serialized_icon.label);
             m_warp_icons[id] = warp_icon;
         }
-    }
-
-    void SeedExecutionEnvironment::notify_ipc_item_tracker_goals_changed() {
-        nlohmann::json request = core::ipc::make_request("notify_item_tracker_goals_changed");
-        request["payload"] = m_item_tracker_goals;
-        core::ipc::send_message(request);
     }
 
     std::unique_ptr<IInstruction> create_instruction(const nlohmann::json& j) {

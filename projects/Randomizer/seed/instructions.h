@@ -1,8 +1,8 @@
 #pragma once
 
 #include <Core/messages/message_handle.h>
-#include <Core/save_meta/save_meta.h>
 #include <Core/utils/json_serializers.h>
+#include <Core/save_meta/save_meta.h>
 #include <memory>
 #include <nlohmann/adl_serializer.hpp>
 #include <string>
@@ -126,9 +126,19 @@ namespace randomizer::seed {
 
         RuntimeState runtime_state;
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(SeedBoxTrigger, x_min, y_min, x_max, y_max, on_enter_command_id, on_leave_command_id);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+            SeedBoxTrigger,
+            x_min,
+            y_min,
+            x_max,
+            y_max,
+            on_enter_command_id,
+            on_leave_command_id
+        );
 
-        bool is_inside(const app::Vector2& point) const { return x_min <= point.x && point.x <= x_max && y_min <= point.y && point.y <= y_max; }
+        bool is_inside(const app::Vector2& point) const {
+            return x_min <= point.x && point.x <= x_max && y_min <= point.y && point.y <= y_max;
+        }
     };
 
     struct QueuedMessageBox {
@@ -180,18 +190,11 @@ namespace randomizer::seed {
         std::string label;
         app::Vector2 position;
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(SerializedWarpIcon, label, position);
-    };
-
-    struct ItemTrackerGoal {
-        /** Icon text, should be short (e.g. "7/14") */
-        std::string text;
-        /** The UI icon */
-        std::string ui_icon;
-        /** The color the icon and text are multiplied with in the item tracker */
-        std::string color;
-
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(ItemTrackerGoal, text, ui_icon, color);
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+            SerializedWarpIcon,
+            label,
+            position
+        );
     };
 
     struct SeedExecutionEnvironment final : public core::save_meta::JsonSaveMetaSerializable {
@@ -358,11 +361,6 @@ namespace randomizer::seed {
          */
         void set_queued_message_pickup_position_in_current_scope(app::Vector2 position);
 
-        /**
-         * Returns the map of item tracker goals
-         */
-        [[nodiscard]] const std::unordered_map<std::size_t, ItemTrackerGoal>& item_tracker_goals() const { return m_item_tracker_goals; }
-
     private:
         // Serialized properties.
         // These are only serialized on-demand in json_serialize():
@@ -370,15 +368,13 @@ namespace randomizer::seed {
         std::unordered_map<std::size_t, SerializedWarpIcon> m_serialized_warp_icons;
         std::vector<SeedTimer> m_timers;
         std::unordered_map<std::size_t, SeedBoxTrigger> m_box_triggers;
-        std::unordered_map<std::size_t, ItemTrackerGoal> m_item_tracker_goals;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(
             SeedExecutionEnvironment,
             m_serialized_free_message_boxes,
             m_serialized_warp_icons,
             m_timers,
-            m_box_triggers,
-            m_item_tracker_goals
+            m_box_triggers
         );
 
         // Runtime
@@ -400,9 +396,7 @@ namespace randomizer::seed {
          * events.
          */
         void restore_serialized_data_to_runtime();
-
-        void notify_ipc_item_tracker_goals_changed();
     };
 
     std::unique_ptr<IInstruction> create_instruction(const nlohmann::json& j);
-} // namespace randomizer::seed
+}

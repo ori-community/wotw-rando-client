@@ -222,12 +222,6 @@ namespace randomizer::ipc {
             core::ipc::send_message(response);
         }
 
-        void get_item_tracker_goals(const nlohmann::json& j) {
-            auto response = core::ipc::respond_to(j);
-            response["payload"] = game_seed().environment().item_tracker_goals();
-            core::ipc::send_message(response);
-        }
-
         void report_load(GameEvent game_event, EventTiming timing) {
             send_message(core::ipc::make_request("notify_on_load"));
         }
@@ -270,7 +264,6 @@ namespace randomizer::ipc {
             register_request_handler("get_pickup_count_by_area", get_pickup_count_by_area);
             register_request_handler("get_pickup_counts", get_pickup_counts);
             register_request_handler("load_new_game_source", load_new_game_source);
-            register_request_handler("get_item_tracker_goals", get_item_tracker_goals);
         });
     } // namespace
 
