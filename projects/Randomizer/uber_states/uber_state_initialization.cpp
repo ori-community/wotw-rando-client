@@ -427,12 +427,15 @@ namespace randomizer {
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "launchFragmentsCount", 1, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "launchFragmentsRequired", 2, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::ItemTracker, "totalRelicCount", 500, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::ItemTracker, "currentRelicCount", 501, 0),
-                add_state<app::SerializedByteUberState>(UberStateGroup::ItemTracker, "currentTreeCount", 502, 0),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::ItemTracker, "currentAreaHasUncollectedRelic", 505, false),
-
-                add_state<app::SerializedIntUberState>(UberStateGroup::Stats, "launchFragmentsCount", 1, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "treesCount", 100, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "treesRequired", 101, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "wispsCount", 102, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "wispsRequired", 103, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "questsCount", 104, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "questsRequired", 105, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "relicsCount", 106, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "relicsRequired", 107, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::ItemTracker, "currentAreaHasUncollectedRelic", 500, false),
 
                 add_state<app::SerializedByteUberState>(UberStateGroup::LupoShop, "hcMapIcons", 19396, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::LupoShop, "hcMapIconsCost", 19397, 0),
