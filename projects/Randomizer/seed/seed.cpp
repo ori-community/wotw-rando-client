@@ -15,6 +15,7 @@ namespace randomizer::seed {
 
     void Seed::read(const std::shared_ptr<SeedArchive>& seed_archive, const seed_parser parser, const bool show_message) {
         m_seed_archive = seed_archive;
+        m_memory.clear();
 
         event_bus().trigger_event(RandomizerEvent::SeedLoaded, EventTiming::Before);
         const auto data = std::make_shared<SeedParseOutput>();
