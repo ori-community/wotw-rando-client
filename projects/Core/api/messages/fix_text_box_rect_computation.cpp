@@ -39,7 +39,7 @@ namespace core::api::messages {
                 // These will be clamped to the first and last visible character below
                 auto front = line_info.firstCharIndex;
                 auto back = line_info.lastCharIndex;
-                app::CharMetaData back_character_meta_data{};
+                app::CharMetaData back_character_meta_data;
 
                 for (;;) {
                     back_character_meta_data = text_box->fields.charMetaData->vector[back];
@@ -49,7 +49,7 @@ namespace core::api::messages {
                     --back;
                 }
 
-                if (front == back && back_character_meta_data.type != app::CharType__Enum::Visible) {
+                if (front == back && back_character_meta_data.type != app::CharType__Enum::Visible || back_character_meta_data.font == nullptr) {
                     continue;
                 }
 
