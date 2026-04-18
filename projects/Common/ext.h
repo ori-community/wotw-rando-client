@@ -43,7 +43,7 @@ static inline std::string& ltrim(std::string& s) {
         std::find_if(
             s.begin(),
             s.end(),
-            [](int ch) {
+            [](unsigned char ch) {
                 return !std::isspace(ch);
             }
         )
@@ -57,8 +57,8 @@ static inline std::string& rtrim(std::string& s) {
         std::find_if(
             s.rbegin(),
             s.rend(),
-            [](int ch) {
-                return !std::isspace(static_cast<unsigned char>(ch));
+            [](unsigned char ch) {
+                return !std::isspace(ch);
             }
         ).base(),
         s.end()
