@@ -424,7 +424,7 @@ namespace core::api::uber_states {
         }
 
         const auto csstring = il2cpp::invoke<app::String>(uber_state, "get_Name");
-        return il2cpp::convert_csstring(csstring);
+        return il2cpp::convert_csstring_fast_unsafe(csstring);
     }
 
     std::string UberState::group_name() const {
@@ -440,7 +440,7 @@ namespace core::api::uber_states {
 
         const auto group = il2cpp::invoke<app::IUberStateGroup>(uber_state, "get_UberStateGroup");
         const auto csstring = il2cpp::invoke<app::String>(group, "get_GroupName");
-        return il2cpp::convert_csstring(csstring);
+        return il2cpp::convert_csstring_fast_unsafe(csstring);
     }
 
     void UberState::apply() const { UberStateController::Apply_2(ptr(), app::UberStateApplyContext__Enum::ValueChanged); }

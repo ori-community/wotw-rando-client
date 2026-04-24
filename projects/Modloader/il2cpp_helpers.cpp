@@ -18,10 +18,9 @@
 #include <Modloader/windows_api/memory.h>
 #include <Modloader/app/il2cpp_api.h>
 
-#include <Common/ext.h>
-
 #include <vector>
 #include <xstring>
+#include <codecvt>
 
 using namespace modloader::win;
 using namespace app::classes;
@@ -331,7 +330,7 @@ namespace il2cpp {
             const auto child_count = UnityEngine::Transform::get_childCount(transform);
             for (int i = 0; i < child_count; i++) {
                 auto child = UnityEngine::Transform::GetChild(transform, i);
-                if (convert_csstring(UnityEngine::Object::get_name(reinterpret_cast<app::Object_1*>(child))) ==
+                if (convert_csstring_fast_unsafe(UnityEngine::Object::get_name(reinterpret_cast<app::Object_1*>(child))) ==
                     name) {
                     children.push_back(get_game_object(child));
                 }
@@ -439,7 +438,7 @@ namespace il2cpp {
                 return "nullptr";
             }
 
-            return convert_csstring(UnityEngine::Object::get_name(cast_object));
+            return convert_csstring_fast_unsafe(UnityEngine::Object::get_name(cast_object));
         }
 
         app::String* get_object_csname(void* object) {
@@ -475,13 +474,13 @@ namespace il2cpp {
         std::string get_scene_name(const app::Scene& scene) {
             const auto boxed = types::Scene::box(scene);
             const auto csstring = UnityEngine::SceneManagement::Scene::get_name(boxed);
-            return convert_csstring(csstring);
+            return convert_csstring_fast_unsafe(csstring);
         }
 
         std::string get_scene_path(const app::Scene& scene) {
             const auto boxed = box_value<app::Scene__Boxed>(get_class("UnityEngine.SceneManagement", "Scene"), scene);
             const auto csstring = UnityEngine::SceneManagement::Scene::get_path(boxed);
-            return convert_csstring(csstring);
+            return convert_csstring_fast_unsafe(csstring);
         }
     } // namespace unity
 
@@ -946,17 +945,28 @@ namespace il2cpp {
      * @param il2cpp_string
      * @return
      */
-    std::string convert_csstring(Il2CppString* il2cpp_string) {
+    std::string convert_csstring_fast_unsafe(const Il2CppString* il2cpp_string) {
         std::string str(il2cpp_string->length, 0);
 
         for (auto i = 0; i < il2cpp_string->length; i++) {
-            str[i] = (char)il2cpp_string->chars[i];
+            str[i] = static_cast<char>(il2cpp_string->chars[i]);
         }
 
         return str;
     }
 
+    std::string convert_csstring(Il2CppString* str) {
+        std::u16string u16(reinterpret_cast<const char16_t*>(str->chars));
+
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        return std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t>{}.to_bytes(u16);
+        #pragma clang diagnostic pop
+    }
+
     std::string convert_csstring(app::String* str) { return convert_csstring(reinterpret_cast<Il2CppString*>(str)); }
+
+    std::string convert_csstring_fast_unsafe(app::String* str) { return convert_csstring_fast_unsafe(reinterpret_cast<Il2CppString*>(str)); }
 
     const Il2CppType* get_type(Il2CppClass* klass) { return il2cpp_class_get_type(klass); }
 

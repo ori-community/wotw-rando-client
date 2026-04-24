@@ -42,7 +42,7 @@ namespace core::api::scenes {
             next::SceneManagerScene::ChangeState(this_ptr, state);
 
             auto scene_name_csstring = this_ptr->fields.MetaData->fields.Scene;
-            auto scene_name = il2cpp::convert_csstring(scene_name_csstring);
+            auto scene_name = il2cpp::convert_csstring_fast_unsafe(scene_name_csstring);
             auto scenes_manager = get_scenes_manager();
             auto scene_meta = ScenesManager::GetSceneInformation(scenes_manager, scene_name_csstring);
             auto scene_manager_scene = ScenesManager::GetFromCurrentScenes_1(scenes_manager, scene_meta);
@@ -89,7 +89,7 @@ namespace core::api::scenes {
 
         IL2CPP_INTERCEPT(bool, ScenesManager, CancelScene, app::ScenesManager * this_ptr, app::SceneManagerScene* scene) {
             auto scene_name_csstring = scene->fields.MetaData->fields.Scene;
-            auto scene_name = il2cpp::convert_csstring(scene_name_csstring);
+            auto scene_name = il2cpp::convert_csstring_fast_unsafe(scene_name_csstring);
 
             if (scenes_to_load.contains(scene_name)) {
                 return false;
@@ -122,7 +122,7 @@ namespace core::api::scenes {
 
     std::string current_scene_name() {
         const auto scene = current_scene();
-        return scene == nullptr ? "" : il2cpp::convert_csstring(scene->fields.Scene);
+        return scene == nullptr ? "" : il2cpp::convert_csstring_fast_unsafe(scene->fields.Scene);
     }
 
     bool is_in_game() {
@@ -286,7 +286,7 @@ namespace core::api::scenes {
         std::set<std::string> scene_names;
 
         for (const auto scene_id: get_scene_ids_at_position(position)) {
-            scene_names.emplace(il2cpp::convert_csstring(scenes_manager->fields.m_linearScenesArray->vector[scene_id]->fields.Scene));
+            scene_names.emplace(il2cpp::convert_csstring_fast_unsafe(scenes_manager->fields.m_linearScenesArray->vector[scene_id]->fields.Scene));
         }
 
         return scene_names;

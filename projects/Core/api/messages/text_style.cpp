@@ -398,7 +398,7 @@ namespace text_style {
 
         auto style_array = box->fields.styleCollection->fields.styles;
         for (const auto& style: il2cpp::ArrayIterator(style_array)) {
-            auto name = il2cpp::convert_csstring(style->fields.name);
+            auto name = il2cpp::convert_csstring_fast_unsafe(style->fields.name);
             existing_style_names.emplace(name);
         }
 

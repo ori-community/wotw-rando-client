@@ -330,7 +330,7 @@ namespace dev::visualize {
 
         void visualize_new_setup_state_controller(Visualizer& visualizer, void* obj) {
             auto controller = reinterpret_cast<app::NewSetupStateController*>(obj);
-            auto guid_str = il2cpp::convert_csstring(controller->fields.m_guidStr);
+            auto guid_str = il2cpp::convert_csstring_fast_unsafe(controller->fields.m_guidStr);
             indent(visualizer, 0, 1);
             visualizer.stream << get_full_name(obj) << " - " << guid_str << visualizer.new_line;
             indent(visualizer);
@@ -340,7 +340,7 @@ namespace dev::visualize {
             auto all_states = NewSetupStateController::GetAllStateGUIDs(controller);
             for (auto guid: il2cpp::ArrayIterator(all_states)) {
                 auto csname = NewSetupStateController::GetStateName(controller, guid);
-                auto name = il2cpp::convert_csstring(csname);
+                auto name = il2cpp::convert_csstring_fast_unsafe(csname);
 
                 indent(visualizer);
                 visualizer.stream << "-> " << guid << " : " << name.c_str() << visualizer.new_line;
@@ -370,7 +370,7 @@ namespace dev::visualize {
                         << item->fields.ModifierGUID
                         << std::noshowbase << std::dec << visualizer.new_line;
                     auto csname = il2cpp::invoke<app::String>(item, "get_Name");
-                    auto name = il2cpp::convert_csstring(csname);
+                    auto name = il2cpp::convert_csstring_fast_unsafe(csname);
 
                     indent(visualizer);
                     visualizer.stream << "name: " << name << visualizer.new_line;
@@ -541,10 +541,10 @@ namespace dev::visualize {
         void visualize_serialized_uber_state(Visualizer& visualizer, void* obj) {
             auto state = reinterpret_cast<app::IUberState*>(obj);
             auto csstate = il2cpp::invoke<app::String>(state, "get_Name");
-            auto state_name = il2cpp::convert_csstring(csstate);
+            auto state_name = il2cpp::convert_csstring_fast_unsafe(csstate);
             auto group = il2cpp::invoke<app::IUberStateGroup>(state, "get_UberStateGroup");
             auto csgroup = il2cpp::invoke<app::String>(group, "get_GroupName");
-            auto group_name = il2cpp::convert_csstring(csgroup);
+            auto group_name = il2cpp::convert_csstring_fast_unsafe(csgroup);
 
             indent(visualizer);
             visualizer.stream << "serialized_uber_state: {" << visualizer.new_line;

@@ -68,6 +68,8 @@ namespace il2cpp {
 
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
 
+    IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring_fast_unsafe(app::String* str);
+
     template <typename R = void, typename T, typename C>
     R call_virtual(T* object, const VirtualInvokeData* virtual_method, C* interface_class) {
         using fn_t = R (*)(T* this_ptr, const MethodInfo*);

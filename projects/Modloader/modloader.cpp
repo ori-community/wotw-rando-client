@@ -179,9 +179,9 @@ namespace modloader {
 
     IL2CPP_INTERCEPT_WITH_ORDER(-1000, void, GameController, FixedUpdate, app::GameController * this_ptr) {
         if (!initialized) {
-            auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());
-            auto version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_version());
-            auto unity_version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_unityVersion());
+            auto product = il2cpp::convert_csstring_fast_unsafe(app::classes::UnityEngine::Application::get_productName());
+            auto version = il2cpp::convert_csstring_fast_unsafe(app::classes::UnityEngine::Application::get_version());
+            auto unity_version = il2cpp::convert_csstring_fast_unsafe(app::classes::UnityEngine::Application::get_unityVersion());
             trace(LogLevel::Info, "initialize", std::format("Initializing Application {} ({})[{}].", product, version, unity_version));
 
             trace(LogLevel::Info, "initialize", "Calling initialization callbacks.");

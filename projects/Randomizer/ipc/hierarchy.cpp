@@ -451,7 +451,7 @@ namespace randomizer::ipc {
             auto cast = reinterpret_cast<app::SetupState*>(obj);
             j["value"] = nlohmann::json::array({
                 create_variable("state_guid", "scalar", cast->fields.StateGUID),
-                create_variable("state_name", "scalar", il2cpp::convert_csstring(cast->fields.StateName)),
+                create_variable("state_name", "scalar", il2cpp::convert_csstring_fast_unsafe(cast->fields.StateName)),
             });
         }
 
@@ -532,7 +532,7 @@ namespace randomizer::ipc {
             auto base_type = reinterpret_cast<app::BaseType*>(obj);
             j["value"] = nlohmann::json::array({
                 create_variable("id", "scalar", AK::Wwise::BaseType::get_Id(base_type)),
-                create_variable("name", "scalar", il2cpp::convert_csstring(AK::Wwise::BaseType::get_Name(base_type))),
+                create_variable("name", "scalar", il2cpp::convert_csstring_fast_unsafe(AK::Wwise::BaseType::get_Name(base_type))),
             });
         }
 
@@ -542,7 +542,7 @@ namespace randomizer::ipc {
             j["value"] = nlohmann::json::array({
                 create_variable("group_id", "scalar", AK::Wwise::BaseGroupType::get_GroupId(base_group_type)),
                 create_variable("id", "scalar", AK::Wwise::BaseType::get_Id(base_type)),
-                create_variable("name", "scalar", il2cpp::convert_csstring(AK::Wwise::BaseType::get_Name(base_type))),
+                create_variable("name", "scalar", il2cpp::convert_csstring_fast_unsafe(AK::Wwise::BaseType::get_Name(base_type))),
             });
         }
 

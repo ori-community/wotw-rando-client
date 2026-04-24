@@ -183,7 +183,7 @@ namespace randomizer::doors {
 
                 const auto scenes_manager = core::api::scenes::get_scenes_manager();
                 for (auto& scene: il2cpp::ListIterator(scenes_manager->fields.AllScenes)) {
-                    if (il2cpp::convert_csstring(scene->fields.Scene) == scene_name) {
+                    if (il2cpp::convert_csstring_fast_unsafe(scene->fields.Scene) == scene_name) {
                         il2cpp::invoke(scene->fields.SceneLoadingBoundaries, "Add", &zone.rect);
 
                         // Recalculate total scene rectangle
@@ -259,7 +259,7 @@ namespace randomizer::doors {
 
         IL2CPP_INTERCEPT(void, ScenesManager, Awake, app::ScenesManager* this_ptr) {
             for (auto& scene: il2cpp::ListIterator(this_ptr->fields.AllScenes)) {
-                auto it = scene_loading_zones_related_to_doors.find(il2cpp::convert_csstring(scene->fields.Scene));
+                auto it = scene_loading_zones_related_to_doors.find(il2cpp::convert_csstring_fast_unsafe(scene->fields.Scene));
                 if (it != scene_loading_zones_related_to_doors.end()) {
                     for (auto& index: it->second | std::views::reverse) {
                         int index_copy = index;
@@ -471,7 +471,7 @@ namespace randomizer::doors {
         for (auto& target_loading_zone_cache: target_loading_zones_cache) {
             const auto scenes_manager = core::api::scenes::get_scenes_manager();
             for (auto& scene: il2cpp::ListIterator(scenes_manager->fields.AllScenes)) {
-                if (il2cpp::convert_csstring(scene->fields.Scene) == target_loading_zone_cache.scene_name) {
+                if (il2cpp::convert_csstring_fast_unsafe(scene->fields.Scene) == target_loading_zone_cache.scene_name) {
                     il2cpp::invoke(scene->fields.SceneLoadingBoundaries, "Remove", &target_loading_zone_cache.rect);
                     break;
                 }

@@ -79,7 +79,7 @@ namespace {
         if (context->fields.PickupType == app::PickupMessageIcon_PickupType__Enum::QuestItem) {
             auto arr = MessageProvider::GetAllMessages(context->fields.Name);
             if (arr->max_length > 0) {
-                auto name = il2cpp::convert_csstring(arr->vector[0]);
+                auto name = il2cpp::convert_csstring_fast_unsafe(arr->vector[0]);
                 if (name == "Gorlek Ore" || name == "Giant Spirit Light Container") {
                     return nullptr;
                 }

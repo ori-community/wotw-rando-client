@@ -260,12 +260,12 @@ namespace randomizer::game::pickups::quests {
             }
 
             const auto csname = il2cpp::invoke<app::String>(state, "get_Name");
-            const auto name = il2cpp::convert_csstring(csname);
+            const auto name = il2cpp::convert_csstring_fast_unsafe(csname);
             const auto id = state->fields._.m_id->fields.m_id;
             const auto value = state->fields.m_value;
             const auto group_id = state->fields.Group->fields._.m_id->fields.m_id;
             const auto csgroup = il2cpp::invoke<app::String>(state->fields.Group, "get_GroupName");
-            const auto group_name = il2cpp::convert_csstring(csgroup);
+            const auto group_name = il2cpp::convert_csstring_fast_unsafe(csgroup);
             console::console_send(std::format("quest: '{}' {{ {} }} '{}' {{ {} }} : {}", name, id, group_name, group_id, value));
         }
 
