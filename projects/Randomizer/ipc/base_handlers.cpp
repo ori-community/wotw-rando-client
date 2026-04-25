@@ -113,17 +113,14 @@ namespace randomizer::ipc {
 
         void get_total_pickup_count(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
-            response["payload"]["count"] = game_seed().parser_output().meta.total_pickups;
+            response["payload"]["count"] = core::api::uber_states::UberState(UberStateGroup::RandoStats, 1).get<int>();
             core::ipc::send_message(response);
         }
 
         void get_pickup_count_by_area(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
             const auto area = j.at("area").get<GameArea>();
-            const auto& pickup_count_by_area = game_seed().parser_output().meta.pickup_count_by_area;
-            auto it = pickup_count_by_area.find(area);
-            const auto count = it != pickup_count_by_area.end() ? it->second : 0;
-            response["payload"]["count"] = count;
+            response["payload"]["count"] = core::api::uber_states::UberState(UberStateGroup::RandoStats, 1100 + static_cast<int>(area)).get<int>();
             core::ipc::send_message(response);
         }
 
@@ -134,13 +131,10 @@ namespace randomizer::ipc {
             nlohmann::json areas;
             for (auto i = 0; i < static_cast<int>(GameArea::TOTAL); ++i) {
                 auto area = static_cast<GameArea>(i);
-                auto it = info.meta.pickup_count_by_area.find(area);
-                if (it != info.meta.pickup_count_by_area.end()) {
-                    areas[std::to_string(static_cast<int>(area))] = it->second;
-                }
+                areas[std::to_string(static_cast<int>(area))] = core::api::uber_states::UberState(UberStateGroup::RandoStats, 1100 + static_cast<int>(area)).get<int>();
             }
 
-            response["payload"]["total"] = info.meta.total_pickups;
+            response["payload"]["total"] = core::api::uber_states::UberState(UberStateGroup::RandoStats, 1).get<int>();
             response["payload"]["areas"] = areas;
             core::ipc::send_message(response);
         }

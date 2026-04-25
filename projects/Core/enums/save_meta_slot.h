@@ -6,11 +6,10 @@
  * Each slot can only be used once.
  */
 enum class SaveMetaSlot {
-    CheckpointGameStats,
-    SaveFileGameStats,
-    SeedMetaData,
-    SeedArchiveData,
-    SeedEnvironment,
-    StaticText,
-    SaveFileGameStatsEvents,
+    SaveFileGameStats = 1,
+    SeedMetaData = 2,
+    SeedArchiveData = 3,
+    SeedEnvironment = 4,
+    StaticText = 5,
+    SaveFileGameStatsEvents = 6,
 };

@@ -69,29 +69,6 @@ namespace randomizer::timing {
     class GameStats : public core::save_meta::JsonSaveMetaSerializable {
     };
 
-    class CheckpointGameStats : public GameStats {
-    public:
-        // Tracking
-        int total_pickups = 0;
-
-        // Stats
-        std::unordered_map<GameArea, int> pickups_per_area;
-
-        // JSON
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
-            CheckpointGameStats,
-            total_pickups,
-            pickups_per_area
-        );
-
-        // Methods
-        void report_pickup(GameArea area);
-
-        nlohmann::json json_serialize() override;
-
-        void json_deserialize(nlohmann::json& j) override;
-    };
-
     class SaveFileGameStats : public GameStats {
     public:
         struct AreaStats {

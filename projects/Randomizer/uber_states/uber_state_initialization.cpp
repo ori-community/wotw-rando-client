@@ -335,8 +335,9 @@ namespace randomizer {
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "depthsWave", 3, 0),
                 add_state<app::IntUberState>(UberStateGroup::Shrines, "woodsWave", 4, 0),
 
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "keystonesCollected", 0, 0),
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollected", 2, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollected", 0, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsTotal", 1, 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "keystonesCollected", 2, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "spiritLightCollected", 3, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "spiritLightSpent", 4, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "oreCollected", 5, 0),
@@ -362,6 +363,33 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "slimeKills", 43, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "fishKills", 44, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "exploderKills", 45, 0),
+
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollectedMarsh", 1000 + static_cast<int>(GameArea::Marsh), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsTotalMarsh", 1100 + static_cast<int>(GameArea::Marsh), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollectedHollow", 1000 + static_cast<int>(GameArea::Hollow), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsTotalHollow", 1100 + static_cast<int>(GameArea::Hollow), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollectedGlades", 1000 + static_cast<int>(GameArea::Glades), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsTotalGlades", 1100 + static_cast<int>(GameArea::Glades), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollectedWellspring", 1000 + static_cast<int>(GameArea::Wellspring), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsTotalWellspring", 1100 + static_cast<int>(GameArea::Wellspring), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollectedPools", 1000 + static_cast<int>(GameArea::Pools), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsTotalPools", 1100 + static_cast<int>(GameArea::Pools), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollectedBurrows", 1000 + static_cast<int>(GameArea::Burrows), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsTotalBurrows", 1100 + static_cast<int>(GameArea::Burrows), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollectedReach", 1000 + static_cast<int>(GameArea::Reach), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsTotalReach", 1100 + static_cast<int>(GameArea::Reach), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollectedWoods", 1000 + static_cast<int>(GameArea::Woods), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsTotalWoods", 1100 + static_cast<int>(GameArea::Woods), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollectedDepths", 1000 + static_cast<int>(GameArea::Depths), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsTotalDepths", 1100 + static_cast<int>(GameArea::Depths), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollectedWastes", 1000 + static_cast<int>(GameArea::Wastes), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsTotalWastes", 1100 + static_cast<int>(GameArea::Wastes), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollectedRuins", 1000 + static_cast<int>(GameArea::Ruins), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsTotalRuins", 1100 + static_cast<int>(GameArea::Ruins), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollectedWillow", 1000 + static_cast<int>(GameArea::Willow), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsTotalWillow", 1100 + static_cast<int>(GameArea::Willow), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsCollectedShop", 1000 + static_cast<int>(GameArea::Shop), 0),
+                add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "pickupsTotalShop", 1100 + static_cast<int>(GameArea::Shop), 0),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "shriekBarrier", 0, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "eastWoodsTrunkSlowWalkZoneEnabledState", 36, false),
@@ -511,7 +539,7 @@ namespace randomizer {
             register_virtual_uber_state_from_property(UberStateGroup::Player, 11, ValueType::Float, "health", health(), VirtualUberState::ChangeDetectionMode::Poll);
             register_virtual_uber_state_from_property(UberStateGroup::Player, 12, ValueType::Float, "maxEnergy", max_energy(), VirtualUberState::ChangeDetectionMode::Poll);
             register_virtual_uber_state_from_property(UberStateGroup::Player, 13, ValueType::Float, "energy", energy(), VirtualUberState::ChangeDetectionMode::Poll);
-            register_virtual_uber_state(UberStateGroup::Player, 50, ValueType::Integer, "currentMapArea", [] { return static_cast<int>(get_current_area()); }, std::nullopt, VirtualUberState::ChangeDetectionMode::ReactiveEffect);
+            register_virtual_uber_state(UberStateGroup::Player, 50, ValueType::Integer, "currentArea", [] { return static_cast<int>(get_current_area()); }, std::nullopt, VirtualUberState::ChangeDetectionMode::ReactiveEffect);
             register_read_only_virtual_uber_state_from_property(UberStateGroup::Player, 51, ValueType::Integer, "currentMapArea", uber_states::readonly::player_current_map_area(), VirtualUberState::ChangeDetectionMode::ReactiveEffect);
             register_read_only_virtual_uber_state_from_property(UberStateGroup::Player, 100, ValueType::Boolean, "isTeleporting", uber_states::readonly::player_is_teleporting(), VirtualUberState::ChangeDetectionMode::ReactiveEffect);
 

@@ -46,7 +46,6 @@ namespace randomizer::timing {
     // Used to prevent the timer from running when having started the game just now
     bool loaded_any_save_file = false;
 
-    std::shared_ptr<CheckpointGameStats> checkpoint_stats = std::make_shared<CheckpointGameStats>();
     std::shared_ptr<SaveFileGameStats> save_stats = std::make_shared<SaveFileGameStats>();
     std::shared_ptr<SaveFileGameStatsEvents> save_stats_events = std::make_shared<SaveFileGameStatsEvents>(save_stats);
 
@@ -82,16 +81,10 @@ namespace randomizer::timing {
         }
 
         void reset_stats() {
-            checkpoint_stats = std::make_shared<CheckpointGameStats>();
             save_stats = std::make_shared<SaveFileGameStats>();
             save_stats_events = std::make_shared<SaveFileGameStatsEvents>(save_stats);
             position_cache = std::nullopt;
 
-            core::save_meta::register_slot(
-                SaveMetaSlot::CheckpointGameStats,
-                SaveMetaSlotPersistence::None,
-                checkpoint_stats
-            );
             core::save_meta::register_slot(
                 SaveMetaSlot::SaveFileGameStats,
                 SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups,
@@ -287,10 +280,7 @@ namespace randomizer::timing {
                     "timer.get_stats",
                     [](const nlohmann::json& j) {
                         auto response = core::ipc::respond_to(j);
-
                         response["payload"]["save"] = *save_stats;
-                        response["payload"]["checkpoint"] = *checkpoint_stats;
-
                         core::ipc::send_message(response);
                     }
                 );
@@ -422,9 +412,5 @@ namespace randomizer::timing {
 
     SaveFileGameStatsEvents& get_save_file_game_stats_events() {
         return *save_stats_events;
-    }
-
-    const CheckpointGameStats& get_checkpoint_game_stats() {
-        return *checkpoint_stats;
     }
 } // namespace randomizer::timing

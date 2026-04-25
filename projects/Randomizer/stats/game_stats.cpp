@@ -1,5 +1,4 @@
 #include <Randomizer/stats/game_stats.h>
-
 #include <Common/vx.h>
 
 namespace randomizer::timing {
@@ -36,20 +35,6 @@ namespace randomizer::timing {
             total += item.second;
         }
         return total;
-    }
-
-    void CheckpointGameStats::report_pickup(GameArea area) {
-        ++this->pickups_per_area[area];
-        ++this->total_pickups;
-    }
-
-    nlohmann::json CheckpointGameStats::json_serialize() {
-        nlohmann::json j = *this;
-        return j;
-    }
-
-    void CheckpointGameStats::json_deserialize(nlohmann::json& j) {
-        j.get_to(*this);
     }
 
     void SaveFileGameStatsEvents::report_position(const app::Vector2& position) {

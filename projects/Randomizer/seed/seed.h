@@ -101,10 +101,6 @@ namespace randomizer::seed {
         app::Vector2 spawn = {-798.797058f, -4310.119141f};
         std::optional<std::string> slug;
         GameDifficultySettings game_difficulties;
-
-        // TODO: Figure this shit out.
-        int total_pickups = 0;
-        std::unordered_map<GameArea, int> pickup_count_by_area;
     };
 
     struct SeedParseOutput {
@@ -133,7 +129,6 @@ namespace randomizer::seed {
         bool should_grant() const;
 
         SeedParseOutput const& parser_output() const { return *m_parse_output; }
-        int total_pickups() const { return m_parse_output->meta.total_pickups; }
 
         /**
          * Triggers a client event
