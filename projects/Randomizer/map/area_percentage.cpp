@@ -4,6 +4,7 @@
 #include <Modloader/interception_macros.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/tracking/game_tracker.h>
+#include <Modloader/app/methods/GameWorld.h>
 #include <Modloader/app/types/GameWorld.h>
 
 namespace {
@@ -34,8 +35,9 @@ namespace {
         this_ptr->fields.m_completionAmount = static_cast<float>(collected_pickups_in_this_area) / static_cast<float>(total_pickups_in_this_area);
     }
 
-    [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    IL2CPP_INTERCEPT(void, GameWorld, Awake, app::GameWorld* this_ptr) {
+        next::GameWorld::Awake(this_ptr);
+
         std::vector<core::api::uber_states::UberState> completion_uber_states;
 
         for (auto i = 0; i < static_cast<int>(GameArea::TOTAL); ++i) {
@@ -51,5 +53,5 @@ namespace {
                 }
             })
             .finalize();
-    });
+    }
 }
