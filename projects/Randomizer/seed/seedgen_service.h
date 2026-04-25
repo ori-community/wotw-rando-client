@@ -127,5 +127,7 @@ namespace randomizer::seedgen_interface {
         core::reactivity::ReactiveEffect::ptr_t m_relevant_uber_states_trigger_reach_check_effect = nullptr;
 
         common::Droppable::ptr_t on_game_ready_event;
+        common::Droppable::ptr_t on_new_game_initialized_event;
+        common::Droppable::ptr_t on_finished_loading_save_event;
     };
 } // namespace randomizer::seedgen_interface

@@ -1,6 +1,7 @@
 #include <Core/api/uber_states/uber_state_condition.h>
 #include <Core/events/task.h>
 #include <Core/ipc/ipc.h>
+#include <Core/api/game/game.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/httplib.h>
 #include <Randomizer/seed/seedgen_service.h>
@@ -47,8 +48,20 @@ namespace randomizer::seedgen_interface {
         if (modloader::is_game_ready()) {
             setup_fn();
         } else {
-            on_game_ready_event = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [=, this](auto) {
+            on_game_ready_event = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [=](auto) {
                 setup_fn();
+            });
+
+            on_new_game_initialized_event = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [this](auto, auto) {
+                m_reachable_map_icon_set_indices.get().clear();
+                m_reachable_map_icon_set_indices_update_pending = true;
+                update_reachable_map_icon_set_indices_async_if_needed();
+            });
+
+            on_finished_loading_save_event = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [this](auto, auto) {
+                m_reachable_map_icon_set_indices.get().clear();
+                m_reachable_map_icon_set_indices_update_pending = true;
+                update_reachable_map_icon_set_indices_async_if_needed();
             });
         }
     }
