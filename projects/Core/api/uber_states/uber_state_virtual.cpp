@@ -73,7 +73,6 @@ namespace core::api::uber_states {
 
         m_setter_fn->operator()(value);
         m_last_value_for_polling = value;
-        notify_changed();
     }
 
     bool VirtualUberState::is_readonly() const {
