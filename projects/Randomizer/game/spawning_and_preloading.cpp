@@ -31,6 +31,7 @@
 #include <Modloader/app/methods/TitleScreenManager.h>
 #include <Modloader/app/methods/UnityEngine/Behaviour.h>
 #include <Modloader/app/methods/WaitAction.h>
+#include <Modloader/app/methods/SetupGameplayOnTrigger.h>
 #include <Modloader/app/types/ActionSequence.h>
 #include <Modloader/app/types/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/types/FaderBFadeInAction.h>
@@ -397,7 +398,13 @@ namespace randomizer::game {
             }
         }
 
+        IL2CPP_INTERCEPT(void, SetupGameplayOnTrigger, SetupGameplay, app::SetupGameplayOnTrigger* this_ptr) {
+            // No-op
+        }
+
         void on_new_game(GameEvent event, EventTiming timing) {
+            core::api::scenes::load_default_values();
+
             core::api::game::event_bus().trigger_event(GameEvent::NewGameInitialized, EventTiming::Before);
 
             auto game_state_machine = types::GameStateMachine::get_class()->static_fields->m_instance;
@@ -416,7 +423,6 @@ namespace randomizer::game {
             on_new_game_late_initialization_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, on_new_game_late_initialization);
 
             GameStateMachine::SetToGame(game_state_machine);
-            core::api::game::player::ability(app::AbilityType__Enum::SpiritMagnet).set(false);
 
             core::api::game::player::snap_camera();
             ScenesManager::ClearPreventUnloading(core::api::scenes::get_scenes_manager());
