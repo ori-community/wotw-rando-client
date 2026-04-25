@@ -41,6 +41,7 @@ set(
         "features/mini_map/mini_map.cpp"
         "features/difficulty.cpp"
         "features/door_randomizer.cpp"
+        "features/fix_ability_destruction_in_same_frame.cpp"
         "features/keyboard_multibind.cpp"
         "features/keystone_door.cpp"
         "features/knock_knock_wellspring.cpp"
