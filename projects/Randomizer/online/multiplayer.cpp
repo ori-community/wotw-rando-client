@@ -166,11 +166,10 @@ namespace randomizer::online {
     }
 
     void show_incorrect_save_message() {
-        core::message_controller().queue_central({
+        message_queue().enqueue({
             .text = core::Property<std::string>("The save file you have loaded is not associated with this multiplayer game.\nPlease exit to the main menu and create a new save file\nor load the correct one."),
-            .duration = 8.f,
-            .prioritized = true,
-        });
+            .time_left = 8.f,
+        }, true);
     }
 
     void MultiplayerUniverse::on_load() {
@@ -378,23 +377,12 @@ namespace randomizer::online {
     }
 
     void MultiplayerUniverse::print_text(std::shared_ptr<Network::PrintTextMessage> const& message) {
-        std::shared_ptr<core::api::messages::MessageBox> box = nullptr;
-        if (message->has_id()) {
-            auto it = m_message_boxes.find(message->id());
-            if (
-                it != m_message_boxes.end() &&
-                it->second->state != message_handle_t::QueuedMessageState::Finished &&
-                it->second->state != message_handle_t::QueuedMessageState::FadingOut
-            ) {
-                box = it->second->message.lock();
-                it->second->time_left = message->time();
-            }
+        if (!message->has_id()) {
+            modloader::warn("multiplayer", "Server messages without IDs are not supported");
+            return;
         }
 
-        const bool is_constructed = box == nullptr;
-        if (is_constructed) {
-            box = std::make_shared<core::api::messages::MessageBox>();
-        }
+        auto box = std::make_unique<core::api::messages::MessageBox>();
 
         app::Vector3 position{};
         if (message->has_position()) {
@@ -413,31 +401,19 @@ namespace randomizer::online {
         box->fade_out().set(message->fadeoutlength());
         box->show_background().set(message->withbox());
 
-        if (is_constructed) {
-            auto message_handle_ptr = core::message_controller().queue(
-                box,
-                {
-                    .duration = message->has_time() ? std::optional(message->time()) : std::nullopt,
-                    .queue = message->has_queue() ? std::optional(message->queue()) : std::nullopt,
-                    .prioritized = message->prioritized(),
-                    .play_sound = message->withsound(),
-                }
-            );
-
-            if (message->has_id()) {
-                m_message_boxes[message->id()] = std::move(message_handle_ptr);
-            }
-        }
+        m_server_message_boxes[message->id()].message_box = std::move(box);
+        m_server_message_boxes[message->id()].timeout = message->has_time() ? message->time() : 3.f;
     }
 
     void MultiplayerUniverse::print_pickup(std::shared_ptr<Network::PrintPickupMessage> const& message) {
-        auto const& position = message->pickupposition();
-        core::message_controller().queue_central({
-            .text = core::Property<std::string>(message->text()),
-            .duration = message->time(),
-            .prioritized = message->prioritized(),
-            .pickup_position = app::Vector3{position.x(), position.y(), 0},
-        });
+        message_queue().enqueue(
+            {
+                .text = core::Property<std::string>(message->text()),
+                .time_left = message->time(),
+            },
+            message->prioritized(),
+            message->has_pickupposition() ? std::make_optional<app::Vector2>(message->pickupposition().x(), message->pickupposition().y()) : std::nullopt
+        );
     }
 
     void MultiplayerUniverse::process_set_save_guid_restrictions_message(const Network::SetSaveGuidRestrictionsMessage& message) {
@@ -488,16 +464,15 @@ namespace randomizer::online {
         core::api::game::debug_menu::set_should_prevent_cheats(message->preventcheats());
         if (message->preventcheats() && core::api::game::debug_menu::was_debug_active_this_session()) {
             randomizer::server_disconnect();
-            core::message_controller().queue_central({
+            message_queue().enqueue({
                 .text = core::Property<std::string>(
                     "It is #forbidden# to play this game with #Debug Mode# enabled.\n"
                     "Please start the game without Debug Mode.\n"
                     "Disabling Debug Mode after starting the game is not enough because\n"
                     "it can have persistent effects on the game even after turning it off."
                 ),
-                .duration = 20.f,
-                .prioritized = true,
-            });
+                .time_left = 20.f,
+            }, true);
             return;
         }
 

@@ -37,11 +37,9 @@ namespace randomizer::ipc {
             info("ipc", "Received load_new_game_source action request.");
             randomizer::load_new_game_source();
 
-            core::message_controller().queue_central({
+            message_queue().enqueue({
                 .text = core::Property<std::string>(std::format("Start an empty save file to play")),
-                .show_box = true,
-                .prioritized = true,
-            });
+            }, true);
         }
 
         void get_tags(const nlohmann::json& j) {
@@ -111,81 +109,6 @@ namespace randomizer::ipc {
             response["payload"]["y"] = v.y;
             response["payload"]["z"] = v.z;
             send_message(response);
-        }
-
-        void message(const nlohmann::json& j) {
-            auto& message_registry = core::message_registry();
-            auto p = j.at("payload");
-            auto message_id = 0;
-            if (!p.contains("message_id")) {
-                message_id = message_registry.reserve();
-                auto& message = message_registry.get(message_id);
-                message = std::make_shared<core::api::messages::MessageBox>();
-                message->fade_in().set(p.value("fadein", 0.5f));
-                message->fade_out().set(p.value("fadeout", 0.5f));
-                message->show_background().set(p.value("should_show_box", false));
-                // bool should_play_sound = p.value("should_play_sound", false);
-
-                nlohmann::json response;
-                response["type"] = "response";
-                response["id"] = j.at("id").get<int>();
-                response["message_id"] = message_id;
-                send_message(response);
-            } else {
-                message_id = p.at("message_id").get<int>();
-                if (p.contains("destroy") && p.at("destroy").get<bool>()) {
-                    core::message_registry().remove(message_id);
-                    return;
-                }
-            }
-
-            const auto message_box = message_registry.get(message_id);
-            if (p.contains("text")) {
-                message_box->text().set(p.at("text").get<std::string>());
-            }
-
-            if (p.contains("position")) {
-                auto pos = p.at("position");
-                const auto coordinate_system = p.value("coordinate_system", core::api::messages::CoordinateSystem::Relative);
-                message_box->coordinate_system().set(coordinate_system);
-                message_box->position().set(
-                    pos.at("x").get<float>(),
-                    pos.at("y").get<float>(),
-                    pos.at("z").get<float>()
-                );
-            }
-
-            if (p.contains("color")) {
-                auto color = p.at("color");
-                message_box->text_color().set(app::Color{
-                    color.at("r").get<float>() / 255.f,
-                    color.at("g").get<float>() / 255.f,
-                    color.at("b").get<float>() / 255.f,
-                    color.at("a").get<float>() / 255.f,
-                });
-            }
-
-            if (p.contains("alignment")) {
-                message_box->text_alignment().set(p.at("text").get<app::AlignmentMode__Enum>());
-            }
-
-            if (p.contains("anchor")) {
-                message_box->box_horizontal_anchor().set(p.value("horizontal", app::HorizontalAnchorMode__Enum::Center));
-                message_box->box_vertical_anchor().set(p.value("vertical", app::VerticalAnchorMode__Enum::Middle));
-            }
-
-            if (p.contains("line_spacing")) {
-                message_box->text_line_spacing().set(p.at("line_spacing").get<float>());
-            }
-
-            if (p.contains("visible")) {
-                if (p.at("visible").get<bool>()) {
-                    // TODO: Change to use sound and instant_fade here instead of on creation.
-                    message_box->show();
-                } else {
-                    message_box->hide();
-                }
-            }
         }
 
         void get_total_pickup_count(const nlohmann::json& j) {
@@ -259,7 +182,6 @@ namespace randomizer::ipc {
             register_request_handler("action", action);
             register_request_handler("set_velocity", set_velocity);
             register_request_handler("get_velocity", get_velocity);
-            register_request_handler("message", message);
             register_request_handler("get_total_pickup_count", get_total_pickup_count);
             register_request_handler("get_pickup_count_by_area", get_pickup_count_by_area);
             register_request_handler("get_pickup_counts", get_pickup_counts);

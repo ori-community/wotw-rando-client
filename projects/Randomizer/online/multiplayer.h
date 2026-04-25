@@ -5,7 +5,6 @@
 #include <Randomizer/online/uber_state_handler.h>
 
 #include <Core/api/graphics/textures.h>
-#include <Core/messages/message_controller.h>
 
 #include <packets.pb.h>
 
@@ -28,6 +27,11 @@ namespace randomizer::online {
             Network::WorldInfo world;
             Network::UniverseInfo universe;
             Network::UserInfo user;
+        };
+
+        struct ServerMessageBox {
+            std::unique_ptr<core::api::messages::MessageBox> message_box = nullptr;
+            float timeout = 3.f;
         };
 
         MultiplayerUniverse();
@@ -102,7 +106,7 @@ namespace randomizer::online {
 
         std::unordered_map<std::string, PlayerInfo> m_players;
         std::unordered_map<std::string, std::unique_ptr<Player>> m_player_avatars;
-        std::unordered_map<int, message_handle_ptr_t> m_message_boxes;
+        std::unordered_map<int, ServerMessageBox> m_server_message_boxes;
 
         UberStateHandler m_uber_state_handler;
         NetworkClient* m_client = nullptr;

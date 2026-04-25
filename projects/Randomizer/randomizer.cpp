@@ -12,7 +12,6 @@
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/game/pickups/quests.h>
 #include <Randomizer/game/shops/shop.h>
-#include <Randomizer/online/network_monitor.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/parser.h>
 #include <Randomizer/seed/seed_source.h>
@@ -26,17 +25,10 @@ namespace randomizer {
 
     namespace {
         seed::Seed randomizer_seed;
-        online::NetworkClient client;
-        online::MultiplayerUniverse universe;
+        online::NetworkClient network_client_instance;
+        online::MultiplayerUniverse multiplayer_universe_instance;
         seedgen_interface::SeedgenService seedgen_service_instance;
-
-        online::NetworkMonitor monitor;
-        core::dev::StatusDisplay status({
-            .margins = {-0.09f, -0.09f},
-            .alignment = app::AlignmentMode__Enum::Left,
-            .horizontal_anchor = app::HorizontalAnchorMode__Enum::Left,
-            .vertical_anchor = app::VerticalAnchorMode__Enum::Top,
-        });
+        core::messages::MessageQueue message_queue_instance({0.f, 3.f});
 
         auto seed_meta_save_data = std::make_shared<seed::SaveSlotSeedMetaData>();
         auto seed_archive_save_data = std::make_shared<seed::SeedArchiveSaveMetaData>();
@@ -44,8 +36,6 @@ namespace randomizer {
         std::shared_ptr<seed::SeedSource> new_game_seed_source = std::make_shared<seed::InvalidSeedSource>("empty");
         std::shared_ptr<seed::SeedArchive> new_game_seed_archive; // Set by spawning_and_preloading.cpp
 
-        bool reach_check_queued = false;
-        bool reach_check_in_progress = false;
         bool pause_timer = false;
 
         std::optional<long> multiverse_id_to_connect_to = std::nullopt;
@@ -71,7 +61,8 @@ namespace randomizer {
 
         [[maybe_unused]]
         auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
-            core::message_controller().clear_recent_messages();
+            // TODO
+            // core::message_controller().clear_recent_messages();
 
             pause_timer = false;
             randomizer_seed.trigger(seed::SeedClientEvent::Reload, true);
@@ -87,13 +78,13 @@ namespace randomizer {
 
         [[maybe_unused]]
         auto on_respawn = core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [](auto, auto) {
-            core::message_controller().clear_central();
+            message_queue().clear();
             game_seed().trigger(seed::SeedClientEvent::Respawn, true);
         });
 
         auto on_after_seed_loaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
             seedgen_service().set_seedgen_info(seed_archive_save_data->seed_archive->get_seedgen_info());
-            universe.uber_state_handler().clear_unsyncables();
+            multiplayer_universe_instance.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
             randomizer_seed.trigger(seed::SeedClientEvent::Reload);
@@ -128,8 +119,6 @@ namespace randomizer {
         [[maybe_unused]]
         auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, [](auto, auto) {
             const float delta_time = core::api::game::fixed_delta_time();
-            monitor.update(delta_time);
-            status.update(delta_time);
 
             game_seed().trigger(seed::SeedClientEvent::Tick);
             game_seed().process_timers(delta_time);
@@ -174,10 +163,7 @@ namespace randomizer {
 
         [[maybe_unused]]
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-            monitor.display(&status);
-            monitor.network_client(&client);
-
-            universe.register_packet_handlers(client);
+            multiplayer_universe_instance.register_packet_handlers(network_client_instance);
 
             // TODO: Don't just do this on game ready.
             modloader::cursor_lock(core::settings::lock_cursor());
@@ -247,11 +233,9 @@ namespace randomizer {
         const auto current_source = seed_meta_save_data->get_source();
 
         if (!current_source->allows_rereading()) {
-            core::message_controller().queue_central({
-                .text = core::Property<std::string>(std::format("Cannot re-read this seed.")),
-                .show_box = true,
-                .prioritized = true,
-            });
+            message_queue().enqueue({
+               .text = core::Property<std::string>("Cannot re-read this seed."),
+            }, true);
             return;
         }
 
@@ -263,18 +247,14 @@ namespace randomizer {
                 load_seed(true);
                 break;
             case seed::SourceStatus::Loading:
-                core::message_controller().queue_central({
-                    .text = core::Property<std::string>(std::format("The seed source is still loading. Please try again later...")),
-                    .show_box = true,
-                    .prioritized = true,
-                });
+                message_queue().enqueue({
+                    .text = core::Property<std::string>("The seed source is still loading. Please try again later..."),
+                }, true);
                 break;
             case seed::SourceStatus::Error:
-                core::message_controller().queue_central({
-                    .text = core::Property<std::string>(std::format("Error reading seed source: {}", current_source->get_error().value())),
-                    .show_box = true,
-                    .prioritized = true,
-                });
+                message_queue().enqueue({
+                   .text = core::Property<std::string>(std::format("Error reading seed source: {}", current_source->get_error().value())),
+                }, true);
                 break;
         }
     }
@@ -311,11 +291,11 @@ namespace randomizer {
         multiverse_id_to_connect_to = multiverse_id;
 
         const auto path = std::format("/api/client-websocket/{}/wotw", multiverse_id);
-        client.websocket_connect(host, tls, path);
+        network_client_instance.websocket_connect(host, tls, path);
     }
 
     void server_disconnect() {
-        client.disconnect();
+        network_client_instance.disconnect();
         multiverse_id_to_connect_to = std::nullopt;
         seed::set_server_seed_archive(std::nullopt);
     }
@@ -347,10 +327,10 @@ namespace randomizer {
 
     seed::Seed& game_seed() { return randomizer_seed; }
 
-    online::NetworkClient& network_client() { return client; }
-
-    online::MultiplayerUniverse& multiplayer_universe() { return universe; }
+    online::NetworkClient& network_client() { return network_client_instance; }
+    online::MultiplayerUniverse& multiplayer_universe() { return multiplayer_universe_instance; }
     seedgen_interface::SeedgenService& seedgen_service() { return seedgen_service_instance; }
+    core::messages::MessageQueue& message_queue() { return message_queue_instance; }
 
     std::shared_ptr<seed::SeedSource> get_new_game_seed_source() { return new_game_seed_source; }
 

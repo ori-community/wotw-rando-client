@@ -49,7 +49,8 @@ namespace randomizer::input {
         });
 
         auto on_show_last_pickup_before = single_input_bus().register_handler(Action::ShowLastPickup, EventTiming::Before, [](auto, auto) {
-            core::message_controller().show_recent_messages();
+            // TODO:
+            // core::message_controller().show_recent_messages();
             game_seed().trigger(seed::SeedClientEvent::RequeueLastMessage);
         });
 
@@ -57,43 +58,38 @@ namespace randomizer::input {
             if (core::api::uber_states::UberState(34543, 11226).get<bool>()) {
                 features::credits::start();
             } else {
-                core::message_controller().queue_central({
+                message_queue().enqueue({
                     .text = core::Property<std::string>("Game is not finished!"),
-                    .prioritized = true,
-                });
+                }, true);
             }
         });
 
         auto on_toggle_cursor_lock_before = single_input_bus().register_handler(Action::ToggleCursorLock, EventTiming::Before, [](auto, auto) {
             core::settings::lock_cursor(!core::settings::lock_cursor());
             modloader::cursor_lock(core::settings::lock_cursor());
-            core::message_controller().queue_central({
+            message_queue().enqueue({
                 .text = core::Property<std::string>(std::format("Cursor Lock {}", modloader::cursor_lock() ? "enabled" : "disabled")),
-                .prioritized = true,
-            });
+            }, true);
         });
 
         auto on_toggle_always_show_keystones_before = single_input_bus().register_handler(Action::ToggleAlwaysShowKeystones, EventTiming::Before, [](auto, auto) {
             core::settings::always_show_keystones(!core::settings::always_show_keystones());
-            core::message_controller().queue_central({
+            message_queue().enqueue({
                 .text = core::Property<std::string>(std::format("Debug {}", core::settings::always_show_keystones() ? "enabled" : "disabled")),
-                .prioritized = true,
-            });
+            }, true);
         });
 
         auto on_show_dev_flag_before = single_input_bus().register_handler(Action::ShowDevFlag, EventTiming::Before, [](auto, auto) {
-            core::message_controller().queue_central({
-                .text = core::Property<std::string>(std::format("Dev: {}", core::settings::developer_mode() ? "True" : "False")),
-                .prioritized = true,
-            });
+            message_queue().enqueue({
+                .text = core::Property<std::string>(std::format("Developer Mode: {}", core::settings::developer_mode() ? "True" : "False")),
+            }, true);
         });
 
         auto on_toggle_debug_before = single_input_bus().register_handler(Action::ToggleDebug, EventTiming::Before, [](auto, auto) {
             if (core::api::game::debug_menu::should_prevent_cheats()) {
-                core::message_controller().queue_central({
+                message_queue().enqueue({
                     .text = core::Property<std::string>("Debug is currently blocked"),
-                    .prioritized = true,
-                });
+                }, true);
                 return;
             }
 
@@ -101,27 +97,34 @@ namespace randomizer::input {
                 !core::api::game::debug_menu::is_debug_enabled()
             );
 
-            core::message_controller().queue_central({
+            message_queue().enqueue({
                 .text = core::Property<std::string>(std::format("Debug: {}", core::api::game::debug_menu::is_debug_enabled())),
-                .prioritized = true,
-            });
+            }, true);
         });
 
         auto on_print_coordinates_before = single_input_bus().register_handler(Action::PrintCoordinates, EventTiming::Before, [](auto, auto) {
             auto position = core::api::game::player::get_position();
-            core::message_controller().queue_central({
+            message_queue().enqueue({
                 .text = core::Property<std::string>(std::format("[ {}, {}, {} ]", position.x, position.y, position.z)),
-                .prioritized = true,
-            });
+            }, true);
             // TODO: Copy coordinates into clipboard.
         });
 
         auto on_unlock_spoilers_before = single_input_bus().register_handler(Action::UnlockSpoilers, EventTiming::Before, [](auto, auto) {
+            if (core::api::game::debug_menu::should_prevent_cheats()) {
+                message_queue().enqueue(
+                    {
+                        .text = core::Property<std::string>("Cheats are blocked"),
+                    },
+                    true
+                );
+                return;
+            }
+
             core::api::uber_states::UberState(34543, 11226).set(1);
-            core::message_controller().queue_central({
+            message_queue().enqueue({
                 .text = core::Property<std::string>("Spoilers unlocked"),
-                .prioritized = true,
-            });
+            }, true);
         });
 
         auto on_force_exit_before = single_input_bus().register_handler(Action::ForceExit, EventTiming::Before, [](auto, auto) {
@@ -129,7 +132,7 @@ namespace randomizer::input {
         });
 
         auto on_clear_messages_before = single_input_bus().register_handler(Action::ClearMessages, EventTiming::Before, [](auto, auto) {
-            core::message_controller().clear_central();
+            message_queue().clear();
         });
     } // namespace
 } // namespace randomizer::input

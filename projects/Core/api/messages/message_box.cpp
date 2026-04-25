@@ -333,15 +333,28 @@ namespace core::api::messages {
         };
     }
 
-    void MessageBox::render_text_box() {
-        auto new_text = m_text.get();
-
-        replace_all(new_text, "\\n", "\n");
-        trim(new_text);
-        if (new_text.empty()) {
-            new_text = " ";
+    app::Rect MessageBox::bounding_box() const {
+        if (m_message_box == nullptr) {
+            return app::Rect{};
         }
 
+        auto top_expand = m_scaler->fields.TopLeftPadding.y;
+        auto left_expand = m_scaler->fields.TopLeftPadding.x;
+        auto right_expand = m_scaler->fields.BottomRightPadding.x;
+        auto bottom_expand = m_scaler->fields.BottomRightPadding.y;
+
+        auto rect = TextBoxExtended::GetRect(m_message_box->fields.TextBox);
+
+        rect.m_XMin -= left_expand;
+        rect.m_Width += left_expand + right_expand;
+        rect.m_YMin -= bottom_expand;
+        rect.m_Height -= bottom_expand + top_expand;  // m_Height is negative
+
+        return rect;
+    }
+
+    void MessageBox::render_text_box() {
+        auto new_text = m_text.get();
         auto should_recache = false;
 
         const auto new_show_box = m_show_background.get();
@@ -392,13 +405,13 @@ namespace core::api::messages {
                 pos = world_to_ui_position(pos);
                 break;
             }
-            case CoordinateSystem::Relative: {
+            case CoordinateSystem::Screen: {
                 const auto [left, top, width, height] = screen_position::get_rect();
                 pos.x = left + pos.x * width;
                 pos.y = top - pos.y * height;
                 break;
             }
-            case CoordinateSystem::Absolute: {
+            case CoordinateSystem::UI: {
                 break;
             }
         }

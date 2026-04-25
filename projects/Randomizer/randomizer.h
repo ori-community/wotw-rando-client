@@ -53,6 +53,7 @@ namespace randomizer {
     online::NetworkClient& network_client();
     online::MultiplayerUniverse& multiplayer_universe();
     seedgen_interface::SeedgenService& seedgen_service();
+    core::messages::MessageQueue& message_queue();
     std::shared_ptr<seed::SeedSource> get_new_game_seed_source();
     void set_new_game_seed_archive(const std::shared_ptr<seed::SeedArchive>& content);
     std::optional<long> get_multiverse_id();

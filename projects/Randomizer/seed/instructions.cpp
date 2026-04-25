@@ -1,6 +1,5 @@
 #include <Core/api/game/game.h>
 #include <Core/core.h>
-#include <Core/messages/message_controller.h>
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/randomizer.h>
@@ -111,7 +110,6 @@ namespace randomizer::seed {
                 return;
             }
 
-            game_seed().environment().process_queued_message_box_visibility_callbacks();
             game_seed().environment().process_free_message_boxes(core::api::game::delta_time());
             game_seed().environment().process_timers(core::api::game::delta_time());
             game_seed().environment().process_box_triggers();
@@ -320,24 +318,6 @@ namespace randomizer::seed {
         m_warp_icons.clear();
     }
 
-    void SeedExecutionEnvironment::process_queued_message_box_visibility_callbacks() {
-        for (auto& message: m_queued_message_boxes | std::views::values) {
-            if (message.last_state == message.handle->state) {
-                continue;
-            }
-
-            if (message.handle->state == core::messages::QueuedMessageHandle::QueuedMessageState::Visible && message.visible_callback.has_value()) {
-                game_seed().execute_command(message.visible_callback.value());
-            }
-
-            if (message.last_state == core::messages::QueuedMessageHandle::QueuedMessageState::Visible && message.hidden_callback.has_value()) {
-                game_seed().execute_command(message.hidden_callback.value());
-            }
-
-            message.last_state = message.handle->state;
-        }
-    }
-
     void SeedExecutionEnvironment::process_free_message_boxes(float delta) {
         std::unordered_set<int> to_destroy;
         for (auto& [id, free_message_box]: m_free_message_boxes) {
@@ -433,8 +413,8 @@ namespace randomizer::seed {
         m_queued_message_boxes.erase(id);
     }
 
-    void SeedExecutionEnvironment::add_queued_message_box(std::size_t id, const message_handle_ptr_t& handle) {
-        m_queued_message_boxes[id] = {.handle = handle};
+    void SeedExecutionEnvironment::add_queued_message_box(std::size_t id, const core::messages::QueuedMessage::weak_ptr_t& queued_message) {
+        m_queued_message_boxes[id] = queued_message;
         m_free_message_boxes.erase(id);
     }
 
@@ -446,25 +426,43 @@ namespace randomizer::seed {
         fn(m_free_message_boxes[id]);
     }
 
-    void SeedExecutionEnvironment::modify_queued_message_box(std::size_t id, const std::function<void(core::api::messages::MessageBox&)>& fn) {
-        if (!m_queued_message_boxes.contains(id)) {
+    void SeedExecutionEnvironment::modify_queued_message_box(std::size_t id, const std::function<void(core::messages::QueuedMessage&)>& fn) {
+        const auto it = m_queued_message_boxes.find(id);
+        if (it == m_queued_message_boxes.end()) {
             return;
         }
 
-        fn(*m_queued_message_boxes[id].handle->message.lock());
+        const auto queued_message = it->second;
+        if (!queued_message.expired()) {
+            fn(*queued_message.lock());
+        }
     }
 
     void SeedExecutionEnvironment::set_queued_message_box_hidden_callback(const std::size_t id, std::size_t callback_command_id) {
         const auto it = m_queued_message_boxes.find(id);
-        if (it != m_queued_message_boxes.end()) {
-            it->second.hidden_callback = callback_command_id;
+        if (it == m_queued_message_boxes.end()) {
+            return;
+        }
+
+        const auto queued_message = it->second;
+        if (!queued_message.expired()) {
+            queued_message.lock()->properties().on_hidden = [callback_command_id] {
+                game_seed().execute_command(callback_command_id);
+            };
         }
     }
 
     void SeedExecutionEnvironment::set_queued_message_box_visible_callback(const std::size_t id, std::size_t callback_command_id) {
         const auto it = m_queued_message_boxes.find(id);
-        if (it != m_queued_message_boxes.end()) {
-            it->second.visible_callback = callback_command_id;
+        if (it == m_queued_message_boxes.end()) {
+            return;
+        }
+
+        const auto queued_message = it->second;
+        if (!queued_message.expired()) {
+            queued_message.lock()->properties().on_shown = [callback_command_id] {
+                game_seed().execute_command(callback_command_id);
+            };
         }
     }
 
@@ -473,8 +471,14 @@ namespace randomizer::seed {
     }
 
     void SeedExecutionEnvironment::set_queued_message_box_timeout(const std::size_t id, float timeout) const {
-        if (m_queued_message_boxes.contains(id)) {
-            m_queued_message_boxes.at(id).handle->time_left = timeout;
+        const auto it = m_queued_message_boxes.find(id);
+        if (it == m_queued_message_boxes.end()) {
+            return;
+        }
+
+        const auto queued_message = it->second;
+        if (!queued_message.expired()) {
+            queued_message.lock()->properties().time_left = timeout;
         }
     }
 

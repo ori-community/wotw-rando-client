@@ -9,7 +9,7 @@ INSTRUCTION(FreeMessage)
     std::size_t id;
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         auto message = std::make_shared<core::api::messages::MessageBox>();
-        message->coordinate_system().set(core::api::messages::CoordinateSystem::Relative);
+        message->coordinate_system().set(core::api::messages::CoordinateSystem::Screen);
 
         environment.add_free_message_box(id, message);
     }

@@ -208,9 +208,10 @@ namespace {
             }
         }
 
-        if (core::message_controller().recent_display().get_active_messages_count() > 0) {
-            return true;
-        }
+        // TODO:
+        // if (core::message_controller().recent_display().get_active_messages_count() > 0) {
+        //     return true;
+        // }
 
         return PerformBackOutAction::get_IsAbandonChallangeActive();
     }

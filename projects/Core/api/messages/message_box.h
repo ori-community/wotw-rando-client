@@ -11,8 +11,8 @@
 
 namespace core::api::messages {
     enum class CoordinateSystem {
-        Absolute,
-        Relative,
+        UI,
+        Screen,
         World,
     };
 
@@ -62,6 +62,7 @@ namespace core::api::messages {
         [[nodiscard]] const Property<float>& bottom_padding() { return m_bottom_padding; }
         [[nodiscard]] const Property<float>& left_padding() { return m_left_padding; }
         [[nodiscard]] const Property<float>& right_padding() { return m_right_padding; }
+        app::Rect bounding_box() const;
 
     private:
         int m_id;
@@ -80,7 +81,7 @@ namespace core::api::messages {
 
         Property<std::string> m_text;
         Property<app::Vector3> m_position{{0.5, 0.114, 0}};  // This is approximately the position of "normal" item messages
-        Property<CoordinateSystem> m_coordinate_system{CoordinateSystem::Relative};
+        Property<CoordinateSystem> m_coordinate_system{CoordinateSystem::Screen};
         Property<bool> m_show_background = Property<bool>(true);
         Property<float> m_fade_in;
         Property<float> m_fade_out;
@@ -90,10 +91,10 @@ namespace core::api::messages {
         Property<app::AlignmentMode__Enum> m_text_alignment{app::AlignmentMode__Enum::Center};
         Property<app::HorizontalAnchorMode__Enum> m_box_horizontal_anchor{app::HorizontalAnchorMode__Enum::Center};
         Property<app::VerticalAnchorMode__Enum> m_box_vertical_anchor{app::VerticalAnchorMode__Enum::Top};
-        Property<float> m_top_padding{0.f};
-        Property<float> m_bottom_padding{0.f};
-        Property<float> m_left_padding{1.f};
-        Property<float> m_right_padding{1.f};
+        Property<float> m_top_padding;
+        Property<float> m_bottom_padding;
+        Property<float> m_left_padding;
+        Property<float> m_right_padding;
 
         reactivity::ReactiveEffect::ptr_t m_tighten_effect;
     };
@@ -101,8 +102,8 @@ namespace core::api::messages {
     NLOHMANN_JSON_SERIALIZE_ENUM(
         CoordinateSystem,
         {
-            { CoordinateSystem::Absolute, "Absolute" },
-            { CoordinateSystem::Relative, "Relative" },
+            { CoordinateSystem::UI, "Absolute" },
+            { CoordinateSystem::Screen, "Relative" },
             { CoordinateSystem::World, "World" },
         }
     );

@@ -282,25 +282,22 @@ namespace randomizer::game {
 
                 const auto [source_status, source_seed_archive] = get_new_game_seed_source()->poll();
                 if (source_status != seed::SourceStatus::Ready || !source_seed_archive.has_value()) {
-                    core::message_controller().queue_central({
+                    message_queue().enqueue({
                         .text = core::Property<std::string>("You cannot start a game without a seed"),
-                        .show_box = true,
-                        .prioritized = true,
-                    });
+                    }, true);
                     return;
                 }
 
                 if (core::api::game::debug_menu::should_prevent_cheats() && core::api::game::debug_menu::was_debug_active_this_session()) {
-                    core::message_controller().queue_central({
+                    message_queue().enqueue({
                         .text = core::Property<std::string>(
                             "It is #forbidden# to play this game with #Debug Mode# enabled.\n"
                             "Please start the game without Debug Mode.\n"
                             "Disabling Debug Mode after starting the game is not enough because\n"
                             "it can have persistent effects on the game even after turning it off."
                         ),
-                        .duration = 20.f,
-                        .prioritized = true,
-                    });
+                        .time_left = 20.f,
+                    }, true);
                     return;
                 }
 
@@ -530,25 +527,22 @@ namespace randomizer::game {
         if (start_game_sequence_ref.has_value()) {
             const auto [source_status, source_seed_archive] = get_new_game_seed_source()->poll();
             if (source_status != seed::SourceStatus::Ready || !source_seed_archive.has_value()) {
-                core::message_controller().queue_central({
+                message_queue().enqueue({
                     .text = core::Property<std::string>("You cannot start a game without a seed"),
-                    .show_box = true,
-                    .prioritized = true,
-                });
+                }, true);
                 return;
             }
 
             if (core::api::game::debug_menu::should_prevent_cheats() && core::api::game::debug_menu::was_debug_active_this_session()) {
-                core::message_controller().queue_central({
+                message_queue().enqueue({
                     .text = core::Property<std::string>(
                         "It is #forbidden# to play this game with #Debug Mode# enabled.\n"
                         "Please start the game without Debug Mode.\n"
                         "Disabling Debug Mode after starting the game is not enough because\n"
                         "it can have persistent effects on the game even after turning it off."
                     ),
-                    .duration = 20.f,
-                    .prioritized = true,
-                });
+                    .time_left = 20.f,
+                }, true);
                 return;
             }
 

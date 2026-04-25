@@ -27,11 +27,10 @@ namespace randomizer::seed {
             }
 
             modloader::error("seed", error_message);
-            core::message_controller().queue_central({
+            message_queue().enqueue({
                 .text = core::Property<std::string>(error_message),
-                .show_box = true,
-                .prioritized = true,
-            });
+                .time_left = 6.f,
+            }, true);
             return;
         }
 
@@ -118,12 +117,10 @@ namespace randomizer::seed {
             slug_string = std::format(" <hex_9ee2f7ff>{}</>", *m_parse_output->meta.slug);
         }
 
-        core::message_controller().queue_central({
+        message_queue().enqueue({
             .text = core::Property<std::string>(std::format("Loaded Seed{}{}", slug_string, tags)),
-            .duration = 5.f,
-            .show_box = true,
-            .prioritized = true,
-        });
+            .time_left = 5.f,
+        }, true);
     }
 
     void Seed::execute_command(const std::size_t id) {

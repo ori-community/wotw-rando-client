@@ -11,20 +11,17 @@ INSTRUCTION(QueuedMessage)
     bool prioritized;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        const auto handle = core::message_controller().queue_central(
+        const auto queued_message = message_queue().enqueue(
             {
                 .text = core::Property<std::string>(memory.strings.get(0)),
-                .duration = memory.floats.get(0),
-                .prioritized = prioritized,
-                .pickup_position = environment.get_queued_message_pickup_position_in_current_scope().transform([](const app::Vector2& position) {
-                    return modloader::math::to_vec3(position);
-                })
+                .time_left = memory.floats.get(0),
             },
-            true
+            prioritized,
+            environment.get_queued_message_pickup_position_in_current_scope()
         );
 
         if (id.has_value()) {
-            environment.add_queued_message_box(id.value(), handle);
+            environment.add_queued_message_box(id.value(), queued_message);
         }
     }
 

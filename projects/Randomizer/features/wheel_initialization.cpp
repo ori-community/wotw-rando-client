@@ -40,7 +40,8 @@ namespace randomizer::features::wheel {
         initialize_item(9000, 0, "Show last pickup", "Displays the message associated\nwith the last pickup.", "file:icons/wheel/show_last_pickup.blue.png",
                         [](auto, auto, auto) {
                             game_seed().trigger(seed::SeedClientEvent::RequeueLastMessage);
-                            core::message_controller().show_recent_messages();
+                            // TODO:
+                            // core::message_controller().show_recent_messages();
                         });
         initialize_item(9000, 1, "Show progress, with hints.", "Displays current goal mode progress and bought hints.", "file:icons/wheel/progress_summary.blue.png",
                         [](auto, auto, auto) { game_seed().trigger(seed::SeedClientEvent::ShowProgress); });
@@ -49,37 +50,33 @@ namespace randomizer::features::wheel {
                             if (core::api::uber_states::UberState(34543, 11226).get<bool>()) {
                                 features::credits::start();
                             } else {
-                                core::message_controller().queue_central({
-                                    .text = core::Property<std::string>("Credit warp not unlocked!"),
-                                    .prioritized = true,
-                                });
+                                message_queue().enqueue({
+                                    .text = core::Property<std::string>("You didn't finish the game yet!"),
+                                }, true);
                             }
                         });
         initialize_item(9000, 3, "Toggle keystones", "Toggle to always show the keystone ui.", "file:icons/game/keystone.png",
                         [](auto, auto, auto) {
                             core::settings::always_show_keystones(!core::settings::always_show_keystones());
-                            core::message_controller().queue_central({
+                            message_queue().enqueue({
                                 .text = core::Property<std::string>(std::format("Always show keystones: {}", core::settings::always_show_keystones())),
-                                .prioritized = true,
-                            });
+                            }, true);
                         });
         initialize_item(9000, 4, "Toggle cursor lock", "Toggle to confine the mouse cursor to the window.", "file:icons/wheel/cursor_lock.blue.png",
                         [](auto, auto, auto) {
                             core::settings::lock_cursor(!core::settings::lock_cursor());
                             modloader::cursor_lock(core::settings::lock_cursor());
 
-                            core::message_controller().queue_central({
+                            message_queue().enqueue({
                                 .text = core::Property<std::string>(std::format("Cursor locked: {}", core::settings::lock_cursor())),
-                                .prioritized = true,
-                            });
+                            }, true);
                         });
         initialize_item(9000, 5, "Toggle autoaim", "Toggle auto aim for bow/shuriken.", "file:icons/wheel/toggle_autoaim.blue.png",
                         [](auto, auto, auto) {
                             core::settings::disable_auto_aim(!core::settings::disable_auto_aim());
-                            core::message_controller().queue_central({
+                            message_queue().enqueue({
                                 .text = core::Property<std::string>(std::format("Auto Aim {}", core::settings::disable_auto_aim() ? "disabled" : "enabled")),
-                                .prioritized = true,
-                            });
+                            }, true);
                         });
         initialize_item(9000, 6, "Toggle minimap", "Toggle minimap overlay.", "file:icons/wheel/minimap.png",
                         [](auto, auto, auto) {
@@ -97,19 +94,18 @@ namespace randomizer::features::wheel {
         initialize_item(9001, 0, "Toggle dev", "Toggle developer tools", "file:icons/wheel/dev_mode.blue.png",
                         [](auto, auto, auto) {
                             core::settings::developer_mode(!core::settings::developer_mode());
-                            core::message_controller().queue_central({
-                                .text = core::Property<std::string>(std::format("Dev mode: {}", core::settings::developer_mode())),
-                                .prioritized = true,
-                            });
+                            message_queue().enqueue({
+                                .text = core::Property<std::string>(std::format("Developer mode: {}", core::settings::developer_mode())),
+                            }, true);
+
                             on_dev_changed();
                         });
         initialize_item(9001, 1, "Toggle debug", "Toggle debug controls", "file:icons/wheel/toggle_debug.blue.png",
                         [](auto, auto, auto) {
                             if (core::api::game::debug_menu::should_prevent_cheats()) {
-                                core::message_controller().queue_central({
+                                message_queue().enqueue({
                                     .text = core::Property<std::string>("Debug is currently blocked"),
-                                    .prioritized = true,
-                                });
+                                }, true);
                                 return;
                             }
 
@@ -117,18 +113,16 @@ namespace randomizer::features::wheel {
                                 !core::api::game::debug_menu::is_debug_enabled()
                             );
 
-                            core::message_controller().queue_central({
+                            message_queue().enqueue({
                                 .text = core::Property<std::string>(std::format("Debug: {}", core::api::game::debug_menu::is_debug_enabled())),
-                                .prioritized = true,
-                            });
+                            }, true);
                         });
         initialize_item(9001, 2, "Reload file textures", "Reloads all 'file:' textures", "file:icons/wheel/reload_file_textures.blue.png",
                         [](auto, auto, auto) {
                             core::api::graphics::textures::reload_all_file_textures();
-                            core::message_controller().queue_central({
-                                .text = core::Property<std::string>(std::format("Texture files reloaded.")),
-                                .prioritized = true,
-                            });
+                            message_queue().enqueue({
+                                .text = core::Property<std::string>("Texture files reloaded."),
+                            }, true);
                         });
         initialize_item(9001, 3, "Reload sprites", "Reloads all sprite animations", "file:icons/wheel/reload_file_textures.blue.png",
                         [](auto, auto, auto) {});
@@ -137,7 +131,7 @@ namespace randomizer::features::wheel {
                             static core::api::messages::MessageBox box;
                             static common::Droppable::ptr_t handle;
                             if (handle == nullptr) {
-                                box.coordinate_system().set(core::api::messages::CoordinateSystem::Relative);
+                                box.coordinate_system().set(core::api::messages::CoordinateSystem::Screen);
                                 box.text_alignment().set(app::AlignmentMode__Enum::Left);
                                 box.box_horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Left);
                                 box.box_vertical_anchor().set(app::VerticalAnchorMode__Enum::Bottom);
@@ -156,25 +150,23 @@ namespace randomizer::features::wheel {
         initialize_item(9001, 6, "Unlock spoilers", "Unlock spoilers filter on the map", "file:icons/wheel/unlock_spoilers.blue.png",
                         [](auto, auto, auto) {
                             if (core::api::game::debug_menu::should_prevent_cheats()) {
-                                core::message_controller().queue_central({
-                                    .text = core::Property<std::string>("Unlock spoilers is not available"),
-                                    .prioritized = true,
-                                });
+                                message_queue().enqueue({
+                                    .text = core::Property<std::string>("Cheats are blocked"),
+                                }, true);
                                 return;
                             }
 
                             core::api::uber_states::UberState(34543, 11226).set(1);
-                            core::message_controller().queue_central({
-                                .text = core::Property<std::string>("Spoilers unlocked"),
-                                .prioritized = true,
-                            });
+                            message_queue().enqueue({
+                                .text = core::Property<std::string>("Spoiler map unlocked"),
+                            }, true);
                         });
         initialize_item(9001, 9, "Force Exit", "Forcibly exit the game.", "file:icons/wheel/force_exit.blue.png",
                         [](auto, auto, auto) { modloader::shutdown(); });
         initialize_item(9001, 10, "Clear messages", "[Ability1] Clear all\n[Ability2] Clear queue\n[Ability3] Clear free", "file:icons/wheel/clear_messages.blue.png",
                         [](auto, auto, auto bind) {
                             if (bind == WheelBind::Ability1 || bind == WheelBind::Ability2) {
-                                core::message_controller().clear_central();
+                                message_queue().clear();
                             }
 
                             if (bind == WheelBind::Ability1 || bind == WheelBind::Ability3) {
