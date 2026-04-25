@@ -60,7 +60,7 @@ namespace randomizer::map::icons {
 
     common::EventBus<void, Event> icons_event_bus;
     common::EventBus<IconScale> icons_scale_event_bus;
-    std::unordered_map<MapIcon::id_t, map_icon_handle_t> map_icons_that_can_be_teleported_to;
+    std::unordered_map<MapIcon::id_t, MapIcon::weak_ptr_t> map_icons_that_can_be_teleported_to;
     core::Property<bool> show_transparent_out_of_logic_icons{true};
 
     [[maybe_unused]]
@@ -771,7 +771,14 @@ namespace randomizer::map::icons {
 
             auto min_distance = 1.02 * 1.02;
             bool found_icon_in_range = false;
-            for (auto const& icon: map_icons_that_can_be_teleported_to | std::views::values) {
+
+            for (auto it = map_icons_that_can_be_teleported_to.begin(); it != map_icons_that_can_be_teleported_to.end();) {
+                if (it->second.expired()) {
+                    it = map_icons_that_can_be_teleported_to.erase(it);
+                    continue;
+                }
+
+                const auto icon = it->second.lock();
                 const auto position = AreaMapNavigation::WorldToMapPosition(
                     this_ptr->fields.m_areaMap->fields._Navigation_k__BackingField, icon->world_position.get()
                 );
@@ -783,6 +790,8 @@ namespace randomizer::map::icons {
                     *target = icon->world_position.get();
                     min_distance = magnitude_squared;
                 }
+
+                ++it;
             }
 
             return found_icon_in_range;

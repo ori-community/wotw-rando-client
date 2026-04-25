@@ -11,6 +11,7 @@ namespace randomizer::map::icons {
 
     struct MapIcon : std::enable_shared_from_this<MapIcon> {
         using ptr_t = std::shared_ptr<MapIcon>;
+        using weak_ptr_t = std::weak_ptr<MapIcon>;
         using id_t = std::size_t;
         using visibility_t = std::optional<float>;  // nullopt = invisible, float = opacity
         using visibility_effect_fn_t = std::function<visibility_t(filter::MapFilter)>;
@@ -234,8 +235,6 @@ namespace randomizer::map::icons {
         /** Colors (MainColor shader property) of all renderers in the game object. Populated on instantiation. */
         std::unordered_map<app::Renderer*, app::Color> m_original_renderer_colors;
     };
-
-    using map_icon_handle_t = std::shared_ptr<MapIcon>;
 
     namespace utils {
         enum class WarpIconState {
