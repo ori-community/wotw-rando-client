@@ -51,7 +51,7 @@ namespace core::api::game::player {
             }
         }
 
-        const std::unordered_set<app::EquipmentType__Enum> equpment_types {
+        const std::unordered_set<app::EquipmentType__Enum> equipment_types {
             app::EquipmentType__Enum::Ability_Bash,
             app::EquipmentType__Enum::Ability_DoubleJump,
             app::EquipmentType__Enum::Spell_ChargeJump,
@@ -436,7 +436,7 @@ namespace core::api::game::player {
     }
 
     bool is_valid_equipment(const app::EquipmentType__Enum equipment) {
-        return equpment_types.contains(equipment);
+        return equipment_types.contains(equipment);
     }
 
     void bind(const app::SpellInventory_Binding__Enum slot, const app::EquipmentType__Enum equip_type) {
