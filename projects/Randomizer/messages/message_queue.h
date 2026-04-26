@@ -6,7 +6,7 @@
 #include <Core/api/messages/message_box.h>
 
 namespace core::messages {
-    struct CORE_DLLEXPORT QueuedMessageProperties {
+    struct QueuedMessageProperties {
         /** The text that should be displayed */
         Property<std::string> text{""};
 
@@ -23,7 +23,7 @@ namespace core::messages {
         float time_left = 3.0f;
     };
 
-    class CORE_DLLEXPORT QueuedMessage : std::enable_shared_from_this<QueuedMessage> {
+    class QueuedMessage : std::enable_shared_from_this<QueuedMessage> {
         friend class MessageQueue;
 
     public:
@@ -64,7 +64,7 @@ namespace core::messages {
         std::optional<MessageBoxWithEffects> m_box_and_effects;
     };
 
-    class CORE_DLLEXPORT MessageQueue {
+    class MessageQueue {
     public:
         /**
          * Enqueues a new message with the given text.

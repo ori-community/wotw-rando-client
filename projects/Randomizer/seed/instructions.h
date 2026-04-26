@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "Core/messages/message_queue.h"
+#include "../messages/message_queue.h"
 #include "Randomizer/map/map_icons.h"
 
 namespace randomizer::seed {

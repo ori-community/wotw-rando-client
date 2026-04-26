@@ -1,13 +1,12 @@
-#include <Core/messages/message_queue.h>
+#include <Randomizer/messages/message_queue.h>
 #include <Core/api/game/game.h>
 #include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/types/UI_Hints.h>
 #include <Modloader/app/methods/Game/UI_Hints.h>
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Core/utils/position_converter.h>
-
-#include "Core/api/game/ui.h"
-#include "Modloader/modloader.h"
+#include <Core/api/game/ui.h>
+#include <Modloader/modloader.h>
 
 
 namespace core::messages {
