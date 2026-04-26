@@ -173,6 +173,7 @@ namespace randomizer {
 
             register_slot(SaveMetaSlot::SeedMetaData, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, seed_meta_save_data);
             register_slot(SaveMetaSlot::SeedArchiveData, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, seed_archive_save_data);
+            register_slot(SaveMetaSlot::Shops, SaveMetaSlotPersistence::None, game::shops::shops());
 
             load_new_game_source();
         });

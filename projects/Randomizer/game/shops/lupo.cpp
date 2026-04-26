@@ -50,11 +50,11 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(int32_t, MapmakerItem, GetCost, app::MapmakerItem * this_ptr) {
-        return shops().lupo_shop().slot(this_ptr->fields.UberState).value().get().cost.get();
+        return shops()->lupo_shop().slot(this_ptr->fields.UberState).value().get().cost.get();
     }
 
     IL2CPP_INTERCEPT(void, MapmakerUISubItem, UpdateUpgradeIcon, app::MapmakerUISubItem * this_ptr) {
-        auto& slot = shops().lupo_shop().slot(this_ptr->fields.m_upgradeItem->fields.UberState).value().get();
+        auto& slot = shops()->lupo_shop().slot(this_ptr->fields.m_upgradeItem->fields.UberState).value().get();
         const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
         if (slot.icon() != nullptr) {
             slot.icon()->apply(renderer);
@@ -96,7 +96,7 @@ namespace {
             return false;
         }
 
-        const auto& slot = shops().lupo_shop().slot(item->fields.UberState).value().get();
+        const auto& slot = shops()->lupo_shop().slot(item->fields.UberState).value().get();
 
         switch (slot.visibility()) {
             case SlotVisibility::Hidden:
@@ -119,7 +119,7 @@ namespace {
         MapmakerUISubItem::UpdateUpgradeIcon(this_ptr);
 
         const auto state = this_ptr->fields.m_upgradeItem->fields.UberState;
-        const auto& slot = shops().lupo_shop().slot(state).value().get();
+        const auto& slot = shops()->lupo_shop().slot(state).value().get();
         const auto owned = state->fields.m_value >= this_ptr->fields.m_upgradeItem->fields.MaxLevel;
         const auto cost = MapmakerItem::GetCost(this_ptr->fields.m_upgradeItem);
         const auto can_afford = core::api::game::player::spirit_light().get() >= cost;
@@ -148,7 +148,7 @@ namespace {
         const auto item = this_ptr->fields.m_item;
         const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
 
-        auto& slot = shops().lupo_shop().slot(item->fields.UberState).value().get();
+        auto& slot = shops()->lupo_shop().slot(item->fields.UberState).value().get();
         const auto icon = slot.icon();
         if (icon == nullptr) {
             core::api::graphics::textures::apply_default(renderer);
@@ -184,7 +184,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, MapmakerUIItem, UpdateMapmakerItem, app::MapmakerUIItem * this_ptr, app::MapmakerItem* item) {
-        const auto& slot = shops().lupo_shop().slot(this_ptr->fields.m_upgradeItem->fields.UberState).value().get();
+        const auto& slot = shops()->lupo_shop().slot(this_ptr->fields.m_upgradeItem->fields.UberState).value().get();
         const auto value = core::api::uber_states::UberState(this_ptr->fields.m_upgradeItem->fields.UberState).get<int>();
         const auto can_afford = il2cpp::unity::is_valid(item) && core::api::game::player::spirit_light().get() >= MapmakerItem::GetCost(item);
 

@@ -15,8 +15,8 @@
 namespace randomizer::game::shops {
     using namespace app::classes;
 
-    ShopCollection& shops() {
-        static ShopCollection shop_collection;
+    std::shared_ptr<ShopCollection>& shops() {
+        static auto shop_collection = std::make_shared<ShopCollection>();
         return shop_collection;
     }
 
@@ -40,6 +40,36 @@ namespace randomizer::game::shops {
         }
 
         return *icon_cache;
+    }
+
+    nlohmann::json ShopUIShopSlot::serialize() const {
+        return {
+            {"name", name.get()},
+            {"description", description.get()},
+            {"icon_texture_identifier", icon_texture_identifier.get()},
+            {"is_locked", is_locked.get()},
+            {"is_hidden", is_hidden.get()},
+            {"cost", cost.get()},
+        };
+    }
+
+    void ShopUIShopSlot::deserialize(const nlohmann::json& json) {
+        name.set(json["name"].get<std::string>());
+        description.set(json["description"].get<std::string>());
+        icon_texture_identifier.set(json["icon_texture_identifier"].get<std::string>());
+        is_locked.set(json["is_locked"].get<bool>());
+        is_hidden.set(json["is_hidden"].get<bool>());
+        cost.set(json["cost"].get<int>());
+    }
+
+    nlohmann::json CostOnlyShopSlot::serialize() const {
+        return {
+            {"cost", cost.get()},
+        };
+    }
+
+    void CostOnlyShopSlot::deserialize(const nlohmann::json& json) {
+        cost.set(json["cost"].get<int>());
     }
 
     ShopCollection::ShopCollection() :
@@ -112,9 +142,29 @@ namespace randomizer::game::shops {
         return m_slots;
     }
 
+    nlohmann::json ShopCollection::json_serialize() {
+        return {
+            {"opher", opher_shop().serialize()},
+            {"twillen", twillen_shop().serialize()},
+            {"lupo", lupo_shop().serialize()},
+            {"lupo_maps", lupo_maps_shop().serialize()},
+            {"grom", grom_shop().serialize()},
+            {"tuley", tuley_shop().serialize()},
+        };
+    }
+
+    void ShopCollection::json_deserialize(nlohmann::json& j) {
+        opher_shop().deserialize(j.at("opher"));
+        twillen_shop().deserialize(j.at("twillen"));
+        lupo_shop().deserialize(j.at("lupo"));
+        lupo_maps_shop().deserialize(j.at("lupo_maps"));
+        grom_shop().deserialize(j.at("grom"));
+        tuley_shop().deserialize(j.at("tuley"));
+    }
+
     std::optional<ShopCollection::any_shop_slot_reference_t> shop_slot_from_state(const core::api::uber_states::UberState state) {
-        const auto it = shops().slots().find(state);
-        if (it == shops().slots().end()) {
+        const auto it = shops()->slots().find(state);
+        if (it == shops()->slots().end()) {
             return std::nullopt;
         }
 

@@ -53,7 +53,7 @@ namespace randomizer::game::shops::opher {
     }
 
     ShopCollection::opher_shop_t::slot_t& get_slot(app::AbilityType__Enum acquired_ability_type, app::AbilityType__Enum required_ability) {
-        const auto slot = shops().opher_shop().slot(get_slot_key_for_ability_types(acquired_ability_type, required_ability));
+        const auto slot = shops()->opher_shop().slot(get_slot_key_for_ability_types(acquired_ability_type, required_ability));
 
         if (!slot.has_value()) {
             throw std::exception("Missing Opher shop slot");

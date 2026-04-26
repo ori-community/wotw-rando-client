@@ -38,7 +38,7 @@ namespace randomizer::game::shops::twillen {
     }
 
     ShopCollection::twillen_shop_t::slot_t& get_slot(app::SpiritShardType__Enum spirit_shard_type) {
-        const auto slot = shops().twillen_shop().slot(get_slot_key_for_spirit_shard_type(spirit_shard_type));
+        const auto slot = shops()->twillen_shop().slot(get_slot_key_for_spirit_shard_type(spirit_shard_type));
 
         if (!slot.has_value()) {
             throw std::exception("Missing Twillen shop slot");
@@ -48,7 +48,7 @@ namespace randomizer::game::shops::twillen {
     }
 
     std::optional<std::reference_wrapper<ShopCollection::twillen_shop_t::slot_t>> get_slot_optional(app::SpiritShardType__Enum spirit_shard_type) {
-        return shops().twillen_shop().slot(get_slot_key_for_spirit_shard_type(spirit_shard_type));
+        return shops()->twillen_shop().slot(get_slot_key_for_spirit_shard_type(spirit_shard_type));
     }
 
     namespace {

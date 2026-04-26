@@ -12,4 +12,5 @@ enum class SaveMetaSlot {
     SeedEnvironment = 4,
     StaticText = 5,
     SaveFileGameStatsEvents = 6,
+    Shops = 7,
 };

@@ -6,6 +6,8 @@
 #include <Core/property.h>
 
 #include "Core/api/graphics/textures.h"
+#include "Core/save_meta/save_meta.h"
+#include "Modloader/modloader.h"
 
 namespace randomizer::game::shops {
     enum class ShopType {
@@ -25,6 +27,11 @@ namespace randomizer::game::shops {
 
     struct ShopSlot {
         core::api::uber_states::UberState is_purchased_state;
+
+        virtual nlohmann::json serialize() const = 0;
+        virtual void deserialize(const nlohmann::json& json) = 0;
+
+        virtual ~ShopSlot() = default;
     };
 
     /**
@@ -43,6 +50,9 @@ namespace randomizer::game::shops {
 
         std::shared_ptr<core::api::graphics::textures::TextureData> icon();
 
+        nlohmann::json serialize() const override;
+        void deserialize(const nlohmann::json& json) override;
+
     private:
         // nullopt = cache dirty, value + nullptr = cache is valid but texture is not
         std::optional<std::shared_ptr<core::api::graphics::textures::TextureData>> icon_cache;
@@ -54,6 +64,9 @@ namespace randomizer::game::shops {
      */
     struct CostOnlyShopSlot : ShopSlot {
         core::Property<int> cost;
+
+        nlohmann::json serialize() const override;
+        void deserialize(const nlohmann::json& json) override;
     };
 
     template <int SLOT_COUNT, typename SLOT_T = ShopUIShopSlot>
@@ -80,11 +93,49 @@ namespace randomizer::game::shops {
 
         std::unordered_map<core::api::uber_states::UberState, SLOT_T>& slots() { return m_slots; }
 
+        [[nodiscard]]
+        nlohmann::json serialize() const {
+            nlohmann::json json;
+
+            for (const auto& [uber_state, slot]: m_slots) {
+                json.push_back({
+                    {"is_purchased_group", uber_state.group_int()},
+                    {"is_purchased_state", uber_state.state()},
+                    {"slot", slot.serialize()},
+                });
+            }
+
+            return json;
+        }
+
+        void deserialize(const nlohmann::json& json) {
+            for (auto& element: json) {
+                const core::api::uber_states::UberState is_purchased_state(
+                    element.at("is_purchased_group").get<int>(),
+                    element.at("is_purchased_state").get<int>()
+                );
+
+                const auto slot_it = m_slots.find(is_purchased_state);
+                if (slot_it != m_slots.end()) {
+                    slot_it->second.deserialize(element.at("slot"));
+                } else {
+                    modloader::warn(
+                        "shop",
+                        std::format(
+                            "Tried to deserialize shop slot for state {}|{} but the shop did not contain such a slot",
+                            is_purchased_state.group_int(),
+                            is_purchased_state.state()
+                        )
+                    );
+                }
+            }
+        }
+
     private:
         std::unordered_map<core::api::uber_states::UberState, SLOT_T> m_slots;
     };
 
-    class ShopCollection {
+    class ShopCollection : public core::save_meta::JsonSaveMetaSerializable {
     public:
         using opher_shop_t = Shop<12, ShopUIShopSlot>;
         using twillen_shop_t = Shop<8, ShopUIShopSlot>;
@@ -105,6 +156,9 @@ namespace randomizer::game::shops {
         tuley_shop_t& tuley_shop() { return m_tuley_shop; }
 
         const std::unordered_map<core::api::uber_states::UberState, any_shop_slot_reference_t>& slots();
+
+        nlohmann::json json_serialize() override;
+        void json_deserialize(nlohmann::json& j) override;
 
     private:
         opher_shop_t m_opher_shop;
@@ -130,5 +184,5 @@ namespace randomizer::game::shops {
     void buy_item(ShopSlot const& slot);
     bool is_in_shop(ShopType type);
 
-    ShopCollection& shops();
+    std::shared_ptr<ShopCollection>& shops();
 } // namespace randomizer::game::shops

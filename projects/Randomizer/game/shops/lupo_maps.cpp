@@ -33,7 +33,7 @@ namespace randomizer::game::shops::lupo_maps {
     }
 
     ShopCollection::lupo_maps_shop_t::slot_t& get_slot(app::GameWorldAreaID__Enum game_world_area) {
-        const auto slot = shops().lupo_maps_shop().slot(get_slot_key_for_game_world_area(game_world_area));
+        const auto slot = shops()->lupo_maps_shop().slot(get_slot_key_for_game_world_area(game_world_area));
 
         if (!slot.has_value()) {
             throw std::exception("Missing Lupo Maps shop slot");

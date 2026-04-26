@@ -37,7 +37,7 @@ namespace randomizer::game::shops::grom {
     }
 
     ShopCollection::grom_shop_t::slot_t& get_slot(const app::SerializedByteUberState* vanilla_state) {
-        const auto slot = shops().grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(vanilla_state));
+        const auto slot = shops()->grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(vanilla_state));
 
         if (!slot.has_value()) {
             throw std::exception("Missing Grom shop slot");
@@ -115,16 +115,16 @@ namespace randomizer::game::shops::grom {
 
     IL2CPP_INTERCEPT(int, BuilderItem, GetCostForLevel, app::BuilderItem* this_ptr, int level) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
-            auto& slot = shops().grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).value().get();
+            auto& slot = shops()->grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).value().get();
             return slot.cost.get();
-        } else {
-            return next::BuilderItem::GetCostForLevel(this_ptr, level);
         }
+
+        return next::BuilderItem::GetCostForLevel(this_ptr, level);
     }
 
     IL2CPP_INTERCEPT_WITH_ORDER(0, bool, BuilderItem, get_IsVisible, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
-            auto& slot = shops().grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).value().get();
+            auto& slot = shops()->grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).value().get();
             return slot.visibility() == SlotVisibility::Visible;
         }
 
@@ -133,7 +133,7 @@ namespace randomizer::game::shops::grom {
 
     IL2CPP_INTERCEPT(bool, BuilderItem, get_IsLocked, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
-            auto& slot = shops().grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).value().get();
+            auto& slot = shops()->grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).value().get();
             return slot.visibility() == SlotVisibility::Locked;
         } else {
             return next::BuilderItem::get_IsLocked(this_ptr);
