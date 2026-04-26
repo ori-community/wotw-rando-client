@@ -68,7 +68,8 @@ namespace core::api::messages {
         int m_id;
         std::string m_name;
 
-        void render_text_box();
+        void render_text(const std::string& text);
+        void render_message_box();
         app::Transform* background_transform() const;
 
         common::Droppable::ptr_t m_on_update_handle;

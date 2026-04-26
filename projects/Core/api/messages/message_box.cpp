@@ -166,6 +166,7 @@ namespace core::api::messages {
         const auto controller = types::UI::get_class()->static_fields->MessageController;
         m_game_object = reinterpret_cast<app::GameObject*>(Object::Instantiate_3(reinterpret_cast<app::Object_1*>(controller->fields.HintSmallMessage)));
         add_to_container(game::GameObjectContainer::Messages, m_game_object);
+        il2cpp::unity::set_object_name(m_game_object, "MessageBox");
 
         il2cpp::unity::destroy_object(il2cpp::unity::get_component_in_children<app::DestroyOnRestoreCheckpoint>(m_game_object, types::DestroyOnRestoreCheckpoint::get_class()));
         il2cpp::unity::destroy_object(il2cpp::unity::get_component_in_children<app::ParticleSuspender>(m_game_object, types::ParticleSuspender::get_class()));
@@ -353,7 +354,13 @@ namespace core::api::messages {
         return rect;
     }
 
-    void MessageBox::render_text_box() {
+    void MessageBox::render_text(const std::string& text) {
+        text_style::create_styles(m_message_box->fields.TextBox, text);
+        m_message_box->fields.MessageProvider = core::api::system::create_message_provider(text);
+        app::classes::MessageBox::RefreshText_1(m_message_box);
+    }
+
+    void MessageBox::render_message_box() {
         auto new_text = m_text.get();
         auto should_recache = false;
 
@@ -366,9 +373,7 @@ namespace core::api::messages {
 
         if (m_cached_text != new_text) {
             m_cached_text = new_text;
-            text_style::create_styles(m_message_box->fields.TextBox, m_cached_text);
-            m_message_box->fields.MessageProvider = core::api::system::create_message_provider(m_cached_text);
-            app::classes::MessageBox::RefreshText_1(m_message_box);
+            render_text(m_cached_text);
             should_recache = true;
         }
 
@@ -397,7 +402,7 @@ namespace core::api::messages {
             return;
         }
 
-        render_text_box();
+        render_message_box();
 
         auto pos = m_position.get();
         switch (m_coordinate_system.get()) {
@@ -423,7 +428,7 @@ namespace core::api::messages {
         const auto transform = il2cpp::unity::get_transform(m_game_object);
         Transform::set_position(transform, pos);
         // We don't want to automatically hide messages after we show them.
-        if (m_message_box->fields.Visibility->fields.m_timeSpeed > 0) {
+        if (m_message_box->fields.Visibility->fields.m_timeSpeed > 0 && m_message_box->fields.Visibility->fields.m_time >= 1.f) {
             m_message_box->fields.Visibility->fields.m_delayTime = FLT_MAX;
         }
     }
@@ -437,12 +442,16 @@ namespace core::api::messages {
             return Visibility::Visible;
         }
 
-        if (m_message_box->fields.Visibility->fields.m_time <= 0.0f) {
+        if (m_message_box->fields.Visibility->fields.m_time < 0.0f) {
             return Visibility::Hidden;
         }
 
         if (m_message_box->fields.Visibility->fields.m_timeSpeed < 0.0f) {
             return Visibility::FadingOut;
+        }
+
+        if (m_message_box->fields.Visibility->fields.m_timeSpeed == 0.0f) {
+            return Visibility::Hidden;
         }
 
         return Visibility::FadingIn;
@@ -458,7 +467,8 @@ namespace core::api::messages {
         m_message_box->fields.Visibility->fields.WaitDuration = FLT_MAX;
         m_message_box->fields.Visibility->fields.m_timeSpeed = 1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionInDuration, FLT_EPSILON);
         m_message_box->fields.Visibility->fields.m_time = instant ? 2.f : 0.0f;
-        on_fixed_update();
+
+        render_text(m_text.get());
     }
 
     void MessageBox::hide(const bool instant) const {
