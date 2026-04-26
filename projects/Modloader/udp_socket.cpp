@@ -116,13 +116,14 @@ namespace modloader {
     }
 
     bool UDPSocket::send(std::span<char> message) const {
-        if (!data->is_open)
+        if (!data->is_open) {
             return false;
+        }
 
         auto result = ::send(
             data->socket,
             message.data(),
-            message.size_bytes(),
+            static_cast<int>(message.size_bytes()),
             0
         );
 

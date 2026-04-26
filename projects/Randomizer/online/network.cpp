@@ -122,18 +122,11 @@ namespace randomizer::online {
                 auth.set_client_version(randomizer::randomizer_version().to_string());
                 websocket_send(Network::Packet_PacketID_AuthenticateMessage, auth);
                 core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Authenticating); });
-                if (m_status_listener) {
-                    m_status_listener(
-                        {
-                            .type = StatusType::WebsocketConnected,
-                            .info = "Websocket connected",
-                        }
-                    );
-                }
+                modloader::info("network", "WebSocket connected.");
                 break;
             }
             case ix::WebSocketMessageType::Close: {
-                auto closed_reason = std::format("websocket closed '{}': {}", msg->closeInfo.code, msg->closeInfo.reason.c_str());
+                auto closed_reason = std::format("WebSocket closed '{}': {}", msg->closeInfo.code, msg->closeInfo.reason.c_str());
                 modloader::warn(
                     "network_client",
                     closed_reason
@@ -147,24 +140,8 @@ namespace randomizer::online {
                             websocket_connect(m_websocket.getUrl());
                         }
                     });
-                    if (m_status_listener) {
-                        m_status_listener(
-                            {
-                                .type = StatusType::WebsocketClosedUnexpected,
-                                .info = closed_reason,
-                            }
-                        );
-                    }
                 } else {
                     core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Closed); });
-                    if (m_status_listener) {
-                        m_status_listener(
-                            {
-                                .type = StatusType::WebsocketClosed,
-                                .info = closed_reason,
-                            }
-                        );
-                    }
                 }
                 break;
             }
@@ -179,21 +156,13 @@ namespace randomizer::online {
                 );
 
                 core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Reconnecting); });
-
-                if (m_status_listener) {
-                    m_status_listener(
-                        {
-                            .type = StatusType::WebsocketError,
-                            .info = msg->errorInfo.reason,
-                        }
-                    );
-                }
+                modloader::error("network", std::format("WebSocket Error: {}", msg->errorInfo.reason));
                 break;
             case ix::WebSocketMessageType::Ping:
             case ix::WebSocketMessageType::Pong:
                 return;
             case ix::WebSocketMessageType::Fragment:
-                modloader::win::console::console_send("Fragment?");
+                modloader::warn("network", "WebSocket received unsupported Fragment frame");
                 return;
         }
     }
@@ -242,14 +211,7 @@ namespace randomizer::online {
     }
 
     void NetworkClient::udp_handle_error(int error) {
-        if (m_status_listener) {
-            m_status_listener(
-                {
-                    .type = StatusType::UdpError,
-                    .info = std::format("Udp socket encountered error ({}), reconnecting.", error),
-                }
-            );
-        }
+        modloader::error("network", std::format("UDP socket encountered error ({}), reconnecting...", error));
 
         if (m_reopen_udp) {
             core::events::schedule_task(
@@ -288,16 +250,7 @@ namespace randomizer::online {
 
         auto info = m_websocket.send(packet.SerializeAsString(), true);
         if (!info.success) {
-            modloader::warn("network_client", "Failed to send websocket packet.");
-            if (m_status_listener) {
-                m_status_listener(
-                    {
-                        .type = StatusType::WebsocketSendError,
-                        .info = std::format("Failed to send websocket packet."),
-                    }
-                );
-            }
-
+            modloader::error("network_client", "Failed to send websocket packet.");
             return false;
         }
 

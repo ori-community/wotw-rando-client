@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string_view>
-#include <utility>
 #include <vector>
 
 #include <ixwebsocket/IXWebSocket.h>
@@ -22,24 +21,7 @@ namespace randomizer::online {
             Closed,
         };
 
-        enum class StatusType {
-            WebsocketConnected,
-            WebsocketClosedUnexpected,
-            WebsocketClosed,
-            WebsocketError,
-            WebsocketSendError,
-
-            UdpClosed,
-            UdpError,
-        };
-
-        struct Status {
-            StatusType type;
-            std::string info;
-        };
-
         using handler_callback = std::function<void(Network::Packet_PacketID, std::string)>;
-        using status_callback = std::function<void(Status const&)>;
 
         NetworkClient();
         ~NetworkClient();
@@ -84,10 +66,6 @@ namespace randomizer::online {
             });
         }
 
-        void set_status_listener(status_callback callback) {
-            m_status_listener = std::move(callback);
-        }
-
         common::EventBus<State>& event_bus() { return m_event_bus; }
 
     private:
@@ -102,7 +80,6 @@ namespace randomizer::online {
         std::unordered_map<Network::Packet_PacketID, std::vector<handler_callback>> m_callbacks;
         ix::WebSocket m_websocket;
         modloader::UDPSocket m_udp_socket;
-        status_callback m_status_listener;
         common::EventBus<State> m_event_bus;
 
         std::string m_host;
