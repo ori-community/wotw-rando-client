@@ -13,7 +13,6 @@ namespace {
     /// teddy before opening the door in Woods, which is possible when
     /// changing door connections.
 
-    const auto FAMILY_REUNION_QUEST = core::api::uber_states::UberState(14019, 27804);
     const auto USE_CAN_OPEN_HUT_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoConfig, 33);
     const auto CAN_OPEN_HUT_STATE = core::api::uber_states::UberState(UberStateGroup::RandoState, 500);
 
