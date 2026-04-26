@@ -48,6 +48,7 @@
 
 
 #include "Modloader/windows_api/windows.h"
+#include "shops/shop.h"
 
 using namespace modloader;
 using namespace app::classes;
@@ -404,6 +405,7 @@ namespace randomizer::game {
 
         void on_new_game(GameEvent event, EventTiming timing) {
             core::api::scenes::load_default_values();
+            shops::shops() = std::make_shared<shops::ShopCollection>();
 
             core::api::game::event_bus().trigger_event(GameEvent::NewGameInitialized, EventTiming::Before);
 
