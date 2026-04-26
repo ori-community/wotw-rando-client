@@ -354,14 +354,12 @@ namespace randomizer::seed {
         // These are only serialized on-demand in json_serialize():
         std::unordered_map<std::size_t, SerializedFreeMessageBox> m_serialized_free_message_boxes;
         std::unordered_map<std::size_t, SerializedWarpIcon> m_serialized_warp_icons;
-        std::vector<SeedTimer> m_timers;
         std::unordered_map<std::size_t, SeedBoxTrigger> m_box_triggers;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(
             SeedExecutionEnvironment,
             m_serialized_free_message_boxes,
             m_serialized_warp_icons,
-            m_timers,
             m_box_triggers
         );
 
@@ -373,6 +371,7 @@ namespace randomizer::seed {
         std::unordered_map<std::size_t, map::icons::MapIcon::ptr_t> m_spoiler_map_icons;
         std::vector<common::Droppable::ptr_t> m_event_bus_handles;
         Seed& m_seed;
+        std::vector<SeedTimer> m_timers;
         std::optional<app::Vector2> m_queued_message_pickup_position_in_current_scope = std::nullopt;
 
         /**
