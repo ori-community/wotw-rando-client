@@ -5,7 +5,9 @@
 #include <Core/property.h>
 #include <Core/api/messages/message_box.h>
 
-namespace core::messages {
+namespace randomizer::messages {
+    using namespace core;
+
     struct QueuedMessageProperties {
         /** The text that should be displayed */
         Property<std::string> text{""};

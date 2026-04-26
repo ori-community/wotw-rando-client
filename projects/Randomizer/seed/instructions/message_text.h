@@ -9,7 +9,7 @@ INSTRUCTION(MessageText)
     std::size_t id;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        environment.modify_queued_message_box(id, [&](core::messages::QueuedMessage& queued_message) {
+        environment.modify_queued_message_box(id, [&](randomizer::messages::QueuedMessage& queued_message) {
             queued_message.properties().text.set(memory.strings.get(0));
         });
         environment.modify_free_message_box(id, [&](const FreeMessageBox& free_message_box) {

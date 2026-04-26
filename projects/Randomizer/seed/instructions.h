@@ -271,7 +271,7 @@ namespace randomizer::seed {
         /**
          * Add a queued message box. If a free message box with the same ID exists, it will be destroyed.
          */
-        void add_queued_message_box(std::size_t id, const core::messages::QueuedMessage::weak_ptr_t& queued_message);
+        void add_queued_message_box(std::size_t id, const randomizer::messages::QueuedMessage::weak_ptr_t& queued_message);
 
         /**
          * Calls a lambda with a reference to a free message box to be able to make modifications to it (e.g. change text).
@@ -283,7 +283,7 @@ namespace randomizer::seed {
          * Calls a lambda with a reference to a queued message box to be able to make modifications to it (e.g. change text).
          * Does nothing if a queued message box with the given ID does not exist.
          */
-        void modify_queued_message_box(std::size_t id, const std::function<void(core::messages::QueuedMessage&)>& fn);
+        void modify_queued_message_box(std::size_t id, const std::function<void(randomizer::messages::QueuedMessage&)>& fn);
 
         /**
          * Sets the hidden callback of a queued message box to a command specified by its command ID.
@@ -368,7 +368,7 @@ namespace randomizer::seed {
         // Runtime
         std::unordered_map<std::size_t, map::icons::MapIcon::ptr_t> m_warp_icons;
         std::unordered_map<std::size_t, FreeMessageBox> m_free_message_boxes;
-        std::unordered_map<std::size_t, core::messages::QueuedMessage::weak_ptr_t> m_queued_message_boxes;
+        std::unordered_map<std::size_t, randomizer::messages::QueuedMessage::weak_ptr_t> m_queued_message_boxes;
         bool m_prevent_grant = false;
         std::unordered_map<std::size_t, map::icons::MapIcon::ptr_t> m_spoiler_map_icons;
         std::vector<common::Droppable::ptr_t> m_event_bus_handles;

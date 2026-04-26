@@ -9,7 +9,7 @@
 #include <Modloader/modloader.h>
 
 
-namespace core::messages {
+namespace randomizer::messages {
     using namespace app::classes;
 
     const float MAX_DISTANCE_SQUARED_FOR_MESSAGE_POSITION_ANIMATION = std::powf(10.f, 2.f);

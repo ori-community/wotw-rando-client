@@ -413,7 +413,7 @@ namespace randomizer::seed {
         m_queued_message_boxes.erase(id);
     }
 
-    void SeedExecutionEnvironment::add_queued_message_box(std::size_t id, const core::messages::QueuedMessage::weak_ptr_t& queued_message) {
+    void SeedExecutionEnvironment::add_queued_message_box(std::size_t id, const randomizer::messages::QueuedMessage::weak_ptr_t& queued_message) {
         m_queued_message_boxes[id] = queued_message;
         m_free_message_boxes.erase(id);
     }
@@ -426,7 +426,7 @@ namespace randomizer::seed {
         fn(m_free_message_boxes[id]);
     }
 
-    void SeedExecutionEnvironment::modify_queued_message_box(std::size_t id, const std::function<void(core::messages::QueuedMessage&)>& fn) {
+    void SeedExecutionEnvironment::modify_queued_message_box(std::size_t id, const std::function<void(randomizer::messages::QueuedMessage&)>& fn) {
         const auto it = m_queued_message_boxes.find(id);
         if (it == m_queued_message_boxes.end()) {
             return;

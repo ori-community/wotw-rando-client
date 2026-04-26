@@ -28,7 +28,7 @@ namespace randomizer {
         online::NetworkClient network_client_instance;
         online::MultiplayerUniverse multiplayer_universe_instance;
         seedgen_interface::SeedgenService seedgen_service_instance;
-        core::messages::MessageQueue message_queue_instance({0.f, 3.f});
+        randomizer::messages::MessageQueue message_queue_instance({0.f, 3.f});
 
         auto seed_meta_save_data = std::make_shared<seed::SaveSlotSeedMetaData>();
         auto seed_archive_save_data = std::make_shared<seed::SeedArchiveSaveMetaData>();
@@ -330,7 +330,7 @@ namespace randomizer {
     online::NetworkClient& network_client() { return network_client_instance; }
     online::MultiplayerUniverse& multiplayer_universe() { return multiplayer_universe_instance; }
     seedgen_interface::SeedgenService& seedgen_service() { return seedgen_service_instance; }
-    core::messages::MessageQueue& message_queue() { return message_queue_instance; }
+    randomizer::messages::MessageQueue& message_queue() { return message_queue_instance; }
 
     std::shared_ptr<seed::SeedSource> get_new_game_seed_source() { return new_game_seed_source; }
 
