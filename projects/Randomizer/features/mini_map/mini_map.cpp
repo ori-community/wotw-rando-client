@@ -35,6 +35,8 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
+#include "Randomizer/randomizer.h"
+
 namespace {
     using namespace app::classes;
 
@@ -208,10 +210,9 @@ namespace {
             }
         }
 
-        // TODO:
-        // if (core::message_controller().recent_display().get_active_messages_count() > 0) {
-        //     return true;
-        // }
+        if (randomizer::recent_messages_view().is_visible()) {
+            return true;
+        }
 
         return PerformBackOutAction::get_IsAbandonChallangeActive();
     }

@@ -7,6 +7,7 @@
 #include <Randomizer/seed/seedgen_service.h>
 #include <Randomizer/seed/seed.h>
 #include <Randomizer/seed/seed_source.h>
+#include <Randomizer/messages/recent_messages.h>
 
 #include <semver.hpp>
 
@@ -53,7 +54,8 @@ namespace randomizer {
     online::NetworkClient& network_client();
     online::MultiplayerUniverse& multiplayer_universe();
     seedgen_interface::SeedgenService& seedgen_service();
-    randomizer::messages::MessageQueue& message_queue();
+    messages::MessageQueue& message_queue();
+    messages::RecentMessagesView& recent_messages_view();
     std::shared_ptr<seed::SeedSource> get_new_game_seed_source();
     void set_new_game_seed_archive(const std::shared_ptr<seed::SeedArchive>& content);
     std::optional<long> get_multiverse_id();

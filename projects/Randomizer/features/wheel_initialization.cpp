@@ -37,13 +37,11 @@ namespace randomizer::features::wheel {
         initialize_item(0, 11, "Rando Actions", "Contains default\nrandomizer actions", "file:icons/wheel/menu.blue.png",
                         [](auto, auto, auto) { set_active_wheel(9000); });
 
-        initialize_item(9000, 0, "Show last pickup", "Displays the message associated\nwith the last pickup.", "file:icons/wheel/show_last_pickup.blue.png",
+        initialize_item(9000, 0, "Show recent pickups", "Displays a list of\nrecently collected pickups", "file:icons/wheel/show_last_pickup.blue.png",
                         [](auto, auto, auto) {
-                            game_seed().trigger(seed::SeedClientEvent::RequeueLastMessage);
-                            // TODO:
-                            // core::message_controller().show_recent_messages();
+                            recent_messages_view().show();
                         });
-        initialize_item(9000, 1, "Show progress, with hints.", "Displays current goal mode progress and bought hints.", "file:icons/wheel/progress_summary.blue.png",
+        initialize_item(9000, 1, "Show progress and hints", "Displays current goal mode progress and bought hints.", "file:icons/wheel/progress_summary.blue.png",
                         [](auto, auto, auto) { game_seed().trigger(seed::SeedClientEvent::ShowProgress); });
         initialize_item(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "file:icons/wheel/warp_to_credits.blue.png",
                         [](auto, auto, auto) {

@@ -11,14 +11,20 @@ INSTRUCTION(QueuedMessage)
     bool prioritized;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+        const auto text = memory.strings.get(0);
+
         const auto queued_message = message_queue().enqueue(
             {
-                .text = core::Property<std::string>(memory.strings.get(0)),
+                .text = core::Property<std::string>(text),
                 .time_left = memory.floats.get(0),
             },
             prioritized,
             environment.get_queued_message_pickup_position_in_current_scope()
         );
+
+        if (!prioritized) {
+            recent_messages_view().push_message(text);
+        }
 
         if (id.has_value()) {
             environment.add_queued_message_box(id.value(), queued_message);

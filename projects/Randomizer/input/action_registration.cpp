@@ -49,9 +49,7 @@ namespace randomizer::input {
         });
 
         auto on_show_last_pickup_before = single_input_bus().register_handler(Action::ShowLastPickup, EventTiming::Before, [](auto, auto) {
-            // TODO:
-            // core::message_controller().show_recent_messages();
-            game_seed().trigger(seed::SeedClientEvent::RequeueLastMessage);
+            recent_messages_view().show();
         });
 
         auto on_warp_credits_before = single_input_bus().register_handler(Action::WarpCredits, EventTiming::Before, [](auto, auto) {
