@@ -12,6 +12,8 @@
 namespace core::messages {
     using namespace app::classes;
 
+    const float MAX_DISTANCE_SQUARED_FOR_MESSAGE_POSITION_ANIMATION = std::powf(10.f, 2.f);
+
     bool game_ready = false;
 
     [[maybe_unused]]
@@ -128,15 +130,20 @@ namespace core::messages {
                 queued_message->m_box_and_effects->message_box->top_padding().set(0);
                 queued_message->m_box_and_effects->message_box->bottom_padding().set(0);
 
-                if (queued_message->m_origin_world_position.has_value()) {
-                    // TODO: Don't do this if the origin_world_position is too far away from the camera
-                    queued_message->m_box_and_effects->message_box->position().set(
-                        modloader::math::to_vec3(world_to_ui_position_2d(*queued_message->m_origin_world_position))
-                    );
-                } else {
-                    queued_message->m_box_and_effects->message_box->position().set(modloader::math::to_vec3(target_position));
-                }
+                const auto initial_position = [&] {
+                    if (queued_message->m_origin_world_position.has_value()) {
+                        const auto origin_ui_position = world_to_ui_position_2d(*queued_message->m_origin_world_position);
 
+                        if (modloader::math::distance2(origin_ui_position, target_position) <= MAX_DISTANCE_SQUARED_FOR_MESSAGE_POSITION_ANIMATION) {
+                            queued_message->m_box_and_effects->message_box->fade_in().set(0.3f);
+                            return modloader::math::to_vec3(origin_ui_position);
+                        }
+                    }
+
+                    return modloader::math::to_vec3(target_position);
+                }();
+
+                queued_message->m_box_and_effects->message_box->position().set(initial_position);
                 queued_message->m_box_and_effects->message_box->show();
                 queued_message->m_visible = true;
 
@@ -146,7 +153,7 @@ namespace core::messages {
             }
 
             const auto current_position = modloader::math::to_vec2(queued_message->m_box_and_effects->message_box->position().get());
-            const auto new_position = modloader::math::lerp(current_position, target_position, std::min(1.f, delta * 10.f));
+            const auto new_position = modloader::math::lerp(current_position, target_position, std::min(1.f, delta * 7.5f));
             queued_message->m_box_and_effects->message_box->position().set(modloader::math::to_vec3(new_position));
 
             if (!message_expired) {
