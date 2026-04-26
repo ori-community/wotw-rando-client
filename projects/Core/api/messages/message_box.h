@@ -37,7 +37,7 @@ namespace core::api::messages {
         void on_fixed_update();
 
         [[nodiscard]] Visibility get_visibility() const;
-        void show(bool instant = false, bool play_sound = true);
+        void show(bool instant = false, bool play_sound = true, bool use_subtle_scale_transition = false);
         void hide(bool instant = false) const;
 
         void set_name(std::string_view name);

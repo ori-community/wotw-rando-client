@@ -7,6 +7,7 @@
 
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/CatlikeCoding/TextBox/BitmapFont.h>
+#include <Modloader/app/methods/UnityEngine/AnimationCurve.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/MessageBoxVisibility.h>
 #include <Modloader/app/methods/ScaleToTextBox.h>
@@ -457,7 +458,7 @@ namespace core::api::messages {
         return Visibility::FadingIn;
     }
 
-    void MessageBox::show(const bool instant, const bool play_sound) {
+    void MessageBox::show(const bool instant, const bool play_sound, bool use_subtle_scale_transition) {
         const auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(m_game_object, types::SoundSource::get_class());
         if (play_sound) {
             SoundSource::Play_2(sound_source);
@@ -467,6 +468,10 @@ namespace core::api::messages {
         m_message_box->fields.Visibility->fields.WaitDuration = FLT_MAX;
         m_message_box->fields.Visibility->fields.m_timeSpeed = 1.0f / std::max(m_message_box->fields.Visibility->fields.TransitionInDuration, FLT_EPSILON);
         m_message_box->fields.Visibility->fields.m_time = instant ? 2.f : 0.0f;
+
+        if (use_subtle_scale_transition) {
+            m_message_box->fields.Visibility->fields.ScaleIn = UnityEngine::AnimationCurve::EaseInOut(0.f, 0.98f, 1.f, 1.f);
+        }
 
         render_text(m_text.get());
     }
