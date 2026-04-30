@@ -539,7 +539,7 @@ namespace randomizer {
             register_virtual_uber_state_from_property(UberStateGroup::Player, 11, ValueType::Float, "health", health(), VirtualUberState::ChangeDetectionMode::Poll);
             register_virtual_uber_state_from_property(UberStateGroup::Player, 12, ValueType::Float, "maxEnergy", max_energy(), VirtualUberState::ChangeDetectionMode::Poll);
             register_virtual_uber_state_from_property(UberStateGroup::Player, 13, ValueType::Float, "energy", energy(), VirtualUberState::ChangeDetectionMode::Poll);
-            register_virtual_uber_state(UberStateGroup::Player, 50, ValueType::Integer, "currentArea", [] { return static_cast<int>(get_current_area()); }, std::nullopt, VirtualUberState::ChangeDetectionMode::ReactiveEffect);
+            register_virtual_uber_state(UberStateGroup::Player, 50, ValueType::Integer, "currentArea", [] { return static_cast<int>(get_current_area()); }, std::nullopt, VirtualUberState::ChangeDetectionMode::Poll);
             register_read_only_virtual_uber_state_from_property(UberStateGroup::Player, 51, ValueType::Integer, "currentMapArea", uber_states::readonly::player_current_map_area(), VirtualUberState::ChangeDetectionMode::ReactiveEffect);
             register_read_only_virtual_uber_state_from_property(UberStateGroup::Player, 100, ValueType::Boolean, "isTeleporting", uber_states::readonly::player_is_teleporting(), VirtualUberState::ChangeDetectionMode::ReactiveEffect);
 
