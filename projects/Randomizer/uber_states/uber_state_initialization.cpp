@@ -22,7 +22,7 @@
 #include <Modloader/modloader.h>
 #include <Randomizer/constants.h>
 #include <Randomizer/features/area_segment_states.h>
-#include <Randomizer/features/door_randomizer.h>
+#include <Randomizer/features/entrance_randomizer.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/uber_states/uber_state_initialization.h>
 #include <chrono>
@@ -502,11 +502,11 @@ namespace randomizer {
             }
 
             // Doors
-            for (const auto& [door_name, door_id] : randomizer::doors::get_door_name_to_door_id_map()) {
-                const auto default_door_info = randomizer::doors::get_default_door_info(door_name);
+            for (const auto& [door_name, door_id] : randomizer::entrances::get_entrance_name_to_entrance_id_map()) {
+                const auto default_door_info = randomizer::entrances::get_default_entrance_info(door_name);
 
-                const auto default_target_door_id = default_door_info.target_door_name.has_value()
-                    ? randomizer::doors::get_door_id_from_door_name(*default_door_info.target_door_name)
+                const auto default_target_door_id = default_door_info.target_entrance_name.has_value()
+                    ? randomizer::entrances::get_entrance_id_from_entrance_name(*default_door_info.target_entrance_name)
                     : 0;
 
                 states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Doors, default_door_info.display_name, door_id, default_target_door_id));

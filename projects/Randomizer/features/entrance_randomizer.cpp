@@ -16,14 +16,14 @@
 #include <Modloader/il2cpp_math.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
-#include <Randomizer/features/door_randomizer.h>
+#include <Randomizer/features/entrance_randomizer.h>
 #include <Randomizer/randomizer.h>
 #include <ranges>
 #include <set>
 #include <string>
 #include <unordered_map>
 
-namespace randomizer::doors {
+namespace randomizer::entrances {
     namespace {
         using namespace app::classes;
 
@@ -31,7 +31,7 @@ namespace randomizer::doors {
         auto queue_placing_ori_on_ground = false;
         std::optional<app::Vector3> queued_ground_placement = std::nullopt;
 
-        const std::unordered_map<DoorName, int> DOOR_NAME_TO_DOOR_ID = {
+        const std::unordered_map<EntranceName, int> ENTRANCE_NAME_TO_ENTRANCE_ID = {
             {"lupoShopDoorOutside",     1 },
             {"lupoShopDoorInside",      2 },
             {"hutBEntrance",            3 },
@@ -59,17 +59,17 @@ namespace randomizer::doors {
             {"petrifiedHutDoorOutside", 25},
             {"petrifiedHutDoorInside",  26},
             {"desertRuinsEntranceDoor", 27},
-            {"doorB",                   28}, // Outer ruins door
+            {"doorB",                   28}, // Outer ruins entrance
             {"willowsEndEntrance",      29},
             {"willowsEndExit",          30},
             {"powlArenaEntrance",       31},
             {"powlArenaExit",           32},
         };
 
-        inline const std::unordered_map<int, DoorName> DOOR_ID_TO_DOOR_NAME = [] {
-            std::unordered_map<int, DoorName> map;
+        inline const std::unordered_map<int, EntranceName> ENTRANCE_ID_TO_ENTRANCE_NAME = [] {
+            std::unordered_map<int, EntranceName> map;
 
-            for (const auto& [name, id]: DOOR_NAME_TO_DOOR_ID) {
+            for (const auto& [name, id]: ENTRANCE_NAME_TO_ENTRANCE_ID) {
                 map.emplace(id, name);
             }
 
@@ -77,7 +77,7 @@ namespace randomizer::doors {
         }();
 
         // Default door configurations. The actual used doors are below.
-        const std::unordered_map<DoorName, DoorInfo> DEFAULT_DOORS{
+        const std::unordered_map<EntranceName, EntranceInfo> DEFAULT_ENTRANCES{
             {"lupoShopDoorOutside",     {"lupoShopEntrance", {"wellspringGladesHubB"}, "lupoShopDoorInside"}                                               },
             {"lupoShopDoorInside",      {"lupoShopExit", {"hutInteriorA"}, "lupoShopDoorOutside"}                                                          },
             {"hutBEntrance",            {"lastHutEntrance", {"wellspringGladesHub"}, "hutBExit"}                                                           },
@@ -113,13 +113,13 @@ namespace randomizer::doors {
         };
 
         // Actual door configuration
-        std::unordered_map<DoorName, DoorInfo> doors = DEFAULT_DOORS;
+        std::unordered_map<EntranceName, EntranceInfo> entrances = DEFAULT_ENTRANCES;
 
         /**
          * This is a mapping from scene name -> loading boundary indexes that will be removed from the game.
          * We remove them because we create custom loading boundaries on the fly.
          */
-        std::unordered_map<DoorName, std::set<int>> scene_loading_zones_related_to_doors{
+        std::unordered_map<EntranceName, std::set<int>> scene_loading_zones_related_to_entrances{
             // Glades
             {"wellspringGladesHub",             {2, 3, 4, 5}         },
             {"wellspringGladesHubB",            {1, 2, 3}            },
@@ -158,25 +158,25 @@ namespace randomizer::doors {
             {"willowCeremonyIntro",             {0}                  },
         };
 
-        void setup_door_target_loading_zone(DoorInfo& from_door, app::LegacyDoor* door) {
-            from_door.clear_target_loading_zones();
+        void setup_entrance_target_loading_zone(EntranceInfo& from_entrance, app::LegacyDoor* door_component) {
+            from_entrance.clear_target_loading_zones();
 
-            if (!from_door.target_door_name.has_value()) {
-                door->fields.OverrideEnterDoorMessage = core::api::system::create_message_provider("This door is closed");
+            if (!from_entrance.target_entrance_name.has_value()) {
+                door_component->fields.OverrideEnterDoorMessage = core::api::system::create_message_provider("This door is closed");
                 return;
             }
 
-            door->fields.OverrideEnterDoorMessage = nullptr;
+            door_component->fields.OverrideEnterDoorMessage = nullptr;
 
-            const auto& to_door = doors.at(*from_door.target_door_name);
-            const auto door_position = modloader::math::to_vec2(il2cpp::unity::get_position(door));
+            const auto& to_entrance = entrances.at(*from_entrance.target_entrance_name);
+            const auto entrance_position = modloader::math::to_vec2(il2cpp::unity::get_position(door_component));
 
-            for (auto& scene_name: to_door.scene_names) {
-                DoorLoadingZone zone{
+            for (auto& scene_name: to_entrance.scene_names) {
+                EntranceLoadingZone zone{
                     scene_name,
                     {
-                      door_position.x - 20.f,
-                      door_position.y - 20.f,
+                      entrance_position.x - 20.f,
+                      entrance_position.y - 20.f,
                       40.f, 40.f,
                       }
                 };
@@ -190,7 +190,7 @@ namespace randomizer::doors {
                         scene->fields.m_doneTotal = false;
                         RuntimeSceneMetaData::DoTotal(scene);
 
-                        from_door.target_loading_zones_cache.push_back(zone);
+                        from_entrance.target_loading_zones_cache.push_back(zone);
 
                         ScenesManager::GenerateGuidToRuntimeSceneMetaDataDictionaryAndQuadTree(scenes_manager, true);
                         goto next_scene;
@@ -198,28 +198,28 @@ namespace randomizer::doors {
                 }
 
                 modloader::warn(
-                    "door_randomizer", std::format("Could not setup target loading zone '{}' for target door '{}'", scene_name, *from_door.target_door_name)
+                    "entrance_randomizer", std::format("Could not setup target loading zone '{}' for target entrance '{}'", scene_name, *from_entrance.target_entrance_name)
                 );
 
             next_scene:;
             }
         }
 
-        void setup_door_reverse_scene_loading_zones(const DoorInfo& from_door, app::LegacyDoor* door) {
-            if (!from_door.target_door_name.has_value()) {
+        void setup_entrance_reverse_scene_loading_zones(const EntranceInfo& from_entrance, app::LegacyDoor* door_component) {
+            if (!from_entrance.target_entrance_name.has_value()) {
                 return;
             }
 
-            const auto& to_door = doors.at(*from_door.target_door_name);
+            const auto& to_entrance = entrances.at(*from_entrance.target_entrance_name);
 
             // We need to override the target of the first ReverseSceneLoadingZone component in a door because
             // it *may* be used to determine a scene to preload in case the normal loading zone is not fast enough
             // with loading the actual target door.
             const auto reverse_loading_zones = il2cpp::unity::get_components_in_children<app::ReverseSceneLoadingZone>(
-                il2cpp::unity::get_game_object(door), types::ReverseSceneLoadingZone::get_class(), true
+                il2cpp::unity::get_game_object(door_component), types::ReverseSceneLoadingZone::get_class(), true
             );
 
-            const auto runtime_scene_meta = core::api::scenes::get_runtime_scene_metadata(to_door.scene_names.at(0));
+            const auto runtime_scene_meta = core::api::scenes::get_runtime_scene_metadata(to_entrance.scene_names.at(0));
             const auto scene_meta = types::SceneMetaData::create();
             SceneMetaData::ctor(scene_meta);
             scene_meta->fields.SceneMoonGuid = runtime_scene_meta->fields.SceneMoonGuid;
@@ -234,33 +234,33 @@ namespace randomizer::doors {
                 return;
             }
 
-            const auto doors_in_scene = il2cpp::unity::get_components_in_children<app::LegacyDoor>(
+            const auto door_components_in_scene = il2cpp::unity::get_components_in_children<app::LegacyDoor>(
                 metadata->scene->fields.SceneRoot, types::LegacyDoor::get_class(), true
             );
 
-            for (auto door: doors_in_scene) {
-                const auto door_name = il2cpp::unity::get_object_name(door);
-                const auto door_it = doors.find(door_name);
+            for (auto door_component: door_components_in_scene) {
+                const auto door_name = il2cpp::unity::get_object_name(door_component);
+                const auto door_it = entrances.find(door_name);
 
-                if (door_it == doors.end()) {
-                    modloader::warn("door_randomizer", std::format("Encountered unknown door '{}'", door_name));
+                if (door_it == entrances.end()) {
+                    modloader::warn("entrance_randomizer", std::format("Encountered unknown door '{}'", door_name));
                     continue;
                 }
 
-                setup_door_reverse_scene_loading_zones(door_it->second, door);
+                setup_entrance_reverse_scene_loading_zones(door_it->second, door_component);
 
                 if (door_it->second.has_target_loading_zones()) {
                     continue;
                 }
 
-                setup_door_target_loading_zone(door_it->second, door);
+                setup_entrance_target_loading_zone(door_it->second, door_component);
             }
         });
 
         IL2CPP_INTERCEPT(void, ScenesManager, Awake, app::ScenesManager* this_ptr) {
             for (auto& scene: il2cpp::ListIterator(this_ptr->fields.AllScenes)) {
-                auto it = scene_loading_zones_related_to_doors.find(il2cpp::convert_csstring_fast_unsafe(scene->fields.Scene));
-                if (it != scene_loading_zones_related_to_doors.end()) {
+                auto it = scene_loading_zones_related_to_entrances.find(il2cpp::convert_csstring_fast_unsafe(scene->fields.Scene));
+                if (it != scene_loading_zones_related_to_entrances.end()) {
                     for (auto& index: it->second | std::views::reverse) {
                         int index_copy = index;
                         il2cpp::invoke(scene->fields.SceneLoadingBoundaries, "RemoveAt", &index_copy);
@@ -326,21 +326,21 @@ namespace randomizer::doors {
         IL2CPP_INTERCEPT(void, SeinDoorHandler, EnterIntoDoor, app::SeinDoorHandler* this_ptr, app::LegacyDoor* door) {
             const auto door_name = il2cpp::unity::get_object_name(door);
 
-            const auto it = doors.find(door_name);
-            if (it == doors.end()) {
-                modloader::warn("door_randomizer", std::format("Unknown door '{}'", door_name));
+            const auto it = entrances.find(door_name);
+            if (it == entrances.end()) {
+                modloader::warn("entrance_randomizer", std::format("Unknown door '{}'", door_name));
             } else {
-                if (!it->second.target_door_name.has_value()) {
+                if (!it->second.target_entrance_name.has_value()) {
                     return;
                 }
 
-                door->fields.OtherDoorName = il2cpp::string_new(*it->second.target_door_name);
+                door->fields.OtherDoorName = il2cpp::string_new(*it->second.target_entrance_name);
 
-                if (it->second.target_door_name.has_value()) {
-                    const auto to_it = doors.find(*it->second.target_door_name);
+                if (it->second.target_entrance_name.has_value()) {
+                    const auto to_it = entrances.find(*it->second.target_entrance_name);
 
-                    if (to_it == doors.end()) {
-                        modloader::warn("door_randomizer", std::format("Unknown door '{}'", *it->second.target_door_name));
+                    if (to_it == entrances.end()) {
+                        modloader::warn("entrance_randomizer", std::format("Unknown door '{}'", *it->second.target_entrance_name));
                         return;
                     }
 
@@ -354,7 +354,7 @@ namespace randomizer::doors {
                         door->fields.AdditionalScenesToBlockOn->vector[i] = scene_meta;
                     }
 
-                    core::api::uber_states::UberState visited_uber_state(UberStateGroup::KnownDoorConnections, DOOR_NAME_TO_DOOR_ID.at(it->first));
+                    core::api::uber_states::UberState visited_uber_state(UberStateGroup::KnownDoorConnections, ENTRANCE_NAME_TO_ENTRANCE_ID.at(it->first));
                     visited_uber_state.set<bool>(true);
                 }
             }
@@ -368,17 +368,17 @@ namespace randomizer::doors {
         IL2CPP_INTERCEPT(app::LegacyDoor*, SeinDoorHandler, GetTargetDoor, app::SeinDoorHandler* this_ptr, app::LegacyDoor* door) {
             const auto door_name = il2cpp::unity::get_object_name(door);
 
-            const auto current_it = doors.find(door_name);
-            if (current_it == doors.end()) {
-                modloader::warn("door_randomizer", std::format("Unknown door '{}'", door_name));
+            const auto current_it = entrances.find(door_name);
+            if (current_it == entrances.end()) {
+                modloader::warn("entrance_randomizer", std::format("Unknown door '{}'", door_name));
             } else {
-                if (!current_it->second.target_door_name.has_value()) {
+                if (!current_it->second.target_entrance_name.has_value()) {
                     return nullptr;
                 }
 
-                const auto target_it = doors.find(*current_it->second.target_door_name);
-                if (target_it == doors.end()) {
-                    modloader::warn("door_randomizer", std::format("Unknown door '{}'", door_name));
+                const auto target_it = entrances.find(*current_it->second.target_entrance_name);
+                if (target_it == entrances.end()) {
+                    modloader::warn("entrance_randomizer", std::format("Unknown door '{}'", door_name));
                 } else {
                     const auto target_door_scene_name = target_it->second.scene_names.at(0);
                     const auto scene_root = core::api::scenes::get_scene_root(target_door_scene_name);
@@ -386,7 +386,7 @@ namespace randomizer::doors {
                     if (scene_root != nullptr && il2cpp::unity::is_valid(scene_root)) {
                         const auto found_doors = il2cpp::unity::get_components_in_children<app::LegacyDoor>(scene_root, types::LegacyDoor::get_class(), true);
                         for (const auto& found_door: found_doors) {
-                            if (il2cpp::unity::get_object_name(found_door) == *current_it->second.target_door_name) {
+                            if (il2cpp::unity::get_object_name(found_door) == *current_it->second.target_entrance_name) {
                                 return found_door;
                             }
                         }
@@ -397,25 +397,25 @@ namespace randomizer::doors {
             return next::SeinDoorHandler::GetTargetDoor(this_ptr, door);
         }
 
-        void connect_door(const DoorName& from_door_id, const std::optional<DoorName>& to_door_id) {
-            const auto from_it = doors.find(from_door_id);
-            if (from_it == doors.end()) {
-                modloader::warn("door_randomizer", std::format("Door '{}' not found", from_door_id));
+        void connect_entrance(const EntranceName& from_door_name, const std::optional<EntranceName>& to_entrance_name) {
+            const auto from_it = entrances.find(from_door_name);
+            if (from_it == entrances.end()) {
+                modloader::warn("entrance_randomizer", std::format("Door '{}' not found", from_door_name));
                 return;
             }
 
-            if (to_door_id.has_value()) {
-                const auto to_it = doors.find(*to_door_id);
-                if (to_it == doors.end()) {
-                    modloader::warn("door_randomizer", std::format("Door '{}' not found", *to_door_id));
+            if (to_entrance_name.has_value()) {
+                const auto to_it = entrances.find(*to_entrance_name);
+                if (to_it == entrances.end()) {
+                    modloader::warn("entrance_randomizer", std::format("Door '{}' not found", *to_entrance_name));
                     return;
                 }
             }
 
-            auto& from_door = from_it->second;
-            from_door.target_door_name = to_door_id;
+            auto& from_entrance = from_it->second;
+            from_entrance.target_entrance_name = to_entrance_name;
 
-            from_door.clear_target_loading_zones();
+            from_entrance.clear_target_loading_zones();
 
             const auto scenes_manager = core::api::scenes::get_scenes_manager();
 
@@ -430,15 +430,15 @@ namespace randomizer::doors {
 
                 for (auto door: doors_in_scene) {
                     const auto door_name = il2cpp::unity::get_object_name(door);
-                    if (door_name == from_door_id) {
-                        setup_door_target_loading_zone(from_door, door);
+                    if (door_name == from_door_name) {
+                        setup_entrance_target_loading_zone(from_entrance, door);
                     }
                 }
             }
         }
 
         [[maybe_unused]] auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-            for (const auto& state_id: DOOR_ID_TO_DOOR_NAME | std::views::keys) {
+            for (const auto& state_id: ENTRANCE_ID_TO_ENTRANCE_NAME | std::views::keys) {
                 core::api::uber_states::UberState uber_state(UberStateGroup::Doors, state_id);
 
                 effects.push_back(
@@ -447,17 +447,17 @@ namespace randomizer::doors {
                         .after([=] {
                             const auto state_value = uber_state.get<int>();
 
-                            const auto self_door_id = get_door_name_from_door_id(state_id);
-                            const auto self_door_info = get_door_info(self_door_id);
+                            const auto self_entrance_name = get_entrance_name_from_entrance_id(state_id);
+                            const auto self_entrance_info = get_entrance_info(self_entrance_name);
 
-                            if (!hast_door_id(state_value)) {
-                                connect_door(self_door_id, std::nullopt);
+                            if (!has_entrance_id(state_value)) {
+                                connect_entrance(self_entrance_name, std::nullopt);
                                 return;
                             }
 
-                            const auto target_door_id = get_door_name_from_door_id(state_value);
-                            if (self_door_info.target_door_name != target_door_id) {
-                                connect_door(self_door_id, target_door_id);
+                            const auto target_entrance_name = get_entrance_name_from_entrance_id(state_value);
+                            if (self_entrance_info.target_entrance_name != target_entrance_name) {
+                                connect_entrance(self_entrance_name, target_entrance_name);
                             }
                         })
                         .trigger_on_load()
@@ -467,7 +467,7 @@ namespace randomizer::doors {
         });
     } // namespace
 
-    void DoorInfo::clear_target_loading_zones() {
+    void EntranceInfo::clear_target_loading_zones() {
         for (auto& target_loading_zone_cache: target_loading_zones_cache) {
             const auto scenes_manager = core::api::scenes::get_scenes_manager();
             for (auto& scene: il2cpp::ListIterator(scenes_manager->fields.AllScenes)) {
@@ -481,21 +481,21 @@ namespace randomizer::doors {
         target_loading_zones_cache.clear();
     }
 
-    bool DoorInfo::has_target_loading_zones() const { return !target_loading_zones_cache.empty(); }
+    bool EntranceInfo::has_target_loading_zones() const { return !target_loading_zones_cache.empty(); }
 
-    std::vector<DoorName> get_door_names() { return DOOR_NAME_TO_DOOR_ID | std::views::keys | std::ranges::to<std::vector>(); }
+    std::vector<EntranceName> get_entrance_names() { return ENTRANCE_NAME_TO_ENTRANCE_ID | std::views::keys | std::ranges::to<std::vector>(); }
 
-    const DoorInfo& get_door_info(const DoorName& name) { return doors.at(name); }
+    const EntranceInfo& get_entrance_info(const EntranceName& name) { return entrances.at(name); }
 
-    const DoorInfo& get_default_door_info(const DoorName& name) { return DEFAULT_DOORS.at(name); }
+    const EntranceInfo& get_default_entrance_info(const EntranceName& name) { return DEFAULT_ENTRANCES.at(name); }
 
-    int get_door_id_from_door_name(const DoorName& name) { return DOOR_NAME_TO_DOOR_ID.at(name); }
+    int get_entrance_id_from_entrance_name(const EntranceName& name) { return ENTRANCE_NAME_TO_ENTRANCE_ID.at(name); }
 
-    const DoorName& get_door_name_from_door_id(const int door_id) { return DOOR_ID_TO_DOOR_NAME.at(door_id); }
+    const EntranceName& get_entrance_name_from_entrance_id(const int door_id) { return ENTRANCE_ID_TO_ENTRANCE_NAME.at(door_id); }
 
-    bool has_door_name(const DoorName& name) { return DOOR_NAME_TO_DOOR_ID.contains(name); }
+    bool has_entrance_name(const EntranceName& name) { return ENTRANCE_NAME_TO_ENTRANCE_ID.contains(name); }
 
-    bool hast_door_id(const int door_id) { return DOOR_ID_TO_DOOR_NAME.contains(door_id); }
+    bool has_entrance_id(const int door_id) { return ENTRANCE_ID_TO_ENTRANCE_NAME.contains(door_id); }
 
-    std::unordered_map<DoorName, int> get_door_name_to_door_id_map() { return DOOR_NAME_TO_DOOR_ID; }
-} // namespace randomizer::doors
+    std::unordered_map<EntranceName, int> get_entrance_name_to_entrance_id_map() { return ENTRANCE_NAME_TO_ENTRANCE_ID; }
+} // namespace randomizer::entrances
