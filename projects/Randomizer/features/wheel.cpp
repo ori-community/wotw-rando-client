@@ -282,15 +282,13 @@ namespace randomizer::features::wheel {
             app::Object* grid_context
         ) {
             wheel_selection_manager = this_ptr->fields.m_navigationManager;
+            wheel_selection_manager->fields.KeepSelectedItemActiveWhenInactive = false;
+            wheel_selection_manager->fields.KeepMouseInteractionsWhenInactive = false;
+            wheel_selection_manager->fields.AlwaysHighlightCurrentMenuItem = false;
+            wheel_selection_manager->fields.CheckIfActiveWhenSettingIndexToFirst = true;
+
             custom_wheel_on = !wheels.empty() && custom_wheel_input;
-            if (custom_wheel_on) {
-                // Cache the selection manager and its items so we can modify their behavior later.
-                radial_selection = this_ptr;
-                wheel_selection_manager->fields.KeepSelectedItemActiveWhenInactive = false;
-                wheel_selection_manager->fields.KeepMouseInteractionsWhenInactive = false;
-                wheel_selection_manager->fields.AlwaysHighlightCurrentMenuItem = false;
-                wheel_selection_manager->fields.CheckIfActiveWhenSettingIndexToFirst = true;
-            }
+            radial_selection = this_ptr;
 
             next::EquipmentRadialSelection::Populate(this_ptr, inventory_items, grid_context);
 
