@@ -33,9 +33,6 @@ namespace core::api::messages {
         MessageBox(MessageBox const& other) = delete;
         ~MessageBox();
 
-        // Called automatically.
-        void on_fixed_update();
-
         [[nodiscard]] Visibility get_visibility() const;
         void show(bool instant = false, bool play_sound = true, bool use_subtle_scale_transition = false);
         void hide(bool instant = false) const;
@@ -71,8 +68,12 @@ namespace core::api::messages {
         void render_text(const std::string& text);
         void render_message_box();
         app::Transform* background_transform() const;
+        void update_transform();
+        void on_fixed_update() const;
+        void on_after_unity_update();
 
-        common::Droppable::ptr_t m_on_update_handle;
+        common::Droppable::ptr_t m_on_fixed_update_handle;
+        common::Droppable::ptr_t m_on_after_unity_update_handle;
         app::GameObject* m_game_object = nullptr;
         app::MessageBox* m_message_box = nullptr;
         app::ScaleToTextBox* m_scaler = nullptr;
@@ -96,8 +97,6 @@ namespace core::api::messages {
         Property<float> m_bottom_padding;
         Property<float> m_left_padding;
         Property<float> m_right_padding;
-
-        reactivity::ReactiveEffect::ptr_t m_tighten_effect;
     };
 
     NLOHMANN_JSON_SERIALIZE_ENUM(

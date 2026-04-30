@@ -6,7 +6,7 @@
 namespace core::events {
     namespace {
         void (*(next_unityplayer_update))() = nullptr;
-        void* unityplayer_update_rva = (void*)(modloader::win::memory::resolve_unity_player_rva(0x824700));
+        void* unityplayer_update_rva = reinterpret_cast<void*>(modloader::win::memory::resolve_unity_player_rva(0x824700));
         void unityplayer_update();
 
         modloader::interception::Intercept unityplayer_update_intercept(

@@ -17,13 +17,15 @@ namespace {
 
     app::Vector3 convert_position(app::Vector3 position, ConvertPositionType type) {
         auto cameras = types::UI_Cameras::get_class();
-        if (!il2cpp::unity::is_valid(cameras->static_fields->Current) || !il2cpp::unity::is_valid(cameras->static_fields->System->fields.GUICamera))
+        if (!il2cpp::unity::is_valid(cameras->static_fields->Current) || !il2cpp::unity::is_valid(cameras->static_fields->System->fields.GUICamera)) {
             return position;
+        }
 
         auto world_camera = GameplayCamera::get_Camera(cameras->static_fields->Current);
         auto ui_camera = cameras->static_fields->System->fields.GUICamera->fields.Camera;
-        if (!il2cpp::unity::is_valid(world_camera) || !il2cpp::unity::is_valid(ui_camera))
+        if (!il2cpp::unity::is_valid(world_camera) || !il2cpp::unity::is_valid(ui_camera)) {
             return position;
+        }
 
         switch (type) {
             case UI_TO_WORLD:

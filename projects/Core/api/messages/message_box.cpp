@@ -289,7 +289,8 @@ namespace core::api::messages {
             [this] { return m_scaler->fields.BottomRightPadding.x; }
         );
 
-        m_on_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) { on_fixed_update(); });
+        m_on_fixed_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) { on_fixed_update(); });
+        m_on_after_unity_update_handle = game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [this](auto, auto) { on_after_unity_update(); });
 
         // Move back the background glow a little bit so it doesn't go out of the near-plane
         const auto glow_transform = Transform::GetChild(background_transform(), 0);
@@ -397,14 +398,7 @@ namespace core::api::messages {
         return Transform::GetChild(transform, 2);
     }
 
-    void MessageBox::on_fixed_update() {
-        if (get_visibility() == Visibility::Hidden) {
-            // Nothing to update here.
-            return;
-        }
-
-        render_message_box();
-
+    void MessageBox::update_transform() {
         auto pos = m_position.get();
         switch (m_coordinate_system.get()) {
             case CoordinateSystem::World: {
@@ -428,10 +422,27 @@ namespace core::api::messages {
 
         const auto transform = il2cpp::unity::get_transform(m_game_object);
         Transform::set_position(transform, pos);
+    }
+
+    void MessageBox::on_fixed_update() const {
+        if (m_message_box == nullptr) {
+            return;
+        }
+
         // We don't want to automatically hide messages after we show them.
         if (m_message_box->fields.Visibility->fields.m_timeSpeed > 0 && m_message_box->fields.Visibility->fields.m_time >= 1.f) {
             m_message_box->fields.Visibility->fields.m_delayTime = FLT_MAX;
         }
+    }
+
+    void MessageBox::on_after_unity_update() {
+        if (get_visibility() == Visibility::Hidden) {
+            // Nothing to update here.
+            return;
+        }
+
+        render_message_box();
+        update_transform();
     }
 
     MessageBox::Visibility MessageBox::get_visibility() const {
@@ -474,6 +485,7 @@ namespace core::api::messages {
         }
 
         render_text(m_text.get());
+        update_transform();
     }
 
     void MessageBox::hide(const bool instant) const {
