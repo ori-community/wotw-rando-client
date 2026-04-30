@@ -9,6 +9,8 @@
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/randomizer.h>
 
+#include "Modloader/windows_api/common.h"
+
 namespace randomizer::features::wheel {
     void initialize_item(
         int wheel, int item, const std::string& name, const std::string& desc, const std::string& texture, const wheel_callback& callback)
@@ -160,7 +162,7 @@ namespace randomizer::features::wheel {
                             }, true);
                         });
         initialize_item(9001, 9, "Force Exit", "Forcibly exit the game.", "file:icons/wheel/force_exit.blue.png",
-                        [](auto, auto, auto) { modloader::shutdown(); });
+                        [](auto, auto, auto) { modloader::win::common::force_exit(0); });
         initialize_item(9001, 10, "Clear messages", "[Ability1] Clear all\n[Ability2] Clear queue\n[Ability3] Clear free", "file:icons/wheel/clear_messages.blue.png",
                         [](auto, auto, auto bind) {
                             if (bind == WheelBind::Ability1 || bind == WheelBind::Ability2) {
