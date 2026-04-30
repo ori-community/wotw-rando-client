@@ -354,7 +354,7 @@ namespace randomizer::entrances {
                         door->fields.AdditionalScenesToBlockOn->vector[i] = scene_meta;
                     }
 
-                    core::api::uber_states::UberState visited_uber_state(UberStateGroup::KnownDoorConnections, ENTRANCE_NAME_TO_ENTRANCE_ID.at(it->first));
+                    core::api::uber_states::UberState visited_uber_state(UberStateGroup::KnownEntranceConnections, ENTRANCE_NAME_TO_ENTRANCE_ID.at(it->first));
                     visited_uber_state.set<bool>(true);
                 }
             }
@@ -439,7 +439,7 @@ namespace randomizer::entrances {
 
         [[maybe_unused]] auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             for (const auto& state_id: ENTRANCE_ID_TO_ENTRANCE_NAME | std::views::keys) {
-                core::api::uber_states::UberState uber_state(UberStateGroup::Doors, state_id);
+                core::api::uber_states::UberState uber_state(UberStateGroup::Entrances, state_id);
 
                 effects.push_back(
                     core::reactivity::watch_effect()
@@ -491,11 +491,11 @@ namespace randomizer::entrances {
 
     int get_entrance_id_from_entrance_name(const EntranceName& name) { return ENTRANCE_NAME_TO_ENTRANCE_ID.at(name); }
 
-    const EntranceName& get_entrance_name_from_entrance_id(const int door_id) { return ENTRANCE_ID_TO_ENTRANCE_NAME.at(door_id); }
+    const EntranceName& get_entrance_name_from_entrance_id(const int entrance_id) { return ENTRANCE_ID_TO_ENTRANCE_NAME.at(entrance_id); }
 
     bool has_entrance_name(const EntranceName& name) { return ENTRANCE_NAME_TO_ENTRANCE_ID.contains(name); }
 
-    bool has_entrance_id(const int door_id) { return ENTRANCE_ID_TO_ENTRANCE_NAME.contains(door_id); }
+    bool has_entrance_id(const int entrance_id) { return ENTRANCE_ID_TO_ENTRANCE_NAME.contains(entrance_id); }
 
     std::unordered_map<EntranceName, int> get_entrance_name_to_entrance_id_map() { return ENTRANCE_NAME_TO_ENTRANCE_ID; }
 } // namespace randomizer::entrances

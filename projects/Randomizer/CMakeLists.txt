@@ -169,6 +169,7 @@ set(
         "ipc/hierarchy.cpp"
         "league/league.cpp"
         "map/base_icons/breakable_walls_and_floors.cpp"
+        "map/base_icons/entrances.cpp"
         "map/base_icons/ice_walls_and_floors.cpp"
         "map/base_icons/keystone_doors.cpp"
         "map/base_icons/levers.cpp"

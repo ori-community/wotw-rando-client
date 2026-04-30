@@ -32,6 +32,8 @@
 #include <Core/settings.h>
 #include <Modloader/app/methods/IconPlacementScaler.h>
 
+#include "Randomizer/features/entrance_randomizer.h"
+
 namespace randomizer::map::icons {
     using namespace app::classes;
 
@@ -843,6 +845,76 @@ namespace randomizer::map::icons {
                         : WarpIconState::Inactive;
                 },
                 label_text
+            );
+        }
+
+        std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_entrance_icon(
+            const EntranceIconSize size,
+            const app::Vector2& world_position,
+            const std::function<bool()>& show_question_mark_fn,
+            const std::string& label_text
+        ) {
+            static const core::api::uber_states::UberState SHOW_SMALL_DOORS_STATE(UberStateGroup::RandoConfig, 200);
+
+            const auto door_icon = std::make_shared<MapIcon>(
+                size == EntranceIconSize::Small ? MapIcon::Type::DoorSmall : MapIcon::Type::Door,
+                label_text,
+                world_position,
+                [show_question_mark_fn, size](auto) {
+                    if (size == EntranceIconSize::Small && !SHOW_SMALL_DOORS_STATE.get<bool>()) {
+                        return MapIcon::Visibilities::invisible;
+                    }
+
+                    return show_question_mark_fn()
+                        ? MapIcon::Visibilities::invisible
+                        : MapIcon::Visibilities::visible;
+                }
+            );
+
+            const auto unknown_door_icon = std::make_shared<MapIcon>(
+                size == EntranceIconSize::Small ? MapIcon::Type::DoorSmallUnknown : MapIcon::Type::DoorUnknown,
+                label_text,
+                world_position,
+                [show_question_mark_fn, size](auto) {
+                    if (size == EntranceIconSize::Small && !SHOW_SMALL_DOORS_STATE.get<bool>()) {
+                        return MapIcon::Visibilities::invisible;
+                    }
+
+                    return show_question_mark_fn()
+                        ? MapIcon::Visibilities::visible
+                        : MapIcon::Visibilities::invisible;
+                }
+            );
+
+            return std::make_tuple(door_icon, unknown_door_icon);
+        }
+
+        std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_entrance_icon(
+            const EntranceIconSize size,
+            const app::Vector2& world_position,
+            const core::api::uber_states::UberState& is_visited_state,
+            const std::string& label_text
+        ) {
+            return create_entrance_icon(
+                size,
+                world_position,
+                [=] {
+                    return !is_visited_state.get<bool>();
+                },
+                label_text
+            );
+        }
+
+        std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_entrance_icon(
+            const EntranceIconSize size,
+            const app::Vector2& world_position,
+            const int entrance_id
+        ) {
+            return create_entrance_icon(
+                size,
+                world_position,
+                core::api::uber_states::UberState(UberStateGroup::KnownEntranceConnections, entrance_id),
+                entrances::get_entrance_name_from_entrance_id(entrance_id)
             );
         }
     }

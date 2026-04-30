@@ -29,8 +29,8 @@ namespace randomizer::entrances {
     const EntranceInfo& get_entrance_info(const EntranceName& name);
     const EntranceInfo& get_default_entrance_info(const EntranceName& name);
     int get_entrance_id_from_entrance_name(const EntranceName& name);
-    const EntranceName& get_entrance_name_from_entrance_id(int door_id);
+    const EntranceName& get_entrance_name_from_entrance_id(int entrance_id);
     bool has_entrance_name(const EntranceName& name);
-    bool has_entrance_id(int door_id);
+    bool has_entrance_id(int entrance_id);
     std::unordered_map<EntranceName, int> get_entrance_name_to_entrance_id_map();
 }

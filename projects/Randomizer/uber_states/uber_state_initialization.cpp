@@ -438,7 +438,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeFeedingGroundsToElevatorSand", 101, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "knockKnockWellspring", 102, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "allowSpawningEnemiesNearby", 103, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "showSmallDoors", 200, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "showSmallEntrances", 200, false),
 
                 add_state<app::SerializedIntUberState>(UberStateGroup::RandoConfig, "forceNoAirDecelerationFlag", FORCE_AIR_NO_DECELERATION_ID, 0),
 
@@ -501,16 +501,16 @@ namespace randomizer {
                 states.push_back(add_state<app::SerializedFloatUberState>(UberStateGroup::CustomFloats, std::format("float{:04d}", i), i, 0.f));
             }
 
-            // Doors
-            for (const auto& [door_name, door_id] : randomizer::entrances::get_entrance_name_to_entrance_id_map()) {
-                const auto default_door_info = randomizer::entrances::get_default_entrance_info(door_name);
+            // Entrances
+            for (const auto& [entrance_name, entrance_id] : randomizer::entrances::get_entrance_name_to_entrance_id_map()) {
+                const auto default_entrance_info = randomizer::entrances::get_default_entrance_info(entrance_name);
 
-                const auto default_target_door_id = default_door_info.target_entrance_name.has_value()
-                    ? randomizer::entrances::get_entrance_id_from_entrance_name(*default_door_info.target_entrance_name)
+                const auto default_target_entrance_id = default_entrance_info.target_entrance_name.has_value()
+                    ? randomizer::entrances::get_entrance_id_from_entrance_name(*default_entrance_info.target_entrance_name)
                     : 0;
 
-                states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Doors, default_door_info.display_name, door_id, default_target_door_id));
-                states.push_back(add_state<app::SerializedBooleanUberState>(UberStateGroup::KnownDoorConnections, default_door_info.display_name, door_id, true));
+                states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Entrances, default_entrance_info.display_name, entrance_id, default_target_entrance_id));
+                states.push_back(add_state<app::SerializedBooleanUberState>(UberStateGroup::KnownEntranceConnections, default_entrance_info.display_name, entrance_id, true));
             }
 
             dev::print_time(start_time, "Built custom state list");

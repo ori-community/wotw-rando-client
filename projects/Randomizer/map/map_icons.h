@@ -243,6 +243,11 @@ namespace randomizer::map::icons {
             Active,
         };
 
+        enum class EntranceIconSize {
+            Normal,
+            Small,
+        };
+
         /** Creates a teleporter icon tuple (active and inactive) based on a function returning a WarpIconState */
         std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_warp_icon(
             const app::Vector2& world_position,
@@ -255,6 +260,29 @@ namespace randomizer::map::icons {
             const app::Vector2& world_position,
             const core::api::uber_states::UberState& is_active_state,
             const std::string& label_text = "Teleporter"
+        );
+
+        /** Creates an entrance icon tuple (visited and unvisited) based on a function */
+        std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_entrance_icon(
+            EntranceIconSize size,
+            const app::Vector2& world_position,
+            const std::function<bool()>& show_question_mark_fn,
+            const std::string& label_text
+        );
+
+        /** Creates an entrance icon tuple (visited and unvisited) based on an uber state */
+        std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_entrance_icon(
+            EntranceIconSize size,
+            const app::Vector2& world_position,
+            const core::api::uber_states::UberState& is_visited_state,
+            const std::string& label_text
+        );
+
+        /** Creates an entrance icon tuple (visited and unvisited) based on an entrance ID (see entrance_randomizer.cpp) */
+        std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_entrance_icon(
+            const EntranceIconSize size,
+            const app::Vector2& world_position,
+            const int entrance_id
         );
     }
 } // namespace randomizer::map::icons
