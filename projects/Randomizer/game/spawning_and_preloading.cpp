@@ -75,18 +75,6 @@ namespace randomizer::game {
 
         void update_lobby_ui(bool update_text_only = false) {
             if (is_in_lobby && !is_starting_game) {
-                if (lobby_status_text_box == nullptr) {
-                    lobby_status_text_box = std::make_shared<core::api::messages::MessageBox>();
-                }
-
-                lobby_status_text_box->text_alignment().set(app::AlignmentMode__Enum::Center);
-                lobby_status_text_box->box_horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Center);
-                lobby_status_text_box->box_vertical_anchor().set(app::VerticalAnchorMode__Enum::Top);
-                lobby_status_text_box->position().set(app::Vector3{0.f, 1.5f, 0.f});
-                lobby_status_text_box->fade_in().set(false);
-                lobby_status_text_box->fade_out().set(false);
-                lobby_status_text_box->show_background().set(false);
-
                 std::string text;
 
                 if (!pending_scenes_to_preload.empty()) {
@@ -139,7 +127,19 @@ namespace randomizer::game {
 
                 text += "\n\nPress [MenuBack] to leave";
 
-                lobby_status_text_box->show(true, false);
+                if (lobby_status_text_box == nullptr) {
+                    lobby_status_text_box = std::make_shared<core::api::messages::MessageBox>();
+                    lobby_status_text_box->text_alignment().set(app::AlignmentMode__Enum::Center);
+                    lobby_status_text_box->box_horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Center);
+                    lobby_status_text_box->box_vertical_anchor().set(app::VerticalAnchorMode__Enum::Top);
+                    lobby_status_text_box->coordinate_system().set(core::api::messages::CoordinateSystem::UI);
+                    lobby_status_text_box->position().set(app::Vector3{0.f, 1.5f, 0.f});
+                    lobby_status_text_box->fade_in().set(false);
+                    lobby_status_text_box->fade_out().set(false);
+                    lobby_status_text_box->show_background().set(false);
+                    lobby_status_text_box->show(true, false);
+                }
+
                 lobby_status_text_box->text().set(text);
             } else if (lobby_status_text_box != nullptr) {
                 lobby_status_text_box = nullptr;
