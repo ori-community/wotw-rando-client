@@ -3,10 +3,10 @@
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/interception_macros.h>
-
+#include <Modloader/modloader.h>
 #include <Core/api/game/game.h>
+#include <Randomizer/uber_states/uber_state_initialization.h>
 
-#include "Randomizer/uber_states/uber_state_initialization.h"
 
 namespace {
     IL2CPP_INTERCEPT_WITH_ORDER(100, void, SavePedestalController, BeginTeleportation, app::Vector2 position) {

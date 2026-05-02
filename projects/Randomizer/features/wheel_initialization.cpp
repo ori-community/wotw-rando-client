@@ -2,8 +2,8 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/graphics/textures.h>
-#include <Core/core.h>
 #include <Core/settings.h>
+#include <Modloader/modloader.h>
 
 #include <Randomizer/features/credits.h>
 #include <Randomizer/features/wheel.h>

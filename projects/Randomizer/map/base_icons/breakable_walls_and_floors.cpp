@@ -1,5 +1,6 @@
-#include <Randomizer/randomizer.h>
+#include <Modloader/modloader.h>
 #include <Randomizer/map/map_icons.h>
+#include <Randomizer/randomizer.h>
 
 
 namespace {

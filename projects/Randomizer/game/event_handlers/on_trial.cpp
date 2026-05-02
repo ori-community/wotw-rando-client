@@ -1,14 +1,11 @@
-
 #include <Common/is_in.h>
-
+#include <Modloader/modloader.h>
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
-
 #include <Modloader/app/methods/RaceBaseState.h>
 #include <Modloader/app/methods/RaceHandler.h>
 #include <Modloader/app/methods/RaceSystem.h>
 #include <Modloader/app/types/RaceSystem.h>
-
 #include <Randomizer/randomizer.h>
 #include <Randomizer/conditions/new_setup_state_override.h>
 

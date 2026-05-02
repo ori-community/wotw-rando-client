@@ -3,11 +3,9 @@
 #include <Randomizer/input/rando_bindings.h>
 #include <Core/input/midi_input.h>
 #include <Randomizer/randomizer.h>
-
 #include <Core/api/game/game.h>
 #include <Core/input/simulator.h>
 #include <Core/utils/json_serializers.h>
-
 #include <Modloader/app/methods/PlayerInput.h>
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/methods/UnityEngine/Input.h>
@@ -16,6 +14,7 @@
 #include <Modloader/app/types/GameSettings.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+#include <Modloader/windows_api/console.h>
 #include <Modloader/fs.h>
 
 #include <Core/events/task.h>

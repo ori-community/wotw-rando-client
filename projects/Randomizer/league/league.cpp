@@ -6,6 +6,7 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/events/action.h>
 #include <Core/events/task.h>
+#include <Modloader/modloader.h>
 #include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
 #include <Modloader/app/methods/PetrifiedOwlBossDeathReactionBehaviour.h>

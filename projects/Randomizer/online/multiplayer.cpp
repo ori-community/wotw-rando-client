@@ -16,6 +16,7 @@
 #include <Core/api/game/debug_menu.h>
 #include <Core/save_meta/save_meta.h>
 #include <Modloader/fs.h>
+#include <Modloader/modloader.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/stats/game_stats.h>
 #include <Randomizer/tracking/game_tracker.h>
@@ -173,10 +174,6 @@ namespace randomizer::online {
     }
 
     void MultiplayerUniverse::on_load() {
-        for (auto& player: m_player_avatars) {
-            player.second->recreate();
-        }
-
         if (is_in_incorrect_save_file()) {
             show_incorrect_save_message();
         }

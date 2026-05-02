@@ -10,6 +10,7 @@
 #include <Modloader/app/methods/ScalePositionForAspectRatio.h>
 #include <Modloader/app/types/ScalePositionForAspectRatio.h>
 #include <Randomizer/randomizer.h>
+#include <Modloader/modloader.h>
 
 #include "Randomizer/map/map_filter.h"
 

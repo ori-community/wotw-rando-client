@@ -1,4 +1,5 @@
 #include <Randomizer/map/map_filter.h>
+#include <Modloader/modloader.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/AreaMapUI.h>
 #include <Modloader/app/methods/GameMapUI.h>

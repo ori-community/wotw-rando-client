@@ -8,10 +8,9 @@
 
 namespace randomizer::online {
 
-    Player::Player(std::string_view id)
+    Player::Player(const std::string_view id)
             : m_id(std::string(id))
-            , m_map_icon(std::make_unique<PlayerIcon>(PlayerIcon::Type::Moki)) {
-       m_map_icon->visible().set(true);
+            , m_map_icon(std::make_unique<map::player_icon::PlayerIcon>()) {
     }
 
     Player::~Player() {
@@ -20,13 +19,7 @@ namespace randomizer::online {
         }
     }
 
-    void Player::recreate() const {
-        m_map_icon->recreate();
-    }
-
     void Player::update() {
-        m_map_icon->update(m_online);
-
         // Extrapolate for next frame
         const auto delta_time = core::api::game::delta_time();
         if (m_world_ghost.is_initialized()) {
@@ -49,21 +42,19 @@ namespace randomizer::online {
     }
 
     void Player::update_map_position(const float x, const float y) const {
-        m_map_icon->update_position(m_online, x, y);
+        // TODO: Determine velocity from position delta since last update
+        //       in player_icon.cpp
+        m_map_icon->set_position_and_velocity({x, y}, {0.f, 0.f});
     }
 
     void Player::set_name(const std::string_view value) {
         m_name = std::string(value);
-        m_map_icon->name().set(m_name);
-    }
-
-    void Player::set_icon(const PlayerIcon::Type value) const {
-        m_map_icon->type().set(value);
+        m_map_icon->set_name(m_name);
     }
 
     void Player::set_color(const app::Color value) {
         m_color = value;
-        m_map_icon->color().set(value);
+        m_map_icon->set_color(SolidColor(value.r, value.g, value.b));
         if (m_world_ghost.is_initialized()) {
             m_world_ghost.set_color(value);
         }
@@ -74,7 +65,7 @@ namespace randomizer::online {
     }
 
     void Player::set_visible_map(const bool value) const {
-        m_map_icon->visible().set(value);
+        m_map_icon->visible.set(value);
     }
 
     void Player::set_visible_world(const bool value) {
