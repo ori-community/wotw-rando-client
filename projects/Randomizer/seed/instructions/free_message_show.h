@@ -10,13 +10,13 @@ INSTRUCTION(FreeMessageShow)
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         environment.modify_free_message_box(id, [&](auto& free_message_box) {
-            free_message_box.message_box->show(false, memory.booleans.get(0));
+            free_message_box.message_box->show(!memory.booleans.get(0), memory.booleans.get(1));
             free_message_box.visible = true;
         });
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
-        return std::format("FreeMessageShow {}", id);
+        return std::format("FreeMessageShow {} (instant = {}, sound = {})", id, !memory.booleans.get(0), memory.booleans.get(1));
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
