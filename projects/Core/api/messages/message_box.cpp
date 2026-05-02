@@ -382,14 +382,18 @@ namespace core::api::messages {
         if (should_recache) {
             ScaleToTextBox::UpdateSize(m_scaler);
 
-            // Moon code alert!
-            // Recache also calls Cache, but it calls SetOpacity before calling Cache, and SetOpacity
-            // expects m_renderers to be initialized, but it is initialized by Cache. Fun!
-            if (m_message_box->fields.Visibility->fields.m_renderers == nullptr) {
-                MessageBoxVisibility::Cache(m_message_box->fields.Visibility);
-            }
+            // If m_rendererAlphas is null, the MessageBoxVisibility component hasn't started yet.
+            // The MessageBoxVisibility component will do the initial invocation of Cache() in its Start() method.
+            if (m_message_box->fields.Visibility->fields.m_rendererAlphas != nullptr) {
+                // Moon code alert!
+                // Recache also calls Cache, but it calls SetOpacity before calling Cache, and SetOpacity
+                // expects m_renderers to be initialized, but it is initialized by Cache. Fun!
+                if (m_message_box->fields.Visibility->fields.m_renderers == nullptr) {
+                    MessageBoxVisibility::Cache(m_message_box->fields.Visibility);
+                }
 
-            MessageBoxVisibility::Recache(m_message_box->fields.Visibility);
+                MessageBoxVisibility::Recache(m_message_box->fields.Visibility);
+            }
         }
     }
 
