@@ -172,12 +172,15 @@ namespace randomizer::map::icons {
         /** The text displayed below the icon when labels are shown */
         core::Property<std::string> label_text{""};
 
+        /** A color the base icon colors are modulated with */
+        core::Property<SolidColor> color_modulation;
+
         /** Returns the unique ID of this icon */
         id_t get_id() const;
 
     private:
         struct Handles {
-            core::reactivity::ReactiveEffect::ptr_t visible_effect;
+            core::reactivity::ReactiveEffect::ptr_t visibility_and_color_modulation_effect;
             core::reactivity::ReactiveEffect::ptr_t type_effect;
             core::reactivity::ReactiveEffect::ptr_t position_effect;
             core::reactivity::ReactiveEffect::ptr_t rotation_effect;
@@ -224,7 +227,7 @@ namespace randomizer::map::icons {
         void try_update_label() const;
 
         /** Sets the icon opacity if the game object exists */
-        void try_set_opacity(float opacity) const;
+        void try_set_color_modulation_and_opacity(float r, float g, float b, float opacity) const;
 
         /** Returns the game object or nullopt if it doesn't exit or is invalid */
         std::optional<app::GameObject*> get_game_object() const;

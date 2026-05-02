@@ -300,7 +300,8 @@ namespace randomizer::map::icons {
     // Polymorphism doesn't work in a constexpr context...
     using icon_recipe_t = std::variant<VanillaIconRecipe, CustomIconRecipe>;
 
-    constexpr frozen::unordered_map<MapIcon::Type, icon_recipe_t, 89> MAP_ICON_RECIPES = {
+    constexpr frozen::unordered_map<MapIcon::Type, icon_recipe_t, 89>
+    MAP_ICON_RECIPES = {
         {MapIcon::Type::Keystone, VanillaIconRecipe(app::WorldMapIconType__Enum::Keystone)},
         {MapIcon::Type::Mapstone, VanillaIconRecipe(app::WorldMapIconType__Enum::Mapstone)},
         {MapIcon::Type::BreakableWall, VanillaIconRecipe(app::WorldMapIconType__Enum::BreakableWall)},
@@ -430,7 +431,7 @@ namespace randomizer::map::icons {
         label_text(label_text),
         m_id(++next_icon_id) {
 
-        m_handles.visible_effect = core::reactivity::watch_effect()
+        m_handles.visibility_and_color_modulation_effect = core::reactivity::watch_effect()
             .effect([this] {
                 const auto visibility = this->visibility_effect_fn.get()(filter::current_map_filter().get());
 
@@ -505,7 +506,8 @@ namespace randomizer::map::icons {
                             try_set_scale(scale);
                         });
 
-                        try_set_opacity(*visibility);
+                        const auto modulation = color_modulation.get();
+                        try_set_color_modulation_and_opacity(modulation.r, modulation.g, modulation.b, *visibility);
                     } else {
                         if (game_object.has_value()) {
                             il2cpp::unity::set_active(*game_object, false);
@@ -635,7 +637,7 @@ namespace randomizer::map::icons {
         }
     }
 
-    void MapIcon::try_set_opacity(float opacity) const {
+    void MapIcon::try_set_color_modulation_and_opacity(float r, float g, float b, float opacity) const {
         const auto game_object = get_game_object();
         if (!game_object.has_value()) {
             return;
@@ -648,7 +650,7 @@ namespace randomizer::map::icons {
                 continue;
             }
 
-            UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, it->second * app::Color{1.f, 1.f, 1.f, opacity});
+            UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, it->second * app::Color{r, g, b, opacity});
         }
     }
 
@@ -713,7 +715,8 @@ namespace randomizer::map::icons {
 
         const auto visibility = m_visibility.get();
         if (visibility.has_value()) {
-            try_set_opacity(*visibility);
+            const auto modulation = color_modulation.get();
+            try_set_color_modulation_and_opacity(modulation.r, modulation.g, modulation.g, *visibility);
         }
 
         return true;
