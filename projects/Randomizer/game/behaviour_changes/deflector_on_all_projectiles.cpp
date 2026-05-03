@@ -66,7 +66,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(bool, MeleeComboMove, HaveBeenHit, app::MeleeComboMove* this_ptr, app::Collider* collider) {
-        modloader::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, true);
+        modloader::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, false);
         return next::MeleeComboMove::HaveBeenHit(this_ptr, collider);
     }
 
