@@ -73,8 +73,8 @@ namespace randomizer::features::wheel {
             bool sticky = false;
         };
 
-        app::EquipmentRadialSelection* radial_selection = nullptr;
-        app::CleverMenuItemSelectionManager* wheel_selection_manager = nullptr;
+        std::optional<il2cpp::WeakGCRef<app::EquipmentRadialSelection>> radial_selection_ref = std::nullopt;
+        std::optional<il2cpp::WeakGCRef<app::CleverMenuItemSelectionManager>> wheel_selection_manager_ref = std::nullopt;
 
         bool is_wheel_visible = false;
         bool custom_wheel_input = false;
@@ -264,7 +264,7 @@ namespace randomizer::features::wheel {
         bool override_set_active = false;
         bool override_set_active_value = false;
         IL2CPP_INTERCEPT(void, CleverMenuItem, RefreshVisible, app::CleverMenuItem* this_ptr) {
-            if (custom_wheel_on && this_ptr->fields.m_selectionManager == wheel_selection_manager) {
+            if (custom_wheel_on && this_ptr->fields.m_selectionManager == il2cpp::deref_weak_gc_ref(wheel_selection_manager_ref)) {
                 override_set_active = true;
                 override_set_active_value = true;
             }
@@ -281,14 +281,15 @@ namespace randomizer::features::wheel {
             app::List_1_System_Object_* inventory_items,
             app::Object* grid_context
         ) {
-            wheel_selection_manager = this_ptr->fields.m_navigationManager;
+            const auto wheel_selection_manager = this_ptr->fields.m_navigationManager;
             wheel_selection_manager->fields.KeepSelectedItemActiveWhenInactive = false;
             wheel_selection_manager->fields.KeepMouseInteractionsWhenInactive = false;
             wheel_selection_manager->fields.AlwaysHighlightCurrentMenuItem = false;
             wheel_selection_manager->fields.CheckIfActiveWhenSettingIndexToFirst = true;
+            wheel_selection_manager_ref = il2cpp::WeakGCRef(wheel_selection_manager);
 
             custom_wheel_on = !wheels.empty() && custom_wheel_input;
-            radial_selection = this_ptr;
+            radial_selection_ref = il2cpp::WeakGCRef(this_ptr);
 
             next::EquipmentRadialSelection::Populate(this_ptr, inventory_items, grid_context);
 
@@ -322,7 +323,7 @@ namespace randomizer::features::wheel {
         }
 
         IL2CPP_INTERCEPT(bool, CleverMenuItem, get_IsVisible, app::CleverMenuItem* this_ptr) {
-            if (custom_wheel_on && this_ptr->fields.m_selectionManager == wheel_selection_manager) {
+            if (custom_wheel_on && this_ptr->fields.m_selectionManager == il2cpp::deref_weak_gc_ref(wheel_selection_manager_ref)) {
                 return true;
             }
 
@@ -330,7 +331,7 @@ namespace randomizer::features::wheel {
         }
 
         IL2CPP_INTERCEPT(bool, CleverMenuItem, get_IsActivated, app::CleverMenuItem* this_ptr) {
-            if (custom_wheel_on && this_ptr->fields.m_selectionManager == wheel_selection_manager) {
+            if (custom_wheel_on && this_ptr->fields.m_selectionManager == il2cpp::deref_weak_gc_ref(wheel_selection_manager_ref)) {
                 return true;
             }
 
@@ -580,8 +581,9 @@ namespace randomizer::features::wheel {
                     break;
             }
 
-            if (il2cpp::unity::is_valid(radial_selection)) {
-                EquipmentRadialSelection::UpdateSelection(radial_selection);
+            const auto radial_selection = il2cpp::deref_weak_gc_ref(radial_selection_ref);
+            if (radial_selection.has_value()) {
+                EquipmentRadialSelection::UpdateSelection(*radial_selection);
             }
         }
     } // namespace

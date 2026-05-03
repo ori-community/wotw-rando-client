@@ -188,6 +188,11 @@ namespace il2cpp {
         }
     };
 
+    template<typename T>
+    std::optional<T*> deref_weak_gc_ref(const std::optional<WeakGCRef<T>>& optional_ref) {
+        return optional_ref.and_then([](auto& ref) { return *ref; });
+    }
+
     IL2CPP_MODLOADER_DLLEXPORT std::vector<MethodOverloadInfo> const& get_all_methods(void* klass);
 
     IL2CPP_MODLOADER_DLLEXPORT int get_method_overload_count(Il2CppClass* klass, std::string_view method, int param_count);
