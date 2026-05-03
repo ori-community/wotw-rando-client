@@ -62,8 +62,6 @@ namespace randomizer {
 
         [[maybe_unused]]
         auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
-            recent_messages_view().clear_messages();
-
             pause_timer = false;
             randomizer_seed.trigger(seed::SeedClientEvent::Reload, true);
             core::api::game::save(true);
@@ -112,6 +110,7 @@ namespace randomizer {
 
             core::api::game::player::shard_slots().set(3);
             game_seed().environment().reset();
+            recent_messages_view().clear_messages();
 
             game_seed().trigger(seed::SeedClientEvent::Spawn, true);
         });
