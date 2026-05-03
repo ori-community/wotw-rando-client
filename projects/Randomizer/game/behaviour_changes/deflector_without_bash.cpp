@@ -11,8 +11,6 @@ namespace {
     IL2CPP_INTERCEPT(bool, Projectile, HandleMirrorStrike, app::Projectile* this_ptr, app::Damage* damage) {
         bool return_value;
 
-        const auto path = il2cpp::unity::get_path(this_ptr);
-
         if (core::api::game::player::ability(app::AbilityType__Enum::Bash).get()) {
             return_value = next::Projectile::HandleMirrorStrike(this_ptr, damage);
         } else {
