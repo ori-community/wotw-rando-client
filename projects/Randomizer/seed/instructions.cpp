@@ -344,6 +344,7 @@ namespace randomizer::seed {
     }
 
     void SeedExecutionEnvironment::process_box_triggers() {
+        std::vector<std::size_t> command_queue;
         for (auto& box_trigger: m_box_triggers | std::views::values) {
             const auto player_is_inside = box_trigger.is_inside(modloader::math::to_vec2(core::api::game::player::get_position()));
 
@@ -355,13 +356,17 @@ namespace randomizer::seed {
 
             if (player_is_inside) {
                 if (box_trigger.on_enter_command_id.has_value()) {
-                    m_seed.execute_command(*box_trigger.on_enter_command_id);
+                    command_queue.push_back(*box_trigger.on_enter_command_id);
                 }
             } else {
                 if (box_trigger.on_leave_command_id.has_value()) {
-                    m_seed.execute_command(*box_trigger.on_leave_command_id);
+                    command_queue.push_back(*box_trigger.on_leave_command_id);
                 }
             }
+        }
+
+        for (const auto& command_id: command_queue) {
+            m_seed.execute_command(command_id);
         }
     }
 
