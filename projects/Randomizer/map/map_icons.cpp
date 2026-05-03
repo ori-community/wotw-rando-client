@@ -32,6 +32,7 @@
 #include <Core/settings.h>
 #include <Modloader/app/methods/IconPlacementScaler.h>
 
+#include "Core/api/messages/text_style.h"
 #include "Randomizer/features/entrance_randomizer.h"
 
 namespace randomizer::map::icons {
@@ -49,11 +50,15 @@ namespace randomizer::map::icons {
         /** Scale for icons that scale linearly with the map zoom */
         float linear;
 
+        /** Scale for icons that don't scale with map zoom */
+        float constant;
+
         /** Returns the scale factor for a given scale mode */
         float get_factor_for(MapIcon::ScaleMode mode) const {
             switch (mode) {
                 case MapIcon::ScaleMode::Adaptive: return adaptive;
                 case MapIcon::ScaleMode::Linear: return linear;
+                case MapIcon::ScaleMode::Constant: return constant;
             }
 
             throw std::runtime_error("Unknown scale mode");
@@ -74,13 +79,14 @@ namespace randomizer::map::icons {
         const auto area_map = core::api::game::ui::area_map();
 
         if (area_map == nullptr) {
-            return IconScale{1.f, 1.f};
+            return IconScale{1.f, 1.f, 1.f};
         }
 
         const auto zoom = AreaMapNavigation::get_Zoom(area_map->fields._Navigation_k__BackingField);
         return IconScale{
             std::lerp(0.35f, 1.8f, zoom * 25.f),
             zoom * 55.f,
+            1.f,
         };
     }
 
@@ -225,9 +231,10 @@ namespace randomizer::map::icons {
 
     /** An Icon Recipe to create an icon with a custom texture */
     struct CustomIconRecipe {
-        constexpr explicit CustomIconRecipe(const frozen::string& texture_identifier, float scale = 1.f) :
+        constexpr explicit CustomIconRecipe(const frozen::string& texture_identifier, float scale = 1.f, float label_y_offset = 0.f) :
             texture_identifier(texture_identifier),
-            scale(scale) {}
+            scale(scale),
+            label_y_offset(label_y_offset) {}
 
         /** The texture identifier to retrieve the texture of this icon */
         frozen::string texture_identifier;
@@ -235,10 +242,13 @@ namespace randomizer::map::icons {
         /** Icon scale */
         float scale;
 
+        /** This defines a label offset on the Y axis. */
+        float label_y_offset;
+
         /** Instantiate an icon from this recipe */
         [[nodiscard]] std::optional<app::GameObject*> instantiate() const {
             // Create a new game object from a health cell
-            const auto game_object = instantiate_vanilla_map_icon(app::WorldMapIconType__Enum::HealthFragment);
+            const auto game_object = instantiate_vanilla_map_icon(app::WorldMapIconType__Enum::BreakableWall);
 
             if (!game_object.has_value()) {
                 return std::nullopt;
@@ -290,7 +300,7 @@ namespace randomizer::map::icons {
 
             // Offset the icon label
             auto label_position = il2cpp::unity::get_local_position(area_map_icon->fields.Label);
-            label_position.y += 0.1f;
+            label_position.y += label_y_offset;
             il2cpp::unity::set_local_position(area_map_icon->fields.Label, label_position);
 
             return game_object;
@@ -300,7 +310,7 @@ namespace randomizer::map::icons {
     // Polymorphism doesn't work in a constexpr context...
     using icon_recipe_t = std::variant<VanillaIconRecipe, CustomIconRecipe>;
 
-    constexpr frozen::unordered_map<MapIcon::Type, icon_recipe_t, 89>
+    constexpr frozen::unordered_map<MapIcon::Type, icon_recipe_t, 92>
     MAP_ICON_RECIPES = {
         {MapIcon::Type::Keystone, VanillaIconRecipe(app::WorldMapIconType__Enum::Keystone)},
         {MapIcon::Type::Mapstone, VanillaIconRecipe(app::WorldMapIconType__Enum::Mapstone)},
@@ -391,6 +401,9 @@ namespace randomizer::map::icons {
         {MapIcon::Type::DoorSmall, CustomIconRecipe("file:map_icons/door.png", 0.85f)},
         {MapIcon::Type::DoorSmallUnknown, CustomIconRecipe("file:map_icons/door_unknown.png", 0.85f)},
         {MapIcon::Type::Wisp, CustomIconRecipe("file:icons/wheel/wisps_progress.png", 1.f)},
+        {MapIcon::Type::Ori, CustomIconRecipe("file:map_icons/ori.png", 1.f)},
+        {MapIcon::Type::OriMonochrome, CustomIconRecipe("file:map_icons/ori_monochrome.png", 1.f)},
+        {MapIcon::Type::OriPlayer, CustomIconRecipe("file:map_icons/ori.png", 1.1f, -0.05f)},
     };
 
     MapIcon::id_t next_icon_id = 0;
@@ -431,16 +444,16 @@ namespace randomizer::map::icons {
         label_text(label_text),
         m_id(++next_icon_id) {
 
-        m_handles.visibility_and_color_modulation_effect = core::reactivity::watch_effect()
+        m_handles.visibility_effect = core::reactivity::watch_effect()
             .effect([this] {
                 const auto visibility = this->visibility_effect_fn.get()(filter::current_map_filter().get());
 
                 core::reactivity::run_after_effects([this, visibility] {
-                    if (visibility == m_visibility.get()) {
+                    if (visibility == m_visibility_cache.get()) {
                         return;
                     }
 
-                    m_visibility.set(visibility);
+                    m_visibility_cache.set(visibility);
 
                     const auto game_object = get_game_object();
 
@@ -490,6 +503,39 @@ namespace randomizer::map::icons {
                             })
                             .finalize();
 
+                        m_handles.always_show_label_effect = core::reactivity::watch_effect()
+                            .effect(this->always_show_label)
+                            .after([&] {
+                                try_update_label();
+                            })
+                            .finalize();
+
+                        m_handles.color_modulation_effect = core::reactivity::watch_effect()
+                            .effect(this->color_modulation)
+                            .after([&, visibility] {
+                                if (!try_create_game_object_if_not_exists()) {
+                                    return;
+                                }
+
+                                const auto modulation = color_modulation.get();
+                                try_set_color_modulation_and_opacity(modulation.r, modulation.g, modulation.b, *visibility);
+                            })
+                            .finalize();
+
+                        m_handles.label_text_effect = core::reactivity::watch_effect()
+                            .effect(this->label_text)
+                            .after([&] {
+                                try_update_label();
+                            })
+                            .finalize();
+
+                        m_handles.label_color_effect = core::reactivity::watch_effect()
+                            .effect(this->label_color)
+                            .after([&] {
+                                try_update_label();
+                            })
+                            .finalize();
+
                         m_handles.position_update_requested_event = icons_event_bus.register_handler(Event::IconPositionUpdateRequested, [&](auto) {
                             try_update_map_position();
                         });
@@ -518,6 +564,10 @@ namespace randomizer::map::icons {
                         m_handles.position_effect = nullptr;
                         m_handles.rotation_effect = nullptr;
                         m_handles.scale_mode_effect = nullptr;
+                        m_handles.always_show_label_effect = nullptr;
+                        m_handles.color_modulation_effect = nullptr;
+                        m_handles.label_text_effect = nullptr;
+                        m_handles.label_color_effect = nullptr;
                         m_handles.position_update_requested_event = nullptr;
                         m_handles.label_update_requested_event = nullptr;
                         m_handles.area_map_opened_event = nullptr;
@@ -529,9 +579,9 @@ namespace randomizer::map::icons {
             .finalize();
 
         m_handles.can_teleport_to_effect = core::reactivity::watch_effect()
-            .effect(std::vector<const core::BaseProperty*>{&this->can_be_teleported_to, &m_visibility})
+            .effect(std::vector<const core::BaseProperty*>{&this->can_be_teleported_to, &m_visibility_cache})
             .after([&] {
-                if (this->can_be_teleported_to.get() && m_visibility.get().has_value() && *m_visibility.get() > 0.f) {
+                if (this->can_be_teleported_to.get() && m_visibility_cache.get().has_value() && *m_visibility_cache.get() > 0.f) {
                     map_icons_that_can_be_teleported_to.emplace(m_id, shared_from_this());
                     m_handles.remove_from_map_icons_that_can_be_teleported_to_list = common::Droppable::create([&] {
                          map_icons_that_can_be_teleported_to.erase(m_id);
@@ -629,7 +679,8 @@ namespace randomizer::map::icons {
 
         const auto area_map_icon = il2cpp::unity::get_component<app::AreaMapIcon>(*game_object, types::AreaMapIcon::get_class());
 
-        if (GameMapUI::get_ShowIconLabels(game_map_ui)) {
+        if (always_show_label.get() || GameMapUI::get_ShowIconLabels(game_map_ui)) {
+            area_map_icon->fields.m_labelBox->fields.TextBox->fields.color = label_color.get();
             AreaMapIcon::SetMessageProvider(area_map_icon, core::api::system::create_message_provider(label_text));
             AreaMapIcon::ShowLabel(area_map_icon);
         } else {
@@ -713,7 +764,7 @@ namespace randomizer::map::icons {
             m_original_renderer_colors.emplace(renderer, UberShaderAPI::GetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor));
         }
 
-        const auto visibility = m_visibility.get();
+        const auto visibility = m_visibility_cache.get();
         if (visibility.has_value()) {
             const auto modulation = color_modulation.get();
             try_set_color_modulation_and_opacity(modulation.r, modulation.g, modulation.g, *visibility);

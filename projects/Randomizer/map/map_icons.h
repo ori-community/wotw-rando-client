@@ -113,6 +113,9 @@ namespace randomizer::map::icons {
             DoorSmall = 115,
             DoorSmallUnknown = 116,
             Wisp = 117,
+            Ori = 118,
+            OriMonochrome = 119,
+            OriPlayer = 120,
         };
 
         enum class ScaleMode {
@@ -121,6 +124,9 @@ namespace randomizer::map::icons {
 
             /** Scale this icon linearly when zooming out */
             Linear,
+
+            /** Keep the size of this icon relative to the screen regardless of map zoom */
+            Constant,
         };
 
         /** Must be constructed as a shared_ptr */
@@ -172,6 +178,12 @@ namespace randomizer::map::icons {
         /** The text displayed below the icon when labels are shown */
         core::Property<std::string> label_text{""};
 
+        /** The color of the label */
+        core::Property<app::Color> label_color{{1.f, 0.79f, 0.f, 1.f}};
+
+        /** If true, the label is always visible */
+        core::Property<bool> always_show_label{false};
+
         /** A color the base icon colors are modulated with */
         core::Property<SolidColor> color_modulation;
 
@@ -180,12 +192,16 @@ namespace randomizer::map::icons {
 
     private:
         struct Handles {
-            core::reactivity::ReactiveEffect::ptr_t visibility_and_color_modulation_effect;
+            core::reactivity::ReactiveEffect::ptr_t visibility_effect;
             core::reactivity::ReactiveEffect::ptr_t type_effect;
             core::reactivity::ReactiveEffect::ptr_t position_effect;
             core::reactivity::ReactiveEffect::ptr_t rotation_effect;
             core::reactivity::ReactiveEffect::ptr_t scale_mode_effect;
             core::reactivity::ReactiveEffect::ptr_t can_teleport_to_effect;
+            core::reactivity::ReactiveEffect::ptr_t always_show_label_effect;
+            core::reactivity::ReactiveEffect::ptr_t color_modulation_effect;
+            core::reactivity::ReactiveEffect::ptr_t label_text_effect;
+            core::reactivity::ReactiveEffect::ptr_t label_color_effect;
             common::Droppable::ptr_t position_update_requested_event;
             common::Droppable::ptr_t label_update_requested_event;
             common::Droppable::ptr_t area_map_opened_event;
@@ -233,7 +249,7 @@ namespace randomizer::map::icons {
         std::optional<app::GameObject*> get_game_object() const;
 
         /** The currently cached result of visibility_effect_fn */
-        core::Property<visibility_t> m_visibility{std::nullopt};
+        core::Property<visibility_t> m_visibility_cache{std::nullopt};
 
         /** Colors (MainColor shader property) of all renderers in the game object. Populated on instantiation. */
         std::unordered_map<app::Renderer*, app::Color> m_original_renderer_colors;

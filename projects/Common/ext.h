@@ -229,4 +229,7 @@ struct SolidColor {
     float r = 1.f;
     float g = 1.f;
     float b = 1.f;
+
+    friend bool operator==(const SolidColor& lhs, const SolidColor& rhs) { return lhs.r == rhs.r && lhs.g == rhs.g && lhs.b == rhs.b; }
+    friend bool operator!=(const SolidColor& lhs, const SolidColor& rhs) { return !(lhs == rhs); }
 };

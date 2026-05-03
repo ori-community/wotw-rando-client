@@ -44,7 +44,7 @@ namespace randomizer::online {
     void Player::update_map_position(const float x, const float y) const {
         // TODO: Determine velocity from position delta since last update
         //       in player_icon.cpp
-        m_map_icon->set_position_and_velocity({x, y}, {0.f, 0.f});
+        m_map_icon->set_live_position({x, y});
     }
 
     void Player::set_name(const std::string_view value) {
