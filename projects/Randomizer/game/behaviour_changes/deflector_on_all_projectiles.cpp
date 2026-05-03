@@ -5,6 +5,7 @@
 #include <Modloader/app/types/IAttackable.h>
 #include <Modloader/app/methods/MeleeComboMoveSword.h>
 #include <Modloader/app/methods/MeleeComboMoveHammerSimple.h>
+#include <Modloader/app/methods/MeleeComboMoveHammerBase.h>
 #include <Modloader/app/methods/MeleeComboMove.h>
 #include <Modloader/app/methods/UnityEngine/Component.h>
 #include <Modloader/app/methods/UnityEngine/Collider.h>
@@ -70,10 +71,21 @@ namespace {
         return next::MeleeComboMove::HaveBeenHit(this_ptr, collider);
     }
 
+    IL2CPP_INTERCEPT(bool, MeleeComboMoveHammerBase, CanDealDamage, app::MeleeComboMoveHammerBase* this_ptr, app::IAttackable* attackable) {
+        modloader::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, false);
+        return next::MeleeComboMoveHammerBase::CanDealDamage(this_ptr, attackable);
+    }
+
+    IL2CPP_INTERCEPT(bool, MeleeComboMoveSword, CanDealDamage, app::MeleeComboMoveSword* this_ptr, app::IAttackable* attackable) {
+        modloader::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, false);
+        return next::MeleeComboMoveSword::CanDealDamage(this_ptr, attackable);
+    }
+
     IL2CPP_INTERCEPT(app::IAttackable*, UnityEngine::Component, GetComponent_80, app::Component_1* this_ptr, MethodInfo* method_info) {
         const auto component = next::UnityEngine::Component::GetComponent_80(this_ptr, method_info);
 
         if (!search_for_iattackable_in_attached_rigid_body_once || il2cpp::unity::is_valid(component)) {
+            search_for_iattackable_in_attached_rigid_body_once = false;
             return component;
         }
 
