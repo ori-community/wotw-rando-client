@@ -4,6 +4,7 @@
 #include <Modloader/app/methods/Projectile.h>
 #include <Modloader/app/types/IAttackable.h>
 #include <Modloader/app/methods/MeleeComboMoveSword.h>
+#include <Modloader/app/methods/MeleeComboMoveHammerSimple.h>
 #include <Modloader/app/methods/MeleeComboMove.h>
 #include <Modloader/app/methods/UnityEngine/Component.h>
 #include <Modloader/app/methods/UnityEngine/Collider.h>
@@ -48,6 +49,20 @@ namespace {
     ) {
         modloader::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, true);
         next::MeleeComboMoveSword::TryToDealDamage(this_ptr, collider, hit_direction, damage_position);
+    }
+
+    IL2CPP_INTERCEPT(
+        void,
+        MeleeComboMoveHammerSimple,
+        TryToDealDamage,
+        app::MeleeComboMoveHammerSimple* this_ptr,
+        app::Collider* collider,
+        bool top_hit,
+        app::Vector3 hit_direction,
+        app::Vector3 damage_position
+    ) {
+        modloader::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, true);
+        next::MeleeComboMoveHammerSimple::TryToDealDamage(this_ptr, collider, top_hit, hit_direction, damage_position);
     }
 
     IL2CPP_INTERCEPT(bool, MeleeComboMove, HaveBeenHit, app::MeleeComboMove* this_ptr, app::Collider* collider) {
