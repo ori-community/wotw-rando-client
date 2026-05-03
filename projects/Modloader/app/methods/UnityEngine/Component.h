@@ -716,7 +716,7 @@ namespace app::classes::UnityEngine::Component {
         app::List_1_UnityEngine_Renderer_* result
     )
     IL2CPP_REGISTER_METHOD(0x02FF5D10, app::Collider__Array*, GetComponents_16, app::Component_1* this_ptr)
-    IL2CPP_REGISTER_METHOD(0x0157C230, app::IAttackable*, GetComponent_80, app::Component_1* this_ptr)
+    IL2CPP_REGISTER_METHOD(0x0157C230, app::IAttackable*, GetComponent_80, app::Component_1* this_ptr, MethodInfo* method_info)
     IL2CPP_REGISTER_METHOD(0x0157C230, app::IBowAttackable*, GetComponent_81, app::Component_1* this_ptr)
     IL2CPP_REGISTER_METHOD(0x02FF5D10, app::ConfigurableJoint__Array*, GetComponents_17, app::Component_1* this_ptr)
     IL2CPP_REGISTER_METHOD(0x0157C230, app::HealthController*, GetComponent_82, app::Component_1* this_ptr)
