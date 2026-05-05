@@ -47,7 +47,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> active_transition_timeline_ref = std::nullopt;
     std::optional<TransitionConfig> active_transition_config = std::nullopt;
 
-    constexpr frozen::unordered_map<frozen::string, TransitionConfig, 21> TRANSITION_CONFIGS = {
+    constexpr frozen::unordered_map<frozen::string, TransitionConfig, 22> TRANSITION_CONFIGS = {
         // Wellspring Blobs
         {"waterMillEntrance/interactives/doorStateController/doorTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
         {"wotwSaveRoomC__clone0__clone1/interactives/fastWheelActivationSetup/wheelActivationTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
@@ -67,13 +67,14 @@ namespace {
         {"kwoloksCavernB/interactives/doors/kwoloksCavernDoor/doorAnimator/timelines/openDoorSequence", TransitionConfig{}},
 
         // Trials
-        {"lumaPoolsRaceSetups/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::FadeWhenNearPosition, .fade_when_near_position = app::Vector2{ /* at the anemone */ -1311, -4167}}},
-        {"wellspringRaceSetups/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::FadeWhenNearPosition, .fade_when_near_position = app::Vector2{ /* at the anemone */ -1311, -4167}}},
-        {"baursReachWindTunnel/shared/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::FadeWhenNearPosition, .fade_when_near_position = app::Vector2{ /* at the anemone */ -1311, -4167}}},
-        {"kwolokDropRace/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::FadeWhenNearPosition, .fade_when_near_position = app::Vector2{ /* at the anemone */ -1311, -4167}}},
-        {"mouldwoodDepthsRaceSetups/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::FadeWhenNearPosition, .fade_when_near_position = app::Vector2{ /* at the anemone */ -1311, -4167}}},
-        {"silentWoodlandRaceSetups/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::FadeWhenNearPosition, .fade_when_near_position = app::Vector2{ /* at the anemone */ -1311, -4167}}},
-        {"desertRaceBGScene__clone0/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::FadeWhenNearPosition, .fade_when_near_position = app::Vector2{ /* at the anemone */ -1311, -4167}}},
+        {"lumaPoolsRaceSetups/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
+        {"wellspringRaceSetups/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
+        {"baursReachWindTunnel/shared/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
+        {"kwolokDropRace/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
+        {"mouldwoodDepthsRaceSetups/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
+        {"silentWoodlandRaceSetups/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
+        {"desertRaceBGScene__clone0/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
+        {"inkwaterMarshRaceSetups/raceData/timelines/activateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
     };
 
     // Generic NewSetupStateController setups
