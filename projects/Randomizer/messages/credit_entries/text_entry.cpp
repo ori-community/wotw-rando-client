@@ -11,7 +11,7 @@ namespace randomizer::messages::credit_entries {
 
     bool TextEntry::resolve(CreditsController* credits, float time) {
         if (!m_started) {
-            credits->message_box(m_id).show(false, false);
+            credits->message_box(m_id).show(true, false);
             m_started = true;
         }
 
@@ -21,5 +21,9 @@ namespace randomizer::messages::credit_entries {
     void TextEntry::reset(CreditsController* credits) {
         credits->message_box(m_id).hide();
         m_started = false;
+    }
+
+    int TextEntry::get_sort_order() {
+        return 0;
     }
 } // namespace randomizer::messages::credit_entries

@@ -147,7 +147,11 @@ namespace randomizer::messages {
             }
         }
 
-        std::sort(m_entries.begin(), m_entries.end(), [](auto const& a, auto const& b) {
+        std::ranges::sort(m_entries, [](auto const& a, auto const& b) {
+            if (a->m_start_time == b->m_start_time) {
+                return a->get_sort_order() > b->get_sort_order();
+            }
+
             return a->m_start_time < b->m_start_time;
         });
 

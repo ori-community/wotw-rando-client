@@ -14,6 +14,7 @@ namespace randomizer::messages::credit_entries {
         virtual bool should_resolve(CreditsController* credits, float t);
         virtual bool resolve(CreditsController* credits, float t);
         virtual void reset(CreditsController* credits) = 0;
+        virtual int get_sort_order() = 0;
 
         const float m_start_time;
         const float m_duration;

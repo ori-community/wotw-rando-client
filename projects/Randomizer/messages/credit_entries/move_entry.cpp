@@ -19,4 +19,8 @@ namespace randomizer::messages::credit_entries {
     void MoveEntry::reset(CreditsController* credits) {
         credits->message_box(m_id).position().set(m_to);
     }
+
+    int MoveEntry::get_sort_order() {
+        return 1;
+    }
 } // namespace randomizer::messages::credit_entries

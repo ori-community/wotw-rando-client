@@ -15,6 +15,7 @@ namespace randomizer::messages::credit_entries {
 
         bool resolve(CreditsController* credits, float time) override;
         void reset(CreditsController* credits) override;
+        int get_sort_order() override;
 
     private:
         int m_id = -1;
