@@ -13,14 +13,12 @@
 #include <Modloader/app/types/TimelineEntity.h>
 #include <Modloader/app/types/GoToSceneController.h>
 #include <Modloader/il2cpp_helpers.h>
-#include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
 #include <Core/api/game/game.h>
 #include <Core/enums/game_event.h>
 #include <Core/events/task.h>
 #include <Core/mood_guid.h>
-#include <format>
 #include <string>
 
 using namespace app::classes;
@@ -31,7 +29,7 @@ namespace randomizer::features::credits {
         randomizer::messages::CreditsController credits;
         auto requested_credits_immediately = false;
 
-        void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
+        void on_scene_load(const core::api::scenes::SceneLoadEventMetadata* metadata) {
             if (metadata->state != app::SceneState__Enum::Loaded || metadata->scene_name != "creditsScreen") {
                 return;
             }
@@ -49,10 +47,13 @@ namespace randomizer::features::credits {
                 auto child_name = il2cpp::unity::get_object_name(child_go);
                 if (child_name == "Logo" || child_name == "LogoChineese" || child_name == "creditsThanks") {
                     continue;
-                } else if (child_name == "creditsIcon" && !found_first_icon) {
+                }
+
+                if (child_name == "creditsIcon" && !found_first_icon) {
                     found_first_icon = true;
                     continue;
                 }
+
                 auto child_position = il2cpp::unity::get_local_position(child_go);
                 child_position.y -= MOVE_DOWN_DISTANCE;
                 il2cpp::unity::set_local_position(child_go, child_position);
@@ -60,6 +61,11 @@ namespace randomizer::features::credits {
 
             if (!requested_credits_immediately) {
                 return;
+            }
+
+            const auto early_z_mesh_go = il2cpp::unity::find_child(credits_go, std::vector<std::string>{ "defaultCredits", "credits", "earlyZMesh_credits" });
+            if (il2cpp::unity::is_valid(early_z_mesh_go)) {
+                il2cpp::unity::destroy_object(early_z_mesh_go);
             }
 
             requested_credits_immediately = false;
