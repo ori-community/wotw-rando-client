@@ -822,6 +822,11 @@ namespace randomizer::map::icons {
 
         IL2CPP_INTERCEPT(bool, AreaMapIcon, ShouldShowAttentionMarker, app::AreaMapIcon* this_ptr, app::GameWorldAreaID__Enum area_id) { return false; }
 
+        IL2CPP_INTERCEPT(void, AreaMapIcon, Awake, app::AreaMapIcon* this_ptr) {
+            next::AreaMapIcon::Awake(this_ptr);
+            this_ptr->fields.m_labelBox->fields.FormatText = true;
+        }
+
         IL2CPP_INTERCEPT(bool, GameMapUI, IsCursorOverTeleporter, app::GameMapUI * this_ptr, app::Vector2* target) {
             const auto cursor = GameMapUI::get_FocusLocation(this_ptr);
 
