@@ -92,21 +92,12 @@ namespace tas::runtime::timeline {
         return this->fps;
     }
 
-    float Timeline::get_delta_time() const {
-        return this->delta_time;
-    }
-
-    float Timeline::get_current_time() const {
-        return static_cast<float>(this->current_frame) * delta_time;
-    }
-
     const TimelineState& Timeline::get_state() const {
         return this->state;
     }
 
     void Timeline::set_fps(unsigned int value) {
         this->fps = value;
-        this->delta_time = 1.f / (float)value;
     }
 
     void Timeline::rewind() {

@@ -3,13 +3,12 @@
 
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/SinMovement.h>
-#include <Modloader/app/methods/UnityEngine/Application.h>
-#include <Modloader/app/methods/UnityEngine/QualitySettings.h>
-#include <Modloader/app/methods/UnityEngine/Time.h>
+#include <Modloader/app/methods/usedStandaloneScripts/DeltaTimeManagers/DeltaTimeManager.h>
+#include <Modloader/app/methods/usedStandaloneScripts/DeltaTimeManagers/FixedDeltaTimeController.h>
+#include <Modloader/app/types/FixedDeltaTimeController.h>
 #include <Modloader/app/types/FixedRandom.h>
-#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/app/types/DeltaTimeManager.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/windows_api/memory.h>
 
 #include <Core/api/game/game.h>
 #include <Core/api/game/in_game_timer.h>
@@ -39,21 +38,10 @@ namespace tas::runtime {
     bool framestep_requested = false;
 
     namespace {
-        IL2CPP_INTERCEPT(float, UnityEngine::Time, get_deltaTime) {
-            auto fps = static_cast<int>(state.current_timeline.get_fps());
-            auto delta_time = state.current_timeline.get_delta_time();
-
-            UnityEngine::Application::set_targetFrameRate(fps);
-            UnityEngine::Time::set_captureFramerate(fps);
-            UnityEngine::Time::set_fixedDeltaTime(delta_time);
-            UnityEngine::Time::set_maximumDeltaTime(delta_time);
-            UnityEngine::QualitySettings::set_vSyncCount(0);
-
-            return delta_time;
-        }
-
-        IL2CPP_INTERCEPT(float, UnityEngine::Time, get_fixedDeltaTime) {
-            return state.current_timeline.get_delta_time();
+        IL2CPP_INTERCEPT(void, usedStandaloneScripts::DeltaTimeManagers::DeltaTimeManager, InitializeController, app::DeltaTimeManager* this_ptr, app::DeltaTimeManager_ControllerType__Enum type) {
+            const auto controller = types::FixedDeltaTimeController::create();
+            usedStandaloneScripts::DeltaTimeManagers::FixedDeltaTimeController::ctor(controller, state.current_timeline.get_fps());
+            this_ptr->fields.m_controller = reinterpret_cast<app::IDeltaTimeController*>(controller);
         }
 
         IL2CPP_INTERCEPT(void, SinMovement, UpdateMovement, app::SinMovement * this_ptr, float time) {
@@ -117,6 +105,9 @@ namespace tas::runtime {
                 nlohmann::json tas_config;
 
                 if (load_from_json_file(state.current_timeline, j.value("path", "randomizer/tas.json"), tas_config)) {
+                    // This re-initializes the DeltaTimeManager, which is overridden above to use the timeline FPS
+                    usedStandaloneScripts::DeltaTimeManagers::DeltaTimeManager::set_Enabled(types::DeltaTimeManager::get_class()->static_fields->Instance, true);
+
                     if (state.timeline_playback_active) {
                         state.current_timeline.seek(state.current_timeline.get_current_frame());
                     }
@@ -176,7 +167,7 @@ namespace tas::runtime {
             if (state.framestepping_enabled) {
                 while (!framestep_requested && state.framestepping_enabled) {
                     core::api::game::event_bus().trigger_event(GameEvent::TASPausedUpdate, EventTiming::Before);
-                    std::this_thread::sleep_for(std::chrono::nanoseconds(static_cast<unsigned long long>(state.current_timeline.get_delta_time() * 1000000000.f)));
+                    std::this_thread::sleep_for(std::chrono::milliseconds(1));
                     core::api::game::event_bus().trigger_event(GameEvent::TASPausedUpdate, EventTiming::After);
                 }
 

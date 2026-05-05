@@ -23,7 +23,6 @@ namespace tas::runtime::timeline {
 
         unsigned long current_frame = 0;
         unsigned int fps = 60;
-        float delta_time = 1.f / (float)fps;
 
         TimelineEntryCollection timeline_entries;
 
@@ -41,8 +40,6 @@ namespace tas::runtime::timeline {
     public:
         unsigned long get_current_frame() const;
         unsigned int get_fps() const;
-        float get_delta_time() const;
-        float get_current_time() const;
         const TimelineState& get_state() const;
         void set_fps(unsigned int value);
         void load_entries(const std::vector<std::shared_ptr<TimelineEntry>>& entries);
