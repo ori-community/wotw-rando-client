@@ -49,7 +49,7 @@ namespace randomizer::map::filter {
         return true;
     }
 
-    MapFilter get_next_available_filter_after(MapFilter filter) {
+    std::optional<MapFilter> get_next_available_filter_after(MapFilter filter) {
         auto starting_filter = filter;
 
         // Start with current filter and search the next available one...
@@ -58,7 +58,7 @@ namespace randomizer::map::filter {
 
             if (filter == starting_filter) {
                 // We looped...
-                return starting_filter;
+                return std::nullopt;
             }
         } while (!is_filter_available(filter));
 
@@ -72,7 +72,7 @@ namespace randomizer::map::filter {
                 if (is_filter_available(new_value)) {
                     value = new_value;
                 } else {
-                    value = get_next_available_filter_after(new_value);
+                    value = get_next_available_filter_after(new_value).value_or(value);
                 }
             },
             [] {
@@ -91,7 +91,8 @@ namespace randomizer::map::filter {
 
     /** Switch to the next available filter */
     void cycle_filter() {
-        const MapFilter next_filter = get_next_available_filter_after(current_map_filter().get());
+        const auto current_map_filter_value = current_map_filter().get();
+        const MapFilter next_filter = get_next_available_filter_after(current_map_filter_value).value_or(current_map_filter_value);
 
         filter_availability_effect = core::reactivity::watch_effect()
             .effect([=] {
