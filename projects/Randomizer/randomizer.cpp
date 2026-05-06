@@ -61,25 +61,12 @@ namespace randomizer {
         });
 
         [[maybe_unused]]
-        auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
-            pause_timer = false;
-            randomizer_seed.trigger(seed::SeedClientEvent::Reload, true);
-            core::api::game::save(true);
-            uber_states::disable_reverts() = false;
-
-            if (network_client().wants_connection()) {
-                multiplayer_universe().report_player_save_guid(core::save_meta::get_current_save_guid());
-            }
-
-            game::pickups::quests::clear_queued_quest_messages_on_next_update();
-        });
-
-        [[maybe_unused]]
         auto on_respawn = core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [](auto, auto) {
             message_queue().clear();
             game_seed().trigger(seed::SeedClientEvent::Respawn, true);
         });
 
+        [[maybe_unused]]
         auto on_after_seed_loaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
             seedgen_service().set_seedgen_info(seed_archive_save_data->seed_archive->get_seedgen_info());
             multiplayer_universe_instance.uber_state_handler().clear_unsyncables();
@@ -112,7 +99,21 @@ namespace randomizer {
             game_seed().environment().reset();
             recent_messages_view().clear_messages();
 
+            game_seed().trigger(seed::SeedClientEvent::Reload, true);
             game_seed().trigger(seed::SeedClientEvent::Spawn, true);
+        });
+
+        [[maybe_unused]]
+        auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+            pause_timer = false;
+            core::api::game::save(true);
+            uber_states::disable_reverts() = false;
+
+            if (network_client().wants_connection()) {
+                multiplayer_universe().report_player_save_guid(core::save_meta::get_current_save_guid());
+            }
+
+            game::pickups::quests::clear_queued_quest_messages_on_next_update();
         });
 
         [[maybe_unused]]
