@@ -6,6 +6,7 @@
 #include <Core/text/text_database.h>
 
 #include <Modloader/app/methods/BuilderItem.h>
+#include <Modloader/app/methods/GardenerItem.h>
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/GameController.h>
@@ -34,8 +35,9 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
-#include "grom.h"
-#include "opher.h"
+#include <Randomizer/game/shops/grom.h>
+#include <Randomizer/game/shops/opher.h>
+#include <Randomizer/game/shops/tuley.h>
 
 namespace {
     using namespace modloader;
@@ -111,6 +113,11 @@ namespace {
             return slot.icon();
         }
 
+        if (is_in_shop(ShopType::Tuley)) {
+            auto tuley_item = reinterpret_cast<app::GardenerItem*>(item);
+            return tuley::get_slot(tuley_item->fields.Project->fields.UberState).icon();
+        }
+
         // Grom
         auto grom_item = reinterpret_cast<app::BuilderItem*>(item);
         return grom::get_slot(grom_item->fields.Project->fields.UberState).icon();
@@ -119,7 +126,7 @@ namespace {
     IL2CPP_INTERCEPT(void, ShopkeeperUIDetails, UpdateDetails2, app::ShopkeeperUIDetails * this_ptr) {
         // TODO: Fix details panel on ophers shop.
         next::ShopkeeperUIDetails::UpdateDetails2(this_ptr);
-        if (is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom)) {
+        if (is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom) || is_in_shop(ShopType::Tuley)) {
             const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
             const auto texture_data = shop_icon(this_ptr->fields.m_item);
             texture_data->apply(renderer);
@@ -137,6 +144,10 @@ namespace {
             const auto opher_item = reinterpret_cast<app::WeaponmasterItem*>(item);
             const auto& slot = opher::get_slot(opher_item->fields.Upgrade->fields.AcquiredAbilityType, opher_item->fields.Upgrade->fields.RequiredAbility);
             apply_providers(slot);
+        } else if (is_in_shop(ShopType::Tuley)) {
+            const auto tuley_item = reinterpret_cast<app::GardenerItem*>(item);
+            const auto& slot = tuley::get_slot(tuley_item->fields.Project->fields.UberState);
+            apply_providers(slot);
         } else {
             // Grom
             const auto grom_item = reinterpret_cast<app::BuilderItem*>(item);
@@ -146,7 +157,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, ShopkeeperUIDetails, UpdateDetails, app::ShopkeeperUIDetails* this_ptr) {
-        if (!is_in_shop(ShopType::Opher) && !is_in_shop(ShopType::Grom)) {
+        if (!is_in_shop(ShopType::Opher) && !is_in_shop(ShopType::Grom) && !is_in_shop(ShopType::Tuley)) {
             next::ShopkeeperUIDetails::UpdateDetails(this_ptr);
             return;
         }
@@ -185,7 +196,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, ShopkeeperUISubItem, UpdateItem, app::ShopkeeperUISubItem * this_ptr) {
-        if (is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom)) {
+        if (is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom) || is_in_shop(ShopType::Tuley)) {
             const auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsVisible")->fields;
             const auto is_owned = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsOwned")->fields;
             const auto is_affordable = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsAffordable")->fields;
@@ -201,7 +212,7 @@ namespace {
                 return;
             }
 
-            if (!is_visible || is_max_level) {
+            if ((!is_visible || is_max_level)) {
                 if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO)) {
                     GameObject::SetActive(this_ptr->fields.SpiritLightGO, false);
                 }
@@ -222,7 +233,7 @@ namespace {
                 // SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr->fields.Backdrop, value, max_level);
             }
 
-            if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO)) {
+            if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO) && !is_in_shop(ShopType::Tuley)) {
                 GameObject::SetActive(this_ptr->fields.SpiritLightGO, !this_ptr->fields.ShowOre);
             }
 
@@ -245,7 +256,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, ShopkeeperUIItem, UpdateItem, app::ShopkeeperUIItem * this_ptr, app::ShopkeeperItem* item) {
-        if (is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom)) {
+        if (is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom) || is_in_shop(ShopType::Tuley)) {
             const auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsVisible")->fields;
             const auto is_owned = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsOwned")->fields;
             const auto is_affordable = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsAffordable")->fields;

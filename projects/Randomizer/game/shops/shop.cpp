@@ -6,6 +6,7 @@
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/PurchaseThingScreen.h>
 #include <Modloader/app/types/BuilderScreen.h>
+#include <Modloader/app/types/GardenerScreen.h>
 #include <Modloader/app/types/MapmakerScreen.h>
 #include <Modloader/app/types/SpiritShardsShopScreen.h>
 #include <Modloader/app/types/WeaponmasterScreen.h>
@@ -205,7 +206,11 @@ namespace randomizer::game::shops {
                 const auto spirit_shards_shop_screen = shop_screen->static_fields->Instance;
                 return spirit_shards_shop_screen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(spirit_shards_shop_screen));
             }
-            case ShopType::Tuley:
+            case ShopType::Tuley: {
+                const auto* const gardener_screen_class = types::GardenerScreen::get_class();
+                auto* const gardener_screen = gardener_screen_class->static_fields->_Instance_k__BackingField;
+                return gardener_screen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(gardener_screen));
+            }
             default:
                 return false;
         }
