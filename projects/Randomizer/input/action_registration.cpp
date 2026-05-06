@@ -109,20 +109,21 @@ namespace randomizer::input {
         });
 
         auto on_unlock_spoilers_before = single_input_bus().register_handler(Action::UnlockSpoilers, EventTiming::Before, [](auto, auto) {
-            if (core::api::game::debug_menu::should_prevent_cheats()) {
+            if (!core::api::uber_states::UberState(UberStateGroup::RandoConfig, 40).get<bool>()) {
                 message_queue().enqueue(
                     {
-                        .text = core::Property<std::string>("Cheats are blocked"),
+                        .text = core::Property<std::string>("This seed doesn't allow enabling the spoiler map manually"),
                     },
                     true
                 );
                 return;
             }
 
-            core::api::uber_states::UberState(34543, 11226).set(1);
+            core::api::uber_states::UberState(UberStateGroup::RandoState, 100).set(true);
             message_queue().enqueue({
-                .text = core::Property<std::string>("Spoilers unlocked"),
+                .text = core::Property<std::string>("Spoiler map unlocked"),
             }, true);
+            map::filter::current_map_filter().set(map::filter::MapFilter::Spoiler);
         });
 
         auto on_force_exit_before = single_input_bus().register_handler(Action::ForceExit, EventTiming::Before, [](auto, auto) {
