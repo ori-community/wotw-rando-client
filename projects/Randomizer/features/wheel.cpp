@@ -457,7 +457,7 @@ namespace randomizer::features::wheel {
                 case app::SpellInventory_Binding__Enum::ButtonB:
                     return WheelBind::Ability3;
                 default:
-                    return WheelBind::All;
+                    throw std::runtime_error(std::format("Couldn't map native binding {} to WheelBind", magic_enum::enum_name(native_binding)));
             }
         }
 
@@ -493,24 +493,13 @@ namespace randomizer::features::wheel {
 
         void binding_callback(CustomWheelEntry const& entry, app::SpellUIItem* item, WheelBind binding) {
             const auto index = EquipmentRadialSelection::GetWheelIndex(item->fields.m_spell->fields.m_type);
-            const auto all_callback = entry.callbacks[static_cast<int>(WheelBind::All)];
             const auto binding_callback = entry.callbacks[static_cast<int>(binding)];
 
-            auto ran_any_callback = false;
-
-            if (all_callback != nullptr) {
-                ran_any_callback = true;
-                all_callback(wheel_index, static_cast<WheelItemPosition>(index), binding);
-            }
-
-            if (binding_callback != nullptr) {
-                ran_any_callback = true;
-                binding_callback(wheel_index, static_cast<WheelItemPosition>(index), binding);
-            }
-
-            if (!ran_any_callback) {
+            if (binding_callback == nullptr) {
                 return;
             }
+
+            binding_callback(wheel_index, static_cast<WheelItemPosition>(index), binding);
 
             // Refresh things.
             const auto wheel = types::EquipmentWheel::get_class()->static_fields->Instance;

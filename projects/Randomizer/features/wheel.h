@@ -21,10 +21,9 @@ namespace randomizer::features::wheel {
     };
 
     enum class WheelBind {
-        All = 0,
-        Ability1 = 1,
-        Ability2 = 2,
-        Ability3 = 3,
+        Ability1,
+        Ability2,
+        Ability3,
     };
 
     NLOHMANN_JSON_SERIALIZE_ENUM(
