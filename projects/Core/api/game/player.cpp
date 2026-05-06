@@ -462,6 +462,11 @@ namespace core::api::game::player {
         return sein != nullptr ? SeinCharacter::get_Position(sein) : app::Vector3{0, 0, 0};
     }
 
+    app::Vector2 get_map_position() {
+        const auto sein = player::sein();
+        return sein != nullptr ? modloader::math::to_vec2(SeinCharacter::get_MapDisplayPosition(sein)) : app::Vector2{0, 0};
+    }
+
     app::Vector2 get_velocity() {
         const auto sein = player::sein();
         if (sein != nullptr) {

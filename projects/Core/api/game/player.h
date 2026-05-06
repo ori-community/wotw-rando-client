@@ -35,6 +35,7 @@ namespace core::api::game::player {
     CORE_DLLEXPORT bool can_move();
 
     CORE_DLLEXPORT app::Vector3 get_position();
+    CORE_DLLEXPORT app::Vector2 get_map_position();
     CORE_DLLEXPORT app::Vector2 get_velocity();
     CORE_DLLEXPORT void set_position(float x, float y, bool wait_for_load = false);
     CORE_DLLEXPORT void set_position(app::Vector3 value, bool wait_for_load = false);
