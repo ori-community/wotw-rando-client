@@ -1,5 +1,6 @@
 #include <Common/ext.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
+#include <Modloader/app/methods/AreaMapCanvas.h>
 #include <Modloader/app/types/GameWorld.h>
 #include <Modloader/interception.h>
 #include <Modloader/interception_macros.h>
@@ -7,6 +8,9 @@
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state_virtual.h>
 #include <Randomizer/features/area_segment_states.h>
+#include <Core/api/game/game.h>
+#include <Core/api/game/ui.h>
+
 
 using namespace app::classes;
 
@@ -1138,5 +1142,16 @@ namespace randomizer::area_segment_states {
         const core::api::uber_states::UberStateCallbackParams params{uber_state, previous_value, uber_state.get<double>()};
         core::api::uber_states::notification_bus().trigger_event(params);
         core::api::uber_states::single_notification_bus().trigger_event(uber_state, params);
+
+        const auto area_map = core::api::game::ui::area_map();
+        if (area_map != nullptr && il2cpp::unity::get_active(area_map)) {
+            for (auto & canvas: il2cpp::ListIterator(area_map->fields.Canvases)) {
+                if (canvas->fields.Area->fields.WorldMapAreaUniqueID != area_id) {
+                    continue;
+                }
+
+                AreaMapCanvas::ResetMap(canvas);
+            }
+        }
     }
 } // namespace
