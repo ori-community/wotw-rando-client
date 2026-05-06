@@ -68,15 +68,8 @@ namespace randomizer::game::teleportation {
         scenes_manager->fields.m_currentCameraTargetPosition.y = position.y;
 
         SeinCharacter::set_Position(core::api::game::player::sein(), position);
-
-        auto scene_names = core::api::scenes::get_scenes_at_position(position);
-        for (const auto& scene_name: scene_names) {
-            if (!core::api::scenes::scene_is_loaded(scene_name)) {
-                const auto instant_load_scenes_controller = types::InstantLoadScenesController::get_class()->static_fields->Instance;
-                InstantLoadScenesController::LoadScenesAtPosition(instant_load_scenes_controller, nullptr, false, false);
-                break;
-            }
-        }
+        const auto instant_load_scenes_controller = types::InstantLoadScenesController::get_class()->static_fields->Instance;
+        InstantLoadScenesController::LoadScenesAtPosition(instant_load_scenes_controller, nullptr, false, false);
 
         auto area_map_ui = types::AreaMapUI::get_class()->static_fields->Instance;
         auto quests_ui = types::QuestsUI::get_class()->static_fields->Instance;
