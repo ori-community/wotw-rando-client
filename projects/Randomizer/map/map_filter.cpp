@@ -8,7 +8,6 @@
 #include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/app/types/GameMapUI.h>
 #include <frozen/unordered_map.h>
-#include <Core/settings.h>
 #include <Randomizer/randomizer.h>
 #include <Core/api/game/game.h>
 #include <Core/api/system/message_provider.h>
@@ -16,16 +15,6 @@
 
 namespace randomizer::map::filter {
     using namespace app::classes;
-
-    core::Property<MapFilter>& current_map_filter() {
-        static core::Property<MapFilter> value{MapFilter::InLogic};
-        return value;
-    }
-
-    core::Property<bool>& show_interactables() {
-        static core::Property<bool> value{false};
-        return value;
-    }
 
     core::reactivity::ReactiveEffect::ptr_t map_filter_updated_effect;
     bool map_filter_label_and_quests_ui_dirty = true;
@@ -60,23 +49,49 @@ namespace randomizer::map::filter {
         return true;
     }
 
+    MapFilter get_next_available_filter_after(MapFilter filter) {
+        auto starting_filter = filter;
+
+        // Start with current filter and search the next available one...
+        do {
+            filter = MAP_ICON_FILTER_METADATA.at(filter).next;
+
+            if (filter == starting_filter) {
+                // We looped...
+                return starting_filter;
+            }
+        } while (!is_filter_available(filter));
+
+        return filter;
+    }
+
+    core::Property<MapFilter>& current_map_filter() {
+        static MapFilter value = MapFilter::InLogic;
+        static core::Property<MapFilter> property {
+            [](MapFilter new_value) {
+                if (is_filter_available(new_value)) {
+                    value = new_value;
+                } else {
+                    value = get_next_available_filter_after(new_value);
+                }
+            },
+            [] {
+                return value;
+            }
+        };
+        return property;
+    }
+
+    core::Property<bool>& show_interactables() {
+        static core::Property<bool> property{false};
+        return property;
+    }
+
     core::reactivity::ReactiveEffect::ptr_t filter_availability_effect;
 
     /** Switch to the next available filter */
     void cycle_filter() {
-        const auto current_filter_cache = current_map_filter().get();
-
-        // Start with current filter and search the next available one...
-        MapFilter next_filter = current_filter_cache;
-
-        do {
-            next_filter = MAP_ICON_FILTER_METADATA.at(next_filter).next;
-
-            if (next_filter == current_filter_cache) {
-                // We looped...
-                return;
-            }
-        } while (!is_filter_available(next_filter));
+        const MapFilter next_filter = get_next_available_filter_after(current_map_filter().get());
 
         filter_availability_effect = core::reactivity::watch_effect()
             .effect([=] {
