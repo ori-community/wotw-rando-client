@@ -4,6 +4,8 @@
 
 #include <Core/api/uber_states/uber_state.h>
 #include <Randomizer/conditions/new_setup_state_override.h>
+#include <Core/api/uber_states/uber_state_handlers.h>
+
 
 namespace {
     constexpr int32_t TULEY_EXISTS = -456942105;
@@ -11,6 +13,17 @@ namespace {
 
     const auto SPAWN_TULEY = core::api::uber_states::UberState(UberStateGroup::RandoState, 300);
     const auto USE_SPAWN_TULEY_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoConfig, 30);
+
+    [[maybe_unused]]
+    auto uber_state_notify = core::api::uber_states::single_notification_bus().register_handlers(
+        std::vector<std::tuple<core::api::uber_states::UberState>> {
+            SPAWN_TULEY,
+            USE_SPAWN_TULEY_RANDO_STATE,
+        },
+        [](auto&, auto) {
+            randomizer::conditions::apply_all_states();
+        }
+    );
 
     int32_t tuley_state(app::NewSetupStateController* controller, std::string_view path, int32_t original_state) {
         if (!USE_SPAWN_TULEY_RANDO_STATE.get<bool>()) {

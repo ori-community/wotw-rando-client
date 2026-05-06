@@ -4,6 +4,8 @@
 
 #include <Core/api/uber_states/uber_state.h>
 #include <Randomizer/conditions/new_setup_state_override.h>
+#include <Core/api/uber_states/uber_state_handlers.h>
+
 
 namespace {
     constexpr int32_t TWILLEN_EXISTS = -294171295;
@@ -11,6 +13,17 @@ namespace {
 
     const auto SPAWN_TWILLEN = core::api::uber_states::UberState(UberStateGroup::RandoState, 302);
     const auto USE_SPAWN_TWILLEN_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoConfig, 32);
+
+    [[maybe_unused]]
+    auto uber_state_notify = core::api::uber_states::single_notification_bus().register_handlers(
+        std::vector<std::tuple<core::api::uber_states::UberState>> {
+            SPAWN_TWILLEN,
+            USE_SPAWN_TWILLEN_RANDO_STATE,
+        },
+        [](auto&, auto) {
+            randomizer::conditions::apply_all_states();
+        }
+    );
 
     int32_t twillen_state(app::NewSetupStateController* controller, std::string_view path, int32_t original_state) {
         if (!USE_SPAWN_TWILLEN_RANDO_STATE.get<bool>()) {
