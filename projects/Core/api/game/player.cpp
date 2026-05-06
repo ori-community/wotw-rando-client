@@ -499,9 +499,7 @@ namespace core::api::game::player {
     void snap_camera() {
         const auto cameras = types::UI_Cameras::get_class();
         if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
-            // We need to do this on the next frame to allow state to update without causing flickering.
-            auto* const camera = cameras->static_fields->Current;
-            GameplayCamera::MoveCameraToTargetInstantly(camera, true);
+            GameplayCamera::MoveCameraToTargetInstantly(cameras->static_fields->Current, true);
         }
     }
 

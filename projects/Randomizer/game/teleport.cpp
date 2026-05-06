@@ -2,20 +2,17 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
-#include <Core/events/task.h>
 #include <Modloader/app/methods/AreaMapNavigation.h>
 #include <Modloader/app/methods/CameraPivotZone.h>
 #include <Modloader/app/methods/InstantLoadScenesController.h>
 #include <Modloader/app/methods/QuestsUI.h>
 #include <Modloader/app/methods/RuntimeSceneMetaData.h>
 #include <Modloader/app/methods/SavePedestalController.h>
-#include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/SeinCharacter.h>
 #include <Modloader/app/methods/MenuScreenManager.h>
 #include <Modloader/app/types/AreaMapUI.h>
 #include <Modloader/app/types/InstantLoadScenesController.h>
 #include <Modloader/app/types/QuestsUI.h>
-#include <Modloader/app/types/SavePedestalController.h>
 #include <Modloader/app/types/UI.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/features/wheel.h>
@@ -24,8 +21,6 @@
 using namespace app::classes;
 
 namespace randomizer::game::teleportation {
-    auto teleport_in_progress = false;
-
     /**
      * We override IsInsideSceneBounds_3 and IsInTotal_1 because in vanilla, these functions
      * check overlaps using < and > operators instead of <= and >=. That causes problems
@@ -66,29 +61,7 @@ namespace randomizer::game::teleportation {
             position.y <= total_max.y;
     }
 
-    IL2CPP_INTERCEPT(void, InstantLoadScenesController, CompleteLoading, app::InstantLoadScenesController* this_ptr) {
-        if (teleport_in_progress) {
-            const auto scenes_manager = core::api::scenes::get_scenes_manager();
-            modloader::ScopedSetter _(scenes_manager->klass->static_fields->DoExtraSceneCleanUp, false);
-            next::InstantLoadScenesController::CompleteLoading(this_ptr);
-            teleport_in_progress = false;
-        } else {
-            next::InstantLoadScenesController::CompleteLoading(this_ptr);
-        }
-    }
-
-    IL2CPP_INTERCEPT(bool, ScenesManager, UnloadScene, app::ScenesManager * this_ptr, app::SceneManagerScene* scene, bool keep_in_memory, bool instant) {
-        if (teleport_in_progress) {
-            return false;
-        }
-
-        return next::ScenesManager::UnloadScene(this_ptr, scene, keep_in_memory, instant);
-    }
-
-    // TODO: Can cause deadlocks, remove usage of InstantLoadScenesController::LoadScenesAtPosition
     void teleport_instantly(const app::Vector3 position) {
-        teleport_in_progress = true;
-
         // We do this because InstantLoadScenesController::LoadScenesAtPosition uses it as the target position
         const auto scenes_manager = core::api::scenes::get_scenes_manager();
         scenes_manager->fields.m_currentCameraTargetPosition.x = position.x;
@@ -96,8 +69,14 @@ namespace randomizer::game::teleportation {
 
         SeinCharacter::set_Position(core::api::game::player::sein(), position);
 
-        const auto instant_load_scenes_controller = types::InstantLoadScenesController::get_class()->static_fields->Instance;
-        InstantLoadScenesController::LoadScenesAtPosition(instant_load_scenes_controller, nullptr, false, false);
+        auto scene_names = core::api::scenes::get_scenes_at_position(position);
+        for (const auto& scene_name: scene_names) {
+            if (!core::api::scenes::scene_is_loaded(scene_name)) {
+                const auto instant_load_scenes_controller = types::InstantLoadScenesController::get_class()->static_fields->Instance;
+                InstantLoadScenesController::LoadScenesAtPosition(instant_load_scenes_controller, nullptr, false, false);
+                break;
+            }
+        }
 
         auto area_map_ui = types::AreaMapUI::get_class()->static_fields->Instance;
         auto quests_ui = types::QuestsUI::get_class()->static_fields->Instance;
@@ -111,11 +90,5 @@ namespace randomizer::game::teleportation {
         MenuScreenManager::HideMenuScreen(menu_screen_manager, false, true);
 
         SavePedestalController::BeginTeleportation(position);
-    }
-
-    bool is_teleporting() {
-        const auto save_pedestal_controller = types::SavePedestalController::get_class()->static_fields->Instance;
-        return teleport_in_progress ||
-            (save_pedestal_controller != nullptr && (save_pedestal_controller->fields.m_isTeleporting || save_pedestal_controller->fields.m_isBlooming));
     }
 }

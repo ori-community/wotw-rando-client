@@ -6,6 +6,7 @@
 #include <Modloader/app/methods/SceneManagerScene.h>
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
+#include <Modloader/app/methods/UnityEngine/SceneManagement/SceneManager.h>
 #include <Modloader/app/methods/RuntimeSceneMetaData.h>
 #include <Modloader/app/types/GameController.h>
 #include <Modloader/app/types/GameStateMachine.h>
@@ -268,6 +269,7 @@ namespace core::api::scenes {
 
         for (const auto id: il2cpp::ListIterator(types::ScenesManager::get_class()->static_fields->m_tempHashList)) {
             const auto scene_meta = ScenesManager::GetSceneFromLinearArray(scenes_manager, id);
+            const auto scene_name = il2cpp::convert_csstring(scene_meta->fields.Scene);
 
             if (
                 RuntimeSceneMetaData::IsInsideSceneBounds_3(scene_meta, rect) ||
