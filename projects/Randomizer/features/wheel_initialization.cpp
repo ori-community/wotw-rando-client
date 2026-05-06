@@ -186,13 +186,10 @@ namespace randomizer::features::wheel {
             }
         );
         initialize_item(9001, 6, "Unlock spoilers", "Unlock spoilers filter on the map", "file:icons/wheel/unlock_spoilers.blue.png", [](auto, auto, auto) {
-            if (!core::api::uber_states::UberState(UberStateGroup::RandoConfig, 40).get<bool>()) {
-                message_queue().enqueue(
-                    {
-                        .text = core::Property<std::string>("This seed doesn't allow enabling the spoiler map manually"),
-                    },
-                    true
-                );
+            if (core::api::game::debug_menu::should_prevent_cheats()) {
+                message_queue().enqueue({
+                    .text = core::Property<std::string>("Cheats are blocked"),
+                }, true);
                 return;
             }
 

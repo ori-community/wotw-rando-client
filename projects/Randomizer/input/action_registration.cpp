@@ -109,13 +109,10 @@ namespace randomizer::input {
         });
 
         auto on_unlock_spoilers_before = single_input_bus().register_handler(Action::UnlockSpoilers, EventTiming::Before, [](auto, auto) {
-            if (!core::api::uber_states::UberState(UberStateGroup::RandoConfig, 40).get<bool>()) {
-                message_queue().enqueue(
-                    {
-                        .text = core::Property<std::string>("This seed doesn't allow enabling the spoiler map manually"),
-                    },
-                    true
-                );
+            if (core::api::game::debug_menu::should_prevent_cheats()) {
+                message_queue().enqueue({
+                    .text = core::Property<std::string>("Cheats are blocked"),
+                }, true);
                 return;
             }
 
