@@ -433,7 +433,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useRainLiftedInMarshRandoState", 34, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useRegenTreeDrainedRandoState", 35, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useEastWoodsTrunkSlowWalkZoneEnabledState", 36, false),
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "canEnableSpoilerFilter", 40, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "canManuallyEnableSpoilerFilter", 40, false),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeShriekEscapeSand", 100, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeFeedingGroundsToElevatorSand", 101, false),
