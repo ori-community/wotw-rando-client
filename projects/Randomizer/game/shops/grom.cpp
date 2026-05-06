@@ -46,7 +46,8 @@ namespace randomizer::game::shops::grom {
         return slot.value().get();
     }
 
-    auto scene = core::api::scenes::single_event_bus().register_handler("wellspringGladesHubSetups", [](auto metadata, auto) {
+    [[maybe_unused]]
+    auto on_hub_setups_loaded = core::api::scenes::single_event_bus().register_handler("wellspringGladesHubSetups", [](auto metadata, auto) {
         if (metadata->state != app::SceneState__Enum::Loaded) {
             return;
         }
@@ -114,12 +115,8 @@ namespace randomizer::game::shops::grom {
     }
 
     IL2CPP_INTERCEPT(int, BuilderItem, GetCostForLevel, app::BuilderItem* this_ptr, int level) {
-        if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
-            auto& slot = shops()->grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).value().get();
-            return slot.cost.get();
-        }
-
-        return next::BuilderItem::GetCostForLevel(this_ptr, level);
+        auto& slot = shops()->grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).value().get();
+        return slot.cost.get();
     }
 
     IL2CPP_INTERCEPT_WITH_ORDER(0, bool, BuilderItem, get_IsVisible, app::BuilderItem* this_ptr) {
@@ -131,24 +128,20 @@ namespace randomizer::game::shops::grom {
         return next::BuilderItem::get_IsVisible(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(bool, BuilderItem, get_IsLocked, app::BuilderItem* this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(0, bool, BuilderItem, get_IsLocked, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
             auto& slot = shops()->grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).value().get();
             return slot.visibility() == SlotVisibility::Locked;
-        } else {
-            return next::BuilderItem::get_IsLocked(this_ptr);
         }
+
+        return next::BuilderItem::get_IsLocked(this_ptr);
     }
 
     IL2CPP_INTERCEPT(bool, BuilderItem, get_IsAffordable, app::BuilderItem* this_ptr) {
-        if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
-            return core::api::game::player::ore().get() >= BuilderItem::GetCostForLevel(this_ptr, 1);
-        }
-
-        return next::BuilderItem::get_IsAffordable(this_ptr);
+        return core::api::game::player::ore().get() >= BuilderItem::GetCostForLevel(this_ptr, 1);
     }
 
-    IL2CPP_INTERCEPT(bool, BuilderItem, get_IsOwned, app::BuilderItem* this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(0, bool, BuilderItem, get_IsOwned, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
             const auto state = get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState);
             return state.get<bool>();
@@ -181,7 +174,7 @@ namespace randomizer::game::shops::grom {
 
     IL2CPP_INTERCEPT(void, BuilderItem, DoPurchase, app::BuilderItem* this_ptr, app::PurchaseContext* context) {
         if (get_cutscene_state(this_ptr->fields.Project).get<bool>()) {
-            // The normal method calls a DelayedAction.Action
+            // The normal method calls a DelayedAction.Action to play the cutscene
             next::BuilderItem::DoPurchase(this_ptr, context);
             return;
         }
@@ -220,10 +213,6 @@ namespace randomizer::game::shops::grom {
         return true;
     }
 
-    IL2CPP_INTERCEPT(void, EquipmentUIInventoryGrid, UpdateItemProperties, app::EquipmentUIInventoryGrid* this_ptr, app::Object* context) {
-        next::EquipmentUIInventoryGrid::UpdateItemProperties(this_ptr, context);
-    }
-
     IL2CPP_INTERCEPT(void, BuilderScreen, CompletePurchase, app::BuilderScreen* this_ptr) {
         const auto shopkeeper_screen = reinterpret_cast<app::ShopkeeperScreen*>(this_ptr);
         const auto item = reinterpret_cast<app::BuilderItem*>(ShopkeeperScreen::get_SelectedUpgradeItem(shopkeeper_screen));
@@ -236,7 +225,7 @@ namespace randomizer::game::shops::grom {
         }
     }
 
-    IL2CPP_INTERCEPT(void, Moon::Timeline::TimelineEntity, StartPlayback_2, app::TimelineEntity* this_ptr, app::IContext* context) {
+    IL2CPP_INTERCEPT_WITH_ORDER(0, void, Moon::Timeline::TimelineEntity, StartPlayback_2, app::TimelineEntity* this_ptr, app::IContext* context) {
         // If we skip the cutscenes, Grom never gets into the "purchase successful" state, hence
         // he always complains about you when leaving him even though you purchased something.
         // This fix plays the correct timeline instead if you purchased something from Grom
