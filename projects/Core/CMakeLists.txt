@@ -8,6 +8,7 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 set(
         SOURCE_FILES
         "animation/animation.cpp"
+        "api/debug_renderer.cpp"
         "api/faderb.cpp"
         "api/input.cpp"
         "api/game/death_listener.cpp"

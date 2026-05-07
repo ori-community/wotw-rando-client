@@ -7,6 +7,7 @@
 #include <Core/input/mouse.h>
 #include <Core/settings.h>
 #include <Modloader/app/methods/Moon/UberStateCollection.h>
+#include <Modloader/app/methods/Moon/VisualDebug/DebugRenderer.h>
 #include <Modloader/app/types/BooleanUberState.h>
 #include <Modloader/app/types/ByteUberState.h>
 #include <Modloader/app/types/FloatUberState.h>
@@ -528,6 +529,16 @@ namespace randomizer {
 
             info("initialize", "Custom uber states initialized.");
             next::Moon::UberStateCollection::PrepareRuntimeDataType(this_ptr);
+
+            register_virtual_uber_state(
+                UberStateGroup::RandoConfig,
+                300,
+                ValueType::Boolean,
+                "enableDebugRenderer",
+                [] { return Moon::VisualDebug::DebugRenderer::get_Enabled(); },
+                [](double value) { return Moon::VisualDebug::DebugRenderer::set_Enabled(value > 0.5); },
+                VirtualUberState::ChangeDetectionMode::Poll
+            );
 
             using namespace core::api::game::player;
             register_virtual_uber_state_from_property(UberStateGroup::Player, 0, ValueType::Integer, "spiritLight", spirit_light(), VirtualUberState::ChangeDetectionMode::Poll);
