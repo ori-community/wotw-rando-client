@@ -26,6 +26,13 @@
 
 #include <Modloader/il2cpp_math.h>
 #include <Modloader/modloader.h>
+#include <Modloader/app/types/PetrifiedOwlBossEntity.h>
+#include <Modloader/app/methods/PetrifiedOwlBossEntity.h>
+#include <Modloader/app/methods/Moon/Vitals.h>
+#include <Modloader/app/methods/Moon/Entity.h>
+#include <Modloader/app/methods/Moon/EntityDeathEvent.h>
+#include <Modloader/app/types/EntityDeathEvent.h>
+#include <Modloader/app/methods/EntityReactions.h>
 #include <Randomizer/seed/items/input.h>
 
 #include <Randomizer/seed/items/icon_override.h>
@@ -35,6 +42,8 @@
 #include <regex>
 #include <span>
 #include <string>
+
+#include "Core/api/scenes/scene_load.h"
 
 namespace randomizer::seed::legacy_parser {
     using location_type = core::api::uber_states::UberStateCondition;
@@ -117,6 +126,7 @@ namespace randomizer::seed::legacy_parser {
         AppendString = 30,
         SetIconOverride = 31,
         ClearIconOverride = 32,
+        KillShriek = 33,
     };
 
     void set_location(items::Message* message, location_type const& location) {
@@ -521,6 +531,38 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
+    bool parse_kill_shriek(std::span<std::string> parts, ParserData& data) {
+        const auto caller = std::make_shared<items::Call>();
+
+        caller->description = "kill shriek";
+
+        caller->func = [] {
+            const auto scene_root = core::api::scenes::get_scene_root("willowPowlBackground");
+
+            if (!il2cpp::unity::is_valid(scene_root)) {
+                return;
+            }
+
+            const auto shriek_entity = il2cpp::unity::get_component_in_children<app::PetrifiedOwlBossEntity>(il2cpp::unity::get_game_object(scene_root), types::PetrifiedOwlBossEntity::get_class());
+            if (!il2cpp::unity::is_valid(shriek_entity)) {
+                return;
+            }
+
+            const auto death_event = types::EntityDeathEvent::create();
+            Moon::EntityDeathEvent::ctor(
+                death_event,
+                reinterpret_cast<app::Entity*>(shriek_entity),
+                app::DamageResult{nullptr, 10000.f, 0, app::DamageResultType__Enum::Received, nullptr, app::DamageRecieverType__Enum::BossEntity}
+            );
+
+            shriek_entity->fields._._.VitalState = app::Entity_EntityVitalState__Enum::Dead;
+            EntityReactions::ProcessEntityEvent(shriek_entity->fields._._.m_reactions, reinterpret_cast<app::EntityEvent*>(death_event));
+        };
+
+        data.add_item(caller);
+        return true;
+    }
+
     bool parse_warp(std::span<std::string> parts, ParserData& data) {
         if (parts.size() < 2) {
             return false;
@@ -826,6 +868,8 @@ namespace randomizer::seed::legacy_parser {
             case SystemCommand::SetState:
                 modloader::warn("legacy_parser", "Use of deprecated command SystemCommand.SetState use uber states instead.");
                 return false;
+            case SystemCommand::KillShriek:
+                return parse_kill_shriek(next_parts, data);
             default:
                 return false;
         }
