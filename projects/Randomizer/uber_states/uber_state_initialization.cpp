@@ -28,6 +28,7 @@
 #include <Randomizer/uber_states/uber_state_initialization.h>
 #include <chrono>
 
+#include "Core/api/game/debug_menu.h"
 #include "random_value_generator.h"
 
 using namespace modloader;
@@ -536,7 +537,20 @@ namespace randomizer {
                 ValueType::Boolean,
                 "enableDebugRenderer",
                 [] { return Moon::VisualDebug::DebugRenderer::get_Enabled(); },
-                [](double value) { return Moon::VisualDebug::DebugRenderer::set_Enabled(value > 0.5); },
+                [](double value) {
+                    const auto is_enabled = value > 0.5;
+
+                    if (core::api::game::debug_menu::should_prevent_cheats()) {
+                        modloader::warn("uber_states", "Tried to enable debug renderer via uber state but Cheats are currently forbidden");
+                        return;
+                    }
+
+                    if (is_enabled) {
+                        core::api::game::debug_menu::notify_debug_was_active_this_session();
+                    }
+
+                    Moon::VisualDebug::DebugRenderer::set_Enabled(is_enabled);
+                },
                 VirtualUberState::ChangeDetectionMode::Poll
             );
 
