@@ -85,8 +85,8 @@ jobs:
             echo BUILD FAILED
             exit 1
           )
-      - name: Archive randomizer
+      - name: Archive client
         uses: actions/upload-artifact@v4
         with:
-          name: randomizer
-          path: 'C:\moon\randomizer\*'
+          name: client
+          path: 'C\moon\randomizer\client\*'
