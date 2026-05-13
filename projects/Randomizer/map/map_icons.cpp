@@ -1,6 +1,3 @@
-#include "map_icons.h"
-
-
 #include <Core/api/game/game.h>
 #include <Modloader/app/methods/AreaMapIcon.h>
 #include <Modloader/app/methods/AreaMapIconManager.h>
@@ -31,9 +28,9 @@
 #include <Core/api/system/message_provider.h>
 #include <Core/settings.h>
 #include <Modloader/app/methods/IconPlacementScaler.h>
+#include <Core/api/messages/text_style.h>
+#include <Randomizer/features/entrance_randomizer.h>
 
-#include "Core/api/messages/text_style.h"
-#include "Randomizer/features/entrance_randomizer.h"
 
 namespace randomizer::map::icons {
     using namespace app::classes;
@@ -546,6 +543,7 @@ namespace randomizer::map::icons {
 
                         m_handles.area_map_opened_event = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::Before, [&](auto, auto) {
                             try_create_game_object_if_not_exists();
+                            try_update_label(true);
                         });
 
                         m_handles.icon_scale_update_requested_event = icons_scale_event_bus.register_handler([&](const IconScale& scale) {
@@ -664,7 +662,7 @@ namespace randomizer::map::icons {
         il2cpp::unity::set_local_scale(*game_object, app::Vector3{scale_factor, scale_factor, 1.f});
     }
 
-    void MapIcon::try_update_label() const {
+    void MapIcon::try_update_label(bool visibility_only) const {
         const auto game_map_ui = types::GameMapUI::get_class()->static_fields->Instance;
 
         if (game_map_ui == nullptr || !m_game_object_ref.has_value()) {
@@ -680,8 +678,11 @@ namespace randomizer::map::icons {
         const auto area_map_icon = il2cpp::unity::get_component<app::AreaMapIcon>(*game_object, types::AreaMapIcon::get_class());
 
         if (always_show_label.get() || GameMapUI::get_ShowIconLabels(game_map_ui)) {
-            area_map_icon->fields.m_labelBox->fields.TextBox->fields.color = label_color.get();
-            AreaMapIcon::SetMessageProvider(area_map_icon, core::api::system::create_message_provider(label_text));
+            if (!visibility_only) {
+                area_map_icon->fields.m_labelBox->fields.TextBox->fields.color = label_color.get();
+                AreaMapIcon::SetMessageProvider(area_map_icon, core::api::system::create_message_provider(label_text));
+            }
+
             AreaMapIcon::ShowLabel(area_map_icon);
         } else {
             AreaMapIcon::HideLabel(area_map_icon);
@@ -752,7 +753,7 @@ namespace randomizer::map::icons {
         m_game_object_ref = il2cpp::WeakGCRef(*game_object);
         try_add_icon_to_map_if_missing();
         try_update_map_position();
-        try_update_label();
+        try_update_label(TODO);
         try_set_scale(get_desired_icon_scale());
         try_update_rotation();
 
