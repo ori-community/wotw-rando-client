@@ -753,7 +753,7 @@ namespace randomizer::map::icons {
         m_game_object_ref = il2cpp::WeakGCRef(*game_object);
         try_add_icon_to_map_if_missing();
         try_update_map_position();
-        try_update_label(TODO);
+        try_update_label();
         try_set_scale(get_desired_icon_scale());
         try_update_rotation();
 
