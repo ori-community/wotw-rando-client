@@ -35,7 +35,7 @@ namespace {
         bool reset_physical_system_managers_in_scene = false;
     };
 
-    constexpr frozen::unordered_map<frozen::string, LeverConfig, 18> LEVER_CONFIGS = {
+    constexpr frozen::unordered_map<frozen::string, LeverConfig, 19> LEVER_CONFIGS = {
         {"waterMillBRotatingRoom/artTimelines/rotatingRoomBase/newLeverSetupA/lever", LeverConfig{.spawn_position = app::Vector2{-1172.3, -3817.325}, .sound_event = SoundEventID::roomStop, .sound_event_delay = 5.f}},
         {"waterMillBRotatingRoom/artTimelines/rotatingRoomBase/newLeverSetupB/lever", LeverConfig{.spawn_position = app::Vector2{-1177.328, -3810.59}, .sound_event = SoundEventID::roomStop, .sound_event_delay = 5.f}},
         {"waterMillBRotatingRoom/artTimelines/rotatingRoomBase/newLeverSetupC/lever", LeverConfig{.spawn_position = app::Vector2{-1169.494, -3784.787}, .sound_event = SoundEventID::roomStop, .sound_event_delay = 5.f}},
@@ -54,6 +54,7 @@ namespace {
         {"e3DesertF/artSetups/*leverSetup/lever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
         {"windtornRuinsA/interactives/doors/lever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
         {"kwoloksHollowEntrance/interactives/waterLeverSetup/kwolokCavernsLever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
+        {"kwoloksCavernH/interactives/interactives/lever", LeverConfig{.disable_fade_on_automatic_cutscene_skip = true}},
     };
 
     void on_lever_push(void(*next_fn)(app::Lever*), app::Lever* lever) {
