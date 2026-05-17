@@ -80,13 +80,13 @@ namespace randomizer::input {
                         continue;
                     }
 
-                    auto respects_modifiers = bind.find("respects_modifiers");
-                    if (respects_modifiers != bind.end() && !respects_modifiers->is_boolean()) {
-                        warn("input", std::format("failed to parse '{}' entry {} respects_modifiers not a bool, skipping.", path.string(), name));
+                    auto exact_modifier_keys = bind.find("exact_modifier_keys");
+                    if (exact_modifier_keys != bind.end() && !exact_modifier_keys->is_boolean()) {
+                        warn("input", std::format("failed to parse '{}' entry {} exact_modifier_keys not a bool, skipping.", path.string(), name));
                         continue;
                     }
 
-                    does_respect_modifiers = respects_modifiers != bind.end() && respects_modifiers->get<bool>();
+                    does_respect_modifiers = exact_modifier_keys != bind.end() && exact_modifier_keys->get<bool>();
                     buttons = handle_keys_or_notes(path, name, keys.value());
                 } else {
                     warn("input", std::format("failed to parse '{}' entry {} bind not an object or an array, skipping.", path.string(), name));

@@ -35,7 +35,7 @@ namespace randomizer::input {
             std::vector<app::KeyCode__Enum> codes;
             std::vector<int> mouse_buttons;
 
-            bool respects_modifiers = false;
+            bool exact_modifier_keys = false;
             bool shift = false;
             bool ctrl = false;
             bool alt = false;
@@ -74,9 +74,9 @@ namespace randomizer::input {
             rando_bindings[action].kbm_bindings.push_back(input);
         }
 
-        void on_keyboard_binding_read(Action action, std::vector<int> const& buttons, bool respects_modifiers) {
+        void on_keyboard_binding_read(Action action, std::vector<int> const& buttons, bool exact_modifier_keys) {
             KeyboardMouseInput input;
-            input.respects_modifiers = respects_modifiers;
+            input.exact_modifier_keys = exact_modifier_keys;
             for (auto const& button : buttons) {
                 if (button < 0) {
                     input.mouse_buttons.push_back(-button);
@@ -108,7 +108,7 @@ namespace randomizer::input {
         }
 
         bool is_kbm_pressed(KeyboardMouseInput const& input) {
-            if (input.respects_modifiers) {
+            if (input.exact_modifier_keys) {
                 auto shift = Input::GetKeyInt(app::KeyCode__Enum::LeftShift) || Input::GetKeyInt(app::KeyCode__Enum::RightShift);
                 auto ctrl = Input::GetKeyInt(app::KeyCode__Enum::LeftControl) || Input::GetKeyInt(app::KeyCode__Enum::RightControl);
                 auto alt = Input::GetKeyInt(app::KeyCode__Enum::LeftAlt) || Input::GetKeyInt(app::KeyCode__Enum::RightAlt);

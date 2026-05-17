@@ -355,6 +355,7 @@ set(
         "seed/instructions/set_shop_item_price.h"
         "seed/instructions/create_spoiler_map_icon.h"
         "seed/instructions/set_string.h"
+        "seed/instructions/set_text_with_id.h"
         "seed/instructions/set_warp_icon_label.h"
         "seed/instructions/set_wheel_item_color.h"
         "seed/instructions/set_wheel_item_command.h"
@@ -381,7 +382,6 @@ set(
         "uber_states/random_value_generator.h"
         "uber_states/uber_state_initialization.h"
         "uber_states/uber_state_intercepts.h"
-        seed/instructions/set_text_with_id.h
 )
 
 set(

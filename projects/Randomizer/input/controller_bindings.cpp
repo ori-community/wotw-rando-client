@@ -102,7 +102,7 @@ namespace randomizer::input {
         }
 
         std::unordered_map<Action, std::vector<std::vector<ControllerButton>>> bindings;
-        void on_binding_read(Action action, std::vector<int> const& buttons, bool respects_modifiers) {
+        void on_binding_read(Action action, std::vector<int> const& buttons, bool exact_modifier_keys) {
             auto& binding = bindings[action].emplace_back();
             binding.resize(buttons.size());
             std::transform(buttons.begin(), buttons.end(), binding.begin(), [](int button) {
