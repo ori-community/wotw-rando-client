@@ -197,13 +197,13 @@ namespace randomizer::input {
                 info.is_pressed = pressed;
 
                 if (info.is_just_pressed) {
-                    single_input_bus().trigger_event(action, EventTiming::Before);
-                    input_bus().trigger_event(EventTiming::Before, action);
+                    single_input_bus().trigger_event(action, InputValue::Pressed);
+                    input_bus().trigger_event(InputValue::Pressed, action);
                 }
 
                 if (is_just_released) {
-                    single_input_bus().trigger_event(action, EventTiming::After);
-                    input_bus().trigger_event(EventTiming::After, action);
+                    single_input_bus().trigger_event(action, InputValue::Released);
+                    input_bus().trigger_event(InputValue::Released, action);
                 }
             }
         }
@@ -219,7 +219,7 @@ namespace randomizer::input {
         if (binding.is_pressed != value) {
             binding.is_pressed = value;
             binding.is_just_pressed = value;
-            single_input_bus().trigger_event(action, value ? EventTiming::Before : EventTiming::After);
+            single_input_bus().trigger_event(action, value ? InputValue::Pressed : InputValue::Released);
         }
     }
 
@@ -270,13 +270,13 @@ namespace randomizer::input {
         return key;
     }
 
-    common::TimedMultiEventBus<Action>& single_input_bus() {
-        static common::TimedMultiEventBus<Action> bus;
+    SingleInputEventBus<Action>& single_input_bus() {
+        static SingleInputEventBus<Action> bus;
         return bus;
     }
 
-    common::TimedEventBus<Action>& input_bus() {
-        static common::TimedEventBus<Action> bus;
+    InputEventBus<Action>& input_bus() {
+        static InputEventBus<Action> bus;
         return bus;
     }
 

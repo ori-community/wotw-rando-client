@@ -129,24 +129,7 @@ namespace randomizer::features::wheel {
             on_dev_changed();
         });
         initialize_item(9001, 1, "Toggle debug", "Toggle debug controls", "file:icons/wheel/toggle_debug.blue.png", [](auto, auto, auto) {
-            if (core::api::game::debug_menu::should_prevent_cheats()) {
-                message_queue().enqueue(
-                    {
-                        .text = core::Property<std::string>("Debug is currently blocked"),
-                    },
-                    true
-                );
-                return;
-            }
 
-            core::api::game::debug_menu::set_debug_enabled(!core::api::game::debug_menu::is_debug_enabled());
-
-            message_queue().enqueue(
-                {
-                    .text = core::Property<std::string>(std::format("Debug: {}", core::api::game::debug_menu::is_debug_enabled())),
-                },
-                true
-            );
         });
         initialize_item(
             9001, 2, "Reload file textures", "Reloads all 'file:' textures", "file:icons/wheel/reload_file_textures.blue.png", [](auto, auto, auto) {

@@ -16,11 +16,13 @@ namespace randomizer::game::shops {
             next::PurchaseThingScreen::PurchaseInput(this_ptr);
         }
 
-        auto on_quick_buy_pressed = input::single_input_bus().register_handler(Action::QuickBuy, EventTiming::Before, [](auto, auto) {
+        [[maybe_unused]]
+        auto on_quick_buy_pressed = input::single_input_bus().register_handler(Action::QuickBuy, input::InputValue::Pressed, [](auto, auto) {
             quick_buy = true;
         });
 
-        auto on_quick_buy_released = input::single_input_bus().register_handler(Action::QuickBuy, EventTiming::After, [](auto, auto) {
+        [[maybe_unused]]
+        auto on_quick_buy_released = input::single_input_bus().register_handler(Action::QuickBuy, input::InputValue::Released, [](auto, auto) {
             quick_buy = false;
         });
     } // namespace

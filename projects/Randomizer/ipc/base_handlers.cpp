@@ -199,11 +199,13 @@ namespace randomizer::ipc {
         core::ipc::send_message(response);
     }
 
-    auto on_before_action = input::input_bus().register_handler(EventTiming::Before, [](auto action, auto) {
+    [[maybe_unused]]
+    auto on_action_pressed = input::input_bus().register_handler(input::InputValue::Pressed, [](auto action, auto) {
         on_action(action, true);
     });
 
-    auto on_after_action = input::input_bus().register_handler(EventTiming::Before, [](auto action, auto) {
+    [[maybe_unused]]
+    auto on_action_released = input::input_bus().register_handler(input::InputValue::Released, [](auto action, auto) {
         on_action(action, false);
     });
 } // namespace randomizer::ipc

@@ -52,7 +52,7 @@ enum class Action {
 
     RANDO_ACTIONS_START,
 
-    OpenRandoWheel,
+    RandomizerWheel,
     QuickBuy,
 
     // Legacy actions.
@@ -61,24 +61,14 @@ enum class Action {
     Binding3,
     Binding4,
     Binding5,
-    ServerReconnect,
+    ReconnectToServer,
     ReloadSeed,
-    ShowTags,
-    ShowLastPickup,
+    ShowSeedTags,
+    ShowRecentPickups,
     ShowProgressWithHints,
-    WarpCredits,
 
     ToggleCursorLock,
-    ToggleAlwaysShowKeystones,
-    ToggleAutoaim,
-    ToggleKeyboardOnlyAndKBM,
-
-    ShowDevFlag,
     ToggleDebug,
-    PrintCoordinates,
-    ClearMessages,
-    UnlockSpoilers,
-    ForceExit,
 
     // Passthrough actions. Used by the Launcher
     ToggleBingoBoardOverlay,
@@ -136,29 +126,21 @@ NLOHMANN_JSON_SERIALIZE_ENUM(
                 { Action::Up, "Up" },
                 { Action::Down, "Down" },
 
-
-                { Action::OpenRandoWheel, "OpenRandoWheel" },
+                // Randomizer bindings
+                { Action::RandomizerWheel, "RandomizerWheel" },
                 { Action::QuickBuy, "QuickBuy" },
                 { Action::Binding1, "Binding1" },
                 { Action::Binding2, "Binding2" },
                 { Action::Binding3, "Binding3" },
                 { Action::Binding4, "Binding4" },
                 { Action::Binding5, "Binding5" },
-                { Action::ServerReconnect, "ServerReconnect" },
+                { Action::ReconnectToServer, "ReconnectToServer" },
                 { Action::ReloadSeed, "ReloadSeed" },
-                { Action::ShowTags, "ShowTags" },
-                { Action::ShowLastPickup, "ShowLastPickup" },
+                { Action::ShowSeedTags, "ShowSeedTags" },
+                { Action::ShowRecentPickups, "ShowRecentPickups" },
                 { Action::ShowProgressWithHints, "ShowProgressWithHints" },
-                { Action::WarpCredits, "WarpCredits" },
                 { Action::ToggleCursorLock, "ToggleCursorLock" },
-                { Action::ToggleAlwaysShowKeystones, "ToggleAlwaysShowKeystones" },
-                { Action::ToggleAutoaim, "ToggleAutoaim" },
-                { Action::ShowDevFlag, "ShowDevFlag" },
                 { Action::ToggleDebug, "ToggleDebug" },
-                { Action::PrintCoordinates, "PrintCoordinates" },
-                { Action::ClearMessages, "ClearMessages" },
-                { Action::UnlockSpoilers, "UnlockSpoilers" },
-                { Action::ForceExit, "ForceExit" },
                 { Action::ToggleBingoBoardOverlay, "ToggleBingoBoardOverlay" },
         }
 );

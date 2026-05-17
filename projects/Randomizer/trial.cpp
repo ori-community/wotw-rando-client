@@ -55,7 +55,7 @@ namespace randomizer {
             m_message_box->text().set("Start Trial [Interact]");
             m_message_box->position().set(modloader::math::to_vec3(position));
             m_message_box->position().add(0, 10, 0);
-            m_input_handle = input::single_input_bus().register_handler(Action::Interact, EventTiming::Before, [&](auto, auto) {
+            m_input_handle = input::single_input_bus().register_handler(Action::Interact, input::InputValue::Pressed, [&](auto, auto) {
                 m_checkpoint_index = 0;
                 m_timer = 0;
                 std::optional<float> last;

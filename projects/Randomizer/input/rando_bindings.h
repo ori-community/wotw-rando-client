@@ -4,6 +4,17 @@
 #include <Core/enums/actions.h>
 
 namespace randomizer::input {
+    enum class InputValue {
+        Released,
+        Pressed,
+    };
+
+    template <typename T, typename... Identifiers>
+    using InputEventBus = common::EventBusImplementation<void, T, Identifiers..., InputValue>;
+
+    template <typename... Identifiers>
+    using SingleInputEventBus = common::EventBusImplementation<void, void, Identifiers..., InputValue>;
+
     void set_action(Action action, bool value);
     std::string action_to_string(Action action);
 
@@ -11,11 +22,11 @@ namespace randomizer::input {
      * \brief Input bus fires the Before event when pressing an action and After when releasing
      * \return
      */
-    common::TimedEventBus<Action>& input_bus();
+    InputEventBus<Action>& input_bus();
 
     /**
      * \brief Input bus fires the Before event when pressing an action and After when releasing
      * \return
      */
-    common::TimedMultiEventBus<Action>& single_input_bus();
+    SingleInputEventBus<Action>& single_input_bus();
 } // namespace randomizer::input
