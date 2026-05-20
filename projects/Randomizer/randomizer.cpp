@@ -201,8 +201,8 @@ namespace randomizer {
         std::ifstream seed_source_file(modloader::fs::get_randomizer_user_data_path(".newgameseedsource"), std::ios::binary);
 
         if (seed_source_file.is_open()) {
-            std::string source_str{std::istreambuf_iterator(seed_source_file),
-                                   std::istreambuf_iterator<char>()};
+            std::string source_str;
+            std::getline(seed_source_file, source_str);
 
             trim(source_str);
 
