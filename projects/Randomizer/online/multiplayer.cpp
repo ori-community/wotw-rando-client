@@ -5,12 +5,12 @@
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/core.h>
-#include <Core/dev/object_visualizer.h>
 #include <Core/events/task.h>
 #include <Core/utils/color.h>
 #include <Core/utils/misc.h>
 
 #include <Modloader/app/methods/GameStateMachine.h>
+#include <Modloader/app/methods/UnityEngine/Time.h>
 #include <Modloader/app/types/AreaMapUI.h>
 
 #include <Core/api/game/debug_menu.h>
@@ -132,7 +132,7 @@ namespace randomizer::online {
         std::string data;
         if (ghosts::has_new_frame_data()) {
             auto raw_data = ghosts::get_frame_data();
-            std::transform(raw_data.begin(), raw_data.end(), std::back_inserter(data), [](std::byte b) { return static_cast<char>(b); });
+            std::ranges::transform(raw_data, std::back_inserter(data), [](std::byte b) { return static_cast<char>(b); });
         }
 
         Network::PlayerPositionMessage message;
@@ -155,6 +155,18 @@ namespace randomizer::online {
             if (did_send) {
                 m_report_player_save_guid = std::nullopt;
             }
+        }
+
+        auto messages_it = m_server_message_boxes.begin();
+        while (messages_it != m_server_message_boxes.end()) {
+            messages_it->second.timeout -= UnityEngine::Time::get_deltaTime();
+
+            if (messages_it->second.timeout <= 0) {
+                messages_it = m_server_message_boxes.erase(messages_it);
+                return;
+            }
+
+            ++messages_it;
         }
     }
 
@@ -373,13 +385,25 @@ namespace randomizer::online {
         }
     }
 
+    std::tuple<bool, MultiplayerUniverse::ServerMessageBox&> MultiplayerUniverse::get_or_create_server_message_box(int id) {
+        auto it = m_server_message_boxes.find(id);
+        if (it != m_server_message_boxes.end()) {
+            return {false, it->second};
+        }
+
+        auto& server_box = m_server_message_boxes[id];
+        auto box = std::make_unique<core::api::messages::MessageBox>();
+        m_server_message_boxes[id].message_box = std::move(box);
+        return {true, server_box};
+    }
+
     void MultiplayerUniverse::print_text(std::shared_ptr<Network::PrintTextMessage> const& message) {
         if (!message->has_id()) {
             modloader::warn("multiplayer", "Server messages without IDs are not supported");
             return;
         }
 
-        auto box = std::make_unique<core::api::messages::MessageBox>();
+        auto [was_created, server_box] = get_or_create_server_message_box(message->id());
 
         app::Vector3 position{};
         if (message->has_position()) {
@@ -388,18 +412,21 @@ namespace randomizer::online {
             position.y = pos2.y();
         }
 
-        box->text().set(message->text());
-        box->position().set(position);
-        box->coordinate_system().set(static_cast<core::api::messages::CoordinateSystem>(message->coordinatesystem()));
-        box->text_alignment().set(static_cast<app::AlignmentMode__Enum>(message->alignment()));
-        box->box_horizontal_anchor().set(static_cast<app::HorizontalAnchorMode__Enum>(message->horizontalanchor()));
-        box->box_vertical_anchor().set(static_cast<app::VerticalAnchorMode__Enum>(message->verticalanchor()));
-        box->fade_in().set(message->fadeinlength());
-        box->fade_out().set(message->fadeoutlength());
-        box->show_background().set(message->withbox());
+        server_box.message_box->text().set(message->text());
+        server_box.message_box->position().set(position);
+        server_box.message_box->coordinate_system().set(static_cast<core::api::messages::CoordinateSystem>(message->coordinatesystem()));
+        server_box.message_box->text_alignment().set(static_cast<app::AlignmentMode__Enum>(message->alignment()));
+        server_box.message_box->box_horizontal_anchor().set(static_cast<app::HorizontalAnchorMode__Enum>(message->horizontalanchor()));
+        server_box.message_box->box_vertical_anchor().set(static_cast<app::VerticalAnchorMode__Enum>(message->verticalanchor()));
+        server_box.message_box->fade_in().set(message->fadeinlength());
+        server_box.message_box->fade_out().set(message->fadeoutlength());
+        server_box.message_box->show_background().set(message->withbox());
 
-        m_server_message_boxes[message->id()].message_box = std::move(box);
-        m_server_message_boxes[message->id()].timeout = message->has_time() ? message->time() : 3.f;
+        server_box.timeout = message->has_time() ? message->time() : 3.f;
+
+        if (was_created) {
+            server_box.message_box->show(false, message->withsound());
+        }
     }
 
     void MultiplayerUniverse::print_pickup(std::shared_ptr<Network::PrintPickupMessage> const& message) {

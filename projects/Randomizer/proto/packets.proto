@@ -121,8 +121,6 @@ message PrintTextMessage {
   int32 verticalAnchor = 10;
   bool withSound = 11;
   bool withBox = 12;
-  optional string queue = 13;
-  bool prioritized = 14;
 }
 
 message PrintPickupMessage {

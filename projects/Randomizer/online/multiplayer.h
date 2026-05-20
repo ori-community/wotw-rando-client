@@ -87,6 +87,7 @@ namespace randomizer::online {
         void uber_state_update(std::shared_ptr<Network::UberStateUpdateMessage> const& message);
         void uber_state_batch_update(std::shared_ptr<Network::UberStateBatchUpdateMessage> const& message);
 
+        std::tuple<bool, ServerMessageBox&> get_or_create_server_message_box(int id);
         void print_text(std::shared_ptr<Network::PrintTextMessage> const& message);
         static void print_pickup(std::shared_ptr<Network::PrintPickupMessage> const& message);
 
