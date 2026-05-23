@@ -112,16 +112,28 @@ namespace randomizer::messages {
             if (!queued_message->m_box_and_effects.has_value()) {
                 queued_message->m_box_and_effects = std::make_optional<QueuedMessage::MessageBoxWithEffects>();
 
+                const auto weak_queued_message = std::weak_ptr(queued_message);
+
                 reactivity::watch_effect()
                     .effect(queued_message->m_properties.text)
-                    .after([&queued_message] {
+                    .after([weak_queued_message] {
+                        if (weak_queued_message.expired()) {
+                            return;
+                        }
+
+                        const auto queued_message = weak_queued_message.lock();
                         queued_message->m_box_and_effects->message_box->text().set(queued_message->properties().text.get());
                     })
                     .finalize(queued_message->m_box_and_effects->effects);
 
                 reactivity::watch_effect()
                     .effect(queued_message->m_properties.background_enabled)
-                    .after([&queued_message] {
+                    .after([weak_queued_message] {
+                        if (weak_queued_message.expired()) {
+                            return;
+                        }
+
+                        const auto queued_message = weak_queued_message.lock();
                         queued_message->m_box_and_effects->message_box->show_background().set(queued_message->properties().background_enabled.get());
                     })
                     .finalize(queued_message->m_box_and_effects->effects);
