@@ -309,13 +309,18 @@ namespace randomizer::seed {
     void SeedExecutionEnvironment::reset() {
         m_free_message_boxes.clear();
         m_queued_message_boxes.clear();
-        m_timers.clear();
         m_prevent_grant = false;
-        m_spoiler_map_icons.clear();
         m_serialized_free_message_boxes.clear();
         m_serialized_warp_icons.clear();
         m_box_triggers.clear();
         m_warp_icons.clear();
+
+        reset_volatile();
+    }
+
+    void SeedExecutionEnvironment::reset_volatile() {
+        m_spoiler_map_icons.clear();
+        m_timers.clear();
     }
 
     void SeedExecutionEnvironment::process_free_message_boxes(float delta) {

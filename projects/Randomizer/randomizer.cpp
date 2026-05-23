@@ -73,8 +73,6 @@ namespace randomizer {
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
             randomizer_seed.trigger(seed::SeedClientEvent::Reload);
-            event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::Before);
-            event_bus().trigger_event(RandomizerEvent::SeedLoadedPostGrant, EventTiming::After);
         });
 
         void load_seed(const bool show_message) {

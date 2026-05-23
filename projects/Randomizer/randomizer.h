@@ -27,7 +27,6 @@ namespace randomizer {
 
     enum class RandomizerEvent {
         SeedLoaded,
-        SeedLoadedPostGrant,
         ReachCheck,
         ReachableItemsChanged,
         NewGameSeedSourceUpdated,
