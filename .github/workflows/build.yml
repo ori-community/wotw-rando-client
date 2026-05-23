@@ -86,7 +86,7 @@ jobs:
             exit 1
           )
       - name: Archive client
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: client
-          path: 'C\moon\randomizer\client\*'
+          path: 'C:\moon\randomizer\client\*'
