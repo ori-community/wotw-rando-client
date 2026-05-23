@@ -87,26 +87,28 @@ namespace randomizer::map::filter {
         return property;
     }
 
-    core::reactivity::ReactiveEffect::ptr_t filter_availability_effect;
+    core::reactivity::ReactiveEffect::ptr_t filter_changed_effect;
 
     /** Switch to the next available filter */
     void cycle_filter() {
         const auto current_map_filter_value = current_map_filter().get();
         const MapFilter next_filter = get_next_available_filter_after(current_map_filter_value).value_or(current_map_filter_value);
+        current_map_filter().set(next_filter);
+    }
 
-        filter_availability_effect = core::reactivity::watch_effect()
-            .effect([=] {
-                if (!is_filter_available(next_filter)) {
+    [[maybe_unused]]
+    auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        filter_changed_effect = core::reactivity::watch_effect()
+            .effect([] {
+                if (!is_filter_available(current_map_filter().get())) {
                     core::reactivity::run_after_effects([] {
                         cycle_filter();
                     });
                 }
             })
-            .trigger_on_load()
-            .finalize();
-
-        current_map_filter().set(next_filter);
-    }
+        .trigger_on_load()
+        .finalize();
+    });
 
     bool quests_ui_should_be_visible() {
         return current_map_filter().get() == MapFilter::Quests;
