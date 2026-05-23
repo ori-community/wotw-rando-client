@@ -17,6 +17,8 @@
 #include <string>
 #include <vector>
 
+#include "Core/settings.h"
+
 using namespace modloader;
 
 using namespace core::ipc;
@@ -31,6 +33,11 @@ namespace randomizer::ipc {
         void reread_seed_source(const nlohmann::json& j) {
             info("ipc", "Received reread_seed_source action request.");
             randomizer::reread_seed_source();
+        }
+
+        void reload_settings(const nlohmann::json& j) {
+            info("ipc", "Received reload_settings action request.");
+            core::settings::reload();
         }
 
         void load_new_game_source(const nlohmann::json& j) {
@@ -170,6 +177,7 @@ namespace randomizer::ipc {
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             register_request_handler("server_reconnect_current_multiverse", server_reconnect_current_multiverse);
             register_request_handler("reread_seed_source", reread_seed_source);
+            register_request_handler("reload_settings", reload_settings);
             register_request_handler("get_uberstates", get_uberstates);
             register_request_handler("set_uberstate", set_uberstate);
             register_request_handler("get_tags", get_tags);
