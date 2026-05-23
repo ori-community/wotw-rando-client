@@ -103,13 +103,19 @@ namespace randomizer::seed {
             game_seed().prevent_grants([]() { return game_seed().environment().should_prevent_grant(); });
         });
 
+        bool did_reset_because_not_in_game = false;
+
         [[maybe_unused]]
         auto on_update = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [](auto, auto) {
             if (!core::api::game::in_game()) {
-                game_seed().environment().reset();
+                if (!did_reset_because_not_in_game) {
+                    game_seed().environment().reset();
+                    did_reset_because_not_in_game = true;
+                }
                 return;
             }
 
+            did_reset_because_not_in_game = false;
             game_seed().environment().process_free_message_boxes(core::api::game::delta_time());
             game_seed().environment().process_timers(core::api::game::delta_time());
             game_seed().environment().process_box_triggers();
