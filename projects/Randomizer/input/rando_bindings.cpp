@@ -10,6 +10,7 @@
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/methods/UnityEngine/Input.h>
 #include <Modloader/app/methods/ButtonIconUtility.h>
+#include <Modloader/app/methods/ControlsScreen.h>
 #include <Modloader/app/types/PlayerInput.h>
 #include <Modloader/app/types/GameSettings.h>
 #include <Modloader/interception_macros.h>
@@ -21,6 +22,8 @@
 #include <magic_enum/magic_enum.hpp>
 #include <unordered_map>
 #include <unordered_set>
+
+#include "Core/api/system/message_provider.h"
 
 using namespace modloader;
 using namespace app::classes;
@@ -149,6 +152,16 @@ namespace randomizer::input {
             return true;
         }
         #endif
+
+        IL2CPP_INTERCEPT(void, ControlsScreen, Awake, app::ControlsScreen* this_ptr) {
+            if (this_ptr->fields.MapControlList->fields.UIItems->fields._size > 0) {
+                // Replace "Focus Objective" with "Show/Hide Interactables"
+                const auto focus_objective_item = this_ptr->fields.MapControlList->fields.UIItems->fields._items->vector[45];
+                focus_objective_item->fields.Context->fields.Static->fields.CommandDisplayName = core::api::system::create_message_provider("Show/Hide Interactables");
+            }
+
+            next::ControlsScreen::Awake(this_ptr);
+        }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, SavePedestalController, BeginTeleportation, app::Vector2 teleport_target_world_position) {
             auto player_input = types::PlayerInput::get_class()->static_fields->Instance;
