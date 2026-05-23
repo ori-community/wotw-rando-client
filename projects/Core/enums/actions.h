@@ -52,7 +52,7 @@ enum class Action {
 
     RANDO_ACTIONS_START,
 
-    RandomizerWheel,
+    OpenRandomizerWheel,
     QuickBuy,
 
     // Legacy actions.
@@ -127,7 +127,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(
                 { Action::Down, "Down" },
 
                 // Randomizer bindings
-                { Action::RandomizerWheel, "RandomizerWheel" },
+                { Action::OpenRandomizerWheel, "OpenRandomizerWheel" },
                 { Action::QuickBuy, "QuickBuy" },
                 { Action::Binding1, "Binding1" },
                 { Action::Binding2, "Binding2" },

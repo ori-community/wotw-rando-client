@@ -254,12 +254,12 @@ namespace randomizer::features::wheel {
         }
 
         [[maybe_unused]]
-        auto on_randomizer_wheel_pressed = randomizer::input::single_input_bus().register_handler(Action::RandomizerWheel, input::InputValue::Pressed, [](auto, auto) {
+        auto on_randomizer_wheel_pressed = randomizer::input::single_input_bus().register_handler(Action::OpenRandomizerWheel, input::InputValue::Pressed, [](auto, auto) {
             handle_custom_wheel(true);
         });
 
         [[maybe_unused]]
-        auto on_randomizer_wheel_released = randomizer::input::single_input_bus().register_handler(Action::RandomizerWheel, input::InputValue::Released, [](auto, auto) {
+        auto on_randomizer_wheel_released = randomizer::input::single_input_bus().register_handler(Action::OpenRandomizerWheel, input::InputValue::Released, [](auto, auto) {
             handle_custom_wheel(false);
         });
 
