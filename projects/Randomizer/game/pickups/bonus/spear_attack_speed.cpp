@@ -23,10 +23,10 @@ namespace {
         }
 
         auto multiplier = spear_speed.get<float>();
-        this_ptr->fields.ChargeDuration = charge_duration * multiplier;
-        this_ptr->fields.SettleTime = settle_duration * multiplier;
-        this_ptr->fields.ImpactDuration = impact_duration * multiplier;
-        this_ptr->fields.InputMemoryDuration = input_duration * multiplier;
+        this_ptr->fields.ChargeDuration = charge_duration / multiplier;
+        this_ptr->fields.SettleTime = settle_duration / multiplier;
+        this_ptr->fields.ImpactDuration = impact_duration / multiplier;
+        this_ptr->fields.InputMemoryDuration = input_duration / multiplier;
         next::SeinSpiritSpearSpell::UpdateCharacterState(this_ptr);
     }
 } // namespace
