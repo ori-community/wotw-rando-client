@@ -35,7 +35,7 @@ namespace randomizer::map::filter {
     bool is_filter_available(const MapFilter filter) {
         switch (filter) {
             case MapFilter::InLogic:
-                return true;  // TODO: Disable in-logic filter?
+                return core::api::uber_states::UberState(UberStateGroup::RandoConfig, 12).get<bool>();
             case MapFilter::Collectibles:
                 return true;
             case MapFilter::Quests:
