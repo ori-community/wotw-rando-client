@@ -29,4 +29,6 @@ namespace randomizer::input {
      * \return
      */
     SingleInputEventBus<Action>& single_input_bus();
+
+    void refresh_control_scheme();
 } // namespace randomizer::input

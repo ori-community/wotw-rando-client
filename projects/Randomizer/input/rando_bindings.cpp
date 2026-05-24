@@ -288,18 +288,27 @@ namespace randomizer::input {
         return bus;
     }
 
+    void refresh_control_scheme() {
+        const auto instance = types::PlayerInput::get_class()->static_fields->Instance;
+
+        if (il2cpp::unity::is_valid(instance)) {
+            PlayerInput::RefreshControlScheme(instance);
+        }
+    }
+
     InputEventBus<Action>& input_bus() {
         static InputEventBus<Action> bus;
         return bus;
     }
 
-    void on_before_register_input_simulators(GameEvent game_event, EventTiming timing) {
+    void on_after_refresh_controls(GameEvent game_event, EventTiming timing) {
         read_keyboard_or_controller_bindings(fs::get_randomizer_user_data_path("keyboard_bindings.json"), on_keyboard_binding_read);
         read_midi_bindings(fs::get_randomizer_user_data_path("midi_bindings.json"), on_midi_binding_read);
     }
 
-    auto on_before_register_input_simulators_handle =
-        core::api::game::event_bus().register_handler(GameEvent::RegisteringInputSimulators, EventTiming::Before, &on_before_register_input_simulators);
+    [[maybe_unused]]
+    auto on_after_refresh_controls_droppable =
+        core::api::game::event_bus().register_handler(GameEvent::RefreshInputControls, EventTiming::After, &on_after_refresh_controls);
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         #ifdef ENABLE_MIDI_IN

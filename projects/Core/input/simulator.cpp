@@ -195,8 +195,10 @@ namespace core::input {
             core::input::clear_simulators();
         }
 
-        IL2CPP_INTERCEPT(void, PlayerInput, InitInputCache, app::PlayerInput * this_ptr) {
-            next::PlayerInput::InitInputCache(this_ptr);
+        IL2CPP_INTERCEPT(void, PlayerInput, RefreshControlScheme, app::PlayerInput * this_ptr) {
+            api::game::event_bus().trigger_event(GameEvent::RefreshInputControls, EventTiming::Before);
+            next::PlayerInput::RefreshControlScheme(this_ptr);
+            api::game::event_bus().trigger_event(GameEvent::RefreshInputControls, EventTiming::After);
 
             api::game::event_bus().trigger_event(GameEvent::RegisteringInputSimulators, EventTiming::Before);
             core::input::register_simulators(this_ptr);

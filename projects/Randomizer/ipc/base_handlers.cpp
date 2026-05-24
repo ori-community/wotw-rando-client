@@ -3,16 +3,11 @@
 
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
-#include <Core/api/messages/message_box.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/core.h>
 #include <Core/ipc/ipc.h>
-#include <Core/utils/json_serializers.h>
-
 #include <Modloader/modloader.h>
-
-#include <Core/api/screen_position.h>
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
@@ -20,10 +15,11 @@
 #include "Core/settings.h"
 
 using namespace modloader;
-
 using namespace core::ipc;
 
 namespace randomizer::ipc {
+    using namespace app::classes;
+
     namespace {
         void server_reconnect_current_multiverse(const nlohmann::json& j) {
             info("ipc", "Received server_reconnect_current_multiverse action request.");
@@ -38,6 +34,11 @@ namespace randomizer::ipc {
         void reload_settings(const nlohmann::json& j) {
             info("ipc", "Received reload_settings action request.");
             core::settings::reload();
+        }
+
+        void reload_controls(const nlohmann::json& j) {
+            info("ipc", "Received reload_controls action request.");
+            input::refresh_control_scheme();
         }
 
         void load_new_game_source(const nlohmann::json& j) {
@@ -178,6 +179,7 @@ namespace randomizer::ipc {
             register_request_handler("server_reconnect_current_multiverse", server_reconnect_current_multiverse);
             register_request_handler("reread_seed_source", reread_seed_source);
             register_request_handler("reload_settings", reload_settings);
+            register_request_handler("reload_controls", reload_controls);
             register_request_handler("get_uberstates", get_uberstates);
             register_request_handler("set_uberstate", set_uberstate);
             register_request_handler("get_tags", get_tags);

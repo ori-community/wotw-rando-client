@@ -37,5 +37,6 @@ enum class GameEvent {
     TrialStart,
     TrialEnd,
 
+    RefreshInputControls,
     RegisteringInputSimulators,
 };
