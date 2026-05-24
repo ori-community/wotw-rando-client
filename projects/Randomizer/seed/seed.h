@@ -145,6 +145,8 @@ namespace randomizer::seed {
         void process_timers(float delta_time) const;
 
     private:
+        static constexpr unsigned int MAX_COMMAND_STACK_SIZE = 256;
+
         std::shared_ptr<SeedArchive> m_seed_archive;
         std::shared_ptr<SeedParseOutput> m_parse_output = std::make_shared<SeedParseOutput>();
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
@@ -153,7 +155,7 @@ namespace randomizer::seed {
 
         bool m_is_reading_seed = false;
         bool m_force_grant_outside_game = false;
-        std::vector<IInstruction*> m_command_stack;
+        unsigned int m_command_stack_size = 0;
         SeedMemory m_memory;
     };
 

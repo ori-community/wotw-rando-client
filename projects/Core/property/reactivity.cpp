@@ -350,8 +350,6 @@ namespace core::reactivity {
             dependency | vx::match {
                 [&](const UberStateDependency& d) {
                     ZoneTextF("UberState %d|%d", d.group, d.state);
-                },[&](const MemoryDependency& d) {
-                    ZoneTextF("Memory %s %d", magic_enum::enum_name(d.type).data(), d.id);
                 },[&](const TextDatabaseDependency& d) {
                     ZoneTextF("Text %d", d.id);
                 },[&](const PropertyDependency& d) {

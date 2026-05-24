@@ -83,7 +83,6 @@ namespace randomizer::seed {
 
                             execute_command(condition.command_id);
                         }).finalize();
-                        m_command_stack.clear();
                     },
                 };
             }
@@ -129,6 +128,19 @@ namespace randomizer::seed {
             throw std::exception(std::format("Command ID {} out of bounds", id).c_str());
         }
 
+        if (m_command_stack_size > MAX_COMMAND_STACK_SIZE) {
+            modloader::error(
+                "instructions",
+                std::format(
+                    "Exceeded maximum command stack size of {} while trying\nto execute command ID {}. Use profiler to debug.",
+                    MAX_COMMAND_STACK_SIZE,
+                    id
+                ).c_str()
+            );
+            return;
+        }
+
+        ++m_command_stack_size;
         const auto _queued_message_pickup_position_scope = m_environment->scope_queued_message_pickup_position();
 
         for (const auto& command: m_parse_output->data.commands.at(id)) {
@@ -148,6 +160,8 @@ namespace randomizer::seed {
                 break;
             }
         }
+
+        --m_command_stack_size;
     }
 
     void Seed::trigger(const SeedClientEvent event, bool force_outside_game) {
