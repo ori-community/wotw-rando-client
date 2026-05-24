@@ -45,6 +45,7 @@ set(
         "features/keyboard_multibind.cpp"
         "features/keystone_door.cpp"
         "features/knock_knock_wellspring.cpp"
+        "features/pause_float_toggle.cpp"
         "features/npcs/lupo_everywhere.cpp"
         "features/npcs/opher_everywhere.cpp"
         "features/npcs/tokk_everywhere.cpp"
