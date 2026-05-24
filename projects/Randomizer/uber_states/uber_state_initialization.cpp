@@ -29,6 +29,7 @@
 #include <chrono>
 
 #include "Core/api/game/debug_menu.h"
+#include "Randomizer/features/wheel.h"
 #include "random_value_generator.h"
 
 using namespace modloader;
@@ -743,6 +744,15 @@ namespace randomizer {
                 []() -> double { return core::input::mouse::get_world_position().y; },
                 std::nullopt,
                 VirtualUberState::ChangeDetectionMode::Poll
+            );
+
+            register_read_only_virtual_uber_state_from_property(
+                UberStateGroup::Input,
+                3,
+                ValueType::Boolean,
+                "wheelOpen",
+                features::wheel::is_wheel_visible(),
+                VirtualUberState::ChangeDetectionMode::ReactiveEffect
             );
 
             area_segment_states::register_virtual_uber_states();

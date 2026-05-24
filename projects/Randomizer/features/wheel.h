@@ -3,8 +3,11 @@
 #include <functional>
 #include <nlohmann/json.hpp>
 #include <string>
+#include <Core/property.h>
 
 namespace randomizer::features::wheel {
+    core::Property<bool>& is_wheel_visible();
+
     enum class WheelItemPosition {
         Top = 0,
         TopRight = 1,

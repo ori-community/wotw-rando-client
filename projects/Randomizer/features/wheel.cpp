@@ -6,7 +6,6 @@
 #include <Core/api/graphics/textures.h>
 #include <Core/api/system/message_provider.h>
 #include <Core/enums/text_id.h>
-#include <Core/property.h>
 #include <Core/text/text_database.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
@@ -55,6 +54,11 @@ void refresh_wheel();
 extern bool disable_has_ability_overwrite;
 
 namespace randomizer::features::wheel {
+    core::Property<bool>& is_wheel_visible() {
+        static core::Property<bool> value{false};
+        return value;
+    }
+
     namespace {
         struct CustomWheelEntry {
             using binding_action = void (*)(CustomWheelEntry const& entry, app::SpellUIItem* item, WheelBind binding);
@@ -76,7 +80,6 @@ namespace randomizer::features::wheel {
         std::optional<il2cpp::WeakGCRef<app::EquipmentRadialSelection>> radial_selection_ref = std::nullopt;
         std::optional<il2cpp::WeakGCRef<app::CleverMenuItemSelectionManager>> wheel_selection_manager_ref = std::nullopt;
 
-        bool is_wheel_visible = false;
         bool custom_wheel_input = false;
         bool custom_wheel_on = false;
         bool is_about_to_show_a_menu_screen = false;
@@ -113,19 +116,19 @@ namespace randomizer::features::wheel {
         void update_wheel_position();
 
         IL2CPP_INTERCEPT(void, EquipmentWheel, Show, app::EquipmentWheel* this_ptr) {
-            is_wheel_visible = true;
+            is_wheel_visible().set(true);
             next::EquipmentWheel::Show(this_ptr);
             update_wheel_position();
         }
 
         IL2CPP_INTERCEPT(void, EquipmentWheel, Hide, app::EquipmentWheel* this_ptr, bool change) {
             next::EquipmentWheel::Hide(this_ptr, change);
-            is_wheel_visible = false;
+            is_wheel_visible().set(false);
         }
 
         IL2CPP_INTERCEPT(void, EquipmentWheel, HideImmediate, app::EquipmentWheel* this_ptr) {
             next::EquipmentWheel::HideImmediate(this_ptr);
-            is_wheel_visible = false;
+            is_wheel_visible().set(false);
         }
 
         IL2CPP_INTERCEPT(
@@ -155,7 +158,7 @@ namespace randomizer::features::wheel {
                 return false;
             }
 
-            if (!is_wheel_visible &&
+            if (!is_wheel_visible().get() &&
                 (Game::UI::get_MainMenuVisible() || Game::UI::get_WorldMapVisible() || Game::UI::get_ShardShopVisible() || Game::UI::IsInventoryVisible())) {
                 return false;
             }
@@ -212,7 +215,7 @@ namespace randomizer::features::wheel {
                 switch (wheel_behavior) {
                     case WheelBehavior::Standalone:
                         custom_wheel_input = true;
-                        if (is_wheel_visible) {
+                        if (is_wheel_visible().get()) {
                             refresh_wheel();
                         } else {
                             auto* menu_screen_manager = types::UI::get_class()->static_fields->m_sMenu;
@@ -547,7 +550,7 @@ namespace randomizer::features::wheel {
         IL2CPP_INTERCEPT(void, CleverMenuItemSelectionManager, RefreshVisible, app::CleverMenuItemSelectionManager* this_ptr) {
             next::CleverMenuItemSelectionManager::RefreshVisible(this_ptr);
             // This is stupid but required because this function is called in a lambda.
-            if (is_wheel_visible) {
+            if (is_wheel_visible().get()) {
                 update_wheel_position();
             }
         }
@@ -687,7 +690,7 @@ namespace randomizer::features::wheel {
     }
 
     void refresh_wheel() {
-        if (is_wheel_visible) {
+        if (is_wheel_visible().get()) {
             dont_fade = true;
             const auto wheel_class = types::EquipmentWheel::get_class();
             if (!il2cpp::unity::is_valid(wheel_class)) {
