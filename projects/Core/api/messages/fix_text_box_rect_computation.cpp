@@ -59,7 +59,14 @@ namespace core::api::messages {
                     left_edge = scale;
                 }
 
-                const float new_right_edge = *reinterpret_cast<float*>(&back_character_meta_data.color.r) * bitmap_font_char->fields.width + back_character_meta_data.scale + anchor_x;
+                // MoonIconRenderer doesn't set icon widths, so it's always 0.
+                // We can use the `advance` property though, which is an approximate
+                // value fitting the width of the icon.
+                const auto used_width = bitmap_font_char->fields.width == 0.f
+                    ? bitmap_font_char->fields.advance
+                    : bitmap_font_char->fields.width;
+
+                const float new_right_edge = *reinterpret_cast<float*>(&back_character_meta_data.color.r) * used_width + back_character_meta_data.scale + anchor_x;
 
                 if (right_edge <= new_right_edge) {
                     right_edge = new_right_edge;
