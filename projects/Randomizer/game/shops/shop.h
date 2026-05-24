@@ -83,9 +83,6 @@ namespace randomizer::game::shops {
             }
         }
 
-        Shop(Shop&&) = delete;
-        Shop(Shop const&) = delete;
-
         std::optional<std::reference_wrapper<SLOT_T>> slot(core::api::uber_states::UberState const& for_state) {
             auto it = m_slots.find(for_state);
             return it != m_slots.end() ? std::make_optional(std::ref(it->second)) : std::nullopt;

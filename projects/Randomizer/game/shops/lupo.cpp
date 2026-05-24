@@ -39,22 +39,26 @@ namespace {
     using namespace app::classes::CatlikeCoding::TextBox;
     using namespace randomizer::game::shops;
 
-    IL2CPP_INTERCEPT(void, MapmakerScreen, Init, app::MapmakerScreen * this_ptr) {
-        for (const auto item: il2cpp::ArrayIterator(this_ptr->fields.Purchases)) {
-            const auto previous_state_id = item->fields.UberState->fields._.m_id->fields.m_id;
-            const auto target_uber_state = core::api::uber_states::UberState(UberStateGroup::LupoShop, previous_state_id);
-            item->fields.UberState = reinterpret_cast<app::SerializedByteUberState*>(target_uber_state.ptr());
+    core::api::uber_states::UberState get_slot_uber_state_from_vanilla_uber_state(const app::SerializedByteUberState* vanilla_uber_state) {
+        return core::api::uber_states::UberState(UberStateGroup::LupoShop, vanilla_uber_state->fields._.m_id->fields.m_id);
+    }
+
+    ShopCollection::lupo_shop_t::slot_t& get_slot(const app::SerializedByteUberState* vanilla_state) {
+        const auto slot = shops()->lupo_shop().slot(get_slot_uber_state_from_vanilla_uber_state(vanilla_state));
+
+        if (!slot.has_value()) {
+            throw std::exception("Missing Grom shop slot");
         }
 
-        next::MapmakerScreen::Init(this_ptr);
+        return slot.value().get();
     }
 
     IL2CPP_INTERCEPT(int32_t, MapmakerItem, GetCost, app::MapmakerItem * this_ptr) {
-        return shops()->lupo_shop().slot(this_ptr->fields.UberState).value().get().cost.get();
+        return get_slot(this_ptr->fields.UberState).cost.get();
     }
 
     IL2CPP_INTERCEPT(void, MapmakerUISubItem, UpdateUpgradeIcon, app::MapmakerUISubItem * this_ptr) {
-        auto& slot = shops()->lupo_shop().slot(this_ptr->fields.m_upgradeItem->fields.UberState).value().get();
+        auto& slot = get_slot(this_ptr->fields.m_upgradeItem->fields.UberState);
         const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
         if (slot.icon() != nullptr) {
             slot.icon()->apply(renderer);
@@ -96,14 +100,14 @@ namespace {
             return false;
         }
 
-        const auto& slot = shops()->lupo_shop().slot(item->fields.UberState).value().get();
+        const auto& slot = get_slot(item->fields.UberState);
 
         switch (slot.visibility()) {
             case SlotVisibility::Hidden:
             case SlotVisibility::Locked:
                 return show_hint(this_ptr, core::api::system::create_message_provider(slot.description));
             default:
-                if (item->fields.UberState->fields.m_value >= item->fields.MaxLevel) {
+                if (slot.is_purchased_state.get<bool>()) {
                     return show_hint(this_ptr, this_ptr->fields.Hints.MaxedOut);
                 }
 
@@ -119,16 +123,17 @@ namespace {
         MapmakerUISubItem::UpdateUpgradeIcon(this_ptr);
 
         const auto state = this_ptr->fields.m_upgradeItem->fields.UberState;
-        const auto& slot = shops()->lupo_shop().slot(state).value().get();
-        const auto owned = state->fields.m_value >= this_ptr->fields.m_upgradeItem->fields.MaxLevel;
+        const auto& slot = get_slot(state);
+        const auto owned = slot.is_purchased_state.get<bool>();
         const auto cost = MapmakerItem::GetCost(this_ptr->fields.m_upgradeItem);
         const auto can_afford = core::api::game::player::spirit_light().get() >= cost;
         const auto can_purchase = !owned && can_afford && slot.visibility() == SlotVisibility::Visible;
 
         const auto show_cost = cost != 0 && slot.visibility() == SlotVisibility::Visible;
         GameObject::SetActive(this_ptr->fields.CostGO, show_cost);
+
         if (this_ptr->fields.SpiritLightGO != nullptr) {
-            GameObject::SetActive(this_ptr->fields.SpiritLightGO, show_cost);
+            GameObject::SetActive(this_ptr->fields.SpiritLightGO, !owned && show_cost);
         }
 
         if (show_cost) {
@@ -148,7 +153,7 @@ namespace {
         const auto item = this_ptr->fields.m_item;
         const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
 
-        auto& slot = shops()->lupo_shop().slot(item->fields.UberState).value().get();
+        auto& slot = get_slot(item->fields.UberState);
         const auto icon = slot.icon();
         if (icon == nullptr) {
             core::api::graphics::textures::apply_default(renderer);
@@ -157,8 +162,8 @@ namespace {
         }
 
         auto can_afford = false;
-        const auto owned = item->fields.MaxLevel >= core::api::uber_states::UberState(item->fields.UberState).get<int>();
-        if (il2cpp::unity::is_valid(item->fields.UberState) && !owned) {
+        const auto owned = slot.is_purchased_state.get<bool>();
+        if (!owned) {
             can_afford = MapmakerItem::GetCost(item) <= core::api::game::player::spirit_light().get();
         }
 
@@ -184,14 +189,15 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, MapmakerUIItem, UpdateMapmakerItem, app::MapmakerUIItem * this_ptr, app::MapmakerItem* item) {
-        const auto& slot = shops()->lupo_shop().slot(this_ptr->fields.m_upgradeItem->fields.UberState).value().get();
-        const auto value = core::api::uber_states::UberState(this_ptr->fields.m_upgradeItem->fields.UberState).get<int>();
+        const auto& slot = get_slot(this_ptr->fields.m_upgradeItem->fields.UberState);
+        const auto value = slot.is_purchased_state.get<bool>();
+
         const auto can_afford = il2cpp::unity::is_valid(item) && core::api::game::player::spirit_light().get() >= MapmakerItem::GetCost(item);
 
         item->fields.Name = core::api::system::create_message_provider(slot.name);
         item->fields.Description = core::api::system::create_message_provider(slot.description);
 
-        const auto is_available = value < item->fields.MaxLevel && can_afford;
+        const auto is_available = !value && can_afford;
         GameObject::SetActive(this_ptr->fields.AvailableToBuyGO, slot.visibility() == SlotVisibility::Visible && is_available);
         GameObject::SetActive(this_ptr->fields.AlreadyOwnedGO, slot.visibility() == SlotVisibility::Visible && item->fields.MaxLevel <= value);
         GameObject::SetActive(this_ptr->fields.TooExpensiveGO, slot.visibility() == SlotVisibility::Visible && !can_afford);
@@ -231,8 +237,8 @@ namespace {
         );
 
         SpellUIExperience::Spend(ui_experience, MapmakerItem::GetCost(item));
-        const auto state = core::api::uber_states::UberState(item->fields.UberState);
-        state.set(state.get<int>() + 1);
+        get_slot_uber_state_from_vanilla_uber_state(item->fields.UberState).set(true);
+
         const auto sound = MapmakerScreen::get_PurchaseCompleteSound(this_ptr);
         MenuScreen::PlaySoundEvent(reinterpret_cast<app::MenuScreen*>(this_ptr), sound);
         this_ptr->fields._PurchasedSkillUpgrade_k__BackingField = true;
