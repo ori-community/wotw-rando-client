@@ -9,8 +9,7 @@ INSTRUCTION(TriggerKeybind)
     Action action;
 
     void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        input::set_action(action, true);
-        input::set_action(action, false);
+        input::trigger_action(action);
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {

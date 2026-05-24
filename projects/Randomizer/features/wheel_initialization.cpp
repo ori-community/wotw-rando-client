@@ -10,6 +10,7 @@
 #include <Randomizer/randomizer.h>
 
 #include "Modloader/windows_api/common.h"
+#include "Randomizer/input/rando_bindings.h"
 
 namespace randomizer::features::wheel {
     void initialize_item(int wheel, int item, const std::string& name, const std::string& desc, const std::string& texture, const wheel_callback& callback) {
@@ -129,7 +130,7 @@ namespace randomizer::features::wheel {
             on_dev_changed();
         });
         initialize_item(9001, 1, "Toggle debug", "Toggle debug controls", "file:icons/wheel/toggle_debug.blue.png", [](auto, auto, auto) {
-
+            input::trigger_action(Action::ToggleDebug);
         });
         initialize_item(
             9001, 2, "Reload file textures", "Reloads all 'file:' textures", "file:icons/wheel/reload_file_textures.blue.png", [](auto, auto, auto) {

@@ -16,6 +16,7 @@ namespace randomizer::input {
     using SingleInputEventBus = common::EventBusImplementation<void, void, Identifiers..., InputValue>;
 
     void set_action(Action action, bool value);
+    void trigger_action(Action action);
     std::string action_to_string(Action action);
 
     /**

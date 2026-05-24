@@ -246,6 +246,11 @@ namespace randomizer::input {
         }
     }
 
+    void trigger_action(Action action) {
+        set_action(action, true);
+        set_action(action, false);
+    }
+
     app::ControlScheme__Enum get_current_control_scheme() {
         static app::GameSettings* settings = nullptr;
         if (il2cpp::unity::is_valid(settings))
