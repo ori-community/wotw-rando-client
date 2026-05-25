@@ -9,6 +9,7 @@
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/randomizer.h>
 
+#include "Modloader/windows_api/clipboard.h"
 #include "Modloader/windows_api/common.h"
 #include "Randomizer/input/rando_bindings.h"
 
@@ -147,27 +148,46 @@ namespace randomizer::features::wheel {
         initialize_item(
             9001,
             4,
-            "Display coordinates",
-            "Displays your current\ncoordinates as a message",
+            "Player coordinates",
+            "[Ability1] Show/Hide\n[Ability2] Copy to clipboard",
             "file:icons/wheel/show_coordinates.blue.png",
-            [](auto, auto, auto) {
-                static core::api::messages::MessageBox box;
-                static common::Droppable::ptr_t handle;
-                if (handle == nullptr) {
-                    box.coordinate_system().set(core::api::messages::CoordinateSystem::Screen);
-                    box.text_alignment().set(app::AlignmentMode__Enum::Left);
-                    box.box_horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Left);
-                    box.box_vertical_anchor().set(app::VerticalAnchorMode__Enum::Bottom);
-                    box.position().set(0.05f, 0.95f, 0);
-                    box.show_background().set(false);
-                    box.show(false, false);
-                    handle = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [](auto, auto) {
-                        const auto [x, y, z] = core::api::game::player::get_position();
-                        box.text().set(std::format("{:.3f}, {:.3f}", x, y));
-                    });
-                } else {
-                    handle = nullptr;
-                    box.hide();
+            [](auto, auto, WheelBind bind) {
+                switch (bind) {
+                    case WheelBind::Ability1: {
+                        static core::api::messages::MessageBox box;
+                        static common::Droppable::ptr_t handle;
+
+                        if (handle == nullptr) {
+                            box.coordinate_system().set(core::api::messages::CoordinateSystem::Screen);
+                            box.text_alignment().set(app::AlignmentMode__Enum::Left);
+                            box.box_horizontal_anchor().set(app::HorizontalAnchorMode__Enum::Left);
+                            box.box_vertical_anchor().set(app::VerticalAnchorMode__Enum::Bottom);
+                            box.position().set(0.05f, 0.95f, 0);
+                            box.show_background().set(false);
+                            box.show(false, false);
+                            handle = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [](auto, auto) {
+                                const auto [x, y, z] = core::api::game::player::get_position();
+                                box.text().set(std::format("{:.3f}, {:.3f}", x, y));
+                            });
+                        } else {
+                            handle = nullptr;
+                            box.hide();
+                        }
+                    } break;
+                    case WheelBind::Ability2: {
+                        const auto position = core::api::game::player::get_position();
+                        const auto position_text = std::format("{}, {}", position.x, position.y);
+
+                        modloader::win::copy_text_to_clipboard(position_text);
+
+                        message_queue().enqueue(
+                            {
+                                .text = core::Property<std::string>(std::format("Copied: {}", position_text)),
+                            },
+                            true
+                        );
+                    } break;
+                    default: break;
                 }
             }
         );
