@@ -155,7 +155,8 @@ namespace app::classes::UnityEngine::Object {
     IL2CPP_REGISTER_METHOD(0x0157D000, app::BossHealthbar2*, FindObjectOfType_7, )
     IL2CPP_REGISTER_METHOD(0x0157D000, app::CameraManager*, FindObjectOfType_8, )
     IL2CPP_REGISTER_METHOD(0x0157D000, app::ChallengesUI*, FindObjectOfType_9, )
-    IL2CPP_REGISTER_METHOD(0x02FF6590, app::DamageReceiver__Array*, FindObjectsOfType_6, )
+    IL2CPP_REGISTER_METHOD(0x02FF6590, app::DamageReceiver__Array*, FindObjectsOfType_6, MethodInfo* method_info)
+    IL2CPP_REGISTER_METHODINFO(0x04739A80, FindObjectsOfType_6_MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF6590, app::EnemyEntity__Array*, FindObjectsOfType_7, )
     IL2CPP_REGISTER_METHOD(0x0157D000, app::EscapeRaceHandler*, FindObjectOfType_10, )
     IL2CPP_REGISTER_METHOD(

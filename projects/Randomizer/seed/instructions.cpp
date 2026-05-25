@@ -26,6 +26,7 @@
 #include <Randomizer/seed/instructions/create_game_stats_timeline_entry.h>
 #include <Randomizer/seed/instructions/create_spoiler_map_icon.h>
 #include <Randomizer/seed/instructions/create_warp_icon.h>
+#include <Randomizer/seed/instructions/deal_enemy_damage.h>
 #include <Randomizer/seed/instructions/debug_log.h>
 #include <Randomizer/seed/instructions/define_timer.h>
 #include <Randomizer/seed/instructions/destroy_warp_icon.h>
@@ -161,6 +162,7 @@ namespace randomizer::seed {
             register_instruction<CreateGameStatsTimelineEntry>(factories);
             register_instruction<CreateSpoilerMapIcon>(factories);
             register_instruction<CreateWarpIcon>(factories);
+            register_instruction<DealEnemyDamage>(factories);
             register_instruction<DebugLog>(factories);
             register_instruction<DefineTimer>(factories);
             register_instruction<DestroyWarpIcon>(factories);

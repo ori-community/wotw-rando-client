@@ -102,7 +102,7 @@ namespace randomizer::input {
             add_midi_binding(action, input);
         }
 
-        IL2CPP_INTERCEPT_WITH_ORDER(0, void, PlayerInput, ClearControls, app::PlayerInput * this_ptr) {
+        IL2CPP_INTERCEPT_WITH_ORDER(1, void, PlayerInput, ClearControls, app::PlayerInput * this_ptr) {
             next::PlayerInput::ClearControls(this_ptr);
             for (auto& bind: rando_bindings | std::views::values) {
                 bind.kbm_bindings.clear();
