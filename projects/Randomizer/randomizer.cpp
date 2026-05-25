@@ -104,6 +104,8 @@ namespace randomizer {
         [[maybe_unused]]
         auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
             pause_timer = false;
+
+            map::filter::current_map_filter().set(map::filter::MapFilter::InLogic);
             core::api::game::save(true);
             uber_states::disable_reverts() = false;
 
