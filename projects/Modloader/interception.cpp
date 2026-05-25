@@ -34,7 +34,7 @@ namespace modloader::interception {
         std::unordered_map<void*, void*> intercept_cache;
 
 #ifdef DEBUG
-        std::unordered_map<void*, std::vector<const Intercept*>> binding_pointer_to_unordered_intercepts;
+        std::unordered_map<void*, std::vector<const Intercept*>> binding_pointer_to_intercepts;
 #endif
 
         detours::start_transaction();
@@ -45,9 +45,7 @@ namespace modloader::interception {
             *intercept->original_pointer = *intercept->binding_pointer;
 
 #ifdef DEBUG
-            if (!intercept->sort_order.has_value()) {
-                binding_pointer_to_unordered_intercepts[*intercept->binding_pointer].push_back(intercept);
-            }
+            binding_pointer_to_intercepts[*intercept->binding_pointer].push_back(intercept);
 #endif
 
             if (intercept->intercept_pointer) {
@@ -74,20 +72,40 @@ namespace modloader::interception {
         detours::commit("intercepts");
 
 #ifdef DEBUG
-        for (const auto& equal_unordered_intercepts: binding_pointer_to_unordered_intercepts | std::views::values) {
-            if (equal_unordered_intercepts.size() <= 1) {
+        for (const auto& intercepts_of_same_function: binding_pointer_to_intercepts | std::views::values) {
+            if (intercepts_of_same_function.size() <= 1) {
                 continue;
             }
 
-            std::string error_message;
+            std::unordered_set<int> discovered_sort_orders;
+            bool discovered_unset_sort_order = false;
 
-            error_message += std::format(
+            for (const auto& intercept: intercepts_of_same_function) {
+                if (intercept->sort_order.has_value()) {
+                    if (discovered_sort_orders.contains(*intercept->sort_order)) {
+                        goto error;
+                    }
+
+                    discovered_sort_orders.insert(*intercept->sort_order);
+                } else {
+                    if (discovered_unset_sort_order) {
+                        goto error;
+                    }
+
+                    discovered_unset_sort_order = true;
+                }
+            }
+
+            continue;
+            error:
+
+            std::string error_message = std::format(
                 "Intercept {} exists multiple times with undefined sorting order. "
                 "Please use IL2CPP_INTERCEPT_WITH_ORDER and assign orders explicitly:",
-                equal_unordered_intercepts.at(0)->name
+                intercepts_of_same_function.at(0)->name
             );
 
-            for (const auto& unordered_intercept: equal_unordered_intercepts) {
+            for (const auto& unordered_intercept: intercepts_of_same_function) {
                 error_message += std::format(
                     "\n- {} ({}:{})", unordered_intercept->name, unordered_intercept->location.file_name(), unordered_intercept->location.line()
                 );
