@@ -330,6 +330,8 @@ namespace il2cpp {
 
         IL2CPP_MODLOADER_DLLEXPORT bool get_active(void* object);
 
+        IL2CPP_MODLOADER_DLLEXPORT bool get_active_in_hierarchy(void* object);
+
         IL2CPP_MODLOADER_DLLEXPORT bool get_active_self(void* object);
 
         IL2CPP_MODLOADER_DLLEXPORT void set_active(void* object, bool value);

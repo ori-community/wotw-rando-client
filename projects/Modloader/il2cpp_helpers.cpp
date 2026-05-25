@@ -232,6 +232,11 @@ namespace il2cpp {
             return is_valid(go) ? UnityEngine::GameObject::get_active(go) : false;
         }
 
+        bool get_active_in_hierarchy(void* object) {
+            const auto go = get_game_object(object);
+            return is_valid(go) ? UnityEngine::GameObject::get_activeInHierarchy(go) : false;
+        }
+
         bool get_active_self(void* object) {
             const auto go = get_game_object(object);
             return is_valid(go) ? UnityEngine::GameObject::get_activeSelf(go) : false;
