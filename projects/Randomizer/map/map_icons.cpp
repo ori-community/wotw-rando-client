@@ -2,10 +2,13 @@
 #include <Modloader/app/methods/AreaMapIcon.h>
 #include <Modloader/app/methods/AreaMapIconManager.h>
 #include <Modloader/app/methods/AreaMapNavigation.h>
+#include <Modloader/app/methods/Game/UI.h>
 #include <Modloader/app/methods/GameMapPins.h>
 #include <Modloader/app/methods/GameMapUI.h>
+#include <Modloader/app/methods/MenuScreenManager.h>
 #include <Modloader/app/methods/QuestIconsUI.h>
 #include <Modloader/app/methods/RuntimeWorldMapIcon.h>
+#include <Modloader/app/methods/SavePedestal.h>
 #include <Modloader/app/methods/UberShaderAPI.h>
 #include <Modloader/app/methods/UnityEngine/Mesh.h>
 #include <Modloader/app/methods/UnityEngine/MeshFilter.h>
@@ -857,6 +860,19 @@ namespace randomizer::map::icons {
             }
 
             return found_icon_in_range;
+        }
+
+        IL2CPP_INTERCEPT(void, SavePedestal, TeleportOnPedestal, app::SavePedestal* this_ptr) {
+            this_ptr->fields.m_hintShowPending = false;
+            SavePedestal::MarkAsUsed(this_ptr);
+
+            MenuScreenManager::ShowMenuScreen(
+                Game::UI::get_Menu(),
+                app::MenuScreenManager_Screens__Enum::WorldMap,
+                false,
+                false,
+                true
+            );
         }
     } // namespace
 
