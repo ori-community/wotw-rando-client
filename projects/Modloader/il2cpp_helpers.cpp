@@ -822,6 +822,20 @@ namespace il2cpp {
         return nullptr;
     }
 
+    void initialize_method_info(Il2CppClass* klass, uint32_t token, MethodInfo** target) {
+        if (*target != nullptr) {
+            return;
+        }
+
+        void* iter = nullptr;
+        while (MethodInfo* method = il2cpp_class_get_methods(klass, &iter)) {
+            if (method->token == token) {
+                *target = method;
+                return;
+            }
+        }
+    }
+
     MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<KlassDescriptor> const& params) {
         auto info = get_method_info_internal(klass, method, params.size());
         if (info == nullptr) {

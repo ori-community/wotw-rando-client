@@ -7,6 +7,7 @@
 #include <Modloader/app/methods/UberGCManager.h>
 #include <Modloader/app/types/Damage.h>
 #include <Modloader/app/types/Entity.h>
+#include <Modloader/app/types/Object_1.h>
 #include <Randomizer/features/damage.h>
 #include <Modloader/modloader.h>
 
@@ -18,6 +19,12 @@ namespace randomizer::damage {
     std::unordered_set<int32_t> forced_damage_ids;
 
     namespace {
+        [[maybe_unused]]
+        auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+            // TODO: If we ever need more static MethodInfo* pointers to be initialized, make something prettier
+            il2cpp::initialize_method_info(reinterpret_cast<Il2CppClass*>(types::Object_1::get_class()), 100665730, UnityEngine::Object::FindObjectsOfType_6_MethodInfo);
+        });
+
         IL2CPP_INTERCEPT_WITH_ORDER(0, void, UberGCManager, RunGC, bool is_debug) {
             next::UberGCManager::RunGC(is_debug);
             forced_damage_ids.clear();

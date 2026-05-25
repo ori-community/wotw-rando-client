@@ -203,6 +203,8 @@ namespace il2cpp {
 
     IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<Il2CppClass*> const& params);
 
+    IL2CPP_MODLOADER_DLLEXPORT void initialize_method_info(Il2CppClass* klass, uint32_t token, MethodInfo** target);
+
     IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<KlassDescriptor> const& params);
 
     IL2CPP_MODLOADER_DLLEXPORT void free_obj(void* obj);

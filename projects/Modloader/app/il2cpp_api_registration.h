@@ -54,7 +54,7 @@ IL2CPP_API_BINDING(Il2CppClass*, il2cpp_class_get_interfaces, (Il2CppClass * kla
 IL2CPP_API_BINDING(const PropertyInfo*, il2cpp_class_get_properties, (Il2CppClass * klass, void* *iter));
 IL2CPP_API_BINDING(const PropertyInfo*, il2cpp_class_get_property_from_name, (Il2CppClass * klass, const char *name));
 IL2CPP_API_BINDING(FieldInfo*, il2cpp_class_get_field_from_name, (Il2CppClass * klass, const char *name));
-IL2CPP_API_BINDING(const MethodInfo*, il2cpp_class_get_methods, (Il2CppClass * klass, void* *iter));
+IL2CPP_API_BINDING(MethodInfo*, il2cpp_class_get_methods, (Il2CppClass * klass, void* *iter));
 IL2CPP_API_BINDING(const MethodInfo*, il2cpp_class_get_method_from_name, (Il2CppClass * klass, const char* name, int argsCount));
 IL2CPP_API_BINDING(const char*, il2cpp_class_get_name, (Il2CppClass * klass));
 IL2CPP_API_BINDING(const char*, il2cpp_class_get_namespace, (Il2CppClass * klass));
