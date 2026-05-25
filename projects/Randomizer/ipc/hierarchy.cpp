@@ -501,6 +501,17 @@ namespace randomizer::ipc {
             }
         }
 
+        void visualize_player_inside_zone_checker(nlohmann::json& j, void* obj, bool verbose) {
+            auto cast = reinterpret_cast<app::PlayerInsideZoneChecker*>(obj);
+            j["value"] = nlohmann::json::array({
+                create_variable("only_grounded", "scalar", cast->fields.OnlyTriggerIfGrounded),
+                create_variable("x", "scalar", cast->fields._.m_bounds.m_XMin),
+                create_variable("y", "scalar", cast->fields._.m_bounds.m_YMin),
+                create_variable("width", "scalar", cast->fields._.m_bounds.m_Width),
+                create_variable("height", "scalar", cast->fields._.m_bounds.m_Height),
+            });
+        }
+
         void visualize_transform(nlohmann::json& j, void* obj, bool verbose) {
             auto transform = reinterpret_cast<app::Transform*>(obj);
             auto position = Transform::get_position(transform);
@@ -694,6 +705,7 @@ namespace randomizer::ipc {
             { "DesiredConditionUberState", visualize_uber_state_to_wwise_data_desired_condition_uber_state },
             { "AbilityRequirementCondition", visualize_uber_state_to_wwise_data_ability_requirement_condition },
             { "Moon.Timeline.WWiseSoundAnimatorEntity", visualize_moon_timeline_wwise_sound_animator_entry },
+            { "PlayerInsideZoneChecker", visualize_player_inside_zone_checker },
 
             //{ "Moon.SerializedBooleanUberState", visualize_serialized_uber_state },
             //{ "Moon.SerializedFloatUberState", visualize_serialized_uber_state },
