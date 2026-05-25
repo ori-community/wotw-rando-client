@@ -12,7 +12,7 @@
 
 // We may use this later.
 #define IL2CPP_REGISTER_METHODINFO(address, name)                                                                                                              \
-    inline Il2CppMethodInfo* name = reinterpret_cast<Il2CppMethodInfo*>(modloader::win::memory::get_game_assembly_address() + (address));
+    inline MethodInfo** name = reinterpret_cast<MethodInfo**>(modloader::win::memory::resolve_rva(address));
 
 #define IL2CPP_INTERCEPT(return_type, namespace_and_class_name, method_name, ...)                                                                              \
     static_assert(                                                                                                                                             \
