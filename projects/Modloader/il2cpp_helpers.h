@@ -70,16 +70,16 @@ namespace il2cpp {
 
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring_fast_unsafe(app::String* str);
 
-    template <typename R = void, typename T, typename C>
-    R call_virtual(T* object, const VirtualInvokeData* virtual_method, C* interface_class) {
-        using fn_t = R (*)(T* this_ptr, const MethodInfo*);
+    template <typename R = void, typename T, typename C, typename... Args>
+    R call_virtual(T* object, const VirtualInvokeData* virtual_method, C* interface_class, Args... args) {
+        using fn_t = R (*)(T* this_ptr, Args..., const MethodInfo*);
 
         for (int i = 0; i < object->klass->_1.interface_offsets_count; ++i) {
             if (object->klass->interfaceOffsets[i].interfaceType == reinterpret_cast<Il2CppClass*>(interface_class)) {
                 auto actual_virtual_invoke_data = virtual_method;
                 actual_virtual_invoke_data += object->klass->interfaceOffsets[i].offset;
                 const fn_t fn = reinterpret_cast<fn_t>(*actual_virtual_invoke_data->methodPtr);
-                return fn(object, actual_virtual_invoke_data->method);
+                return fn(object, args..., actual_virtual_invoke_data->method);
             }
         }
 
