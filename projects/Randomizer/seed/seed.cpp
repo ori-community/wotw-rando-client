@@ -99,26 +99,26 @@ namespace randomizer::seed {
     }
 
     void Seed::show_tags_message() const {
-        std::string tags;
+        std::string tags_string;
 
         for (auto const& flag: m_parse_output->meta.tags) {
-            if (tags.empty()) {
-                tags += "\nTags: ";
+            if (tags_string.empty()) {
+                tags_string += "\nTags: ";
             } else {
-                tags += ", ";
+                tags_string += ", ";
             }
 
-            tags += flag;
+            tags_string += flag;
         }
 
         std::string slug_string;
 
         if (m_parse_output->meta.slug.has_value()) {
-            slug_string = std::format(" <hex_9ee2f7ff>{}</>", *m_parse_output->meta.slug);
+            slug_string = std::format("Slug: <hex_9ee2f7ff>{}</>", *m_parse_output->meta.slug);
         }
 
         message_queue().enqueue({
-            .text = core::Property<std::string>(std::format("Loaded Seed{}{}", slug_string, tags)),
+            .text = core::Property<std::string>(slug_string + tags_string),
             .time_left = 5.f,
         }, true);
     }
