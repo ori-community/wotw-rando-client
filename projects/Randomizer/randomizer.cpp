@@ -32,7 +32,7 @@ namespace randomizer {
         messages::RecentMessagesView recent_messages_view_instance{};
 
         auto seed_meta_save_data = std::make_shared<seed::SaveSlotSeedMetaData>();
-        auto seed_archive_save_data = std::make_shared<seed::SeedArchiveSaveMetaData>();
+        auto seed_archive_save_data = std::make_shared<seed::SeedArchiveSaveMetaData>(true);
 
         std::shared_ptr<seed::SeedSource> new_game_seed_source = std::make_shared<seed::InvalidSeedSource>("empty");
         std::shared_ptr<seed::SeedArchive> new_game_seed_archive; // Set by spawning_and_preloading.cpp
@@ -68,6 +68,7 @@ namespace randomizer {
 
         [[maybe_unused]]
         auto on_after_seed_loaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
+            auto x = seed_archive_save_data;
             seedgen_service().set_seedgen_info(seed_archive_save_data->seed_archive->get_seedgen_info());
             multiplayer_universe_instance.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
@@ -75,17 +76,13 @@ namespace randomizer {
             randomizer_seed.trigger(seed::SeedClientEvent::Reload);
         });
 
-        void load_seed(const bool show_message) {
-            randomizer_seed.read(seed_archive_save_data->seed_archive, seed::parse, show_message);
-        }
-
         [[maybe_unused]]
         auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
             pause_timer = true;
 
             seed_meta_save_data->seed_source_string = new_game_seed_source->to_source_string();
             seed_archive_save_data->seed_archive = new_game_seed_archive;
-            load_seed(false);
+            randomizer_seed.read(seed_archive_save_data->seed_archive, seed::parse, false);
 
             // Allow cheats in offline games and clear GUID restrictions
             if (!seed_meta_save_data->get_source()->get_server_connection().has_value()) {
@@ -129,7 +126,6 @@ namespace randomizer {
             GameEvent::FinishedLoadingSave,
             EventTiming::After,
             [](auto, auto) {
-                load_seed(false);
                 check_seed_difficulty_enforcement();
             }
         );
@@ -245,7 +241,7 @@ namespace randomizer {
         switch (status) {
             case seed::SourceStatus::Ready:
                 seed_archive_save_data->seed_archive = *seed_archive;
-                load_seed(true);
+                randomizer_seed.read(seed_archive_save_data->seed_archive, seed::parse, true);
                 break;
             case seed::SourceStatus::Loading:
                 message_queue().enqueue({

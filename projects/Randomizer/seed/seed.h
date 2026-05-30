@@ -147,8 +147,8 @@ namespace randomizer::seed {
     private:
         static constexpr unsigned int MAX_COMMAND_STACK_SIZE = 256;
 
-        std::shared_ptr<SeedArchive> m_seed_archive;
-        std::shared_ptr<SeedParseOutput> m_parse_output = std::make_shared<SeedParseOutput>();
+        std::shared_ptr<SeedArchive> m_seed_archive = nullptr;
+        std::shared_ptr<SeedParseOutput> m_parse_output = nullptr;
         std::vector<std::function<bool()>> m_prevent_grant_callbacks;
         std::vector<Timer> m_timers;
         std::shared_ptr<SeedExecutionEnvironment> m_environment = std::make_shared<SeedExecutionEnvironment>(*this);
@@ -178,9 +178,15 @@ namespace randomizer::seed {
 
     class SeedArchiveSaveMetaData final : public core::save_meta::SaveMetaHandler {
     public:
+        explicit SeedArchiveSaveMetaData(const bool m_load_seed_when_slot_loaded) :
+            m_load_seed_when_slot_loaded(m_load_seed_when_slot_loaded) {}
+
         std::shared_ptr<SeedArchive> seed_archive;
 
         std::vector<std::byte> save() override;
         void load(core::utils::ByteStream& stream) override;
+
+    private:
+        bool m_load_seed_when_slot_loaded = false;
     };
 } // namespace randomizer::seed

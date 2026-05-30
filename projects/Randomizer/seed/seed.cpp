@@ -5,7 +5,8 @@
 #include <Randomizer/seed/seed.h>
 #include <Profiler/tracy.h>
 
-#include "Common/vx.h"
+#include <Common/vx.h>
+#include <Randomizer/seed/parser.h>
 
 namespace randomizer::seed {
 
@@ -99,6 +100,14 @@ namespace randomizer::seed {
     }
 
     void Seed::show_tags_message() const {
+        if (m_parse_output == nullptr) {
+            message_queue().enqueue({
+                .text = core::Property<std::string>("No seed loaded"),
+                .time_left = 3.f,
+            }, true);
+            return;
+        }
+
         std::string tags_string;
 
         for (auto const& flag: m_parse_output->meta.tags) {
@@ -165,7 +174,7 @@ namespace randomizer::seed {
     }
 
     void Seed::trigger(const SeedClientEvent event, bool force_outside_game) {
-        if (m_parse_output->data.events[event].empty()) {
+        if (m_parse_output == nullptr || m_parse_output->data.events[event].empty()) {
             // Lessen spam on seed debugger.
             return;
         }
@@ -203,5 +212,11 @@ namespace randomizer::seed {
 
     std::vector<std::byte> SeedArchiveSaveMetaData::save() { return seed_archive != nullptr ? seed_archive->get_archive_data() : std::vector<std::byte>{}; }
 
-    void SeedArchiveSaveMetaData::load(core::utils::ByteStream& stream) { seed_archive = std::make_shared<SeedArchive>(stream.buffer); }
+    void SeedArchiveSaveMetaData::load(core::utils::ByteStream& stream) {
+        seed_archive = std::make_shared<SeedArchive>(stream.buffer);
+
+        if (m_load_seed_when_slot_loaded) {
+            game_seed().read(seed_archive, seed::parse, false);
+        }
+    }
 } // namespace randomizer::seed
