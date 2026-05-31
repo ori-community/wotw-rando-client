@@ -14,11 +14,19 @@ namespace {
         if (core::api::game::player::ability(app::AbilityType__Enum::Bash).get()) {
             return_value = next::Projectile::HandleMirrorStrike(this_ptr, damage);
         } else {
-            core::reactivity::ScopedReactivityBlocker blocker;
-            modloader::ScopedSetter setter(randomizer::timing::disable_ability_tracking, true);
-            core::api::game::player::ability(app::AbilityType__Enum::Bash).set(true);
+            {
+                core::reactivity::ScopedReactivityBlocker _;
+                modloader::ScopedSetter __(randomizer::timing::disable_ability_tracking, true);
+                core::api::game::player::ability(app::AbilityType__Enum::Bash).set(true);
+            }
+
             return_value = next::Projectile::HandleMirrorStrike(this_ptr, damage);
-            core::api::game::player::ability(app::AbilityType__Enum::Bash).set(false);
+
+            {
+                core::reactivity::ScopedReactivityBlocker _;
+                modloader::ScopedSetter __(randomizer::timing::disable_ability_tracking, true);
+                core::api::game::player::ability(app::AbilityType__Enum::Bash).set(false);
+            }
         }
 
         return return_value;
