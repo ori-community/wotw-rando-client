@@ -15,12 +15,13 @@
 #include "Core/settings.h"
 
 using namespace modloader;
-using namespace core::ipc;
 
 namespace randomizer::ipc {
     using namespace app::classes;
 
     namespace {
+        std::unordered_set<core::api::uber_states::UberState> subscribed_uber_states;
+
         void server_reconnect_current_multiverse(const nlohmann::json& j) {
             info("ipc", "Received server_reconnect_current_multiverse action request.");
             randomizer::server_reconnect_current_multiverse();
@@ -50,15 +51,31 @@ namespace randomizer::ipc {
             }, true);
         }
 
+        void subscribe_uber_states(const nlohmann::json& j) {
+            randomizer::load_new_game_source();
+
+            for (const auto& entry: j.at("payload")) {
+                subscribed_uber_states.emplace(entry.at("group").get<int>(), entry.at("state").get<int>());
+            }
+        }
+
+        void unsubscribe_uber_states(const nlohmann::json& j) {
+            randomizer::load_new_game_source();
+
+            for (const auto& entry: j.at("payload")) {
+                subscribed_uber_states.erase(core::api::uber_states::UberState(entry.at("group").get<int>(), entry.at("state").get<int>()));
+            }
+        }
+
         void get_tags(const nlohmann::json& j) {
             nlohmann::json response;
             response["type"] = "response";
             response["id"] = j.at("id").get<int>();
             response["payload"] = game_seed().parser_output().meta.tags;
-            send_message(response);
+            core::ipc::send_message(response);
         }
 
-        void get_uberstates(const nlohmann::json& j) {
+        void get_uber_states(const nlohmann::json& j) {
             std::vector<float> values;
             for (auto entry : j.at("payload")) {
                 auto group = entry.at("group").get<int>();
@@ -70,10 +87,10 @@ namespace randomizer::ipc {
             response["type"] = "response";
             response["id"] = j.at("id").get<int>();
             response["payload"] = values;
-            send_message(response);
+            core::ipc::send_message(response);
         }
 
-        void set_uberstate(const nlohmann::json& j) {
+        void set_uber_state(const nlohmann::json& j) {
             auto p = j.at("payload");
             auto group = p.at("group").get<int>();
             auto state = p.at("state").get<int>();
@@ -116,7 +133,7 @@ namespace randomizer::ipc {
             response["payload"]["x"] = v.x;
             response["payload"]["y"] = v.y;
             response["payload"]["z"] = v.z;
-            send_message(response);
+            core::ipc::send_message(response);
         }
 
         void get_total_pickup_count(const nlohmann::json& j) {
@@ -134,7 +151,6 @@ namespace randomizer::ipc {
 
         void get_pickup_counts(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
-            const auto& info = game_seed().parser_output();
 
             nlohmann::json areas;
             for (auto i = 0; i < static_cast<int>(GameArea::TOTAL); ++i) {
@@ -147,26 +163,32 @@ namespace randomizer::ipc {
             core::ipc::send_message(response);
         }
 
-        void report_load(GameEvent game_event, EventTiming timing) {
-            send_message(core::ipc::make_request("notify_on_load"));
-        }
+        [[maybe_unused]]
+        auto on_value_store_loaded = core::api::game::event_bus().register_handler(GameEvent::UberStateValueStoreLoaded, EventTiming::After, [](auto, auto) {
+            core::ipc::send_message(core::ipc::make_request("notify_on_load"));
+        });
 
-        std::unordered_map<GameEvent, std::string> event_to_method{
-            { GameEvent::GainedFocus, "notify_on_gain_focus" },
-            { GameEvent::LostFocus, "notify_on_lost_focus" },
-            { GameEvent::Shutdown, "notify_on_shutdown" },
-        };
+        [[maybe_unused]]
+        auto on_gained_focus = core::api::game::event_bus().register_handler(GameEvent::GainedFocus, EventTiming::After, [](auto, auto) {
+            core::ipc::send_message(core::ipc::make_request("notify_on_gain_focus"));
+        });
 
-        void report_game_event(GameEvent game_event, EventTiming timing) {
-            send_message(core::ipc::make_request(event_to_method.find(game_event)->second));
-        }
+        [[maybe_unused]]
+        auto on_lost_focus = core::api::game::event_bus().register_handler(GameEvent::LostFocus, EventTiming::After, [](auto, auto) {
+            core::ipc::send_message(core::ipc::make_request("notify_on_lost_focus"));
+        });
 
-        auto on_value_store_loaded = core::api::game::event_bus().register_handler(GameEvent::UberStateValueStoreLoaded, EventTiming::After, &report_load);
-        auto on_gained_focus = core::api::game::event_bus().register_handler(GameEvent::GainedFocus, EventTiming::After, &report_game_event);
-        auto on_lost_focus = core::api::game::event_bus().register_handler(GameEvent::LostFocus, EventTiming::After, &report_game_event);
-        auto on_shutdown = core::api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, &report_game_event);
+        [[maybe_unused]]
+        auto on_shutdown = core::api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, [](auto, auto) {
+            core::ipc::send_message(core::ipc::make_request("notify_on_shutdown"));
+        });
 
+        [[maybe_unused]]
         auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto const& event) {
+            if (!subscribed_uber_states.contains(event.state)) {
+                return;
+            }
+
             nlohmann::json request = core::ipc::make_request("notify_on_uber_state_changed");
             request["payload"]["group"] = static_cast<int>(event.state.group());
             request["payload"]["state"] = event.state.state();
@@ -175,21 +197,24 @@ namespace randomizer::ipc {
             core::ipc::send_message(request);
         });
 
+        [[maybe_unused]]
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-            register_request_handler("server_reconnect_current_multiverse", server_reconnect_current_multiverse);
-            register_request_handler("reread_seed_source", reread_seed_source);
-            register_request_handler("reload_settings", reload_settings);
-            register_request_handler("reload_controls", reload_controls);
-            register_request_handler("get_uberstates", get_uberstates);
-            register_request_handler("set_uberstate", set_uberstate);
-            register_request_handler("get_tags", get_tags);
-            register_request_handler("action", action);
-            register_request_handler("set_velocity", set_velocity);
-            register_request_handler("get_velocity", get_velocity);
-            register_request_handler("get_total_pickup_count", get_total_pickup_count);
-            register_request_handler("get_pickup_count_by_area", get_pickup_count_by_area);
-            register_request_handler("get_pickup_counts", get_pickup_counts);
-            register_request_handler("load_new_game_source", load_new_game_source);
+            core::ipc::register_request_handler("server_reconnect_current_multiverse", server_reconnect_current_multiverse);
+            core::ipc::register_request_handler("reread_seed_source", reread_seed_source);
+            core::ipc::register_request_handler("reload_settings", reload_settings);
+            core::ipc::register_request_handler("reload_controls", reload_controls);
+            core::ipc::register_request_handler("get_uber states", get_uber_states);
+            core::ipc::register_request_handler("set_uber state", set_uber_state);
+            core::ipc::register_request_handler("get_tags", get_tags);
+            core::ipc::register_request_handler("action", action);
+            core::ipc::register_request_handler("set_velocity", set_velocity);
+            core::ipc::register_request_handler("get_velocity", get_velocity);
+            core::ipc::register_request_handler("get_total_pickup_count", get_total_pickup_count);
+            core::ipc::register_request_handler("get_pickup_count_by_area", get_pickup_count_by_area);
+            core::ipc::register_request_handler("get_pickup_counts", get_pickup_counts);
+            core::ipc::register_request_handler("load_new_game_source", load_new_game_source);
+            core::ipc::register_request_handler("subscribe_uber_states", subscribe_uber_states);
+            core::ipc::register_request_handler("unsubscribe_uber_states", unsubscribe_uber_states);
         });
     } // namespace
 
