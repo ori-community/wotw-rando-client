@@ -11,6 +11,8 @@
 #include <Modloader/app/methods/UnityEngine/Input.h>
 #include <Modloader/app/methods/ButtonIconUtility.h>
 #include <Modloader/app/methods/ControlsScreen.h>
+#include <Modloader/app/methods/SmartInput/KeyCodeButtonInput.h>
+#include <Modloader/app/methods/SmartInput/InputCacheManager.h>
 #include <Modloader/app/types/PlayerInput.h>
 #include <Modloader/app/types/GameSettings.h>
 #include <Modloader/interception_macros.h>
@@ -170,8 +172,18 @@ namespace randomizer::input {
             player_input->fields.Active = prev;
         }
 
-        IL2CPP_INTERCEPT(void, PlayerInput, RefreshControls, app::PlayerInput * this_ptr) {
-            next::PlayerInput::RefreshControls(this_ptr);
+        std::unordered_set<app::KeyCode__Enum> ignored_key_codes;
+
+        IL2CPP_INTERCEPT(bool, SmartInput::KeyCodeButtonInput, GetValue, app::KeyCodeButtonInput* this_ptr) {
+            if (ignored_key_codes.contains(this_ptr->fields.m_keyCode)) {
+                return false;
+            }
+
+            return next::SmartInput::KeyCodeButtonInput::GetValue(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(void, SmartInput::InputCacheManager, Refresh, app::InputCacheManager* this_ptr) {
+            ignored_key_codes.clear();
 
             for (auto& [action, info] : rando_bindings) {
                 auto pressed = false;
@@ -183,6 +195,10 @@ namespace randomizer::input {
                     if (!pressed) {
                         for (auto const& input : info.kbm_bindings) {
                             if (is_kbm_pressed(input)) {
+                                for (const auto& code: input.codes) {
+                                    ignored_key_codes.insert(code);
+                                }
+
                                 pressed = true;
                                 break;
                             }
@@ -219,6 +235,8 @@ namespace randomizer::input {
                     input_bus().trigger_event(InputValue::Released, action);
                 }
             }
+
+            next::SmartInput::InputCacheManager::Refresh(this_ptr);
         }
     } // namespace
 
