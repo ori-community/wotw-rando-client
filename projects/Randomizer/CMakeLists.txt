@@ -27,6 +27,7 @@ set(
         "features/custom_fire_sources.cpp"
         "features/cutscene_skips/custom_cutscene_skips.cpp"
         "features/cutscene_skips/final_cutscene.cpp"
+        "features/cutscene_skips/hornbug_end.cpp"
         "features/cutscene_skips/howl_end.cpp"
         "features/cutscene_skips/kwolok_boss_farewell.cpp"
         "features/cutscene_skips/kwolok_boss_intro.cpp"
