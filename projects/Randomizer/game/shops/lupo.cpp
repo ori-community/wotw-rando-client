@@ -74,7 +74,7 @@ namespace {
         {41666, 2},  // shardMapIcons
     };
 
-    // Prevent Twillen from cleaning up (sorting) his shop
+    // Prevent Lupo from cleaning up (sorting) his shop
     IL2CPP_INTERCEPT(int32_t, MapmakerScreen___c, _PopulateInventoryCanvasWithUpgrades_b__59_0, app::MapmakerScreen_c * this_ptr, app::Object* a, app::Object* b) {
         const auto item_a = reinterpret_cast<app::MapmakerItem*>(a);
         const auto item_b = reinterpret_cast<app::MapmakerItem*>(b);
