@@ -33,7 +33,8 @@ namespace core::api::uber_states {
         m_value_type(value_type),
         m_name(std::move(name)),
         m_getter_fn(std::move(getter_fn)),
-        m_setter_fn(std::move(setter_fn)) {
+        m_setter_fn(std::move(setter_fn)),
+        m_uber_state(group, state) {
 
         switch (change_detection_mode) {
             case ChangeDetectionMode::Manual:
@@ -54,7 +55,7 @@ namespace core::api::uber_states {
                             return;
                         }
 
-                        notify_changed();
+                        notify_changed(this->m_getter_fn(), m_last_known_value.value_or(0.0));
                     })
                     .finalize();
                 break;
@@ -72,7 +73,7 @@ namespace core::api::uber_states {
         }
 
         m_setter_fn->operator()(value);
-        m_last_value_for_polling = value;
+        m_last_known_value = value;
     }
 
     bool VirtualUberState::is_readonly() const {
@@ -82,14 +83,23 @@ namespace core::api::uber_states {
     void VirtualUberState::check_for_changes() {
         const auto new_value = get();
 
-        if (m_last_value_for_polling.has_value() && new_value != *m_last_value_for_polling) {
-            notify_changed();
+        if (m_last_known_value.has_value() && new_value != *m_last_known_value) {
+            notify_changed(new_value, *m_last_known_value);
         }
 
-        m_last_value_for_polling = new_value;
+        m_last_known_value = new_value;
     }
 
-    void VirtualUberState::notify_changed() const {
+    void VirtualUberState::notify_changed(double value, double previous_value) const {
+        const UberStateCallbackParams params{
+            m_uber_state,
+            m_last_known_value.value_or(0.0),
+            value,
+        };
+
+        single_notification_bus().trigger_event(m_uber_state, params);
+        notification_bus().trigger_event(params);
+
         reactivity::notify_changed(reactivity::UberStateDependency{m_group, m_state});
     }
 

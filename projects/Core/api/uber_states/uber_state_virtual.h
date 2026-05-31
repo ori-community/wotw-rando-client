@@ -53,13 +53,14 @@ namespace core::api::uber_states {
         const std::string m_name;
     private:
         void check_for_changes();
-        void notify_changed() const;
+        void notify_changed(double value, double previous_value) const;
 
         getter_fn_t m_getter_fn;
         setter_fn_t m_setter_fn;
         reactivity::ReactiveEffect::ptr_t m_effect;
         common::Droppable::ptr_t m_poll_update_droppable;
-        std::optional<double> m_last_value_for_polling = std::nullopt;
+        std::optional<double> m_last_known_value = std::nullopt;
+        UberState m_uber_state;
     };
 
     CORE_DLLEXPORT bool is_virtual_uber_state(int group, int state);
