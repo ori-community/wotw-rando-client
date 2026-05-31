@@ -1132,6 +1132,13 @@ namespace randomizer::area_segment_states {
         }
     }
 
+    auto on_pools_water_drained_changed = core::api::uber_states::single_notification_bus().register_handler(core::api::uber_states::UberState(5377, 63173), [](const auto& event, auto) {
+        // On lowering the Pools water, check whether the Pools TP map tile is active and if so, give the Pools TP
+        if (event.value > 0.5 && core::api::uber_states::UberState(UberStateGroup::MapSegments, 86073).get<bool>()) {
+            core::api::uber_states::UberState(945, 58183).set(true);
+        }
+    });
+
     IL2CPP_INTERCEPT_WITH_ORDER(100, void, Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation, SetAreaState, app::PlayerUberStateAreaMapInformation * this_ptr, app::GameWorldAreaID__Enum area_id, int index, app::WorldMapAreaState__Enum state, app::Vector3 position) {
         const auto virtual_state_id = static_cast<int>(area_id) * 10000 + index;
         const auto uber_state = core::api::uber_states::UberState(UberStateGroup::MapSegments, virtual_state_id);
