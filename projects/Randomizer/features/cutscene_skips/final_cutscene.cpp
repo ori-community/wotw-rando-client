@@ -108,6 +108,9 @@ namespace {
         auto cutscene_skip = custom_cutscene_skips::CustomCutsceneSkip{
             .is_available = &skip_available,
             .invoke = &skip_invoke,
+            .get_metadata = [] -> std::optional<custom_cutscene_skips::CustomCutsceneSkip::Metadata> {
+                return custom_cutscene_skips::CustomCutsceneSkip::Metadata{.never_skip_automatically = true};
+            }
         };
         custom_cutscene_skips::register_cutscene_skip(cutscene_skip);
     });

@@ -145,6 +145,10 @@ namespace custom_cutscene_skips {
         }
 
         if (SkipCutsceneController::get_SkippingAvailable(types::SkipCutsceneController::get_class()->static_fields->Instance)) {
+            if (skip_metadata_of_last_get_skipping_available_call.transform([](auto& meta) -> bool { return meta.never_skip_automatically; }).value_or(false)) {
+                return;
+            }
+
             block_automatic_cutscene_skips_for_seconds = 10.f;
 
             const auto execute_automatic_skip = [] {
@@ -155,7 +159,7 @@ namespace custom_cutscene_skips {
                 SkipCutsceneController::SkipCutscene(types::SkipCutsceneController::get_class()->static_fields->Instance);
             };
 
-            if (!skip_metadata_of_last_get_skipping_available_call.has_value() || skip_metadata_of_last_get_skipping_available_call->fade_on_automatic_skip) {
+            if (skip_metadata_of_last_get_skipping_available_call.transform([](auto& meta) -> bool { return meta.fade_on_automatic_skip; }).value_or(true)) {
                 core::api::faderb::fade_to_game_invisible(0.4f);
                 core::events::schedule_task(0.4f, [=] {
                     execute_automatic_skip();

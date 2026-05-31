@@ -6,6 +6,7 @@ namespace custom_cutscene_skips {
     struct CustomCutsceneSkip {
         struct Metadata {
             bool fade_on_automatic_skip = true;
+            bool never_skip_automatically = false;
         };
 
         struct InvokeParameters {
