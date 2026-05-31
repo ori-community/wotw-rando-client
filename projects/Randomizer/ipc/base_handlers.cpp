@@ -203,8 +203,8 @@ namespace randomizer::ipc {
             core::ipc::register_request_handler("reread_seed_source", reread_seed_source);
             core::ipc::register_request_handler("reload_settings", reload_settings);
             core::ipc::register_request_handler("reload_controls", reload_controls);
-            core::ipc::register_request_handler("get_uber states", get_uber_states);
-            core::ipc::register_request_handler("set_uber state", set_uber_state);
+            core::ipc::register_request_handler("get_uber_states", get_uber_states);
+            core::ipc::register_request_handler("set_uber_state", set_uber_state);
             core::ipc::register_request_handler("get_tags", get_tags);
             core::ipc::register_request_handler("action", action);
             core::ipc::register_request_handler("set_velocity", set_velocity);
