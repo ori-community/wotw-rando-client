@@ -47,13 +47,14 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> active_transition_timeline_ref = std::nullopt;
     std::optional<TransitionConfig> active_transition_config = std::nullopt;
 
-    constexpr frozen::unordered_map<frozen::string, TransitionConfig, 22> TRANSITION_CONFIGS = {
+    constexpr frozen::unordered_map<frozen::string, TransitionConfig, 23> TRANSITION_CONFIGS = {
         // Wellspring Blobs
         {"waterMillEntrance/interactives/doorStateController/doorTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
         {"wotwSaveRoomC__clone0__clone1/interactives/fastWheelActivationSetup/wheelActivationTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
         {"waterMillAExit/interactives/fastWheelsSetup/wheelsStartTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
         {"waterMillBEntranceCreepSetup/creepSetupTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
         {"waterMillPool__clone0/interactives/wheelASetup/wheelsActivateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
+        {"waterMillBCorridorB/*rotatingArenaSetupNew/arenaB/arenaBTimeline", TransitionConfig{}},
 
         // Misc
         {"mouldwoodDepthsE/artSetups/*enemyDoorSetup/puzzleCompleteSetup/puzzleCompleteTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
