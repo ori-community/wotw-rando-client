@@ -23,6 +23,7 @@ namespace {
 
     bool is_pushing_lever = false;
     bool is_stopping_timeline = false;
+    bool skipped_during_current_grab = false;
     std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> active_lever_timeline_ref = std::nullopt;
     std::optional<il2cpp::WeakGCRef<app::Lever>> active_lever_ref = std::nullopt;
 
@@ -78,10 +79,18 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, Lever, OnPushLeverRight, app::Lever* this_ptr) {
+        if (skipped_during_current_grab) {
+            return;
+        }
+
         on_lever_push(next::Lever::OnPushLeverRight, this_ptr);
     }
 
     IL2CPP_INTERCEPT(void, Lever, OnPushLeverLeft, app::Lever* this_ptr) {
+        if (skipped_during_current_grab) {
+            return;
+        }
+
         on_lever_push(next::Lever::OnPushLeverLeft, this_ptr);
     }
 
@@ -110,10 +119,16 @@ namespace {
         next::Moon::Timeline::MoonTimeline::OnStartPlayback(this_ptr, context);
     }
 
+    IL2CPP_INTERCEPT(void, Lever, OnGrabLever, app::Lever* this_ptr) {
+        skipped_during_current_grab = false;
+        next::Lever::OnGrabLever(this_ptr);
+    }
+
     bool skip_available() {
         const auto active_lever_timeline = active_lever_timeline_ref.and_then([](auto& ref) { return *ref; });
 
-        return active_lever_timeline.has_value() &&
+        return !skipped_during_current_grab &&
+            active_lever_timeline.has_value() &&
             Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(*active_lever_timeline));
     }
 
@@ -146,6 +161,8 @@ namespace {
         if (!active_lever.has_value()) {
             return;
         }
+
+        skipped_during_current_grab = true;
 
         const auto path = il2cpp::unity::get_path(*active_lever);
         const auto config_it = LEVER_CONFIGS.find(frozen::string(path));
