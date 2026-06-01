@@ -172,14 +172,10 @@ namespace {
         UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, color);
 
         const auto name_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
-        const auto name_text_component = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.NameGO, types::TextBox::get_class());
-        name_text_component->fields.color = color;
         name_message_box->fields.MessageProvider = core::api::system::create_message_provider(slot.name);
         MessageBox::RefreshText_1(name_message_box);
 
         const auto description_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
-        const auto description_text_component = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.DescriptionGO, types::TextBox::get_class());
-        description_text_component->fields.color = color;
         description_message_box->fields.MessageProvider = core::api::system::create_message_provider(slot.description);
         MessageBox::RefreshText_1(description_message_box);
 
