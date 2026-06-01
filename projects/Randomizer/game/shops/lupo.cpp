@@ -69,8 +69,8 @@ namespace {
     }
 
     const std::unordered_map<int, int> LUPO_SHOP_ORDER = {
-        {19396, 0},  // hcMapIcons
-        {57987, 1},  // ecMapIcons
+        {19396, 0},  // ecMapIcons
+        {57987, 1},  // hcMapIcons
         {41666, 2},  // shardMapIcons
     };
 
