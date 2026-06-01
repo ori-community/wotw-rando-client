@@ -306,7 +306,9 @@ namespace randomizer {
                 return *multiplayer_universe().game_difficulty_settings_overrides();
             }
 
-            return game_seed().parser_output().meta.game_difficulties;
+            return game_seed().parser_output().transform([](auto output) {
+                return output.get().meta.game_difficulties;
+            }).value_or(seed::GameDifficultySettings());
         }();
 
         const auto game_controller = core::api::game::game_controller();

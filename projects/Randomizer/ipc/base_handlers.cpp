@@ -71,7 +71,10 @@ namespace randomizer::ipc {
             nlohmann::json response;
             response["type"] = "response";
             response["id"] = j.at("id").get<int>();
-            response["payload"] = game_seed().parser_output().meta.tags;
+            response["payload"] = game_seed().parser_output().transform([](auto output) {
+                return output.get().meta.tags;
+            }).value_or(std::vector<std::string>{});
+
             core::ipc::send_message(response);
         }
 

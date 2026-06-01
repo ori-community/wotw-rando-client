@@ -10,13 +10,13 @@ INSTRUCTION(BoxTriggerEnterCallback)
     std::size_t id;
     std::optional<std::size_t> command_id;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
         environment.modify_box_trigger(id, [&](SeedBoxTrigger& box_trigger) {
             box_trigger.on_enter_command_id = command_id;
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
         return std::format("BoxTriggerEnterCallback -> id = {}, command_id = {}", id, command_id.has_value() ? std::to_string(*command_id) : "None");
     }
 

@@ -129,7 +129,13 @@ namespace randomizer::seed {
 
         bool should_grant() const;
 
-        SeedParseOutput const& parser_output() const { return *m_parse_output; }
+        std::optional<std::reference_wrapper<const SeedParseOutput>> parser_output() const {
+            if (m_parse_output == nullptr) {
+                return std::nullopt;
+            }
+
+            return *m_parse_output;
+        }
 
         /**
          * Triggers a client event
@@ -158,6 +164,7 @@ namespace randomizer::seed {
         bool m_force_grant_outside_game = false;
         unsigned int m_command_stack_size = 0;
         SeedMemory m_memory;
+        SeedStack m_stack;
     };
 
 

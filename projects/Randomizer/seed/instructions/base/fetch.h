@@ -11,11 +11,11 @@ TEMPLATE_INSTRUCTION(Fetch, typename T)
     const int member;
     const core::api::uber_states::UberState state;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
         memory.set(0, state.get<T>());
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
         return std::format("Fetch {} [0]:{} = ({}|{}):{}", TypeStr<T>::VALUE, memory.get<T>(0), group, member, state.get<T>());
     }
 };

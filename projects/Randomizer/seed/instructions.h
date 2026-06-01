@@ -1,9 +1,10 @@
 #pragma once
 
-#include <Core/utils/json_serializers.h>
 #include <Core/save_meta/save_meta.h>
+#include <Core/utils/json_serializers.h>
 #include <memory>
 #include <nlohmann/adl_serializer.hpp>
+#include <stack>
 #include <string>
 #include <vector>
 
@@ -13,6 +14,7 @@
 namespace randomizer::seed {
     class Seed;
     struct SeedMemory;
+    struct SeedStack;
     struct SeedExecutionEnvironment;
 
     class InstructionError final : public std::runtime_error {
@@ -23,8 +25,8 @@ namespace randomizer::seed {
 
     struct IInstruction {
         virtual ~IInstruction() = default;
-        virtual void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const = 0;
-        virtual std::string to_string(const Seed& seed, const SeedMemory& memory) const = 0;
+        virtual void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const = 0;
+        virtual std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const = 0;
         virtual std::string_view get_name() const = 0;
     };
 
@@ -102,6 +104,70 @@ namespace randomizer::seed {
     template<>
     inline void SeedMemory::set(const std::size_t index, const std::string& value) {
         strings.set(index, value);
+    }
+
+    struct SeedStack {
+        struct Frame {
+            std::vector<bool> booleans;
+            std::vector<int> integers;
+            std::vector<float> floats;
+            std::vector<std::string> strings;
+
+            template<typename T>
+            T get(std::size_t index) const;
+
+            template<typename T>
+            void push(const T& value);
+        };
+
+        void clear();
+        void push_frame();
+        void pop_frame();
+        Frame& get_current_frame();
+        const Frame& get_current_frame() const;
+
+    private:
+        std::stack<Frame> m_frames;
+    };
+
+    template<>
+    inline bool SeedStack::Frame::get(const std::size_t index) const {
+        return booleans[index];
+    }
+
+    template<>
+    inline int SeedStack::Frame::get(const std::size_t index) const {
+        return integers[index];
+    }
+
+    template<>
+    inline float SeedStack::Frame::get(const std::size_t index) const {
+        return floats[index];
+    }
+
+    template<>
+    inline std::string SeedStack::Frame::get(const std::size_t index) const {
+        return strings[index];
+    }
+
+    template<>
+    inline void SeedStack::Frame::push(const bool& value) {
+        booleans.push_back(value);
+    }
+
+    template<>
+    inline void SeedStack::Frame::push(const int& value) {
+        integers.push_back(value);
+    }
+
+    template<>
+    inline void SeedStack::Frame::push(const float& value) {
+        floats.push_back(value);
+    }
+
+    template<>
+    inline void SeedStack::Frame::push(const std::string& value) {
+        strings.push_back(value);
     }
 
     struct SeedTimer {

@@ -8,12 +8,12 @@ INSTRUCTION(MessageTimeout)
 
     std::size_t id;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
         environment.set_queued_message_box_timeout(id, memory.floats.get(0));
         environment.set_free_message_box_timeout(id, memory.floats.get(0));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
         return std::format("MessageTimeout {} -> {:.3}", id, memory.floats.get(0));
     }
 

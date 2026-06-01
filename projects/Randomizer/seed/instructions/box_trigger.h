@@ -8,7 +8,7 @@ INSTRUCTION(BoxTrigger)
 
     std::size_t id;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
         const auto x_1 = memory.floats.get(0);
         const auto y_1 = memory.floats.get(1);
         const auto x_2 = memory.floats.get(2);
@@ -22,7 +22,7 @@ INSTRUCTION(BoxTrigger)
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
         const auto x_1 = memory.floats.get(0);
         const auto y_1 = memory.floats.get(1);
         const auto x_2 = memory.floats.get(2);
