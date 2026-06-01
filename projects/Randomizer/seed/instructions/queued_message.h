@@ -10,7 +10,7 @@ INSTRUCTION(QueuedMessage)
     std::optional<std::size_t> id;
     bool prioritized;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
         const auto text = memory.strings.get(0);
 
         const auto queued_message = message_queue().enqueue(
@@ -31,7 +31,7 @@ INSTRUCTION(QueuedMessage)
         }
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
         return std::format(
             "QueuedMessage{} ->{} '{}' with timeout {}",
             prioritized ? " (Prioritized)" : "",

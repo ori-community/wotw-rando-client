@@ -3,11 +3,11 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(BooleanToString)
-    void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
         memory.set<std::string>(0, memory.get<bool>(0) ? "true" : "false");
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
         return std::format("BooleanToString -> {}", memory.get<bool>(0));
     }
 

@@ -3,11 +3,11 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(Concatenate)
-    void execute(Seed& seed, SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
         memory.strings.set(0, memory.strings.get(0) + memory.strings.get(1));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
         return std::format("Concatenate -> '{}' '{}'", memory.strings.get(0), memory.strings.get(1));
     }
 

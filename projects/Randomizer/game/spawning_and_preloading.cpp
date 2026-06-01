@@ -420,7 +420,10 @@ namespace randomizer::game {
                 core::api::scenes::force_load_scene(scene_name, nullptr, true, false);
             }
 
-            teleportation::teleport_instantly(math::to_vec3(game_seed().parser_output().meta.spawn));
+            teleportation::teleport_instantly(math::to_vec3(game_seed().parser_output().transform([](auto output) {
+                return output.get().meta.spawn;
+            }).value_or(seed::SeedMetaData().spawn)));
+
             core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.Enabled = false;
             on_new_game_late_initialization_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, on_new_game_late_initialization);
 
