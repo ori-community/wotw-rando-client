@@ -6,6 +6,7 @@
 #include <Core/api/game/game.h>
 #include <Core/input/simulator.h>
 #include <Core/utils/json_serializers.h>
+#include <Core/api/system/message_provider.h>
 #include <Modloader/app/methods/PlayerInput.h>
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/methods/UnityEngine/Input.h>
@@ -24,8 +25,6 @@
 #include <magic_enum/magic_enum.hpp>
 #include <unordered_map>
 #include <unordered_set>
-
-#include "Core/api/system/message_provider.h"
 
 using namespace modloader;
 using namespace app::classes;
@@ -195,8 +194,14 @@ namespace randomizer::input {
                     if (!pressed) {
                         for (auto const& input : info.kbm_bindings) {
                             if (is_kbm_pressed(input)) {
-                                for (const auto& code: input.codes) {
-                                    ignored_key_codes.insert(code);
+                                if (
+                                    // Don't eat inputs for actions that are meant to be used while using other actions
+                                    action != Action::QuickBuy &&
+                                    action != Action::OpenRandomizerWheel
+                                ) {
+                                    for (const auto& code: input.codes) {
+                                        ignored_key_codes.insert(code);
+                                    }
                                 }
 
                                 pressed = true;
