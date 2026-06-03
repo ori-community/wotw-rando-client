@@ -84,10 +84,6 @@
 #include <Randomizer/seed/instructions/set_wheel_item_icon.h>
 #include <Randomizer/seed/instructions/set_wheel_item_name.h>
 #include <Randomizer/seed/instructions/set_wheel_pinned.h>
-#include <Randomizer/seed/instructions/stack_copy_boolean.h>
-#include <Randomizer/seed/instructions/stack_copy_float.h>
-#include <Randomizer/seed/instructions/stack_copy_integer.h>
-#include <Randomizer/seed/instructions/stack_copy_string.h>
 #include <Randomizer/seed/instructions/stack_pop.h>
 #include <Randomizer/seed/instructions/stack_push.h>
 #include <Randomizer/seed/instructions/stack_push_boolean.h>
@@ -230,10 +226,6 @@ namespace randomizer::seed {
             register_instruction<SetWheelItemIcon>(factories);
             register_instruction<SetWheelItemName>(factories);
             register_instruction<SetWheelPinned>(factories);
-            register_instruction<StackCopyBoolean>(factories);
-            register_instruction<StackCopyFloat>(factories);
-            register_instruction<StackCopyInteger>(factories);
-            register_instruction<StackCopyString>(factories);
             register_instruction<StackPop>(factories);
             register_instruction<StackPush>(factories);
             register_instruction<StackPushBoolean>(factories);
@@ -255,7 +247,7 @@ namespace randomizer::seed {
     } // namespace
 
     template<typename T>
-    void serialize_register(core::utils::ByteStream& stream, const SeedMemory::MemoryRegister<T>& memory_register) {
+    void serialize_register(core::utils::ByteStream& stream, const HeapMemory::MemoryRegister<T>& memory_register) {
         stream.write(memory_register.values.size());
         for (const auto& value: memory_register.values) {
             stream.write(value);
@@ -263,7 +255,7 @@ namespace randomizer::seed {
     }
 
     template<>
-    void serialize_register(core::utils::ByteStream& stream, const SeedMemory::MemoryRegister<std::string>& memory_register) {
+    void serialize_register(core::utils::ByteStream& stream, const HeapMemory::MemoryRegister<std::string>& memory_register) {
         stream.write(memory_register.values.size());
         for (const auto& value: memory_register.values) {
             stream.write<std::size_t>(value.size());
@@ -272,7 +264,7 @@ namespace randomizer::seed {
     }
 
     template<typename T>
-    void deserialize_register(core::utils::ByteStream& stream, SeedMemory::MemoryRegister<T>& memory_register) {
+    void deserialize_register(core::utils::ByteStream& stream, HeapMemory::MemoryRegister<T>& memory_register) {
         const auto length = stream.read<std::size_t>();
 
         memory_register.values.resize(length);
@@ -282,7 +274,7 @@ namespace randomizer::seed {
     }
 
     template<>
-    void deserialize_register(core::utils::ByteStream& stream, SeedMemory::MemoryRegister<std::string>& memory_register) {
+    void deserialize_register(core::utils::ByteStream& stream, HeapMemory::MemoryRegister<std::string>& memory_register) {
         const auto length = stream.read<std::size_t>();
 
         memory_register.values.resize(length);
@@ -606,30 +598,30 @@ namespace randomizer::seed {
         }
     }
 
-    void SeedMemory::clear() const {
+    void HeapMemory::clear() const {
         booleans.values.clear();
         integers.values.clear();
         floats.values.clear();
         strings.values.clear();
     }
 
-    void SeedStack::clear() {
+    void StackMemory::clear() {
         m_frames = std::stack<Frame>();
     }
 
-    void SeedStack::push_frame() {
+    void StackMemory::push_frame() {
         m_frames.push({});
     }
 
-    void SeedStack::pop_frame() {
+    void StackMemory::pop_frame() {
         m_frames.pop();
     }
 
-    const SeedStack::Frame& SeedStack::get_current_frame() const {
+    const StackMemory::Frame& StackMemory::get_current_frame() const {
         return m_frames.top();
     }
 
-    SeedStack::Frame& SeedStack::get_current_frame() {
+    StackMemory::Frame& StackMemory::get_current_frame() {
         return m_frames.top();
     }
 

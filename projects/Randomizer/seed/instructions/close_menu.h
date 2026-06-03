@@ -7,13 +7,13 @@
 INSTRUCTION(CloseMenu)
     explicit CloseMenu() = default;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, HeapMemory& memory, StackMemory& stack, SeedExecutionEnvironment& environment) const override {
         using namespace app::classes;
         const auto menu_screen_manager = types::UI::get_class()->static_fields->m_sMenu;
         MenuScreenManager::HideMenuScreen(menu_screen_manager, false, true);
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const HeapMemory& memory, const StackMemory& stack) const override {
         return "CloseMenu";
     }
 

@@ -13,8 +13,8 @@
 
 namespace randomizer::seed {
     class Seed;
-    struct SeedMemory;
-    struct SeedStack;
+    struct HeapMemory;
+    struct StackMemory;
     struct SeedExecutionEnvironment;
 
     class InstructionError final : public std::runtime_error {
@@ -25,12 +25,45 @@ namespace randomizer::seed {
 
     struct IInstruction {
         virtual ~IInstruction() = default;
-        virtual void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const = 0;
-        virtual std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const = 0;
+        virtual void execute(Seed& seed, HeapMemory& memory, StackMemory& stack, SeedExecutionEnvironment& environment) const = 0;
+        virtual std::string to_string(const Seed& seed, const HeapMemory& memory, const StackMemory& stack) const = 0;
         virtual std::string_view get_name() const = 0;
     };
 
-    struct SeedMemory {
+    // TODO
+    struct VirtualMemory {
+        struct Stack {
+            struct Frame {
+                std::vector<bool> booleans;
+                std::vector<int> integers;
+                std::vector<float> floats;
+                std::vector<std::string> strings;
+
+                template<typename T>
+                T get(std::size_t index) const;
+
+                template<typename T>
+                void push(const T& value);
+            };
+
+            void clear();
+            void push_frame();
+            void pop_frame();
+            Frame& get_current_frame();
+            const Frame& get_current_frame() const;
+
+        private:
+            std::stack<Frame> m_frames;
+        };
+
+        struct Heap {
+
+        };
+
+        Stack stack;
+    };
+
+    struct HeapMemory {
         template<typename T>
         struct MemoryRegister {
             void check_size(const std::size_t index) const {
@@ -67,46 +100,46 @@ namespace randomizer::seed {
     };
 
     template<>
-    inline bool SeedMemory::get(const std::size_t index) const {
+    inline bool HeapMemory::get(const std::size_t index) const {
         return booleans.get(index);
     }
 
     template<>
-    inline int SeedMemory::get(const std::size_t index) const {
+    inline int HeapMemory::get(const std::size_t index) const {
         return integers.get(index);
     }
 
     template<>
-    inline float SeedMemory::get(const std::size_t index) const {
+    inline float HeapMemory::get(const std::size_t index) const {
         return floats.get(index);
     }
 
     template<>
-    inline std::string SeedMemory::get(const std::size_t index) const {
+    inline std::string HeapMemory::get(const std::size_t index) const {
         return strings.get(index);
     }
 
     template<>
-    inline void SeedMemory::set(const std::size_t index, const bool& value) {
+    inline void HeapMemory::set(const std::size_t index, const bool& value) {
         booleans.set(index, value);
     }
 
     template<>
-    inline void SeedMemory::set(const std::size_t index, const int& value) {
+    inline void HeapMemory::set(const std::size_t index, const int& value) {
         integers.set(index, value);
     }
 
     template<>
-    inline void SeedMemory::set(const std::size_t index, const float& value) {
+    inline void HeapMemory::set(const std::size_t index, const float& value) {
         floats.set(index, value);
     }
 
     template<>
-    inline void SeedMemory::set(const std::size_t index, const std::string& value) {
+    inline void HeapMemory::set(const std::size_t index, const std::string& value) {
         strings.set(index, value);
     }
 
-    struct SeedStack {
+    struct StackMemory {
         struct Frame {
             std::vector<bool> booleans;
             std::vector<int> integers;
@@ -131,42 +164,42 @@ namespace randomizer::seed {
     };
 
     template<>
-    inline bool SeedStack::Frame::get(const std::size_t index) const {
+    inline bool StackMemory::Frame::get(const std::size_t index) const {
         return booleans[index];
     }
 
     template<>
-    inline int SeedStack::Frame::get(const std::size_t index) const {
+    inline int StackMemory::Frame::get(const std::size_t index) const {
         return integers[index];
     }
 
     template<>
-    inline float SeedStack::Frame::get(const std::size_t index) const {
+    inline float StackMemory::Frame::get(const std::size_t index) const {
         return floats[index];
     }
 
     template<>
-    inline std::string SeedStack::Frame::get(const std::size_t index) const {
+    inline std::string StackMemory::Frame::get(const std::size_t index) const {
         return strings[index];
     }
 
     template<>
-    inline void SeedStack::Frame::push(const bool& value) {
+    inline void StackMemory::Frame::push(const bool& value) {
         booleans.push_back(value);
     }
 
     template<>
-    inline void SeedStack::Frame::push(const int& value) {
+    inline void StackMemory::Frame::push(const int& value) {
         integers.push_back(value);
     }
 
     template<>
-    inline void SeedStack::Frame::push(const float& value) {
+    inline void StackMemory::Frame::push(const float& value) {
         floats.push_back(value);
     }
 
     template<>
-    inline void SeedStack::Frame::push(const std::string& value) {
+    inline void StackMemory::Frame::push(const std::string& value) {
         strings.push_back(value);
     }
 

@@ -61,6 +61,26 @@ namespace randomizer::seed {
         GreaterOrEqual,
     };
 
+    struct MemoryAddress {
+        enum class Type {
+            Stack,
+            Heap,
+        };
+
+        Type type;
+        std::size_t address;
+
+        template<typename T>
+        T get(const HeapMemory& heap, const StackMemory& stack) const {
+            switch (type) {
+                case Type::Stack:
+                    return stack.get_current_frame().get<T>(address);
+                case Type::Heap:
+                    return heap.get<T>(address);
+            }
+        }
+    };
+
     NLOHMANN_JSON_SERIALIZE_ENUM(
         Comparator,
         {

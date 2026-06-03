@@ -4,7 +4,7 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(IsInBox)
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, HeapMemory& memory, StackMemory& stack, SeedExecutionEnvironment& environment) const override {
         const app::Rect box{
             memory.floats.get(0),
             memory.floats.get(1),
@@ -15,7 +15,7 @@ INSTRUCTION(IsInBox)
         memory.booleans.set(0, modloader::math::in_rect(core::api::game::player::get_position(), box));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const HeapMemory& memory, const StackMemory& stack) const override {
         return std::format("IsInBox -> {}, {}, {}, {}", memory.floats.get(0), memory.floats.get(1), memory.floats.get(2), memory.floats.get(3));
     }
 

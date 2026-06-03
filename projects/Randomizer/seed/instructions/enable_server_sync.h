@@ -10,12 +10,12 @@ INSTRUCTION(EnableServerSync)
     int group;
     int member;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, HeapMemory& memory, StackMemory& stack, SeedExecutionEnvironment& environment) const override {
         const core::api::uber_states::UberState state(group, member);
         multiplayer_universe().uber_state_handler().set_unsyncable(state, false);
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const HeapMemory& memory, const StackMemory& stack) const override {
         return std::format("EnableServerSync -> {}|{}", group, member);
     }
 

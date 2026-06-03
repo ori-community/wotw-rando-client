@@ -8,7 +8,7 @@ INSTRUCTION(MessageBackground)
 
     std::size_t id;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, HeapMemory& memory, StackMemory& stack, SeedExecutionEnvironment& environment) const override {
         environment.modify_queued_message_box(id, [&](randomizer::messages::QueuedMessage& queued_message) {
             queued_message.properties().background_enabled.set(memory.booleans.get(0));
         });
@@ -17,7 +17,7 @@ INSTRUCTION(MessageBackground)
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const HeapMemory& memory, const StackMemory& stack) const override {
         return std::format("MessageBackground {} -> {}", id, memory.booleans.get(0));
     }
 

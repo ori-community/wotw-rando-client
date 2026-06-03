@@ -10,7 +10,7 @@ INSTRUCTION(Warp)
 
     bool instant;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, HeapMemory& memory, StackMemory& stack, SeedExecutionEnvironment& environment) const override {
         if (instant) {
             game::teleportation::teleport_instantly({
                 memory.floats.get(0),
@@ -25,7 +25,7 @@ INSTRUCTION(Warp)
         }
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const HeapMemory& memory, const StackMemory& stack) const override {
         return std::format("Warp -> {}, {}", memory.floats.get(0), memory.floats.get(1));
     }
 

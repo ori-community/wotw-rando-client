@@ -10,7 +10,7 @@ INSTRUCTION(SetShopItemHidden)
     int group;
     int member;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, HeapMemory& memory, StackMemory& stack, SeedExecutionEnvironment& environment) const override {
         const core::api::uber_states::UberState state(group, member);
         const auto slot = game::shops::shop_slot_from_state(state);
 
@@ -28,7 +28,7 @@ INSTRUCTION(SetShopItemHidden)
         modloader::error("instructions", std::format("[SetShopItemHidden] Incompatible shop slot for state {}", state));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const HeapMemory& memory, const StackMemory& stack) const override {
         return std::format("SetShopItemHidden -> {}|{} = {}", group, member, memory.booleans.get(0) ? "true" : "false");
     }
 

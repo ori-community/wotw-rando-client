@@ -8,14 +8,14 @@ INSTRUCTION(FreeMessageHide)
 
     std::size_t id;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, HeapMemory& memory, StackMemory& stack, SeedExecutionEnvironment& environment) const override {
         environment.modify_free_message_box(id, [&](auto& free_message_box) {
             free_message_box.message_box->hide(!memory.booleans.get(0));
             free_message_box.visible = false;
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const HeapMemory& memory, const StackMemory& stack) const override {
         return std::format("FreeMessageHide {} (instant = {})", id, !memory.booleans.get(0));
     }
 

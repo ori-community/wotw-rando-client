@@ -20,14 +20,14 @@ INSTRUCTION(SetWheelItemCommand)
     features::wheel::WheelBind bind;
     std::size_t command;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, HeapMemory& memory, StackMemory& stack, SeedExecutionEnvironment& environment) const override {
         const auto command_copy = command;
         set_wheel_item_callback(wheel, position, bind, [=](auto, auto, auto) {
             game_seed().execute_command(command_copy);
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const HeapMemory& memory, const StackMemory& stack) const override {
         return std::format(
             "SetWheelItemCommand -> Wheel {}, Position {}, Bind {}, Command {}",
             wheel,

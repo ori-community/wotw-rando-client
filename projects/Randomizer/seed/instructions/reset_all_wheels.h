@@ -3,12 +3,12 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(ResetAllWheels)
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, HeapMemory& memory, StackMemory& stack, SeedExecutionEnvironment& environment) const override {
         features::wheel::clear_wheels();
         features::wheel::initialize_default_wheel();
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const HeapMemory& memory, const StackMemory& stack) const override {
         return "ResetAllWheels";
     }
 

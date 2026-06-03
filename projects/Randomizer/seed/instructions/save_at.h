@@ -3,7 +3,7 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(SaveAt)
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, HeapMemory& memory, StackMemory& stack, SeedExecutionEnvironment& environment) const override {
         core::api::game::save(false, core::api::game::SaveOptions {
             .to_disk = memory.booleans.get(0),
             .override_position = std::make_optional<app::Vector2>(
@@ -13,7 +13,7 @@ INSTRUCTION(SaveAt)
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const HeapMemory& memory, const StackMemory& stack) const override {
         return memory.booleans.get(0)
             ? std::format("SaveAt (Temporary) -> {}, {}", memory.floats.get(0), memory.floats.get(1))
             : std::format("SaveAt -> {}, {}", memory.floats.get(0), memory.floats.get(1));
