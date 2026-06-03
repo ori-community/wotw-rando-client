@@ -77,7 +77,7 @@ namespace custom_cutscene_skips {
             // Handle custom cutscene skips
             for (const auto& custom_skip : custom_skips) {
                 if (custom_skip.is_available()) {
-                    modloader::win::console::console_send("Running custom cutscene skip");
+                    modloader::debug("custom_cutscene_skips", "Running custom cutscene skip");
                     custom_skip.invoke(CustomCutsceneSkip::InvokeParameters {
                         .is_automatic_skip = is_executing_automatic_cutscene_skip,
                     });

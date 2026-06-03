@@ -30,34 +30,8 @@ using namespace app::classes::Moon;
 
 namespace randomizer::conditions {
     namespace {
-        std::unordered_map<int32_t, std::unordered_set<std::string>> debug_show;
         std::unordered_map<applier_key, applier_intercept_fn, pair_hash> applier_intercepts;
         std::unordered_map<applier_key, int32_t, pair_hash> dynamic_applier_redirects;
-
-        auto display_new_setup_debug = 1;
-
-        void register_debug_show(applier_key key) {
-            if (!key.first.empty()) {
-                debug_show[key.second].emplace(key.first);
-            }
-        }
-
-        void display_debug_show(applier_key key) {
-            if (display_new_setup_debug == 0) {
-                return;
-            }
-
-            auto it = debug_show.find(key.second);
-            if (it == debug_show.end()) {
-                return;
-            }
-
-            if (!it->second.contains(key.first)) {
-                console::console_send(std::format("{} -> {}", key.second, key.first));
-            } else if (display_new_setup_debug == 2) {
-                console::console_send(std::format("triggered {}:{}", key.second, key.first));
-            }
-        }
 
         // Override this to check trees instead of abilities.
         int32_t handle_player_state_map(app::PlayerStateMap* map, void* state) {
@@ -92,7 +66,7 @@ namespace randomizer::conditions {
 
             auto path = il2cpp::unity::get_path(this_ptr);
             auto key = std::make_pair(path, mapping_result);
-            display_debug_show(key);
+
             {
                 const auto it = applier_intercepts.find(key);
                 if (it != applier_intercepts.end()) {
@@ -178,6 +152,7 @@ namespace randomizer::conditions {
             }
         }
 
+        [[maybe_unused]]
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             console::register_command({"debug", "intercept_state"}, intercept_state);
             console::register_command({"debug", "show_state"}, show_state);
@@ -194,7 +169,6 @@ namespace randomizer::conditions {
         }
 
         applier_intercepts[key] = callback;
-        register_debug_show(key);
     }
 
     void register_new_setup_intercept(std::vector<applier_key> const& states, const applier_intercept_fn& callback) {
@@ -215,14 +189,12 @@ namespace randomizer::conditions {
     void register_new_setup_redirect(applier_key key, int32_t new_state, bool dynamic) {
         if (dynamic) {
             dynamic_applier_redirects[key] = new_state;
-            register_debug_show(key);
         } else {
             if (applier_intercepts.contains(key)) {
-                info("init", "registering same applier state twice, overwriting.");
+                warn("new_setup_state_override", "registering same applier state twice, overwriting.");
             }
 
             applier_intercepts[key] = [new_state](auto, auto, auto) -> int32_t { return new_state; };
-            register_debug_show(key);
         }
     }
 

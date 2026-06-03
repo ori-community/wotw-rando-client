@@ -454,7 +454,7 @@ namespace randomizer::game {
                     randomizer::game::update_difficulty_text_boxes();
                 });
 
-                modloader::win::console::console_send(std::format("Blocking new game: {}", randomizer::multiplayer_universe().should_block_starting_new_game() ? "True" : "False"));
+                debug("spawning_and_preloading", std::format("Blocking new game: {}", randomizer::multiplayer_universe().should_block_starting_new_game() ? "True" : "False"));
 
                 if (!randomizer::multiplayer_universe().should_block_starting_new_game() && randomizer::game::is_in_lobby) {
                     core::events::schedule_task_for_next_update([]() {
