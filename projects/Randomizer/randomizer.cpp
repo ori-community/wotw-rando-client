@@ -7,6 +7,7 @@
 #include <Core/input/input_lock.h>
 #include <Core/settings.h>
 #include <Modloader/app/methods/GameController.h>
+#include <Modloader/app/methods/SaveSlotsManager.h>
 #include <Modloader/modloader.h>
 #include <Modloader/fs.h>
 #include <Randomizer/features/wheel.h>
@@ -100,6 +101,7 @@ namespace randomizer {
 
         [[maybe_unused]]
         auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+            modloader::info("save_file", std::format("Initialized save file in slot {}", SaveSlotsManager::get_CurrentSlotIndex()));
             pause_timer = false;
 
             map::filter::current_map_filter().set(map::filter::MapFilter::InLogic);
@@ -126,6 +128,7 @@ namespace randomizer {
             GameEvent::FinishedLoadingSave,
             EventTiming::After,
             [](auto, auto) {
+                modloader::info("save_file", std::format("Loaded save file in slot {}", SaveSlotsManager::get_CurrentSlotIndex()));
                 check_seed_difficulty_enforcement();
             }
         );
