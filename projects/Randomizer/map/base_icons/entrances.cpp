@@ -18,7 +18,7 @@ namespace {
             utils::create_entrance_icon(utils::EntranceIconSize::Small, {-229.8, -4090.8}, 7),
             utils::create_entrance_icon(utils::EntranceIconSize::Small, {-387.7, -4156.6}, 9),
             utils::create_entrance_icon(utils::EntranceIconSize::Small, {-205.5, -4129.3}, 11),
-            utils::create_entrance_icon(utils::EntranceIconSize::Small, {-365.7, -4181.4}, 13),
+            utils::create_entrance_icon(utils::EntranceIconSize::Small, {-367.7, -4181.4}, 13),
             utils::create_entrance_icon(utils::EntranceIconSize::Normal, {-856.3, -4052.6}, 15),
             utils::create_entrance_icon(utils::EntranceIconSize::Normal, {-1292.4, -3949.0}, 16),
             utils::create_entrance_icon(utils::EntranceIconSize::Normal, {-891.1, -3987.2}, 17),
