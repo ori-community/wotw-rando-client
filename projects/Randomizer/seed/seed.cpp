@@ -96,10 +96,10 @@ namespace randomizer::seed {
             return;
         }
 
-        show_tags_message();
+        show_tags_message("Reloaded seed.");
     }
 
-    void Seed::show_tags_message() const {
+    void Seed::show_tags_message(const std::string& prepend) const {
         if (m_parse_output == nullptr) {
             message_queue().enqueue({
                 .text = core::Property<std::string>("No seed loaded"),
@@ -112,7 +112,7 @@ namespace randomizer::seed {
 
         for (auto const& flag: m_parse_output->meta.tags) {
             if (tags_string.empty()) {
-                tags_string += "\nTags: ";
+                tags_string += "Tags: ";
             } else {
                 tags_string += ", ";
             }
@@ -126,8 +126,18 @@ namespace randomizer::seed {
             slug_string = std::format("Slug: <hex_9ee2f7ff>{}</>", *m_parse_output->meta.slug);
         }
 
+        std::string message = prepend;
+        if (!message.empty()) {
+            message += "\n";
+        }
+        message += slug_string;
+        if (!message.empty()) {
+            message += "\n";
+        }
+        message += "<s_0.75>" + tags_string + "</>";
+
         message_queue().enqueue({
-            .text = core::Property<std::string>(slug_string + tags_string),
+            .text = core::Property<std::string>(message),
             .time_left = 5.f,
         }, true);
     }

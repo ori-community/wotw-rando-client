@@ -124,7 +124,7 @@ namespace randomizer::seed {
         Seed();
 
         void read(const std::shared_ptr<SeedArchive>& seed_archive, const seed_parser parser, const bool show_message = true);
-        void show_tags_message() const;
+        void show_tags_message(const std::string& prepend = "") const;
 
         bool should_grant() const;
 
