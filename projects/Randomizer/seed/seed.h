@@ -100,6 +100,7 @@ namespace randomizer::seed {
         std::vector<std::string> tags;
         app::Vector2 spawn = {-798.797058f, -4310.119141f};
         std::optional<std::string> slug;
+        std::optional<std::string> description;
         GameDifficultySettings game_difficulties;
     };
 

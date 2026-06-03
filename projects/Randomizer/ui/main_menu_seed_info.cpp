@@ -156,6 +156,10 @@ namespace randomizer::main_menu_seed_info {
                     description += std::format("Slug: <hex_9ee2f7ff>{}</>\n", *meta.slug);
                 }
 
+                if (meta.description.has_value()) {
+                    description += std::format("{}\n", *meta.description);
+                }
+
                 if (!meta.tags.empty()) {
                     description += "Tags:";
                     for (auto flag: meta.tags) {

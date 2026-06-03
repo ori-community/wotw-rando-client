@@ -35,6 +35,10 @@ namespace randomizer::seed {
             if (preload.contains("slug")) {
                 preload.at("slug").get_to(data.slug);
             }
+
+            if (preload.contains("description")) {
+                preload.at("description").get_to(data.description);
+            }
         } catch (const std::exception& e) {
             return ParserError::InvalidSeed;
         }
