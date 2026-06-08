@@ -149,14 +149,18 @@ namespace randomizer::seed {
         }
 
         if (m_command_stack_size > MAX_COMMAND_STACK_SIZE) {
-            modloader::error(
-                "instructions",
-                std::format(
-                    "Exceeded maximum command stack size of {} while trying\nto execute command ID {}. Use profiler to debug.",
-                    MAX_COMMAND_STACK_SIZE,
-                    id
-                ).c_str()
+            const auto error_message = std::format(
+                "Exceeded maximum command stack size of {} while trying\nto execute command ID {}. Use profiler to debug.",
+                MAX_COMMAND_STACK_SIZE,
+                id
             );
+
+            message_queue().enqueue({
+                .text = core::Property<std::string>(error_message),
+                .time_left = 5.f,
+            }, true);
+
+            modloader::error("instructions", error_message);
             return;
         }
 
