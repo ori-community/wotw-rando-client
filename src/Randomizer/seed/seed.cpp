@@ -17,7 +17,6 @@ namespace randomizer::seed {
     void Seed::read(const std::shared_ptr<SeedArchive>& seed_archive, const seed_parser parser, const bool show_message) {
         m_seed_archive = seed_archive;
         m_memory.clear();
-        m_stack.clear();
 
         event_bus().trigger_event(RandomizerEvent::SeedLoaded, EventTiming::Before);
         m_environment->reset_volatile();
@@ -52,7 +51,7 @@ namespace randomizer::seed {
                             });
 
                         condition.reactive_effect = builder.after([&] {
-                            const auto new_value = m_memory.booleans.get(0);
+                            const auto new_value = m_memory.heap.get<bool>(0);
                             const auto condition_changed = condition.previous_value != new_value;
 
                             if (condition_changed) {
@@ -176,7 +175,7 @@ namespace randomizer::seed {
                 ZoneText(command_text.c_str(), command_text.size());
 #endif
 
-                command->execute(*this, m_memory, m_stack, *m_environment);
+                command->execute(*this, m_memory, *m_environment);
             } catch (InstructionError& e) {
                 modloader::error(
                     "instructions", std::format("Stopped instruction execution due to error in instruction {}: {}", command->get_name(), e.what())

@@ -9,9 +9,9 @@ TEMPLATE_INSTRUCTION(Copy, typename T)
     std::size_t from;
     std::size_t to;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override { memory.set(to, memory.get<T>(from)); }
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override { memory.heap.set(to, memory.heap.get<T>(from)); }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
-        return std::format("Copy {} [{}]:{} = [{}]:{}", TypeStr<T>::VALUE, to, memory.get<T>(to), from, memory.get<T>(from));
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+        return std::format("Copy {} [{}]:{} = [{}]:{}", TypeStr<T>::VALUE, to, memory.heap.get<T>(to), from, memory.heap.get<T>(from));
     }
 };

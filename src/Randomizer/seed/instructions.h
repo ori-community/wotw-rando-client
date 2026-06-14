@@ -7,14 +7,12 @@
 #include <stack>
 #include <string>
 #include <vector>
-
-#include "../messages/message_queue.h"
-#include "Randomizer/map/map_icons.h"
+#include <Randomizer/messages/message_queue.h>
+#include <Randomizer/map/map_icons.h>
+#include <Randomizer/seed/memory.h>
 
 namespace randomizer::seed {
     class Seed;
-    struct SeedMemory;
-    struct SeedStack;
     struct SeedExecutionEnvironment;
 
     class InstructionError final : public std::runtime_error {
@@ -25,150 +23,10 @@ namespace randomizer::seed {
 
     struct IInstruction {
         virtual ~IInstruction() = default;
-        virtual void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const = 0;
-        virtual std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const = 0;
+        virtual void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const = 0;
+        virtual std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const = 0;
         virtual std::string_view get_name() const = 0;
     };
-
-    struct SeedMemory {
-        template<typename T>
-        struct MemoryRegister {
-            void check_size(const std::size_t index) const {
-                if (values.size() <= index) {
-                    values.resize(index + 1);
-                }
-            }
-
-            T get(const std::size_t index) const {
-                check_size(index);
-                return values[index];
-            }
-
-            void set(const std::size_t index, const T& value) {
-                check_size(index);
-                values[index] = value;
-            }
-
-            mutable std::vector<T> values;
-        };
-
-        MemoryRegister<bool> booleans;
-        MemoryRegister<int> integers;
-        MemoryRegister<float> floats;
-        MemoryRegister<std::string> strings;
-
-        template<typename T>
-        T get(std::size_t index) const;
-
-        template<typename T>
-        void set(std::size_t index, const T& value);
-
-        void clear() const;
-    };
-
-    template<>
-    inline bool SeedMemory::get(const std::size_t index) const {
-        return booleans.get(index);
-    }
-
-    template<>
-    inline int SeedMemory::get(const std::size_t index) const {
-        return integers.get(index);
-    }
-
-    template<>
-    inline float SeedMemory::get(const std::size_t index) const {
-        return floats.get(index);
-    }
-
-    template<>
-    inline std::string SeedMemory::get(const std::size_t index) const {
-        return strings.get(index);
-    }
-
-    template<>
-    inline void SeedMemory::set(const std::size_t index, const bool& value) {
-        booleans.set(index, value);
-    }
-
-    template<>
-    inline void SeedMemory::set(const std::size_t index, const int& value) {
-        integers.set(index, value);
-    }
-
-    template<>
-    inline void SeedMemory::set(const std::size_t index, const float& value) {
-        floats.set(index, value);
-    }
-
-    template<>
-    inline void SeedMemory::set(const std::size_t index, const std::string& value) {
-        strings.set(index, value);
-    }
-
-    struct SeedStack {
-        struct Frame {
-            std::vector<bool> booleans;
-            std::vector<int> integers;
-            std::vector<float> floats;
-            std::vector<std::string> strings;
-
-            template<typename T>
-            T get(std::size_t index) const;
-
-            template<typename T>
-            void push(const T& value);
-        };
-
-        void clear();
-        void push_frame();
-        void pop_frame();
-        Frame& get_current_frame();
-        const Frame& get_current_frame() const;
-
-    private:
-        std::stack<Frame> m_frames;
-    };
-
-    template<>
-    inline bool SeedStack::Frame::get(const std::size_t index) const {
-        return booleans[index];
-    }
-
-    template<>
-    inline int SeedStack::Frame::get(const std::size_t index) const {
-        return integers[index];
-    }
-
-    template<>
-    inline float SeedStack::Frame::get(const std::size_t index) const {
-        return floats[index];
-    }
-
-    template<>
-    inline std::string SeedStack::Frame::get(const std::size_t index) const {
-        return strings[index];
-    }
-
-    template<>
-    inline void SeedStack::Frame::push(const bool& value) {
-        booleans.push_back(value);
-    }
-
-    template<>
-    inline void SeedStack::Frame::push(const int& value) {
-        integers.push_back(value);
-    }
-
-    template<>
-    inline void SeedStack::Frame::push(const float& value) {
-        floats.push_back(value);
-    }
-
-    template<>
-    inline void SeedStack::Frame::push(const std::string& value) {
-        strings.push_back(value);
-    }
 
     struct SeedTimer {
         core::api::uber_states::UberState toggle;

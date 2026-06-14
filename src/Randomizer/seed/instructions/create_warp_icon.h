@@ -25,11 +25,11 @@ INSTRUCTION(CreateWarpIcon)
         return map_icon;
     }
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
-        environment.set_warp_icon(id, create_warp_icon(app::Vector2{memory.floats.get(0), memory.floats.get(1)}));
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+        environment.set_warp_icon(id, create_warp_icon(app::Vector2{memory.heap.get<float>(0), memory.heap.get<float>(1)}));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
         return std::format("CreateWarpIcon -> {}", id);
     }
 

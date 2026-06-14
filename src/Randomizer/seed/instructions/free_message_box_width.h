@@ -8,14 +8,14 @@ INSTRUCTION(FreeMessageBoxWidth)
 
     std::size_t id;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         environment.modify_free_message_box(id, [&](auto& free_message_box) {
-            free_message_box.message_box->box_width().set(memory.floats.get(0));
+            free_message_box.message_box->box_width().set(memory.heap.get<float>(0));
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
-        return std::format("FreeMessageBoxWidth {} -> {:.3}", id, memory.floats.get(0));
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+        return std::format("FreeMessageBoxWidth {} -> {:.3}", id, memory.heap.get<float>(0));
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {

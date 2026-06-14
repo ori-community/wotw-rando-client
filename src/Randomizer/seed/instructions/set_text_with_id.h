@@ -9,12 +9,12 @@ INSTRUCTION(SetTextWithId)
 
     core::TextID id;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
-        core::text::register_text(id, memory.strings.get(0));
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+        core::text::register_text(id, memory.heap.get<std::string>(0));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
-        return std::format("SetTextWithId -> [{}]:'{}' = '{}'", magic_enum::enum_name(id), core::text::get_text(id), memory.strings.get(0));
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+        return std::format("SetTextWithId -> [{}]:'{}' = '{}'", magic_enum::enum_name(id), core::text::get_text(id), memory.heap.get<std::string>(0));
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {

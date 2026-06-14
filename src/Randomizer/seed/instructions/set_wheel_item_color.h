@@ -11,19 +11,19 @@ INSTRUCTION(SetWheelItemColor)
     int wheel;
     features::wheel::WheelItemPosition position;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
-        set_wheel_item_color(wheel, position, memory.integers.get(0), memory.integers.get(1), memory.integers.get(2), memory.integers.get(3));
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+        set_wheel_item_color(wheel, position, memory.heap.get<int>(0), memory.heap.get<int>(1), memory.heap.get<int>(2), memory.heap.get<int>(3));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
         return std::format(
             "SetWheelItemColor -> Wheel {}, Position {} = {},{},{},{}",
             wheel,
             static_cast<int>(position),
-            memory.integers.get(0),
-            memory.integers.get(1),
-            memory.integers.get(2),
-            memory.integers.get(3)
+            memory.heap.get<int>(0),
+            memory.heap.get<int>(1),
+            memory.heap.get<int>(2),
+            memory.heap.get<int>(3)
         );
     }
 

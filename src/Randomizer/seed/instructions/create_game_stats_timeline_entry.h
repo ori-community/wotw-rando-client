@@ -13,11 +13,11 @@ INSTRUCTION(CreateGameStatsTimelineEntry)
     // String because it's a launcher icon
     std::string icon_name;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         timing::get_save_file_game_stats_events().add_timeline_entry(label, icon_name);
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
         return std::format("CreateGameStatsTimelineEntry -> {}, {}", label, icon_name);
     }
 

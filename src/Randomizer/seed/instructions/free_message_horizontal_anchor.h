@@ -10,13 +10,13 @@ INSTRUCTION(FreeMessageHorizontalAnchor)
     std::size_t id;
     app::HorizontalAnchorMode__Enum anchor;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         environment.modify_free_message_box(id, [&](auto& free_message_box) {
             free_message_box.message_box->box_horizontal_anchor().set(anchor);
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
         return std::format("FreeMessageHorizontalAnchor {} -> {}", id, static_cast<int>(anchor));
     }
 

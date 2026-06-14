@@ -10,13 +10,13 @@ INSTRUCTION(QueuedMessage)
     std::optional<std::size_t> id;
     bool prioritized;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
-        const auto text = memory.strings.get(0);
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+        const auto text = memory.heap.get<std::string>(0);
 
         const auto queued_message = message_queue().enqueue(
             {
                 .text = core::Property<std::string>(text),
-                .time_left = memory.floats.get(0),
+                .time_left = memory.heap.get<float>(0),
             },
             prioritized,
             environment.get_queued_message_pickup_position_in_current_scope()
@@ -31,13 +31,13 @@ INSTRUCTION(QueuedMessage)
         }
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
         return std::format(
             "QueuedMessage{} ->{} '{}' with timeout {}",
             prioritized ? " (Prioritized)" : "",
             id.has_value() ? std::format(" id {}", id.value()) : "",
-            memory.strings.get(0),
-            memory.floats.get(0)
+            memory.heap.get<std::string>(0),
+            memory.heap.get<float>(0)
         );
     }
 

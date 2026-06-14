@@ -254,43 +254,6 @@ namespace randomizer::seed {
         })();
     } // namespace
 
-    template<typename T>
-    void serialize_register(core::utils::ByteStream& stream, const SeedMemory::MemoryRegister<T>& memory_register) {
-        stream.write(memory_register.values.size());
-        for (const auto& value: memory_register.values) {
-            stream.write(value);
-        }
-    }
-
-    template<>
-    void serialize_register(core::utils::ByteStream& stream, const SeedMemory::MemoryRegister<std::string>& memory_register) {
-        stream.write(memory_register.values.size());
-        for (const auto& value: memory_register.values) {
-            stream.write<std::size_t>(value.size());
-            stream.write_string(value);
-        }
-    }
-
-    template<typename T>
-    void deserialize_register(core::utils::ByteStream& stream, SeedMemory::MemoryRegister<T>& memory_register) {
-        const auto length = stream.read<std::size_t>();
-
-        memory_register.values.resize(length);
-        for (auto i = 0; i < length; ++i) {
-            memory_register.values[i] = stream.read<T>();
-        }
-    }
-
-    template<>
-    void deserialize_register(core::utils::ByteStream& stream, SeedMemory::MemoryRegister<std::string>& memory_register) {
-        const auto length = stream.read<std::size_t>();
-
-        memory_register.values.resize(length);
-        for (auto i = 0; i < length; ++i) {
-            memory_register.values[i] = stream.read_string(stream.read<std::size_t>());
-        }
-    }
-
     SeedExecutionEnvironment::SeedExecutionEnvironment(Seed& seed) : m_seed(seed) {
         m_event_bus_handles.push_back(core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [this](auto, auto) {
             restore_serialized_data_to_runtime();
@@ -604,33 +567,6 @@ namespace randomizer::seed {
 
             return std::move(it->second(j.begin().value()));
         }
-    }
-
-    void SeedMemory::clear() const {
-        booleans.values.clear();
-        integers.values.clear();
-        floats.values.clear();
-        strings.values.clear();
-    }
-
-    void SeedStack::clear() {
-        m_frames = std::stack<Frame>();
-    }
-
-    void SeedStack::push_frame() {
-        m_frames.push({});
-    }
-
-    void SeedStack::pop_frame() {
-        m_frames.pop();
-    }
-
-    const SeedStack::Frame& SeedStack::get_current_frame() const {
-        return m_frames.top();
-    }
-
-    SeedStack::Frame& SeedStack::get_current_frame() {
-        return m_frames.top();
     }
 
     void to_json(nlohmann::json& j, const SeedTimer& timer) {

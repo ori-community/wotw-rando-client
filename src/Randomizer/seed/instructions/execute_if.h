@@ -8,16 +8,16 @@ INSTRUCTION(ExecuteIf)
 
     int index;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
-        if (!memory.booleans.get(0)) {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+        if (!memory.heap.get<bool>(0)) {
             return;
         }
 
         seed.execute_command(index);
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
-        return std::format("ExecuteIf ({}) {}", memory.booleans.get(0), index);
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+        return std::format("ExecuteIf ({}) {}", memory.heap.get<bool>(0), index);
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {

@@ -4,19 +4,19 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(IsInBox)
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         const app::Rect box{
-            memory.floats.get(0),
-            memory.floats.get(1),
-            memory.floats.get(2) - memory.floats.get(0),
-            memory.floats.get(3) - memory.floats.get(1),
+            memory.heap.get<float>(0),
+            memory.heap.get<float>(1),
+            memory.heap.get<float>(2) - memory.heap.get<float>(0),
+            memory.heap.get<float>(3) - memory.heap.get<float>(1),
         };
 
-        memory.booleans.set(0, modloader::math::in_rect(core::api::game::player::get_position(), box));
+        memory.heap.set<bool>(0, modloader::math::in_rect(core::api::game::player::get_position(), box));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
-        return std::format("IsInBox -> {}, {}, {}, {}", memory.floats.get(0), memory.floats.get(1), memory.floats.get(2), memory.floats.get(3));
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+        return std::format("IsInBox -> {}, {}, {}, {}", memory.heap.get<float>(0), memory.heap.get<float>(1), memory.heap.get<float>(2), memory.heap.get<float>(3));
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {

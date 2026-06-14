@@ -7,14 +7,14 @@ INSTRUCTION(FreeMessage)
         id(id) {}
 
     std::size_t id;
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         auto message = std::make_shared<core::api::messages::MessageBox>();
         message->coordinate_system().set(core::api::messages::CoordinateSystem::Screen);
 
         environment.add_free_message_box(id, message);
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
         return std::format("FreeMessage {}", id);
     }
 

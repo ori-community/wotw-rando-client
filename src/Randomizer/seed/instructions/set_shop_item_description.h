@@ -10,7 +10,7 @@ INSTRUCTION(SetShopItemDescription)
     int group;
     int member;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         const core::api::uber_states::UberState state(group, member);
         const auto slot = game::shops::shop_slot_from_state(state);
 
@@ -21,15 +21,15 @@ INSTRUCTION(SetShopItemDescription)
 
         if (slot.value() | vx::is<std::reference_wrapper<game::shops::ShopUIShopSlot>>) {
             const auto& ui_shop_slot = (slot.value() | vx::as<std::reference_wrapper<game::shops::ShopUIShopSlot>>).get();
-            ui_shop_slot.description.set(memory.strings.get(0));
+            ui_shop_slot.description.set(memory.heap.get<std::string>(0));
             return;
         }
 
         modloader::error("instructions", std::format("[SetShopItemDescription] Incompatible shop slot for state {}", state));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
-        return std::format("SetShopItemDescription -> {}|{} = {}", group, member, memory.strings.get(0));
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+        return std::format("SetShopItemDescription -> {}|{} = {}", group, member, memory.heap.get<std::string>(0));
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {

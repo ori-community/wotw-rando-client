@@ -9,12 +9,12 @@ INSTRUCTION(SetWheelPinned)
 
     int wheel;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
-        features::wheel::set_wheel_sticky(wheel, memory.booleans.get(0));
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+        features::wheel::set_wheel_sticky(wheel, memory.heap.get<bool>(0));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
-        return std::format("SetWheelPinned -> Wheel {} = ", wheel, memory.booleans.get(0) ? "true" : "false");
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+        return std::format("SetWheelPinned -> Wheel {} = ", wheel, memory.heap.get<bool>(0) ? "true" : "false");
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {

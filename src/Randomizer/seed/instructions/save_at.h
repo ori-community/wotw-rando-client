@@ -3,20 +3,20 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(SaveAt)
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         core::api::game::save(false, core::api::game::SaveOptions {
-            .to_disk = memory.booleans.get(0),
+            .to_disk = memory.heap.get<bool>(0),
             .override_position = std::make_optional<app::Vector2>(
-                memory.floats.get(0),
-                memory.floats.get(1)
+                memory.heap.get<float>(0),
+                memory.heap.get<float>(1)
             ),
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
-        return memory.booleans.get(0)
-            ? std::format("SaveAt (Temporary) -> {}, {}", memory.floats.get(0), memory.floats.get(1))
-            : std::format("SaveAt -> {}, {}", memory.floats.get(0), memory.floats.get(1));
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+        return memory.heap.get<bool>(0)
+            ? std::format("SaveAt (Temporary) -> {}, {}", memory.heap.get<float>(0), memory.heap.get<float>(1))
+            : std::format("SaveAt -> {}, {}", memory.heap.get<float>(0), memory.heap.get<float>(1));
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json&) {

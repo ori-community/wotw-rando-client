@@ -13,12 +13,12 @@ INSTRUCTION(SetWheelItemIcon)
     features::wheel::WheelItemPosition position;
     std::string icon;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         set_wheel_item_texture(wheel, position, icon);
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
-        return std::format("SetWheelItemIcon -> Wheel {}, Position {} = {}", wheel, static_cast<int>(position), memory.strings.get(0));
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+        return std::format("SetWheelItemIcon -> Wheel {}, Position {} = {}", wheel, static_cast<int>(position), memory.heap.get<std::string>(0));
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {

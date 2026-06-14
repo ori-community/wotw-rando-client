@@ -146,7 +146,7 @@ namespace randomizer::seed {
         void prevent_grants(const std::function<bool()>& callback) { m_prevent_grant_callbacks.push_back(callback); }
         void execute_command(std::size_t id);
 
-        const SeedMemory& memory() const { return m_memory; }
+        const memory::SeedMemory& memory() const { return m_memory; }
         SeedExecutionEnvironment& environment() { return *m_environment; }
 
         void process_timers(float delta_time) const;
@@ -163,8 +163,7 @@ namespace randomizer::seed {
         bool m_is_reading_seed = false;
         bool m_force_grant_outside_game = false;
         unsigned int m_command_stack_size = 0;
-        SeedMemory m_memory;
-        SeedStack m_stack;
+        memory::SeedMemory m_memory;
     };
 
 

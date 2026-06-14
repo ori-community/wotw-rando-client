@@ -11,13 +11,13 @@ INSTRUCTION(FreeMessageCoordinateSystem)
     std::size_t id;
     core::api::messages::CoordinateSystem coordinate_system;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         environment.modify_free_message_box(id, [&](auto& free_message_box) {
             free_message_box.message_box->coordinate_system().set(coordinate_system);
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
         return std::format("FreeMessageCoordinateSystem {} -> {}", id, static_cast<int>(coordinate_system));
     }
 

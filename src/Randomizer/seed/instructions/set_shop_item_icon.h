@@ -12,7 +12,7 @@ INSTRUCTION(SetShopItemIcon)
     int member;
     std::string icon_identifier;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         const core::api::uber_states::UberState state(group, member);
         const auto slot = game::shops::shop_slot_from_state(state);
 
@@ -30,7 +30,7 @@ INSTRUCTION(SetShopItemIcon)
         modloader::error("instructions", std::format("[SetShopItemIcon] Incompatible shop slot for state {}", state));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
         return std::format("SetShopItemIcon -> {}|{} = {}", group, member, icon_identifier);
     }
 

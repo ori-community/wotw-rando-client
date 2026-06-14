@@ -8,12 +8,12 @@ INSTRUCTION(MessageDestroy)
 
     std::size_t id;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         environment.remove_free_message_box(id);
         environment.set_queued_message_box_timeout(id, 0.f);
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
         return std::format("MessageDestroy {}", id);
     }
 

@@ -8,11 +8,11 @@ INSTRUCTION(BoxTrigger)
 
     std::size_t id;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
-        const auto x_1 = memory.floats.get(0);
-        const auto y_1 = memory.floats.get(1);
-        const auto x_2 = memory.floats.get(2);
-        const auto y_2 = memory.floats.get(3);
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+        const auto x_1 = memory.heap.get<float>(0);
+        const auto y_1 = memory.heap.get<float>(1);
+        const auto x_2 = memory.heap.get<float>(2);
+        const auto y_2 = memory.heap.get<float>(3);
 
         environment.set_box_trigger(id, {
             .x_min = x_1 < x_2 ? x_1 : x_2,
@@ -22,11 +22,11 @@ INSTRUCTION(BoxTrigger)
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
-        const auto x_1 = memory.floats.get(0);
-        const auto y_1 = memory.floats.get(1);
-        const auto x_2 = memory.floats.get(2);
-        const auto y_2 = memory.floats.get(3);
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+        const auto x_1 = memory.heap.get<float>(0);
+        const auto y_1 = memory.heap.get<float>(1);
+        const auto x_2 = memory.heap.get<float>(2);
+        const auto y_2 = memory.heap.get<float>(3);
 
         return std::format("BoxTrigger -> id = {}, x_1 = {}, y_1 = {}, x_2 = {}, y_2 = {}", id, x_1, y_1, x_2, y_2);
     }

@@ -8,14 +8,14 @@ INSTRUCTION(FreeMessagePosition)
 
     std::size_t id;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         environment.modify_free_message_box(id, [&](auto& free_message_box) {
-            free_message_box.message_box->position().set(memory.floats.get(0), memory.floats.get(1), 0.f);
+            free_message_box.message_box->position().set(memory.heap.get<float>(0), memory.heap.get<float>(1), 0.f);
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
-        return std::format("FreeMessagePosition {} -> {:.3}, {:.3}", id, memory.floats.get(0), memory.floats.get(1));
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+        return std::format("FreeMessagePosition {} -> {:.3}, {:.3}", id, memory.heap.get<float>(0), memory.heap.get<float>(1));
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {

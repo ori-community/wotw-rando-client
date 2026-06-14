@@ -8,15 +8,15 @@ INSTRUCTION(FreeMessageShow)
 
     std::size_t id;
 
-    void execute(Seed& seed, SeedMemory& memory, SeedStack& stack, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         environment.modify_free_message_box(id, [&](auto& free_message_box) {
-            free_message_box.message_box->show(!memory.booleans.get(0), memory.booleans.get(1));
+            free_message_box.message_box->show(!memory.heap.get<bool>(0), memory.heap.get<bool>(1));
             free_message_box.visible = true;
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const SeedMemory& memory, const SeedStack& stack) const override {
-        return std::format("FreeMessageShow {} (instant = {}, sound = {})", id, !memory.booleans.get(0), memory.booleans.get(1));
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+        return std::format("FreeMessageShow {} (instant = {}, sound = {})", id, !memory.heap.get<bool>(0), memory.heap.get<bool>(1));
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
