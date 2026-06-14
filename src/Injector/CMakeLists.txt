@@ -1,15 +1,16 @@
-project("InjectProxy")
+project("Injector")
 
 message(STATUS "")
 message(STATUS "Project ${PROJECT_NAME}:")
 
-set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
+set(PROJECT_DIR ${WOTWR_SRC_DIR}/${PROJECT_NAME})
 set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 
 set(
         SOURCE_FILES
-        "proxy.cpp"
-        "winhttp_proxy.cpp"
+        "injector.cpp"
+        "shared_memory.cpp"
+        "get_process_address.cpp"
 )
 
 set(
@@ -21,22 +22,11 @@ set(
         "CMakeLists.txt"
 )
 
-add_library(
-        ${PROJECT_NAME} SHARED
+add_executable(${PROJECT_NAME}
         ${SOURCE_FILES}
         ${PUBLIC_HEADER_FILES}
         ${MISC_FILES}
-)
-
-target_link_libraries(
-        ${PROJECT_NAME}
-        Common
-)
-
-target_compile_definitions(
-        ${PROJECT_NAME}
-        PRIVATE COMPILING_INJECT_PROXY
-)
+        )
 
 set_target_properties(
         ${PROJECT_NAME}
@@ -44,7 +34,7 @@ set_target_properties(
         VERSION ${WORWR_VERSION}
         SOVERSION ${WORWR_MAJOR_VERSION}
         FOLDER cpp
-        OUTPUT_NAME "winhttp"
+        LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\""
 )
 
 target_include_directories(
@@ -57,6 +47,11 @@ target_include_directories(
 
 find_path(TCLAP_INCLUDE_DIRS "tclap/Arg.h")
 target_include_directories(${PROJECT_NAME} PRIVATE ${TCLAP_INCLUDE_DIRS})
+
+target_link_libraries(
+        ${PROJECT_NAME}
+        Common
+)
 
 install(
         TARGETS ${PROJECT_NAME}

@@ -3,7 +3,7 @@ project("TAS")
 message(STATUS "")
 message(STATUS "Project ${PROJECT_NAME}:")
 
-set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
+set(PROJECT_DIR ${WOTWR_SRC_DIR}/${PROJECT_NAME})
 
 set(
         SOURCE_FILES

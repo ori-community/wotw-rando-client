@@ -1,36 +1,20 @@
-project("Common")
+project("InjectLoader")
 
 message(STATUS "")
 message(STATUS "Project ${PROJECT_NAME}:")
 
-set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
+set(PROJECT_DIR ${WOTWR_SRC_DIR}/${PROJECT_NAME})
 set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 
 set(
         SOURCE_FILES
-        "csv.cpp"
-        "droppable.cpp"
-        "ext.cpp"
-        "settings.cpp"
-        "math_utils.cpp"
+        "loader.cpp"
 )
 
 set(
         PUBLIC_HEADER_FILES
-        "blocking_queue.h"
-        "csv.h"
-        "droppable.h"
-        "event_bus.h"
-        "event_bus_data.h"
-        "event_timing.h"
-        "env.h"
-        "ext.h"
-        "is_in.h"
-        "math_utils.h"
-        "settings.h"
-        "thread_safe_container.h"
-        "variant_cast.h"
-        "vx.h"
+        "macros.h"
+        "loader_payload.h"
 )
 
 set(
@@ -38,11 +22,17 @@ set(
         "CMakeLists.txt"
 )
 
-add_library(${PROJECT_NAME} STATIC
+
+add_library(${PROJECT_NAME} SHARED
         ${SOURCE_FILES}
         ${PUBLIC_HEADER_FILES}
         ${MISC_FILES}
-        )
+)
+
+target_compile_definitions(
+        ${PROJECT_NAME}
+        PRIVATE COMPILING_INJECT_LOADER
+)
 
 set_target_properties(
         ${PROJECT_NAME}
@@ -60,12 +50,19 @@ target_include_directories(
         ${WOTWR_BASE_INCLUDES}
 )
 
-find_package(nlohmann_json)
-target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
+target_link_libraries(
+        ${PROJECT_NAME}
+)
 
 install(
         TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION "${WOTWR_INSTALL_DIR}"
         LIBRARY DESTINATION "${WOTWR_INSTALL_DIR}"
         ARCHIVE DESTINATION "${WOTWR_INSTALL_DIR}"
+)
+
+install(
+        FILES $<TARGET_PDB_FILE:${PROJECT_NAME}>
+        DESTINATION "${WOTWR_INSTALL_DIR}"
+        OPTIONAL
 )

@@ -3,7 +3,7 @@ project("Profiler")
 message(STATUS "")
 message(STATUS "Project ${PROJECT_NAME}:")
 
-set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
+set(PROJECT_DIR ${WOTWR_SRC_DIR}/${PROJECT_NAME})
 set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 
 set(

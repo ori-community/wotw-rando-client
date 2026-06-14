@@ -46,7 +46,7 @@ if (NOT WOTWR_INSTALL_DIR)
     set(WOTWR_INSTALL_DIR C:/moon/randomizer/client)
 endif ()
 
-set(WOTWR_PROJECTS_DIR ${CMAKE_ROOT_DIRECTORY}/projects)
+set(WOTWR_SRC_DIR ${CMAKE_ROOT_DIRECTORY}/src)
 
 message(STATUS "Install directory: ${WOTWR_INSTALL_DIR}")
 message(STATUS "Root directory: ${CMAKE_ROOT_DIRECTORY}")
@@ -63,11 +63,11 @@ project(RandomizerClient)
 
 set(
         WOTWR_BASE_INCLUDES
-        "${CMAKE_ROOT_DIRECTORY}/projects"
+        "${WOTWR_SRC_DIR}"
         "${tracy_SOURCE_DIR}/public"
 )
 
-add_subdirectory("projects")
+add_subdirectory("src")
 
 add_custom_target(
         INSTALL_RUNTIME
