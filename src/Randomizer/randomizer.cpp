@@ -213,7 +213,7 @@ namespace randomizer {
 
     semver::version randomizer_version() {
         semver::version version = semver::from_string("0.0.0");
-        const std::ifstream version_file(modloader::get_install_data_path("randomizer_version"));
+        const std::ifstream version_file(modloader::get_install_data_path("versions/randomizer_version"));
         if (version_file.is_open()) {
             std::stringstream version_buffer;
             version_buffer << version_file.rdbuf();
