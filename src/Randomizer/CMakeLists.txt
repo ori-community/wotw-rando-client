@@ -71,6 +71,7 @@ set(
         "features/scenes/modifications/sandless_feeding_grounds_to_elevator.cpp"
         "features/scenes/modifications/sandless_shriek_escape.cpp"
         "features/scenes/modifications/woods_exit_tp_slow_walk_zone_state.cpp"
+        "features/scenes/modifications/woods_wind_tunnel_checkpoint_position.cpp"
         "features/secrets.cpp"
         "features/sentry_burn_damage_type_fix.cpp"
         "features/shrine_states.cpp"
