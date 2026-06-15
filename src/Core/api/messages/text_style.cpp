@@ -346,6 +346,7 @@ namespace text_style {
             ((color_channels << 24u) & 0xff000000u)
         );
 
+        styles.emplace(hex_style);
         return style;
     }
 
@@ -368,6 +369,7 @@ namespace text_style {
         style->fields.fontScale = font_scale * 1.14f;
         style->fields.absoluteFontScale = true;
 
+        styles.emplace(size_style);
         return style;
     }
 
@@ -390,6 +392,7 @@ namespace text_style {
         //                                     Vanilla line scale
         style->fields.lineScale = line_scale * 0.819999972807f;
 
+        styles.emplace(line_size_style);
         return style;
     }
 
@@ -405,6 +408,11 @@ namespace text_style {
         std::vector<app::TextStyle*> new_styles;
         std::string value;
         for (int i = 0; i < text.size();) {
+            if (text[i] != '<') {
+                ++i;
+                continue;
+            }
+
             app::TextStyle* style = nullptr;
             if (check_style(text, i, "<hex_", value)) {
                 style = create_color_style(existing_style_names, value);
