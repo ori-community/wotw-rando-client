@@ -3,12 +3,18 @@
 
 namespace randomizer::seed {
     /**
-     * Converts a json representation of a texture to a texture identifier (string)
+     * Converts a JSON representation of a texture to a texture identifier (string)
      * used in the client.
      */
     std::string get_texture_identifier_from_json(const nlohmann::json& j) {
         const auto icon = j.begin();
         const auto& key = icon.key();
+
+        if (key == "Generic") {
+            // Currently, only Generic:0 exists which is the same as Shard:0, but Shard:0 is the `None`
+            // "shard" which doesn't make sense
+            return std::format("shard:{}", icon.value().get<int>());
+        }
 
         if (key == "Shard") {
             return std::format("shard:{}", icon.value().get<int>());
