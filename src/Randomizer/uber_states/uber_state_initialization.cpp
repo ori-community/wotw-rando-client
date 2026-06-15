@@ -472,8 +472,8 @@ namespace randomizer {
                     ? randomizer::entrances::get_entrance_id_from_entrance_name(*default_entrance_info.target_entrance_name)
                     : 0;
 
-                states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Entrances, default_entrance_info.display_name, entrance_id, default_target_entrance_id));
-                states.push_back(add_state<app::SerializedBooleanUberState>(UberStateGroup::KnownEntranceConnections, default_entrance_info.display_name, entrance_id, true));
+                states.push_back(add_state<app::SerializedIntUberState>(UberStateGroup::Entrances, default_entrance_info.uber_state_name, entrance_id, default_target_entrance_id));
+                states.push_back(add_state<app::SerializedBooleanUberState>(UberStateGroup::KnownEntranceConnections, default_entrance_info.uber_state_name, entrance_id, true));
             }
 
             dev::print_time(start_time, "Built custom state list");
