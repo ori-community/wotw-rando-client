@@ -234,9 +234,9 @@ namespace randomizer::timing {
 
         struct StatEvent : Event {
             GameStat stat;
-            int value;
+            float value;
 
-            StatEvent(const float in_game_time, const GameStat stat, const int value) :
+            StatEvent(const float in_game_time, const GameStat stat, const float value) :
                 Event(in_game_time),
                 stat(stat),
                 value(value) {}
@@ -246,7 +246,7 @@ namespace randomizer::timing {
 
         void report_position(const app::Vector2& position);
         void report_displacement(const app::Vector2& from, const app::Vector2& to, DisplacementReason reason, float time_lost = 0.f);
-        void report_stat(GameStat stat, int value);
+        void report_stat(GameStat stat, float value);
         void add_timeline_entry(const std::string& label, const std::string& icon);
         void add_map_entry(const std::string& label, const std::string& icon, float x, float y);
 

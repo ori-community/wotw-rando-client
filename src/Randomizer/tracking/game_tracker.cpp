@@ -28,6 +28,9 @@ namespace randomizer::timing {
     struct GameStatConfiguration {
         UberStateGroup group;
         int state;
+        core::api::uber_states::UberState get_uber_state() const {
+            return core::api::uber_states::UberState(group, state);
+        }
     };
 
     constexpr frozen::unordered_map<GameStat, GameStatConfiguration, 41> GAME_STAT_CONFIGURATIONS{
@@ -172,6 +175,7 @@ namespace randomizer::timing {
             }
         );
 
+        [[maybe_unused]]
         auto on_create_checkpoint = core::api::game::event_bus().register_handler(
             GameEvent::CreateCheckpoint,
             EventTiming::Before,
@@ -184,8 +188,15 @@ namespace randomizer::timing {
             }
         );
 
+        void record_all_game_stats() {
+            for (const auto& [game_stat, configuration]: GAME_STAT_CONFIGURATIONS) {
+                save_stats_events->report_stat(game_stat, configuration.get_uber_state().get<float>());
+            }
+        }
+
         std::optional<app::Vector2> death_position_before_respawn = std::nullopt;
 
+        [[maybe_unused]]
         auto on_respawn = core::api::game::event_bus().register_handler(
             GameEvent::Respawn,
             EventTiming::Before,
@@ -193,6 +204,8 @@ namespace randomizer::timing {
                 if (!timer_should_run()) {
                     return;
                 }
+
+                record_all_game_stats();
 
                 if (death_position_before_respawn.has_value()) {
                     const auto player_position = modloader::math::to_vec2(core::api::game::player::get_position());
@@ -266,6 +279,11 @@ namespace randomizer::timing {
         }
 
         [[maybe_unused]]
+        auto on_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+            record_all_game_stats();
+        });
+
+        [[maybe_unused]]
         auto on_fixed_update = core::api::game::event_bus().register_handler(
             GameEvent::FixedUpdate,
             EventTiming::After,
@@ -329,13 +347,13 @@ namespace randomizer::timing {
                 for (const auto& [game_stat, configuration]: GAME_STAT_CONFIGURATIONS) {
                     game_stat_event_handler_droppables.push_back(
                         core::api::uber_states::single_notification_bus().register_handler(
-                            core::api::uber_states::UberState(configuration.group, configuration.state),
+                            configuration.get_uber_state(),
                             [game_stat](const core::api::uber_states::UberStateCallbackParams& params, auto) {
                                 if (!timer_should_run()) {
                                     return;
                                 }
 
-                                save_stats_events->report_stat(game_stat, static_cast<int>(params.value));
+                                save_stats_events->report_stat(game_stat, static_cast<float>(params.value));
                             }
                         )
                     );

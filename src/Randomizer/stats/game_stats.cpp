@@ -57,7 +57,7 @@ namespace randomizer::timing {
         ));
     }
 
-    void SaveFileGameStatsEvents::report_stat(GameStat stat, int value) {
+    void SaveFileGameStatsEvents::report_stat(GameStat stat, float value) {
         m_event_stream.emplace_back(StatEvent(
             m_stats->in_game_time,
             stat,
@@ -184,7 +184,7 @@ namespace randomizer::timing {
                 } break;
                 case 4: {  // StatEvent
                     const auto stat = stream.read<GameStat>();
-                    const auto value = stream.read<int>();
+                    const auto value = stream.read<float>();
 
                     m_event_stream.emplace_back(StatEvent(
                         time,
