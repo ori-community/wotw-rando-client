@@ -73,7 +73,7 @@ namespace core::api::uber_states {
         }
 
         m_setter_fn->operator()(value);
-        m_last_known_value = value;
+        m_last_known_value = get();
     }
 
     bool VirtualUberState::is_readonly() const {
