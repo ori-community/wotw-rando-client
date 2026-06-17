@@ -3,11 +3,9 @@
 #include <Core/api/game/in_game_timer.h>
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
-#include <Core/enums/world_events.h>
 #include <Core/ipc/ipc.h>
 #include <Core/save_meta/save_meta.h>
 #include <Modloader/app/methods/GameStateMachine.h>
-#include <Modloader/app/methods/PlayerAbilities.h>
 #include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/methods/ScenesManager.h>
@@ -16,17 +14,67 @@
 #include <Modloader/app/methods/PlatformMovementPortalVisitor.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
-#include <Modloader/windows_api/console.h>
 #include <Randomizer/tracking/game_tracker.h>
 #include <Randomizer/randomizer.h>
 
-#include <format>
-#include <unordered_set>
+#include "frozen/unordered_map.h"
+
 
 using namespace app::classes;
 
 namespace randomizer::timing {
-    const core::api::uber_states::UberState game_finished_uber_state(34543, 11226);
+    const core::api::uber_states::UberState GAME_FINISHED_UBER_STATE(34543, 11226);
+
+    struct GameStatConfiguration {
+        UberStateGroup group;
+        int state;
+    };
+
+    constexpr frozen::unordered_map<GameStat, GameStatConfiguration, 41> GAME_STAT_CONFIGURATIONS{
+        {GameStat::PickupsCollected, {UberStateGroup::RandoStats, 0}},
+        {GameStat::PickupsTotal, {UberStateGroup::RandoStats, 1}},
+        {GameStat::Keystones, {UberStateGroup::Player, 2}},
+        {GameStat::KeystonesCollected, {UberStateGroup::RandoStats, 2}},
+        {GameStat::SpiritLight, {UberStateGroup::Player, 0}},
+        {GameStat::SpiritLightCollected, {UberStateGroup::RandoStats, 3}},
+        {GameStat::SpiritLightSpent, {UberStateGroup::RandoStats, 4}},
+        {GameStat::GorlekOre, {UberStateGroup::Player, 1}},
+        {GameStat::GorlekOreCollected, {UberStateGroup::RandoStats, 5}},
+        {GameStat::GorlekOreSpent, {UberStateGroup::RandoStats, 6}},
+        {GameStat::ShardSlots, {UberStateGroup::Player, 3}},
+        {GameStat::Health, {UberStateGroup::Player, 11}},
+        {GameStat::MaxHealth, {UberStateGroup::Player, 10}},
+        {GameStat::Energy, {UberStateGroup::Player, 13}},
+        {GameStat::MaxEnergy, {UberStateGroup::Player, 12}},
+        {GameStat::PickupsCollectedMarsh, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Marsh)}},
+        {GameStat::PickupsTotalMarsh, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Marsh)}},
+        {GameStat::PickupsCollectedHollow, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Hollow)}},
+        {GameStat::PickupsTotalHollow, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Hollow)}},
+        {GameStat::PickupsCollectedGlades, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Glades)}},
+        {GameStat::PickupsTotalGlades, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Glades)}},
+        {GameStat::PickupsCollectedWellspring, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Wellspring)}},
+        {GameStat::PickupsTotalWellspring, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Wellspring)}},
+        {GameStat::PickupsCollectedWoods, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Woods)}},
+        {GameStat::PickupsTotalWoods, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Woods)}},
+        {GameStat::PickupsCollectedReach, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Reach)}},
+        {GameStat::PickupsTotalReach, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Reach)}},
+        {GameStat::PickupsCollectedDepths, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Depths)}},
+        {GameStat::PickupsTotalDepths, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Depths)}},
+        {GameStat::PickupsCollectedPools, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Pools)}},
+        {GameStat::PickupsTotalPools, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Pools)}},
+        {GameStat::PickupsCollectedWastes, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Wastes)}},
+        {GameStat::PickupsTotalWastes, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Wastes)}},
+        {GameStat::PickupsCollectedRuins, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Ruins)}},
+        {GameStat::PickupsTotalRuins, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Ruins)}},
+        {GameStat::PickupsCollectedWillow, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Willow)}},
+        {GameStat::PickupsTotalWillow, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Willow)}},
+        {GameStat::PickupsCollectedBurrows, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Burrows)}},
+        {GameStat::PickupsTotalBurrows, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Burrows)}},
+        {GameStat::PickupsCollectedShop, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Shop)}},
+        {GameStat::PickupsTotalShop, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Shop)}},
+    };
+
+    std::vector<common::Droppable::ptr_t> game_stat_event_handler_droppables;
 
     // Caches for some values that should not be read in the main menu
     auto game_finished = false;
@@ -224,7 +272,7 @@ namespace randomizer::timing {
             [](auto, auto) {
                 if (GameStateMachine::get_IsGame()) {
                     // Only set these values when in game because the main menu sets some wonky states
-                    game_finished = game_finished_uber_state.get<bool>();
+                    game_finished = GAME_FINISHED_UBER_STATE.get<bool>();
                     current_game_area = core::api::game::player::get_current_area();
 
                     report_position_throttled();
@@ -254,6 +302,7 @@ namespace randomizer::timing {
             }
         );
 
+        [[maybe_unused]]
         auto on_in_game_timer_time_step = core::api::game::in_game_timer::time_step_event_bus().register_handler([](auto step) {
             if (!timer_should_run()) {
                 return;
@@ -271,10 +320,26 @@ namespace randomizer::timing {
             queue_timer_state_report();
         });
 
+        [[maybe_unused]]
         auto on_ready = modloader::event_bus().register_handler(
             ModloaderEvent::GameReady,
             [](auto) {
                 reset_stats();
+
+                for (const auto& [game_stat, configuration]: GAME_STAT_CONFIGURATIONS) {
+                    game_stat_event_handler_droppables.push_back(
+                        core::api::uber_states::single_notification_bus().register_handler(
+                            core::api::uber_states::UberState(configuration.group, configuration.state),
+                            [game_stat](const core::api::uber_states::UberStateCallbackParams& params, auto) {
+                                if (!timer_should_run()) {
+                                    return;
+                                }
+
+                                save_stats_events->report_stat(game_stat, static_cast<int>(params.value));
+                            }
+                        )
+                    );
+                }
 
                 core::ipc::register_request_handler(
                     "timer.get_stats",

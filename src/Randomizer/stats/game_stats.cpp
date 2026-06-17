@@ -57,6 +57,14 @@ namespace randomizer::timing {
         ));
     }
 
+    void SaveFileGameStatsEvents::report_stat(GameStat stat, int value) {
+        m_event_stream.emplace_back(StatEvent(
+            m_stats->in_game_time,
+            stat,
+            value
+        ));
+    }
+
     void SaveFileGameStatsEvents::add_timeline_entry(const std::string& label, const std::string& icon) {
         m_event_stream.emplace_back(TimelineEntryEvent(
             m_stats->in_game_time,
@@ -108,6 +116,10 @@ namespace randomizer::timing {
                     data.write(event.x);
                     data.write(event.y);
                 },
+                [&](const StatEvent& event) {
+                    data.write(event.stat);
+                    data.write(event.value);
+                },
             };
         }
 
@@ -145,7 +157,6 @@ namespace randomizer::timing {
                         to_y,
                         time_lost
                     ));
-                    break;
                 } break;
                 case 2: {  // TimelineEntryEvent
                     const auto label = stream.read_string_with_length();
@@ -169,6 +180,16 @@ namespace randomizer::timing {
                         icon,
                         x,
                         y
+                    ));
+                } break;
+                case 4: {  // StatEvent
+                    const auto stat = stream.read<GameStat>();
+                    const auto value = stream.read<int>();
+
+                    m_event_stream.emplace_back(StatEvent(
+                        time,
+                        stat,
+                        value
                     ));
                 } break;
                 default:

@@ -66,10 +66,51 @@ struct adl_serializer<std::map<WorldEvent, T>> {
 NLOHMANN_JSON_NAMESPACE_END
 
 namespace randomizer::timing {
-    class GameStats : public core::save_meta::JsonSaveMetaSerializable {
+    enum class GameStat: uint8_t {
+        PickupsCollected,
+        PickupsTotal,
+        Keystones,
+        KeystonesCollected,
+        SpiritLight,
+        SpiritLightCollected,
+        SpiritLightSpent,
+        GorlekOre,
+        GorlekOreCollected,
+        GorlekOreSpent,
+        ShardSlots,
+        Health,
+        MaxHealth,
+        Energy,
+        MaxEnergy,
+        PickupsCollectedMarsh,
+        PickupsTotalMarsh,
+        PickupsCollectedHollow,
+        PickupsTotalHollow,
+        PickupsCollectedGlades,
+        PickupsTotalGlades,
+        PickupsCollectedWellspring,
+        PickupsTotalWellspring,
+        PickupsCollectedWoods,
+        PickupsTotalWoods,
+        PickupsCollectedReach,
+        PickupsTotalReach,
+        PickupsCollectedDepths,
+        PickupsTotalDepths,
+        PickupsCollectedPools,
+        PickupsTotalPools,
+        PickupsCollectedWastes,
+        PickupsTotalWastes,
+        PickupsCollectedRuins,
+        PickupsTotalRuins,
+        PickupsCollectedWillow,
+        PickupsTotalWillow,
+        PickupsCollectedBurrows,
+        PickupsTotalBurrows,
+        PickupsCollectedShop,
+        PickupsTotalShop,
     };
 
-    class SaveFileGameStats : public GameStats {
+    class SaveFileGameStats : public core::save_meta::JsonSaveMetaSerializable {
     public:
         struct AreaStats {
             float in_game_time_spent = 0.f;
@@ -191,10 +232,21 @@ namespace randomizer::timing {
                 y(y) {}
         };
 
-        using event_t = std::variant<PositionEvent, DisplacementEvent, TimelineEntryEvent, MapEntryEvent>;
+        struct StatEvent : Event {
+            GameStat stat;
+            int value;
+
+            StatEvent(const float in_game_time, const GameStat stat, const int value) :
+                Event(in_game_time),
+                stat(stat),
+                value(value) {}
+        };
+
+        using event_t = std::variant<PositionEvent, DisplacementEvent, TimelineEntryEvent, MapEntryEvent, StatEvent>;
 
         void report_position(const app::Vector2& position);
         void report_displacement(const app::Vector2& from, const app::Vector2& to, DisplacementReason reason, float time_lost = 0.f);
+        void report_stat(GameStat stat, int value);
         void add_timeline_entry(const std::string& label, const std::string& icon);
         void add_map_entry(const std::string& label, const std::string& icon, float x, float y);
 
