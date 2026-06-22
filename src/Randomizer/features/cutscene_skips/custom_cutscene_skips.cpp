@@ -17,6 +17,8 @@
 #include <Modloader/app/methods/Game/UI.h>
 #include <Modloader/app/methods/GameplayCamera.h>
 #include <Modloader/app/methods/Moon/Wwise/SoundListener.h>
+#include <Modloader/app/methods/Moon/Timeline/FaderAnimatorEntity.h>
+#include <Modloader/app/methods/FaderB.h>
 #include <Modloader/app/types/ISkipCutscene.h>
 #include <Modloader/modloader.h>
 #include <frozen/unordered_map.h>
@@ -33,6 +35,7 @@ namespace custom_cutscene_skips {
         float block_automatic_cutscene_skips_for_seconds = 0.f;
         float delay_fade_to_game_for_seconds = 0.f;
         bool automatic_cutscene_skipping_enabled_cache = false;
+        bool is_fading_for_automatic_cutscene_skip = false;
         bool is_executing_automatic_cutscene_skip = false;
         std::optional<CustomCutsceneSkip::Metadata> skip_metadata_of_last_get_skipping_available_call = std::nullopt;
 
@@ -77,7 +80,6 @@ namespace custom_cutscene_skips {
             // Handle custom cutscene skips
             for (const auto& custom_skip : custom_skips) {
                 if (custom_skip.is_available()) {
-                    modloader::debug("custom_cutscene_skips", "Running custom cutscene skip");
                     custom_skip.invoke(CustomCutsceneSkip::InvokeParameters {
                         .is_automatic_skip = is_executing_automatic_cutscene_skip,
                     });
@@ -122,6 +124,22 @@ namespace custom_cutscene_skips {
                 GameplayCamera::MoveCameraToTargetInstantly(types::UI_Cameras::get_class()->static_fields->Current, true);
             });
         }
+
+        IL2CPP_INTERCEPT_WITH_ORDER(5, void, Moon::Timeline::FaderAnimatorEntity, OnUpdateEntity, app::FaderAnimatorEntity* this_ptr, float delta_time) {
+            if (is_fading_for_automatic_cutscene_skip) {
+                return;
+            }
+
+            next::Moon::Timeline::FaderAnimatorEntity::OnUpdateEntity(this_ptr, delta_time);
+        }
+
+        IL2CPP_INTERCEPT(void, FaderB, ChangeState, app::FaderB* this_ptr, app::FaderB_State__Enum state) {
+            if (is_fading_for_automatic_cutscene_skip) {
+                return;
+            }
+
+            next::FaderB::ChangeState(this_ptr, state);
+        }
     } // namespace
 
     [[maybe_unused]]
@@ -160,9 +178,12 @@ namespace custom_cutscene_skips {
             };
 
             if (skip_metadata_of_last_get_skipping_available_call.transform([](auto& meta) -> bool { return meta.fade_on_automatic_skip; }).value_or(true)) {
+                is_fading_for_automatic_cutscene_skip = true;
                 core::api::faderb::fade_to_game_invisible(0.4f);
+
                 core::events::schedule_task(0.4f, [=] {
                     execute_automatic_skip();
+                    is_fading_for_automatic_cutscene_skip = false;
 
                     core::events::schedule_task(delay_fade_to_game_for_seconds, [] {
                         core::api::faderb::fade_to_game_visible(0.3f);
