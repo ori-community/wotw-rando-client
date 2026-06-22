@@ -46,6 +46,8 @@ namespace core::api::game::player {
 
     CORE_DLLEXPORT void refill_energy();
     CORE_DLLEXPORT void refill_health();
+    CORE_DLLEXPORT int get_max_health();
+    CORE_DLLEXPORT float get_max_energy();
 
     CORE_DLLEXPORT bool is_alive();
 

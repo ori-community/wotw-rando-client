@@ -521,10 +521,12 @@ namespace randomizer {
             register_virtual_uber_state_from_property(UberStateGroup::Player, 1, ValueType::Integer, "gorlekOre", ore(), VirtualUberState::ChangeDetectionMode::Poll);
             register_virtual_uber_state_from_property(UberStateGroup::Player, 2, ValueType::Integer, "keystones", keystones(), VirtualUberState::ChangeDetectionMode::Poll);
             register_virtual_uber_state_from_property(UberStateGroup::Player, 3, ValueType::Integer, "shardSlots", shard_slots(), VirtualUberState::ChangeDetectionMode::Poll);
-            register_virtual_uber_state_from_property(UberStateGroup::Player, 10, ValueType::Integer, "maxHealth", max_health(), VirtualUberState::ChangeDetectionMode::Poll);
-            register_virtual_uber_state_from_property(UberStateGroup::Player, 11, ValueType::Float, "health", health(), VirtualUberState::ChangeDetectionMode::Poll);
-            register_virtual_uber_state_from_property(UberStateGroup::Player, 12, ValueType::Float, "maxEnergy", max_energy(), VirtualUberState::ChangeDetectionMode::Poll);
-            register_virtual_uber_state_from_property(UberStateGroup::Player, 13, ValueType::Float, "energy", energy(), VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state_from_property(UberStateGroup::Player, 10, ValueType::Integer, "baseMaxHealth", max_health(), VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state(UberStateGroup::Player, 11, ValueType::Integer, "maxHealth", [] { return get_max_health(); }, std::nullopt, VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state_from_property(UberStateGroup::Player, 12, ValueType::Float, "health", health(), VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state_from_property(UberStateGroup::Player, 20, ValueType::Float, "baseMaxEnergy", max_energy(), VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state(UberStateGroup::Player, 21, ValueType::Float, "maxEnergy", [] { return get_max_energy(); }, std::nullopt, VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state_from_property(UberStateGroup::Player, 22, ValueType::Float, "energy", energy(), VirtualUberState::ChangeDetectionMode::Poll);
             register_virtual_uber_state(UberStateGroup::Player, 50, ValueType::Integer, "currentArea", [] { return static_cast<int>(get_current_area()); }, std::nullopt, VirtualUberState::ChangeDetectionMode::Poll);
             register_read_only_virtual_uber_state_from_property(UberStateGroup::Player, 51, ValueType::Integer, "currentMapArea", uber_states::readonly::player_current_map_area(), VirtualUberState::ChangeDetectionMode::ReactiveEffect);
             register_virtual_uber_state(

@@ -183,12 +183,12 @@ namespace core::api::game::player {
             SeinEnergy::set_Current(sein->fields.Energy, value);
         }
 
-        int get_max_health() {
+        int get_base_max_health() {
             const auto sein = player::sein();
             return sein ? SeinHealthController::get_BaseMaxHealth(sein->fields.Mortality->fields.Health) : 0;
         }
 
-        void set_max_health(const int value) {
+        void set_base_max_health(const int value) {
             const auto sein = player::sein();
             if (sein == nullptr) {
                 return;
@@ -198,12 +198,12 @@ namespace core::api::game::player {
             SeinHealthController::set_BaseMaxHealth(sein->fields.Mortality->fields.Health, value);
         }
 
-        float get_max_energy() {
+        float get_base_max_energy() {
             const auto sein = player::sein();
             return sein ? SeinEnergy::get_BaseMaxEnergy(sein->fields.Energy) : 0;
         }
 
-        void set_max_energy(const float value) {
+        void set_base_max_energy(const float value) {
             const auto sein = player::sein();
             if (sein == nullptr) {
                 return;
@@ -352,7 +352,7 @@ namespace core::api::game::player {
             return std::make_pair(type, Property<bool>([type](const bool value) { set_shard(type, value); }, [type]() { return has_shard(type); }));
         }
 
-        std::unordered_map shard_properties{
+        const std::unordered_map SHARD_PROPERTIES{
             create_shard_property(app::SpiritShardType__Enum::GlassCannon),
             create_shard_property(app::SpiritShardType__Enum::TripleJump),
             create_shard_property(app::SpiritShardType__Enum::AntiAir),
@@ -403,9 +403,9 @@ namespace core::api::game::player {
         };
 
         Property<float> health_property(set_health, get_health);
-        Property<int> max_health_property(set_max_health, get_max_health);
+        Property<int> base_max_health_property(set_base_max_health, get_base_max_health);
         Property<float> energy_property(set_energy, get_energy);
-        Property<float> max_energy_property(set_max_energy, get_max_energy);
+        Property<float> base_max_energy_property(set_base_max_energy, get_base_max_energy);
         Property<int> spirit_light_property(set_spirit_light, get_spirit_light);
         Property<int> keystones_property(set_keystones, get_keystones);
         Property<int> ore_property(set_ore, get_ore);
@@ -561,6 +561,16 @@ namespace core::api::game::player {
         }
     }
 
+    int get_max_health() {
+        const auto sein = player::sein();
+        return sein ? SeinHealthController::get_MaxHealth(sein->fields.Mortality->fields.Health) : 0;
+    }
+
+    float get_max_energy() {
+        const auto sein = player::sein();
+        return sein ? SeinEnergy::get_MaxEnergy(sein->fields.Energy) : 0;
+    }
+
     bool is_alive() {
         const auto sein = player::sein();
 
@@ -572,15 +582,15 @@ namespace core::api::game::player {
     }
 
     const Property<float>& health() { return health_property; }
-    const Property<int>& max_health() { return max_health_property; }
+    const Property<int>& max_health() { return base_max_health_property; }
     const Property<float>& energy() { return energy_property; }
-    const Property<float>& max_energy() { return max_energy_property; }
+    const Property<float>& max_energy() { return base_max_energy_property; }
     const Property<int>& spirit_light() { return spirit_light_property; }
     const Property<int>& keystones() { return keystones_property; }
     const Property<int>& ore() { return ore_property; }
     const Property<int>& shard_slots() { return shard_slots_property; }
 
-    const Property<bool>& shard(const app::SpiritShardType__Enum type) { return shard_properties[type]; }
+    const Property<bool>& shard(const app::SpiritShardType__Enum type) { return SHARD_PROPERTIES.at(type); }
 
     bool is_shard_equipped(const app::SpiritShardType__Enum type) {
         const auto shards = get_player_spirit_shards();
