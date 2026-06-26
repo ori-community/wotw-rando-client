@@ -1,6 +1,8 @@
 #include <Randomizer/stats/game_stats.h>
 #include <Common/vx.h>
 
+#include "Randomizer/map/map_icons.h"
+
 namespace randomizer::timing {
     void SaveFileGameStats::report_in_game_time_spent(GameArea area, float time) {
         this->area_stats[area].in_game_time_spent += time;
@@ -65,7 +67,7 @@ namespace randomizer::timing {
         ));
     }
 
-    void SaveFileGameStatsEvents::add_timeline_entry(const std::string& label, const std::string& icon) {
+    void SaveFileGameStatsEvents::add_timeline_entry(const std::string& label, map::icons::MapIcon::Type icon) {
         m_event_stream.emplace_back(TimelineEntryEvent(
             m_stats->in_game_time,
             label,
@@ -97,7 +99,7 @@ namespace randomizer::timing {
                     data.write(event.time_lost);
                 },
                 [&](const TimelineEntryEvent& event) {
-                    data.write_string_with_length(event.icon);
+                    data.write(event.icon);
                     data.write_string_with_length(event.label);
                 },
                 [&](const StatEvent& event) {
@@ -144,7 +146,7 @@ namespace randomizer::timing {
                 } break;
                 case 2: {  // TimelineEntryEvent
                     const auto label = stream.read_string_with_length();
-                    const auto icon = stream.read_string_with_length();
+                    const auto icon = stream.read<map::icons::MapIcon::Type>();
 
                     m_event_stream.emplace_back(TimelineEntryEvent(
                         time,

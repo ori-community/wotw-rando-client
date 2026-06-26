@@ -5,23 +5,24 @@
 #include <Randomizer/map/map_icons.h>
 
 INSTRUCTION(CreateGameStatsTimelineEntry)
-    explicit CreateGameStatsTimelineEntry(const std::string& label, const std::string& icon_name) :
-        label(label),
-        icon_name(icon_name) {}
+    explicit CreateGameStatsTimelineEntry(const map::icons::MapIcon::Type icon) :
+        icon_type(icon) {}
 
-    std::string label;
-    // String because it's a launcher icon
-    std::string icon_name;
+    map::icons::MapIcon::Type icon_type;
 
     void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        timing::get_save_file_game_stats_events().add_timeline_entry(label, icon_name);
+        timing::get_save_file_game_stats_events().add_timeline_entry(memory.heap.get<std::string>(0), icon_type);
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
-        return std::format("CreateGameStatsTimelineEntry -> {}, {}", label, icon_name);
+        return std::format(
+            "CreateGameStatsTimelineEntry -> {}, {}",
+            memory.heap.get<std::string>(0),
+            magic_enum::enum_name(icon_type)
+        );
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
-        return std::make_unique<CreateGameStatsTimelineEntry>(j.at(0).get<std::string>(), j.at(1).get<std::string>());
+        return std::make_unique<CreateGameStatsTimelineEntry>(parse_enum<map::icons::MapIcon::Type>(j));
     }
 };

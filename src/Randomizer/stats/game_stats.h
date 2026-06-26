@@ -12,6 +12,8 @@
 #include <Modloader/app/structs/AbilityType__Enum.h>
 #include <Modloader/app/structs/Vector2.h>
 
+#include "Randomizer/map/map_icons.h"
+
 NLOHMANN_JSON_NAMESPACE_BEGIN
 template <typename T>
 struct adl_serializer<std::unordered_map<GameArea, T>> {
@@ -210,12 +212,12 @@ namespace randomizer::timing {
 
         struct TimelineEntryEvent : Event {
             std::string label;
-            std::string icon;
+            map::icons::MapIcon::Type icon;
 
-            TimelineEntryEvent(const float in_game_time, std::string label, std::string icon) :
+            TimelineEntryEvent(const float in_game_time, std::string label, const map::icons::MapIcon::Type icon) :
                 Event(in_game_time),
                 label(std::move(label)),
-                icon(std::move(icon)) {}
+                icon(icon) {}
         };
 
         struct StatEvent : Event {
@@ -233,7 +235,7 @@ namespace randomizer::timing {
         void report_position(const app::Vector2& position);
         void report_displacement(const app::Vector2& from, const app::Vector2& to, DisplacementReason reason, float time_lost = 0.f);
         void report_stat(GameStat stat, float value);
-        void add_timeline_entry(const std::string& label, const std::string& icon);
+        void add_timeline_entry(const std::string& label, map::icons::MapIcon::Type icon);
 
         std::vector<std::byte> serialize() override;
         void deserialize(core::utils::ByteStream& data) override;

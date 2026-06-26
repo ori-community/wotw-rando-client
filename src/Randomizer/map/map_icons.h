@@ -23,7 +23,7 @@ namespace randomizer::map::icons {
             static visibility_t out_of_logic();
         };
 
-        enum class Type {
+        enum class Type: uint8_t {
             Keystone = 0,
             Mapstone = 1,
             BreakableWall = 2,
