@@ -73,16 +73,6 @@ namespace randomizer::timing {
         ));
     }
 
-    void SaveFileGameStatsEvents::add_map_entry(const std::string& label, const std::string& icon, float x, float y) {
-        m_event_stream.emplace_back(MapEntryEvent(
-            m_stats->in_game_time,
-            label,
-            icon,
-            x,
-            y
-        ));
-    }
-
     std::vector<std::byte> SaveFileGameStatsEvents::serialize() {
         core::utils::ByteStream data;
 
@@ -109,12 +99,6 @@ namespace randomizer::timing {
                 [&](const TimelineEntryEvent& event) {
                     data.write_string_with_length(event.icon);
                     data.write_string_with_length(event.label);
-                },
-                [&](const MapEntryEvent& event) {
-                    data.write_string_with_length(event.icon);
-                    data.write_string_with_length(event.label);
-                    data.write(event.x);
-                    data.write(event.y);
                 },
                 [&](const StatEvent& event) {
                     data.write(event.stat);
@@ -168,21 +152,7 @@ namespace randomizer::timing {
                         icon
                     ));
                 } break;
-                case 3: {  // MapEntryEvent
-                    const auto label = stream.read_string_with_length();
-                    const auto icon = stream.read_string_with_length();
-                    const auto x = stream.read<float>();
-                    const auto y = stream.read<float>();
-
-                    m_event_stream.emplace_back(MapEntryEvent(
-                        time,
-                        label,
-                        icon,
-                        x,
-                        y
-                    ));
-                } break;
-                case 4: {  // StatEvent
+                case 3: {  // StatEvent
                     const auto stat = stream.read<GameStat>();
                     const auto value = stream.read<float>();
 

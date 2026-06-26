@@ -305,7 +305,6 @@ set(
         "seed/instructions/copy_float.h"
         "seed/instructions/copy_integer.h"
         "seed/instructions/copy_string.h"
-        "seed/instructions/create_game_stats_map_entry.h"
         "seed/instructions/create_game_stats_timeline_entry.h"
         "seed/instructions/create_warp_icon.h"
         "seed/instructions/deal_enemy_damage.h"

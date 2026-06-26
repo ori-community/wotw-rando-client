@@ -218,20 +218,6 @@ namespace randomizer::timing {
                 icon(std::move(icon)) {}
         };
 
-        struct MapEntryEvent : Event {
-            std::string label;
-            std::string icon;
-            float x = 0.f;
-            float y = 0.f;
-
-            MapEntryEvent(const float in_game_time, std::string label, std::string icon, const float x, const float y) :
-                Event(in_game_time),
-                label(std::move(label)),
-                icon(std::move(icon)),
-                x(x),
-                y(y) {}
-        };
-
         struct StatEvent : Event {
             GameStat stat;
             float value;
@@ -242,13 +228,12 @@ namespace randomizer::timing {
                 value(value) {}
         };
 
-        using event_t = std::variant<PositionEvent, DisplacementEvent, TimelineEntryEvent, MapEntryEvent, StatEvent>;
+        using event_t = std::variant<PositionEvent, DisplacementEvent, TimelineEntryEvent, StatEvent>;
 
         void report_position(const app::Vector2& position);
         void report_displacement(const app::Vector2& from, const app::Vector2& to, DisplacementReason reason, float time_lost = 0.f);
         void report_stat(GameStat stat, float value);
         void add_timeline_entry(const std::string& label, const std::string& icon);
-        void add_map_entry(const std::string& label, const std::string& icon, float x, float y);
 
         std::vector<std::byte> serialize() override;
         void deserialize(core::utils::ByteStream& data) override;

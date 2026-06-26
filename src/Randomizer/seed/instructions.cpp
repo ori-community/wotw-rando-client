@@ -22,7 +22,6 @@
 #include <Randomizer/seed/instructions/copy_float.h>
 #include <Randomizer/seed/instructions/copy_integer.h>
 #include <Randomizer/seed/instructions/copy_string.h>
-#include <Randomizer/seed/instructions/create_game_stats_map_entry.h>
 #include <Randomizer/seed/instructions/create_game_stats_timeline_entry.h>
 #include <Randomizer/seed/instructions/create_spoiler_map_icon.h>
 #include <Randomizer/seed/instructions/create_warp_icon.h>
@@ -168,7 +167,6 @@ namespace randomizer::seed {
             register_instruction<CopyFloat>(factories);
             register_instruction<CopyInteger>(factories);
             register_instruction<CopyString>(factories);
-            register_instruction<CreateGameStatsMapEntry>(factories);
             register_instruction<CreateGameStatsTimelineEntry>(factories);
             register_instruction<CreateSpoilerMapIcon>(factories);
             register_instruction<CreateWarpIcon>(factories);
