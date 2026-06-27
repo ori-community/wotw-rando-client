@@ -123,6 +123,23 @@ namespace randomizer::timing {
             );
         };
 
+        struct DiscoveredItem {
+            float x;
+            float y;
+            map::icons::MapIcon::Type type;
+            std::string label;
+            std::optional<float> collected_at;
+
+            NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
+                DiscoveredItem,
+                x,
+                y,
+                type,
+                label,
+                collected_at
+            );
+        };
+
         // Tracking
         float time_since_last_checkpoint = 0.f;
         float in_game_time = 0.f;
@@ -130,6 +147,9 @@ namespace randomizer::timing {
 
         // Area Stats
         std::unordered_map<GameArea, AreaStats> area_stats;
+
+        // Discovered items (spoiler map icon ID -> DiscoveredItem)
+        std::unordered_map<std::size_t, DiscoveredItem> discovered_items;
 
         // JSON
         NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
@@ -148,6 +168,8 @@ namespace randomizer::timing {
         void report_checkpoint_created();
 
         void report_respawn();
+
+        void set_discovered_item(std::size_t id, DiscoveredItem item);
 
         float get_total_async_loading_time() const;
 

@@ -53,6 +53,7 @@
 #include <Randomizer/seed/instructions/integer_to_string.h>
 #include <Randomizer/seed/instructions/is_in_box.h>
 #include <Randomizer/seed/instructions/logic_operation.h>
+#include <Randomizer/seed/instructions/mark_spoiler_map_icon_collected.h>
 #include <Randomizer/seed/instructions/message_background.h>
 #include <Randomizer/seed/instructions/message_destroy.h>
 #include <Randomizer/seed/instructions/message_text.h>
@@ -198,6 +199,7 @@ namespace randomizer::seed {
             register_instruction<IntegerToString>(factories);
             register_instruction<IsInBox>(factories);
             register_instruction<LogicOperation>(factories);
+            register_instruction<MarkSpoilerMapIconCollected>(factories);
             register_instruction<MessageBackground>(factories);
             register_instruction<MessageDestroy>(factories);
             register_instruction<MessageText>(factories);
@@ -485,6 +487,14 @@ namespace randomizer::seed {
         if (m_free_message_boxes.contains(id)) {
             m_free_message_boxes.at(id).timeout = timeout;
         }
+    }
+
+    std::optional<map::icons::MapIcon::ptr_t> SeedExecutionEnvironment::get_spoiler_map_icon(std::size_t id) const {
+        const auto it = m_spoiler_map_icons.find(id);
+        if (it == m_spoiler_map_icons.end()) {
+            return std::nullopt;
+        }
+        return it->second;
     }
 
     void SeedExecutionEnvironment::set_spoiler_map_icon(const std::size_t id, const map::icons::MapIcon::ptr_t& map_icon) {

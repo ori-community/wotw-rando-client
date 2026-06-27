@@ -339,6 +339,7 @@ set(
         "seed/instructions/integer_to_string.h"
         "seed/instructions/is_in_box.h"
         "seed/instructions/logic_operation.h"
+        "seed/instructions/mark_spoiler_map_icon_collected.h"
         "seed/instructions/message_background.h"
         "seed/instructions/message_destroy.h"
         "seed/instructions/message_text.h"

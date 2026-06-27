@@ -4,11 +4,11 @@
 #include <Randomizer/map/map_icons.h>
 
 INSTRUCTION(CreateSpoilerMapIcon)
-    explicit CreateSpoilerMapIcon(const int id, const map::icons::MapIcon::Type icon) :
+    explicit CreateSpoilerMapIcon(const std::size_t id, const map::icons::MapIcon::Type icon) :
         id(id),
         icon_type(icon) {}
 
-    int id;
+    std::size_t id;
     map::icons::MapIcon::Type icon_type;
 
     void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
@@ -27,10 +27,12 @@ INSTRUCTION(CreateSpoilerMapIcon)
                 spoiler_icon_visibility_effect_fn
             )
         );
+
+
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
-        return std::format("CreateSpoilerMapIcon -> {} at {}, {}", magic_enum::enum_name(icon_type), memory.heap.get<float>(0), memory.heap.get<float>(1));
+        return std::format("CreateSpoilerMapIcon -> {}, {} at {}, {}", id, magic_enum::enum_name(icon_type), memory.heap.get<float>(0), memory.heap.get<float>(1));
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {

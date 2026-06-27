@@ -31,6 +31,10 @@ namespace randomizer::timing {
         this->time_since_last_checkpoint = 0.f;
     }
 
+    void SaveFileGameStats::set_discovered_item(const std::size_t id, DiscoveredItem item) {
+        discovered_items[id] = std::move(item);
+    }
+
     float SaveFileGameStats::get_total_async_loading_time() const {
         float total = 0.f;
         for (const auto& item : this->async_loading_times) {

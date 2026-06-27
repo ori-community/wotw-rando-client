@@ -245,6 +245,12 @@ namespace randomizer::seed {
         void set_free_message_box_timeout(std::size_t id, float timeout);
 
         /**
+         * Returns the spoiler map icon for a given ID, or nullopt if no spoiler map icon with that ID exists
+         */
+        [[nodiscard]]
+        std::optional<map::icons::MapIcon::ptr_t> get_spoiler_map_icon(std::size_t id) const;
+
+        /**
          * Set a spoiler map icon
          */
         void set_spoiler_map_icon(std::size_t location_id, const map::icons::MapIcon::ptr_t& map_icon);

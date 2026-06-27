@@ -166,6 +166,7 @@ namespace randomizer::timing {
             }
         );
 
+        [[maybe_unused]]
         auto on_finished_loading = core::api::game::event_bus().register_handler(
             GameEvent::FinishedLoadingSave,
             EventTiming::Before,
@@ -489,7 +490,7 @@ namespace randomizer::timing {
         game_finished = value;
     }
 
-    const SaveFileGameStats& get_save_file_game_stats() {
+    SaveFileGameStats& get_save_file_game_stats() {
         return *save_stats;
     }
 
