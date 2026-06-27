@@ -71,11 +71,12 @@ namespace randomizer::timing {
         ));
     }
 
-    void SaveFileGameStatsEvents::add_timeline_entry(const std::string& label, map::icons::MapIcon::Type icon) {
+    void SaveFileGameStatsEvents::add_timeline_entry(const std::string& label, map::icons::MapIcon::Type icon, TimelineEntryEvent::Type type) {
         m_event_stream.emplace_back(TimelineEntryEvent(
             m_stats->in_game_time,
             label,
-            icon
+            icon,
+            type
         ));
     }
 
@@ -103,8 +104,9 @@ namespace randomizer::timing {
                     data.write(event.time_lost);
                 },
                 [&](const TimelineEntryEvent& event) {
-                    data.write(event.icon);
                     data.write_string_with_length(event.label);
+                    data.write(event.icon);
+                    data.write(event.type);
                 },
                 [&](const StatEvent& event) {
                     data.write(event.stat);
@@ -151,11 +153,13 @@ namespace randomizer::timing {
                 case 2: {  // TimelineEntryEvent
                     const auto label = stream.read_string_with_length();
                     const auto icon = stream.read<map::icons::MapIcon::Type>();
+                    const auto type = stream.read<TimelineEntryEvent::Type>();
 
                     m_event_stream.emplace_back(TimelineEntryEvent(
                         time,
                         label,
-                        icon
+                        icon,
+                        type
                     ));
                 } break;
                 case 3: {  // StatEvent

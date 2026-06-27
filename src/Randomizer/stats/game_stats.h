@@ -233,13 +233,20 @@ namespace randomizer::timing {
         };
 
         struct TimelineEntryEvent : Event {
+            enum class Type : uint8_t {
+                Ability,
+                Custom,
+            };
+
             std::string label;
             map::icons::MapIcon::Type icon;
+            Type type;
 
-            TimelineEntryEvent(const float in_game_time, std::string label, const map::icons::MapIcon::Type icon) :
+            TimelineEntryEvent(const float in_game_time, std::string label, const map::icons::MapIcon::Type icon, const Type type) :
                 Event(in_game_time),
                 label(std::move(label)),
-                icon(icon) {}
+                icon(icon),
+                type(type) {}
         };
 
         struct StatEvent : Event {
@@ -257,7 +264,7 @@ namespace randomizer::timing {
         void report_position(const app::Vector2& position);
         void report_displacement(const app::Vector2& from, const app::Vector2& to, DisplacementReason reason, float time_lost = 0.f);
         void report_stat(GameStat stat, float value);
-        void add_timeline_entry(const std::string& label, map::icons::MapIcon::Type icon);
+        void add_timeline_entry(const std::string& label, map::icons::MapIcon::Type icon, TimelineEntryEvent::Type type);
 
         std::vector<std::byte> serialize() override;
         void deserialize(core::utils::ByteStream& data) override;
