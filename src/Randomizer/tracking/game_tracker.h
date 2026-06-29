@@ -9,5 +9,4 @@ namespace randomizer::timing {
     float get_in_game_time();
     void force_set_game_finished(bool value);
     SaveFileGameStats& get_save_file_game_stats();
-    SaveFileGameStatsEvents& get_save_file_game_stats_events();
 }

@@ -95,7 +95,7 @@ namespace randomizer::timing {
         PickupsTotalShop,
     };
 
-    class SaveFileGameStats : public core::save_meta::JsonSaveMetaSerializable {
+    class SaveFileGameStats : public core::save_meta::SaveMetaSerializable {
     public:
         struct AreaStats {
             float in_game_time_spent = 0.f;
@@ -143,47 +143,6 @@ namespace randomizer::timing {
             }
         };
 
-        // Tracking
-        float time_since_last_checkpoint = 0.f;
-        float in_game_time = 0.f;
-        std::unordered_map<AsyncLoadingState, float> async_loading_times;
-
-        // Area Stats
-        std::unordered_map<GameArea, AreaStats> area_stats;
-
-        // Discovered items (spoiler map icon ID -> DiscoveredItem)
-        std::unordered_map<std::size_t, DiscoveredItem> discovered_items;
-
-        // JSON
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
-            SaveFileGameStats,
-            time_since_last_checkpoint,
-            in_game_time,
-            async_loading_times,
-            area_stats,
-            discovered_items
-        );
-
-        // Methods
-        void report_in_game_time_spent(GameArea area, float time);
-
-        void report_async_loading_time_spent(float time, AsyncLoadingState reason);
-
-        void report_checkpoint_created();
-
-        void report_respawn();
-
-        void set_discovered_item(std::size_t id, DiscoveredItem item);
-
-        float get_total_async_loading_time() const;
-
-        nlohmann::json json_serialize() override;
-
-        void json_deserialize(nlohmann::json& j) override;
-    };
-
-    class SaveFileGameStatsEvents : public core::save_meta::SaveMetaSerializable {
-    public:
         struct Event {
             float in_game_time;
 
@@ -270,13 +229,48 @@ namespace randomizer::timing {
         void report_stat(GameStat stat, float value);
         void add_timeline_entry(const std::string& label, map::icons::MapIcon::Type icon, TimelineEntryEvent::Type type);
 
-        std::vector<std::byte> serialize() override;
-        void deserialize(core::utils::ByteStream& data) override;
+        // Tracking
+        float time_since_last_checkpoint = 0.f;
+        float in_game_time = 0.f;
+        std::unordered_map<AsyncLoadingState, float> async_loading_times;
 
-        explicit SaveFileGameStatsEvents(const std::shared_ptr<SaveFileGameStats>& m_stats) :
-            m_stats(m_stats) {}
+        // Area Stats
+        std::unordered_map<GameArea, AreaStats> area_stats;
+
+        // Discovered items (spoiler map icon ID -> DiscoveredItem)
+        std::unordered_map<std::size_t, DiscoveredItem> discovered_items;
+
+        // JSON
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
+            SaveFileGameStats,
+            time_since_last_checkpoint,
+            in_game_time,
+            async_loading_times,
+            area_stats,
+            discovered_items
+        );
+
+        // Methods
+        void report_in_game_time_spent(GameArea area, float time);
+
+        void report_async_loading_time_spent(float time, AsyncLoadingState reason);
+
+        void report_checkpoint_created();
+
+        void report_respawn();
+
+        void set_discovered_item(std::size_t id, DiscoveredItem item);
+
+        float get_total_async_loading_time() const;
+
+        std::vector<std::byte> serialize() override;
+
+        void deserialize(core::utils::ByteStream& stream) override;
+
     private:
+        void serialize_event_stream(core::utils::ByteStream& stream);
+        void deserialize_event_stream(core::utils::ByteStream& stream);
+
         std::vector<event_t> m_event_stream;
-        std::shared_ptr<SaveFileGameStats> m_stats;
     };
 } // namespace randomizer::timing

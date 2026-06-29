@@ -14,15 +14,6 @@ namespace randomizer::timing {
         this->async_loading_times[reason] += time;
     }
 
-    nlohmann::json SaveFileGameStats::json_serialize() {
-        nlohmann::json j = *this;
-        return j;
-    }
-
-    void SaveFileGameStats::json_deserialize(nlohmann::json& j) {
-        j.get_to(*this);
-    }
-
     void SaveFileGameStats::report_checkpoint_created() {
         this->time_since_last_checkpoint = 0.f;
     }
@@ -43,17 +34,32 @@ namespace randomizer::timing {
         return total;
     }
 
-    void SaveFileGameStatsEvents::report_position(const app::Vector2& position) {
+    std::vector<std::byte> SaveFileGameStats::serialize() {
+        auto str = nlohmann::json(*this).dump();
+        core::utils::ByteStream stream;
+        stream.write_string_with_length(str);
+        serialize_event_stream(stream);
+        return stream.buffer;
+    }
+
+    void SaveFileGameStats::deserialize(core::utils::ByteStream& stream) {
+        auto str = stream.read_string_with_length();
+        auto j = nlohmann::json::parse(str);
+        j.get_to(*this);
+        deserialize_event_stream(stream);
+    }
+
+    void SaveFileGameStats::report_position(const app::Vector2& position) {
         m_event_stream.emplace_back(PositionEvent(
-            m_stats->in_game_time,
+            in_game_time,
             position.x,
             position.y
         ));
     }
 
-    void SaveFileGameStatsEvents::report_displacement(const app::Vector2& from, const app::Vector2& to, DisplacementReason reason, float time_lost) {
+    void SaveFileGameStats::report_displacement(const app::Vector2& from, const app::Vector2& to, DisplacementReason reason, float time_lost) {
         m_event_stream.emplace_back(DisplacementEvent(
-            m_stats->in_game_time,
+            in_game_time,
             reason,
             from.x,
             from.y,
@@ -63,62 +69,58 @@ namespace randomizer::timing {
         ));
     }
 
-    void SaveFileGameStatsEvents::report_stat(GameStat stat, float value) {
+    void SaveFileGameStats::report_stat(GameStat stat, float value) {
         m_event_stream.emplace_back(StatEvent(
-            m_stats->in_game_time,
+            in_game_time,
             stat,
             value
         ));
     }
 
-    void SaveFileGameStatsEvents::add_timeline_entry(const std::string& label, map::icons::MapIcon::Type icon, TimelineEntryEvent::Type type) {
+    void SaveFileGameStats::add_timeline_entry(const std::string& label, map::icons::MapIcon::Type icon, TimelineEntryEvent::Type type) {
         m_event_stream.emplace_back(TimelineEntryEvent(
-            m_stats->in_game_time,
+            in_game_time,
             label,
             icon,
             type
         ));
     }
 
-    std::vector<std::byte> SaveFileGameStatsEvents::serialize() {
-        core::utils::ByteStream data;
-
+    void SaveFileGameStats::serialize_event_stream(core::utils::ByteStream& stream) {
         for (const auto& e: m_event_stream) {
-            data.write(static_cast<std::uint32_t>(e.index()));
+            stream.write(static_cast<std::uint32_t>(e.index()));
 
             std::visit([&](auto&& event) {
-                data.write(event.in_game_time);
+                stream.write(event.in_game_time);
             }, e);
 
             e | vx::match {
                 [&](const PositionEvent& event) {
-                    data.write(event.x);
-                    data.write(event.y);
+                    stream.write(event.x);
+                    stream.write(event.y);
                 },
                 [&](const DisplacementEvent& event) {
-                    data.write(event.reason);
-                    data.write(event.from_x);
-                    data.write(event.from_y);
-                    data.write(event.to_x);
-                    data.write(event.to_y);
-                    data.write(event.time_lost);
+                    stream.write(event.reason);
+                    stream.write(event.from_x);
+                    stream.write(event.from_y);
+                    stream.write(event.to_x);
+                    stream.write(event.to_y);
+                    stream.write(event.time_lost);
                 },
                 [&](const TimelineEntryEvent& event) {
-                    data.write_string_with_length(event.label);
-                    data.write(event.icon);
-                    data.write(event.type);
+                    stream.write_string_with_length(event.label);
+                    stream.write(event.icon);
+                    stream.write(event.type);
                 },
                 [&](const StatEvent& event) {
-                    data.write(event.stat);
-                    data.write(event.value);
+                    stream.write(event.stat);
+                    stream.write(event.value);
                 },
             };
         }
-
-        return data.buffer;
     }
 
-    void SaveFileGameStatsEvents::deserialize(core::utils::ByteStream& stream) {
+    void SaveFileGameStats::deserialize_event_stream(core::utils::ByteStream& stream) {
         m_event_stream.clear();
 
         while (stream.available()) {

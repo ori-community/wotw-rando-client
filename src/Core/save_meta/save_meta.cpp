@@ -65,9 +65,7 @@ namespace core::save_meta {
     }
 
     void JsonSaveMetaSerializable::deserialize(core::utils::ByteStream& stream) {
-        auto length = stream.read<uint64_t>();
-        auto str = stream.read_string(length);
-
+        auto str = stream.read_string_with_length();
         auto j = nlohmann::json::parse(str);
         this->json_deserialize(j);
     }

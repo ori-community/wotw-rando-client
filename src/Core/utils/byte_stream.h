@@ -30,7 +30,7 @@ namespace core::utils {
         }
 
         void write_string_with_length(const std::string& string) {
-            this->write(string.length());
+            this->write(static_cast<uint64_t>(string.length()));
             this->write_string(string);
         }
 
@@ -48,7 +48,7 @@ namespace core::utils {
 
         std::string peek_with_length() const {
             return {
-                reinterpret_cast<const char*>(&this->buffer[this->position + sizeof(std::size_t)]),
+                reinterpret_cast<const char*>(&this->buffer[this->position + sizeof(uint64_t)]),
                 peek<uint64_t>()
             };
         }

@@ -16,8 +16,7 @@
 #include <Modloader/modloader.h>
 #include <Randomizer/tracking/game_tracker.h>
 #include <Randomizer/randomizer.h>
-
-#include "frozen/unordered_map.h"
+#include <frozen/unordered_map.h>
 
 
 using namespace app::classes;
@@ -99,7 +98,6 @@ namespace randomizer::timing {
     bool loaded_any_save_file = false;
 
     std::shared_ptr<SaveFileGameStats> save_stats = std::make_shared<SaveFileGameStats>();
-    std::shared_ptr<SaveFileGameStatsEvents> save_stats_events = std::make_shared<SaveFileGameStatsEvents>(save_stats);
 
     struct PositionCache {
         /** The last position that has been recorded as a PositionEvent */
@@ -134,7 +132,6 @@ namespace randomizer::timing {
 
         void reset_stats() {
             save_stats = std::make_shared<SaveFileGameStats>();
-            save_stats_events = std::make_shared<SaveFileGameStatsEvents>(save_stats);
             position_cache = std::nullopt;
 
             core::save_meta::register_slot(
@@ -142,17 +139,12 @@ namespace randomizer::timing {
                 SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups,
                 save_stats
             );
-            core::save_meta::register_slot(
-                SaveMetaSlot::SaveFileGameStatsEvents,
-                SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups,
-                save_stats_events
-            );
 
             queue_timer_state_report();
         }
 
         void report_current_player_position() {
-            save_stats_events->report_position(modloader::math::to_vec2(core::api::game::player::get_position()));
+            save_stats->report_position(modloader::math::to_vec2(core::api::game::player::get_position()));
         }
 
         [[maybe_unused]]
@@ -193,7 +185,7 @@ namespace randomizer::timing {
 
         void record_all_game_stats() {
             for (const auto& [game_stat, configuration]: GAME_STAT_CONFIGURATIONS) {
-                save_stats_events->report_stat(game_stat, configuration.get_uber_state().get<float>());
+                save_stats->report_stat(game_stat, configuration.get_uber_state().get<float>());
             }
         }
 
@@ -213,10 +205,10 @@ namespace randomizer::timing {
                 if (death_position_before_respawn.has_value()) {
                     const auto player_position = modloader::math::to_vec2(core::api::game::player::get_position());
 
-                    save_stats_events->report_displacement(
+                    save_stats->report_displacement(
                         death_position_before_respawn.value(),
                         player_position,
-                        SaveFileGameStatsEvents::DisplacementReason::Death,
+                        SaveFileGameStats::DisplacementReason::Death,
                         save_stats->time_since_last_checkpoint
                     );
 
@@ -284,7 +276,7 @@ namespace randomizer::timing {
             }
 
             if (!position_cache.has_value()) {
-                save_stats_events->report_position(current_position);
+                save_stats->report_position(current_position);
                 position_cache = PositionCache{
                     .last_recorded_position = current_position,
                     .last_known_position = current_position,
@@ -295,12 +287,12 @@ namespace randomizer::timing {
 
             if (modloader::math::distance2(position_cache->last_known_position, current_position) > std::pow(20, 2)) {
                 // We did a jump and need to cut the line
-                save_stats_events->report_displacement(
-                    position_cache->last_known_position, current_position, SaveFileGameStatsEvents::DisplacementReason::Unknown
+                save_stats->report_displacement(
+                    position_cache->last_known_position, current_position, SaveFileGameStats::DisplacementReason::Unknown
                 );
                 position_cache->last_recorded_position = current_position;
             } else if (modloader::math::distance2(position_cache->last_recorded_position, current_position) > 1.0) {
-                save_stats_events->report_position(current_position);
+                save_stats->report_position(current_position);
                 position_cache->last_recorded_position = current_position;
             }
 
@@ -362,6 +354,7 @@ namespace randomizer::timing {
                 case core::api::game::in_game_timer::TimeStepType::AsyncLoadingTime:
                     save_stats->report_async_loading_time_spent(step.duration, core::api::game::in_game_timer::get_last_async_loading_state());
                     break;
+                default:;
             }
 
             queue_timer_state_report();
@@ -382,7 +375,7 @@ namespace randomizer::timing {
                                     return;
                                 }
 
-                                save_stats_events->report_stat(game_stat, static_cast<float>(params.value));
+                                save_stats->report_stat(game_stat, static_cast<float>(params.value));
                             }
                         )
                     );
@@ -434,10 +427,10 @@ namespace randomizer::timing {
 
                 const auto new_position_vec2 = modloader::math::to_vec2(new_position);
 
-                save_stats_events->report_displacement(
+                save_stats->report_displacement(
                     modloader::math::to_vec2(previous_position),
                     new_position_vec2,
-                    SaveFileGameStatsEvents::DisplacementReason::Door
+                    SaveFileGameStats::DisplacementReason::Door
                 );
 
                 if (position_cache.has_value()) {
@@ -459,10 +452,10 @@ namespace randomizer::timing {
 
             const auto new_position_vec2 = modloader::math::to_vec2(new_position);
 
-            save_stats_events->report_displacement(
+            save_stats->report_displacement(
                 modloader::math::to_vec2(previous_position),
                 new_position_vec2,
-                SaveFileGameStatsEvents::DisplacementReason::Teleporter
+                SaveFileGameStats::DisplacementReason::Teleporter
             );
 
             if (position_cache.has_value()) {
@@ -492,8 +485,8 @@ namespace randomizer::timing {
                 return;
             }
 
-            save_stats_events->report_displacement(
-                modloader::math::to_vec2(previous_position), *new_position_after_portal_teleportation, SaveFileGameStatsEvents::DisplacementReason::Portal
+            save_stats->report_displacement(
+                modloader::math::to_vec2(previous_position), *new_position_after_portal_teleportation, SaveFileGameStats::DisplacementReason::Portal
             );
 
             if (position_cache.has_value()) {
@@ -520,9 +513,5 @@ namespace randomizer::timing {
 
     SaveFileGameStats& get_save_file_game_stats() {
         return *save_stats;
-    }
-
-    SaveFileGameStatsEvents& get_save_file_game_stats_events() {
-        return *save_stats_events;
     }
 } // namespace randomizer::timing

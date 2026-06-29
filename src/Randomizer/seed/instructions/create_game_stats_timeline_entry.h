@@ -11,10 +11,10 @@ INSTRUCTION(CreateGameStatsTimelineEntry)
     map::icons::MapIcon::Type icon_type;
 
     void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        timing::get_save_file_game_stats_events().add_timeline_entry(
+        timing::get_save_file_game_stats().add_timeline_entry(
             memory.heap.get<std::string>(0),
             icon_type,
-            timing::SaveFileGameStatsEvents::TimelineEntryEvent::Type::Custom
+            timing::SaveFileGameStats::TimelineEntryEvent::Type::Custom
         );
     }
 
