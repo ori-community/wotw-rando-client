@@ -8,7 +8,7 @@
 namespace core::utils {
     struct CORE_DLLEXPORT ByteStream {
         std::vector<std::byte> buffer;
-        unsigned long position = 0;
+        size_t position = 0;
 
         ByteStream();
         explicit ByteStream(const std::vector<std::byte>& buffer);
@@ -18,7 +18,7 @@ namespace core::utils {
 
         std::vector<std::byte> peek_to_end();
 
-        std::vector<std::byte> peek(unsigned long length);
+        std::vector<std::byte> peek(size_t length);
 
         template <typename T = std::byte>
         void write(T data) {
@@ -39,7 +39,7 @@ namespace core::utils {
             return *reinterpret_cast<const T*>(&this->buffer[this->position]);
         }
 
-        std::string peek_string(unsigned long length) const {
+        std::string peek_string(size_t length) const {
             return {
                 reinterpret_cast<const char*>(&this->buffer[this->position]),
                 length
@@ -49,7 +49,7 @@ namespace core::utils {
         std::string peek_with_length() const {
             return {
                 reinterpret_cast<const char*>(&this->buffer[this->position + sizeof(std::size_t)]),
-                peek<unsigned long>()
+                peek<uint64_t>()
             };
         }
 
@@ -65,23 +65,23 @@ namespace core::utils {
             return value;
         }
 
-        void read(std::byte* buffer, unsigned long length);
+        void read(std::byte* buffer, size_t length);
 
-        std::vector<std::byte> read(unsigned long length);
+        std::vector<std::byte> read(size_t length);
 
-        std::string read_string(unsigned long length) {
+        std::string read_string(size_t length) {
             auto value = peek_string(length);
             skip(length);
             return value;
         }
 
         std::string read_string_with_length() {
-            return read_string(read<unsigned long>());
+            return read_string(read<uint64_t>());
         }
 
-        void skip(unsigned long count);
+        void skip(size_t count);
 
-        void write(const std::byte* data, unsigned long length);
+        void write(const std::byte* data, size_t length);
 
         void write(const std::vector<std::byte>& data);
     };

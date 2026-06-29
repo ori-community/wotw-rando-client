@@ -8,13 +8,13 @@
 
 namespace core {
     struct CORE_DLLEXPORT MoodGuid {
-        int A;
-        int B;
-        int C;
-        int D;
+        uint32_t A;
+        uint32_t B;
+        uint32_t C;
+        uint32_t D;
 
         MoodGuid();
-        MoodGuid(int a, int b, int c, int d);
+        MoodGuid(uint32_t a, uint32_t b, uint32_t c, uint32_t d);
         MoodGuid(app::MoonGuid* moon_guid);
 
         app::MoonGuid* to_moon_guid();

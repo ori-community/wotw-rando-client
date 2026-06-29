@@ -1,7 +1,7 @@
 #include "byte_stream.h"
 
 namespace core::utils {
-    ByteStream::ByteStream() {}
+    ByteStream::ByteStream() = default;
 
     ByteStream::ByteStream(const std::vector<std::byte>& buffer) {
         this->buffer = buffer;
@@ -22,11 +22,11 @@ namespace core::utils {
         return { this->buffer.begin() + this->position, this->buffer.end() };
     }
 
-    void ByteStream::skip(const unsigned long count) {
+    void ByteStream::skip(const size_t count) {
         this->position += count;
     }
 
-    void ByteStream::write(const std::byte* data, const unsigned long length) {
+    void ByteStream::write(const std::byte* data, const size_t length) {
         this->buffer.insert(this->buffer.end(), data, data + length);
     }
 
@@ -34,16 +34,16 @@ namespace core::utils {
         this->buffer.insert(this->buffer.end(), data.begin(), data.end());
     }
 
-    std::vector<std::byte> ByteStream::peek(const unsigned long length) {
+    std::vector<std::byte> ByteStream::peek(const size_t length) {
         return { this->buffer.begin() + this->position, this->buffer.begin() + this->position + length };
     }
 
-    void ByteStream::read(std::byte* buffer, const unsigned long length) {
+    void ByteStream::read(std::byte* buffer, const size_t length) {
         memcpy(buffer, this->buffer.data() + this->position, length);
         skip(length);
     }
 
-    std::vector<std::byte> ByteStream::read(const unsigned long length) {
+    std::vector<std::byte> ByteStream::read(const size_t length) {
         auto value = peek(length);
         skip(length);
         return value;

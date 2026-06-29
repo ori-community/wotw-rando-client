@@ -24,6 +24,7 @@ using namespace app::classes;
 
 namespace randomizer::timing {
     const core::api::uber_states::UberState GAME_FINISHED_UBER_STATE(34543, 11226);
+    const core::api::uber_states::UberState SPOILER_FILTER_ENABLED_UBER_STATE(UberStateGroup::RandoState, 100);
 
     struct GameStatConfiguration {
         UberStateGroup group;
@@ -154,6 +155,7 @@ namespace randomizer::timing {
             save_stats_events->report_position(modloader::math::to_vec2(core::api::game::player::get_position()));
         }
 
+        [[maybe_unused]]
         auto on_new_game = core::api::game::event_bus().register_handler(
             GameEvent::NewGameInitialized,
             EventTiming::Before,
@@ -239,6 +241,32 @@ namespace randomizer::timing {
                 }
 
                 death_position_before_respawn = modloader::math::to_vec2(core::api::game::player::get_position());
+            }
+        );
+
+        [[maybe_unused]]
+        auto on_spoiler_filter_enabled_changed = core::api::uber_states::single_notification_bus().register_handler(
+            SPOILER_FILTER_ENABLED_UBER_STATE,
+            [](const core::api::uber_states::UberStateCallbackParams& params, auto) {
+                if (params.previous_value < 0.5 && params.value > 0.5) {
+                    auto& stats = get_save_file_game_stats();
+                    for (const auto& [id, map_icon]: game_seed().environment().get_spoiler_map_icons()) {
+                        if (stats.discovered_items.contains(id)) {
+                            continue;
+                        }
+
+                        stats.set_discovered_item(
+                            id,
+                            SaveFileGameStats::DiscoveredItem(
+                                map_icon->world_position.get().x,
+                                map_icon->world_position.get().y,
+                                map_icon->type.get(),
+                                map_icon->label_text.get(),
+                                std::nullopt
+                            )
+                        );
+                    }
+                }
             }
         );
 

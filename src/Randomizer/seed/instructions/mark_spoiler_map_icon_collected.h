@@ -30,6 +30,6 @@ INSTRUCTION(MarkSpoilerMapIconCollected)
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
-        return std::make_unique<MarkSpoilerMapIconCollected>(j.at(0).get<int>());
+        return std::make_unique<MarkSpoilerMapIconCollected>(j.get<int>());
     }
 };

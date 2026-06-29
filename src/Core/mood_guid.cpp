@@ -7,7 +7,7 @@ namespace core {
     std::random_device random_device;
     std::mt19937 rng(random_device());
 
-    MoodGuid::MoodGuid(int a, int b, int c, int d)
+    MoodGuid::MoodGuid(uint32_t a, uint32_t b, uint32_t c, uint32_t d)
             : A(a), B(b), C(c), D(d) {}
 
     MoodGuid::MoodGuid(app::MoonGuid* moon_guid)

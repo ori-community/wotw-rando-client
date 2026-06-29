@@ -23,7 +23,7 @@ namespace core::save_meta {
      * Normal Ori save files start with a 12 integer (as of patch 3).
      */
     constexpr int SAVE_META_FILE_MAGIC = 1;
-    constexpr int SAVE_META_FILE_VERSION = 2; // Reserved for future upgrades
+    constexpr int SAVE_META_FILE_VERSION = 3; // Reserved for future upgrades
 
     struct SaveMetaSlotConfiguration {
         std::shared_ptr<SaveMetaHandler> handler;
@@ -59,13 +59,13 @@ namespace core::save_meta {
     std::vector<std::byte> JsonSaveMetaSerializable::serialize() {
         auto str = this->json_serialize().dump();
         core::utils::ByteStream stream;
-        stream.write<unsigned long>(str.length());
+        stream.write<uint64_t>(str.length());
         stream.write_string(str);
         return stream.buffer;
     }
 
     void JsonSaveMetaSerializable::deserialize(core::utils::ByteStream& stream) {
-        auto length = stream.read<unsigned long>();
+        auto length = stream.read<uint64_t>();
         auto str = stream.read_string(length);
 
         auto j = nlohmann::json::parse(str);
@@ -82,9 +82,9 @@ namespace core::save_meta {
         MoodGuid read_guid_from_save(app::Byte__Array* data) {
             core::utils::ByteStream stream(data);
 
-            if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
-                stream.skip<int>();
-                const auto version = stream.read<int>();
+            if (stream.peek<uint32_t>() == SAVE_META_FILE_MAGIC) {
+                stream.skip<uint32_t>();
+                const auto version = stream.read<uint32_t>();
 
                 if (version != SAVE_META_FILE_VERSION) {
                     return {};
@@ -98,8 +98,8 @@ namespace core::save_meta {
         }
 
         struct SaveMetaReadResult {
-            unsigned long vanilla_data_size;
-            unsigned long save_meta_data_size;
+            uint64_t vanilla_data_size;
+            uint64_t save_meta_data_size;
             app::Byte__Array* vanilla_data;
         };
 
@@ -119,34 +119,34 @@ namespace core::save_meta {
         ) {
             core::utils::ByteStream stream(data);
 
-            if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
-                stream.skip<int>();
+            if (stream.peek<uint32_t>() == SAVE_META_FILE_MAGIC) {
+                stream.skip<uint32_t>();
 
-                const auto version = stream.read<int>();
+                const auto version = stream.read<uint32_t>();
 
                 if (version != SAVE_META_FILE_VERSION) {
                     warn("save_meta", std::format("Tried to read save file with incompatible version {}", version));
                 } else {
                     auto guid = stream.read<MoodGuid>();
-                    auto slot_count = stream.read<int>();
+                    auto slot_count = stream.read<uint32_t>();
 
                     info("save_meta", std::format("Reading {} SaveMeta slots from save file {},{},{},{}", slot_count, guid.A, guid.B, guid.C, guid.D));
 
                     for (int i = 0; i < slot_count; ++i) {
                         auto slot = stream.read<SaveMetaSlot>();
-                        auto length = stream.read<unsigned long>();
+                        auto length = stream.read<uint64_t>();
 
                         info("save_meta", std::format("- Slot {}: length = {}", i, length));
 
                         if (!slots.contains(slot)) {
-                            info("save_meta", std::format("  Tried to load SaveMeta slot {} but no handler was provided for this slot", static_cast<int>(slot)));
+                            info("save_meta", std::format("  Tried to load SaveMeta slot {} but no handler was provided for this slot", static_cast<uint32_t>(slot)));
                             stream.skip(length);
                             continue;
                         }
 
                         auto slot_config = slots[slot];
-                        auto slot_persistence_int = static_cast<int>(slot_config.persistence);
-                        auto minimum_persistence_int = static_cast<int>(minimum_persistence);
+                        auto slot_persistence_int = static_cast<uint32_t>(slot_config.persistence);
+                        auto minimum_persistence_int = static_cast<uint32_t>(minimum_persistence);
                         auto persistence_excluded = slot_persistence_int < minimum_persistence_int;
 
                         if (exclude_persistences) {
@@ -180,7 +180,7 @@ namespace core::save_meta {
 
             auto remaining_bytes = stream.peek_to_end();
             return SaveMetaReadResult{
-                static_cast<unsigned long>(remaining_bytes.size()),
+                static_cast<uint64_t>(remaining_bytes.size()),
                 stream.position,
                 types::Byte::create_array(remaining_bytes)
             };
@@ -189,20 +189,20 @@ namespace core::save_meta {
         core::utils::ByteStream get_save_meta_data(SaveMetaSlotPersistence minimum_persistence = SaveMetaSlotPersistence::None) {
             core::utils::ByteStream stream;
 
-            stream.write<int>(SAVE_META_FILE_MAGIC);
-            stream.write<int>(SAVE_META_FILE_VERSION);
+            stream.write<uint32_t>(SAVE_META_FILE_MAGIC);
+            stream.write<uint32_t>(SAVE_META_FILE_VERSION);
             stream.write<MoodGuid>(current_save_guid);
-            stream.write<int>(slots.size());
+            stream.write<uint32_t>(slots.size());
 
             for (auto& item: slots) {
                 stream.write<SaveMetaSlot>(item.first);
 
                 // Save previous data if this slot is not set to persist through death
-                auto data = (static_cast<int>(item.second.persistence) >= static_cast<int>(minimum_persistence) || !item.second.last_saved_data_initialized)
+                auto data = (static_cast<uint32_t>(item.second.persistence) >= static_cast<uint32_t>(minimum_persistence) || !item.second.last_saved_data_initialized)
                     ? item.second.handler->save()
                     : item.second.last_saved_data;
 
-                stream.write<unsigned long>(data.size());
+                stream.write<uint64_t>(data.size());
                 stream.write(data);
 
                 item.second.last_saved_data = data;
@@ -333,9 +333,9 @@ namespace core::save_meta {
         std::unordered_set<SaveMetaSlot> successfully_read_slots;
         core::utils::ByteStream stream(data);
 
-        if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
-            stream.skip<int>();
-            const auto version = stream.read<int>();
+        if (stream.peek<uint32_t>() == SAVE_META_FILE_MAGIC) {
+            stream.skip<uint32_t>();
+            const auto version = stream.read<uint32_t>();
 
             if (version != SAVE_META_FILE_VERSION) {
                 warn("save_meta", std::format("Tried to read save file with incompatible version {}", version));
@@ -343,13 +343,13 @@ namespace core::save_meta {
             }
 
             auto guid = stream.read<MoodGuid>();
-            auto slot_count = stream.read<int>();
+            auto slot_count = stream.read<uint32_t>();
 
             info("save_meta", std::format("Reading {} SaveMeta slots from save file {},{},{},{}", slot_count, guid.A, guid.B, guid.C, guid.D));
 
             for (int i = 0; i < slot_count; ++i) {
                 auto slot = stream.read<SaveMetaSlot>();
-                auto length = stream.read<unsigned long>();
+                auto length = stream.read<uint64_t>();
 
                 info("save_meta", std::format("- Slot {}: length = {}", i, length));
 

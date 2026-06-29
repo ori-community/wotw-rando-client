@@ -5,7 +5,7 @@
  * into game save files under a certain SaveMetaSlot.
  * Each slot can only be used once.
  */
-enum class SaveMetaSlot {
+enum class SaveMetaSlot: uint8_t {
     SaveFileGameStats = 1,
     SeedMetaData = 2,
     SeedArchiveData = 3,
