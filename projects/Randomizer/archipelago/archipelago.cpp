@@ -117,6 +117,21 @@ namespace randomizer::archipelago {
         });
     });
 
+    [[maybe_unused]]
+    auto on_trial_start = core::api::game::event_bus().register_handler(GameEvent::TrialStart, EventTiming::After, [](auto, auto) {
+        core::events::schedule_task_for_next_update([] {
+            archipelago_client().set_trial_active(true);
+        });
+    });
+
+    [[maybe_unused]]
+    auto on_trial_end = core::api::game::event_bus().register_handler(GameEvent::TrialEnd, EventTiming::After, [](auto, auto) {
+        core::events::schedule_task_for_next_update([] {
+            archipelago_client().set_trial_active(false);
+            archipelago_client().request_sync();  // Items are skipped during trials, so ask for a resync
+        });
+    });
+
     ArchipelagoClient::ArchipelagoClient() {
         m_websocket.setOnMessageCallback([this](const auto& msg) { on_websocket_message(msg); });
     }
@@ -395,6 +410,10 @@ namespace randomizer::archipelago {
                 .show_box = true,
             });
         }
+    }
+
+    void ArchipelagoClient::set_trial_active(const bool set) {
+        m_trial_active = set;
     }
 
     // Get the connection info from .newgameseedsource, and try to connect with it.
@@ -891,6 +910,12 @@ namespace randomizer::archipelago {
 
                     if (!m_checked_seed) {
                         modloader::info("archipelago", "Seed not checked yet: skip giving items");
+                        return;
+                    }
+
+                    // Giving items during trials causes them to be lost after exiting the trial
+                    if (m_trial_active) {
+                        modloader::info("archipelago", "Trial active: skip giving items");
                         return;
                     }
 

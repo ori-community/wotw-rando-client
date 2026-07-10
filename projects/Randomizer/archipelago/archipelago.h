@@ -44,6 +44,7 @@ namespace randomizer::archipelago {
         const std::optional<ArchipelagoSeedGenerator>& current_seed_generator();
         common::EventBus<State>& event_bus() { return m_event_bus; }
         bool is_active() const { return m_is_active; }
+        void set_trial_active(bool set);
 
     private:
         void send_message(const nlohmann::json& message);
@@ -79,6 +80,7 @@ namespace randomizer::archipelago {
         std::optional<ArchipelagoSeedGenerator> m_current_seed_generator;
         common::EventBus<State> m_event_bus;
         std::string m_ap_seed;
+        bool m_trial_active = false;
         /**
          * Whether the AP seed got checked and matches the one in the save.
          * Prevent giving items/locations, and sending locations if false.
