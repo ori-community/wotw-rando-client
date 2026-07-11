@@ -407,8 +407,8 @@ namespace randomizer::archipelago {
                     });
                 } else {
                     core::message_controller().queue_central({
-                        .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}). Retrying in 10s.", m_websocket.getUrl())),
-                        .duration = 8.f,
+                        .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}).", m_websocket.getUrl())),
+                        .duration = 15.f,
                         .show_box = true,
                     });
                     // Users often forget to enable secure connection when connecting to archipelago.gg
@@ -416,15 +416,10 @@ namespace randomizer::archipelago {
                     if (m_websocket.getUrl().starts_with("ws://archipelago.gg:")) {
                         core::message_controller().queue_central({
                             .text = core::Property<std::string>("You need to enable secure connection to connect to the archipelago website."),
-                            .duration = 8.f,
+                            .duration = 15.f,
                             .show_box = true,
                         });
                     }
-                    core::events::schedule_task(10.f, [this]() {
-                        if (m_is_active) {
-                            connect(m_websocket.getUrl(), m_slot_name, m_password);
-                        }
-                    });
                 }
                 break;
             }
