@@ -229,6 +229,44 @@ namespace randomizer::archipelago {
         request_sync();
     }
 
+    void ArchipelagoClient::reset_ks_doors() {
+        const auto& keystone = core::api::game::player::keystones();
+        struct KSDoorData {
+            int group;
+            int state;
+            int cost;
+        };
+        // TODO verify costs
+        std::vector<KSDoorData> ks_doors = {
+            KSDoorData{21786, 42309, 2},  // MarshSpawn.KeystoneDoor
+            KSDoorData{21786, 47445, 2},  // HowlsDen.KeystoneDoor
+            KSDoorData{937, 64003, 2},  // MarshPastOpher.EyestoneDoor
+            KSDoorData{18793, 3171, 4},  // MidnightBurrows.KeystoneDoor
+            KSDoorData{58674, 21500, 2},  // WoodsEntry.KeystoneDoor
+            KSDoorData{18793, 41544, 4},  // WoodsMain.KeystoneDoor
+            KSDoorData{28895, 4290, 4},  // LowerReach.KeystoneDoor
+            KSDoorData{28895, 49900, 4},  // UpperReach.KeystoneDoor
+            KSDoorData{18793, 10758, 2},  // UpperDepths.CentralKeystoneDoor
+            KSDoorData{21786, 59990, 2},  // UpperDepths.EntryKeystoneDoor
+            KSDoorData{5377, 47621, 4},  // UpperPools.KeystoneDoor
+            KSDoorData{20120, 28786, 2},  // UpperWastes.KeystoneDoor
+        };
+
+        for (const auto& door_data : ks_doors) {
+            const auto& door_uber = core::api::uber_states::UberState(door_data.group, door_data.state);
+            if (door_uber.get()) {
+                door_uber.set(false);
+                keystone.set(keystone.get() + door_data.cost);
+            }
+        }
+        core::message_controller().queue_central({
+            .text = core::Property<std::string>("Keystone doors got reset"),
+            .show_box = true,
+        });
+        modloader::info("archipelago", "Keystone doors got reset upon request by the player.");
+    }
+
+
     void ArchipelagoClient::toggle_deathlink() {
         if (m_deathlink_enabled) {
             m_deathlink_enabled = false;
@@ -256,6 +294,10 @@ namespace randomizer::archipelago {
         }
         // Create a hint for the item
         send_message(messages::Say(std::format("!hint {}", item_name)));
+    }
+
+    void ArchipelagoClient::send_chat_message(const std::string& message) {
+        send_message(messages::Say(message));
     }
 
     void ArchipelagoClient::notify_location_collected(const location_data::Location& location) {
