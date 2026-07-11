@@ -19,6 +19,7 @@
 #include <Randomizer/seed/items/value_modifier.h>
 
 #define UUID_SYSTEM_GENERATOR
+#include <regex>
 #include <uuid.h>
 
 constexpr int MIN_AP_VERSION = 2;  // Minimum AP World version required
@@ -617,7 +618,9 @@ namespace randomizer::archipelago {
     // Get the item name, colorized depending on its classification
     std::string ArchipelagoClient::get_item_text(const messages::NetworkItem& net_item, const std::string& game) const {
         std::string item_name = m_data_package.get_item_name(net_item.item, game).value_or(UNKNOWN_ITEM_TEXT);
-        // TODO sanitize name to remove markup from it
+
+        const std::regex markup(R"(\$|#|@|\*)");
+        item_name = std::regex_replace(item_name, markup, R"(\\$&)");
         std::string color_markup;
 
         if (game == "Ori and the Will of the Wisps") {
