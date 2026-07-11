@@ -114,6 +114,7 @@ namespace randomizer::archipelago {
         core::events::schedule_task_for_next_update([] {
             archipelago_client().disconnect();
             archipelago_client().reset_variables();
+            archipelago_client().reset_first_connection_attempt();
         });
     });
 
@@ -160,8 +161,13 @@ namespace randomizer::archipelago {
 
     bool ArchipelagoClient::is_connected() const { return m_websocket.getReadyState() == ix::ReadyState::Open; }
 
-    void ArchipelagoClient::reset_variables() {
+    void ArchipelagoClient::reset_first_connection_attempt() {
         m_first_connection_attempt = true;
+        modloader::info("archipelago", "First connection attempt set to True.");
+    }
+
+    void ArchipelagoClient::reset_variables() {
+        // Don't reset `m_first_connection_attempt` here, as the variables are also reset when trying a second time.
         m_slot_name = "";
         m_slot_id = 0;
         m_password = "";
@@ -239,7 +245,7 @@ namespace randomizer::archipelago {
             int cost;
         };
         // TODO verify costs
-        std::vector<KSDoorData> ks_doors = {
+        std::vector ks_doors = {
             KSDoorData{21786, 42309, 2},  // MarshSpawn.KeystoneDoor
             KSDoorData{21786, 47445, 2},  // HowlsDen.KeystoneDoor
             KSDoorData{937, 64003, 2},  // MarshPastOpher.EyestoneDoor
@@ -407,7 +413,7 @@ namespace randomizer::archipelago {
                     });
                 } else {
                     core::message_controller().queue_central({
-                        .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}).", m_websocket.getUrl())),
+                        .text = core::Property<std::string>(std::format("Connection to AP failed (url: {}, slot: {}).", m_websocket.getUrl(), m_slot_name)),
                         .duration = 15.f,
                         .show_box = true,
                     });
