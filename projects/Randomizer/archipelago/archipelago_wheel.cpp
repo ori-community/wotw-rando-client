@@ -18,13 +18,25 @@ namespace randomizer::archipelago::wheel {
             [](auto, auto, auto) {
                 archipelago_client().toggle_deathlink();
             });
-        features::wheel::initialize_item(9100, 2, "Hint status", "Displays current hints\nand your hint points", "file:assets/icons/wheel/unlock_spoilers.blue.png",
+        features::wheel::initialize_item(9100, 2, "Hint status", "Display current hints\nand your hint points", "file:assets/icons/wheel/unlock_spoilers.blue.png",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("");
             });
         features::wheel::initialize_item(9100, 3, "Create a hint", "Select an item to hint", "file:assets/icons/wheel/quests_progress.blue.png",
             [](auto, auto, auto) {
                 features::wheel::set_active_wheel(9101);
+            });
+        features::wheel::initialize_item(9100, 4, "Reset Keystone doors", "Close all doors\nand refund spent keystones", "file:assets/icons/game/keystone.png",
+            [](auto, auto, auto) {
+                archipelago_client().reset_ks_doors();
+            });
+        features::wheel::initialize_item(9100, 5, "Collect", "Collect items in your world\n(if allowed)", "file:assets/icons/archipelago/ap-normal.blue.png",
+            [](auto, auto, auto) {
+                archipelago_client().send_chat_message("!collect");
+            });
+        features::wheel::initialize_item(9100, 6, "Release", "Release items in your world\n(if allowed)", "file:assets/icons/archipelago/ap-normal.blue.png",
+            [](auto, auto, auto) {
+                archipelago_client().send_chat_message("!release");
             });
 
         // Menu wheel for hint (9101)
