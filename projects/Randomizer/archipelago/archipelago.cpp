@@ -183,6 +183,8 @@ namespace randomizer::archipelago {
         m_deathlink_lives = 1;
         m_death_from_deathlink = false;
         m_reset_inventory = false;
+        m_display_chat = true;
+        m_trial_active = false;
 
         modloader::info("archipelago", "AP client got reset");
     }
@@ -281,6 +283,23 @@ namespace randomizer::archipelago {
             send_message(messages::ConnectUpdate{0b111, {"AP", "DeathLink"}});
             core::message_controller().queue_central({
                 .text = core::Property<std::string>("Deathlink enabled"),
+                .prioritized = true,
+            });
+        }
+    }
+
+    void ArchipelagoClient::toggle_chat() {
+        modloader::info("archipelago", "Toggle chat message display");
+        if (m_display_chat) {
+            m_display_chat = false;
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>("Hiding chat messages"),
+                .prioritized = true,
+            });
+        } else {
+            m_display_chat = true;
+            core::message_controller().queue_central({
+                .text = core::Property<std::string>("Displaying chat messages"),
                 .prioritized = true,
             });
         }
@@ -1086,7 +1105,7 @@ namespace randomizer::archipelago {
                         }
                     } else if (message.type == "Chat") {
                         std::string player_name = get_player_name(message.slot);
-                        if (player_name != get_player_name(m_slot_id) && !message.message.starts_with("!")) {  // ! means that it is a server command
+                        if (m_display_chat && player_name != get_player_name(m_slot_id) && !message.message.starts_with("!")) {  // ! means that it is a server command
                             core::message_controller().queue_central({
                                 .text = core::Property<std::string>(std::format("{}: {}", player_name, message.message)),
                                 .show_box = true,

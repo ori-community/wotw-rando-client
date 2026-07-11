@@ -31,6 +31,7 @@ namespace randomizer::archipelago {
         void handle_queued_server_messages();
         void handle_deathlink();
         void toggle_deathlink();
+        void toggle_chat();
         void compare_seed();
         void reset_inventory();
         void reset_ks_doors();
@@ -83,6 +84,7 @@ namespace randomizer::archipelago {
         common::EventBus<State> m_event_bus;
         std::string m_ap_seed;
         bool m_trial_active = false;
+        bool m_display_chat = true;
         /**
          * Whether the AP seed got checked and matches the one in the save.
          * Prevent giving items/locations, and sending locations if false.

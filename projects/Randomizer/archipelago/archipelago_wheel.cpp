@@ -38,6 +38,10 @@ namespace randomizer::archipelago::wheel {
             [](auto, auto, auto) {
                 archipelago_client().send_chat_message("!release");
             });
+        features::wheel::initialize_item(9100, 7, "Toggle chat", "Toggle displaying chat messages", "file:assets/icons/game/message.png",
+            [](auto, auto, auto) {
+                archipelago_client().toggle_chat();
+            });
 
         // Menu wheel for hint (9101)
         features::wheel::initialize_item(9101, 11, "Go back", "Return to the previous page", "file:assets/icons/wheel/menu.blue.png",
