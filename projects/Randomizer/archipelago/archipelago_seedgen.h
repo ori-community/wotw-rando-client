@@ -27,6 +27,7 @@ namespace randomizer::archipelago {
         bool goal_relics;
         bool hard;
         bool qol;
+        bool no_cs;
         bool shrine_hints;
         bool trial_hints;
         bool zone_hints;
@@ -68,6 +69,7 @@ namespace randomizer::archipelago {
             goal_relics,
             hard,
             qol,
+            no_cs,
             shrine_hints,
             trial_hints,
             zone_hints,
