@@ -35,7 +35,6 @@ namespace randomizer::archipelago {
         void toggle_chat();
         void compare_seed();
         void reset_inventory();
-        void reset_ks_doors();
         void clear_pending_respawn_locations();
         void collect_locations();
         void hint_item(std::string item_name);
