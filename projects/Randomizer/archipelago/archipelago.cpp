@@ -14,12 +14,12 @@
 #include <Randomizer/archipelago/archipelago_ids.h>
 #include <Randomizer/archipelago/archipelago_protocol.h>
 #include <Randomizer/archipelago/archipelago_save_meta.h>
+#include <Randomizer/archipelago/archipelago_helpers.h>
 #include <Randomizer/location_data/location.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/items/value_modifier.h>
 
 #define UUID_SYSTEM_GENERATOR
-#include <regex>
 #include <uuid.h>
 
 constexpr int MIN_AP_VERSION = 2;  // Minimum AP World version required
@@ -236,43 +236,6 @@ namespace randomizer::archipelago {
         m_reset_inventory = true;
 
         request_sync();
-    }
-
-    void ArchipelagoClient::reset_ks_doors() {
-        const auto& keystone = core::api::game::player::keystones();
-        struct KSDoorData {
-            int group;
-            int state;
-            int cost;
-        };
-        // TODO verify costs
-        std::vector ks_doors = {
-            KSDoorData{21786, 42309, 2},  // MarshSpawn.KeystoneDoor
-            KSDoorData{21786, 47445, 2},  // HowlsDen.KeystoneDoor
-            KSDoorData{937, 64003, 2},  // MarshPastOpher.EyestoneDoor
-            KSDoorData{18793, 3171, 4},  // MidnightBurrows.KeystoneDoor
-            KSDoorData{58674, 21500, 2},  // WoodsEntry.KeystoneDoor
-            KSDoorData{18793, 41544, 4},  // WoodsMain.KeystoneDoor
-            KSDoorData{28895, 4290, 4},  // LowerReach.KeystoneDoor
-            KSDoorData{28895, 49900, 4},  // UpperReach.KeystoneDoor
-            KSDoorData{18793, 10758, 2},  // UpperDepths.CentralKeystoneDoor
-            KSDoorData{21786, 59990, 2},  // UpperDepths.EntryKeystoneDoor
-            KSDoorData{5377, 47621, 4},  // UpperPools.KeystoneDoor
-            KSDoorData{20120, 28786, 2},  // UpperWastes.KeystoneDoor
-        };
-
-        for (const auto& door_data : ks_doors) {
-            const auto& door_uber = core::api::uber_states::UberState(door_data.group, door_data.state);
-            if (door_uber.get()) {
-                door_uber.set(false);
-                keystone.set(keystone.get() + door_data.cost);
-            }
-        }
-        core::message_controller().queue_central({
-            .text = core::Property<std::string>("Keystone doors got reset"),
-            .show_box = true,
-        });
-        modloader::info("archipelago", "Keystone doors got reset upon request by the player.");
     }
 
 
@@ -619,8 +582,8 @@ namespace randomizer::archipelago {
     std::string ArchipelagoClient::get_item_text(const messages::NetworkItem& net_item, const std::string& game) const {
         std::string item_name = m_data_package.get_item_name(net_item.item, game).value_or(UNKNOWN_ITEM_TEXT);
 
-        const std::regex markup(R"(\$|#|@|\*)");
-        item_name = std::regex_replace(item_name, markup, R"(\\$&)");
+        item_name = sanitize_text(item_name);
+
         std::string color_markup;
 
         if (game == "Ori and the Will of the Wisps") {
@@ -669,7 +632,7 @@ namespace randomizer::archipelago {
     void ArchipelagoClient::notify_game_finished() { send_message(messages::StatusUpdate{messages::ClientStatus::ClientGoal}); }
 
     std::string ArchipelagoClient::get_player_name(const int player) {
-        return m_player_map[player].alias;
+        return sanitize_text(m_player_map[player].alias);
     }
 
     void ArchipelagoClient::collect_locations() {
@@ -1111,13 +1074,13 @@ namespace randomizer::archipelago {
                         std::string player_name = get_player_name(message.slot);
                         if (m_display_chat && player_name != get_player_name(m_slot_id) && !message.message.starts_with("!")) {  // ! means that it is a server command
                             core::message_controller().queue_central({
-                                .text = core::Property<std::string>(std::format("{}: {}", player_name, message.message)),
+                                .text = core::Property<std::string>(std::format("{}: {}", player_name, sanitize_text(message.message))),
                                 .show_box = true,
                             });
                         }
                     } else if (message.type == "ServerChat") {
                         core::message_controller().queue_central({
-                            .text = core::Property<std::string>(std::format("Server: {}", message.message)),
+                            .text = core::Property<std::string>(std::format("Server: {}", sanitize_text(message.message))),
                             .show_box = true,
                         });
                     } else if (message.type == "CommandResult") {

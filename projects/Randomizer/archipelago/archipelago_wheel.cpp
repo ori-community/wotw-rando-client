@@ -1,6 +1,7 @@
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/archipelago/archipelago.h>
+#include <Randomizer/archipelago/archipelago_helpers.h>
 
 namespace randomizer::archipelago::wheel {
     void initialize_ap_wheel() {
@@ -28,7 +29,7 @@ namespace randomizer::archipelago::wheel {
             });
         features::wheel::initialize_item(9100, 4, "Reset Keystone doors", "Close all doors\nand refund spent keystones", "file:assets/icons/game/keystone.png",
             [](auto, auto, auto) {
-                archipelago_client().reset_ks_doors();
+                reset_ks_doors();
             });
         features::wheel::initialize_item(9100, 5, "Collect", "Collect items in your world\n(if allowed)", "file:assets/icons/archipelago/ap-normal.blue.png",
             [](auto, auto, auto) {
