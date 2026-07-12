@@ -11,9 +11,13 @@ namespace randomizer::archipelago::wheel {
         });
 
         // Main AP wheel (9100)
-        features::wheel::initialize_item(9100, 0, "Reset inventory", "Reset inventory\nin case it got desynced", "file:assets/icons/wheel/reload_seed.blue.png",
+        features::wheel::initialize_item(9100, 11, "Go back", "Return to the main page", "file:assets/icons/wheel/menu.blue.png",
             [](auto, auto, auto) {
-                archipelago_client().reset_inventory();
+                features::wheel::set_active_wheel(0);
+            });
+        features::wheel::initialize_item(9100, 0, "Debug tools", "Commands to help you if you\nare stuck or something went wrong", "file:assets/icons/wheel/dev_mode.blue.png",
+            [](auto, auto, auto) {
+                features::wheel::set_active_wheel(9108);
             });
         features::wheel::initialize_item(9100, 1, "Toggle deathlink", "Enable or disable deathlink", "file:assets/icons/wheel/force_exit.blue.png",
             [](auto, auto, auto) {
@@ -27,19 +31,15 @@ namespace randomizer::archipelago::wheel {
             [](auto, auto, auto) {
                 features::wheel::set_active_wheel(9101);
             });
-        features::wheel::initialize_item(9100, 4, "Reset Keystone doors", "Close all doors\nand refund spent keystones", "file:assets/icons/game/keystone.png",
-            [](auto, auto, auto) {
-                reset_ks_doors();
-            });
-        features::wheel::initialize_item(9100, 5, "Collect", "Collect items in your world\n(if allowed)", "file:assets/icons/archipelago/ap-normal.blue.png",
+        features::wheel::initialize_item(9100, 4, "Collect", "Collect items in your world\n(if allowed)", "file:assets/icons/archipelago/ap-normal.blue.png",
             [](auto, auto, auto) {
                 archipelago_client().send_chat_message("!collect");
             });
-        features::wheel::initialize_item(9100, 6, "Release", "Release items in your world\n(if allowed)", "file:assets/icons/archipelago/ap-normal.blue.png",
+        features::wheel::initialize_item(9100, 5, "Release", "Release items in your world\n(if allowed)", "file:assets/icons/archipelago/ap-normal.blue.png",
             [](auto, auto, auto) {
                 archipelago_client().send_chat_message("!release");
             });
-        features::wheel::initialize_item(9100, 7, "Toggle chat", "Toggle displaying chat messages", "file:assets/icons/game/message.png",
+        features::wheel::initialize_item(9100, 6, "Toggle chat", "Toggle displaying chat messages", "file:assets/icons/game/message.png",
             [](auto, auto, auto) {
                 archipelago_client().toggle_chat();
             });
@@ -348,6 +348,20 @@ namespace randomizer::archipelago::wheel {
         features::wheel::initialize_item(9107, 6, "Ancestral Light 2", "", "spell:4008",
             [](auto, auto, auto) {
                 archipelago_client().hint_item("Ancestral Light 2");
+            });
+
+        // Debug wheel (9108)
+        features::wheel::initialize_item(9108, 11, "Go back", "Return to the previous page", "file:assets/icons/wheel/menu.blue.png",
+            [](auto, auto, auto) {
+                features::wheel::set_active_wheel(9100);
+            });
+        features::wheel::initialize_item(9108, 0, "Reset inventory", "Reset inventory\nin case it got desynced", "file:assets/icons/wheel/reload_seed.blue.png",
+            [](auto, auto, auto) {
+                archipelago_client().reset_inventory();
+            });
+        features::wheel::initialize_item(9100, 1, "Reset Keystone doors", "Close all doors\nand refund spent keystones", "file:assets/icons/game/keystone.png",
+            [](auto, auto, auto) {
+                reset_ks_doors();
             });
     }
 }  // namespace archipelago::wheel
