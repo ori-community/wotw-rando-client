@@ -108,8 +108,8 @@ namespace randomizer::entrances {
             {"doorB",                   {"ruinsInside", {"windtornRuinsA", "desertRuinsEnterMaster"}, "desertRuinsEntranceDoor"}                             },
             {"willowsEndEntrance",      {"willowBottomOutside", {"weepingRidgeWillowsEndEntrance"}, "willowsEndExit"}                                       },
             {"willowsEndExit",          {"willowBottomInside", {"willowsEndHub", "flyToTree", "willowCeremonyQuarterViewCloseUp"}, "willowsEndEntrance"} },
-            {"powlArenaEntrance",       {"willowTopOutside", {"willowsEndExit"}, "powlArenaExit"}                                                         },
-            {"powlArenaExit",           {"willowTopInside", {"willowCeremonyIntro"}, "powlArenaEntrance"}                                                   },
+            {"powlArenaEntrance",       {"willowTopInside", {"willowsEndExit"}, "powlArenaExit"}                                                         },
+            {"powlArenaExit",           {"willowTopOutside", {"willowCeremonyIntro"}, "powlArenaEntrance"}                                                   },
         };
 
         // Actual door configuration
