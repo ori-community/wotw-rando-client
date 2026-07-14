@@ -46,6 +46,7 @@ namespace {
 
             // Prevent incoming changes
             randomizer::multiplayer_universe().uber_state_handler().start_queueing_changes();
+            randomizer::archipelago_client().set_trial_active(true);
 
             // Prevent outgoing changes
             in_trial_should_sync_handle = randomizer::multiplayer_universe().uber_state_handler().should_sync_event_bus().register_handler([](auto change) {
@@ -55,6 +56,7 @@ namespace {
             in_trial_uber_state_changed_handle = nullptr;
             in_trial_should_sync_handle = nullptr;
             randomizer::multiplayer_universe().uber_state_handler().stop_queueing_and_flush_queued_changes();
+            randomizer::archipelago_client().set_trial_active(false);
         }
 
         next::RaceHandler::SetRaceInProgressState(this_ptr, in_progress);

@@ -119,21 +119,6 @@ namespace randomizer::archipelago {
         });
     });
 
-    [[maybe_unused]]
-    auto on_trial_start = core::api::game::event_bus().register_handler(GameEvent::TrialStart, EventTiming::After, [](auto, auto) {
-        core::events::schedule_task_for_next_update([] {
-            archipelago_client().set_trial_active(true);
-        });
-    });
-
-    [[maybe_unused]]
-    auto on_trial_end = core::api::game::event_bus().register_handler(GameEvent::TrialEnd, EventTiming::After, [](auto, auto) {
-        core::events::schedule_task_for_next_update([] {
-            archipelago_client().set_trial_active(false);
-            archipelago_client().request_sync();  // Items are skipped during trials, so ask for a resync
-        });
-    });
-
     ArchipelagoClient::ArchipelagoClient() {
         m_websocket.setOnMessageCallback([this](const auto& msg) { on_websocket_message(msg); });
     }
@@ -893,6 +878,12 @@ namespace randomizer::archipelago {
                         send_message(location_scouts_message);
                     }
 
+                    // TODO amount, base_id
+                    // Spawn items
+                    for (int i = 0; i < 10; i++) {
+                        m_pending_send_locations.insert(3363010932375551 - i);
+                    }
+                    
                     m_event_bus.trigger_event(State::Connected);
                 },
                 [this](const messages::ConnectionRefused& message) {

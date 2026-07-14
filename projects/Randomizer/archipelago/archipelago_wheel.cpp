@@ -15,7 +15,7 @@ namespace randomizer::archipelago::wheel {
             [](auto, auto, auto) {
                 features::wheel::set_active_wheel(0);
             });
-        features::wheel::initialize_item(9100, 0, "Debug tools", "Commands to help you if you\nare stuck or something went wrong", "file:assets/icons/wheel/dev_mode.blue.png",
+        features::wheel::initialize_item(9100, 0, "Unstuck tools", "Commands to help you if you are softlock or something went wrong", "file:assets/icons/wheel/dev_mode.blue.png",
             [](auto, auto, auto) {
                 features::wheel::set_active_wheel(9108);
             });
@@ -359,7 +359,7 @@ namespace randomizer::archipelago::wheel {
             [](auto, auto, auto) {
                 archipelago_client().reset_inventory();
             });
-        features::wheel::initialize_item(9100, 1, "Reset Keystone doors", "Close all doors\nand refund spent keystones", "file:assets/icons/game/keystone.png",
+        features::wheel::initialize_item(9108, 1, "Reset Keystone doors", "Close all doors\nand refund spent keystones", "file:assets/icons/game/keystone.png",
             [](auto, auto, auto) {
                 reset_ks_doors();
             });

@@ -34,8 +34,8 @@ enum class GameEvent {
     DestroyAreaMap,
 
     Teleport,
-    TrialStart,
-    TrialEnd,
+    TrialStart,  // This is currently never triggered
+    TrialEnd,  // This is currently never triggered
 
     RegisteringInputSimulators,
 };
