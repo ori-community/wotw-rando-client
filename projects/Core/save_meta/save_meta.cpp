@@ -84,7 +84,12 @@ namespace core::save_meta {
 
             if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
                 stream.skip<int>();
-                stream.skip<int>(); // VERSION unused for now
+
+                const auto version = stream.read<int>();
+                if (version != SAVE_META_FILE_VERSION) {
+                    info("save_meta", std::format("Save file version {} did not match expected version {}", version, SAVE_META_FILE_VERSION));
+                    return {};
+                }
 
                 return stream.read<MoodGuid>();
             }
@@ -117,7 +122,16 @@ namespace core::save_meta {
 
             if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
                 stream.skip<int>();
-                stream.skip<int>(); // VERSION unused for now
+
+                const auto version = stream.read<int>();
+                if (version != SAVE_META_FILE_VERSION) {
+                    info("save_meta", std::format("Save file version {} did not match expected version {}", version, SAVE_META_FILE_VERSION));
+                    return SaveMetaReadResult{
+                        0UL,
+                        0UL,
+                        types::Byte::create_array(0),
+                    };
+                }
 
                 auto guid = stream.read<MoodGuid>();
                 auto slot_count = stream.read<int>();
