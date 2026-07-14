@@ -311,7 +311,12 @@ namespace randomizer::timing {
             [](auto, auto) {
                 if (GameStateMachine::get_IsGame()) {
                     // Only set these values when in game because the main menu sets some wonky states
+                    const auto previous_game_finished = game_finished;
                     game_finished = GAME_FINISHED_UBER_STATE.get<bool>();
+                    if (game_finished != previous_game_finished) {
+                        queue_timer_state_report();
+                    }
+
                     current_game_area = core::api::game::player::get_current_area();
 
                     report_position_throttled();
