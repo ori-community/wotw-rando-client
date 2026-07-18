@@ -880,7 +880,7 @@ namespace randomizer::archipelago {
 
                     // TODO amount, base_id
                     // Spawn items
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < message.slot_data.spawn_amount; i++) {
                         m_pending_send_locations.insert(3363010932375551 - i);
                     }
                     

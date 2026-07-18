@@ -9,7 +9,10 @@ namespace randomizer::archipelago::seedgen_source_generators {
             return {};
         },
         [](const ArchipelagoSeedGeneratorOptions& options) -> std::optional<std::string> {
-            return std::format("Spawn: {}, {}  // {}", options.spawn_x, options.spawn_y, options.spawn_anchor);
+            std::string output = std::format("Spawn: {}, {}  // {}\n", options.spawn_x, options.spawn_y, options.spawn_anchor);
+            output += std::format(R"WOTWR(3|1|4|22|0|{}|{}|Warp to Spawn)WOTWR", options.spawn_x, options.spawn_y);
+
+            return output;
         },
     };
 }
