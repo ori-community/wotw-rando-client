@@ -18,6 +18,7 @@ namespace randomizer::archipelago {
     struct ArchipelagoSeedGeneratorOptions {
         std::string difficulty;
         bool glitches;
+        bool unpopular;
         float spawn_x;
         float spawn_y;
         std::string spawn_anchor;
@@ -53,6 +54,8 @@ namespace randomizer::archipelago {
         std::vector<int> door_connections;  // Door connections (index → door ID)
         std::vector<std::pair<int, ids::archipelago_id_t>> relic_locs;  // Relic locations (GameArea, location ID)
         int launch_frag;
+        bool free_tp;  // RemoveTPLocks
+        bool regen;  // RemoveRegionRegen
         int death_link;
         int ap_version;
         int location_flags;
@@ -61,6 +64,7 @@ namespace randomizer::archipelago {
             ArchipelagoSeedGeneratorOptions,
             difficulty,
             glitches,
+            unpopular,
             spawn_x,
             spawn_y,
             spawn_anchor,
@@ -96,6 +100,8 @@ namespace randomizer::archipelago {
             door_connections,
             relic_locs,
             launch_frag,
+            free_tp,
+            regen,
             death_link,
             ap_version,
             location_flags

@@ -2,6 +2,7 @@
 #include <Randomizer/archipelago/seedgen_source_generators/spawn.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/config.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/flags.inc>
+#include <Randomizer/archipelago/seedgen_source_generators/sets.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/format_version.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/better_spawn.inc>
 #include <Randomizer/archipelago/seedgen_source_generators/better_wellspring.inc>
@@ -39,6 +40,7 @@ namespace randomizer::archipelago {
         seedgen_source_generators::format_version,
         seedgen_source_generators::spawn,
         seedgen_source_generators::flags,
+        seedgen_source_generators::sets,
         seedgen_source_generators::seed_core,
         seedgen_source_generators::bonus,
         seedgen_source_generators::trial_hints,
