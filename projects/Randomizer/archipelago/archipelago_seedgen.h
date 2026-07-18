@@ -21,6 +21,7 @@ namespace randomizer::archipelago {
         float spawn_x;
         float spawn_y;
         std::string spawn_anchor;
+        int spawn_amount;
         bool goal_trees;
         bool goal_quests;
         bool goal_wisps;
@@ -63,6 +64,7 @@ namespace randomizer::archipelago {
             spawn_x,
             spawn_y,
             spawn_anchor,
+            spawn_amount,
             goal_trees,
             goal_quests,
             goal_wisps,

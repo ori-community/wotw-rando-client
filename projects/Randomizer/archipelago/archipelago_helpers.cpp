@@ -5,14 +5,13 @@
 #include <regex>
 
 namespace randomizer::archipelago {
-    // Add an escape character before the ones that are special markup.
     std::string sanitize_text(const std::string& text) {
         const std::regex markup(R"(\$|#|@|\*|<|>)");
-        std::string new_text = std::regex_replace(text, markup, R"(\\$&)");
+        std::string new_text = std::regex_replace(text, markup, "");  // TODO use replacement characters instead of removing them
         return new_text;
     }
 
-    // Open doors are refund keystone cost
+    // Open doors and refund keystones
     void reset_ks_doors() {
         const auto& keystone = core::api::game::player::keystones();
         struct KSDoorData {
