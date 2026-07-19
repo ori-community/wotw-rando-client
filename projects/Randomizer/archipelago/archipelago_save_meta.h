@@ -15,5 +15,6 @@ namespace randomizer::archipelago {
 
         nlohmann::json json_serialize() override;
         void json_deserialize(nlohmann::json& j) override;
+        void reset_slot();
     };
 }; // namespace randomizer::archipelago
