@@ -17,6 +17,10 @@ namespace randomizer::archipelago::seedgen_source_generators {
                 flags.push_back("Glitches");
             }
 
+            if (options.launch_frag) {
+                flags.push_back("Launch Fragments");
+            }
+
             if (options.goal_trees) {
                 flags.push_back("All Trees");
             }
