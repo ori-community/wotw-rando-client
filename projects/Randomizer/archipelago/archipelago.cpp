@@ -442,7 +442,7 @@ namespace randomizer::archipelago {
 
         if (server_connection.has_value() && std::holds_alternative<seed::ArchipelagoServerConnection>(*server_connection)) {
             auto connection = std::get<seed::ArchipelagoServerConnection>(*server_connection);
-            core::events::schedule_task(0.f, [connection, this]() {
+            core::events::schedule_task_for_next_update([connection, this]() {
                 // The slot name is fixed on seed generation and cannot change, so we keep using the saved one
                 archipelago_client().connect(connection.url, m_slot_name, connection.password);
             });
