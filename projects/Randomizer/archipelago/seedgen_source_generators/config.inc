@@ -17,7 +17,11 @@ namespace randomizer::archipelago::seedgen_source_generators {
                 config_line += R"tricks("SwordSentryJump","DashBashChain","SpearJump","WallHammerJump","AerialHammerJump","SentryRedirect","GrenadeJump","FlashSwap","RemoveKillPlane","HammerBreak","HammerSentryJump","LaunchBashChain","GlideBashChain","GroundedHammerJump","GlideHammerJump","PauseFloat","SwordJump","BlazeSwap","LaunchSwap","SpearBreak","ShurikenBreak","DoubleJumpBashChain","HammerExtension","CoyoteHammerJump","GlideJump","GrenadeRedirect","WaveDash","SentrySwap","SentryBurn","SentryBreak")tricks";
             }
             if (options.unpopular) {
-                config_line += R"tricks(,"Unpopular")tricks";
+                if (options.glitches) {
+                    config_line += R"tricks(,"Unpopular")tricks";
+                } else {
+                    config_line += R"tricks("Unpopular")tricks";
+                }
             }
 
             config_line += R"config(],"hard":)config";
