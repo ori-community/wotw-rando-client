@@ -153,7 +153,13 @@ namespace randomizer::archipelago {
     }
 
     void ArchipelagoClient::reset_variables() {
+        // Reset the SaveMeta AP slot
+        core::save_meta::clear_slot(SaveMetaSlot::ArchipelagoData);
+        archipelago_save_data->reset_slot();
+        core::save_meta::register_slot(SaveMetaSlot::ArchipelagoData, SaveMetaSlotPersistence::None, archipelago_save_data);
+
         // Don't reset `m_first_connection_attempt` here, as the variables are also reset when trying a second time.
+
         m_slot_name = "";
         m_slot_id = 0;
         m_password = "";
@@ -169,16 +175,16 @@ namespace randomizer::archipelago {
         m_current_seed_generator = std::nullopt;
         m_event_bus.clear();
         m_ap_seed = "";
+        m_trial_active = false;
+        m_display_chat = true;
         m_checked_seed = false;
         m_deathlink_enabled = false;
         m_deathlink_max_lives = 1;
         m_deathlink_lives = 1;
         m_death_from_deathlink = false;
         m_reset_inventory = false;
-        m_display_chat = true;
-        m_trial_active = false;
 
-        modloader::info("archipelago", "AP client got reset");
+        modloader::info("archipelago", "AP client and AP SaveMeta got reset");
     }
 
     // Reset inventory and the last item index. Only triggered manually (from the wheel) in case of a desync.
@@ -437,10 +443,8 @@ namespace randomizer::archipelago {
 
         if (server_connection.has_value() && std::holds_alternative<seed::ArchipelagoServerConnection>(*server_connection)) {
             auto connection = std::get<seed::ArchipelagoServerConnection>(*server_connection);
-            m_slot_name = connection.slot_name;
-            m_password = connection.password;
             core::events::schedule_task(0.f, [connection, this]() {
-                archipelago_client().connect(connection.url, m_slot_name, m_password);
+                archipelago_client().connect(connection.url, m_slot_name, connection.password);
             });
         };
     }
