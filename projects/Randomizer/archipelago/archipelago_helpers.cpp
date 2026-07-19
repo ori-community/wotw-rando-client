@@ -19,7 +19,7 @@ namespace randomizer::archipelago {
             int state;
             int cost;
         };
-        // TODO verify costs
+
         const std::vector ks_doors = {
             KSDoorData{21786, 42309, 2},  // MarshSpawn.KeystoneDoor
             KSDoorData{21786, 47445, 2},  // HowlsDen.KeystoneDoor

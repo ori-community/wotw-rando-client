@@ -22,7 +22,7 @@
 #define UUID_SYSTEM_GENERATOR
 #include <uuid.h>
 
-constexpr int MIN_AP_VERSION = 2;  // Minimum AP World version required
+constexpr int MIN_AP_VERSION = 3;  // Minimum AP World version required
 constexpr int MAX_PLAYERS_TO_SHOW_JOIN_LEAVE_MESSAGES = 5;
 constexpr int FLAG_PROGRESSION = 0b001;
 constexpr int FLAG_USEFUL = 0b010;
@@ -228,7 +228,6 @@ namespace randomizer::archipelago {
 
         request_sync();
     }
-
 
     void ArchipelagoClient::toggle_deathlink() {
         if (m_deathlink_enabled) {
@@ -444,6 +443,7 @@ namespace randomizer::archipelago {
         if (server_connection.has_value() && std::holds_alternative<seed::ArchipelagoServerConnection>(*server_connection)) {
             auto connection = std::get<seed::ArchipelagoServerConnection>(*server_connection);
             core::events::schedule_task(0.f, [connection, this]() {
+                // The slot name is fixed on seed generation and cannot change, so we keep using the saved one
                 archipelago_client().connect(connection.url, m_slot_name, connection.password);
             });
         };
@@ -882,7 +882,6 @@ namespace randomizer::archipelago {
                         send_message(location_scouts_message);
                     }
 
-                    // TODO amount, base_id
                     // Spawn items
                     for (int i = 0; i < message.slot_data.spawn_amount; i++) {
                         m_pending_send_locations.insert(3363010932375551 - i);
