@@ -149,14 +149,11 @@ namespace randomizer::archipelago {
 
     void ArchipelagoClient::reset_first_connection_attempt() {
         m_first_connection_attempt = true;
-        modloader::info("archipelago", "First connection attempt set to True.");
     }
 
     void ArchipelagoClient::reset_variables() {
         // Reset the SaveMeta AP slot
-        core::save_meta::clear_slot(SaveMetaSlot::ArchipelagoData);
-        archipelago_save_data->reset_slot();
-        core::save_meta::register_slot(SaveMetaSlot::ArchipelagoData, SaveMetaSlotPersistence::None, archipelago_save_data);
+        *archipelago_save_data = ArchipelagoSaveData();
 
         // Don't reset `m_first_connection_attempt` here, as the variables are also reset when trying a second time.
 
@@ -183,8 +180,6 @@ namespace randomizer::archipelago {
         m_deathlink_lives = 1;
         m_death_from_deathlink = false;
         m_reset_inventory = false;
-
-        modloader::info("archipelago", "AP client and AP SaveMeta got reset");
     }
 
     // Reset inventory and the last item index. Only triggered manually (from the wheel) in case of a desync.
@@ -450,7 +445,7 @@ namespace randomizer::archipelago {
     }
 
     void ArchipelagoClient::compare_seed() {
-        if (m_checked_seed) {
+        if (!is_connected() || m_checked_seed) {
             return;
         }
 
@@ -809,6 +804,9 @@ namespace randomizer::archipelago {
     }
 
     void ArchipelagoClient::request_sync() {
+        if (!is_connected()) {
+            return;
+        }
         send_message(messages::Sync{"Sync"});
         modloader::debug("archipelago", "Sent Sync packet to AP server.");
     }
