@@ -77,7 +77,7 @@ namespace randomizer::timing {
         std::optional<PositionCache> position_cache = std::nullopt;
     } // namespace
 
-    constexpr frozen::unordered_map<GameStat, GameStatConfiguration, 41> GAME_STAT_CONFIGURATIONS{
+    constexpr frozen::unordered_map<GameStat, GameStatConfiguration, 42> GAME_STAT_CONFIGURATIONS{
         {GameStat::PickupsCollected, {UberStateGroup::RandoStats, 0}},
         {GameStat::PickupsTotal, {UberStateGroup::RandoStats, 1}},
         {GameStat::Keystones, {UberStateGroup::Player, 2}},
@@ -119,6 +119,7 @@ namespace randomizer::timing {
         {GameStat::PickupsTotalBurrows, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Burrows)}},
         {GameStat::PickupsCollectedShop, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Shop)}},
         {GameStat::PickupsTotalShop, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Shop)}},
+        {GameStat::CurrentArea, {UberStateGroup::Player, 50}},
     };
 
     constexpr frozen::unordered_map<UberStateIdentifier, TrackedSkillConfiguration, 24, UberStateIdentifierHash> TRACKED_STATE_CONFIGURATIONS = {

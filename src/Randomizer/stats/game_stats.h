@@ -90,6 +90,7 @@ namespace randomizer::timing {
         PickupsTotalBurrows,
         PickupsCollectedShop,
         PickupsTotalShop,
+        CurrentArea,
     };
 
     class SaveFileGameStats : public core::save_meta::SaveMetaSerializable {
