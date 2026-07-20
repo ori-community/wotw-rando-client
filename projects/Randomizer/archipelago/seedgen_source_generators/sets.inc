@@ -21,13 +21,7 @@ namespace randomizer::archipelago::seedgen_source_generators {
                 return std::nullopt;
             }
             std::string output = "// Sets: ";
-            for (int i = 0; i < sets.size(); ++i) {
-                if (i != 0) {
-                    output += ", ";
-                }
-
-                output += sets.at(i);
-            }
+            output += sets | std::views::join_with(std::string_view(", ")) | std::ranges::to<std::string>();
             return output;
         },
     };

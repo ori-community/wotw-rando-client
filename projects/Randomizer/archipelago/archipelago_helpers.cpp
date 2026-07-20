@@ -20,7 +20,7 @@ namespace randomizer::archipelago {
             int cost;
         };
 
-        const std::vector ks_doors = {
+        static const std::vector KS_DOORS = {
             KSDoorData{21786, 42309, 2},  // MarshSpawn.KeystoneDoor
             KSDoorData{21786, 47445, 2},  // HowlsDen.KeystoneDoor
             KSDoorData{937, 64003, 2},  // MarshPastOpher.EyestoneDoor
@@ -35,7 +35,7 @@ namespace randomizer::archipelago {
             KSDoorData{20120, 28786, 2},  // UpperWastes.KeystoneDoor
         };
 
-        for (const auto& [group, state, cost] : ks_doors) {
+        for (const auto& [group, state, cost] : KS_DOORS) {
             const auto& door_uber = core::api::uber_states::UberState(group, state);
             if (door_uber.get()) {
                 door_uber.set(false);

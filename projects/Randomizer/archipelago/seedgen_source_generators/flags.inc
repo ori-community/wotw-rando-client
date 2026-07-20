@@ -94,13 +94,7 @@ namespace randomizer::archipelago::seedgen_source_generators {
             }
 
             std::string result = "Flags: ";
-            for (int i = 0; i < flags.size(); ++i) {
-                if (i != 0) {
-                    result += ", ";
-                }
-
-                result += flags.at(i);
-            }
+            result += flags | std::views::join_with(std::string_view(", ")) | std::ranges::to<std::string>();
 
             return result;
         },
