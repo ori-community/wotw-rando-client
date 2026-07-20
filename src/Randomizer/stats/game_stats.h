@@ -2,17 +2,14 @@
 
 #include <Core/enums/game_areas.h>
 #include <Core/enums/async_loading_state.h>
-#include <Core/enums/world_events.h>
 #include <Core/save_meta/save_meta.h>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
 #include <utility>
 #include <variant>
-
-#include <Modloader/app/structs/AbilityType__Enum.h>
 #include <Modloader/app/structs/Vector2.h>
+#include <Randomizer/map/map_icons.h>
 
-#include "Randomizer/map/map_icons.h"
 
 NLOHMANN_JSON_NAMESPACE_BEGIN
 template <typename T>
@@ -195,20 +192,37 @@ namespace randomizer::timing {
                 time_lost(time_lost) {}
         };
 
+        /**
+         * Timeline Entry events represent events at a single point in time.
+         * They can also represent a timespan if ended using a TimelineEntryEndEvent with the same ID and type.
+         * IDs can be reused as long as the previous event has been ended before.
+         */
         struct TimelineEntryEvent : Event {
             enum class Type : uint8_t {
                 Ability,
                 Custom,
             };
 
+            uint64_t id;
             std::string label;
             map::icons::MapIcon::Type icon;
             Type type;
 
-            TimelineEntryEvent(const float in_game_time, std::string label, const map::icons::MapIcon::Type icon, const Type type) :
+            TimelineEntryEvent(const float in_game_time, const uint64_t id, std::string label, const map::icons::MapIcon::Type icon, const Type type) :
                 Event(in_game_time),
+                id(id),
                 label(std::move(label)),
                 icon(icon),
+                type(type) {}
+        };
+
+        struct TimelineEntryEndEvent : Event {
+            uint64_t id;
+            TimelineEntryEvent::Type type;
+
+            TimelineEntryEndEvent(const float in_game_time, const uint64_t id, const TimelineEntryEvent::Type type) :
+                Event(in_game_time),
+                id(id),
                 type(type) {}
         };
 
@@ -222,12 +236,13 @@ namespace randomizer::timing {
                 value(value) {}
         };
 
-        using event_t = std::variant<PositionEvent, DisplacementEvent, TimelineEntryEvent, StatEvent>;
+        using event_t = std::variant<PositionEvent, DisplacementEvent, TimelineEntryEvent, TimelineEntryEndEvent, StatEvent>;
 
         void report_position(const app::Vector2& position);
         void report_displacement(const app::Vector2& from, const app::Vector2& to, DisplacementReason reason, float time_lost = 0.f);
         void report_stat(GameStat stat, float value);
-        void add_timeline_entry(const std::string& label, map::icons::MapIcon::Type icon, TimelineEntryEvent::Type type);
+        void add_timeline_entry(std::size_t id, const std::string& label, map::icons::MapIcon::Type icon, TimelineEntryEvent::Type type);
+        void add_timeline_end_entry(std::size_t id, TimelineEntryEvent::Type type);
 
         // Tracking
         float time_since_last_checkpoint = 0.f;

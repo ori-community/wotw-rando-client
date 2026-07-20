@@ -310,7 +310,7 @@ namespace randomizer::map::icons {
     // Polymorphism doesn't work in a constexpr context...
     using icon_recipe_t = std::variant<VanillaIconRecipe, CustomIconRecipe>;
 
-    constexpr frozen::unordered_map<MapIcon::Type, icon_recipe_t, 92>
+    constexpr frozen::unordered_map<MapIcon::Type, icon_recipe_t, 116>
     MAP_ICON_RECIPES = {
         {MapIcon::Type::Keystone, VanillaIconRecipe(app::WorldMapIconType__Enum::Keystone)},
         {MapIcon::Type::Mapstone, VanillaIconRecipe(app::WorldMapIconType__Enum::Mapstone)},
@@ -404,6 +404,30 @@ namespace randomizer::map::icons {
         {MapIcon::Type::Ori, CustomIconRecipe("file:map_icons/ori.png", 1.f)},
         {MapIcon::Type::OriMonochrome, CustomIconRecipe("file:map_icons/ori_monochrome.png", 1.f)},
         {MapIcon::Type::OriPlayer, CustomIconRecipe("file:map_icons/ori.png", 1.1f, -0.05f)},
+        {MapIcon::Type::SkillBash, CustomIconRecipe("ability:0")},
+        {MapIcon::Type::SkillDoubleJump, CustomIconRecipe("ability:5")},
+        {MapIcon::Type::SkillLaunch, CustomIconRecipe("ability:8")},
+        {MapIcon::Type::SkillGlide, CustomIconRecipe("ability:14")},
+        {MapIcon::Type::SkillWaterBreath, CustomIconRecipe("ability:23")},
+        {MapIcon::Type::SkillGrenade, CustomIconRecipe("ability:51")},
+        {MapIcon::Type::SkillGrapple, CustomIconRecipe("ability:57")},
+        {MapIcon::Type::SkillFlash, CustomIconRecipe("ability:62")},
+        {MapIcon::Type::SkillSpear, CustomIconRecipe("ability:74")},
+        {MapIcon::Type::SkillRegenerate, CustomIconRecipe("ability:77")},
+        {MapIcon::Type::SkillBow, CustomIconRecipe("ability:97")},
+        {MapIcon::Type::SkillHammer, CustomIconRecipe("ability:98")},
+        {MapIcon::Type::SkillTorch, CustomIconRecipe("ability:99")},
+        {MapIcon::Type::SkillSword, CustomIconRecipe("ability:100")},
+        {MapIcon::Type::SkillBurrow, CustomIconRecipe("ability:101")},
+        {MapIcon::Type::SkillDash, CustomIconRecipe("ability:102")},
+        {MapIcon::Type::SkillWaterDash, CustomIconRecipe("ability:104")},
+        {MapIcon::Type::SkillShuriken, CustomIconRecipe("ability:106")},
+        {MapIcon::Type::SkillBlaze, CustomIconRecipe("ability:115")},
+        {MapIcon::Type::SkillSentry, CustomIconRecipe("ability:116")},
+        {MapIcon::Type::SkillFlap, CustomIconRecipe("ability:118")},
+        {MapIcon::Type::SkillAncestralLightA, CustomIconRecipe("ability:120")},
+        {MapIcon::Type::SkillAncestralLightB, CustomIconRecipe("ability:121")},
+        {MapIcon::Type::Watermill, CustomIconRecipe("file:icons/game/watermill.png")},
     };
 
     MapIcon::id_t next_icon_id = 0;

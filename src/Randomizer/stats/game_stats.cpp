@@ -77,11 +77,20 @@ namespace randomizer::timing {
         ));
     }
 
-    void SaveFileGameStats::add_timeline_entry(const std::string& label, map::icons::MapIcon::Type icon, TimelineEntryEvent::Type type) {
+    void SaveFileGameStats::add_timeline_entry(const uint64_t id, const std::string& label, map::icons::MapIcon::Type icon, TimelineEntryEvent::Type type) {
         m_event_stream.emplace_back(TimelineEntryEvent(
             in_game_time,
+            id,
             label,
             icon,
+            type
+        ));
+    }
+
+    void SaveFileGameStats::add_timeline_end_entry(const uint64_t id, TimelineEntryEvent::Type type) {
+        m_event_stream.emplace_back(TimelineEntryEndEvent(
+            in_game_time,
+            id,
             type
         ));
     }
@@ -108,8 +117,13 @@ namespace randomizer::timing {
                     stream.write(event.time_lost);
                 },
                 [&](const TimelineEntryEvent& event) {
+                    stream.write(event.id);
                     stream.write_string_with_length(event.label);
                     stream.write(event.icon);
+                    stream.write(event.type);
+                },
+                [&](const TimelineEntryEndEvent& event) {
+                    stream.write(event.id);
                     stream.write(event.type);
                 },
                 [&](const StatEvent& event) {
@@ -153,18 +167,30 @@ namespace randomizer::timing {
                     ));
                 } break;
                 case 2: {  // TimelineEntryEvent
+                    const auto id = stream.read<uint64_t>();
                     const auto label = stream.read_string_with_length();
                     const auto icon = stream.read<map::icons::MapIcon::Type>();
                     const auto type = stream.read<TimelineEntryEvent::Type>();
 
                     m_event_stream.emplace_back(TimelineEntryEvent(
                         time,
+                        id,
                         label,
                         icon,
                         type
                     ));
                 } break;
-                case 3: {  // StatEvent
+                case 3: {  // TimelineEntryEndEvent
+                    const auto id = stream.read<uint32_t>();
+                    const auto type = stream.read<TimelineEntryEvent::Type>();
+
+                    m_event_stream.emplace_back(TimelineEntryEndEvent(
+                        time,
+                        id,
+                        type
+                    ));
+                } break;
+                case 4: {  // StatEvent
                     const auto stat = stream.read<GameStat>();
                     const auto value = stream.read<float>();
 

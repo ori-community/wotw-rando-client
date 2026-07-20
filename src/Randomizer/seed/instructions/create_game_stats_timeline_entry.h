@@ -5,13 +5,16 @@
 #include <Randomizer/map/map_icons.h>
 
 INSTRUCTION(CreateGameStatsTimelineEntry)
-    explicit CreateGameStatsTimelineEntry(const map::icons::MapIcon::Type icon) :
+    explicit CreateGameStatsTimelineEntry(const uint64_t id, const map::icons::MapIcon::Type icon) :
+        id(id),
         icon_type(icon) {}
 
+    uint64_t id;
     map::icons::MapIcon::Type icon_type;
 
     void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         timing::get_save_file_game_stats().add_timeline_entry(
+            id,
             memory.heap.get<std::string>(0),
             icon_type,
             timing::SaveFileGameStats::TimelineEntryEvent::Type::Custom
@@ -27,6 +30,6 @@ INSTRUCTION(CreateGameStatsTimelineEntry)
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
-        return std::make_unique<CreateGameStatsTimelineEntry>(parse_enum<map::icons::MapIcon::Type>(j));
+        return std::make_unique<CreateGameStatsTimelineEntry>(j.at(0).get<uint64_t>(), parse_enum<map::icons::MapIcon::Type>(j.at(1)));
     }
 };

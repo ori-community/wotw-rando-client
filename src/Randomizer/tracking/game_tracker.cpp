@@ -17,6 +17,7 @@
 #include <Randomizer/tracking/game_tracker.h>
 #include <Randomizer/randomizer.h>
 #include <frozen/unordered_map.h>
+#include <Randomizer/map/map_icons.h>
 
 
 using namespace app::classes;
@@ -25,13 +26,56 @@ namespace randomizer::timing {
     const core::api::uber_states::UberState GAME_FINISHED_UBER_STATE(34543, 11226);
     const core::api::uber_states::UberState SPOILER_FILTER_ENABLED_UBER_STATE(UberStateGroup::RandoState, 100);
 
-    struct GameStatConfiguration {
-        UberStateGroup group;
-        int state;
-        core::api::uber_states::UberState get_uber_state() const {
-            return core::api::uber_states::UberState(group, state);
-        }
-    };
+    // This is set to true by some rando routines which grant abilities temporarily
+    bool disable_ability_tracking = false;
+
+    core::api::uber_states::UberState UberStateIdentifier::get_uber_state() const {
+        return core::api::uber_states::UberState(group, state);
+    }
+
+    namespace {
+        struct GameStatConfiguration {
+            UberStateGroup group;
+            int state;
+            core::api::uber_states::UberState get_uber_state() const { return core::api::uber_states::UberState(group, state); }
+        };
+
+        std::vector<common::Droppable::ptr_t> game_stat_event_handler_droppables;
+
+        struct TrackedSkillConfiguration {
+            frozen::string label;
+            map::icons::MapIcon::Type icon_type;
+        };
+
+        std::vector<core::reactivity::ReactiveEffect::ptr_t> tracked_state_effects;
+
+        // Caches for some values that should not be read in the main menu
+        auto game_finished = false;
+        auto current_game_area = GameArea::Void;
+
+        // Loading time report throttling
+        constexpr float TIMER_STATE_IPC_REPORTING_THROTTLE_SECONDS = 0.1f;
+        bool queue_timer_state_ipc_report = false;
+        float timer_state_ipc_reporting_throttled_for = 0.f;
+        constexpr float TIMER_STATE_SERVER_REPORTING_THROTTLE_SECONDS = 1.f;
+        bool queue_timer_state_server_report = false;
+        float timer_state_server_reporting_throttled_for = 0.f;
+
+        // Used to prevent the timer from running when having started the game just now
+        bool loaded_any_save_file = false;
+
+        std::shared_ptr<SaveFileGameStats> save_stats = std::make_shared<SaveFileGameStats>();
+        std::shared_ptr<GameTrackerMetaData> game_tracker_meta_data = std::make_shared<GameTrackerMetaData>();
+
+        struct PositionCache {
+            /** The last position that has been recorded as a PositionEvent */
+            app::Vector2 last_recorded_position{};
+            /** The last known player position while event recording was active */
+            app::Vector2 last_known_position{};
+        };
+
+        std::optional<PositionCache> position_cache = std::nullopt;
+    } // namespace
 
     constexpr frozen::unordered_map<GameStat, GameStatConfiguration, 41> GAME_STAT_CONFIGURATIONS{
         {GameStat::PickupsCollected, {UberStateGroup::RandoStats, 0}},
@@ -77,36 +121,32 @@ namespace randomizer::timing {
         {GameStat::PickupsTotalShop, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Shop)}},
     };
 
-    std::vector<common::Droppable::ptr_t> game_stat_event_handler_droppables;
-
-    // Caches for some values that should not be read in the main menu
-    auto game_finished = false;
-    auto current_game_area = GameArea::Void;
-
-    // Loading time report throttling
-    constexpr float TIMER_STATE_IPC_REPORTING_THROTTLE_SECONDS = 0.1f;
-    bool queue_timer_state_ipc_report = false;
-    float timer_state_ipc_reporting_throttled_for = 0.f;
-    constexpr float TIMER_STATE_SERVER_REPORTING_THROTTLE_SECONDS = 1.f;
-    bool queue_timer_state_server_report = false;
-    float timer_state_server_reporting_throttled_for = 0.f;
-
-    // This is set to true by some rando routines which grant abilities temporarily
-    bool disable_ability_tracking = false;
-
-    // Used to prevent the timer from running when having started the game just now
-    bool loaded_any_save_file = false;
-
-    std::shared_ptr<SaveFileGameStats> save_stats = std::make_shared<SaveFileGameStats>();
-
-    struct PositionCache {
-        /** The last position that has been recorded as a PositionEvent */
-        app::Vector2 last_recorded_position{};
-        /** The last known player position while event recording was active */
-        app::Vector2 last_known_position{};
+    constexpr frozen::unordered_map<UberStateIdentifier, TrackedSkillConfiguration, 24, UberStateIdentifierHash> TRACKED_STATE_CONFIGURATIONS = {
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Bash)), {"Bash", map::icons::MapIcon::Type::SkillBash}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::DoubleJump)), {"Double Jump", map::icons::MapIcon::Type::SkillDoubleJump}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::ChargeJump)), {"Launch", map::icons::MapIcon::Type::SkillLaunch}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Glide)), {"Glide", map::icons::MapIcon::Type::SkillGlide}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::WaterBreath)), {"Water Breath", map::icons::MapIcon::Type::SkillWaterBreath}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Grenade)), {"Grenade", map::icons::MapIcon::Type::SkillGrenade}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::SpiritLeash)), {"Grapple", map::icons::MapIcon::Type::SkillGrapple}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::GlowSpell)), {"Flash", map::icons::MapIcon::Type::SkillFlash}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::SpiritSpearSpell)), {"Spear", map::icons::MapIcon::Type::SkillSpear}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::MeditateSpell)), {"Regenerate", map::icons::MapIcon::Type::SkillRegenerate}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Bow)), {"Bow", map::icons::MapIcon::Type::SkillBow}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Hammer)), {"Hammer", map::icons::MapIcon::Type::SkillHammer}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Torch)), {"Torch", map::icons::MapIcon::Type::SkillTorch}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Sword)), {"Sword", map::icons::MapIcon::Type::SkillSword}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Digging)), {"Burrow", map::icons::MapIcon::Type::SkillBurrow}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::DashNew)), {"Dash", map::icons::MapIcon::Type::SkillDash}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::WaterDash)), {"Water Dash", map::icons::MapIcon::Type::SkillWaterDash}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::ChakramSpell)), {"Shuriken", map::icons::MapIcon::Type::SkillShuriken}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Blaze)), {"Blaze", map::icons::MapIcon::Type::SkillBlaze}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::TurretSpell)), {"Sentry", map::icons::MapIcon::Type::SkillSentry}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::FeatherFlap)), {"Flap", map::icons::MapIcon::Type::SkillFlap}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::DamageUpgradeA)), {"Glades Ancestral Light", map::icons::MapIcon::Type::SkillAncestralLightA}},
+        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::DamageUpgradeB)), {"Marsh Ancestral Light", map::icons::MapIcon::Type::SkillAncestralLightB}},
+        {UberStateIdentifier(UberStateGroup::RandoState, 2000), {"Clean Water", map::icons::MapIcon::Type::CleanWater}},
     };
-
-    std::optional<PositionCache> position_cache = std::nullopt;
 
     void queue_timer_state_report() {
         queue_timer_state_ipc_report = true;
@@ -132,12 +172,18 @@ namespace randomizer::timing {
 
         void reset_stats() {
             save_stats = std::make_shared<SaveFileGameStats>();
+            game_tracker_meta_data = std::make_shared<GameTrackerMetaData>();
             position_cache = std::nullopt;
 
             core::save_meta::register_slot(
                 SaveMetaSlot::SaveFileGameStats,
                 SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups,
                 save_stats
+            );
+            core::save_meta::register_slot(
+                SaveMetaSlot::GameTrackerMetaData,
+                SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups,
+                game_tracker_meta_data
             );
 
             queue_timer_state_report();
@@ -386,6 +432,38 @@ namespace randomizer::timing {
                     );
                 }
 
+                for (const auto& [state_identifier, configuration]: TRACKED_STATE_CONFIGURATIONS) {
+                    core::reactivity::watch_effect()
+                        .effect(std::vector{state_identifier.get_uber_state()})
+                        .after([state_identifier, configuration] {
+                            const auto is_currently_tracked = game_tracker_meta_data->active_tracked_states.contains(state_identifier);
+                            const auto uber_state = state_identifier.get_uber_state();
+                            const auto is_active = uber_state.get<bool>();
+
+                            if (is_currently_tracked != is_active) {
+                                const auto id = uber_state.group_int() * 1000000 + uber_state.state();
+
+                                if (is_active) {
+                                    get_save_file_game_stats().add_timeline_entry(
+                                        id,
+                                        std::string(configuration.label.begin(), configuration.label.end()),
+                                        configuration.icon_type,
+                                        SaveFileGameStats::TimelineEntryEvent::Type::Ability
+                                    );
+                                    game_tracker_meta_data->active_tracked_states.insert(state_identifier);
+                                } else {
+                                    get_save_file_game_stats().add_timeline_end_entry(
+                                        id,
+                                        SaveFileGameStats::TimelineEntryEvent::Type::Ability
+                                    );
+                                    game_tracker_meta_data->active_tracked_states.erase(state_identifier);
+                                }
+                            }
+                        })
+                        .trigger_on_load()
+                        .finalize(tracked_state_effects);
+                }
+
                 core::ipc::register_request_handler(
                     "timer.get_stats",
                     [](const nlohmann::json& j) {
@@ -505,6 +583,14 @@ namespace randomizer::timing {
             new_position_after_portal_teleportation = modloader::math::to_vec2(value);
         }
     } // namespace
+
+    nlohmann::json GameTrackerMetaData::json_serialize() {
+        return *this;
+    }
+
+    void GameTrackerMetaData::json_deserialize(nlohmann::json& j) {
+        j.get_to(*this);
+    }
 
     void override_in_game_time(float in_game_time) {
         save_stats->in_game_time = in_game_time;
