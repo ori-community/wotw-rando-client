@@ -25,17 +25,11 @@ enum class GameEvent {
     Respawn, // Triggered after dying
     UberStateValueStoreLoaded,
 
-    TitleScreenStartup,
-    FaderBFadeInFinished,
-    FaderBFadeOutFinished,
-
     OpenAreaMap,
     CloseAreaMap,
     DestroyAreaMap,
 
     Teleport,
-    TrialStart,
-    TrialEnd,
 
     RefreshInputControls,
     RegisteringInputSimulators,

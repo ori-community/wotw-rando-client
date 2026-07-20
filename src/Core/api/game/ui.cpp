@@ -6,7 +6,6 @@
 #include <Modloader/app/methods/MenuScreenManager.h>
 #include <Modloader/app/methods/SeinUI.h>
 #include <Modloader/app/methods/AreaMapUI.h>
-#include <Modloader/app/methods/TitleScreenManager.h>
 #include <Modloader/app/types/AreaMapUI.h>
 #include <Modloader/app/types/UI.h>
 #include <Modloader/interception_macros.h>
@@ -20,6 +19,7 @@ namespace core::api::game::ui {
         bool is_area_map_open = false;
         bool manually_shaking_resource_ui = false;
 
+        [[maybe_unused]]
         auto on_after_open_area_map = game::event_bus().register_handler(
             GameEvent::OpenAreaMap,
             EventTiming::After,
@@ -28,6 +28,7 @@ namespace core::api::game::ui {
             }
         );
 
+        [[maybe_unused]]
         auto on_after_close_area_map = game::event_bus().register_handler(
             GameEvent::CloseAreaMap,
             EventTiming::After,
@@ -35,20 +36,6 @@ namespace core::api::game::ui {
                 is_area_map_open = false;
             }
         );
-
-        common::Droppable::ptr_t on_after_faderb_fade_out_finished;
-        IL2CPP_INTERCEPT(void, TitleScreenManager, Start, app::TitleScreenManager * this_ptr) {
-            game::event_bus().trigger_event(GameEvent::TitleScreenStartup, EventTiming::Before);
-            next::TitleScreenManager::Start(this_ptr);
-            on_after_faderb_fade_out_finished = game::event_bus().register_handler(
-                GameEvent::FaderBFadeOutFinished,
-                EventTiming::After,
-                [](auto, auto) {
-                    on_after_faderb_fade_out_finished = nullptr;
-                    game::event_bus().trigger_event(GameEvent::TitleScreenStartup, EventTiming::After);
-                }
-            );
-        }
 
         IL2CPP_INTERCEPT(void, AreaMapUI, OnDestroy, app::AreaMapUI * this_ptr) {
             event_bus().trigger_event(GameEvent::DestroyAreaMap, EventTiming::Before);

@@ -410,7 +410,7 @@ set(
         "CMakeLists.txt"
 )
 
-find_package(protobuf CONFIG REQUIRED)
+find_package(Protobuf CONFIG REQUIRED)
 protobuf_generate_cpp(PROTO_SRC PROTO_HEADERS proto/packets.proto)
 set_source_files_properties(${PROTO_SRC} ${PROTO_HEADERS} PROPERTIES GENERATED TRUE)
 

@@ -1,6 +1,5 @@
 #include <Core/api/faderb.h>
 #include <Core/api/game/game.h>
-#include <Core/enums/game_event.h>
 
 #include <Modloader/app/methods/FaderB.h>
 #include <Modloader/app/types/UI.h>
@@ -41,18 +40,6 @@ namespace core::api::faderb {
         }
 
         next::FaderB::DoBlackScreenCleanup(this_ptr);
-    }
-
-    IL2CPP_INTERCEPT(void, FaderB, OnFadeInFinished, app::FaderB * this_ptr) {
-        game::event_bus().trigger_event(GameEvent::FaderBFadeInFinished, EventTiming::Before);
-        next::FaderB::OnFadeInFinished(this_ptr);
-        game::event_bus().trigger_event(GameEvent::FaderBFadeInFinished, EventTiming::After);
-    }
-
-    IL2CPP_INTERCEPT(void, FaderB, OnFadeOutFinished, app::FaderB * this_ptr) {
-        game::event_bus().trigger_event(GameEvent::FaderBFadeOutFinished, EventTiming::Before);
-        next::FaderB::OnFadeOutFinished(this_ptr);
-        game::event_bus().trigger_event(GameEvent::FaderBFadeOutFinished, EventTiming::After);
     }
 
     IL2CPP_INTERCEPT(void, FaderB, SetOpacity, app::FaderB * this_ptr, float opacity) {

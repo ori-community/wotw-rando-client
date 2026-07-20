@@ -9,7 +9,6 @@
 #include <Randomizer/seed/parser.h>
 
 namespace randomizer::seed {
-
     Seed::Seed() {
         register_slot(SaveMetaSlot::SeedEnvironment, SaveMetaSlotPersistence::None, m_environment);
     }
@@ -108,20 +107,10 @@ namespace randomizer::seed {
             return;
         }
 
-        std::string tags_string;
-
-        for (auto const& flag: m_parse_output->meta.tags) {
-            if (tags_string.empty()) {
-                tags_string += "Tags: ";
-            } else {
-                tags_string += ", ";
-            }
-
-            tags_string += flag;
-        }
+        std::string tags_string = "Tags: ";
+        tags_string += m_parse_output->meta.tags | std::views::join_with(std::string_view(", ")) | std::ranges::to<std::string>();
 
         std::string slug_string;
-
         if (m_parse_output->meta.slug.has_value()) {
             slug_string = std::format("Slug: <hex_9ee2f7ff>{}</>", *m_parse_output->meta.slug);
         }
