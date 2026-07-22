@@ -135,14 +135,14 @@ namespace randomizer::seed {
         void json_deserialize(nlohmann::json& j) override;
 
         /**
-         * Reset this seed execution environment to default values, includes reset_volatile()
+         * Reset everything that is serialized, including their respective runtime instances
          */
-        void reset();
+        void reset_serialized_values();
 
         /**
          * Reset everything that is not serialized
          */
-        void reset_volatile();
+        void reset_volatile_values();
 
         /**
          * Advance free message boxes by the given delta time

@@ -27,8 +27,6 @@ INSTRUCTION(CreateSpoilerMapIcon)
                 spoiler_icon_visibility_effect_fn
             )
         );
-
-
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {

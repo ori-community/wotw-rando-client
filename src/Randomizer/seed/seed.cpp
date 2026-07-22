@@ -18,7 +18,7 @@ namespace randomizer::seed {
         m_memory.clear();
 
         event_bus().trigger_event(RandomizerEvent::SeedLoaded, EventTiming::Before);
-        m_environment->reset_volatile();
+        m_environment->reset_volatile_values();
         const auto data = std::make_shared<SeedParseOutput>();
 
         if (!parser(m_seed_archive, data)) {

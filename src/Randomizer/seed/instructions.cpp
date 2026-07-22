@@ -120,7 +120,7 @@ namespace randomizer::seed {
         auto on_update = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [](auto, auto) {
             if (!core::api::game::in_game()) {
                 if (!did_reset_because_not_in_game) {
-                    game_seed().environment().reset();
+                    game_seed().environment().reset_serialized_values();
                     did_reset_because_not_in_game = true;
                 }
                 return;
@@ -297,7 +297,7 @@ namespace randomizer::seed {
         j.get_to(*this);
     }
 
-    void SeedExecutionEnvironment::reset() {
+    void SeedExecutionEnvironment::reset_serialized_values() {
         m_free_message_boxes.clear();
         m_queued_message_boxes.clear();
         m_prevent_grant = false;
@@ -305,11 +305,9 @@ namespace randomizer::seed {
         m_serialized_warp_icons.clear();
         m_box_triggers.clear();
         m_warp_icons.clear();
-
-        reset_volatile();
     }
 
-    void SeedExecutionEnvironment::reset_volatile() {
+    void SeedExecutionEnvironment::reset_volatile_values() {
         m_spoiler_map_icons.clear();
         m_timers.clear();
     }

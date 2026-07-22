@@ -92,7 +92,8 @@ namespace randomizer {
             }
 
             core::api::game::player::shard_slots().set(3);
-            game_seed().environment().reset();
+            game_seed().environment().reset_serialized_values();
+            game_seed().environment().reset_volatile_values();
             recent_messages_view().clear_messages();
 
             game_seed().trigger(seed::SeedClientEvent::Reload, true);
