@@ -243,7 +243,7 @@ namespace randomizer::entrances {
                 const auto door_it = entrances.find(door_name);
 
                 if (door_it == entrances.end()) {
-                    modloader::warn("entrance_randomizer", std::format("Encountered unknown door '{}'", door_name));
+                    modloader::warn("entrance_randomizer", std::format("Encountered unknown door '{}'", il2cpp::unity::get_path(door_component)));
                     continue;
                 }
 
@@ -370,7 +370,7 @@ namespace randomizer::entrances {
 
             const auto current_it = entrances.find(door_name);
             if (current_it == entrances.end()) {
-                modloader::warn("entrance_randomizer", std::format("Unknown door '{}'", door_name));
+                modloader::warn("entrance_randomizer", std::format("Unknown door '{}'", il2cpp::unity::get_path(door)));
             } else {
                 if (!current_it->second.target_entrance_name.has_value()) {
                     return nullptr;
@@ -378,7 +378,7 @@ namespace randomizer::entrances {
 
                 const auto target_it = entrances.find(*current_it->second.target_entrance_name);
                 if (target_it == entrances.end()) {
-                    modloader::warn("entrance_randomizer", std::format("Unknown door '{}'", door_name));
+                    modloader::warn("entrance_randomizer", std::format("Unknown target door '{}'", door_name));
                 } else {
                     const auto target_door_scene_name = target_it->second.scene_names.at(0);
                     const auto scene_root = core::api::scenes::get_scene_root(target_door_scene_name);
