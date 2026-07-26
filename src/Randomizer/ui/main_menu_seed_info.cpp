@@ -50,7 +50,8 @@ namespace randomizer::main_menu_seed_info {
         il2cpp::WeakGCRef<app::MessageBox> status_message_box_ref;
         il2cpp::WeakGCRef<app::MessageBox> description_message_box_ref;
         il2cpp::WeakGCRef<app::GameObject> separator_go_ref;
-        std::unique_ptr<core::api::graphics::Sprite> sprite;
+        std::unique_ptr<core::api::graphics::Sprite> background_gradient;
+        std::unique_ptr<core::api::graphics::Sprite> randomizer_logo;
 
         std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> easy_mode_menu_item_ref;
         std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> normal_mode_menu_item_ref;
@@ -330,11 +331,7 @@ namespace randomizer::main_menu_seed_info {
             show_question_dialog(std::format("The seed is intended for #{} Mode#.\nContinue anyways?", combined_difficulty_names));
         }
 
-        void on_scene_load(const core::api::scenes::SceneLoadEventMetadata* metadata) {
-            if (metadata->scene_name != "wotwTitleScreen") {
-                return;
-            }
-
+        void on_scene_load(const core::api::scenes::SceneLoadEventMetadata* metadata, const std::string&) {
             switch (metadata->state) {
                 case app::SceneState__Enum::Loaded: {
                     const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
@@ -386,12 +383,22 @@ namespace randomizer::main_menu_seed_info {
                     set_text(status_message_box, status_property.get());
                     set_text(description_message_box, description_property.get());
 
-                    sprite = std::make_unique<core::api::graphics::Sprite>(online_group);
-                    sprite->enabled(true);
-                    sprite->local_scale({24, 20, 1});
-                    sprite->local_position({-72, -40, 0});
+                    background_gradient = std::make_unique<core::api::graphics::Sprite>(online_group);
+                    background_gradient->enabled(true);
+                    background_gradient->local_scale({24, 20, 1});
+                    background_gradient->local_position({-72, -40, 0});
+                    background_gradient->texture(core::api::graphics::textures::get_texture_from_identifier("file:textures/gradient_transparent_dark.png"));
 
-                    sprite->texture(core::api::graphics::textures::get_texture_from_identifier("file:textures/gradient_transparent_dark.png"));
+                    const auto logo_go = il2cpp::unity::find_child(
+                        scene_root_go,
+                        std::vector<std::string>{"titleScreen (new)", "ui", "group", "logo"}
+                    );
+
+                    randomizer_logo = std::make_unique<core::api::graphics::Sprite>(logo_go);
+                    randomizer_logo->enabled(true);
+                    randomizer_logo->local_position({0, 0.1, -0.9});
+                    randomizer_logo->local_scale({693.f / 226.f * 1.28, 1.28, 1});
+                    randomizer_logo->texture(core::api::graphics::textures::get_texture_from_identifier("file:randomizer.png"));
 
                     const auto easy_mode_menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(
                         il2cpp::unity::find_child(
@@ -503,7 +510,7 @@ namespace randomizer::main_menu_seed_info {
                 case app::SceneState__Enum::Disabling:
                 case app::SceneState__Enum::Disabled:
                 case app::SceneState__Enum::Unloading: {
-                    sprite = nullptr;
+                    background_gradient = nullptr;
                     is_in_main_menu = false;
                     on_seed_loaded_handle = nullptr;
                     on_network_status_handle = nullptr;
@@ -516,7 +523,7 @@ namespace randomizer::main_menu_seed_info {
         }
 
         [[maybe_unused]]
-        auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(on_scene_load);
+        auto on_scene_load_handle = core::api::scenes::single_event_bus().register_handler("wotwTitleScreen", on_scene_load);
 
         [[maybe_unused]]
         auto on_ready_handle = modloader::event_bus().register_handler(ModloaderEvent::GameReady, on_ready);
