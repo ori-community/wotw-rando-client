@@ -17,6 +17,17 @@
 #include <Modloader/app/methods/UnityEngine/Rigidbody.h>
 #include <Modloader/app/methods/UnityEngine/ScreenCapture.h>
 #include <Modloader/app/methods/UnityEngine/Time.h>
+#include <Modloader/app/methods/UnityEngine/GL.h>
+#include <Modloader/app/methods/UnityEngine/RenderTexture.h>
+#include <Modloader/app/methods/UnityEngine/Texture2D.h>
+#include <Modloader/app/methods/UnityEngine/ImageConversion.h>
+#include <Modloader/app/methods/System/IO/File.h>
+#include <Modloader/app/methods/Moon/Rendering/MoonRenderContext.h>
+#include <Modloader/app/methods/Moon/Rendering/RenderTarget.h>
+#include <Modloader/app/methods/Moon/Rendering/MoonRenderPipelineAsset.h>
+#include <Modloader/app/methods/Moon/Rendering/MoonRenderPipelineManager.h>
+#include <Modloader/app/types/Texture2D.h>
+#include <Modloader/app/types/RenderTexture.h>
 #include <Modloader/app/types/CapsuleCollider.h>
 #include <Modloader/app/types/Rigidbody.h>
 #include <Modloader/app/types/UI_Cameras.h>
@@ -77,6 +88,7 @@ namespace {
         next::UberPostProcess::ApplySettings_2(this_ptr, settingsAsset);
 
         if (!enable_vignette) {
+            this_ptr->fields.BloomIntensity = 0.0f;
             this_ptr->fields.Vignetting->fields.Intensity = 0.0f;
             this_ptr->fields.Vignetting->fields.SecondVignetteAmount = 0.0f;
         }
@@ -448,6 +460,156 @@ namespace {
         }
     });
 
+    /*
+    IL2CPP_INTERCEPT(
+        void,
+        Moon::Rendering::MoonRenderContext,
+        SetRenderTarget_1,
+        app::MoonRenderContext* this_ptr,
+        app::RenderTargetIdentifier color_and_or_depth,
+        app::Nullable_1_UnityEngine_Rendering_RenderTargetIdentifier_ depth,
+        app::Nullable_1_Moon_Rendering_Viewport_ viewport,
+        app::ClearSettings clear
+    ) {
+        clear.color.a = 0.f;
+        next::Moon::Rendering::MoonRenderContext::SetRenderTarget_1(this_ptr, color_and_or_depth, depth, viewport, clear);
+    }
+
+    IL2CPP_INTERCEPT(
+        void,
+        Moon::Rendering::MoonRenderContext,
+        SetRenderTarget_2,
+        app::MoonRenderContext* this_ptr,
+        app::RenderTargetIdentifier__Array* color_r_ts,
+        app::Nullable_1_UnityEngine_Rendering_RenderTargetIdentifier_ depth_rt_or_null,
+        app::Nullable_1_Moon_Rendering_Viewport_ viewport,
+        app::ClearSettings clear
+    ) {
+        clear.color.a = 0.f;
+        next::Moon::Rendering::MoonRenderContext::SetRenderTarget_2(this_ptr, color_r_ts, depth_rt_or_null, viewport, clear);
+    }
+
+    IL2CPP_INTERCEPT(
+        void,
+        Moon::Rendering::MoonRenderContext,
+        ClearRenderTarget_1,
+        app::MoonRenderContext* this_ptr,
+        app::Nullable_1_Moon_Rendering_Viewport_ viewport,
+        app::ClearSettings clear,
+        int32_t rt_count
+    ) {
+        clear.color.a = 0.f;
+        next::Moon::Rendering::MoonRenderContext::ClearRenderTarget_1(this_ptr, viewport, clear, rt_count);
+    }
+
+    IL2CPP_INTERCEPT(
+        void,
+        Moon::Rendering::MoonRenderContext,
+        ClearRenderTarget_2,
+        app::MoonRenderContext* this_ptr,
+        app::ClearSettings clear
+    ) {
+        clear.color.a = 0.f;
+        next::Moon::Rendering::MoonRenderContext::ClearRenderTarget_2(this_ptr, clear);
+    }
+
+    IL2CPP_INTERCEPT(void, Moon::Rendering::MoonRenderContext, DrawSkybox, app::MoonRenderContext* this_ptr, app::Camera* camera) {
+        // NO OP
+    }
+
+    IL2CPP_INTERCEPT(void, Moon::Rendering::RenderTarget, AcquireInternal, app::RenderTarget* this_ptr, app::CommandBuffer* cmd) {
+        // this_ptr->fields.desc.desc._colorFormat_k__BackingField = app::RenderTextureFormat__Enum::ARGB32;
+        next::Moon::Rendering::RenderTarget::AcquireInternal(this_ptr, cmd);
+    }
+
+    void screenshot(std::string const& command, std::vector<console::CommandParam> const& params) {
+        set_background_color(app::Color{0.0, 0.0, 0.0, 0.0});
+        enable_vignette = false;
+        update_vignette();
+
+        auto rt = types::RenderTexture::create();
+        UnityEngine::RenderTexture::ctor_6(rt, 3440, 1440, 32, app::RenderTextureFormat__Enum::ARGB32);
+
+        auto cameras = types::UI_Cameras::get_class()->static_fields->Manager->fields.Cameras;
+        auto camera = cameras->fields._items->vector[0]->fields.Camera;
+
+        auto const gameplay_camera = types::UI_Cameras::get_class()->static_fields->Current;
+        auto const camera_post_processing = GameplayCamera::get_CameraPostProcessing(gameplay_camera);
+        auto uber_post_process = camera_post_processing->fields.UberPostProcess;
+        UberPostProcess::ApplySettings_2(uber_post_process, CameraPostProcessing::get_CameraSettingsToUse(camera_post_processing));
+
+        UnityEngine::Camera::set_allowHDR(camera, false);
+        UnityEngine::Camera::set_clearFlags(camera, app::CameraClearFlags__Enum::Color);
+        UnityEngine::Camera::set_targetTexture(camera, rt);
+
+        auto target_texture = UnityEngine::Camera::get_targetTexture(camera);
+
+        UnityEngine::RenderTexture::set_active(target_texture);
+        UnityEngine::GL::Clear(true, true, app::Color{0.0, 0.0, 0.0, 0.0});
+        UnityEngine::RenderTexture::set_active(nullptr);
+        UnityEngine::Camera::Render(camera);
+
+        auto tex = types::Texture2D::create();
+        auto width = UnityEngine::RenderTexture::get_width(target_texture);
+        auto height = UnityEngine::RenderTexture::get_height(target_texture);
+
+        UnityEngine::Texture2D::ctor_5(
+            tex,
+            width,
+            height,
+            app::TextureFormat__Enum::RGBA32,
+            false
+        );
+
+        UnityEngine::RenderTexture::set_active(target_texture);
+        UnityEngine::Texture2D::ReadPixels_2(
+            tex,
+            app::Rect{
+                .m_XMin = 0.0,
+                .m_YMin = 0.0,
+                .m_Width = static_cast<float>(width),
+                .m_Height = static_cast<float>(height)
+            },
+            0,
+            0
+        );
+        UnityEngine::Texture2D::Apply_3(tex);
+        UnityEngine::RenderTexture::set_active(nullptr);
+
+        static int layer = 0;
+        System::IO::File::WriteAllBytes(
+            il2cpp::string_new(std::format("C:/Users/Timo/layers/{}.png", ++layer)),
+            UnityEngine::ImageConversion::EncodeToPNG(tex)
+        );
+
+        UnityEngine::Camera::set_targetTexture(camera, nullptr);
+    }
+
+    void cycle_slice(std::string const& command, std::vector<console::CommandParam> const& params) {
+        auto asset = Moon::Rendering::MoonRenderPipelineManager::get_currentAsset();
+        asset->fields.frameBufferFormat = app::MoonRenderPipelineAsset_FrameBufferFormat__Enum::ARGB32;
+        asset->fields.customFrameBufferFormat = app::RenderTextureFormat__Enum::ARGB32;
+        asset->fields.someRTsHDRFormat = app::RenderTextureFormat__Enum::ARGB32;
+        asset->fields.allowDarkening = app::RenderScope__Enum::None;
+        asset->fields.allowEarlyZPass = app::RenderScope__Enum::None;
+
+        if (asset->fields.sliceRange.min == asset->fields.sliceRange.max) {
+            if (asset->fields.sliceRange.max == 5) {
+                asset->fields.useSliceRange = false;
+                asset->fields.sliceRange.min = 0;
+                asset->fields.sliceRange.max = 5;
+            } else {
+                asset->fields.sliceRange.min++;
+                asset->fields.sliceRange.max++;
+            }
+        } else {
+            asset->fields.useSliceRange = true;
+            asset->fields.sliceRange.min = 0;
+            asset->fields.sliceRange.max = 0;
+        }
+    }
+    */
+
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         auto camera = UnityEngine::Camera::get_main();
         default_background_color = UnityEngine::Camera::get_backgroundColor(camera);
@@ -461,5 +623,10 @@ namespace {
         console::register_command({ "recording_utils", "set_camera_ortho_size" }, set_camera_ortho_size_command);
         console::register_command({ "recording_utils", "start_orishot_experimental" }, start_orishot_command, true);
 
+        // See the linked functions for how to cycle render slices and take screenshots with an alpha channel
+        /*
+        console::register_command({ "s" }, screenshot, true);
+        console::register_command({ "l" }, cycle_slice, true);
+        */
     });
 } // namespace
