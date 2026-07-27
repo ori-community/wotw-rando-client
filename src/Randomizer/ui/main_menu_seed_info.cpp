@@ -396,9 +396,14 @@ namespace randomizer::main_menu_seed_info {
 
                     randomizer_logo = std::make_unique<core::api::graphics::Sprite>(logo_go);
                     randomizer_logo->enabled(true);
-                    randomizer_logo->local_position({0, 0.1, -0.9});
-                    randomizer_logo->local_scale({693.f / 226.f * 1.28, 1.28, 1});
+                    randomizer_logo->local_position({-0.05, 0.1, -0.9});
+                    randomizer_logo->local_scale({653.f / 181.f * 1.1, 1.1, 1});
                     randomizer_logo->texture(core::api::graphics::textures::get_texture_from_identifier("file:randomizer.png"));
+
+                    il2cpp::unity::set_local_position(
+                        logo_go,
+                        il2cpp::unity::get_local_position(logo_go) + app::Vector3{0.0, 0.3, 0.0}
+                    );
 
                     const auto easy_mode_menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(
                         il2cpp::unity::find_child(
