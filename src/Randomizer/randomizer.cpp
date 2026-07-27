@@ -73,7 +73,7 @@ namespace randomizer {
             multiplayer_universe_instance.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
-            randomizer_seed.trigger(seed::SeedClientEvent::Reload);
+            randomizer_seed.trigger(seed::SeedClientEvent::Reload, true);
         });
 
         [[maybe_unused]]
