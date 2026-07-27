@@ -18,14 +18,18 @@ INSTRUCTION(CreateSpoilerMapIcon)
                 : map::icons::MapIcon::Visibilities::invisible;
         };
 
+        const auto map_icon = std::make_shared<map::icons::MapIcon>(
+            icon_type,
+            memory.heap.get<std::string>(0),
+            app::Vector2{memory.heap.get<float>(0), memory.heap.get<float>(1)},
+            spoiler_icon_visibility_effect_fn
+        );
+
+        map_icon->label_color.set(app::Color{1.0, 1.0, 1.0, 1.0});
+
         environment.set_spoiler_map_icon(
             id,
-            std::make_shared<map::icons::MapIcon>(
-                icon_type,
-                memory.heap.get<std::string>(0),
-                app::Vector2{memory.heap.get<float>(0), memory.heap.get<float>(1)},
-                spoiler_icon_visibility_effect_fn
-            )
+            map_icon
         );
     }
 
