@@ -10,6 +10,9 @@ namespace randomizer::entrances {
     };
 
     struct EntranceInfo {
+        /** Name used for map icons */
+        std::string display_name;
+
         /** Name used in the uber state menu */
         std::string uber_state_name;
 

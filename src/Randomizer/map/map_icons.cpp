@@ -1014,7 +1014,7 @@ namespace randomizer::map::icons {
                 size,
                 world_position,
                 core::api::uber_states::UberState(UberStateGroup::KnownEntranceConnections, entrance_id),
-                entrances::get_entrance_name_from_entrance_id(entrance_id)
+                entrances::get_entrance_info(entrances::get_entrance_name_from_entrance_id(entrance_id)).display_name
             );
         }
     }
