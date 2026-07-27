@@ -910,7 +910,11 @@ namespace randomizer::map::icons {
                 MapIcon::Type::SavePedestal,
                 label_text,
                 world_position,
-                [get_state_fn](auto) {
+                [get_state_fn](const filter::MapFilter filter) {
+                    if (filter == filter::MapFilter::Spoiler) {
+                        return MapIcon::Visibilities::invisible;
+                    }
+
                     return get_state_fn() == WarpIconState::Active
                         ? MapIcon::Visibilities::visible
                         : MapIcon::Visibilities::invisible;
@@ -922,7 +926,11 @@ namespace randomizer::map::icons {
                 MapIcon::Type::SavePedestalInactive,
                 label_text,
                 world_position,
-                [get_state_fn](auto) {
+                [get_state_fn](const filter::MapFilter filter) {
+                    if (filter == filter::MapFilter::Spoiler) {
+                        return MapIcon::Visibilities::invisible;
+                    }
+
                     return get_state_fn() == WarpIconState::Inactive
                         ? MapIcon::Visibilities::visible
                         : MapIcon::Visibilities::invisible;
@@ -960,7 +968,11 @@ namespace randomizer::map::icons {
                 size == EntranceIconSize::Small ? MapIcon::Type::DoorSmall : MapIcon::Type::Door,
                 label_text,
                 world_position,
-                [show_question_mark_fn, size](auto) {
+                [show_question_mark_fn, size](const filter::MapFilter filter) {
+                    if (filter == filter::MapFilter::Spoiler) {
+                        return MapIcon::Visibilities::invisible;
+                    }
+
                     if (size == EntranceIconSize::Small && !SHOW_SMALL_DOORS_STATE.get<bool>()) {
                         return MapIcon::Visibilities::invisible;
                     }
@@ -975,7 +987,11 @@ namespace randomizer::map::icons {
                 size == EntranceIconSize::Small ? MapIcon::Type::DoorSmallUnknown : MapIcon::Type::DoorUnknown,
                 label_text,
                 world_position,
-                [show_question_mark_fn, size](auto) {
+                [show_question_mark_fn, size](const filter::MapFilter filter) {
+                    if (filter == filter::MapFilter::Spoiler) {
+                        return MapIcon::Visibilities::invisible;
+                    }
+
                     if (size == EntranceIconSize::Small && !SHOW_SMALL_DOORS_STATE.get<bool>()) {
                         return MapIcon::Visibilities::invisible;
                     }
