@@ -181,7 +181,7 @@ namespace randomizer::timing {
                     ));
                 } break;
                 case 3: {  // TimelineEntryEndEvent
-                    const auto id = stream.read<uint32_t>();
+                    const auto id = stream.read<uint64_t>();
                     const auto type = stream.read<TimelineEntryEvent::Type>();
 
                     m_event_stream.emplace_back(TimelineEntryEndEvent(
