@@ -159,11 +159,11 @@ namespace randomizer::timing {
         };
 
         enum class DisplacementReason : uint32_t {
-            Unknown,
-            Teleporter,
-            Death,
-            Door,
-            Portal,
+            Unknown = 0,
+            Teleporter = 1,
+            Death = 2,
+            Door = 3,
+            Portal = 4,
         };
 
         struct DisplacementEvent : Event {
