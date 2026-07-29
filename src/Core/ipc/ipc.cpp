@@ -44,10 +44,8 @@ namespace core::ipc {
                 return;
             }
 
-            auto str = msg.to_string_view();
-
             try {
-                auto message = nlohmann::json::parse(str);
+                auto message = nlohmann::json::from_cbor(msg.data<std::byte>(), msg.data<std::byte>() + msg.size());
 
                 std::scoped_lock lock(incoming_messages_mutex);
                 incoming_messages.push_back(std::move(message));
@@ -77,7 +75,7 @@ namespace core::ipc {
                     break;
                 }
 
-                zmq::message_t zmq_message(message.dump());
+                zmq::message_t zmq_message(nlohmann::json::to_cbor(message));
 
                 try {
                     if (socket->handle() != nullptr) {
