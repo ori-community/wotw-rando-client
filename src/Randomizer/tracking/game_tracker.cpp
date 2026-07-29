@@ -146,7 +146,7 @@ namespace randomizer::timing {
         {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::FeatherFlap)), {"Flap", map::icons::MapIcon::Type::SkillFlap}},
         {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::DamageUpgradeA)), {"Glades Ancestral Light", map::icons::MapIcon::Type::SkillAncestralLightA}},
         {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::DamageUpgradeB)), {"Marsh Ancestral Light", map::icons::MapIcon::Type::SkillAncestralLightB}},
-        {UberStateIdentifier(UberStateGroup::RandoState, 2000), {"Clean Water", map::icons::MapIcon::Type::CleanWater}},
+        {UberStateIdentifier(UberStateGroup::RandoState, 2000), {"Clean Water", map::icons::MapIcon::Type::Watermill}},
     };
 
     void queue_timer_state_report() {
