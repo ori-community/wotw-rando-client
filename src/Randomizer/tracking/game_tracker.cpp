@@ -486,6 +486,18 @@ namespace randomizer::timing {
                         core::ipc::send_message(response);
                     }
                 );
+
+                core::ipc::register_request_handler(
+                    "stats.get_game_stats_slot_data",
+                    [](const nlohmann::json& j) {
+                        auto response = core::ipc::respond_to(j);
+
+                        auto bytes = save_stats->serialize();
+                        response["payload"]["data"] = *reinterpret_cast<std::vector<uint8_t>*>(&bytes);
+
+                        core::ipc::send_message(response);
+                    }
+                );
             }
         );
 
