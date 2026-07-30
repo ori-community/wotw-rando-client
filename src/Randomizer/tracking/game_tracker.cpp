@@ -10,6 +10,7 @@
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/SeinDoorHandler.h>
+#include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/Portal.h>
 #include <Modloader/app/methods/PlatformMovementPortalVisitor.h>
 #include <Modloader/interception_macros.h>
@@ -194,18 +195,39 @@ namespace randomizer::timing {
             save_stats->report_position(modloader::math::to_vec2(core::api::game::player::get_position()));
         }
 
+        void record_all_game_stats() {
+            for (const auto& [game_stat, configuration]: GAME_STAT_CONFIGURATIONS) {
+                save_stats->report_stat(game_stat, configuration.get_uber_state().get<float>());
+            }
+        }
+
         [[maybe_unused]]
-        auto on_new_game = core::api::game::event_bus().register_handler(
+        auto on_before_new_game = core::api::game::event_bus().register_handler(
+            GameEvent::NewGame,
+            EventTiming::Before,
+            [](GameEvent event, EventTiming timing) {
+                queue_input_unlocked_callback([] {
+                    loaded_any_save_file = true;
+                });
+            }
+        );
+
+        [[maybe_unused]]
+        auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(
             GameEvent::NewGameInitialized,
             EventTiming::Before,
             [](GameEvent event, EventTiming timing) {
                 queue_input_unlocked_callback([] {
                     reset_stats();
-                    loaded_any_save_file = true;
                     report_current_player_position();
                 });
             }
         );
+
+        [[maybe_unused]]
+        auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+            record_all_game_stats();
+        });
 
         [[maybe_unused]]
         auto on_finished_loading = core::api::game::event_bus().register_handler(
@@ -230,12 +252,6 @@ namespace randomizer::timing {
                 save_stats->report_creating_checkpoint();
             }
         );
-
-        void record_all_game_stats() {
-            for (const auto& [game_stat, configuration]: GAME_STAT_CONFIGURATIONS) {
-                save_stats->report_stat(game_stat, configuration.get_uber_state().get<float>());
-            }
-        }
 
         std::optional<app::Vector2> death_position_before_respawn = std::nullopt;
 
@@ -348,11 +364,6 @@ namespace randomizer::timing {
         }
 
         [[maybe_unused]]
-        auto on_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
-            record_all_game_stats();
-        });
-
-        [[maybe_unused]]
         auto on_fixed_update = core::api::game::event_bus().register_handler(
             GameEvent::FixedUpdate,
             EventTiming::After,
@@ -413,6 +424,32 @@ namespace randomizer::timing {
             queue_timer_state_report();
         });
 
+        void track_state_change(const UberStateIdentifier& state_identifier, const TrackedSkillConfiguration& configuration) {
+            const auto is_currently_tracked = game_tracker_meta_data->active_tracked_states.contains(state_identifier);
+            const auto uber_state = state_identifier.get_uber_state();
+            const auto is_active = uber_state.get<bool>();
+
+            if (is_currently_tracked != is_active) {
+                const auto id = uber_state.group_int() * 1000000 + uber_state.state();
+
+                if (is_active) {
+                    get_save_file_game_stats().add_timeline_entry(
+                        id,
+                        std::string(configuration.label.begin(), configuration.label.end()),
+                        configuration.icon_type,
+                        SaveFileGameStats::TimelineEntryEvent::Type::Ability
+                    );
+                    game_tracker_meta_data->active_tracked_states.insert(state_identifier);
+                } else {
+                    get_save_file_game_stats().add_timeline_end_entry(
+                        id,
+                        SaveFileGameStats::TimelineEntryEvent::Type::Ability
+                    );
+                    game_tracker_meta_data->active_tracked_states.erase(state_identifier);
+                }
+            }
+        }
+
         [[maybe_unused]]
         auto on_ready = modloader::event_bus().register_handler(
             ModloaderEvent::GameReady,
@@ -424,7 +461,7 @@ namespace randomizer::timing {
                         core::api::uber_states::single_notification_bus().register_handler(
                             configuration.get_uber_state(),
                             [game_stat](const core::api::uber_states::UberStateCallbackParams& params, auto) {
-                                if (!timer_should_run()) {
+                                if (game_finished || !GameStateMachine::get_IsGame()) {
                                     return;
                                 }
 
@@ -438,29 +475,11 @@ namespace randomizer::timing {
                     core::reactivity::watch_effect()
                         .effect(std::vector{state_identifier.get_uber_state()})
                         .after([state_identifier, configuration] {
-                            const auto is_currently_tracked = game_tracker_meta_data->active_tracked_states.contains(state_identifier);
-                            const auto uber_state = state_identifier.get_uber_state();
-                            const auto is_active = uber_state.get<bool>();
-
-                            if (is_currently_tracked != is_active) {
-                                const auto id = uber_state.group_int() * 1000000 + uber_state.state();
-
-                                if (is_active) {
-                                    get_save_file_game_stats().add_timeline_entry(
-                                        id,
-                                        std::string(configuration.label.begin(), configuration.label.end()),
-                                        configuration.icon_type,
-                                        SaveFileGameStats::TimelineEntryEvent::Type::Ability
-                                    );
-                                    game_tracker_meta_data->active_tracked_states.insert(state_identifier);
-                                } else {
-                                    get_save_file_game_stats().add_timeline_end_entry(
-                                        id,
-                                        SaveFileGameStats::TimelineEntryEvent::Type::Ability
-                                    );
-                                    game_tracker_meta_data->active_tracked_states.erase(state_identifier);
-                                }
+                            if (game_finished || !GameStateMachine::get_IsGame()) {
+                                return;
                             }
+
+                            track_state_change(state_identifier, configuration);
                         })
                         .trigger_on_load()
                         .finalize(tracked_state_effects);
@@ -586,6 +605,11 @@ namespace randomizer::timing {
         IL2CPP_INTERCEPT(void, PlatformMovementPortalVisitor, set_Position, app::PlatformMovementPortalVisitor* this_ptr, app::Vector3 value) {
             next::PlatformMovementPortalVisitor::set_Position(this_ptr, value);
             new_position_after_portal_teleportation = modloader::math::to_vec2(value);
+        }
+
+        IL2CPP_INTERCEPT(void, GameController, RestartGame, app::GameController* this_ptr, bool select_saveslot) {
+            GameStateMachine::SetToStartScreen(GameStateMachine::get_Instance());
+            next::GameController::RestartGame(this_ptr, select_saveslot);
         }
     } // namespace
 
