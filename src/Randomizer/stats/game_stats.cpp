@@ -5,7 +5,6 @@
 
 namespace randomizer::timing {
     void SaveFileGameStats::report_in_game_time_spent(GameArea area, float time) {
-        this->area_stats[area].in_game_time_spent += time;
         this->in_game_time += time;
         this->time_since_last_checkpoint += time;
     }
@@ -14,7 +13,7 @@ namespace randomizer::timing {
         this->async_loading_times[reason] += time;
     }
 
-    void SaveFileGameStats::report_checkpoint_created() {
+    void SaveFileGameStats::report_creating_checkpoint() {
         this->time_since_last_checkpoint = 0.f;
     }
 
@@ -35,17 +34,13 @@ namespace randomizer::timing {
     }
 
     std::vector<std::byte> SaveFileGameStats::serialize() {
-        auto str = nlohmann::json(*this).dump();
         core::utils::ByteStream stream;
-        stream.write_string_with_length(str);
         serialize_event_stream(stream);
         return stream.buffer;
     }
 
     void SaveFileGameStats::deserialize(core::utils::ByteStream& stream) {
-        auto str = stream.read_string_with_length();
-        auto j = nlohmann::json::parse(str);
-        j.get_to(*this);
+        time_since_last_checkpoint = 0.f;
         deserialize_event_stream(stream);
     }
 
@@ -137,9 +132,10 @@ namespace randomizer::timing {
     void SaveFileGameStats::deserialize_event_stream(core::utils::ByteStream& stream) {
         m_event_stream.clear();
 
+        float time = 0.f;
         while (stream.available()) {
             const auto type_index = stream.read<std::uint32_t>();
-            const auto time = stream.read<float>();
+            time = stream.read<float>();
 
             switch (type_index) {
                 case 0: {  // PositionEvent
@@ -204,5 +200,7 @@ namespace randomizer::timing {
                     throw std::runtime_error(std::format("Unknown event type: {}", type_index));
             }
         }
+
+        in_game_time = time;
     }
 } // namespace randomizer::timing

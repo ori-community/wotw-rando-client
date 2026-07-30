@@ -95,15 +95,6 @@ namespace randomizer::timing {
 
     class SaveFileGameStats : public core::save_meta::SaveMetaSerializable {
     public:
-        struct AreaStats {
-            float in_game_time_spent = 0.f;
-
-            NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
-                AreaStats,
-                in_game_time_spent
-            );
-        };
-
         struct DiscoveredItem {
             float x;
             float y;
@@ -250,28 +241,16 @@ namespace randomizer::timing {
         float in_game_time = 0.f;
         std::unordered_map<AsyncLoadingState, float> async_loading_times;
 
-        // Area Stats
-        std::unordered_map<GameArea, AreaStats> area_stats;
-
         // Discovered items (spoiler map icon ID -> DiscoveredItem)
+        // TODO: Convert to event
         std::unordered_map<std::size_t, DiscoveredItem> discovered_items;
-
-        // JSON
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
-            SaveFileGameStats,
-            time_since_last_checkpoint,
-            in_game_time,
-            async_loading_times,
-            area_stats,
-            discovered_items
-        );
 
         // Methods
         void report_in_game_time_spent(GameArea area, float time);
 
         void report_async_loading_time_spent(float time, AsyncLoadingState reason);
 
-        void report_checkpoint_created();
+        void report_creating_checkpoint();
 
         void report_respawn();
 

@@ -23,18 +23,20 @@ namespace core::save_meta {
      * Normal Ori save files start with a 12 integer (as of patch 3).
      */
     constexpr int SAVE_META_FILE_MAGIC = 1;
-    constexpr int SAVE_META_FILE_VERSION = 3; // Reserved for future upgrades
+    constexpr int SAVE_META_FILE_VERSION = 4; // Increment on breaking changes
 
-    struct SaveMetaSlotConfiguration {
-        std::shared_ptr<SaveMetaHandler> handler;
-        SaveMetaSlotPersistence persistence;
-        std::vector<std::byte> last_saved_data;
-        bool last_saved_data_initialized = false;
-    };
+    namespace {
+        struct SaveMetaSlotConfiguration {
+            std::shared_ptr<SaveMetaHandler> handler;
+            SaveMetaSlotPersistence persistence;
+            std::vector<std::byte> last_saved_data;
+            bool last_saved_data_initialized = false;
+        };
 
-    std::unordered_map<SaveMetaSlot, SaveMetaSlotConfiguration> slots;
+        std::unordered_map<SaveMetaSlot, SaveMetaSlotConfiguration> slots;
 
-    common::EventBus<app::Byte__Array*> _before_uber_value_store_loaded_event_bus;
+        common::EventBus<app::Byte__Array*> _before_uber_value_store_loaded_event_bus;
+    }
 
     void register_slot(SaveMetaSlot slot, SaveMetaSlotPersistence persistence, std::shared_ptr<SaveMetaHandler> handler) {
         slots[slot] = {

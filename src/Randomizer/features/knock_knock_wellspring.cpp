@@ -16,9 +16,10 @@ namespace {
             if (params.value > 0.5 && params.previous_value < 0.5 && knock_knock_wellspring_enabled_state.get<bool>()) {
                 const auto stats = randomizer::timing::get_save_file_game_stats();
 
-                if (stats.area_stats.contains(GameArea::Wellspring) && stats.area_stats.at(GameArea::Wellspring).in_game_time_spent > 0.f) {
-                    return;
-                }
+                // TODO: Check in events stream whether the player was in Wellspring before
+                // if (stats.area_stats.contains(GameArea::Wellspring) && stats.area_stats.at(GameArea::Wellspring).in_game_time_spent > 0.f) {
+                //     return;
+                // }
 
                 using namespace std::chrono_literals;
                 core::api::audio::play_event(SoundEventID::KnockKnockWellspring);

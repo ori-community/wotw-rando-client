@@ -221,12 +221,13 @@ namespace randomizer::timing {
         auto on_create_checkpoint = core::api::game::event_bus().register_handler(
             GameEvent::CreateCheckpoint,
             EventTiming::Before,
-            [](GameEvent event, EventTiming timing) {
+            [](GameEvent, EventTiming) {
                 if (!timer_should_run()) {
                     return;
                 }
 
-                save_stats->report_checkpoint_created();
+                report_current_player_position();
+                save_stats->report_creating_checkpoint();
             }
         );
 
@@ -464,15 +465,6 @@ namespace randomizer::timing {
                         .trigger_on_load()
                         .finalize(tracked_state_effects);
                 }
-
-                core::ipc::register_request_handler(
-                    "timer.get_stats",
-                    [](const nlohmann::json& j) {
-                        auto response = core::ipc::respond_to(j);
-                        response["payload"]["save"] = *save_stats;
-                        core::ipc::send_message(response);
-                    }
-                );
 
                 core::ipc::register_request_handler(
                     "timer.get_timer_state",
