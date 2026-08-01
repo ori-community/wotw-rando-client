@@ -13,10 +13,6 @@ namespace randomizer::timing {
         this->async_loading_times[reason] += time;
     }
 
-    void SaveFileGameStats::report_creating_checkpoint() {
-        this->time_since_last_checkpoint = 0.f;
-    }
-
     void SaveFileGameStats::report_respawn() {
         this->time_since_last_checkpoint = 0.f;
     }

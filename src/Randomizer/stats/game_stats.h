@@ -250,8 +250,6 @@ namespace randomizer::timing {
 
         void report_async_loading_time_spent(float time, AsyncLoadingState reason);
 
-        void report_creating_checkpoint();
-
         void report_respawn();
 
         void set_discovered_item(std::size_t id, DiscoveredItem item);

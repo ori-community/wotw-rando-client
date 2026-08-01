@@ -254,7 +254,6 @@ namespace randomizer::timing {
                 }
 
                 report_current_player_position();
-                save_stats->report_creating_checkpoint();
             }
         );
 
