@@ -219,31 +219,32 @@ namespace randomizer::ipc {
             core::ipc::register_request_handler("subscribe_uber_states", subscribe_uber_states);
             core::ipc::register_request_handler("unsubscribe_uber_states", unsubscribe_uber_states);
         });
+
+        [[maybe_unused]]
+        auto on_checkpoint_created = core::api::game::event_bus().register_handler(GameEvent::CreateCheckpoint, EventTiming::After, [](auto, auto) {
+            core::ipc::send_message(core::ipc::make_request("notify_checkpoint_created"));
+        });
+
+        [[maybe_unused]]
+        auto on_seed_reloaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
+            core::ipc::send_message(core::ipc::make_request("notify_on_reload"));
+        });
+
+        void on_action(Action action, bool pressed) {
+            auto request = core::ipc::make_request("notify_input");;
+            request["payload"]["type"] = action;
+            request["payload"]["pressed"] = pressed;
+            core::ipc::send_message(request);
+        }
+
+        [[maybe_unused]]
+        auto on_action_pressed = input::input_bus().register_handler(input::InputValue::Pressed, [](auto action, auto) {
+            on_action(action, true);
+        });
+
+        [[maybe_unused]]
+        auto on_action_released = input::input_bus().register_handler(input::InputValue::Released, [](auto action, auto) {
+            on_action(action, false);
+        });
     } // namespace
-
-    auto on_seed_reloaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
-        nlohmann::json response;
-        response["type"] = "request";
-        response["method"] = "notify_on_reload";
-        core::ipc::send_message(response);
-    });
-
-    void on_action(Action action, bool pressed) {
-        nlohmann::json response;
-        response["type"] = "request";
-        response["method"] = "notify_input";
-        response["payload"]["type"] = action;
-        response["payload"]["pressed"] = pressed;
-        core::ipc::send_message(response);
-    }
-
-    [[maybe_unused]]
-    auto on_action_pressed = input::input_bus().register_handler(input::InputValue::Pressed, [](auto action, auto) {
-        on_action(action, true);
-    });
-
-    [[maybe_unused]]
-    auto on_action_released = input::input_bus().register_handler(input::InputValue::Released, [](auto action, auto) {
-        on_action(action, false);
-    });
 } // namespace randomizer::ipc
