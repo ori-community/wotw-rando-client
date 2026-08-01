@@ -7,6 +7,8 @@
 #include <Core/api/game/game.h>
 #include <Randomizer/uber_states/uber_state_initialization.h>
 
+#include "Randomizer/tracking/game_tracker.h"
+
 
 namespace {
     IL2CPP_INTERCEPT_WITH_ORDER(100, void, SavePedestalController, BeginTeleportation, app::Vector2 position) {
@@ -16,13 +18,26 @@ namespace {
 
     bool is_in_on_faded_to_black = false;
 
-    IL2CPP_INTERCEPT_WITH_ORDER(10, void, GameController, CreateCheckpoint, app::GameController * this_ptr, bool do_perform_save, bool respect_restrict_checkpoint_zone) {
-        if (is_in_on_faded_to_black) {
-            randomizer::uber_states::readonly::player_is_teleporting().set(false);
-            randomizer::game_seed().environment().process_box_triggers();
+    namespace _1 {
+        IL2CPP_INTERCEPT_WITH_ORDER(-10, void, GameController, CreateCheckpoint, app::GameController* this_ptr, bool do_perform_save, bool respect_restrict_checkpoint_zone) {
+            if (is_in_on_faded_to_black) {
+                auto disable_position_tracking = randomizer::timing::scoped_disable_position_recording();
+                next::GameController::CreateCheckpoint(this_ptr, do_perform_save, respect_restrict_checkpoint_zone);
+            } else {
+                next::GameController::CreateCheckpoint(this_ptr, do_perform_save, respect_restrict_checkpoint_zone);
+            }
         }
+    }
 
-        next::GameController::CreateCheckpoint(this_ptr, do_perform_save, respect_restrict_checkpoint_zone);
+    namespace _2 {
+        IL2CPP_INTERCEPT_WITH_ORDER(10, void, GameController, CreateCheckpoint, app::GameController* this_ptr, bool do_perform_save, bool respect_restrict_checkpoint_zone) {
+            if (is_in_on_faded_to_black) {
+                randomizer::uber_states::readonly::player_is_teleporting().set(false);
+                randomizer::game_seed().environment().process_box_triggers();
+            }
+
+            next::GameController::CreateCheckpoint(this_ptr, do_perform_save, respect_restrict_checkpoint_zone);
+        }
     }
 
     IL2CPP_INTERCEPT(void, SavePedestalController, OnFadedToBlack, app::SavePedestalController* this_ptr) {

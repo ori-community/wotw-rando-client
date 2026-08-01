@@ -32,7 +32,10 @@ struct std::hash<randomizer::timing::UberStateIdentifier> {
 };
 
 namespace randomizer::timing {
-    extern bool disable_ability_tracking;
+    [[nodiscard]]
+    common::Droppable::ptr_t scoped_disable_position_recording();
+    [[nodiscard]]
+    common::Droppable::ptr_t scoped_disable_ability_tracking();
 
     class GameTrackerMetaData final : public core::save_meta::JsonSaveMetaSerializable {
     public:

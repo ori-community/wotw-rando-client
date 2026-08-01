@@ -16,7 +16,7 @@ namespace {
         } else {
             {
                 core::reactivity::ScopedReactivityBlocker _;
-                modloader::ScopedSetter __(randomizer::timing::disable_ability_tracking, true);
+                auto disable_ability_tracking = randomizer::timing::scoped_disable_ability_tracking();
                 core::api::game::player::ability(app::AbilityType__Enum::Bash).set(true);
             }
 
@@ -24,7 +24,7 @@ namespace {
 
             {
                 core::reactivity::ScopedReactivityBlocker _;
-                modloader::ScopedSetter __(randomizer::timing::disable_ability_tracking, true);
+                auto disable_ability_tracking = randomizer::timing::scoped_disable_ability_tracking();
                 core::api::game::player::ability(app::AbilityType__Enum::Bash).set(false);
             }
         }

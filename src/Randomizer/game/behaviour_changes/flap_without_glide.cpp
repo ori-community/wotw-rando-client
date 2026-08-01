@@ -12,7 +12,7 @@ using namespace app::classes;
 
 namespace {
     IL2CPP_INTERCEPT(void, WindCollision, OnTriggerEnter, app::WindCollision * this_ptr, app::Collider* collider) {
-        ScopedSetter setter(randomizer::timing::disable_ability_tracking, true);
+        auto disable_ability_tracking = randomizer::timing::scoped_disable_ability_tracking();
         const auto previous_glide_state = core::api::game::player::ability(app::AbilityType__Enum::Glide).get();
 
         {

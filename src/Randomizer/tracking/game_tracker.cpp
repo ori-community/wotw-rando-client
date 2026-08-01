@@ -27,14 +27,19 @@ namespace randomizer::timing {
     const core::api::uber_states::UberState GAME_FINISHED_UBER_STATE(34543, 11226);
     const core::api::uber_states::UberState SPOILER_FILTER_ENABLED_UBER_STATE(UberStateGroup::RandoState, 100);
 
-    // This is set to true by some rando routines which grant abilities temporarily
-    bool disable_ability_tracking = false;
-
     core::api::uber_states::UberState UberStateIdentifier::get_uber_state() const {
         return core::api::uber_states::UberState(group, state);
     }
 
     namespace {
+        // Number of active guards to prevent position recording. If > 0, player
+        // position must not be recorded
+        std::size_t disable_position_recording_guards = 0;
+
+        // Number of active guards to prevent ability tracking. If > 0, changes
+        // to the player's abilities must not be recorded
+        std::size_t disable_ability_tracking_guards = 0;
+
         struct GameStatConfiguration {
             UberStateGroup group;
             int state;
@@ -244,7 +249,7 @@ namespace randomizer::timing {
             GameEvent::CreateCheckpoint,
             EventTiming::Before,
             [](GameEvent, EventTiming) {
-                if (!timer_should_run()) {
+                if (disable_position_recording_guards > 0 || !timer_should_run()) {
                     return;
                 }
 
@@ -328,7 +333,7 @@ namespace randomizer::timing {
 
         void report_position_throttled() {
             // Don't run position reporting when we're dead
-            if (death_position_before_respawn.has_value() || !timer_should_run()) {
+            if (death_position_before_respawn.has_value() || disable_position_recording_guards > 0 || !timer_should_run()) {
                 return;
             }
 
@@ -475,7 +480,7 @@ namespace randomizer::timing {
                     core::reactivity::watch_effect()
                         .effect(std::vector{state_identifier.get_uber_state()})
                         .after([state_identifier, configuration] {
-                            if (game_finished || !GameStateMachine::get_IsGame()) {
+                            if (game_finished || disable_ability_tracking_guards > 0 || !GameStateMachine::get_IsGame()) {
                                 return;
                             }
 
@@ -619,6 +624,16 @@ namespace randomizer::timing {
 
     void GameTrackerMetaData::json_deserialize(nlohmann::json& j) {
         j.get_to(*this);
+    }
+
+    common::Droppable::ptr_t scoped_disable_position_recording() {
+        ++disable_position_recording_guards;
+        return std::make_unique<common::Droppable>([]{ --disable_position_recording_guards; });
+    }
+
+    common::Droppable::ptr_t scoped_disable_ability_tracking() {
+        ++disable_ability_tracking_guards;
+        return std::make_unique<common::Droppable>([]{ --disable_ability_tracking_guards; });
     }
 
     void override_in_game_time(float in_game_time) {
