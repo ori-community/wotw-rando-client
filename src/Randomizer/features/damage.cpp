@@ -51,7 +51,16 @@ namespace randomizer::damage {
     void damage_all_enemies(float amount, bool force) {
         modloader::ScopedSetter _(force_deal_damage, force);
 
-        auto all_damage_receivers = UnityEngine::Object::FindObjectsOfType_6(*UnityEngine::Object::FindObjectsOfType_6_MethodInfo);
+        // This mimics the initialization routine in DebugControls::Update.
+        // Without this, FindObjectsOfType_DamageReceiver does not work if debug controls were never enabled
+        auto required_types_initialized = reinterpret_cast<bool*>(modloader::win::memory::resolve_rva(0x47A0A3C));
+        if (!*required_types_initialized) {
+            *required_types_initialized = true;
+            void(*init)(int) = reinterpret_cast<void(*)(int)>(modloader::win::memory::resolve_rva(0x2560));
+            init(0x4E67);
+        }
+
+        auto all_damage_receivers = UnityEngine::Object::FindObjectsOfType_DamageReceiver();
         std::unordered_set<app::Entity*> entities;
 
         for (auto& found_damage_receiver: il2cpp::ArrayIterator(all_damage_receivers)) {
