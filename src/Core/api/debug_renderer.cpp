@@ -9,7 +9,6 @@ namespace randomizer::debug_renderer {
     IL2CPP_INTERCEPT(void, DebugRendererSettings_SettingsPattern, Init, app::DebugRendererSettings_SettingsPattern* this_ptr) {
         this_ptr->fields.SceneBounds = false;
         this_ptr->fields.ScenePaddingBoundaries = false;
-        this_ptr->fields.ScenePaddingBoundariesBorder = false;
         this_ptr->fields.SceneLoadingBoundaries = false;
         this_ptr->fields.Colliders = true;
         this_ptr->fields.TriggerColliders = false;
