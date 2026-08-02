@@ -691,9 +691,9 @@ namespace randomizer::main_menu_seed_info {
                     show_normal = seed_metadata->game_difficulties.normal != seed::GameDifficultySetting::Deny;
                     show_hard = seed_metadata->game_difficulties.hard != seed::GameDifficultySetting::Deny;
                 } else {
-                    show_easy = true;
-                    show_normal = true;
-                    show_hard = true;
+                    show_easy = false;
+                    show_normal = false;
+                    show_hard = false;
                 }
             }
         }
