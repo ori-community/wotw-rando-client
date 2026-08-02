@@ -1,7 +1,12 @@
 #include <Randomizer/stats/game_stats.h>
 #include <Common/vx.h>
+#include <Randomizer/map/map_icons.h>
+#include <Modloader/interception_macros.h>
+#include <Modloader/app/methods/GameTimer.h>
+#include <Modloader/app/methods/GameWorld.h>
+#include <Modloader/app/methods/SaveSlotInfo.h>
+#include <Randomizer/tracking/game_tracker.h>
 
-#include "Randomizer/map/map_icons.h"
 
 namespace randomizer::timing {
     void SaveFileGameStats::report_in_game_time_spent(GameArea area, float time) {
@@ -198,5 +203,24 @@ namespace randomizer::timing {
         }
 
         in_game_time = time;
+    }
+
+    namespace {
+        IL2CPP_INTERCEPT(void, GameTimer, Update, app::GameTimer* this_ptr) {
+            this_ptr->fields.CurrentTime = get_save_file_game_stats().in_game_time;
+        }
+
+        IL2CPP_INTERCEPT(float, GameWorld, get_CompletionAmount, app::GameWorld* this_ptr) {
+            static core::api::uber_states::UberState COLLECTED_PICKUPS_STATE(UberStateGroup::RandoStats, 0);
+            static core::api::uber_states::UberState TOTAL_PICKUPS_STATE(UberStateGroup::RandoStats, 1);
+
+            const auto total_pickups = TOTAL_PICKUPS_STATE.get<int>();
+
+            if (total_pickups == 0) {
+                return 0.0;
+            }
+
+            return static_cast<float>(COLLECTED_PICKUPS_STATE.get<int>()) / static_cast<float>(total_pickups);
+        }
     }
 } // namespace randomizer::timing
