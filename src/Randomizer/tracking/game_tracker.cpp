@@ -43,6 +43,7 @@ namespace randomizer::timing {
         struct GameStatConfiguration {
             UberStateGroup group;
             int state;
+            bool (*should_record)() = nullptr;
             core::api::uber_states::UberState get_uber_state() const { return core::api::uber_states::UberState(group, state); }
         };
 
@@ -125,7 +126,9 @@ namespace randomizer::timing {
         {GameStat::PickupsTotalBurrows, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Burrows)}},
         {GameStat::PickupsCollectedShop, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Shop)}},
         {GameStat::PickupsTotalShop, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Shop)}},
-        {GameStat::CurrentArea, {UberStateGroup::Player, 50}},
+        {GameStat::CurrentArea, {UberStateGroup::Player, 50, [] {
+            return core::api::game::player::is_alive();
+        }}},
     };
 
     constexpr frozen::unordered_map<UberStateIdentifier, TrackedSkillConfiguration, 24, UberStateIdentifierHash> TRACKED_STATE_CONFIGURATIONS = {
@@ -202,6 +205,10 @@ namespace randomizer::timing {
 
         void record_all_game_stats() {
             for (const auto& [game_stat, configuration]: GAME_STAT_CONFIGURATIONS) {
+                if (configuration.should_record != nullptr && !configuration.should_record()) {
+                    continue;
+                }
+
                 save_stats->report_stat(game_stat, configuration.get_uber_state().get<float>());
             }
         }
@@ -464,7 +471,11 @@ namespace randomizer::timing {
                     game_stat_event_handler_droppables.push_back(
                         core::api::uber_states::single_notification_bus().register_handler(
                             configuration.get_uber_state(),
-                            [game_stat](const core::api::uber_states::UberStateCallbackParams& params, auto) {
+                            [game_stat, &configuration](const core::api::uber_states::UberStateCallbackParams& params, auto) {
+                                if (configuration.should_record != nullptr && !configuration.should_record()) {
+                                    return;
+                                }
+
                                 if (game_finished || !GameStateMachine::get_IsGame()) {
                                     return;
                                 }
