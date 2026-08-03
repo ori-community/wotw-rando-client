@@ -116,7 +116,7 @@ namespace modloader {
         install_data_path = passed_install_data_path;
         user_data_path = passed_user_data_path;
 
-        file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(fs::get_logs_user_data_path("modloader_log.csv"), LogLevel::Info));
+        file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(fs::get_logs_user_data_path("client.log"), LogLevel::Info));
         console_logging_handler = register_logging_handler(std::make_shared<ConsoleLoggingHandler>(LogLevel::Debug));
 
         trace(LogLevel::Info, "initialize", "Loading settings.");
