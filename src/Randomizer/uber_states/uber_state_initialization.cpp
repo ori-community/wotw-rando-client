@@ -433,6 +433,7 @@ namespace randomizer {
                 add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "questsRequired", 105, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "relicsCount", 106, 0),
                 add_state<app::SerializedIntUberState>(UberStateGroup::ItemTracker, "relicsRequired", 107, 0),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::ItemTracker, "showVisitedEntranceCount", 200, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::ItemTracker, "currentAreaHasUncollectedRelic", 500, false),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::Player, "inputLocked", 1000, 0),
