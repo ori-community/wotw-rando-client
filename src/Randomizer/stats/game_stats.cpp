@@ -22,6 +22,10 @@ namespace randomizer::timing {
         this->time_since_last_checkpoint = 0.f;
     }
 
+    void SaveFileGameStats::report_checkpoint_created() {
+        this->time_since_last_checkpoint = 0.f;
+    }
+
     void SaveFileGameStats::set_discovered_item(const std::size_t id, DiscoveredItem item) {
         discovered_items[id] = std::move(item);
     }

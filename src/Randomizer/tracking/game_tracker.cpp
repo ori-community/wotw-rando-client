@@ -252,7 +252,7 @@ namespace randomizer::timing {
         );
 
         [[maybe_unused]]
-        auto on_create_checkpoint = core::api::game::event_bus().register_handler(
+        auto on_before_create_checkpoint = core::api::game::event_bus().register_handler(
             GameEvent::CreateCheckpoint,
             EventTiming::Before,
             [](GameEvent, EventTiming) {
@@ -261,6 +261,19 @@ namespace randomizer::timing {
                 }
 
                 report_current_player_position();
+            }
+        );
+
+        [[maybe_unused]]
+        auto on_after_create_checkpoint = core::api::game::event_bus().register_handler(
+            GameEvent::CreateCheckpoint,
+            EventTiming::After,
+            [](GameEvent, EventTiming) {
+                if (!timer_should_run()) {
+                    return;
+                }
+
+                save_stats->report_checkpoint_created();
             }
         );
 
