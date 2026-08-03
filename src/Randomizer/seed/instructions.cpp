@@ -76,7 +76,6 @@
 #include <Randomizer/seed/instructions/set_shop_item_name.h>
 #include <Randomizer/seed/instructions/set_shop_item_price.h>
 #include <Randomizer/seed/instructions/set_string.h>
-#include <Randomizer/seed/instructions/set_text_with_id.h>
 #include <Randomizer/seed/instructions/set_warp_icon_label.h>
 #include <Randomizer/seed/instructions/set_wheel_item_color.h>
 #include <Randomizer/seed/instructions/set_wheel_item_command.h>
@@ -222,7 +221,6 @@ namespace randomizer::seed {
             register_instruction<SetShopItemName>(factories);
             register_instruction<SetShopItemPrice>(factories);
             register_instruction<SetString>(factories);
-            register_instruction<SetTextWithId>(factories);
             register_instruction<SetWarpIconLabel>(factories);
             register_instruction<SetWheelItemColor>(factories);
             register_instruction<SetWheelItemCommand>(factories);
