@@ -1,8 +1,4 @@
 #include <Core/api/game/game.h>
-#include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/text_id.h>
-#include <Core/settings.h>
-#include <Core/text/text_database.h>
 #include <Modloader/app/methods/AreaMapNavigation.h>
 #include <Modloader/app/methods/GameMapUI.h>
 #include <Modloader/app/methods/MessageBox.h>
@@ -14,9 +10,23 @@
 #include <Modloader/modloader.h>
 #include <Randomizer/game/pickups/quests.h>
 #include <Randomizer/randomizer.h>
+#include <frozen/string.h>
+
+#include "Core/api/system/message_provider.h"
+#include "Core/core.h"
 
 namespace {
     using namespace app::classes;
+
+    constexpr std::array<frozen::string, 7> RANDOM_QUEST_REWARD_MESSAGES = {
+        "Well, it's randomized",
+        "Ask Shriek",
+        "OriThink",
+        "Nobody knows",
+        "Only one way to find out...",
+        "Probably nothing, maybe something",
+        "Something useful, perhaps",
+    };
 
     IL2CPP_INTERCEPT(void, QuestsUI, OptionChangeCallback, app::QuestsUI* this_ptr) {
         // Noop
@@ -34,8 +44,9 @@ namespace {
 
         QuestsUI::UpdateDescriptionUI_2(this_ptr, quest);
 
-        this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox->fields.MessageProvider = core::text::get_random_provider(
-            core::TextID::QuestReward
+        const auto random_string = RANDOM_QUEST_REWARD_MESSAGES[core::random(0, RANDOM_QUEST_REWARD_MESSAGES.size())];
+        this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox->fields.MessageProvider = core::api::system::create_message_provider(
+            std::string(random_string.begin(), random_string.end())
         );
         MessageBox::RefreshText_1(this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox);
 

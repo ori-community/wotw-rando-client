@@ -2,9 +2,7 @@
 
 #include <Core/api/messages/text_style.h>
 #include <Core/api/system/message_provider.h>
-#include <Core/enums/uber_state.h>
-#include <Core/property/reactivity.h>
-#include <Core/text/text_database.h>
+#include <Randomizer/features/trial_texts.h>
 
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/Moon/Race/RaceData.h>
@@ -18,76 +16,13 @@
 
 using namespace app::classes;
 
-namespace {
-    enum class SpiritTrialLocation {
-        Marsh,
-        Hollow,
-        Wellspring,
-        Woods,
-        Reach,
-        Depths,
-        Pools,
-        Wastes,
-    };
-
-    std::string_view get_text_for_spirit_trial(SpiritTrialLocation location);
-
-    randomizer::seed::SeedClientEvent get_event_uber_state_for_spirit_trial(SpiritTrialLocation location) {
-        switch (location) {
-            case SpiritTrialLocation::Marsh:
-                return randomizer::seed::SeedClientEvent::MarshTrialTextRequest;
-            case SpiritTrialLocation::Hollow:
-                return randomizer::seed::SeedClientEvent::HollowTrialTextRequest;
-            case SpiritTrialLocation::Wellspring:
-                return randomizer::seed::SeedClientEvent::WellspringTrialTextRequest;
-            case SpiritTrialLocation::Woods:
-                return randomizer::seed::SeedClientEvent::WoodsTrialTextRequest;
-            case SpiritTrialLocation::Reach:
-                return randomizer::seed::SeedClientEvent::ReachTrialTextRequest;
-            case SpiritTrialLocation::Depths:
-                return randomizer::seed::SeedClientEvent::DepthsTrialTextRequest;
-            case SpiritTrialLocation::Pools:
-                return randomizer::seed::SeedClientEvent::PoolsTrialTextRequest;
-            case SpiritTrialLocation::Wastes:
-                return randomizer::seed::SeedClientEvent::WastesTrialTextRequest;
-            default:
-                throw std::exception("Unexpected trial location.");
-        }
-    }
-
-    struct TrialMessageBoxRef {
-        SpiritTrialLocation location;
-        il2cpp::WeakGCRef<app::MessageBox> message_box_ref;
-        core::reactivity::ReactiveEffect::ptr_t reactive_effect;
-
-        /**
-         * Updates the trial message box.
-         * Returns true if succeeded, or false if the reference is invalid.
-         */
-        bool update_message_box() const {
-            const auto message_box = *message_box_ref;
-
-            if (!message_box.has_value()) {
-                return false;
-            }
-
-            const auto text = get_text_for_spirit_trial(location);
-            text_style::create_styles((*message_box)->fields.TextBox, text);
-            (*message_box)->fields.MessageProvider = core::api::system::create_message_provider(text);
-            MessageBox::RefreshText_1(*message_box);
-
-            return true;
-        }
-    };
-
-    std::unordered_map<SpiritTrialLocation, TrialMessageBoxRef> trial_text_boxes;
-
-    std::optional<SpiritTrialLocation> determine_trial_location_from_trial_state(app::SerializedIntUberState* uber_state) {
-        if (uber_state->fields.Group->fields._.m_id->fields.m_id != 44964) {
+namespace randomizer::trials {
+    std::optional<SpiritTrialLocation> determine_trial_location_from_trial_state(const int group, const int state) {
+        if (group != 44964) {
             return std::nullopt;
         }
 
-        switch (uber_state->fields._.m_id->fields.m_id) {
+        switch (state) {
             case 45951:
                 return std::make_optional(SpiritTrialLocation::Marsh);
             case 25545:
@@ -109,53 +44,63 @@ namespace {
         }
     }
 
-    std::string_view get_text_for_spirit_trial(SpiritTrialLocation location) {
-        switch (location) {
-            case SpiritTrialLocation::Marsh:
-                return core::text::get_text(core::TextID::TrialTextMarsh);
-            case SpiritTrialLocation::Hollow:
-                return core::text::get_text(core::TextID::TrialTextHollow);
-            case SpiritTrialLocation::Wellspring:
-                return core::text::get_text(core::TextID::TrialTextWellspring);
-            case SpiritTrialLocation::Woods:
-                return core::text::get_text(core::TextID::TrialTextWoods);
-            case SpiritTrialLocation::Reach:
-                return core::text::get_text(core::TextID::TrialTextReach);
-            case SpiritTrialLocation::Depths:
-                return core::text::get_text(core::TextID::TrialTextDepths);
-            case SpiritTrialLocation::Pools:
-                return core::text::get_text(core::TextID::TrialTextPools);
-            case SpiritTrialLocation::Wastes:
-                return core::text::get_text(core::TextID::TrialTextWastes);
-            default:
-                throw std::exception("Unexpected trial location.");
-        }
-    }
+    namespace {
+        using namespace randomizer::trials;
 
-    IL2CPP_INTERCEPT(void, Moon::Race::RaceData, Awake, app::RaceData * this_ptr) {
-        next::Moon::Race::RaceData::Awake(this_ptr);
+        std::string_view get_text_for_spirit_trial(SpiritTrialLocation location);
 
-        auto location = determine_trial_location_from_trial_state(this_ptr->fields.m_raceState);
+        struct TrialMessageBoxRef {
+            SpiritTrialLocation location;
+            il2cpp::WeakGCRef<app::MessageBox> message_box_ref;
+            std::function<void()> update_fn;
+            common::Droppable::ptr_t update_event_droppable;
 
-        if (!location.has_value()) {
-            return;
-        }
+            /**
+             * Updates the trial message box.
+             * Returns true if succeeded, or false if the reference is invalid.
+             */
+            bool update_message_box() const {
+                const auto message_box = *message_box_ref;
 
-        auto text_go = il2cpp::unity::find_child(
-            this_ptr,
-            std::vector<std::string>{
-                "raceStart",
-                "ui",
-                "timeline",
-                "container",
-                "challenge",
-                "challengeText",
-                "text",
+                if (!message_box.has_value()) {
+                    return false;
+                }
+
+                const auto text = get_text_for_spirit_trial(location);
+                text_style::create_styles((*message_box)->fields.TextBox, text);
+                (*message_box)->fields.MessageProvider = core::api::system::create_message_provider(text);
+                MessageBox::RefreshText_1(*message_box);
+
+                return true;
             }
-        );
+        };
 
-        if (text_go != nullptr) {
-            auto icon_go = il2cpp::unity::find_child(
+        std::unordered_map<SpiritTrialLocation, TrialMessageBoxRef> trial_text_boxes;
+
+        std::string_view get_text_for_spirit_trial(SpiritTrialLocation location) {
+            const auto& trial_hints = randomizer::game_seed().environment().get_trial_hints();
+
+            const auto it = trial_hints.find(location);
+            if (it != trial_hints.end()) {
+                return it->second;
+            }
+
+            return "";
+        }
+
+        IL2CPP_INTERCEPT(void, Moon::Race::RaceData, Awake, app::RaceData* this_ptr) {
+            next::Moon::Race::RaceData::Awake(this_ptr);
+
+            auto location = determine_trial_location_from_trial_state(
+                this_ptr->fields.m_raceState->fields.Group->fields._.m_id->fields.m_id,
+                this_ptr->fields.m_raceState->fields._.m_id->fields.m_id
+            );
+
+            if (!location.has_value()) {
+                return;
+            }
+
+            auto text_go = il2cpp::unity::find_child(
                 this_ptr,
                 std::vector<std::string>{
                     "raceStart",
@@ -164,46 +109,58 @@ namespace {
                     "container",
                     "challenge",
                     "challengeText",
-                    "rewardIcon",
+                    "text",
                 }
             );
 
-            il2cpp::unity::destroy_object(icon_go);
+            if (text_go != nullptr) {
+                auto icon_go = il2cpp::unity::find_child(
+                    this_ptr,
+                    std::vector<std::string>{
+                        "raceStart",
+                        "ui",
+                        "timeline",
+                        "container",
+                        "challenge",
+                        "challengeText",
+                        "rewardIcon",
+                    }
+                );
 
-            il2cpp::unity::set_local_position(text_go, app::Vector3{-1.f, 0.f, 0.3f});
+                il2cpp::unity::destroy_object(icon_go);
 
-            auto message_box = il2cpp::unity::get_component<app::MessageBox>(text_go, types::MessageBox::get_class());
-            message_box->fields.TextBox->fields.alignment = app::AlignmentMode__Enum::Center;
-            message_box->fields.TextBox->fields.horizontalAnchor = app::HorizontalAnchorMode__Enum::Center;
+                il2cpp::unity::set_local_position(text_go, app::Vector3{-1.f, 0.f, 0.3f});
 
+                auto message_box = il2cpp::unity::get_component<app::MessageBox>(text_go, types::MessageBox::get_class());
+                message_box->fields.TextBox->fields.alignment = app::AlignmentMode__Enum::Center;
+                message_box->fields.TextBox->fields.horizontalAnchor = app::HorizontalAnchorMode__Enum::Center;
 
-            trial_text_boxes.insert_or_assign(
-                location.value(),
-                TrialMessageBoxRef{
-                    .location = location.value(),
-                    .message_box_ref = il2cpp::WeakGCRef(message_box),
-                }
-            );
+                trial_text_boxes.insert_or_assign(
+                    location.value(),
+                    TrialMessageBoxRef{
+                        .location = location.value(),
+                        .message_box_ref = il2cpp::WeakGCRef(message_box),
+                    }
+                );
 
-            auto& box = trial_text_boxes.at(location.value());
-            box.reactive_effect = core::reactivity::watch_effect()
-                .before([location]() {
-                    core::reactivity::ScopedReactivityBlocker _;
-                    randomizer::game_seed().trigger(get_event_uber_state_for_spirit_trial(location.value()));
-                })
-                .effect([location] {
+                auto& box = trial_text_boxes.at(location.value());
+                box.update_fn = [location] {
                     const auto ref_it = trial_text_boxes.find(location.value());
                     if (ref_it == trial_text_boxes.end()) {
                         return;
                     }
 
-                    auto ref = ref_it->second;
+                    auto& ref = ref_it->second;
 
                     if (!ref.update_message_box()) {
                         trial_text_boxes.erase(location.value());
                     }
-                })
-                .finalize();
+                };
+                box.update_event_droppable = game_seed().environment().event_bus().register_handler(
+                    seed::SeedExecutionEnvironment::Event::TrialHintsChanged, [&box](auto) { box.update_fn(); }
+                );
+                box.update_fn();
+            }
         }
-    }
-} // namespace
+    } // namespace
+} // namespace randomizer::trials

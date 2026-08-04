@@ -6,7 +6,6 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
-#include <Core/text/text_database.h>
 
 #include <Modloader/app/methods/GardenerEntity.h>
 #include <Modloader/app/methods/GardenerScreen.h>

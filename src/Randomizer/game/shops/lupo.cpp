@@ -3,7 +3,6 @@
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/property.h>
-#include <Core/text/text_database.h>
 
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/CleverMenuItem.h>

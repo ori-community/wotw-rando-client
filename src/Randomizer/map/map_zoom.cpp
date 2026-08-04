@@ -1,12 +1,8 @@
-#include <Core/api/game/game.h>
-#include <Core/api/uber_states/uber_state.h>
 #include <Core/settings.h>
-#include <Core/text/text_database.h>
 #include <Modloader/app/methods/AreaMapNavigation.h>
 #include <Modloader/app/methods/AreaMapUI.h>
 #include <Modloader/app/types/GameMapTransitionManager.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/modloader.h>
 #include <Randomizer/randomizer.h>
 
 namespace {

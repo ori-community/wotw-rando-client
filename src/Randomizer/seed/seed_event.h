@@ -15,14 +15,6 @@ namespace randomizer::seed {
         Tick,
         Spawn,
         Respawn,
-        MarshTrialTextRequest,
-        HollowTrialTextRequest,
-        WellspringTrialTextRequest,
-        WoodsTrialTextRequest,
-        ReachTrialTextRequest,
-        DepthsTrialTextRequest,
-        PoolsTrialTextRequest,
-        WastesTrialTextRequest,
     };
 
     NLOHMANN_JSON_SERIALIZE_ENUM(
@@ -39,14 +31,6 @@ namespace randomizer::seed {
             {SeedClientEvent::Respawn,                    "Respawn"                   },
             {SeedClientEvent::Tick,                       "Tick"                      },
             {SeedClientEvent::Spawn,                      "Spawn"                     },
-            {SeedClientEvent::MarshTrialTextRequest,      "MarshTrialTextRequest"     },
-            {SeedClientEvent::HollowTrialTextRequest,     "HollowTrialTextRequest"    },
-            {SeedClientEvent::WellspringTrialTextRequest, "WellspringTrialTextRequest"},
-            {SeedClientEvent::WoodsTrialTextRequest,      "WoodsTrialTextRequest"     },
-            {SeedClientEvent::ReachTrialTextRequest,      "ReachTrialTextRequest"     },
-            {SeedClientEvent::DepthsTrialTextRequest,     "DepthsTrialTextRequest"    },
-            {SeedClientEvent::PoolsTrialTextRequest,      "PoolsTrialTextRequest"     },
-            {SeedClientEvent::WastesTrialTextRequest,     "WastesTrialTextRequest"    },
     }
     );
 } // namespace randomizer::seed

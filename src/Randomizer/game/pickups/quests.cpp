@@ -1,7 +1,5 @@
 #include <Common/ext.h>
-#include <Core/enums/text_id.h>
 #include <Core/mood_guid.h>
-#include <Core/text/text_database.h>
 #include <Modloader/app/methods/Quest.h>
 #include <Modloader/app/methods/QuestsController.h>
 #include <Modloader/app/methods/RaceHandler.h>
@@ -15,6 +13,8 @@
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 #include <unordered_set>
+
+#include "Core/api/system/message_provider.h"
 
 using namespace modloader;
 using namespace modloader::win;
@@ -36,13 +36,13 @@ namespace randomizer::game::pickups::quests {
             int state_offset = 0;
 
             bool override_name = false;
-            core::TextID name;
+            std::string name;
 
             bool override_description = false;
-            core::TextID description;
+            std::string description;
 
             bool override_short_description = false;
-            core::TextID short_description;
+            std::string short_description;
 
             AddToChainMode add_to_chain_mode = NONE;
 
@@ -56,34 +56,34 @@ namespace randomizer::game::pickups::quests {
                 guid(guid), state_offset(state_offset), name(), description(), short_description() {
             }
 
-            CustomQuest &with_state_offset(const int o) {
-                this->state_offset = o;
+            CustomQuest& with_state_offset(const int new_offset) {
+                this->state_offset = new_offset;
                 return *this;
             }
 
-            CustomQuest &with_name(const core::TextID n) {
+            CustomQuest& with_name(const std::string& new_name) {
                 this->override_name = true;
-                this->name = n;
+                this->name = new_name;
                 return *this;
             }
 
-            CustomQuest &with_description(const core::TextID d) {
+            CustomQuest& with_description(const std::string& new_description) {
                 this->override_description = true;
-                this->description = d;
+                this->description = new_description;
                 return *this;
             }
 
-            CustomQuest &with_short_description(const core::TextID d) {
+            CustomQuest& with_short_description(const std::string& new_description) {
                 this->override_short_description = true;
-                this->short_description = d;
+                this->short_description = new_description;
                 return *this;
             }
 
-            CustomQuest &with_descriptions(core::TextID d) {
-                return this->with_description(d).with_short_description(d);
+            CustomQuest& with_descriptions(const std::string& new_descriptions) {
+                return this->with_description(new_descriptions).with_short_description(new_descriptions);
             }
 
-            CustomQuest &chain(const AddToChainMode mode) {
+            CustomQuest& chain(const AddToChainMode mode) {
                 this->add_to_chain_mode = mode;
                 return *this;
             }
@@ -105,13 +105,13 @@ namespace randomizer::game::pickups::quests {
         std::unordered_map<core::MoodGuid, CustomQuest> custom_quests{
             /** The Missing Key */
             {core::MoodGuid(784309430, 1297004301, 1325754012, 600417717),
-             CustomQuest(core::MoodGuid(1453348213, -184076870, 1758843589, -1206166881), -1).chain(PREPEND).with_descriptions(core::TextID::QuestMissingKeyStep0)},
+             CustomQuest(core::MoodGuid(1453348213, -184076870, 1758843589, -1206166881), -1).chain(PREPEND).with_descriptions("Talk to Tokk near the Keystone")},
             /** Hand to hand */
             {core::MoodGuid(734014019, 1236148109, -842462836, 1209027896),
-             CustomQuest(core::MoodGuid(443652096, 862847964, 610815061, 667049562), -1).chain(PREPEND).with_descriptions(core::TextID::QuestHandToHandStep0)},
+             CustomQuest(core::MoodGuid(443652096, 862847964, 610815061, 667049562), -1).chain(PREPEND).with_descriptions("Meet a Moki near where you fought Hornbug")},
             /** Tree Keeper */
             {core::MoodGuid(-444299054, 1208119667, 1590309785, -1080834788),
-             CustomQuest(core::MoodGuid(-462332515, 714151830, 856820588, 522656270), -1).chain(PREPEND).with_descriptions(core::TextID::QuestTreeKeeperStep0)},
+             CustomQuest(core::MoodGuid(-462332515, 714151830, 856820588, 522656270), -1).chain(PREPEND).with_descriptions("Meet the Tree Keeper in the Silent Woods")},
             /** Into the Burrows */
             {core::MoodGuid(1047943550, 1133666609, 582044811, -400025166), CustomQuest(core::MoodGuid(197166750, 30757628, 788233297, -62356085), -1).chain(PREPEND)},
             /** The Lost Compass */
@@ -131,7 +131,7 @@ namespace randomizer::game::pickups::quests {
             /** Rebuilding the Glades */
             {core::MoodGuid(-2036285343, 1120403039, -1729429111, -661752561), CustomQuest(core::MoodGuid(-912056363, -445171835, 542889844, -558562390), -1).chain(PREPEND)},
             /** Silent Teeth */
-            {core::MoodGuid(997119475, 1309624776, -2139326310, 1996736007), CustomQuest(core::MoodGuid(824781462, 871703287, 1673171377, 115000104), -1).chain(PREPEND).with_description(core::TextID::QuestSilentTeethStep0)},
+            {core::MoodGuid(997119475, 1309624776, -2139326310, 1996736007), CustomQuest(core::MoodGuid(824781462, 871703287, 1673171377, 115000104), -1).chain(PREPEND).with_description("Meet Kwolok")},
             /** Shifting Sands */
             {core::MoodGuid(-1294265843, 1100399426, -462292045, 141236591), CustomQuest(core::MoodGuid(125700802, 337033409, 418311508, 373555554), -1).chain(PREPEND)},
             /** Lost in Paradise */
@@ -153,15 +153,15 @@ namespace randomizer::game::pickups::quests {
             const auto quest = il2cpp::unity::instantiate_object<app::Quest>(custom_quest.predicate);
 
             if (custom_quest.override_name) {
-                quest->fields.NameMessageProvider = core::text::get_provider(custom_quest.name);
+                quest->fields.NameMessageProvider = core::api::system::create_message_provider(custom_quest.name);
             }
 
             if (custom_quest.override_description) {
-                quest->fields.DescriptionMessageProvider = core::text::get_provider(custom_quest.description);
+                quest->fields.DescriptionMessageProvider = core::api::system::create_message_provider(custom_quest.description);
             }
 
             if (custom_quest.override_short_description) {
-                quest->fields.ShortDescriptionMessageProvider = core::text::get_provider(custom_quest.short_description);
+                quest->fields.ShortDescriptionMessageProvider = core::api::system::create_message_provider(custom_quest.short_description);
             }
 
             quest->fields.StateOffset = custom_quest.state_offset;
@@ -333,6 +333,7 @@ namespace randomizer::game::pickups::quests {
             send_state(state->fields.BaurNpc);
         }
 
+        [[maybe_unused]]
         auto on_game_ready = modloader::event_bus().register_handler(
             ModloaderEvent::GameReady,
             [](auto) {

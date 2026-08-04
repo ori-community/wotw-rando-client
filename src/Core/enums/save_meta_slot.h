@@ -10,7 +10,6 @@ enum class SaveMetaSlot: uint8_t {
     SeedMetaData = 2,
     SeedArchiveData = 3,
     SeedEnvironment = 4,
-    StaticText = 5,
     Shops = 6,
     GameTrackerMetaData = 7,
 };

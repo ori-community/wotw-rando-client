@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/text_id.h>
 #include <variant>
 
 namespace core::reactivity {
@@ -26,29 +25,18 @@ namespace core::reactivity {
         auto operator<=>(const UberStateDependency&) const = default;
     };
 
-    struct TextDatabaseDependency {
-        core::TextID id;
-
-        auto operator<=>(const TextDatabaseDependency&) const = default;
-    };
-
     struct PropertyDependency {
         unsigned int id;
 
         auto operator<=>(const PropertyDependency&) const = default;
     };
 
-    using dependency_t = std::variant<UberStateDependency, TextDatabaseDependency, PropertyDependency>;
+    using dependency_t = std::variant<UberStateDependency, PropertyDependency>;
 } // namespace core::reactivity
 
 template<>
 struct std::hash<core::reactivity::UberStateDependency> {
     std::size_t operator()(const core::reactivity::UberStateDependency& value) const noexcept { return value.group * 1000000000 + value.state; }
-};
-
-template<>
-struct std::hash<core::reactivity::TextDatabaseDependency> {
-    std::size_t operator()(const core::reactivity::TextDatabaseDependency& value) const noexcept { return static_cast<std::size_t>(value.id); }
 };
 
 template<>

@@ -3,16 +3,13 @@
 
 #include <Core/api/game/game.h>
 #include <Core/api/system/message_provider.h>
-#include <Core/text/text_database.h>
 
 #include <Modloader/app/methods/BuilderItem.h>
 #include <Modloader/app/methods/GardenerItem.h>
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
-#include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/ShopkeeperScreen.h>
-#include <Modloader/app/methods/ShopkeeperScreen___c.h>
 #include <Modloader/app/methods/ShopkeeperUIDetails.h>
 #include <Modloader/app/methods/ShopkeeperUIItem.h>
 #include <Modloader/app/methods/ShopkeeperUISubItem.h>
@@ -22,7 +19,6 @@
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/structs/Boolean__Boxed.h>
 #include <Modloader/app/structs/Int32__Boxed.h>
-#include <Modloader/app/types/BuilderItem.h>
 #include <Modloader/app/types/CleverMenuItem.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/Renderer.h>

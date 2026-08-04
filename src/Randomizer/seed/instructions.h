@@ -11,6 +11,8 @@
 #include <Randomizer/map/map_icons.h>
 #include <Randomizer/seed/memory.h>
 
+#include "Randomizer/features/trial_texts.h"
+
 namespace randomizer::seed {
     class Seed;
     struct SeedExecutionEnvironment;
@@ -115,19 +117,25 @@ namespace randomizer::seed {
     };
 
     struct SeedExecutionEnvironment final : public core::save_meta::JsonSaveMetaSerializable {
+        enum class Event {
+            TrialHintsChanged,
+        };
+
         struct ItemSpoilerData {
             map::icons::MapIcon::Type icon_type;
             std::string label;
         };
 
-        bool should_prevent_grant() const { return m_prevent_grant; }
-        const auto& get_queued_message_boxes() const { return m_queued_message_boxes; }
-        const auto& get_free_message_boxes() const { return m_free_message_boxes; }
-        const auto& get_timers() const { return m_timers; }
-        const auto& get_spoiler_map_icons() const { return m_spoiler_map_icons; }
-        const auto& get_queued_message_pickup_position_in_current_scope() const { return m_queued_message_pickup_position_in_current_scope; };
+        [[nodiscard]] bool should_prevent_grant() const { return m_prevent_grant; }
+        [[nodiscard]] const auto& get_queued_message_boxes() const { return m_queued_message_boxes; }
+        [[nodiscard]] const auto& get_free_message_boxes() const { return m_free_message_boxes; }
+        [[nodiscard]] const auto& get_timers() const { return m_timers; }
+        [[nodiscard]] const auto& get_spoiler_map_icons() const { return m_spoiler_map_icons; }
+        [[nodiscard]] const auto& get_queued_message_pickup_position_in_current_scope() const { return m_queued_message_pickup_position_in_current_scope; }
+        [[nodiscard]] const auto& get_trial_hints() const { return m_trial_hints; }
+        [[nodiscard]] auto& event_bus() { return m_event_bus; }
 
-        SeedExecutionEnvironment(Seed& seed);
+        explicit SeedExecutionEnvironment(Seed& seed);
         SeedExecutionEnvironment(const SeedExecutionEnvironment& other) = delete;
         SeedExecutionEnvironment(SeedExecutionEnvironment&& other) = delete;
 
@@ -290,12 +298,14 @@ namespace randomizer::seed {
         std::unordered_map<std::size_t, SerializedFreeMessageBox> m_serialized_free_message_boxes;
         std::unordered_map<std::size_t, SerializedWarpIcon> m_serialized_warp_icons;
         std::unordered_map<std::size_t, SeedBoxTrigger> m_box_triggers;
+        std::unordered_map<trials::SpiritTrialLocation, std::string> m_trial_hints;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(
             SeedExecutionEnvironment,
             m_serialized_free_message_boxes,
             m_serialized_warp_icons,
-            m_box_triggers
+            m_box_triggers,
+            m_trial_hints
         );
 
         // Runtime
@@ -308,6 +318,7 @@ namespace randomizer::seed {
         Seed& m_seed;
         std::vector<SeedTimer> m_timers;
         std::optional<app::Vector2> m_queued_message_pickup_position_in_current_scope = std::nullopt;
+        common::MultiEventBus<Event> m_event_bus;
 
         /**
          * Restore serialized data (free message boxes, warp icons etc.) to runtime data.

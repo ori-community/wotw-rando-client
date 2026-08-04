@@ -5,8 +5,6 @@
 #include <Core/api/graphics/shaders.h>
 #include <Core/api/graphics/textures.h>
 #include <Core/api/system/message_provider.h>
-#include <Core/enums/text_id.h>
-#include <Core/text/text_database.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/methods/Core/Input.h>
@@ -402,8 +400,8 @@ namespace randomizer::features::wheel {
                     name_message_box->fields.MessageProvider = core::api::system::create_message_provider(entry->name.get());
                     description_message_box->fields.MessageProvider = core::api::system::create_message_provider(entry->description.get());
                 } else {
-                    name_message_box->fields.MessageProvider = core::text::get_provider(core::TextID::EmptyName);
-                    description_message_box->fields.MessageProvider = core::text::get_provider(core::TextID::Empty);
+                    name_message_box->fields.MessageProvider = core::api::system::create_message_provider("Empty");
+                    description_message_box->fields.MessageProvider = core::api::system::create_message_provider("");;
                 }
 
                 UnityEngine::GameObject::SetActive(this_ptr->fields.UsesEnergyGO, false);

@@ -6,13 +6,10 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
-#include <Core/text/text_database.h>
 
 #include <Modloader/app/methods/BuilderEntity.h>
 #include <Modloader/app/methods/BuilderItem.h>
 #include <Modloader/app/methods/BuilderScreen.h>
-#include <Modloader/app/methods/EquipmentUIInventoryGrid.h>
-#include <Modloader/app/methods/Moon/Timeline/MoonTimeline.h>
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
 #include <Modloader/app/methods/ShopkeeperScreen.h>
 #include <Modloader/app/methods/SpellUISeeds.h>

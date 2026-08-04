@@ -1,7 +1,3 @@
-#include <Core/api/game/game.h>
-#include <Core/api/uber_states/uber_state.h>
-#include <Core/settings.h>
-#include <Core/text/text_database.h>
 #include <Modloader/app/methods/AK/Wwise/State.h>
 #include <Modloader/app/methods/AreaMapNavigation.h>
 #include <Modloader/app/methods/Game/UI.h>
@@ -9,7 +5,6 @@
 #include <Modloader/app/methods/MenuScreenManager.h>
 #include <Modloader/app/methods/Moon/Timeline/DiscoverAreasEntity.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/modloader.h>
 #include <Randomizer/randomizer.h>
 
 namespace {
