@@ -37,7 +37,7 @@ namespace core::save_meta {
         std::shared_ptr<SaveMetaSerializable> save_serializable;
     };
 
-    class CORE_DLLEXPORT JsonSaveMetaSerializable : public SaveMetaSerializable {
+    class CORE_DLLEXPORT CborSaveMetaSerializable : public SaveMetaSerializable {
     public:
         std::vector<std::byte> serialize() override;
         void deserialize(core::utils::ByteStream& stream) override;

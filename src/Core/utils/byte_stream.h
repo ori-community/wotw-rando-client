@@ -14,6 +14,7 @@ namespace core::utils {
         explicit ByteStream(const std::vector<std::byte>& buffer);
         explicit ByteStream(const app::Byte__Array* buffer);
 
+        [[nodiscard]]
         bool available() const;
 
         std::vector<std::byte> peek_to_end();
@@ -39,19 +40,11 @@ namespace core::utils {
             return *reinterpret_cast<const T*>(&this->buffer[this->position]);
         }
 
-        std::string peek_string(size_t length) const {
-            return {
-                reinterpret_cast<const char*>(&this->buffer[this->position]),
-                length
-            };
-        }
+        [[nodiscard]]
+        std::string peek_string(size_t length) const;
 
-        std::string peek_with_length() const {
-            return {
-                reinterpret_cast<const char*>(&this->buffer[this->position + sizeof(uint64_t)]),
-                peek<uint64_t>()
-            };
-        }
+        [[nodiscard]]
+        std::string peek_with_length() const;
 
         template <typename T = std::byte>
         void skip() {
@@ -65,19 +58,13 @@ namespace core::utils {
             return value;
         }
 
-        void read(std::byte* buffer, size_t length);
+        void read(std::byte* source_buffer, size_t length);
 
         std::vector<std::byte> read(size_t length);
 
-        std::string read_string(size_t length) {
-            auto value = peek_string(length);
-            skip(length);
-            return value;
-        }
+        std::string read_string(size_t length);
 
-        std::string read_string_with_length() {
-            return read_string(read<uint64_t>());
-        }
+        std::string read_string_with_length();
 
         void skip(size_t count);
 

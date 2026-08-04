@@ -58,18 +58,19 @@ namespace core::save_meta {
         this->deserialize(stream);
     }
 
-    std::vector<std::byte> JsonSaveMetaSerializable::serialize() {
-        auto str = this->json_serialize().dump();
+    std::vector<std::byte> CborSaveMetaSerializable::serialize() {
+        const auto cbor = nlohmann::json::to_cbor(this->json_serialize());
         core::utils::ByteStream stream;
-        stream.write<uint64_t>(str.length());
-        stream.write_string(str);
+        stream.write<uint64_t>(cbor.size());
+        stream.write(*reinterpret_cast<const std::vector<std::byte>*>(&cbor));
         return stream.buffer;
     }
 
-    void JsonSaveMetaSerializable::deserialize(core::utils::ByteStream& stream) {
-        auto str = stream.read_string_with_length();
-        auto j = nlohmann::json::parse(str);
-        this->json_deserialize(j);
+    void CborSaveMetaSerializable::deserialize(core::utils::ByteStream& stream) {
+        const auto size = stream.read<uint64_t>();
+        const auto data = stream.read(size);
+        auto json = nlohmann::json::from_cbor(data);
+        this->json_deserialize(json);
     }
 
     namespace {

@@ -38,8 +38,16 @@ namespace core::utils {
         return { this->buffer.begin() + this->position, this->buffer.begin() + this->position + length };
     }
 
-    void ByteStream::read(std::byte* buffer, const size_t length) {
-        memcpy(buffer, this->buffer.data() + this->position, length);
+    std::string ByteStream::peek_string(size_t length) const {
+        return {reinterpret_cast<const char*>(&this->buffer[this->position]), length};
+    }
+
+    std::string ByteStream::peek_with_length() const {
+        return {reinterpret_cast<const char*>(&this->buffer[this->position + sizeof(uint64_t)]), peek<uint64_t>()};
+    }
+
+    void ByteStream::read(std::byte* source_buffer, const size_t length) {
+        memcpy(source_buffer, this->buffer.data() + this->position, length);
         skip(length);
     }
 
@@ -47,5 +55,15 @@ namespace core::utils {
         auto value = peek(length);
         skip(length);
         return value;
+    }
+
+    std::string ByteStream::read_string(size_t length) {
+        auto value = peek_string(length);
+        skip(length);
+        return value;
+    }
+
+    std::string ByteStream::read_string_with_length() {
+        return read_string(read<uint64_t>());
     }
 } // namespace utils

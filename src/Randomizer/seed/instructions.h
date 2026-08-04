@@ -116,7 +116,7 @@ namespace randomizer::seed {
         );
     };
 
-    struct SeedExecutionEnvironment final : public core::save_meta::JsonSaveMetaSerializable {
+    struct SeedExecutionEnvironment final : public core::save_meta::CborSaveMetaSerializable {
         enum class Event {
             TrialHintsChanged,
         };

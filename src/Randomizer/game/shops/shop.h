@@ -132,7 +132,7 @@ namespace randomizer::game::shops {
         std::unordered_map<core::api::uber_states::UberState, SLOT_T> m_slots;
     };
 
-    class ShopCollection : public core::save_meta::JsonSaveMetaSerializable {
+    class ShopCollection : public core::save_meta::CborSaveMetaSerializable {
     public:
         using opher_shop_t = Shop<12, ShopUIShopSlot>;
         using twillen_shop_t = Shop<8, ShopUIShopSlot>;

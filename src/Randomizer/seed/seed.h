@@ -167,7 +167,7 @@ namespace randomizer::seed {
     };
 
 
-    class SaveSlotSeedMetaData final : public core::save_meta::JsonSaveMetaSerializable {
+    class SaveSlotSeedMetaData final : public core::save_meta::CborSaveMetaSerializable {
     public:
         /** The seed source string that was used when this save file was created. (see parse_source_string) */
         std::string seed_source_string;

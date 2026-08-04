@@ -37,7 +37,7 @@ namespace randomizer::timing {
     [[nodiscard]]
     common::Droppable::ptr_t scoped_disable_ability_tracking();
 
-    class GameTrackerMetaData final : public core::save_meta::JsonSaveMetaSerializable {
+    class GameTrackerMetaData final : public core::save_meta::CborSaveMetaSerializable {
     public:
         /** States that currently have an active timeline entry */
         std::unordered_set<UberStateIdentifier> active_tracked_states;
