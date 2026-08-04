@@ -76,6 +76,7 @@
 #include <Randomizer/seed/instructions/set_shop_item_name.h>
 #include <Randomizer/seed/instructions/set_shop_item_price.h>
 #include <Randomizer/seed/instructions/set_string.h>
+#include <Randomizer/seed/instructions/set_trial_hint.h>
 #include <Randomizer/seed/instructions/set_warp_icon_label.h>
 #include <Randomizer/seed/instructions/set_wheel_item_color.h>
 #include <Randomizer/seed/instructions/set_wheel_item_command.h>
@@ -221,6 +222,7 @@ namespace randomizer::seed {
             register_instruction<SetShopItemName>(factories);
             register_instruction<SetShopItemPrice>(factories);
             register_instruction<SetString>(factories);
+            register_instruction<SetTrialHint>(factories);
             register_instruction<SetWarpIconLabel>(factories);
             register_instruction<SetWheelItemColor>(factories);
             register_instruction<SetWheelItemCommand>(factories);
@@ -260,6 +262,13 @@ namespace randomizer::seed {
         m_event_bus_handles.push_back(core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [this](auto, auto) {
             restore_serialized_data_to_runtime();
         }));
+
+        m_event_bus_handles.push_back(core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [this](auto, auto) {
+            if (this->m_trial_hints_dirty) {
+                this->m_trial_hints_dirty = false;
+                this->m_event_bus.trigger_event(Event::TrialHintsChanged);
+            }
+        }));
     }
 
     nlohmann::json SeedExecutionEnvironment::json_serialize() {
@@ -293,6 +302,7 @@ namespace randomizer::seed {
 
     void SeedExecutionEnvironment::json_deserialize(nlohmann::json& j) {
         j.get_to(*this);
+        m_trial_hints_dirty = true;
     }
 
     void SeedExecutionEnvironment::reset_serialized_values() {
@@ -303,6 +313,8 @@ namespace randomizer::seed {
         m_serialized_warp_icons.clear();
         m_box_triggers.clear();
         m_warp_icons.clear();
+        m_trial_hints.clear();
+        m_trial_hints_dirty = true;
     }
 
     void SeedExecutionEnvironment::reset_volatile_values() {
@@ -522,6 +534,11 @@ namespace randomizer::seed {
 
     void SeedExecutionEnvironment::set_queued_message_pickup_position_in_current_scope(app::Vector2 position) {
         this->m_queued_message_pickup_position_in_current_scope = position;
+    }
+
+    void SeedExecutionEnvironment::set_trial_hint(trials::SpiritTrialLocation location, const std::string& hint) {
+        this->m_trial_hints.insert({location, hint});
+        this->m_trial_hints_dirty = true;
     }
 
     void SeedExecutionEnvironment::restore_serialized_data_to_runtime() {

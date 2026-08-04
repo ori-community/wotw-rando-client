@@ -368,6 +368,7 @@ set(
         "seed/instructions/set_shop_item_price.h"
         "seed/instructions/create_spoiler_map_icon.h"
         "seed/instructions/set_string.h"
+        "seed/instructions/set_trial_hint.h"
         "seed/instructions/set_warp_icon_label.h"
         "seed/instructions/set_wheel_item_color.h"
         "seed/instructions/set_wheel_item_command.h"

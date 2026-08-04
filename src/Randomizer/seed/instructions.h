@@ -292,6 +292,13 @@ namespace randomizer::seed {
          */
         void set_queued_message_pickup_position_in_current_scope(app::Vector2 position);
 
+        /**
+         * Sets the Spirit Trial hint for a given spirit trial.
+         * The Spirit Trial hint is the message that appears when going to the end
+         * of an activated Spirit Trial.
+         */
+        void set_trial_hint(trials::SpiritTrialLocation location, const std::string& hint);
+
     private:
         // Serialized properties.
         // These are only serialized on-demand in json_serialize():
@@ -311,7 +318,7 @@ namespace randomizer::seed {
         // Runtime
         std::unordered_map<std::size_t, map::icons::MapIcon::ptr_t> m_warp_icons;
         std::unordered_map<std::size_t, FreeMessageBox> m_free_message_boxes;
-        std::unordered_map<std::size_t, randomizer::messages::QueuedMessage::weak_ptr_t> m_queued_message_boxes;
+        std::unordered_map<std::size_t, messages::QueuedMessage::weak_ptr_t> m_queued_message_boxes;
         bool m_prevent_grant = false;
         std::unordered_map<std::size_t, map::icons::MapIcon::ptr_t> m_spoiler_map_icons;
         std::vector<common::Droppable::ptr_t> m_event_bus_handles;
@@ -319,6 +326,7 @@ namespace randomizer::seed {
         std::vector<SeedTimer> m_timers;
         std::optional<app::Vector2> m_queued_message_pickup_position_in_current_scope = std::nullopt;
         common::MultiEventBus<Event> m_event_bus;
+        bool m_trial_hints_dirty = false;
 
         /**
          * Restore serialized data (free message boxes, warp icons etc.) to runtime data.
