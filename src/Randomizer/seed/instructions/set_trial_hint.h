@@ -18,7 +18,7 @@ INSTRUCTION(SetTrialHint)
             return;
         }
 
-
+        environment.set_trial_hint(*trial_location, memory.heap.get<std::string>(0));
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
@@ -26,6 +26,6 @@ INSTRUCTION(SetTrialHint)
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
-        return std::make_unique<SetTrialHint>(j.at(0).at(0).get<int>(), j.at(0).at(1).get<int>());
+        return std::make_unique<SetTrialHint>(j.at(0).get<int>(), j.at(1).get<int>());
     }
 };
