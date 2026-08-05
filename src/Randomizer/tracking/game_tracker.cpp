@@ -72,7 +72,8 @@ namespace randomizer::timing {
         bool loaded_any_save_file = false;
 
         std::shared_ptr<SaveFileGameStats> save_stats = std::make_shared<SaveFileGameStats>();
-        std::shared_ptr<GameTrackerMetaData> game_tracker_meta_data = std::make_shared<GameTrackerMetaData>();
+        std::shared_ptr<GameTrackerPersistentMetaData> game_tracker_persistent_meta_data = std::make_shared<GameTrackerPersistentMetaData>();
+        std::shared_ptr<GameTrackerVolatileMetaData> game_tracker_volatile_meta_data = std::make_shared<GameTrackerVolatileMetaData>();
 
         struct PositionCache {
             /** The last position that has been recorded as a PositionEvent */
@@ -182,7 +183,8 @@ namespace randomizer::timing {
 
         void reset_stats() {
             save_stats = std::make_shared<SaveFileGameStats>();
-            game_tracker_meta_data = std::make_shared<GameTrackerMetaData>();
+            game_tracker_persistent_meta_data = std::make_shared<GameTrackerPersistentMetaData>();
+            game_tracker_volatile_meta_data = std::make_shared<GameTrackerVolatileMetaData>();
             position_cache = std::nullopt;
 
             core::save_meta::register_slot(
@@ -191,9 +193,14 @@ namespace randomizer::timing {
                 save_stats
             );
             core::save_meta::register_slot(
-                SaveMetaSlot::GameTrackerMetaData,
+                SaveMetaSlot::GameTrackerPersistentMetaData,
                 SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups,
-                game_tracker_meta_data
+                game_tracker_persistent_meta_data
+            );
+            core::save_meta::register_slot(
+                SaveMetaSlot::GameTrackerVolatileMetaData,
+                SaveMetaSlotPersistence::None,
+                game_tracker_volatile_meta_data
             );
 
             queue_timer_state_report();
@@ -449,7 +456,7 @@ namespace randomizer::timing {
         });
 
         void track_state_change(const UberStateIdentifier& state_identifier, const TrackedSkillConfiguration& configuration) {
-            const auto is_currently_tracked = game_tracker_meta_data->active_tracked_states.contains(state_identifier);
+            const auto is_currently_tracked = game_tracker_persistent_meta_data->active_tracked_states.contains(state_identifier);
             const auto uber_state = state_identifier.get_uber_state();
             const auto is_active = uber_state.get<bool>();
 
@@ -463,13 +470,13 @@ namespace randomizer::timing {
                         configuration.icon_type,
                         SaveFileGameStats::TimelineEntryEvent::Type::Ability
                     );
-                    game_tracker_meta_data->active_tracked_states.insert(state_identifier);
+                    game_tracker_persistent_meta_data->active_tracked_states.insert(state_identifier);
                 } else {
                     get_save_file_game_stats().add_timeline_end_entry(
                         id,
                         SaveFileGameStats::TimelineEntryEvent::Type::Ability
                     );
-                    game_tracker_meta_data->active_tracked_states.erase(state_identifier);
+                    game_tracker_persistent_meta_data->active_tracked_states.erase(state_identifier);
                 }
             }
         }
@@ -641,11 +648,11 @@ namespace randomizer::timing {
         }
     } // namespace
 
-    nlohmann::json GameTrackerMetaData::json_serialize() {
+    nlohmann::json GameTrackerPersistentMetaData::json_serialize() {
         return *this;
     }
 
-    void GameTrackerMetaData::json_deserialize(nlohmann::json& j) {
+    void GameTrackerPersistentMetaData::json_deserialize(nlohmann::json& j) {
         j.get_to(*this);
     }
 
@@ -657,6 +664,14 @@ namespace randomizer::timing {
     common::Droppable::ptr_t scoped_disable_ability_tracking() {
         ++disable_ability_tracking_guards;
         return std::make_unique<common::Droppable>([]{ --disable_ability_tracking_guards; });
+    }
+
+    nlohmann::json GameTrackerVolatileMetaData::json_serialize() {
+        return *this;
+    }
+
+    void GameTrackerVolatileMetaData::json_deserialize(nlohmann::json& j) {
+        j.get_to(*this);
     }
 
     void override_in_game_time(float in_game_time) {
@@ -671,5 +686,35 @@ namespace randomizer::timing {
 
     SaveFileGameStats& get_save_file_game_stats() {
         return *save_stats;
+    }
+
+    void track_custom_timeline_entry(const uint64_t id) {
+        game_tracker_persistent_meta_data->active_custom_timeline_entries.insert(id);
+        game_tracker_volatile_meta_data->active_custom_timeline_entries.insert(id);
+    }
+
+    void untrack_custom_timeline_entry(const uint64_t id) {
+        game_tracker_persistent_meta_data->active_custom_timeline_entries.erase(id);
+        game_tracker_volatile_meta_data->active_custom_timeline_entries.erase(id);
+    }
+
+    namespace {
+        void check_tracked_custom_timeline_entries() {
+            for (const auto persistent_entry_id: game_tracker_persistent_meta_data->active_custom_timeline_entries) {
+                if (!game_tracker_volatile_meta_data->active_custom_timeline_entries.contains(persistent_entry_id)) {
+                    game_tracker_persistent_meta_data->active_custom_timeline_entries.erase(persistent_entry_id);
+
+                    get_save_file_game_stats().add_timeline_end_entry(
+                        persistent_entry_id,
+                        SaveFileGameStats::TimelineEntryEvent::Type::Custom
+                    );
+                }
+            }
+        }
+
+        [[maybe_unused]]
+        auto on_load = core::api::game::event_bus().register_handler(GameEvent::UberStateValueStoreLoaded, EventTiming::After, [](auto, auto) {
+            check_tracked_custom_timeline_entries();
+        });
     }
 } // namespace randomizer::timing

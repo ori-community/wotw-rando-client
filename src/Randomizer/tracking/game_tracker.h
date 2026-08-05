@@ -37,14 +37,32 @@ namespace randomizer::timing {
     [[nodiscard]]
     common::Droppable::ptr_t scoped_disable_ability_tracking();
 
-    class GameTrackerMetaData final : public core::save_meta::CborSaveMetaSerializable {
+    class GameTrackerPersistentMetaData final : public core::save_meta::CborSaveMetaSerializable {
     public:
         /** States that currently have an active timeline entry */
         std::unordered_set<UberStateIdentifier> active_tracked_states;
 
+        /** IDs of custom timeline entries that are currently active */
+        std::unordered_set<uint64_t> active_custom_timeline_entries;
+
         NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
-            GameTrackerMetaData,
-            active_tracked_states
+            GameTrackerPersistentMetaData,
+            active_tracked_states,
+            active_custom_timeline_entries
+        );
+
+        nlohmann::json json_serialize() override;
+        void json_deserialize(nlohmann::json& j) override;
+    };
+
+    class GameTrackerVolatileMetaData final : public core::save_meta::CborSaveMetaSerializable {
+    public:
+        /** IDs of custom timeline entries that are currently active */
+        std::unordered_set<uint64_t> active_custom_timeline_entries;
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
+            GameTrackerVolatileMetaData,
+            active_custom_timeline_entries
         );
 
         nlohmann::json json_serialize() override;
@@ -55,6 +73,8 @@ namespace randomizer::timing {
     float get_in_game_time();
     void force_set_game_finished(bool value);
     SaveFileGameStats& get_save_file_game_stats();
+    void track_custom_timeline_entry(uint64_t id);
+    void untrack_custom_timeline_entry(uint64_t id);
 }
 
 NLOHMANN_JSON_NAMESPACE_BEGIN

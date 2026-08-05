@@ -93,6 +93,10 @@ namespace randomizer::timing {
             id,
             type
         ));
+
+        if (type == TimelineEntryEvent::Type::Custom) {
+            untrack_custom_timeline_entry(id);
+        }
     }
 
     void SaveFileGameStats::serialize_event_stream(core::utils::ByteStream& stream) {

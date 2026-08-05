@@ -4,32 +4,34 @@
 #include <Randomizer/tracking/game_tracker.h>
 #include <Randomizer/map/map_icons.h>
 
-INSTRUCTION(CreateGameStatsTimelineEntry)
-    explicit CreateGameStatsTimelineEntry(const uint64_t id, const map::icons::MapIcon::Type icon) :
-        id(id),
+INSTRUCTION(CreateStatsEntry)
+    explicit CreateStatsEntry(const map::icons::MapIcon::Type icon) :
         icon_type(icon) {}
 
-    uint64_t id;
     map::icons::MapIcon::Type icon_type;
 
     void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+        static uint64_t next_id = 0;
+
+        const auto id = ++next_id;
         timing::get_save_file_game_stats().add_timeline_entry(
             id,
             memory.heap.get<std::string>(0),
             icon_type,
             timing::SaveFileGameStats::TimelineEntryEvent::Type::Custom
         );
+        timing::track_custom_timeline_entry(id);
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
         return std::format(
-            "CreateGameStatsTimelineEntry -> {}, {}",
+            "CreateStatsEntry -> {}, {}",
             memory.heap.get<std::string>(0),
             magic_enum::enum_name(icon_type)
         );
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
-        return std::make_unique<CreateGameStatsTimelineEntry>(j.at(0).get<uint64_t>(), parse_enum<map::icons::MapIcon::Type>(j.at(1)));
+        return std::make_unique<CreateStatsEntry>(parse_enum<map::icons::MapIcon::Type>(j.at(0)));
     }
 };
