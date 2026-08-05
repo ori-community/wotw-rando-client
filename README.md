@@ -36,7 +36,7 @@ git config --system core.longpaths true
 
 1. Load the CMake project as usual into the IDE
 2. Enable vcpkg
-3. Add `-DVCPKG_TARGET_TRIPLET=x64-windows-static-md` as CMake argument in the CMake IDE settings
+3. Add `-DVCPKG_OVERLAY_TRIPLETS=./vcpkg-triplets -DVCPKG_TARGET_TRIPLET=x64-windows-mixed` as CMake argument in the CMake IDE settings
 4. Switch to the `clang-cl` compilers in the Toolchain IDE settings.
 
 

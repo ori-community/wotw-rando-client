@@ -20,6 +20,9 @@
     "name" : "detours",
     "version>=" : "4.0.1#8"
   }, {
+    "name" : "discord-game-sdk",
+    "version>=" : "3.2.1"
+  }, {
     "name" : "cpp-httplib",
     "version>=" : "0.37.0"
   }, {

@@ -166,6 +166,7 @@ set(
         "game/teleport.cpp"
         "ghosts/plugins/update_active_animations_plugin.cpp"
         "ghosts/plugins.cpp"
+        "discord.cpp"
         "ghosts.cpp"
         "ghosts_playground.cpp"
         "input/action_registration.cpp"
@@ -300,6 +301,12 @@ set(
         "seed/instructions/base/stack_push.h"
         "seed/instructions/base/store.h"
         "seed/instructions/boolean_to_string.h"
+        "seed/instructions/box_trigger.h"
+        "seed/instructions/box_trigger_destroy.h"
+        "seed/instructions/box_trigger_enter_callback.h"
+        "seed/instructions/box_trigger_leave_callback.h"
+        "seed/instructions/close_menu.h"
+        "seed/instructions/close_weapon_wheel.h"
         "seed/instructions/compare_boolean.h"
         "seed/instructions/compare_float.h"
         "seed/instructions/compare_integer.h"
@@ -309,14 +316,11 @@ set(
         "seed/instructions/copy_float.h"
         "seed/instructions/copy_integer.h"
         "seed/instructions/copy_string.h"
-        "seed/instructions/create_game_stats_timeline_entry.h"
+        "seed/instructions/create_spoiler_map_icon.h"
+        "seed/instructions/create_stats_entry.h"
         "seed/instructions/create_warp_icon.h"
         "seed/instructions/deal_enemy_damage.h"
         "seed/instructions/debug_log.h"
-        "seed/instructions/box_trigger.h"
-        "seed/instructions/box_trigger_destroy.h"
-        "seed/instructions/box_trigger_enter_callback.h"
-        "seed/instructions/box_trigger_leave_callback.h"
         "seed/instructions/define_timer.h"
         "seed/instructions/destroy_warp_icon.h"
         "seed/instructions/destroy_wheel_item.h"
@@ -333,10 +337,10 @@ set(
         "seed/instructions/free_message.h"
         "seed/instructions/free_message_alignment.h"
         "seed/instructions/free_message_box_width.h"
+        "seed/instructions/free_message_coordinate_system.h"
         "seed/instructions/free_message_hide.h"
         "seed/instructions/free_message_horizontal_anchor.h"
         "seed/instructions/free_message_position.h"
-        "seed/instructions/free_message_coordinate_system.h"
         "seed/instructions/free_message_show.h"
         "seed/instructions/free_message_vertical_anchor.h"
         "seed/instructions/integer_to_float.h"
@@ -359,15 +363,12 @@ set(
         "seed/instructions/set_boolean.h"
         "seed/instructions/set_float.h"
         "seed/instructions/set_integer.h"
-        "seed/instructions/close_menu.h"
-        "seed/instructions/close_weapon_wheel.h"
         "seed/instructions/set_shop_item_description.h"
         "seed/instructions/set_shop_item_hidden.h"
         "seed/instructions/set_shop_item_icon.h"
         "seed/instructions/set_shop_item_locked.h"
         "seed/instructions/set_shop_item_name.h"
         "seed/instructions/set_shop_item_price.h"
-        "seed/instructions/create_spoiler_map_icon.h"
         "seed/instructions/set_string.h"
         "seed/instructions/set_trial_hint.h"
         "seed/instructions/set_warp_icon_label.h"
@@ -504,11 +505,25 @@ target_link_libraries(${PROJECT_NAME} stduuid)
 find_package(frozen CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} frozen::frozen frozen::frozen-headers)
 
+find_library(GAME_SDK discord_game_sdk)
+target_link_libraries(${PROJECT_NAME} ${GAME_SDK})
+
+find_path(GAME_SDK_INCLUDE discord-game-sdk/discord.h)
+target_include_directories(${PROJECT_NAME} PRIVATE ${GAME_SDK_INCLUDE})
+
+find_library(CPP_GAME_SDK discord_game_sdk_cpp)
+target_link_libraries(${PROJECT_NAME} ${CPP_GAME_SDK})
+
 install(
         TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION "${WOTWR_INSTALL_DIR}"
         LIBRARY DESTINATION "${WOTWR_INSTALL_DIR}"
         ARCHIVE DESTINATION "${WOTWR_INSTALL_DIR}"
+)
+
+install(
+        FILES "${CMAKE_BINARY_DIR}/bin/discord_game_sdk.dll"
+        DESTINATION "${WOTWR_INSTALL_DIR}"
 )
 
 install(
