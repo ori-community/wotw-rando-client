@@ -66,6 +66,7 @@ set(
         "features/scenes/modifications/luma_fight_room_door_always_open.cpp"
         "features/scenes/modifications/marsh_burrow_fight_arena_allow_teleportation.cpp"
         "features/scenes/modifications/meeting_kwolok_cutscene_trigger_underwater_fix.cpp"
+        "features/scenes/modifications/mora_arena_trigger_fix.cpp"
         "features/scenes/modifications/reactive_bone_bridge_state.cpp"
         "features/scenes/modifications/regenerate_tree_late_pickup_fix.cpp"
         "features/scenes/modifications/ruins_escape_allow_teleportation.cpp"
