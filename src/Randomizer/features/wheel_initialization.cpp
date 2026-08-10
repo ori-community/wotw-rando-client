@@ -28,7 +28,6 @@ namespace randomizer::features::wheel {
     void on_dev_changed() {
         auto dev = core::settings::developer_mode();
         set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(1), dev);
-        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(2), dev);
         set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(4), dev);
         set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(6), dev);
         set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(9), dev);
