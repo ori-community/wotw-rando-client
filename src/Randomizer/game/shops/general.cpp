@@ -102,7 +102,7 @@ namespace {
     }
     // ---------------------------------------------------
 
-    std::shared_ptr<core::api::graphics::textures::TextureData> shop_icon(app::ShopkeeperItem* item) {
+    std::shared_ptr<core::api::graphics::textures::Texture> shop_icon(app::ShopkeeperItem* item) {
         if (is_in_shop(ShopType::Opher)) {
             auto opher_item = reinterpret_cast<app::WeaponmasterItem*>(item);
             auto& slot = opher::get_slot(opher_item->fields.Upgrade->fields.AcquiredAbilityType, opher_item->fields.Upgrade->fields.RequiredAbility);
@@ -124,8 +124,8 @@ namespace {
         next::ShopkeeperUIDetails::UpdateDetails2(this_ptr);
         if (is_in_shop(ShopType::Opher) || is_in_shop(ShopType::Grom) || is_in_shop(ShopType::Tuley)) {
             const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
-            const auto texture_data = shop_icon(this_ptr->fields.m_item);
-            texture_data->apply(renderer);
+            const auto texture = shop_icon(this_ptr->fields.m_item);
+            texture->apply_to(renderer);
             GameObject::SetActive(this_ptr->fields.IconGO, this_ptr->fields.m_item != nullptr);
         }
     }
@@ -201,8 +201,8 @@ namespace {
 
             auto menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(this_ptr, types::CleverMenuItem::get_class());
             auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
-            auto texture_data = shop_icon(this_ptr->fields.m_item);
-            texture_data->apply(renderer);
+            auto texture = shop_icon(this_ptr->fields.m_item);
+            texture->apply_to(renderer);
             if (this_ptr->fields.m_item == nullptr) {
                 CleverMenuItem::set_IsDisabled(menu_item, true);
                 return;

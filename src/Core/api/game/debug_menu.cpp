@@ -117,7 +117,7 @@ namespace core::api::game::debug_menu {
         return debug_was_active_this_session;
     }
 
-    namespace better_uber_state_menu {
+    namespace {  // Better uber state menu
         auto is_building_list = false;
         auto selected_group_index = 0;
         std::unordered_map<int, int> last_selected_state_index_per_group;
@@ -236,8 +236,9 @@ namespace core::api::game::debug_menu {
         }
     }
 
-    namespace better_hierarchy_menu {
+    namespace {  // Better Hierarchy Menu
         auto draw_gui_area_without_style = false;
+
         IL2CPP_INTERCEPT(void, UnityEngine::GUILayout, BeginArea_4, app::Rect screen_rect, app::GUIStyle* style) {
             if (draw_gui_area_without_style) {
                 UnityEngine::GUILayout::BeginArea_1(screen_rect);
@@ -261,10 +262,9 @@ namespace core::api::game::debug_menu {
             UnityEngine::Texture2D::Compress(texture, false);
             UnityEngine::Texture::set_wrapMode(reinterpret_cast<app::Texture*>(texture), app::TextureWrapMode__Enum::Repeat);
             UnityEngine::Texture2D::Apply_1(texture, true, true);
-            graphics::textures::dont_unload_texture(reinterpret_cast<app::Texture*>(texture));
 
             const auto normal = UnityEngine::GUIStyle::get_normal(this_ptr->fields.Skin->fields.m_CustomStyles->vector[9]);
             UnityEngine::GUIStyleState::set_background(normal, texture);
         }
-    } // namespace better_hierarchy_menu
+    } // namespace
 } // namespace core::api::game::debug_menu

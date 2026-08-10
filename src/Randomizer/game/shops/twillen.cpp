@@ -167,25 +167,12 @@ namespace randomizer::game::shops::twillen {
             auto* const renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
             if (overwrite_shard) {
                 const auto& icon = slot->icon();
-                if (icon == nullptr) {
-                    core::api::graphics::textures::apply_default(renderer);
-                } else {
-                    icon->apply(renderer);
+                if (icon != nullptr) {
+                    icon->apply_to(renderer);
                 }
             } else {
-                static std::unordered_map<app::SpiritShardType__Enum, std::shared_ptr<core::api::graphics::textures::TextureData>> shard_textures;
-                auto it = shard_textures.find(type);
-                if (it == shard_textures.end()) {
-                    auto shard_icons = types::SpiritShardSettings::get_class()->static_fields->Instance->fields.Icons;
-                    auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &type);
-
-                    auto texture = core::api::graphics::textures::create_texture();
-                    texture->set_texture(reinterpret_cast<app::Texture*>(icons->fields.InventoryIcon));
-                    shard_textures[type] = texture;
-                    it = shard_textures.find(type);
-                }
-
-                it->second->apply(renderer);
+                auto texture = core::api::graphics::textures::TextureIdentifier::shard(type).load();
+                texture->apply_to(renderer);
             }
 
             auto* const name_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
@@ -253,18 +240,14 @@ namespace randomizer::game::shops::twillen {
                     GameObject::SetActive(this_ptr->fields.LockedGO, is_locked);
 
                     const auto icon = slot.icon();
-                    if (icon == nullptr) {
-                        core::api::graphics::textures::apply_default(renderer);
-                    } else {
-                        icon->apply(renderer);
+                    if (icon != nullptr) {
+                        icon->apply_to(renderer);
                     }
 
                     return;
                 }
             }
 
-            const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
-            core::api::graphics::textures::apply_default(renderer);
             next::SpiritShardUIItem::UpdateShardIcon(this_ptr);
         }
 

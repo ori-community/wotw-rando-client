@@ -4,6 +4,8 @@
 #include <nlohmann/json.hpp>
 #include <string>
 #include <Core/property.h>
+#include <Core/api/graphics/textures.h>
+
 
 namespace randomizer::features::wheel {
     core::Property<bool>& is_wheel_visible();
@@ -50,9 +52,9 @@ namespace randomizer::features::wheel {
     using wheel_callback = std::function<void(int wheel, WheelItemPosition item, WheelBind binding)>;
     // TODO: Rewrite this whole thing.
 
-    bool set_wheel_item_name(int wheel, WheelItemPosition item, std::string const& name);
-    bool set_wheel_item_description(int wheel, WheelItemPosition item, std::string const& description);
-    bool set_wheel_item_texture(int wheel, WheelItemPosition item, std::string const& texture);
+    bool set_wheel_item_name(int wheel, WheelItemPosition item, const std::string& name);
+    bool set_wheel_item_description(int wheel, WheelItemPosition item, const std::string& description);
+    bool set_wheel_item_texture(int wheel, WheelItemPosition item, const std::optional<core::api::graphics::textures::TextureIdentifier>& texture);
     bool set_wheel_item_color(int wheel, WheelItemPosition item, int r, int g, int b, int a);
     bool set_wheel_item_enabled(int wheel, WheelItemPosition item, bool enabled);
     bool set_wheel_item_callback(int wheel, WheelItemPosition item, WheelBind binding, const wheel_callback& callback);

@@ -60,9 +60,8 @@ namespace {
         auto& slot = get_slot(this_ptr->fields.m_upgradeItem->fields.UberState);
         const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
         if (slot.icon() != nullptr) {
-            slot.icon()->apply(renderer);
+            slot.icon()->apply_to(renderer);
         } else {
-            core::api::graphics::textures::apply_default(renderer);
             UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum::MainTexture, reinterpret_cast<app::Texture*>(this_ptr->fields.m_upgradeItem->fields.Icon));
         }
     }
@@ -154,10 +153,8 @@ namespace {
 
         auto& slot = get_slot(item->fields.UberState);
         const auto icon = slot.icon();
-        if (icon == nullptr) {
-            core::api::graphics::textures::apply_default(renderer);
-        } else {
-            icon->apply(renderer);
+        if (icon != nullptr) {
+            icon->apply_to(renderer);
         }
 
         auto can_afford = false;

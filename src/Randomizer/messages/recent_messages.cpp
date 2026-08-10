@@ -99,7 +99,7 @@ namespace randomizer::messages {
         bottom_left.z = -0.2f;
         m_background_sprite->local_position(bottom_left);
 
-        m_background_sprite->texture(core::api::graphics::textures::get_texture_from_identifier("file:textures/gradient_corner_bottom_left.png"));
+        m_background_sprite->texture(core::api::graphics::textures::TextureIdentifier::file("textures/gradient_corner_bottom_left.png").load());
 
         const auto scale_position_component = il2cpp::unity::add_component<app::ScalePositionForAspectRatio>(
             m_background_sprite->get_game_object(), types::ScalePositionForAspectRatio::get_class()

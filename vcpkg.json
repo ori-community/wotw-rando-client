@@ -3,9 +3,6 @@
   "version-string" : "1.0.0",
   "builtin-baseline" : "0ca64b4e1c70fa6d9f53b369b8f3f0843797c20c",
   "dependencies" : [ {
-    "name" : "stb",
-    "version>=" : "2024-07-29#1"
-  }, {
     "name" : "ixwebsocket",
     "version>=" : "11.4.6",
     "default-features" : false,

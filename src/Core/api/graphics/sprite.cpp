@@ -251,22 +251,11 @@ namespace core::api::graphics {
         il2cpp::unity::set_active(m_root, value);
     }
 
-    void Sprite::texture(const std::shared_ptr<textures::TextureData>& texture_data, std::optional<textures::MaterialParams> params) {
-        if (texture_data == nullptr) {
-            return;
+    void Sprite::texture(const std::shared_ptr<textures::Texture>& texture) {
+        if (m_texture != texture) {
+            texture->apply_to(m_renderer);
+            m_texture = texture;
         }
-
-        if (m_texture_data != texture_data) {
-            texture_data->apply_texture(m_renderer);
-            m_texture_data = texture_data;
-        }
-
-        if (!params.has_value()) {
-            params = textures::MaterialParams{ .uvs = std::make_optional<app::Vector4>({ 0, 0, 1, 1 }) };
-        }
-
-        m_texture_params = params;
-        texture_data->apply_params(m_renderer, &params.value());
     }
 
     void Sprite::set_parent(app::GameObject* parent) const { il2cpp::unity::set_parent(m_root, parent); }

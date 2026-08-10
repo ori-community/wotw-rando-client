@@ -236,10 +236,10 @@ namespace core::input {
             if (simulated_mouse_position_indicator == nullptr) {
                 simulated_mouse_position_indicator = std::make_unique<core::api::graphics::Sprite>();
 
-                core::api::graphics::textures::MaterialParams params;
-                params.uvs = std::optional<app::Vector4>({ 0.f, 0.f, 1.f, 1.f });
+                core::api::graphics::textures::UberShaderProperties params;
+                params.uv = std::optional<app::Vector4>({ 0.f, 0.f, 1.f, 1.f });
 
-                simulated_mouse_position_indicator->texture(core::api::graphics::textures::get_texture_from_identifier("file:icons/cursor.png"), std::make_optional(params));
+                simulated_mouse_position_indicator->texture(std::make_shared<api::graphics::textures::Texture>("File", "icons/cursor.png", params));
                 simulated_mouse_position_indicator->set_parent(api::game::container(api::game::GameObjectContainer::Main));
                 simulated_mouse_position_indicator->layer(Layer::UI);
 

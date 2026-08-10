@@ -14,13 +14,13 @@ using namespace app::classes;
 
 namespace {
     struct ShrekState {
-        const std::string texture_path;
+        const core::api::graphics::textures::TextureIdentifier texture_identifier;
         const float scale;
     };
 
     std::vector<ShrekState> states{
-        ShrekState{ "file:shrek/0.png", 9.f },
-        ShrekState{ "file:shrek/1.png", 8.f },
+        ShrekState{ {"File", "shrek/0.png"}, 9.f },
+        ShrekState{ {"File", "shrek/1.png"}, 8.f },
     };
 
     std::unique_ptr<core::api::graphics::Sprite> shrek;
@@ -28,9 +28,9 @@ namespace {
 
     void set_state(int index) {
         const auto state = states[index];
-        core::api::graphics::textures::MaterialParams params;
-        params.uvs = std::optional<app::Vector4>({ 0.f, 0.f, 1.f, 1.f });
-        shrek->texture(core::api::graphics::textures::get_texture_from_identifier(state.texture_path), std::make_optional(params));
+        core::api::graphics::textures::UberShaderProperties params;
+        params.uv = std::optional<app::Vector4>({ 0.f, 0.f, 1.f, 1.f });
+        shrek->texture(std::make_shared<core::api::graphics::textures::Texture>(state.texture_identifier, params));
         shrek->local_scale(app::Vector3{ state.scale, state.scale, state.scale });
     }
 

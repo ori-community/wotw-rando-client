@@ -18,7 +18,7 @@ namespace randomizer::seed {
 
     const std::vector<std::byte>& get_archive_data() const;
 
-    app::Texture2D* get_asset_texture(const std::string& path);
+    std::optional<app::Texture2D*> get_asset_texture(const std::string& path);
 
 private:
     std::optional<std::string> read_text_file_from_archive(const std::string& file_name) const;

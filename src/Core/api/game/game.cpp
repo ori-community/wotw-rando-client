@@ -39,7 +39,7 @@ using namespace app::classes;
 
 namespace core::api::game {
     namespace {
-        bool initialized = false;
+        bool game_ready = false;
         common::TimedEventBus<void, GameEvent> game_event_bus;
 
         std::unordered_map<GameObjectContainer, app::GameObject*> containers;
@@ -66,7 +66,8 @@ namespace core::api::game {
         }
 
         IL2CPP_INTERCEPT(void, GameController, OnGUI, app::GameController * this_ptr) {
-            if (!initialized) {
+            if (!game_ready) {
+                next::GameController::OnGUI(this_ptr);
                 return;
             }
 
@@ -76,7 +77,8 @@ namespace core::api::game {
         }
 
         IL2CPP_INTERCEPT(void, GameController, Update, app::GameController * this_ptr) {
-            if (!initialized) {
+            if (!game_ready) {
+                next::GameController::Update(this_ptr);
                 return;
             }
 
@@ -88,7 +90,8 @@ namespace core::api::game {
         IL2CPP_INTERCEPT(void, GameController, FixedUpdate, app::GameController * this_ptr) {
             ZoneScopedN("FixedUpdate");
 
-            if (!initialized) {
+            if (!game_ready) {
+                next::GameController::FixedUpdate(this_ptr);
                 return;
             }
 
@@ -103,14 +106,11 @@ namespace core::api::game {
             }
         }
 
-        common::Droppable::ptr_t on_title_screen_loaded = scenes::single_event_bus().register_handler("wotwTitleScreen", [](auto, auto) {
-            initialized = true;
-            on_title_screen_loaded = nullptr;
-        });
-
+        [[maybe_unused]]
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             auto simple_fps = types::SimpleFPS::get_class()->static_fields->Instance;
             UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(simple_fps), false);
+            game_ready = true;
         });
 
         IL2CPP_INTERCEPT(void, GameController, OnApplicationFocus, app::GameController * this_ptr, bool focus_status) {

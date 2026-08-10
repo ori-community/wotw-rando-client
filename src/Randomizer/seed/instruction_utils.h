@@ -146,5 +146,5 @@ namespace randomizer::seed {
         return *enum_value;
     }
 
-    std::string get_texture_identifier_from_json(const nlohmann::json& j);
+    core::api::graphics::textures::TextureIdentifier get_texture_identifier_from_json(const nlohmann::json& j);
 }

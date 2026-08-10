@@ -2,64 +2,121 @@
 
 #include <Core/api/graphics/shaders.h>
 #include <Core/macros.h>
-#include <Modloader/app/structs/Texture2D.h>
 
+#include <functional>
 #include <memory>
 #include <optional>
-#include <string_view>
-#include <functional>
+#include <nlohmann/json.hpp>
+#include <utility>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/Texture2D.h>
+
 
 namespace core::api::graphics::textures {
-    struct CORE_DLLEXPORT MaterialParams {
-        std::optional<app::Vector4> uvs = std::nullopt;
-        std::optional<app::Vector4> scroll_rot = std::nullopt;
-        std::optional<app::Color> color = std::nullopt;
+    struct CORE_DLLEXPORT UberShaderProperties {
+        std::optional<app::Vector4> uv = app::Vector4{0, 0, 1, 1};
+        std::optional<app::Vector4> scroll_rot = app::Vector4{0, 0, 1, 1};
+        std::optional<app::Color> color = app::Color{1, 1, 1, 1};
+
+        UberShaderProperties& with_color(app::Color new_color);
     };
 
-    CORE_C_DLLEXPORT void reload_all_file_textures();
-    CORE_C_DLLEXPORT void register_custom_protocol(const std::string& protocol, const std::function<app::Texture2D*(const std::string&)>& loader);
+    class CORE_DLLEXPORT Texture;
 
-    class CORE_DLLEXPORT TextureData {
+    struct CORE_DLLEXPORT TextureIdentifier {
+        /** Texture protocol, e.g. "Opher" or "Bundle" */
+        std::string protocol;
+        /** Texture identifier, handled by the registered source */
+        std::string id;
+
+        TextureIdentifier() = default;
+        TextureIdentifier(std::string protocol, std::string id) :
+            protocol(std::move(protocol)),
+            id(std::move(id)) {}
+
+        [[nodiscard]]
+        std::shared_ptr<Texture> load(std::optional<UberShaderProperties> uber_shader_properties = UberShaderProperties()) const;
+
+        static TextureIdentifier shard(app::SpiritShardType__Enum shard_type);
+        static TextureIdentifier file(const std::string& path);
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+            TextureIdentifier,
+            protocol,
+            id
+        )
+    };
+
+    struct CORE_DLLEXPORT ConstTextureIdentifier {
+        frozen::string protocol;
+        frozen::string id;
+
+        constexpr ConstTextureIdentifier(const frozen::string protocol, const frozen::string id) :
+            protocol(protocol),
+            id(id) {}
+
+        operator TextureIdentifier() const {
+            return {
+                std::string(protocol.begin(), protocol.end()),
+                std::string(id.begin(), id.end())
+            };
+        }
+    };
+
+    class CORE_DLLEXPORT Texture : std::enable_shared_from_this<Texture> {
     public:
-        TextureData() = default;
-        TextureData(const TextureData&) = delete;
-        TextureData& operator=(const TextureData&) = delete;
+        using ptr_t = std::shared_ptr<Texture>;
 
-        ~TextureData();
+        Texture() = default;
+        explicit Texture(std::string protocol, std::string id, std::optional<UberShaderProperties> uber_shader_properties = UberShaderProperties());
+        explicit Texture(TextureIdentifier identifier, std::optional<UberShaderProperties> uber_shader_properties = UberShaderProperties());
 
-        void apply(app::GameObject* go);
-        void apply(app::Material* mat);
-        void apply(app::Renderer* renderer, MaterialParams* extra = nullptr);
-        void apply_texture(app::Renderer* renderer);
-        void apply_params(app::Renderer* renderer, MaterialParams* extra = nullptr);
-        void apply_texture_unity(app::Renderer* renderer);
-        void apply_params_unity(app::Renderer* renderer, MaterialParams* extra = nullptr);
-        app::Texture2D* get();
+        app::Texture* get_texture();
 
-        void set_texture(app::Texture* texture_ptr);
-        void set_uvs(app::Vector4 uvs);
-        void set_scroll_rot(app::Vector4 scroll_rot);
-        void set_color(app::Color color);
-        void clear_overrides();
+        void apply_to(app::Renderer* renderer);
 
-        std::string const& get_path() { return identifier; }
+        ptr_t with_uber_shader_properties(const std::optional<UberShaderProperties>& uber_shader_properties) const;
 
     private:
-        bool initialized = true;
-        std::string identifier;
-        std::optional<GCHandleId> texture;
-        MaterialParams local;
+        TextureIdentifier m_identifier;
+        std::optional<il2cpp::GCRef<app::Texture>> m_texture = std::nullopt;
+        std::optional<UberShaderProperties> m_uber_shader_properties = std::nullopt;
 
-        void load_texture();
-        void reload_file_texture();
-
-        CORE_DLLEXPORT friend std::shared_ptr<TextureData> create_texture();
-        CORE_DLLEXPORT friend std::shared_ptr<TextureData> get_texture_from_identifier(std::string_view identifier);
-        CORE_DLLEXPORT friend void reload_all_file_textures();
+        void apply_texture_to(app::Renderer* renderer);
+        void apply_uber_shader_properties_to(app::Renderer* renderer) const;
     };
 
-    CORE_DLLEXPORT std::shared_ptr<TextureData> create_texture();
-    CORE_DLLEXPORT std::shared_ptr<TextureData> get_texture_from_identifier(std::string_view identifier);
-    CORE_DLLEXPORT void apply_default(app::Renderer* renderer);
-    CORE_DLLEXPORT void dont_unload_texture(app::Texture* texture);
-} // namespace core::textures
+    using texture_source_load_fn = std::function<std::optional<app::Texture*>(const std::string& id)>;
+
+    CORE_DLLEXPORT void register_source(const std::string& protocol, const texture_source_load_fn& source_load_fn);
+
+    CORE_DLLEXPORT app::RenderTexture* create_placeholder_render_texture();
+    CORE_DLLEXPORT void copy_texture_into_render_texture(app::Texture2D* source, app::RenderTexture* target);
+
+    template <typename T>
+    class CORE_DLLEXPORT RenderTextureCache {
+    public:
+        void clear() {
+            m_textures.clear();
+        }
+
+        app::RenderTexture* get_render_texture(const T& key) {
+            auto it = m_textures.find(key);
+            if (it == m_textures.end()) {
+                const auto texture = create_placeholder_render_texture();
+                m_textures.emplace(key, texture);
+                return texture;
+            }
+
+            return it->second.ref();
+        }
+
+        app::Texture* get_texture(const T& key) {
+            return reinterpret_cast<app::Texture*>(get_render_texture(key));
+        }
+
+    private:
+        std::unordered_map<T, il2cpp::GCRef<app::RenderTexture>> m_textures;
+    };
+} // namespace core::api::graphics::textures

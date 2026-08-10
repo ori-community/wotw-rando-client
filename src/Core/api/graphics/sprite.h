@@ -37,7 +37,7 @@ namespace core::api::graphics {
         bool enabled() const;
         void enabled(bool value) const;
 
-        void texture(const std::shared_ptr<textures::TextureData>& texture_data, std::optional<textures::MaterialParams> params = std::nullopt);
+        void texture(const std::shared_ptr<textures::Texture>& texture);
         void set_parent(app::GameObject* parent) const;
 
         app::GameObject* get_game_object() const;
@@ -46,7 +46,6 @@ namespace core::api::graphics {
         app::GameObject* m_root;
         app::Renderer* m_renderer;
 
-        std::shared_ptr<textures::TextureData> m_texture_data;
-        std::optional<textures::MaterialParams> m_texture_params;
+        std::shared_ptr<textures::Texture> m_texture;
     };
 } // namespace core

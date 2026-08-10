@@ -387,7 +387,7 @@ namespace randomizer::main_menu_seed_info {
                     background_gradient->enabled(true);
                     background_gradient->local_scale({24, 20, 1});
                     background_gradient->local_position({-72, -40, 0});
-                    background_gradient->texture(core::api::graphics::textures::get_texture_from_identifier("file:textures/gradient_transparent_dark.png"));
+                    background_gradient->texture(core::api::graphics::textures::TextureIdentifier::file("textures/gradient_transparent_dark.png").load());
 
                     const auto logo_go = il2cpp::unity::find_child(
                         scene_root_go,
@@ -396,9 +396,9 @@ namespace randomizer::main_menu_seed_info {
 
                     randomizer_logo = std::make_unique<core::api::graphics::Sprite>(logo_go);
                     randomizer_logo->enabled(true);
-                    randomizer_logo->local_position({-0.05, 0.1, -0.9});
+                    randomizer_logo->local_position({0, 0.1, -0.9});
                     randomizer_logo->local_scale({653.f / 181.f * 1.1, 1.1, 1});
-                    randomizer_logo->texture(core::api::graphics::textures::get_texture_from_identifier("file:randomizer.png"));
+                    randomizer_logo->texture(core::api::graphics::textures::TextureIdentifier::file("randomizer.png").load());
 
                     il2cpp::unity::set_local_position(
                         logo_go,

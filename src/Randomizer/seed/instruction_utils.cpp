@@ -6,52 +6,14 @@ namespace randomizer::seed {
      * Converts a JSON representation of a texture to a texture identifier (string)
      * used in the client.
      */
-    std::string get_texture_identifier_from_json(const nlohmann::json& j) {
+    core::api::graphics::textures::TextureIdentifier get_texture_identifier_from_json(const nlohmann::json& j) {
         const auto icon = j.begin();
         const auto& key = icon.key();
 
-        if (key == "Generic") {
-            // Currently, only Generic:0 exists which is the same as Shard:0, but Shard:0 is the `None`
-            // "shard" which doesn't make sense
-            return std::format("shard:{}", icon.value().get<int>());
+        if (icon.value().is_string()) {
+            return core::api::graphics::textures::TextureIdentifier(key, icon.value().get<std::string>());
         }
 
-        if (key == "Shard") {
-            return std::format("shard:{}", icon.value().get<int>());
-        }
-
-        if (key == "Ability") {
-            return std::format("ability:{}", icon.value().get<int>());
-        }
-
-        if (key == "Equipment") {
-            return std::format("spell:{}", icon.value().get<int>());
-        }
-
-        if (key == "Opher") {
-            return std::format("opher:{}", icon.value().get<int>());
-        }
-
-        if (key == "Lupo") {
-            return std::format("lupo:{}", icon.value().get<int>());
-        }
-
-        if (key == "Grom") {
-            return std::format("grom:{}", icon.value().get<int>());
-        }
-
-        if (key == "Tuley") {
-            return std::format("tuley:{}", icon.value().get<int>());
-        }
-
-        if (key == "File") {
-            return std::format("file:{}", icon.value().get<std::string>());
-        }
-
-        if (key == "Bundle") {
-            return std::format("bundle:{}", icon.value().get<std::string>());
-        }
-
-        throw RandoException(std::format("Invalid icon type '{}'", key));
+        return core::api::graphics::textures::TextureIdentifier(key, std::to_string(icon.value().get<std::size_t>()));
     }
 } // namespace randomizer::seed

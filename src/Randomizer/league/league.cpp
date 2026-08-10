@@ -301,7 +301,7 @@ namespace randomizer::league {
                 black_background->enabled(true);
                 black_background->local_scale({1000, 1000, 1});
                 black_background->local_position({0, 0, 0});
-                black_background->texture(core::api::graphics::textures::get_texture_from_identifier("file:textures/black_pixel.png"));
+                black_background->texture(core::api::graphics::textures::TextureIdentifier::file("textures/black_pixel.png").load());
 
                 update_status_text_box();
 

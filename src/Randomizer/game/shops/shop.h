@@ -40,7 +40,7 @@ namespace randomizer::game::shops {
     struct ShopUIShopSlot : ShopSlot {
         core::Property<std::string> name{""};
         core::Property<std::string> description{""};
-        core::Property<std::string> icon_texture_identifier{"shard:0"};
+        core::Property<core::api::graphics::textures::TextureIdentifier> icon_texture_identifier{{"Shard", "0"}};
         core::Property<bool> is_locked{false};
         core::Property<bool> is_hidden{false};
         core::Property<int> cost{0};
@@ -48,15 +48,15 @@ namespace randomizer::game::shops {
         ShopUIShopSlot();
         SlotVisibility visibility() const;
 
-        std::shared_ptr<core::api::graphics::textures::TextureData> icon();
+        std::shared_ptr<core::api::graphics::textures::Texture> icon();
 
         nlohmann::json serialize() const override;
         void deserialize(const nlohmann::json& json) override;
 
     private:
         // nullopt = cache dirty, value + nullptr = cache is valid but texture is not
-        std::optional<std::shared_ptr<core::api::graphics::textures::TextureData>> icon_cache;
-        core::reactivity::ReactiveEffect::ptr_t icon_effect;
+        std::optional<std::shared_ptr<core::api::graphics::textures::Texture>> m_icon_cache;
+        core::reactivity::ReactiveEffect::ptr_t m_icon_effect;
     };
 
     /**

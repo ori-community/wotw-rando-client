@@ -231,13 +231,13 @@ namespace randomizer::map::icons {
 
     /** An Icon Recipe to create an icon with a custom texture */
     struct CustomIconRecipe {
-        constexpr explicit CustomIconRecipe(const frozen::string& texture_identifier, float scale = 1.f, float label_y_offset = 0.f) :
+        constexpr explicit CustomIconRecipe(const core::api::graphics::textures::ConstTextureIdentifier& texture_identifier, float scale = 1.f, float label_y_offset = 0.f) :
             texture_identifier(texture_identifier),
             scale(scale),
             label_y_offset(label_y_offset) {}
 
         /** The texture identifier to retrieve the texture of this icon */
-        frozen::string texture_identifier;
+        core::api::graphics::textures::ConstTextureIdentifier texture_identifier;
 
         /** Icon scale */
         float scale;
@@ -277,13 +277,12 @@ namespace randomizer::map::icons {
 
             // Generate UVs for that square
             const auto renderer = il2cpp::unity::get_component<app::Renderer>(icon_game_object, types::Renderer::get_class());
-            const auto [x, y, z, w] = UberShaderAPI::GetTextureAtlasScrollRotData(renderer, app::UberShaderProperty_Texture__Enum::MainTexture);
             const auto uv = types::Vector2::create_array(
                 std::vector<app::Vector2>{
-                    {x,     y    },
-                    {x + z, y    },
-                    {x,     y + w},
-                    {x + z, y + w},
+                    {0, 0},
+                    {1, 0},
+                    {0, 1},
+                    {1, 1},
                 }
             );
 
@@ -293,8 +292,8 @@ namespace randomizer::map::icons {
             UnityEngine::Mesh::set_uv(mesh, uv);
             UnityEngine::MeshFilter::set_mesh(filter, mesh);
 
-            const auto texture_identifier_string = std::string(texture_identifier.begin(), texture_identifier.end());
-            core::api::graphics::textures::get_texture_from_identifier(texture_identifier_string)->apply(renderer);
+            const auto texture = std::make_shared<core::api::graphics::textures::Texture>(texture_identifier);
+            texture->apply_to(renderer);
 
             UberShaderAPI::SetVector_1(renderer, app::UberShaderProperty_Vector__Enum::MainTexScaleAndOffset, {0, 0, 1, 1});
 
@@ -348,7 +347,7 @@ namespace randomizer::map::icons {
         {MapIcon::Type::EnergyFragment, VanillaIconRecipe(app::WorldMapIconType__Enum::EnergyFragment, 0.05f)},
         {MapIcon::Type::Seed, VanillaIconRecipe(app::WorldMapIconType__Enum::Seed)},
         {MapIcon::Type::RaceEnd, VanillaIconRecipe(app::WorldMapIconType__Enum::RaceEnd)},
-        {MapIcon::Type::Eyestone, CustomIconRecipe("file:map_icons/eyestone.png", 1.f)},  // Vanilla Eyestone icon is empty
+        {MapIcon::Type::Eyestone, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/eyestone.png"), 1.f)},  // Vanilla Eyestone icon is empty
         {MapIcon::Type::WatermillDoor, VanillaIconRecipe(app::WorldMapIconType__Enum::WatermillDoor)},
         {MapIcon::Type::TempleDoor, VanillaIconRecipe(app::WorldMapIconType__Enum::TempleDoor)},
         {MapIcon::Type::SmallDoor, VanillaIconRecipe(app::WorldMapIconType__Enum::SmallDoor)},
@@ -383,51 +382,51 @@ namespace randomizer::map::icons {
         {MapIcon::Type::SavePedestalInactive, VanillaIconRecipe(app::WorldMapIconType__Enum::SavePedestal, VanillaIconPrefabVariant::Inactive)},
         {MapIcon::Type::RaceStartFinished, VanillaIconRecipe(app::WorldMapIconType__Enum::RaceStart, VanillaIconPrefabVariant::Special)},
         {MapIcon::Type::RaceEndFinished, VanillaIconRecipe(app::WorldMapIconType__Enum::RaceEnd, VanillaIconPrefabVariant::Special)},
-        {MapIcon::Type::CleanWater, CustomIconRecipe("file:map_icons/clean_water.png", 1.f)},
-        {MapIcon::Type::BonusItem, CustomIconRecipe("file:map_icons/bonus_item.png", 1.f)},
-        {MapIcon::Type::LaunchFragment, CustomIconRecipe("file:map_icons/launch_fragment.png", 1.f)},
-        {MapIcon::Type::PurpleFloor, CustomIconRecipe("file:map_icons/purple_floor.png", 0.8f)},
-        {MapIcon::Type::PurpleWall, CustomIconRecipe("file:map_icons/purple_wall.png", 0.8f)},
-        {MapIcon::Type::YellowWall, CustomIconRecipe("file:map_icons/yellow_wall.png", 0.8f)},
-        {MapIcon::Type::OneWayWallLeft, CustomIconRecipe("file:map_icons/oneway_wall_left.png", 0.8f)},
-        {MapIcon::Type::OneWayWallRight, CustomIconRecipe("file:map_icons/oneway_wall_right.png", 0.8f)},
-        {MapIcon::Type::IceFloor, CustomIconRecipe("file:map_icons/ice_floor.png", 0.8f)},
-        {MapIcon::Type::IceWall, CustomIconRecipe("file:map_icons/ice_wall.png", 0.8f)},
-        {MapIcon::Type::VerticalDoor, CustomIconRecipe("file:map_icons/blocked_wall.png", 0.8f)},
-        {MapIcon::Type::HorizontalDoor, CustomIconRecipe("file:map_icons/blocked_floor.png", 0.8f)},
-        {MapIcon::Type::Lever, CustomIconRecipe("file:map_icons/lever.png", 0.6f)},
-        {MapIcon::Type::Door, CustomIconRecipe("file:map_icons/door.png", 1.4f)},
-        {MapIcon::Type::DoorUnknown, CustomIconRecipe("file:map_icons/door_unknown.png", 1.4f)},
-        {MapIcon::Type::DoorSmall, CustomIconRecipe("file:map_icons/door.png", 0.85f)},
-        {MapIcon::Type::DoorSmallUnknown, CustomIconRecipe("file:map_icons/door_unknown.png", 0.85f)},
-        {MapIcon::Type::Wisp, CustomIconRecipe("file:icons/wheel/wisps_progress.png", 1.f)},
-        {MapIcon::Type::Ori, CustomIconRecipe("file:map_icons/ori.png", 1.f)},
-        {MapIcon::Type::OriMonochrome, CustomIconRecipe("file:map_icons/ori_monochrome.png", 1.f)},
-        {MapIcon::Type::OriPlayer, CustomIconRecipe("file:map_icons/ori.png", 1.1f, -0.05f)},
-        {MapIcon::Type::SkillBash, CustomIconRecipe("ability:0")},
-        {MapIcon::Type::SkillDoubleJump, CustomIconRecipe("ability:5")},
-        {MapIcon::Type::SkillLaunch, CustomIconRecipe("ability:8")},
-        {MapIcon::Type::SkillGlide, CustomIconRecipe("ability:14")},
-        {MapIcon::Type::SkillWaterBreath, CustomIconRecipe("ability:23")},
-        {MapIcon::Type::SkillGrenade, CustomIconRecipe("ability:51")},
-        {MapIcon::Type::SkillGrapple, CustomIconRecipe("ability:57")},
-        {MapIcon::Type::SkillFlash, CustomIconRecipe("ability:62")},
-        {MapIcon::Type::SkillSpear, CustomIconRecipe("ability:74")},
-        {MapIcon::Type::SkillRegenerate, CustomIconRecipe("ability:77")},
-        {MapIcon::Type::SkillBow, CustomIconRecipe("ability:97")},
-        {MapIcon::Type::SkillHammer, CustomIconRecipe("ability:98")},
-        {MapIcon::Type::SkillTorch, CustomIconRecipe("ability:99")},
-        {MapIcon::Type::SkillSword, CustomIconRecipe("ability:100")},
-        {MapIcon::Type::SkillBurrow, CustomIconRecipe("ability:101")},
-        {MapIcon::Type::SkillDash, CustomIconRecipe("ability:102")},
-        {MapIcon::Type::SkillWaterDash, CustomIconRecipe("ability:104")},
-        {MapIcon::Type::SkillShuriken, CustomIconRecipe("ability:106")},
-        {MapIcon::Type::SkillBlaze, CustomIconRecipe("ability:115")},
-        {MapIcon::Type::SkillSentry, CustomIconRecipe("ability:116")},
-        {MapIcon::Type::SkillFlap, CustomIconRecipe("ability:118")},
-        {MapIcon::Type::SkillAncestralLightA, CustomIconRecipe("ability:120")},
-        {MapIcon::Type::SkillAncestralLightB, CustomIconRecipe("ability:121")},
-        {MapIcon::Type::Watermill, CustomIconRecipe("file:icons/game/watermill.png")},
+        {MapIcon::Type::CleanWater, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/clean_water.png"), 1.f)},
+        {MapIcon::Type::BonusItem, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/bonus_item.png"), 1.f)},
+        {MapIcon::Type::LaunchFragment, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/launch_fragment.png"), 1.f)},
+        {MapIcon::Type::PurpleFloor, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/purple_floor.png"), 0.8f)},
+        {MapIcon::Type::PurpleWall, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/purple_wall.png"), 0.8f)},
+        {MapIcon::Type::YellowWall, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/yellow_wall.png"), 0.8f)},
+        {MapIcon::Type::OneWayWallLeft, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/oneway_wall_left.png"), 0.8f)},
+        {MapIcon::Type::OneWayWallRight, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/oneway_wall_right.png"), 0.8f)},
+        {MapIcon::Type::IceFloor, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/ice_floor.png"), 0.8f)},
+        {MapIcon::Type::IceWall, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/ice_wall.png"), 0.8f)},
+        {MapIcon::Type::VerticalDoor, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/blocked_wall.png"), 0.8f)},
+        {MapIcon::Type::HorizontalDoor, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/blocked_floor.png"), 0.8f)},
+        {MapIcon::Type::Lever, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/lever.png"), 0.6f)},
+        {MapIcon::Type::Door, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/door.png"), 1.4f)},
+        {MapIcon::Type::DoorUnknown, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/door_unknown.png"), 1.4f)},
+        {MapIcon::Type::DoorSmall, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/door.png"), 0.85f)},
+        {MapIcon::Type::DoorSmallUnknown, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/door_unknown.png"), 0.85f)},
+        {MapIcon::Type::Wisp, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "icons/wheel/wisps_progress.png"), 1.f)},
+        {MapIcon::Type::Ori, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/ori.png"), 1.f)},
+        {MapIcon::Type::OriMonochrome, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/ori_monochrome.png"), 1.f)},
+        {MapIcon::Type::OriPlayer, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/ori.png"), 1.1f, -0.05f)},
+        {MapIcon::Type::SkillBash, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "0"))},
+        {MapIcon::Type::SkillDoubleJump, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "5"))},
+        {MapIcon::Type::SkillLaunch, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "8"))},
+        {MapIcon::Type::SkillGlide, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "14"))},
+        {MapIcon::Type::SkillWaterBreath, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "23"))},
+        {MapIcon::Type::SkillGrenade, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "51"))},
+        {MapIcon::Type::SkillGrapple, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "57"))},
+        {MapIcon::Type::SkillFlash, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "62"))},
+        {MapIcon::Type::SkillSpear, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "74"))},
+        {MapIcon::Type::SkillRegenerate, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "77"))},
+        {MapIcon::Type::SkillBow, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "97"))},
+        {MapIcon::Type::SkillHammer, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "98"))},
+        {MapIcon::Type::SkillTorch, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "99"))},
+        {MapIcon::Type::SkillSword, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "100"))},
+        {MapIcon::Type::SkillBurrow, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "101"))},
+        {MapIcon::Type::SkillDash, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "102"))},
+        {MapIcon::Type::SkillWaterDash, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "104"))},
+        {MapIcon::Type::SkillShuriken, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "106"))},
+        {MapIcon::Type::SkillBlaze, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "115"))},
+        {MapIcon::Type::SkillSentry, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "116"))},
+        {MapIcon::Type::SkillFlap, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "118"))},
+        {MapIcon::Type::SkillAncestralLightA, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "120"))},
+        {MapIcon::Type::SkillAncestralLightB, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "121"))},
+        {MapIcon::Type::Watermill, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "icons/game/watermill.png"))},
     };
 
     MapIcon::id_t next_icon_id = 0;

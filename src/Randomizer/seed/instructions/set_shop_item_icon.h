@@ -3,14 +3,14 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(SetShopItemIcon)
-    SetShopItemIcon(const int group, const int member, std::string icon) :
+    SetShopItemIcon(const int group, const int member, core::api::graphics::textures::TextureIdentifier icon) :
         group(group),
         member(member),
         icon_identifier(std::move(icon)) {}
 
     int group;
     int member;
-    std::string icon_identifier;
+    core::api::graphics::textures::TextureIdentifier icon_identifier;
 
     void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         const core::api::uber_states::UberState state(group, member);
@@ -31,7 +31,7 @@ INSTRUCTION(SetShopItemIcon)
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
-        return std::format("SetShopItemIcon -> {}|{} = {}", group, member, icon_identifier);
+        return std::format("SetShopItemIcon -> {}|{} = {}:{}", group, member, icon_identifier.protocol, icon_identifier.id);
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {

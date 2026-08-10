@@ -4,21 +4,21 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(SetWheelItemIcon)
-    SetWheelItemIcon(const int wheel, const features::wheel::WheelItemPosition position, std::string icon) :
+    SetWheelItemIcon(const int wheel, const features::wheel::WheelItemPosition position, core::api::graphics::textures::TextureIdentifier icon) :
         wheel(wheel),
         position(position),
         icon(std::move(icon)) {}
 
     int wheel;
     features::wheel::WheelItemPosition position;
-    std::string icon;
+    core::api::graphics::textures::TextureIdentifier icon;
 
     void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
         set_wheel_item_texture(wheel, position, icon);
     }
 
     [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
-        return std::format("SetWheelItemIcon -> Wheel {}, Position {} = {}", wheel, static_cast<int>(position), memory.heap.get<std::string>(0));
+        return std::format("SetWheelItemIcon -> Wheel {}, Position {} = {}:{}", wheel, static_cast<int>(position), icon.protocol, icon.id);
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {

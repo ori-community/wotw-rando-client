@@ -1,11 +1,13 @@
 #include <Modloader/app/structs/TextureFormat__Enum.h>
 #include <Modloader/app/methods/UnityEngine/Texture2D.h>
 #include <Modloader/app/methods/UnityEngine/Texture.h>
+#include <Modloader/app/methods/UnityEngine/ImageConversion.h>
+#include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/types/Texture2D.h>
+#include <Modloader/app/types/Byte.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/seed/archive.h>
 #include <nlohmann/json.hpp>
-#include <Core/utils/stb_image.h>
 
 namespace randomizer::seed {
     using namespace app::classes;
@@ -70,7 +72,7 @@ namespace randomizer::seed {
 
     const std::vector<std::byte>& SeedArchive::get_archive_data() const { return m_archive_data; }
 
-    app::Texture2D* SeedArchive::get_asset_texture(const std::string& path) {
+    std::optional<app::Texture2D*> SeedArchive::get_asset_texture(const std::string& path) {
         const auto cached_texture = asset_texture_cache.find(path);
         if (cached_texture != asset_texture_cache.end()) {
             return cached_texture->second.ref();
@@ -86,37 +88,24 @@ namespace randomizer::seed {
 
         if (archive_entry.isNull() || !archive_entry.isFile()) {
             modloader::error("seed_archive", std::format("tried to load asset texture at {} but it was not a file", path));
-            return nullptr;
+            return std::nullopt;
         }
 
         const auto data = archive_entry.readAsBinary();
         const auto data_length = archive_entry.getSize();
 
-        int width;
-        int height;
-        int channel_count = 4;
-        stbi_set_flip_vertically_on_load(true);
-
-        unsigned char* png_data = stbi_load_from_memory(static_cast<stbi_uc const*>(data), static_cast<int>(data_length), &width, &height, &channel_count, STBI_rgb_alpha);
-
-        delete[] static_cast<char*>(data);
-
-        if (png_data == nullptr) {
-            modloader::warn("seed_archive", std::format("failed to load asset texture {} ({}).", path, stbi_failure_reason()));
-            return nullptr;
+        const auto bytes_array = types::Byte::create_array(data_length);
+        for (int i = 0; i < data_length; ++i) {
+            bytes_array->vector[i] = static_cast<uint8_t*>(data)[i];
         }
 
-        const auto texture_ptr = types::Texture2D::create();
+        const auto texture = types::Texture2D::create();
+        UnityEngine::Texture2D::ctor_4(texture, 1, 1, app::TextureFormat__Enum::RGBA32, true, false);
+        UnityEngine::ImageConversion::LoadImage_1(texture, bytes_array, true);
+        UnityEngine::Object::set_hideFlags(reinterpret_cast<app::Object_1*>(texture), app::HideFlags__Enum::DontUnloadUnusedAsset);
 
-        const auto format = channel_count == 3 ? app::TextureFormat__Enum::RGB24 : app::TextureFormat__Enum::RGBA32;
-        UnityEngine::Texture2D::ctor_4(texture_ptr, width, height, format, false, false);
-        UnityEngine::Texture2D::LoadRawTextureData_1(texture_ptr, png_data, width * height * channel_count);
-        UnityEngine::Texture2D::Apply_1(texture_ptr, true, false);
-        UnityEngine::Texture::set_wrapMode(reinterpret_cast<app::Texture*>(texture_ptr), app::TextureWrapMode__Enum::Clamp);
-        stbi_image_free(png_data);
+        asset_texture_cache.emplace(path, texture);
 
-        asset_texture_cache.emplace(path, texture_ptr);
-
-        return texture_ptr;
+        return texture;
     }
 } // namespace randomizer::seed

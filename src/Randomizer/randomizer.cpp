@@ -182,12 +182,12 @@ namespace randomizer {
         }
 
         auto on_modloader_injection_complete = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
-            core::api::graphics::textures::register_custom_protocol("bundle", [](const std::string& path) -> app::Texture2D* {
+            core::api::graphics::textures::register_source("Bundle", [](const std::string& path) -> std::optional<app::Texture*> {
                 if (seed_archive_save_data->seed_archive == nullptr) {
-                    return nullptr;
+                    return std::nullopt;
                 }
 
-                return seed_archive_save_data->seed_archive->get_asset_texture(path);
+                return seed_archive_save_data->seed_archive->get_asset_texture(path).transform([](auto texture_2d) { return reinterpret_cast<app::Texture*>(texture_2d); });
             });
         });
     } // namespace

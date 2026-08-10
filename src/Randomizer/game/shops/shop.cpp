@@ -23,8 +23,8 @@ namespace randomizer::game::shops {
 
     ShopUIShopSlot::ShopUIShopSlot() {
         core::reactivity::watch_effect().effect(icon_texture_identifier).after([&] {
-            icon_cache = std::nullopt;
-        }).finalize_inplace(icon_effect);
+            m_icon_cache = std::nullopt;
+        }).finalize_inplace(m_icon_effect);
     }
 
     SlotVisibility ShopUIShopSlot::visibility() const {
@@ -35,12 +35,12 @@ namespace randomizer::game::shops {
         return *is_locked ? SlotVisibility::Locked : SlotVisibility::Visible;
     }
 
-    std::shared_ptr<core::api::graphics::textures::TextureData> ShopUIShopSlot::icon() {
-        if (!icon_cache.has_value()) {
-            icon_cache = core::api::graphics::textures::get_texture_from_identifier(icon_texture_identifier.get());
+    std::shared_ptr<core::api::graphics::textures::Texture> ShopUIShopSlot::icon() {
+        if (!m_icon_cache.has_value()) {
+            m_icon_cache = icon_texture_identifier.get().load();
         }
 
-        return *icon_cache;
+        return *m_icon_cache;
     }
 
     nlohmann::json ShopUIShopSlot::serialize() const {
@@ -57,7 +57,7 @@ namespace randomizer::game::shops {
     void ShopUIShopSlot::deserialize(const nlohmann::json& json) {
         name.set(json["name"].get<std::string>());
         description.set(json["description"].get<std::string>());
-        icon_texture_identifier.set(json["icon_texture_identifier"].get<std::string>());
+        icon_texture_identifier.set(json["icon_texture_identifier"].get<core::api::graphics::textures::TextureIdentifier>());
         is_locked.set(json["is_locked"].get<bool>());
         is_hidden.set(json["is_hidden"].get<bool>());
         cost.set(json["cost"].get<int>());

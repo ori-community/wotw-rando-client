@@ -7,7 +7,6 @@ set(PROJECT_DIR ${WOTWR_SRC_DIR}/${PROJECT_NAME})
 
 set(
         SOURCE_FILES
-        "animation/animation.cpp"
         "api/debug_renderer.cpp"
         "api/faderb.cpp"
         "api/input.cpp"
@@ -24,6 +23,12 @@ set(
         "api/game/pickup_prevention/health_cell.cpp"
         "api/game/pickup_prevention/keystone.cpp"
         "api/game/pickup_prevention/ore.cpp"
+        "api/graphics/texture_sources/equipment.cpp"
+        "api/graphics/texture_sources/file.cpp"
+        "api/graphics/texture_sources/lupo.cpp"
+        "api/graphics/texture_sources/opher.cpp"
+        "api/graphics/texture_sources/shard.cpp"
+        "api/graphics/texture_sources/tuley.cpp"
         "api/graphics/shaders.cpp"
         "api/graphics/sprite.cpp"
         "api/graphics/textures.cpp"
@@ -72,12 +77,10 @@ set(
         "utils/misc.cpp"
         "utils/operations.cpp"
         "utils/position_converter.cpp"
-        "utils/stb_image.cpp"
 )
 
 set(
         PUBLIC_HEADER_FILES
-        "animation/animation.h"
         "api/faderb.h"
         "api/input.h"
         "api/game/death_listener.h"
@@ -152,7 +155,6 @@ set(
         "utils/misc.h"
         "utils/operations.h"
         "utils/position_converter.h"
-        "utils/stb_image.h"
 )
 
 set(
@@ -170,6 +172,7 @@ add_library(
 target_compile_definitions(
         ${PROJECT_NAME}
         PRIVATE COMPILING_CORE
+        MAGIC_ENUM_RANGE_MAX=4096
 )
 
 set_target_properties(

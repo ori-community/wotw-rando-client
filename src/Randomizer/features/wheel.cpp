@@ -63,7 +63,7 @@ namespace randomizer::features::wheel {
 
             core::Property<std::string> name;
             core::Property<std::string> description;
-            std::shared_ptr<core::api::graphics::textures::TextureData> texture_data = nullptr;
+            std::optional<std::shared_ptr<core::api::graphics::textures::Texture>> texture = std::nullopt;
             app::Color color = {1.0f, 1.0f, 1.0f, 1.0f};
             binding_action action = nullptr;
             std::array<wheel_callback, 4> callbacks = {nullptr, nullptr, nullptr, nullptr};
@@ -418,21 +418,16 @@ namespace randomizer::features::wheel {
             if (custom_wheel_on) {
                 CustomWheelEntry* entry = this_ptr->fields.m_spell != nullptr ? get_wheel_entry(this_ptr->fields.m_spell->fields.m_type) : nullptr;
                 if (entry == nullptr) {
-                    core::api::graphics::textures::apply_default(renderer);
                     next::SpellUIItem::UpdateSpellIcon(this_ptr);
                     return;
                 }
 
-                if (entry->texture_data == nullptr) {
-                    entry->texture_data = core::api::graphics::textures::create_texture();
-                    const auto* spell_settings = types::SpellSettings::get_class();
-                    const auto* icons = spell_settings->static_fields->Instance->fields.Icons;
-                    entry->texture_data->set_texture(reinterpret_cast<app::Texture*>(icons->fields._.Missing.InventoryIcon));
+                if (!entry->texture.has_value()) {
+                    return;
                 }
 
-                entry->texture_data->apply(renderer);
+                (*entry->texture)->apply_to(renderer);
             } else {
-                core::api::graphics::textures::apply_default(renderer);
                 next::SpellUIItem::UpdateSpellIcon(this_ptr);
             }
         }
@@ -602,23 +597,17 @@ namespace randomizer::features::wheel {
         return true;
     }
 
-    bool set_wheel_item_texture(const int wheel, const WheelItemPosition item, std::string const& texture) {
+    bool set_wheel_item_texture(int wheel, WheelItemPosition item, const std::optional<core::api::graphics::textures::TextureIdentifier>& texture) {
         if (!is_valid_wheel_index(wheel, item)) {
             warn("wheel", std::format("invalid wheel index [{}, {}] in command", wheel, static_cast<int>(item)));
             return false;
         }
 
         auto& entry = wheels[wheel].entries[item];
-        if (texture.empty()) {
-            entry.texture_data = nullptr;
+        if (!texture.has_value()) {
+            entry.texture = std::nullopt;
         } else {
-            entry.texture_data = core::api::graphics::textures::get_texture_from_identifier(texture);
-            if (entry.texture_data == nullptr) {
-                warn("wheel", std::format("failed to find texture {}", texture));
-                return false;
-            }
-
-            entry.texture_data->set_color(entry.color);
+            entry.texture = texture->load(core::api::graphics::textures::UberShaderProperties().with_color(entry.color));
         }
 
         refresh_wheel();
@@ -641,8 +630,8 @@ namespace randomizer::features::wheel {
 
         auto& entry = wheels[wheel].entries[item];
         entry.color = app::Color{r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f};
-        if (entry.texture_data != nullptr) {
-            entry.texture_data->set_color(entry.color);
+        if (entry.texture.has_value()) {
+            entry.texture = entry.texture.value()->with_uber_shader_properties(core::api::graphics::textures::UberShaderProperties().with_color(entry.color));
         }
 
         refresh_wheel();
