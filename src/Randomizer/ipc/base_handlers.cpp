@@ -1,6 +1,7 @@
 #include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/randomizer.h>
 
+#include <Core/api/game/debug_menu.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
@@ -166,6 +167,12 @@ namespace randomizer::ipc {
             core::ipc::send_message(response);
         }
 
+        void get_debug_enabled(const nlohmann::json& j) {
+            auto response = core::ipc::respond_to(j);
+            response["payload"]["debug_enabled"] = core::api::game::debug_menu::is_debug_enabled();
+            core::ipc::send_message(response);
+        }
+
         [[maybe_unused]]
         auto on_value_store_loaded = core::api::game::event_bus().register_handler(GameEvent::UberStateValueStoreLoaded, EventTiming::After, [](auto, auto) {
             core::ipc::send_message(core::ipc::make_request("notify_on_load"));
@@ -218,6 +225,7 @@ namespace randomizer::ipc {
             core::ipc::register_request_handler("load_new_game_source", load_new_game_source);
             core::ipc::register_request_handler("subscribe_uber_states", subscribe_uber_states);
             core::ipc::register_request_handler("unsubscribe_uber_states", unsubscribe_uber_states);
+            core::ipc::register_request_handler("get_debug_enabled", get_debug_enabled);
         });
 
         [[maybe_unused]]
