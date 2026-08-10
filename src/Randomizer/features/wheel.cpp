@@ -40,6 +40,8 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 
+#include "Modloader/app/methods/UberShaderAPI.h"
+
 using namespace modloader;
 using namespace app::classes;
 
@@ -428,6 +430,7 @@ namespace randomizer::features::wheel {
 
                 (*entry->texture)->apply_to(renderer);
             } else {
+                UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, app::Color(1, 1, 1, 1));
                 next::SpellUIItem::UpdateSpellIcon(this_ptr);
             }
         }
