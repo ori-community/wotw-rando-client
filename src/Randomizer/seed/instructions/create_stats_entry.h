@@ -32,6 +32,6 @@ INSTRUCTION(CreateStatsEntry)
     }
 
     static std::unique_ptr<IInstruction> from_json(const nlohmann::json& j) {
-        return std::make_unique<CreateStatsEntry>(parse_enum<map::icons::MapIcon::Type>(j.at(0)));
+        return std::make_unique<CreateStatsEntry>(parse_enum<map::icons::MapIcon::Type>(j));
     }
 };
