@@ -102,6 +102,7 @@ namespace randomizer::seed {
         const auto texture = types::Texture2D::create();
         UnityEngine::Texture2D::ctor_4(texture, 1, 1, app::TextureFormat__Enum::RGBA32, true, false);
         UnityEngine::ImageConversion::LoadImage_1(texture, bytes_array, true);
+        UnityEngine::Texture::set_wrapMode(reinterpret_cast<app::Texture*>(texture), app::TextureWrapMode__Enum::Clamp);
         UnityEngine::Object::set_hideFlags(reinterpret_cast<app::Object_1*>(texture), app::HideFlags__Enum::DontUnloadUnusedAsset);
 
         asset_texture_cache.emplace(path, texture);

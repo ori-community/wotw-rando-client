@@ -25,6 +25,7 @@ namespace core::api::graphics::textures {
     app::RenderTexture* create_placeholder_render_texture() {
         const auto texture = types::RenderTexture::create();
         UnityEngine::RenderTexture::ctor_5(texture, 1, 1, 32, app::RenderTextureFormat__Enum::ARGB32, app::RenderTextureReadWrite__Enum::sRGB);
+        UnityEngine::Texture::set_wrapMode(reinterpret_cast<app::Texture*>(texture), app::TextureWrapMode__Enum::Clamp);
         UnityEngine::Object::set_hideFlags(reinterpret_cast<app::Object_1*>(texture), app::HideFlags__Enum::DontUnloadUnusedAsset);
         return texture;
     }

@@ -21,6 +21,7 @@ namespace {
             const auto bytes = System::IO::File::ReadAllBytes(asset_path_csstring);
             const auto texture = types::Texture2D::create();
             UnityEngine::Texture2D::ctor_4(texture, 1, 1, app::TextureFormat__Enum::RGBA32, true, false);
+            UnityEngine::Texture::set_wrapMode(reinterpret_cast<app::Texture*>(texture), app::TextureWrapMode__Enum::Clamp);
             UnityEngine::ImageConversion::LoadImage_1(texture, bytes, true);
             textures.emplace(path, texture);
             UnityEngine::Object::set_hideFlags(reinterpret_cast<app::Object_1*>(texture), app::HideFlags__Enum::DontUnloadUnusedAsset);
