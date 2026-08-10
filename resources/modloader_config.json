@@ -1,6 +1,7 @@
 {
 	"libraries": [
 		"Core.dll",
+		"discord_game_sdk.dll",
 		"Randomizer.dll"
 	]
 }
