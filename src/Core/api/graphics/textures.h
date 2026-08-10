@@ -17,7 +17,7 @@ namespace core::api::graphics::textures {
     struct CORE_DLLEXPORT UberShaderProperties {
         std::optional<app::Vector4> uv = app::Vector4{0, 0, 1, 1};
         std::optional<app::Vector4> scroll_rot = app::Vector4{0, 0, 1, 1};
-        std::optional<app::Color> color = app::Color{1, 1, 1, 1};
+        std::optional<app::Color> color = std::nullopt;
 
         UberShaderProperties& with_color(app::Color new_color);
     };
