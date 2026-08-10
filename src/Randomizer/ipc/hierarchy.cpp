@@ -879,6 +879,7 @@ namespace randomizer::ipc {
 
         void get_children(const nlohmann::json& j) {
             if (!core::api::game::debug_menu::is_debug_enabled()) {
+                modloader::warn("ipc", "get_children: debug not enabled");
                 return;
             }
 
