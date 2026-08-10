@@ -83,6 +83,7 @@ namespace core::api::graphics::textures {
         std::optional<il2cpp::GCRef<app::Texture>> m_texture = std::nullopt;
         std::optional<UberShaderProperties> m_uber_shader_properties = std::nullopt;
 
+        static const std::optional<il2cpp::GCRef<app::Texture>>& get_placeholder_texture();
         void apply_texture_to(app::Renderer* renderer);
         void apply_uber_shader_properties_to(app::Renderer* renderer) const;
     };

@@ -68,7 +68,11 @@ namespace core::api::graphics::textures {
         }
 
         const auto loaded_texture = source_it->second(m_identifier.id);
-        m_texture = loaded_texture.transform([](auto& texture) { return il2cpp::GCRef(texture); });
+        m_texture = loaded_texture
+            .transform([](auto& texture) { return il2cpp::GCRef(texture); })
+            .or_else([] {
+                return get_placeholder_texture();
+            });
     }
 
     app::Texture* Texture::get_texture() {
@@ -88,6 +92,16 @@ namespace core::api::graphics::textures {
         copy->m_uber_shader_properties = uber_shader_properties;
 
         return copy;
+    }
+
+    const std::optional<il2cpp::GCRef<app::Texture>>& Texture::get_placeholder_texture() {
+        static std::optional<il2cpp::GCRef<app::Texture>> placeholder_texture = std::nullopt;
+
+        if (!placeholder_texture.has_value()) {
+            placeholder_texture = TextureIdentifier::file("textures/uv_test.png").load()->m_texture;
+        }
+
+        return placeholder_texture;
     }
 
     void Texture::apply_texture_to(app::Renderer* renderer) {
