@@ -5,6 +5,7 @@
 
 namespace core::api::faderb {
     CORE_DLLEXPORT app::FaderB* get();
+    CORE_DLLEXPORT bool is_game_visible();
     CORE_DLLEXPORT void fade_to_game_invisible(float duration);
     CORE_DLLEXPORT void fade_to_game_visible(float duration);
     CORE_DLLEXPORT void set_black_screen_instantly();

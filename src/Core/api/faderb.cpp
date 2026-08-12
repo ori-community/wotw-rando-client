@@ -10,12 +10,18 @@
 using namespace app::classes;
 
 namespace core::api::faderb {
-    constexpr auto DEBUG_DISABLE_FADERB = false;
-    auto skip_black_screen_cleanup = false;
+    namespace {
+        constexpr auto DEBUG_DISABLE_FADERB = false;
+        auto skip_black_screen_cleanup = false;
+    }
 
     app::FaderB* get() {
         static auto cache = types::UI::get_class()->static_fields->Fader;
         return cache;
+    }
+
+    bool is_game_visible() {
+        return get()->fields.m_opacity < 0.95;
     }
 
     void fade_to_game_invisible(const float duration) {

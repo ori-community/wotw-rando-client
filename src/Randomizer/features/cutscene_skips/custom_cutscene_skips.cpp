@@ -178,17 +178,25 @@ namespace custom_cutscene_skips {
             };
 
             if (skip_metadata_of_last_get_skipping_available_call.transform([](auto& meta) -> bool { return meta.fade_on_automatic_skip; }).value_or(true)) {
-                is_fading_for_automatic_cutscene_skip = true;
-                core::api::faderb::fade_to_game_invisible(0.4f);
-
-                core::events::schedule_task(0.4f, [=] {
+                const auto execute_skip_and_fade_to_game_visible = [=] {
                     execute_automatic_skip();
                     is_fading_for_automatic_cutscene_skip = false;
 
                     core::events::schedule_task(delay_fade_to_game_for_seconds, [] {
                         core::api::faderb::fade_to_game_visible(0.3f);
                     });
-                });
+                };
+
+                if (core::api::faderb::is_game_visible()) {
+                    is_fading_for_automatic_cutscene_skip = true;
+                    core::api::faderb::fade_to_game_invisible(0.4f);
+
+                    core::events::schedule_task(0.4f, [=] {
+                        execute_skip_and_fade_to_game_visible();
+                    });
+                } else {
+                    execute_skip_and_fade_to_game_visible();
+                }
             } else {
                 execute_automatic_skip();
             }
