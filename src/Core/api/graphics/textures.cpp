@@ -64,13 +64,18 @@ namespace core::api::graphics::textures {
 
         const auto source_it = texture_sources.find(m_identifier.protocol);
         if (source_it == texture_sources.end()) {
+            modloader::warn("textures", std::format("Tried to load texture with unknown protocol: {}://{}", m_identifier.protocol, m_identifier.id));
             return;
         }
 
         const auto loaded_texture = source_it->second(m_identifier.id);
         m_texture = loaded_texture
-            .transform([](auto& texture) { return il2cpp::GCRef(texture); })
-            .or_else([] {
+            .transform([&](auto& texture) {
+                modloader::debug("textures", std::format("Loaded texture: {}://{}", m_identifier.protocol, m_identifier.id));
+                return il2cpp::GCRef(texture);
+            })
+            .or_else([&] {
+                modloader::warn("textures", std::format("Texture source returned no texture: {}://{}", m_identifier.protocol, m_identifier.id));
                 return get_placeholder_texture();
             });
     }
