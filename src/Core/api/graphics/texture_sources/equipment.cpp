@@ -18,8 +18,11 @@ namespace {
         for (auto enum_value: magic_enum::enum_values<app::EquipmentType__Enum>()) {
             const auto icons = il2cpp::invoke<app::SpellIconsCollection_Icons__Boxed>(this_ptr->fields.Icons, "GetValue", &enum_value);
             const auto source_texture = icons->fields.InventoryIcon;
-            const auto texture = texture_cache.get_render_texture(enum_value);
-            core::api::graphics::textures::copy_texture_into_render_texture(source_texture, texture);
+
+            if (source_texture != nullptr) {
+                const auto texture = texture_cache.get_render_texture(enum_value);
+                core::api::graphics::textures::copy_texture_into_render_texture(source_texture, texture);
+            }
         }
     }
 
