@@ -61,13 +61,13 @@ namespace randomizer::features::wheel {
 
     namespace {
         struct CustomWheelEntry {
-            using binding_action = void (*)(CustomWheelEntry const& entry, app::SpellUIItem* item, WheelBind binding);
+            using wheel_action_fn = void (*)(CustomWheelEntry const& entry, app::SpellUIItem* item, WheelBind binding);
 
             core::Property<std::string> name;
             core::Property<std::string> description;
             std::optional<std::shared_ptr<core::api::graphics::textures::Texture>> texture = std::nullopt;
             app::Color color = {1.0f, 1.0f, 1.0f, 1.0f};
-            binding_action action = nullptr;
+            wheel_action_fn action = nullptr;
             std::array<wheel_callback, 4> callbacks = {nullptr, nullptr, nullptr, nullptr};
             bool enabled = true;
         };
@@ -425,6 +425,7 @@ namespace randomizer::features::wheel {
                 }
 
                 if (!entry->texture.has_value()) {
+                    core::api::graphics::textures::get_empty_texture()->apply_to(renderer);
                     return;
                 }
 

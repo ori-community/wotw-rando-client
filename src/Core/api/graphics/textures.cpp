@@ -15,11 +15,20 @@ using namespace app::classes;
 namespace core::api::graphics::textures {
     namespace {
         std::unordered_map<std::string, texture_source_load_fn> texture_sources;
+        std::shared_ptr<Texture> empty_texture = nullptr;
     }
 
     void register_source(const std::string& protocol, const texture_source_load_fn& source_load_fn) {
         assert(!texture_sources.contains(protocol));  // Tried to register protocol twice
         texture_sources[protocol] = source_load_fn;
+    }
+
+    const std::shared_ptr<Texture>& get_empty_texture() {
+        if (empty_texture == nullptr) {
+            empty_texture = std::make_shared<Texture>("Empty", "");
+        }
+
+        return empty_texture;
     }
 
     app::RenderTexture* create_placeholder_render_texture() {
@@ -111,6 +120,7 @@ namespace core::api::graphics::textures {
 
     void Texture::apply_texture_to(app::Renderer* renderer) {
         if (!m_texture.has_value()) {
+            get_empty_texture()->apply_to(renderer);
             return;
         }
 

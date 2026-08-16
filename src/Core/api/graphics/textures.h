@@ -92,6 +92,7 @@ namespace core::api::graphics::textures {
 
     CORE_DLLEXPORT void register_source(const std::string& protocol, const texture_source_load_fn& source_load_fn);
 
+    CORE_DLLEXPORT const std::shared_ptr<Texture>& get_empty_texture();
     CORE_DLLEXPORT app::RenderTexture* create_placeholder_render_texture();
     CORE_DLLEXPORT void copy_texture_into_render_texture(app::Texture2D* source, app::RenderTexture* target);
 
