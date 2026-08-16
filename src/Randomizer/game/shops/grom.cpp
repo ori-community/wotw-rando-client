@@ -240,7 +240,7 @@ namespace randomizer::game::shops::grom {
     }
 
     // Force project order because we disable SortByCost on shops
-    IL2CPP_INTERCEPT(void, BuilderScreen, Init, app::BuilderScreen* this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(10, void, BuilderScreen, Init, app::BuilderScreen* this_ptr) {
         this_ptr->fields._.SortedByCost = false;
 
         const auto project_teleporter = this_ptr->fields.Projects->vector[0];
