@@ -2,7 +2,7 @@
 
 #include <string_view>
 
-namespace shared_memory {
+namespace common::shared_memory {
     template<typename T>
     class SharedMemorySlot {
         void* shared_memory_handle = nullptr;

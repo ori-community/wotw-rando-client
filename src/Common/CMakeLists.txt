@@ -13,6 +13,7 @@ set(
         "ext.cpp"
         "settings.cpp"
         "math_utils.cpp"
+        "shared_memory.cpp"
 )
 
 set(
@@ -28,6 +29,7 @@ set(
         "is_in.h"
         "math_utils.h"
         "settings.h"
+        "shared_memory.h"
         "thread_safe_container.h"
         "variant_cast.h"
         "vx.h"

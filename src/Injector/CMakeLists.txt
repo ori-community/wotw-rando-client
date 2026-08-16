@@ -9,7 +9,6 @@ set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 set(
         SOURCE_FILES
         "injector.cpp"
-        "shared_memory.cpp"
         "get_process_address.cpp"
 )
 

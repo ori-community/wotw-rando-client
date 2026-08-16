@@ -1,7 +1,7 @@
-#include <Injector/shared_memory.h>
+#include <Common/shared_memory.h>
 #include <windows.h>
 
-namespace shared_memory {
+namespace common::shared_memory {
     constexpr int BUFFER_SIZE = 1;
 
     template<typename T>

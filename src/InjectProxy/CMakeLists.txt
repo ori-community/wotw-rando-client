@@ -9,7 +9,7 @@ set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 set(
         SOURCE_FILES
         "proxy.cpp"
-        "winhttp_proxy.cpp"
+        "winhttp_proxy.def"
 )
 
 set(

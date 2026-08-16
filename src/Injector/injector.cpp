@@ -14,7 +14,7 @@
 #define NO_MODLOADER
 
 #include <tchar.h>
-#include <Injector/shared_memory.h>
+#include <Common/shared_memory.h>
 #include <Common/settings.h>
 #include <Common/ext.h>
 
@@ -214,7 +214,7 @@ bool load_inject_loader(HANDLE target_process_handle, const std::wstring& inject
 }
 
 int main() {
-    shared_memory::SharedMemorySlot<bool> injector_running_memory_slot("OriWotWRandoInjectorRunning");
+    common::shared_memory::SharedMemorySlot<bool> injector_running_memory_slot("OriWotWRandoInjectorRunning");
     injector_running_memory_slot.set_value(true);
 
     TCLAP::CmdLine cmd("Ori and the Will of the Wisps Modloader (Injector)", ' ', "1.0");
