@@ -287,7 +287,6 @@ namespace randomizer::features::wheel {
             app::Object* grid_context
         ) {
             const auto wheel_selection_manager = this_ptr->fields.m_navigationManager;
-            wheel_selection_manager->fields.KeepSelectedItemActiveWhenInactive = false;
             wheel_selection_manager->fields.KeepMouseInteractionsWhenInactive = false;
             wheel_selection_manager->fields.AlwaysHighlightCurrentMenuItem = false;
             wheel_selection_manager->fields.CheckIfActiveWhenSettingIndexToFirst = true;
@@ -300,8 +299,9 @@ namespace randomizer::features::wheel {
 
             const auto wheel = types::EquipmentWheel::get_class()->static_fields->Instance;
             EquipmentWheelUIDetails::UpdateContext(wheel->fields.EquipmentDetailsCanvas, false);
-            const int count = CleverMenuItemSelectionManager::get_MenuItemsCount(wheel_selection_manager);
+
             if (custom_wheel_on) {
+                const int count = CleverMenuItemSelectionManager::get_MenuItemsCount(wheel_selection_manager);
                 for (int i = 0; i < count; ++i) {
                     auto* menu_item = CleverMenuItemSelectionManager::GetMenuItem(wheel_selection_manager, i);
                     menu_item->fields.m_selectionManager = wheel_selection_manager;
@@ -570,6 +570,11 @@ namespace randomizer::features::wheel {
                         CleverMenuItem::OnHighlight(item, true);
                     }
                     break;
+            }
+
+            const auto current_item = CleverMenuItemSelectionManager::get_CurrentMenuItem(manager);
+            if (current_item == nullptr) {
+                CleverMenuItemSelectionManager::SetIndexToFirst(manager);
             }
 
             const auto radial_selection = il2cpp::deref_weak_gc_ref(radial_selection_ref);
