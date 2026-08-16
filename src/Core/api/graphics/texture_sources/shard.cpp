@@ -29,5 +29,15 @@ namespace {
             const auto id_enum = static_cast<app::SpiritShardType__Enum>(std::stoi(id));
             return texture_cache.get_texture(id_enum);
         });
+
+        core::api::graphics::textures::register_source("Generic", [](const std::string& id) -> std::optional<app::Texture*> {
+            switch (std::stoi(id)) {
+                case 0:
+                    return texture_cache.get_texture(app::SpiritShardType__Enum::None);
+                default:;
+            }
+
+            return std::nullopt;
+        });
     });
 } // namespace
