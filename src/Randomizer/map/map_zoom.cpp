@@ -15,11 +15,18 @@ namespace {
     constexpr float map_zoom_out_factor = 2.0f;
     float original_zoom = -1.0f;
     float original_scale = -1.0f;
+    bool initialized = false;
+
+    void update_enable_world_map() {
+        const auto transition = types::GameMapTransitionManager::get_class();
+        transition->static_fields->WorldMapEnabled = core::settings::enable_world_map();
+    }
+
     IL2CPP_INTERCEPT(void, AreaMapUI, Awake, app::AreaMapUI* this_ptr) {
         next::AreaMapUI::Awake(this_ptr);
 
-        const auto transition = types::GameMapTransitionManager::get_class();
-        transition->static_fields->WorldMapEnabled = core::settings::enable_world_map();
+        initialized = true;
+        update_enable_world_map();
 
         if (original_zoom < 0.0f) {
             original_zoom = this_ptr->fields._Navigation_k__BackingField->fields.AreaMapZoomLevel;
@@ -33,4 +40,11 @@ namespace {
         this_ptr->fields._Navigation_k__BackingField->fields.WorldMapZoomLevel = original_zoom / map_zoom_out_factor;
         this_ptr->fields._IconScaler_k__BackingField->fields.MaxScaleFactor = original_scale / map_zoom_out_factor;
     }
+
+    [[maybe_unused]]
+    auto on_settings_loaded = core::settings::event_bus().register_handler(core::settings::SettingsEvent::Load, EventTiming::After, [](auto, auto) {
+        if (initialized) {
+            update_enable_world_map();
+        }
+    });
 }
