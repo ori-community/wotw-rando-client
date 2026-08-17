@@ -123,7 +123,7 @@ namespace randomizer::seed {
         if (!message.empty()) {
             message += "\n";
         }
-        message += "<s_0.75>" + tags_string + "</>";
+        message += "<s_0.75><ls_0.8>" + tags_string + "</></>";
 
         message_queue().enqueue({
             .text = core::Property<std::string>(message),
