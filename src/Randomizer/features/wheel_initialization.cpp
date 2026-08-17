@@ -244,7 +244,6 @@ namespace randomizer::features::wheel {
             }
         );
 
-        // TODO: Back icon
-        initialize_item(9001, WheelItemPosition::Bottom, "Back", "", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/menu.blue.png"), [](auto, auto, auto) { set_active_wheel(9000); });
+        initialize_item(9001, WheelItemPosition::Bottom, "Back", "", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/back.blue.png"), [](auto, auto, auto) { set_active_wheel(9000); });
     }
 } // namespace randomizer::features::wheel
