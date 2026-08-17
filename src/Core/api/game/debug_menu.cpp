@@ -25,19 +25,21 @@
 using namespace app::classes;
 
 namespace core::api::game::debug_menu {
-    /**
-     * This flag is true if Debug Controls have been enabled
-     * at any point since the game started or the debug
-     * menu has been opened at least once.
-     */
-    bool debug_was_active_this_session = false;
+    namespace {
+        /**
+         * This flag is true if Debug Controls have been enabled
+         * at any point since the game started or the debug
+         * menu has been opened at least once.
+         */
+        bool debug_was_active_this_session = false;
 
-    /**
-     * If true, prevents enabling debug mode
-     */
-    bool prevent_cheats = false;
+        /**
+         * If true, prevents enabling debug mode
+         */
+        bool prevent_cheats = false;
 
-    std::optional<bool> was_debug_enabled_initially = std::nullopt;
+        std::optional<bool> was_debug_enabled_initially = std::nullopt;
+    }
 
     void notify_debug_was_active_this_session() {
         debug_was_active_this_session = true;

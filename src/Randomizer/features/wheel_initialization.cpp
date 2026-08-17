@@ -14,51 +14,43 @@
 #include "Randomizer/input/rando_bindings.h"
 
 namespace randomizer::features::wheel {
-    void initialize_item(int wheel, int item, const std::string& name, const std::string& desc, const core::api::graphics::textures::TextureIdentifier& texture_identifier, const wheel_callback& callback) {
-        const auto position = static_cast<WheelItemPosition>(item);
-        set_wheel_item_name(wheel, position, name);
-        set_wheel_item_description(wheel, position, desc);
-        set_wheel_item_texture(wheel, position, texture_identifier);
-        set_wheel_item_color(wheel, position, 255, 255, 255, 255);
-        set_wheel_item_callback(wheel, position, WheelBind::Ability1, callback);
-        set_wheel_item_callback(wheel, position, WheelBind::Ability2, callback);
-        set_wheel_item_callback(wheel, position, WheelBind::Ability3, callback);
-    }
-
-    void on_dev_changed() {
-        auto dev = core::settings::developer_mode();
-        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(1), dev);
-        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(4), dev);
-        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(6), dev);
-        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(9), dev);
-        set_wheel_item_enabled(9001, static_cast<WheelItemPosition>(10), dev);
-        refresh_wheel();
+    namespace {
+        void initialize_item(int wheel, WheelItemPosition position, const std::string& name, const std::string& desc, const core::api::graphics::textures::TextureIdentifier& texture_identifier, const wheel_callback& callback) {
+            set_wheel_item_name(wheel, position, name);
+            set_wheel_item_description(wheel, position, desc);
+            set_wheel_item_texture(wheel, position, texture_identifier);
+            set_wheel_item_color(wheel, position, 255, 255, 255, 255);
+            set_wheel_item_callback(wheel, position, WheelBind::Ability1, callback);
+            set_wheel_item_callback(wheel, position, WheelBind::Ability2, callback);
+            set_wheel_item_callback(wheel, position, WheelBind::Ability3, callback);
+        }
     }
 
     void initialize_default_wheel() {
-        initialize_item(0, 11, "Rando Actions", "Contains default\nrandomizer actions", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/menu.blue.png"), [](auto, auto, auto) {
+        initialize_item(0, WheelItemPosition::Bottom, "Randomizer Actions", "Randomizer actions that are always available", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/menu.blue.png"), [](auto, auto, auto) {
+            set_wheel_item_enabled(9000, WheelItemPosition::BottomLeft, core::settings::developer_mode() || core::api::game::debug_menu::was_debug_active_this_session());
             set_active_wheel(9000);
         });
 
         initialize_item(
             9000,
-            0,
+            WheelItemPosition::Left,
             "Show recent pickups",
-            "Displays a list of\nrecently collected pickups",
+            "Displays a list of\nrecently collected pickups\n[ShowRecentPickups]",
             core::api::graphics::textures::TextureIdentifier::file("icons/wheel/show_last_pickup.blue.png"),
             [](auto, auto, auto) { recent_messages_view().show(); }
         );
         initialize_item(
             9000,
-            1,
-            "Show progress and hints",
-            "Displays current goal mode progress and bought hints.",
-            core::api::graphics::textures::TextureIdentifier::file("icons/wheel/progress_summary.blue.png"),
-            [](auto, auto, auto) { game_seed().trigger(seed::SeedClientEvent::ShowProgress); }
+            WheelItemPosition::LeftTop,
+            "Seed Tags",
+            "Display a list of seed tags.\n[ShowSeedTags]",
+            core::api::graphics::textures::TextureIdentifier::file("icons/wheel/tags.blue.png"),
+            [](auto, auto, auto) { input::trigger_action(Action::ShowSeedTags); }
         );
         initialize_item(
             9000,
-            2,
+            WheelItemPosition::TopLeft,
             "Warp to credits",
             "Warp directly to the credits,\nonly works if you have finished the bingo.",
             core::api::graphics::textures::TextureIdentifier::file("icons/wheel/warp_to_credits.blue.png"),
@@ -75,7 +67,13 @@ namespace randomizer::features::wheel {
                 }
             }
         );
-        initialize_item(9000, 3, "Toggle keystones", "Toggle to always show the keystone ui.", core::api::graphics::textures::TextureIdentifier::file("icons/game/keystone.png"), [](auto, auto, auto) {
+        initialize_item(
+            9000,
+            WheelItemPosition::Top,
+            "Toggle keystones",
+            "Toggle to always show the keystone ui.",
+            core::api::graphics::textures::TextureIdentifier::file("icons/game/keystone.png"),
+            [](auto, auto, auto) {
             core::settings::always_show_keystones(!core::settings::always_show_keystones());
             message_queue().enqueue(
                 {
@@ -85,7 +83,12 @@ namespace randomizer::features::wheel {
             );
         });
         initialize_item(
-            9000, 4, "Toggle cursor lock", "Toggle to confine the mouse cursor to the window.", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/cursor_lock.blue.png"), [](auto, auto, auto) {
+            9000,
+            WheelItemPosition::TopRight,
+            "Toggle cursor lock",
+            "Toggle to confine the mouse cursor to the window.\n[ToggleCursorLock]",
+            core::api::graphics::textures::TextureIdentifier::file("icons/wheel/cursor_lock.blue.png"),
+            [](auto, auto, auto) {
                 core::settings::lock_cursor(!core::settings::lock_cursor());
                 modloader::cursor_lock(core::settings::lock_cursor());
 
@@ -97,7 +100,13 @@ namespace randomizer::features::wheel {
                 );
             }
         );
-        initialize_item(9000, 5, "Toggle autoaim", "Toggle auto aim for bow/shuriken.", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/toggle_autoaim.blue.png"), [](auto, auto, auto) {
+        initialize_item(
+            9000,
+            WheelItemPosition::RightTop,
+            "Toggle autoaim",
+            "Toggle auto aim for bow/shuriken.",
+            core::api::graphics::textures::TextureIdentifier::file("icons/wheel/toggle_autoaim.blue.png"),
+            [](auto, auto, auto) {
             core::settings::disable_auto_aim(!core::settings::disable_auto_aim());
             message_queue().enqueue(
                 {
@@ -106,35 +115,44 @@ namespace randomizer::features::wheel {
                 true
             );
         });
-        initialize_item(9000, 6, "Toggle minimap", "Toggle minimap overlay.", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/minimap.png"), [](auto, auto, auto) {
+        initialize_item(
+            9000,
+            WheelItemPosition::Right,
+            "Toggle minimap",
+            "Toggle minimap overlay.",
+            core::api::graphics::textures::TextureIdentifier::file("icons/wheel/minimap.png"),
+            [](auto, auto, auto) {
             core::settings::enable_minimap(!core::settings::enable_minimap());
         });
 
         if (randomizer::get_multiverse_id().has_value()) {
-            initialize_item(9000, 10, "Reconnect", "Reconnect to the server", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/reload_seed.blue.png"), [](auto, auto, auto) {
+            initialize_item(9000, WheelItemPosition::RightBottom, "Reconnect", "Reconnect to the server", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/reload_seed.blue.png"), [](auto, auto, auto) {
                 randomizer::server_reconnect_current_multiverse();
             });
         }
 
-        initialize_item(9000, 11, "Next", "Go to next page of actions", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/menu.blue.png"), [](auto, auto, auto) { set_active_wheel(9001); });
+        initialize_item(
+            9000,
+            WheelItemPosition::Bottom,
+            "Developer Tools",
+            "",
+            core::api::graphics::textures::TextureIdentifier::file("icons/wheel/dev_mode.blue.png"),
+            [](auto, auto, auto) {
+                set_active_wheel(9001);
+            }
+        );
 
-        initialize_item(9001, 0, "Toggle dev", "Toggle developer tools", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/dev_mode.blue.png"), [](auto, auto, auto) {
-            core::settings::developer_mode(!core::settings::developer_mode());
-            message_queue().enqueue(
-                {
-                    .text = core::Property<std::string>(std::format("Developer mode: {}", core::settings::developer_mode())),
-                },
-                true
-            );
-
-            on_dev_changed();
-        });
-        initialize_item(9001, 1, "Toggle debug", "Toggle debug controls", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/toggle_debug.blue.png"), [](auto, auto, auto) {
-            input::trigger_action(Action::ToggleDebug);
-        });
         initialize_item(
             9001,
-            4,
+            WheelItemPosition::LeftTop,
+            "Toggle debug",
+            "Toggle debug controls",
+            core::api::graphics::textures::TextureIdentifier::file("icons/wheel/toggle_debug.blue.png"),
+            [](auto, auto, auto) { input::trigger_action(Action::ToggleDebug); }
+        );
+        initialize_item(
+            9001,
+            WheelItemPosition::TopLeft,
             "Player coordinates",
             "[Ability1] Show/Hide\n[Ability2] Copy to clipboard",
             core::api::graphics::textures::TextureIdentifier::file("icons/wheel/show_coordinates.blue.png"),
@@ -178,7 +196,13 @@ namespace randomizer::features::wheel {
                 }
             }
         );
-        initialize_item(9001, 6, "Unlock spoilers", "Unlock spoilers filter on the map", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/unlock_spoilers.blue.png"), [](auto, auto, auto) {
+        initialize_item(
+            9001,
+            WheelItemPosition::Top,
+            "Unlock spoilers",
+            "Unlock spoilers filter on the map",
+            core::api::graphics::textures::TextureIdentifier::file("icons/wheel/unlock_spoilers.blue.png"),
+            [](auto, auto, auto) {
             if (core::api::game::debug_menu::should_prevent_cheats()) {
                 message_queue().enqueue({
                     .text = core::Property<std::string>("Cheats are blocked"),
@@ -195,12 +219,17 @@ namespace randomizer::features::wheel {
             );
             map::filter::current_map_filter().set(map::filter::MapFilter::Spoiler);
         });
-        initialize_item(9001, 9, "Force Exit", "Forcibly exit the game.", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/force_exit.blue.png"), [](auto, auto, auto) {
-            modloader::win::common::force_exit(0);
-        });
         initialize_item(
             9001,
-            10,
+            WheelItemPosition::TopRight,
+            "Force Exit",
+            "Forcibly exit the game.",
+            core::api::graphics::textures::TextureIdentifier::file("icons/wheel/force_exit.blue.png"),
+            [](auto, auto, auto) { modloader::win::common::force_exit(0); }
+        );
+        initialize_item(
+            9001,
+            WheelItemPosition::RightTop,
             "Clear messages",
             "[Ability1] Clear all\n[Ability2] Clear queue\n[Ability3] Clear free",
             core::api::graphics::textures::TextureIdentifier::file("icons/wheel/clear_messages.blue.png"),
@@ -214,7 +243,8 @@ namespace randomizer::features::wheel {
                 }
             }
         );
-        initialize_item(9001, 11, "Next", "Go to next page of actions", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/menu.blue.png"), [](auto, auto, auto) { set_active_wheel(9000); });
-        on_dev_changed();
+
+        // TODO: Back icon
+        initialize_item(9001, WheelItemPosition::Bottom, "Back", "", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/menu.blue.png"), [](auto, auto, auto) { set_active_wheel(9000); });
     }
 } // namespace randomizer::features::wheel

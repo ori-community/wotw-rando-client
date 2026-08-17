@@ -654,6 +654,7 @@ namespace randomizer::features::wheel {
         }
 
         wheels[wheel].entries[item].enabled = enabled;
+        refresh_wheel();
         return true;
     }
 
