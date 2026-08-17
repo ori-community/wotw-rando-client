@@ -26,15 +26,12 @@ namespace {
         // In vanilla, the game divides the distance to enemies by 10, making the spear autoaim heavily prefer targeting them
         // over anything else. The DIVSS instruction lives at 0xa74431, and here we replace it with NOP instructions to
         // disable that behavior.
+        constexpr auto NOP_LENGTH = 5;
         modloader::win::memory::modify_memory(
             modloader::win::memory::resolve_rva(0xa74431),
-            5,
+            NOP_LENGTH,
             [](auto memory) {
-                memory[0] = static_cast<uint8_t>(modloader::win::memory::Instruction::NOP);
-                memory[1] = static_cast<uint8_t>(modloader::win::memory::Instruction::NOP);
-                memory[2] = static_cast<uint8_t>(modloader::win::memory::Instruction::NOP);
-                memory[3] = static_cast<uint8_t>(modloader::win::memory::Instruction::NOP);
-                memory[4] = static_cast<uint8_t>(modloader::win::memory::Instruction::NOP);
+                std::fill(memory, memory + NOP_LENGTH, static_cast<uint8_t>(modloader::win::memory::Instruction::NOP));
             }
         );
     });

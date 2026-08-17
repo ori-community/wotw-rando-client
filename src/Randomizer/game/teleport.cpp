@@ -61,6 +61,22 @@ namespace randomizer::game::teleportation {
             position.y <= total_max.y;
     }
 
+    namespace {
+        [[maybe_unused]]
+        auto on_injection_complete = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
+            // This removes the hardcoded distance check when teleporting, so that teleporting is possible
+            // regardless of how close the player is to the target position
+            constexpr auto NOP_LENGTH = 6;
+            modloader::win::memory::modify_memory(
+                modloader::win::memory::resolve_rva(0x91a4ab),
+                NOP_LENGTH,
+                [](auto memory) {
+                    std::fill(memory, memory + NOP_LENGTH, static_cast<uint8_t>(modloader::win::memory::Instruction::NOP));
+                }
+            );
+        });
+    }
+
     void teleport_instantly(const app::Vector3 position) {
         // We do this because InstantLoadScenesController::LoadScenesAtPosition uses it as the target position
         const auto scenes_manager = core::api::scenes::get_scenes_manager();
