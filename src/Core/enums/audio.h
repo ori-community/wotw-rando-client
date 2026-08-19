@@ -5,6 +5,10 @@ enum class SoundEventID : uint32_t {
     // Game
     silence_lumaPools = 1094311291,
     roomStop = 455063616,
+    entrancePuzzle_howlsOrigin = 1171593125,
+    howlsOriginState = 1080467411,
+    none_howlsOrigin = 2083758865,
+    baseMusicStates = 3283576497,
 
     // Randomizer
     LeagueSubmitted = 2697705149,

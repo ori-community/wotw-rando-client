@@ -41,6 +41,7 @@ set(
         "features/cutscene_skips/wellspring_so_soggy.cpp"
         "features/cutscene_skips/willow_heart_cutscenes.cpp"
         "features/mini_map/mini_map.cpp"
+        "features/burrows_puzzle.cpp"
         "features/damage.cpp"
         "features/difficulty.cpp"
         "features/entrance_randomizer.cpp"

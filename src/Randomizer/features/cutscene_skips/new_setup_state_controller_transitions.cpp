@@ -85,7 +85,7 @@ namespace {
     }
 
     // Burrows Entrance
-    IL2CPP_INTERCEPT(void, SwitchSeriesPuzzle, Apply, app::SwitchSeriesPuzzle* this_ptr, app::UberStateApplyContext__Enum context) {
+    IL2CPP_INTERCEPT_WITH_ORDER(0, void, SwitchSeriesPuzzle, Apply, app::SwitchSeriesPuzzle* this_ptr, app::UberStateApplyContext__Enum context) {
         modloader::ScopedSetter _(should_track_starting_timelines, true);
         return next::SwitchSeriesPuzzle::Apply(this_ptr, context);
     }
