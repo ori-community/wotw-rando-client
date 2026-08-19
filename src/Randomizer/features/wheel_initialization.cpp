@@ -28,7 +28,7 @@ namespace randomizer::features::wheel {
 
     void initialize_default_wheel() {
         initialize_item(0, WheelItemPosition::Bottom, "Randomizer Actions", "Randomizer actions that are always available", core::api::graphics::textures::TextureIdentifier::file("icons/wheel/menu.blue.png"), [](auto, auto, auto) {
-            set_wheel_item_enabled(9000, WheelItemPosition::BottomLeft, core::settings::developer_mode() || core::api::game::debug_menu::was_debug_active_this_session());
+            set_wheel_item_enabled(9000, WheelItemPosition::Bottom, core::settings::developer_mode() || core::api::game::debug_menu::was_debug_active_this_session());
             set_active_wheel(9000);
         });
 
