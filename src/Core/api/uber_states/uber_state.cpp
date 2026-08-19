@@ -20,11 +20,8 @@
 #include <Modloader/app/methods/Moon/SerializedIntUberState.h>
 #include <Modloader/app/methods/Moon/UberStateCollection.h>
 #include <Modloader/app/methods/Moon/UberStateController.h>
-#include <Modloader/app/methods/Moon/UberStateVisualization/SerializedBoolUberStateWrapper.h>
-#include <Modloader/app/methods/Moon/UberStateVisualization/SerializedByteUberStateWrapper.h>
-#include <Modloader/app/methods/Moon/UberStateVisualization/SerializedFloatUberStateWrapper.h>
-#include <Modloader/app/methods/Moon/UberStateVisualization/SerializedIntUberStateWrapper.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/SavePedestalUberState.h>
+#include <Modloader/app/methods/Moon/ISerializedUberStateExtension.h>
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/types/BooleanUberState.h>
 #include <Modloader/app/types/ByteUberState.h>
@@ -53,6 +50,7 @@ using namespace app::classes::Moon::uberSerializationWisp;
 namespace core::api::uber_states {
     namespace {
         std::unordered_set<UberState> current_intercepts;
+        auto is_setting_uber_state = false;
 
         UberStateType class_to_type(const void* klass) {
             static std::unordered_map<const void*, UberStateType> class_to_type_map{
@@ -128,41 +126,43 @@ namespace core::api::uber_states {
             SavePedestalController::OnTeleporterActivationStateChanged();
         }
 
-        IL2CPP_INTERCEPT(
-            void,
-            Moon::UberStateVisualization::SerializedBoolUberStateWrapper,
-            SetValue,
-            app::SerializedBoolUberStateWrapper* this_ptr,
-            bool value
-        ) {
-            auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state));
+        IL2CPP_INTERCEPT(void, Moon::ISerializedUberStateExtension, SetCurrentState_2, app::ISerializedUberState* state, bool value) {
+            if (is_setting_uber_state) {
+                next::Moon::ISerializedUberStateExtension::SetCurrentState_2(state, value);
+                return;
+            }
+
+            auto uber_state = UberState(reinterpret_cast<app::IUberState*>(state));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(
-            void,
-            Moon::UberStateVisualization::SerializedByteUberStateWrapper,
-            SetValue,
-            app::SerializedByteUberStateWrapper* this_ptr,
-            uint8_t value
-        ) {
-            auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state));
+        IL2CPP_INTERCEPT(void, Moon::ISerializedUberStateExtension, SetCurrentState_3, app::ISerializedUberState* state, float value) {
+            if (is_setting_uber_state) {
+                next::Moon::ISerializedUberStateExtension::SetCurrentState_3(state, value);
+                return;
+            }
+
+            auto uber_state = UberState(reinterpret_cast<app::IUberState*>(state));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(
-            void,
-            Moon::UberStateVisualization::SerializedFloatUberStateWrapper,
-            SetValue,
-            app::SerializedFloatUberStateWrapper* this_ptr,
-            float value
-        ) {
-            auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state));
+        IL2CPP_INTERCEPT(void, Moon::ISerializedUberStateExtension, SetCurrentState_4, app::ISerializedUberState* state, int32_t value) {
+            if (is_setting_uber_state) {
+                next::Moon::ISerializedUberStateExtension::SetCurrentState_4(state, value);
+                return;
+            }
+
+            auto uber_state = UberState(reinterpret_cast<app::IUberState*>(state));
             uber_state.set(value);
         }
 
-        IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::SerializedIntUberStateWrapper, SetValue, app::SerializedIntUberStateWrapper* this_ptr, int value) {
-            auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state));
+        IL2CPP_INTERCEPT(void, Moon::ISerializedUberStateExtension, SetCurrentState_5, app::ISerializedUberState* state, uint8_t value) {
+            if (is_setting_uber_state) {
+                next::Moon::ISerializedUberStateExtension::SetCurrentState_5(state, value);
+                return;
+            }
+
+            auto uber_state = UberState(reinterpret_cast<app::IUberState*>(state));
             uber_state.set(value);
         }
 
@@ -279,44 +279,48 @@ namespace core::api::uber_states {
                 }
             }
 
-            switch (type()) {
-                case UberStateType::BooleanUberState:
-                    next::Moon::BooleanUberState::set_Value(reinterpret_cast<app::BooleanUberState*>(uber_state), value > 0.5);
-                    break;
-                case UberStateType::ByteUberState:
-                    next::Moon::ByteUberState::set_Value(reinterpret_cast<app::ByteUberState*>(uber_state), static_cast<uint8_t>(value));
-                    break;
-                case UberStateType::IntUberState:
-                    next::Moon::IntUberState::set_Value(reinterpret_cast<app::IntUberState*>(uber_state), static_cast<int>(value));
-                    break;
-                case UberStateType::FloatUberState:
-                    next::Moon::FloatUberState::set_Value(reinterpret_cast<app::FloatUberState*>(uber_state), static_cast<float>(value));
-                    break;
-                case UberStateType::SerializedBooleanUberState:
-                    next::Moon::SerializedBooleanUberState::set_Value(reinterpret_cast<app::SerializedBooleanUberState*>(uber_state), value > 0.5);
-                    break;
-                case UberStateType::SerializedFloatUberState:
-                    next::Moon::SerializedFloatUberState::set_Value(reinterpret_cast<app::SerializedFloatUberState*>(uber_state), static_cast<float>(value));
-                    break;
-                case UberStateType::SerializedIntUberState:
-                    next::Moon::SerializedIntUberState::set_Value(reinterpret_cast<app::SerializedIntUberState*>(uber_state), static_cast<int>(value));
-                    break;
-                case UberStateType::SerializedByteUberState:
-                    next::Moon::SerializedByteUberState::set_Value(reinterpret_cast<app::SerializedByteUberState*>(uber_state), static_cast<uint8_t>(value));
-                    break;
-                case UberStateType::SavePedestalUberState:
-                    next::Moon::uberSerializationWisp::SavePedestalUberState::set_IsTeleporterActive(
-                        reinterpret_cast<app::SavePedestalUberState*>(uber_state), value > 0.5
-                    );
-                    break;
-                case UberStateType::CountUberState:
-                case UberStateType::ConditionUberState:
-                case UberStateType::PlayerUberStateDescriptor:
-                case UberStateType::VirtualUberState:
-                case UberStateType::Unknown:
-                default:
-                    warn("uber_state", std::format("unable to set value of uber state ({}|{})", static_cast<int>(m_group), m_state));
-                    return;
+            {
+                ScopedSetter _(is_setting_uber_state, true);
+
+                switch (type()) {
+                    case UberStateType::BooleanUberState:
+                        next::Moon::BooleanUberState::set_Value(reinterpret_cast<app::BooleanUberState*>(uber_state), value > 0.5);
+                        break;
+                    case UberStateType::ByteUberState:
+                        next::Moon::ByteUberState::set_Value(reinterpret_cast<app::ByteUberState*>(uber_state), static_cast<uint8_t>(value));
+                        break;
+                    case UberStateType::IntUberState:
+                        next::Moon::IntUberState::set_Value(reinterpret_cast<app::IntUberState*>(uber_state), static_cast<int>(value));
+                        break;
+                    case UberStateType::FloatUberState:
+                        next::Moon::FloatUberState::set_Value(reinterpret_cast<app::FloatUberState*>(uber_state), static_cast<float>(value));
+                        break;
+                    case UberStateType::SerializedBooleanUberState:
+                        next::Moon::SerializedBooleanUberState::set_Value(reinterpret_cast<app::SerializedBooleanUberState*>(uber_state), value > 0.5);
+                        break;
+                    case UberStateType::SerializedFloatUberState:
+                        next::Moon::SerializedFloatUberState::set_Value(reinterpret_cast<app::SerializedFloatUberState*>(uber_state), static_cast<float>(value));
+                        break;
+                    case UberStateType::SerializedIntUberState:
+                        next::Moon::SerializedIntUberState::set_Value(reinterpret_cast<app::SerializedIntUberState*>(uber_state), static_cast<int>(value));
+                        break;
+                    case UberStateType::SerializedByteUberState:
+                        next::Moon::SerializedByteUberState::set_Value(reinterpret_cast<app::SerializedByteUberState*>(uber_state), static_cast<uint8_t>(value));
+                        break;
+                    case UberStateType::SavePedestalUberState:
+                        next::Moon::uberSerializationWisp::SavePedestalUberState::set_IsTeleporterActive(
+                            reinterpret_cast<app::SavePedestalUberState*>(uber_state), value > 0.5
+                        );
+                        break;
+                    case UberStateType::CountUberState:
+                    case UberStateType::ConditionUberState:
+                    case UberStateType::PlayerUberStateDescriptor:
+                    case UberStateType::VirtualUberState:
+                    case UberStateType::Unknown:
+                    default:
+                        warn("uber_state", std::format("unable to set value of uber state ({}|{})", static_cast<int>(m_group), m_state));
+                        return;
+                }
             }
         }
 
