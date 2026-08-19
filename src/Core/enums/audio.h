@@ -15,10 +15,6 @@ enum class SoundEventID : uint32_t {
     KnockKnockWellspring = 965810158,
 };
 
-NLOHMANN_JSON_SERIALIZE_ENUM(SoundEventID, {
-                                                   { SoundEventID::LeagueSubmitted, "LeagueSubmitted" },
-                                           });
-
 enum class SoundStateGroupID : uint32_t {
     // Game Music
     cinematicVignetteStates = 88624820,
