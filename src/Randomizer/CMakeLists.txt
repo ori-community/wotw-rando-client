@@ -88,6 +88,7 @@ set(
         "game/behaviour_changes/better_lasers.cpp"
         "game/behaviour_changes/blaze_hit_environment.cpp"
         "game/behaviour_changes/burrow_and_waterdash_without_dash.cpp"
+        "game/behaviour_changes/consistent_respawn_resources.cpp"
         "game/behaviour_changes/dash_stomper_fall_through.cpp"
         "game/behaviour_changes/deflector_on_all_projectiles.cpp"
         "game/behaviour_changes/deflector_on_grenades.cpp"
