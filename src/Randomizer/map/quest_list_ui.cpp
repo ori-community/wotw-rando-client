@@ -44,7 +44,7 @@ namespace {
 
         QuestsUI::UpdateDescriptionUI_2(this_ptr, quest);
 
-        const auto random_string = RANDOM_QUEST_REWARD_MESSAGES[core::random(0, RANDOM_QUEST_REWARD_MESSAGES.size())];
+        const auto random_string = RANDOM_QUEST_REWARD_MESSAGES[core::random(0, RANDOM_QUEST_REWARD_MESSAGES.size() - 1)];
         this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox->fields.MessageProvider = core::api::system::create_message_provider(
             std::string(random_string.begin(), random_string.end())
         );
