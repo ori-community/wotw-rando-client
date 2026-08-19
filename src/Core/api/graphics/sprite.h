@@ -25,6 +25,13 @@ namespace core::api::graphics {
         Sprite(app::GameObject* parent, Anchor anchor);
 
         ~Sprite();
+        void anchor(Anchor anchor);
+        void layer(Layer l);
+        void local_position(app::Vector3 p);
+        void local_scale(app::Vector3 s);
+        void local_rotation(float r);
+        bool enabled();
+        void enabled(bool value);
 
         Sprite(Sprite const&) = delete;
 
@@ -38,12 +45,14 @@ namespace core::api::graphics {
         void enabled(bool value) const;
 
         void texture(const std::shared_ptr<textures::Texture>& texture);
+        void set_parent(app::GameObject* parent);
+        app::GameObject* get_game_object();
         void set_parent(app::GameObject* parent) const;
 
         app::GameObject* get_game_object() const;
 
     private:
-        app::GameObject* m_root;
+        il2cpp::GCRef<app::GameObject> m_root;
         app::Renderer* m_renderer;
 
         std::shared_ptr<textures::Texture> m_texture;

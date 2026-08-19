@@ -200,55 +200,57 @@ namespace core::api::graphics {
     Sprite::Sprite(app::GameObject* parent) : Sprite(parent, Anchor::MiddleCenter) {}
     Sprite::Sprite(Anchor anchor) : Sprite(nullptr, anchor) {}
 
-    Sprite::Sprite(app::GameObject* parent, Anchor anchor) {
-        m_root = il2cpp::unity::instantiate_object(find_prefab());
-        this->anchor(anchor);
-        m_renderer = il2cpp::unity::get_component<app::Renderer>(m_root, types::Renderer::get_class());
+    Sprite::Sprite(app::GameObject* parent, Anchor anchor) : m_root(il2cpp::unity::instantiate_object(find_prefab())) {
+        const auto root_go = *m_root;
 
-        il2cpp::unity::set_active(m_root, false);
+        this->anchor(anchor);
+        m_renderer = il2cpp::unity::get_component<app::Renderer>(root_go, types::Renderer::get_class());
+
+        il2cpp::unity::set_active(root_go, false);
         if (parent == nullptr) {
-            add_to_container(game::GameObjectContainer::Miscellaneous, m_root);
+            add_to_container(game::GameObjectContainer::Miscellaneous, root_go);
         } else {
-            il2cpp::unity::set_parent(m_root, parent);
+            il2cpp::unity::set_parent(root_go, parent);
         }
     }
 
     Sprite::~Sprite() {
-        if (il2cpp::unity::is_valid(m_root)) {
-            il2cpp::unity::destroy_object(m_root);
-            m_root = nullptr;
+        const auto root_go = *m_root;
+
+        if (il2cpp::unity::is_valid(root_go)) {
+            il2cpp::unity::destroy_object(root_go);
         }
     }
 
-    void Sprite::anchor(Anchor anchor) const {
-        const auto mesh_filter = il2cpp::unity::get_component<app::MeshFilter>(m_root, types::MeshFilter::get_class());
+    void Sprite::anchor(Anchor anchor) {
+        const auto mesh_filter = il2cpp::unity::get_component<app::MeshFilter>(*m_root, types::MeshFilter::get_class());
         MeshFilter::set_sharedMesh(mesh_filter, get_mesh_for_anchor(anchor));
     }
 
-    void Sprite::layer(Layer l) const {
-        GameObject::set_layer(m_root, static_cast<int>(l));
+    void Sprite::layer(Layer l) {
+        GameObject::set_layer(*m_root, static_cast<int>(l));
     }
 
-    void Sprite::local_position(app::Vector3 p) const {
-        Transform::set_localPosition(il2cpp::unity::get_transform(m_root), p);
+    void Sprite::local_position(app::Vector3 p) {
+        Transform::set_localPosition(il2cpp::unity::get_transform(*m_root), p);
     }
 
-    void Sprite::local_scale(app::Vector3 s) const {
-        Transform::set_localScale(il2cpp::unity::get_transform(m_root), s);
+    void Sprite::local_scale(app::Vector3 s) {
+        Transform::set_localScale(il2cpp::unity::get_transform(*m_root), s);
     }
 
-    void Sprite::local_rotation(float r) const {
+    void Sprite::local_rotation(float r) {
         const auto angle = r;
         const auto rotation = Quaternion::Euler_1(0, 0, angle);
-        Transform::set_localRotation(il2cpp::unity::get_transform(m_root), rotation);
+        Transform::set_localRotation(il2cpp::unity::get_transform(*m_root), rotation);
     }
 
-    bool Sprite::enabled() const {
-        return il2cpp::unity::get_active(m_root);
+    bool Sprite::enabled() {
+        return il2cpp::unity::get_active(*m_root);
     }
 
-    void Sprite::enabled(const bool value) const {
-        il2cpp::unity::set_active(m_root, value);
+    void Sprite::enabled(const bool value) {
+        il2cpp::unity::set_active(*m_root, value);
     }
 
     void Sprite::texture(const std::shared_ptr<textures::Texture>& texture) {
@@ -258,9 +260,11 @@ namespace core::api::graphics {
         }
     }
 
-    void Sprite::set_parent(app::GameObject* parent) const { il2cpp::unity::set_parent(m_root, parent); }
+    void Sprite::set_parent(app::GameObject* parent) {
+        il2cpp::unity::set_parent(*m_root, parent);
+    }
 
-    app::GameObject* Sprite::get_game_object() const {
-        return m_root;
+    app::GameObject* Sprite::get_game_object() {
+        return *m_root;
     }
 } // namespace core
