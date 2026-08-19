@@ -33,10 +33,18 @@ namespace randomizer::online {
 
     MultiplayerUniverse::MultiplayerUniverse() {
         m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [this](auto, auto) { update(); }));
-        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [this](auto, auto) { request_full_sync(); }));
-        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [this](auto, auto) { request_full_sync(); }));
-        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [this](auto, auto) { request_full_sync(); }));
-        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [this](auto, auto) { on_load(); }));
+        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [this](auto, auto) {
+            request_full_sync();
+        }));
+        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [this](auto, auto) {
+            request_full_sync();
+        }));
+        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [this](auto, auto) {
+            request_full_sync();
+        }));
+        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [this](auto, auto) {
+            on_load();
+        }));
         m_bus_handles.emplace_back(core::api::uber_states::notification_bus().register_handler([this](auto params) {
             if (is_in_incorrect_save_file() || !m_uber_state_handler.should_sync(params.state, params.previous_value)) {
                 return;
@@ -52,32 +60,50 @@ namespace randomizer::online {
 
     void MultiplayerUniverse::register_packet_handlers(NetworkClient& client) {
         m_client = &client;
-        client.register_handler<Network::MultiverseInfoMessage>(Network::Packet_PacketID_MultiverseInfoMessage, [this](auto const& message) { handle_multiverse_info(message); });
+
+        m_network_client_event_bus_handle = client.event_bus().register_handler([this](auto state) {
+            if (state != NetworkClient::State::Connected) {
+                clear_current_multiverse_info();
+            }
+        });
+
+        client.register_handler<Network::MultiverseInfoMessage>(Network::Packet_PacketID_MultiverseInfoMessage, [this](auto const& message) {
+            handle_multiverse_info(message);
+        });
 
         client.register_handler<Network::UpdatePlayerPositionMessage>(Network::Packet_PacketID_UpdatePlayerPositionMessage, [this](auto const& message) {
             update_player_world_position(message->playerid(), message->x(), message->y(), message->ghostframedata());
             update_player_map_position(message->playerid(), message->x(), message->y());
         });
 
-        client.register_handler<Network::UpdatePlayerWorldPositionMessage>(Network::Packet_PacketID_UpdatePlayerWorldPositionMessage, [this](auto const& message) {
-            update_player_world_position(message->playerid(), message->x(), message->y(), message->ghostframedata());
-        });
+        client.register_handler<Network::UpdatePlayerWorldPositionMessage>(
+            Network::Packet_PacketID_UpdatePlayerWorldPositionMessage,
+            [this](auto const& message) { update_player_world_position(message->playerid(), message->x(), message->y(), message->ghostframedata()); }
+        );
 
         client.register_handler<Network::UpdatePlayerMapPositionMessage>(Network::Packet_PacketID_UpdatePlayerMapPositionMessage, [this](auto const& message) {
             update_player_map_position(message->playerid(), message->x(), message->y());
         });
 
-        client.register_handler<Network::AuthenticatedMessage>(Network::Packet_PacketID_AuthenticatedMessage, [this](auto const& message) { handle_authenticated(message); });
+        client.register_handler<Network::AuthenticatedMessage>(Network::Packet_PacketID_AuthenticatedMessage, [this](auto const& message) {
+            handle_authenticated(message);
+        });
 
-        client.register_handler<Network::UberStateUpdateMessage>(Network::Packet_PacketID_UberStateUpdateMessage, [this](auto const& message) { uber_state_update(message); });
+        client.register_handler<Network::UberStateUpdateMessage>(Network::Packet_PacketID_UberStateUpdateMessage, [this](auto const& message) {
+            uber_state_update(message);
+        });
 
-        client.register_handler<Network::UberStateBatchUpdateMessage>(Network::Packet_PacketID_UberStateBatchUpdateMessage, [this](auto const& message) { uber_state_batch_update(message); });
+        client.register_handler<Network::UberStateBatchUpdateMessage>(Network::Packet_PacketID_UberStateBatchUpdateMessage, [this](auto const& message) {
+            uber_state_batch_update(message);
+        });
 
         client.register_handler<Network::PrintTextMessage>(Network::Packet_PacketID_PrintTextMessage, [this](auto const& message) { print_text(message); });
 
         client.register_handler<Network::PrintPickupMessage>(Network::Packet_PacketID_PrintPickupMessage, [](auto const& message) { print_pickup(message); });
 
-        client.register_handler<Network::InitGameSyncMessage>(Network::Packet_PacketID_InitGameSyncMessage, [this](auto const& message) { initialize_game_sync(message); });
+        client.register_handler<Network::InitGameSyncMessage>(Network::Packet_PacketID_InitGameSyncMessage, [this](auto const& message) {
+            initialize_game_sync(message);
+        });
 
         client.register_handler<Network::SetSeedMessage>(Network::Packet_PacketID_SetSeedMessage, [this](auto const& message) { set_seed(message); });
 
@@ -89,9 +115,10 @@ namespace randomizer::online {
             process_set_save_guid_restrictions_message(*message);
         });
 
-        client.register_handler<Network::SetGameDifficultySettingsOverridesMessage>(Network::Packet_PacketID_SetGameDifficultySettingsOverridesMessage, [this](auto const& message) {
-            process_set_game_difficulty_settings_overrides_message(*message);
-        });
+        client.register_handler<Network::SetGameDifficultySettingsOverridesMessage>(
+            Network::Packet_PacketID_SetGameDifficultySettingsOverridesMessage,
+            [this](auto const& message) { process_set_game_difficulty_settings_overrides_message(*message); }
+        );
 
         client.register_handler<Network::OverrideInGameTimeMessage>(Network::Packet_PacketID_OverrideInGameTimeMessage, [this](auto const& message) {
             randomizer::timing::override_in_game_time(message->in_game_time());
@@ -194,15 +221,15 @@ namespace randomizer::online {
     }
 
     std::optional<MultiplayerUniverse::PlayerInfo> MultiplayerUniverse::local_player() const {
-        auto it = m_players.find(m_id);
+        auto it = m_players.find(m_current_user_id);
         return it != m_players.end() ? it->second : std::optional<MultiplayerUniverse::PlayerInfo>();
     }
 
-    Network::WorldInfo const* MultiplayerUniverse::get_world(const int id) const { return id < 0 || id >= m_current_world_infos.size() ? nullptr : m_current_world_infos[id]; }
-
-    int MultiplayerUniverse::get_world_count() const {
-        return m_current_world_infos.size();
+    Network::WorldInfo const* MultiplayerUniverse::get_world(const int id) const {
+        return id < 0 || id >= m_current_world_infos.size() ? nullptr : m_current_world_infos[id];
     }
+
+    int MultiplayerUniverse::get_world_count() const { return m_current_world_infos.size(); }
 
     void MultiplayerUniverse::report_player_ready(const bool ready) const {
         Network::ReportPlayerRaceReadyMessage message;
@@ -217,11 +244,9 @@ namespace randomizer::online {
         m_client->websocket_send(Network::Packet_PacketID_ReportInGameTimeMessage, message);
     }
 
-    void MultiplayerUniverse::report_player_save_guid(core::MoodGuid save_guid) {
-        m_report_player_save_guid = save_guid;
-    }
+    void MultiplayerUniverse::report_player_save_guid(core::MoodGuid save_guid) { m_report_player_save_guid = save_guid; }
 
-    Network::UniverseInfo const* find_universe_with_player(Network::MultiverseInfoMessage const& message, std::string_view id) {
+    static const Network::UniverseInfo* find_universe_with_player(Network::MultiverseInfoMessage const& message, std::string_view id) {
         for (auto const& u: message.universes()) {
             for (auto const& w: u.worlds()) {
                 for (auto const& m: w.memberships()) {
@@ -237,6 +262,7 @@ namespace randomizer::online {
 
     void MultiplayerUniverse::clear_current_multiverse_info() {
         m_current_multiverse_info = nullptr;
+        handle_multiverse_info(nullptr);
         m_event_bus.trigger_event(Event::MultiverseUpdated, EventTiming::After);
     }
 
@@ -244,8 +270,12 @@ namespace randomizer::online {
         m_event_bus.trigger_event(Event::MultiverseUpdated, EventTiming::Before);
 
         m_current_multiverse_info = message;
+        m_color = app::Color {1, 1, 1, 1};
 
-        auto universe = find_universe_with_player(*m_current_multiverse_info, m_id);
+        auto universe = message != nullptr
+            ? find_universe_with_player(*m_current_multiverse_info, m_current_user_id)
+            : nullptr;
+
         if (universe != nullptr) {
             m_current_universe_info = universe;
             m_current_world_infos.clear();
@@ -265,7 +295,7 @@ namespace randomizer::online {
 
             std::unordered_map<std::string, PlayerInfo> to_add;
             for (auto& info_player: player_id_to_player_info) {
-                if (info_player.first == m_id) {
+                if (info_player.first == m_current_user_id) {
                     continue;
                 }
 
@@ -276,7 +306,7 @@ namespace randomizer::online {
 
             std::unordered_map<std::string, PlayerInfo> to_remove;
             for (auto& player: m_players) {
-                if (player.first == m_id) {
+                if (player.first == m_current_user_id) {
                     continue;
                 }
 
@@ -298,27 +328,33 @@ namespace randomizer::online {
 
             m_players = player_id_to_player_info;
             for (auto& [id, player]: m_players) {
-                if (id == m_id) {
+                const auto color = utils::hex_string_to_color(player.world.color(), true);
+
+                if (id == m_current_user_id) {
+                    m_color = color;
                     continue;
                 }
 
                 const auto& player_avatar = m_player_avatars.find(id)->second;
                 player_avatar->set_name(player.user.name());
                 player_avatar->set_online(connected_user_ids.contains(player.user.id()));
-                player_avatar->set_color(utils::hex_string_to_color(player.world.color(), true));
+                player_avatar->set_color(color);
             }
 
             // Currently broken as the server never sends it.
             // if (message.has_visibility()) {
             //     handle_visibility(message.visibility());
             // }
+        } else {
+            m_player_avatars.clear();
+            m_players.clear();
+            m_current_universe_info = std::nullopt;
+        }
 
-            auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
-            if (area_map != nullptr && il2cpp::unity::is_valid(area_map->fields._PlayerPositionMarker_k__BackingField)) {
-                // TODO: Add this to some sort of init thing.
-                if (m_color.r < 0.99f || m_color.g < 0.99f || m_color.b < 0.99f || m_color.a < 0.99f) {
-                    utils::set_color(area_map->fields._PlayerPositionMarker_k__BackingField, m_color);
-                }
+        auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
+        if (area_map != nullptr && il2cpp::unity::is_valid(area_map->fields._PlayerPositionMarker_k__BackingField)) {
+            if (m_color.r < 0.99f || m_color.g < 0.99f || m_color.b < 0.99f || m_color.a < 0.99f) {
+                utils::set_color(area_map->fields._PlayerPositionMarker_k__BackingField, m_color);
             }
         }
 
@@ -326,8 +362,8 @@ namespace randomizer::online {
     }
 
     void MultiplayerUniverse::handle_authenticated(std::shared_ptr<Network::AuthenticatedMessage> const& message) {
-        m_id = message->user().id();
-        m_name = message->user().name();
+        m_current_user_id = message->user().id();
+        m_current_user_name = message->user().name();
 
         if (m_current_multiverse_info != nullptr) {
             handle_multiverse_info(m_current_multiverse_info);
@@ -468,12 +504,9 @@ namespace randomizer::online {
             return;
         }
 
-        if (
-            !m_game_difficulty_settings_overrides.has_value() ||
-            message.overrides().easy() != static_cast<int>(m_game_difficulty_settings_overrides->easy) ||
+        if (!m_game_difficulty_settings_overrides.has_value() || message.overrides().easy() != static_cast<int>(m_game_difficulty_settings_overrides->easy) ||
             message.overrides().normal() != static_cast<int>(m_game_difficulty_settings_overrides->normal) ||
-            message.overrides().hard() != static_cast<int>(m_game_difficulty_settings_overrides->hard)
-        ) {
+            message.overrides().hard() != static_cast<int>(m_game_difficulty_settings_overrides->hard)) {
             set_game_difficulty_settings_overrides(
                 seed::GameDifficultySettings{
                     static_cast<seed::GameDifficultySetting>(message.overrides().easy()),
@@ -488,15 +521,16 @@ namespace randomizer::online {
         core::api::game::debug_menu::set_should_prevent_cheats(message->preventcheats());
         if (message->preventcheats() && core::api::game::debug_menu::was_debug_active_this_session()) {
             randomizer::server_disconnect();
-            message_queue().enqueue({
-                .text = core::Property<std::string>(
-                    "It is #forbidden# to play this game with #Debug Mode# enabled.\n"
-                    "Please start the game without Debug Mode.\n"
-                    "Disabling Debug Mode after starting the game is not enough because\n"
-                    "it can have persistent effects on the game even after turning it off."
-                ),
-                .time_left = 20.f,
-            }, true);
+            message_queue().enqueue(
+                {
+                    .text = core::Property<std::string>("It is #forbidden# to play this game with #Debug Mode# enabled.\n"
+                                                        "Please start the game without Debug Mode.\n"
+                                                        "Disabling Debug Mode after starting the game is not enough because\n"
+                                                        "it can have persistent effects on the game even after turning it off."),
+                    .time_left = 20.f,
+                },
+                true
+            );
             return;
         }
 

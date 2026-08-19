@@ -111,10 +111,11 @@ namespace randomizer::online {
 
         UberStateHandler m_uber_state_handler;
         NetworkClient* m_client = nullptr;
-        std::string m_id;
-        std::string m_name;
+        std::string m_current_user_id;
+        std::string m_current_user_name;
         app::Color m_color = { 1.f, 1.f, 1.f, 1.f };
         bool m_should_block_starting_new_game = false;
+        common::Droppable::ptr_t m_network_client_event_bus_handle;
 
         std::optional<core::MoodGuid> m_restrict_to_save_guid = std::nullopt;
         bool m_should_restrict_to_save_guid = false;
