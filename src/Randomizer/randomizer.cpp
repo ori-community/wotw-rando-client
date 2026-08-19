@@ -64,7 +64,6 @@ namespace randomizer {
         [[maybe_unused]]
         auto on_respawn = core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [](auto, auto) {
             message_queue().clear();
-            game_seed().trigger(seed::SeedClientEvent::Respawn, true);
         });
 
         [[maybe_unused]]
