@@ -107,23 +107,24 @@ namespace randomizer::seed {
             return;
         }
 
-        std::string tags_string = "Tags: ";
-        tags_string += m_parse_output->meta.tags | std::views::join_with(std::string_view(", ")) | std::ranges::to<std::string>();
-
-        std::string slug_string;
-        if (m_parse_output->meta.slug.has_value()) {
-            slug_string = std::format("Slug: <hex_9ee2f7ff>{}</>", *m_parse_output->meta.slug);
-        }
-
         std::string message = prepend;
-        if (!message.empty()) {
-            message += "\n";
+
+        if (m_parse_output->meta.slug.has_value()) {
+            if (!message.empty()) {
+                message += "\n";
+            }
+            message += std::format("Slug: <hex_9ee2f7ff>{}</>", *m_parse_output->meta.slug);
         }
-        message += slug_string;
-        if (!message.empty()) {
-            message += "\n";
+
+        if (!m_parse_output->meta.tags.empty()) {
+            if (!message.empty()) {
+                message += "\n";
+            }
+
+            std::string tags_string = "Tags: ";
+            tags_string += m_parse_output->meta.tags | std::views::join_with(std::string_view(", ")) | std::ranges::to<std::string>();
+            message += "<s_0.75><ls_0.8>" + tags_string + "</></>";
         }
-        message += "<s_0.75><ls_0.8>" + tags_string + "</></>";
 
         message_queue().enqueue({
             .text = core::Property<std::string>(message),
