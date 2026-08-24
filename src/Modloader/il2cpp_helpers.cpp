@@ -437,6 +437,17 @@ namespace il2cpp {
             }
         }
 
+        void set_layer(app::GameObject* game_object, const int layer) {
+            UnityEngine::GameObject::set_layer(game_object, layer);
+        }
+
+        void set_layer_recursively(app::GameObject* game_object, const int layer) {
+            set_layer(game_object, layer);
+            for (const auto child: get_children(game_object)) {
+                set_layer_recursively(child, layer);
+            }
+        }
+
         std::string get_object_name(void* object) {
             const auto cast_object = static_cast<app::Object_1*>(object);
             if (!is_valid(cast_object)) {
