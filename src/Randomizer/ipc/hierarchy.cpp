@@ -12,6 +12,7 @@
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/methods/UnityEngine/Quaternion.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
+#include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/Quaternion.h>
 #include <Modloader/il2cpp_helpers.h>
@@ -639,6 +640,8 @@ namespace randomizer::ipc {
             j["active"] = il2cpp::unity::get_active(go);
             j["active_self"] = il2cpp::unity::get_active_self(go);
             j["path"] = il2cpp::unity::get_path(go);
+            j["layer"] = GameObject::get_layer(go);
+            j["moon_flags"] = GameObject::get_moonFlags(go);
             if (verbose) {
                 nlohmann::json arr;
                 auto components = il2cpp::unity::get_components(go);
