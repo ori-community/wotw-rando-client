@@ -16,6 +16,8 @@ using namespace modloader;
 
 namespace core::ipc {
     namespace {
+        constexpr auto USE_CBOR = true;
+
         std::unique_ptr<std::thread> zmq_thread;
         std::mutex incoming_messages_mutex;
         std::mutex outgoing_messages_mutex;
@@ -45,7 +47,9 @@ namespace core::ipc {
             }
 
             try {
-                auto message = nlohmann::json::from_cbor(msg.data<std::byte>(), msg.data<std::byte>() + msg.size());
+                auto message = USE_CBOR
+                    ? nlohmann::json::from_cbor(msg.data<std::byte>(), msg.data<std::byte>() + msg.size())
+                    : nlohmann::json::parse(msg.to_string_view());
 
                 std::scoped_lock lock(incoming_messages_mutex);
                 incoming_messages.push_back(std::move(message));
@@ -75,7 +79,12 @@ namespace core::ipc {
                     break;
                 }
 
-                zmq::message_t zmq_message(nlohmann::json::to_cbor(message));
+                zmq::message_t zmq_message;
+                if (USE_CBOR) {
+                    zmq_message = zmq::message_t(nlohmann::json::to_cbor(message));
+                } else {
+                    zmq_message = zmq::message_t(message.dump());
+                }
 
                 try {
                     if (socket->handle() != nullptr) {
