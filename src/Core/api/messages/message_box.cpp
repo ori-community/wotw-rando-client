@@ -6,26 +6,30 @@
 #include <Core/utils/position_converter.h>
 
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
-#include <Modloader/app/methods/CatlikeCoding/TextBox/BitmapFont.h>
 #include <Modloader/app/methods/UnityEngine/AnimationCurve.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/MessageBoxVisibility.h>
 #include <Modloader/app/methods/ScaleToTextBox.h>
 #include <Modloader/app/methods/SoundSource.h>
 #include <Modloader/app/methods/TextBoxExtended.h>
+#include <Modloader/app/methods/UberShaderRenderQueue.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
+#include <Modloader/app/methods/UnityEngine/Renderer.h>
+#include <Modloader/app/methods/DisableRendererWhenOutOfFrustrum.h>
+#include <Modloader/app/types/DisableRendererWhenOutOfFrustrum.h>
 #include <Modloader/app/types/DestroyOnRestoreCheckpoint.h>
-#include <Modloader/app/types/GameObject.h>
+#include <Modloader/app/types/UberShaderRuntimeRenderOrder.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/ParticleSuspender.h>
 #include <Modloader/app/types/ScaleToTextBox.h>
 #include <Modloader/app/types/SoundSource.h>
 #include <Modloader/app/types/UI.h>
-#include <Modloader/il2cpp_math.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
+
+#include "Core/enums/layer.h"
 
 
 using namespace modloader;
@@ -34,8 +38,16 @@ using namespace app::classes::UnityEngine;
 
 namespace core::api::messages {
     namespace {
+        constexpr int MAX_SOUNDS_PER_FRAME = 4;
+
+        int sounds_played_this_frame = 0;
         int next_message_id = 0;
         std::unordered_map<int, MessageBox*> message_boxes;
+
+        [[maybe_unused]]
+        auto on_after_unity_update = game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
+            sounds_played_this_frame = 0;
+        });
 
         // app::Rect compute_textbox_rect(app::TextBox* text_box) {
         //     const auto [anchor_x, anchor_y] = TextBoxExtended::ComputeAnchor(text_box);
@@ -208,17 +220,16 @@ namespace core::api::messages {
         sound_source->fields.PlayAtStart = false;
         sound_source->fields.DestroyOnSoundEnd = false;
 
-        il2cpp::unity::set_position(m_game_object, m_position.get());
+        // Remove parallax
+        const auto text_go = il2cpp::unity::find_child(m_game_object, "text");
+        il2cpp::unity::set_local_position(text_go, {0, 0, 0});
+        const auto background_texture_go = il2cpp::unity::find_child(m_game_object, std::vector<std::string_view>{"background", "hintMessageBackgroundB (1)"});
+        il2cpp::unity::set_local_position(background_texture_go, {0.5, 0.5, 0});
+
         GameObject::SetActive(m_game_object, true);
         ScaleToTextBox::UpdateSize(m_scaler);
 
         m_id = ++next_message_id;
-        const auto marker = types::GameObject::create();
-        GameObject::ctor_1(marker, il2cpp::string_new(MESSAGE_BOX_MARKER));
-        il2cpp::unity::set_parent(marker, m_game_object);
-        app::Vector3 marker_id{};
-        *reinterpret_cast<int*>(&marker_id.x) = m_id;
-        il2cpp::unity::set_local_position(marker, marker_id);
         message_boxes.emplace(m_id, this);
 
         m_fade_in = Property<float>(
@@ -289,8 +300,33 @@ namespace core::api::messages {
             [this] { return m_scaler->fields.BottomRightPadding.x; }
         );
 
+        m_position_effect = reactivity::watch_effect()
+            .effect(m_position)
+            .after([this] {
+                m_transform_dirty = true;
+            })
+            .finalize();
+
+        m_coordinate_system_effect = reactivity::watch_effect()
+            .effect([this] {
+                const auto should_disable_renderer_when_out_of_frustrum_component_exist = m_coordinate_system.get() == CoordinateSystem::World;
+                const auto does_disable_renderer_when_out_of_frustrum_component_exist = m_disable_renderer_when_out_of_frustrum != nullptr;
+
+                if (should_disable_renderer_when_out_of_frustrum_component_exist != does_disable_renderer_when_out_of_frustrum_component_exist) {
+                    if (should_disable_renderer_when_out_of_frustrum_component_exist) {
+                        m_disable_renderer_when_out_of_frustrum = il2cpp::unity::add_component<app::DisableRendererWhenOutOfFrustrum>(m_game_object, types::DisableRendererWhenOutOfFrustrum::get_class());
+                        m_transform_dirty = true;
+                    } else {
+                        il2cpp::unity::destroy_object(m_disable_renderer_when_out_of_frustrum);
+                        m_disable_renderer_when_out_of_frustrum = nullptr;
+                    }
+                }
+            })
+            .finalize();
+
         m_on_fixed_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) { on_fixed_update(); });
         m_on_after_unity_update_handle = game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [this](auto, auto) { on_after_unity_update(); });
+        m_on_refresh_input_controls_handle = game::event_bus().register_handler(GameEvent::RefreshInputControls, EventTiming::After, [this](auto, auto) { m_renderers_dirty = true; });
 
         // Move back the background glow a little bit so it doesn't go out of the near-plane
         const auto glow_transform = Transform::GetChild(background_transform(), 0);
@@ -360,23 +396,27 @@ namespace core::api::messages {
         text_style::create_styles(m_message_box->fields.TextBox, text);
         m_message_box->fields.MessageProvider = core::api::system::create_message_provider(text);
         app::classes::MessageBox::RefreshText_1(m_message_box);
+
+        update_game_object_layers();
+        m_renderers_dirty = false;
     }
 
-    void MessageBox::render_message_box() {
-        auto new_text = m_text.get();
+    void MessageBox::render_message_box_if_required() {
+        const auto new_text = m_text.get();
         auto should_recache = false;
 
-        const auto new_show_box = m_show_background.get();
-        if (m_cached_show_box != new_show_box) {
-            m_cached_show_box = new_show_box;
+        const auto new_show_background = m_show_background.get();
+        if (m_cached_show_box != new_show_background) {
+            m_cached_show_box = new_show_background;
             should_recache = true;
-            GameObject::SetActive(il2cpp::unity::get_game_object(background_transform()), new_show_box);
+            GameObject::SetActive(il2cpp::unity::get_game_object(background_transform()), new_show_background);
         }
 
-        if (m_cached_text != new_text) {
+        if (m_renderers_dirty || m_cached_text != new_text) {
             m_cached_text = new_text;
             render_text(m_cached_text);
             should_recache = true;
+            update_transform();
         }
 
         if (should_recache) {
@@ -393,6 +433,8 @@ namespace core::api::messages {
                 }
 
                 MessageBoxVisibility::Recache(m_message_box->fields.Visibility);
+
+                sort_renderers();
             }
         }
     }
@@ -404,9 +446,11 @@ namespace core::api::messages {
 
     void MessageBox::update_transform() {
         auto pos = m_position.get();
+        auto scale = app::Vector3{1, 1, 1};
+
         switch (m_coordinate_system.get()) {
             case CoordinateSystem::World: {
-                pos = world_to_ui_position(pos);
+                scale = app::Vector3{3, 3, 3};
                 break;
             }
             case CoordinateSystem::Screen: {
@@ -425,7 +469,18 @@ namespace core::api::messages {
         pos.y += anchor_offset.y;
 
         const auto transform = il2cpp::unity::get_transform(m_game_object);
+
         Transform::set_position(transform, pos);
+        Transform::set_localScale(transform, scale);
+        m_message_box->fields.Visibility->fields.m_originalScale = scale;
+
+        if (m_disable_renderer_when_out_of_frustrum != nullptr) {
+            m_disable_renderer_when_out_of_frustrum->fields.m_bounds.m_Center = pos;
+            m_disable_renderer_when_out_of_frustrum->fields.m_bounds.m_Extents.x = 100.f;
+            m_disable_renderer_when_out_of_frustrum->fields.m_bounds.m_Extents.y = 100.f;
+        }
+
+        m_transform_dirty = false;
     }
 
     void MessageBox::on_fixed_update() const {
@@ -445,8 +500,36 @@ namespace core::api::messages {
             return;
         }
 
-        render_message_box();
-        update_transform();
+        render_message_box_if_required();
+
+        if (m_transform_dirty) {
+            update_transform();
+        }
+    }
+
+    void MessageBox::sort_renderers() const {
+        for (auto& runtime_render_order: il2cpp::unity::get_components_in_children<app::UberShaderRuntimeRenderOrder>(m_game_object, types::UberShaderRuntimeRenderOrder::get_class())) {
+            il2cpp::unity::destroy_object(runtime_render_order);
+        }
+
+        // This maximum is a Unity limitation...
+        // https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Renderer-sortingOrder.html
+        auto next_sort_order = 32767 - m_message_box->fields.Visibility->fields.m_renderers->max_length;
+        for (auto& renderer: il2cpp::ArrayIterator(m_message_box->fields.Visibility->fields.m_renderers)) {
+            UberShaderRenderQueue::SetRenderQueueExplicit_2(renderer, -1.f);
+            Renderer::set_sortingOrder(renderer, ++next_sort_order);
+        }
+    }
+
+    void MessageBox::update_game_object_layers() const {
+        il2cpp::unity::set_layer_recursively(
+            m_game_object,
+            static_cast<int32_t>(
+                m_coordinate_system.get() == CoordinateSystem::World
+                    ? Layer::Solids
+                    : Layer::UI
+            )
+        );
     }
 
     MessageBox::Visibility MessageBox::get_visibility() const {
@@ -476,7 +559,10 @@ namespace core::api::messages {
     void MessageBox::show(const bool instant, const bool play_sound, bool use_subtle_scale_transition) {
         const auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(m_game_object, types::SoundSource::get_class());
         if (play_sound) {
-            SoundSource::Play_2(sound_source);
+            if (sounds_played_this_frame < MAX_SOUNDS_PER_FRAME) {
+                SoundSource::Play_2(sound_source);
+                ++sounds_played_this_frame;
+            }
         }
 
         m_message_box->fields.Visibility->fields.m_delayTime = FLT_MAX;
@@ -505,7 +591,7 @@ namespace core::api::messages {
 
         if (this_ptr->fields.Background != nullptr) {
             auto position = il2cpp::unity::get_local_position(this_ptr->fields.Background);
-            position.z = -3.f;
+            position.z = 0.f;
             il2cpp::unity::set_local_position(this_ptr->fields.Background, position);
         }
     }

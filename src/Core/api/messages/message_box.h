@@ -6,8 +6,9 @@
 #include <Modloader/app/structs/MessageBox.h>
 #include <Modloader/app/structs/ScaleToTextBox.h>
 #include <Modloader/app/structs/Rect.h>
-
+#include <Modloader/app/structs/DisableRendererWhenOutOfFrustrum.h>
 #include <string_view>
+
 
 namespace core::api::messages {
     enum class CoordinateSystem {
@@ -18,7 +19,6 @@ namespace core::api::messages {
 
     class CORE_DLLEXPORT MessageBox {
     public:
-        static constexpr std::string_view MESSAGE_BOX_MARKER = "rando_text_box_marker";
         static MessageBox* find_with_id(int id);
 
         enum class Visibility {
@@ -66,20 +66,28 @@ namespace core::api::messages {
         std::string m_name;
 
         void render_text(const std::string& text);
-        void render_message_box();
+        void render_message_box_if_required();
         app::Transform* background_transform() const;
         void update_transform();
         void on_fixed_update() const;
         void on_after_unity_update();
+        void sort_renderers() const;
+        void update_game_object_layers() const;
 
         common::Droppable::ptr_t m_on_fixed_update_handle;
         common::Droppable::ptr_t m_on_after_unity_update_handle;
+        common::Droppable::ptr_t m_on_refresh_input_controls_handle;
         app::GameObject* m_game_object = nullptr;
+        app::DisableRendererWhenOutOfFrustrum* m_disable_renderer_when_out_of_frustrum = nullptr;
         app::MessageBox* m_message_box = nullptr;
         app::ScaleToTextBox* m_scaler = nullptr;
 
         std::string m_cached_text;
         bool m_cached_show_box = false;
+        reactivity::ReactiveEffect::ptr_t m_position_effect;
+        reactivity::ReactiveEffect::ptr_t m_coordinate_system_effect;
+        bool m_transform_dirty = true;
+        bool m_renderers_dirty = true;
 
         Property<std::string> m_text;
         Property<app::Vector3> m_position{{0.5, 0.114, 0}};  // This is approximately the position of "normal" item messages
