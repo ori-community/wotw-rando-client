@@ -61,6 +61,10 @@ namespace core::api::game {
                     make_container(GameObjectContainer::Main);
                 }
 
+                if (container == GameObjectContainer::Prefabs) {
+                    il2cpp::unity::set_active(go, false);
+                }
+
                 il2cpp::unity::set_parent(go, **main_container_ref);
             }
         }

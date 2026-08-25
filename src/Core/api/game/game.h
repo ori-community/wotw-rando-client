@@ -13,7 +13,7 @@ namespace core::api::game {
         Miscellaneous,
         Animation,
         Messages,
-        Multiplayer,  // TODO: Remove
+        Prefabs,
     };
 
     struct CORE_DLLEXPORT SaveOptions {

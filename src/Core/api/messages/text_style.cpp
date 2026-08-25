@@ -1,4 +1,4 @@
-#include "text_style.h"
+#include <Core/api/messages/text_style.h>
 
 #include <Modloader/app/types/TextStyle.h>
 #include <Modloader/app/types/TextStyleCollection.h>

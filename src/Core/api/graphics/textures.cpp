@@ -1,12 +1,13 @@
 #include <Core/api/graphics/textures.h>
 
 #include <Modloader/app/methods/UberShaderAPI.h>
-#include <Modloader/app/methods/UnityEngine/RenderTexture.h>
-#include <Modloader/app/methods/UnityEngine/Texture.h>
 #include <Modloader/app/methods/UnityEngine/Graphics.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
+#include <Modloader/app/methods/UnityEngine/RenderTexture.h>
+#include <Modloader/app/methods/UnityEngine/Texture.h>
 #include <Modloader/app/types/RenderTexture.h>
 #include <Modloader/modloader.h>
+#include <magic_enum/magic_enum.hpp>
 
 
 using namespace modloader;
