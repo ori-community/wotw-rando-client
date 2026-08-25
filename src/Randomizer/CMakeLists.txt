@@ -176,7 +176,6 @@ set(
         "input/controller_bindings.cpp"
         "input/helpers.cpp"
         "input/rando_bindings.cpp"
-        "input/sdl_input.cpp"
         "ipc/base_handlers.cpp"
         "ipc/hierarchy.cpp"
         "league/league.cpp"
@@ -497,9 +496,6 @@ target_link_libraries(${PROJECT_NAME} $<IF:$<TARGET_EXISTS:zstd::libzstd_shared>
 
 find_package(libzippp CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} libzippp::libzippp)
-
-find_package(SDL3 CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} SDL3::SDL3)
 
 find_package(stduuid CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} stduuid)

@@ -36,6 +36,7 @@ set(
         "api/graphics/textures.cpp"
         "api/messages/message_box.cpp"
         "api/messages/text_style.cpp"
+        "api/messages/custom_message_icons.cpp"
         "api/messages/fix_text_box_rect_computation.cpp"
         "api/moon_animator_events.cpp"
         "api/scenes/create_objects.cpp"
@@ -67,6 +68,7 @@ set(
         "input/mouse.cpp"
         "input/midi_input.cpp"
         "input/simulator.cpp"
+        "input/sdl_input.cpp"
         "ipc/ipc.cpp"
         "ipc/console.cpp"
         "mood_guid.cpp"
@@ -217,6 +219,9 @@ target_link_libraries(${PROJECT_NAME} cppzmq cppzmq-static)
 
 find_package(libremidi CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} libremidi)
+
+find_package(SDL3 CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} SDL3::SDL3)
 
 install(
         TARGETS ${PROJECT_NAME}
