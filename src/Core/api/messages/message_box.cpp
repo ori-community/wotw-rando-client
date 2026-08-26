@@ -29,6 +29,7 @@
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 
+#include "Core/api/scenes/scene_load.h"
 #include "Core/enums/layer.h"
 
 
@@ -327,6 +328,9 @@ namespace core::api::messages {
         m_on_fixed_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) { on_fixed_update(); });
         m_on_after_unity_update_handle = game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [this](auto, auto) { on_after_unity_update(); });
         m_on_refresh_input_controls_handle = game::event_bus().register_handler(GameEvent::RefreshInputControls, EventTiming::After, [this](auto, auto) { m_renderers_dirty = true; });
+        m_on_scene_load_handle = scenes::event_bus().register_handler([this](auto) {
+            sort_renderers();
+        });
 
         // Move back the background glow a little bit so it doesn't go out of the near-plane
         const auto glow_transform = Transform::GetChild(background_transform(), 0);
@@ -512,12 +516,17 @@ namespace core::api::messages {
             il2cpp::unity::destroy_object(runtime_render_order);
         }
 
+        if (m_message_box->fields.Visibility->fields.m_renderers == nullptr) {
+            return;
+        }
+
         // This maximum is a Unity limitation...
         // https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Renderer-sortingOrder.html
         auto next_sort_order = 32767 - m_message_box->fields.Visibility->fields.m_renderers->max_length;
         for (auto& renderer: il2cpp::ArrayIterator(m_message_box->fields.Visibility->fields.m_renderers)) {
+            Renderer::set_sortingLayerID(renderer, UberShaderRenderQueue::RenderlayerFromZ(-100));
             Renderer::set_sortingOrder(renderer, ++next_sort_order);
-            UberShaderAPI::SetVector_1(renderer, app::UberShaderProperty_Vector__Enum::DepthFlipScreen, {-100, 0, 0, 0});
+            UberShaderAPI::SetVector_1(renderer, app::UberShaderProperty_Vector__Enum::DepthFlipScreen, {-3, 0, 0, 0});
         }
     }
 

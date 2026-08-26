@@ -77,6 +77,7 @@ namespace core::api::messages {
         common::Droppable::ptr_t m_on_fixed_update_handle;
         common::Droppable::ptr_t m_on_after_unity_update_handle;
         common::Droppable::ptr_t m_on_refresh_input_controls_handle;
+        common::Droppable::ptr_t m_on_scene_load_handle;
         app::GameObject* m_game_object = nullptr;
         app::DisableRendererWhenOutOfFrustrum* m_disable_renderer_when_out_of_frustrum = nullptr;
         app::MessageBox* m_message_box = nullptr;
