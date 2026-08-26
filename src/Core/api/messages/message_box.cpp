@@ -343,7 +343,7 @@ namespace core::api::messages {
 
     MessageBox::~MessageBox() {
         message_boxes.erase(m_id);
-        if (get_visibility() == Visibility::Hidden) {
+        if (get_visibility() == Visibility::Hidden || !il2cpp::unity::get_active(m_game_object)) {
             il2cpp::unity::destroy_object(m_game_object);
         } else {
             if (m_message_box->fields.Visibility->fields.m_timeSpeed >= 0.0f) {
