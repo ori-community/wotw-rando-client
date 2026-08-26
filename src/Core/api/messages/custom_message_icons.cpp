@@ -167,7 +167,23 @@ namespace {
             return;
         }
 
-        next::CatlikeCoding::TextBox::TextStyleCollection::ComputeRendererCount(this_ptr);
+        for (int i = 0; i < this_ptr->fields.styles->max_length; ++i) {
+            const auto text_style = this_ptr->fields.styles->vector[i];
+            text_style->fields.rendererId = -1;
+
+            if (il2cpp::unity::is_valid(text_style->fields.renderer)) {
+                for (int j = 0; j < i; ++j) {
+                    if (text_style->fields.renderer == this_ptr->fields.styles->vector[j]->fields.renderer) {
+                        text_style->fields.rendererId = this_ptr->fields.styles->vector[j]->fields.rendererId;
+                        break;
+                    }
+                }
+
+                if (text_style->fields.rendererId == -1) {
+                    text_style->fields.rendererId = this_ptr->fields.rendererCount++;
+                }
+            }
+        }
     }
 
     IL2CPP_INTERCEPT(app::TextRenderer__Array*, CatlikeCoding::TextBox::TextStyleCollection, CreateRenderers_1, app::TextStyleCollection* this_ptr, app::TextBox* box) {
