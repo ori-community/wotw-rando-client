@@ -62,6 +62,7 @@ namespace {
             if (style_name == "xbox") {
                 const auto new_style_prefab = types::TextStyle::create();
                 CatlikeCoding::TextBox::TextStyle::ctor(new_style_prefab);
+                il2cpp::gchandle_new(new_style_prefab, true);
 
                 new_style_prefab->fields.name = il2cpp::string_new("playstation");
                 new_style_prefab->fields.color = app::Color32{.r = 0, .g = 0, .b = 0, .a = 0};
