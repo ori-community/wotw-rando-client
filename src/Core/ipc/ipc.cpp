@@ -16,7 +16,7 @@ using namespace modloader;
 
 namespace core::ipc {
     namespace {
-        constexpr auto USE_CBOR = false;
+        constexpr auto USE_CBOR = true;
 
         std::unique_ptr<std::thread> zmq_thread;
         std::mutex incoming_messages_mutex;
