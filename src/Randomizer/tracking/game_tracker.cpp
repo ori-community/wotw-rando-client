@@ -700,15 +700,19 @@ namespace randomizer::timing {
 
     namespace {
         void check_tracked_custom_timeline_entries() {
-            for (const auto persistent_entry_id: game_tracker_persistent_meta_data->active_custom_timeline_entries) {
+            for (auto persistent_entry_id_it = game_tracker_persistent_meta_data->active_custom_timeline_entries.begin(); persistent_entry_id_it != game_tracker_persistent_meta_data->active_custom_timeline_entries.end();) {
+                const auto persistent_entry_id = *persistent_entry_id_it;
+
                 if (!game_tracker_volatile_meta_data->active_custom_timeline_entries.contains(persistent_entry_id)) {
-                    game_tracker_persistent_meta_data->active_custom_timeline_entries.erase(persistent_entry_id);
+                    persistent_entry_id_it = game_tracker_persistent_meta_data->active_custom_timeline_entries.erase(persistent_entry_id_it);
 
                     get_save_file_game_stats().add_timeline_end_entry(
                         persistent_entry_id,
                         SaveFileGameStats::TimelineEntryEvent::Type::Custom
                     );
                 }
+
+                ++persistent_entry_id_it;
             }
         }
 
