@@ -17,7 +17,7 @@
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/methods/UnityEngine/Renderer.h>
-#include <Modloader/app/methods/DisableRendererWhenOutOfFrustrum.h>
+#include <Modloader/app/methods/UberShaderAPI.h>
 #include <Modloader/app/types/DisableRendererWhenOutOfFrustrum.h>
 #include <Modloader/app/types/DestroyOnRestoreCheckpoint.h>
 #include <Modloader/app/types/UberShaderRuntimeRenderOrder.h>
@@ -516,8 +516,8 @@ namespace core::api::messages {
         // https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Renderer-sortingOrder.html
         auto next_sort_order = 32767 - m_message_box->fields.Visibility->fields.m_renderers->max_length;
         for (auto& renderer: il2cpp::ArrayIterator(m_message_box->fields.Visibility->fields.m_renderers)) {
-            UberShaderRenderQueue::SetRenderQueueExplicit_2(renderer, -1.f);
             Renderer::set_sortingOrder(renderer, ++next_sort_order);
+            UberShaderAPI::SetVector_1(renderer, app::UberShaderProperty_Vector__Enum::DepthFlipScreen, {-100, 0, 0, 0});
         }
     }
 
