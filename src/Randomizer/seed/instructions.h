@@ -320,6 +320,12 @@ namespace randomizer::seed {
         void modify_position_trigger(std::size_t id, const std::function<void(SeedPositionTrigger&)>& fn);
 
         /**
+         * Returns a reference to a position trigger with the given ID, or nullopt if no trigger with
+         * that ID exists.
+         */
+        std::optional<std::reference_wrapper<SeedPositionTrigger>> get_position_trigger(std::size_t id);
+
+        /**
          * Destroys a position trigger.
          */
         void destroy_position_trigger(std::size_t id);

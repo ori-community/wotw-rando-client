@@ -48,6 +48,7 @@
 #include <Randomizer/seed/instructions/integer_to_float.h>
 #include <Randomizer/seed/instructions/integer_to_string.h>
 #include <Randomizer/seed/instructions/is_in_circle.h>
+#include <Randomizer/seed/instructions/is_in_position_trigger.h>
 #include <Randomizer/seed/instructions/is_in_rectangle.h>
 #include <Randomizer/seed/instructions/logic_operation.h>
 #include <Randomizer/seed/instructions/mark_spoiler_map_icon_collected.h>
@@ -201,6 +202,7 @@ namespace randomizer::seed {
             register_instruction<IntegerToFloat>(factories);
             register_instruction<IntegerToString>(factories);
             register_instruction<IsInCircle>(factories);
+            register_instruction<IsInPositionTrigger>(factories);
             register_instruction<IsInRectangle>(factories);
             register_instruction<LogicOperation>(factories);
             register_instruction<MarkSpoilerMapIconCollected>(factories);
@@ -513,16 +515,26 @@ namespace randomizer::seed {
         m_spoiler_map_icons[id] = map_icon;
     }
 
-    void SeedExecutionEnvironment::set_position_trigger(std::size_t id, const SeedPositionTrigger& position_trigger) {
+    void SeedExecutionEnvironment::set_position_trigger(const std::size_t id, const SeedPositionTrigger& position_trigger) {
         m_position_triggers.emplace(id, position_trigger);
     }
 
-    void SeedExecutionEnvironment::modify_position_trigger(std::size_t id, const std::function<void(SeedPositionTrigger&)>& fn) {
-        if (!m_position_triggers.contains(id)) {
+    void SeedExecutionEnvironment::modify_position_trigger(const std::size_t id, const std::function<void(SeedPositionTrigger&)>& fn) {
+        const auto it = m_position_triggers.find(id);
+        if (it == m_position_triggers.end()) {
             return;
         }
 
-        fn(m_position_triggers[id]);
+        fn(it->second);
+    }
+
+    std::optional<std::reference_wrapper<SeedPositionTrigger>> SeedExecutionEnvironment::get_position_trigger(const std::size_t id) {
+        const auto it = m_position_triggers.find(id);
+        if (it == m_position_triggers.end()) {
+            return std::nullopt;
+        }
+
+        return it->second;
     }
 
     void SeedExecutionEnvironment::destroy_position_trigger(std::size_t id) {

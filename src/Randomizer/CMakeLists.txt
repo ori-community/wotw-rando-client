@@ -348,6 +348,7 @@ set(
         "seed/instructions/integer_to_float.h"
         "seed/instructions/integer_to_string.h"
         "seed/instructions/is_in_circle.h"
+        "seed/instructions/is_in_position_trigger.h"
         "seed/instructions/is_in_rectangle.h"
         "seed/instructions/logic_operation.h"
         "seed/instructions/mark_spoiler_map_icon_collected.h"
