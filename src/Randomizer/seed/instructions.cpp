@@ -7,10 +7,6 @@
 #include <Randomizer/seed/instructions/arithmetic_float.h>
 #include <Randomizer/seed/instructions/arithmetic_integer.h>
 #include <Randomizer/seed/instructions/boolean_to_string.h>
-#include <Randomizer/seed/instructions/box_trigger.h>
-#include <Randomizer/seed/instructions/box_trigger_destroy.h>
-#include <Randomizer/seed/instructions/box_trigger_enter_callback.h>
-#include <Randomizer/seed/instructions/box_trigger_leave_callback.h>
 #include <Randomizer/seed/instructions/close_menu.h>
 #include <Randomizer/seed/instructions/close_weapon_wheel.h>
 #include <Randomizer/seed/instructions/compare_boolean.h>
@@ -51,13 +47,19 @@
 #include <Randomizer/seed/instructions/free_message_vertical_anchor.h>
 #include <Randomizer/seed/instructions/integer_to_float.h>
 #include <Randomizer/seed/instructions/integer_to_string.h>
-#include <Randomizer/seed/instructions/is_in_box.h>
+#include <Randomizer/seed/instructions/is_in_circle.h>
+#include <Randomizer/seed/instructions/is_in_rectangle.h>
 #include <Randomizer/seed/instructions/logic_operation.h>
 #include <Randomizer/seed/instructions/mark_spoiler_map_icon_collected.h>
 #include <Randomizer/seed/instructions/message_background.h>
 #include <Randomizer/seed/instructions/message_destroy.h>
 #include <Randomizer/seed/instructions/message_text.h>
 #include <Randomizer/seed/instructions/message_timeout.h>
+#include <Randomizer/seed/instructions/position_trigger_circle.h>
+#include <Randomizer/seed/instructions/position_trigger_destroy.h>
+#include <Randomizer/seed/instructions/position_trigger_enter_callback.h>
+#include <Randomizer/seed/instructions/position_trigger_leave_callback.h>
+#include <Randomizer/seed/instructions/position_trigger_rectangle.h>
 #include <Randomizer/seed/instructions/queued_message.h>
 #include <Randomizer/seed/instructions/queued_message_hidden_callback.h>
 #include <Randomizer/seed/instructions/queued_message_scoped_pickup_position.h>
@@ -129,7 +131,7 @@ namespace randomizer::seed {
             did_reset_because_not_in_game = false;
             game_seed().environment().process_free_message_boxes(core::api::game::delta_time());
             game_seed().environment().process_timers(core::api::game::delta_time());
-            game_seed().environment().process_box_triggers();
+            game_seed().environment().process_position_triggers();
         });
 
         using instruction_factories_t = std::unordered_map<std::string, std::function<std::unique_ptr<IInstruction>(const nlohmann::json& j)>>;
@@ -153,10 +155,11 @@ namespace randomizer::seed {
             register_instruction<ArithmeticFloat>(factories);
             register_instruction<ArithmeticInteger>(factories);
             register_instruction<BooleanToString>(factories);
-            register_instruction<BoxTrigger>(factories);
-            register_instruction<BoxTriggerDestroy>(factories);
-            register_instruction<BoxTriggerEnterCallback>(factories);
-            register_instruction<BoxTriggerLeaveCallback>(factories);
+            register_instruction<PositionTriggerCircle>(factories);
+            register_instruction<PositionTriggerDestroy>(factories);
+            register_instruction<PositionTriggerEnterCallback>(factories);
+            register_instruction<PositionTriggerLeaveCallback>(factories);
+            register_instruction<PositionTriggerRectangle>(factories);
             register_instruction<CloseMenu>(factories);
             register_instruction<CloseWeaponWheel>(factories);
             register_instruction<CompareBoolean>(factories);
@@ -197,7 +200,8 @@ namespace randomizer::seed {
             register_instruction<FreeMessageVerticalAnchor>(factories);
             register_instruction<IntegerToFloat>(factories);
             register_instruction<IntegerToString>(factories);
-            register_instruction<IsInBox>(factories);
+            register_instruction<IsInCircle>(factories);
+            register_instruction<IsInRectangle>(factories);
             register_instruction<LogicOperation>(factories);
             register_instruction<MarkSpoilerMapIconCollected>(factories);
             register_instruction<MessageBackground>(factories);
@@ -311,7 +315,7 @@ namespace randomizer::seed {
         m_prevent_grant = false;
         m_serialized_free_message_boxes.clear();
         m_serialized_warp_icons.clear();
-        m_box_triggers.clear();
+        m_position_triggers.clear();
         m_warp_icons.clear();
         m_trial_hints.clear();
         m_trial_hints_dirty = true;
@@ -347,24 +351,24 @@ namespace randomizer::seed {
         }
     }
 
-    void SeedExecutionEnvironment::process_box_triggers() {
+    void SeedExecutionEnvironment::process_position_triggers() {
         std::vector<std::size_t> command_queue;
-        for (auto& box_trigger: m_box_triggers | std::views::values) {
-            const auto player_is_inside = box_trigger.is_inside(modloader::math::to_vec2(core::api::game::player::get_position()));
+        for (auto& position_trigger: m_position_triggers | std::views::values) {
+            const auto player_is_inside = position_trigger.is_inside(modloader::math::to_vec2(core::api::game::player::get_position()));
 
-            if (player_is_inside == box_trigger.runtime_state.player_was_inside_box_at_last_check) {
+            if (player_is_inside == position_trigger.runtime_state.player_was_inside_at_last_check) {
                 continue;
             }
 
-            box_trigger.runtime_state.player_was_inside_box_at_last_check = player_is_inside;
+            position_trigger.runtime_state.player_was_inside_at_last_check = player_is_inside;
 
             if (player_is_inside) {
-                if (box_trigger.on_enter_command_id.has_value()) {
-                    command_queue.push_back(*box_trigger.on_enter_command_id);
+                if (position_trigger.on_enter_command_id.has_value()) {
+                    command_queue.push_back(*position_trigger.on_enter_command_id);
                 }
             } else {
-                if (box_trigger.on_leave_command_id.has_value()) {
-                    command_queue.push_back(*box_trigger.on_leave_command_id);
+                if (position_trigger.on_leave_command_id.has_value()) {
+                    command_queue.push_back(*position_trigger.on_leave_command_id);
                 }
             }
         }
@@ -509,20 +513,20 @@ namespace randomizer::seed {
         m_spoiler_map_icons[id] = map_icon;
     }
 
-    void SeedExecutionEnvironment::set_box_trigger(std::size_t id, const SeedBoxTrigger& box_trigger) {
-        m_box_triggers[id] = box_trigger;
+    void SeedExecutionEnvironment::set_position_trigger(std::size_t id, const SeedPositionTrigger& position_trigger) {
+        m_position_triggers.emplace(id, position_trigger);
     }
 
-    void SeedExecutionEnvironment::modify_box_trigger(std::size_t id, const std::function<void(SeedBoxTrigger&)>& fn) {
-        if (!m_box_triggers.contains(id)) {
+    void SeedExecutionEnvironment::modify_position_trigger(std::size_t id, const std::function<void(SeedPositionTrigger&)>& fn) {
+        if (!m_position_triggers.contains(id)) {
             return;
         }
 
-        fn(m_box_triggers[id]);
+        fn(m_position_triggers[id]);
     }
 
-    void SeedExecutionEnvironment::destroy_box_trigger(std::size_t id) {
-        m_box_triggers.erase(id);
+    void SeedExecutionEnvironment::destroy_position_trigger(std::size_t id) {
+        m_position_triggers.erase(id);
     }
 
     common::Droppable::ptr_t SeedExecutionEnvironment::scope_queued_message_pickup_position() {
@@ -610,5 +614,24 @@ namespace randomizer::seed {
         const auto j_value = j.at("value");
         timer.toggle = core::api::uber_states::UberState(j_toggle.at("group").get<int>(), j_toggle.at("state").get<int>());
         timer.value = core::api::uber_states::UberState(j_value.at("group").get<int>(), j_value.at("state").get<int>());
+    }
+
+    bool SeedPositionTrigger::RectangleShape::is_inside(const app::Vector2& point) const {
+        return x_min <= point.x && point.x <= x_max && y_min <= point.y && point.y <= y_max;
+    }
+
+    bool SeedPositionTrigger::CircleShape::is_inside(const app::Vector2& point) const {
+        return modloader::math::distance2(point, {center_x, center_y}) <= radius_squared;
+    }
+
+    bool SeedPositionTrigger::is_inside(const app::Vector2& point) const {
+        return shape | vx::match {
+            [&](const RectangleShape& s) {
+                return s.is_inside(point);
+            },
+            [&](const CircleShape& s) {
+                return s.is_inside(point);
+            }
+        };
     }
 } // namespace randomizer::seed

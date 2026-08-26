@@ -32,6 +32,7 @@ set(
         "shared_memory.h"
         "thread_safe_container.h"
         "variant_cast.h"
+        "variant_index.h"
         "vx.h"
 )
 

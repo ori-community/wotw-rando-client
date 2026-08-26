@@ -11,6 +11,7 @@
 #include <Randomizer/map/map_icons.h>
 #include <Randomizer/seed/memory.h>
 
+#include "Common/variant_index.h"
 #include "Randomizer/features/trial_texts.h"
 
 namespace randomizer::seed {
@@ -37,15 +38,64 @@ namespace randomizer::seed {
     void to_json(nlohmann::json& j, const SeedTimer& timer);
     void from_json(const nlohmann::json& j, SeedTimer& timer);
 
-    struct SeedBoxTrigger {
-        struct RuntimeState {
-            bool player_was_inside_box_at_last_check = false;
+    struct SeedPositionTrigger {
+        struct Shape {
+            virtual ~Shape() = default;
+            [[nodiscard]] virtual bool is_inside(const app::Vector2& point) const = 0;
         };
 
-        float x_min;
-        float y_min;
-        float x_max;
-        float y_max;
+        struct RectangleShape : Shape {
+            float x_min;
+            float y_min;
+            float x_max;
+            float y_max;
+
+            RectangleShape() {}
+            RectangleShape(float x_min, float y_min, float x_max, float y_max) :
+                x_min(x_min),
+                y_min(y_min),
+                x_max(x_max),
+                y_max(y_max) {}
+
+            [[nodiscard]] bool is_inside(const app::Vector2& point) const override;
+
+            NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+                RectangleShape,
+                x_min,
+                y_min,
+                x_max,
+                y_max
+            );
+        };
+
+        struct CircleShape : Shape {
+            float center_x;
+            float center_y;
+            float radius_squared;
+
+            CircleShape() {}
+            CircleShape(const float center_x, const float center_y, const float radius) :
+                center_x(center_x),
+                center_y(center_y),
+                radius_squared(radius * radius) {}
+
+            [[nodiscard]] bool is_inside(const app::Vector2& point) const override;
+
+            NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+                CircleShape,
+                center_x,
+                center_y,
+                radius_squared
+            );
+        };
+
+        using shape_t = std::variant<RectangleShape, CircleShape>;
+
+        struct RuntimeState {
+            bool player_was_inside_at_last_check = false;
+        };
+
+        shape_t shape;
 
         std::optional<std::size_t> on_enter_command_id = std::nullopt;
         std::optional<std::size_t> on_leave_command_id = std::nullopt;
@@ -53,18 +103,13 @@ namespace randomizer::seed {
         RuntimeState runtime_state;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(
-            SeedBoxTrigger,
-            x_min,
-            y_min,
-            x_max,
-            y_max,
+            SeedPositionTrigger,
+            shape,
             on_enter_command_id,
             on_leave_command_id
         );
 
-        bool is_inside(const app::Vector2& point) const {
-            return x_min <= point.x && point.x <= x_max && y_min <= point.y && point.y <= y_max;
-        }
+        [[nodiscard]] bool is_inside(const app::Vector2& point) const;
     };
 
     struct FreeMessageBox {
@@ -166,7 +211,7 @@ namespace randomizer::seed {
          * Processes box triggers. Should be called after changing Ori's
          * position (e.g. teleporting), at least once per frame.
          */
-        void process_box_triggers();
+        void process_position_triggers();
 
         /**
          * Clear free message boxes. This should only be used for testing/debug purposes and
@@ -264,20 +309,20 @@ namespace randomizer::seed {
         void set_spoiler_map_icon(std::size_t location_id, const map::icons::MapIcon::ptr_t& map_icon);
 
         /**
-         * Adds or sets a box trigger
+         * Adds or sets a position trigger
          */
-        void set_box_trigger(std::size_t id, const SeedBoxTrigger& box_trigger);
+        void set_position_trigger(std::size_t id, const SeedPositionTrigger& position_trigger);
 
         /**
-         * Calls a lambda with a reference to a box trigger to be able to make modifications to it (e.g. changing the box).
-         * Does nothing if a bix trigger with the given ID does not exist.
+         * Calls a lambda with a reference to a position trigger to be able to make modifications to it (e.g. changing the shape).
+         * Does nothing if a position trigger with the given ID does not exist.
          */
-        void modify_box_trigger(std::size_t id, const std::function<void(SeedBoxTrigger&)>& fn);
+        void modify_position_trigger(std::size_t id, const std::function<void(SeedPositionTrigger&)>& fn);
 
         /**
-         * Destroys a box trigger.
+         * Destroys a position trigger.
          */
-        void destroy_box_trigger(std::size_t id);
+        void destroy_position_trigger(std::size_t id);
 
         /**
          * When the returned droppable is dropped, it sets the queued message pickup
@@ -304,14 +349,14 @@ namespace randomizer::seed {
         // These are only serialized on-demand in json_serialize():
         std::unordered_map<std::size_t, SerializedFreeMessageBox> m_serialized_free_message_boxes;
         std::unordered_map<std::size_t, SerializedWarpIcon> m_serialized_warp_icons;
-        std::unordered_map<std::size_t, SeedBoxTrigger> m_box_triggers;
+        std::unordered_map<std::size_t, SeedPositionTrigger> m_position_triggers;
         std::unordered_map<trials::SpiritTrialLocation, std::string> m_trial_hints;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(
             SeedExecutionEnvironment,
             m_serialized_free_message_boxes,
             m_serialized_warp_icons,
-            m_box_triggers,
+            m_position_triggers,
             m_trial_hints
         );
 
@@ -341,3 +386,35 @@ namespace randomizer::seed {
 
     std::unique_ptr<IInstruction> create_instruction(const nlohmann::json& j);
 }
+
+NLOHMANN_JSON_NAMESPACE_BEGIN
+template<>
+struct adl_serializer<randomizer::seed::SeedPositionTrigger::shape_t> {
+    static void to_json(nlohmann::json& j, const randomizer::seed::SeedPositionTrigger::shape_t& v) {
+        v | vx::match {
+            [&](const randomizer::seed::SeedPositionTrigger::RectangleShape& shape) {
+                j = shape;
+            },
+            [&](const randomizer::seed::SeedPositionTrigger::CircleShape& shape) {
+                j = shape;
+            },
+        };
+
+        j["type"] = v.index();
+    }
+
+    static void from_json(const nlohmann::json& j, randomizer::seed::SeedPositionTrigger::shape_t& v) {
+        switch (j.at("type").get<size_t>()) {
+            case variant_index<randomizer::seed::SeedPositionTrigger::shape_t, randomizer::seed::SeedPositionTrigger::RectangleShape>():
+                v = j.get<randomizer::seed::SeedPositionTrigger::RectangleShape>();
+                return;
+            case variant_index<randomizer::seed::SeedPositionTrigger::shape_t, randomizer::seed::SeedPositionTrigger::CircleShape>():
+                v = j.get<randomizer::seed::SeedPositionTrigger::CircleShape>();
+                return;
+            default:
+        }
+
+        throw std::runtime_error("Invalid SeedPositionTrigger shape type");
+    }
+};
+NLOHMANN_JSON_NAMESPACE_END
