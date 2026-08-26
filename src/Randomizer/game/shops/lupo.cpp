@@ -168,11 +168,26 @@ namespace {
         UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, color);
 
         const auto name_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
+        const auto description_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
+
+        name_message_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Top;
+        name_message_box->fields.TextBox->fields.maxHeight = 8.f;
+
+        description_message_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Top;
+        description_message_box->fields.TextBox->fields.maxHeight = 8.f;
+
         name_message_box->fields.MessageProvider = core::api::system::create_message_provider(slot.name);
+        description_message_box->fields.MessageProvider = core::api::system::create_message_provider(slot.description);
+
         MessageBox::RefreshText_1(name_message_box);
 
-        const auto description_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
-        description_message_box->fields.MessageProvider = core::api::system::create_message_provider(slot.description);
+        const auto name_message_box_position = il2cpp::unity::get_local_position(name_message_box);
+        il2cpp::unity::set_local_position(
+            description_message_box,
+            // 0.4f is the in-game scaling factor of the name box, 0.2f for margin between the two boxes
+            {name_message_box_position.x, name_message_box_position.y + name_message_box->fields.TextBox->fields.boundsBottom * 0.4f - 0.2f, 0.f}
+        );
+
         MessageBox::RefreshText_1(description_message_box);
 
         GameObject::SetActive(this_ptr->fields.PurchasableGO, !owned && can_purchase);

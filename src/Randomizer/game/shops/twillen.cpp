@@ -178,6 +178,12 @@ namespace randomizer::game::shops::twillen {
             auto* const name_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
             auto* const description_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
 
+            name_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Top;
+            name_box->fields.TextBox->fields.maxHeight = 8.f;
+
+            description_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Top;
+            description_box->fields.TextBox->fields.maxHeight = 8.f;
+
             if (overwrite_shard) {
                 name_box->fields.MessageProvider = core::api::system::create_message_provider(slot->name);
                 description_box->fields.MessageProvider = core::api::system::create_message_provider(slot->description);
@@ -192,6 +198,14 @@ namespace randomizer::game::shops::twillen {
             }
 
             MessageBox::RefreshText_1(name_box);
+
+            const auto name_box_position = il2cpp::unity::get_local_position(name_box);
+            il2cpp::unity::set_local_position(
+                description_box,
+                // 0.4f is the in-game scaling factor of the name box, 0.2f for margin between the two boxes
+                {name_box_position.x, name_box_position.y + name_box->fields.TextBox->fields.boundsBottom * 0.4f - 0.2f, 0.f}
+            );
+
             MessageBox::RefreshText_1(description_box);
             SpiritShardUIShardDetails::UpdateUpgradeDetails(this_ptr);
 

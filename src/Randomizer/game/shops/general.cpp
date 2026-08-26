@@ -153,7 +153,9 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, ShopkeeperUIDetails, UpdateDetails, app::ShopkeeperUIDetails* this_ptr) {
-        if (!is_in_shop(ShopType::Opher) && !is_in_shop(ShopType::Grom) && !is_in_shop(ShopType::Tuley)) {
+        const auto is_in_opher_shop = is_in_shop(ShopType::Opher);
+
+        if (!is_in_opher_shop && !is_in_shop(ShopType::Grom) && !is_in_shop(ShopType::Tuley)) {
             next::ShopkeeperUIDetails::UpdateDetails(this_ptr);
             return;
         }
@@ -170,6 +172,12 @@ namespace {
         auto* const description_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
         const auto is_locked = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsLocked")->fields;
 
+        name_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Top;
+        name_box->fields.TextBox->fields.maxHeight = 8.f;
+
+        description_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Top;
+        description_box->fields.TextBox->fields.maxHeight = 8.f;
+
         name_box->fields.MessageProvider = name_provider;
         description_box->fields.MessageProvider = description_provider;
 
@@ -184,6 +192,15 @@ namespace {
         description_box->fields.MessageProvider = description_provider;
 
         MessageBox::RefreshText_1(name_box);
+
+        const auto name_box_position = il2cpp::unity::get_local_position(name_box);
+        il2cpp::unity::set_local_position(
+            description_box,
+            // 0.4f is the in-game scaling factor of the name box, in Opher's shop there's already enough margin between
+            // the two boxes so we don't need additional margin. Otherwise 0.2f margin
+            {name_box_position.x, name_box_position.y + name_box->fields.TextBox->fields.boundsBottom * 0.4f - (is_in_opher_shop ? 0.f : 0.2f), 0.f}
+        );
+
         MessageBox::RefreshText_1(description_box);
 
         if (this_ptr->fields.ShowEquipStatus) {
