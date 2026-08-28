@@ -535,7 +535,7 @@ namespace core::api::messages {
             Renderer::set_sortingOrder(renderer, ++next_sort_order);
 
             auto depth_flip_screen = UberShaderAPI::GetVector(renderer, app::UberShaderProperty_Vector__Enum::DepthFlipScreen);
-            UberShaderAPI::SetVector_1(renderer, app::UberShaderProperty_Vector__Enum::DepthFlipScreen, {-1, depth_flip_screen.y, depth_flip_screen.z, depth_flip_screen.w});
+            UberShaderAPI::SetVector_1(renderer, app::UberShaderProperty_Vector__Enum::DepthFlipScreen, {-3, depth_flip_screen.y, depth_flip_screen.z, depth_flip_screen.w});
         }
     }
 
