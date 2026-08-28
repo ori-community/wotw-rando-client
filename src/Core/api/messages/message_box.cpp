@@ -485,6 +485,10 @@ namespace core::api::messages {
     }
 
     void MessageBox::on_fixed_update() const {
+        if (!il2cpp::unity::get_active(m_game_object)) {
+            return;
+        }
+
         if (m_message_box == nullptr) {
             return;
         }
@@ -498,6 +502,10 @@ namespace core::api::messages {
     }
 
     void MessageBox::on_after_unity_update() {
+        if (!il2cpp::unity::get_active(m_game_object)) {
+            return;
+        }
+
         if (get_visibility() == Visibility::Hidden) {
             // Nothing to update here.
             return;
@@ -516,10 +524,6 @@ namespace core::api::messages {
         }
 
         if (m_message_box->fields.Visibility->fields.m_renderers == nullptr) {
-            return;
-        }
-
-        if (!il2cpp::unity::get_active(m_game_object)) {
             return;
         }
 
