@@ -110,6 +110,17 @@ namespace randomizer::seed {
         );
 
         [[nodiscard]] bool is_inside(const app::Vector2& point) const;
+
+        // Keep runtime state when assigning
+        SeedPositionTrigger& operator=(const SeedPositionTrigger& other) {
+            if (this == &other) {
+                return *this;
+            }
+            shape = other.shape;
+            on_enter_command_id = other.on_enter_command_id;
+            on_leave_command_id = other.on_leave_command_id;
+            return *this;
+        }
     };
 
     struct FreeMessageBox {
