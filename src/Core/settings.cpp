@@ -101,6 +101,10 @@ namespace core::settings {
         return get_settings().get_float("CameraShakeIntensity", 1.f);
     }
 
+    bool disable_health_and_energy_bar_animations() {
+        return get_settings().get_boolean("DisableHealthAndEnergyBarAnimations", true);
+    }
+
     float map_pan_speed() {
         return get_settings().get_float("MapPanSpeed", 1.f);
     }
@@ -187,6 +191,10 @@ namespace core::settings {
 
     void camera_shake_intensity(float value) {
         get_settings().overrides()["CameraShakeIntensity"] = value;
+    }
+
+    void disable_health_and_energy_bar_animations(bool value) {
+        get_settings().overrides()["DisableHealthAndEnergyBarAnimations"] = value;
     }
 
     void shriek_is_shrek(bool value) {

@@ -29,6 +29,7 @@ namespace core::settings {
     CORE_DLLEXPORT bool enable_native_controller_support();
     CORE_DLLEXPORT bool show_transparent_out_of_logic_icons();
     CORE_DLLEXPORT float camera_shake_intensity();
+    CORE_DLLEXPORT bool disable_health_and_energy_bar_animations();
     CORE_DLLEXPORT float map_pan_speed();
     CORE_DLLEXPORT bool shriek_is_shrek();
     CORE_DLLEXPORT bool enable_minimap();
@@ -53,6 +54,7 @@ namespace core::settings {
     CORE_DLLEXPORT void enable_world_map(bool value);
     CORE_DLLEXPORT void show_transparent_out_of_logic_icons(bool value);
     CORE_DLLEXPORT void camera_shake_intensity(float value);
+    CORE_DLLEXPORT void disable_health_and_energy_bar_animations(bool value);
     CORE_DLLEXPORT void shriek_is_shrek(bool value);
     CORE_DLLEXPORT void enable_minimap(bool value);
     CORE_DLLEXPORT void enable_automatic_cutscene_skipping(bool value);
