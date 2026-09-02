@@ -251,7 +251,7 @@ namespace randomizer::timing {
         void report_async_loading_time_spent(float time, AsyncLoadingState reason);
 
         void report_respawn();
-        
+
         void report_checkpoint_created();
 
         void set_discovered_item(std::size_t id, DiscoveredItem item);
@@ -260,11 +260,11 @@ namespace randomizer::timing {
 
         std::vector<std::byte> serialize() override;
 
-        void deserialize(core::utils::ByteStream& stream) override;
+        void deserialize(core::utils::ConstByteStream& stream) override;
 
     private:
         void serialize_event_stream(core::utils::ByteStream& stream);
-        void deserialize_event_stream(core::utils::ByteStream& stream);
+        void deserialize_event_stream(core::utils::ConstByteStream& stream);
 
         std::vector<event_t> m_event_stream;
     };

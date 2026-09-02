@@ -54,7 +54,7 @@ namespace core::save_meta {
         return this->serialize();
     }
 
-    void SaveMetaSerializable::load(core::utils::ByteStream& stream) {
+    void SaveMetaSerializable::load(core::utils::ConstByteStream& stream) {
         this->deserialize(stream);
     }
 
@@ -66,7 +66,7 @@ namespace core::save_meta {
         return stream.buffer;
     }
 
-    void CborSaveMetaSerializable::deserialize(core::utils::ByteStream& stream) {
+    void CborSaveMetaSerializable::deserialize(core::utils::ConstByteStream& stream) {
         const auto size = stream.read<uint64_t>();
         const auto data = stream.read(size);
         auto json = nlohmann::json::from_cbor(data);
@@ -118,7 +118,7 @@ namespace core::save_meta {
             SaveMetaSlotPersistence minimum_persistence = SaveMetaSlotPersistence::None,
             bool exclude_persistences = false
         ) {
-            core::utils::ByteStream stream(data);
+            core::utils::ConstByteStream stream(data);
 
             if (stream.peek<uint32_t>() == SAVE_META_FILE_MAGIC) {
                 stream.skip<uint32_t>();
@@ -159,14 +159,14 @@ namespace core::save_meta {
                             continue;
                         }
 
-                        auto buffer = stream.read(length);
+                        auto buffer = stream.read_copied(length);
 
                         if (!slot_config.last_saved_data_initialized) {
                             slot_config.last_saved_data = buffer;
                             slot_config.last_saved_data_initialized = true;
                         }
 
-                        core::utils::ByteStream slot_data(buffer);
+                        core::utils::ConstByteStream slot_data(buffer);
                         slots[slot].handler->load(slot_data);
                     }
 
@@ -179,7 +179,7 @@ namespace core::save_meta {
                 info("save_meta", "Save file did not start with magic byte. Skipping.");
             }
 
-            auto remaining_bytes = stream.peek_to_end();
+            auto remaining_bytes = stream.copy_to_end();
             return SaveMetaReadResult{
                 static_cast<uint64_t>(remaining_bytes.size()),
                 stream.position,
@@ -306,7 +306,7 @@ namespace core::save_meta {
 
             // Append vanilla game save data and return
             stream.write(game_save_data.peek_to_end());
-            return types::Byte::create_array(stream.peek_to_end());
+            return types::Byte::create_array(stream.copy_to_end());
         }
 
         IL2CPP_INTERCEPT(void, DeathUberStateManager, OnDeath) {
@@ -314,6 +314,7 @@ namespace core::save_meta {
             next::DeathUberStateManager::OnDeath();
         }
 
+        [[maybe_unused]]
         auto on_new_game_handle = api::game::event_bus().register_handler(
             GameEvent::NewGame,
             EventTiming::Before,
@@ -359,9 +360,9 @@ namespace core::save_meta {
                     continue;
                 }
 
-                const auto buffer = stream.read(length);
+                const auto buffer = stream.read_copied(length);
 
-                core::utils::ByteStream slot_data(buffer);
+                core::utils::ConstByteStream slot_data(buffer);
                 slots_to_read.at(slot)->load(slot_data);
 
                 successfully_read_slots.emplace(slot);

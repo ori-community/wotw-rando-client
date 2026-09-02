@@ -1,25 +1,55 @@
 #pragma once
 
+#include <Modloader/app/structs/Byte__Array.h>
+#include <optional>
 #include <string>
 #include <vector>
-#include <Core/macros.h>
-#include <Modloader/app/structs/Byte__Array.h>
+#include <ranges>
 
 namespace core::utils {
-    struct CORE_DLLEXPORT ByteStream {
-        std::vector<std::byte> buffer;
+    template<bool is_const = false>
+    struct ByteStreamImpl {
+        using buffer_type = std::conditional_t<
+            is_const,
+            const std::vector<std::byte>,
+            std::vector<std::byte>
+        >;
+
+        std::optional<buffer_type> internal_buffer = std::nullopt;
+        buffer_type& buffer;
         size_t position = 0;
 
-        ByteStream();
-        explicit ByteStream(const std::vector<std::byte>& buffer);
-        explicit ByteStream(const app::Byte__Array* buffer);
+        ByteStreamImpl(): internal_buffer(std::vector<std::byte>{}), buffer(*internal_buffer) {}
+
+        explicit ByteStreamImpl(buffer_type& buffer) : buffer(buffer) {}
+
+        explicit ByteStreamImpl(const app::Byte__Array* buffer) : internal_buffer(
+            std::vector(
+                reinterpret_cast<const std::byte*>(buffer->vector),
+                reinterpret_cast<const std::byte*>(buffer->vector) + sizeof(std::byte) * buffer->max_length
+            )
+        ), buffer(*internal_buffer) {}
 
         [[nodiscard]]
-        bool available() const;
+        bool available() const {
+            return this->position < this->buffer.size();
+        }
 
-        std::vector<std::byte> peek_to_end();
+        std::ranges::subrange<typename buffer_type::const_iterator> peek_to_end() {
+            return { this->buffer.cbegin() + this->position, this->buffer.cend() };
+        }
 
-        std::vector<std::byte> peek(size_t length);
+        std::ranges::subrange<typename buffer_type::const_iterator> peek(const size_t length) {
+            return { this->buffer.cbegin() + this->position, this->buffer.cbegin() + this->position + length };
+        }
+
+        buffer_type copy_to_end() {
+            return { this->buffer.cbegin() + this->position, this->buffer.cend() };
+        }
+
+        buffer_type copy(const size_t length) {
+            return { this->buffer.cbegin() + this->position, this->buffer.cbegin() + this->position + length };
+        }
 
         template <typename T = std::byte>
         void write(T data) {
@@ -36,15 +66,19 @@ namespace core::utils {
         }
 
         template <typename T = std::byte>
-        T peek() const {
+        const T& peek() const {
             return *reinterpret_cast<const T*>(&this->buffer[this->position]);
         }
 
         [[nodiscard]]
-        std::string peek_string(size_t length) const;
+        std::string_view peek_string(const size_t length) const {
+            return {reinterpret_cast<const char*>(&this->buffer[this->position]), length};
+        }
 
         [[nodiscard]]
-        std::string peek_with_length() const;
+        std::string_view peek_with_length() const {
+            return {reinterpret_cast<const char*>(&this->buffer[this->position + sizeof(uint64_t)]), peek<uint64_t>()};
+        }
 
         template <typename T = std::byte>
         void skip() {
@@ -52,24 +86,52 @@ namespace core::utils {
         }
 
         template <typename T = std::byte>
-        T read() {
-            auto value = peek<T>();
+        const T& read() {
+            const auto& value = peek<T>();
             skip<T>();
             return value;
         }
 
-        void read(std::byte* source_buffer, size_t length);
+        void skip(const size_t count) {
+            this->position += count;
+        }
 
-        std::vector<std::byte> read(size_t length);
+        void write(const std::byte* data, const size_t length) {
+            this->buffer.insert(this->buffer.end(), data, data + length);
+        }
 
-        std::string read_string(size_t length);
+        void write(const buffer_type::iterator& data) {
+            this->buffer.insert(this->buffer.end(), data.begin(), data.end());
+        }
 
-        std::string read_string_with_length();
+        void read(std::byte* source_buffer, const size_t length) {
+            memcpy(source_buffer, this->buffer.data() + this->position, length);
+            skip(length);
+        }
 
-        void skip(size_t count);
+        std::ranges::subrange<typename buffer_type::const_iterator> read(const size_t length) {
+            const auto& value = peek(length);
+            skip(length);
+            return value;
+        }
 
-        void write(const std::byte* data, size_t length);
+        buffer_type read_copied(const size_t length) {
+            const auto& value = peek(length);
+            skip(length);
+            return buffer_type(value.begin(), value.end());
+        }
 
-        void write(const std::vector<std::byte>& data);
+        std::string_view read_string(const size_t length) {
+            const auto value = peek_string(length);
+            skip(length);
+            return value;
+        }
+
+        std::string_view read_string_with_length() {
+            return read_string(read<uint64_t>());
+        }
     };
+
+    using ByteStream = ByteStreamImpl<false>;
+    using ConstByteStream = ByteStreamImpl<true>;
 } // namespace utils

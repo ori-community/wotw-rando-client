@@ -216,7 +216,7 @@ namespace randomizer::seed {
 
     std::vector<std::byte> SeedArchiveSaveMetaData::save() { return seed_archive != nullptr ? seed_archive->get_archive_data() : std::vector<std::byte>{}; }
 
-    void SeedArchiveSaveMetaData::load(core::utils::ByteStream& stream) {
+    void SeedArchiveSaveMetaData::load(core::utils::ConstByteStream& stream) {
         seed_archive = std::make_shared<SeedArchive>(stream.buffer);
 
         if (m_load_seed_when_slot_loaded) {

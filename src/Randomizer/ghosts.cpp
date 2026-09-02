@@ -219,10 +219,10 @@ namespace ghosts {
         this->ghost_player->fields.GhostRecorderData->fields.CurrentVersion = 8;
         this->ghost_player->fields.GhostRecorderData->fields.Duration = FLT_MAX;
 
-        core::utils::ByteStream stream(frame_data);
+        core::utils::ConstByteStream stream(frame_data);
         plugins::play_rando_ghost_plugins(stream, *this);
 
-        auto data = stream.peek_to_end();
+        auto data = stream.copy_to_end();
         auto ghost_frame = ghosts::deserialize_frame(data);
         ghost_frame->fields.Time = 0.f;
 

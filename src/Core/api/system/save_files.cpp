@@ -23,7 +23,7 @@ namespace core::api::save_files {
     }
 
     std::vector<std::byte> get_bytes(int slot_index, int backup_index) {
-        return core::utils::ByteStream(get_byte_array(slot_index, backup_index)).peek_to_end();
+        return core::utils::ConstByteStream(get_byte_array(slot_index, backup_index)).copy_to_end();
     }
 }
 

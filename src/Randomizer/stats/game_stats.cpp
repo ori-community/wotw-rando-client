@@ -44,7 +44,7 @@ namespace randomizer::timing {
         return stream.buffer;
     }
 
-    void SaveFileGameStats::deserialize(core::utils::ByteStream& stream) {
+    void SaveFileGameStats::deserialize(core::utils::ConstByteStream& stream) {
         time_since_last_checkpoint = 0.f;
         deserialize_event_stream(stream);
     }
@@ -138,7 +138,7 @@ namespace randomizer::timing {
         }
     }
 
-    void SaveFileGameStats::deserialize_event_stream(core::utils::ByteStream& stream) {
+    void SaveFileGameStats::deserialize_event_stream(core::utils::ConstByteStream& stream) {
         m_event_stream.clear();
 
         float time = 0.f;
@@ -180,7 +180,7 @@ namespace randomizer::timing {
                     m_event_stream.emplace_back(TimelineEntryEvent(
                         time,
                         id,
-                        label,
+                        std::string(label),
                         icon,
                         type
                     ));

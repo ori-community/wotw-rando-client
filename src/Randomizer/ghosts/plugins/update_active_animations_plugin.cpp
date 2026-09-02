@@ -101,7 +101,7 @@ namespace ghosts::plugins {
         return {};
     }
 
-    void UpdateActiveAnimationsPlugin::play(core::utils::ByteStream& stream, RandoGhost& ghost) {
+    void UpdateActiveAnimationsPlugin::play(core::utils::ConstByteStream& stream, RandoGhost& ghost) {
         auto puppets_count = stream.read<int>();
 
         std::unordered_map<int, std::unordered_map<int, ActiveAnimation>> desired_active_animations_map;

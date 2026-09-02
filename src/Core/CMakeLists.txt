@@ -75,7 +75,6 @@ set(
         "property/reactivity.cpp"
         "save_meta/save_meta.cpp"
         "settings.cpp"
-        "utils/byte_stream.cpp"
         "utils/color.cpp"
         "utils/json_serializers.cpp"
         "utils/misc.cpp"

@@ -191,7 +191,7 @@ namespace randomizer::seed {
         std::shared_ptr<SeedArchive> seed_archive;
 
         std::vector<std::byte> save() override;
-        void load(core::utils::ByteStream& stream) override;
+        void load(core::utils::ConstByteStream& stream) override;
 
     private:
         bool m_load_seed_when_slot_loaded = false;
