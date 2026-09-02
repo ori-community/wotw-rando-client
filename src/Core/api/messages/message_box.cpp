@@ -531,11 +531,11 @@ namespace core::api::messages {
         // https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Renderer-sortingOrder.html
         auto next_sort_order = 32767 - m_message_box->fields.Visibility->fields.m_renderers->max_length;
         for (auto& renderer: il2cpp::ArrayIterator(m_message_box->fields.Visibility->fields.m_renderers)) {
-            Renderer::set_sortingLayerID(renderer, UberShaderRenderQueue::RenderlayerFromZ(-3));
+            Renderer::set_sortingLayerID(renderer, UberShaderRenderQueue::RenderlayerFromZ(-2));
             Renderer::set_sortingOrder(renderer, ++next_sort_order);
 
-            auto depth_flip_screen = UberShaderAPI::GetVector(renderer, app::UberShaderProperty_Vector__Enum::DepthFlipScreen);
-            UberShaderAPI::SetVector_1(renderer, app::UberShaderProperty_Vector__Enum::DepthFlipScreen, {-3, depth_flip_screen.y, depth_flip_screen.z, depth_flip_screen.w});
+            const auto depth_flip_screen = UberShaderAPI::GetVector(renderer, app::UberShaderProperty_Vector__Enum::DepthFlipScreen);
+            UberShaderAPI::SetVector_1(renderer, app::UberShaderProperty_Vector__Enum::DepthFlipScreen, {-2, depth_flip_screen.y, depth_flip_screen.z, depth_flip_screen.w});
         }
     }
 
