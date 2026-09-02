@@ -1,11 +1,11 @@
 #pragma once
 
-#include "archive.h"
+#include <Randomizer/seed/archive.h>
 
 
 #include <Randomizer/seed/seed_source.h>
 
-#include <Core/enums/game_areas.h>
+#include <Common/json/optional.h>
 #include <Core/property.h>
 
 #include <Randomizer/seed/instructions.h>
@@ -17,26 +17,7 @@
 #include <nlohmann/json.hpp>
 #include <unordered_map>
 
-template<typename T>
-struct nlohmann::adl_serializer<std::optional<T>> {
-    static void from_json(const json& j, std::optional<T>& opt) {
-        if (j.is_null()) {
-            opt = std::nullopt;
-        } else {
-            opt = j.get<T>();
-        }
-    }
-    static void to_json(json& json, std::optional<T> t) {
-        if (t) {
-            json = *t;
-        } else {
-            json = nullptr;
-        }
-    }
-};
-
 namespace randomizer::seed {
-
     struct SeedData {
         using command_t = std::vector<std::unique_ptr<IInstruction>>;
         struct Condition {

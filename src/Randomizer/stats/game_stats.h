@@ -3,6 +3,7 @@
 #include <Core/enums/game_areas.h>
 #include <Core/enums/async_loading_state.h>
 #include <Core/save_meta/save_meta.h>
+#include <Common/json/optional.h>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
 #include <utility>
@@ -93,7 +94,7 @@ namespace randomizer::timing {
         CurrentArea,
     };
 
-    class SaveFileGameStats : public core::save_meta::SaveMetaSerializable {
+    class SaveFileGameStats : public core::save_meta::CborSaveMetaSerializable {
     public:
         struct DiscoveredItem {
             float x;
@@ -256,16 +257,37 @@ namespace randomizer::timing {
 
         void set_discovered_item(std::size_t id, DiscoveredItem item);
 
+        [[nodiscard]]
         float get_total_async_loading_time() const;
 
-        std::vector<std::byte> serialize() override;
+        nlohmann::json json_serialize() override;
 
-        void deserialize(core::utils::ConstByteStream& stream) override;
+        void json_deserialize(nlohmann::json& j) override;
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
+            SaveFileGameStats,
+            m_events_stream_file_id
+        );
+
+        SaveFileGameStats();
+
+        void serialize_event_stream(core::utils::ByteStream& stream);
 
     private:
-        void serialize_event_stream(core::utils::ByteStream& stream);
+        void serialize_partial_event_stream(size_t offset, core::utils::ByteStream& stream);
         void deserialize_event_stream(core::utils::ConstByteStream& stream);
 
         std::vector<event_t> m_event_stream;
+
+        struct EventsStreamFile {
+            core::MoodGuid guid;
+            std::size_t events_written;
+        };
+
+        /** Information about the events stream file that is currently active, i.e. that is written to */
+        std::optional<EventsStreamFile> m_current_events_stream_file;
+
+        /** Random ID, the file must start with this ID */
+        uint64_t m_events_stream_file_id = 0;
     };
 } // namespace randomizer::timing

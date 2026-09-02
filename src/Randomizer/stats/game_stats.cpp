@@ -1,14 +1,44 @@
 #include <Randomizer/stats/game_stats.h>
+
 #include <Common/vx.h>
-#include <Randomizer/map/map_icons.h>
-#include <Modloader/interception_macros.h>
 #include <Modloader/app/methods/GameTimer.h>
 #include <Modloader/app/methods/GameWorld.h>
 #include <Modloader/app/methods/SaveSlotInfo.h>
+#include <Modloader/app/methods/SaveGameController.h>
+#include <Modloader/app/methods/SaveSlotsManager.h>
+#include <Modloader/interception_macros.h>
+#include <Randomizer/map/map_icons.h>
 #include <Randomizer/tracking/game_tracker.h>
+#include <random>
+
+#include "Core/api/system/save_files.h"
+#include "Modloader/fs.h"
+#include "Modloader/modloader.h"
+#include "packets.pb.h"
 
 
 namespace randomizer::timing {
+    using namespace app::classes;
+
+    constexpr std::string_view EVENT_STREAMS_DIRECTORY = "event_streams";
+
+    namespace {
+        std::filesystem::path get_events_stream_files_directory() {
+            return modloader::fs::get_randomizer_user_data_path(EVENT_STREAMS_DIRECTORY);
+        }
+
+        std::filesystem::path get_events_stream_file_path_for_guid(const core::MoodGuid& guid) {
+            return get_events_stream_files_directory() /
+                std::format(
+                    "{:X}-{:X}-{:X}-{:X}.evs",
+                    guid.A,
+                    guid.B,
+                    guid.C,
+                    guid.D
+                );
+        }
+    }
+
     void SaveFileGameStats::report_in_game_time_spent(GameArea area, float time) {
         this->in_game_time += time;
         this->time_since_last_checkpoint += time;
@@ -32,21 +62,84 @@ namespace randomizer::timing {
 
     float SaveFileGameStats::get_total_async_loading_time() const {
         float total = 0.f;
-        for (const auto& item : this->async_loading_times) {
-            total += item.second;
+        for (const auto& val: this->async_loading_times | std::views::values) {
+            total += val;
         }
         return total;
     }
 
-    std::vector<std::byte> SaveFileGameStats::serialize() {
+    nlohmann::json SaveFileGameStats::json_serialize() {
+        const auto save_guid = core::save_meta::get_current_save_guid();
+        const auto path = get_events_stream_file_path_for_guid(save_guid);
+        auto is_new_file = false;
+
+        if (!m_current_events_stream_file.has_value()) {
+            const auto directory_path = get_events_stream_files_directory();
+
+            if (!std::filesystem::is_directory(directory_path)) {
+                std::filesystem::create_directory(directory_path);
+            }
+
+            if (std::filesystem::exists(path)) {
+                std::filesystem::remove(path);
+            }
+
+            is_new_file = true;
+            m_current_events_stream_file = EventsStreamFile(
+                save_guid,
+                0
+            );
+        }
+
         core::utils::ByteStream stream;
-        serialize_event_stream(stream);
-        return stream.buffer;
+
+        if (is_new_file) {
+            stream.write(m_events_stream_file_id);
+        }
+
+        serialize_partial_event_stream(m_current_events_stream_file->events_written, stream);
+        modloader::debug("game_stats", std::format("Serialized {} bytes of event stream data", stream.buffer.size()));
+        std::ofstream file_stream(path, std::ios::binary | std::ios::out | std::ios::app);
+        file_stream.write(reinterpret_cast<const char*>(stream.buffer.data()), stream.buffer.size());
+        file_stream.close();
+        m_current_events_stream_file->events_written = m_event_stream.size();
+
+        return *this;
     }
 
-    void SaveFileGameStats::deserialize(core::utils::ConstByteStream& stream) {
+    void SaveFileGameStats::json_deserialize(nlohmann::json& j) {
         time_since_last_checkpoint = 0.f;
-        deserialize_event_stream(stream);
+        j.get_to(*this);
+
+        const auto save_guid = core::save_meta::get_current_save_guid();
+
+        const auto save_guid_has_changed = save_guid != m_current_events_stream_file.transform([](auto& file) { return file.guid; });
+        if (save_guid_has_changed) {
+            m_current_events_stream_file = std::nullopt;
+
+            const auto path = get_events_stream_file_path_for_guid(save_guid);
+
+            if (!std::filesystem::exists(path)) {
+                return;
+            }
+
+            std::basic_ifstream<std::byte> file(path, std::ios::binary);
+            file.unsetf(std::ios::skipws);
+
+            if (file.is_open()) {
+                const std::vector bytes(std::istreambuf_iterator{file}, {});
+                core::utils::ConstByteStream stream(bytes);
+
+                if (stream.read<uint64_t>() != m_events_stream_file_id) {
+                    file.close();
+                    std::filesystem::resize_file(path, 0);
+                    return;
+                }
+
+                deserialize_event_stream(stream);
+                m_current_events_stream_file = EventsStreamFile(save_guid, m_event_stream.size());
+            }
+        }
     }
 
     void SaveFileGameStats::report_position(const app::Vector2& position) {
@@ -99,8 +192,34 @@ namespace randomizer::timing {
         }
     }
 
+    SaveFileGameStats::SaveFileGameStats() {
+        std::random_device rng;
+        std::mt19937_64 generator(rng());
+        std::uniform_int_distribution<uint64_t> distribution;
+        m_events_stream_file_id = distribution(generator);
+    }
+
     void SaveFileGameStats::serialize_event_stream(core::utils::ByteStream& stream) {
-        for (const auto& e: m_event_stream) {
+        serialize_partial_event_stream(0, stream);
+    }
+
+    void SaveFileGameStats::serialize_partial_event_stream(std::size_t offset, core::utils::ByteStream& stream) {
+        if (offset > m_event_stream.size()) {
+            throw std::out_of_range(
+                std::format(
+                    "Failed to serialize event stream: Offset {} is out of range {}",
+                    offset,
+                    m_event_stream.size()
+                )
+            );
+        }
+
+        auto it = m_event_stream.begin();
+        it += offset;
+
+        while (it != m_event_stream.end()) {
+            const auto& e = *it;
+
             stream.write(static_cast<std::uint32_t>(e.index()));
 
             std::visit([&](auto&& event) {
@@ -135,6 +254,8 @@ namespace randomizer::timing {
                     stream.write(event.value);
                 },
             };
+
+            ++it;
         }
     }
 
@@ -229,6 +350,33 @@ namespace randomizer::timing {
             }
 
             return static_cast<float>(COLLECTED_PICKUPS_STATE.get<int>()) / static_cast<float>(total_pickups);
+        }
+
+        void purge_event_stream_files() {
+            std::unordered_set<std::filesystem::path> referenced_event_stream_files;
+
+            for (int i = 0; i < SaveSlotsManager::get_SaveSlotCount(); ++i) {
+                const auto slot_info = SaveSlotsManager::SlotByIndex(i);
+                if (slot_info != nullptr && !slot_info->fields.ErrorWhileLoading) {
+                    const auto save_data = core::api::save_files::get_byte_array(i);
+                    const auto guid = core::save_meta::read_guid_from_save(save_data);
+
+                    if (guid.has_value()) {
+                        referenced_event_stream_files.insert(get_events_stream_file_path_for_guid(*guid));
+                    }
+                }
+            }
+
+            for (const auto& entry: std::filesystem::directory_iterator(get_events_stream_files_directory())) {
+                if (entry.is_regular_file() && entry.path().extension() == ".evs" && !referenced_event_stream_files.contains(entry.path())) {
+                    std::filesystem::remove(entry.path());
+                }
+            }
+        }
+
+        IL2CPP_INTERCEPT(void, SaveSlotsManager, DeleteSlot, int32_t index) {
+            next::SaveSlotsManager::DeleteSlot(index);
+            purge_event_stream_files();
         }
     }
 } // namespace randomizer::timing

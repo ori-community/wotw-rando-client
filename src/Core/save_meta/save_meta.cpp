@@ -34,8 +34,6 @@ namespace core::save_meta {
         };
 
         std::unordered_map<SaveMetaSlot, SaveMetaSlotConfiguration> slots;
-
-        common::EventBus<app::Byte__Array*> _before_uber_value_store_loaded_event_bus;
     }
 
     void register_slot(SaveMetaSlot slot, SaveMetaSlotPersistence persistence, std::shared_ptr<SaveMetaHandler> handler) {
@@ -73,30 +71,30 @@ namespace core::save_meta {
         this->json_deserialize(json);
     }
 
+    std::optional<MoodGuid> read_guid_from_save(const app::Byte__Array* data) {
+        core::utils::ConstByteStream stream(data);
+
+        if (stream.peek<uint32_t>() == SAVE_META_FILE_MAGIC) {
+            stream.skip<uint32_t>();
+            const auto version = stream.read<uint32_t>();
+
+            if (version != SAVE_META_FILE_VERSION) {
+                return std::nullopt;
+            }
+
+            return stream.read<MoodGuid>();
+        }
+
+        // Non-rando save
+        return std::nullopt;
+    }
+
     namespace {
         bool is_loading_save_file = false;
         bool is_loading_backup = false;
         bool is_dying = false;
         MoodGuid previous_save_guid;
         MoodGuid current_save_guid;
-
-        MoodGuid read_guid_from_save(app::Byte__Array* data) {
-            core::utils::ByteStream stream(data);
-
-            if (stream.peek<uint32_t>() == SAVE_META_FILE_MAGIC) {
-                stream.skip<uint32_t>();
-                const auto version = stream.read<uint32_t>();
-
-                if (version != SAVE_META_FILE_VERSION) {
-                    return {};
-                }
-
-                return stream.read<MoodGuid>();
-            }
-
-            // Non-rando save, return random GUID
-            return {};
-        }
 
         struct SaveMetaReadResult {
             uint64_t vanilla_data_size;
@@ -129,6 +127,12 @@ namespace core::save_meta {
                     warn("save_meta", std::format("Tried to read save file with incompatible version {}", version));
                 } else {
                     auto guid = stream.read<MoodGuid>();
+
+                    if (load) {
+                        previous_save_guid = current_save_guid;
+                        current_save_guid = guid;
+                    }
+
                     auto slot_count = stream.read<uint32_t>();
 
                     info("save_meta", std::format("Reading {} SaveMeta slots from save file {},{},{},{}", slot_count, guid.A, guid.B, guid.C, guid.D));
@@ -169,11 +173,6 @@ namespace core::save_meta {
                         core::utils::ConstByteStream slot_data(buffer);
                         slots[slot].handler->load(slot_data);
                     }
-
-                    if (load) {
-                        previous_save_guid = current_save_guid;
-                        current_save_guid = guid;
-                    }
                 }
             } else {
                 info("save_meta", "Save file did not start with magic byte. Skipping.");
@@ -187,9 +186,7 @@ namespace core::save_meta {
             };
         }
 
-        core::utils::ByteStream get_save_meta_data(SaveMetaSlotPersistence minimum_persistence = SaveMetaSlotPersistence::None) {
-            core::utils::ByteStream stream;
-
+        void write_save_meta_data(core::utils::ByteStream& stream, SaveMetaSlotPersistence minimum_persistence = SaveMetaSlotPersistence::None) {
             stream.write<uint32_t>(SAVE_META_FILE_MAGIC);
             stream.write<uint32_t>(SAVE_META_FILE_VERSION);
             stream.write<MoodGuid>(current_save_guid);
@@ -209,8 +206,6 @@ namespace core::save_meta {
                 item.second.last_saved_data = data;
                 item.second.last_saved_data_initialized = true;
             }
-
-            return stream;
         }
 
         SaveMetaReadResult read_save_meta_from_byte_array_with_current_parameters(app::Byte__Array* data) {
@@ -236,12 +231,12 @@ namespace core::save_meta {
         }
 
         IL2CPP_INTERCEPT(void, Moon::UberStateValueStore, ctor_2, app::UberStateValueStore * this_ptr, app::Byte__Array* data) {
-            _before_uber_value_store_loaded_event_bus.trigger_event(data);
+            before_uber_value_store_loaded_event_bus().trigger_event(data);
             next::Moon::UberStateValueStore::ctor_2(this_ptr, read_save_meta_from_byte_array_with_current_parameters(data).vanilla_data);
         }
 
         IL2CPP_INTERCEPT(void, Moon::UberStateValueStore, ctor_3, app::UberStateValueStore * this_ptr, app::Byte__Array* data, int actual_size) {
-            _before_uber_value_store_loaded_event_bus.trigger_event(data);
+            before_uber_value_store_loaded_event_bus().trigger_event(data);
             auto result = read_save_meta_from_byte_array_with_current_parameters(data);
             next::Moon::UberStateValueStore::ctor_3(this_ptr, result.vanilla_data, result.vanilla_data_size);
         }
@@ -299,10 +294,11 @@ namespace core::save_meta {
         }
 
         IL2CPP_INTERCEPT(app::Byte__Array*, Moon::UberStateValueStore, ToByteArray, app::UberStateValueStore * this_ptr) {
-            core::utils::ByteStream game_save_data(next::Moon::UberStateValueStore::ToByteArray(this_ptr));
+            core::utils::ConstByteStream game_save_data(next::Moon::UberStateValueStore::ToByteArray(this_ptr));
 
             // Get SaveMeta data
-            auto stream = get_save_meta_data(is_dying ? SaveMetaSlotPersistence::ThroughDeaths : SaveMetaSlotPersistence::None);
+            core::utils::ByteStream stream;
+            write_save_meta_data(stream, is_dying ? SaveMetaSlotPersistence::ThroughDeaths : SaveMetaSlotPersistence::None);
 
             // Append vanilla game save data and return
             stream.write(game_save_data.peek_to_end());
@@ -325,7 +321,8 @@ namespace core::save_meta {
     } // namespace
 
     common::EventBus<app::Byte__Array*>& before_uber_value_store_loaded_event_bus() {
-        return _before_uber_value_store_loaded_event_bus;
+        static common::EventBus<app::Byte__Array*> bus;
+        return bus;
     }
 
     std::unordered_set<SaveMetaSlot> read_save_meta_slots_from_byte_array(

@@ -538,8 +538,9 @@ namespace randomizer::timing {
                     [](const nlohmann::json& j) {
                         auto response = core::ipc::respond_to(j);
 
-                        auto bytes = save_stats->serialize();
-                        response["payload"]["data"] = *reinterpret_cast<std::vector<uint8_t>*>(&bytes);
+                        core::utils::ByteStream stream;
+                        save_stats->serialize_event_stream(stream);
+                        response["payload"]["data"] = *reinterpret_cast<std::vector<uint8_t>*>(&stream.buffer);
 
                         core::ipc::send_message(response);
                     }

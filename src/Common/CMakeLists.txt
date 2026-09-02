@@ -27,6 +27,7 @@ set(
         "env.h"
         "ext.h"
         "is_in.h"
+        "json/optional.h"
         "math_utils.h"
         "settings.h"
         "shared_memory.h"
