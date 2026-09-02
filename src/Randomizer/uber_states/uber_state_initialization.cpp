@@ -227,6 +227,7 @@ namespace randomizer {
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "extraDashes", 36, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "extraSentries", 37, 0),
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "extraShurikens", 38, 0),
+                add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "extraLaunches", 39, 0),
 
                 add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "extraGrenades", 40, 0),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "grenadesExplodeOnCollision", 41, true),
