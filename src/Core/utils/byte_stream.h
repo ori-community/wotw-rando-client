@@ -30,6 +30,11 @@ namespace core::utils {
             )
         ), buffer(*internal_buffer) {}
 
+        ByteStreamImpl(const ByteStreamImpl& other) = delete;
+        ByteStreamImpl(ByteStreamImpl&& other) = delete;
+        ByteStreamImpl& operator=(const ByteStreamImpl& other) = delete;
+        ByteStreamImpl& operator=(ByteStreamImpl&& other) = delete;
+
         [[nodiscard]]
         bool available() const {
             return this->position < this->buffer.size();
@@ -54,6 +59,10 @@ namespace core::utils {
         template <typename T = std::byte>
         void write(T data) {
             this->write(reinterpret_cast<std::byte*>(&data), sizeof(T));
+        }
+
+        void write(const std::ranges::subrange<typename buffer_type::const_iterator>& data) {
+            this->buffer.insert(this->buffer.end(), data.begin(), data.end());
         }
 
         void write_string(const std::string& string) {
@@ -98,6 +107,10 @@ namespace core::utils {
 
         void write(const std::byte* data, const size_t length) {
             this->buffer.insert(this->buffer.end(), data, data + length);
+        }
+
+        void write(const buffer_type& data) {
+            this->buffer.insert(this->buffer.end(), data.begin(), data.end());
         }
 
         void write(const buffer_type::iterator& data) {
