@@ -353,6 +353,10 @@ namespace randomizer::timing {
         }
 
         void purge_event_stream_files() {
+            if (!std::filesystem::is_directory(get_events_stream_files_directory())) {
+                return;
+            }
+
             std::unordered_set<std::filesystem::path> referenced_event_stream_files;
 
             for (int i = 0; i < SaveSlotsManager::get_SaveSlotCount(); ++i) {
