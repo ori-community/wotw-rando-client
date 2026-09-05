@@ -512,7 +512,7 @@ namespace randomizer::seed {
     }
 
     void SeedExecutionEnvironment::set_position_trigger(const std::size_t id, const SeedPositionTrigger& position_trigger) {
-        m_position_triggers.emplace(id, position_trigger);
+        m_position_triggers.insert_or_assign(id, position_trigger);
     }
 
     void SeedExecutionEnvironment::modify_position_trigger(const std::size_t id, const std::function<void(SeedPositionTrigger&)>& fn) {
