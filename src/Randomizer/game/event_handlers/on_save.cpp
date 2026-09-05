@@ -54,6 +54,8 @@ namespace {
     IL2CPP_INTERCEPT(void, SaveGameController, RestoreCheckpoint, app::SaveGameController * this_ptr) {
         core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::Before);
         next::SaveGameController::RestoreCheckpoint(this_ptr);
+        core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpointPrepareSeedExecutionEnvironment, EventTiming::Before);
+        core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpointPrepareSeedExecutionEnvironment, EventTiming::After);
         core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::After);
     }
 
@@ -66,6 +68,8 @@ namespace {
     IL2CPP_INTERCEPT(void, RestoreCheckpointController, RestoreCheckpoint, app::RestoreCheckpointController * this_ptr, bool load_from_disc) {
         core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::Before);
         next::RestoreCheckpointController::RestoreCheckpoint(this_ptr, load_from_disc);
+        core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpointPrepareSeedExecutionEnvironment, EventTiming::Before);
+        core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpointPrepareSeedExecutionEnvironment, EventTiming::After);
         core::api::game::event_bus().trigger_event(GameEvent::RestoreCheckpoint, EventTiming::After);
     }
 

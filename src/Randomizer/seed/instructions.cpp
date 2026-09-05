@@ -261,11 +261,7 @@ namespace randomizer::seed {
     } // namespace
 
     SeedExecutionEnvironment::SeedExecutionEnvironment(Seed& seed) : m_seed(seed) {
-        m_event_bus_handles.push_back(core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [this](auto, auto) {
-            restore_serialized_data_to_runtime();
-        }));
-
-        m_event_bus_handles.push_back(core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [this](auto, auto) {
+        m_event_bus_handles.push_back(core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpointPrepareSeedExecutionEnvironment, EventTiming::After, [this](auto, auto) {
             restore_serialized_data_to_runtime();
         }));
 

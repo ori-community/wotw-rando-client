@@ -20,6 +20,7 @@ enum class GameEvent {
     CreateSave,
     CreateBackup,
     CreateCheckpoint,
+    RestoreCheckpointPrepareSeedExecutionEnvironment,
     RestoreCheckpoint, // Triggered when any uberstate store is loaded
     FinishedLoadingSave, // Only triggered when loading from main menu (after main menu fade)
     Respawn, // Triggered after dying
