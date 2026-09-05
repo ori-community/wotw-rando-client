@@ -91,13 +91,6 @@ namespace {
             event_uber_state.set(true);
             SwitchSeriesPuzzleSwitchSetupHolder::StopTimelines(switch_series_puzzle->fields.SetupStates);
             Moon::Timeline::TimelineEntity::StartPlayback_1(reinterpret_cast<app::TimelineEntity*>(activated_state->fields.m_transition));
-
-            // play the music
-            core::api::audio::play_event(SoundEventID::baseMusicStates);
-            core::events::schedule_task(0.3f, [] {
-                core::api::audio::play_event(SoundEventID::howlsOriginState);
-                core::api::audio::set_state(SoundStateGroupID::howlsOriginMusic, SoundStateID::howlsOriginPuzzleSolve);
-            });
         }
     }
 

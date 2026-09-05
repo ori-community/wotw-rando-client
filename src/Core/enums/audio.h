@@ -9,6 +9,8 @@ enum class SoundEventID : uint32_t {
     howlsOriginState = 1080467411,
     none_howlsOrigin = 2083758865,
     baseMusicStates = 3283576497,
+    treeMechEngage_risingPortals_howlsOriginC = 692533882,
+    treeLiftStop_risingPortals_howlsOriginC = 2679396541,
 
     // Randomizer
     LeagueSubmitted = 2697705149,

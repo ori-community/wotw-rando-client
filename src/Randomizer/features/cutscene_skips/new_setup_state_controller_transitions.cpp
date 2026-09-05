@@ -38,6 +38,7 @@ namespace {
 
         AutomaticCutsceneSkipFadeMode automatic_cutscene_skip_fade_mode = AutomaticCutsceneSkipFadeMode::Fade;
         app::Vector2 fade_when_near_position = app::Vector2{};
+        std::optional<SoundEventID> sound_on_automatic_skip = std::nullopt;
     };
 
     bool should_track_starting_timelines = false;
@@ -59,8 +60,8 @@ namespace {
         // Misc
         {"mouldwoodDepthsE/artSetups/*enemyDoorSetup/puzzleCompleteSetup/puzzleCompleteTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
         {"windtornRuinsC/interactives/artPillarFallSetup/timeline", TransitionConfig{}},
-        {"howlsOriginEntrance/interactives/switchSequencePuzzleA/openGateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
-        {"howlsOriginEntrance/interactives/switchSequencePuzzleB/openGateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
+        {"howlsOriginEntrance/interactives/switchSequencePuzzleA/openGateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade, .sound_on_automatic_skip = SoundEventID::treeLiftStop_risingPortals_howlsOriginC}},
+        {"howlsOriginEntrance/interactives/switchSequencePuzzleB/openGateTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade, .sound_on_automatic_skip = SoundEventID::treeMechEngage_risingPortals_howlsOriginC}},
         {"lumaPoolsGetWaterDash/interactives/dashableSwitchTest/lagoonDoor/doorAnimator/timelines/openDoorSequence", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
         {"lumaPoolsSaveRoom/artSetups/waterSetup/puzzleCompletedTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::FadeWhenNearPosition, .fade_when_near_position = app::Vector2{ /* at the anemone */ -1311, -4167}}},
         {"baursReachA/interactives/bridgeSetup/rockFallTimeline", TransitionConfig{.automatic_cutscene_skip_fade_mode = TransitionConfig::AutomaticCutsceneSkipFadeMode::NoFade}},
@@ -189,6 +190,10 @@ namespace {
 
         if (!active_transition_timeline.has_value()) {
             return;
+        }
+
+        if (active_transition_config->sound_on_automatic_skip.has_value()) {
+            core::api::audio::play_event(*active_transition_config->sound_on_automatic_skip);
         }
 
         modloader::ScopedSetter _(is_stopping_timeline, true);
