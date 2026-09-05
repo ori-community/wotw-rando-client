@@ -259,7 +259,7 @@ int main() {
             return 1;
         }
 
-        user_data_path = std::filesystem::canonical(std::filesystem::path(*appdata_variable) / R"(Ori and the Will of the Wisps Randomizer)");
+        user_data_path = std::filesystem::canonical(std::filesystem::path(*appdata_variable) / "ori-wotw-randomizer");
         std::cout << "Derived user data directory from environment to '" << user_data_path.string() << "'" << std::endl;
     }
 

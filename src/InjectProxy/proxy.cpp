@@ -75,7 +75,7 @@ void inject(const ModloaderArguments arguments) {
             return;
         }
 
-        user_data_path = std::filesystem::path(*appdata_variable) / "Ori and the Will of the Wisps Randomizer";
+        user_data_path = std::filesystem::path(*appdata_variable) / "ori-wotw-randomizer";
         std::cout << "Derived user data directory from environment to '" << user_data_path.string() << "'" << std::endl;
     }
 
