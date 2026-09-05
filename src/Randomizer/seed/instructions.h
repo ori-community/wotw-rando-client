@@ -384,6 +384,8 @@ namespace randomizer::seed {
          * events.
          */
         void restore_serialized_data_to_runtime();
+
+        void render_debug_visuals();
     };
 
     std::unique_ptr<IInstruction> create_instruction(const nlohmann::json& j);

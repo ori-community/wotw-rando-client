@@ -9,6 +9,7 @@
 #include <Modloader/app/methods/Moon/UberStateVisualization/SerializedByteUberStateWrapper.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/SerializedFloatUberStateWrapper.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/UberStateVisualizationView.h>
+#include <Modloader/app/methods/DebugRendererSettings.h>
 #include <Modloader/app/methods/UnityEngine/GUILayout.h>
 #include <Modloader/app/methods/UnityEngine/GUIStyle.h>
 #include <Modloader/app/methods/UnityEngine/GUIStyleState.h>
@@ -85,6 +86,11 @@ namespace core::api::game::debug_menu {
 
     bool should_prevent_cheats() {
         return prevent_cheats;
+    }
+
+    common::EventBus<void, DebugEvent>& event_bus() {
+        static common::EventBus<void, DebugEvent> event_bus;
+        return event_bus;
     }
 
     void set_debug_enabled(bool enable) {
@@ -267,6 +273,11 @@ namespace core::api::game::debug_menu {
 
             const auto normal = UnityEngine::GUIStyle::get_normal(this_ptr->fields.Skin->fields.m_CustomStyles->vector[9]);
             UnityEngine::GUIStyleState::set_background(normal, texture);
+        }
+
+        IL2CPP_INTERCEPT(void, DebugRendererSettings, RenderDebug, app::DebugRendererSettings* this_ptr, app::RenderingType__Enum rendering_type) {
+            next::DebugRendererSettings::RenderDebug(this_ptr, rendering_type);
+            event_bus().trigger_event(DebugEvent::RenderDebugVisuals);
         }
     } // namespace
 } // namespace core::api::game::debug_menu

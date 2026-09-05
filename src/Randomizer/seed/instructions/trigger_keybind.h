@@ -1,6 +1,8 @@
 #pragma once
+#include <Core/enums/actions.h>
 #include <Randomizer/seed/instruction_utils.h>
 #include <Randomizer/seed/seed.h>
+#include <Randomizer/input/rando_bindings.h>
 
 INSTRUCTION(TriggerKeybind)
      explicit TriggerKeybind(const Action action) :

@@ -407,6 +407,7 @@ namespace randomizer {
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "useEastWoodsTrunkSlowWalkZoneEnabledState", 36, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "preventPauseFloats", 37, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "fixMoraArenaTrigger", 38, false),
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "drawPositionTriggersInDebugRenderer", 39, false),
 
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeShriekEscapeSand", 100, false),
                 add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "removeFeedingGroundsToElevatorSand", 101, false),

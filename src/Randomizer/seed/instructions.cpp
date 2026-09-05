@@ -1,7 +1,9 @@
 #include <Core/api/game/game.h>
 #include <Core/core.h>
+#include <Core/api/game/debug_menu.h>
+#include <Core/constants.h>
+#include <Modloader/app/methods/Moon/VisualDebug/DebugRenderer.h>
 #include <Randomizer/game/shops/shop.h>
-#include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/instructions.h>
 #include <Randomizer/seed/instructions/arithmetic_float.h>
@@ -109,6 +111,9 @@
 #include <Randomizer/seed/seed.h>
 #include <functional>
 #include <utility>
+
+
+using namespace app::classes;
 
 namespace randomizer::seed {
     namespace {
@@ -270,6 +275,10 @@ namespace randomizer::seed {
                 this->m_trial_hints_dirty = false;
                 this->m_event_bus.trigger_event(Event::TrialHintsChanged);
             }
+        }));
+
+        m_event_bus_handles.push_back(core::api::game::debug_menu::event_bus().register_handler(core::api::game::debug_menu::DebugEvent::RenderDebugVisuals, [this](auto) {
+            render_debug_visuals();
         }));
     }
 
@@ -581,6 +590,80 @@ namespace randomizer::seed {
         for (const auto& [id, serialized_icon] : m_serialized_warp_icons) {
             const auto warp_icon = instructions::CreateWarpIcon::create_warp_icon(serialized_icon.position, serialized_icon.label);
             m_warp_icons[id] = warp_icon;
+        }
+    }
+
+    void SeedExecutionEnvironment::render_debug_visuals() {
+        static const core::api::uber_states::UberState DRAW_POSITION_TRIGGERS_IN_DEBUG_RENDERER(UberStateGroup::RandoConfig, 39);
+
+        if (!DRAW_POSITION_TRIGGERS_IN_DEBUG_RENDERER.get<bool>()) {
+            return;
+        }
+
+        constexpr app::Color POSITION_TRIGGER_COLOR(1, 1, 0, 1);
+
+        for (auto& trigger: m_position_triggers | std::views::values) {
+            trigger.shape | vx::match {
+                [&](const SeedPositionTrigger::RectangleShape& s) {
+                    Moon::VisualDebug::DebugRenderer::RenderLine(
+                        modloader::math::to_vec3({s.x_min, s.y_min}),
+                        modloader::math::to_vec3({s.x_max, s.y_min}),
+                        POSITION_TRIGGER_COLOR,
+                        true
+                    );
+                    Moon::VisualDebug::DebugRenderer::RenderLine(
+                        modloader::math::to_vec3({s.x_max, s.y_min}),
+                        modloader::math::to_vec3({s.x_max, s.y_max}),
+                        POSITION_TRIGGER_COLOR,
+                        true
+                    );
+                    Moon::VisualDebug::DebugRenderer::RenderLine(
+                        modloader::math::to_vec3({s.x_max, s.y_max}),
+                        modloader::math::to_vec3({s.x_min, s.y_max}),
+                        POSITION_TRIGGER_COLOR,
+                        true
+                    );
+                    Moon::VisualDebug::DebugRenderer::RenderLine(
+                        modloader::math::to_vec3({s.x_min, s.y_max}),
+                        modloader::math::to_vec3({s.x_min, s.y_min}),
+                        POSITION_TRIGGER_COLOR,
+                        true
+                    );
+                },
+                [&](const SeedPositionTrigger::CircleShape& s) {
+                    double radius = std::sqrt(s.radius_squared);
+                    app::Vector2 first;
+                    app::Vector2 previous;
+                    for (double a = 0.0; a < core::TAU; a += core::TAU / 100.0) {
+                        if (a == 0.0) {
+                            first.x = s.center_x + std::cos(a) * radius;
+                            first.y = s.center_y + std::sin(a) * radius;
+                            previous = first;
+                            continue;
+                        }
+
+                        app::Vector2 current(
+                            s.center_x + std::cos(a) * radius,
+                            s.center_y + std::sin(a) * radius
+                        );
+                        Moon::VisualDebug::DebugRenderer::RenderLine(
+                            modloader::math::to_vec3(previous),
+                            modloader::math::to_vec3(current),
+                            POSITION_TRIGGER_COLOR,
+                            true
+                        );
+
+                        previous = current;
+                    }
+
+                    Moon::VisualDebug::DebugRenderer::RenderLine(
+                       modloader::math::to_vec3(previous),
+                       modloader::math::to_vec3(first),
+                       POSITION_TRIGGER_COLOR,
+                       true
+                   );
+                }
+            };
         }
     }
 
