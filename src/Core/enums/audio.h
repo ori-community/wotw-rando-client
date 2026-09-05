@@ -15,6 +15,10 @@ enum class SoundEventID : uint32_t {
     KnockKnockWellspring = 965810158,
 };
 
+enum class SoundTriggerID : uint32_t {
+
+};
+
 enum class SoundStateGroupID : uint32_t {
     // Game Music
     cinematicVignetteStates = 88624820,

@@ -66,6 +66,11 @@ namespace core::api::audio {
         return handle;
     }
 
+    void post_trigger(SoundTriggerID trigger_id) {
+        constexpr auto AK_INVALID_GAME_OBJECT = 18446744073709551615ULL;
+        AkSoundEngine::PostTrigger_2(static_cast<uint32_t>(trigger_id), AK_INVALID_GAME_OBJECT);
+    }
+
     void fire_and_forget(app::Event_1* event, app::ISoundHost* host) {
         if (host == nullptr) {
             host = reinterpret_cast<app::ISoundHost*>(Wwise::get_DefaultDevSoundHost());
