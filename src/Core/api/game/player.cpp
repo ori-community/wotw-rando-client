@@ -12,17 +12,22 @@
 #include <Modloader/app/methods/PlayerAbilities.h>
 #include <Modloader/app/methods/PlayerSpiritShards.h>
 #include <Modloader/app/methods/ScenesManager.h>
+#include <Modloader/app/methods/SeinPlatformMovement.h>
 #include <Modloader/app/methods/SeinCharacter.h>
 #include <Modloader/app/methods/SeinEnergy.h>
 #include <Modloader/app/methods/SeinHealthController.h>
 #include <Modloader/app/methods/SeinUI.h>
 #include <Modloader/app/methods/SpellInventory.h>
+#include <Modloader/app/methods/UnityEngine/Rigidbody.h>
+#include <Modloader/app/methods/PlatformMovement.h>
 #include <Modloader/app/types/Characters.h>
 #include <Modloader/app/types/GameWorld.h>
 #include <Modloader/app/types/PlayerUberStateGroup.h>
 #include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/modloader.h>
 #include <magic_enum/magic_enum.hpp>
+
+#include "Modloader/app/methods/PlatformMovement.h"
 
 using namespace modloader;
 using namespace app::classes;
@@ -410,6 +415,13 @@ namespace core::api::game::player {
         Property<int> keystones_property(set_keystones, get_keystones);
         Property<int> ore_property(set_ore, get_ore);
         Property<int> shard_slots_property(set_shard_slots, get_shard_slots);
+
+        IL2CPP_INTERCEPT(app::Vector3, SeinPlatformMovement, get_Position, app::SeinPlatformMovement* this_ptr) {
+            const auto rigid_body = PlatformMovement::get_Rigidbody(reinterpret_cast<app::PlatformMovement*>(this_ptr));
+            return il2cpp::unity::get_active(rigid_body)
+                ? UnityEngine::Rigidbody::get_position(rigid_body)
+                : il2cpp::unity::get_position(rigid_body);
+        }
     } // namespace
 
     CurrentAreaOverrideHandle::CurrentAreaOverrideHandle(int id) : id(id) {}
