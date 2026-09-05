@@ -354,11 +354,11 @@ namespace randomizer::seed {
         for (auto& position_trigger: m_position_triggers | std::views::values) {
             const auto player_is_inside = position_trigger.is_inside(modloader::math::to_vec2(core::api::game::player::get_position()));
 
-            if (player_is_inside == position_trigger.runtime_state.player_was_inside_at_last_check) {
+            if (player_is_inside == position_trigger.player_was_inside_at_last_check) {
                 continue;
             }
 
-            position_trigger.runtime_state.player_was_inside_at_last_check = player_is_inside;
+            position_trigger.player_was_inside_at_last_check = player_is_inside;
 
             if (player_is_inside) {
                 if (position_trigger.on_enter_command_id.has_value()) {

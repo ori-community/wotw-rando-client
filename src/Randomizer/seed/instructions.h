@@ -91,36 +91,21 @@ namespace randomizer::seed {
 
         using shape_t = std::variant<RectangleShape, CircleShape>;
 
-        struct RuntimeState {
-            bool player_was_inside_at_last_check = false;
-        };
-
         shape_t shape;
 
         std::optional<std::size_t> on_enter_command_id = std::nullopt;
         std::optional<std::size_t> on_leave_command_id = std::nullopt;
-
-        RuntimeState runtime_state;
+        bool player_was_inside_at_last_check = false;
 
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(
             SeedPositionTrigger,
             shape,
             on_enter_command_id,
-            on_leave_command_id
+            on_leave_command_id,
+            player_was_inside_at_last_check
         );
 
         [[nodiscard]] bool is_inside(const app::Vector2& point) const;
-
-        // Keep runtime state when assigning
-        SeedPositionTrigger& operator=(const SeedPositionTrigger& other) {
-            if (this == &other) {
-                return *this;
-            }
-            shape = other.shape;
-            on_enter_command_id = other.on_enter_command_id;
-            on_leave_command_id = other.on_leave_command_id;
-            return *this;
-        }
     };
 
     struct FreeMessageBox {
