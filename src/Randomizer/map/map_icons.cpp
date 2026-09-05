@@ -709,9 +709,9 @@ namespace randomizer::map::icons {
                 AreaMapIcon::SetMessageProvider(area_map_icon, core::api::system::create_message_provider(label_text));
             }
 
-            AreaMapIcon::ShowLabel(area_map_icon);
+            il2cpp::unity::set_active(area_map_icon->fields.Label, true);
         } else {
-            AreaMapIcon::HideLabel(area_map_icon);
+            il2cpp::unity::set_active(area_map_icon->fields.Label, false);
         }
     }
 
