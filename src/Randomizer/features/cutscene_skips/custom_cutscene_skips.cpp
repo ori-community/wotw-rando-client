@@ -147,24 +147,23 @@ namespace custom_cutscene_skips {
         automatic_cutscene_skipping_enabled_cache = core::settings::enable_automatic_cutscene_skipping();
     });
 
-    [[maybe_unused]]
-    auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+    AutomaticCutsceneSkipInvocationResult execute_automatic_cutscene_skip_if_enabled() {
         if (block_automatic_cutscene_skips_for_seconds > 0.f) {
             block_automatic_cutscene_skips_for_seconds -= TimeUtility::get_fixedDeltaTime();
-            return;
+            return AutomaticCutsceneSkipInvocationResult::NoSkipExecuted;
         }
 
         if (!automatic_cutscene_skipping_enabled_cache) {
-            return;
+            return AutomaticCutsceneSkipInvocationResult::NoSkipExecuted;
         }
 
         if (!core::api::scenes::is_in_game()) {
-            return;
+            return AutomaticCutsceneSkipInvocationResult::NoSkipExecuted;
         }
 
         if (SkipCutsceneController::get_SkippingAvailable(types::SkipCutsceneController::get_class()->static_fields->Instance)) {
             if (skip_metadata_of_last_get_skipping_available_call.transform([](auto& meta) -> bool { return meta.never_skip_automatically; }).value_or(false)) {
-                return;
+                return AutomaticCutsceneSkipInvocationResult::NoSkipExecuted;
             }
 
             block_automatic_cutscene_skips_for_seconds = 10.f;
@@ -194,13 +193,24 @@ namespace custom_cutscene_skips {
                     core::events::schedule_task(0.4f, [=] {
                         execute_skip_and_fade_to_game_visible();
                     });
-                } else {
-                    execute_skip_and_fade_to_game_visible();
+
+                    return AutomaticCutsceneSkipInvocationResult::SkipExecutedDelayed;
                 }
-            } else {
-                execute_automatic_skip();
+
+                return AutomaticCutsceneSkipInvocationResult::SkipExecutedImmediately;
+                execute_skip_and_fade_to_game_visible();
             }
+
+            execute_automatic_skip();
+            return AutomaticCutsceneSkipInvocationResult::SkipExecutedImmediately;
         }
+
+        return AutomaticCutsceneSkipInvocationResult::NoSkipExecuted;
+    }
+
+    [[maybe_unused]]
+    auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+        execute_automatic_cutscene_skip_if_enabled();
     });
 
     void register_cutscene_skip(const CustomCutsceneSkip& skip) {

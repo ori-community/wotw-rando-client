@@ -151,6 +151,10 @@ namespace {
             if (it != TRANSITION_CONFIGS.end()) {
                 active_transition_timeline_ref = il2cpp::WeakGCRef(this_ptr);
                 active_transition_config = it->second;
+
+                if (custom_cutscene_skips::execute_automatic_cutscene_skip_if_enabled() == custom_cutscene_skips::AutomaticCutsceneSkipInvocationResult::SkipExecutedImmediately) {
+                    return;
+                }
             }
         }
 

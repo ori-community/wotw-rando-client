@@ -18,5 +18,12 @@ namespace custom_cutscene_skips {
         std::optional<Metadata> (*get_metadata)() = [] { return static_cast<std::optional<Metadata>>(std::nullopt); };
     };
 
+    enum class AutomaticCutsceneSkipInvocationResult {
+        NoSkipExecuted,
+        SkipExecutedDelayed,
+        SkipExecutedImmediately,
+    };
+
     void register_cutscene_skip(const CustomCutsceneSkip& skip);
+    AutomaticCutsceneSkipInvocationResult execute_automatic_cutscene_skip_if_enabled();
 } // namespace custom_cutscene_skips
