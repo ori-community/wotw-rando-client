@@ -69,6 +69,7 @@ set(
         "input/midi_input.cpp"
         "input/simulator.cpp"
         "input/sdl.cpp"
+        "input/trigger_threshold.cpp"
         "ipc/ipc.cpp"
         "ipc/console.cpp"
         "mood_guid.cpp"

@@ -7,6 +7,7 @@
 #include <Modloader/app/methods/J2i/Net/XInputWrapper/XboxController.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+#include <Modloader/windows_api/console.h>
 #include <SDL3/SDL.h>
 #include <mutex>
 

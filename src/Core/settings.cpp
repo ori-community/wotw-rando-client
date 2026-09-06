@@ -109,6 +109,10 @@ namespace core::settings {
         return get_settings().get_float("MapPanSpeed", 1.f);
     }
 
+    float controller_trigger_threshold() {
+        return get_settings().get_float("ControllerTriggerThreshold", 0.08f);
+    }
+
     bool shriek_is_shrek() {
         return get_settings().get_boolean("ShriekIsShrek", false);
     }

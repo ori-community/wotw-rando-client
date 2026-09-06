@@ -31,6 +31,7 @@ namespace core::settings {
     CORE_DLLEXPORT float camera_shake_intensity();
     CORE_DLLEXPORT bool disable_health_and_energy_bar_animations();
     CORE_DLLEXPORT float map_pan_speed();
+    CORE_DLLEXPORT float controller_trigger_threshold();
     CORE_DLLEXPORT bool shriek_is_shrek();
     CORE_DLLEXPORT bool enable_minimap();
     CORE_DLLEXPORT bool enable_automatic_cutscene_skipping();
