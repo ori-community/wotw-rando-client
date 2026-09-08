@@ -136,7 +136,7 @@ set(
         "game/enemy_spawning.cpp"
         "game/music.cpp"
         "game/pickups/bonus/grenade.cpp"
-        "game/pickups/bonus/bow_attack_speed.cpp"
+        "game/pickups/bonus/bow.cpp"
         "game/pickups/bonus/energy_cost_upgrades.cpp"
         "game/pickups/bonus/energy_regeneration.cpp"
         "game/pickups/bonus/extra_ability_activations.cpp"
