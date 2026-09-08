@@ -12,7 +12,7 @@ namespace {
 
     [[maybe_unused]]
     auto on_settings_loaded = core::settings::event_bus().register_handler(core::settings::SettingsEvent::Load, EventTiming::After, [](auto, auto) {
-        threshold = core::settings::enable_automatic_cutscene_skipping();
+        threshold = core::settings::controller_trigger_threshold();
     });
 
     IL2CPP_INTERCEPT(bool, SmartInput::ControllerButtonInput, GetValue, app::ControllerButtonInput* this_ptr) {
