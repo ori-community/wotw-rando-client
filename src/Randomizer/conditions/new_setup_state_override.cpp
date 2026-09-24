@@ -33,36 +33,10 @@ namespace randomizer::conditions {
         std::unordered_map<applier_key, applier_intercept_fn, pair_hash> applier_intercepts;
         std::unordered_map<applier_key, int32_t, pair_hash> dynamic_applier_redirects;
 
-        // Override this to check trees instead of abilities.
-        int32_t handle_player_state_map(app::PlayerStateMap* map, void* state) {
-            for (const auto entry: il2cpp::ListIterator(map->fields._.Entries)) {
-                auto output = false;
-                UberState tree(UberStateGroup::Tree, entry.m_ability);
-                if (tree.valid()) {
-                    output = UberState(0, static_cast<int>(entry.m_ability)).get<bool>() ^ (entry.m_matchType != 0);
-                } else {
-                    output = Moon::uberSerializationWisp::PlayerStateMap_Mapping::Matches(
-                        types::PlayerStateMap_Mapping::box(entry), reinterpret_cast<app::IUberState*>(state)
-                    );
-                }
-
-                if (output) {
-                    return entry.m_index;
-                }
-            }
-
-            return map->fields._.FallbackSetupStateIndex;
-        }
-
         IL2CPP_INTERCEPT(app::SetupState*, NewSetupStateController, get_ActiveState, app::NewSetupStateController* this_ptr) {
             auto state = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "Resolve", 0);
             auto mapping = this_ptr->fields.StateHolder->fields._._.Mapping;
-            int32_t mapping_result = 0;
-            if (il2cpp::is_assignable(mapping, types::PlayerStateMap::get_class())) {
-                mapping_result = handle_player_state_map(reinterpret_cast<app::PlayerStateMap*>(mapping), state);
-            } else {
-                mapping_result = il2cpp::invoke<app::Int32__Boxed>(mapping, "Resolve", state)->fields;
-            }
+            auto mapping_result = il2cpp::invoke<app::Int32__Boxed>(mapping, "Resolve", state)->fields;
 
             auto path = il2cpp::unity::get_path(this_ptr);
             auto key = std::make_pair(path, mapping_result);
@@ -73,6 +47,7 @@ namespace randomizer::conditions {
                     mapping_result = it->second(this_ptr, path, mapping_result);
                 }
             }
+
             {
                 const auto it = dynamic_applier_redirects.find(key);
                 if (it != dynamic_applier_redirects.end()) {
