@@ -46,7 +46,7 @@ namespace {
     );
 
     void create_project_intercept(core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState> state, const std::string& path) {
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             { path },
             { -151413539, 1018051603, -236466678 },
             [state](auto, auto&, auto original_state) mutable -> int32_t {
@@ -60,7 +60,7 @@ namespace {
     }
 
     void create_door_intercept(core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState> state, const int enabled, const int disabled, const std::string& path) {
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             { path },
             { enabled, disabled },
             [state, enabled, disabled](auto, auto&, auto) mutable -> int32_t {
@@ -91,7 +91,7 @@ namespace {
         create_door_intercept(grom_houses_c_built, 1123222511, -2139705815, "wellspringGladesHub/interactives/doorSetups/hutDoorsSetupC");
         create_door_intercept(grom_open_cave_built, -1148551599, 2133784501, "wellspringGladesHub/interactives/doorSetups/caveDoorSetup");
 
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             { "wellspringGladesHubSetups/interactives/builderProjects/spiritWell" },
             { -1683158848, 1457677579 },
             [](auto, auto&, auto) -> int32_t {
@@ -99,7 +99,7 @@ namespace {
             }
         );
 
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             { "swampIntroTop/artSetups/interactives/savePedestalSetup" },
             { 763396887, 800721598, -1090989360 },
             [](auto, auto&, auto) -> int32_t {

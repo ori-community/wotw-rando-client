@@ -24,33 +24,23 @@ using namespace app::classes::Moon;
 
 namespace randomizer::conditions {
     namespace {
-        std::unordered_map<applier_key, applier_intercept_fn, pair_hash> applier_intercepts;
-        std::unordered_map<applier_key, int32_t, pair_hash> dynamic_applier_redirects;
+        std::unordered_map<new_setup_state_controller_intercept_key, new_setup_state_controller_intercept_fn, pair_hash> applier_intercepts;
 
         IL2CPP_INTERCEPT(app::SetupState*, NewSetupStateController, get_ActiveState, app::NewSetupStateController* this_ptr) {
-            auto state = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "Resolve", 0);
-            auto mapping = this_ptr->fields.StateHolder->fields._._.Mapping;
+            const auto state = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "Resolve", 0);
+            const auto mapping = this_ptr->fields.StateHolder->fields._._.Mapping;
             auto mapping_result = il2cpp::invoke<app::Int32__Boxed>(mapping, "Resolve", state)->fields;
 
-            auto path = il2cpp::unity::get_path(this_ptr);
-            auto key = std::make_pair(path, mapping_result);
+            const auto path = il2cpp::unity::get_path(this_ptr);
+            const auto key = std::make_pair(path, mapping_result);
 
-            {
-                const auto it = applier_intercepts.find(key);
-                if (it != applier_intercepts.end()) {
-                    mapping_result = it->second(this_ptr, path, mapping_result);
-                }
-            }
-
-            {
-                const auto it = dynamic_applier_redirects.find(key);
-                if (it != dynamic_applier_redirects.end()) {
-                    mapping_result = it->second;
-                }
+            const auto it = applier_intercepts.find(key);
+            if (it != applier_intercepts.end()) {
+                mapping_result = it->second(this_ptr, path, mapping_result);
             }
 
             this_ptr->fields.m_activeStateIndex = mapping_result;
-            for (auto state_item: il2cpp::ListIterator(this_ptr->fields.StateHolder->fields.States)) {
+            for (const auto state_item: il2cpp::ListIterator(this_ptr->fields.StateHolder->fields.States)) {
                 if (state_item->fields.StateGUID == mapping_result) {
                     return state_item;
                 }
@@ -82,7 +72,7 @@ namespace randomizer::conditions {
                 return;
             }
 
-            register_new_setup_redirect(std::make_pair(params[0].value, first), second);
+            register_new_setup_state_controller_redirect(std::make_pair(params[0].value, first), second);
             apply_all_states();
         }
 
@@ -128,53 +118,49 @@ namespace randomizer::conditions {
             console::register_command({"debug", "show_state_paths"}, show_state_paths);
 
             // Bubble spawner at entrance of pools.
-            register_new_setup_redirect(std::make_pair("lumaPoolsA/interactives/stateController", 631536139), 1230316956, false);
+            register_new_setup_state_controller_redirect(std::make_pair("lumaPoolsA/interactives/stateController", 631536139), 1230316956);
         });
     } // namespace
 
-    void register_new_setup_intercept(const applier_key& key, const applier_intercept_fn& callback) {
+    void register_new_setup_state_controller_intercept(const new_setup_state_controller_intercept_key& key, const new_setup_state_controller_intercept_fn& callback) {
         if (applier_intercepts.contains(key)) {
-            info("init", "registering same applier state twice, overwriting.");
+            warn("new_setup_state_override", std::format("Registering same NewSetupController intercept twice, overwriting: {}:{}", key.first, key.second));
         }
 
         applier_intercepts[key] = callback;
     }
 
-    void register_new_setup_intercept(std::vector<applier_key> const& states, const applier_intercept_fn& callback) {
+    void register_new_setup_state_controller_intercept(std::vector<new_setup_state_controller_intercept_key> const& states, const new_setup_state_controller_intercept_fn& callback) {
         for (const auto& state: states) {
-            register_new_setup_intercept(state, callback);
+            register_new_setup_state_controller_intercept(state, callback);
         }
     }
 
-    void register_new_setup_intercept(std::vector<std::string_view> const& paths, std::vector<int32_t> const& states, applier_intercept_fn callback) {
+    void register_new_setup_state_controller_intercept(
+        const std::vector<std::string_view>& paths,
+        const std::vector<state_guid_t>& states,
+        const new_setup_state_controller_intercept_fn& callback
+    ) {
         for (auto path: paths) {
             std::string spath(path);
             for (auto state: states) {
-                register_new_setup_intercept({spath, state}, callback);
+                register_new_setup_state_controller_intercept({spath, state}, callback);
             }
         }
     }
 
-    void register_new_setup_redirect(applier_key key, int32_t new_state, bool dynamic) {
-        if (dynamic) {
-            dynamic_applier_redirects[key] = new_state;
-        } else {
-            if (applier_intercepts.contains(key)) {
-                warn("new_setup_state_override", "registering same applier state twice, overwriting.");
-            }
-
-            applier_intercepts[key] = [new_state](auto, auto, auto) -> int32_t { return new_state; };
-        }
+    void register_new_setup_state_controller_redirect(const new_setup_state_controller_intercept_key& key, state_guid_t new_state) {
+        register_new_setup_state_controller_intercept(key, [new_state](auto, auto, auto) -> state_guid_t { return new_state; });
     }
 
-    void register_new_setup_redirect(std::vector<std::pair<applier_key, int32_t>> const& states, bool dynamic) {
+    void register_new_setup_state_controller_redirect(std::vector<std::pair<new_setup_state_controller_intercept_key, state_guid_t>> const& states) {
         for (auto state: states) {
-            register_new_setup_redirect(state.first, state.second, dynamic);
+            register_new_setup_state_controller_redirect(state.first, state.second);
         }
     }
 
-    void register_new_setup_redirect(std::string_view view, std::pair<int32_t, int32_t> const& states, bool dynamic) {
-        register_new_setup_redirect({std::string(view), states.first}, states.second, dynamic);
+    void register_new_setup_state_controller_redirect(const std::string_view view, std::pair<state_guid_t, state_guid_t> const& states) {
+        register_new_setup_state_controller_redirect({std::string(view), states.first}, states.second);
     }
 
     void apply_all_states() { UberStateController::ApplyAll(app::UberStateApplyContext__Enum::ValueChanged); }

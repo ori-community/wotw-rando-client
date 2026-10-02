@@ -18,7 +18,7 @@ namespace {
 
     [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-        randomizer::conditions::register_new_setup_intercept({"petrifiedForestNewTransitionOri/interactives/hutSetup"}, {-223185097, -899902710}, [](auto, auto, auto original_state) -> int32_t {
+        randomizer::conditions::register_new_setup_state_controller_intercept({"petrifiedForestNewTransitionOri/interactives/hutSetup"}, {-223185097, -899902710}, [](auto, auto, auto original_state) -> int32_t {
             if (!use_can_open_hut_rando_state.get()) {
                 return original_state;
             }

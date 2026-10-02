@@ -36,7 +36,7 @@ namespace {
 
     [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             { "kwoloksHollowEntrance/interactives/shardTraderSetup" },
             { TWILLEN_GONE, TWILLEN_EXISTS },
             twillen_state

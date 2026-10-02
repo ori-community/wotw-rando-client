@@ -18,7 +18,7 @@ namespace {
 
     IL2CPP_INTERCEPT(bool, Sein::World::Events, get_WaterPurified) { return !water_damage_override && clean_water_state.get(); }
 
-    randomizer::conditions::applier_intercept_fn create_applier_intercept(int32_t corrupted, int32_t clean) {
+    randomizer::conditions::new_setup_state_controller_intercept_fn create_applier_intercept(int32_t corrupted, int32_t clean) {
         return [corrupted, clean](auto, auto, auto) -> int32_t { return clean_water_state.get() ? clean : corrupted; };
     }
 
@@ -29,15 +29,17 @@ namespace {
             randomizer::conditions::apply_all_states();
         }).trigger_on_load().finalize();
 
-        std::function<randomizer::conditions::applier_intercept_fn(int32_t, int32_t)> ai_create = [](int32_t corrupted,
-                                                                                                  int32_t clean) -> randomizer::conditions::applier_intercept_fn {
+        std::function<randomizer::conditions::new_setup_state_controller_intercept_fn(int32_t, int32_t)> ai_create = [](
+            int32_t corrupted,
+            int32_t clean
+        ) -> randomizer::conditions::new_setup_state_controller_intercept_fn {
             return [corrupted, clean](auto, auto, auto) -> int32_t {
                 return clean_water_state.get() ? clean : corrupted;
             };
         };
 
         // Corrupted / Clean
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             {
                 "swampChargeShotIntroductionNew/dynamicSetups/waterStateController",
                 "swampSpringIntroductionB/enemies/act2EnemiesSetups/act2EnemiesSetup",
@@ -70,7 +72,7 @@ namespace {
             create_applier_intercept(569716315, 2044614461)
         );
         // notClean  / Clean
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             {
                 "swampIntroBottom/*setups/waterStateController",
                 "lumaSwampTransitionA/dynamicSetups/waterStateController",
@@ -81,56 +83,56 @@ namespace {
             create_applier_intercept(135459242, 2010339656)
         );
         // corrupted / clean
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             {"lumaPoolsP/dynamicSetups/waterStateController"}, {742737118, 669048353}, create_applier_intercept(742737118, 669048353)
         );
         // corrupted / clean
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             {"wellspringGladesHubBackground/dynamicSetups/waterStateController"}, {739518878, -1861424606}, create_applier_intercept(739518878, -1861424606)
         );
         // Corrupted / Clean
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             {"wellspringGladesHub/dynamicSetups/waterStateController", "wellspringGladesHubB/dynamicSetups/waterStateController"},
             {2054782292, -357160486},
             create_applier_intercept(2054782292, -357160486)
         );
         // Corrupted / Clean
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             {"waterMillCEntrance/dynamicSetups/waterSetup"}, {1639966459, 127921689}, create_applier_intercept(1639966459, 127921689)
         );
         // Corrupted / Clean
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             {"wotwSaveRoomC__clone0__clone1/dynamicSetups/waterSetup"}, {-1876259767, -1976832348}, create_applier_intercept(-1876259767, -1976832348)
         );
         // Corrupted / Clean
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             {"waterMillPool__clone0/dynamicSetups/waterSetup"}, {-1947088109, 385303388}, create_applier_intercept(-1947088109, 385303388)
         );
         // Poisoned / Clean
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             {"kwoloksCavernE/setups/poisonWaterToggle"}, {378117992, -760384866}, create_applier_intercept(378117992, -760384866)
         );
         // corrupted / clean
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             {"kwoloksCavernF/dynamicSetups/waterStateController"}, {-144265033, 685358568}, create_applier_intercept(-144265033, 685358568)
         );
         // corrupted / clean
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             {"kwoloksCavernBackgroundA/dynamicSetups/waterStateController"}, {-882028644, -1833484193}, create_applier_intercept(-882028644, -1833484193)
         );
         // corrupted / clean
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             {"kwoloksCavernB/dynamicSetups/waterStateController"}, {-1848734555, 30971136}, create_applier_intercept(-1848734555, 30971136)
         );
         // Corrupted / Clean
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             {"kwoloksCavernStomperSideRoom/dynamicSetups/waterStateController"}, {1762013712, 816885685}, create_applier_intercept(1762013712, 816885685)
         );
 
         //-> -1629508673 : NotStarted
         //-> -1353113975 : Started
         //-> -2075520848 : Finished
-        randomizer::conditions::register_new_setup_intercept(
+        randomizer::conditions::register_new_setup_state_controller_intercept(
             {"waterMillEscapeABBackground/escapeSetups"},
             {-1629508673, -1353113975, -2075520848},
             [](auto, auto, auto state) -> int32_t {

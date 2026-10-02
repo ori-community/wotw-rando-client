@@ -49,7 +49,7 @@ namespace {
         return is_day();
     }
 
-    randomizer::conditions::applier_intercept_fn make_day_night_applier_intercept_fn(int day_state, int night_state) {
+    randomizer::conditions::new_setup_state_controller_intercept_fn make_day_night_applier_intercept_fn(int day_state, int night_state) {
         return [=](auto, auto, auto original_state) {
             if (!use_rain_lifted_in_marsh_rando_state.get()) {
                 return original_state;
@@ -298,11 +298,11 @@ namespace {
     [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         using namespace randomizer::conditions;
-        register_new_setup_intercept({"swampTorchIntroductionA/*setups/*timesOfDay"}, {-1052258879, 1819061226}, make_day_night_applier_intercept_fn(-1052258879, 1819061226));
+        register_new_setup_state_controller_intercept({"swampTorchIntroductionA/*setups/*timesOfDay"}, {-1052258879, 1819061226}, make_day_night_applier_intercept_fn(-1052258879, 1819061226));
 
-        register_new_setup_intercept({"swampIntroBottom/artSetups/dayNightSetup"}, {-1815347985, -1605692968}, make_day_night_applier_intercept_fn(-1815347985, -1605692968));
+        register_new_setup_state_controller_intercept({"swampIntroBottom/artSetups/dayNightSetup"}, {-1815347985, -1605692968}, make_day_night_applier_intercept_fn(-1815347985, -1605692968));
 
-        register_new_setup_intercept(
+        register_new_setup_state_controller_intercept(
             {
                 "swampIntroTop/timelines/timesOfDayTransition",
                 "shoreSearchShot/art/timesOfDayTransition",
@@ -311,13 +311,13 @@ namespace {
             make_day_night_applier_intercept_fn(-598230906, -1926205078)
         );
 
-        register_new_setup_intercept(
+        register_new_setup_state_controller_intercept(
             {"willOfTheWispsLagoonConnection/artSetups/timesOfDayTransition"},
             {1340727368, -76384365},
             make_day_night_applier_intercept_fn(1340727368, -76384365)
         );
 
-        register_new_setup_intercept(
+        register_new_setup_state_controller_intercept(
             {
                 "swampWalljumpChallengeA/*setups/*timesOfDay",
                 "swampWalljumpChallengeB/*timesOfDay",
@@ -327,24 +327,24 @@ namespace {
             make_day_night_applier_intercept_fn(-1834135337, -949591271)
         );
 
-        register_new_setup_intercept(
+        register_new_setup_state_controller_intercept(
             {"swampNightcrawlerBshortcut/*setups/timesOfDayTransition"},
             {1001861749, 787945376},
             make_day_night_applier_intercept_fn(1001861749, 787945376)
         );
 
         // Sword Cutscene rain
-        register_new_setup_intercept(
+        register_new_setup_state_controller_intercept(
             {"swampGetSpiritBlade/timesOfDayController", "swampGetSpiritBlade/timesOfDayTransition"},
             {-480342150, 907153171},
             make_day_night_applier_intercept_fn(907153171, -480342150)
         );
 
         // Remove regen tree water and move day water around (288338807 : day, -1643391836 : night).
-        register_new_setup_intercept({"swampSaveRoomA/timesOfDayTransition"}, {288338807, -1643391836}, regen_tree);
+        register_new_setup_state_controller_intercept({"swampSaveRoomA/timesOfDayTransition"}, {288338807, -1643391836}, regen_tree);
 
         // Move howl between modifiers depending on if its day or nighttime. (-1375966924 : day, 1361521887 : night)
-        register_new_setup_intercept({"swampNightcrawlerA/artSetups/timesOfDayTransition"}, {-1375966924, 1361521887}, always_spawn_howl);
+        register_new_setup_state_controller_intercept({"swampNightcrawlerA/artSetups/timesOfDayTransition"}, {-1375966924, 1361521887}, always_spawn_howl);
 
         register_condition_intercept(ConditionType::SeinAbilityCondition, "swampNightcrawlerCavernD/enemies/enemyActivator", &is_day_condition);
         register_condition_intercept(ConditionType::SeinAbilityCondition, "swampNightcrawlerCavernA/interactives/enemies/enemyActivator", &is_day_condition);
