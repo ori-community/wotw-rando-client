@@ -76,10 +76,10 @@ message SetSaveGuidRestrictionsMessage {
 }
 
 message GameDifficultySettings {
-  enum Setting {
-    Allow = 0;
-    Warn = 1;
-    Deny = 2;
+  message Setting {
+    bool visible = 1;
+    optional string label = 2;
+    optional string confirmationMessage = 3;
   }
 
   Setting easy = 1;

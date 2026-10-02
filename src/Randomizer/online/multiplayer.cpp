@@ -504,17 +504,25 @@ namespace randomizer::online {
             return;
         }
 
-        if (!m_game_difficulty_settings_overrides.has_value() || message.overrides().easy() != static_cast<int>(m_game_difficulty_settings_overrides->easy) ||
-            message.overrides().normal() != static_cast<int>(m_game_difficulty_settings_overrides->normal) ||
-            message.overrides().hard() != static_cast<int>(m_game_difficulty_settings_overrides->hard)) {
-            set_game_difficulty_settings_overrides(
-                seed::GameDifficultySettings{
-                    static_cast<seed::GameDifficultySetting>(message.overrides().easy()),
-                    static_cast<seed::GameDifficultySetting>(message.overrides().normal()),
-                    static_cast<seed::GameDifficultySetting>(message.overrides().hard()),
-                }
-            );
-        }
+        set_game_difficulty_settings_overrides(
+            seed::GameDifficultySettings {
+                .easy = seed::GameDifficultySetting(
+                    message.overrides().easy().visible(),
+                    message.overrides().easy().has_label() ? std::make_optional(message.overrides().easy().label()) : std::nullopt,
+                    message.overrides().easy().has_confirmationmessage() ? std::make_optional(message.overrides().easy().confirmationmessage()) : std::nullopt
+                ),
+                .normal = seed::GameDifficultySetting(
+                    message.overrides().normal().visible(),
+                    message.overrides().normal().has_label() ? std::make_optional(message.overrides().normal().label()) : std::nullopt,
+                    message.overrides().normal().has_confirmationmessage() ? std::make_optional(message.overrides().normal().confirmationmessage()) : std::nullopt
+                ),
+                .hard = seed::GameDifficultySetting(
+                    message.overrides().hard().visible(),
+                    message.overrides().hard().has_label() ? std::make_optional(message.overrides().hard().label()) : std::nullopt,
+                    message.overrides().hard().has_confirmationmessage() ? std::make_optional(message.overrides().hard().confirmationmessage()) : std::nullopt
+                ),
+            }
+        );
     }
 
     void MultiplayerUniverse::initialize_game_sync(std::shared_ptr<Network::InitGameSyncMessage> const& message) {

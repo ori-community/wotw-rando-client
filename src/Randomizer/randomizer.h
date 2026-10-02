@@ -41,13 +41,6 @@ namespace randomizer {
 
     semver::version randomizer_version();
 
-    /**
-     * If difficulty enforcement is enabled and the current
-     * difficulty differs from the intended one, set the current
-     * difficulty to the intended one
-     */
-    void check_seed_difficulty_enforcement();
-
     common::TimedMultiEventBus<RandomizerEvent>& event_bus();
     seed::Seed& game_seed();
     online::NetworkClient& network_client();

@@ -1,26 +1,20 @@
+#include <Common/ext.h>
 #include <Core/api/game/game.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/dev/object_visualizer.h>
-#include <Randomizer/conditions/new_setup_state_override.h>
-
 #include <Modloader/app/methods/Moon/UberStateController.h>
-#include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerStateMap_Mapping.h>
 #include <Modloader/app/methods/NewSetupStateController.h>
+#include <Modloader/app/structs/Int32__Boxed.h>
 #include <Modloader/app/types/NewSetupStateController.h>
-#include <Modloader/app/types/PlayerStateMap.h>
-#include <Modloader/app/types/PlayerStateMap_Mapping.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
-
-#include <Modloader/app/structs/Int32__Boxed.h>
-
+#include <Randomizer/conditions/new_setup_state_override.h>
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Common/ext.h"
 
 using namespace modloader;
 using namespace modloader::win;

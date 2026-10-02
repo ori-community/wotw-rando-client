@@ -1,9 +1,10 @@
+#include <Common/json/optional.h>
 #include <Core/utils/json_serializers.h>
 #include <Randomizer/randomizer.h>
+#include <Randomizer/seed/archive.h>
 #include <Randomizer/seed/parser.h>
 #include <magic_enum/magic_enum.hpp>
 
-#include "archive.h"
 
 namespace randomizer::seed {
     namespace {
@@ -38,12 +39,14 @@ namespace randomizer::seed {
             if (preload.contains("description")) {
                 preload.at("description").get_to(data.description);
             }
-        } catch (const std::exception& e) {
+
+            if (preload.contains("gameDifficulties")) {
+                preload.at("gameDifficulties").get_to(data.game_difficulties);
+            }
+        } catch (const std::exception&) {
             return ParserError::InvalidSeed;
         }
 
-        //int total_pickups = 0;
-        //std::unordered_map<GameArea, int> pickup_count_by_area;
         return data;
     }
 

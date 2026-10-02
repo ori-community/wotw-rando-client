@@ -1,21 +1,16 @@
 #pragma once
 
-#include <Randomizer/seed/archive.h>
-
-
-#include <Randomizer/seed/seed_source.h>
-
-#include <Common/json/optional.h>
 #include <Core/property.h>
-
-#include <Randomizer/seed/instructions.h>
-#include <Randomizer/seed/seed_event.h>
-
 #include <Core/save_meta/save_meta.h>
 #include <Modloader/app/structs/GameController_GameDifficultyModes__Enum.h>
-#include <semver.hpp>
+#include <Randomizer/seed/archive.h>
+#include <Randomizer/seed/instructions.h>
+#include <Randomizer/seed/seed_event.h>
+#include <Randomizer/seed/seed_source.h>
 #include <nlohmann/json.hpp>
+#include <semver.hpp>
 #include <unordered_map>
+
 
 namespace randomizer::seed {
     struct SeedData {
@@ -36,16 +31,43 @@ namespace randomizer::seed {
         std::vector<command_t> commands;
     };
 
-    enum class GameDifficultySetting {
-        Allow,
-        Warn,
-        Deny,
+    struct GameDifficultySetting {
+        bool visible = true;
+        std::optional<std::string> label = std::nullopt;
+        std::optional<std::string> confirmation_message = std::nullopt;
+
+        // TODO: Replace with NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT_WITH_NAMES once 3.13.0 is released
+        template<typename BasicJsonType, nlohmann::detail::enable_if_t<nlohmann::detail::is_basic_json<BasicJsonType>::value, int> = 0>
+        friend void to_json(BasicJsonType& nlohmann_json_j, const GameDifficultySetting& nlohmann_json_t) {
+            nlohmann_json_j["visible"] = nlohmann_json_t.visible;
+            nlohmann_json_j["label"] = nlohmann_json_t.label;
+            nlohmann_json_j["confirmationMessage"] = nlohmann_json_t.confirmation_message;
+        }
+
+        template<typename BasicJsonType, nlohmann::detail::enable_if_t<nlohmann::detail::is_basic_json<BasicJsonType>::value, int> = 0>
+        friend void from_json(const BasicJsonType& nlohmann_json_j, GameDifficultySetting& nlohmann_json_t) {
+            const GameDifficultySetting nlohmann_json_default_obj{};
+            nlohmann_json_t.visible = !nlohmann_json_j.is_null() ? nlohmann_json_j.value("visible", nlohmann_json_default_obj.visible)
+                                                                 : nlohmann_json_default_obj.visible;
+            nlohmann_json_t.label = !nlohmann_json_j.is_null() ? nlohmann_json_j.value("label", nlohmann_json_default_obj.label)
+                                                               : nlohmann_json_default_obj.label;
+            nlohmann_json_t.confirmation_message = !nlohmann_json_j.is_null()
+                ? nlohmann_json_j.value("confirmationMessage", nlohmann_json_default_obj.confirmation_message)
+                : nlohmann_json_default_obj.confirmation_message;
+        }
     };
 
     struct GameDifficultySettings {
-        GameDifficultySetting easy = GameDifficultySetting::Allow;
-        GameDifficultySetting normal = GameDifficultySetting::Allow;
-        GameDifficultySetting hard = GameDifficultySetting::Allow;
+        GameDifficultySetting easy = GameDifficultySetting();
+        GameDifficultySetting normal = GameDifficultySetting();
+        GameDifficultySetting hard = GameDifficultySetting();
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
+            GameDifficultySettings,
+            easy,
+            normal,
+            hard
+        )
 
         GameDifficultySetting get_for_game_difficulty(app::GameController_GameDifficultyModes__Enum difficulty) const {
             switch (difficulty) {
@@ -63,16 +85,16 @@ namespace randomizer::seed {
         /**
          * @return The first intended difficulty in order: Normal, Easy, Hard
          */
-        std::optional<app::GameController_GameDifficultyModes__Enum> get_first_intended_difficulty() const {
-            if (normal == GameDifficultySetting::Allow) {
+        std::optional<app::GameController_GameDifficultyModes__Enum> get_first_visible_difficulty() const {
+            if (normal.visible) {
                 return app::GameController_GameDifficultyModes__Enum::Normal;
             }
 
-            if (easy == GameDifficultySetting::Allow) {
+            if (easy.visible) {
                 return app::GameController_GameDifficultyModes__Enum::Easy;
             }
 
-            if (hard == GameDifficultySetting::Allow) {
+            if (hard.visible) {
                 return app::GameController_GameDifficultyModes__Enum::Hard;
             }
 

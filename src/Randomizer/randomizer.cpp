@@ -128,13 +128,11 @@ namespace randomizer {
             EventTiming::After,
             [](auto, auto) {
                 modloader::info("save_file", std::format("Loaded save file in slot {}", SaveSlotsManager::get_CurrentSlotIndex()));
-                check_seed_difficulty_enforcement();
             }
         );
 
         [[maybe_unused]]
         auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
-            check_seed_difficulty_enforcement();
             randomizer_seed.trigger(seed::SeedClientEvent::Respawn);
         });
 
@@ -276,28 +274,6 @@ namespace randomizer {
         network_client_instance.disconnect();
         multiverse_id_to_connect_to = std::nullopt;
         seed::set_server_seed_archive(std::nullopt);
-    }
-
-    void check_seed_difficulty_enforcement() {
-        const auto game_difficulties = [&]() -> seed::GameDifficultySettings {
-            if (multiplayer_universe().game_difficulty_settings_overrides().has_value()) {
-                return *multiplayer_universe().game_difficulty_settings_overrides();
-            }
-
-            return game_seed().parser_output().transform([](auto output) {
-                return output.get().meta.game_difficulties;
-            }).value_or(seed::GameDifficultySettings());
-        }();
-
-        const auto game_controller = core::api::game::game_controller();
-        const auto current_difficulty = GameController::get_GameDifficultyMode(game_controller);
-
-        if (game_difficulties.get_for_game_difficulty(current_difficulty) == seed::GameDifficultySetting::Deny) {
-            const auto first_intended_difficulty = game_difficulties.get_first_intended_difficulty();
-            if (first_intended_difficulty.has_value()) {
-                GameController::set_GameDifficultyMode(game_controller, *first_intended_difficulty);
-            }
-        }
     }
 
     common::TimedMultiEventBus<RandomizerEvent>& event_bus() {

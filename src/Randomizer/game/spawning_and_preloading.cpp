@@ -37,7 +37,7 @@
 #include <Randomizer/game/spawning_and_preloading.h>
 #include <Randomizer/game/teleport.h>
 #include <Randomizer/randomizer.h>
-#include <Randomizer/ui/main_menu_seed_info.h>
+#include <Randomizer/ui/main_menu.h>
 
 
 #include "Modloader/windows_api/windows.h"
@@ -61,9 +61,6 @@ namespace randomizer::game {
         std::optional<il2cpp::WeakGCRef<app::ActionSequence>> start_game_sequence_ref;
         std::optional<il2cpp::WeakGCRef<app::CleverMenuItemSelectionManager>> full_game_main_menu_selection_manager_ref;
         std::optional<il2cpp::WeakGCRef<app::ActionSequence>> empty_slot_pressed_action_sequence_ref;
-        std::optional<il2cpp::WeakGCRef<app::MessageBox>> easy_mode_text_ref;
-        std::optional<il2cpp::WeakGCRef<app::MessageBox>> normal_mode_text_ref;
-        std::optional<il2cpp::WeakGCRef<app::MessageBox>> hard_mode_text_ref;
         std::shared_ptr<core::api::messages::MessageBox> lobby_status_text_box;
 
         void update_lobby_ui(bool update_text_only = false) {
@@ -169,32 +166,6 @@ namespace randomizer::game {
         void check_if_preloaded_and_report_ready() {
             if (pending_scenes_to_preload.empty()) {
                 randomizer::multiplayer_universe().report_player_ready(true);
-            }
-        }
-
-        void update_difficulty_text_boxes() {
-            std::string prepend_to_difficulty;
-
-            if (randomizer::multiplayer_universe().should_block_starting_new_game()) {
-                prepend_to_difficulty = "JOIN RACE in ";
-            }
-
-            const auto easy_mode_text = easy_mode_text_ref.and_then([](auto& ref) { return *ref; });
-            if (easy_mode_text.has_value()) {
-                (*easy_mode_text)->fields.MessageProvider = core::api::system::create_message_provider(std::format("{}EASY MODE", prepend_to_difficulty));
-                MessageBox::RefreshText_1(*easy_mode_text);
-            }
-
-            const auto normal_mode_text = normal_mode_text_ref.and_then([](auto& ref) { return *ref; });
-            if (normal_mode_text.has_value()) {
-                (*normal_mode_text)->fields.MessageProvider = core::api::system::create_message_provider(std::format("{}NORMAL MODE", prepend_to_difficulty));
-                MessageBox::RefreshText_1(*normal_mode_text);
-            }
-
-            const auto hard_mode_text = hard_mode_text_ref.and_then([](auto& ref) { return *ref; });
-            if (hard_mode_text.has_value()) {
-                (*hard_mode_text)->fields.MessageProvider = core::api::system::create_message_provider(std::format("{}HARD MODE", prepend_to_difficulty));
-                MessageBox::RefreshText_1(*hard_mode_text);
             }
         }
 
@@ -351,13 +322,6 @@ namespace randomizer::game {
                 start_game_sequence_ref =
                         il2cpp::WeakGCRef(il2cpp::unity::get_component<app::ActionSequence>(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "startGameSequence"}), types::ActionSequence::get_class()));
 
-                easy_mode_text_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
-                        il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. easyMode", "text"}), types::MessageBox::get_class()));
-                normal_mode_text_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
-                        il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. normalMode", "text"}), types::MessageBox::get_class()));
-                hard_mode_text_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
-                        il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. hardMode", "text"}), types::MessageBox::get_class()));
-
                 #ifdef ENABLE_FAST_LOAD
                 // Make QTMs faster
                 auto qtm_fade_to_black_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "actions", "usedSlotPressed (part2)", "06. FadeToBlack over 5 seconds"});
@@ -368,8 +332,6 @@ namespace randomizer::game {
                 auto qtm_wait = il2cpp::unity::get_component<app::WaitAction>(qtm_wait_go, types::WaitAction::get_class());
                 qtm_wait->fields.Duration = 0.f;
                 #endif
-
-                update_difficulty_text_boxes();
             }
         }
 
@@ -381,8 +343,6 @@ namespace randomizer::game {
 
             core::api::game::event_bus().trigger_event(GameEvent::NewGameInitialized, EventTiming::After);
             on_new_game_late_initialization_handle = nullptr;
-
-            check_seed_difficulty_enforcement();
 
             core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.Enabled = true;
 
@@ -440,14 +400,20 @@ namespace randomizer::game {
 
         common::Droppable::ptr_t on_should_block_starting_new_game_changed;
         common::Droppable::ptr_t on_multiverse_updated;
+
+        [[maybe_unused]]
         auto _1 = core::api::scenes::event_bus().register_handler(&on_scene_load);
+        [[maybe_unused]]
         auto _2 = core::api::game::event_bus().register_handler(GameEvent::NewGame, EventTiming::After, &on_new_game);
+        [[maybe_unused]]
         auto _3 = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, &on_finished_loading_save);
+        [[maybe_unused]]
         auto _4 = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
+        [[maybe_unused]]
         auto _5 = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             on_should_block_starting_new_game_changed = randomizer::multiplayer_universe().event_bus().register_handler(online::MultiplayerUniverse::Event::ShouldBlockStartingNewGameChanged, EventTiming::After, [](auto, auto) {
                 core::events::schedule_task_for_next_update([]() {
-                    randomizer::game::update_difficulty_text_boxes();
+                    main_menu_seed_info::update_difficulty_menu_items();
                 });
 
                 debug("spawning_and_preloading", std::format("Blocking new game: {}", randomizer::multiplayer_universe().should_block_starting_new_game() ? "True" : "False"));

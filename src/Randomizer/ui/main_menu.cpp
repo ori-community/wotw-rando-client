@@ -29,7 +29,7 @@
 #include <Randomizer/game/spawning_and_preloading.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/parser.h>
-#include <Randomizer/ui/main_menu_seed_info.h>
+#include <Randomizer/ui/main_menu.h>
 #include <magic_enum/magic_enum.hpp>
 
 
@@ -57,6 +57,9 @@ namespace randomizer::main_menu_seed_info {
         std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> easy_mode_menu_item_ref;
         std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> normal_mode_menu_item_ref;
         std::optional<il2cpp::WeakGCRef<app::CleverMenuItem>> hard_mode_menu_item_ref;
+        std::optional<il2cpp::WeakGCRef<app::MessageBox>> easy_mode_text_ref;
+        std::optional<il2cpp::WeakGCRef<app::MessageBox>> normal_mode_text_ref;
+        std::optional<il2cpp::WeakGCRef<app::MessageBox>> hard_mode_text_ref;
         std::optional<il2cpp::WeakGCRef<app::GameObject>> question_dialog_go_ref;
         std::optional<il2cpp::WeakGCRef<app::MessageBox>> question_dialog_message_box_ref;
 
@@ -251,13 +254,13 @@ namespace randomizer::main_menu_seed_info {
         }
 
         void hide_question_dialog() {
-            const auto question_dialog_message_box = question_dialog_message_box_ref.and_then([](auto& ref) { return *ref; });
+            const auto question_dialog_go = question_dialog_go_ref.and_then([](auto& ref) { return *ref; });
 
-            if (!question_dialog_message_box.has_value()) {
+            if (!question_dialog_go.has_value()) {
                 return;
             }
 
-            il2cpp::unity::set_active(*question_dialog_message_box, false);
+            il2cpp::unity::set_active(*question_dialog_go, false);
             randomizer::game::set_full_game_main_menu_selection_manager_active(true);
 
             update_difficulty_menu_items(true);
@@ -283,53 +286,82 @@ namespace randomizer::main_menu_seed_info {
             }
         }
 
+        std::optional<seed::GameDifficultySettings> get_active_game_difficulty_settings() {
+            if (multiplayer_universe().game_difficulty_settings_overrides().has_value()) {
+                return multiplayer_universe().game_difficulty_settings_overrides();
+            }
+
+            if (std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)) {
+                return std::get<seed::SeedMetaData>(current_seed_meta_data_result).game_difficulties;
+            }
+
+            return std::nullopt;
+        }
+
         void on_new_game_with_difficulty_pressed(app::GameController_GameDifficultyModes__Enum difficulty) {
-            const auto game_difficulties = [&]() -> std::optional<seed::GameDifficultySettings> {
-                if (multiplayer_universe().game_difficulty_settings_overrides().has_value()) {
-                    return multiplayer_universe().game_difficulty_settings_overrides();
-                }
-
-                if (std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)) {
-                    return std::get<seed::SeedMetaData>(current_seed_meta_data_result).game_difficulties;
-                }
-
-                return std::nullopt;
-            }();
-
+            const auto game_difficulties = get_active_game_difficulty_settings();
             GameController::set_GameDifficultyMode(core::api::game::game_controller(), difficulty);
 
-            if (game_difficulties.has_value() && game_difficulties->get_for_game_difficulty(difficulty) == seed::GameDifficultySetting::Allow) {
-                randomizer::game::start_new_game();
-                return;
-            }
-
-            std::vector<std::string> intended_difficulty_names;
-
             if (game_difficulties.has_value()) {
-                if (game_difficulties->easy == seed::GameDifficultySetting::Allow) {
-                    intended_difficulty_names.emplace_back("Easy");
+                const auto difficulty_settings = game_difficulties->get_for_game_difficulty(difficulty);
+
+                if (!difficulty_settings.visible) {
+                    // This should never happen
+                    return;
                 }
 
-                if (game_difficulties->normal == seed::GameDifficultySetting::Allow) {
-                    intended_difficulty_names.emplace_back("Normal");
-                }
-
-                if (game_difficulties->hard == seed::GameDifficultySetting::Allow) {
-                    intended_difficulty_names.emplace_back("Hard");
+                if (difficulty_settings.confirmation_message.has_value()) {
+                    show_question_dialog(*difficulty_settings.confirmation_message);
+                    return;
                 }
             }
 
-            if (intended_difficulty_names.empty()) {
-                intended_difficulty_names.emplace_back("Normal (probably?)");
+            randomizer::game::start_new_game();
+        }
+
+        void update_difficulty_text_boxes() {
+            auto game_difficulties = get_active_game_difficulty_settings();
+            std::string prepend_to_difficulty;
+
+            if (randomizer::multiplayer_universe().should_block_starting_new_game()) {
+                prepend_to_difficulty = "JOIN RACE: ";
             }
 
-            std::string combined_difficulty_names = "";
-            combined_difficulty_names += intended_difficulty_names[0];
-            for (int i = 1; i < intended_difficulty_names.size(); ++i) {
-                combined_difficulty_names += " or " + intended_difficulty_names[i];
+            const auto easy_mode_text = easy_mode_text_ref.and_then([](auto& ref) { return *ref; });
+            if (easy_mode_text.has_value()) {
+                (*easy_mode_text)->fields.MessageProvider = core::api::system::create_message_provider(
+                    std::format(
+                        "{}{}",
+                        prepend_to_difficulty,
+                        game_difficulties.and_then([](auto& v) { return v.easy.label; }).value_or("EASY MODE")
+                    )
+                );
+                MessageBox::RefreshText_1(*easy_mode_text);
             }
 
-            show_question_dialog(std::format("The seed is intended for #{} Mode#.\nContinue anyways?", combined_difficulty_names));
+            const auto normal_mode_text = normal_mode_text_ref.and_then([](auto& ref) { return *ref; });
+            if (normal_mode_text.has_value()) {
+                (*normal_mode_text)->fields.MessageProvider = core::api::system::create_message_provider(
+                    std::format(
+                        "{}{}",
+                        prepend_to_difficulty,
+                        game_difficulties.and_then([](auto& v) { return v.normal.label; }).value_or("NORMAL MODE")
+                    )
+                );
+                MessageBox::RefreshText_1(*normal_mode_text);
+            }
+
+            const auto hard_mode_text = hard_mode_text_ref.and_then([](auto& ref) { return *ref; });
+            if (hard_mode_text.has_value()) {
+                (*hard_mode_text)->fields.MessageProvider = core::api::system::create_message_provider(
+                    std::format(
+                        "{}{}",
+                        prepend_to_difficulty,
+                        game_difficulties.and_then([](auto& v) { return v.hard.label; }).value_or("HARD MODE")
+                    )
+                );
+                MessageBox::RefreshText_1(*hard_mode_text);
+            }
         }
 
         void on_scene_load(const core::api::scenes::SceneLoadEventMetadata* metadata, const std::string&) {
@@ -446,6 +478,13 @@ namespace randomizer::main_menu_seed_info {
                     );
                     question_dialog_message_box_ref = il2cpp::WeakGCRef(question_dialog_message_box);
 
+                    easy_mode_text_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
+                        il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. easyMode", "text"}), types::MessageBox::get_class()));
+                    normal_mode_text_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
+                        il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. normalMode", "text"}), types::MessageBox::get_class()));
+                    hard_mode_text_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(
+                        il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. hardMode", "text"}), types::MessageBox::get_class()));
+
                     const auto question_dialog_background = il2cpp::unity::find_child(question_dialog_go, "messageBackgroundA");
 
                     // Make question box a little larger
@@ -513,6 +552,8 @@ namespace randomizer::main_menu_seed_info {
                     on_game_difficulty_settings_overrides_update_handle = multiplayer_universe().event_bus().register_handler(
                         online::MultiplayerUniverse::Event::GameDifficultySettingsOverridesChanged, EventTiming::After, [](auto, auto) { update_difficulty_menu_items(); }
                     );
+
+                    update_difficulty_text_boxes();
                     break;
                 }
                 case app::SceneState__Enum::Disabling:
@@ -685,14 +726,14 @@ namespace randomizer::main_menu_seed_info {
         ) {
             const auto online_overrides = randomizer::multiplayer_universe().game_difficulty_settings_overrides();
             if (online_overrides.has_value()) {
-                show_easy = online_overrides->easy != seed::GameDifficultySetting::Deny;
-                show_normal = online_overrides->normal != seed::GameDifficultySetting::Deny;
-                show_hard = online_overrides->hard != seed::GameDifficultySetting::Deny;
+                show_easy = online_overrides->easy.visible;
+                show_normal = online_overrides->normal.visible;
+                show_hard = online_overrides->hard.visible;
             } else {
                 if (seed_metadata.has_value()) {
-                    show_easy = seed_metadata->game_difficulties.easy != seed::GameDifficultySetting::Deny;
-                    show_normal = seed_metadata->game_difficulties.normal != seed::GameDifficultySetting::Deny;
-                    show_hard = seed_metadata->game_difficulties.hard != seed::GameDifficultySetting::Deny;
+                    show_easy = seed_metadata->game_difficulties.easy.visible;
+                    show_normal = seed_metadata->game_difficulties.normal.visible;
+                    show_hard = seed_metadata->game_difficulties.hard.visible;
                 } else {
                     show_easy = false;
                     show_normal = false;
@@ -701,6 +742,8 @@ namespace randomizer::main_menu_seed_info {
             }
         }
 
+        update_difficulty_text_boxes();
+
         do_if_valid<app::CleverMenuItem>(easy_mode_menu_item_ref, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, show_easy); });
         do_if_valid<app::CleverMenuItem>(normal_mode_menu_item_ref, [&](auto menu_item) { il2cpp::unity::set_active(menu_item, show_normal); });
         do_if_valid<app::CleverMenuItem>(hard_mode_menu_item_ref, [&](auto menu_item) {
@@ -708,7 +751,7 @@ namespace randomizer::main_menu_seed_info {
             menu_item->fields.m_isDisabled = true;
 
             auto first_intended_difficulty = seed_metadata.has_value()
-                ? seed_metadata->game_difficulties.get_first_intended_difficulty().value_or(app::GameController_GameDifficultyModes__Enum::Normal)
+                ? seed_metadata->game_difficulties.get_first_visible_difficulty().value_or(app::GameController_GameDifficultyModes__Enum::Normal)
                 : app::GameController_GameDifficultyModes__Enum::Normal;
 
             auto select_index = try_select_intended_difficulty && seed_metadata.has_value()

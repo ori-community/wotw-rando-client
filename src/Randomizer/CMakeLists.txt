@@ -235,7 +235,7 @@ set(
         "uber_states/uber_state_intercepts.cpp"
         "ui/always_show_keystones.cpp"
         "ui/empty_message_provider_fix.cpp"
-        "ui/main_menu_seed_info.cpp"
+        "ui/main_menu.cpp"
 )
 
 set(
@@ -412,6 +412,7 @@ set(
         "uber_states/random_value_generator.h"
         "uber_states/randomizer_uber_states.h"
         "uber_states/uber_state_intercepts.h"
+        "ui/main_menu.h"
 )
 
 set(
