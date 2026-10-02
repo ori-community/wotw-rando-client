@@ -10,7 +10,7 @@ INSTRUCTION(CreateStatsEntry)
 
     map::icons::MapIcon::Type icon_type;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         static uint64_t next_id = 0;
 
         const auto id = ++next_id;
@@ -23,7 +23,7 @@ INSTRUCTION(CreateStatsEntry)
         timing::track_custom_timeline_entry(id);
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format(
             "CreateStatsEntry -> {}, {}",
             memory.heap.get<std::string>(0),

@@ -18,6 +18,7 @@
 #include <Modloader/windows_api/console.h>
 #include <Randomizer/features/entrance_randomizer.h>
 #include <Randomizer/randomizer.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <ranges>
 #include <set>
 #include <string>
@@ -354,7 +355,10 @@ namespace randomizer::entrances {
                         door->fields.AdditionalScenesToBlockOn->vector[i] = scene_meta;
                     }
 
-                    core::api::uber_states::UberState visited_uber_state(UberStateGroup::KnownEntranceConnections, ENTRANCE_NAME_TO_ENTRANCE_ID.at(it->first));
+                    core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedIntUberState> visited_uber_state(
+                        uber_states::group_id<"knownEntranceConnections">(),
+                        ENTRANCE_NAME_TO_ENTRANCE_ID.at(it->first)
+                    );
                     visited_uber_state.set<bool>(true);
                 }
             }
@@ -439,13 +443,16 @@ namespace randomizer::entrances {
 
         [[maybe_unused]] auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             for (const auto& state_id: ENTRANCE_ID_TO_ENTRANCE_NAME | std::views::keys) {
-                core::api::uber_states::UberState uber_state(UberStateGroup::Entrances, state_id);
+                core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedIntUberState> uber_state(
+                    uber_states::group_id<"entrances">(),
+                    state_id
+                );
 
                 effects.push_back(
                     core::reactivity::watch_effect()
                         .effect({uber_state})
-                        .after([=] {
-                            const auto state_value = uber_state.get<int>();
+                        .after([=] mutable {
+                            const auto state_value = uber_state.get();
 
                             const auto self_entrance_name = get_entrance_name_from_entrance_id(state_id);
                             const auto self_entrance_info = get_entrance_info(self_entrance_name);

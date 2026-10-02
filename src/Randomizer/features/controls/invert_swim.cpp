@@ -1,24 +1,22 @@
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
-#include <Randomizer/features/controls/invert_swim.h>
 #include <Core/settings.h>
-#include <Modloader/app/methods/NewGameAction.h>
-#include <Modloader/app/methods/SaveGameController.h>
-#include <Modloader/app/methods/SeinHealthController.h>
 #include <Modloader/app/methods/SeinSwimming.h>
-#include <Modloader/app/methods/UnityEngine/AnimationCurve.h>
 #include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/windows_api/console.h>
+#include <Randomizer/features/controls/invert_swim.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 using namespace app::classes;
 
 namespace {
-    constexpr float DEFAULT_SWIM_SPEED = 6.f;
+    constexpr auto DEFAULT_SWIM_SPEED = 6.f;
 
-    core::api::uber_states::UberState swim_speed(UberStateGroup::RandoUpgrade, 85);
+    auto& swim_speed_state = randomizer::uber_states::state<"randoUpgrades", "swimSpeedMultiplier">();
+
     IL2CPP_INTERCEPT(void, SeinSwimming, UpdateSwimMovingUnderwaterState, app::SeinSwimming * this_ptr) {
-        this_ptr->fields.SwimSpeed = DEFAULT_SWIM_SPEED * swim_speed.get<float>();
+        this_ptr->fields.SwimSpeed = DEFAULT_SWIM_SPEED * swim_speed_state.get();
         this_ptr->fields.HoldAToSwimLoop = false;
 
         if (core::settings::invert_fast_swim()) {

@@ -4,6 +4,7 @@
 
 #include <Core/api/uber_states/uber_state.h>
 
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -17,18 +18,18 @@ namespace {
         "orbBulb",
     };
 
-    const std::unordered_map<app::DamageType__Enum, core::api::uber_states::UberState> damage_override_states{
-        { app::DamageType__Enum::Bow, core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, 70) },
-        { app::DamageType__Enum::Blaze, core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, 71) },
-        { app::DamageType__Enum::Sword, core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, 72) },
-        { app::DamageType__Enum::Hammer, core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, 73) },
-        { app::DamageType__Enum::SpiritSpear, core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, 74) },
-        { app::DamageType__Enum::Chakram, core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, 75) },
+    std::unordered_map<app::DamageType__Enum, core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState>> damage_override_states{
+        { app::DamageType__Enum::Bow, randomizer::uber_states::state<"randoUpgrades", "bowAsFireSource">() },
+        { app::DamageType__Enum::Blaze, randomizer::uber_states::state<"randoUpgrades", "blazeAsFireSource">() },
+        { app::DamageType__Enum::Sword, randomizer::uber_states::state<"randoUpgrades", "swordAsFireSource">() },
+        { app::DamageType__Enum::Hammer, randomizer::uber_states::state<"randoUpgrades", "hammerAsFireSource">() },
+        { app::DamageType__Enum::SpiritSpear, randomizer::uber_states::state<"randoUpgrades", "spearAsFireSource">() },
+        { app::DamageType__Enum::Chakram, randomizer::uber_states::state<"randoUpgrades", "shurikenAsFireSource">() },
     };
 
     bool is_overridden(const app::DamageType__Enum damage_type) {
         const auto it = damage_override_states.find(damage_type);
-        return it != damage_override_states.end() && it->second.get<bool>();
+        return it != damage_override_states.end() && it->second.get();
     }
 
     IL2CPP_INTERCEPT(bool, AttackableSwitch, DoesReactTo, app::AttackableSwitch * this_ptr, app::DamageType__Enum damage_type) {

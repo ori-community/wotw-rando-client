@@ -72,7 +72,7 @@ namespace core::ipc::console {
                     std::vector<std::string> parts;
                     split_str(content, parts, '|');
                     return parts.size() == 2
-                        ? std::make_optional(api::uber_states::UberState(std::stoi(parts[0]), std::stoi(parts[1])))
+                        ? std::make_optional(api::uber_states::UntypedUberId(std::stoi(parts[0]), std::stoi(parts[1])))
                         : std::nullopt;
                 }
                 default:

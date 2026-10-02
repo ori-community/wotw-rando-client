@@ -5,6 +5,6 @@
 
 
 namespace randomizer::game::shops::lupo_maps {
-    core::api::uber_states::UberState get_slot_key_for_game_world_area(app::GameWorldAreaID__Enum game_world_area);
+    ShopSlot::is_purchased_state_id_t get_slot_key_for_game_world_area(app::GameWorldAreaID__Enum game_world_area);
     ShopCollection::lupo_maps_shop_t::slot_t& get_slot(app::GameWorldAreaID__Enum game_world_area);
 }

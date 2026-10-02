@@ -1,16 +1,17 @@
-#include <Randomizer/map/map_filter.h>
-#include <Modloader/modloader.h>
-#include <Modloader/app/methods/MessageBox.h>
-#include <Modloader/app/methods/AreaMapUI.h>
-#include <Modloader/app/methods/GameMapUI.h>
-#include <Modloader/app/methods/QuestIconsUI.h>
-#include <Modloader/app/methods/QuestsUI.h>
-#include <Modloader/app/types/Input_Cmd.h>
-#include <Modloader/app/types/GameMapUI.h>
-#include <frozen/unordered_map.h>
-#include <Randomizer/randomizer.h>
 #include <Core/api/game/game.h>
 #include <Core/api/system/message_provider.h>
+#include <Modloader/app/methods/AreaMapUI.h>
+#include <Modloader/app/methods/GameMapUI.h>
+#include <Modloader/app/methods/MessageBox.h>
+#include <Modloader/app/methods/QuestIconsUI.h>
+#include <Modloader/app/methods/QuestsUI.h>
+#include <Modloader/app/types/GameMapUI.h>
+#include <Modloader/app/types/Input_Cmd.h>
+#include <Modloader/modloader.h>
+#include <Randomizer/map/map_filter.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+#include <frozen/unordered_map.h>
 
 
 namespace randomizer::map::filter {
@@ -35,7 +36,7 @@ namespace randomizer::map::filter {
     bool is_filter_available(const MapFilter filter) {
         switch (filter) {
             case MapFilter::InLogic:
-                return core::api::uber_states::UberState(UberStateGroup::RandoConfig, 12).get<bool>();
+                return uber_states::state<"randoConfig", "inLogicFilterEnabled">().get();
             case MapFilter::Collectibles:
                 return true;
             case MapFilter::Quests:
@@ -43,7 +44,7 @@ namespace randomizer::map::filter {
             case MapFilter::Players:
                 return multiplayer_universe().player_count() > 1;
             case MapFilter::Spoiler:
-                return core::api::uber_states::UberState(UberStateGroup::RandoState, 100).get<bool>();
+                return uber_states::state<"randoState", "enableSpoilerFilter">().get();
         }
 
         return true;

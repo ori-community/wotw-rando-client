@@ -26,7 +26,13 @@ namespace randomizer::game::shops {
     };
 
     struct ShopSlot {
-        core::api::uber_states::UberState is_purchased_state;
+        using is_purchased_state_t = core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState>;
+        using is_purchased_state_id_t = is_purchased_state_t::id_t;
+
+        is_purchased_state_t is_purchased_state;
+
+        explicit ShopSlot(const is_purchased_state_t& is_purchased_state) :
+            is_purchased_state(is_purchased_state) {}
 
         virtual nlohmann::json serialize() const = 0;
         virtual void deserialize(const nlohmann::json& json) = 0;
@@ -45,7 +51,7 @@ namespace randomizer::game::shops {
         core::Property<bool> is_hidden{false};
         core::Property<int> cost{0};
 
-        ShopUIShopSlot();
+        explicit ShopUIShopSlot(const is_purchased_state_t& is_purchased_state);
         SlotVisibility visibility() const;
 
         std::shared_ptr<core::api::graphics::textures::Texture> icon();
@@ -63,6 +69,8 @@ namespace randomizer::game::shops {
      * Shop slot type for shops that only have a cost. E.g. Lupo maps outside Glades.
      */
     struct CostOnlyShopSlot : ShopSlot {
+        explicit CostOnlyShopSlot(const is_purchased_state_t& is_purchased_state) : ShopSlot(is_purchased_state) {}
+
         core::Property<int> cost;
 
         nlohmann::json serialize() const override;
@@ -72,32 +80,32 @@ namespace randomizer::game::shops {
     template <int SLOT_COUNT, typename SLOT_T = ShopUIShopSlot>
     class Shop {
     public:
-        using is_purchased_states_t = std::array<core::api::uber_states::UberState, SLOT_COUNT>;
+        using is_purchased_states_t = std::array<ShopSlot::is_purchased_state_t, SLOT_COUNT>;
         using slot_t = SLOT_T;
 
         explicit Shop(is_purchased_states_t is_purchased_states) {
             static_assert(std::is_base_of_v<ShopSlot, SLOT_T>, "Type specified as SLOT_T must inherit ShopSlot");
 
             for (auto& is_purchased_state : is_purchased_states) {
-                m_slots[is_purchased_state].is_purchased_state = is_purchased_state;
+                m_slots.emplace(is_purchased_state.get_uber_id(), SLOT_T(is_purchased_state));
             }
         }
 
-        std::optional<std::reference_wrapper<SLOT_T>> slot(core::api::uber_states::UberState const& for_state) {
+        std::optional<std::reference_wrapper<SLOT_T>> slot(ShopSlot::is_purchased_state_id_t const& for_state) {
             auto it = m_slots.find(for_state);
             return it != m_slots.end() ? std::make_optional(std::ref(it->second)) : std::nullopt;
         }
 
-        std::unordered_map<core::api::uber_states::UberState, SLOT_T>& slots() { return m_slots; }
+        std::unordered_map<ShopSlot::is_purchased_state_id_t, SLOT_T>& slots() { return m_slots; }
 
         [[nodiscard]]
         nlohmann::json serialize() const {
             nlohmann::json json;
 
-            for (const auto& [uber_state, slot]: m_slots) {
+            for (const auto& [state_id, slot]: m_slots) {
                 json.push_back({
-                    {"is_purchased_group", uber_state.group_int()},
-                    {"is_purchased_state", uber_state.state()},
+                    {"is_purchased_group", state_id.group},
+                    {"is_purchased_state", state_id.member},
                     {"slot", slot.serialize()},
                 });
             }
@@ -107,7 +115,7 @@ namespace randomizer::game::shops {
 
         void deserialize(const nlohmann::json& json) {
             for (auto& element: json) {
-                const core::api::uber_states::UberState is_purchased_state(
+                const ShopSlot::is_purchased_state_id_t is_purchased_state(
                     element.at("is_purchased_group").get<int>(),
                     element.at("is_purchased_state").get<int>()
                 );
@@ -120,8 +128,8 @@ namespace randomizer::game::shops {
                         "shop",
                         std::format(
                             "Tried to deserialize shop slot for state {}|{} but the shop did not contain such a slot",
-                            is_purchased_state.group_int(),
-                            is_purchased_state.state()
+                            is_purchased_state.group,
+                            is_purchased_state.member
                         )
                     );
                 }
@@ -129,7 +137,7 @@ namespace randomizer::game::shops {
         }
 
     private:
-        std::unordered_map<core::api::uber_states::UberState, SLOT_T> m_slots;
+        std::unordered_map<ShopSlot::is_purchased_state_id_t, SLOT_T> m_slots;
     };
 
     class ShopCollection : public core::save_meta::CborSaveMetaSerializable {
@@ -152,7 +160,7 @@ namespace randomizer::game::shops {
         grom_shop_t& grom_shop() { return m_grom_shop; }
         tuley_shop_t& tuley_shop() { return m_tuley_shop; }
 
-        const std::unordered_map<core::api::uber_states::UberState, any_shop_slot_reference_t>& slots();
+        const std::unordered_map<ShopSlot::is_purchased_state_id_t, any_shop_slot_reference_t>& slots();
 
         nlohmann::json json_serialize() override;
         void json_deserialize(nlohmann::json& j) override;
@@ -165,20 +173,20 @@ namespace randomizer::game::shops {
         grom_shop_t m_grom_shop;
         tuley_shop_t m_tuley_shop;
 
-        std::unordered_map<core::api::uber_states::UberState, any_shop_slot_reference_t> m_slots;
+        std::unordered_map<ShopSlot::is_purchased_state_id_t, any_shop_slot_reference_t> m_slots;
 
         template <typename SHOP_T = twillen_shop_t>
         void register_slots(SHOP_T& shop) {
-            for (auto& [uber_state, slot] : shop.slots()) {
-                m_slots.emplace(uber_state, std::ref(slot));
+            for (auto& [state_id, slot] : shop.slots()) {
+                m_slots.emplace(state_id, std::ref(slot));
             }
         }
     };
 
-    std::optional<ShopCollection::any_shop_slot_reference_t> shop_slot_from_state(core::api::uber_states::UberState state);
+    std::optional<ShopCollection::any_shop_slot_reference_t> shop_slot_from_state(ShopSlot::is_purchased_state_id_t state_id);
 
-    bool is_owned(ShopSlot const& slot);
-    void buy_item(ShopSlot const& slot);
+    bool is_owned(ShopSlot& slot);
+    void buy_item(ShopSlot& slot);
     bool is_in_shop(ShopType type);
 
     std::shared_ptr<ShopCollection>& shops();

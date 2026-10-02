@@ -1,17 +1,17 @@
 #include <Core/api/uber_states/uber_state.h>
-
 #include <Modloader/app/methods/SeinSpiritSpearSpell.h>
-#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 namespace {
-    core::api::uber_states::UberState spear_speed(UberStateGroup::RandoUpgrade, 11);
-    bool initialized = false;
+    auto& spear_speed_state = randomizer::uber_states::state<"randoUpgrades", "spearSpeedMultiplier">();
 
-    float charge_duration = 1.0f;
-    float settle_duration = 1.0f;
-    float impact_duration = 1.0f;
-    float input_duration = 1.0f;
+    auto initialized = false;
+    auto charge_duration = 1.0f;
+    auto settle_duration = 1.0f;
+    auto impact_duration = 1.0f;
+    auto input_duration = 1.0f;
 
     IL2CPP_INTERCEPT(void, SeinSpiritSpearSpell, UpdateCharacterState, app::SeinSpiritSpearSpell * this_ptr) {
         if (!initialized) {
@@ -22,7 +22,7 @@ namespace {
             initialized = true;
         }
 
-        auto multiplier = spear_speed.get<float>();
+        const auto multiplier = spear_speed_state.get();
         this_ptr->fields.ChargeDuration = charge_duration / multiplier;
         this_ptr->fields.SettleTime = settle_duration / multiplier;
         this_ptr->fields.ImpactDuration = impact_duration / multiplier;

@@ -10,8 +10,8 @@ INSTRUCTION(SetShopItemDescription)
     int group;
     int member;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        const core::api::uber_states::UberState state(group, member);
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
+        const game::shops::ShopSlot::is_purchased_state_id_t state(group, member);
         const auto slot = game::shops::shop_slot_from_state(state);
 
         if (!slot.has_value()) {
@@ -28,7 +28,7 @@ INSTRUCTION(SetShopItemDescription)
         modloader::error("instructions", std::format("[SetShopItemDescription] Incompatible shop slot for state {}", state));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("SetShopItemDescription -> {}|{} = {}", group, member, memory.heap.get<std::string>(0));
     }
 

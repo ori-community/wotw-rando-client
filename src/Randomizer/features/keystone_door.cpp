@@ -1,22 +1,19 @@
-#include <Randomizer/conditions/condition_override.h>
-
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/system/message_provider.h>
 #include <Core/api/uber_states/uber_state.h>
-
 #include <Modloader/app/methods/MoonCustomDoorWithSlots.h>
 #include <Modloader/app/methods/MoonDoorWithSlots.h>
 #include <Modloader/app/methods/SeinLogicCycle.h>
-#include <Modloader/app/methods/UberStateValueCondition.h>
 #include <Modloader/app/methods/UnityEngine/Rect.h>
-#include <Modloader/app/structs/Boolean__Boxed.h>
 #include <Modloader/app/types/MoonCustomDoorWithSlots.h>
 #include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/app/types/Rect.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/conditions/condition_override.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 
 using namespace app::classes;
@@ -38,9 +35,10 @@ namespace {
 
     IL2CPP_INTERCEPT(bool, MoonCustomDoorWithSlots, get_CanPlayerTriggerAutomatically, app::MoonCustomDoorWithSlots * this_ptr) { return false; }
 
-    core::api::uber_states::UberState use_allow_opening_eyestone_door_state(UberStateGroup::RandoConfig, 6);
-    core::api::uber_states::UberState allow_opening_eyestone_door(UberStateGroup::RandoState, 501);
+    auto& use_allow_opening_eyestone_door_state = randomizer::uber_states::state<"randoConfig", "useAllowOpeningEyestoneDoorState">();
+    auto& allow_opening_eyestone_door = randomizer::uber_states::state<"randoState", "allowOpeningEyestoneDoor">();
 
+    [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         randomizer::conditions::register_condition_intercept(
             randomizer::conditions::ConditionType::PlayerInsideZoneChecker,
@@ -57,16 +55,17 @@ namespace {
             randomizer::conditions::ConditionType::UberStateValueCondition,
             "kwoloksHollowEntrance/artSetups/frogHeadSetup",
             [](auto, auto) -> std::optional<bool> {
-                if (!use_allow_opening_eyestone_door_state.get<bool>()) {
+                if (!use_allow_opening_eyestone_door_state.get()) {
                     return std::nullopt;
                 }
 
-                return allow_opening_eyestone_door.get<bool>();
+                return allow_opening_eyestone_door.get();
             }
         );
     });
 
     // Allow opening the Kwolok state door from behind
+    [[maybe_unused]]
     auto on_scene_load_handle = core::api::scenes::event_bus().register_handler([](core::api::scenes::SceneLoadEventMetadata* metadata) {
         if (metadata->state != app::SceneState__Enum::Loaded) {
             return;

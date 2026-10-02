@@ -5,31 +5,29 @@
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/ipc/ipc.h>
 #include <Core/save_meta/save_meta.h>
+#include <Core/uber_states/core_uber_states.h>
+#include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/GameStateMachine.h>
-#include <Modloader/app/methods/TimeUtility.h>
+#include <Modloader/app/methods/PlatformMovementPortalVisitor.h>
+#include <Modloader/app/methods/Portal.h>
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/SeinDoorHandler.h>
-#include <Modloader/app/methods/GameController.h>
-#include <Modloader/app/methods/Portal.h>
-#include <Modloader/app/methods/PlatformMovementPortalVisitor.h>
+#include <Modloader/app/methods/TimeUtility.h>
+#include <Modloader/il2cpp_math.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
-#include <Randomizer/tracking/game_tracker.h>
-#include <Randomizer/randomizer.h>
-#include <frozen/unordered_map.h>
 #include <Randomizer/map/map_icons.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/tracking/game_tracker.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 
 using namespace app::classes;
 
 namespace randomizer::timing {
-    const core::api::uber_states::UberState GAME_FINISHED_UBER_STATE(34543, 11226);
-    const core::api::uber_states::UberState SPOILER_FILTER_ENABLED_UBER_STATE(UberStateGroup::RandoState, 100);
-
-    core::api::uber_states::UberState UberStateIdentifier::get_uber_state() const {
-        return core::api::uber_states::UberState(group, state);
-    }
+    auto& game_finished_state = core::uber_states::state<"gameStateGroup", "gameFinished">();
+    auto& spoiler_filter_enabled_state = uber_states::state<"randoState", "enableSpoilerFilter">();
 
     namespace {
         // Number of active guards to prevent position recording. If > 0, player
@@ -41,10 +39,8 @@ namespace randomizer::timing {
         std::size_t disable_ability_tracking_guards = 0;
 
         struct GameStatConfiguration {
-            UberStateGroup group;
-            int state;
+            core::api::uber_states::UntypedUberState state;
             bool (*should_record)() = nullptr;
-            core::api::uber_states::UberState get_uber_state() const { return core::api::uber_states::UberState(group, state); }
         };
 
         std::vector<common::Droppable::ptr_t> game_stat_event_handler_droppables;
@@ -85,78 +81,78 @@ namespace randomizer::timing {
         std::optional<PositionCache> position_cache = std::nullopt;
     } // namespace
 
-    constexpr frozen::unordered_map<GameStat, GameStatConfiguration, 42> GAME_STAT_CONFIGURATIONS{
-        {GameStat::PickupsCollected, {UberStateGroup::RandoStats, 0}},
-        {GameStat::PickupsTotal, {UberStateGroup::RandoStats, 1}},
-        {GameStat::Keystones, {UberStateGroup::Player, 2}},
-        {GameStat::KeystonesCollected, {UberStateGroup::RandoStats, 2}},
-        {GameStat::SpiritLight, {UberStateGroup::Player, 0}},
-        {GameStat::SpiritLightCollected, {UberStateGroup::RandoStats, 3}},
-        {GameStat::SpiritLightSpent, {UberStateGroup::RandoStats, 4}},
-        {GameStat::GorlekOre, {UberStateGroup::Player, 1}},
-        {GameStat::GorlekOreCollected, {UberStateGroup::RandoStats, 5}},
-        {GameStat::GorlekOreSpent, {UberStateGroup::RandoStats, 6}},
-        {GameStat::ShardSlots, {UberStateGroup::Player, 3}},
-        {GameStat::Health, {UberStateGroup::Player, 11}},
-        {GameStat::MaxHealth, {UberStateGroup::Player, 10}},
-        {GameStat::Energy, {UberStateGroup::Player, 13}},
-        {GameStat::MaxEnergy, {UberStateGroup::Player, 12}},
-        {GameStat::PickupsCollectedMarsh, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Marsh)}},
-        {GameStat::PickupsTotalMarsh, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Marsh)}},
-        {GameStat::PickupsCollectedHollow, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Hollow)}},
-        {GameStat::PickupsTotalHollow, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Hollow)}},
-        {GameStat::PickupsCollectedGlades, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Glades)}},
-        {GameStat::PickupsTotalGlades, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Glades)}},
-        {GameStat::PickupsCollectedWellspring, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Wellspring)}},
-        {GameStat::PickupsTotalWellspring, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Wellspring)}},
-        {GameStat::PickupsCollectedWoods, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Woods)}},
-        {GameStat::PickupsTotalWoods, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Woods)}},
-        {GameStat::PickupsCollectedReach, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Reach)}},
-        {GameStat::PickupsTotalReach, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Reach)}},
-        {GameStat::PickupsCollectedDepths, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Depths)}},
-        {GameStat::PickupsTotalDepths, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Depths)}},
-        {GameStat::PickupsCollectedPools, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Pools)}},
-        {GameStat::PickupsTotalPools, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Pools)}},
-        {GameStat::PickupsCollectedWastes, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Wastes)}},
-        {GameStat::PickupsTotalWastes, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Wastes)}},
-        {GameStat::PickupsCollectedRuins, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Ruins)}},
-        {GameStat::PickupsTotalRuins, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Ruins)}},
-        {GameStat::PickupsCollectedWillow, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Willow)}},
-        {GameStat::PickupsTotalWillow, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Willow)}},
-        {GameStat::PickupsCollectedBurrows, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Burrows)}},
-        {GameStat::PickupsTotalBurrows, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Burrows)}},
-        {GameStat::PickupsCollectedShop, {UberStateGroup::RandoStats, 1000 + static_cast<int>(GameArea::Shop)}},
-        {GameStat::PickupsTotalShop, {UberStateGroup::RandoStats, 1100 + static_cast<int>(GameArea::Shop)}},
-        {GameStat::CurrentArea, {UberStateGroup::Player, 50, [] {
+    static std::unordered_map<GameStat, GameStatConfiguration> GAME_STAT_CONFIGURATIONS{
+        {GameStat::PickupsCollected, {uber_states::state<"randoStats", "pickupsCollected">()}},
+        {GameStat::PickupsTotal, {uber_states::state<"randoStats", "pickupsTotal">()}},
+        {GameStat::Keystones, {uber_states::state<"player", "keystones">()}},
+        {GameStat::KeystonesCollected, {uber_states::state<"randoStats", "keystonesCollected">()}},
+        {GameStat::SpiritLight, {uber_states::state<"player", "spiritLight">()}},
+        {GameStat::SpiritLightCollected, {uber_states::state<"randoStats", "spiritLightCollected">()}},
+        {GameStat::SpiritLightSpent, {uber_states::state<"randoStats", "spiritLightSpent">()}},
+        {GameStat::GorlekOre, {uber_states::state<"player", "gorlekOre">()}},
+        {GameStat::GorlekOreCollected, {uber_states::state<"randoStats", "oreCollected">()}},
+        {GameStat::GorlekOreSpent, {uber_states::state<"randoStats", "oreSpent">()}},
+        {GameStat::ShardSlots, {uber_states::state<"player", "shardSlots">()}},
+        {GameStat::Health, {uber_states::state<"player", "health">()}},
+        {GameStat::MaxHealth, {uber_states::state<"player", "baseMaxHealth">()}},
+        {GameStat::Energy, {uber_states::state<"player", "energy">()}},
+        {GameStat::MaxEnergy, {uber_states::state<"player", "maxEnergy">()}},
+        {GameStat::PickupsCollectedMarsh, {uber_states::state<"randoStats", "pickupsCollectedMarsh">()}},
+        {GameStat::PickupsTotalMarsh, {uber_states::state<"randoStats", "pickupsTotalMarsh">()}},
+        {GameStat::PickupsCollectedHollow, {uber_states::state<"randoStats", "pickupsCollectedHollow">()}},
+        {GameStat::PickupsTotalHollow, {uber_states::state<"randoStats", "pickupsTotalHollow">()}},
+        {GameStat::PickupsCollectedGlades, {uber_states::state<"randoStats", "pickupsCollectedGlades">()}},
+        {GameStat::PickupsTotalGlades, {uber_states::state<"randoStats", "pickupsTotalGlades">()}},
+        {GameStat::PickupsCollectedWellspring, {uber_states::state<"randoStats", "pickupsCollectedWellspring">()}},
+        {GameStat::PickupsTotalWellspring, {uber_states::state<"randoStats", "pickupsTotalWellspring">()}},
+        {GameStat::PickupsCollectedWoods, {uber_states::state<"randoStats", "pickupsCollectedWoods">()}},
+        {GameStat::PickupsTotalWoods, {uber_states::state<"randoStats", "pickupsTotalWoods">()}},
+        {GameStat::PickupsCollectedReach, {uber_states::state<"randoStats", "pickupsCollectedReach">()}},
+        {GameStat::PickupsTotalReach, {uber_states::state<"randoStats", "pickupsTotalReach">()}},
+        {GameStat::PickupsCollectedDepths, {uber_states::state<"randoStats", "pickupsCollectedDepths">()}},
+        {GameStat::PickupsTotalDepths, {uber_states::state<"randoStats", "pickupsTotalDepths">()}},
+        {GameStat::PickupsCollectedPools, {uber_states::state<"randoStats", "pickupsCollectedPools">()}},
+        {GameStat::PickupsTotalPools, {uber_states::state<"randoStats", "pickupsTotalPools">()}},
+        {GameStat::PickupsCollectedWastes, {uber_states::state<"randoStats", "pickupsCollectedWastes">()}},
+        {GameStat::PickupsTotalWastes, {uber_states::state<"randoStats", "pickupsTotalWastes">()}},
+        {GameStat::PickupsCollectedRuins, {uber_states::state<"randoStats", "pickupsCollectedRuins">()}},
+        {GameStat::PickupsTotalRuins, {uber_states::state<"randoStats", "pickupsTotalRuins">()}},
+        {GameStat::PickupsCollectedWillow, {uber_states::state<"randoStats", "pickupsCollectedWillow">()}},
+        {GameStat::PickupsTotalWillow, {uber_states::state<"randoStats", "pickupsTotalWillow">()}},
+        {GameStat::PickupsCollectedBurrows, {uber_states::state<"randoStats", "pickupsCollectedBurrows">()}},
+        {GameStat::PickupsTotalBurrows, {uber_states::state<"randoStats", "pickupsTotalBurrows">()}},
+        {GameStat::PickupsCollectedShop, {uber_states::state<"randoStats", "pickupsCollectedShop">()}},
+        {GameStat::PickupsTotalShop, {uber_states::state<"randoStats", "pickupsTotalShop">()}},
+        {GameStat::CurrentArea, {uber_states::state<"player", "currentArea">(), [] {
             return core::api::game::player::is_alive();
         }}},
     };
 
-    constexpr frozen::unordered_map<UberStateIdentifier, TrackedSkillConfiguration, 24, UberStateIdentifierHash> TRACKED_STATE_CONFIGURATIONS = {
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Bash)), {"Bash", map::icons::MapIcon::Type::SkillBash}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::DoubleJump)), {"Double Jump", map::icons::MapIcon::Type::SkillDoubleJump}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::ChargeJump)), {"Launch", map::icons::MapIcon::Type::SkillLaunch}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Glide)), {"Glide", map::icons::MapIcon::Type::SkillGlide}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::WaterBreath)), {"Water Breath", map::icons::MapIcon::Type::SkillWaterBreath}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Grenade)), {"Grenade", map::icons::MapIcon::Type::SkillGrenade}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::SpiritLeash)), {"Grapple", map::icons::MapIcon::Type::SkillGrapple}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::GlowSpell)), {"Flash", map::icons::MapIcon::Type::SkillFlash}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::SpiritSpearSpell)), {"Spear", map::icons::MapIcon::Type::SkillSpear}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::MeditateSpell)), {"Regenerate", map::icons::MapIcon::Type::SkillRegenerate}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Bow)), {"Bow", map::icons::MapIcon::Type::SkillBow}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Hammer)), {"Hammer", map::icons::MapIcon::Type::SkillHammer}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Torch)), {"Torch", map::icons::MapIcon::Type::SkillTorch}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Sword)), {"Sword", map::icons::MapIcon::Type::SkillSword}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Digging)), {"Burrow", map::icons::MapIcon::Type::SkillBurrow}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::DashNew)), {"Dash", map::icons::MapIcon::Type::SkillDash}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::WaterDash)), {"Water Dash", map::icons::MapIcon::Type::SkillWaterDash}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::ChakramSpell)), {"Shuriken", map::icons::MapIcon::Type::SkillShuriken}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::Blaze)), {"Blaze", map::icons::MapIcon::Type::SkillBlaze}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::TurretSpell)), {"Sentry", map::icons::MapIcon::Type::SkillSentry}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::FeatherFlap)), {"Flap", map::icons::MapIcon::Type::SkillFlap}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::DamageUpgradeA)), {"Glades Ancestral Light", map::icons::MapIcon::Type::SkillAncestralLightA}},
-        {UberStateIdentifier(UberStateGroup::Skills, static_cast<int>(app::AbilityType__Enum::DamageUpgradeB)), {"Marsh Ancestral Light", map::icons::MapIcon::Type::SkillAncestralLightB}},
-        {UberStateIdentifier(UberStateGroup::RandoState, 2000), {"Clean Water", map::icons::MapIcon::Type::Watermill}},
+    static std::unordered_map<core::api::uber_states::UntypedUberId, TrackedSkillConfiguration> TRACKED_STATE_CONFIGURATIONS = {
+        {uber_states::state<"skills", "bash">(), {"Bash", map::icons::MapIcon::Type::SkillBash}},
+        {uber_states::state<"skills", "doubleJump">(), {"Double Jump", map::icons::MapIcon::Type::SkillDoubleJump}},
+        {uber_states::state<"skills", "launch">(), {"Launch", map::icons::MapIcon::Type::SkillLaunch}},
+        {uber_states::state<"skills", "glide">(), {"Glide", map::icons::MapIcon::Type::SkillGlide}},
+        {uber_states::state<"skills", "waterBreath">(), {"Water Breath", map::icons::MapIcon::Type::SkillWaterBreath}},
+        {uber_states::state<"skills", "grenade">(), {"Grenade", map::icons::MapIcon::Type::SkillGrenade}},
+        {uber_states::state<"skills", "grapple">(), {"Grapple", map::icons::MapIcon::Type::SkillGrapple}},
+        {uber_states::state<"skills", "flash">(), {"Flash", map::icons::MapIcon::Type::SkillFlash}},
+        {uber_states::state<"skills", "spear">(), {"Spear", map::icons::MapIcon::Type::SkillSpear}},
+        {uber_states::state<"skills", "regenerate">(), {"Regenerate", map::icons::MapIcon::Type::SkillRegenerate}},
+        {uber_states::state<"skills", "bow">(), {"Bow", map::icons::MapIcon::Type::SkillBow}},
+        {uber_states::state<"skills", "hammer">(), {"Hammer", map::icons::MapIcon::Type::SkillHammer}},
+        {uber_states::state<"skills", "torch">(), {"Torch", map::icons::MapIcon::Type::SkillTorch}},
+        {uber_states::state<"skills", "sword">(), {"Sword", map::icons::MapIcon::Type::SkillSword}},
+        {uber_states::state<"skills", "burrow">(), {"Burrow", map::icons::MapIcon::Type::SkillBurrow}},
+        {uber_states::state<"skills", "dash">(), {"Dash", map::icons::MapIcon::Type::SkillDash}},
+        {uber_states::state<"skills", "waterDash">(), {"Water Dash", map::icons::MapIcon::Type::SkillWaterDash}},
+        {uber_states::state<"skills", "shuriken">(), {"Shuriken", map::icons::MapIcon::Type::SkillShuriken}},
+        {uber_states::state<"skills", "blaze">(), {"Blaze", map::icons::MapIcon::Type::SkillBlaze}},
+        {uber_states::state<"skills", "sentry">(), {"Sentry", map::icons::MapIcon::Type::SkillSentry}},
+        {uber_states::state<"skills", "flap">(), {"Flap", map::icons::MapIcon::Type::SkillFlap}},
+        {uber_states::state<"skills", "gladesAncestralLight">(), {"Glades Ancestral Light", map::icons::MapIcon::Type::SkillAncestralLightA}},
+        {uber_states::state<"skills", "marshAncestralLight">(), {"Marsh Ancestral Light", map::icons::MapIcon::Type::SkillAncestralLightB}},
+        {uber_states::state<"randoState", "cleanWater">(), {"Clean Water", map::icons::MapIcon::Type::Watermill}},
     };
 
     void queue_timer_state_report() {
@@ -211,12 +207,12 @@ namespace randomizer::timing {
         }
 
         void record_all_game_stats() {
-            for (const auto& [game_stat, configuration]: GAME_STAT_CONFIGURATIONS) {
+            for (auto& [game_stat, configuration]: GAME_STAT_CONFIGURATIONS) {
                 if (configuration.should_record != nullptr && !configuration.should_record()) {
                     continue;
                 }
 
-                save_stats->report_stat(game_stat, configuration.get_uber_state().get<float>());
+                save_stats->report_stat(game_stat, configuration.state.get<float>());
             }
         }
 
@@ -332,10 +328,10 @@ namespace randomizer::timing {
         );
 
         [[maybe_unused]]
-        auto on_spoiler_filter_enabled_changed = core::api::uber_states::single_notification_bus().register_handler(
-            SPOILER_FILTER_ENABLED_UBER_STATE,
-            [](const core::api::uber_states::UberStateCallbackParams& params, auto) {
-                if (params.previous_value < 0.5 && params.value > 0.5) {
+        auto on_spoiler_filter_enabled_changed = core::api::uber_states::on_uber_state_changed().register_handler(
+            spoiler_filter_enabled_state,
+            [](auto) {
+                if (spoiler_filter_enabled_state.get()) {
                     auto& stats = get_save_file_game_stats();
                     for (const auto& [id, map_icon]: game_seed().environment().get_spoiler_map_icons()) {
                         if (stats.discovered_items.contains(id)) {
@@ -402,7 +398,7 @@ namespace randomizer::timing {
                 if (GameStateMachine::get_IsGame()) {
                     // Only set these values when in game because the main menu sets some wonky states
                     const auto previous_game_finished = game_finished;
-                    game_finished = GAME_FINISHED_UBER_STATE.get<bool>();
+                    game_finished = game_finished_state.get();
                     if (game_finished != previous_game_finished) {
                         queue_timer_state_report();
                     }
@@ -455,13 +451,13 @@ namespace randomizer::timing {
             queue_timer_state_report();
         });
 
-        void track_state_change(const UberStateIdentifier& state_identifier, const TrackedSkillConfiguration& configuration) {
-            const auto is_currently_tracked = game_tracker_persistent_meta_data->active_tracked_states.contains(state_identifier);
-            const auto uber_state = state_identifier.get_uber_state();
+        void track_state_change(const core::api::uber_states::UntypedUberId& state_id, const TrackedSkillConfiguration& configuration) {
+            const auto is_currently_tracked = game_tracker_persistent_meta_data->active_tracked_states.contains(state_id);
+            auto uber_state = core::api::uber_states::UntypedUberState(state_id);
             const auto is_active = uber_state.get<bool>();
 
             if (is_currently_tracked != is_active) {
-                const auto id = uber_state.group_int() * 1000000 + uber_state.state();
+                const auto id = state_id.group * 1000000 + state_id.member;
 
                 if (is_active) {
                     get_save_file_game_stats().add_timeline_entry(
@@ -470,13 +466,13 @@ namespace randomizer::timing {
                         configuration.icon_type,
                         SaveFileGameStats::TimelineEntryEvent::Type::Ability
                     );
-                    game_tracker_persistent_meta_data->active_tracked_states.insert(state_identifier);
+                    game_tracker_persistent_meta_data->active_tracked_states.insert(state_id);
                 } else {
                     get_save_file_game_stats().add_timeline_end_entry(
                         id,
                         SaveFileGameStats::TimelineEntryEvent::Type::Ability
                     );
-                    game_tracker_persistent_meta_data->active_tracked_states.erase(state_identifier);
+                    game_tracker_persistent_meta_data->active_tracked_states.erase(state_id);
                 }
             }
         }
@@ -487,11 +483,11 @@ namespace randomizer::timing {
             [](auto) {
                 reset_stats();
 
-                for (const auto& [game_stat, configuration]: GAME_STAT_CONFIGURATIONS) {
+                for (auto& [game_stat, configuration]: GAME_STAT_CONFIGURATIONS) {
                     game_stat_event_handler_droppables.push_back(
-                        core::api::uber_states::single_notification_bus().register_handler(
-                            configuration.get_uber_state(),
-                            [game_stat, &configuration](const core::api::uber_states::UberStateCallbackParams& params, auto) {
+                        core::api::uber_states::on_uber_state_changed().register_handler(
+                            configuration.state,
+                            [game_stat, &configuration](auto) {
                                 if (configuration.should_record != nullptr && !configuration.should_record()) {
                                     return;
                                 }
@@ -500,7 +496,7 @@ namespace randomizer::timing {
                                     return;
                                 }
 
-                                save_stats->report_stat(game_stat, static_cast<float>(params.value));
+                                save_stats->report_stat(game_stat, configuration.state.get<float>());
                             }
                         )
                     );
@@ -508,7 +504,7 @@ namespace randomizer::timing {
 
                 for (const auto& [state_identifier, configuration]: TRACKED_STATE_CONFIGURATIONS) {
                     core::reactivity::watch_effect()
-                        .effect(std::vector{state_identifier.get_uber_state()})
+                        .effect({state_identifier})
                         .after([state_identifier, configuration] {
                             if (game_finished || disable_ability_tracking_guards > 0 || !GameStateMachine::get_IsGame()) {
                                 return;

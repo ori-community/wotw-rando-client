@@ -8,11 +8,11 @@ INSTRUCTION(SwitchWheel)
 
     int wheel;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         features::wheel::set_active_wheel(wheel);
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("SwitchWheel -> Wheel {}", wheel);
     }
 

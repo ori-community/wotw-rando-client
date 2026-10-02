@@ -1,32 +1,33 @@
+#include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
-
+#include <Modloader/modloader.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <unordered_map>
 #include <vector>
-#include <Core/api/game/game.h>
-#include <Modloader/modloader.h>
+
 
 using namespace modloader;
 
 namespace {
     std::unordered_map<app::AbilityType__Enum, std::vector<float>> initial_costs;
-    core::api::uber_states::UberState blaze_cost(UberStateGroup::RandoUpgrade, 2);
-    core::api::uber_states::UberState spear_cost(UberStateGroup::RandoUpgrade, 3);
-    core::api::uber_states::UberState shuriken_cost(UberStateGroup::RandoUpgrade, 4);
-    core::api::uber_states::UberState sentry_cost(UberStateGroup::RandoUpgrade, 5);
-    core::api::uber_states::UberState bow_cost(UberStateGroup::RandoUpgrade, 6);
-    core::api::uber_states::UberState regeneration_cost(UberStateGroup::RandoUpgrade, 7);
-    core::api::uber_states::UberState flash_cost(UberStateGroup::RandoUpgrade, 8);
-    core::api::uber_states::UberState grenade_cost(UberStateGroup::RandoUpgrade, 9);
 
-    core::api::uber_states::UberState blaze(UberStateGroup::Skills, 115);
-    core::api::uber_states::UberState spear(UberStateGroup::Skills, 74);
-    core::api::uber_states::UberState shuriken(UberStateGroup::Skills, 106);
-    core::api::uber_states::UberState sentry(UberStateGroup::Skills, 116);
-    core::api::uber_states::UberState bow(UberStateGroup::Skills, 97);
-    core::api::uber_states::UberState regenerate(UberStateGroup::Skills, 77);
-    core::api::uber_states::UberState flash(UberStateGroup::Skills, 62);
-    core::api::uber_states::UberState grenade(UberStateGroup::Skills, 51);
+    auto& blaze_cost = randomizer::uber_states::state<"randoUpgrades", "blazeCostMultiplier">();
+    auto& spear_cost = randomizer::uber_states::state<"randoUpgrades", "spearCostMultiplier">();
+    auto& shuriken_cost = randomizer::uber_states::state<"randoUpgrades", "shurikenCostMultiplier">();
+    auto& sentry_cost = randomizer::uber_states::state<"randoUpgrades", "sentryCostMultiplier">();
+    auto& bow_cost = randomizer::uber_states::state<"randoUpgrades", "bowCostMultiplier">();
+    auto& regeneration_cost = randomizer::uber_states::state<"randoUpgrades", "regenerateCostMultiplier">();
+    auto& flash_cost = randomizer::uber_states::state<"randoUpgrades", "flashCostMultiplier">();
+    auto& grenade_cost = randomizer::uber_states::state<"randoUpgrades", "grenadeCostMultiplier">();
+    auto& blaze = randomizer::uber_states::state<"skills", "blaze">();
+    auto& spear = randomizer::uber_states::state<"skills", "spear">();
+    auto& shuriken = randomizer::uber_states::state<"skills", "spear">();
+    auto& sentry = randomizer::uber_states::state<"skills", "spear">();
+    auto& bow = randomizer::uber_states::state<"skills", "spear">();
+    auto& regenerate = randomizer::uber_states::state<"skills", "spear">();
+    auto& flash = randomizer::uber_states::state<"skills", "spear">();
+    auto& grenade = randomizer::uber_states::state<"skills", "spear">();
 
 
     void update_blaze(float modifier) {
@@ -204,49 +205,49 @@ namespace {
     auto _ = event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         core::reactivity::watch_effect()
                 .effect({blaze, blaze_cost})
-                .after([&] { update_blaze(blaze_cost.get<float>()); })
+                .after([&] { update_blaze(blaze_cost.get()); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
                 .effect({spear, spear_cost})
-                .after([&] { update_spear(spear_cost.get<float>()); })
+                .after([&] { update_spear(spear_cost.get()); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
                 .effect({shuriken, shuriken_cost})
-                .after([&] { update_shuriken(shuriken_cost.get<float>()); })
+                .after([&] { update_shuriken(shuriken_cost.get()); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
                 .effect({sentry, sentry_cost})
-                .after([&] { update_sentry(sentry_cost.get<float>()); })
+                .after([&] { update_sentry(sentry_cost.get()); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
                 .effect({bow, bow_cost})
-                .after([&] { update_bow(bow_cost.get<float>()); })
+                .after([&] { update_bow(bow_cost.get()); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
                 .effect({regenerate, regeneration_cost})
-                .after([&] { update_regeneration(regeneration_cost.get<float>()); })
+                .after([&] { update_regeneration(regeneration_cost.get()); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
                 .effect({flash, flash_cost})
-                .after([&] { update_flash(flash_cost.get<float>()); })
+                .after([&] { update_flash(flash_cost.get()); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
                 .effect({grenade, grenade_cost})
-                .after([&] { update_grenade(grenade_cost.get<float>()); })
+                .after([&] { update_grenade(grenade_cost.get()); })
                 .trigger_on_load()
                 .finalize(effects);
     });

@@ -10,11 +10,11 @@ INSTRUCTION(DealEnemyDamage)
 
     bool force;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         damage::damage_all_enemies(memory.heap.get<float>(0), force);
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("DealEnemyDamage -> {} (force = {})", memory.heap.get<float>(0), force);
     }
 

@@ -10,7 +10,7 @@ INSTRUCTION(SetTrialHint)
     int group;
     int member;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         const auto trial_location = trials::determine_trial_location_from_trial_state(group, member);
 
         if (!trial_location.has_value()) {
@@ -21,7 +21,7 @@ INSTRUCTION(SetTrialHint)
         environment.set_trial_hint(*trial_location, memory.heap.get<std::string>(0));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("SetTrialHint -> {}|{} = {}", group, member, memory.heap.get<std::string>(0));
     }
 

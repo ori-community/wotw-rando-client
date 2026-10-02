@@ -4,7 +4,7 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(IsInRectangle)
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         const app::Rect box{
             memory.heap.get<float>(0),
             memory.heap.get<float>(1),
@@ -15,7 +15,7 @@ INSTRUCTION(IsInRectangle)
         memory.heap.set<bool>(0, modloader::math::in_rect(core::api::game::player::get_position(), box));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("IsInRectangle -> {}, {}, {}, {}", memory.heap.get<float>(0), memory.heap.get<float>(1), memory.heap.get<float>(2), memory.heap.get<float>(3));
     }
 

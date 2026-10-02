@@ -2,11 +2,12 @@
 #include <Modloader/app/methods/MenuScreenManager.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 namespace {
     auto is_in_menu_screen_manager_show_menu_screen = false;
 
-    core::api::uber_states::UberState fix_enabled_state(UberStateGroup::RandoConfig, 16);
+    auto& fix_enabled_state = randomizer::uber_states::state<"randoConfig", "fixShopAnywhere">();
 
     IL2CPP_INTERCEPT_WITH_ORDER(-10, void, MenuScreenManager, ShowMenuScreen, app::MenuScreenManager* this_ptr, app::MenuScreenManager_Screens__Enum screen, bool immediate, bool play_sound, bool pause) {
         modloader::ScopedSetter _(is_in_menu_screen_manager_show_menu_screen, true);
@@ -21,7 +22,7 @@ namespace {
             ) &&
             this_ptr->fields.CurrentScreen == app::MenuScreenManager_Screens__Enum::None &&
             !is_in_menu_screen_manager_show_menu_screen &&
-            fix_enabled_state.get<bool>()
+            fix_enabled_state.get()
         ) {
             return;
         }

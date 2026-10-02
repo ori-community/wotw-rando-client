@@ -3,16 +3,18 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/property/reactivity.h>
+#include <Core/uber_states/core_uber_states.h>
 #include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 using namespace modloader;
 using namespace app::classes;
 
 namespace {
-    core::api::uber_states::UberState feeding_grounds_state(58674, 61616);
-    core::api::uber_states::UberState fix_cat_and_mouse_softlock_state(UberStateGroup::RandoConfig, 23);
+    auto& feeding_grounds_state = core::uber_states::state<"_petrifiedForestGroup", "petrifiedOwlState">();
+    auto& fix_cat_and_mouse_softlock_state = randomizer::uber_states::state<"randoConfig", "fixCatAndMouseSoftlock">();
 
     std::optional<il2cpp::WeakGCRef<app::GameObject>> weeping_ridge_stone_go_ref;
     std::optional<il2cpp::WeakGCRef<app::GameObject>> woods_stone_go_ref;
@@ -136,12 +138,12 @@ namespace {
 
         effect = core::reactivity::watch_effect()
             .effect([] {
-                if (!fix_cat_and_mouse_softlock_state.get<bool>()) {
+                if (!fix_cat_and_mouse_softlock_state.get()) {
                     set_rocks_visible(false);
                     return;
                 }
 
-                const auto current_feeding_grounds_state = feeding_grounds_state.get<int>();
+                const auto current_feeding_grounds_state = feeding_grounds_state.get();
                 set_crackling_sticks_trigger_active(current_feeding_grounds_state < 3);
                 set_rocks_visible(current_feeding_grounds_state == 3);
             })

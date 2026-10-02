@@ -1,10 +1,11 @@
 #pragma once
 
-#include <optional>
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/app/types/Renderer.h>
+#include <Core/api/uber_states/uber_state.h>
 #include <Core/property.h>
+#include <Modloader/app/types/Renderer.h>
+#include <Modloader/il2cpp_helpers.h>
 #include <Randomizer/map/map_filter.h>
+#include <optional>
 
 namespace randomizer::map::icons {
     struct IconScale;
@@ -299,11 +300,22 @@ namespace randomizer::map::icons {
         );
 
         /** Creates a teleporter icon tuple (active and inactive) based on an uber state */
+        template<typename BOOLEAN_UBER_STATE_T> requires core::api::uber_states::ReadableUberState<bool, BOOLEAN_UBER_STATE_T>
         std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_warp_icon(
             const app::Vector2& world_position,
-            const core::api::uber_states::UberState& is_active_state,
+            BOOLEAN_UBER_STATE_T& is_active_state,
             const std::string& label_text = "Teleporter"
-        );
+        ) {
+            return create_warp_icon(
+                world_position,
+                [&] mutable {
+                    return is_active_state.get()
+                        ? WarpIconState::Active
+                        : WarpIconState::Inactive;
+                },
+                label_text
+            );
+        }
 
         /** Creates an entrance icon tuple (visited and unvisited) based on a function */
         std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_entrance_icon(
@@ -314,12 +326,22 @@ namespace randomizer::map::icons {
         );
 
         /** Creates an entrance icon tuple (visited and unvisited) based on an uber state */
+        template<typename BOOLEAN_UBER_STATE_T> requires core::api::uber_states::ReadableUberState<bool, BOOLEAN_UBER_STATE_T>
         std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_entrance_icon(
             EntranceIconSize size,
             const app::Vector2& world_position,
-            const core::api::uber_states::UberState& is_visited_state,
+            BOOLEAN_UBER_STATE_T&& is_visited_state,
             const std::string& label_text
-        );
+        ) {
+            return create_entrance_icon(
+                size,
+                world_position,
+                [=] mutable {
+                    return !is_visited_state.get();
+                },
+                label_text
+            );
+        }
 
         /** Creates an entrance icon tuple (visited and unvisited) based on an entrance ID (see entrance_randomizer.cpp) */
         std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_entrance_icon(

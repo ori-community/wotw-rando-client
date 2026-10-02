@@ -8,32 +8,33 @@
 #include <Modloader/app/methods/FaderB.h>
 #include <Modloader/app/methods/Game/UI_Hints.h>
 #include <Modloader/app/methods/GameplayCamera.h>
+#include <Modloader/app/methods/Moon/Rendering/MoonRenderContext.h>
+#include <Modloader/app/methods/Moon/Rendering/MoonRenderPipelineAsset.h>
+#include <Modloader/app/methods/Moon/Rendering/MoonRenderPipelineManager.h>
+#include <Modloader/app/methods/Moon/Rendering/RenderTarget.h>
 #include <Modloader/app/methods/Moon/Rendering/ShaderTime.h>
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
 #include <Modloader/app/methods/ScenesManager.h>
+#include <Modloader/app/methods/System/IO/File.h>
 #include <Modloader/app/methods/UberPostProcess.h>
 #include <Modloader/app/methods/UnityEngine/Camera.h>
+#include <Modloader/app/methods/UnityEngine/GL.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
+#include <Modloader/app/methods/UnityEngine/ImageConversion.h>
+#include <Modloader/app/methods/UnityEngine/RenderTexture.h>
 #include <Modloader/app/methods/UnityEngine/Rigidbody.h>
 #include <Modloader/app/methods/UnityEngine/ScreenCapture.h>
-#include <Modloader/app/methods/UnityEngine/Time.h>
-#include <Modloader/app/methods/UnityEngine/GL.h>
-#include <Modloader/app/methods/UnityEngine/RenderTexture.h>
 #include <Modloader/app/methods/UnityEngine/Texture2D.h>
-#include <Modloader/app/methods/UnityEngine/ImageConversion.h>
-#include <Modloader/app/methods/System/IO/File.h>
-#include <Modloader/app/methods/Moon/Rendering/MoonRenderContext.h>
-#include <Modloader/app/methods/Moon/Rendering/RenderTarget.h>
-#include <Modloader/app/methods/Moon/Rendering/MoonRenderPipelineAsset.h>
-#include <Modloader/app/methods/Moon/Rendering/MoonRenderPipelineManager.h>
-#include <Modloader/app/types/Texture2D.h>
-#include <Modloader/app/types/RenderTexture.h>
+#include <Modloader/app/methods/UnityEngine/Time.h>
 #include <Modloader/app/types/CapsuleCollider.h>
+#include <Modloader/app/types/RenderTexture.h>
 #include <Modloader/app/types/Rigidbody.h>
+#include <Modloader/app/types/Texture2D.h>
 #include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 using namespace app::classes;
 using namespace modloader::win;
@@ -82,7 +83,7 @@ namespace {
     int load_step = 0;
     OrishotState orishot_state = OrishotState::None;
 
-    core::api::uber_states::UberState prevent_pickup_state(UberStateGroup::RandoConfig, 8);
+    auto& prevent_pickup_state = randomizer::uber_states::state<"randoConfig", "preventPickup">();
 
     IL2CPP_INTERCEPT(void, UberPostProcess, ApplySettings_2, app::UberPostProcess * this_ptr, app::CameraSettings* settingsAsset) {
         next::UberPostProcess::ApplySettings_2(this_ptr, settingsAsset);

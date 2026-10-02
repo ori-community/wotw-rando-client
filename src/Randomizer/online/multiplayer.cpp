@@ -45,15 +45,15 @@ namespace randomizer::online {
         m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [this](auto, auto) {
             on_load();
         }));
-        m_bus_handles.emplace_back(core::api::uber_states::notification_bus().register_handler([this](auto params) {
-            if (is_in_incorrect_save_file() || !m_uber_state_handler.should_sync(params.state, params.previous_value)) {
+        m_bus_handles.emplace_back(core::api::uber_states::on_any_uber_state_changed().register_handler([this](auto state_id) {
+            if (is_in_incorrect_save_file() || !m_uber_state_handler.should_sync(state_id)) {
                 return;
             }
 
             Network::UberStateUpdateMessage message;
-            message.mutable_state()->set_group(static_cast<int>(params.state.group()));
-            message.mutable_state()->set_state(params.state.state());
-            message.set_value(params.state.get());
+            message.mutable_state()->set_group(static_cast<int>(state_id.group));
+            message.mutable_state()->set_state(state_id.member);
+            message.set_value(core::api::uber_states::UntypedUberState(state_id).get<double>());
             m_client->websocket_send(Network::Packet_PacketID_UberStateUpdateMessage, message);
         }));
     }
@@ -133,15 +133,15 @@ namespace randomizer::online {
         Network::UberStateBatchUpdateMessage message;
         auto const& states = m_uber_state_handler.get_synced_states();
 
-        for (auto state: states) {
-            const auto value = state.get();
-            if (!uber_state_handler().should_sync(state, value)) {
+        for (auto state_id: states) {
+            const auto value = core::api::uber_states::UntypedUberState(state_id).get<double>();
+            if (!uber_state_handler().should_sync(state_id)) {
                 continue;
             }
 
             const auto update = message.mutable_updates()->Add();
-            update->mutable_state()->set_group(static_cast<int>(state.group()));
-            update->mutable_state()->set_state(state.state());
+            update->mutable_state()->set_group(state_id.group);
+            update->mutable_state()->set_state(state_id.member);
             update->set_value(value);
         }
 
@@ -403,7 +403,7 @@ namespace randomizer::online {
         }
 
         const auto& state = message->state();
-        m_uber_state_handler.change_uber_state(core::api::uber_states::UberState(state.group(), state.state()), message->value());
+        m_uber_state_handler.change_uber_state(core::api::uber_states::UntypedUberState(state.group(), state.state()), message->value());
     }
 
     void MultiplayerUniverse::uber_state_batch_update(std::shared_ptr<Network::UberStateBatchUpdateMessage> const& message) {
@@ -417,7 +417,7 @@ namespace randomizer::online {
 
         for (auto const& update: message->updates()) {
             const auto& state = update.state();
-            m_uber_state_handler.change_uber_state(core::api::uber_states::UberState(state.group(), state.state()), update.value());
+            m_uber_state_handler.change_uber_state(core::api::uber_states::UntypedUberState(state.group(), state.state()), update.value());
         }
     }
 
@@ -540,12 +540,12 @@ namespace randomizer::online {
         Network::SetGameDifficultySettingsOverridesMessage game_difficulty_settings_overrides_message = message->gamedifficultysettingsoverrides();
         process_set_game_difficulty_settings_overrides_message(game_difficulty_settings_overrides_message);
 
-        std::unordered_set<core::api::uber_states::UberState> states;
+        std::unordered_set<core::api::uber_states::UntypedUberId> state_ids;
         for (auto& id: message->uberid()) {
-            states.emplace(id.group(), id.state());
+            state_ids.emplace(id.group(), id.state());
         }
 
-        m_uber_state_handler.set_synced_states(std::move(states));
+        m_uber_state_handler.set_synced_states(std::move(state_ids));
 
         if (m_should_block_starting_new_game != message->blockstartingnewgame()) {
             m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::Before);

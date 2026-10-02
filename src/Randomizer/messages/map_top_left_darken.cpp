@@ -1,25 +1,19 @@
 #include <Core/api/game/game.h>
-#include <Core/api/messages/message_box.h>
 #include <Core/api/screen_position.h>
-#include <Modloader/app/methods/GameMapUI.h>
-#include <Modloader/app/methods/QuestIconsUI.h>
-#include <Modloader/app/methods/QuestsUI.h>
-#include <Modloader/app/types/AreaMapUI.h>
-#include <Modloader/app/types/QuestIconsUI.h>
-#include <Modloader/interception_macros.h>
 #include <Modloader/app/methods/ScalePositionForAspectRatio.h>
+#include <Modloader/app/types/AreaMapUI.h>
 #include <Modloader/app/types/ScalePositionForAspectRatio.h>
-#include <Randomizer/randomizer.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
-#include "Randomizer/map/map_filter.h"
 
 using namespace app::classes;
 
 namespace {
     std::unique_ptr<core::api::graphics::Sprite> map_side_background;
     core::reactivity::ReactiveEffect::ptr_t visibility_effect;
-    core::api::uber_states::UberState map_side_background_state(UberStateGroup::RandoState, 600);
+    auto& map_side_background_state = randomizer::uber_states::state<"randoState", "darkenTopLeftCornerOfMap">();
 
     [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
@@ -46,7 +40,7 @@ namespace {
     auto on_area_map_open = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, [](auto, auto) {
         visibility_effect = core::reactivity::watch_effect()
             .effect([&] {
-                map_side_background->enabled(map_side_background_state.get<bool>());
+                map_side_background->enabled(map_side_background_state.get());
             })
             .finalize();
     });

@@ -9,22 +9,27 @@
 
 namespace randomizer::conditions {
     namespace {
-        std::unordered_map<std::pair<UberStateGroup, int>, condition_uber_state_intercept, pair_hash> intercepts;
+        std::unordered_map<core::api::uber_states::UberId<core::api::uber_states::UberStateType::ConditionUberState>, condition_uber_state_intercept_t> intercepts;
 
         IL2CPP_INTERCEPT(bool, Moon::ConditionUberState, EvaluateConditions, app::ConditionUberState * this_ptr) {
-            auto group = static_cast<UberStateGroup>(this_ptr->fields.Group->fields._.m_id->fields.m_id);
-            auto it = intercepts.find(std::make_pair(group, this_ptr->fields._.m_id->fields.m_id));
+            const auto group_id = this_ptr->fields.Group->fields._.m_id->fields.m_id;
+            const auto member_id = this_ptr->fields._.m_id->fields.m_id;
+            const auto it = intercepts.find({group_id, member_id});
             if (it != intercepts.end()) {
-                auto out = it->second(this_ptr);
-                if (out.has_value())
+                const auto out = it->second(this_ptr);
+                if (out.has_value()) {
                     return out.value();
+                }
             }
 
             return next::Moon::ConditionUberState::EvaluateConditions(this_ptr);
         }
     } // namespace
 
-    void register_condition_uber_state_intercept(core::api::uber_states::UberState state, condition_uber_state_intercept intercept) {
-        intercepts[std::make_pair(state.group(), state.state())] = intercept;
+    void register_condition_uber_state_intercept(
+        core::api::uber_states::UberId<core::api::uber_states::UberStateType::ConditionUberState> state_id,
+        const condition_uber_state_intercept_t intercept
+    ) {
+        intercepts[state_id] = intercept;
     }
 } // namespace randomizer::conditions

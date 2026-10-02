@@ -1,12 +1,7 @@
-#include <Randomizer/game/shops/shop.h>
-#include <Randomizer/game/shops/grom.h>
-
 #include <Core/api/game/player.h>
 #include <Core/api/game/ui.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/api/uber_states/uber_state_handlers.h>
-
 #include <Modloader/app/methods/BuilderEntity.h>
 #include <Modloader/app/methods/BuilderItem.h>
 #include <Modloader/app/methods/BuilderScreen.h>
@@ -20,6 +15,10 @@
 #include <Modloader/app/types/SpellUISeeds.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Randomizer/game/shops/grom.h>
+#include <Randomizer/game/shops/shop.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 namespace randomizer::game::shops::grom {
     using namespace modloader;
@@ -29,8 +28,25 @@ namespace randomizer::game::shops::grom {
     app::MoonTimeline* offer_accepted_timeline = nullptr;
     app::MoonTimeline* purchase_failed_timeline = nullptr;
 
-    core::api::uber_states::UberState get_slot_uber_state_from_vanilla_uber_state(const app::SerializedByteUberState* vanilla_uber_state) {
-        return core::api::uber_states::UberState(UberStateGroup::GromShop, vanilla_uber_state->fields._.m_id->fields.m_id);
+    ShopSlot::is_purchased_state_id_t get_slot_uber_state_from_vanilla_uber_state(const app::SerializedByteUberState* vanilla_uber_state) {
+        switch (vanilla_uber_state->fields._.m_id->fields.m_id) {
+            case 15068:
+                return uber_states::state<"gromShop", "theGorlekTouch">();
+            case 16586:
+                return uber_states::state<"gromShop", "clearTheCaveEntrance">();
+            case 16825:
+                return uber_states::state<"gromShop", "repairTheSpiritWell">();
+            case 18751:
+                return uber_states::state<"gromShop", "thornySituation">();
+            case 23607:
+                return uber_states::state<"gromShop", "roofsOverHeads">();
+            case 40448:
+                return uber_states::state<"gromShop", "onwardsAndUpwards">();
+            case 51230:
+                return uber_states::state<"gromShop", "dwellingRepairs">();
+            default:
+                throw std::runtime_error(std::format("Invalid Grom shop slot vanilla state: {}", vanilla_uber_state->fields._.m_id->fields.m_id));
+        }
     }
 
     ShopCollection::grom_shop_t::slot_t& get_slot(const app::SerializedByteUberState* vanilla_state) {
@@ -101,18 +117,18 @@ namespace randomizer::game::shops::grom {
     });
 
     // Why ores are treated as seeds, nobody knows.
-    core::api::uber_states::UberState ore_spent(UberStateGroup::RandoStats, 6);
+    auto& ore_spent_state = uber_states::state<"randoStats", "oreSpent">();
     IL2CPP_INTERCEPT(bool, SpellUISeeds, Spend, app::SpellUISeeds* this_ptr, int amount) {
         bool worked = next::SpellUISeeds::Spend(this_ptr, amount);
         if (worked) {
-            ore_spent.set(amount + ore_spent.get());
+            ore_spent_state.set(amount + ore_spent_state.get());
         }
 
         return worked;
     }
 
     IL2CPP_INTERCEPT(int, BuilderItem, GetCostForLevel, app::BuilderItem* this_ptr, int level) {
-        auto& slot = shops()->grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).value().get();
+        const auto& slot = shops()->grom_shop().slot(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).value().get();
         return slot.cost.get();
     }
 
@@ -141,7 +157,7 @@ namespace randomizer::game::shops::grom {
     IL2CPP_INTERCEPT_WITH_ORDER(0, bool, BuilderItem, get_IsOwned, app::BuilderItem* this_ptr) {
         if (il2cpp::is_assignable(this_ptr, types::BuilderItem::get_class())) {
             const auto state = get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState);
-            return state.get<bool>();
+            return core::api::uber_states::UntypedUberState(state).get<bool>();
         }
 
         return next::BuilderItem::get_IsOwned(this_ptr);
@@ -156,21 +172,21 @@ namespace randomizer::game::shops::grom {
         return false;
     }
 
-    core::api::uber_states::UberState get_cutscene_state(const app::NpcProjectItem* project) {
+    core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState> get_cutscene_state(const app::NpcProjectItem* project) {
         switch (const auto project_id = project->fields.UberState->fields._.m_id->fields.m_id) {
-            case 16825: return {UberStateGroup::RandoConfig, 500};
-            case 51230: return {UberStateGroup::RandoConfig, 501};
-            case 23607: return {UberStateGroup::RandoConfig, 502};
-            case 40448: return {UberStateGroup::RandoConfig, 503};
-            case 18751: return {UberStateGroup::RandoConfig, 504};
-            case 16586: return {UberStateGroup::RandoConfig, 505};
-            case 15068: return {UberStateGroup::RandoConfig, 506};
+            case 16825: return uber_states::state<"randoConfig", "spiritWellPlayCutscene">();
+            case 51230: return uber_states::state<"randoConfig", "housesAPlayCutscene">();
+            case 23607: return uber_states::state<"randoConfig", "housesBPlayCutscene">();
+            case 40448: return uber_states::state<"randoConfig", "housesCPlayCutscene">();
+            case 18751: return uber_states::state<"randoConfig", "removeThornsPlayCutscene">();
+            case 16586: return uber_states::state<"randoConfig", "openCavePlayCutscene">();
+            case 15068: return uber_states::state<"randoConfig", "beautifyPlayCutscene">();
             default: throw std::runtime_error(std::format("No cutscene state exists for Glades project {}", project_id));
         }
     }
 
     IL2CPP_INTERCEPT(void, BuilderItem, DoPurchase, app::BuilderItem* this_ptr, app::PurchaseContext* context) {
-        if (get_cutscene_state(this_ptr->fields.Project).get<bool>()) {
+        if (get_cutscene_state(this_ptr->fields.Project).get()) {
             // The normal method calls a DelayedAction.Action to play the cutscene
             next::BuilderItem::DoPurchase(this_ptr, context);
             return;
@@ -179,7 +195,7 @@ namespace randomizer::game::shops::grom {
         const auto cost = BuilderItem::GetCostForLevel(this_ptr, 1);
         const auto seed_ui = core::api::game::ui::get()->static_fields->SeinUI->fields.SeedsUI;
         SpellUISeeds::Spend(il2cpp::unity::get_component_in_children<app::SpellUISeeds>(seed_ui, types::SpellUISeeds::get_class()), cost);
-        get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState).set(true);
+        ShopSlot::is_purchased_state_t(get_slot_uber_state_from_vanilla_uber_state(this_ptr->fields.Project->fields.UberState)).set(true);
     }
 
     IL2CPP_INTERCEPT(
@@ -213,11 +229,11 @@ namespace randomizer::game::shops::grom {
     IL2CPP_INTERCEPT(void, BuilderScreen, CompletePurchase, app::BuilderScreen* this_ptr) {
         const auto shopkeeper_screen = reinterpret_cast<app::ShopkeeperScreen*>(this_ptr);
         const auto item = reinterpret_cast<app::BuilderItem*>(ShopkeeperScreen::get_SelectedUpgradeItem(shopkeeper_screen));
-        const auto should_play_cutscene = get_cutscene_state(item->fields.Project).get<bool>();
+        const auto should_play_cutscene = get_cutscene_state(item->fields.Project).get();
         shopkeeper_screen->fields.HideScreenAfterPurchase = should_play_cutscene;
         next::BuilderScreen::CompletePurchase(this_ptr);
         if (!should_play_cutscene) {
-            core::api::uber_states::UberState(item->fields.Project->fields.UberState).set(3);
+            core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedByteUberState>(item->fields.Project->fields.UberState).set(3);
             ShopkeeperScreen::UpdateContextCanvasShards(reinterpret_cast<app::ShopkeeperScreen*>(this_ptr));
         }
     }

@@ -41,8 +41,8 @@ namespace randomizer::seed {
         {
             modloader::ScopedSetter _(m_is_reading_seed, true);
 
-            for (auto& condition: m_parse_output->data.conditions) {
-                condition.condition | vx::match {
+            for (auto& condition: m_parse_output->data.triggers) {
+                condition.trigger | vx::match {
                     [&](const int& condition_command_id) {
                         auto builder = core::reactivity::watch_effect()
                             .effect([&] {
@@ -72,8 +72,8 @@ namespace randomizer::seed {
                         .trigger_on_load()  // This is to reset condition.previous_value
                         .finalize();
                     },
-                    [&](const core::api::uber_states::UberState& uber_state) {
-                        auto builder = core::reactivity::watch_effect()
+                    [&](const core::api::uber_states::UntypedUberState& uber_state) {
+                        const auto builder = core::reactivity::watch_effect()
                             .effect({uber_state});
 
                         condition.reactive_effect = builder.after([&] {
@@ -200,10 +200,10 @@ namespace randomizer::seed {
             std::ranges::all_of(m_prevent_grant_callbacks, [](const auto& callback) { return !callback(); });
     }
 
-    void Seed::process_timers(float delta_time) const {
-        for (const auto& timer: m_timers) {
+    void Seed::process_timers(const float delta_time) {
+        for (auto& timer: m_timers) {
             if (timer.toggle.get<bool>()) {
-                timer.value.set(timer.value.get() + delta_time);
+                timer.value.set(timer.value.get<double>() + delta_time);
             }
         }
     }

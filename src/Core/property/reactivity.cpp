@@ -14,6 +14,7 @@
 #include <Modloader/modloader.h>
 #include <Profiler/tracy.h>
 #include <magic_enum/magic_enum.hpp>
+#include <ranges>
 
 namespace core::reactivity {
     struct TrackingContext {
@@ -160,10 +161,27 @@ namespace core::reactivity {
         return AfterEffectBuilder(m_effect);
     }
 
-    builder::AfterEffectBuilder builder::EffectBuilder::effect(std::vector<api::uber_states::UberState> const& states, const std::source_location& location) const {
+    builder::AfterEffectBuilder builder::EffectBuilder::effect(
+        std::initializer_list<api::uber_states::UntypedUberId> states,
+        const std::source_location& location
+    ) const {
         std::unordered_set<dependency_t> dependencies;
         for (const auto& state: states) {
-            dependencies.insert(UberStateDependency{state.group_int(), state.state()});
+            dependencies.insert(UberStateDependency{state.group, state.member});
+        }
+        set_effect_dependencies(m_effect, dependencies);
+        m_effect->effect_register_location = location;
+
+        return AfterEffectBuilder(m_effect);
+    }
+
+    builder::AfterEffectBuilder builder::EffectBuilder::effect(
+        const std::vector<api::uber_states::UntypedUberId>& states,
+        const std::source_location& location
+    ) const {
+        std::unordered_set<dependency_t> dependencies;
+        for (const auto& state: states) {
+            dependencies.insert(UberStateDependency{state.group, state.member});
         }
         set_effect_dependencies(m_effect, dependencies);
         m_effect->effect_register_location = location;
@@ -175,10 +193,27 @@ namespace core::reactivity {
         return EffectBuilder(m_effect).effect(func, location);
     }
 
-    builder::AfterEffectBuilder builder::BeforeEffectBuilder::effect(std::vector<api::uber_states::UberState> const& states, const std::source_location& location) const {
+    builder::AfterEffectBuilder builder::BeforeEffectBuilder::effect(
+        const std::initializer_list<api::uber_states::UntypedUberId> states,
+        const std::source_location& location
+    ) const {
         std::unordered_set<dependency_t> dependencies;
         for (const auto& state: states) {
-            dependencies.insert(UberStateDependency{state.group_int(), state.state()});
+            dependencies.insert(UberStateDependency{state.group, state.member});
+        }
+        set_effect_dependencies(m_effect, dependencies);
+        m_effect->effect_register_location = location;
+
+        return AfterEffectBuilder(m_effect);
+    }
+
+    builder::AfterEffectBuilder builder::BeforeEffectBuilder::effect(
+        const std::vector<api::uber_states::UntypedUberId>& states,
+        const std::source_location& location
+    ) const {
+        std::unordered_set<dependency_t> dependencies;
+        for (const auto& state: states) {
+            dependencies.insert(UberStateDependency{state.group, state.member});
         }
         set_effect_dependencies(m_effect, dependencies);
         m_effect->effect_register_location = location;
@@ -376,63 +411,70 @@ namespace core::reactivity {
         }
     }
 
-    /**
-     * \brief Garbage collect any expired callback and remove them from the watchers
-     */
-    void garbage_collect() {
-        auto effect_collection_it = dependency_tracker().effects_by_dependency.begin();
+    namespace {
+        /**
+         * \brief Garbage collect any expired callback and remove them from the watchers
+         */
+        void garbage_collect() {
+            auto effect_collection_it = dependency_tracker().effects_by_dependency.begin();
 
-        while (effect_collection_it != dependency_tracker().effects_by_dependency.end()) {
-            auto effects_it = effect_collection_it->second.begin();
+            while (effect_collection_it != dependency_tracker().effects_by_dependency.end()) {
+                auto effects_it = effect_collection_it->second.begin();
 
-            while (effects_it != effect_collection_it->second.end()) {
-                if (effects_it->second.expired()) {
-                    effects_it = effect_collection_it->second.erase(effects_it);
+                while (effects_it != effect_collection_it->second.end()) {
+                    if (effects_it->second.expired()) {
+                        effects_it = effect_collection_it->second.erase(effects_it);
+                    } else {
+                        ++effects_it;
+                    }
+                }
+
+                if (effect_collection_it->second.empty()) {
+                    effect_collection_it = dependency_tracker().effects_by_dependency.erase(effect_collection_it);
                 } else {
-                    ++effects_it;
+                    ++effect_collection_it;
                 }
             }
 
-            if (effect_collection_it->second.empty()) {
-                effect_collection_it = dependency_tracker().effects_by_dependency.erase(effect_collection_it);
-            } else {
-                ++effect_collection_it;
+            auto trigger_on_load_effects_it = dependency_tracker().trigger_on_load_effects.begin();
+
+            while (trigger_on_load_effects_it != dependency_tracker().trigger_on_load_effects.end()) {
+                if (trigger_on_load_effects_it->second.expired()) {
+                    trigger_on_load_effects_it = dependency_tracker().trigger_on_load_effects.erase(trigger_on_load_effects_it);
+                } else {
+                    ++trigger_on_load_effects_it;
+                }
             }
         }
 
-        auto trigger_on_load_effects_it = dependency_tracker().trigger_on_load_effects.begin();
-
-        while (trigger_on_load_effects_it != dependency_tracker().trigger_on_load_effects.end()) {
-            if (trigger_on_load_effects_it->second.expired()) {
-                trigger_on_load_effects_it = dependency_tracker().trigger_on_load_effects.erase(trigger_on_load_effects_it);
-            } else {
-                ++trigger_on_load_effects_it;
-            }
+        IL2CPP_INTERCEPT_WITH_ORDER(1, void, UberGCManager, RunGC, bool is_debug) {
+            next::UberGCManager::RunGC(is_debug);
+            garbage_collect();
         }
+
+        [[maybe_unused]]
+        auto on_load = api::game::event_bus().register_handler(GameEvent::UberStateValueStoreLoaded, EventTiming::After, [](auto, auto) {
+            run_trigger_on_load_effects();
+        });
+
+        [[maybe_unused]]
+        auto on_new_game_initialized = api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+            run_trigger_on_load_effects();
+        });
+
+        #ifdef ENABLE_PROFILER
+        [[maybe_unused]]
+        auto on_after_unity_update_loop = api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
+            TracyPlot(
+                "Effect Trigger Count",
+                static_cast<int64_t>(dependency_tracker().effects_by_dependency.size())
+            );
+
+            TracyPlot(
+                "Trigger on Load Effect Count",
+                static_cast<int64_t>(dependency_tracker().trigger_on_load_effects.size())
+            );
+        });
+        #endif
     }
-
-    IL2CPP_INTERCEPT_WITH_ORDER(1, void, UberGCManager, RunGC, bool is_debug) {
-        next::UberGCManager::RunGC(is_debug);
-        garbage_collect();
-    }
-
-    auto on_load = api::game::event_bus().register_handler(GameEvent::UberStateValueStoreLoaded, EventTiming::After, [](auto, auto) {
-        run_trigger_on_load_effects();
-    });
-
-    auto on_new_game_initialized = api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
-        run_trigger_on_load_effects();
-    });
-
-    auto on_after_unity_update_loop = api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
-        TracyPlot(
-            "Effect Trigger Count",
-            static_cast<int64_t>(dependency_tracker().effects_by_dependency.size())
-        );
-
-        TracyPlot(
-            "Trigger on Load Effect Count",
-            static_cast<int64_t>(dependency_tracker().trigger_on_load_effects.size())
-        );
-    });
 }

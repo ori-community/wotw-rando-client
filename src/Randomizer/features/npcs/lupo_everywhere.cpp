@@ -7,13 +7,15 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
+#include <Core/uber_states/core_uber_states.h>
 #include <optional>
 
 using namespace modloader;
 using namespace app::classes;
 
 namespace {
-    core::api::uber_states::UberState has_sword(static_cast<UberStateGroup>(48248), 49214);
+    // Don't get fooled by the in-game state name, it does not make any sense
+    auto& has_sword_condition_state = core::uber_states::state<"npcsStateGroup", "hasMapInkwaterMarshNotCondition">();
 
     IL2CPP_INTERCEPT(void, QuestNodeWisps, SelectInteraction, app::QuestNodeWisps * this_ptr) {
         const auto path = il2cpp::unity::get_path(this_ptr);
@@ -36,7 +38,7 @@ namespace {
                 [](std::string_view path, void* obj) { return std::optional<bool>(true); }
             );
 
-            randomizer::conditions::register_condition_uber_state_intercept(has_sword, [](app::ConditionUberState* state) { return std::optional<bool>(true); });
+            randomizer::conditions::register_condition_uber_state_intercept(has_sword_condition_state, [](app::ConditionUberState* state) { return std::optional<bool>(true); });
         }
     );
 } // namespace

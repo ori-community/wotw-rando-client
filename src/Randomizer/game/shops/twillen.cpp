@@ -30,15 +30,35 @@
 
 #include <Core/api/system/message_provider.h>
 #include <Modloader/app/methods/SpellUIExperience.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <set>
 
 namespace randomizer::game::shops::twillen {
-    core::api::uber_states::UberState get_slot_key_for_spirit_shard_type(app::SpiritShardType__Enum spirit_shard_type) {
-        return {UberStateGroup::TwillenShop, static_cast<int>(spirit_shard_type)};
+    ShopSlot::is_purchased_state_id_t get_state_id_for_spirit_shard_type(app::SpiritShardType__Enum spirit_shard_type) {
+        switch (spirit_shard_type) {
+            case app::SpiritShardType__Enum::GlassCannon:
+                return uber_states::state<"twillenShop", "overcharge">();
+            case app::SpiritShardType__Enum::TripleJump:
+                return uber_states::state<"twillenShop", "tripleJump">();
+            case app::SpiritShardType__Enum::AntiAir:
+                return uber_states::state<"twillenShop", "wingclip">();
+            case app::SpiritShardType__Enum::Swap:
+                return uber_states::state<"twillenShop", "swap">();
+            case app::SpiritShardType__Enum::SpiritLightLuck:
+                return uber_states::state<"twillenShop", "lightHarvest">();
+            case app::SpiritShardType__Enum::Vitality:
+                return uber_states::state<"twillenShop", "vitality">();
+            case app::SpiritShardType__Enum::Energy:
+                return uber_states::state<"twillenShop", "energy">();
+            case app::SpiritShardType__Enum::CombatLuck:
+                return uber_states::state<"twillenShop", "finesse">();
+            default:
+                throw std::runtime_error(std::format("Invalid Twillen shop slot shard type: {}", static_cast<int>(spirit_shard_type)));
+        }
     }
 
     ShopCollection::twillen_shop_t::slot_t& get_slot(app::SpiritShardType__Enum spirit_shard_type) {
-        const auto slot = shops()->twillen_shop().slot(get_slot_key_for_spirit_shard_type(spirit_shard_type));
+        const auto slot = shops()->twillen_shop().slot(get_state_id_for_spirit_shard_type(spirit_shard_type));
 
         if (!slot.has_value()) {
             throw std::exception("Missing Twillen shop slot");
@@ -48,7 +68,7 @@ namespace randomizer::game::shops::twillen {
     }
 
     std::optional<std::reference_wrapper<ShopCollection::twillen_shop_t::slot_t>> get_slot_optional(app::SpiritShardType__Enum spirit_shard_type) {
-        return shops()->twillen_shop().slot(get_slot_key_for_spirit_shard_type(spirit_shard_type));
+        return shops()->twillen_shop().slot(get_state_id_for_spirit_shard_type(spirit_shard_type));
     }
 
     namespace {
@@ -273,7 +293,7 @@ namespace randomizer::game::shops::twillen {
             auto owned = true;
             auto visible = false;
             if (shard != nullptr) {
-                const auto& slot = get_slot(this_ptr->fields.Shard->fields.m_spiritShard->fields.m_type);
+                auto& slot = get_slot(this_ptr->fields.Shard->fields.m_spiritShard->fields.m_type);
                 SpiritShardUIItem::UpdateShardIcon(this_ptr->fields.Shard);
                 owned = is_owned(slot);
                 visible = Moon::uberSerializationWisp::PlayerUberStateShards_Shard::get_VisibleInShop(shard);

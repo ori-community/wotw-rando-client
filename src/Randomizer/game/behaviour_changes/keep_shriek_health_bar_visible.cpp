@@ -4,14 +4,15 @@
 #include <Modloader/interception_macros.h>
 
 #include <Modloader/modloader.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 namespace {
     using namespace app::classes;
 
-    core::api::uber_states::UberState keep_health_bar_state(UberStateGroup::RandoConfig, 22);
+    auto& keep_health_bar_state = randomizer::uber_states::state<"randoConfig", "keepShriekHealthBarDuringEscape">();
 
     IL2CPP_INTERCEPT(bool, PetrifiedOwlBossEntity, ShouldShowHealthBar, app::PetrifiedOwlBossEntity* this_ptr) {
-        if (!keep_health_bar_state.get<bool>()) {
+        if (!keep_health_bar_state.get()) {
             return next::PetrifiedOwlBossEntity::ShouldShowHealthBar(this_ptr);
         }
 

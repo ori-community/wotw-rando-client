@@ -1,14 +1,12 @@
-#include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
-#include <Modloader/app/methods/UnityEngine/GameObject.h>
-#include <Modloader/app/types/MoonTimeline.h>
-#include <Modloader/app/types/ChangeStateOnCondition.h>
-#include <Modloader/il2cpp_helpers.h>
-
 #include <Common/event_bus.h>
-#include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/utils/misc.h>
-#include <Modloader/modloader.h>
+#include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
+#include <Modloader/app/types/ChangeStateOnCondition.h>
+#include <Modloader/app/types/MoonTimeline.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 using namespace utils;
 using namespace app::classes;
@@ -20,7 +18,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::ChangeStateOnCondition>> vine_h_change_state_on_condition_ref;
     core::reactivity::ReactiveEffect::ptr_t effect;
 
-    core::api::uber_states::UberState disable_cutscenes_state(UberStateGroup::RandoConfig, 20);
+    auto& disable_cutscenes_state = randomizer::uber_states::state<"randoConfig", "disableWillowHeartCutscenes">();
 
     void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
         if (metadata->state != app::SceneState__Enum::Enabled) {
@@ -116,7 +114,7 @@ namespace {
 
             // Set up the reactive effect
             effect = core::reactivity::watch_effect([] {
-                const auto disable_cutscenes = disable_cutscenes_state.get<bool>();
+                const auto disable_cutscenes = disable_cutscenes_state.get();
 
                 auto vines_ref_it = vine_timeline_refs.begin();
                 while (vines_ref_it != vine_timeline_refs.end()) {

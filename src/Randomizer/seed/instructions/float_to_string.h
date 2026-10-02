@@ -3,11 +3,11 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(FloatToString)
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         memory.heap.set(0, std::format("{:.3f}", memory.heap.get<float>(0)));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("FloatToString -> {}", memory.heap.get<bool>(0));
     }
 

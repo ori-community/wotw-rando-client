@@ -16,81 +16,101 @@
 #include <Common/vx.h>
 #include <Core/api/game/death_listener.h>
 #include <Core/api/uber_states/uber_state.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 namespace core::api::death_listener {
     using namespace app::classes;
     using namespace core::api::uber_states;
 
     namespace {
-        std::unordered_map<app::DamageType__Enum, UberState> damage_type_map{
-            {app::DamageType__Enum::Sword, UberState(UberStateGroup::RandoStats, 11)},
-            {app::DamageType__Enum::Hammer, UberState(UberStateGroup::RandoStats, 12)},
-            {app::DamageType__Enum::Bow, UberState(UberStateGroup::RandoStats, 13)},
-            {app::DamageType__Enum::SpiritSpear, UberState(UberStateGroup::RandoStats, 14)},
-            {app::DamageType__Enum::SpiritSentry, UberState(UberStateGroup::RandoStats, 15)},
-            {app::DamageType__Enum::Blaze, UberState(UberStateGroup::RandoStats, 16)},
-            {app::DamageType__Enum::Grenade, UberState(UberStateGroup::RandoStats, 17)},
-            {app::DamageType__Enum::Chakram, UberState(UberStateGroup::RandoStats, 19)},
-            {app::DamageType__Enum::ChargeJump, UberState(UberStateGroup::RandoStats, 20)},
-            {app::DamageType__Enum::Glow, UberState(UberStateGroup::RandoStats, 21)},
-            {app::DamageType__Enum::Projectile, UberState(UberStateGroup::RandoStats, 22)},
-            {app::DamageType__Enum::Water, UberState(UberStateGroup::RandoStats, 23)},
-        };
+        std::optional<UberState<UberStateType::SerializedIntUberState>> get_kills_uber_state_for_damage_type(app::DamageType__Enum damage_type) {
+            switch (damage_type) {
+                case app::DamageType__Enum::Sword:
+                    return randomizer::uber_states::state<"randoStats", "swordKills">();
+                case app::DamageType__Enum::Hammer:
+                    return randomizer::uber_states::state<"randoStats", "hammerKills">();
+                case app::DamageType__Enum::Bow:
+                    return randomizer::uber_states::state<"randoStats", "bowKills">();
+                case app::DamageType__Enum::SpiritSpear:
+                    return randomizer::uber_states::state<"randoStats", "spearKills">();
+                case app::DamageType__Enum::SpiritSentry:
+                    return randomizer::uber_states::state<"randoStats", "sentryKills">();
+                case app::DamageType__Enum::Blaze:
+                    return randomizer::uber_states::state<"randoStats", "blazeKills">();
+                case app::DamageType__Enum::Grenade:
+                    return randomizer::uber_states::state<"randoStats", "grenadeKills">();
+                case app::DamageType__Enum::Chakram:
+                    return randomizer::uber_states::state<"randoStats", "shurikenKills">();
+                case app::DamageType__Enum::ChargeJump:
+                    return randomizer::uber_states::state<"randoStats", "launchKills">();
+                case app::DamageType__Enum::Glow:
+                    return randomizer::uber_states::state<"randoStats", "flashKills">();
+                case app::DamageType__Enum::Projectile:
+                    return randomizer::uber_states::state<"randoStats", "bashKills">();
+                case app::DamageType__Enum::Water:
+                    return randomizer::uber_states::state<"randoStats", "drownedEnemies">();
+                default:
+                    return std::nullopt;
+            }
+        }
 
-        using enemy_list_t = std::vector<UberState>;
-        using enemy_function_t = std::function<std::vector<UberState>(app::EnemyEntity* entity)>;
+        using kills_states_t = std::vector<UberState<UberStateType::SerializedIntUberState>>;
+        using kills_states_fn_t = std::function<std::vector<UberState<UberStateType::SerializedIntUberState>>(app::EnemyEntity* entity)>;
 
-        std::vector<UberState> skeeto_check(app::EnemyEntity* entity) {
+        kills_states_t skeeto_check(app::EnemyEntity* entity) {
             const auto skeeto = reinterpret_cast<app::SkeetoEntity*>(entity);
             switch (skeeto->fields.m_type) {
                 case app::SkeetoEntity_SkeetoType__Enum::Kamikaze: {
-                    return {UberState(UberStateGroup::RandoStats, 41), UberState(UberStateGroup::RandoStats, 45)};
+                    return {
+                        randomizer::uber_states::state<"randoStats", "flierKills">(),
+                        randomizer::uber_states::state<"randoStats", "exploderKills">(),
+                    };
                 }
                 default: {
-                    return {UberState(UberStateGroup::RandoStats, 41)};
+                    return {randomizer::uber_states::state<"randoStats", "flierKills">()};
                 }
             }
         }
 
-        std::vector<UberState> worm_check(app::EnemyEntity* entity) {
+        kills_states_t worm_check(app::EnemyEntity* entity) {
             const auto worm = reinterpret_cast<app::SandWormEntity*>(entity);
             if (worm->fields.WormHabitat == app::SandWormEntity_Habitat__Enum::Sand) {
-                return enemy_list_t{};
-            } else {
-                return enemy_list_t{UberState(UberStateGroup::RandoStats, 44)};
+                return {};
             }
+
+            return kills_states_t{randomizer::uber_states::state<"randoStats", "fishKills">()};
         }
 
-        std::unordered_map<void*, std::variant<enemy_list_t, enemy_function_t>>& enemy_type_map() {
-            static std::unordered_map<void*, std::variant<enemy_list_t, enemy_function_t>> inner_enemy_type_map = {
-                {types::MinerEntity::get_class(), enemy_list_t{UberState(UberStateGroup::RandoStats, 40)}},
+        std::unordered_map<void*, std::variant<kills_states_t, kills_states_fn_t>>& enemy_type_map() {
+            static std::unordered_map<void*, std::variant<kills_states_t, kills_states_fn_t>> inner_enemy_type_map = {
+                {types::MinerEntity::get_class(), kills_states_t{randomizer::uber_states::state<"randoStats", "minerKills">()}},
                 {types::SkeetoEntity::get_class(), skeeto_check},
-                {types::TentacleEntity::get_class(), enemy_list_t{UberState(UberStateGroup::RandoStats, 42)}},
-                {types::SpikeSlugEntity::get_class(), enemy_list_t{UberState(UberStateGroup::RandoStats, 43)}},
-                {types::DropSlugEntity::get_class(), enemy_list_t{UberState(UberStateGroup::RandoStats, 43), UberState(UberStateGroup::RandoStats, 45)}},
-                {types::PiranhaEntity::get_class(), enemy_list_t{UberState(UberStateGroup::RandoStats, 44)}},
+                {types::TentacleEntity::get_class(), kills_states_t{randomizer::uber_states::state<"randoStats", "tentacleKills">()}},
+                {types::SpikeSlugEntity::get_class(), kills_states_t{randomizer::uber_states::state<"randoStats", "slimeKills">()}},
+                {types::DropSlugEntity::get_class(), kills_states_t{randomizer::uber_states::state<"randoStats", "slimeKills">(), randomizer::uber_states::state<"randoStats", "exploderKills">()}},
+                {types::PiranhaEntity::get_class(), kills_states_t{randomizer::uber_states::state<"randoStats", "fishKills">()}},
                 {types::SandWormEntity::get_class(), worm_check},
-                {types::GasballEntity::get_class(), enemy_list_t{UberState(UberStateGroup::RandoStats, 41), UberState(UberStateGroup::RandoStats, 45)}},
-                {types::KamikazeLizardEntity::get_class(), enemy_list_t{UberState(UberStateGroup::RandoStats, 45)}},
-                {types::BombSlugEntity::get_class(), enemy_list_t{UberState(UberStateGroup::RandoStats, 43), UberState(UberStateGroup::RandoStats, 45)}}
+                {types::GasballEntity::get_class(), kills_states_t{randomizer::uber_states::state<"randoStats", "flierKills">(), randomizer::uber_states::state<"randoStats", "exploderKills">()}},
+                {types::KamikazeLizardEntity::get_class(), kills_states_t{randomizer::uber_states::state<"randoStats", "exploderKills">()}},
+                {types::BombSlugEntity::get_class(), kills_states_t{randomizer::uber_states::state<"randoStats", "slimeKills">(), randomizer::uber_states::state<"randoStats", "exploderKills">()}}
             };
 
             return inner_enemy_type_map;
         }
 
-        UberState kills_state(UberStateGroup::RandoStats, 10);
+        auto& kills_state = randomizer::uber_states::state<"randoStats", "kills">();
 
         void handle_enemy_stats(Death death, EventTiming) {
             kills_state.set(kills_state.get() + 1);
             const auto enemy_entity = il2cpp::unity::get_component<app::EnemyEntity>(death.game_object, types::EnemyEntity::get_class());
             const auto enemy_state_entry = enemy_type_map()[enemy_entity->klass];
-            enemy_list_t states;
+            kills_states_t states;
 
             enemy_state_entry | vx::match {
-                [&](const enemy_list_t& list) {
+                [&](const kills_states_t& list) {
                     states = list;
                 },
-                [&](const enemy_function_t& function) {
+                [&](const kills_states_fn_t& function) {
                     states = function(enemy_entity);
                 }
             };
@@ -99,28 +119,28 @@ namespace core::api::death_listener {
                 state.set(state.get() + 1);
             }
 
-            auto it = damage_type_map.find(death.damage->fields.m_damageType);
+            auto state = get_kills_uber_state_for_damage_type(death.damage->fields.m_damageType);
 
             // Count Blaze and Grenade burns as Blaze and Grenade deaths but
             // count Sentry burns as Sentry deaths, albeit they are technically
             // Grenade burns internally (see sentry_burn_damage_type_fix.cpp)
             if (death.damage->fields.m_damageType == app::DamageType__Enum::Heat) {
                 if (death.damage->fields.m_abilityType == app::AbilityType__Enum::Grenade) {
-                    it = damage_type_map.find(app::DamageType__Enum::Grenade);
+                    state = get_kills_uber_state_for_damage_type(app::DamageType__Enum::Grenade);
                 } else if (death.damage->fields.m_abilityType == app::AbilityType__Enum::Blaze) {
-                    it = damage_type_map.find(app::DamageType__Enum::Blaze);
+                    state = get_kills_uber_state_for_damage_type(app::DamageType__Enum::Blaze);
                 } else if (death.damage->fields.m_abilityType == app::AbilityType__Enum::SpiritSentrySpell) {
-                    it = damage_type_map.find(app::DamageType__Enum::SpiritSentry);
+                    state = get_kills_uber_state_for_damage_type(app::DamageType__Enum::SpiritSentry);
                 }
             } else if (
                 death.damage->fields.m_damageType == app::DamageType__Enum::Grenade &&
                 death.damage->fields.m_abilityType == app::AbilityType__Enum::SpiritSentrySpell
             ) {
-                it = damage_type_map.find(app::DamageType__Enum::SpiritSentry);
+                state = get_kills_uber_state_for_damage_type(app::DamageType__Enum::SpiritSentry);
             }
 
-            if (it != damage_type_map.end()) {
-                it->second.set(it->second.get() + 1);
+            if (state.has_value()) {
+                state->set(state->get() + 1);
             }
         }
 

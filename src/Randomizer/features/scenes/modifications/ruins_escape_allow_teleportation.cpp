@@ -10,6 +10,7 @@
 #include <Modloader/app/methods/TeleportRestrictZone.h>
 #include <Modloader/app/types/TeleportRestrictZone.h>
 #include <Modloader/windows_api/console.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 namespace {
     using namespace app::classes;
@@ -17,7 +18,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::TeleportRestrictZone>> teleport_restrict_zone_ref;
     core::reactivity::ReactiveEffect::ptr_t effect;
 
-    core::api::uber_states::UberState fix_enabled_state(UberStateGroup::RandoConfig, 21);
+    auto& fix_enabled_state = randomizer::uber_states::state<"randoConfig", "allowTeleportingAtRuinsMapstone">();
 
     [[maybe_unused]]
     auto on_scene_loaded_handler = core::api::scenes::single_event_bus().register_handler(
@@ -48,7 +49,7 @@ namespace {
                 ) {
                     auto cage_structure_tool = (*teleport_restrict_zone)->fields.CageStructureTool;
 
-                    if (fix_enabled_state.get<bool>()) {
+                    if (fix_enabled_state.get()) {
                         cage_structure_tool->fields.Vertices->fields._items->vector[0]->fields.Position = app::Vector3{-94.740479f, -140.710449f, 0.f};
                         cage_structure_tool->fields.Vertices->fields._items->vector[1]->fields.Position = app::Vector3{-94.369141f, -56.7434082f, 0.f};
                     } else {

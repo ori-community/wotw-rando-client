@@ -51,8 +51,6 @@ WheelBehavior wheel_behavior = WheelBehavior::Standalone;
 
 void refresh_wheel();
 
-extern bool disable_has_ability_overwrite;
-
 namespace randomizer::features::wheel {
     core::Property<bool>& is_wheel_visible() {
         static core::Property<bool> value{false};
@@ -354,7 +352,6 @@ namespace randomizer::features::wheel {
         }
 
         IL2CPP_INTERCEPT(app::CleverMenuItem*, CleverMenuItemSelectionManager, get_CleverMenuItemUnderCursor, app::CleverMenuItemSelectionManager* this_ptr) {
-            disable_has_ability_overwrite = true;
             const int count = CleverMenuItemSelectionManager::get_MenuItemsCount(this_ptr);
             const auto cursor = Core::Input::get_CursorPositionUI();
             app::CleverMenuItem* item = nullptr;
@@ -382,7 +379,6 @@ namespace randomizer::features::wheel {
                 }
             }
 
-            disable_has_ability_overwrite = false;
             return item;
         }
 

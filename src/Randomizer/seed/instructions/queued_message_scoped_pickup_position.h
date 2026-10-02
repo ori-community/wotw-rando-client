@@ -3,14 +3,14 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(QueuedMessageScopedPickupPosition)
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         environment.set_queued_message_pickup_position_in_current_scope({
             memory.heap.get<float>(0),
             memory.heap.get<float>(1),
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("QueuedMessageScopedPickupPosition -> {}, {}", memory.heap.get<float>(0), memory.heap.get<float>(1));
     }
 

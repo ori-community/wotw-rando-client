@@ -10,10 +10,13 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+
+
 namespace {
     using namespace app::classes;
 
-    core::api::uber_states::UberState flap_damage_state(UberStateGroup::RandoUpgrade, 96);
+    auto& flap_damage_state = randomizer::uber_states::state<"randoUpgrades", "flapDamage">();
     auto is_performing_wind_knockback = false;
     auto is_spawning_wind_fx = false;
     auto flap_damage_amount_cache = 0.f;
@@ -95,7 +98,7 @@ namespace {
                 {"windSequence", "graphicBox", "wind", "sharedBlowingSnow"},
             };
 
-            if (flap_damage_state.get<float>() != 0.f) {
+            if (flap_damage_state.get() != 0.f) {
                 apply_shader_info(instance, extreme_emission_paths, shader_info_extreme);
                 apply_shader_info(instance, high_emission_paths, shader_info_high);
             } else {
@@ -134,7 +137,7 @@ namespace {
             }
         }
 
-        modloader::ScopedSetter _2(flap_damage_amount_cache, flap_damage_state.get<float>());
+        modloader::ScopedSetter _2(flap_damage_amount_cache, flap_damage_state.get());
         next::WindCollision::PerformKnockback(this_ptr, go, damage_owner, distance_to_knockback);
     }
 } // namespace

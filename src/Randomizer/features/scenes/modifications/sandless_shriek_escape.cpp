@@ -2,11 +2,11 @@
 
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/uber_state.h>
 #include <Core/property/reactivity.h>
 #include <Modloader/app/methods/ObjectInsideZoneChecker.h>
 #include <Modloader/app/types/PlayerInsideZoneChecker.h>
 #include <Modloader/windows_api/console.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 namespace {
     using namespace app::classes;
@@ -16,12 +16,12 @@ namespace {
 
     core::reactivity::ReactiveEffect::ptr_t effect;
 
-    core::api::uber_states::UberState modification_enabled_state(UberStateGroup::RandoConfig, 100);
+    auto& modification_enabled_state = randomizer::uber_states::state<"randoConfig", "removeShriekEscapeSand">();
 
     void setup_effect() {
         effect = core::reactivity::watch_effect([] {
             auto any_affected_reference_valid = false;
-            const auto modification_enabled = modification_enabled_state.get<bool>();
+            const auto modification_enabled = modification_enabled_state.get();
 
             if (trigger_player_inside_zone_checker_ref.has_value()) {
                 const auto trigger_player_inside_zone_checker = **trigger_player_inside_zone_checker_ref;
@@ -57,6 +57,7 @@ namespace {
         });
     }
 
+    [[maybe_unused]]
     auto on_scene_loaded_handler = core::api::scenes::event_bus().register_handler(
         [](auto metadata) {
             if (metadata->state != app::SceneState__Enum::Enabled) {

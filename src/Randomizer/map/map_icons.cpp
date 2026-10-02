@@ -1,17 +1,24 @@
 #include <Core/api/game/game.h>
+#include <Core/api/game/ui.h>
+#include <Core/api/messages/text_style.h>
+#include <Core/api/system/message_provider.h>
+#include <Core/settings.h>
 #include <Modloader/app/methods/AreaMapIcon.h>
 #include <Modloader/app/methods/AreaMapIconManager.h>
 #include <Modloader/app/methods/AreaMapNavigation.h>
 #include <Modloader/app/methods/Game/UI.h>
 #include <Modloader/app/methods/GameMapPins.h>
 #include <Modloader/app/methods/GameMapUI.h>
+#include <Modloader/app/methods/IconPlacementScaler.h>
 #include <Modloader/app/methods/MenuScreenManager.h>
 #include <Modloader/app/methods/QuestIconsUI.h>
 #include <Modloader/app/methods/RuntimeWorldMapIcon.h>
 #include <Modloader/app/methods/SavePedestal.h>
 #include <Modloader/app/methods/UberShaderAPI.h>
+#include <Modloader/app/methods/UnityEngine/Color.h>
 #include <Modloader/app/methods/UnityEngine/Mesh.h>
 #include <Modloader/app/methods/UnityEngine/MeshFilter.h>
+#include <Modloader/app/methods/UnityEngine/Vector2.h>
 #include <Modloader/app/types/AreaMapIcon.h>
 #include <Modloader/app/types/GameMapPins.h>
 #include <Modloader/app/types/GameMapUI.h>
@@ -22,17 +29,12 @@
 #include <Modloader/app/types/Vector2.h>
 #include <Modloader/app/types/Vector3.h>
 #include <Modloader/interception_macros.h>
+#include <Randomizer/features/entrance_randomizer.h>
 #include <Randomizer/map/map_icons.h>
 #include <Randomizer/randomizer.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <frozen/string.h>
 #include <frozen/unordered_map.h>
-
-#include <Core/api/game/ui.h>
-#include <Core/api/system/message_provider.h>
-#include <Core/settings.h>
-#include <Modloader/app/methods/IconPlacementScaler.h>
-#include <Core/api/messages/text_style.h>
-#include <Randomizer/features/entrance_randomizer.h>
 
 
 namespace randomizer::map::icons {
@@ -716,6 +718,8 @@ namespace randomizer::map::icons {
     }
 
     void MapIcon::try_set_color_modulation_and_opacity(float r, float g, float b, float opacity) const {
+        using namespace app::classes::UnityEngine::Color;
+
         const auto game_object = get_game_object();
         if (!game_object.has_value()) {
             return;
@@ -855,6 +859,8 @@ namespace randomizer::map::icons {
         }
 
         IL2CPP_INTERCEPT(bool, GameMapUI, IsCursorOverTeleporter, app::GameMapUI * this_ptr, app::Vector2* target) {
+            using namespace app::classes::UnityEngine::Vector2;
+
             const auto cursor = GameMapUI::get_FocusLocation(this_ptr);
 
             auto min_distance = 1.02 * 1.02;
@@ -939,29 +945,13 @@ namespace randomizer::map::icons {
             return std::make_tuple(active_warp_icon, inactive_warp_icon);
         }
 
-        std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_warp_icon(
-            const app::Vector2& world_position,
-            const core::api::uber_states::UberState& is_active_state,
-            const std::string& label_text
-        ) {
-            return create_warp_icon(
-                world_position,
-                [=] {
-                    return is_active_state.get<bool>()
-                        ? WarpIconState::Active
-                        : WarpIconState::Inactive;
-                },
-                label_text
-            );
-        }
-
         std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_entrance_icon(
             const EntranceIconSize size,
             const app::Vector2& world_position,
             const std::function<bool()>& show_question_mark_fn,
             const std::string& label_text
         ) {
-            static const core::api::uber_states::UberState SHOW_SMALL_DOORS_STATE(UberStateGroup::RandoConfig, 200);
+            static auto& show_small_entrances_state = uber_states::state<"randoConfig", "showSmallEntrances">();
 
             const auto door_icon = std::make_shared<MapIcon>(
                 size == EntranceIconSize::Small ? MapIcon::Type::DoorSmall : MapIcon::Type::Door,
@@ -972,7 +962,7 @@ namespace randomizer::map::icons {
                         return MapIcon::Visibilities::invisible;
                     }
 
-                    if (size == EntranceIconSize::Small && !SHOW_SMALL_DOORS_STATE.get<bool>()) {
+                    if (size == EntranceIconSize::Small && !show_small_entrances_state.get()) {
                         return MapIcon::Visibilities::invisible;
                     }
 
@@ -991,7 +981,7 @@ namespace randomizer::map::icons {
                         return MapIcon::Visibilities::invisible;
                     }
 
-                    if (size == EntranceIconSize::Small && !SHOW_SMALL_DOORS_STATE.get<bool>()) {
+                    if (size == EntranceIconSize::Small && !show_small_entrances_state.get()) {
                         return MapIcon::Visibilities::invisible;
                     }
 
@@ -1007,28 +997,12 @@ namespace randomizer::map::icons {
         std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_entrance_icon(
             const EntranceIconSize size,
             const app::Vector2& world_position,
-            const core::api::uber_states::UberState& is_visited_state,
-            const std::string& label_text
-        ) {
-            return create_entrance_icon(
-                size,
-                world_position,
-                [=] {
-                    return !is_visited_state.get<bool>();
-                },
-                label_text
-            );
-        }
-
-        std::tuple<MapIcon::ptr_t, MapIcon::ptr_t> create_entrance_icon(
-            const EntranceIconSize size,
-            const app::Vector2& world_position,
             const int entrance_id
         ) {
             return create_entrance_icon(
                 size,
                 world_position,
-                core::api::uber_states::UberState(UberStateGroup::KnownEntranceConnections, entrance_id),
+                core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState>(uber_states::group_id<"knownEntranceConnections">(), entrance_id),
                 entrances::get_entrance_info(entrances::get_entrance_name_from_entrance_id(entrance_id)).display_name
             );
         }

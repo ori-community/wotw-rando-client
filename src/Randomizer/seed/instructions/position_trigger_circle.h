@@ -8,7 +8,7 @@ INSTRUCTION(PositionTriggerCircle)
 
     std::size_t id;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         const auto x = memory.heap.get<float>(0);
         const auto y = memory.heap.get<float>(1);
         const auto r = memory.heap.get<float>(2);
@@ -20,7 +20,7 @@ INSTRUCTION(PositionTriggerCircle)
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         const auto x = memory.heap.get<float>(0);
         const auto y = memory.heap.get<float>(1);
         const auto r = memory.heap.get<float>(2);

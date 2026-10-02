@@ -9,11 +9,11 @@ INSTRUCTION(SetWheelPinned)
 
     int wheel;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         features::wheel::set_wheel_sticky(wheel, memory.heap.get<bool>(0));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("SetWheelPinned -> Wheel {} = ", wheel, memory.heap.get<bool>(0) ? "true" : "false");
     }
 

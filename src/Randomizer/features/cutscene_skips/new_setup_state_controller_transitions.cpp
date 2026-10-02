@@ -22,6 +22,7 @@
 #include <Core/api/audio.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
+#include <Modloader/il2cpp_math.h>
 #include <Randomizer/features/cutscene_skips/custom_cutscene_skips.h>
 
 

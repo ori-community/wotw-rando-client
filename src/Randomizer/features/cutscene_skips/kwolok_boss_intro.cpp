@@ -1,16 +1,17 @@
-#include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
-#include <Modloader/il2cpp_helpers.h>
-
-#include "custom_cutscene_skips.h"
 #include <Common/event_bus.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state.h>
+#include <Core/uber_states/core_uber_states.h>
 #include <Core/utils/misc.h>
 #include <Modloader/app/methods/GameController.h>
+#include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
 #include <Modloader/app/types/MoonTimeline.h>
+#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/features/cutscene_skips/custom_cutscene_skips.h>
+
 
 using namespace utils;
 using namespace app::classes;
@@ -45,18 +46,21 @@ namespace {
             Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(kwolok_boss_intro_timeline.ptr));
     }
 
+    auto& kwolok_boss_state = core::uber_states::state<"lagoonStateGroup", "kwolokBossState">();
     void skip_invoke(const custom_cutscene_skips::CustomCutsceneSkip::InvokeParameters&) {
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(kwolok_boss_intro_timeline.ptr));
 
         core::api::game::player::set_position(-1634.946f, -4128.809f);
 
-        core::api::uber_states::UberState kwolok_boss_state(static_cast<UberStateGroup>(945), 58403);
-        kwolok_boss_state.set(2.0);
+        kwolok_boss_state.set(2);
 
         core::api::game::temporary_save(true, true, true);
     }
 
+    [[maybe_unused]]
     auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
+
+    [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         auto cutscene_skip = custom_cutscene_skips::CustomCutsceneSkip{
             .is_available = &skip_available,

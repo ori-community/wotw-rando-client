@@ -8,7 +8,7 @@ INSTRUCTION(ExecuteIf)
 
     int index;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         if (!memory.heap.get<bool>(0)) {
             return;
         }
@@ -16,7 +16,7 @@ INSTRUCTION(ExecuteIf)
         seed.execute_command(index);
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("ExecuteIf ({}) {}", memory.heap.get<bool>(0), index);
     }
 

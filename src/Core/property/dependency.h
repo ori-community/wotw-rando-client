@@ -1,16 +1,9 @@
 #pragma once
 
-#include <Core/api/uber_states/uber_state.h>
+#include <Core/api/uber_states/uber_state_prelude.h>
 #include <variant>
 
 namespace core::reactivity {
-    enum class MemoryType {
-        Bool,
-        Int,
-        Float,
-        String,
-    };
-
     struct UberStateDependency {
         int group;
         int state;
@@ -18,9 +11,10 @@ namespace core::reactivity {
         UberStateDependency(const int group, const int state) :
             group(group),
             state(state) {}
-        UberStateDependency(const UberStateGroup group, const int state) :
-            group(static_cast<int>(group)),
-            state(state) {}
+
+        UberStateDependency(const api::uber_states::UntypedUberId id) :
+            group(id.group),
+            state(id.member) {}
 
         auto operator<=>(const UberStateDependency&) const = default;
     };

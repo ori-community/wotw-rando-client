@@ -1,15 +1,16 @@
-
 #include <Core/api/uber_states/uber_state_handlers.h>
-
+#include <Core/uber_states/core_uber_states.h>
 #include <Modloader/modloader.h>
-
 #include <Randomizer/conditions/condition_override.h>
 #include <Randomizer/conditions/condition_uber_state.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 namespace {
-    core::api::uber_states::UberState built_spirit_well(UberStateGroup::GladesProjects, 16825);
-    core::api::uber_states::UberState built_spirit_well_condition(42178, 3072);
+    auto& built_spirit_well = randomizer::uber_states::state<"gladesProjects", "spiritWellBuilt">();
+    auto& built_spirit_well_condition = core::uber_states::state<"hubUberStateGroup", "hasCompletedBuilderProjectSpiritWell">();
 
+    [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         randomizer::conditions::register_condition_intercept(
             randomizer::conditions::ConditionType::VisibleOnWorldMap,
@@ -21,7 +22,7 @@ namespace {
         randomizer::conditions::register_condition_uber_state_intercept(
             built_spirit_well_condition,
             [](auto) {
-                return std::make_optional(built_spirit_well.get<bool>());
+                return std::make_optional(built_spirit_well.get());
             }
         );
     });

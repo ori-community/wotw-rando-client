@@ -3,34 +3,35 @@
 #include <Modloader/windows_api/console.h>
 
 #include <Core/api/uber_states/uber_state.h>
-#include <Randomizer/conditions/new_setup_state_override.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
+#include <Randomizer/conditions/new_setup_state_override.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 
 namespace {
     constexpr int32_t TWILLEN_EXISTS = -294171295;
     constexpr int32_t TWILLEN_GONE = -598610927;
 
-    const auto SPAWN_TWILLEN = core::api::uber_states::UberState(UberStateGroup::RandoState, 302);
-    const auto USE_SPAWN_TWILLEN_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoConfig, 32);
+    auto& spawn_twillen_state = randomizer::uber_states::state<"randoState", "spawnTwillenEverywhere">();
+    auto& use_spawn_twillen_state = randomizer::uber_states::state<"randoConfig", "useSpawnTwillenEverywhereRandoState">();
 
     [[maybe_unused]]
-    auto uber_state_notify = core::api::uber_states::single_notification_bus().register_handlers(
-        std::vector<std::tuple<core::api::uber_states::UberState>> {
-            SPAWN_TWILLEN,
-            USE_SPAWN_TWILLEN_RANDO_STATE,
+    auto uber_state_notify = core::api::uber_states::on_uber_state_changed().register_handlers(
+        std::vector<std::tuple<core::api::uber_states::UntypedUberId>> {
+            spawn_twillen_state.get_uber_id(),
+            use_spawn_twillen_state.get_uber_id(),
         },
-        [](auto&, auto) {
+        [](auto) {
             randomizer::conditions::apply_all_states();
         }
     );
 
     int32_t twillen_state(app::NewSetupStateController* controller, std::string_view path, int32_t original_state) {
-        if (!USE_SPAWN_TWILLEN_RANDO_STATE.get<bool>()) {
+        if (!use_spawn_twillen_state.get()) {
             return original_state;
         }
 
-        return SPAWN_TWILLEN.get<bool>() ? TWILLEN_EXISTS : TWILLEN_GONE;
+        return spawn_twillen_state.get() ? TWILLEN_EXISTS : TWILLEN_GONE;
     }
 
     [[maybe_unused]]

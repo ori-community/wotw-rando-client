@@ -8,12 +8,12 @@ INSTRUCTION(WorldName)
 
     int id;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         const auto world = multiplayer_universe().get_world(id);
         memory.heap.set<std::string>(0, world == nullptr ? "" : world->name());
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("WorldName {}", id);
     }
 

@@ -1,20 +1,19 @@
-#include <Core/api/uber_states/uber_state.h>
-
 #include <Core/api/game/player.h>
-
+#include <Core/api/uber_states/uber_state.h>
 #include <Modloader/app/methods/MeleeComboMoveHammer.h>
 #include <Modloader/app/methods/MeleeComboMoveHammerChargeable.h>
 #include <Modloader/app/methods/MeleeComboMoveHammerSimple.h>
 #include <Modloader/app/methods/MeleeComboMoveHammerStomp.h>
 #include <Modloader/app/methods/Moon/Timeline/MoonTimeline.h>
-#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 using namespace modloader;
 using namespace app::classes;
 
 namespace {
-    core::api::uber_states::UberState hammer_speed(UberStateGroup::RandoUpgrade, 0);
+    auto& hammer_speed_state = randomizer::uber_states::state<"randoUpgrades", "hammerSpeedMultiplier">();
 
     void set_timeline_time_scale_if_not_null(app::MoonTimeline* timeline, const float& time_scale) {
         if (timeline != nullptr)
@@ -22,7 +21,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, MeleeComboMoveHammerSimple, EnterMove, app::MeleeComboMoveHammerSimple * this_ptr) {
-        auto hammer_speed_multiplier = hammer_speed.get<float>();
+        auto hammer_speed_multiplier = hammer_speed_state.get();
 
         set_timeline_time_scale_if_not_null(this_ptr->fields.PrepareAttackTimeline, hammer_speed_multiplier);
         set_timeline_time_scale_if_not_null(this_ptr->fields.AttackTimeline, hammer_speed_multiplier);
@@ -31,7 +30,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, MeleeComboMoveHammer, EnterMove, app::MeleeComboMoveHammer * this_ptr) {
-        auto hammer_speed_multiplier = hammer_speed.get<float>();
+        auto hammer_speed_multiplier = hammer_speed_state.get();
 
         set_timeline_time_scale_if_not_null(this_ptr->fields.PrepareTimeline, hammer_speed_multiplier);
         set_timeline_time_scale_if_not_null(this_ptr->fields.AttackTimeline, hammer_speed_multiplier);
@@ -41,7 +40,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, MeleeComboMoveHammerChargeable, EnterMove, app::MeleeComboMoveHammerChargeable * this_ptr) {
-        auto hammer_speed_multiplier = hammer_speed.get<float>();
+        auto hammer_speed_multiplier = hammer_speed_state.get();
 
         set_timeline_time_scale_if_not_null(this_ptr->fields.PrepareTimeline, hammer_speed_multiplier);
         set_timeline_time_scale_if_not_null(this_ptr->fields.ChargeHoldTimeline, hammer_speed_multiplier);
@@ -52,7 +51,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, MeleeComboMoveHammerStomp, EnterStartState, app::MeleeComboMoveHammerStomp * this_ptr) {
-        auto hammer_speed_multiplier = hammer_speed.get<float>();
+        auto hammer_speed_multiplier = hammer_speed_state.get();
 
         set_timeline_time_scale_if_not_null(this_ptr->fields.LoopTimeline, hammer_speed_multiplier);
         set_timeline_time_scale_if_not_null(this_ptr->fields.StartTimeline, hammer_speed_multiplier);

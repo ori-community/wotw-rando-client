@@ -1,6 +1,3 @@
-#include <Randomizer/ui/main_menu_seed_info.h>
-#include <Modloader/il2cpp_helpers.h>
-
 #include <Common/event_bus.h>
 #include <Common/variant_cast.h>
 #include <Common/vx.h>
@@ -21,16 +18,20 @@
 #include <Modloader/app/methods/SaveSlotsManager.h>
 #include <Modloader/app/methods/SaveSlotsUI.h>
 #include <Modloader/app/methods/SetTitleScreenAction.h>
+#include <Modloader/app/methods/UnityEngine/Vector3.h>
 #include <Modloader/app/types/CleverMenuItem.h>
 #include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/XboxLiveIdentityUI.h>
+#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/game/spawning_and_preloading.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/seed/parser.h>
+#include <Randomizer/ui/main_menu_seed_info.h>
 #include <magic_enum/magic_enum.hpp>
+
 
 using namespace core::utils;
 using namespace app::classes;
@@ -332,6 +333,8 @@ namespace randomizer::main_menu_seed_info {
         }
 
         void on_scene_load(const core::api::scenes::SceneLoadEventMetadata* metadata, const std::string&) {
+            using namespace app::classes::UnityEngine::Vector3::operators;
+
             switch (metadata->state) {
                 case app::SceneState__Enum::Loaded: {
                     const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);

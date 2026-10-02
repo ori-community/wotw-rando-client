@@ -3,11 +3,13 @@
 #include <Core/api/game/player.h>
 #include <Core/api/graphics/textures.h>
 #include <Core/settings.h>
+#include <Core/uber_states/core_uber_states.h>
 #include <Modloader/modloader.h>
 
 #include <Randomizer/features/credits.h>
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/randomizer.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 #include "Modloader/windows_api/clipboard.h"
 #include "Modloader/windows_api/common.h"
@@ -15,6 +17,9 @@
 
 namespace randomizer::features::wheel {
     namespace {
+        auto& game_finished_state = core::uber_states::state<"gameStateGroup", "gameFinished">();
+        auto& enable_spoiler_filter_state = uber_states::state<"randoState", "enableSpoilerFilter">();
+
         void initialize_item(int wheel, WheelItemPosition position, const std::string& name, const std::string& desc, const core::api::graphics::textures::TextureIdentifier& texture_identifier, const wheel_callback& callback) {
             set_wheel_item_name(wheel, position, name);
             set_wheel_item_description(wheel, position, desc);
@@ -55,7 +60,7 @@ namespace randomizer::features::wheel {
             "Warp directly to the credits,\nonly works if you have finished the bingo.",
             core::api::graphics::textures::TextureIdentifier::file("icons/wheel/warp_to_credits.blue.png"),
             [](auto, auto, auto) {
-                if (core::api::uber_states::UberState(34543, 11226).get<bool>()) {
+                if (game_finished_state.get()) {
                     features::credits::start();
                 } else {
                     message_queue().enqueue(
@@ -210,7 +215,7 @@ namespace randomizer::features::wheel {
                 return;
             }
 
-            core::api::uber_states::UberState(UberStateGroup::RandoState, 100).set(true);
+            enable_spoiler_filter_state.set(true);
             message_queue().enqueue(
                 {
                     .text = core::Property<std::string>("Spoiler map unlocked"),

@@ -1,23 +1,24 @@
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/events/task.h>
-
 #include <Modloader/app/methods/ChakramProjectile.h>
 #include <Modloader/app/methods/MoonMath_Angle.h>
 #include <Modloader/app/methods/SeinChakramSpell.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 using namespace app::classes;
 
-namespace {
-    core::api::uber_states::UberState extra_shurikens(UberStateGroup::RandoUpgrade, 38);
-    core::api::uber_states::UberState shuriken_multishot_count(UberStateGroup::RandoUpgrade, 48);
-    core::api::uber_states::UberState shuriken_multishot_spread(UberStateGroup::RandoUpgrade, 49);
-    core::api::uber_states::UberState shuriken_damage_multiplier(UberStateGroup::RandoUpgrade, 92);
-    core::api::uber_states::UberState shuriken_bashable(UberStateGroup::RandoUpgrade, 95);
 
-    bool initialized = false;
-    int default_max_chakrams = 1;
+namespace {
+    auto& extra_shurikens = randomizer::uber_states::state<"randoUpgrades", "extraShurikens">();
+    auto& shuriken_multishot_count = randomizer::uber_states::state<"randoUpgrades", "shurikenMultishotCount">();
+    auto& shuriken_multishot_spread = randomizer::uber_states::state<"randoUpgrades", "shurikenMultishotSpread">();
+    auto& shuriken_damage_multiplier = randomizer::uber_states::state<"randoUpgrades", "shurikenDamageMultiplier">();
+    auto& shuriken_bashable = randomizer::uber_states::state<"randoUpgrades", "shurikenBashable">();
+
+    auto initialized = false;
+    auto default_max_chakrams = 1;
 
     IL2CPP_INTERCEPT(void, SeinChakramSpell, EnterMove, app::SeinChakramSpell* this_ptr) {
         if (!initialized) {
@@ -25,7 +26,7 @@ namespace {
             initialized = true;
         }
 
-        this_ptr->fields.MaxChakrams = default_max_chakrams + extra_shurikens.get<int>();
+        this_ptr->fields.MaxChakrams = default_max_chakrams + extra_shurikens.get();
 
         return next::SeinChakramSpell::EnterMove(this_ptr);
     }
@@ -40,12 +41,12 @@ namespace {
 
     IL2CPP_INTERCEPT(void, ChakramProjectile, UpdateDamage, app::ChakramProjectile * this_ptr) {
         next::ChakramProjectile::UpdateDamage(this_ptr);
-        this_ptr->fields._.m_damageDealer->fields.m_damageAmount *= shuriken_damage_multiplier.get<float>();
+        this_ptr->fields._.m_damageDealer->fields.m_damageAmount *= shuriken_damage_multiplier.get();
     }
 
     IL2CPP_INTERCEPT(void, ChakramProjectile, Initialize, app::ChakramProjectile * this_ptr, app::SeinChakramSpell* sein_chakram_spell) {
         next::ChakramProjectile::Initialize(this_ptr, sein_chakram_spell);
-        this_ptr->fields._.CanProjectileBeBashed = shuriken_bashable.get<bool>();
+        this_ptr->fields._.CanProjectileBeBashed = shuriken_bashable.get();
     }
 
     auto destroy_spell_after_explosion = false;
@@ -82,8 +83,8 @@ namespace {
         auto direction = original_projectile->fields._._Direction_k__BackingField;
         auto angle = MoonMath_Angle::AngleFromVector(app::Vector2(direction.x, direction.y));
 
-        auto spread = shuriken_multishot_spread.get<float>(); // degrees
-        auto count = shuriken_multishot_count.get<int>();
+        auto spread = shuriken_multishot_spread.get(); // degrees
+        auto count = shuriken_multishot_count.get();
         for (int i = 1; i <= count; ++i) {
             core::events::schedule_task(0.05f * (1 + static_cast<float>(i / 2)), [=]() {
                 throw_shuriken(this_ptr, angle + (static_cast<float>((i + 1) / 2) * (spread / static_cast<float>(count) * (i % 2 == 0 ? 1.f : -1.f))));

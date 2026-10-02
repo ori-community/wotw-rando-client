@@ -6,7 +6,7 @@
 #include "../../../Modloader/il2cpp_math.h"
 
 INSTRUCTION(IsInCircle)
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         const auto x = memory.heap.get<float>(0);
         const auto y = memory.heap.get<float>(1);
         const auto r = memory.heap.get<float>(2);
@@ -15,7 +15,7 @@ INSTRUCTION(IsInCircle)
         memory.heap.set<bool>(0, modloader::math::distance2(core::api::game::player::get_position(), {x, y}) <= r_squared);
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("IsInCircle -> {}, {}, {}", memory.heap.get<float>(0), memory.heap.get<float>(1), memory.heap.get<float>(2));
     }
 

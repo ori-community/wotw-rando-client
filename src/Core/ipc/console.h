@@ -1,8 +1,7 @@
 #pragma once
 
-#include <Core/api/uber_states/uber_state_condition.h>
-
 #include <variant>
+#include <Core/api/uber_states/uber_state_prelude.h>
 
 namespace core::ipc::console {
     enum class CommandParameterType {
@@ -19,7 +18,7 @@ namespace core::ipc::console {
         bool is_optional;
     };
 
-    using paramter_t = std::variant<std::string, int, float, api::uber_states::UberState>;
+    using paramter_t = std::variant<std::string, int, float, api::uber_states::UntypedUberId>;
     using named_args_t = std::unordered_map<std::string, paramter_t>;
     using ipc_console_command_t = std::function<void(std::string const& command, named_args_t named_args)>;
     void register_command(std::string const& path, const std::vector<CommandParameter>& args, ipc_console_command_t command);

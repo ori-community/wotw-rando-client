@@ -1,20 +1,18 @@
-#include <Randomizer/stats/game_stats.h>
-
 #include <Common/vx.h>
+#include <Core/api/system/save_files.h>
 #include <Modloader/app/methods/GameTimer.h>
 #include <Modloader/app/methods/GameWorld.h>
 #include <Modloader/app/methods/SaveSlotInfo.h>
-#include <Modloader/app/methods/SaveGameController.h>
 #include <Modloader/app/methods/SaveSlotsManager.h>
+#include <Modloader/fs.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 #include <Randomizer/map/map_icons.h>
+#include <Randomizer/stats/game_stats.h>
 #include <Randomizer/tracking/game_tracker.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+#include <packets.pb.h>
 #include <random>
-
-#include "Core/api/system/save_files.h"
-#include "Modloader/fs.h"
-#include "Modloader/modloader.h"
-#include "packets.pb.h"
 
 
 namespace randomizer::timing {
@@ -340,16 +338,16 @@ namespace randomizer::timing {
         }
 
         IL2CPP_INTERCEPT(float, GameWorld, get_CompletionAmount, app::GameWorld* this_ptr) {
-            static core::api::uber_states::UberState COLLECTED_PICKUPS_STATE(UberStateGroup::RandoStats, 0);
-            static core::api::uber_states::UberState TOTAL_PICKUPS_STATE(UberStateGroup::RandoStats, 1);
+            static auto& collected_pickups_state = uber_states::state<"randoStats", "pickupsCollected">();
+            static auto& total_pickups_state = uber_states::state<"randoStats", "pickupsTotal">();
 
-            const auto total_pickups = TOTAL_PICKUPS_STATE.get<int>();
+            const auto total_pickups = total_pickups_state.get();
 
             if (total_pickups == 0) {
                 return 0.0;
             }
 
-            return static_cast<float>(COLLECTED_PICKUPS_STATE.get<int>()) / static_cast<float>(total_pickups);
+            return static_cast<float>(collected_pickups_state.get()) / static_cast<float>(total_pickups);
         }
 
         void purge_event_stream_files() {

@@ -21,7 +21,6 @@
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 #include <optional>
-#include <Core/api/uber_states/uber_state_handlers.h>
 
 using namespace app::classes;
 
@@ -171,8 +170,8 @@ namespace core::api::game::debug_menu {
             restore_state_selection(this_ptr);
         }
 
-        std::unordered_map<std::pair<int32_t, int32_t>, app::String*, pair_hash> uber_state_menu_input_states;
-        std::pair<int32_t, int32_t> current_uber_state;
+        std::unordered_map<uber_states::UntypedUberId, app::String*> uber_state_menu_input_states;
+        uber_states::UntypedUberId current_uber_state_id(0, 0);
         auto is_rendering_uber_state_wrapper = false;
 
         IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::UberStateVisualizationView, OnStatesListViewSelectionChanged, app::UberStateVisualizationView * this_ptr, app::ListViewItem* selected_item) {
@@ -196,11 +195,10 @@ namespace core::api::game::debug_menu {
         }
 
         [[maybe_unused]]
-        auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
-            const auto id = std::make_pair(params.state.group_int(), params.state.state());
+        auto on_uber_state_changed = core::api::uber_states::on_any_uber_state_changed().register_handler([](auto id) {
             const auto uber_state_menu_input_state_it = uber_state_menu_input_states.find(id);
             if (uber_state_menu_input_state_it != uber_state_menu_input_states.end()) {
-                uber_state_menu_input_state_it->second = il2cpp::string_new(std::format("{}", params.value));
+                uber_state_menu_input_state_it->second = il2cpp::string_new(std::format("{}", uber_states::UntypedUberState(id).get<double>()));
             }
         });
 
@@ -209,7 +207,7 @@ namespace core::api::game::debug_menu {
                 return next::UnityEngine::GUILayout::TextField(text, options);
             }
 
-            const auto it = uber_state_menu_input_states.find(current_uber_state);
+            const auto it = uber_state_menu_input_states.find(current_uber_state_id);
 
             const auto used_text = it == uber_state_menu_input_states.end()
                 ? text
@@ -217,29 +215,29 @@ namespace core::api::game::debug_menu {
 
             const auto new_text = next::UnityEngine::GUILayout::TextField(used_text, options);
 
-            uber_state_menu_input_states[current_uber_state] = new_text;
+            uber_state_menu_input_states[current_uber_state_id] = new_text;
 
             return new_text;
         }
 
         IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::SerializedIntUberStateWrapper, OnGui, app::SerializedIntUberStateWrapper * this_ptr) {
             modloader::ScopedSetter _(is_rendering_uber_state_wrapper, true);
-            current_uber_state.first = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
-            current_uber_state.second = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
+            current_uber_state_id.group = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
+            current_uber_state_id.member = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
             next::Moon::UberStateVisualization::SerializedIntUberStateWrapper::OnGui(this_ptr);
         }
 
         IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::SerializedByteUberStateWrapper, OnGui, app::SerializedByteUberStateWrapper * this_ptr) {
             modloader::ScopedSetter _(is_rendering_uber_state_wrapper, true);
-            current_uber_state.first = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
-            current_uber_state.second = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
+            current_uber_state_id.group = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
+            current_uber_state_id.member = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
             next::Moon::UberStateVisualization::SerializedByteUberStateWrapper::OnGui(this_ptr);
         }
 
         IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::SerializedFloatUberStateWrapper, OnGui, app::SerializedFloatUberStateWrapper * this_ptr) {
             modloader::ScopedSetter _(is_rendering_uber_state_wrapper, true);
-            current_uber_state.first = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
-            current_uber_state.second = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
+            current_uber_state_id.group = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
+            current_uber_state_id.member = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
             next::Moon::UberStateVisualization::SerializedFloatUberStateWrapper::OnGui(this_ptr);
         }
     }

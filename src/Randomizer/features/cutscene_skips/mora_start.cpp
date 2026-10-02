@@ -1,18 +1,19 @@
+#include <Common/event_bus.h>
+#include <Core/api/audio.h>
+#include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
+#include <Core/api/scenes/scene_load.h>
+#include <Core/api/uber_states/uber_state.h>
+#include <Core/enums/audio.h>
+#include <Core/uber_states/core_uber_states.h>
+#include <Core/utils/misc.h>
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
 #include <Modloader/app/methods/PerformBackOutAction.h>
 #include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/il2cpp_helpers.h>
-
-#include "custom_cutscene_skips.h"
-#include <Common/event_bus.h>
-#include <Core/api/game/game.h>
-#include <Core/api/game/player.h>
-#include <Core/api/scenes/scene_load.h>
-#include <Core/api/audio.h>
-#include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/audio.h>
-#include <Core/utils/misc.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/features/cutscene_skips/custom_cutscene_skips.h>
+
 
 using namespace utils;
 using namespace app::classes;
@@ -55,11 +56,11 @@ namespace {
             Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(escape_end_timeline.ptr));
     }
 
+    auto& mora_boss_state = core::uber_states::state<"mouldwoodDepthsGroup", "spiderBossState">();
     void skip_invoke(const custom_cutscene_skips::CustomCutsceneSkip::InvokeParameters&) {
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(escape_end_timeline.ptr));
 
-        core::api::uber_states::UberState mora_boss_state(static_cast<UberStateGroup>(18793), 26713);
-        mora_boss_state.set(2.0);
+        mora_boss_state.set(2);
 
         next_frame_action = TeleportAndSave;
     }
@@ -87,8 +88,13 @@ namespace {
         }
     }
 
+    [[maybe_unused]]
     auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
+
+    [[maybe_unused]]
     auto on_fixed_update_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
+
+    [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         auto cutscene_skip = custom_cutscene_skips::CustomCutsceneSkip{
             .is_available = &skip_available,

@@ -6,6 +6,7 @@
 #include <Core/property/reactivity.h>
 #include <Modloader/app/methods/ObjectInsideZoneChecker.h>
 #include <Modloader/app/types/PlayerInsideZoneChecker.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 namespace {
     using namespace app::classes;
@@ -13,7 +14,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::PlayerInsideZoneChecker>> player_inside_zone_checker_ref;
     core::reactivity::ReactiveEffect::ptr_t effect;
 
-    core::api::uber_states::UberState fix_enabled_state(UberStateGroup::RandoConfig, 15);
+    auto& fix_enabled_state = randomizer::uber_states::state<"randoConfig", "fixKwolokBossEscapeUnderwaterSpiritLightSoftlock">();
 
     auto on_scene_loaded_handler = core::api::scenes::event_bus().register_handler(
         [](auto metadata) {
@@ -50,7 +51,7 @@ namespace {
                         return;
                     }
 
-                    if (fix_enabled_state.get<bool>()) {
+                    if (fix_enabled_state.get()) {
                         (*player_inside_zone_checker)->fields._.Anchor.y = 0.208f;  // Fixed
                         (*player_inside_zone_checker)->fields._.Size.y = 0.5625f;  // Fixed
                     } else {

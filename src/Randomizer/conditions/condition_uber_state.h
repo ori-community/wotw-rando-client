@@ -5,10 +5,11 @@
 
 #include <optional>
 
-namespace randomizer {
-    namespace conditions {
-        using condition_uber_state_intercept = std::optional<bool> (*)(app::ConditionUberState* state);
+namespace randomizer::conditions {
+    using condition_uber_state_intercept_t = std::optional<bool> (*)(app::ConditionUberState* state);
 
-        void register_condition_uber_state_intercept(core::api::uber_states::UberState state, condition_uber_state_intercept intercept);
-    } // namespace conditions
-} // namespace randomizer
+    void register_condition_uber_state_intercept(
+        core::api::uber_states::UberId<core::api::uber_states::UberStateType::ConditionUberState> state_id,
+        condition_uber_state_intercept_t intercept
+    );
+} // namespace randomizer::conditions

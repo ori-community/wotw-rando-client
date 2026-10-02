@@ -65,8 +65,8 @@ namespace randomizer::seed {
 
                 if (trigger.contains("Condition")) {
                     current_item = "Condition";
-                    auto& condition = output->data.conditions.emplace_back();
-                    condition.condition = trigger.at("Condition").get<int>();
+                    auto& condition = output->data.triggers.emplace_back();
+                    condition.trigger = trigger.at("Condition").get<int>();
                     condition.command_id = event.at(1).get<int>();
 
                 } else if (trigger.contains("ClientEvent")) {
@@ -81,10 +81,10 @@ namespace randomizer::seed {
 
                 } else if (trigger.contains("Binding")) {
                     current_item = "Binding";
-                    auto& condition = output->data.conditions.emplace_back();
+                    auto& condition = output->data.triggers.emplace_back();
                     const auto& binding = trigger.at("Binding");
-                    const auto state = core::api::uber_states::UberState(binding.at(0).get<int>(), binding.at(1).get<int>());
-                    condition.condition = state;
+                    const auto state = core::api::uber_states::UntypedUberState(binding.at(0).get<int>(), binding.at(1).get<int>());
+                    condition.trigger = state;
                     condition.command_id = event.at(1).get<int>();
 
                 } else {

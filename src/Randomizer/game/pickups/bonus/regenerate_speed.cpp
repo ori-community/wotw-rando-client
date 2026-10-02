@@ -1,13 +1,13 @@
 #include <Core/api/uber_states/uber_state.h>
-#include <Randomizer/macros.h>
-
 #include <Modloader/app/methods/SeinMeditateSpell.h>
 #include <Modloader/interception_macros.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 using namespace app::classes;
 
 namespace {
-    core::api::uber_states::UberState regenerate_speed(UberStateGroup::RandoUpgrade, 91);
+    auto& regenerate_speed_state = randomizer::uber_states::state<"randoUpgrades", "regenerateSpeedMultiplier">();
 
     bool initialized = false;
     float default_delay_before_charging = 0.5f;
@@ -22,9 +22,9 @@ namespace {
             initialized = true;
         }
 
-        this_ptr->fields.DelayBeforeCharging = default_delay_before_charging / regenerate_speed.get<float>();
-        this_ptr->fields.DelayBetweenHeals = default_delay_between_heals / regenerate_speed.get<float>();
-        this_ptr->fields.HealDuration = default_heal_duration / regenerate_speed.get<float>();
+        this_ptr->fields.DelayBeforeCharging = default_delay_before_charging / regenerate_speed_state.get();
+        this_ptr->fields.DelayBetweenHeals = default_delay_between_heals / regenerate_speed_state.get();
+        this_ptr->fields.HealDuration = default_heal_duration / regenerate_speed_state.get();
 
         next::SeinMeditateSpell::UpdateLoop(this_ptr);
     }

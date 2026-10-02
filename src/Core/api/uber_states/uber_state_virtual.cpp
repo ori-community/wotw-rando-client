@@ -1,22 +1,22 @@
 #include <Core/api/uber_states/uber_state_virtual.h>
-
-
-#include <Modloader/modloader.h>
-
 #include <Core/api/game/game.h>
 #include <Core/enums/game_event.h>
 #include <unordered_map>
 #include <utility>
 
 
-#include "uber_state_condition.h"
-
 using namespace modloader;
 using namespace app::classes;
 
 namespace core::api::uber_states {
     namespace {
-        std::unordered_map<uber_id_t, VirtualUberState, pair_hash> virtual_uber_states;
+        struct VirtualUberStateGroup {
+            std::string name;
+            std::unordered_map<int, VirtualUberState> states{};
+        };
+
+        std::unordered_map<int, VirtualUberStateGroup> virtual_uber_states_by_group;
+        std::unordered_map<UntypedUberId, VirtualUberState*> virtual_uber_states;
     } // namespace
 
     VirtualUberState::VirtualUberState(
@@ -33,11 +33,11 @@ namespace core::api::uber_states {
         m_value_type(value_type),
         m_name(std::move(name)),
         m_getter_fn(std::move(getter_fn)),
-        m_setter_fn(std::move(setter_fn)),
-        m_uber_state(group, state) {
+        m_setter_fn(std::move(setter_fn)) {
 
         switch (change_detection_mode) {
             case ChangeDetectionMode::Manual:
+                m_last_known_value = m_getter_fn();
                 break;
             case ChangeDetectionMode::Poll:
                 m_poll_update_droppable = game::event_bus().register_handler(GameEvent::Update, EventTiming::Before, [this](auto, auto) {
@@ -91,59 +91,62 @@ namespace core::api::uber_states {
     }
 
     void VirtualUberState::notify_changed(double value, double previous_value) const {
-        const UberStateCallbackParams params{
-            m_uber_state,
-            m_last_known_value.value_or(0.0),
-            value,
-        };
-
-        single_notification_bus().trigger_event(m_uber_state, params);
-        notification_bus().trigger_event(params);
-
         reactivity::notify_changed(reactivity::UberStateDependency{m_group, m_state});
     }
 
-    bool is_virtual_uber_state(const int group, const int state) {
-        return virtual_uber_states.contains(std::make_pair(group, state));
+    bool is_virtual_uber_state(const int group, const int member) {
+        return virtual_uber_states.contains(UntypedUberId(group, member));
     }
 
-    bool is_virtual_uber_state(const UberStateGroup group, const int state) {
-        return is_virtual_uber_state(static_cast<int>(group), state);
+    bool is_virtual_uber_state(const UntypedUberId id) {
+        return is_virtual_uber_state(id.group, id.member);
     }
 
-    VirtualUberState& get_virtual_uber_state(int group, int state) {
-        return virtual_uber_states.at(std::make_pair(group, state));
+    VirtualUberState& get_virtual_uber_state(const int group, const int member) {
+        return *virtual_uber_states.at(UntypedUberId(group, member));
     }
 
-    VirtualUberState& get_virtual_uber_state(UberStateGroup group, int state) {
-        return get_virtual_uber_state(static_cast<int>(group), state);
+    VirtualUberState& get_virtual_uber_state(const UntypedUberId id) {
+        return get_virtual_uber_state(id.group, id.member);
     }
 
-    std::vector<uber_id_t> get_virtual_uber_state_ids() {
-        std::vector<uber_id_t> ids;
+    std::vector<UntypedUberId> get_virtual_uber_state_ids() {
+        std::vector<UntypedUberId> ids;
         for (const auto & virtual_uber_state: virtual_uber_states | std::views::keys) {
             ids.push_back(virtual_uber_state);
         }
         return ids;
     }
 
+    std::string get_virtual_uber_state_group_name(const int group) {
+        return virtual_uber_states_by_group.at(group).name;
+    }
+
+    void define_virtual_uber_state_group(int group, const std::string& name) {
+        assert(!virtual_uber_states_by_group.contains(group));  // Group has already been defined before
+        virtual_uber_states_by_group.emplace(group, name);
+    }
+
     void register_virtual_uber_state(
-        const UberStateGroup group,
-        const int state,
-        const ValueType value_type,
+        const int group,
+        const int member,
+        const VirtualUberState::ValueType value_type,
         const std::string& name,
         const VirtualUberState::getter_fn_t& getter_fn,
         const VirtualUberState::setter_fn_t& setter_fn,
         const VirtualUberState::ChangeDetectionMode change_detection_mode
     ) {
-        const auto uber_id = std::make_pair(static_cast<int>(group), state);
+        const auto uber_id = UntypedUberId(group, member);
 
-        assert(!virtual_uber_states.contains(uber_id));
+        assert(!virtual_uber_states.contains(uber_id));  // Virtual uber state has already been registered before
+        assert(virtual_uber_states_by_group.contains(group));  // Virtual uber state group needs to be defined with define_virtual_uber_state_group
 
-        virtual_uber_states.emplace(
+        const auto [it, _] = virtual_uber_states_by_group.at(group).states.emplace(
             std::piecewise_construct,
-            std::forward_as_tuple(uber_id),
-            std::forward_as_tuple(static_cast<int>(group), state, value_type, name, getter_fn, setter_fn, change_detection_mode)
+            std::forward_as_tuple(member),
+            std::forward_as_tuple(static_cast<int>(group), member, value_type, name, getter_fn, setter_fn, change_detection_mode)
         );
+
+        virtual_uber_states.emplace(uber_id, &it->second);
     }
 } // namespace core::api::uber_states

@@ -8,7 +8,7 @@ INSTRUCTION(MessageText)
 
     std::size_t id;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         environment.modify_queued_message_box(id, [&](randomizer::messages::QueuedMessage& queued_message) {
             queued_message.properties().text.set(memory.heap.get<std::string>(0));
         });
@@ -17,7 +17,7 @@ INSTRUCTION(MessageText)
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("MessageText {} -> '{}'", id, memory.heap.get<std::string>(0));
     }
 

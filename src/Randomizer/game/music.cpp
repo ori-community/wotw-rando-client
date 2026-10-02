@@ -21,12 +21,12 @@
 using namespace app::classes;
 
 namespace {
-    unsigned int get_state(unsigned int group) {
-        uint32_t out;
-        AkSoundEngine::GetState_1(group, &out);
-        return out;
-    }
-
+    // unsigned int get_state(unsigned int group) {
+    //     uint32_t out;
+    //     AkSoundEngine::GetState_1(group, &out);
+    //     return out;
+    // }
+    //
     // float next_update = 0.3f;
     // IL2CPP_INTERCEPT(void, GameController, FixedUpdate, app::GameController* this_ptr) {
     //     next_update -= TimeUtility::get_fixedDeltaTime();
@@ -61,18 +61,23 @@ namespace {
         });
     }
 
-    void link_music_from_ability_to_state(app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry* entry, bool desired_value, short uber_state_group, short uber_state_state) {
+    void link_music_from_ability_to_state(
+        const app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry* entry,
+        const bool desired_value,
+        const int uber_state_group,
+        const int uber_state_state
+    ) {
         entry->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements = types::WotwUberStateToWwiseData_AbilityRequirementCondition::create_array(0);
         auto condition = types::DesiredUberStateBool::create();
         DesiredUberStateBool::ctor(condition);
         condition->fields.DesiredValue = desired_value;
-        condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UberState(uber_state_group, uber_state_state).ptr());
+        condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UntypedUberState(uber_state_group, uber_state_state).get_native_ptr());
         entry->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({condition});
     }
 
     IL2CPP_INTERCEPT(void, WotwUberStateWwiseStateManager, PopulateAffectedStates, app::WotwUberStateWwiseStateManager * this_ptr ) {
         // Modify this_ptr->fields.WotwUberStateToWwiseData->fields.InheritedMap here
-        auto entries = this_ptr->fields.WotwUberStateToWwiseData->fields.InheritedMap->vector;
+        const auto entries = this_ptr->fields.WotwUberStateToWwiseData->fields.InheritedMap->vector;
 
         // Removes the music change caused by rising pedestals
         entries[23]->fields._.WwiseStatesToSet = types::State::create_array(0);

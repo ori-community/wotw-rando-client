@@ -9,7 +9,7 @@ INSTRUCTION(MarkSpoilerMapIconCollected)
 
     int id;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         const auto icon = environment.get_spoiler_map_icon(id);
         if (!icon.has_value()) {
             modloader::error("instructions", std::format("[MarkSpoilerMapIconCollected] Spoiler map icon with id {} does not exist", id));
@@ -25,7 +25,7 @@ INSTRUCTION(MarkSpoilerMapIconCollected)
         ));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("MarkSpoilerMapIconCollected -> {}", id);
     }
 

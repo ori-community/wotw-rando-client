@@ -1,5 +1,6 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
+#include <Core/uber_states/core_uber_states.h>
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
 #include <Modloader/app/methods/PerformBackOutAction__AbandonChallange_d__8.h>
 #include <Modloader/app/types/SeinAbilityRestrictZone.h>
@@ -23,16 +24,19 @@ namespace {
             return;
         }
 
-        auto handle = core::api::uber_states::interception_bus().register_handler([](auto params) {
-            // When pressing "Abandon Challenge" and the last checkpoint is far away from the Kwolok
-            // escape, the timeline game object gets disabled which causes the OnStop action to
-            // set the fight state to 3 again.
-            if (params.state.group_int() == 945 && params.state.state() == 58403 && params.value == 3) {
-                return true;
-            }
+        auto handle = core::api::uber_states::before_uber_state_changed().register_handler(
+            core::uber_states::state<"lagoonStateGroup", "kwolokBossState">(),
+            [](auto& params, auto) {
+                // When pressing "Abandon Challenge" and the last checkpoint is far away from the Kwolok
+                // escape, the timeline game object gets disabled which causes the OnStop action to
+                // set the fight state to 3 again.
+                if (params.new_value == 3) {
+                    return true;
+                }
 
-            return false;
-        });
+                return false;
+            }
+        );
 
         next::Moon::Timeline::TimelineEntity::StopPlayback(this_ptr);
     }

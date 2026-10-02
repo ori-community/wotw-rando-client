@@ -33,7 +33,7 @@ namespace randomizer::seedgen_interface {
         };
 
         struct RelevantUberStates {
-            std::vector<core::api::uber_states::UberState> states;
+            std::vector<core::api::uber_states::UntypedUberState> states;
             hash_t hash;
         };
 
@@ -46,7 +46,7 @@ namespace randomizer::seedgen_interface {
         SeedgenService();
 
         /** Returns the currently stored map icon sets */
-        const core::Property<std::optional<MapIconSets>>& map_icon_sets() const;
+        core::Property<std::optional<MapIconSets>>& map_icon_sets();
 
         /** Returns the currently reachable map icon indices from map_icon_sets() */
         const core::Property<std::unordered_set<int64_t>>& reachable_map_icon_set_indices() const;

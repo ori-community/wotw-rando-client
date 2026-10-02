@@ -1,8 +1,4 @@
 #include <Core/api/uber_states/uber_state.h>
-#include <Randomizer/features/controls/invert_swim.h>
-
-#include <Common/ext.h>
-
 #include <Modloader/app/methods/SeinBashAttack.h>
 #include <Modloader/app/methods/SeinChargeJump.h>
 #include <Modloader/app/methods/SeinDashNew.h>
@@ -16,20 +12,21 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
-#include <Modloader/windows_api/console.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 namespace {
-    core::api::uber_states::UberState launch_speed(UberStateGroup::RandoUpgrade, 80);
-    core::api::uber_states::UberState dash_distance(UberStateGroup::RandoUpgrade, 81);
-    core::api::uber_states::UberState bash_speed(UberStateGroup::RandoUpgrade, 82);
-    core::api::uber_states::UberState burrow_speed(UberStateGroup::RandoUpgrade, 83);
-    core::api::uber_states::UberState burrow_dash_speed(UberStateGroup::RandoUpgrade, 84);
-    core::api::uber_states::UberState grapple_speed(UberStateGroup::RandoUpgrade, 90);
+    auto& launch_speed = randomizer::uber_states::state<"randoUpgrades", "launchSpeedMultiplier">();
+    auto& dash_distance = randomizer::uber_states::state<"randoUpgrades", "dashDistanceMultiplier">();
+    auto& bash_speed = randomizer::uber_states::state<"randoUpgrades", "bashSpeedMultiplier">();
+    auto& burrow_speed = randomizer::uber_states::state<"randoUpgrades", "burrowSpeedMultiplier">();
+    auto& burrow_dash_speed = randomizer::uber_states::state<"randoUpgrades", "burrowDashSpeedMultiplier">();
+    auto& grapple_speed = randomizer::uber_states::state<"randoUpgrades", "grappleSpeedMultiplier">();
+    auto& swim_dash_speed = randomizer::uber_states::state<"randoUpgrades", "waterDashSpeedMultiplier">();
+    auto& jump_height = randomizer::uber_states::state<"randoUpgrades", "jumpHeightMultiplier">();
+    auto& wall_jump = randomizer::uber_states::state<"randoUpgrades", "wallJumpHeightMultiplier">();
+    auto& double_jump = randomizer::uber_states::state<"randoUpgrades", "doubleJumpHeightMultiplier">();
 
-    core::api::uber_states::UberState swim_dash_speed(UberStateGroup::RandoUpgrade, 86);
-    core::api::uber_states::UberState jump_height(UberStateGroup::RandoUpgrade, 87);
-    core::api::uber_states::UberState wall_jump(UberStateGroup::RandoUpgrade, 88);
-    core::api::uber_states::UberState double_jump(UberStateGroup::RandoUpgrade, 89);
 
     float initial_jump_speed;
 
@@ -39,12 +36,12 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, SeinChargeJump, EnterMove, app::SeinChargeJump * this_ptr) {
-        this_ptr->fields.JumpSpeed = initial_jump_speed * launch_speed.get<float>();
+        this_ptr->fields.JumpSpeed = initial_jump_speed * launch_speed.get();
         next::SeinChargeJump::EnterMove(this_ptr);
     }
 
     IL2CPP_INTERCEPT(void, SeinDashNew, OnProcessRootMotion, app::SeinDashNew * this_ptr, app::Vector3 root_velocity) {
-        auto modifier = dash_distance.get<float>();
+        auto modifier = dash_distance.get();
         root_velocity.x *= modifier;
         root_velocity.y *= modifier;
         root_velocity.z *= modifier;
@@ -62,7 +59,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT_WITH_ORDER(8, void, SeinBashAttack, BeginBash, app::SeinBashAttack * this_ptr) {
-        auto modifier = bash_speed.get<float>();
+        auto modifier = bash_speed.get();
         this_ptr->fields.BashVelocity = initial_bash_speed * modifier;
         this_ptr->fields.EnemyThrowForce = initial_bash_enemy_force * modifier;
         next::SeinBashAttack::BeginBash(this_ptr);
@@ -85,7 +82,7 @@ namespace {
             spirit_leash_default_spirit_leash_max_pull_speed = this_ptr->fields.SpiritLeashMaxPullSpeed;
         }
 
-        auto multiplier = grapple_speed.get<float>();
+        auto multiplier = grapple_speed.get();
         this_ptr->fields.HookFlingSpeedMaximum = spirit_leash_default_hook_fling_speed_maximum * sqrt(multiplier);
         this_ptr->fields.MaxInterruptSpeedMaximum = spirit_leash_default_max_interrupt_speed_maximum * sqrt(multiplier);
         this_ptr->fields.SpiritLeashMaxPullSpeed = spirit_leash_default_spirit_leash_max_pull_speed * multiplier;
@@ -96,7 +93,7 @@ namespace {
     IL2CPP_INTERCEPT_WITH_ORDER(10, float, UnityEngine::AnimationCurve, Evaluate, app::AnimationCurve * this_ptr, float value) {
         auto output = next::UnityEngine::AnimationCurve::Evaluate(this_ptr, value);
         if (should_override_animation_curve_speed_for_bash) {
-            output *= bash_speed.get<float>();
+            output *= bash_speed.get();
         }
 
         return output;
@@ -116,25 +113,25 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, SeinDigging, UpdateDiggingState, app::SeinDigging * this_ptr) {
-        auto modifier = burrow_speed.get<float>();
+        auto modifier = burrow_speed.get();
         this_ptr->fields.DigSpeed = initial_burrow_speed * modifier;
         next::SeinDigging::UpdateDiggingState(this_ptr);
     }
 
     IL2CPP_INTERCEPT(void, SeinDigging, StartDashing, app::SeinDigging * this_ptr) {
-        auto modifier = burrow_dash_speed.get<float>();
+        auto modifier = burrow_dash_speed.get();
         this_ptr->fields.DashSpeed = initial_burrow_dash_speed * modifier;
         next::SeinDigging::StartDashing(this_ptr);
     }
 
     IL2CPP_INTERCEPT(void, SeinDigging, StartOutOfZoneDashing, app::SeinDigging * this_ptr) {
-        auto modifier = burrow_dash_speed.get<float>();
+        auto modifier = burrow_dash_speed.get();
         this_ptr->fields.OutOfDigDashSpeed = initial_burrow_dash_enter_speed * (1.f + (modifier - 1.f) / 1.5f);  // Affect less than normal dash
         next::SeinDigging::StartOutOfZoneDashing(this_ptr);
     }
 
     IL2CPP_INTERCEPT(void, SeinDigging, EndDigging, app::SeinDigging * this_ptr) {
-        auto modifier = burrow_dash_speed.get<float>();
+        auto modifier = burrow_dash_speed.get();
         this_ptr->fields.DashExitDigSpeed = initial_burrow_dash_exit_speed * (1.f + (modifier - 1.f) / 1.5f);  // Affect less than normal dash
         next::SeinDigging::EndDigging(this_ptr);
     }
@@ -153,19 +150,19 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, SeinSwimming, StartDashing, app::SeinSwimming * this_ptr) {
-        auto modifier = swim_dash_speed.get<float>();
+        auto modifier = swim_dash_speed.get();
         this_ptr->fields.DashMaxSpeed = initial_swim_dash_speed * modifier;
         next::SeinSwimming::StartDashing(this_ptr);
     }
 
     IL2CPP_INTERCEPT(void, SeinSwimming, OnEnterDashIntoWater, app::SeinSwimming * this_ptr) {
-        auto modifier = swim_dash_speed.get<float>();
+        auto modifier = swim_dash_speed.get();
         this_ptr->fields.DashIntoWaterCurveMaxSpeed = initial_swim_dash_enter_speed * (1.f + (modifier - 1.f) / 1.5f);  // Affect less than water dash
         next::SeinSwimming::OnEnterDashIntoWater(this_ptr);
     }
 
     IL2CPP_INTERCEPT(void, SeinSwimming, OnEnterDashingOutOfWater, app::SeinSwimming * this_ptr) {
-        auto modifier = swim_dash_speed.get<float>();
+        auto modifier = swim_dash_speed.get();
         this_ptr->fields.DashExitCurveMaxSpeed = initial_swim_dash_exit_speed * (1.f + (modifier - 1.f) / 1.5f);  // Affect less than water dash
         next::SeinSwimming::OnEnterDashingOutOfWater(this_ptr);
     }
@@ -188,7 +185,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, SeinJump, UpdateCharacterState, app::SeinJump * this_ptr) {
-        auto modifier = jump_height.get<float>();
+        auto modifier = jump_height.get();
         this_ptr->fields.BackflipJumpHeight = jump_height_backflip * modifier;
         this_ptr->fields.CrouchJumpHeight = jump_height_crouch * modifier;
         this_ptr->fields.JumpIdleHeight = jump_height_idle * modifier;
@@ -207,7 +204,7 @@ namespace {
             double_jump_strength_initialized = true;
         }
 
-        auto modifier = double_jump.get<float>();
+        auto modifier = double_jump.get();
         this_ptr->fields.JumpStrength = double_jump_strength * modifier;
         next::SeinDoubleJump::UpdateCharacterState(this_ptr);
     }
@@ -233,7 +230,7 @@ namespace {
 
     // Should we maybe increase modify x here as well?
     IL2CPP_INTERCEPT(void, SeinWallJump, PerformWallJump_2, app::SeinWallJump * this_ptr, bool to_left) {
-        auto modifier = wall_jump.get<float>();
+        auto modifier = wall_jump.get();
         this_ptr->fields.JumpStrength = wall_jump_strength;
         this_ptr->fields.JumpStrength.x *= wall_jump_strength_magnitude;
         this_ptr->fields.JumpStrength.y *= wall_jump_strength_magnitude * modifier;

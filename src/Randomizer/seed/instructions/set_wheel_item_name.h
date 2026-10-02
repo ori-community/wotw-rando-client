@@ -11,11 +11,11 @@ INSTRUCTION(SetWheelItemName)
     int wheel;
     features::wheel::WheelItemPosition position;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         set_wheel_item_name(wheel, position, memory.heap.get<std::string>(0));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("SetWheelItemName -> Wheel {}, Position {} = {}", wheel, static_cast<int>(position), memory.heap.get<std::string>(0));
     }
 

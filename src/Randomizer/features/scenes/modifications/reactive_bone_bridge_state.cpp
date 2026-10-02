@@ -5,8 +5,9 @@
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/enums/uber_state.h>
 #include <Core/property/reactivity.h>
-#include <Modloader/app/types/MoonTimeline.h>
+#include <Core/uber_states/core_uber_states.h>
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
+#include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/windows_api/console.h>
 
 namespace {
@@ -16,6 +17,8 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::GameObject>> bone_bridge_go_ref;
 
     common::Droppable::ptr_t uber_state_bus_handle;
+
+    auto& bone_bridge_broken_state = core::uber_states::state<"swampStateGroup", "boneBridgeBroken">();
 
     auto on_scene_loaded_handler = core::api::scenes::event_bus().register_handler(
         [](auto metadata) {
@@ -50,9 +53,9 @@ namespace {
                     )
                 );
 
-                uber_state_bus_handle = core::api::uber_states::single_notification_bus().register_handler(
-                    core::api::uber_states::UberState(21786, 808),  // swampStateGroup, boneBridgeBroken
-                    [](const core::api::uber_states::UberStateCallbackParams& params, auto) {
+                uber_state_bus_handle = core::api::uber_states::on_uber_state_changed().register_handler(
+                    bone_bridge_broken_state.get_uber_id(),
+                    [](auto) {
                         if (
                             const auto [destruction_timeline, bone_bridge_go] = std::make_tuple(
                                 destruction_timeline_ref.and_then([](auto& ref) { return *ref; }),
@@ -61,9 +64,9 @@ namespace {
                             destruction_timeline.has_value() &&
                             bone_bridge_go.has_value()
                         ) {
-                            if (params.previous_value < 0.5 && params.value > 0.5) {
+                            if (bone_bridge_broken_state.get()) {
                                 Moon::Timeline::TimelineEntity::StartPlayback_1(reinterpret_cast<app::TimelineEntity*>(*destruction_timeline));
-                            } else if (params.previous_value > 0.5 && params.value < 0.5) {
+                            } else {
                                 il2cpp::unity::set_active(*bone_bridge_go, false);
                                 il2cpp::unity::set_active(*bone_bridge_go, true);
                             }

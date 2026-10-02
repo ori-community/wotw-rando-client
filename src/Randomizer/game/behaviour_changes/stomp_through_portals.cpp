@@ -1,11 +1,12 @@
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/utils/misc.h>
-
 #include <Modloader/app/methods/MeleeComboMoveHammerStomp.h>
 #include <Modloader/app/methods/Portal.h>
 #include <Modloader/app/methods/SeinController.h>
 #include <Modloader/interception_macros.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 using namespace modloader;
 
@@ -26,11 +27,13 @@ namespace {
         state = HammerInterrupted;
     }
 
-    core::api::uber_states::UberState stomp_through_portals(UberStateGroup::RandoConfig, 9);
+    auto& stomp_through_portals_state = randomizer::uber_states::state<"randoConfig", "stompThroughPortals">();
+
     IL2CPP_INTERCEPT(void, SeinController, OnGoThroughPortal, app::SeinController * this_ptr) {
         next::SeinController::OnGoThroughPortal(this_ptr);
-        if (state == HammerInterrupted && stomp_through_portals.get<bool>())
+        if (state == HammerInterrupted && stomp_through_portals_state.get()) {
             state = CarryVelocityThroughPortal;
+        }
     }
 
     IL2CPP_INTERCEPT(void, SeinController, FixedUpdate, app::SeinController * this_ptr) {

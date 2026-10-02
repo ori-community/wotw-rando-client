@@ -15,18 +15,6 @@
 #include <functional>
 
 namespace core::api::uber_states {
-    struct UberStateCallbackParams {
-        const UberState state;
-        const double previous_value;
-        const double value;
-    };
-
     CORE_DLLEXPORT void apply_all();
     CORE_DLLEXPORT void clear();
-
-    CORE_DLLEXPORT common::CollectingEventBus<bool, UberStateCallbackParams const&>& interception_bus();
-    CORE_DLLEXPORT common::EventBus<UberStateCallbackParams const&>& notification_bus();
-    CORE_DLLEXPORT common::EventBus<UberStateCallbackParams const&, UberState>& single_notification_bus();
-
-    CORE_DLLEXPORT UberStateType resolve_type(app::IUberState* uber_state);
 } // namespace core::api::uber_states

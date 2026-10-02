@@ -9,6 +9,7 @@
 #include <Core/core.h>
 #include <Core/ipc/ipc.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
@@ -21,7 +22,7 @@ namespace randomizer::ipc {
     using namespace app::classes;
 
     namespace {
-        std::unordered_set<core::api::uber_states::UberState> subscribed_uber_states;
+        std::unordered_set<core::api::uber_states::UntypedUberId> subscribed_uber_states;
 
         void server_reconnect_current_multiverse(const nlohmann::json& j) {
             info("ipc", "Received server_reconnect_current_multiverse action request.");
@@ -64,7 +65,7 @@ namespace randomizer::ipc {
             randomizer::load_new_game_source();
 
             for (const auto& entry: j.at("payload")) {
-                subscribed_uber_states.erase(core::api::uber_states::UberState(entry.at("group").get<int>(), entry.at("state").get<int>()));
+                subscribed_uber_states.erase(core::api::uber_states::UntypedUberId(entry.at("group").get<int>(), entry.at("state").get<int>()));
             }
         }
 
@@ -82,9 +83,9 @@ namespace randomizer::ipc {
         void get_uber_states(const nlohmann::json& j) {
             std::vector<float> values;
             for (auto entry : j.at("payload")) {
-                auto group = entry.at("group").get<int>();
-                auto state = entry.at("state").get<int>();
-                values.push_back(core::api::uber_states::UberState(static_cast<UberStateGroup>(group), state).get<float>());
+                const auto group = entry.at("group").get<int>();
+                const auto state = entry.at("state").get<int>();
+                values.push_back(core::api::uber_states::UntypedUberState(group, state).get<float>());
             }
 
             nlohmann::json response;
@@ -96,10 +97,10 @@ namespace randomizer::ipc {
 
         void set_uber_state(const nlohmann::json& j) {
             auto p = j.at("payload");
-            auto group = p.at("group").get<int>();
-            auto state = p.at("state").get<int>();
-            auto value = p.at("value").get<double>();
-            core::api::uber_states::UberState(static_cast<UberStateGroup>(group), state).set(value);
+            const auto group = p.at("group").get<int>();
+            const auto state = p.at("state").get<int>();
+            const auto value = p.at("value").get<double>();
+            core::api::uber_states::UntypedUberState(group, state).set(value);
         }
 
         void action(const nlohmann::json& j) {
@@ -142,14 +143,14 @@ namespace randomizer::ipc {
 
         void get_total_pickup_count(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
-            response["payload"]["count"] = core::api::uber_states::UberState(UberStateGroup::RandoStats, 1).get<int>();
+            response["payload"]["count"] = uber_states::state<"randoStats", "pickupsTotal">().get();
             core::ipc::send_message(response);
         }
 
         void get_pickup_count_by_area(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
             const auto area = j.at("area").get<GameArea>();
-            response["payload"]["count"] = core::api::uber_states::UberState(UberStateGroup::RandoStats, 1100 + static_cast<int>(area)).get<int>();
+            response["payload"]["count"] = core::api::uber_states::UntypedUberState(uber_states::group_id<"randoStats">(), 1100 + static_cast<int>(area)).get<int>();
             core::ipc::send_message(response);
         }
 
@@ -157,12 +158,11 @@ namespace randomizer::ipc {
             auto response = core::ipc::respond_to(j);
 
             nlohmann::json areas;
-            for (auto i = 0; i < static_cast<int>(GameArea::TOTAL); ++i) {
-                auto area = static_cast<GameArea>(i);
-                areas[std::to_string(static_cast<int>(area))] = core::api::uber_states::UberState(UberStateGroup::RandoStats, 1100 + static_cast<int>(area)).get<int>();
+            for (auto area : magic_enum::enum_values<GameArea>()) {
+                areas[std::to_string(static_cast<int>(area))] = core::api::uber_states::UntypedUberState(uber_states::group_id<"randoStats">(), 1100 + static_cast<int>(area)).get<int>();
             }
 
-            response["payload"]["total"] = core::api::uber_states::UberState(UberStateGroup::RandoStats, 1).get<int>();
+            response["payload"]["total"] = uber_states::state<"randoStats", "pickupsTotal">().get();
             response["payload"]["areas"] = areas;
             core::ipc::send_message(response);
         }
@@ -194,16 +194,15 @@ namespace randomizer::ipc {
         });
 
         [[maybe_unused]]
-        auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto const& event) {
-            if (!subscribed_uber_states.contains(event.state)) {
+        auto on_uber_state_changed = core::api::uber_states::on_any_uber_state_changed().register_handler([](auto state_id) {
+            if (!subscribed_uber_states.contains(state_id)) {
                 return;
             }
 
             nlohmann::json request = core::ipc::make_request("notify_on_uber_state_changed");
-            request["payload"]["group"] = static_cast<int>(event.state.group());
-            request["payload"]["state"] = event.state.state();
-            request["payload"]["previous_value"] = event.previous_value;
-            request["payload"]["value"] = event.value;
+            request["payload"]["group"] = state_id.group;
+            request["payload"]["state"] = state_id.member;
+            request["payload"]["value"] = core::api::uber_states::UntypedUberState(state_id).get<double>();
             core::ipc::send_message(request);
         });
 

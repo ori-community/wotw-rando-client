@@ -171,22 +171,31 @@ namespace modloader {
         interception::detach();
     }
 
-    bool initialized = false;
+    static auto game_ready = false;
+    static auto uber_states_initialized = false;
 
     bool is_game_ready() {
-        return initialized;
+        return game_ready;
     }
 
-    IL2CPP_INTERCEPT_WITH_ORDER(-1000, void, GameController, FixedUpdate, app::GameController * this_ptr) {
-        if (!initialized) {
+    bool are_uber_states_initialized() {
+        return uber_states_initialized;
+    }
+
+    IL2CPP_INTERCEPT_WITH_ORDER(-1000, void, GameController, FixedUpdate, app::GameController* this_ptr) {
+        if (!game_ready) {
             auto product = il2cpp::convert_csstring_fast_unsafe(app::classes::UnityEngine::Application::get_productName());
             auto version = il2cpp::convert_csstring_fast_unsafe(app::classes::UnityEngine::Application::get_version());
             auto unity_version = il2cpp::convert_csstring_fast_unsafe(app::classes::UnityEngine::Application::get_unityVersion());
             trace(LogLevel::Info, "initialize", std::format("Initializing Application {} ({})[{}].", product, version, unity_version));
 
             trace(LogLevel::Info, "initialize", "Calling initialization callbacks.");
+
+            uber_states_initialized = true;
+            event_bus().trigger_event(ModloaderEvent::InitializeUberStates);
+
             event_bus().trigger_event(ModloaderEvent::GameReady);
-            initialized = true;
+            game_ready = true;
         }
 
         next::GameController::FixedUpdate(this_ptr);

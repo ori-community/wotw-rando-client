@@ -3,34 +3,35 @@
 #include <Modloader/windows_api/console.h>
 
 #include <Core/api/uber_states/uber_state.h>
-#include <Randomizer/conditions/new_setup_state_override.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
+#include <Randomizer/conditions/new_setup_state_override.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 
 namespace {
     constexpr int32_t TULEY_EXISTS = -456942105;
     constexpr int32_t TULEY_GONE = 682604868;
 
-    const auto SPAWN_TULEY = core::api::uber_states::UberState(UberStateGroup::RandoState, 300);
-    const auto USE_SPAWN_TULEY_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoConfig, 30);
+    auto& spawn_tuley_state = randomizer::uber_states::state<"randoState", "spawnTuley">();
+    auto& use_spawn_tuley_state = randomizer::uber_states::state<"randoConfig", "useSpawnTuleyRandoState">();
 
     [[maybe_unused]]
-    auto uber_state_notify = core::api::uber_states::single_notification_bus().register_handlers(
-        std::vector<std::tuple<core::api::uber_states::UberState>> {
-            SPAWN_TULEY,
-            USE_SPAWN_TULEY_RANDO_STATE,
+    auto uber_state_notify = core::api::uber_states::on_uber_state_changed().register_handlers(
+        std::vector<std::tuple<core::api::uber_states::UntypedUberId>> {
+            spawn_tuley_state.get_uber_id(),
+            use_spawn_tuley_state.get_uber_id(),
         },
-        [](auto&, auto) {
+        [](auto) {
             randomizer::conditions::apply_all_states();
         }
     );
 
     int32_t tuley_state(app::NewSetupStateController* controller, std::string_view path, int32_t original_state) {
-        if (!USE_SPAWN_TULEY_RANDO_STATE.get<bool>()) {
+        if (!use_spawn_tuley_state.get()) {
             return original_state;
         }
 
-        return SPAWN_TULEY.get<bool>() ? TULEY_EXISTS : TULEY_GONE;
+        return spawn_tuley_state.get() ? TULEY_EXISTS : TULEY_GONE;
     }
 
     [[maybe_unused]]

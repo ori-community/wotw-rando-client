@@ -1,21 +1,22 @@
-#include <Randomizer/randomizer.h>
 #include <Common/math_utils.h>
-#include <Core/core.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/polygon.h>
 #include <Core/api/scenes/scene_load.h>
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/app/methods/UnityEngine/Object.h>
-#include <Modloader/app/types/GameObject.h>
-#include <Modloader/app/types/CameraScrollLock.h>
-#include <Modloader/app/types/DamageDealer.h>
-#include <Modloader/app/methods/UnityEngine/GameObject.h>
+#include <Core/core.h>
 #include <Modloader/app/methods/CameraScrollLock.h>
 #include <Modloader/app/methods/Game/UI_Hints.h>
-#include <Modloader/il2cpp_math.h>
 #include <Modloader/app/methods/TimeUtility.h>
+#include <Modloader/app/methods/UnityEngine/GameObject.h>
+#include <Modloader/app/methods/UnityEngine/Object.h>
+#include <Modloader/app/types/CameraScrollLock.h>
+#include <Modloader/app/types/DamageDealer.h>
+#include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/UI_Hints.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/il2cpp_math.h>
+#include <Randomizer/randomizer.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 using namespace modloader;
 using namespace modloader::win;
@@ -136,7 +137,8 @@ namespace {
 
                 // Reactive effect
                 shriek_barrier_effect = core::reactivity::watch_effect().effect([] {
-                    shriek_barrier_active = core::api::uber_states::UberState(UberStateGroup::RandoState, 0).get<bool>();
+                    static auto& shriek_barrier_state = randomizer::uber_states::state<"randoState", "shriekBarrier">();
+                    shriek_barrier_active = shriek_barrier_state.get();
 
                     const auto shriek_barrier_killbox = shriek_barrier_killbox_ref.and_then([](auto& ref) { return *ref; });
                     if (shriek_barrier_killbox.has_value()) {

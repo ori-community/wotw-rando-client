@@ -19,7 +19,6 @@ enum class GameArea {
     Burrows,
     Shop,
     Void,
-    TOTAL,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(

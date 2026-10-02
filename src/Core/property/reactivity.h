@@ -6,10 +6,9 @@
 #include <unordered_set>
 #include <variant>
 
-#include <Core/macros.h>
-#include <Core/api/uber_states/uber_state.h>
-#include <Core/property/dependency.h>
 #include <Common/event_bus.h>
+#include <Core/macros.h>
+#include <Core/property/dependency.h>
 
 namespace core {
     template<typename T>
@@ -166,7 +165,8 @@ namespace core::reactivity {
             }
             AfterEffectBuilder effect(const BaseProperty*& property, const std::source_location& location = std::source_location::current()) const;
             AfterEffectBuilder effect(const std::vector<const BaseProperty*>& properties, const std::source_location& location = std::source_location::current()) const;
-            AfterEffectBuilder effect(std::vector<api::uber_states::UberState> const& states, const std::source_location& location = std::source_location::current()) const;
+            AfterEffectBuilder effect(std::initializer_list<api::uber_states::UntypedUberId> states, const std::source_location& location = std::source_location::current()) const;
+            AfterEffectBuilder effect(const std::vector<api::uber_states::UntypedUberId>& states, const std::source_location& location = std::source_location::current()) const;
             AfterEffectBuilder effect(std::function<void()> const& func, const std::source_location& location = std::source_location::current()) const;
 
             ReactiveEffect::ptr_t finalize() {
@@ -208,7 +208,8 @@ namespace core::reactivity {
             }
             AfterEffectBuilder effect(const BaseProperty*& property, const std::source_location& location = std::source_location::current()) const;
             AfterEffectBuilder effect(const std::vector<const BaseProperty*>& properties, const std::source_location& location = std::source_location::current()) const;
-            AfterEffectBuilder effect(std::vector<core::api::uber_states::UberState> const& states, const std::source_location& location = std::source_location::current()) const;
+            AfterEffectBuilder effect(std::initializer_list<api::uber_states::UntypedUberId> states, const std::source_location& location = std::source_location::current()) const;
+            AfterEffectBuilder effect(const std::vector<api::uber_states::UntypedUberId>& states, const std::source_location& location = std::source_location::current()) const;
             AfterEffectBuilder effect(std::function<void()> const& func, const std::source_location& location = std::source_location::current()) const;
 
         private:

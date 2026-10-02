@@ -4,6 +4,8 @@
 #include <Modloader/app/methods/EntityPlaceholder.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/interception_macros.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 namespace {
     using namespace app::classes;
@@ -17,7 +19,7 @@ namespace {
         EntityPlaceholderDefaults(const il2cpp::WeakGCRef<app::EntityPlaceholder>& placeholder_ref, bool respawn_on_screen, float min_distance_from_player);
     };
 
-    core::api::uber_states::UberState allow_spawning_enemies_nearby(UberStateGroup::RandoConfig, 103);
+    auto& allow_spawning_enemies_nearby_state = randomizer::uber_states::state<"randoConfig", "allowSpawningEnemiesNearby">();
     std::unordered_map<int, EntityPlaceholderDefaults> active_entity_placeholders;
 
     void apply_entity_placeholder_settings(const int id, const EntityPlaceholderDefaults& defaults) {
@@ -32,7 +34,7 @@ namespace {
             return;
         }
 
-        if (allow_spawning_enemies_nearby.get<bool>()) {
+        if (allow_spawning_enemies_nearby_state.get()) {
             (*placeholder)->fields.RespawnOnScreen = true;
             (*placeholder)->fields.MinDistanceFromPlayer = 0.f;
         } else {
@@ -65,7 +67,7 @@ namespace {
                                     .first;
 
         defaults.effect = core::reactivity::watch_effect()
-                              .effect({allow_spawning_enemies_nearby})
+                              .effect({allow_spawning_enemies_nearby_state})
                               .after([&] { apply_entity_placeholder_settings(id, defaults); })
                               .finalize();
     }

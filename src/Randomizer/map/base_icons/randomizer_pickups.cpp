@@ -16,7 +16,7 @@ namespace {
             .after([&] {
                 icons.clear();
 
-                const auto& map_icon_sets = randomizer::seedgen_service().map_icon_sets().get();
+                auto& map_icon_sets = randomizer::seedgen_service().map_icon_sets().get_mutable();
 
                 if (!map_icon_sets.has_value()) {
                     return;
@@ -29,13 +29,13 @@ namespace {
                                 map_icon_set.kind,
                                 map_icon_set.label,
                                 position,
-                                [=](const MapFilter& filter) {
+                                [=](const MapFilter& filter) mutable {
                                     if (filter != MapFilter::InLogic && filter != MapFilter::Collectibles) {
                                         return MapIcon::Visibilities::invisible;
                                     }
 
                                     for (auto& condition: map_icon_set.visible_if_any) {
-                                        if (condition.resolve()) {
+                                        if (condition.is_fulfilled()) {
                                             if (filter == MapFilter::InLogic) {
                                                 const auto& reachable_map_icon_indices = randomizer::seedgen_service().reachable_map_icon_set_indices().get();
 

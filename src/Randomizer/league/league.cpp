@@ -33,6 +33,7 @@
 
 #include <Core/api/system/save_files.h>
 #include <Core/ipc/ipc.h>
+#include <Core/uber_states/core_uber_states.h>
 #include <Randomizer/httplib.h>
 
 using namespace app::classes;
@@ -47,7 +48,7 @@ namespace randomizer::league {
             Idle,
         };
 
-        const core::api::uber_states::UberState game_finished_uber_state(34543, 11226);
+        auto& game_finished_state = core::uber_states::state<"gameStateGroup", "gameFinished">();
 
         std::atomic upload_attempt = 1;
         auto is_showing_league_summary_screen = false;
@@ -262,7 +263,7 @@ namespace randomizer::league {
         }
 
         IL2CPP_INTERCEPT(void, PetrifiedOwlBossDeathReactionBehaviour, OnExitTask, app::PetrifiedOwlBossDeathReactionBehaviour * this_ptr, app::IContext* context) {
-            game_finished_uber_state.set(true);
+            game_finished_state.set(true);
             timing::force_set_game_finished(true);  // Need this because we immediately set the GameStateMachine to TitleScreen in league games...
 
             Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(this_ptr->fields.DeathTimeline));
@@ -271,7 +272,7 @@ namespace randomizer::league {
 
             PetrifiedOwlBossEntity::ResetAllBreakableStates(shriek_entity);
 
-            core::api::uber_states::UberState(shriek_entity->fields.PhasesState).set(0);
+            core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedByteUberState>(shriek_entity->fields.PhasesState).set(0);
 
             this_ptr->fields.m_checkpoint.Mode = app::CheckpointFunctionality_CheckpointPositionMode__Enum::ManualPosition;
 

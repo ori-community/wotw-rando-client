@@ -7,7 +7,7 @@ TEMPLATE_INSTRUCTION(CompareNumeric, typename T)
 
     Comparator op;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         switch (op) {
             case Comparator::Equal:
                 memory.heap.set<bool>(0, memory.heap.get<T>(0) == memory.heap.get<T>(1));
@@ -30,7 +30,7 @@ TEMPLATE_INSTRUCTION(CompareNumeric, typename T)
         }
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         nlohmann::json j;
         to_json(j, op);
         return std::format("CompareNumeric {} [0]:{} {} [1]:{}", TypeStr<T>::VALUE, memory.heap.get<T>(0), j.get<std::string>(), memory.heap.get<T>(1));

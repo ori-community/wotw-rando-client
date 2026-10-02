@@ -25,6 +25,7 @@
 #include <Modloader/app/types/PlayerUberStateGroup.h>
 #include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/modloader.h>
+#include <Modloader/il2cpp_math.h>
 #include <magic_enum/magic_enum.hpp>
 
 #include "Modloader/app/methods/PlatformMovement.h"

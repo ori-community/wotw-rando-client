@@ -30,6 +30,7 @@
 
 #include <Core/api/game/ui.h>
 #include <Core/api/system/message_provider.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 namespace {
     using namespace modloader;
@@ -38,12 +39,21 @@ namespace {
     using namespace app::classes::CatlikeCoding::TextBox;
     using namespace randomizer::game::shops;
 
-    core::api::uber_states::UberState get_slot_uber_state_from_vanilla_uber_state(const app::SerializedByteUberState* vanilla_uber_state) {
-        return core::api::uber_states::UberState(UberStateGroup::LupoShop, vanilla_uber_state->fields._.m_id->fields.m_id);
+    ShopSlot::is_purchased_state_id_t get_state_id_from_vanilla_uber_state(const app::SerializedByteUberState* vanilla_uber_state) {
+        switch (vanilla_uber_state->fields._.m_id->fields.m_id) {
+            case 19396:
+                return randomizer::uber_states::state<"lupoShop", "hcMapIcons">();
+            case 41666:
+                return randomizer::uber_states::state<"lupoShop", "shardMapIcons">();
+            case 57987:
+                return randomizer::uber_states::state<"lupoShop", "ecMapIcons">();
+            default:
+                throw std::runtime_error(std::format("Invalid Lupo shop slot vanilla state: {}", vanilla_uber_state->fields._.m_id->fields.m_id));
+        }
     }
 
     ShopCollection::lupo_shop_t::slot_t& get_slot(const app::SerializedByteUberState* vanilla_state) {
-        const auto slot = shops()->lupo_shop().slot(get_slot_uber_state_from_vanilla_uber_state(vanilla_state));
+        const auto slot = shops()->lupo_shop().slot(get_state_id_from_vanilla_uber_state(vanilla_state));
 
         if (!slot.has_value()) {
             throw std::exception("Missing Grom shop slot");
@@ -98,14 +108,14 @@ namespace {
             return false;
         }
 
-        const auto& slot = get_slot(item->fields.UberState);
+        auto& slot = get_slot(item->fields.UberState);
 
         switch (slot.visibility()) {
             case SlotVisibility::Hidden:
             case SlotVisibility::Locked:
                 return show_hint(this_ptr, core::api::system::create_message_provider(slot.description));
             default:
-                if (slot.is_purchased_state.get<bool>()) {
+                if (slot.is_purchased_state.get()) {
                     return show_hint(this_ptr, this_ptr->fields.Hints.MaxedOut);
                 }
 
@@ -121,8 +131,8 @@ namespace {
         MapmakerUISubItem::UpdateUpgradeIcon(this_ptr);
 
         const auto state = this_ptr->fields.m_upgradeItem->fields.UberState;
-        const auto& slot = get_slot(state);
-        const auto owned = slot.is_purchased_state.get<bool>();
+        auto& slot = get_slot(state);
+        const auto owned = slot.is_purchased_state.get();
         const auto cost = MapmakerItem::GetCost(this_ptr->fields.m_upgradeItem);
         const auto can_afford = core::api::game::player::spirit_light().get() >= cost;
         const auto can_purchase = !owned && can_afford && slot.visibility() == SlotVisibility::Visible;
@@ -158,7 +168,7 @@ namespace {
         }
 
         auto can_afford = false;
-        const auto owned = slot.is_purchased_state.get<bool>();
+        const auto owned = slot.is_purchased_state.get();
         if (!owned) {
             can_afford = MapmakerItem::GetCost(item) <= core::api::game::player::spirit_light().get();
         }
@@ -196,8 +206,8 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, MapmakerUIItem, UpdateMapmakerItem, app::MapmakerUIItem * this_ptr, app::MapmakerItem* item) {
-        const auto& slot = get_slot(this_ptr->fields.m_upgradeItem->fields.UberState);
-        const auto value = slot.is_purchased_state.get<bool>();
+        auto& slot = get_slot(this_ptr->fields.m_upgradeItem->fields.UberState);
+        const auto value = slot.is_purchased_state.get();
 
         const auto can_afford = il2cpp::unity::is_valid(item) && core::api::game::player::spirit_light().get() >= MapmakerItem::GetCost(item);
 
@@ -244,7 +254,7 @@ namespace {
         );
 
         SpellUIExperience::Spend(ui_experience, MapmakerItem::GetCost(item));
-        get_slot_uber_state_from_vanilla_uber_state(item->fields.UberState).set(true);
+        core::api::uber_states::UberState(get_state_id_from_vanilla_uber_state(item->fields.UberState)).set(true);
 
         const auto sound = MapmakerScreen::get_PurchaseCompleteSound(this_ptr);
         MenuScreen::PlaySoundEvent(reinterpret_cast<app::MenuScreen*>(this_ptr), sound);

@@ -11,9 +11,9 @@ TEMPLATE_INSTRUCTION(Store, typename T)
     const int group;
     const int member;
     const bool trigger_events;
-    const core::api::uber_states::UberState state;
+    core::api::uber_states::UntypedUberState state;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         const auto grant_fn = [&] {
             state.set(memory.heap.get<T>(0));
         };
@@ -25,7 +25,7 @@ TEMPLATE_INSTRUCTION(Store, typename T)
         }
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("Store {} {}|{} (trigger_events: {}) = [0]:{}", TypeStr<T>::VALUE, group, member, trigger_events, memory.heap.get<T>(0));
     }
 };

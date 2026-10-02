@@ -3,35 +3,6 @@
 #include <Randomizer/stats/game_stats.h>
 
 namespace randomizer::timing {
-    struct UberStateIdentifier {
-        UberStateGroup group;
-        int state;
-
-        friend bool operator==(const UberStateIdentifier& lhs, const UberStateIdentifier& rhs) { return lhs.group == rhs.group && lhs.state == rhs.state; }
-        [[nodiscard]] core::api::uber_states::UberState get_uber_state() const;
-
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(
-            UberStateIdentifier,
-            group,
-            state
-        );
-    };
-
-    struct UberStateIdentifierHash {
-        constexpr std::size_t operator()(const UberStateIdentifier& value, std::size_t seed) const {
-            return frozen::elsa<std::size_t>()(static_cast<std::size_t>(value.group) * 1000000 + value.state, seed);
-        }
-    };
-}
-
-template <>
-struct std::hash<randomizer::timing::UberStateIdentifier> {
-    std::size_t operator()(const randomizer::timing::UberStateIdentifier& i) const noexcept {
-        return randomizer::timing::UberStateIdentifierHash()(i, 0);
-    }
-};
-
-namespace randomizer::timing {
     [[nodiscard]]
     common::Droppable::ptr_t scoped_disable_position_recording();
     [[nodiscard]]
@@ -40,7 +11,7 @@ namespace randomizer::timing {
     class GameTrackerPersistentMetaData final : public core::save_meta::CborSaveMetaSerializable {
     public:
         /** States that currently have an active timeline entry */
-        std::unordered_set<UberStateIdentifier> active_tracked_states;
+        std::unordered_set<core::api::uber_states::UntypedUberId> active_tracked_states;
 
         /** IDs of custom timeline entries that are currently active */
         std::unordered_set<uint64_t> active_custom_timeline_entries;
@@ -79,8 +50,8 @@ namespace randomizer::timing {
 
 NLOHMANN_JSON_NAMESPACE_BEGIN
 template<>
-struct adl_serializer<std::unordered_set<randomizer::timing::UberStateIdentifier>> {
-    static void to_json(nlohmann::json& j, const std::unordered_set<randomizer::timing::UberStateIdentifier>& v) {
+struct adl_serializer<std::unordered_set<core::api::uber_states::UntypedUberId>> {
+    static void to_json(nlohmann::json& j, const std::unordered_set<core::api::uber_states::UntypedUberId>& v) {
         j = nlohmann::json::array();
 
         for (const auto& item : v) {
@@ -88,9 +59,9 @@ struct adl_serializer<std::unordered_set<randomizer::timing::UberStateIdentifier
         }
     }
 
-    static void from_json(const nlohmann::json& j, std::unordered_set<randomizer::timing::UberStateIdentifier>& v) {
+    static void from_json(const nlohmann::json& j, std::unordered_set<core::api::uber_states::UntypedUberId>& v) {
         for (const auto& [key, value] : j.items()) {
-            v.insert(value.get<randomizer::timing::UberStateIdentifier>());
+            v.insert(value.get<core::api::uber_states::UntypedUberId>());
         }
     }
 };

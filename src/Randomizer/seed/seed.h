@@ -20,14 +20,18 @@
 namespace randomizer::seed {
     struct SeedData {
         using command_t = std::vector<std::unique_ptr<IInstruction>>;
-        struct Condition {
-            std::variant<int, core::api::uber_states::UberState> condition;
+        struct Trigger {
+            /**
+             * int = command ID to be executed, command returns whether a condition is satisfied, triggers when that changes from false to true.
+             * UberState = trigger every time that uber state changes
+             */
+            std::variant<int, core::api::uber_states::UntypedUberState> trigger;
             bool previous_value = false;
             int command_id = 0;
             core::reactivity::ReactiveEffect::ptr_t reactive_effect;
         };
 
-        std::vector<Condition> conditions;
+        std::vector<Trigger> triggers;
         std::unordered_map<SeedClientEvent, std::vector<int>> events;
         std::vector<command_t> commands;
     };
@@ -96,8 +100,8 @@ namespace randomizer::seed {
     class Seed {
     public:
         struct Timer {
-            core::api::uber_states::UberState toggle;
-            core::api::uber_states::UberState value;
+            core::api::uber_states::UntypedUberState toggle;
+            core::api::uber_states::UntypedUberState value;
         };
 
         using seed_parser =
@@ -130,7 +134,7 @@ namespace randomizer::seed {
         const memory::SeedMemory& memory() const { return m_memory; }
         SeedExecutionEnvironment& environment() { return *m_environment; }
 
-        void process_timers(float delta_time) const;
+        void process_timers(float delta_time);
 
     private:
         static constexpr unsigned int MAX_COMMAND_STACK_SIZE = 256;

@@ -6,7 +6,7 @@
 namespace randomizer::game::shops::lupo_maps {
     using namespace app::classes;
 
-    core::api::uber_states::UberState get_slot_key_for_game_world_area(app::GameWorldAreaID__Enum game_world_area) {
+    ShopSlot::is_purchased_state_id_t get_slot_key_for_game_world_area(app::GameWorldAreaID__Enum game_world_area) {
         switch (game_world_area) {
             case app::GameWorldAreaID__Enum::InkwaterMarsh:
                 return {48248, 18767};

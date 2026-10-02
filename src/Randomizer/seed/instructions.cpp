@@ -1,7 +1,7 @@
-#include <Core/api/game/game.h>
-#include <Core/core.h>
 #include <Core/api/game/debug_menu.h>
+#include <Core/api/game/game.h>
 #include <Core/constants.h>
+#include <Core/core.h>
 #include <Modloader/app/methods/Moon/VisualDebug/DebugRenderer.h>
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/randomizer.h>
@@ -109,6 +109,7 @@
 #include <Randomizer/seed/instructions/warp.h>
 #include <Randomizer/seed/instructions/world_name.h>
 #include <Randomizer/seed/seed.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <functional>
 #include <utility>
 
@@ -349,9 +350,9 @@ namespace randomizer::seed {
         }
     }
 
-    void SeedExecutionEnvironment::process_timers(float delta) const {
+    void SeedExecutionEnvironment::process_timers(float delta) {
         const auto game_controller = core::api::game::game_controller();
-        for (const auto& timer: m_timers) {
+        for (auto& timer: m_timers) {
             if (!game_controller->fields._IsSuspended_k__BackingField && timer.toggle.get<bool>()) {
                 timer.value.set(timer.value.get<float>() + delta);
             }
@@ -414,7 +415,7 @@ namespace randomizer::seed {
                 "instructions",
                 std::format(
                     "DefineTimer: Cannot define timer on {} because a timer already exists with that target.",
-                    timer.value
+                    timer.value.get_uber_id()
                 )
             );
             return;
@@ -594,9 +595,9 @@ namespace randomizer::seed {
     }
 
     void SeedExecutionEnvironment::render_debug_visuals() {
-        static const core::api::uber_states::UberState DRAW_POSITION_TRIGGERS_IN_DEBUG_RENDERER(UberStateGroup::RandoConfig, 39);
+        static auto& draw_position_triggers_in_debug_renderer_state = uber_states::state<"randoConfig", "drawPositionTriggersInDebugRenderer">();
 
-        if (!DRAW_POSITION_TRIGGERS_IN_DEBUG_RENDERER.get<bool>()) {
+        if (!draw_position_triggers_in_debug_renderer_state.get()) {
             return;
         }
 
@@ -689,13 +690,13 @@ namespace randomizer::seed {
         j = nlohmann::json{
                 {"toggle",
                  {
-                     {"group", timer.toggle.group_int()},
-                     {"state", timer.toggle.state()},
+                     {"group", timer.toggle.get_uber_id().group},
+                     {"member", timer.toggle.get_uber_id().member},
                  }},
                 {"value",
                  {
-                     {"group", timer.value.group_int()},
-                     {"state", timer.value.state()},
+                     {"group", timer.value.get_uber_id().group},
+                     {"member", timer.value.get_uber_id().member},
                  }}
         };
     }
@@ -703,8 +704,8 @@ namespace randomizer::seed {
     void from_json(const nlohmann::json& j, SeedTimer& timer) {
         const auto j_toggle = j.at("toggle");
         const auto j_value = j.at("value");
-        timer.toggle = core::api::uber_states::UberState(j_toggle.at("group").get<int>(), j_toggle.at("state").get<int>());
-        timer.value = core::api::uber_states::UberState(j_value.at("group").get<int>(), j_value.at("state").get<int>());
+        timer.toggle = core::api::uber_states::UntypedUberState(j_toggle.at("group").get<int>(), j_toggle.at("member").get<int>());
+        timer.value = core::api::uber_states::UntypedUberState(j_value.at("group").get<int>(), j_value.at("member").get<int>());
     }
 
     bool SeedPositionTrigger::RectangleShape::is_inside(const app::Vector2& point) const {

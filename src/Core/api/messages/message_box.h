@@ -3,11 +3,12 @@
 #include <Common/droppable.h>
 #include <Core/macros.h>
 #include <Core/property.h>
-#include <Modloader/app/structs/MessageBox.h>
 #include <Modloader/app/structs/ScaleToTextBox.h>
-#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/DisableRendererWhenOutOfFrustrum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/MessageBox.h>
 #include <string_view>
+#include <nlohmann/json.hpp>
 
 
 namespace core::api::messages {

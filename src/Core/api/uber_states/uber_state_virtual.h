@@ -1,7 +1,7 @@
 #pragma once
 
+#include <Core/api/uber_states/uber_state.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
-#include <Core/enums/uber_state.h>
 #include <Core/macros.h>
 #include <Core/property.h>
 
@@ -10,6 +10,13 @@
 namespace core::api::uber_states {
     class CORE_DLLEXPORT VirtualUberState {
     public:
+        enum class ValueType {
+            Boolean,
+            Byte,
+            Integer,
+            Float,
+        };
+
         using getter_fn_t = std::function<double()>;
         using setter_fn_t = std::optional<std::function<void(double value)>>;
 
@@ -47,12 +54,14 @@ namespace core::api::uber_states {
         [[nodiscard]]
         bool is_readonly() const;
 
+        /** Check for changes by calling the getter and comparing to the last known value. Should only be used for Manual virtual uber states */
+        void check_for_changes();
+
         const int m_group;
         const int m_state;
         const ValueType m_value_type;
         const std::string m_name;
     private:
-        void check_for_changes();
         void notify_changed(double value, double previous_value) const;
 
         getter_fn_t m_getter_fn;
@@ -60,19 +69,21 @@ namespace core::api::uber_states {
         reactivity::ReactiveEffect::ptr_t m_effect;
         common::Droppable::ptr_t m_poll_update_droppable;
         std::optional<double> m_last_known_value = std::nullopt;
-        UberState m_uber_state;
     };
 
-    CORE_DLLEXPORT bool is_virtual_uber_state(int group, int state);
-    CORE_DLLEXPORT bool is_virtual_uber_state(UberStateGroup group, int state);
-    CORE_DLLEXPORT VirtualUberState& get_virtual_uber_state(int group, int state);
-    CORE_DLLEXPORT VirtualUberState& get_virtual_uber_state(UberStateGroup group, int state);
-    CORE_DLLEXPORT std::vector<uber_id_t> get_virtual_uber_state_ids();
+    CORE_DLLEXPORT bool is_virtual_uber_state(int group, int member);
+    CORE_DLLEXPORT bool is_virtual_uber_state(UntypedUberId id);
+    CORE_DLLEXPORT VirtualUberState& get_virtual_uber_state(int group, int member);
+    CORE_DLLEXPORT VirtualUberState& get_virtual_uber_state(UntypedUberId id);
+    CORE_DLLEXPORT std::vector<UntypedUberId> get_virtual_uber_state_ids();
+    CORE_DLLEXPORT std::string get_virtual_uber_state_group_name(int group);
+
+    CORE_DLLEXPORT void define_virtual_uber_state_group(int group, const std::string& name);
 
     CORE_DLLEXPORT void register_virtual_uber_state(
-        UberStateGroup group,
-        int state,
-        ValueType value_type,
+        int group,
+        int member,
+        VirtualUberState::ValueType value_type,
         const std::string& name,
         const VirtualUberState::getter_fn_t& getter_fn,
         const VirtualUberState::setter_fn_t& setter_fn,
@@ -81,16 +92,16 @@ namespace core::api::uber_states {
 
     template<typename T>
     void register_virtual_uber_state_from_property(
-        UberStateGroup group,
-        int state,
-        ValueType value_type,
+        int group,
+        int member,
+        VirtualUberState::ValueType value_type,
         const std::string& name,
         const Property<T>& property,
         VirtualUberState::ChangeDetectionMode change_detection_mode
     ) {
         register_virtual_uber_state(
             group,
-            state,
+            member,
             value_type,
             name,
             [&] -> double { return property.get(); },
@@ -101,16 +112,16 @@ namespace core::api::uber_states {
 
     template<typename T>
     void register_read_only_virtual_uber_state_from_property(
-        UberStateGroup group,
-        int state,
-        ValueType value_type,
+        int group,
+        int member,
+        VirtualUberState::ValueType value_type,
         const std::string& name,
         const Property<T>& property,
         VirtualUberState::ChangeDetectionMode change_detection_mode
     ) {
         register_virtual_uber_state(
             group,
-            state,
+            member,
             value_type,
             name,
             [&] -> double { return property.get(); },

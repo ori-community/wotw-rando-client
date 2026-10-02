@@ -1,26 +1,24 @@
 #include <Core/api/game/player.h>
 #include <Core/api/moon_animator_events.h>
-#include <Modloader/il2cpp_helpers.h>
-
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/uber_state.h>
 #include <Modloader/app/methods/SavePedestalController.h>
-#include <Modloader/app/methods/UnityEngine/Time.h>
 #include <Modloader/app/methods/SeinPlayAnimationController.h>
 #include <Modloader/app/methods/SoundSource.h>
 #include <Modloader/app/methods/StatisticsManager.h>
 #include <Modloader/app/types/SavePedestalController.h>
 #include <Modloader/app/types/StatisticsManager.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 namespace {
     using namespace app::classes;
 
-    core::api::uber_states::UberState fix_enabled_state(UberStateGroup::RandoConfig, 14);
-
+    auto& fix_enabled_state = randomizer::uber_states::state<"randoConfig", "fixTeleporterChainOutOfBounds">();
     auto use_custom_animation_handling = false;
 
     IL2CPP_INTERCEPT_WITH_ORDER(0, void, SavePedestalController, BeginTeleportation, app::Vector2 teleport_target_world_position) {
-        use_custom_animation_handling = fix_enabled_state.get<bool>();
+        use_custom_animation_handling = fix_enabled_state.get();
         next::SavePedestalController::BeginTeleportation(teleport_target_world_position);
     }
 

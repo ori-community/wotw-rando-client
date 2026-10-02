@@ -15,12 +15,14 @@
 #include <Modloader/app/types/ShrineCombat.h>
 #include <Modloader/il2cpp_math.h>
 #include <Modloader/interception_macros.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 namespace {
     using namespace app::classes;
 
-    core::api::uber_states::UberState allow_tp_underwater_state(UberStateGroup::RandoConfig, 18);
-    core::api::uber_states::UberState allow_tp_in_combat_shrines_state(UberStateGroup::RandoConfig, 19);
+    auto& allow_tp_underwater_state = randomizer::uber_states::state<"randoConfig", "allowTeleportingUnderwater">();
+    auto& allow_tp_in_combat_shrines_state = randomizer::uber_states::state<"randoConfig", "allowTeleportingDuringCombatShrineFights">();
 
     IL2CPP_INTERCEPT_WITH_ORDER(20, bool, GameController, get_InputLocked, app::GameController* this_ptr) {
         const auto save_pedestal_controller_instance = types::SavePedestalController::get_class()->static_fields->Instance;
@@ -114,7 +116,7 @@ namespace {
             }
         }
 
-        if (ShrineCombat::IsAnyShrineRunning() && !allow_tp_in_combat_shrines_state.get<bool>()) {
+        if (ShrineCombat::IsAnyShrineRunning() && !allow_tp_in_combat_shrines_state.get()) {
             return app::SavePedestalController_CanTeleportResult__Enum::Denied_RestrictZone;
         }
 
@@ -132,7 +134,7 @@ namespace {
 
         if (SeinLogicCycle::IsCharacterStateBlockedBy(
                 sein->fields.LogicCycle,
-                allow_tp_underwater_state.get<bool>()
+                allow_tp_underwater_state.get()
                     ? static_cast<app::SeinLogicCycle_StateFlags__Enum>(0x00000000080c0000) // NOLINT(*-optin.core.EnumCastOutOfRange)
                     //                                                  ↑
                     // This is the vanilla BlockTeleport mask except I removed the 0x20 IsSwimming flag

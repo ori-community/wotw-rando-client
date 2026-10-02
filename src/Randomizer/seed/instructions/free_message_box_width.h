@@ -8,13 +8,13 @@ INSTRUCTION(FreeMessageBoxWidth)
 
     std::size_t id;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         environment.modify_free_message_box(id, [&](auto& free_message_box) {
             free_message_box.message_box->box_width().set(memory.heap.get<float>(0));
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("FreeMessageBoxWidth {} -> {:.3}", id, memory.heap.get<float>(0));
     }
 

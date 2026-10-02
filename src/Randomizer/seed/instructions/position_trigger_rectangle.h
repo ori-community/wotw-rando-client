@@ -8,7 +8,7 @@ INSTRUCTION(PositionTriggerRectangle)
 
     std::size_t id;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         const auto x_1 = memory.heap.get<float>(0);
         const auto y_1 = memory.heap.get<float>(1);
         const auto x_2 = memory.heap.get<float>(2);
@@ -21,7 +21,7 @@ INSTRUCTION(PositionTriggerRectangle)
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         const auto x_1 = memory.heap.get<float>(0);
         const auto y_1 = memory.heap.get<float>(1);
         const auto x_2 = memory.heap.get<float>(2);

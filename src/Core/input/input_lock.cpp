@@ -3,6 +3,7 @@
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <unordered_set>
 
 using namespace app::classes;
@@ -11,10 +12,9 @@ namespace core::input {
     namespace {
         uint32_t next_id = 0;
         std::unordered_set<uint32_t> locks;
-        api::uber_states::UberState lock_state(UberStateGroup::Player, 1000);
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, bool, GameController, get_InputLocked, app::GameController* this_ptr) {
-            if (lock_state.get<bool>() || !locks.empty()) {
+            if (!locks.empty()) {
                 return true;
             }
 

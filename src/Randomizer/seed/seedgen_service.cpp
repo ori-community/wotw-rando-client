@@ -17,8 +17,17 @@ namespace randomizer::seedgen_interface {
                     const auto& relevant_uber_states = m_relevant_uber_states.get();
 
                     if (relevant_uber_states.has_value()) {
+                        auto state_ids = std::vector<core::api::uber_states::UntypedUberId>();
+                        std::ranges::transform(
+                            relevant_uber_states->states,
+                            std::back_inserter(state_ids),
+                            [](const core::api::uber_states::UntypedUberState& state) {
+                                return state.get_uber_id();
+                            }
+                        );
+
                         m_relevant_uber_states_trigger_reach_check_effect = core::reactivity::watch_effect()
-                            .effect(relevant_uber_states->states)
+                            .effect(state_ids)
                             .after([&] {
                                 m_reachable_map_icon_set_indices_update_pending = true;
                                 update_reachable_map_icon_set_indices_async_if_needed();
@@ -66,7 +75,7 @@ namespace randomizer::seedgen_interface {
         }
     }
 
-    const core::Property<std::optional<SeedgenService::MapIconSets>>& SeedgenService::map_icon_sets() const {
+    core::Property<std::optional<SeedgenService::MapIconSets>>& SeedgenService::map_icon_sets() {
         return m_map_icon_sets;
     }
 
@@ -256,10 +265,11 @@ namespace randomizer::seedgen_interface {
 
                     for (const auto & map_icon_set_json: response["mapIcons"]) {
                         std::vector<core::api::uber_states::UberStateCondition> visible_if_any;
+
                         for (const auto & uber_state_condition_json: map_icon_set_json["visibleIfAny"]) {
                             const auto& uber_identifier = uber_state_condition_json["uberIdentifier"];
                             visible_if_any.emplace_back(
-                                core::api::uber_states::UberState(uber_identifier[0].get<int>(), uber_identifier[1].get<int>()),
+                                core::api::uber_states::UntypedUberState(uber_identifier[0].get<int>(), uber_identifier[1].get<int>()),
                                 seed::parse_enum<seed::Comparator>(uber_state_condition_json["comparator"]),
                                 uber_state_condition_json["value"].get<double>()
                             );
@@ -291,14 +301,14 @@ namespace randomizer::seedgen_interface {
             .path = "/logic/relevant-uber-states",
             .callback = [callback](const auto& status, const nlohmann::json& response) {
                 if (status == HttpClient::Status::OK) {
-                    std::vector<core::api::uber_states::UberState> states;
+                    std::vector<core::api::uber_states::UntypedUberState> states;
 
                     for (const auto& identifier: response["identifiers"]) {
                         states.emplace_back(identifier[0].get<int>(), identifier[1].get<int>());
                     }
 
                     callback(RelevantUberStates{
-                        .states = states,
+                        .states = std::move(states),
                         .hash = response["hash"].get<hash_t>(),
                     });
                     return;
@@ -317,16 +327,16 @@ namespace randomizer::seedgen_interface {
             return;
         }
 
-        const auto& relevant_uber_states = m_relevant_uber_states.get();
+        auto& relevant_uber_states = m_relevant_uber_states.get_mutable();
         if (!relevant_uber_states.has_value()) {
             callback(std::nullopt);
             return;
         }
 
         nlohmann::json states_array = nlohmann::json::array();
-        for (const auto& relevant_uber_state: relevant_uber_states->states) {
+        for (auto& relevant_uber_state: relevant_uber_states->states) {
             states_array.push_back({
-                nlohmann::json::array({relevant_uber_state.group_int(), relevant_uber_state.state()}),
+                nlohmann::json::array({relevant_uber_state.get_uber_id().group, relevant_uber_state.get_uber_id().member}),
                 relevant_uber_state.get<double>()
             });
         }

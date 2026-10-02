@@ -2,17 +2,20 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/events/task.h>
 #include <Core/property/reactivity.h>
+#include <Core/uber_states/core_uber_states.h>
+#include <Core/utils/misc.h>
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
 #include <Modloader/app/methods/SwitchSeriesPuzzle.h>
 #include <Modloader/app/methods/SwitchSeriesPuzzleSwitchSetupHolder.h>
-#include <Modloader/app/methods/UnityEngine/Vector3.h>
-#include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UberShaderRenderQueue.h>
+#include <Modloader/app/methods/UnityEngine/GameObject.h>
+#include <Modloader/app/methods/UnityEngine/Vector3.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/Renderer.h>
 #include <Modloader/il2cpp_helpers.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+#include <magic_enum/magic_enum.hpp>
 #include <queue>
-#include <Core/utils/misc.h>
 
 namespace {
     using namespace app::classes;
@@ -21,6 +24,7 @@ namespace {
     constexpr auto STONE_ANCHOR_POSITION = app::Vector3(-926.7, -4491.5, 0);  // The center position where stones will be placed
     constexpr auto STONE_GAP = 2.3f;  // The distance between stones
     constexpr auto STONE_ANGLE_PER_UNIT = 2.f;  // The angle stones are tilted per unit offset from STONE_ANCHOR_POSITION on the x axis
+    constexpr auto MAX_BELL_SEQUENCE_LENGTH = 9;
 
     enum class Bell {
         Left = 1,
@@ -28,30 +32,62 @@ namespace {
         Right = 3,
     };
 
-    const std::vector<core::api::uber_states::UberState> BELL_UBER_STATES = {
-        {UberStateGroup::RandoState, 701},
-        {UberStateGroup::RandoState, 702},
-        {UberStateGroup::RandoState, 703},
-        {UberStateGroup::RandoState, 704},
-        {UberStateGroup::RandoState, 705},
-        {UberStateGroup::RandoState, 706},
-        {UberStateGroup::RandoState, 707},
-        {UberStateGroup::RandoState, 708},
-        {UberStateGroup::RandoState, 709},
-    };
     std::vector desired_sequence = {Bell::Left, Bell::Center, Bell::Right, Bell::Right, Bell::Left, Bell::Center, Bell::Left};
     std::deque<Bell> bell_queue_burrows;
     std::deque<Bell> bell_queue_tree;
 
+    std::optional<Bell> get_bell_for_stone_index(unsigned int index) {
+        int value;
+
+        switch (index) {
+            case 0:
+                value = randomizer::uber_states::state<"randoState", "bell1">().get();
+                break;
+            case 1:
+                value = randomizer::uber_states::state<"randoState", "bell2">().get();
+                break;
+            case 2:
+                value = randomizer::uber_states::state<"randoState", "bell3">().get();
+                break;
+            case 3:
+                value = randomizer::uber_states::state<"randoState", "bell4">().get();
+                break;
+            case 4:
+                value = randomizer::uber_states::state<"randoState", "bell5">().get();
+                break;
+            case 5:
+                value = randomizer::uber_states::state<"randoState", "bell6">().get();
+                break;
+            case 6:
+                value = randomizer::uber_states::state<"randoState", "bell7">().get();
+                break;
+            case 7:
+                value = randomizer::uber_states::state<"randoState", "bell8">().get();
+                break;
+            case 8:
+                value = randomizer::uber_states::state<"randoState", "bell9">().get();
+                break;
+            default:
+                return std::nullopt;
+        }
+
+        if (magic_enum::enum_contains<Bell>(value)) {
+            return static_cast<Bell>(value);
+        }
+
+        return std::nullopt;
+    }
+
+    template<typename BOOLEAN_UBER_STATE_T> requires core::api::uber_states::ReadableUberState<bool, BOOLEAN_UBER_STATE_T>
     void on_bell_rung(
         app::SwitchSeriesPuzzle* switch_series_puzzle,
         const app::SwitchSeriesPuzzleSetupData* activated_state,
-        const core::api::uber_states::UberState& event_uber_state,
+        BOOLEAN_UBER_STATE_T& event_uber_state,
         std::deque<Bell>& bell_queue,
         bool expect_reverse_sequence
     ) {
         // do nothing if puzzle already completed
-        if (event_uber_state.get<bool>()) {
+        if (event_uber_state.get()) {
             return;
         }
 
@@ -60,17 +96,17 @@ namespace {
         if (changed_state == nullptr) {
             return;
         }
-        const auto changed_uber_state = core::api::uber_states::UberState(reinterpret_cast<app::IUberState*>(changed_state));
+        const auto changed_uber_state = core::api::uber_states::UntypedUberState::from_native_ptr(reinterpret_cast<app::IUberState*>(changed_state));
 
         Bell bell;
-        switch (changed_uber_state.state()) {
-            case 1919: {
+        switch (changed_uber_state.get_uber_id().member) {
+            case 1919: {  // bellAState
                 bell = Bell::Left;
             } break;
-            case 24796: {
+            case 24796: {  // bellBState
                 bell = Bell::Center;
             } break;
-            case 7459: {
+            case 7459: {  // bellCState
                 bell = Bell::Right;
             } break;
             default:
@@ -106,9 +142,9 @@ namespace {
 
         auto path = il2cpp::unity::get_path(this_ptr);
         if (path == "howlsOriginEntrance/interactives/switchSequencePuzzleA") {
-            on_bell_rung(this_ptr, activated_state, core::api::uber_states::UberState(24922, 13349), bell_queue_burrows, false);
+            on_bell_rung(this_ptr, activated_state, core::uber_states::state<"howlsOriginGroup", "bellPuzzleSolved">(), bell_queue_burrows, false);
         } else if (path == "howlsOriginEntrance/interactives/switchSequencePuzzleB") {
-            on_bell_rung(this_ptr, activated_state, core::api::uber_states::UberState(24922, 59146), bell_queue_tree, true);
+            on_bell_rung(this_ptr, activated_state, core::uber_states::state<"howlsOriginGroup", "bellPuzzleBSolved">(), bell_queue_tree, true);
         }
     }
 
@@ -345,15 +381,21 @@ namespace {
             })
             .effect([] {
                 desired_sequence.clear();
-                for (int i = 0; i < BELL_UBER_STATES.size(); ++i) {
-                    switch (BELL_UBER_STATES[i].get<int>()) {
-                        case static_cast<int>(Bell::Left):
+                for (int i = 0; i < MAX_BELL_SEQUENCE_LENGTH; ++i) {
+                    const auto bell = get_bell_for_stone_index(i);
+
+                    if (!bell.has_value()) {
+                        goto after_loop;
+                    }
+
+                    switch (*bell) {
+                        case Bell::Left:
                             desired_sequence.emplace_back(Bell::Left);
                             break;
-                        case static_cast<int>(Bell::Center):
+                        case Bell::Center:
                             desired_sequence.emplace_back(Bell::Center);
                             break;
-                        case static_cast<int>(Bell::Right):
+                        case Bell::Right:
                             desired_sequence.emplace_back(Bell::Right);
                             break;
                         default:

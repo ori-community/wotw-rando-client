@@ -8,13 +8,13 @@ INSTRUCTION(FreeMessagePosition)
 
     std::size_t id;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         environment.modify_free_message_box(id, [&](auto& free_message_box) {
             free_message_box.message_box->position().set(memory.heap.get<float>(0), memory.heap.get<float>(1), 0.f);
         });
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("FreeMessagePosition {} -> {:.3}, {:.3}", id, memory.heap.get<float>(0), memory.heap.get<float>(1));
     }
 

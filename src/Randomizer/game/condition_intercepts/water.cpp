@@ -1,9 +1,8 @@
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/enums/uber_state.h>
 #include <Core/property/reactivity.h>
 #include <Randomizer/conditions/new_setup_state_override.h>
-#include <Randomizer/macros.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 #include <Modloader/app/methods/Sein/World/Events.h>
 #include <Modloader/interception_macros.h>
@@ -15,12 +14,12 @@ using namespace modloader::win;
 
 namespace {
     bool water_damage_override = false;
-    core::api::uber_states::UberState clean_water_state(UberStateGroup::RandoState, 2000);
+    auto&& clean_water_state = randomizer::uber_states::state<"randoState", "cleanWater">();
 
-    IL2CPP_INTERCEPT(bool, Sein::World::Events, get_WaterPurified) { return !water_damage_override && clean_water_state.get<bool>(); }
+    IL2CPP_INTERCEPT(bool, Sein::World::Events, get_WaterPurified) { return !water_damage_override && clean_water_state.get(); }
 
     randomizer::conditions::applier_intercept_fn create_applier_intercept(int32_t corrupted, int32_t clean) {
-        return [corrupted, clean](auto, auto, auto) -> int32_t { return clean_water_state.get<bool>() ? clean : corrupted; };
+        return [corrupted, clean](auto, auto, auto) -> int32_t { return clean_water_state.get() ? clean : corrupted; };
     }
 
     [[maybe_unused]] core::reactivity::ReactiveEffect::ptr_t water_effect;
@@ -33,7 +32,7 @@ namespace {
         std::function<randomizer::conditions::applier_intercept_fn(int32_t, int32_t)> ai_create = [](int32_t corrupted,
                                                                                                   int32_t clean) -> randomizer::conditions::applier_intercept_fn {
             return [corrupted, clean](auto, auto, auto) -> int32_t {
-                return clean_water_state.get<bool>() ? clean : corrupted;
+                return clean_water_state.get() ? clean : corrupted;
             };
         };
 

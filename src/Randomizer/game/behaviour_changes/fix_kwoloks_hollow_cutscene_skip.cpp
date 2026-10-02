@@ -1,12 +1,13 @@
 #include <optional>
 
 #include <Core/api/scenes/scene_load.h>
+#include <Core/uber_states/core_uber_states.h>
+#include <Modloader/app/methods/Moon/Timeline/MoonTimeline.h>
 #include <Modloader/app/methods/QuestsController.h>
 #include <Modloader/app/methods/SkipCutscene.h>
-#include <Modloader/app/methods/Moon/Timeline/MoonTimeline.h>
+#include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/app/types/QuestsController.h>
 #include <Modloader/app/types/SkipCutscene.h>
-#include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/modloader.h>
 
 #include "Core/api/game/player.h"
@@ -74,10 +75,10 @@ namespace {
      * the condition that kwolokGroupDescriptor.cleanseWellspringQuestUberState needs to be 1
      * to give the pickup.
      */
-    void give_voice_if_not_given() {
-        core::api::uber_states::UberState forests_voice_state(46462, 59806);
 
-        if (forests_voice_state.get<bool>()) {
+    auto& forests_voice_state = core::uber_states::state<"kwoloksCavernThroneRoomGroup", "wispRewardPickup">();
+    void give_voice_if_not_given() {
+        if (forests_voice_state.get()) {
             return;
         }
 

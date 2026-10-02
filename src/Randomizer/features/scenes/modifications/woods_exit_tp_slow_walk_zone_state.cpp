@@ -1,15 +1,16 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/property/reactivity.h>
-#include <Modloader/app/methods/NewSetupStateController.h>
+#include <Core/uber_states/core_uber_states.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 namespace {
     using namespace app::classes;
 
-    core::api::uber_states::UberState use_east_woods_trunk_slow_walk_zone_enabled_state(UberStateGroup::RandoConfig, 36);
-    core::api::uber_states::UberState east_woods_trunk_slow_walk_zone_enabled_state(UberStateGroup::RandoState, 36);
-    core::api::uber_states::UberState original_state(58674, 48394);  // Original state the slow walk zone depends on (true = slow zone inactive)
+    auto& use_east_woods_trunk_slow_walk_zone_enabled_state = randomizer::uber_states::state<"randoConfig", "useEastWoodsTrunkSlowWalkZoneEnabledState">();
+    auto& east_woods_trunk_slow_walk_zone_enabled_state = randomizer::uber_states::state<"randoState", "eastWoodsTrunkSlowWalkZoneEnabledState">();
+    auto& original_state = core::uber_states::state<"_petrifiedForestGroup", "creebBulb">();
 
     std::optional<il2cpp::WeakGCRef<app::GameObject>> ability_restrict_go_ref = std::nullopt;
     core::reactivity::ReactiveEffect::ptr_t effect = nullptr;
@@ -48,10 +49,10 @@ namespace {
                     return;
                 }
 
-                if (use_east_woods_trunk_slow_walk_zone_enabled_state.get<bool>()) {
-                    il2cpp::unity::set_active(*ability_restrict_go, east_woods_trunk_slow_walk_zone_enabled_state.get<bool>());
+                if (use_east_woods_trunk_slow_walk_zone_enabled_state.get()) {
+                    il2cpp::unity::set_active(*ability_restrict_go, east_woods_trunk_slow_walk_zone_enabled_state.get());
                 } else {
-                    il2cpp::unity::set_active(*ability_restrict_go, !original_state.get<bool>());
+                    il2cpp::unity::set_active(*ability_restrict_go, !original_state.get());
                 }
             })
             .trigger_on_load()

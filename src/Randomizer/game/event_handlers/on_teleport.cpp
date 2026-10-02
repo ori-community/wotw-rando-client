@@ -1,18 +1,17 @@
 #include <Randomizer/randomizer.h>
 
-#include <Modloader/app/methods/SavePedestalController.h>
+#include <Core/api/game/game.h>
 #include <Modloader/app/methods/GameController.h>
+#include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
-#include <Core/api/game/game.h>
-#include <Randomizer/uber_states/uber_state_initialization.h>
-
-#include "Randomizer/tracking/game_tracker.h"
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+#include <Randomizer/tracking/game_tracker.h>
 
 
 namespace {
     IL2CPP_INTERCEPT_WITH_ORDER(100, void, SavePedestalController, BeginTeleportation, app::Vector2 position) {
-        randomizer::uber_states::readonly::player_is_teleporting().set(true);
+        randomizer::uber_states::properties::player_is_teleporting().set(true);
         next::SavePedestalController::BeginTeleportation(position);
     }
 
@@ -32,7 +31,7 @@ namespace {
     namespace _2 {
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, GameController, CreateCheckpoint, app::GameController* this_ptr, bool do_perform_save, bool respect_restrict_checkpoint_zone) {
             if (is_in_on_faded_to_black) {
-                randomizer::uber_states::readonly::player_is_teleporting().set(false);
+                randomizer::uber_states::properties::player_is_teleporting().set(false);
                 randomizer::game_seed().environment().process_position_triggers();
             }
 

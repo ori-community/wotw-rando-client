@@ -1,12 +1,13 @@
-#include <Randomizer/messages/message_queue.h>
 #include <Core/api/game/game.h>
+#include <Core/api/game/ui.h>
+#include <Core/utils/position_converter.h>
+#include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
+#include <Modloader/app/methods/Game/UI_Hints.h>
 #include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/types/UI_Hints.h>
-#include <Modloader/app/methods/Game/UI_Hints.h>
-#include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
-#include <Core/utils/position_converter.h>
-#include <Core/api/game/ui.h>
+#include <Modloader/il2cpp_math.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/messages/message_queue.h>
 
 
 namespace randomizer::messages {

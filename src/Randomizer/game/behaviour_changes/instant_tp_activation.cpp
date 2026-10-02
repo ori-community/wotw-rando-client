@@ -1,43 +1,38 @@
-#include <Randomizer/constants.h>
-
 #include <Common/ext.h>
-
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
 #include <Modloader/app/types/PlayerUberStateGroup.h>
 #include <Modloader/interception.h>
 #include <Modloader/interception_macros.h>
-
-#include <Core/enums/teleporter_type.h>
-
 #include <Randomizer/seed/seed.h>
-
 #include <unordered_map>
+#include <Core/uber_states/core_uber_states.h>
+#include <Randomizer/map/fragments.h>
 
-#include "Core/api/uber_states/uber_state_handlers.h"
-#include "Randomizer/map/fragments.h"
 
 using namespace app::classes;
 
 namespace {
-    std::unordered_map<std::pair<app::GameWorldAreaID__Enum, int>, TeleporterType, pair_hash> area_to_tp = {
-        {std::make_pair(app::GameWorldAreaID__Enum::InkwaterMarsh,    2701), TeleporterType::Marsh         },
-        {std::make_pair(app::GameWorldAreaID__Enum::InkwaterMarsh,    4298), TeleporterType::HowlsDen      },
-        {std::make_pair(app::GameWorldAreaID__Enum::WaterMill,        5947), TeleporterType::Wellspring    },
-        {std::make_pair(app::GameWorldAreaID__Enum::MidnightBurrow,   4817), TeleporterType::Burrows       },
-        {std::make_pair(app::GameWorldAreaID__Enum::KwoloksHollow,    5414), TeleporterType::Hollow        },
-        {std::make_pair(app::GameWorldAreaID__Enum::WellspringGlades, 5176), TeleporterType::Glades        },
-        {std::make_pair(app::GameWorldAreaID__Enum::BaursReach,       5735), TeleporterType::Reach         },
-        {std::make_pair(app::GameWorldAreaID__Enum::MouldwoodDepths,  5083), TeleporterType::Depths        },
-        {std::make_pair(app::GameWorldAreaID__Enum::SilentWoodland,   7197), TeleporterType::WestWoods     },
-        {std::make_pair(app::GameWorldAreaID__Enum::SilentWoodland,   7388), TeleporterType::EastWoods     },
-        {std::make_pair(app::GameWorldAreaID__Enum::SilentWoodland,   6967), TeleporterType::FeedingGrounds},
-        {std::make_pair(app::GameWorldAreaID__Enum::WindsweptWastes,  6092), TeleporterType::Wastes        },
-        {std::make_pair(app::GameWorldAreaID__Enum::WindsweptWastes,  6119), TeleporterType::OuterRuins    },
-        {std::make_pair(app::GameWorldAreaID__Enum::WindtornRuins,    5448), TeleporterType::InnerRuins    },
-        {std::make_pair(app::GameWorldAreaID__Enum::LumaPools,        6073), TeleporterType::EastPools     },
-        {std::make_pair(app::GameWorldAreaID__Enum::LumaPools,        6148), TeleporterType::WestPools     },
-        {std::make_pair(app::GameWorldAreaID__Enum::WillowsEnd,       6124), TeleporterType::WillowsEnd    },
-        {std::make_pair(app::GameWorldAreaID__Enum::WillowsEnd,       6432), TeleporterType::Shriek        },
+    auto& pools_water_lowered_state = core::uber_states::state<"lumaPoolsStateGroup", "waterLowered">();
+
+    std::unordered_map<std::pair<app::GameWorldAreaID__Enum, int>, core::api::uber_states::UberState<core::api::uber_states::UberStateType::SavePedestalUberState>, pair_hash> area_to_tp = {
+        {std::make_pair(app::GameWorldAreaID__Enum::InkwaterMarsh,    2701), core::uber_states::state<"swampStateGroup", 10185>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::InkwaterMarsh,    4298), core::uber_states::state<"howlsDenGRoup", 61594>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::WaterMill,        5947), core::uber_states::state<"wellspringGroupDescriptor", 18181>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::MidnightBurrow,   4817), core::uber_states::state<"howlsOriginGroup", 42531>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::KwoloksHollow,    5414), core::uber_states::state<"kwolokGroupDescriptor", 26601>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::WellspringGlades, 5176), core::uber_states::state<"hubUberStateGroup", 42096>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::BaursReach,       5735), core::uber_states::state<"baursReachGroup", 54235>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::MouldwoodDepths,  5083), core::uber_states::state<"mouldwoodDepthsGroup", 38871>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::SilentWoodland,   7197), core::uber_states::state<"_petrifiedForestGroup", 7071>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::SilentWoodland,   7388), core::uber_states::state<"_petrifiedForestGroup", 1965>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::SilentWoodland,   6967), core::uber_states::state<"_petrifiedForestGroup", 10029>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::WindsweptWastes,  6092), core::uber_states::state<"windsweptWastesGroupDescriptor", 49994>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::WindsweptWastes,  6119), core::uber_states::state<"windsweptWastesGroupDescriptor", 41398>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::WindtornRuins,    5448), core::uber_states::state<"windtornRuinsGroup", 4928>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::LumaPools,        6073), core::uber_states::state<"lagoonStateGroup", 58183>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::LumaPools,        6148), core::uber_states::state<"lagoonStateGroup", 1370>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::WillowsEnd,       6124), core::uber_states::state<"willowsEndGroup", 41465>() },
+        {std::make_pair(app::GameWorldAreaID__Enum::WillowsEnd,       6432), core::uber_states::state<"willowsEndGroup", 50867>() },
     };
 
     IL2CPP_INTERCEPT_WITH_ORDER(
@@ -61,21 +56,21 @@ namespace {
             return;
         }
 
-        if (it->second == TeleporterType::EastPools && !core::api::uber_states::UberState(5377, 63173).get<bool>()) {
+        if (it->second == core::uber_states::state<"lagoonStateGroup", 58183>() && !pools_water_lowered_state.get()) {
             // Don't grant TP if we haven't lowered the water, see below.
             return;
         }
 
-        tp_type_to_state(it->second).set(true);
+        it->second.set(true);
     }
 
     [[maybe_unused]]
-    auto on_luma_pools_water_drained = core::api::uber_states::single_notification_bus().register_handler(
-        core::api::uber_states::UberState(5377, 63173),
-        [](auto params, auto) {
-            if (params.state.template get<bool>() && randomizer::map::fragments::has_been_visited(app::GameWorldAreaID__Enum::LumaPools, 6073)) {
+    auto on_luma_pools_water_drained = core::api::uber_states::on_uber_state_changed().register_handler(
+        pools_water_lowered_state,
+        [](auto) {
+            if (pools_water_lowered_state.get() && randomizer::map::fragments::has_been_visited(app::GameWorldAreaID__Enum::LumaPools, 6073)) {
                 // Give Luma Pools TP.
-                core::api::uber_states::UberState(945, 26601).set(true);
+                core::uber_states::state<"lagoonStateGroup", 58183>().set(true);
             }
         }
     );

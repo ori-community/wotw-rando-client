@@ -253,6 +253,7 @@ namespace core::input {
             auto camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
             auto ui_position = UnityEngine::Camera::ViewportToWorldPoint_2(camera, app::Vector3{ viewport_position.x, viewport_position.y, 0.f });
 
+            using namespace UnityEngine::Vector3::operators;
             simulated_mouse_position_indicator->local_position(ui_position + app::Vector3{ indicator_position_offset, -indicator_position_offset, 0.f });
         }
 

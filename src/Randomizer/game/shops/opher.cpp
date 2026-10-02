@@ -1,25 +1,21 @@
 #include <Randomizer/game/shops/opher.h>
 #include <Randomizer/game/shops/shop.h>
-
 #include <Core/api/game/player.h>
-
 #include <Modloader/app/methods/DesiredUberStateComposite.h>
 #include <Modloader/app/methods/Moon/SerializedByteUberState.h>
 #include <Modloader/app/methods/SpellUIExperience.h>
 #include <Modloader/app/methods/UISoundSettingsAsset.h>
 #include <Modloader/app/methods/UpgradableShardItem.h>
 #include <Modloader/app/methods/WeaponmasterItem.h>
-#include <Modloader/app/types/PurchaseContext.h>
 #include <Modloader/app/types/SpellUIExperience.h>
 #include <Modloader/app/types/UI.h>
 #include <Modloader/app/types/WeaponmasterItem.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 
-#include <set>
 
 namespace randomizer::game::shops::opher {
-    core::api::uber_states::UberState get_slot_key_for_ability_types(app::AbilityType__Enum acquired_ability_type, app::AbilityType__Enum required_ability) {
+    ShopSlot::is_purchased_state_id_t get_slot_key_for_ability_types(app::AbilityType__Enum acquired_ability_type, app::AbilityType__Enum required_ability) {
         switch (acquired_ability_type) {
             case app::AbilityType__Enum::WaterBreath:
             case app::AbilityType__Enum::SpiritSpearSpell:
@@ -27,7 +23,7 @@ namespace randomizer::game::shops::opher {
             case app::AbilityType__Enum::ChakramSpell:
             case app::AbilityType__Enum::Blaze:
             case app::AbilityType__Enum::TurretSpell:
-                return {UberStateGroup::OpherShop, static_cast<int>(acquired_ability_type)};
+                return {1, static_cast<int>(acquired_ability_type)};
             default:;
         }
 
@@ -37,7 +33,7 @@ namespace randomizer::game::shops::opher {
             case app::AbilityType__Enum::ChakramSpell:
             case app::AbilityType__Enum::Blaze:
             case app::AbilityType__Enum::TurretSpell:
-                return {UberStateGroup::OpherShop, 1000 + static_cast<int>(required_ability)};
+                return {1, 1000 + static_cast<int>(required_ability)};
             default:;
         }
 
@@ -46,7 +42,7 @@ namespace randomizer::game::shops::opher {
             acquired_ability_type == app::AbilityType__Enum::None &&
             required_ability == app::AbilityType__Enum::None
         ) {
-            return {UberStateGroup::OpherShop, 105};
+            return {1, 105};
         }
 
         throw std::exception("Unknown Opher ability type combination for Opher shop");
@@ -105,8 +101,7 @@ namespace randomizer::game::shops::opher {
             //     context->Result = app::PurchaseResult__Enum::UsedUpDiscount;
             // }
 
-            const auto& slot = get_slot(this_ptr->fields.Upgrade->fields.AcquiredAbilityType, this_ptr->fields.Upgrade->fields.RequiredAbility);
-
+            auto& slot = get_slot(this_ptr->fields.Upgrade->fields.AcquiredAbilityType, this_ptr->fields.Upgrade->fields.RequiredAbility);
             buy_item(slot);
         }
 

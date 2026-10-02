@@ -300,13 +300,14 @@ namespace randomizer::ipc {
         }
 
         void visualize_uber_state(nlohmann::json& j, void* obj, bool verbose) {
-            core::api::uber_states::UberState state(reinterpret_cast<app::IUberState*>(obj));
+            auto state = core::api::uber_states::UntypedUberState::from_native_ptr(static_cast<app::IUberState*>(obj));
+
             j["value"] = nlohmann::json::array({
-                create_variable("group_id", "scalar", state.group()),
-                create_variable("state_id", "scalar", state.state()),
-                create_variable("group_name", "scalar", state.group_name()),
-                create_variable("state_name", "scalar", state.state_name()),
-                create_variable("value", "scalar", state.get()),
+                create_variable("group_id", "scalar", state.get_uber_id().group),
+                create_variable("state_id", "scalar", state.get_uber_id().member),
+                create_variable("group_name", "scalar", state.get_group_name()),
+                create_variable("state_name", "scalar", state.get_name()),
+                create_variable("value", "scalar", state.get<double>()),
             });
         }
 

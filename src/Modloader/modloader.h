@@ -11,6 +11,7 @@
 
 enum class ModloaderEvent {
     InjectionComplete,
+    InitializeUberStates,
     GameReady,
     Shutdown,
 };
@@ -95,6 +96,8 @@ namespace modloader {
     IL2CPP_MODLOADER_DLLEXPORT void shutdown();
 
     IL2CPP_MODLOADER_DLLEXPORT bool is_game_ready();
+
+    IL2CPP_MODLOADER_DLLEXPORT bool are_uber_states_initialized();
 
     IL2CPP_MODLOADER_DLLEXPORT extern std::atomic<bool> shutdown_requested;
 } // namespace modloader

@@ -1,19 +1,20 @@
-
-
-#include <thread>
 #include <Core/api/audio.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/events/task.h>
+#include <Core/uber_states/core_uber_states.h>
 #include <Randomizer/tracking/game_tracker.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+#include <thread>
 
 namespace {
-    core::api::uber_states::UberState knock_knock_wellspring_enabled_state(UberStateGroup::RandoConfig, 102);
+    auto& knock_knock_wellspring_enabled_state = randomizer::uber_states::state<"randoConfig", "knockKnockWellspring">();
+    auto& wellspring_teleporter_state = core::uber_states::state<"wellspringGroupDescriptor", 18181>();
 
     [[maybe_unused]]
-    auto uber_state_bus_handle = core::api::uber_states::single_notification_bus().register_handler(
-        core::api::uber_states::UberState(53632, 18181),
-        [](const core::api::uber_states::UberStateCallbackParams& params, auto) {
-            if (params.value > 0.5 && params.previous_value < 0.5 && knock_knock_wellspring_enabled_state.get<bool>()) {
+    auto uber_state_bus_handle = core::api::uber_states::on_uber_state_changed().register_handler(
+        wellspring_teleporter_state.get_uber_id(),  // savePedestalUberState
+        [](auto) {
+            if (wellspring_teleporter_state.get() && knock_knock_wellspring_enabled_state.get()) {
                 const auto stats = randomizer::timing::get_save_file_game_stats();
 
                 // TODO: Check in events stream whether the player was in Wellspring before

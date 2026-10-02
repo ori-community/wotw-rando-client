@@ -11,7 +11,7 @@ INSTRUCTION(CreateSpoilerMapIcon)
     std::size_t id;
     map::icons::MapIcon::Type icon_type;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         static map::icons::MapIcon::visibility_effect_fn_t spoiler_icon_visibility_effect_fn = [] (const map::filter::MapFilter& filter) {
             return filter == map::filter::MapFilter::Spoiler
                 ? map::icons::MapIcon::Visibilities::visible
@@ -33,7 +33,7 @@ INSTRUCTION(CreateSpoilerMapIcon)
         );
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("CreateSpoilerMapIcon -> {}, {} at {}, {}", id, magic_enum::enum_name(icon_type), memory.heap.get<float>(0), memory.heap.get<float>(1));
     }
 

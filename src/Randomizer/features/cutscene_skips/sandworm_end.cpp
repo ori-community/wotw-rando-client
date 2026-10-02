@@ -2,14 +2,15 @@
 #include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/il2cpp_helpers.h>
 
-#include "custom_cutscene_skips.h"
 #include <Common/event_bus.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state.h>
+#include <Core/uber_states/core_uber_states.h>
 #include <Core/utils/misc.h>
 #include <Modloader/modloader.h>
+#include "custom_cutscene_skips.h"
 
 using namespace utils;
 using namespace app::classes;
@@ -70,6 +71,9 @@ namespace {
         next_frame_action = TeleportAndSave;
     }
 
+    auto& ruins_wisp_state = core::uber_states::state<"windtornRuinsGroup", "wispRewardPickup">();
+    auto& ruins_wisp_quest_state = core::uber_states::state<"questUberStateGroup", "desertWispQuestUberState">();
+
     void on_fixed_update(GameEvent game_event, EventTiming timing) {
         switch (next_frame_action) {
             case Idle:
@@ -77,11 +81,8 @@ namespace {
             case TeleportAndSave:
                 il2cpp::unity::destroy_object(escape_end_timeline_go.ptr);
 
-                core::api::uber_states::UberState ruins_wisp_state(static_cast<UberStateGroup>(10289), 22102);
-                ruins_wisp_state.set(1.0);
-
-                core::api::uber_states::UberState ruins_wisp_quest_state(static_cast<UberStateGroup>(14019), 35399);
-                ruins_wisp_quest_state.set(3.0);
+                ruins_wisp_state.set(true);
+                ruins_wisp_quest_state.set(3);
 
                 core::api::game::player::set_position(2055.673f, -3568.293);
                 core::api::game::save(true, core::api::game::SaveOptions{

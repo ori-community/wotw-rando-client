@@ -11,6 +11,8 @@
 #include <Modloader/app/types/SpiritShardsShopScreen.h>
 #include <Modloader/app/types/WeaponmasterScreen.h>
 
+#include <Core/uber_states/core_uber_states.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <variant>
 
 namespace randomizer::game::shops {
@@ -21,7 +23,7 @@ namespace randomizer::game::shops {
         return shop_collection;
     }
 
-    ShopUIShopSlot::ShopUIShopSlot() {
+    ShopUIShopSlot::ShopUIShopSlot(const is_purchased_state_t& is_purchased_state) : ShopSlot(is_purchased_state) {
         core::reactivity::watch_effect().effect(icon_texture_identifier).after([&] {
             m_icon_cache = std::nullopt;
         }).finalize_inplace(m_icon_effect);
@@ -75,61 +77,61 @@ namespace randomizer::game::shops {
 
     ShopCollection::ShopCollection() :
         m_opher_shop({
-            core::api::uber_states::UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::WaterBreath)),
-            core::api::uber_states::UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::SpiritSpearSpell)),
-            core::api::uber_states::UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::Hammer)),
-            core::api::uber_states::UberState(UberStateGroup::OpherShop, 105), // Fast Travel
-            core::api::uber_states::UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::ChakramSpell)),
-            core::api::uber_states::UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::Blaze)),
-            core::api::uber_states::UberState(UberStateGroup::OpherShop, static_cast<int>(app::AbilityType__Enum::TurretSpell)),
-            core::api::uber_states::UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::SpiritSpearSpell)),
-            core::api::uber_states::UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::Hammer)),
-            core::api::uber_states::UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::ChakramSpell)),
-            core::api::uber_states::UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::Blaze)),
-            core::api::uber_states::UberState(UberStateGroup::OpherShop, 1000 + static_cast<int>(app::AbilityType__Enum::TurretSpell)),
+            uber_states::state<"opherShop", "waterBreath">(),
+            uber_states::state<"opherShop", "spear">(),
+            uber_states::state<"opherShop", "hammer">(),
+            uber_states::state<"opherShop", "fastTravel">(),
+            uber_states::state<"opherShop", "shuriken">(),
+            uber_states::state<"opherShop", "blaze">(),
+            uber_states::state<"opherShop", "sentry">(),
+            uber_states::state<"opherShop", "explodingSpear">(),
+            uber_states::state<"opherShop", "hammerShockwave">(),
+            uber_states::state<"opherShop", "staticShuriken">(),
+            uber_states::state<"opherShop", "chargeBlaze">(),
+            uber_states::state<"opherShop", "rapidSentry">(),
         }),
         m_twillen_shop({
-            core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::GlassCannon)),
-            core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::TripleJump)),
-            core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::AntiAir)),
-            core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::Swap)),
-            core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::SpiritLightLuck)),
-            core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::Vitality)),
-            core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::Energy)),
-            core::api::uber_states::UberState(UberStateGroup::TwillenShop, static_cast<int>(app::SpiritShardType__Enum::CombatLuck)),
+            uber_states::state<"twillenShop", "overcharge">(),
+            uber_states::state<"twillenShop", "tripleJump">(),
+            uber_states::state<"twillenShop", "wingclip">(),
+            uber_states::state<"twillenShop", "swap">(),
+            uber_states::state<"twillenShop", "lightHarvest">(),
+            uber_states::state<"twillenShop", "vitality">(),
+            uber_states::state<"twillenShop", "energy">(),
+            uber_states::state<"twillenShop", "finesse">(),
         }),
         m_lupo_shop({
-            core::api::uber_states::UberState(UberStateGroup::LupoShop, 19396),
-            core::api::uber_states::UberState(UberStateGroup::LupoShop, 57987),
-            core::api::uber_states::UberState(UberStateGroup::LupoShop, 41666),
+            uber_states::state<"lupoShop", "hcMapIcons">(),
+            uber_states::state<"lupoShop", "shardMapIcons">(),
+            uber_states::state<"lupoShop", "ecMapIcons">(),
         }),
         m_lupo_maps_shop({
-            core::api::uber_states::UberState(48248, 18767), // Marsh
-            core::api::uber_states::UberState(48248, 3638), // Hollow
-            core::api::uber_states::UberState(48248, 1590), // Wellspring
-            core::api::uber_states::UberState(48248, 45538), // Burrows
-            core::api::uber_states::UberState(48248, 29604), // Reach
-            core::api::uber_states::UberState(48248, 1557), // Pools
-            core::api::uber_states::UberState(48248, 48423), // Depths
-            core::api::uber_states::UberState(48248, 61146), // Wastes
-            core::api::uber_states::UberState(48248, 4045), // Willow
+            core::uber_states::state<"npcsStateGroup", "hasMapInkwaterMarsh">(),
+            core::uber_states::state<"npcsStateGroup", "hasMapKwoloksHollow">(),
+            core::uber_states::state<"npcsStateGroup", "hasMapWellspring">(),
+            core::uber_states::state<"npcsStateGroup", "hasMapHowlsOrigin">(),
+            core::uber_states::state<"npcsStateGroup", "hasMapBaursReach">(),
+            core::uber_states::state<"npcsStateGroup", "hasMapLumaPools">(),
+            core::uber_states::state<"npcsStateGroup", "hasMapMouldwoodDepths">(),
+            core::uber_states::state<"npcsStateGroup", "hasMapWindsweptWastes">(),
+            core::uber_states::state<"npcsStateGroup", "hasMapWillowsEnd">(),
         }),
         m_grom_shop({
-            core::api::uber_states::UberState(UberStateGroup::GromShop, 15068), // Beautify
-            core::api::uber_states::UberState(UberStateGroup::GromShop, 51230), // Houses
-            core::api::uber_states::UberState(UberStateGroup::GromShop, 23607), // Houses B
-            core::api::uber_states::UberState(UberStateGroup::GromShop, 40448), // Houses C
-            core::api::uber_states::UberState(UberStateGroup::GromShop, 16586), // Open Cave
-            core::api::uber_states::UberState(UberStateGroup::GromShop, 18751), // Remove Thorns
-            core::api::uber_states::UberState(UberStateGroup::GromShop, 16825), // Spirit Well
+            uber_states::state<"gromShop", "theGorlekTouch">(),
+            uber_states::state<"gromShop", "clearTheCaveEntrance">(),
+            uber_states::state<"gromShop", "repairTheSpiritWell">(),
+            uber_states::state<"gromShop", "thornySituation">(),
+            uber_states::state<"gromShop", "roofsOverHeads">(),
+            uber_states::state<"gromShop", "onwardsAndUpwards">(),
+            uber_states::state<"gromShop", "dwellingRepairs">(),
         }),
         m_tuley_shop({
-            core::api::uber_states::UberState(UberStateGroup::TuleyShop, 47651), // Bash Plants
-            core::api::uber_states::UberState(UberStateGroup::TuleyShop, 16254), // Flowers
-            core::api::uber_states::UberState(UberStateGroup::TuleyShop, 33011), // Grapple Plants
-            core::api::uber_states::UberState(UberStateGroup::TuleyShop, 64583), // Grass
-            core::api::uber_states::UberState(UberStateGroup::TuleyShop, 38393), // Spring Plants
-            core::api::uber_states::UberState(UberStateGroup::TuleyShop, 40006), // Tree
+            uber_states::state<"tuleyShop", "selaFlowers">(),
+            uber_states::state<"tuleyShop", "blueMoon">(),
+            uber_states::state<"tuleyShop", "springPlants">(),
+            uber_states::state<"tuleyShop", "lastTree">(),
+            uber_states::state<"tuleyShop", "lightcatchers">(),
+            uber_states::state<"tuleyShop", "stickyGrass">(),
         }) {
         register_slots(m_opher_shop);
         register_slots(m_twillen_shop);
@@ -139,7 +141,7 @@ namespace randomizer::game::shops {
         register_slots(m_tuley_shop);
     }
 
-    const std::unordered_map<core::api::uber_states::UberState, ShopCollection::any_shop_slot_reference_t>& ShopCollection::slots() {
+    const std::unordered_map<ShopSlot::is_purchased_state_id_t, ShopCollection::any_shop_slot_reference_t>& ShopCollection::slots() {
         return m_slots;
     }
 
@@ -163,8 +165,8 @@ namespace randomizer::game::shops {
         tuley_shop().deserialize(j.at("tuley"));
     }
 
-    std::optional<ShopCollection::any_shop_slot_reference_t> shop_slot_from_state(const core::api::uber_states::UberState state) {
-        const auto it = shops()->slots().find(state);
+    std::optional<ShopCollection::any_shop_slot_reference_t> shop_slot_from_state(const ShopSlot::is_purchased_state_id_t state_id) {
+        const auto it = shops()->slots().find(state_id);
         if (it == shops()->slots().end()) {
             return std::nullopt;
         }
@@ -172,11 +174,11 @@ namespace randomizer::game::shops {
         return it->second;
     }
 
-    bool is_owned(ShopSlot const& slot) {
-        return slot.is_purchased_state.get<bool>();
+    bool is_owned(ShopSlot& slot) {
+        return slot.is_purchased_state.get();
     }
 
-    void buy_item(ShopSlot const& slot) {
+    void buy_item(ShopSlot& slot) {
         slot.is_purchased_state.set(true);
     }
 

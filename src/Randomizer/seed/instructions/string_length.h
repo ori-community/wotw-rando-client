@@ -3,11 +3,11 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(StringLength)
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         memory.heap.set<int>(0, memory.heap.get<std::string>(0).length());
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("StringLength '{}'", memory.heap.get<std::string>(0));
     }
 

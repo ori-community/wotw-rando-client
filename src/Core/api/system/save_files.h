@@ -1,6 +1,9 @@
 #pragma once
 
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Core/macros.h>
 #include <vector>
+
 
 namespace core::api::save_files {
   /**

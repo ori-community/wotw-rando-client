@@ -101,7 +101,7 @@ namespace {
             return;
         }
 
-        core::api::uber_states::UberState(static_cast<UberStateGroup>(group), state).set(value);
+        core::api::uber_states::UntypedUberState(group, state).set(value);
     }
 
     void set_us_int(std::string const& command, std::vector<console::CommandParam> const& params) {
@@ -123,7 +123,7 @@ namespace {
             return;
         }
 
-        core::api::uber_states::UberState(static_cast<UberStateGroup>(group), state).set(value);
+        core::api::uber_states::UntypedUberState(group, state).set(value);
     }
 
     void check_appliers(std::vector<console::CommandParam> const& params) {
@@ -134,8 +134,8 @@ namespace {
             return;
         }
 
-        const core::api::uber_states::UberState uber_state(static_cast<UberStateGroup>(group), state);
-        if (uber_state.valid()) {
+        core::api::uber_states::UntypedUberState uber_state(group, state);
+        if (uber_state.is_valid()) {
             console::console_send("uber_state not found");
             return;
         }
@@ -145,7 +145,7 @@ namespace {
 
         auto list = uber_state_controller->static_fields->AllStateAppliers;
         for (auto item: il2cpp::ListIterator(list)) {
-            if (Moon::UberStateController::ApplierIsAffectedByUberState(item, uber_state.ptr())) {
+            if (Moon::UberStateController::ApplierIsAffectedByUberState(item, uber_state.get_native_ptr())) {
                 dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
             }
         }
@@ -199,14 +199,14 @@ namespace {
 
         j["groups"] = nlohmann::json::object();
 
-        auto collect_uber_state = [&](const core::api::uber_states::UberState& uber_state) {
-            const auto group_key = std::to_string(uber_state.group_int());
-            const auto state_key = std::to_string(uber_state.state());
+        auto collect_uber_state = [&](core::api::uber_states::UntypedUberState& uber_state) {
+            const auto group_key = std::to_string(uber_state.get_uber_id().group);
+            const auto state_key = std::to_string(uber_state.get_uber_id().member);
 
             if (!j["groups"].contains(group_key)) {
                 j["groups"][group_key] = nlohmann::json::object(
                     {
-                        {"name", uber_state.group_name()},
+                        {"name", uber_state.get_group_name()},
                         {"states", nlohmann::json::object()},
                     }
                 );
@@ -214,22 +214,21 @@ namespace {
 
             j["groups"][group_key]["states"][state_key] = nlohmann::json::object(
                 {
-                    {"name", uber_state.state_name()},
-                    {"type", uber_state.type()},
-                    {"value_type", uber_state.value_type()},
+                    {"name", uber_state.get_name()},
+                    {"type", uber_state.get_type()},
                     {"value", uber_state.get<double>()},
-                    {"readonly", uber_state.readonly()},
+                    {"readonly", uber_state.is_read_only()},
                 }
             );
         };
 
         for (const auto state: il2cpp::ListIterator(collection)) {
-            core::api::uber_states::UberState uber_state(reinterpret_cast<app::IUberState*>(state));
+            auto uber_state = core::api::uber_states::UntypedUberState::from_native_ptr(reinterpret_cast<app::IUberState*>(state));
             collect_uber_state(uber_state);
         }
 
         for (const auto [group, state]: core::api::uber_states::get_virtual_uber_state_ids()) {
-            core::api::uber_states::UberState uber_state(group, state);
+            core::api::uber_states::UntypedUberState uber_state(group, state);
             collect_uber_state(uber_state);
         }
 

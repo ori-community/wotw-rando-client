@@ -2,17 +2,14 @@
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/property/reactivity.h>
-#include <Randomizer/conditions/condition_override.h>
-#include <Randomizer/conditions/new_setup_state_override.h>
-
-#include <Modloader/app/methods/UnityEngine/GameObject.h>
+#include <Core/uber_states/core_uber_states.h>
 #include <Modloader/app/methods/LightCanvasStateController.h>
 #include <Modloader/app/methods/PlayerAbilities.h>
 #include <Modloader/app/methods/PostStateDefinition.h>
 #include <Modloader/app/methods/QuestNodeSetup_QuestInteraction.h>
 #include <Modloader/app/methods/SwampNightDayTransition.h>
 #include <Modloader/app/methods/TurbulenceStateDefinition.h>
-#include <Modloader/app/methods/System/Collections/Generic/List_1_SetupStateModifier_.h>
+#include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/structs/Boolean__Boxed.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/LightCanvasStateController.h>
@@ -21,29 +18,31 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/conditions/condition_override.h>
+#include <Randomizer/conditions/new_setup_state_override.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
-bool disable_has_ability_overwrite = false;
 
 using namespace app::classes;
 
 namespace {
     bool force_day_time = false;
 
-    const auto RAIN_LIFTED_IN_MARSH = core::api::uber_states::UberState(UberStateGroup::RandoState, 401);
-    const auto REGEN_TREE_DRAINED = core::api::uber_states::UberState(UberStateGroup::RandoState, 402);
-    const auto USE_RAIN_LIFTED_IN_MARSH_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoConfig, 34);
-    const auto USE_REGEN_TREE_DRAINED_RANDO_STATE = core::api::uber_states::UberState(UberStateGroup::RandoConfig, 35);
+    auto& rain_lifted_in_marsh_state = randomizer::uber_states::state<"randoState", "rainLiftedInMarsh">();
+    auto& regen_tree_drained_state = randomizer::uber_states::state<"randoState", "regenTreeDrained">();
+    auto& use_rain_lifted_in_marsh_rando_state = randomizer::uber_states::state<"randoConfig", "useRainLiftedInMarshRandoState">();
+    auto& use_regen_tree_drained_rando_state = randomizer::uber_states::state<"randoConfig", "useRegenTreeDrainedRandoState">();
 
     bool is_day() {
         if (force_day_time) {
             return true;
         }
 
-        return RAIN_LIFTED_IN_MARSH.get<bool>();
+        return rain_lifted_in_marsh_state.get();
     }
 
     std::optional<bool> is_day_condition(std::string_view, void*) {
-        if (!USE_RAIN_LIFTED_IN_MARSH_RANDO_STATE.get<bool>()) {
+        if (!use_rain_lifted_in_marsh_rando_state.get()) {
             return std::nullopt;
         }
 
@@ -52,7 +51,7 @@ namespace {
 
     randomizer::conditions::applier_intercept_fn make_day_night_applier_intercept_fn(int day_state, int night_state) {
         return [=](auto, auto, auto original_state) {
-            if (!USE_RAIN_LIFTED_IN_MARSH_RANDO_STATE.get<bool>()) {
+            if (!use_rain_lifted_in_marsh_rando_state.get()) {
                 return original_state;
             }
 
@@ -89,7 +88,7 @@ namespace {
     }
 
     int32_t regen_tree(app::NewSetupStateController* controller, std::string const&, int32_t original_state) {
-        if (!USE_REGEN_TREE_DRAINED_RANDO_STATE.get<bool>()) {
+        if (!use_regen_tree_drained_rando_state.get()) {
             return original_state;
         }
 
@@ -143,8 +142,8 @@ namespace {
         using entry_t = app::GameObject* const;
         auto const& enable_day_night = is_day() ? std::span<entry_t>(day_objects) : std::span<entry_t>(night_objects);
         auto const& disable_day_night = !is_day() ? std::span<entry_t>(day_objects) : std::span<entry_t>(night_objects);
-        auto const& enable_water_or_dry = REGEN_TREE_DRAINED.get<bool>() ? std::span<entry_t>(dry_objects) : std::span<entry_t>(wet_objects);
-        auto const& disable_water_or_dry = !REGEN_TREE_DRAINED.get<bool>() ? std::span<entry_t>(dry_objects) : std::span<entry_t>(wet_objects);
+        auto const& enable_water_or_dry = regen_tree_drained_state.get() ? std::span<entry_t>(dry_objects) : std::span<entry_t>(wet_objects);
+        auto const& disable_water_or_dry = !regen_tree_drained_state.get() ? std::span<entry_t>(dry_objects) : std::span<entry_t>(wet_objects);
         for (const auto game_object: enable_day_night) {
             il2cpp::unity::set_active(game_object, true);
         }
@@ -173,13 +172,13 @@ namespace {
             il2cpp::unity::set_parent(platform_b, platform_group);
         }
 
-        il2cpp::unity::set_active(platform_group, !REGEN_TREE_DRAINED.get<bool>());
+        il2cpp::unity::set_active(platform_group, !regen_tree_drained_state.get());
 
         const auto log = core::api::scenes::get_game_object("swampSaveRoomA/physics/movingBranch/log/logcore");
         const auto leaves_day = core::api::scenes::get_game_object("swampSaveRoomA/artSetups/spiritTablet/art/leavesDay");
         const auto leaves_night = core::api::scenes::get_game_object("swampSaveRoomA/artSetups/spiritTablet/art/leavesNight");
 
-        il2cpp::unity::set_active(log, REGEN_TREE_DRAINED.get<bool>());
+        il2cpp::unity::set_active(log, regen_tree_drained_state.get());
         il2cpp::unity::set_active(leaves_day, is_day());
         il2cpp::unity::set_active(leaves_night, !is_day());
 
@@ -219,17 +218,17 @@ namespace {
             return;
         }
 
-        core::api::uber_states::UberState howl_escape_started(21786, 30656);
-        core::api::uber_states::UberState howl_escape_done(21786, 40322);
+        static auto& howl_escape_started_state = core::uber_states::state<"swampStateGroup", "nightCrawlerChaseStarted">();
+        static auto& howl_escape_done_state = core::uber_states::state<"swampStateGroup", "nightCrawlerDefeated">();
 
         il2cpp::unity::set_active(
             *mokk_the_brave_setup,
-            !howl_escape_started.get<bool>() || howl_escape_done.get<bool>()
+            !howl_escape_started_state.get() || howl_escape_done_state.get()
         );
     }
 
     int32_t always_spawn_howl(app::NewSetupStateController* this_ptr, std::string const&, int32_t original_state) {
-        if (!USE_RAIN_LIFTED_IN_MARSH_RANDO_STATE.get<bool>()) {
+        if (!use_rain_lifted_in_marsh_rando_state.get()) {
             return original_state;
         }
 
@@ -247,22 +246,24 @@ namespace {
         return state;
     }
 
-    auto uber_state_notify = core::api::uber_states::notification_bus().register_handler([](auto params) {
-        if (
-            params.state == RAIN_LIFTED_IN_MARSH ||
-            params.state == USE_RAIN_LIFTED_IN_MARSH_RANDO_STATE ||
-            params.state == USE_REGEN_TREE_DRAINED_RANDO_STATE ||
-            params.state == REGEN_TREE_DRAINED
-        ) {
+    [[maybe_unused]]
+    auto uber_state_notify = core::api::uber_states::on_uber_state_changed().register_handlers(
+        {
+            rain_lifted_in_marsh_state,
+            use_rain_lifted_in_marsh_rando_state,
+            regen_tree_drained_state,
+            use_regen_tree_drained_rando_state,
+        },
+        [](auto params) {
             randomizer::conditions::apply_all_states();
         }
-    });
+    );
 
     IL2CPP_INTERCEPT(bool, SwampNightDayTransition, DayTimeCondition, app::SwampNightDayTransition * this_ptr) { return is_day(); }
 
     bool override_has_ability = false;
     IL2CPP_INTERCEPT(void, SwampNightDayTransition, UpdateStateBasedOnCondition, app::SwampNightDayTransition * this_ptr) {
-        modloader::ScopedSetter setter(override_has_ability, USE_RAIN_LIFTED_IN_MARSH_RANDO_STATE.get<bool>());
+        modloader::ScopedSetter setter(override_has_ability, use_rain_lifted_in_marsh_rando_state.get());
         next::SwampNightDayTransition::UpdateStateBasedOnCondition(this_ptr);
     }
 
@@ -294,6 +295,7 @@ namespace {
         });
     });
 
+    [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         using namespace randomizer::conditions;
         register_new_setup_intercept({"swampTorchIntroductionA/*setups/*timesOfDay"}, {-1052258879, 1819061226}, make_day_night_applier_intercept_fn(-1052258879, 1819061226));

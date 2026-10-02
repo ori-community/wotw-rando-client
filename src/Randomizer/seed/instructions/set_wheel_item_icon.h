@@ -13,11 +13,11 @@ INSTRUCTION(SetWheelItemIcon)
     features::wheel::WheelItemPosition position;
     core::api::graphics::textures::TextureIdentifier icon;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         set_wheel_item_texture(wheel, position, icon);
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("SetWheelItemIcon -> Wheel {}, Position {} = {}:{}", wheel, static_cast<int>(position), icon.protocol, icon.id);
     }
 

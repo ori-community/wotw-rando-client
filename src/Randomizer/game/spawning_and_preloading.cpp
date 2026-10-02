@@ -1,37 +1,26 @@
-#include <Randomizer/game/teleport.h>
-#include <Randomizer/randomizer.h>
-
 #include <Core/api/faderb.h>
+#include <Core/api/game/debug_menu.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
+#include <Core/api/system/message_provider.h>
+#include <Core/core.h>
 #include <Core/enums/game_event.h>
 #include <Core/events/task.h>
-
-#include <Common/ext.h>
-#include <Core/api/game/debug_menu.h>
-#include <Core/core.h>
-
-#include <Randomizer/game/spawning_and_preloading.h>
-
-#include <Core/api/system/message_provider.h>
 #include <Modloader/app/methods/ActionSequence.h>
 #include <Modloader/app/methods/CameraPivotZone.h>
-#include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/methods/Core/Input_InputButtonProcessor.h>
-#include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/GameplayCamera.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/RunActionOnce.h>
 #include <Modloader/app/methods/SaveSlotUI.h>
-#include <Modloader/app/methods/SaveSlotsManager.h>
 #include <Modloader/app/methods/SaveSlotsUI.h>
 #include <Modloader/app/methods/ScenesManager.h>
+#include <Modloader/app/methods/SetupGameplayOnTrigger.h>
 #include <Modloader/app/methods/TitleScreenManager.h>
 #include <Modloader/app/methods/UnityEngine/Behaviour.h>
 #include <Modloader/app/methods/WaitAction.h>
-#include <Modloader/app/methods/SetupGameplayOnTrigger.h>
 #include <Modloader/app/types/ActionSequence.h>
 #include <Modloader/app/types/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/types/FaderBFadeInAction.h>
@@ -42,8 +31,12 @@
 #include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/app/types/WaitAction.h>
 #include <Modloader/il2cpp_helpers.h>
+#include <Modloader/il2cpp_math.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
+#include <Randomizer/game/spawning_and_preloading.h>
+#include <Randomizer/game/teleport.h>
+#include <Randomizer/randomizer.h>
 #include <Randomizer/ui/main_menu_seed_info.h>
 
 

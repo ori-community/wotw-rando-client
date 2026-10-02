@@ -8,7 +8,7 @@ INSTRUCTION(LogicOperation)
 
     LogicOperator op;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         switch (op) {
             case LogicOperator::And:
                 memory.heap.set<bool>(0, memory.heap.get<bool>(0) && memory.heap.get<bool>(1));
@@ -19,7 +19,7 @@ INSTRUCTION(LogicOperation)
         }
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         nlohmann::json j;
         to_json(j, op);
         return std::format("LogicOperation -> {} {} {}", memory.heap.get<bool>(0), j.get<std::string>(), memory.heap.get<bool>(1));

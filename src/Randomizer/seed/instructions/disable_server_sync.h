@@ -10,12 +10,12 @@ INSTRUCTION(DisableServerSync)
     int group;
     int member;
 
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
-        const core::api::uber_states::UberState state(group, member);
-        multiplayer_universe().uber_state_handler().set_unsyncable(state, true);
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
+        const core::api::uber_states::UntypedUberId state_id(group, member);
+        multiplayer_universe().uber_state_handler().set_unsyncable(state_id, true);
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format("DisableServerSync -> {}|{}", group, member);
     }
 

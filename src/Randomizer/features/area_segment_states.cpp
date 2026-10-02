@@ -1,15 +1,17 @@
 #include <Common/ext.h>
-#include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
+#include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
+#include <Core/api/game/ui.h>
+#include <Core/api/uber_states/uber_state_virtual.h>
+#include <Core/uber_states/core_uber_states.h>
 #include <Modloader/app/methods/AreaMapCanvas.h>
+#include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
 #include <Modloader/app/types/GameWorld.h>
 #include <Modloader/interception.h>
 #include <Modloader/interception_macros.h>
-#include <Randomizer/seed/seed.h>
-#include <Core/api/game/player.h>
-#include <Core/api/uber_states/uber_state_virtual.h>
 #include <Randomizer/features/area_segment_states.h>
-#include <Core/api/game/game.h>
-#include <Core/api/game/ui.h>
+#include <Randomizer/seed/seed.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 
 
 using namespace app::classes;
@@ -1103,9 +1105,9 @@ namespace randomizer::area_segment_states {
             auto face_id = state_id % 10000;
 
             core::api::uber_states::register_virtual_uber_state(
-                UberStateGroup::MapSegments,
+                uber_states::group_id<"mapSegments">(),
                 state_id,
-                ValueType::Byte,
+                core::api::uber_states::VirtualUberState::ValueType::Byte,
                 std::format("segment{}", state_id),
                 [area_id, face_id]() {
                     const auto info = core::api::game::player::get_area_map_information();
@@ -1132,23 +1134,26 @@ namespace randomizer::area_segment_states {
         }
     }
 
-    auto on_pools_water_drained_changed = core::api::uber_states::single_notification_bus().register_handler(core::api::uber_states::UberState(5377, 63173), [](const auto& event, auto) {
-        // On lowering the Pools water, check whether the Pools TP map tile is active and if so, give the Pools TP
-        if (event.value > 0.5 && core::api::uber_states::UberState(UberStateGroup::MapSegments, 86073).get<bool>()) {
-            core::api::uber_states::UberState(945, 58183).set(true);
+    auto& water_lowered_state = core::uber_states::state<"lumaPoolsStateGroup", "waterLowered">();
+    auto& luma_tp_state = core::uber_states::state<"lagoonStateGroup", 58183>();
+
+    auto on_pools_water_drained_changed = core::api::uber_states::on_uber_state_changed().register_handler(
+        water_lowered_state,
+        [](auto) {
+            // On lowering the Pools water, check whether the Pools TP map tile is active and if so, give the Pools TP
+            if (water_lowered_state.get() && core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState>(uber_states::group_id<"mapSegments">(), 86073).get()) {
+                luma_tp_state.set(true);
+            }
         }
-    });
+    );
 
     IL2CPP_INTERCEPT_WITH_ORDER(100, void, Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation, SetAreaState, app::PlayerUberStateAreaMapInformation * this_ptr, app::GameWorldAreaID__Enum area_id, int index, app::WorldMapAreaState__Enum state, app::Vector3 position) {
         const auto virtual_state_id = static_cast<int>(area_id) * 10000 + index;
-        const auto uber_state = core::api::uber_states::UberState(UberStateGroup::MapSegments, virtual_state_id);
-        const auto previous_value = uber_state.get<double>();
 
         next::Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::SetAreaState(this_ptr, area_id, index, state, position);
 
-        const core::api::uber_states::UberStateCallbackParams params{uber_state, previous_value, uber_state.get<double>()};
-        core::api::uber_states::notification_bus().trigger_event(params);
-        core::api::uber_states::single_notification_bus().trigger_event(uber_state, params);
+        auto& virtual_uber_state = core::api::uber_states::get_virtual_uber_state(uber_states::group_id<"mapSegments">(), virtual_state_id);
+        virtual_uber_state.check_for_changes();
 
         const auto area_map = core::api::game::ui::area_map();
         if (area_map != nullptr && il2cpp::unity::get_active(area_map)) {

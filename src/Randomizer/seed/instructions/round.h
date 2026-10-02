@@ -3,11 +3,11 @@
 #include <Randomizer/seed/seed.h>
 
 INSTRUCTION(Round)
-    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const override {
+    void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         memory.heap.set<float>(0, std::round(memory.heap.get<float>(0)));
     }
 
-    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const override {
+    [[nodiscard]] std::string to_string(const Seed& seed, const memory::SeedMemory& memory) override {
         return std::format(
             "Round {:.3} -> {:.0}", TypeStr<float>::VALUE, TypeStr<std::string>::VALUE, memory.heap.get<float>(0), std::round(memory.heap.get<float>(0))
         );

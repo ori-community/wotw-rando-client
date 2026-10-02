@@ -1,23 +1,23 @@
+#include <Common/event_bus.h>
+#include <Core/api/game/player.h>
+#include <Core/api/scenes/scene_load.h>
+#include <Core/api/uber_states/uber_state.h>
+#include <Core/uber_states/core_uber_states.h>
+#include <Core/utils/misc.h>
+#include <Modloader/app/methods/Moon/Timeline/MoonTimeline.h>
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
 #include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/il2cpp_helpers.h>
-
-#include <Common/event_bus.h>
-#include <Core/api/scenes/scene_load.h>
-#include <Core/api/uber_states/uber_state.h>
-#include <Core/utils/misc.h>
-#include <Modloader/app/methods/Moon/Timeline/MoonTimeline.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/features/cutscene_skips/custom_cutscene_skips.h>
 
-#include <Core/api/game/player.h>
 
 using namespace utils;
 using namespace app::classes;
 
 namespace {
     ObjectReference<app::MoonTimeline> kwolok_boss_farewell_timeline;
-    core::api::uber_states::UberState pools_wisp_state(945, 49747);
+    auto& pools_wisp_state = core::uber_states::state<"lagoonStateGroup", "bossReward">();
 
     void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
         if (metadata->state != app::SceneState__Enum::Loaded) {
@@ -45,7 +45,7 @@ namespace {
      * kwolokBossSetup/getPickupOnCondition.
      */
     void give_strength_if_not_given() {
-        if (pools_wisp_state.get<bool>()) {
+        if (pools_wisp_state.get()) {
             return;
         }
 
@@ -67,7 +67,10 @@ namespace {
         give_strength_if_not_given();
     }
 
+    [[maybe_unused]]
     auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
+
+    [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         auto cutscene_skip = custom_cutscene_skips::CustomCutsceneSkip{
             .is_available = &skip_available,

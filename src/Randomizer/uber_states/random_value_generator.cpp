@@ -1,15 +1,16 @@
 #include <Randomizer/uber_states/random_value_generator.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <random>
 
 namespace randomizer::uber_states::random_value_generator {
-    const core::api::uber_states::UberState SEED_STATE(UberStateGroup::RandomValueGenerator, 0);
-    const core::api::uber_states::UberState USE_SEED_STATE(UberStateGroup::RandomValueGenerator, 1);
+    auto& seed_state = state<"randomValueGenerator", "seed">();
+    auto& use_seed_state = state<"randomValueGenerator", "useSeed">();
 
     std::random_device random_device;
 
     int32_t get_next_seed() {
-        if (USE_SEED_STATE.get<bool>()) {
-            return SEED_STATE.get<int>();
+        if (use_seed_state.get()) {
+            return seed_state.get();
         }
 
         return std::bit_cast<int32_t>(random_device());
@@ -17,11 +18,15 @@ namespace randomizer::uber_states::random_value_generator {
 
     void register_virtual_uber_states() {
         core::api::uber_states::register_virtual_uber_state(
-            UberStateGroup::RandomValueGenerator,
+            group_id<"randomValueGenerator">(),
             10,
-            ValueType::Integer,
+            core::api::uber_states::VirtualUberState::ValueType::Integer,
             "randomInt",
             []() -> double {
+                if (!modloader::is_game_ready()) {
+                    return 0;
+                }
+
                 std::mt19937 rng(get_next_seed());
                 return std::bit_cast<int32_t>(rng());
             },
@@ -30,11 +35,15 @@ namespace randomizer::uber_states::random_value_generator {
         );
 
         core::api::uber_states::register_virtual_uber_state(
-            UberStateGroup::RandomValueGenerator,
+            group_id<"randomValueGenerator">(),
             11,
-            ValueType::Float,
+            core::api::uber_states::VirtualUberState::ValueType::Float,
             "randomFloat",
             []() -> double {
+                if (!modloader::is_game_ready()) {
+                    return 0;
+                }
+
                 std::mt19937 rng(get_next_seed());
                 std::uniform_real_distribution<float> distribution(0.f, 1.f);
                 return distribution(rng);
@@ -44,11 +53,15 @@ namespace randomizer::uber_states::random_value_generator {
         );
 
         core::api::uber_states::register_virtual_uber_state(
-            UberStateGroup::RandomValueGenerator,
+            group_id<"randomValueGenerator">(),
             12,
-            ValueType::Boolean,
+            core::api::uber_states::VirtualUberState::ValueType::Boolean,
             "randomBoolean",
             []() -> double {
+                if (!modloader::is_game_ready()) {
+                    return 0;
+                }
+
                 std::mt19937 rng(get_next_seed());
                 return std::bit_cast<int32_t>(rng()) % 2 == 0;
             },

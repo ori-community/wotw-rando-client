@@ -26,14 +26,14 @@ namespace randomizer::seed {
 
     struct IInstruction {
         virtual ~IInstruction() = default;
-        virtual void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) const = 0;
-        virtual std::string to_string(const Seed& seed, const memory::SeedMemory& memory) const = 0;
+        virtual void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) = 0;
+        virtual std::string to_string(const Seed& seed, const memory::SeedMemory& memory) = 0;
         virtual std::string_view get_name() const = 0;
     };
 
     struct SeedTimer {
-        core::api::uber_states::UberState toggle;
-        core::api::uber_states::UberState value;
+        core::api::uber_states::UntypedUberState toggle;
+        core::api::uber_states::UntypedUberState value;
     };
     void to_json(nlohmann::json& j, const SeedTimer& timer);
     void from_json(const nlohmann::json& j, SeedTimer& timer);
@@ -201,7 +201,7 @@ namespace randomizer::seed {
         /**
          * Advance timers by the given delta time
          */
-        void process_timers(float delta) const;
+        void process_timers(float delta);
 
         /**
          * Processes box triggers. Should be called after changing Ori's
