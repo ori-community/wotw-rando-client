@@ -2,6 +2,7 @@
 
 #include <Common/ext.h>
 #include <Core/api/uber_states/uber_state.h>
+#include <utility>
 #include <variant>
 #include <Core/property.h>
 
@@ -31,13 +32,18 @@ namespace randomizer::game::shops {
 
         is_purchased_state_t is_purchased_state;
 
-        explicit ShopSlot(const is_purchased_state_t& is_purchased_state) :
-            is_purchased_state(is_purchased_state) {}
+        explicit ShopSlot(is_purchased_state_t is_purchased_state) :
+            is_purchased_state(std::move(is_purchased_state)) {}
 
         virtual nlohmann::json serialize() const = 0;
         virtual void deserialize(const nlohmann::json& json) = 0;
 
         virtual ~ShopSlot() = default;
+
+        ShopSlot(const ShopSlot& other) = delete;
+        ShopSlot(ShopSlot&& other) noexcept = delete;
+        ShopSlot& operator=(const ShopSlot& other) = delete;
+        ShopSlot& operator=(ShopSlot&& other) noexcept = delete;
     };
 
     /**
@@ -87,7 +93,7 @@ namespace randomizer::game::shops {
             static_assert(std::is_base_of_v<ShopSlot, SLOT_T>, "Type specified as SLOT_T must inherit ShopSlot");
 
             for (auto& is_purchased_state : is_purchased_states) {
-                m_slots.emplace(is_purchased_state.get_uber_id(), SLOT_T(is_purchased_state));
+                m_slots.emplace(is_purchased_state.get_uber_id(), is_purchased_state);
             }
         }
 

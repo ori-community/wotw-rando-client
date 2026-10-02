@@ -177,7 +177,7 @@ namespace randomizer::game::shops::twillen {
         IL2CPP_INTERCEPT(void, SpiritShardUIShardDetails, UpdateDetails, app::SpiritShardUIShardDetails* this_ptr) {
             auto* const item = overwrite_shard ? selected_shard : this_ptr->fields.m_item;
             auto type = item->fields.m_type;
-            auto slot = overwrite_shard ? std::make_optional(get_slot(this_ptr->fields.m_item->fields.m_type)) : std::nullopt;
+            auto slot = overwrite_shard ? std::make_optional(std::reference_wrapper(get_slot(this_ptr->fields.m_item->fields.m_type))) : std::nullopt;
             auto* const settings = types::SpiritShardSettings::get_class()->static_fields->Instance;
             auto* const description = il2cpp::invoke<app::SpiritShardDescription>(settings->fields.Descriptions, "GetValue", &type);
             if ((!item->fields.m_gained && this_ptr->fields.RequireOwned) || locked_shard_overwrite) {
@@ -186,7 +186,7 @@ namespace randomizer::game::shops::twillen {
 
             auto* const renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
             if (overwrite_shard) {
-                const auto& icon = slot->icon();
+                const auto& icon = slot->get().icon();
                 if (icon != nullptr) {
                     icon->apply_to(renderer);
                 }
@@ -205,8 +205,8 @@ namespace randomizer::game::shops::twillen {
             description_box->fields.TextBox->fields.maxHeight = 8.f;
 
             if (overwrite_shard) {
-                name_box->fields.MessageProvider = core::api::system::create_message_provider(slot->name);
-                description_box->fields.MessageProvider = core::api::system::create_message_provider(slot->description);
+                name_box->fields.MessageProvider = core::api::system::create_message_provider(slot->get().name);
+                description_box->fields.MessageProvider = core::api::system::create_message_provider(slot->get().description);
             } else if (type == app::SpiritShardType__Enum::None) {
                 name_box->fields.MessageProvider = this_ptr->fields.LockedName;
                 description_box->fields.MessageProvider = this_ptr->fields.LockedDescription;
