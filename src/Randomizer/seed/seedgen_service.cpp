@@ -117,7 +117,7 @@ namespace randomizer::seedgen_interface {
                         .body = request.body.has_value() ? request.body->dump() : "",
                     };
 
-                    modloader::warn("seedgen_http", std::format("-> {} {}", httplib_request.method, httplib_request.path));
+                    modloader::debug("seedgen_http", std::format("-> {} {}", httplib_request.method, httplib_request.path));
                     const auto result = client.send(httplib_request);
 
                     const auto result_error = result.error();
