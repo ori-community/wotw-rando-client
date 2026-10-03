@@ -14,9 +14,14 @@ INSTRUCTION(PositionTriggerRectangle)
         const auto x_2 = memory.heap.get<float>(2);
         const auto y_2 = memory.heap.get<float>(3);
 
+        const auto x_min = std::min(x_1, x_2);
+        const auto y_min = std::min(y_1, y_2);
+        const auto x_max = std::max(x_1, x_2);
+        const auto y_max = std::max(y_1, y_2);
+
         environment.set_position_trigger(id, {
             .shape = SeedPositionTrigger::RectangleShape(
-                x_1, y_1, x_2, y_2
+                x_min, y_min, x_max, y_max
             )
         });
     }
