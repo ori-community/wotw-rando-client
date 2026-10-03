@@ -34,7 +34,7 @@
 #include <set>
 
 namespace randomizer::game::shops::twillen {
-    ShopSlot::is_purchased_state_id_t get_state_id_for_spirit_shard_type(app::SpiritShardType__Enum spirit_shard_type) {
+    std::optional<ShopSlot::is_purchased_state_id_t> get_state_id_optional_for_spirit_shard_type(app::SpiritShardType__Enum spirit_shard_type) {
         switch (spirit_shard_type) {
             case app::SpiritShardType__Enum::GlassCannon:
                 return uber_states::state<"twillenShop", "overcharge">();
@@ -53,8 +53,17 @@ namespace randomizer::game::shops::twillen {
             case app::SpiritShardType__Enum::CombatLuck:
                 return uber_states::state<"twillenShop", "finesse">();
             default:
-                throw std::runtime_error(std::format("Invalid Twillen shop slot shard type: {}", static_cast<int>(spirit_shard_type)));
+                return std::nullopt;
         }
+    }
+
+    ShopSlot::is_purchased_state_id_t get_state_id_for_spirit_shard_type(app::SpiritShardType__Enum spirit_shard_type) {
+        const auto state = get_state_id_optional_for_spirit_shard_type(spirit_shard_type);
+        if (!state.has_value()) {
+            throw std::runtime_error(std::format("Invalid Twillen shop slot shard type: {}", static_cast<int>(spirit_shard_type)));
+        }
+
+        return *state;
     }
 
     ShopCollection::twillen_shop_t::slot_t& get_slot(app::SpiritShardType__Enum spirit_shard_type) {
@@ -68,7 +77,13 @@ namespace randomizer::game::shops::twillen {
     }
 
     std::optional<std::reference_wrapper<ShopCollection::twillen_shop_t::slot_t>> get_slot_optional(app::SpiritShardType__Enum spirit_shard_type) {
-        return shops()->twillen_shop().slot(get_state_id_for_spirit_shard_type(spirit_shard_type));
+        const auto state_id = get_state_id_optional_for_spirit_shard_type(spirit_shard_type);
+
+        if (!state_id.has_value()) {
+            return std::nullopt;
+        }
+
+        return shops()->twillen_shop().slot(*state_id);
     }
 
     namespace {
