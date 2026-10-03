@@ -369,6 +369,30 @@ namespace core::api::uber_states {
     }
 
     template<>
+    UberId<UberStateType::ReadOnlyVirtualBooleanUberState>::value_t get_uber_state_value<UberStateType::ReadOnlyVirtualBooleanUberState>(const UberId<UberStateType::ReadOnlyVirtualBooleanUberState>& id, UberId<UberStateType::ReadOnlyVirtualBooleanUberState>::native_t* const native_ptr) {
+        on_uber_state_get(id);
+        return static_cast<UberId<UberStateType::ReadOnlyVirtualBooleanUberState>::value_t>(get_virtual_uber_state(UntypedUberId(id)).get());
+    }
+
+    template<>
+    UberId<UberStateType::ReadOnlyVirtualByteUberState>::value_t get_uber_state_value<UberStateType::ReadOnlyVirtualByteUberState>(const UberId<UberStateType::ReadOnlyVirtualByteUberState>& id, UberId<UberStateType::ReadOnlyVirtualByteUberState>::native_t* const native_ptr) {
+        on_uber_state_get(id);
+        return static_cast<UberId<UberStateType::ReadOnlyVirtualByteUberState>::value_t>(get_virtual_uber_state(UntypedUberId(id)).get());
+    }
+
+    template<>
+    UberId<UberStateType::ReadOnlyVirtualIntUberState>::value_t get_uber_state_value<UberStateType::ReadOnlyVirtualIntUberState>(const UberId<UberStateType::ReadOnlyVirtualIntUberState>& id, UberId<UberStateType::ReadOnlyVirtualIntUberState>::native_t* const native_ptr) {
+        on_uber_state_get(id);
+        return static_cast<UberId<UberStateType::ReadOnlyVirtualIntUberState>::value_t>(get_virtual_uber_state(UntypedUberId(id)).get());
+    }
+
+    template<>
+    UberId<UberStateType::ReadOnlyVirtualFloatUberState>::value_t get_uber_state_value<UberStateType::ReadOnlyVirtualFloatUberState>(const UberId<UberStateType::ReadOnlyVirtualFloatUberState>& id, UberId<UberStateType::ReadOnlyVirtualFloatUberState>::native_t* const native_ptr) {
+        on_uber_state_get(id);
+        return static_cast<UberId<UberStateType::ReadOnlyVirtualFloatUberState>::value_t>(get_virtual_uber_state(UntypedUberId(id)).get());
+    }
+
+    template<>
     UberId<UberStateType::SavePedestalUberState>::value_t get_uber_state_value<UberStateType::SavePedestalUberState>(const UberId<UberStateType::SavePedestalUberState>& id, UberId<UberStateType::SavePedestalUberState>::native_t* const native_ptr) {
         assert(native_ptr != nullptr);
         on_uber_state_get(id);
@@ -439,38 +463,38 @@ namespace core::api::uber_states {
 
     template<>
     void set_uber_state_value<UberStateType::VirtualBooleanUberState>(const UberId<UberStateType::VirtualBooleanUberState>& id, UberId<UberStateType::VirtualBooleanUberState>::native_t* const native_ptr, UberId<UberStateType::VirtualBooleanUberState>::value_t value) {
+        get_virtual_uber_state(id.group, id.member).set(value);
         on_uber_state_set(UberId<UberStateType::VirtualBooleanUberState>(
             id.group,
             id.member
         ));
-        get_virtual_uber_state(id.group, id.member).set(value);
     }
 
     template<>
     void set_uber_state_value<UberStateType::VirtualByteUberState>(const UberId<UberStateType::VirtualByteUberState>& id, UberId<UberStateType::VirtualByteUberState>::native_t* const native_ptr, UberId<UberStateType::VirtualByteUberState>::value_t value) {
+        get_virtual_uber_state(id.group, id.member).set(value);
         on_uber_state_set(UberId<UberStateType::VirtualByteUberState>(
             id.group,
             id.member
         ));
-        get_virtual_uber_state(id.group, id.member).set(value);
     }
 
     template<>
     void set_uber_state_value<UberStateType::VirtualIntUberState>(const UberId<UberStateType::VirtualIntUberState>& id, UberId<UberStateType::VirtualIntUberState>::native_t* const native_ptr, UberId<UberStateType::VirtualIntUberState>::value_t value) {
+        get_virtual_uber_state(id.group, id.member).set(value);
         on_uber_state_set(UberId<UberStateType::VirtualIntUberState>(
             id.group,
             id.member
         ));
-        get_virtual_uber_state(id.group, id.member).set(value);
     }
 
     template<>
     void set_uber_state_value<UberStateType::VirtualFloatUberState>(const UberId<UberStateType::VirtualFloatUberState>& id, UberId<UberStateType::VirtualFloatUberState>::native_t* const native_ptr, UberId<UberStateType::VirtualFloatUberState>::value_t value) {
+        get_virtual_uber_state(id.group, id.member).set(value);
         on_uber_state_set(UberId<UberStateType::VirtualFloatUberState>(
             id.group,
             id.member
         ));
-        get_virtual_uber_state(id.group, id.member).set(value);
     }
 
     template<>

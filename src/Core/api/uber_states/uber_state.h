@@ -470,14 +470,37 @@ namespace core::api::uber_states {
                         )
                     );
                 case UberStateType::VirtualBooleanUberState:
+                    return static_cast<T>(
+                        get_uber_state_value(UberId<UberStateType::VirtualBooleanUberState>(m_id.group, m_id.member), nullptr)
+                    );
                 case UberStateType::VirtualByteUberState:
+                    return static_cast<T>(
+                        get_uber_state_value(UberId<UberStateType::VirtualByteUberState>(m_id.group, m_id.member), nullptr)
+                    );
                 case UberStateType::VirtualIntUberState:
+                    return static_cast<T>(
+                        get_uber_state_value(UberId<UberStateType::VirtualIntUberState>(m_id.group, m_id.member), nullptr)
+                    );
                 case UberStateType::VirtualFloatUberState:
+                    return static_cast<T>(
+                        get_uber_state_value(UberId<UberStateType::VirtualFloatUberState>(m_id.group, m_id.member), nullptr)
+                    );
                 case UberStateType::ReadOnlyVirtualBooleanUberState:
+                    return static_cast<T>(
+                        get_uber_state_value(UberId<UberStateType::ReadOnlyVirtualBooleanUberState>(m_id.group, m_id.member), nullptr)
+                    );
                 case UberStateType::ReadOnlyVirtualByteUberState:
+                    return static_cast<T>(
+                        get_uber_state_value(UberId<UberStateType::ReadOnlyVirtualByteUberState>(m_id.group, m_id.member), nullptr)
+                    );
                 case UberStateType::ReadOnlyVirtualIntUberState:
+                    return static_cast<T>(
+                        get_uber_state_value(UberId<UberStateType::ReadOnlyVirtualIntUberState>(m_id.group, m_id.member), nullptr)
+                    );
                 case UberStateType::ReadOnlyVirtualFloatUberState:
-                    return static_cast<T>(get_virtual_uber_state(m_id).get());
+                    return static_cast<T>(
+                        get_uber_state_value(UberId<UberStateType::ReadOnlyVirtualFloatUberState>(m_id.group, m_id.member), nullptr)
+                    );
                 case UberStateType::SavePedestalUberState:
                     return static_cast<T>(
                         get_uber_state_value(
@@ -571,10 +594,32 @@ namespace core::api::uber_states {
                     );
                     return;
                 case UberStateType::VirtualBooleanUberState:
+                    set_uber_state_value<UberStateType::VirtualBooleanUberState>(
+                        UberId<UberStateType::VirtualBooleanUberState>(m_id.group, m_id.member),
+                        nullptr,
+                        static_cast<UberId<UberStateType::VirtualBooleanUberState>::value_t>(value)
+                    );
+                    return;
                 case UberStateType::VirtualByteUberState:
+                    set_uber_state_value<UberStateType::VirtualByteUberState>(
+                        UberId<UberStateType::VirtualByteUberState>(m_id.group, m_id.member),
+                        nullptr,
+                        static_cast<UberId<UberStateType::VirtualByteUberState>::value_t>(value)
+                    );
+                    return;
                 case UberStateType::VirtualIntUberState:
+                    set_uber_state_value<UberStateType::VirtualIntUberState>(
+                        UberId<UberStateType::VirtualIntUberState>(m_id.group, m_id.member),
+                        nullptr,
+                        static_cast<UberId<UberStateType::VirtualIntUberState>::value_t>(value)
+                    );
+                    return;
                 case UberStateType::VirtualFloatUberState:
-                    get_virtual_uber_state(m_id.group, m_id.member).set(static_cast<double>(value));
+                    set_uber_state_value<UberStateType::VirtualFloatUberState>(
+                        UberId<UberStateType::VirtualFloatUberState>(m_id.group, m_id.member),
+                        nullptr,
+                        static_cast<UberId<UberStateType::VirtualFloatUberState>::value_t>(value)
+                    );
                     return;
                 case UberStateType::SavePedestalUberState:
                     set_uber_state_value<UberStateType::SavePedestalUberState>(
