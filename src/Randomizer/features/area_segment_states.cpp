@@ -1141,7 +1141,7 @@ namespace randomizer::area_segment_states {
         water_lowered_state,
         [](auto) {
             // On lowering the Pools water, check whether the Pools TP map tile is active and if so, give the Pools TP
-            if (water_lowered_state.get() && core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState>(uber_states::group_id<"mapSegments">(), 86073).get()) {
+            if (water_lowered_state.get() && core::api::uber_states::UberState<core::api::uber_states::UberStateType::VirtualBooleanUberState>(uber_states::group_id<"mapSegments">(), 86073).get()) {
                 luma_tp_state.set(true);
             }
         }
