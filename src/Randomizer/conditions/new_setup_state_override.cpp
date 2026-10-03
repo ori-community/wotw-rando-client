@@ -7,11 +7,13 @@
 #include <Modloader/app/methods/NewSetupStateController.h>
 #include <Modloader/app/structs/Int32__Boxed.h>
 #include <Modloader/app/types/NewSetupStateController.h>
+#include <Modloader/app/types/PlayerStateMap.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 #include <Randomizer/conditions/new_setup_state_override.h>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -26,10 +28,63 @@ namespace randomizer::conditions {
     namespace {
         std::unordered_map<new_setup_state_controller_intercept_key, new_setup_state_controller_intercept_fn, pair_hash> applier_intercepts;
 
+        bool get_tree_state_for_ability(const app::AbilityType__Enum ability) {
+            switch (ability) {
+                case app::AbilityType__Enum::Bash:
+                    return randomizer::uber_states::state<"trees", static_cast<int>(app::AbilityType__Enum::Bash)>().get();
+                case app::AbilityType__Enum::DoubleJump:
+                    return randomizer::uber_states::state<"trees", static_cast<int>(app::AbilityType__Enum::DoubleJump)>().get();
+                case app::AbilityType__Enum::ChargeJump:
+                    return randomizer::uber_states::state<"trees", static_cast<int>(app::AbilityType__Enum::ChargeJump)>().get();
+                case app::AbilityType__Enum::Grenade:
+                    return randomizer::uber_states::state<"trees", static_cast<int>(app::AbilityType__Enum::Grenade)>().get();
+                case app::AbilityType__Enum::SpiritLeash:
+                    return randomizer::uber_states::state<"trees", static_cast<int>(app::AbilityType__Enum::SpiritLeash)>().get();
+                case app::AbilityType__Enum::GlowSpell:
+                    return randomizer::uber_states::state<"trees", static_cast<int>(app::AbilityType__Enum::GlowSpell)>().get();
+                case app::AbilityType__Enum::MeditateSpell:
+                    return randomizer::uber_states::state<"trees", static_cast<int>(app::AbilityType__Enum::MeditateSpell)>().get();
+                case app::AbilityType__Enum::Bow:
+                    return randomizer::uber_states::state<"trees", static_cast<int>(app::AbilityType__Enum::Bow)>().get();
+                case app::AbilityType__Enum::Sword:
+                    return randomizer::uber_states::state<"trees", static_cast<int>(app::AbilityType__Enum::Sword)>().get();
+                case app::AbilityType__Enum::Digging:
+                    return randomizer::uber_states::state<"trees", static_cast<int>(app::AbilityType__Enum::Digging)>().get();
+                case app::AbilityType__Enum::DashNew:
+                    return randomizer::uber_states::state<"trees", static_cast<int>(app::AbilityType__Enum::DashNew)>().get();
+                case app::AbilityType__Enum::WaterDash:
+                    return randomizer::uber_states::state<"trees", static_cast<int>(app::AbilityType__Enum::WaterDash)>().get();
+                case app::AbilityType__Enum::DamageUpgradeA:
+                    return randomizer::uber_states::state<"trees", static_cast<int>(app::AbilityType__Enum::DamageUpgradeA)>().get();
+                case app::AbilityType__Enum::DamageUpgradeB:
+                    return randomizer::uber_states::state<"trees", static_cast<int>(app::AbilityType__Enum::DamageUpgradeB)>().get();
+                default:
+                    return false;
+            }
+        }
+
         IL2CPP_INTERCEPT(app::SetupState*, NewSetupStateController, get_ActiveState, app::NewSetupStateController* this_ptr) {
             const auto state = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "Resolve", 0);
             const auto mapping = this_ptr->fields.StateHolder->fields._._.Mapping;
-            auto mapping_result = il2cpp::invoke<app::Int32__Boxed>(mapping, "Resolve", state)->fields;
+
+            state_guid_t mapping_result;
+
+            if (il2cpp::is_assignable(mapping, types::PlayerStateMap::get_class())) {
+                for (const auto entry: il2cpp::ListIterator(reinterpret_cast<app::PlayerStateMap*>(mapping)->fields._.Entries)) {
+                    auto tree_state = get_tree_state_for_ability(entry.m_ability);
+
+                    if (entry.m_matchType == 1) {
+                        tree_state = !tree_state;
+                    }
+
+                    if (tree_state) {
+                        mapping_result = entry.m_index;
+                        break;
+                    }
+                }
+            } else {
+                mapping_result = il2cpp::invoke<app::Int32__Boxed>(mapping, "Resolve", state)->fields;
+            }
 
             const auto path = il2cpp::unity::get_path(this_ptr);
             const auto key = std::make_pair(path, mapping_result);

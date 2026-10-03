@@ -6,6 +6,7 @@
 #include <Modloader/app/methods/RaceSystem.h>
 #include <Modloader/app/types/RaceSystem.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/conditions/new_setup_state_override.h>
 #include <Randomizer/randomizer.h>
 
 
@@ -19,6 +20,15 @@ namespace {
     [[maybe_unused]]
     auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         randomizer::game_seed().prevent_grants(&is_running_race);
+
+        // Disable the Burrow tree while running spirit trials
+        randomizer::conditions::register_new_setup_state_controller_intercept(
+            {"getDigAbilityRoom__clone0/interactives/spellPickup/spellPickupSetup"},
+            {-239885777, -934455551},
+            [](auto, auto, auto original_state) -> int32_t {
+                return is_running_race() ? -239885777 : original_state;
+            }
+        );
     });
 
     common::Droppable::ptr_t in_trial_uber_state_changed_handle;
