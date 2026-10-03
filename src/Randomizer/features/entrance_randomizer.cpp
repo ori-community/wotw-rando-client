@@ -28,6 +28,9 @@ namespace randomizer::entrances {
     namespace {
         using namespace app::classes;
 
+        /** Set to true to print a warning when discovering unknown doors in loaded scenes */
+        constexpr auto LOG_DISCOVERED_UNKNOWN_DOORS = false;
+
         std::vector<core::reactivity::ReactiveEffect::ptr_t> effects;
         auto queue_placing_ori_on_ground = false;
         std::optional<app::Vector3> queued_ground_placement = std::nullopt;
@@ -244,7 +247,9 @@ namespace randomizer::entrances {
                 const auto door_it = entrances.find(door_name);
 
                 if (door_it == entrances.end()) {
-                    modloader::warn("entrance_randomizer", std::format("Encountered unknown door '{}'", il2cpp::unity::get_path(door_component)));
+                    if (LOG_DISCOVERED_UNKNOWN_DOORS) {
+                        modloader::warn("entrance_randomizer", std::format("Encountered unknown door '{}'", il2cpp::unity::get_path(door_component)));
+                    }
                     continue;
                 }
 
