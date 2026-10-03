@@ -86,6 +86,10 @@ namespace core::api::uber_states {
                 this_ptr->fields._.m_id->fields.m_id
             );
 
+            if (get_uber_state_value(id, this_ptr) == value) {
+                return;
+            }
+
             if (before_uber_state_set(id, value).ignore_change) {
                 return;
             }
@@ -99,6 +103,10 @@ namespace core::api::uber_states {
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
             );
+
+            if (get_uber_state_value(id, this_ptr) == value) {
+                return;
+            }
 
             if (before_uber_state_set(id, value).ignore_change) {
                 return;
@@ -114,6 +122,10 @@ namespace core::api::uber_states {
                 this_ptr->fields._.m_id->fields.m_id
             );
 
+            if (get_uber_state_value(id, this_ptr) == value) {
+                return;
+            }
+
             if (before_uber_state_set(id, value).ignore_change) {
                 return;
             }
@@ -127,6 +139,10 @@ namespace core::api::uber_states {
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
             );
+
+            if (get_uber_state_value(id, this_ptr) == value) {
+                return;
+            }
 
             if (before_uber_state_set(id, value).ignore_change) {
                 return;
@@ -142,6 +158,10 @@ namespace core::api::uber_states {
                 this_ptr->fields._.m_id->fields.m_id
             );
 
+            if (get_uber_state_value(id, this_ptr) == value) {
+                return;
+            }
+
             if (before_uber_state_set(id, value).ignore_change) {
                 return;
             }
@@ -155,6 +175,10 @@ namespace core::api::uber_states {
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
             );
+
+            if (get_uber_state_value(id, this_ptr) == value) {
+                return;
+            }
 
             if (before_uber_state_set(id, value).ignore_change) {
                 return;
@@ -170,6 +194,10 @@ namespace core::api::uber_states {
                 this_ptr->fields._.m_id->fields.m_id
             );
 
+            if (get_uber_state_value(id, this_ptr) == value) {
+                return;
+            }
+
             if (before_uber_state_set(id, value).ignore_change) {
                 return;
             }
@@ -183,6 +211,10 @@ namespace core::api::uber_states {
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
             );
+
+            if (get_uber_state_value(id, this_ptr) == value) {
+                return;
+            }
 
             if (before_uber_state_set(id, value).ignore_change) {
                 return;
@@ -201,6 +233,10 @@ namespace core::api::uber_states {
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._._.m_id->fields.m_id
             );
+
+            if (get_uber_state_value(id, this_ptr) == value) {
+                return;
+            }
 
             if (before_uber_state_set(id, value).ignore_change) {
                 return;
@@ -226,6 +262,10 @@ namespace core::api::uber_states {
                 il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class()).fields.m_id
             );
 
+            if (get_uber_state_value(id, reinterpret_cast<app::SerializedBooleanUberState*>(state)) == value) {
+                return;
+            }
+
             if (before_uber_state_set(id, value).ignore_change) {
                 return;
             }
@@ -243,6 +283,10 @@ namespace core::api::uber_states {
                 il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_GroupID, types::IUberState::get_class()).fields.m_id,
                 il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class()).fields.m_id
             );
+
+            if (get_uber_state_value(id, reinterpret_cast<app::SerializedFloatUberState*>(state)) == value) {
+                return;
+            }
 
             if (before_uber_state_set(id, value).ignore_change) {
                 return;
@@ -262,6 +306,10 @@ namespace core::api::uber_states {
                 il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class()).fields.m_id
             );
 
+            if (get_uber_state_value(id, reinterpret_cast<app::SerializedIntUberState*>(state)) == value) {
+                return;
+            }
+
             if (before_uber_state_set(id, value).ignore_change) {
                 return;
             }
@@ -279,6 +327,10 @@ namespace core::api::uber_states {
                 il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_GroupID, types::IUberState::get_class()).fields.m_id,
                 il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class()).fields.m_id
             );
+
+            if (get_uber_state_value(id, reinterpret_cast<app::SerializedByteUberState*>(state)) == value) {
+                return;
+            }
 
             if (before_uber_state_set(id, value).ignore_change) {
                 return;
@@ -463,38 +515,54 @@ namespace core::api::uber_states {
 
     template<>
     void set_uber_state_value<UberStateType::VirtualBooleanUberState>(const UberId<UberStateType::VirtualBooleanUberState>& id, UberId<UberStateType::VirtualBooleanUberState>::native_t* const native_ptr, UberId<UberStateType::VirtualBooleanUberState>::value_t value) {
-        get_virtual_uber_state(id.group, id.member).set(value);
-        on_uber_state_set(UberId<UberStateType::VirtualBooleanUberState>(
-            id.group,
-            id.member
-        ));
+        auto& virtual_uber_state = get_virtual_uber_state(id.group, id.member);
+
+        if (virtual_uber_state.get() != value) {
+            virtual_uber_state.set(value);
+            on_uber_state_set(UberId<UberStateType::VirtualBooleanUberState>(
+                id.group,
+                id.member
+            ));
+        }
     }
 
     template<>
     void set_uber_state_value<UberStateType::VirtualByteUberState>(const UberId<UberStateType::VirtualByteUberState>& id, UberId<UberStateType::VirtualByteUberState>::native_t* const native_ptr, UberId<UberStateType::VirtualByteUberState>::value_t value) {
-        get_virtual_uber_state(id.group, id.member).set(value);
-        on_uber_state_set(UberId<UberStateType::VirtualByteUberState>(
-            id.group,
-            id.member
-        ));
+        auto& virtual_uber_state = get_virtual_uber_state(id.group, id.member);
+
+        if (virtual_uber_state.get() != value) {
+            virtual_uber_state.set(value);
+            on_uber_state_set(UberId<UberStateType::VirtualByteUberState>(
+                id.group,
+                id.member
+            ));
+        }
     }
 
     template<>
     void set_uber_state_value<UberStateType::VirtualIntUberState>(const UberId<UberStateType::VirtualIntUberState>& id, UberId<UberStateType::VirtualIntUberState>::native_t* const native_ptr, UberId<UberStateType::VirtualIntUberState>::value_t value) {
-        get_virtual_uber_state(id.group, id.member).set(value);
-        on_uber_state_set(UberId<UberStateType::VirtualIntUberState>(
-            id.group,
-            id.member
-        ));
+        auto& virtual_uber_state = get_virtual_uber_state(id.group, id.member);
+
+        if (virtual_uber_state.get() != value) {
+            virtual_uber_state.set(value);
+            on_uber_state_set(UberId<UberStateType::VirtualIntUberState>(
+                id.group,
+                id.member
+            ));
+        }
     }
 
     template<>
     void set_uber_state_value<UberStateType::VirtualFloatUberState>(const UberId<UberStateType::VirtualFloatUberState>& id, UberId<UberStateType::VirtualFloatUberState>::native_t* const native_ptr, UberId<UberStateType::VirtualFloatUberState>::value_t value) {
-        get_virtual_uber_state(id.group, id.member).set(value);
-        on_uber_state_set(UberId<UberStateType::VirtualFloatUberState>(
-            id.group,
-            id.member
-        ));
+        auto& virtual_uber_state = get_virtual_uber_state(id.group, id.member);
+
+        if (virtual_uber_state.get() != value) {
+            virtual_uber_state.set(value);
+            on_uber_state_set(UberId<UberStateType::VirtualFloatUberState>(
+                id.group,
+                id.member
+            ));
+        }
     }
 
     template<>
