@@ -116,14 +116,18 @@ namespace modloader {
         install_data_path = passed_install_data_path;
         user_data_path = passed_user_data_path;
 
-        file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(fs::get_logs_user_data_path("client.log"), LogLevel::Info));
         console_logging_handler = register_logging_handler(std::make_shared<ConsoleLoggingHandler>(LogLevel::Debug));
-
         trace(LogLevel::Info, "initialize", "Loading settings.");
 
         common::settings::Settings settings(get_user_data_path("randomizer/settings.json"));
         if (settings.get_boolean("DeveloperMode", false)) {
             win::console::console_initialize();
+        }
+
+        if (settings.get_boolean("LogDebugMessagesToFile", false)) {
+            file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(fs::get_logs_user_data_path("client.log"), LogLevel::Debug));
+        } else {
+            file_logging_handler = register_logging_handler(std::make_shared<FileLoggingHandler>(fs::get_logs_user_data_path("client.log"), LogLevel::Info));
         }
 
         trace(LogLevel::Info, "initialize", "Loading mods.");
