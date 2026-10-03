@@ -405,6 +405,13 @@ namespace core::api::uber_states {
 
         template<typename T>
         T get() {
+            const auto type = get_type();
+
+            if (!type.has_value()) {
+                modloader::warn("uber_state", std::format("Tried to access non existent uber state {}|{}", m_id.group, m_id.member));
+                return static_cast<T>(0.0);
+            }
+
             switch (*get_type()) {
                 case UberStateType::BooleanUberState:
                     return static_cast<T>(
@@ -499,7 +506,14 @@ namespace core::api::uber_states {
 
         template<typename T>
         void set(T value) {
-            switch (*get_type()) {
+            const auto type = get_type();
+
+            if (!type.has_value()) {
+                modloader::warn("uber_state", std::format("Tried to set non existent uber state {}|{}", m_id.group, m_id.member));
+                return;
+            }
+
+            switch (*type) {
                 case UberStateType::BooleanUberState:
                     set_uber_state_value<UberStateType::BooleanUberState>(
                         UberId<UberStateType::BooleanUberState>(m_id.group, m_id.member),

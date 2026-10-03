@@ -551,7 +551,10 @@ namespace core::api::uber_states {
                         break;
                 }
             } else {
-                assert(m_native_ptr != nullptr);
+                if (m_native_ptr == nullptr) {
+                    modloader::warn("uber_state", std::format("Tried to access non existent uber state {}|{}", m_id.group, m_id.member));
+                    return std::nullopt;
+                }
 
                 static std::unordered_map<const void*, UberStateType> class_to_type_map{
                     {types::SerializedBooleanUberState::get_class(), UberStateType::SerializedBooleanUberState},
@@ -572,7 +575,7 @@ namespace core::api::uber_states {
             }
         }
 
-        return *m_type_cache;
+        return m_type_cache;
     }
 
     std::string UntypedUberState::get_name() {
