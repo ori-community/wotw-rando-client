@@ -18,7 +18,7 @@ namespace randomizer::seedgen_interface {
         template<typename T>
         using response_fn = std::function<void(const std::optional<T>& response)>;
 
-        using hash_t = std::int64_t;
+        using hash_t = std::string;
 
         struct MapIconSet {
             std::string label;
@@ -38,8 +38,8 @@ namespace randomizer::seedgen_interface {
         };
 
         struct ReachCheck {
-            int64_t map_icons_hash;
-            int64_t relevant_uber_states_hash;
+            hash_t map_icons_hash;
+            hash_t relevant_uber_states_hash;
             std::unordered_set<int64_t> reachable_map_icon_set_indices;
         };
 
