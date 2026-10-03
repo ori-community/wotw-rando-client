@@ -79,6 +79,45 @@ namespace core::api::uber_states {
 
         auto ignore_uber_state_extension = false;
 
+        template<UberStateType ID_TYPE>
+        bool should_prevent_set(
+            const UberId<ID_TYPE> id,
+            typename UberId<ID_TYPE>::native_t* native_ptr,
+            const typename UberId<ID_TYPE>::value_t value
+        ) {
+            if (
+                // If the uber state has a volatile value set, don't prevent this set even though it's the same value.
+                // This fixes e.g. Baur not waking up.
+                !native_ptr->fields._VolitileGenericOverrideValue_k__BackingField.has_value &&
+                get_uber_state_value(id, native_ptr) == value
+            ) {
+                return true;
+            }
+
+            if (before_uber_state_set(id, value).prevent_change) {
+                return true;
+            }
+
+            return false;
+        }
+
+        template<>
+        bool should_prevent_set(
+            const UberId<UberStateType::SavePedestalUberState> id,
+            UberId<UberStateType::SavePedestalUberState>::native_t* native_ptr,
+            const UberId<UberStateType::SavePedestalUberState>::value_t value
+        ) {
+            if (get_uber_state_value(id, native_ptr) == value) {
+                return true;
+            }
+
+            if (before_uber_state_set(id, value).prevent_change) {
+                return true;
+            }
+
+            return false;
+        }
+
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::SerializedBooleanUberState, set_Value, app::SerializedBooleanUberState* this_ptr, bool value) {
             modloader::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::SerializedBooleanUberState>(
@@ -86,11 +125,7 @@ namespace core::api::uber_states {
                 this_ptr->fields._.m_id->fields.m_id
             );
 
-            if (get_uber_state_value(id, this_ptr) == value) {
-                return;
-            }
-
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (should_prevent_set(id, this_ptr, value)) {
                 return;
             }
             next::Moon::SerializedBooleanUberState::set_Value(this_ptr, value);
@@ -104,11 +139,7 @@ namespace core::api::uber_states {
                 this_ptr->fields._.m_id->fields.m_id
             );
 
-            if (get_uber_state_value(id, this_ptr) == value) {
-                return;
-            }
-
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (should_prevent_set(id, this_ptr, value)) {
                 return;
             }
             next::Moon::SerializedByteUberState::set_Value(this_ptr, value);
@@ -122,11 +153,7 @@ namespace core::api::uber_states {
                 this_ptr->fields._.m_id->fields.m_id
             );
 
-            if (get_uber_state_value(id, this_ptr) == value) {
-                return;
-            }
-
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (should_prevent_set(id, this_ptr, value)) {
                 return;
             }
             next::Moon::SerializedFloatUberState::set_Value(this_ptr, value);
@@ -140,11 +167,7 @@ namespace core::api::uber_states {
                 this_ptr->fields._.m_id->fields.m_id
             );
 
-            if (get_uber_state_value(id, this_ptr) == value) {
-                return;
-            }
-
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (should_prevent_set(id, this_ptr, value)) {
                 return;
             }
             next::Moon::SerializedIntUberState::set_Value(this_ptr, value);
@@ -158,11 +181,7 @@ namespace core::api::uber_states {
                 this_ptr->fields._.m_id->fields.m_id
             );
 
-            if (get_uber_state_value(id, this_ptr) == value) {
-                return;
-            }
-
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (should_prevent_set(id, this_ptr, value)) {
                 return;
             }
             next::Moon::BooleanUberState::set_Value(this_ptr, value);
@@ -176,11 +195,7 @@ namespace core::api::uber_states {
                 this_ptr->fields._.m_id->fields.m_id
             );
 
-            if (get_uber_state_value(id, this_ptr) == value) {
-                return;
-            }
-
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (should_prevent_set(id, this_ptr, value)) {
                 return;
             }
             next::Moon::ByteUberState::set_Value(this_ptr, value);
@@ -194,11 +209,7 @@ namespace core::api::uber_states {
                 this_ptr->fields._.m_id->fields.m_id
             );
 
-            if (get_uber_state_value(id, this_ptr) == value) {
-                return;
-            }
-
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (should_prevent_set(id, this_ptr, value)) {
                 return;
             }
             next::Moon::FloatUberState::set_Value(this_ptr, value);
@@ -212,11 +223,7 @@ namespace core::api::uber_states {
                 this_ptr->fields._.m_id->fields.m_id
             );
 
-            if (get_uber_state_value(id, this_ptr) == value) {
-                return;
-            }
-
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (should_prevent_set(id, this_ptr, value)) {
                 return;
             }
             next::Moon::IntUberState::set_Value(this_ptr, value);
@@ -234,11 +241,7 @@ namespace core::api::uber_states {
                 this_ptr->fields._._.m_id->fields.m_id
             );
 
-            if (get_uber_state_value(id, this_ptr) == value) {
-                return;
-            }
-
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (should_prevent_set(id, this_ptr, value)) {
                 return;
             }
             next::Moon::uberSerializationWisp::SavePedestalUberState::set_IsTeleporterActive(this_ptr, value);
