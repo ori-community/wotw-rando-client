@@ -1,6 +1,7 @@
-#include <Core/api/uber_states/uber_state_virtual.h>
 #include <Core/api/game/game.h>
+#include <Core/api/uber_states/uber_state_virtual.h>
 #include <Core/enums/game_event.h>
+#include <Modloader/windows_api/console.h>
 #include <unordered_map>
 #include <utility>
 
@@ -73,7 +74,9 @@ namespace core::api::uber_states {
         }
 
         m_setter_fn->operator()(value);
+        const auto previous_value = m_last_known_value;
         m_last_known_value = get();
+        notify_changed(*m_last_known_value, previous_value.value_or(0.0));
     }
 
     bool VirtualUberState::is_readonly() const {
