@@ -14,7 +14,15 @@ namespace randomizer::text_processing {
 
         // World names
         for (int i = 0; i < multiplayer_universe().get_world_count(); ++i) {
-            replace_all_lazy(output, std::format("<world>{}</>", i), [&] { return multiplayer_universe().get_world(i)->name(); });
+            replace_all_lazy(output, std::format("<world>{}</>", i), [&] {
+                const auto world = multiplayer_universe().get_world(i);
+
+                if (world == nullptr) {
+                    return std::format("World {}", i + 1);
+                }
+
+                return world->name();
+            });
         }
 
         // Randomizer actions
