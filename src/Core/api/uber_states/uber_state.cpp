@@ -77,7 +77,10 @@ namespace core::api::uber_states {
             reactivity::notify_used(reactivity::UberStateDependency(id));
         }
 
+        auto ignore_uber_state_extension = false;
+
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::SerializedBooleanUberState, set_Value, app::SerializedBooleanUberState* this_ptr, bool value) {
+            modloader::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::SerializedBooleanUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -91,6 +94,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::SerializedByteUberState, set_Value, app::SerializedByteUberState* this_ptr, uint8_t value) {
+            modloader::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::SerializedByteUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -104,6 +108,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::SerializedFloatUberState, set_Value, app::SerializedFloatUberState* this_ptr, float value) {
+            modloader::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::SerializedFloatUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -117,6 +122,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::SerializedIntUberState, set_Value, app::SerializedIntUberState* this_ptr, int value) {
+            modloader::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::SerializedIntUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -130,6 +136,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::BooleanUberState, set_Value, app::BooleanUberState* this_ptr, bool value) {
+            modloader::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::BooleanUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -143,6 +150,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::ByteUberState, set_Value, app::ByteUberState* this_ptr, uint8_t value) {
+            modloader::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::ByteUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -156,6 +164,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::FloatUberState, set_Value, app::FloatUberState* this_ptr, float value) {
+            modloader::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::FloatUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -169,6 +178,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::IntUberState, set_Value, app::IntUberState* this_ptr, int value) {
+            modloader::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::IntUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -186,6 +196,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::uberSerializationWisp::SavePedestalUberState, set_IsTeleporterActive, app::SavePedestalUberState* this_ptr, bool value) {
+            modloader::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::SavePedestalUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._._.m_id->fields.m_id
@@ -199,11 +210,17 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, GameMapSavePedestal, set_IsTeleporterActive, app::GameMapSavePedestal* this_ptr, bool value) {
+            modloader::ScopedSetter _(ignore_uber_state_extension, true);
             Moon::uberSerializationWisp::SavePedestalUberState::set_IsTeleporterActive(this_ptr->fields.SeralizedState, value);
             SavePedestalController::OnTeleporterActivationStateChanged();
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::ISerializedUberStateExtension, SetCurrentState_2, app::ISerializedUberState* state, bool value) {
+            if (ignore_uber_state_extension) {
+                next::Moon::ISerializedUberStateExtension::SetCurrentState_2(state, value);
+                return;
+            }
+
             const auto id = UberId<UberStateType::SerializedBooleanUberState>(
                 il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_GroupID, types::IUberState::get_class()).fields.m_id,
                 il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class()).fields.m_id
@@ -217,6 +234,11 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::ISerializedUberStateExtension, SetCurrentState_3, app::ISerializedUberState* state, float value) {
+            if (ignore_uber_state_extension) {
+                next::Moon::ISerializedUberStateExtension::SetCurrentState_3(state, value);
+                return;
+            }
+
             const auto id = UberId<UberStateType::SerializedFloatUberState>(
                 il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_GroupID, types::IUberState::get_class()).fields.m_id,
                 il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class()).fields.m_id
@@ -230,6 +252,11 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::ISerializedUberStateExtension, SetCurrentState_4, app::ISerializedUberState* state, int32_t value) {
+            if (ignore_uber_state_extension) {
+                next::Moon::ISerializedUberStateExtension::SetCurrentState_4(state, value);
+                return;
+            }
+
             const auto id = UberId<UberStateType::SerializedIntUberState>(
                 il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_GroupID, types::IUberState::get_class()).fields.m_id,
                 il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class()).fields.m_id
@@ -243,6 +270,11 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::ISerializedUberStateExtension, SetCurrentState_5, app::ISerializedUberState* state, uint8_t value) {
+            if (ignore_uber_state_extension) {
+                next::Moon::ISerializedUberStateExtension::SetCurrentState_5(state, value);
+                return;
+            }
+
             const auto id = UberId<UberStateType::SerializedByteUberState>(
                 il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_GroupID, types::IUberState::get_class()).fields.m_id,
                 il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class()).fields.m_id
