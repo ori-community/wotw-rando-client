@@ -348,6 +348,7 @@ namespace randomizer::online {
         } else {
             m_player_avatars.clear();
             m_players.clear();
+            m_current_world_infos.clear();
             m_current_universe_info = std::nullopt;
         }
 
