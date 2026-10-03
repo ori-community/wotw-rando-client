@@ -18,13 +18,13 @@ namespace randomizer::uber_states {
         [[maybe_unused]]
         auto cleanse_wellspring_intercept = before_uber_state_changed().register_handler(
             cleanse_wellspring_state,
-            [](auto& params, auto) {
+            [](auto params, auto) {
                 if (disable_reverts() || !core::api::game::in_game()) {
                     return;
                 }
 
-                if (params.new_value > cleanse_wellspring_state.get()) {
-                    params.ignore_change = true;
+                if (params->new_value < cleanse_wellspring_state.get()) {
+                    params->prevent_change = true;
                 }
             }
         );
@@ -32,13 +32,13 @@ namespace randomizer::uber_states {
         [[maybe_unused]]
         auto find_ku_quest_intercept = before_uber_state_changed().register_handler(
             find_ku_quest_state,
-            [](auto& params, auto) {
+            [](auto params, auto) {
                 if (disable_reverts() || !core::api::game::in_game()) {
                     return;
                 }
 
-                if (params.new_value < 4) {
-                    params.ignore_change = true;
+                if (params->new_value < 4) {
+                    params->prevent_change = true;
                 }
             }
         );

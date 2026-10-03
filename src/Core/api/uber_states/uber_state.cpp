@@ -38,8 +38,8 @@
 namespace core::api::uber_states {
     using namespace app::classes;
 
-    common::EventBus<BeforeUberStateChangedParameters&, UntypedUberId>& before_uber_state_changed() {
-        static common::EventBus<BeforeUberStateChangedParameters&, UntypedUberId> event_bus;
+    common::EventBus<BeforeUberStateChangedParameters*, UntypedUberId>& before_uber_state_changed() {
+        static common::EventBus<BeforeUberStateChangedParameters*, UntypedUberId> event_bus;
         return event_bus;
     }
 
@@ -61,7 +61,7 @@ namespace core::api::uber_states {
         template <const UberStateType ID_TYPE>
         BeforeUberStateChangedParameters before_uber_state_set(const UberId<ID_TYPE>& id, typename UberId<ID_TYPE>::value_t new_value) {
             BeforeUberStateChangedParameters parameters(static_cast<double>(new_value));
-            before_uber_state_changed().trigger_event(UntypedUberId(id), parameters);
+            before_uber_state_changed().trigger_event(UntypedUberId(id), &parameters);
             return parameters;
         }
 
@@ -90,7 +90,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).ignore_change) {
+            if (before_uber_state_set(id, value).prevent_change) {
                 return;
             }
             next::Moon::SerializedBooleanUberState::set_Value(this_ptr, value);
@@ -108,7 +108,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).ignore_change) {
+            if (before_uber_state_set(id, value).prevent_change) {
                 return;
             }
             next::Moon::SerializedByteUberState::set_Value(this_ptr, value);
@@ -126,7 +126,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).ignore_change) {
+            if (before_uber_state_set(id, value).prevent_change) {
                 return;
             }
             next::Moon::SerializedFloatUberState::set_Value(this_ptr, value);
@@ -144,7 +144,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).ignore_change) {
+            if (before_uber_state_set(id, value).prevent_change) {
                 return;
             }
             next::Moon::SerializedIntUberState::set_Value(this_ptr, value);
@@ -162,7 +162,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).ignore_change) {
+            if (before_uber_state_set(id, value).prevent_change) {
                 return;
             }
             next::Moon::BooleanUberState::set_Value(this_ptr, value);
@@ -180,7 +180,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).ignore_change) {
+            if (before_uber_state_set(id, value).prevent_change) {
                 return;
             }
             next::Moon::ByteUberState::set_Value(this_ptr, value);
@@ -198,7 +198,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).ignore_change) {
+            if (before_uber_state_set(id, value).prevent_change) {
                 return;
             }
             next::Moon::FloatUberState::set_Value(this_ptr, value);
@@ -216,7 +216,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).ignore_change) {
+            if (before_uber_state_set(id, value).prevent_change) {
                 return;
             }
             next::Moon::IntUberState::set_Value(this_ptr, value);
@@ -238,7 +238,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).ignore_change) {
+            if (before_uber_state_set(id, value).prevent_change) {
                 return;
             }
             next::Moon::uberSerializationWisp::SavePedestalUberState::set_IsTeleporterActive(this_ptr, value);
@@ -266,7 +266,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).ignore_change) {
+            if (before_uber_state_set(id, value).prevent_change) {
                 return;
             }
             next::Moon::ISerializedUberStateExtension::SetCurrentState_2(state, value);
@@ -288,7 +288,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).ignore_change) {
+            if (before_uber_state_set(id, value).prevent_change) {
                 return;
             }
             next::Moon::ISerializedUberStateExtension::SetCurrentState_3(state, value);
@@ -310,7 +310,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).ignore_change) {
+            if (before_uber_state_set(id, value).prevent_change) {
                 return;
             }
             next::Moon::ISerializedUberStateExtension::SetCurrentState_4(state, value);
@@ -332,7 +332,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).ignore_change) {
+            if (before_uber_state_set(id, value).prevent_change) {
                 return;
             }
             next::Moon::ISerializedUberStateExtension::SetCurrentState_5(state, value);

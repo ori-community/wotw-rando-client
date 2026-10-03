@@ -11,14 +11,14 @@ namespace core::api::uber_states {
     struct BeforeUberStateChangedParameters {
         const double new_value;
 
-        /** True if this uber state change should be ignored entirely (i.e. no change happens) */
-        bool ignore_change = false;
+        /** True if this uber state change should be prevented (i.e. no change happens) */
+        bool prevent_change = false;
 
         explicit BeforeUberStateChangedParameters(const double new_value) :
             new_value(new_value) {}
     };
 
-    CORE_DLLEXPORT common::EventBus<BeforeUberStateChangedParameters&, UntypedUberId>& before_uber_state_changed();
+    CORE_DLLEXPORT common::EventBus<BeforeUberStateChangedParameters*, UntypedUberId>& before_uber_state_changed();
     CORE_DLLEXPORT common::EventBus<void, UntypedUberId>& on_uber_state_changed();
     CORE_DLLEXPORT common::EventBus<UntypedUberId>& on_any_uber_state_changed();
     CORE_DLLEXPORT void apply_uber_state(app::IUberState* native_ptr);

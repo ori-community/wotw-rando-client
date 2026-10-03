@@ -26,15 +26,13 @@ namespace {
 
         auto handle = core::api::uber_states::before_uber_state_changed().register_handler(
             core::uber_states::state<"lagoonStateGroup", "kwolokBossState">(),
-            [](auto& params, auto) {
+            [](auto params, auto) {
                 // When pressing "Abandon Challenge" and the last checkpoint is far away from the Kwolok
                 // escape, the timeline game object gets disabled which causes the OnStop action to
                 // set the fight state to 3 again.
-                if (params.new_value == 3) {
-                    return true;
+                if (params->new_value == 3) {
+                    params->prevent_change = true;
                 }
-
-                return false;
             }
         );
 
