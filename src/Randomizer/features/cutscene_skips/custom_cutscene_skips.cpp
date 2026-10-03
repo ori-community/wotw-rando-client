@@ -1,42 +1,39 @@
-#include "custom_cutscene_skips.h"
-
-#include <Modloader/app/methods/SkipCutsceneController.h>
-#include <Modloader/app/methods/TimeUtility.h>
-#include <Modloader/app/types/SkipCutsceneController.h>
-#include <Modloader/app/types/UI_Cameras.h>
-#include <Modloader/interception_macros.h>
-
-#include <Modloader/windows_api/console.h>
-
 #include <Common/event_timing.h>
+#include <Core/api/audio.h>
+#include <Core/api/faderb.h>
 #include <Core/api/game/game.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/enums/game_event.h>
 #include <Core/events/task.h>
+#include <Core/settings.h>
 #include <Modloader/app/methods/AK/Wwise/State.h>
+#include <Modloader/app/methods/FaderB.h>
 #include <Modloader/app/methods/Game/UI.h>
 #include <Modloader/app/methods/GameplayCamera.h>
-#include <Modloader/app/methods/Moon/Wwise/SoundListener.h>
 #include <Modloader/app/methods/Moon/Timeline/FaderAnimatorEntity.h>
-#include <Modloader/app/methods/FaderB.h>
+#include <Modloader/app/methods/Moon/Wwise/SoundListener.h>
+#include <Modloader/app/methods/SkipCutsceneController.h>
+#include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/types/ISkipCutscene.h>
+#include <Modloader/app/types/SkipCutsceneController.h>
+#include <Modloader/app/types/UI_Cameras.h>
+#include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+#include <Modloader/windows_api/console.h>
+#include <Randomizer/features/cutscene_skips/custom_cutscene_skips.h>
 #include <frozen/unordered_map.h>
 
-#include "Core/api/audio.h"
-#include "Core/api/faderb.h"
-#include "Core/settings.h"
 
 namespace custom_cutscene_skips {
     namespace {
         using namespace app::classes;
 
         std::vector<CustomCutsceneSkip> custom_skips;
-        float block_automatic_cutscene_skips_for_seconds = 0.f;
-        float delay_fade_to_game_for_seconds = 0.f;
-        bool automatic_cutscene_skipping_enabled_cache = false;
-        bool is_fading_for_automatic_cutscene_skip = false;
-        bool is_executing_automatic_cutscene_skip = false;
+        auto block_automatic_cutscene_skips_for_seconds = 0.f;
+        auto delay_fade_to_game_for_seconds = 0.f;
+        auto automatic_cutscene_skipping_enabled_cache = false;
+        auto is_fading_for_automatic_cutscene_skip = false;
+        auto is_executing_automatic_cutscene_skip = false;
         std::optional<CustomCutsceneSkip::Metadata> skip_metadata_of_last_get_skipping_available_call = std::nullopt;
 
         struct VanillaCutsceneSkipConfig {
@@ -197,8 +194,8 @@ namespace custom_cutscene_skips {
                     return AutomaticCutsceneSkipInvocationResult::SkipExecutedDelayed;
                 }
 
-                return AutomaticCutsceneSkipInvocationResult::SkipExecutedImmediately;
                 execute_skip_and_fade_to_game_visible();
+                return AutomaticCutsceneSkipInvocationResult::SkipExecutedImmediately;
             }
 
             execute_automatic_skip();
