@@ -87,6 +87,8 @@ namespace core::api::uber_states {
         const auto new_value = get();
 
         if (m_last_known_value.has_value() && new_value != *m_last_known_value) {
+            on_any_uber_state_changed().trigger_event(UntypedUberId(m_group, m_state));
+            on_uber_state_changed().trigger_event(UntypedUberId(m_group, m_state));
             notify_changed(new_value, *m_last_known_value);
         }
 
