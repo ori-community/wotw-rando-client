@@ -50,7 +50,6 @@ namespace randomizer::main_menu_seed_info {
         il2cpp::WeakGCRef<app::MessageBox> name_message_box_ref;
         il2cpp::WeakGCRef<app::MessageBox> status_message_box_ref;
         il2cpp::WeakGCRef<app::MessageBox> description_message_box_ref;
-        il2cpp::WeakGCRef<app::GameObject> separator_go_ref;
         std::unique_ptr<core::api::graphics::Sprite> background_gradient;
         std::unique_ptr<core::api::graphics::Sprite> randomizer_logo;
 
@@ -108,7 +107,7 @@ namespace randomizer::main_menu_seed_info {
             update_connection_status();
         }
 
-        void set_text(app::MessageBox* box, std::string const& text) {
+        void set_message_box_text(app::MessageBox* box, std::string const& text) {
             text_style::create_styles(box->fields.TextBox, text);
             box->fields.MessageProvider = core::api::system::create_message_provider(text);
             MessageBox::RefreshText_1(box);
@@ -227,7 +226,7 @@ namespace randomizer::main_menu_seed_info {
                 .after([]() {
                     const auto name_message_box = *name_message_box_ref;
                     if (name_message_box.has_value()) {
-                        set_text(*name_message_box, name_property.get());
+                        set_message_box_text(*name_message_box, name_property.get());
                     }
                 })
                 .finalize(reactive_effects);
@@ -237,7 +236,7 @@ namespace randomizer::main_menu_seed_info {
                 .after([]() {
                     const auto status_message_box = *status_message_box_ref;
                     if (status_message_box.has_value()) {
-                        set_text(*status_message_box, status_property.get());
+                        set_message_box_text(*status_message_box, status_property.get());
                     }
                 })
                 .finalize(reactive_effects);
@@ -247,7 +246,7 @@ namespace randomizer::main_menu_seed_info {
                 .after([]() {
                     const auto description_message_box = *description_message_box_ref;
                     if (description_message_box.has_value()) {
-                        set_text(*description_message_box, description_property.get());
+                        set_message_box_text(*description_message_box, description_property.get());
                     }
                 })
                 .finalize(reactive_effects);
@@ -270,12 +269,9 @@ namespace randomizer::main_menu_seed_info {
             const auto question_dialog_message_box = question_dialog_message_box_ref.and_then([](auto& ref) { return *ref; });
 
             if (question_dialog_message_box.has_value()) {
-                (*question_dialog_message_box)->fields.MessageProvider = core::api::system::create_message_provider(text);
-
                 // Prevent line wrapping
                 (*question_dialog_message_box)->fields.TextBox->fields.width = 10000.f;
-
-                app::classes::MessageBox::RefreshText_1(*question_dialog_message_box);
+                set_message_box_text(*question_dialog_message_box, text);
             }
 
             const auto question_dialog_go = question_dialog_go_ref.and_then([](auto& ref) { return *ref; });
@@ -329,38 +325,38 @@ namespace randomizer::main_menu_seed_info {
 
             const auto easy_mode_text = easy_mode_text_ref.and_then([](auto& ref) { return *ref; });
             if (easy_mode_text.has_value()) {
-                (*easy_mode_text)->fields.MessageProvider = core::api::system::create_message_provider(
+                set_message_box_text(
+                    *easy_mode_text,
                     std::format(
                         "{}{}",
                         prepend_to_difficulty,
                         game_difficulties.and_then([](auto& v) { return v.easy.label; }).value_or("EASY MODE")
                     )
                 );
-                MessageBox::RefreshText_1(*easy_mode_text);
             }
 
             const auto normal_mode_text = normal_mode_text_ref.and_then([](auto& ref) { return *ref; });
             if (normal_mode_text.has_value()) {
-                (*normal_mode_text)->fields.MessageProvider = core::api::system::create_message_provider(
+                set_message_box_text(
+                    *normal_mode_text,
                     std::format(
                         "{}{}",
                         prepend_to_difficulty,
                         game_difficulties.and_then([](auto& v) { return v.normal.label; }).value_or("NORMAL MODE")
                     )
                 );
-                MessageBox::RefreshText_1(*normal_mode_text);
             }
 
             const auto hard_mode_text = hard_mode_text_ref.and_then([](auto& ref) { return *ref; });
             if (hard_mode_text.has_value()) {
-                (*hard_mode_text)->fields.MessageProvider = core::api::system::create_message_provider(
+                set_message_box_text(
+                    *hard_mode_text,
                     std::format(
                         "{}{}",
                         prepend_to_difficulty,
                         game_difficulties.and_then([](auto& v) { return v.hard.label; }).value_or("HARD MODE")
                     )
                 );
-                MessageBox::RefreshText_1(*hard_mode_text);
             }
         }
 
@@ -414,9 +410,9 @@ namespace randomizer::main_menu_seed_info {
                     il2cpp::unity::set_local_position(switch_profile_textbox_go, app::Vector3{-74.3f, -32.6f, -0.5f});
 
                     description_message_box->fields.TextBox->fields.maxHeight = 9999999;
-                    set_text(name_message_box, name_property.get());
-                    set_text(status_message_box, status_property.get());
-                    set_text(description_message_box, description_property.get());
+                    set_message_box_text(name_message_box, name_property.get());
+                    set_message_box_text(status_message_box, status_property.get());
+                    set_message_box_text(description_message_box, description_property.get());
 
                     background_gradient = std::make_unique<core::api::graphics::Sprite>(online_group);
                     background_gradient->enabled(true);
