@@ -1,127 +1,129 @@
 #pragma once
 
-#include <Common/event_bus_data.h>
-#include <Common/event_timing.h>
-
-#include <type_traits>
-#include <vector>
+#include <array>
+#include <ranges>
+#include <unordered_map>
+#include <variant>
+#include "droppable.h"
+#include "variant_index.h"
 
 namespace common {
-
-    template <typename Return, typename T, typename... Identifiers>
-    class EventBusImplementation {
+    template<typename... EVENTS_T>
+    class EventBus {
     public:
-        template <typename Alias>
-        struct event_handler_alias {
-            using handler = std::function<Return(Alias, Identifiers...)>;
-        };
+        using events_variant_t = std::variant<EVENTS_T...>;
+        using generic_callback_t = std::function<void(const events_variant_t&)>;
 
-        template <>
-        struct event_handler_alias<void> {
-            using handler = std::function<Return(Identifiers...)>;
-        };
+        template<typename EVENT_T>
+        using callback_t = std::function<void(const EVENT_T&)>;
 
-        using event_handler = typename event_handler_alias<T>::handler;
-        using event_bus_data = EventBusData<event_handler>;
-        using identifier = std::tuple<Identifiers...>;
-
-        EventBusImplementation() = default;
-
-        EventBusImplementation(EventBusImplementation const& other) = delete;
-
-        void clear() {
-            m_data.clear();
+        template<typename EVENT_T>
+        [[nodiscard]]
+        Droppable::ptr_t on(callback_t<EVENT_T> callback) {
+            constexpr auto event_index = variant_index<events_variant_t, EVENT_T>();
+            const auto id = m_next_id++;
+            m_event_handlers[event_index][id] = [callback](const events_variant_t& event) { callback(std::get<EVENT_T>(event)); };
+            return std::make_unique<Droppable>([this, event_index, id] { remove_event_handler_safe(event_index, id); });
         }
 
-        [[nodiscard]] Droppable::ptr_t register_handler(Identifiers... ids, event_handler handler) {
-            return m_data.get_bus_data(ids...)->register_handler(handler);
-        }
+        template<typename EVENT_T>
+        void emit(EVENT_T event) {
+            constexpr auto event_index = variant_index<events_variant_t, EVENT_T>();
 
-        [[nodiscard]] std::vector<Droppable::ptr_t> register_handlers(std::vector<identifier> ids, event_handler handler) {
-            std::vector<Droppable::ptr_t> handles;
-            for (auto id : ids) {
-                handles.push_back(m_data.get_bus_data(id)->register_handler(handler));
+            m_is_running_event_handler = true;
+            events_variant_t event_variant = event;
+            for (auto& entry: m_event_handlers[event_index]) {
+                entry.second(event_variant);
             }
+            m_is_running_event_handler = false;
 
-            return handles;
-        }
-
-        void trigger_event(Identifiers... ids)
-            requires(std::same_as<Return, void> && std::same_as<T, void>)
-        {
-            auto data = m_data.get_bus_data(ids...);
-            data->start_trigger();
-            for (auto const& [id, handler] : data->event_handlers) {
-                if (data->should_trigger(id)) {
-                    handler(ids...);
-                }
+            for (auto& identifier: m_queued_deletions) {
+                remove_event_handler(identifier.event_index, identifier.id);
             }
-
-            data->end_trigger();
-        }
-
-        std::vector<Return> trigger_event(Identifiers... ids)
-            requires(!std::same_as<Return, void> && std::same_as<T, void>)
-        {
-            auto data = m_data.get_bus_data(ids...);
-            data->start_trigger();
-            std::vector<Return> output;
-            for (auto const& [id, handler] : data->event_handlers) {
-                if (data->should_trigger(id)) {
-                    output.push_back(handler(ids...));
-                }
-            }
-
-            data->end_trigger();
-            return output;
-        }
-
-        void trigger_event(Identifiers... ids, auto value)
-            requires(std::same_as<Return, void> && !std::same_as<T, void>)
-        {
-            auto data = m_data.get_bus_data(ids...);
-            data->start_trigger();
-            for (auto const& [id, handler] : data->event_handlers) {
-                if (data->should_trigger(id)) {
-                    handler(value, ids...);
-                }
-            }
-
-            data->end_trigger();
-        }
-
-        std::vector<Return> trigger_event(Identifiers... ids, auto value)
-            requires(!std::same_as<Return, void> && !std::same_as<T, void>)
-        {
-            auto data = m_data.get_bus_data(ids...);
-            data->start_trigger();
-            std::vector<Return> output;
-            for (auto const& [id, handler] : data->event_handlers) {
-                if (data->should_trigger(id)) {
-                    output.push_back(handler(value, ids...));
-                }
-            }
-
-            data->end_trigger();
-            return output;
         }
 
     private:
-        EventBusContainer<event_handler, Identifiers...> m_data;
+        using id_t = std::size_t;
+
+        struct EventHandlerIdentifier {
+            std::size_t event_index;
+            id_t id;
+        };
+
+        void remove_event_handler_safe(std::size_t event_index, id_t id) {
+            if (m_is_running_event_handler) {
+                m_queued_deletions.emplace_back(event_index, id);
+            } else {
+                remove_event_handler(event_index, id);
+            }
+        }
+
+        void remove_event_handler(std::size_t event_index, id_t id) { m_event_handlers[event_index].erase(id); }
+
+        id_t m_next_id = 0;
+        bool m_is_running_event_handler = false;
+        std::vector<EventHandlerIdentifier> m_queued_deletions;
+        std::array<std::unordered_map<id_t, generic_callback_t>, sizeof...(EVENTS_T)> m_event_handlers{};
     };
 
-    template <typename T, typename... Identifiers>
-    using EventBus = EventBusImplementation<void, T, Identifiers...>;
+    template<typename DISCRIMINATOR_T, typename... EVENTS_T>
+    class DiscriminatingEventBus {
+    public:
+        using events_variant_t = std::variant<EVENTS_T...>;
+        using generic_callback_t = std::function<void(const events_variant_t&)>;
 
-    template <typename Return, typename T, typename... Identifiers>
-    using CollectingEventBus = EventBusImplementation<Return, T, Identifiers...>;
+        template<typename EVENT_T>
+        using callback_t = std::function<void(const EVENT_T&)>;
 
-    template <typename... Identifiers>
-    using MultiEventBus = EventBusImplementation<void, void, Identifiers...>;
+        template<typename EVENT_T>
+        [[nodiscard]]
+        Droppable::ptr_t on(DISCRIMINATOR_T discriminator, callback_t<EVENT_T> callback) {
+            constexpr auto event_index = variant_index<events_variant_t, EVENT_T>();
+            const auto id = m_next_id++;
+            m_event_handlers[event_index][discriminator][id] = [callback](const events_variant_t& event) { callback(std::get<EVENT_T>(event)); };
+            return std::make_unique<Droppable>([this, event_index, discriminator, id] { remove_event_handler_safe(event_index, discriminator, id); });
+        }
 
-    template <typename T, typename... Identifiers>
-    using TimedEventBus = EventBusImplementation<void, T, Identifiers..., EventTiming>;
+        template<typename EVENT_T>
+        void emit(DISCRIMINATOR_T discriminator, EVENT_T event) {
+            constexpr auto event_index = variant_index<events_variant_t, EVENT_T>();
 
-    template <typename... Identifiers>
-    using TimedMultiEventBus = EventBusImplementation<void, void, Identifiers..., EventTiming>;
-} // namespace core::events
+            m_is_running_event_handler = true;
+            events_variant_t event_variant = event;
+            for (auto& entry: m_event_handlers[event_index][discriminator]) {
+                entry.second(event_variant);
+            }
+            m_is_running_event_handler = false;
+
+            for (auto& identifier: m_queued_deletions) {
+                remove_event_handler(identifier.event_index, identifier.discriminator, identifier.id);
+            }
+        }
+
+    private:
+        using id_t = std::size_t;
+
+        struct EventHandlerIdentifier {
+            std::size_t event_index;
+            DISCRIMINATOR_T discriminator;
+            id_t id;
+        };
+
+        void remove_event_handler_safe(std::size_t event_index, const DISCRIMINATOR_T& discriminator, id_t id) {
+            if (m_is_running_event_handler) {
+                m_queued_deletions.emplace_back(event_index, discriminator, id);
+            } else {
+                remove_event_handler(event_index, discriminator, id);
+            }
+        }
+
+        void remove_event_handler(std::size_t event_index, const DISCRIMINATOR_T& discriminator, id_t id) {
+            m_event_handlers[event_index][discriminator].erase(id);
+        }
+
+        id_t m_next_id = 0;
+        bool m_is_running_event_handler = false;
+        std::vector<EventHandlerIdentifier> m_queued_deletions;
+        std::array<std::unordered_map<DISCRIMINATOR_T, std::unordered_map<id_t, generic_callback_t>>, sizeof...(EVENTS_T)> m_event_handlers{};
+    };
+} // namespace common

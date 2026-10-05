@@ -20,28 +20,18 @@ namespace core::api::game::ui {
         bool manually_shaking_resource_ui = false;
 
         [[maybe_unused]]
-        auto on_after_open_area_map = game::event_bus().register_handler(
-            GameEvent::OpenAreaMap,
-            EventTiming::After,
-            [](auto game_event, auto timing) {
+        auto on_after_open_area_map = game::event_bus().on<events::OpenedAreaMap>(
+            [](auto) {
                 is_area_map_open = true;
             }
         );
 
         [[maybe_unused]]
-        auto on_after_close_area_map = game::event_bus().register_handler(
-            GameEvent::CloseAreaMap,
-            EventTiming::After,
-            [](auto game_event, auto timing) {
+        auto on_after_close_area_map = game::event_bus().on<events::ClosedAreaMap>(
+            [](auto) {
                 is_area_map_open = false;
             }
         );
-
-        IL2CPP_INTERCEPT(void, AreaMapUI, OnDestroy, app::AreaMapUI * this_ptr) {
-            event_bus().trigger_event(GameEvent::DestroyAreaMap, EventTiming::Before);
-            next::AreaMapUI::OnDestroy(this_ptr);
-            event_bus().trigger_event(GameEvent::DestroyAreaMap, EventTiming::After);
-        }
     } // namespace
 
     bool is_manually_shaking_resource_ui() {

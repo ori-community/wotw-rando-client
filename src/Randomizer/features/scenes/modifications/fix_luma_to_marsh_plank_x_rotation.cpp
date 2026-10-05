@@ -35,7 +35,7 @@ namespace {
             )
         );
 
-        on_update_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+        on_update_handle = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
             if (!broken_plank_go_ref.has_value()) {
                 on_update_handle = nullptr;
                 return;

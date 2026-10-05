@@ -658,7 +658,7 @@ namespace randomizer::main_menu_seed_info {
         }
 
         [[maybe_unused]]
-        auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+        auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
             if (!poll_current_seed_source_until_not_loading) {
                 return;
             }

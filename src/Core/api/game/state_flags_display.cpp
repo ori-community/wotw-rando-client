@@ -142,7 +142,7 @@ namespace {
         if (enable && on_after_gui == nullptr) {
             Moon::ImGuiManager::RegisterClient();
 
-            on_after_gui = core::api::game::event_bus().register_handler(GameEvent::GUI, EventTiming::After, [](auto, auto) {
+            on_after_gui = core::api::game::event_bus().on<core::api::game::events::GUI>([](auto) {
                 if (!gui_style.has_value()) {
                     auto gui_style_instance = types::GUIStyle::create();
                     UnityEngine::GUIStyle::ctor_2(gui_style_instance, UnityEngine::GUI::get_skin()->fields.m_label);

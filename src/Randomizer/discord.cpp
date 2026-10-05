@@ -15,7 +15,7 @@ namespace {
         const auto result = discord::Core::Create(934203885743144960, static_cast<uint64_t>(discord::CreateFlags::NoRequireDiscord), &discord);
 
         if (result == discord::Result::Ok) {
-            on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+            on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
                 discord->RunCallbacks();
 
                 if (rate_limited_for > 0.0f) {

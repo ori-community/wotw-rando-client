@@ -125,7 +125,7 @@ namespace {
     }
 
     auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
-    auto on_fixed_update_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
+    auto on_fixed_update_handle = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>(&on_fixed_update);
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         auto cutscene_skip = custom_cutscene_skips::CustomCutsceneSkip{
             .is_available = &skip_available,

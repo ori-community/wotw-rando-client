@@ -155,7 +155,7 @@ namespace {
                 animation_position = shriek_barrier_active ? 1.f : 0.f;
                 update_animation_state();
 
-                on_update_animation_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+                on_update_animation_handle = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
                     if (shriek_barrier_go_ref.has_value() && shriek_barrier_go_ref->is_valid()) {
                         if (animation_position != (shriek_barrier_active ? 1.f : 0.f)) {
                             animation_position = shriek_barrier_active

@@ -163,7 +163,7 @@ namespace tas::runtime {
             }
         } // namespace cli_handlers
 
-        auto on_before_unity_loop_handle = core::api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::Before, [](auto, auto) {
+        auto on_before_unity_loop_handle = core::api::game::event_bus().on<core::api::game::events::BeforeUnityUpdateLoop>(, [](auto) {
             if (state.framestepping_enabled) {
                 while (!framestep_requested && state.framestepping_enabled) {
                     core::api::game::event_bus().trigger_event(GameEvent::TASPausedUpdate, EventTiming::Before);
@@ -183,7 +183,7 @@ namespace tas::runtime {
             }
         });
 
-        auto on_after_unity_loop_handle = core::api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
+        auto on_after_unity_loop_handle = core::api::game::event_bus().on<core::api::game::events::AfterUnityUpdateLoop>([](auto) {
             notify_state_changed();
         });
 

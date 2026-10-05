@@ -41,7 +41,7 @@ namespace core::api::uber_states {
                 m_last_known_value = m_getter_fn();
                 break;
             case ChangeDetectionMode::Poll:
-                m_poll_update_droppable = game::event_bus().register_handler(GameEvent::Update, EventTiming::Before, [this](auto, auto) {
+                m_poll_update_droppable = game::event_bus().on<game::events::BeforeUnityUpdateLoop>([this](auto) {
                     check_for_changes();
                 });
                 break;

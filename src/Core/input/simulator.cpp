@@ -196,13 +196,10 @@ namespace core::input {
         }
 
         IL2CPP_INTERCEPT(void, PlayerInput, RefreshControlScheme, app::PlayerInput * this_ptr) {
-            api::game::event_bus().trigger_event(GameEvent::RefreshInputControls, EventTiming::Before);
             next::PlayerInput::RefreshControlScheme(this_ptr);
-            api::game::event_bus().trigger_event(GameEvent::RefreshInputControls, EventTiming::After);
+            api::game::event_bus().emit(api::game::events::RefreshedInputControls());
 
-            api::game::event_bus().trigger_event(GameEvent::RegisteringInputSimulators, EventTiming::Before);
             core::input::register_simulators(this_ptr);
-            api::game::event_bus().trigger_event(GameEvent::RegisteringInputSimulators, EventTiming::After);
         }
 
         void hide_mouse_position_indicator_if_active() {
@@ -211,7 +208,8 @@ namespace core::input {
             }
         }
 
-        void update_simulated_mouse_position_indicator(GameEvent event, EventTiming timing) {
+        [[maybe_unused]]
+        auto update_simulated_mouse_position_indicator_handle = api::game::event_bus().on<api::game::events::Update>([](auto) {
             if (!simulated_mouse_position.enabled) {
                 hide_mouse_position_indicator_if_active();
                 return;
@@ -255,13 +253,7 @@ namespace core::input {
 
             using namespace UnityEngine::Vector3::operators;
             simulated_mouse_position_indicator->local_position(ui_position + app::Vector3{ indicator_position_offset, -indicator_position_offset, 0.f });
-        }
-
-        auto update_simulated_mouse_position_indicator_handle = api::game::event_bus().register_handler(
-            GameEvent::Update,
-            EventTiming::After,
-            &update_simulated_mouse_position_indicator
-        );
+        });
     } // namespace
 
     void register_button_simulator(app::CompoundButtonInput* input, Action action) {

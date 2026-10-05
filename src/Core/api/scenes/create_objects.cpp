@@ -75,7 +75,7 @@ namespace core::api::scenes {
         }
 
         [[maybe_unused]]
-        auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+        auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
             for (const auto& object_spawn_by_scene : pending_object_spawns_by_scene) {
                 force_load_scene(object_spawn_by_scene.first, &on_loading_callback);
             }

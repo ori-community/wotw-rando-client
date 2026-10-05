@@ -378,7 +378,7 @@ namespace randomizer::game {
             }).value_or(seed::SeedMetaData().spawn)));
 
             core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.Enabled = false;
-            on_new_game_late_initialization_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, on_new_game_late_initialization);
+            on_new_game_late_initialization_handle = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>(on_new_game_late_initialization);
 
             GameStateMachine::SetToGame(game_state_machine);
 
@@ -408,7 +408,7 @@ namespace randomizer::game {
         [[maybe_unused]]
         auto _3 = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, &on_finished_loading_save);
         [[maybe_unused]]
-        auto _4 = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
+        auto _4 = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>(&on_fixed_update);
         [[maybe_unused]]
         auto _5 = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             on_should_block_starting_new_game_changed = randomizer::multiplayer_universe().event_bus().register_handler(online::MultiplayerUniverse::Event::ShouldBlockStartingNewGameChanged, EventTiming::After, [](auto, auto) {

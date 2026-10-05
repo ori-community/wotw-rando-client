@@ -17,9 +17,9 @@ namespace core::events {
         );
 
         void unityplayer_update() {
-            api::game::event_bus().trigger_event(GameEvent::UnityUpdateLoop, EventTiming::Before);
+            api::game::event_bus().emit(api::game::events::BeforeUnityUpdateLoop());
             next_unityplayer_update();
-            api::game::event_bus().trigger_event(GameEvent::UnityUpdateLoop, EventTiming::After);
+            api::game::event_bus().emit(api::game::events::AfterUnityUpdateLoop());
             FrameMark;
         }
     }

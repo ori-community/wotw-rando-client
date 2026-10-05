@@ -464,7 +464,7 @@ namespace core::reactivity {
 
         #ifdef ENABLE_PROFILER
         [[maybe_unused]]
-        auto on_after_unity_update_loop = api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
+        auto on_after_unity_update_loop = api::game::event_bus().on<api::game::events::AfterUnityUpdateLoop>([](auto) {
             TracyPlot(
                 "Effect Trigger Count",
                 static_cast<int64_t>(dependency_tracker().effects_by_dependency.size())

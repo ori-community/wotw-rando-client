@@ -49,7 +49,7 @@ namespace randomizer {
 
         std::vector<std::function<void()>> input_unlocked_callbacks;
         [[maybe_unused]]
-        auto on_input_locked_handler = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+        auto on_input_locked_handler = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
             if (!core::api::game::player::can_move()) {
                 return;
             }

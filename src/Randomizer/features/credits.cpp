@@ -77,7 +77,7 @@ namespace randomizer::features::credits {
         float time = 0.0f;
 
         [[maybe_unused]]
-        auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+        auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
             const auto credits_controller = types::CreditsController::get_class()->static_fields->Instance;
             if (credits_controller != nullptr && CreditsController::IsCreditsTimelinePlaying(credits_controller)) {
                 if (!Game::UI::get_MainMenuVisible()) {

@@ -222,11 +222,11 @@ namespace core::api::game::in_game_timer {
             did_switch_control_scheme_in_current_frame = true;
         }
 
-        [[maybe_unused]] auto on_before_unity_update_loop = game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::Before, [](auto, auto) {
+        [[maybe_unused]] auto on_before_unity_update_loop = game::event_bus().on<events::BeforeUnityUpdateLoop>([](auto) {
             did_switch_control_scheme_in_current_frame = false;
         });
 
-        [[maybe_unused]] auto on_after_unity_update_loop = game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
+        [[maybe_unused]] auto on_after_unity_update_loop = game::event_bus().on<events::AfterUnityUpdateLoop>([](auto) {
             update_game_timer_on_end_of_frame();
         });
     } // namespace

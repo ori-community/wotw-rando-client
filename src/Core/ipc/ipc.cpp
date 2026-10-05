@@ -209,7 +209,7 @@ namespace core::ipc {
         }
     }
 
-    auto fixed_update = api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &update_pipe);
+    auto fixed_update = api::game::event_bus().on<core::api::game::events::FixedUpdate>(&update_pipe);
     auto tas_paused_update = api::game::event_bus().register_handler(GameEvent::TASPausedUpdate, EventTiming::After, &update_pipe);
     auto shutdown = api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, &on_shutdown);
 } // namespace core::ipc

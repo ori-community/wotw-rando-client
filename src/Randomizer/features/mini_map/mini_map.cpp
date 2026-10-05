@@ -254,7 +254,7 @@ namespace {
         load_areamap_ui_for_minimap_if_needed();
     });
 
-    [[maybe_unused]] auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+    [[maybe_unused]] auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
         if (core::settings::enable_minimap()) {
             if (!minimap_go.has_value()) {
                 load_areamap_ui_for_minimap_if_needed();

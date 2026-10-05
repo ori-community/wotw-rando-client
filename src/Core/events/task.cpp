@@ -38,7 +38,7 @@ namespace core::events {
         schedule_task(-timer, std::move(task));
     }
 
-    auto before_unity_update = core::api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
+    auto before_unity_update = core::api::game::event_bus().on<core::api::game::events::AfterUnityUpdateLoop>([](auto) {
         if (!tasks.empty()) {
             timer += api::game::fixed_delta_time();
 

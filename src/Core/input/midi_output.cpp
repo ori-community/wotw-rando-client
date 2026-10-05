@@ -42,7 +42,7 @@ namespace core::input::midi_output {
         modloader::warn("midi_out", "Could not open MIDI interface");
     });
 
-    auto on_after_unity_update_loop = api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
+    auto on_after_unity_update_loop = api::game::event_bus().on<api::game::events::AfterUnityUpdateLoop>([](auto) {
         if (midi.has_value()) {
             for (auto& [command, note] : midi_mapping) {
                 const auto processor = Core::Input::GetButton(command);
