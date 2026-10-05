@@ -1,9 +1,8 @@
 #include <Common/ext.h>
-#include <Randomizer/features/wheel.h>
-#include <Randomizer/input/rando_bindings.h>
-
-#include <Core/api/graphics/shaders.h>
+#include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
 #include <Core/api/graphics/textures.h>
+#include <Core/api/messages/text_style.h>
 #include <Core/api/system/message_provider.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/CleverMenuItemSelectionManager.h>
@@ -19,6 +18,7 @@
 #include <Modloader/app/methods/RaceSystem.h>
 #include <Modloader/app/methods/SeinController.h>
 #include <Modloader/app/methods/SpellUIItem.h>
+#include <Modloader/app/methods/UberShaderAPI.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/methods/UnityEngine/Vector3.h>
@@ -27,20 +27,18 @@
 #include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/Renderer.h>
-#include <Modloader/app/types/SpellSettings.h>
 #include <Modloader/app/types/TextBox.h>
 #include <Modloader/app/types/UI.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/features/wheel.h>
+#include <Randomizer/input/rando_bindings.h>
 #include <Randomizer/randomizer.h>
 #include <array>
 #include <unordered_map>
 #include <unordered_set>
-#include <Core/api/game/game.h>
-#include <Core/api/game/player.h>
 
-#include "Modloader/app/methods/UberShaderAPI.h"
 
 using namespace modloader;
 using namespace app::classes;
@@ -395,8 +393,14 @@ namespace randomizer::features::wheel {
                 }
 
                 if (entry != nullptr) {
-                    name_message_box->fields.MessageProvider = core::api::system::create_message_provider(entry->name.get());
-                    description_message_box->fields.MessageProvider = core::api::system::create_message_provider(entry->description.get());
+                    const auto name = entry->name.get();
+                    const auto description = entry->description.get();
+
+                    text_style::create_styles(name_message_box->fields.TextBox, name);
+                    name_message_box->fields.MessageProvider = core::api::system::create_message_provider(name);
+
+                    text_style::create_styles(name_message_box->fields.TextBox, description);
+                    description_message_box->fields.MessageProvider = core::api::system::create_message_provider(description);
                 } else {
                     name_message_box->fields.MessageProvider = core::api::system::create_message_provider("Empty");
                     description_message_box->fields.MessageProvider = core::api::system::create_message_provider("");;
