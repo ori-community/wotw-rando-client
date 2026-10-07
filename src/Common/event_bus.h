@@ -4,7 +4,6 @@
 #include <Common/scope_utils.h>
 #include <Common/variant_index.h>
 #include <array>
-#include <cassert>
 #include <optional>
 #include <ranges>
 #include <unordered_map>
@@ -13,17 +12,6 @@
 
 
 namespace common {
-    /*
-     * A few notes about the following event bus implementations:
-     * - Deleting an event bus handler during its own execution is safe. The removal is queued
-     *   up and done after iteration.
-     * - Registering an event bus handler during its own execution is NOT SAFE and will crash.
-     *   E.g. you currently cannot create new handlers for an event Event1 while Event1 is
-     *   executed. You can however create handlers for Event1 from another event Event2.
-     *   If this functionality is needed it can be implemented by queueing up registrations
-     *   the same way as deletions.
-     */
-
     template<typename... EVENTS_T>
     class EventBus {
     public:
@@ -42,7 +30,6 @@ namespace common {
         Droppable::ptr_t on(callback_t<EVENT_T> callback) {
             constexpr auto event_index = variant_index<events_variant_t, EVENT_T>();
             auto& collection = m_event_handler_collections[event_index];
-            assert(!collection.is_executing_handler);
 
             const auto id = m_next_id++;
             collection.handlers[id] = {
@@ -63,7 +50,8 @@ namespace common {
             {
                 common::ScopedSetter _(collection.is_executing_handler, true);
 
-                for (auto& [id, handler]: collection.handlers) {
+                auto handlers = collection.handlers;
+                for (auto& [id, handler]: handlers) {
                     if (handler.is_deletion_pending) {
                         continue;
                     }
@@ -132,7 +120,6 @@ namespace common {
             const auto id = m_next_id++;
 
             auto& discriminated_collection = m_discriminated_event_handler_collections[event_index][discriminator];
-            assert(!discriminated_collection.is_executing_handler);
 
             discriminated_collection.handlers[id] = {
                 [callback](const events_variant_t& event) { callback(std::get<EVENT_T>(event)); }
@@ -153,7 +140,6 @@ namespace common {
 
             for (const auto& discriminator: discriminators) {
                 auto& discriminated_collection = m_discriminated_event_handler_collections[event_index][discriminator];
-                assert(!discriminated_collection.is_executing_handler);
 
                 discriminated_collection.handlers[id] = {
                     [callback, discriminator](const events_variant_t& event) { callback(discriminator, std::get<EVENT_T>(event)); }
@@ -176,7 +162,6 @@ namespace common {
         Droppable::ptr_t on(callback_t<EVENT_T> callback) {
             constexpr auto event_index = variant_index<events_variant_t, EVENT_T>();
             auto& collection = m_event_handler_collections[event_index];
-            assert(!collection.is_executing_handler);
 
             const auto id = m_next_id++;
             collection.handlers[id] = {
@@ -197,7 +182,9 @@ namespace common {
 
             {
                 common::ScopedSetter _(discriminated_collection.is_executing_handler, true);
-                for (auto& [id, handler]: discriminated_collection.handlers) {
+
+                auto handlers = discriminated_collection.handlers;
+                for (auto& [id, handler]: handlers) {
                     if (handler.is_deletion_pending) {
                         continue;
                     }
@@ -217,7 +204,9 @@ namespace common {
 
             {
                 common::ScopedSetter _(collection.is_executing_handler, true);
-                for (auto& [id, handler]: collection.handlers) {
+
+                auto handlers = collection.handlers;
+                for (auto& [id, handler]: handlers) {
                     if (handler.is_deletion_pending) {
                         continue;
                     }
