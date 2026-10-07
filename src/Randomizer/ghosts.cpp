@@ -2,6 +2,8 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/messages/text_style.h>
+#include <Core/utils/byte_stream.h>
+#include <Core/utils/misc.h>
 #include <Modloader/app/methods/GenericPuppet.h>
 #include <Modloader/app/methods/GhostCharacterAbilitiesPlugin.h>
 #include <Modloader/app/methods/GhostCharacterData.h>
@@ -20,7 +22,6 @@
 #include <Modloader/app/methods/System/IO/BinaryReader.h>
 #include <Modloader/app/methods/System/IO/BinaryWriter.h>
 #include <Modloader/app/methods/System/IO/MemoryStream.h>
-#include <Modloader/app/methods/System/String.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Material.h>
 #include <Modloader/app/methods/UnityEngine/Renderer.h>
@@ -45,17 +46,13 @@
 #include <Modloader/app/types/OriGhostRigVisuals_GhostVisualSettings.h>
 #include <Modloader/app/types/SkinnedMeshRenderer.h>
 #include <Modloader/il2cpp_helpers.h>
+#include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 #include <Randomizer/ghosts.h>
 #include <Randomizer/ghosts/plugins.h>
 #include <queue>
-
-#include <Core/utils/misc.h>
-#include <Modloader/interception_macros.h>
-#include <Modloader/modloader.h>
-
-#include <Core/utils/byte_stream.h>
 #include <string>
-#include <utility>
+
 
 using namespace app::classes;
 using namespace app::classes::System::IO;
@@ -63,7 +60,7 @@ using namespace app::classes::System::IO;
 namespace ghosts {
     constexpr int GHOST_RECORDER_DATA_VERSION = 8;
     constexpr float MAX_GHOST_EXTRAPOLATION_TIME = 0.3f;
-    constexpr std::wstring_view RANDO_GHOST_TAG = L"##RANDO_GHOST##";
+    constexpr std::string_view RANDO_GHOST_TAG = "##RANDO_GHOST##";
 
     bool intercept_ghost_player_on_enable = false;
     RandoGhost* currently_processing_frame_ghost = nullptr;
@@ -82,7 +79,7 @@ namespace ghosts {
         // We call it by ourselves to process multiple incoming frames in one game frame
 
         // We want to process all other ghosts though...
-        if (!RaceSystem::get_IsIdle() && System::String::op_Inequality(this_ptr->fields.GhostRecordingFilePath, il2cpp::string_new(RANDO_GHOST_TAG))) {
+        if (!RaceSystem::get_IsIdle() && il2cpp::convert_csstring_fast_unsafe(this_ptr->fields.GhostRecordingFilePath) != RANDO_GHOST_TAG) {
             next::GhostPlayer::FixedUpdate(this_ptr);
         }
     }
@@ -142,6 +139,8 @@ namespace ghosts {
         }
 
         auto ghost_go = il2cpp::unity::instantiate_object(ghost_manager->fields.GhostPrefab);
+        core::api::game::add_to_container(core::api::game::GameObjectContainer::Ghosts, ghost_go);
+
         this->ghost_player = il2cpp::unity::get_component<app::GhostPlayer>(ghost_go, types::GhostPlayer::get_class());
 
         UnityEngine::GameObject::set_tag(ghost_go, il2cpp::string_new(RANDO_GHOST_TAG));
@@ -190,7 +189,7 @@ namespace ghosts {
         il2cpp::unity::set_local_position(this->ghost_player->fields.m_oriRig, app::Vector3{ 0.f, 0.f, 0.f });
         GhostPlayer::SetPosition(this->ghost_player, app::Vector3{ 0.f, 0.f, 0.f });
 
-        auto character_data = GhostPlayer::get_CurrentGhostCharacterData(this->ghost_player);
+        const auto character_data = GhostPlayer::get_CurrentGhostCharacterData(this->ghost_player);
         if (il2cpp::unity::is_valid(character_data)) {
             character_data->fields.Position = app::Vector3{ 0.f, 0.f, 0.f };
             character_data->fields.LocalSpeed = app::Vector2{ 0.f, 0.f };

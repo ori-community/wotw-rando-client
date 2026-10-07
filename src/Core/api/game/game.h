@@ -78,6 +78,7 @@ namespace core::api::game {
         Animation,
         Messages,
         Prefabs,
+        Ghosts,
     };
 
     struct CORE_DLLEXPORT SaveOptions {
