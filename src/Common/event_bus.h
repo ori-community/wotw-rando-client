@@ -12,8 +12,35 @@
 
 
 namespace common {
+    class EventBusBase {
+    protected:
+        template <typename CALLBACK_T>
+        struct EventHandler {
+            CALLBACK_T callback;
+            bool is_deletion_pending = false;
+        };
+
+        template <typename ID_T, typename CALLBACK_T>
+        struct EventHandlerCollection {
+            std::unordered_map<ID_T, EventHandler<CALLBACK_T>> handlers;
+            std::unordered_set<ID_T> pending_deletions;
+            bool is_executing_handler = false;
+
+            std::vector<std::pair<ID_T, EventHandler<CALLBACK_T>&>> copy_handlers() {
+                std::vector<std::pair<ID_T, EventHandler<CALLBACK_T>&>> copy;
+                copy.reserve(handlers.size());
+
+                for (auto& pair: handlers) {
+                    copy.emplace_back(pair.first, pair.second);
+                }
+
+                return copy;
+            }
+        };
+    };
+
     template<typename... EVENTS_T>
-    class EventBus {
+    class EventBus : EventBusBase {
     public:
         using events_variant_t = std::variant<EVENTS_T...>;
         using variant_callback_t = std::function<void(const events_variant_t&)>;
@@ -49,9 +76,7 @@ namespace common {
 
             {
                 common::ScopedSetter _(collection.is_executing_handler, true);
-
-                auto handlers = collection.handlers;
-                for (auto& [id, handler]: handlers) {
+                for (auto& [id, handler]: collection.copy_handlers()) {
                     if (handler.is_deletion_pending) {
                         continue;
                     }
@@ -71,18 +96,6 @@ namespace common {
     private:
         using id_t = std::size_t;
 
-        template <typename CALLBACK_T>
-        struct EventHandler {
-            CALLBACK_T callback;
-            bool is_deletion_pending = false;
-        };
-
-        struct EventHandlerCollection {
-            std::unordered_map<id_t, EventHandler<variant_callback_t>> handlers;
-            std::unordered_set<id_t> pending_deletions;
-            bool is_executing_handler = false;
-        };
-
         void remove_event_handler_safe(std::size_t event_index, id_t id) {
             auto& collection = m_event_handler_collections[event_index];
             if (collection.is_executing_handler) {
@@ -94,11 +107,11 @@ namespace common {
         }
 
         id_t m_next_id = 0;
-        std::array<EventHandlerCollection, sizeof...(EVENTS_T)> m_event_handler_collections{};
+        std::array<EventHandlerCollection<id_t, variant_callback_t>, sizeof...(EVENTS_T)> m_event_handler_collections{};
     };
 
     template<typename DISCRIMINATOR_T, typename... EVENTS_T>
-    class DiscriminatingEventBus {
+    class DiscriminatingEventBus : EventBusBase {
     public:
         using events_variant_t = std::variant<EVENTS_T...>;
         using discriminated_variant_callback_t = std::function<void(const events_variant_t&)>;
@@ -182,9 +195,7 @@ namespace common {
 
             {
                 common::ScopedSetter _(discriminated_collection.is_executing_handler, true);
-
-                auto handlers = discriminated_collection.handlers;
-                for (auto& [id, handler]: handlers) {
+                for (auto& [id, handler]: discriminated_collection.copy_handlers()) {
                     if (handler.is_deletion_pending) {
                         continue;
                     }
@@ -204,9 +215,7 @@ namespace common {
 
             {
                 common::ScopedSetter _(collection.is_executing_handler, true);
-
-                auto handlers = collection.handlers;
-                for (auto& [id, handler]: handlers) {
+                for (auto& [id, handler]: collection.copy_handlers()) {
                     if (handler.is_deletion_pending) {
                         continue;
                     }
@@ -232,13 +241,6 @@ namespace common {
             bool is_deletion_pending = false;
         };
 
-        template <typename CALLBACK_T>
-        struct EventHandlerCollection {
-            std::unordered_map<id_t, EventHandler<CALLBACK_T>> handlers;
-            std::unordered_set<id_t> pending_deletions;
-            bool is_executing_handler = false;
-        };
-
         void remove_discriminated_event_handler_safe(std::size_t event_index, const DISCRIMINATOR_T& discriminator, id_t id) {
             auto& discriminated_collection = m_discriminated_event_handler_collections[event_index][discriminator];
             if (discriminated_collection.is_executing_handler) {
@@ -260,7 +262,7 @@ namespace common {
         }
 
         id_t m_next_id = 0;
-        std::array<std::unordered_map<DISCRIMINATOR_T, EventHandlerCollection<discriminated_variant_callback_t>>, sizeof...(EVENTS_T)> m_discriminated_event_handler_collections{};
-        std::array<EventHandlerCollection<variant_callback_t>, sizeof...(EVENTS_T)> m_event_handler_collections{};
+        std::array<std::unordered_map<DISCRIMINATOR_T, EventHandlerCollection<id_t, discriminated_variant_callback_t>>, sizeof...(EVENTS_T)> m_discriminated_event_handler_collections{};
+        std::array<EventHandlerCollection<id_t, variant_callback_t>, sizeof...(EVENTS_T)> m_event_handler_collections{};
     };
 } // namespace common
