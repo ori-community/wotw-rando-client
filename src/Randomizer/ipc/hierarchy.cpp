@@ -906,7 +906,7 @@ namespace randomizer::ipc {
             send_message(response);
         }
 
-        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
             register_request_handler("get_game_object", get_game_object);
             register_request_handler("get_children", get_children);
             register_request_handler("destroy_game_object", destroy_game_object);

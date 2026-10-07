@@ -334,8 +334,7 @@ namespace randomizer::game::pickups::quests {
         }
 
         [[maybe_unused]]
-        auto on_game_ready = modloader::event_bus().register_handler(
-            ModloaderEvent::GameReady,
+        auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>(
             [](auto) {
                 register_command({"debug", "report_quests_completed"}, report_quests_completed);
                 register_command({"debug", "report_world_state"}, report_world_state);

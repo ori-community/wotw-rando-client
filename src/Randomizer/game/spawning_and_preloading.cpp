@@ -5,7 +5,6 @@
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/system/message_provider.h>
 #include <Core/core.h>
-#include <Core/enums/game_event.h>
 #include <Core/events/task.h>
 #include <Modloader/app/methods/ActionSequence.h>
 #include <Modloader/app/methods/CameraPivotZone.h>
@@ -169,20 +168,6 @@ namespace randomizer::game {
             }
         }
 
-        void on_fixed_update(GameEvent event, EventTiming timing) {
-            auto menu_back_input = types::Input_Cmd::get_class()->static_fields->MenuBack;
-
-            if (!il2cpp::unity::is_valid(menu_back_input)) {
-                return;
-            }
-
-            if (is_in_lobby && Core::Input_InputButtonProcessor::get_OnPressed(menu_back_input)) {
-                is_in_lobby = false;
-                randomizer::multiplayer_universe().report_player_ready(false);
-                update_lobby_ui();
-            }
-        }
-
         // The game calls set_CurrentSlotIndex on startup. We set this variable to true
         // for this to not start preloading too early.
         bool prevent_preload_on_selecting_empty_save = false;
@@ -205,32 +190,8 @@ namespace randomizer::game {
             }
         }
 
-        void on_scene_loading(core::api::scenes::SceneLoadEventMetadata* metadata) {
-            if (metadata->state == app::SceneState__Enum::Loaded || metadata->state == app::SceneState__Enum::LoadingCancelled) {
-                if (!pending_scenes_to_preload.erase(metadata->scene_name)) {
-                    return;
-                }
-
-                update_lobby_ui(true);
-
-                if (pending_scenes_to_preload.empty()) {
-                    auto save_slots_ui = get_save_slots_ui();
-
-                    if (save_slots_ui != nullptr) {
-                        auto save_slot_ui = SaveSlotsUI::get_CurrentSaveSlot(save_slots_ui);
-                        SaveSlotUI::SetBusy(save_slot_ui, false);
-                    }
-
-                    // We loaded everything, check if we are ready and waiting...
-                    if (is_in_lobby) {
-                        check_if_preloaded_and_report_ready();
-                    }
-                }
-            }
-        }
-
         IL2CPP_INTERCEPT_WITH_ORDER(1, void, SaveSlotsUI, OnEnable, app::SaveSlotsUI * this_ptr) {
-            ScopedSetter setter(prevent_preload_on_selecting_empty_save, true);
+            common::ScopedSetter setter(prevent_preload_on_selecting_empty_save, true);
             next::SaveSlotsUI::OnEnable(this_ptr);
         }
 
@@ -282,11 +243,36 @@ namespace randomizer::game {
             }
         }
 
-        void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
-            if (metadata->scene_name == "wotwTitleScreen" && metadata->state == app::SceneState__Enum::Loaded) {
+        common::Droppable::ptr_t on_new_game_late_initialization_handle;
+        void on_new_game_late_initialization() {
+            if (!core::api::scenes::is_in_game()) {
+                return;
+            }
+
+            core::api::game::event_bus().emit(core::api::game::events::AfterNewGameInitialized());
+            on_new_game_late_initialization_handle = nullptr;
+
+            core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.Enabled = true;
+
+            if (handling_start) {
+                handling_start = false;
+                core::api::faderb::fade_to_game_visible(0.3f);
+            }
+        }
+
+        IL2CPP_INTERCEPT(void, SetupGameplayOnTrigger, SetupGameplay, app::SetupGameplayOnTrigger* this_ptr) {
+            // No-op
+        }
+
+        common::Droppable::ptr_t on_should_block_starting_new_game_changed;
+        common::Droppable::ptr_t on_multiverse_updated;
+
+        [[maybe_unused]]
+        auto on_title_screen_loaded = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("wotwTitleScreen", [](const auto& event) {
+            if (event.state == app::SceneState__Enum::Loaded) {
                 is_starting_game = false;
 
-                auto scene_root = metadata->scene->fields.SceneRoot;
+                auto scene_root = event.scene->fields.SceneRoot;
                 auto scene_root_go = il2cpp::unity::get_game_object(scene_root);
 
                 std::vector<std::vector<std::string>> game_objects_to_nuke{
@@ -333,34 +319,37 @@ namespace randomizer::game {
                 qtm_wait->fields.Duration = 0.f;
                 #endif
             }
-        }
+        });
+        [[maybe_unused]]
+        auto on_scene_state_changed = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>([](const auto& scene_name, const auto& event) {
+            if (event.state == app::SceneState__Enum::Loaded || event.state == app::SceneState__Enum::LoadingCancelled) {
+                if (!pending_scenes_to_preload.erase(scene_name)) {
+                    return;
+                }
 
-        common::Droppable::ptr_t on_new_game_late_initialization_handle;
-        void on_new_game_late_initialization(GameEvent, EventTiming) {
-            if (!core::api::scenes::is_in_game()) {
-                return;
+                update_lobby_ui(true);
+
+                if (pending_scenes_to_preload.empty()) {
+                    auto save_slots_ui = get_save_slots_ui();
+
+                    if (save_slots_ui != nullptr) {
+                        auto save_slot_ui = SaveSlotsUI::get_CurrentSaveSlot(save_slots_ui);
+                        SaveSlotUI::SetBusy(save_slot_ui, false);
+                    }
+
+                    // We loaded everything, check if we are ready and waiting...
+                    if (is_in_lobby) {
+                        check_if_preloaded_and_report_ready();
+                    }
+                }
             }
-
-            core::api::game::event_bus().trigger_event(GameEvent::NewGameInitialized, EventTiming::After);
-            on_new_game_late_initialization_handle = nullptr;
-
-            core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.Enabled = true;
-
-            if (handling_start) {
-                handling_start = false;
-                core::api::faderb::fade_to_game_visible(0.3f);
-            }
-        }
-
-        IL2CPP_INTERCEPT(void, SetupGameplayOnTrigger, SetupGameplay, app::SetupGameplayOnTrigger* this_ptr) {
-            // No-op
-        }
-
-        void on_new_game(GameEvent event, EventTiming timing) {
+        });
+        [[maybe_unused]]
+        auto on_after_new_game = core::api::game::event_bus().on<core::api::game::events::AfterNewGame>([](auto) {
             core::api::scenes::load_default_values();
             *shops::shops() = shops::ShopCollection();
 
-            core::api::game::event_bus().trigger_event(GameEvent::NewGameInitialized, EventTiming::Before);
+            core::api::game::event_bus().emit(core::api::game::events::BeforeNewGameInitialized());
 
             auto game_state_machine = types::GameStateMachine::get_class()->static_fields->m_instance;
 
@@ -370,7 +359,7 @@ namespace randomizer::game {
             handling_start = true;
 
             for (const auto& scene_name: pending_scenes_to_preload) {
-                core::api::scenes::force_load_scene(scene_name, nullptr, true, false);
+                core::api::scenes::force_load_scene(scene_name, true, false);
             }
 
             teleportation::teleport_instantly(math::to_vec3(game_seed().parser_output().transform([](auto output) {
@@ -378,7 +367,7 @@ namespace randomizer::game {
             }).value_or(seed::SeedMetaData().spawn)));
 
             core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields.Enabled = false;
-            on_new_game_late_initialization_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, on_new_game_late_initialization);
+            on_new_game_late_initialization_handle = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) { on_new_game_late_initialization(); });
 
             GameStateMachine::SetToGame(game_state_machine);
 
@@ -388,30 +377,32 @@ namespace randomizer::game {
             core::events::schedule_task(5.f, [] {
                 core::api::faderb::set_skip_black_screen_cleanup(false);
             });
-        }
-
-        void on_finished_loading_save(GameEvent event, EventTiming timing) {
+        });
+        [[maybe_unused]]
+        auto on_finished_loading_save = core::api::game::event_bus().on<core::api::game::events::FinishedLoadingSave>([](auto) {
             for (const auto& scene_name: scenes_to_preload) {
                 core::api::scenes::allow_unload_scene(scene_name);
             }
 
             scenes_to_preload.clear();
-        }
+        });
+        [[maybe_unused]]
+        auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
+            auto menu_back_input = types::Input_Cmd::get_class()->static_fields->MenuBack;
 
-        common::Droppable::ptr_t on_should_block_starting_new_game_changed;
-        common::Droppable::ptr_t on_multiverse_updated;
+            if (!il2cpp::unity::is_valid(menu_back_input)) {
+                return;
+            }
 
+            if (is_in_lobby && Core::Input_InputButtonProcessor::get_OnPressed(menu_back_input)) {
+                is_in_lobby = false;
+                randomizer::multiplayer_universe().report_player_ready(false);
+                update_lobby_ui();
+            }
+        });
         [[maybe_unused]]
-        auto _1 = core::api::scenes::event_bus().register_handler(&on_scene_load);
-        [[maybe_unused]]
-        auto _2 = core::api::game::event_bus().register_handler(GameEvent::NewGame, EventTiming::After, &on_new_game);
-        [[maybe_unused]]
-        auto _3 = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, &on_finished_loading_save);
-        [[maybe_unused]]
-        auto _4 = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
-        [[maybe_unused]]
-        auto _5 = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-            on_should_block_starting_new_game_changed = randomizer::multiplayer_universe().event_bus().register_handler(online::MultiplayerUniverse::Event::ShouldBlockStartingNewGameChanged, EventTiming::After, [](auto, auto) {
+        auto _5 = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
+            on_should_block_starting_new_game_changed = randomizer::multiplayer_universe().event_bus().on<online::MultiplayerUniverse::events::ShouldBlockStartingNewGameChanged>([](auto) {
                 core::events::schedule_task_for_next_update([]() {
                     main_menu_seed_info::update_difficulty_menu_items();
                 });
@@ -425,11 +416,11 @@ namespace randomizer::game {
                 }
             });
 
-            on_multiverse_updated = randomizer::multiplayer_universe().event_bus().register_handler(online::MultiplayerUniverse::Event::MultiverseUpdated, EventTiming::After, [](auto, auto) {
+            on_multiverse_updated = randomizer::multiplayer_universe().event_bus().on<online::MultiplayerUniverse::events::MultiverseUpdated>([](auto) {
                 update_lobby_ui();
             });
 
-            on_seed_meta_data_loaded = randomizer::main_menu_seed_info::seed_meta_data_loaded_event_bus().register_handler([](auto event) {
+            on_seed_meta_data_loaded = randomizer::event_bus().on<events::SeedMetaDataLoaded>([](const auto& event) {
                 if (!prevent_preload_on_selecting_empty_save && event.is_empty_save_file && event.seed_meta_data.has_value()) {
                     auto save_slots_ui = get_save_slots_ui();
 
@@ -449,7 +440,7 @@ namespace randomizer::game {
                             if (!core::api::scenes::scene_is_loaded(scene_name)) {
                                 pending_scenes_to_preload.emplace(scene_name);
                                 scenes_to_preload.emplace(scene_name);
-                                core::api::scenes::force_load_scene(scene_name, &on_scene_loading, false, true);
+                                core::api::scenes::force_load_scene(scene_name, false, true);
                             }
                         }
 
@@ -482,7 +473,7 @@ namespace randomizer::game {
                 if (!core::api::scenes::scene_is_loaded(scene_name)) {
                     pending_scenes_to_preload.emplace(scene_name);
                     scenes_to_preload.emplace(scene_name);
-                    core::api::scenes::force_load_scene(scene_name, &on_scene_loading, false, true);
+                    core::api::scenes::force_load_scene(scene_name, false, true);
                 }
             }
 

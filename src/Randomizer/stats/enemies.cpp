@@ -1,4 +1,7 @@
-#include <variant>
+#include <Common/event_bus.h>
+#include <Common/vx.h>
+#include <Core/api/game/death_listener.h>
+#include <Core/api/uber_states/uber_state.h>
 #include <Modloader/app/types/BombSlugEntity.h>
 #include <Modloader/app/types/DropSlugEntity.h>
 #include <Modloader/app/types/EnemyEntity.h>
@@ -11,12 +14,9 @@
 #include <Modloader/app/types/SpikeSlugEntity.h>
 #include <Modloader/app/types/TentacleEntity.h>
 #include <Modloader/il2cpp_helpers.h>
-
-#include <Common/event_bus.h>
-#include <Common/vx.h>
-#include <Core/api/game/death_listener.h>
-#include <Core/api/uber_states/uber_state.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
+#include <variant>
+
 
 namespace core::api::death_listener {
     using namespace app::classes;
@@ -100,7 +100,10 @@ namespace core::api::death_listener {
 
         auto& kills_state = randomizer::uber_states::state<"randoStats", "kills">();
 
-        void handle_enemy_stats(Death death, EventTiming) {
+        [[maybe_unused]]
+        auto enemy_stats_handle = death_event_bus().on<events::AfterEnemyDeath>([](const auto& event) {
+            const auto& death = event.death;
+
             kills_state.set(kills_state.get() + 1);
             const auto enemy_entity = il2cpp::unity::get_component<app::EnemyEntity>(death.game_object, types::EnemyEntity::get_class());
             const auto enemy_state_entry = enemy_type_map()[enemy_entity->klass];
@@ -142,9 +145,6 @@ namespace core::api::death_listener {
             if (state.has_value()) {
                 state->set(state->get() + 1);
             }
-        }
-
-        [[maybe_unused]]
-        auto enemy_stats_handle = enemy_death_event_bus().register_handler(EventTiming::Before, handle_enemy_stats);
+        });
     } // namespace
 } // namespace core::api::death_listener

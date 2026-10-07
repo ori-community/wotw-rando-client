@@ -4,7 +4,6 @@
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/audio.h>
 #include <Core/uber_states/core_uber_states.h>
 #include <Core/utils/misc.h>
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
@@ -28,27 +27,6 @@ namespace {
     ObjectReference<app::MoonTimeline> escape_end_timeline;
     ObjectReference<app::GameObject> scene_root_go;
 
-    void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
-            return;
-        }
-
-        if (metadata->scene_name == "matkasChamberBossPlaceholder__clone1") {
-            scene_root_go.set_reference(il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot));
-
-            auto timeline_go = il2cpp::unity::find_child(
-                scene_root_go.ptr,
-                std::vector<std::string>{
-                    "timelines",
-                    "spiderIntroTimeline" }
-            );
-
-            if (il2cpp::unity::is_valid(timeline_go)) {
-                escape_end_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, types::MoonTimeline::get_class()));
-            }
-        }
-    }
-
     bool skip_available() {
         return core::api::scenes::scene_is_loaded("matkasChamberBossPlaceholder__clone1") &&
             escape_end_timeline.is_valid() &&
@@ -65,7 +43,31 @@ namespace {
         next_frame_action = TeleportAndSave;
     }
 
-    void on_fixed_update(GameEvent game_event, EventTiming timing) {
+    [[maybe_unused]]
+    auto on_scene_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
+        "matkasChamberBossPlaceholder__clone1",
+        [](const auto& event) {
+            if (event.state != app::SceneState__Enum::Loaded) {
+                return;
+            }
+
+            scene_root_go.set_reference(il2cpp::unity::get_game_object(event.scene->fields.SceneRoot));
+
+            const auto timeline_go = il2cpp::unity::find_child(
+                scene_root_go.ptr,
+                std::vector<std::string>{
+                    "timelines",
+                    "spiderIntroTimeline" }
+            );
+
+            if (il2cpp::unity::is_valid(timeline_go)) {
+                escape_end_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, types::MoonTimeline::get_class()));
+            }
+        }
+    );
+
+    [[maybe_unused]]
+    auto on_fixed_update_handle = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
         switch (next_frame_action) {
             case Idle:
                 break;
@@ -86,16 +88,10 @@ namespace {
                 next_frame_action = Idle;
                 break;
         }
-    }
+    });
 
     [[maybe_unused]]
-    auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
-
-    [[maybe_unused]]
-    auto on_fixed_update_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
-
-    [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         auto cutscene_skip = custom_cutscene_skips::CustomCutsceneSkip{
             .is_available = &skip_available,
             .invoke = &skip_invoke,

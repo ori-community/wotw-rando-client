@@ -34,7 +34,7 @@ namespace {
 
     bool allow_showing_description_ui = false;
     IL2CPP_INTERCEPT(void, QuestsUI, OptionPressedCallback, app::QuestsUI* this_ptr) {
-        modloader::ScopedSetter setter(allow_showing_description_ui, true);
+        common::ScopedSetter setter(allow_showing_description_ui, true);
         randomizer::game::pickups::quests::set_allow_changing_active_quest(true);
         next::QuestsUI::OptionPressedCallback(this_ptr);
         randomizer::game::pickups::quests::set_allow_changing_active_quest(false);
@@ -66,7 +66,7 @@ namespace {
         next::AreaMapNavigation::HandleMapScrolling(this_ptr);
 
         if (this_ptr->fields.m_scrollPosition.x != previous_x || this_ptr->fields.m_scrollPosition.y != previous_y) {
-            modloader::ScopedSetter setter(allow_showing_description_ui, true);
+            common::ScopedSetter setter(allow_showing_description_ui, true);
 
             auto quests_ui = types::QuestsUI::get_class()->static_fields->Instance;
             QuestsUI::UpdateDescriptionUI_2(quests_ui, nullptr);
@@ -97,7 +97,7 @@ namespace {
 
     bool handling_interact_button_on_map = false;
     IL2CPP_INTERCEPT(void, GameMapUI, HandleInteractButton, app::GameMapUI* this_ptr) {
-        modloader::ScopedSetter setter(handling_interact_button_on_map, true);
+        common::ScopedSetter setter(handling_interact_button_on_map, true);
         next::GameMapUI::HandleInteractButton(this_ptr);
     }
 

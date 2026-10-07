@@ -76,8 +76,6 @@ namespace randomizer::main_menu_seed_info {
         std::variant<seed::SeedMetaData, seed::ParserError, generic_error_t> current_seed_meta_data_result = std::string("No seed loaded");
         auto current_network_state = online::NetworkClient::State::Closed;
 
-        common::EventBus<SeedMetaDataLoadedEventArgs> seed_meta_data_loaded_event_bus_instance;
-
         std::optional<core::events::CustomAction> easy_press_action;
         std::optional<core::events::CustomAction> normal_press_action;
         std::optional<core::events::CustomAction> hard_press_action;
@@ -102,8 +100,8 @@ namespace randomizer::main_menu_seed_info {
             status_property.set(status_string);
         }
 
-        void on_network_status(const online::NetworkClient::State state) {
-            current_network_state = state;
+        void on_network_status(const online::NetworkClient::events::StateChanged& event) {
+            current_network_state = event.state;
             update_connection_status();
         }
 
@@ -220,38 +218,6 @@ namespace randomizer::main_menu_seed_info {
             };
         }
 
-        void on_ready(ModloaderEvent) {
-            core::reactivity::watch_effect()
-                .effect(name_property)
-                .after([]() {
-                    const auto name_message_box = *name_message_box_ref;
-                    if (name_message_box.has_value()) {
-                        set_message_box_text(*name_message_box, name_property.get());
-                    }
-                })
-                .finalize(reactive_effects);
-
-            core::reactivity::watch_effect()
-                .effect(status_property)
-                .after([]() {
-                    const auto status_message_box = *status_message_box_ref;
-                    if (status_message_box.has_value()) {
-                        set_message_box_text(*status_message_box, status_property.get());
-                    }
-                })
-                .finalize(reactive_effects);
-
-            core::reactivity::watch_effect()
-                .effect(description_property)
-                .after([]() {
-                    const auto description_message_box = *description_message_box_ref;
-                    if (description_message_box.has_value()) {
-                        set_message_box_text(*description_message_box, description_property.get());
-                    }
-                })
-                .finalize(reactive_effects);
-        }
-
         void hide_question_dialog() {
             const auto question_dialog_go = question_dialog_go_ref.and_then([](auto& ref) { return *ref; });
 
@@ -360,12 +326,13 @@ namespace randomizer::main_menu_seed_info {
             }
         }
 
-        void on_scene_load(const core::api::scenes::SceneLoadEventMetadata* metadata, const std::string&) {
+        [[maybe_unused]]
+        auto on_title_screen_loaded = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("wotwTitleScreen", [](const auto& event) {
             using namespace app::classes::UnityEngine::Vector3::operators;
 
-            switch (metadata->state) {
+            switch (event.state) {
                 case app::SceneState__Enum::Loaded: {
-                    const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+                    const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
 
                     const auto online_ui_go = il2cpp::unity::find_child(
                         scene_root_go,
@@ -540,14 +507,14 @@ namespace randomizer::main_menu_seed_info {
 
                     is_in_main_menu = true;
 
-                    on_network_status_handle = network_client().event_bus().register_handler(on_network_status);
+                    on_network_status_handle = network_client().event_bus().on<online::NetworkClient::events::StateChanged>(on_network_status);
 
-                    on_multiverse_update_handle = multiplayer_universe().event_bus().register_handler(
-                        online::MultiplayerUniverse::Event::MultiverseUpdated, EventTiming::After, [](auto, auto) { update_text(); }
-                    );
-                    on_game_difficulty_settings_overrides_update_handle = multiplayer_universe().event_bus().register_handler(
-                        online::MultiplayerUniverse::Event::GameDifficultySettingsOverridesChanged, EventTiming::After, [](auto, auto) { update_difficulty_menu_items(); }
-                    );
+                    on_multiverse_update_handle = multiplayer_universe().event_bus().on<online::MultiplayerUniverse::events::MultiverseUpdated>([](auto) {
+                        update_text();
+                    });
+                    on_game_difficulty_settings_overrides_update_handle = multiplayer_universe().event_bus().on<online::MultiplayerUniverse::events::GameDifficultySettingsOverridesChanged>([](auto) {
+                        update_difficulty_menu_items();
+                    });
 
                     update_difficulty_text_boxes();
                     break;
@@ -565,13 +532,40 @@ namespace randomizer::main_menu_seed_info {
                 default: {
                 }
             }
-        }
+        });
 
         [[maybe_unused]]
-        auto on_scene_load_handle = core::api::scenes::single_event_bus().register_handler("wotwTitleScreen", on_scene_load);
+        auto on_ready_handle = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
+            core::reactivity::watch_effect()
+                .effect(name_property)
+                .after([]() {
+                    const auto name_message_box = *name_message_box_ref;
+                    if (name_message_box.has_value()) {
+                        set_message_box_text(*name_message_box, name_property.get());
+                    }
+                })
+                .finalize(reactive_effects);
 
-        [[maybe_unused]]
-        auto on_ready_handle = modloader::event_bus().register_handler(ModloaderEvent::GameReady, on_ready);
+            core::reactivity::watch_effect()
+                .effect(status_property)
+                .after([]() {
+                    const auto status_message_box = *status_message_box_ref;
+                    if (status_message_box.has_value()) {
+                        set_message_box_text(*status_message_box, status_property.get());
+                    }
+                })
+                .finalize(reactive_effects);
+
+            core::reactivity::watch_effect()
+                .effect(description_property)
+                .after([]() {
+                    const auto description_message_box = *description_message_box_ref;
+                    if (description_message_box.has_value()) {
+                        set_message_box_text(*description_message_box, description_property.get());
+                    }
+                })
+                .finalize(reactive_effects);
+        });
 
         IL2CPP_INTERCEPT(void, SaveSlotsManager, set_CurrentSlotIndex, int index) {
             next::SaveSlotsManager::set_CurrentSlotIndex(index);
@@ -630,14 +624,14 @@ namespace randomizer::main_menu_seed_info {
                     update_text();
                 };
 
-                on_seed_loaded_handle = event_bus().register_handler(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::After, [](auto, auto) {
+                on_seed_loaded_handle = event_bus().on<events::NewGameSeedSourceUpdated>([](auto) {
                     update();
                 });
 
                 update();
             }
 
-            seed_meta_data_loaded_event_bus().trigger_event(SeedMetaDataLoadedEventArgs {
+            event_bus().emit(events::SeedMetaDataLoaded {
                 std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)
                     ? std::make_optional(std::get<seed::SeedMetaData>(current_seed_meta_data_result))
                     : std::nullopt,
@@ -658,7 +652,7 @@ namespace randomizer::main_menu_seed_info {
         }
 
         [[maybe_unused]]
-        auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+        auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
             if (!poll_current_seed_source_until_not_loading) {
                 return;
             }
@@ -691,7 +685,7 @@ namespace randomizer::main_menu_seed_info {
             update_text();
             update_difficulty_menu_items(true);
 
-            seed_meta_data_loaded_event_bus().trigger_event(SeedMetaDataLoadedEventArgs {
+            event_bus().emit(events::SeedMetaDataLoaded {
                 std::holds_alternative<seed::SeedMetaData>(current_seed_meta_data_result)
                     ? std::make_optional(std::get<seed::SeedMetaData>(current_seed_meta_data_result))
                     : std::nullopt,
@@ -700,7 +694,7 @@ namespace randomizer::main_menu_seed_info {
         });
 
         IL2CPP_INTERCEPT_WITH_ORDER(0, void, SaveSlotsUI, OnEnable, app::SaveSlotsUI * this_ptr) {
-            modloader::ScopedSetter setter(is_in_save_slots_ui_on_enable, true);
+            common::ScopedSetter setter(is_in_save_slots_ui_on_enable, true);
             next::SaveSlotsUI::OnEnable(this_ptr);
         }
     } // namespace
@@ -770,9 +764,5 @@ namespace randomizer::main_menu_seed_info {
                 CleverMenuItemSelectionManager::SetCurrentItem(menu_item->fields.m_selectionManager, select_index, true);
             }
         });
-    }
-
-    common::EventBus<SeedMetaDataLoadedEventArgs>& seed_meta_data_loaded_event_bus() {
-        return seed_meta_data_loaded_event_bus_instance;
     }
 } // namespace randomizer::main_menu_seed_info

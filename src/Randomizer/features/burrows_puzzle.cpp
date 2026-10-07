@@ -256,12 +256,12 @@ namespace {
     core::reactivity::ReactiveEffect::ptr_t stone_update_effect;
 
     [[maybe_unused]]
-    auto on_scene_loaded = core::api::scenes::single_event_bus().register_handler("howlsOriginEntrance", [](auto metadata, auto) {
-        if (metadata->state != app::SceneState__Enum::Enabled) {
+    auto on_scene_loaded = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("howlsOriginEntrance", [](const auto& event) {
+        if (event.state != app::SceneState__Enum::Enabled) {
             return;
         }
 
-        const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+        const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
         const auto stones_parent_parent_go = il2cpp::unity::find_child(
             scene_root_go,
             std::vector<std::string>{

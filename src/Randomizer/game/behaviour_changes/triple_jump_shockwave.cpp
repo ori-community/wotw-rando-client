@@ -27,7 +27,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, SeinDoubleJump, PerformDoubleJump, app::SeinDoubleJump * this_ptr) {
-        modloader::ScopedSetter _(performing_double_jump, this_ptr);
+        common::ScopedSetter _(performing_double_jump, this_ptr);
 
         const auto puppet = SeinDoubleJump::get_Puppet(this_ptr);
         double_jump_effect = puppet->fields.DoubleJumpAfterShock;

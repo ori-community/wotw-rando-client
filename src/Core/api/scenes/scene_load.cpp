@@ -27,7 +27,6 @@ using namespace modloader::win;
 namespace core::api::scenes {
     struct PendingScene {
         std::string scene_name;
-        std::vector<scene_loading_callback> scene_loading_callbacks;
         bool keep_preloaded = false;
     };
 
@@ -52,14 +51,7 @@ namespace core::api::scenes {
                 modloader::debug("scene_load", std::format("{} -> {}", scene_name, magic_enum::enum_name(state)));
             }
 
-            SceneLoadEventMetadata event{
-                .scene_name = scene_name,
-                .state = state,
-                .scene = scene_manager_scene,
-            };
-
-            event_bus().trigger_event(&event);
-            single_event_bus().trigger_event(scene_name, &event);
+            event_bus().emit(scene_name, events::SceneStateChanged(state, scene_manager_scene));
 
             if (scenes_to_load.contains(scene_name)) {
                 auto pending_scene = scenes_to_load[scene_name];
@@ -81,10 +73,6 @@ namespace core::api::scenes {
                 ) {
                     scenes_to_load.erase(scene_name);
                 }
-
-                for (auto on_load_callback: pending_scene.scene_loading_callbacks) {
-                    on_load_callback(&event);
-                }
             }
         }
 
@@ -100,13 +88,8 @@ namespace core::api::scenes {
         }
     } // namespace
 
-    common::EventBus<SceneLoadEventMetadata*>& event_bus() {
-        static common::EventBus<SceneLoadEventMetadata*> bus;
-        return bus;
-    }
-
-    common::EventBus<SceneLoadEventMetadata*, std::string>& single_event_bus() {
-        static common::EventBus<SceneLoadEventMetadata*, std::string> bus;
+    events::bus_t& event_bus() {
+        static events::bus_t bus;
         return bus;
     }
 
@@ -192,14 +175,10 @@ namespace core::api::scenes {
         SceneManagerScene::PostEnableScene(scene_manager_scene);
     }
 
-    void force_load_scene(std::string_view scene, scene_loading_callback callback, bool keep_preloaded, bool async, bool load_dependant, bool queue_included) {
+    void force_load_scene(std::string_view scene, bool keep_preloaded, bool async, bool load_dependant, bool queue_included) {
         auto& scene_to_load = scenes_to_load[std::string(scene)];
         scene_to_load.scene_name = std::string(scene);
         scene_to_load.keep_preloaded = scene_to_load.keep_preloaded || keep_preloaded;
-
-        if (callback != nullptr) {
-            scene_to_load.scene_loading_callbacks.push_back(callback);
-        }
 
         auto scenes_manager = get_scenes_manager();
         auto scene_name_csstring = il2cpp::string_new(scene_to_load.scene_name);
@@ -207,15 +186,7 @@ namespace core::api::scenes {
 
         if (ScenesManager::SceneIsLoaded(scenes_manager, scene_meta->fields.SceneMoonGuid)) {
             auto scene_manager_scene = ScenesManager::GetFromCurrentScenes_1(scenes_manager, scene_meta);
-            auto scene_root_go = il2cpp::unity::get_game_object(scene_manager_scene->fields.SceneRoot);
             scene_manager_scene->fields.PreventUnloading = keep_preloaded;
-
-            if (callback != nullptr) {
-                SceneLoadEventMetadata metadata{
-                    std::string(scene), scene_manager_scene->fields.m_currentState, scene_manager_scene,
-                };
-                callback(&metadata);
-            }
         } else if (!ScenesManager::SceneIsLoading(scenes_manager, scene_meta->fields.SceneMoonGuid)) {
             ScenesManager::RequestAdditivelyLoadScene(scenes_manager, scene_meta, async, true, true, load_dependant, queue_included);
         }
@@ -375,12 +346,6 @@ namespace core::api::scenes {
         }
     }
 
-    void on_load_spawn(SceneLoadEventMetadata* metadata) {
-        if (metadata->state == app::SceneState__Enum::Loaded && metadata->scene->fields.SceneRoot != nullptr) {
-            initial_values_handle = il2cpp::gchandle_new(metadata->scene->fields.SceneRoot->fields.MetaData->fields.InitialValuesWisp, false);
-        }
-    }
-
     void set_debug_logging(std::string const& command, std::vector<console::CommandParam> const& params) {
         if (params.size() != 1) {
             console::console_send("Invalid number of arguments. Expected 1");
@@ -395,10 +360,17 @@ namespace core::api::scenes {
         console::console_send(std::format("Debug logging {}", scene_loader_debug_logging_enabled ? "enabled" : "disabled"));
     }
 
-    auto on_game_ready = modloader::event_bus().register_handler(
-        ModloaderEvent::GameReady,
+    [[maybe_unused]]
+    auto on_load_spawn = event_bus().on<events::SceneStateChanged>("swampIntroTop", [](auto event) {
+        if (event.state == app::SceneState__Enum::Loaded && event.scene->fields.SceneRoot != nullptr) {
+            initial_values_handle = il2cpp::gchandle_new(event.scene->fields.SceneRoot->fields.MetaData->fields.InitialValuesWisp, false);
+        }
+    });
+
+    [[maybe_unused]]
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>(
         [](auto) {
-            force_load_scene("swampIntroTop", &on_load_spawn);
+            force_load_scene("swampIntroTop");
             console::register_command({"scenes", "set_debug"}, set_debug_logging);
         }
     );

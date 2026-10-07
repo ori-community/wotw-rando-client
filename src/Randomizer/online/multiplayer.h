@@ -16,10 +16,16 @@
 namespace randomizer::online {
     class MultiplayerUniverse {
     public:
-        enum class Event {
-            ShouldBlockStartingNewGameChanged,
-            MultiverseUpdated,
-            GameDifficultySettingsOverridesChanged,
+        struct events {
+            struct ShouldBlockStartingNewGameChanged {};
+            struct MultiverseUpdated {};
+            struct GameDifficultySettingsOverridesChanged {};
+
+            using bus_t = common::EventBus<
+                ShouldBlockStartingNewGameChanged,
+                MultiverseUpdated,
+                GameDifficultySettingsOverridesChanged
+            >;
         };
 
         struct PlayerInfo {
@@ -97,7 +103,7 @@ namespace randomizer::online {
         void initialize_game_sync(std::shared_ptr<Network::InitGameSyncMessage> const& message);
         void set_seed(std::shared_ptr<Network::SetSeedMessage> const& message);
 
-        common::TimedMultiEventBus<Event> m_event_bus;
+        events::bus_t m_event_bus;
 
         std::vector<common::Droppable::ptr_t> m_bus_handles;
         Network::MultiverseInfoMessage::GameHandlerType m_game_type = Network::MultiverseInfoMessage_GameHandlerType_Normal;

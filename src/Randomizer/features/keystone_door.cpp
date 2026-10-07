@@ -39,7 +39,7 @@ namespace {
     auto& allow_opening_eyestone_door = randomizer::uber_states::state<"randoState", "allowOpeningEyestoneDoor">();
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         randomizer::conditions::register_condition_intercept(
             randomizer::conditions::ConditionType::PlayerInsideZoneChecker,
             "kwoloksHollowEntrance/artSetups/frogHeadSetup/doorWithTwoSlots/doorWithTwoSlots/canUseKeystonesZone",
@@ -66,18 +66,19 @@ namespace {
 
     // Allow opening the Kwolok state door from behind
     [[maybe_unused]]
-    auto on_scene_load_handle = core::api::scenes::event_bus().register_handler([](core::api::scenes::SceneLoadEventMetadata* metadata) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
-            return;
-        }
+    auto on_scene_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
+        "kwoloksHollowEntrance",
+        [](const auto& event) {
+            if (event.state != app::SceneState__Enum::Loaded) {
+                return;
+            }
 
-        if (metadata->scene_name == "kwoloksHollowEntrance") {
             const auto door_go = il2cpp::unity::find_child(
-                metadata->scene->fields.SceneRoot, std::vector<std::string>{"artSetups", "frogHeadSetup", "doorWithTwoSlots", "doorWithTwoSlots", "door"}
+                event.scene->fields.SceneRoot, std::vector<std::string>{"artSetups", "frogHeadSetup", "doorWithTwoSlots", "doorWithTwoSlots", "door"}
             );
 
             const auto open_door_timeline_go = il2cpp::unity::find_child(
-                metadata->scene->fields.SceneRoot,
+                event.scene->fields.SceneRoot,
                 std::vector<std::string>{"artSetups", "frogHeadSetup", "doorWithTwoSlots", "doorWithTwoSlots", "timelines", "doorOpeningTimeline", "openDoor"}
             );
 
@@ -119,5 +120,5 @@ namespace {
                 il2cpp::unity::destroy_object(lock_input_go);
             }
         }
-    });
+    );
 } // namespace

@@ -18,6 +18,7 @@
 #include <Randomizer/randomizer.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
 
+
 using namespace modloader;
 using namespace modloader::win;
 using namespace app::classes;
@@ -47,28 +48,30 @@ namespace {
         il2cpp::unity::set_position(*shriek_barrier_go, SHRIEK_BARRIER_POSITION + app::Vector3{ inverse_animation_position * 50.f, 0.f, 0.f });
     }
 
-    void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
-            return;
-        }
+    [[maybe_unused]]
+    auto on_scene_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
+        "willowCeremonyIntro",
+        [](const auto& event) {
+            if (event.state != app::SceneState__Enum::Loaded) {
+                return;
+            }
 
-        if (metadata->scene_name == "willowCeremonyIntro") {
-            auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+            const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
 
-            auto art_setups_go = il2cpp::unity::find_child(
+            const auto art_setups_go = il2cpp::unity::find_child(
                 scene_root_go,
                 std::vector<std::string>{
                     "artSetups" }
             );
 
-            auto clouds_go = il2cpp::unity::find_child(
+            const auto clouds_go = il2cpp::unity::find_child(
                 scene_root_go,
                 std::vector<std::string>{
                     "artSetups",
                     "deadlyClouds" }
             );
 
-            auto door_go = il2cpp::unity::find_child(
+            const auto door_go = il2cpp::unity::find_child(
                 scene_root_go,
                 std::vector<std::string>{
                     "interactives",
@@ -76,104 +79,103 @@ namespace {
                     "powlArenaExit"}
             );
 
-            if (il2cpp::unity::is_valid(art_setups_go) && il2cpp::unity::is_valid(clouds_go) && il2cpp::unity::is_valid(door_go)) {
-                // Move door to the left
-                il2cpp::unity::set_local_position(door_go, app::Vector3 {-34.2f, -58.7, 0.f});
+            if (!il2cpp::unity::is_valid(art_setups_go) || !il2cpp::unity::is_valid(clouds_go) || !il2cpp::unity::is_valid(door_go)) {
+                return;
+            }
 
-                const auto shriek_barrier_go = reinterpret_cast<app::GameObject*>(
-                    UnityEngine::Object::Instantiate_4(reinterpret_cast<app::Object_1*>(clouds_go), il2cpp::unity::get_transform(art_setups_go))
-                );
-                shriek_barrier_go_ref = il2cpp::WeakGCRef(shriek_barrier_go);
+            // Move door to the left
+            il2cpp::unity::set_local_position(door_go, app::Vector3 {-34.2f, -58.7, 0.f});
 
-                auto children = il2cpp::unity::get_children(shriek_barrier_go);
+            const auto shriek_barrier_go = reinterpret_cast<app::GameObject*>(
+                UnityEngine::Object::Instantiate_4(reinterpret_cast<app::Object_1*>(clouds_go), il2cpp::unity::get_transform(art_setups_go))
+            );
+            shriek_barrier_go_ref = il2cpp::WeakGCRef(shriek_barrier_go);
 
-                // Delete earlyZ mesh because it's one mesh, but we're moving parts of it
-                const auto early_z_it = children.begin() + 2;
-                il2cpp::unity::destroy_object(*early_z_it);
-                children.erase(early_z_it);
+            auto children = il2cpp::unity::get_children(shriek_barrier_go);
 
-                // Bring everything back to a reasonable origin
-                constexpr auto local_position_delta = app::Vector3{40.f, 3900.f, 0.f};
-                for (const auto child_go: children) {
-                    il2cpp::unity::set_local_position(child_go, il2cpp::unity::get_local_position(child_go) + local_position_delta);
+            // Delete earlyZ mesh because it's one mesh, but we're moving parts of it
+            const auto early_z_it = children.begin() + 2;
+            il2cpp::unity::destroy_object(*early_z_it);
+            children.erase(early_z_it);
+
+            // Bring everything back to a reasonable origin
+            constexpr auto local_position_delta = app::Vector3{40.f, 3900.f, 0.f};
+            for (const auto child_go: children) {
+                il2cpp::unity::set_local_position(child_go, il2cpp::unity::get_local_position(child_go) + local_position_delta);
+            }
+
+            il2cpp::unity::set_position(shriek_barrier_go, SHRIEK_BARRIER_POSITION);
+            il2cpp::unity::set_local_scale(shriek_barrier_go, app::Vector3{-1.f, 1.f, 1.f});
+            il2cpp::unity::set_local_rotation(shriek_barrier_go, app::Vector3{0.f, 0.f, 30.f});
+
+            // Add scroll lock because fancy
+            const auto scroll_lock_go = il2cpp::create_object<app::GameObject>(types::GameObject::get_class());
+            UnityEngine::GameObject::ctor_1(scroll_lock_go, il2cpp::string_new("scrollLock"));
+            const auto shriek_barrier_scroll_lock = il2cpp::unity::add_component<app::CameraScrollLock>(scroll_lock_go, types::CameraScrollLock::get_class());
+            shriek_barrier_scroll_lock_ref = il2cpp::WeakGCRef(shriek_barrier_scroll_lock);
+            CameraScrollLock::ctor(shriek_barrier_scroll_lock);
+            shriek_barrier_scroll_lock->fields.m_scrollType = app::CameraScrollLock_Type__Enum::Horizontal;
+            shriek_barrier_scroll_lock->fields.LockMode = app::CameraScrollLock_ScrollLockMode__Enum::RightOrTop;
+            shriek_barrier_scroll_lock->fields.UseFader = false;
+            il2cpp::unity::set_position(scroll_lock_go, app::Vector3{ 597.f, -3607.f, 0.f });
+            il2cpp::unity::set_local_scale(scroll_lock_go, app::Vector3{ 30.f, 30.f, 1.f });
+            il2cpp::unity::set_parent(scroll_lock_go, scene_root_go);
+
+            // Add Killbox
+            core::api::scenes::PolygonGeometry collider({
+                {594.316895, -3607.93726},
+                {596.035461, -3599.82617},
+                {597.032776, -3592.63403},
+                {597.070556, -3586.55005},
+                {595.090576, -3584.677},
+                {605.953796, -3585.36548},
+                {606.123657, -3613.2771},
+            });
+
+            il2cpp::unity::set_parent(collider.get_game_object(), shriek_barrier_go);
+            const auto damage_dealer = il2cpp::unity::add_component<app::DamageDealer>(collider.get_game_object(), types::DamageDealer::get_class());
+            damage_dealer->fields.m_damageAmount = 1000.f;
+            damage_dealer->fields.DamageType = app::DamageType__Enum::Lava;
+            damage_dealer->fields.m_isKillSurface = true;
+
+            shriek_barrier_killbox_ref = il2cpp::WeakGCRef(collider.get_game_object());
+            il2cpp::unity::set_parent(collider.get_game_object(), shriek_barrier_go);
+
+            // Reactive effect
+            shriek_barrier_effect = core::reactivity::watch_effect().effect([] {
+                static auto& shriek_barrier_state = randomizer::uber_states::state<"randoState", "shriekBarrier">();
+                shriek_barrier_active = shriek_barrier_state.get();
+
+                const auto shriek_barrier_killbox = shriek_barrier_killbox_ref.and_then([](auto& ref) { return *ref; });
+                if (shriek_barrier_killbox.has_value()) {
+                    il2cpp::unity::set_active(*shriek_barrier_killbox, shriek_barrier_active);
                 }
 
-                il2cpp::unity::set_position(shriek_barrier_go, SHRIEK_BARRIER_POSITION);
-                il2cpp::unity::set_local_scale(shriek_barrier_go, app::Vector3{-1.f, 1.f, 1.f});
-                il2cpp::unity::set_local_rotation(shriek_barrier_go, app::Vector3{0.f, 0.f, 30.f});
+                const auto shriek_barrier_scroll_lock = shriek_barrier_scroll_lock_ref.and_then([](auto& ref) { return *ref; });
+                if (shriek_barrier_scroll_lock.has_value()) {
+                    il2cpp::unity::set_active(*shriek_barrier_scroll_lock, shriek_barrier_active);
+                }
+            }).trigger_on_load().finalize();
 
-                // Add scroll lock because fancy
-                const auto scroll_lock_go = il2cpp::create_object<app::GameObject>(types::GameObject::get_class());
-                UnityEngine::GameObject::ctor_1(scroll_lock_go, il2cpp::string_new("scrollLock"));
-                const auto shriek_barrier_scroll_lock = il2cpp::unity::add_component<app::CameraScrollLock>(scroll_lock_go, types::CameraScrollLock::get_class());
-                shriek_barrier_scroll_lock_ref = il2cpp::WeakGCRef(shriek_barrier_scroll_lock);
-                CameraScrollLock::ctor(shriek_barrier_scroll_lock);
-                shriek_barrier_scroll_lock->fields.m_scrollType = app::CameraScrollLock_Type__Enum::Horizontal;
-                shriek_barrier_scroll_lock->fields.LockMode = app::CameraScrollLock_ScrollLockMode__Enum::RightOrTop;
-                shriek_barrier_scroll_lock->fields.UseFader = false;
-                il2cpp::unity::set_position(scroll_lock_go, app::Vector3{ 597.f, -3607.f, 0.f });
-                il2cpp::unity::set_local_scale(scroll_lock_go, app::Vector3{ 30.f, 30.f, 1.f });
-                il2cpp::unity::set_parent(scroll_lock_go, scene_root_go);
+            // Animation & Hint message box
+            animation_position = shriek_barrier_active ? 1.f : 0.f;
+            update_animation_state();
 
-                // Add Killbox
-                core::api::scenes::PolygonGeometry collider({
-                    {594.316895, -3607.93726},
-                    {596.035461, -3599.82617},
-                    {597.032776, -3592.63403},
-                    {597.070556, -3586.55005},
-                    {595.090576, -3584.677},
-                    {605.953796, -3585.36548},
-                    {606.123657, -3613.2771},
-                });
+            on_update_animation_handle = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
+                if (shriek_barrier_go_ref.has_value() && shriek_barrier_go_ref->is_valid()) {
+                    if (animation_position != (shriek_barrier_active ? 1.f : 0.f)) {
+                        animation_position = shriek_barrier_active
+                            ? std::min(1.f, animation_position + TimeUtility::get_fixedDeltaTime())
+                            : std::max(0.f, animation_position - TimeUtility::get_fixedDeltaTime());
 
-                il2cpp::unity::set_parent(collider.get_game_object(), shriek_barrier_go);
-                const auto damage_dealer = il2cpp::unity::add_component<app::DamageDealer>(collider.get_game_object(), types::DamageDealer::get_class());
-                damage_dealer->fields.m_damageAmount = 1000.f;
-                damage_dealer->fields.DamageType = app::DamageType__Enum::Lava;
-                damage_dealer->fields.m_isKillSurface = true;
-
-                shriek_barrier_killbox_ref = il2cpp::WeakGCRef(collider.get_game_object());
-                il2cpp::unity::set_parent(collider.get_game_object(), shriek_barrier_go);
-
-                // Reactive effect
-                shriek_barrier_effect = core::reactivity::watch_effect().effect([] {
-                    static auto& shriek_barrier_state = randomizer::uber_states::state<"randoState", "shriekBarrier">();
-                    shriek_barrier_active = shriek_barrier_state.get();
-
-                    const auto shriek_barrier_killbox = shriek_barrier_killbox_ref.and_then([](auto& ref) { return *ref; });
-                    if (shriek_barrier_killbox.has_value()) {
-                        il2cpp::unity::set_active(*shriek_barrier_killbox, shriek_barrier_active);
+                        update_animation_state();
                     }
-
-                    const auto shriek_barrier_scroll_lock = shriek_barrier_scroll_lock_ref.and_then([](auto& ref) { return *ref; });
-                    if (shriek_barrier_scroll_lock.has_value()) {
-                        il2cpp::unity::set_active(*shriek_barrier_scroll_lock, shriek_barrier_active);
-                    }
-                }).trigger_on_load().finalize();
-
-                // Animation & Hint message box
-                animation_position = shriek_barrier_active ? 1.f : 0.f;
-                update_animation_state();
-
-                on_update_animation_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
-                    if (shriek_barrier_go_ref.has_value() && shriek_barrier_go_ref->is_valid()) {
-                        if (animation_position != (shriek_barrier_active ? 1.f : 0.f)) {
-                            animation_position = shriek_barrier_active
-                                ? std::min(1.f, animation_position + TimeUtility::get_fixedDeltaTime())
-                                : std::max(0.f, animation_position - TimeUtility::get_fixedDeltaTime());
-
-                            update_animation_state();
-                        }
-                    } else {
-                        shriek_barrier_go_ref = std::nullopt;
-                        shriek_barrier_killbox_ref = std::nullopt;
-                        on_update_animation_handle = nullptr;
-                    }
-                });
-            }
+                } else {
+                    shriek_barrier_go_ref = std::nullopt;
+                    shriek_barrier_killbox_ref = std::nullopt;
+                    on_update_animation_handle = nullptr;
+                }
+            });
         }
-    }
-
-    [[maybe_unused]]
-    auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
+    );
 } // namespace

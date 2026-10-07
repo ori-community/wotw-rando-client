@@ -3,12 +3,10 @@
 #include <Modloader/app/methods/ReadyForAnimationTrigger.h>
 #include <Modloader/app/types/ReadyForAnimationTrigger.h>
 #include <Modloader/il2cpp_helpers.h>
-#include <Modloader/modloader.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
 
 
 namespace {
-
     using namespace app::classes;
 
     std::optional<il2cpp::WeakGCRef<app::ReadyForAnimationTrigger>> animation_trigger_ref;
@@ -17,12 +15,12 @@ namespace {
     auto& fix_enabled_state = randomizer::uber_states::state<"randoConfig", "fixMoraArenaTrigger">();
 
     [[maybe_unused]]
-    auto on_scene_loaded_handler = core::api::scenes::single_event_bus().register_handler("matkasChamberBossPlaceholder__clone1", [](auto metadata, auto) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
+    auto on_scene_loaded_handler = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("matkasChamberBossPlaceholder__clone1", [](const auto& event) {
+        if (event.state != app::SceneState__Enum::Loaded) {
             return;
         }
 
-        const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+        const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
 
         const auto intro_trigger_go = il2cpp::unity::find_child(
             scene_root_go,

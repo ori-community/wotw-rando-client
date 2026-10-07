@@ -22,7 +22,7 @@ namespace {
     // }
 
     [[maybe_unused]]
-    auto on_injection_complete = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
+    auto on_injection_complete = modloader::event_bus().on<modloader::events::InjectionComplete>([](auto) {
         // In vanilla, the game divides the distance to enemies by 10, making the spear autoaim heavily prefer targeting them
         // over anything else. The DIVSS instruction lives at 0xa74431, and here we replace it with NOP instructions to
         // disable that behavior.
@@ -47,7 +47,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT_WITH_ORDER(10, void, SeinBowAttack, UpdateCharacterState, app::SeinBowAttack * this_ptr) {
-        modloader::ScopedSetter setter(overwrite_attackables, core::settings::disable_auto_aim());
+        common::ScopedSetter setter(overwrite_attackables, core::settings::disable_auto_aim());
         next::SeinBowAttack::UpdateCharacterState(this_ptr);
     }
 

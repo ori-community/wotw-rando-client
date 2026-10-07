@@ -26,7 +26,7 @@ namespace {
     // between something that burns because of a Grenade and something
     // that burns because of Sentry.
     IL2CPP_INTERCEPT(void, GrenadeBurst, DealDamage, app::GrenadeBurst * this_ptr) {
-        modloader::ScopedSetter _(is_inside_grenade_burst_deal_damage, true);
+        common::ScopedSetter _(is_inside_grenade_burst_deal_damage, true);
         return next::GrenadeBurst::DealDamage(this_ptr);
     }
 

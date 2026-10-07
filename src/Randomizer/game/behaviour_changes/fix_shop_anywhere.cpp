@@ -10,7 +10,7 @@ namespace {
     auto& fix_enabled_state = randomizer::uber_states::state<"randoConfig", "fixShopAnywhere">();
 
     IL2CPP_INTERCEPT_WITH_ORDER(-10, void, MenuScreenManager, ShowMenuScreen, app::MenuScreenManager* this_ptr, app::MenuScreenManager_Screens__Enum screen, bool immediate, bool play_sound, bool pause) {
-        modloader::ScopedSetter _(is_in_menu_screen_manager_show_menu_screen, true);
+        common::ScopedSetter _(is_in_menu_screen_manager_show_menu_screen, true);
         next::MenuScreenManager::ShowMenuScreen(this_ptr, screen, immediate, play_sound, pause);
     }
 

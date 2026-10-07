@@ -1,6 +1,5 @@
 #include <Core/api/game/game.h>
 #include <Core/api/uber_states/uber_state_virtual.h>
-#include <Core/enums/game_event.h>
 #include <Modloader/windows_api/console.h>
 #include <unordered_map>
 #include <utility>
@@ -41,7 +40,7 @@ namespace core::api::uber_states {
                 m_last_known_value = m_getter_fn();
                 break;
             case ChangeDetectionMode::Poll:
-                m_poll_update_droppable = game::event_bus().register_handler(GameEvent::Update, EventTiming::Before, [this](auto, auto) {
+                m_poll_update_droppable = game::event_bus().on<game::events::BeforeUnityUpdateLoop>([this](auto) {
                     check_for_changes();
                 });
                 break;
@@ -87,8 +86,7 @@ namespace core::api::uber_states {
         const auto new_value = get();
 
         if (m_last_known_value.has_value() && new_value != *m_last_known_value) {
-            on_any_uber_state_changed().trigger_event(UntypedUberId(m_group, m_state));
-            on_uber_state_changed().trigger_event(UntypedUberId(m_group, m_state));
+            event_bus().emit(UntypedUberId(m_group, m_state), events::UberStateChanged());
             notify_changed(new_value, *m_last_known_value);
         }
 

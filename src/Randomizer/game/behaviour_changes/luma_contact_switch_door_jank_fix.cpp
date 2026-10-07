@@ -92,7 +92,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, Moon::Timeline::ActivateAnimatorSystem, OnUpdate, app::ActivateAnimatorSystem* this_ptr, float delta_time) {
-        modloader::ScopedSetter _(is_in_activate_animator_system_on_update, true);
+        common::ScopedSetter _(is_in_activate_animator_system_on_update, true);
         next::Moon::Timeline::ActivateAnimatorSystem::OnUpdate(this_ptr, delta_time);
         lagoon_contact_switch_door_ref_just_removed = nullptr;
     }

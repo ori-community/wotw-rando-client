@@ -10,6 +10,7 @@
 #include <Modloader/app/types/Object_1.h>
 #include <Randomizer/features/damage.h>
 #include <Modloader/modloader.h>
+#include <unordered_set>
 
 
 namespace randomizer::damage {
@@ -20,7 +21,7 @@ namespace randomizer::damage {
 
     namespace {
         [[maybe_unused]]
-        auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        auto on_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
             // TODO: If we ever need more static MethodInfo* pointers to be initialized, make something prettier
             il2cpp::initialize_method_info(reinterpret_cast<Il2CppClass*>(types::Object_1::get_class()), 100665730, UnityEngine::Object::FindObjectsOfType_6_MethodInfo);
         });
@@ -49,7 +50,7 @@ namespace randomizer::damage {
     } // namespace
 
     void damage_all_enemies(float amount, bool force) {
-        modloader::ScopedSetter _(force_deal_damage, force);
+        common::ScopedSetter _(force_deal_damage, force);
 
         // This mimics the initialization routine in DebugControls::Update.
         // Without this, FindObjectsOfType_DamageReceiver does not work if debug controls were never enabled

@@ -60,12 +60,12 @@ namespace randomizer::game::shops::grom {
     }
 
     [[maybe_unused]]
-    auto on_hub_setups_loaded = core::api::scenes::single_event_bus().register_handler("wellspringGladesHubSetups", [](auto metadata, auto) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
+    auto on_hub_setups_loaded = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("wellspringGladesHubSetups", [](const auto& event) {
+        if (event.state != app::SceneState__Enum::Loaded) {
             return;
         }
 
-        auto projects = il2cpp::unity::find_child(metadata->scene->fields.SceneRoot, std::vector<std::string>{"interactives", "builderProjects"});
+        auto projects = il2cpp::unity::find_child(event.scene->fields.SceneRoot, std::vector<std::string>{"interactives", "builderProjects"});
         auto huts_a = il2cpp::unity::find_child(projects, "mokiHutsSetup");
         for (auto component:
              il2cpp::unity::get_components<app::ChangeStateOnCondition>(huts_a, reinterpret_cast<Il2CppClass*>(types::ChangeStateOnCondition::get_class()))) {
@@ -85,7 +85,7 @@ namespace randomizer::game::shops::grom {
         }
 
         const auto offer_ability_upgrade_dialog_go = il2cpp::unity::find_child(
-            metadata->scene->fields.SceneRoot,
+            event.scene->fields.SceneRoot,
             std::vector<std::string>{
                 "interactives",
                 "NPCs",

@@ -82,37 +82,37 @@ namespace {
 
     // Generic NewSetupStateController setups
     IL2CPP_INTERCEPT(bool, Moon::Setups::ChangeStateSetupHolder, Perform, app::ChangeStateSetupHolder* this_ptr, app::ChangeStateSetupData* state) {
-        modloader::ScopedSetter _(should_track_starting_timelines, true);
+        common::ScopedSetter _(should_track_starting_timelines, true);
         return next::Moon::Setups::ChangeStateSetupHolder::Perform(this_ptr, state);
     }
 
     // Burrows Entrance
     IL2CPP_INTERCEPT_WITH_ORDER(0, void, SwitchSeriesPuzzle, Apply, app::SwitchSeriesPuzzle* this_ptr, app::UberStateApplyContext__Enum context) {
-        modloader::ScopedSetter _(should_track_starting_timelines, true);
+        common::ScopedSetter _(should_track_starting_timelines, true);
         return next::SwitchSeriesPuzzle::Apply(this_ptr, context);
     }
 
     // Luma dashable button
     IL2CPP_INTERCEPT(void, DashableSwitchLogic, OnDashHit, app::DashableSwitchLogic* this_ptr, app::Vector3 impact_velocity) {
-        modloader::ScopedSetter _(should_track_starting_timelines, true);
+        common::ScopedSetter _(should_track_starting_timelines, true);
         return next::DashableSwitchLogic::OnDashHit(this_ptr, impact_velocity);
     }
 
     // Spirit Trial activations
     IL2CPP_INTERCEPT(void, RaceHandler, ActivateRace, app::RaceHandler* this_ptr, bool in_game_activation) {
-        modloader::ScopedSetter _(should_track_starting_timelines, true);
+        common::ScopedSetter _(should_track_starting_timelines, true);
         return next::RaceHandler::ActivateRace(this_ptr, in_game_activation);
     }
 
     // Reach rock drop
     IL2CPP_INTERCEPT(void, LegacyTrigger, DoTrigger, app::LegacyTrigger* this_ptr, bool should_check_condition) {
-        modloader::ScopedSetter _(should_track_starting_timelines, true);
+        common::ScopedSetter _(should_track_starting_timelines, true);
         return next::LegacyTrigger::DoTrigger(this_ptr, should_check_condition);
     }
 
     // Purple door
     IL2CPP_INTERCEPT(void, DoorLogic, PerformStateTransition, app::DoorLogic* this_ptr) {
-        modloader::ScopedSetter _(should_track_starting_timelines, true);
+        common::ScopedSetter _(should_track_starting_timelines, true);
         return next::DoorLogic::PerformStateTransition(this_ptr);
     }
 
@@ -201,7 +201,7 @@ namespace {
             core::api::audio::play_event(*active_transition_config->sound_on_automatic_skip);
         }
 
-        modloader::ScopedSetter _(is_stopping_timeline, true);
+        common::ScopedSetter _(is_stopping_timeline, true);
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(*active_transition_timeline));
         active_transition_config = std::nullopt;
 
@@ -216,7 +216,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         custom_cutscene_skips::register_cutscene_skip(custom_cutscene_skips::CustomCutsceneSkip{
             .is_available = &skip_available,
             .invoke = &skip_invoke,

@@ -4,5 +4,11 @@
 #include <Core/macros.h>
 
 namespace core::events {
-    CORE_DLLEXPORT common::EventBus<float>& async_update_bus();
+    struct AsyncUpdate {
+        float delta_time;
+    };
+
+    using bus_t = common::EventBus<AsyncUpdate>;
+
+    CORE_DLLEXPORT bus_t& async_update_bus();
 }

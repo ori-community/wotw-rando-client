@@ -26,32 +26,33 @@ namespace {
             : std::nullopt;
     }
 
-    void on_watermill_escape_end_load(const core::api::scenes::SceneLoadEventMetadata* metadata, const std::string&) {
-        if (metadata->state == app::SceneState__Enum::Disabled) {
-            current_area_override = nullptr;
-        }
-
-        if (metadata->state != app::SceneState__Enum::Enabled) {
-            return;
-        }
-
-        const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
-
-        const auto end_timeline_go = il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{
-                "setups",
-                "escapeSequenceFinishSetup",
-                "master",
-            }
-        );
-
-        if (il2cpp::unity::is_valid(end_timeline_go)) {
-            end_timeline_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MoonTimeline>(end_timeline_go, types::MoonTimeline::get_class()));
-            current_area_override = core::api::game::player::add_current_area_override(current_area_override_fn);
-        }
-    }
-
     [[maybe_unused]]
-    auto on_watermill_escape_end_load_handle = core::api::scenes::single_event_bus().register_handler("waterMillEscapeEnd", on_watermill_escape_end_load);
+    auto on_watermill_escape_end_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
+        "waterMillEscapeEnd",
+        [](const auto& event) {
+            if (event.state == app::SceneState__Enum::Disabled) {
+                current_area_override = nullptr;
+            }
+
+            if (event.state != app::SceneState__Enum::Enabled) {
+                return;
+            }
+
+            const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
+
+            const auto end_timeline_go = il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{
+                    "setups",
+                    "escapeSequenceFinishSetup",
+                    "master",
+                }
+            );
+
+            if (il2cpp::unity::is_valid(end_timeline_go)) {
+                end_timeline_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MoonTimeline>(end_timeline_go, types::MoonTimeline::get_class()));
+                current_area_override = core::api::game::player::add_current_area_override(current_area_override_fn);
+            }
+        }
+    );
 } // namespace

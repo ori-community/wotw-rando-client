@@ -40,11 +40,9 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, SavePedestalController, OnFadedToBlack, app::SavePedestalController* this_ptr) {
-        modloader::ScopedSetter _(is_in_on_faded_to_black, true);
+        common::ScopedSetter _(is_in_on_faded_to_black, true);
 
-        core::api::game::event_bus().trigger_event(GameEvent::Teleport, EventTiming::Before);
         next::SavePedestalController::OnFadedToBlack(this_ptr);
-        core::api::game::event_bus().trigger_event(GameEvent::Teleport, EventTiming::After);
 
         Network::Packet packet;
         packet.set_id(Network::Packet_PacketID_NotifyTeleport);

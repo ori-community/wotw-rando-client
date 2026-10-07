@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Common/event_bus.h>
-
 #include <Randomizer/online/multiplayer.h>
 #include <Randomizer/online/network.h>
 #include <Randomizer/seed/seedgen_service.h>
@@ -25,12 +24,20 @@ namespace randomizer {
         std::string information;
     };
 
-    enum class RandomizerEvent {
-        SeedLoaded,
-        ReachCheck,
-        ReachableItemsChanged,
-        NewGameSeedSourceUpdated,
-    };
+    namespace events {
+        struct SeedLoaded {};
+        struct NewGameSeedSourceUpdated {};
+        struct SeedMetaDataLoaded {
+            std::optional<seed::SeedMetaData> seed_meta_data;
+            bool is_empty_save_file;
+        };
+
+        using bus_t = common::EventBus<
+            SeedLoaded,
+            NewGameSeedSourceUpdated,
+            SeedMetaDataLoaded
+        >;
+    }
 
     bool timer_should_pause();
     void reread_seed_source();
@@ -41,7 +48,7 @@ namespace randomizer {
 
     semver::version randomizer_version();
 
-    common::TimedMultiEventBus<RandomizerEvent>& event_bus();
+    events::bus_t& event_bus();
     seed::Seed& game_seed();
     online::NetworkClient& network_client();
     online::MultiplayerUniverse& multiplayer_universe();

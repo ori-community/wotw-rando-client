@@ -20,7 +20,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         icons = {
             // UpperReach.GrenadeKSDoor
             std::make_shared<MapIcon>(MapIcon::Type::KeystoneDoorFour, "Keystone Door", app::Vector2{-168.34f, -3908.40f}, keystone_door_visibility_effect(core::uber_states::state<28895, 49900>()), MapIcon::ScaleMode::Linear),

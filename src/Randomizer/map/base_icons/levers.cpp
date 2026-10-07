@@ -29,7 +29,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         icons = {
             // UpperPools RightBubbleSpamRoomLever
             std::make_shared<MapIcon>(MapIcon::Type::Lever, "Lever", app::Vector2{-1556.88f, -3979.03f}, lever_visibility_effect(core::uber_states::state<5377, 6398>()), MapIcon::ScaleMode::Linear),

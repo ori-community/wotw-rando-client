@@ -1,12 +1,12 @@
+#include <Common/vx.h>
 #include <Core/api/game/game.h>
 #include <Core/core.h>
+#include <Profiler/tracy.h>
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/randomizer.h>
-#include <Randomizer/seed/seed.h>
-#include <Profiler/tracy.h>
-
-#include <Common/vx.h>
 #include <Randomizer/seed/parser.h>
+#include <Randomizer/seed/seed.h>
+
 
 namespace randomizer::seed {
     Seed::Seed() {
@@ -17,7 +17,6 @@ namespace randomizer::seed {
         m_seed_archive = seed_archive;
         m_memory.clear();
 
-        event_bus().trigger_event(RandomizerEvent::SeedLoaded, EventTiming::Before);
         m_environment->reset_volatile_values();
         const auto data = std::make_shared<SeedParseOutput>();
 
@@ -39,7 +38,7 @@ namespace randomizer::seed {
 
         // clang-format off
         {
-            modloader::ScopedSetter _(m_is_reading_seed, true);
+            common::ScopedSetter _(m_is_reading_seed, true);
 
             for (auto& condition: m_parse_output->data.triggers) {
                 condition.trigger | vx::match {
@@ -89,7 +88,7 @@ namespace randomizer::seed {
         }
         // clang-format on
 
-        event_bus().trigger_event(RandomizerEvent::SeedLoaded, EventTiming::After);
+        event_bus().emit(events::SeedLoaded());
 
         if (!show_message) {
             return;
@@ -183,7 +182,7 @@ namespace randomizer::seed {
             return;
         }
 
-        modloader::ScopedSetter _(m_force_grant_outside_game, force_outside_game, modloader::ScopedSetter<bool>::OP_OR);
+        common::ScopedSetter _(m_force_grant_outside_game, force_outside_game, common::ScopedSetter<bool>::OP_OR);
 
         if (!should_grant()) {
             return;

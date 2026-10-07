@@ -236,8 +236,8 @@ namespace {
         console::console_send("Copied states to clipboard");
     }
 
-    auto on_game_ready = modloader::event_bus().register_handler(
-        ModloaderEvent::GameReady,
+    [[maybe_unused]]
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>(
         [](auto) {
             console::register_command({"uber_state", "set_bool"}, set_us_bool);
             console::register_command({"uber_state", "set_int"}, set_us_int);

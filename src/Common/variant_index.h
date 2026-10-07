@@ -1,5 +1,7 @@
 #pragma once
 
+#include <variant>
+
 template<typename VariantType, typename T, std::size_t index = 0>
 consteval std::size_t variant_index() {
     static_assert(std::variant_size_v<VariantType> > index, "Type not found in variant");

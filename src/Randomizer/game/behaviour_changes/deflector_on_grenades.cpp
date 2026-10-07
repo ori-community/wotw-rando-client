@@ -38,7 +38,7 @@ namespace {
         // In SpiritGrenade.OnDamageDealt(), the game wrongly uses SpiritGrenade.DamageOwner
         // as the damage owner. Instead, it should have used SpiritGrenade.DamageDealer.DamageOwner.
         // This fix does exactly that.
-        modloader::ScopedSetter _(this_ptr->fields.DamageOwner, this_ptr->fields.DamageDealer->fields.DamageOwner);
+        common::ScopedSetter _(this_ptr->fields.DamageOwner, this_ptr->fields.DamageDealer->fields.DamageOwner);
         next::SpiritGrenade::OnDamageDealt(this_ptr, damage_dealer, damage_result);
     }
 } // namespace

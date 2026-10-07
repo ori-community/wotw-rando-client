@@ -1,9 +1,9 @@
-#include <Modloader/il2cpp_helpers.h>
-
-#include <Core/api/scenes/scene_load.h>
 #include <Core/api/game/game.h>
+#include <Core/api/scenes/scene_load.h>
 #include <Modloader/app/methods/UnityEngine/Rigidbody.h>
+#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/windows_api/console.h>
+
 
 namespace {
     using namespace app::classes;
@@ -12,16 +12,16 @@ namespace {
     common::Droppable::ptr_t on_update_handle = nullptr;
 
     [[maybe_unused]]
-    auto on_scene_loaded = core::api::scenes::single_event_bus().register_handler("lumaSwampTransitionA", [](auto metadata, auto) {
-        if (metadata->state == app::SceneState__Enum::Disabled) {
+    auto on_scene_loaded = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("lumaSwampTransitionA", [](const auto& event) {
+        if (event.state == app::SceneState__Enum::Disabled) {
             on_update_handle = nullptr;
         }
 
-        if (metadata->state != app::SceneState__Enum::Loaded) {
+        if (event.state != app::SceneState__Enum::Loaded) {
             return;
         }
 
-        const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+        const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
 
         broken_plank_go_ref = il2cpp::WeakGCRef(
             il2cpp::unity::find_child(
@@ -35,7 +35,7 @@ namespace {
             )
         );
 
-        on_update_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+        on_update_handle = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
             if (!broken_plank_go_ref.has_value()) {
                 on_update_handle = nullptr;
                 return;

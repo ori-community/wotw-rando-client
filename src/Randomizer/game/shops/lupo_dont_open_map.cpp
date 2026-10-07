@@ -10,7 +10,7 @@
 namespace {
     bool prevent_map_safeguard = false;
     IL2CPP_INTERCEPT(void, MapmakerScreen, Show, app::MapmakerScreen * this_ptr) {
-        modloader::ScopedSetter set(prevent_map_safeguard, true);
+        common::ScopedSetter set(prevent_map_safeguard, true);
         // csharp_bridge::update_shop_data();
         next::MapmakerScreen::Show(this_ptr);
     }

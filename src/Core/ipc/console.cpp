@@ -1,15 +1,14 @@
+#include <Common/ext.h>
+#include <Core/ipc/console.h>
+#include <Core/ipc/ipc.h>
 #include <Modloader/modloader.h>
 #include <magic_enum/magic_enum.hpp>
-
 #include <nlohmann/json.hpp>
 #include <string>
 #include <utility>
 
-#include <Core/ipc/console.h>
-#include <Core/ipc/ipc.h>
 
 using namespace modloader;
-
 using namespace core::ipc;
 
 namespace core::ipc::console {
@@ -143,7 +142,8 @@ namespace core::ipc::console {
             send_message(response);
         }
 
-        auto on_game_ready = event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        [[maybe_unused]]
+        auto on_game_ready = event_bus().on<modloader::events::GameReady>([](auto) {
             register_request_handler("start_logging", start_logging);
             register_request_handler("console_command", console_command);
             register_request_handler("console_command_info", console_command_info);

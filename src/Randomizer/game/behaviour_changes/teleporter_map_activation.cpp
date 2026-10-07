@@ -44,7 +44,7 @@ namespace {
 
     auto& prevent_map_reactivate_tps_state = randomizer::uber_states::state<"randoConfig", "preventMapReactivateTps">();
     IL2CPP_INTERCEPT(bool, SavePedestalController, IsTeleporterActiveAtMapPosition, app::Vector2 position) {
-        modloader::ScopedSetter setter(overwrite_is_visited, prevent_map_reactivate_tps_state.get());
+        common::ScopedSetter setter(overwrite_is_visited, prevent_map_reactivate_tps_state.get());
         const auto return_value = next::SavePedestalController::IsTeleporterActiveAtMapPosition(position);
 
         if (return_value) {

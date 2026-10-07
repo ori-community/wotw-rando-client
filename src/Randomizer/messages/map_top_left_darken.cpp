@@ -16,7 +16,7 @@ namespace {
     auto& map_side_background_state = randomizer::uber_states::state<"randoState", "darkenTopLeftCornerOfMap">();
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         // We use Anchor::BottomLeft here because we are flipping the sprite.
         map_side_background = std::make_unique<core::api::graphics::Sprite>(core::api::graphics::Sprite::Anchor::BottomLeft);
         il2cpp::unity::set_object_name(map_side_background->get_game_object(), "map_side_background");
@@ -37,7 +37,7 @@ namespace {
     });
 
     [[maybe_unused]]
-    auto on_area_map_open = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, [](auto, auto) {
+    auto on_area_map_open = core::api::game::event_bus().on<core::api::game::events::OpenedAreaMap>([](auto) {
         visibility_effect = core::reactivity::watch_effect()
             .effect([&] {
                 map_side_background->enabled(map_side_background_state.get());
@@ -46,7 +46,7 @@ namespace {
     });
 
     [[maybe_unused]]
-    auto on_area_map_closed = core::api::game::event_bus().register_handler(GameEvent::CloseAreaMap, EventTiming::After, [](auto, auto) {
+    auto on_area_map_closed = core::api::game::event_bus().on<core::api::game::events::ClosedAreaMap>([](auto) {
         visibility_effect = nullptr;
         map_side_background->enabled(false);
     });

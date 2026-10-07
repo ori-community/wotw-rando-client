@@ -43,13 +43,13 @@ namespace randomizer {
         std::optional<long> multiverse_id_to_connect_to = std::nullopt;
 
         [[maybe_unused]]
-        auto on_before_shutdown = core::api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::Before, [](auto, auto) {
+        auto on_before_shutdown = core::api::game::event_bus().on<core::api::game::events::Shutdown>([](auto) {
             server_disconnect();
         });
 
         std::vector<std::function<void()>> input_unlocked_callbacks;
         [[maybe_unused]]
-        auto on_input_locked_handler = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+        auto on_input_locked_handler = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
             if (!core::api::game::player::can_move()) {
                 return;
             }
@@ -62,12 +62,12 @@ namespace randomizer {
         });
 
         [[maybe_unused]]
-        auto on_respawn = core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [](auto, auto) {
+        auto on_respawn = core::api::game::event_bus().on<core::api::game::events::Respawned>([](auto) {
             message_queue().clear();
         });
 
         [[maybe_unused]]
-        auto on_after_seed_loaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
+        auto on_after_seed_loaded = event_bus().on<events::SeedLoaded>([](auto) {
             seedgen_service().set_seedgen_info(seed_archive_save_data->seed_archive->get_seedgen_info());
             multiplayer_universe_instance.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
@@ -76,7 +76,7 @@ namespace randomizer {
         });
 
         [[maybe_unused]]
-        auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
+        auto on_before_new_game_initialized = core::api::game::event_bus().on<core::api::game::events::BeforeNewGameInitialized>([](auto) {
             pause_timer = true;
 
             seed_meta_save_data->seed_source_string = new_game_seed_source->to_source_string();
@@ -99,7 +99,7 @@ namespace randomizer {
         });
 
         [[maybe_unused]]
-        auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+        auto on_after_new_game_initialized = core::api::game::event_bus().on<core::api::game::events::AfterNewGameInitialized>([](auto) {
             modloader::info("save_file", std::format("Initialized save file in slot {}", SaveSlotsManager::get_CurrentSlotIndex()));
             pause_timer = false;
 
@@ -115,7 +115,7 @@ namespace randomizer {
         });
 
         [[maybe_unused]]
-        auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, [](auto, auto) {
+        auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
             const float delta_time = core::api::game::fixed_delta_time();
 
             game_seed().trigger(seed::SeedClientEvent::Tick);
@@ -123,21 +123,19 @@ namespace randomizer {
         });
 
         [[maybe_unused]]
-        auto on_finished_loading_save_handle = core::api::game::event_bus().register_handler(
-            GameEvent::FinishedLoadingSave,
-            EventTiming::After,
-            [](auto, auto) {
+        auto on_finished_loading_save_handle = core::api::game::event_bus().on<core::api::game::events::FinishedLoadingSave>(
+            [](auto) {
                 modloader::info("save_file", std::format("Loaded save file in slot {}", SaveSlotsManager::get_CurrentSlotIndex()));
             }
         );
 
         [[maybe_unused]]
-        auto on_restore_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
+        auto on_restore_checkpoint = core::api::game::event_bus().on<core::api::game::events::RestoredCheckpoint>([](auto) {
             randomizer_seed.trigger(seed::SeedClientEvent::Respawn);
         });
 
         [[maybe_unused]]
-        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
             multiplayer_universe_instance.register_packet_handlers(network_client_instance);
 
             // TODO: Don't just do this on game ready.
@@ -157,7 +155,7 @@ namespace randomizer {
             core::api::game::debug_menu::set_debug_enabled(core::settings::debug_controls());
         }
 
-        auto on_modloader_injection_complete = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
+        auto on_modloader_injection_complete = modloader::event_bus().on<modloader::events::InjectionComplete>([](auto) {
             core::api::graphics::textures::register_source("Bundle", [](const std::string& path) -> std::optional<app::Texture*> {
                 if (seed_archive_save_data->seed_archive == nullptr) {
                     return std::nullopt;
@@ -181,9 +179,8 @@ namespace randomizer {
 
             trim(source_str);
 
-            event_bus().trigger_event(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::Before);
             new_game_seed_source = seed::parse_source_string(source_str);
-            event_bus().trigger_event(RandomizerEvent::NewGameSeedSourceUpdated, EventTiming::After);
+            event_bus().emit(events::NewGameSeedSourceUpdated());
         }
     }
 
@@ -276,9 +273,9 @@ namespace randomizer {
         seed::set_server_seed_archive(std::nullopt);
     }
 
-    common::TimedMultiEventBus<RandomizerEvent>& event_bus() {
-        static common::TimedMultiEventBus<RandomizerEvent> randomizer_event_bus;
-        return randomizer_event_bus;
+    events::bus_t& event_bus() {
+        static events::bus_t bus;
+        return bus;
     }
 
     seed::Seed& game_seed() { return randomizer_seed; }

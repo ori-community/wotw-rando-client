@@ -10,7 +10,7 @@ namespace {
     std::array<std::tuple<MapIcon::ptr_t, MapIcon::ptr_t>, 23> icons;
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         icons = {
             utils::create_entrance_icon(utils::EntranceIconSize::Small, {-208.3, -4159.8}, 1),
             utils::create_entrance_icon(utils::EntranceIconSize::Small, {-329.1, -4119.4}, 3),

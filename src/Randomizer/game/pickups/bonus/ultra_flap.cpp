@@ -111,12 +111,12 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, SeinFeatherFlap, SpawnWindFX, app::SeinFeatherFlap* this_ptr) {
-        modloader::ScopedSetter _(is_spawning_wind_fx, true);
+        common::ScopedSetter _(is_spawning_wind_fx, true);
         next::SeinFeatherFlap::SpawnWindFX(this_ptr);
     }
 
     IL2CPP_INTERCEPT(void, WindCollision, PerformKnockback, app::WindCollision* this_ptr, app::GameObject* go, app::DamageOwner* damage_owner, app::AnimationCurve* distance_to_knockback) {
-        modloader::ScopedSetter _1(is_performing_wind_knockback, true);
+        common::ScopedSetter _1(is_performing_wind_knockback, true);
 
         // Add all colliders of targeted entities so they don't receive double damage
         const auto damage_receiver = il2cpp::unity::get_component<app::DamageReceiver>(go, types::DamageReceiver::get_class());
@@ -137,7 +137,7 @@ namespace {
             }
         }
 
-        modloader::ScopedSetter _2(flap_damage_amount_cache, flap_damage_state.get());
+        common::ScopedSetter _2(flap_damage_amount_cache, flap_damage_state.get());
         next::WindCollision::PerformKnockback(this_ptr, go, damage_owner, distance_to_knockback);
     }
 } // namespace

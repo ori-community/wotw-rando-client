@@ -20,7 +20,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, SeinNestedPrefab, set_IsInstantiated, app::SeinNestedPrefab* this_ptr, bool value) {
-        modloader::ScopedSetter _(force_destroy_immediately, true);
+        common::ScopedSetter _(force_destroy_immediately, true);
         next::SeinNestedPrefab::set_IsInstantiated(this_ptr, value);
     }
 }

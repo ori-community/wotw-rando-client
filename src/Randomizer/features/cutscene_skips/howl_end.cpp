@@ -19,12 +19,12 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::NightCrawlerFightController>> fight_controller_ref;
     bool is_stopping_timeline = false;
 
-    void on_scene_load(const core::api::scenes::SceneLoadEventMetadata* metadata, const std::string&) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
+    void on_scene_load(const core::api::scenes::events::SceneStateChanged& event) {
+        if (event.state != app::SceneState__Enum::Loaded) {
             return;
         }
 
-        auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+        auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
 
         auto fight_controller_go = il2cpp::unity::find_child(
             scene_root_go,
@@ -60,7 +60,7 @@ namespace {
     }
 
     void skip_invoke(const custom_cutscene_skips::CustomCutsceneSkip::InvokeParameters&) {
-        modloader::ScopedSetter _(is_stopping_timeline, true);
+        common::ScopedSetter _(is_stopping_timeline, true);
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(***escape_timeline_ref));
 
         if (!(***fight_controller_ref)->fields.m_escaped) {
@@ -69,10 +69,10 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_scene_load_handle = core::api::scenes::single_event_bus().register_handler("swampNightcrawlerA", &on_scene_load);
+    auto on_scene_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("swampNightcrawlerA", &on_scene_load);
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         auto cutscene_skip = custom_cutscene_skips::CustomCutsceneSkip{
             .is_available = &skip_available,
             .invoke = &skip_invoke,

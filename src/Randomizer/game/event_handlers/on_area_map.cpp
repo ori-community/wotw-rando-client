@@ -9,18 +9,14 @@
 
 namespace {
     IL2CPP_INTERCEPT_WITH_ORDER(100, void, AreaMapUI, Show, app::AreaMapUI * this_ptr, bool set_menu_audio_state) {
-        core::api::game::event_bus().trigger_event(GameEvent::OpenAreaMap, EventTiming::Before);
         next::AreaMapUI::Show(this_ptr, set_menu_audio_state);
-        // Maybe we need this?
-        // auto area = GameMapUI::get_CurrentHighlightedArea(this_ptr);
-        core::api::game::event_bus().trigger_event(GameEvent::OpenAreaMap, EventTiming::After);
+        core::api::game::event_bus().emit(core::api::game::events::OpenedAreaMap());
     }
 
     IL2CPP_INTERCEPT(void, AreaMapUI, Hide, app::AreaMapUI * this_ptr) {
-        core::api::game::event_bus().trigger_event(GameEvent::CloseAreaMap, EventTiming::Before);
         next::AreaMapUI::Hide(this_ptr);
         randomizer::uber_states::properties::player_current_map_area().set(-1);
-        core::api::game::event_bus().trigger_event(GameEvent::CloseAreaMap, EventTiming::After);
+        core::api::game::event_bus().emit(core::api::game::events::ClosedAreaMap());
     }
 
     IL2CPP_INTERCEPT(void, GameMapUI, SetCurrentHighlightedArea, app::GameMapUI * this_ptr, app::RuntimeGameWorldArea* area) {

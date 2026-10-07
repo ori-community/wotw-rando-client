@@ -21,6 +21,14 @@ namespace randomizer::online {
             Closed,
         };
 
+        struct events {
+            struct StateChanged {
+                State state;
+            };
+
+            using bus_t = common::EventBus<StateChanged>;
+        };
+
         using handler_callback = std::function<void(Network::Packet_PacketID, std::string)>;
 
         NetworkClient();
@@ -66,7 +74,7 @@ namespace randomizer::online {
             });
         }
 
-        common::EventBus<State>& event_bus() { return m_event_bus; }
+        events::bus_t& event_bus() { return m_event_bus; }
 
     private:
         void websocket_connect(const std::string& url);
@@ -80,7 +88,7 @@ namespace randomizer::online {
         std::unordered_map<Network::Packet_PacketID, std::vector<handler_callback>> m_callbacks;
         ix::WebSocket m_websocket;
         modloader::UDPSocket m_udp_socket;
-        common::EventBus<State> m_event_bus;
+        events::bus_t m_event_bus;
 
         std::string m_host;
         bool m_reconnect_websocket;

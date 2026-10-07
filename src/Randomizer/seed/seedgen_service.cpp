@@ -57,17 +57,17 @@ namespace randomizer::seedgen_interface {
         if (modloader::is_game_ready()) {
             setup_fn();
         } else {
-            on_game_ready_event = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [=](auto) {
+            on_game_ready_event = modloader::event_bus().on<modloader::events::GameReady>([=](auto) {
                 setup_fn();
             });
 
-            on_new_game_initialized_event = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [this](auto, auto) {
+            on_new_game_initialized_event = core::api::game::event_bus().on<core::api::game::events::AfterNewGameInitialized>([this](auto) {
                 m_reachable_map_icon_set_indices.get().clear();
                 m_reachable_map_icon_set_indices_update_pending = true;
                 update_reachable_map_icon_set_indices_async_if_needed();
             });
 
-            on_finished_loading_save_event = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [this](auto, auto) {
+            on_finished_loading_save_event = core::api::game::event_bus().on<core::api::game::events::FinishedLoadingSave>([this](auto) {
                 m_reachable_map_icon_set_indices.get().clear();
                 m_reachable_map_icon_set_indices_update_pending = true;
                 update_reachable_map_icon_set_indices_async_if_needed();

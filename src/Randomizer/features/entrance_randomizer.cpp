@@ -233,13 +233,13 @@ namespace randomizer::entrances {
             }
         }
 
-        [[maybe_unused]] auto on_scene_load = core::api::scenes::event_bus().register_handler([](core::api::scenes::SceneLoadEventMetadata* metadata) {
-            if (metadata->state != app::SceneState__Enum::Loaded) {
+        [[maybe_unused]] auto on_scene_load = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>([](auto, const auto& event) {
+            if (event.state != app::SceneState__Enum::Loaded) {
                 return;
             }
 
             const auto door_components_in_scene = il2cpp::unity::get_components_in_children<app::LegacyDoor>(
-                metadata->scene->fields.SceneRoot, types::LegacyDoor::get_class(), true
+                event.scene->fields.SceneRoot, types::LegacyDoor::get_class(), true
             );
 
             for (auto door_component: door_components_in_scene) {
@@ -307,7 +307,7 @@ namespace randomizer::entrances {
                 queued_ground_placement = std::nullopt;
             }
 
-            modloader::ScopedSetter _(queue_placing_ori_on_ground, true);
+            common::ScopedSetter _(queue_placing_ori_on_ground, true);
             next::SeinDoorHandler::FixedUpdate(this_ptr);
         }
 
@@ -446,7 +446,7 @@ namespace randomizer::entrances {
             }
         }
 
-        [[maybe_unused]] auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        [[maybe_unused]] auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
             for (const auto& state_id: ENTRANCE_ID_TO_ENTRANCE_NAME | std::views::keys) {
                 core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedIntUberState> uber_state(
                     uber_states::group_id<"entrances">(),

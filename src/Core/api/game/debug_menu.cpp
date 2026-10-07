@@ -1,15 +1,16 @@
 #include <Core/api/game/debug_menu.h>
+#include <Core/api/game/game.h>
 #include <Core/api/graphics/textures.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Modloader/app/methods/CheatsHandler.h>
 #include <Modloader/app/methods/DebugMenu.h>
+#include <Modloader/app/methods/DebugRendererSettings.h>
 #include <Modloader/app/methods/HierarchyDebugMenu.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/ListView.h>
-#include <Modloader/app/methods/Moon/UberStateVisualization/SerializedIntUberStateWrapper.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/SerializedByteUberStateWrapper.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/SerializedFloatUberStateWrapper.h>
+#include <Modloader/app/methods/Moon/UberStateVisualization/SerializedIntUberStateWrapper.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/UberStateVisualizationView.h>
-#include <Modloader/app/methods/DebugRendererSettings.h>
 #include <Modloader/app/methods/UnityEngine/GUILayout.h>
 #include <Modloader/app/methods/UnityEngine/GUIStyle.h>
 #include <Modloader/app/methods/UnityEngine/GUIStyleState.h>
@@ -21,6 +22,7 @@
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 #include <optional>
+
 
 using namespace app::classes;
 
@@ -45,7 +47,8 @@ namespace core::api::game::debug_menu {
         debug_was_active_this_session = true;
     }
 
-    [[maybe_unused]] auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
+    [[maybe_unused]]
+    auto on_injection_complete = modloader::event_bus().on<modloader::events::InjectionComplete>([](auto) {
         if (modloader::win::console::console_is_initialized()) {
             notify_debug_was_active_this_session();
         }
@@ -85,11 +88,6 @@ namespace core::api::game::debug_menu {
 
     bool should_prevent_cheats() {
         return prevent_cheats;
-    }
-
-    common::EventBus<void, DebugEvent>& event_bus() {
-        static common::EventBus<void, DebugEvent> event_bus;
-        return event_bus;
     }
 
     void set_debug_enabled(bool enable) {
@@ -140,7 +138,7 @@ namespace core::api::game::debug_menu {
 
         IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::UberStateVisualizationView, UpdateWithModel, app::UberStateVisualizationView * this_ptr, app::UberStateValueStore* uber_state_value_store) {
             {
-                modloader::ScopedSetter _(is_building_list, true);
+                common::ScopedSetter _(is_building_list, true);
                 next::Moon::UberStateVisualization::UberStateVisualizationView::UpdateWithModel(this_ptr, uber_state_value_store);
             }
 
@@ -149,7 +147,7 @@ namespace core::api::game::debug_menu {
 
         IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::UberStateVisualizationView, OnGroupsListViewSelectionChanged, app::UberStateVisualizationView * this_ptr, app::ListViewItem* selected_item) {
             {
-                modloader::ScopedSetter _(is_building_list, true);
+                common::ScopedSetter _(is_building_list, true);
                 next::Moon::UberStateVisualization::UberStateVisualizationView::OnGroupsListViewSelectionChanged(this_ptr, selected_item);
             }
 
@@ -195,7 +193,7 @@ namespace core::api::game::debug_menu {
         }
 
         [[maybe_unused]]
-        auto on_uber_state_changed = core::api::uber_states::on_any_uber_state_changed().register_handler([](auto id) {
+        auto on_uber_state_changed = core::api::uber_states::event_bus().on<uber_states::events::UberStateChanged>([](auto id, auto) {
             const auto uber_state_menu_input_state_it = uber_state_menu_input_states.find(id);
             if (uber_state_menu_input_state_it != uber_state_menu_input_states.end()) {
                 uber_state_menu_input_state_it->second = il2cpp::string_new(std::format("{}", uber_states::UntypedUberState(id).get<double>()));
@@ -221,21 +219,21 @@ namespace core::api::game::debug_menu {
         }
 
         IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::SerializedIntUberStateWrapper, OnGui, app::SerializedIntUberStateWrapper * this_ptr) {
-            modloader::ScopedSetter _(is_rendering_uber_state_wrapper, true);
+            common::ScopedSetter _(is_rendering_uber_state_wrapper, true);
             current_uber_state_id.group = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
             current_uber_state_id.member = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
             next::Moon::UberStateVisualization::SerializedIntUberStateWrapper::OnGui(this_ptr);
         }
 
         IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::SerializedByteUberStateWrapper, OnGui, app::SerializedByteUberStateWrapper * this_ptr) {
-            modloader::ScopedSetter _(is_rendering_uber_state_wrapper, true);
+            common::ScopedSetter _(is_rendering_uber_state_wrapper, true);
             current_uber_state_id.group = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
             current_uber_state_id.member = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
             next::Moon::UberStateVisualization::SerializedByteUberStateWrapper::OnGui(this_ptr);
         }
 
         IL2CPP_INTERCEPT(void, Moon::UberStateVisualization::SerializedFloatUberStateWrapper, OnGui, app::SerializedFloatUberStateWrapper * this_ptr) {
-            modloader::ScopedSetter _(is_rendering_uber_state_wrapper, true);
+            common::ScopedSetter _(is_rendering_uber_state_wrapper, true);
             current_uber_state_id.group = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_GroupID")->fields.m_id;
             current_uber_state_id.member = il2cpp::invoke<app::UberID>(this_ptr->fields.m_state, "get_StateID")->fields.m_id;
             next::Moon::UberStateVisualization::SerializedFloatUberStateWrapper::OnGui(this_ptr);
@@ -255,7 +253,7 @@ namespace core::api::game::debug_menu {
         }
 
         IL2CPP_INTERCEPT(bool, HierarchyDebugMenu, Draw, app::HierarchyDebugMenu * this_ptr, app::Rect rect, bool is_selected) {
-            modloader::ScopedSetter _(draw_gui_area_without_style, true);
+            common::ScopedSetter _(draw_gui_area_without_style, true);
             return next::HierarchyDebugMenu::Draw(this_ptr, rect, is_selected);
         }
 
@@ -275,7 +273,7 @@ namespace core::api::game::debug_menu {
 
         IL2CPP_INTERCEPT(void, DebugRendererSettings, RenderDebug, app::DebugRendererSettings* this_ptr, app::RenderingType__Enum rendering_type) {
             next::DebugRendererSettings::RenderDebug(this_ptr, rendering_type);
-            event_bus().trigger_event(DebugEvent::RenderDebugVisuals);
+            event_bus().emit(events::RenderDebugVisuals());
         }
     } // namespace
 } // namespace core::api::game::debug_menu

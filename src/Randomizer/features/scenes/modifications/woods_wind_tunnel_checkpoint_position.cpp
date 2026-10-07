@@ -8,12 +8,12 @@ namespace {
     using namespace app::classes;
 
     [[maybe_unused]]
-    auto on_scene_loaded_handler = core::api::scenes::single_event_bus().register_handler("petrifiedForestTandemWindB", [](auto metadata, auto) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
+    auto on_scene_loaded_handler = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("petrifiedForestTandemWindB", [](const auto& event) {
+        if (event.state != app::SceneState__Enum::Loaded) {
             return;
         }
 
-        const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+        const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
 
         const auto checkpoint_go = il2cpp::unity::find_child(
             scene_root_go,

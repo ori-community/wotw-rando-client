@@ -65,7 +65,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_luma_pools_water_drained = core::api::uber_states::on_uber_state_changed().register_handler(
+    auto on_luma_pools_water_drained = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(
         pools_water_lowered_state,
         [](auto) {
             if (pools_water_lowered_state.get() && randomizer::map::fragments::has_been_visited(app::GameWorldAreaID__Enum::LumaPools, 6073)) {

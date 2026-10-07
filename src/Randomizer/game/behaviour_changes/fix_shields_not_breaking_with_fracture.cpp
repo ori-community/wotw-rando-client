@@ -12,7 +12,7 @@ namespace {
             damage_result->Damage->fields.m_damageType == app::DamageType__Enum::Grenade &&
             damage_result->Damage->fields.m_damageWeight == app::DamageWeight__Enum::Medium
         ) {
-            modloader::ScopedSetter _(damage_result->Damage->fields.m_damageWeight, app::DamageWeight__Enum::Heavy);
+            common::ScopedSetter _(damage_result->Damage->fields.m_damageWeight, app::DamageWeight__Enum::Heavy);
             next::EnemyShield::ResolveDamage(this_ptr, damage_result);
             return;
         }

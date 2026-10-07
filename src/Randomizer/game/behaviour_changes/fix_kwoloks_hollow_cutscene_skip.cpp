@@ -1,5 +1,4 @@
-#include <optional>
-
+#include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/uber_states/core_uber_states.h>
 #include <Modloader/app/methods/Moon/Timeline/MoonTimeline.h>
@@ -8,66 +7,14 @@
 #include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/app/types/QuestsController.h>
 #include <Modloader/app/types/SkipCutscene.h>
-#include <Modloader/modloader.h>
+#include <optional>
 
-#include "Core/api/game/player.h"
 
 using namespace app::classes;
 
 namespace {
     std::optional<il2cpp::WeakGCRef<app::SkipCutscene>> skip_cutscene;
     std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> emerge_cutscene_b_timeline;
-
-    void on_meeting_kwolok_scene_load(const core::api::scenes::SceneLoadEventMetadata* metadata, const std::string&) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
-            return;
-        }
-
-        auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
-
-        auto skip_cutscene_go = il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{
-                "skipCutscene",
-            }
-        );
-
-        if (il2cpp::unity::is_valid(skip_cutscene_go)) {
-            skip_cutscene = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::SkipCutscene>(skip_cutscene_go, types::SkipCutscene::get_class()));
-        }
-    }
-
-    void on_kwoloks_cavern_throne_room_scene_load(const core::api::scenes::SceneLoadEventMetadata* metadata, const std::string&) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
-            return;
-        }
-
-        auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
-
-        auto get_pickup_on_condition_go = il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{
-                "kwolokSetup",
-                "getPickupOnCondition",
-            }
-        );
-
-        if (il2cpp::unity::is_valid(get_pickup_on_condition_go)) {
-            il2cpp::unity::destroy_object(get_pickup_on_condition_go);
-        }
-
-        auto emerge_cutscene_b_timeline_go = il2cpp::unity::find_child(
-            scene_root_go,
-            std::vector<std::string>{
-                "timelineSequences",
-                "emergeCutsceneB",
-            }
-        );
-
-        if (il2cpp::unity::is_valid(emerge_cutscene_b_timeline_go)) {
-            emerge_cutscene_b_timeline = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MoonTimeline>(emerge_cutscene_b_timeline_go, types::MoonTimeline::get_class()));
-        }
-    }
 
     /**
      * This function replicates the behavior of
@@ -124,8 +71,59 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_meeting_kwolok_scene_load_handle = core::api::scenes::single_event_bus().register_handler("meetingKwolokMaster", on_meeting_kwolok_scene_load);
+    auto on_meeting_kwolok_scene_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
+        "meetingKwolokMaster",
+        [](const auto& event) {
+            if (event.state != app::SceneState__Enum::Loaded) {
+            return;
+        }
+
+            const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
+            const auto skip_cutscene_go = il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{
+                    "skipCutscene",
+                }
+            );
+
+            if (il2cpp::unity::is_valid(skip_cutscene_go)) {
+                skip_cutscene = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::SkipCutscene>(skip_cutscene_go, types::SkipCutscene::get_class()));
+            }
+        }
+    );
 
     [[maybe_unused]]
-    auto on_kwoloks_cavern_throne_room_scene_load_handle = core::api::scenes::single_event_bus().register_handler("kwoloksCavernThroneRoom", on_kwoloks_cavern_throne_room_scene_load);
+    auto on_kwoloks_cavern_throne_room_scene_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
+        "kwoloksCavernThroneRoom",
+        [](const auto& event) {
+            if (event.state != app::SceneState__Enum::Loaded) {
+            return;
+        }
+
+            const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
+            const auto get_pickup_on_condition_go = il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{
+                    "kwolokSetup",
+                    "getPickupOnCondition",
+                }
+            );
+
+            if (il2cpp::unity::is_valid(get_pickup_on_condition_go)) {
+                il2cpp::unity::destroy_object(get_pickup_on_condition_go);
+            }
+
+            const auto emerge_cutscene_b_timeline_go = il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{
+                    "timelineSequences",
+                    "emergeCutsceneB",
+                }
+            );
+
+            if (il2cpp::unity::is_valid(emerge_cutscene_b_timeline_go)) {
+                emerge_cutscene_b_timeline = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MoonTimeline>(emerge_cutscene_b_timeline_go, types::MoonTimeline::get_class()));
+            }
+        }
+    );
 } // namespace

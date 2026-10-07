@@ -40,7 +40,6 @@ using namespace app::classes;
 namespace core::api::game {
     namespace {
         bool game_ready = false;
-        common::TimedEventBus<void, GameEvent> game_event_bus;
 
         std::unordered_map<GameObjectContainer, app::GameObject*> containers;
         std::optional<il2cpp::GCRef<app::GameObject>> main_container_ref;
@@ -75,9 +74,8 @@ namespace core::api::game {
                 return;
             }
 
-            game_event_bus.trigger_event(GameEvent::GUI, EventTiming::Before);
             next::GameController::OnGUI(this_ptr);
-            game_event_bus.trigger_event(GameEvent::GUI, EventTiming::After);
+            event_bus().emit(events::GUI());
         }
 
         IL2CPP_INTERCEPT(void, GameController, Update, app::GameController * this_ptr) {
@@ -86,9 +84,8 @@ namespace core::api::game {
                 return;
             }
 
-            game_event_bus.trigger_event(GameEvent::Update, EventTiming::Before);
             next::GameController::Update(this_ptr);
-            game_event_bus.trigger_event(GameEvent::Update, EventTiming::After);
+            event_bus().emit(events::Update());
         }
 
         IL2CPP_INTERCEPT(void, GameController, FixedUpdate, app::GameController * this_ptr) {
@@ -99,9 +96,8 @@ namespace core::api::game {
                 return;
             }
 
-            game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::Before);
             next::GameController::FixedUpdate(this_ptr);
-            game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::After);
+            event_bus().emit(events::FixedUpdate());
 
             if (save_requested && can_save()) {
                 if (save(false, save_request_options)) {
@@ -111,7 +107,7 @@ namespace core::api::game {
         }
 
         [[maybe_unused]]
-        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
             auto simple_fps = types::SimpleFPS::get_class()->static_fields->Instance;
             UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(simple_fps), false);
             game_ready = true;
@@ -125,17 +121,19 @@ namespace core::api::game {
                 modloader::cursor_lock(core::settings::lock_cursor());
             }
 
-            auto evt = focus_status ? GameEvent::GainedFocus : GameEvent::LostFocus;
-            game_event_bus.trigger_event(evt, EventTiming::Before);
             this_ptr->fields._PreventFocusPause_k__BackingField = true;
             next::GameController::OnApplicationFocus(this_ptr, focus_status);
-            game_event_bus.trigger_event(evt, EventTiming::After);
+
+            if (focus_status) {
+                event_bus().emit(events::GainedFocus());
+            } else {
+                event_bus().emit(events::LostFocus());
+            }
         }
 
         IL2CPP_INTERCEPT(void, GameController, OnApplicationQuit, app::GameController * this_ptr) {
-            game_event_bus.trigger_event(GameEvent::Shutdown, EventTiming::Before);
             next::GameController::OnApplicationQuit(this_ptr);
-            game_event_bus.trigger_event(GameEvent::Shutdown, EventTiming::After);
+            event_bus().emit(events::Shutdown());
 
             modloader::shutdown();
 
@@ -145,8 +143,9 @@ namespace core::api::game {
         }
     } // namespace
 
-    common::TimedEventBus<void, GameEvent>& event_bus() {
-        return game_event_bus;
+    events::bus_t& event_bus() {
+        static events::bus_t event_bus;
+        return event_bus;
     }
 
     float delta_time() {

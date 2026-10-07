@@ -26,7 +26,7 @@ namespace {
     map_icon_handle_t test_icon_3;
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         test_icon_1 = std::make_shared<MapIcon>();
         test_icon_1->type.set(MapIcon::Type::EnergyFragment);
         test_icon_1->world_position.set({-766, -4284});
@@ -63,7 +63,7 @@ namespace {
 
     auto time = 0.f;
     [[maybe_unused]]
-    auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+    auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
         if (test_icon_3 != nullptr) {
             time += TimeUtility::get_fixedDeltaTime();
 

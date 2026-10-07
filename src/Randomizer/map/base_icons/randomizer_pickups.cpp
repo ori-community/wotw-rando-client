@@ -10,7 +10,7 @@ namespace {
     core::reactivity::ReactiveEffect::ptr_t map_icon_sets_update_effect;
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         map_icon_sets_update_effect = core::reactivity::watch_effect()
             .effect(randomizer::seedgen_service().map_icon_sets())
             .after([&] {

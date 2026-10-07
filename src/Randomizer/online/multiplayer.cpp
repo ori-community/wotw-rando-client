@@ -1,27 +1,24 @@
-#include <Randomizer/online/multiplayer.h>
-
+#include <Core/api/game/debug_menu.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
-#include <Core/core.h>
 #include <Core/events/task.h>
+#include <Core/save_meta/save_meta.h>
 #include <Core/utils/color.h>
 #include <Core/utils/misc.h>
-
 #include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/UnityEngine/Time.h>
 #include <Modloader/app/types/AreaMapUI.h>
-
-#include <Core/api/game/debug_menu.h>
-#include <Core/save_meta/save_meta.h>
 #include <Modloader/fs.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/online/multiplayer.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/stats/game_stats.h>
 #include <Randomizer/tracking/game_tracker.h>
 #include <algorithm>
 #include <unordered_map>
+
 
 namespace randomizer::online {
     template<class Msg, std::enable_if_t<std::is_base_of_v<google::protobuf::Message, Msg>>>
@@ -32,20 +29,20 @@ namespace randomizer::online {
     }
 
     MultiplayerUniverse::MultiplayerUniverse() {
-        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [this](auto, auto) { update(); }));
-        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [this](auto, auto) {
+        m_bus_handles.emplace_back(core::api::game::event_bus().on<core::api::game::events::Update>([this](auto) { update(); }));
+        m_bus_handles.emplace_back(core::api::game::event_bus().on<core::api::game::events::AfterNewGameInitialized>([this](auto) {
             request_full_sync();
         }));
-        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, [this](auto, auto) {
+        m_bus_handles.emplace_back(core::api::game::event_bus().on<core::api::game::events::Respawned>([this](auto) {
             request_full_sync();
         }));
-        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [this](auto, auto) {
+        m_bus_handles.emplace_back(core::api::game::event_bus().on<core::api::game::events::RestoredCheckpoint>([this](auto) {
             request_full_sync();
         }));
-        m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [this](auto, auto) {
+        m_bus_handles.emplace_back(core::api::game::event_bus().on<core::api::game::events::FinishedLoadingSave>([this](auto) {
             on_load();
         }));
-        m_bus_handles.emplace_back(core::api::uber_states::on_any_uber_state_changed().register_handler([this](auto state_id) {
+        m_bus_handles.emplace_back(core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>([this](auto state_id, auto) {
             if (is_in_incorrect_save_file() || !m_uber_state_handler.should_sync(state_id)) {
                 return;
             }
@@ -61,8 +58,8 @@ namespace randomizer::online {
     void MultiplayerUniverse::register_packet_handlers(NetworkClient& client) {
         m_client = &client;
 
-        m_network_client_event_bus_handle = client.event_bus().register_handler([this](auto state) {
-            if (state != NetworkClient::State::Connected) {
+        m_network_client_event_bus_handle = client.event_bus().on<NetworkClient::events::StateChanged>([this](const auto& event) {
+            if (event.state != NetworkClient::State::Connected) {
                 clear_current_multiverse_info();
             }
         });
@@ -263,12 +260,10 @@ namespace randomizer::online {
     void MultiplayerUniverse::clear_current_multiverse_info() {
         m_current_multiverse_info = nullptr;
         handle_multiverse_info(nullptr);
-        m_event_bus.trigger_event(Event::MultiverseUpdated, EventTiming::After);
+        m_event_bus.emit(events::MultiverseUpdated());
     }
 
     void MultiplayerUniverse::handle_multiverse_info(const std::shared_ptr<Network::MultiverseInfoMessage>& message) {
-        m_event_bus.trigger_event(Event::MultiverseUpdated, EventTiming::Before);
-
         m_current_multiverse_info = message;
         m_color = app::Color {1, 1, 1, 1};
 
@@ -359,7 +354,7 @@ namespace randomizer::online {
             }
         }
 
-        m_event_bus.trigger_event(Event::MultiverseUpdated, EventTiming::After);
+        m_event_bus.emit(events::MultiverseUpdated());
     }
 
     void MultiplayerUniverse::handle_authenticated(std::shared_ptr<Network::AuthenticatedMessage> const& message) {
@@ -557,9 +552,8 @@ namespace randomizer::online {
         m_uber_state_handler.set_synced_states(std::move(state_ids));
 
         if (m_should_block_starting_new_game != message->blockstartingnewgame()) {
-            m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::Before);
             m_should_block_starting_new_game = message->blockstartingnewgame();
-            m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::After);
+            m_event_bus.emit(events::ShouldBlockStartingNewGameChanged());
         }
 
         request_full_sync();
@@ -585,16 +579,14 @@ namespace randomizer::online {
 
     void MultiplayerUniverse::set_should_block_starting_new_game(bool value) {
         if (m_should_block_starting_new_game != value) {
-            m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::Before);
             m_should_block_starting_new_game = value;
-            m_event_bus.trigger_event(Event::ShouldBlockStartingNewGameChanged, EventTiming::After);
+            m_event_bus.emit(events::ShouldBlockStartingNewGameChanged());
         }
     }
 
     void MultiplayerUniverse::set_game_difficulty_settings_overrides(std::optional<seed::GameDifficultySettings> overrides) {
-        m_event_bus.trigger_event(Event::GameDifficultySettingsOverridesChanged, EventTiming::Before);
         m_game_difficulty_settings_overrides = overrides;
-        m_event_bus.trigger_event(Event::GameDifficultySettingsOverridesChanged, EventTiming::After);
+        m_event_bus.emit(events::GameDifficultySettingsOverridesChanged());
     }
 
     bool MultiplayerUniverse::is_in_incorrect_save_file() const {

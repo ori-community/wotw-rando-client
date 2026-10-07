@@ -6,13 +6,14 @@
 #include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <thread>
 
+
 namespace {
     auto& knock_knock_wellspring_enabled_state = randomizer::uber_states::state<"randoConfig", "knockKnockWellspring">();
-    auto& wellspring_teleporter_state = core::uber_states::state<"wellspringGroupDescriptor", 18181>();
+    auto& wellspring_teleporter_state = core::uber_states::state<"wellspringGroupDescriptor", 18181>();  // savePedestalUberState
 
     [[maybe_unused]]
-    auto uber_state_bus_handle = core::api::uber_states::on_uber_state_changed().register_handler(
-        wellspring_teleporter_state.get_uber_id(),  // savePedestalUberState
+    auto uber_state_bus_handle = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(
+        wellspring_teleporter_state,
         [](auto) {
             if (wellspring_teleporter_state.get() && knock_knock_wellspring_enabled_state.get()) {
                 const auto stats = randomizer::timing::get_save_file_game_stats();

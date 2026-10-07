@@ -1,12 +1,12 @@
-#include <Modloader/il2cpp_helpers.h>
-
 #include <Common/event_bus.h>
 #include <Core/api/scenes/scene_load.h>
-#include <Modloader/modloader.h>
+#include <Modloader/il2cpp_helpers.h>
+
 
 namespace {
-    void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
-        if (metadata->state == app::SceneState__Enum::Loaded && metadata->scene_name == "willowCeremonyIntro") {
+    [[maybe_unused]]
+    auto on_scene_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("willowCeremonyIntro", [](const auto& event) {
+        if (event.state == app::SceneState__Enum::Loaded) {
             /**
              * Why do we need this?
              *
@@ -20,9 +20,7 @@ namespace {
              * To fix this problem, we extend the scene padding boundary of the Phase 1 arena scene ("willowCeremonyIntro")
              * ~100 units to the right, causing it to overlap with the boundaries of the Phase 3 scene ("petrifiedOwlBossArena2").
              */
-            metadata->scene->fields.MetaData->fields.ScenePaddingBoundaries->fields._items->vector[0].m_Width = 350.f;
+            event.scene->fields.MetaData->fields.ScenePaddingBoundaries->fields._items->vector[0].m_Width = 350.f;
         }
-    }
-
-    auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
+    });
 } // namespace

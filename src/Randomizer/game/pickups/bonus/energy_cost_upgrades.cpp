@@ -202,7 +202,7 @@ namespace {
     }
 
     std::vector<core::reactivity::ReactiveEffect::ptr_t> effects;
-    auto _ = event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto _ = event_bus().on<modloader::events::GameReady>([](auto) {
         core::reactivity::watch_effect()
                 .effect({blaze, blaze_cost})
                 .after([&] { update_blaze(blaze_cost.get()); })

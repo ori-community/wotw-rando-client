@@ -12,7 +12,7 @@ namespace {
     std::array<std::tuple<MapIcon::ptr_t, MapIcon::ptr_t>, 18> icons;
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         icons = {
             utils::create_warp_icon({-799, -4310}, [] {
                 static auto& teleporter_active = core::uber_states::state<"swampStateGroup", "savePedestalSwampIntroTop">();

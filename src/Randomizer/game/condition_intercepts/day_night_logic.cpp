@@ -247,14 +247,14 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto uber_state_notify = core::api::uber_states::on_uber_state_changed().register_handlers(
+    auto uber_state_notify = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(
         {
             rain_lifted_in_marsh_state,
             use_rain_lifted_in_marsh_rando_state,
             regen_tree_drained_state,
             use_regen_tree_drained_rando_state,
         },
-        [](auto params) {
+        [](auto, auto) {
             randomizer::conditions::apply_all_states();
         }
     );
@@ -263,7 +263,7 @@ namespace {
 
     bool override_has_ability = false;
     IL2CPP_INTERCEPT(void, SwampNightDayTransition, UpdateStateBasedOnCondition, app::SwampNightDayTransition * this_ptr) {
-        modloader::ScopedSetter setter(override_has_ability, use_rain_lifted_in_marsh_rando_state.get());
+        common::ScopedSetter setter(override_has_ability, use_rain_lifted_in_marsh_rando_state.get());
         next::SwampNightDayTransition::UpdateStateBasedOnCondition(this_ptr);
     }
 
@@ -271,32 +271,36 @@ namespace {
         return override_has_ability ? is_day() : next::PlayerAbilities::HasAbility(this_ptr, ability);
     }
 
-    auto on_swamp_nightcrawler_a_loaded = core::api::scenes::single_event_bus().register_handler("swampNightcrawlerA", [](core::api::scenes::SceneLoadEventMetadata* metadata, auto) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
-            return;
-        }
-
-        // Move Mokk the Brave out of the #day GameObject
-        const auto mokk_the_brave_go = il2cpp::unity::find_child(
-            metadata->scene->fields.SceneRoot,
-            std::vector<std::string>{
-                "artSetups",
-                "#day",
-                "mokiNpcSetup",
+    [[maybe_unused]]
+    auto on_swamp_nightcrawler_a_loaded = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
+        "swampNightcrawlerA",
+        [](const auto& event) {
+            if (event.state != app::SceneState__Enum::Loaded) {
+                return;
             }
-        );
 
-        il2cpp::unity::set_parent(mokk_the_brave_go, metadata->scene->fields.SceneRoot);
+            // Move Mokk the Brave out of the #day GameObject
+            const auto mokk_the_brave_go = il2cpp::unity::find_child(
+                event.scene->fields.SceneRoot,
+                std::vector<std::string>{
+                    "artSetups",
+                    "#day",
+                    "mokiNpcSetup",
+                }
+            );
 
-        mokk_the_brave_setup_ref = il2cpp::WeakGCRef(mokk_the_brave_go);
+            il2cpp::unity::set_parent(mokk_the_brave_go, event.scene->fields.SceneRoot);
 
-        mokk_the_brave_effect = core::reactivity::watch_effect([] {
-            update_mokk_the_brave_presence();
-        });
-    });
+            mokk_the_brave_setup_ref = il2cpp::WeakGCRef(mokk_the_brave_go);
+
+            mokk_the_brave_effect = core::reactivity::watch_effect([] {
+                update_mokk_the_brave_presence();
+            });
+        }
+    );
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         using namespace randomizer::conditions;
         register_new_setup_state_controller_intercept({"swampTorchIntroductionA/*setups/*timesOfDay"}, {-1052258879, 1819061226}, make_day_night_applier_intercept_fn(-1052258879, 1819061226));
 

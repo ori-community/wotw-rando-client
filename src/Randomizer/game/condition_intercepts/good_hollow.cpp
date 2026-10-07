@@ -8,12 +8,12 @@ namespace {
     auto& ku_is_alive_state = randomizer::uber_states::state<"randoConfig", "goodHollow">();
 
     [[maybe_unused]]
-    auto on_ku_is_alive_changed = core::api::uber_states::on_uber_state_changed().register_handler(ku_is_alive_state, [](auto) {
+    auto on_ku_is_alive_changed = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(ku_is_alive_state, [](auto) {
         randomizer::conditions::apply_all_states();
     });
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         randomizer::conditions::register_new_setup_state_controller_intercept({ "kwoloksCavernThroneRoom/artSetups/darkStateTempPreview" }, { -800036847 }, [](auto, auto, auto original_state) -> int32_t {
             if (ku_is_alive_state.get()) {
                 return 1099423850;

@@ -1,8 +1,7 @@
-#include <Randomizer/input/rando_bindings.h>
-
 #include <Modloader/app/methods/PurchaseThingScreen.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/modloader.h>
+#include <Randomizer/input/rando_bindings.h>
+
 
 namespace randomizer::game::shops {
     namespace {
@@ -17,12 +16,12 @@ namespace randomizer::game::shops {
         }
 
         [[maybe_unused]]
-        auto on_quick_buy_pressed = input::single_input_bus().register_handler(Action::QuickBuy, input::InputValue::Pressed, [](auto, auto) {
+        auto on_quick_buy_pressed = input::event_bus().on<input::events::ActionPressed>(Action::QuickBuy, [](auto) {
             quick_buy = true;
         });
 
         [[maybe_unused]]
-        auto on_quick_buy_released = input::single_input_bus().register_handler(Action::QuickBuy, input::InputValue::Released, [](auto, auto) {
+        auto on_quick_buy_released = input::event_bus().on<input::events::ActionReleased>(Action::QuickBuy, [](auto) {
             quick_buy = false;
         });
     } // namespace

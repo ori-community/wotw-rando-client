@@ -1,9 +1,7 @@
-#include <Common/event_timing.h>
 #include <Core/api/audio.h>
 #include <Core/api/faderb.h>
 #include <Core/api/game/game.h>
 #include <Core/api/scenes/scene_load.h>
-#include <Core/enums/game_event.h>
 #include <Core/events/task.h>
 #include <Core/settings.h>
 #include <Modloader/app/methods/AK/Wwise/State.h>
@@ -140,7 +138,7 @@ namespace custom_cutscene_skips {
     } // namespace
 
     [[maybe_unused]]
-    auto on_settings_loaded = core::settings::event_bus().register_handler(core::settings::SettingsEvent::Load, EventTiming::After, [](auto, auto) {
+    auto on_settings_loaded = core::settings::event_bus().on<core::settings::events::SettingsLoaded>([](auto) {
         automatic_cutscene_skipping_enabled_cache = core::settings::enable_automatic_cutscene_skipping();
     });
 
@@ -169,7 +167,7 @@ namespace custom_cutscene_skips {
                 block_automatic_cutscene_skips_for_seconds = 0.f;
                 delay_fade_to_game_for_seconds = 0.f;
 
-                modloader::ScopedSetter _(is_executing_automatic_cutscene_skip, true);
+                common::ScopedSetter _(is_executing_automatic_cutscene_skip, true);
                 SkipCutsceneController::SkipCutscene(types::SkipCutsceneController::get_class()->static_fields->Instance);
             };
 
@@ -206,7 +204,7 @@ namespace custom_cutscene_skips {
     }
 
     [[maybe_unused]]
-    auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+    auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
         execute_automatic_cutscene_skip_if_enabled();
     });
 

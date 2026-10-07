@@ -167,7 +167,7 @@ namespace randomizer::conditions {
         }
 
         [[maybe_unused]]
-        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
             console::register_command({"debug", "intercept_state"}, intercept_state);
             console::register_command({"debug", "show_state"}, show_state);
             console::register_command({"debug", "show_state_paths"}, show_state_paths);

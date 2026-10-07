@@ -25,27 +25,26 @@ using namespace modloader;
 using namespace app::classes;
 
 namespace core::api::game::in_game_timer {
-    AsyncLoadingState last_async_loading_state = AsyncLoadingState::NotLoading;
-
-    constexpr unsigned int MOON_DELTA_BUFFER_SIZE = 26;  // AverageBothDeltaTimeController.USED_HISTORY_LENGTH
-    constexpr unsigned int CONSECUTIVE_FRAMES_WITH_CONTROL_SWITCH_ALLOWED_BEFORE_SWITCHING_TO_REAL_TIME = 1;
-
-    /**
-     * TRIVIA:
-     * - Unity Delta Time = deltaTime reported by Unity before Moon overrides it
-     * - Unity Unscaled Delta Time = unscaledDeltaTime reported by Unity. Does not get overridden by Moon.
-     * - Moon Delta Time = deltaTime after it got overridden by Moon
-     */
-
-    auto unity_delta_time = 0.f;
-    auto loading_finished_condition_is_blocking = false;
-    auto title_screen_startup_waiting = true;
-    auto use_unity_unscaled_delta_time_for_next_n_frames = 0U;
-    auto did_switch_control_scheme_in_current_frame = false;
-    auto consecutive_frames_with_control_scheme_switch = 0U;
-    common::EventBus<TimeStep> _time_step_event_bus;
-
     namespace {
+        AsyncLoadingState last_async_loading_state = AsyncLoadingState::NotLoading;
+
+        constexpr unsigned int MOON_DELTA_BUFFER_SIZE = 26;  // AverageBothDeltaTimeController.USED_HISTORY_LENGTH
+        constexpr unsigned int CONSECUTIVE_FRAMES_WITH_CONTROL_SWITCH_ALLOWED_BEFORE_SWITCHING_TO_REAL_TIME = 1;
+
+        /**
+         * TRIVIA:
+         * - Unity Delta Time = deltaTime reported by Unity before Moon overrides it
+         * - Unity Unscaled Delta Time = unscaledDeltaTime reported by Unity. Does not get overridden by Moon.
+         * - Moon Delta Time = deltaTime after it got overridden by Moon
+         */
+
+        auto unity_delta_time = 0.f;
+        auto loading_finished_condition_is_blocking = false;
+        auto title_screen_startup_waiting = true;
+        auto use_unity_unscaled_delta_time_for_next_n_frames = 0U;
+        auto did_switch_control_scheme_in_current_frame = false;
+        auto consecutive_frames_with_control_scheme_switch = 0U;
+
         AsyncLoadingState detect_async_loading_state() {
             const auto instant_load_scenes_controller = types::InstantLoadScenesController::get_class()->static_fields->Instance;
 
@@ -158,12 +157,12 @@ namespace core::api::game::in_game_timer {
                 if (use_unity_unscaled_delta_time_for_next_n_frames > 0) {
                     --use_unity_unscaled_delta_time_for_next_n_frames;
                     auto unity_unscaled_delta_time = UnityEngine::Time::get_unscaledDeltaTime();
-                    _time_step_event_bus.trigger_event(TimeStep {TimeStepType::InGameTime, unity_unscaled_delta_time});
+                    time_step_event_bus().emit(events::TimeStep {TimeStepType::InGameTime, unity_unscaled_delta_time});
                 } else {
-                    _time_step_event_bus.trigger_event(TimeStep {TimeStepType::InGameTime, moon_delta_time});
+                    time_step_event_bus().emit(events::TimeStep {TimeStepType::InGameTime, moon_delta_time});
                 }
             } else {
-                _time_step_event_bus.trigger_event(TimeStep {TimeStepType::AsyncLoadingTime, moon_delta_time});
+                time_step_event_bus().emit(events::TimeStep {TimeStepType::AsyncLoadingTime, moon_delta_time});
             }
         }
 
@@ -188,7 +187,7 @@ namespace core::api::game::in_game_timer {
 
         auto is_in_title_screen_press_start_logic_fixed_update = false;
         IL2CPP_INTERCEPT(void, TitleScreenPressStartLogic, FixedUpdate, app::TitleScreenPressStartLogic* this_ptr) {
-            ScopedSetter _(is_in_title_screen_press_start_logic_fixed_update, true);
+            common::ScopedSetter _(is_in_title_screen_press_start_logic_fixed_update, true);
             next::TitleScreenPressStartLogic::FixedUpdate(this_ptr);
         }
 
@@ -222,17 +221,18 @@ namespace core::api::game::in_game_timer {
             did_switch_control_scheme_in_current_frame = true;
         }
 
-        [[maybe_unused]] auto on_before_unity_update_loop = game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::Before, [](auto, auto) {
+        [[maybe_unused]] auto on_before_unity_update_loop = game::event_bus().on<game::events::BeforeUnityUpdateLoop>([](auto) {
             did_switch_control_scheme_in_current_frame = false;
         });
 
-        [[maybe_unused]] auto on_after_unity_update_loop = game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
+        [[maybe_unused]] auto on_after_unity_update_loop = game::event_bus().on<game::events::AfterUnityUpdateLoop>([](auto) {
             update_game_timer_on_end_of_frame();
         });
     } // namespace
 
-    common::EventBus<TimeStep>& time_step_event_bus() {
-        return _time_step_event_bus;
+    events::bus_t& time_step_event_bus() {
+        static events::bus_t bus;
+        return bus;
     }
 
     AsyncLoadingState get_last_async_loading_state() {

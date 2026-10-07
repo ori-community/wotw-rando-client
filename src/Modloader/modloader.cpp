@@ -56,8 +56,8 @@ namespace modloader {
         }
     }
 
-    common::EventBus<void, ModloaderEvent>& event_bus() {
-        static common::EventBus<void, ModloaderEvent> bus;
+    events::bus_t& event_bus() {
+        static events::bus_t bus;
         return bus;
     }
 
@@ -142,7 +142,7 @@ namespace modloader {
         interception::initialize();
 
         il2cpp::load_all_types();
-        event_bus().trigger_event(ModloaderEvent::InjectionComplete);
+        event_bus().emit(events::InjectionComplete());
 
         on_initialization_complete();
 
@@ -150,7 +150,7 @@ namespace modloader {
             win::console::console_poll();
         }
 
-        event_bus().trigger_event(ModloaderEvent::Shutdown);
+        event_bus().emit(events::Shutdown());
         win::console::console_free();
         wait_for_exit.release();
     }
@@ -192,13 +192,12 @@ namespace modloader {
             auto version = il2cpp::convert_csstring_fast_unsafe(app::classes::UnityEngine::Application::get_version());
             auto unity_version = il2cpp::convert_csstring_fast_unsafe(app::classes::UnityEngine::Application::get_unityVersion());
             trace(LogLevel::Info, "initialize", std::format("Initializing Application {} ({})[{}].", product, version, unity_version));
-
             trace(LogLevel::Info, "initialize", "Calling initialization callbacks.");
 
             uber_states_initialized = true;
-            event_bus().trigger_event(ModloaderEvent::InitializeUberStates);
+            event_bus().emit(events::InitializeUberStates());
 
-            event_bus().trigger_event(ModloaderEvent::GameReady);
+            event_bus().emit(events::GameReady());
             game_ready = true;
         }
 

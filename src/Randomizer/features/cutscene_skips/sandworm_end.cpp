@@ -1,7 +1,3 @@
-#include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
-#include <Modloader/app/types/MoonTimeline.h>
-#include <Modloader/il2cpp_helpers.h>
-
 #include <Common/event_bus.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
@@ -9,8 +5,12 @@
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/uber_states/core_uber_states.h>
 #include <Core/utils/misc.h>
+#include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
+#include <Modloader/app/types/MoonTimeline.h>
+#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/modloader.h>
-#include "custom_cutscene_skips.h"
+#include <Randomizer/features/cutscene_skips/custom_cutscene_skips.h>
+
 
 using namespace utils;
 using namespace app::classes;
@@ -24,30 +24,6 @@ namespace {
     DeferredSkipAction next_frame_action = Idle;
     ObjectReference<app::MoonTimeline> escape_end_timeline;
     ObjectReference<app::GameObject> escape_end_timeline_go;
-
-    void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
-            return;
-        }
-
-        if (metadata->scene_name == "desertRuinsTowerEntranceA") {
-            auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
-
-            escape_end_timeline_go.set_reference(
-                il2cpp::unity::find_child(
-                    scene_root_go,
-                    std::vector<std::string>{
-                        "transitionSetup",
-                        "escapeEndTrigger",
-                        "escapeEndTimeline" }
-                )
-            );
-
-            if (il2cpp::unity::is_valid(escape_end_timeline_go.ptr)) {
-                escape_end_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(escape_end_timeline_go.ptr, types::MoonTimeline::get_class()));
-            }
-        }
-    }
 
     bool skip_available() {
         return core::api::scenes::scene_is_loaded("desertRuinsTowerEntranceA") &&
@@ -74,7 +50,34 @@ namespace {
     auto& ruins_wisp_state = core::uber_states::state<"windtornRuinsGroup", "wispRewardPickup">();
     auto& ruins_wisp_quest_state = core::uber_states::state<"questUberStateGroup", "desertWispQuestUberState">();
 
-    void on_fixed_update(GameEvent game_event, EventTiming timing) {
+    [[maybe_unused]]
+    auto on_scene_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
+        "desertRuinsTowerEntranceA",
+        [](const auto& event) {
+            if (event.state != app::SceneState__Enum::Loaded) {
+                return;
+            }
+
+            const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
+
+            escape_end_timeline_go.set_reference(
+                il2cpp::unity::find_child(
+                    scene_root_go,
+                    std::vector<std::string>{
+                        "transitionSetup",
+                        "escapeEndTrigger",
+                        "escapeEndTimeline" }
+                )
+            );
+
+            if (il2cpp::unity::is_valid(escape_end_timeline_go.ptr)) {
+                escape_end_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(escape_end_timeline_go.ptr, types::MoonTimeline::get_class()));
+            }
+        }
+    );
+
+    [[maybe_unused]]
+    auto on_fixed_update_handle = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
         switch (next_frame_action) {
             case Idle:
                 break;
@@ -95,11 +98,10 @@ namespace {
                 next_frame_action = Idle;
                 break;
         }
-    }
+    });
 
-    auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
-    auto on_fixed_update_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    [[maybe_unused]]
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         auto cutscene_skip = custom_cutscene_skips::CustomCutsceneSkip{
             .is_available = &skip_available,
             .invoke = &skip_invoke,

@@ -56,7 +56,7 @@ namespace {
     auto minimap_is_faded_in = true;
 
     void update_canvas(app::AreaMapCanvas* canvas) {
-        modloader::ScopedSetter _(use_custom_map_mask, true);
+        common::ScopedSetter _(use_custom_map_mask, true);
         AreaMapCanvas::UpdateAreaMaskTextureA(canvas);
         AreaMapCanvas::UpdateAreaMaskTextureB(canvas);
         UberShaderAPI::SetColor_1(canvas->fields.m_mapPlaneTextureRenderer, app::UberShaderProperty_Color__Enum::MainColor, {1, 1, 1, 0.75});
@@ -151,7 +151,7 @@ namespace {
 
             canvases = il2cpp::unity::get_components_in_children<app::AreaMapCanvas>(*minimap_pivot_go, types::AreaMapCanvas::get_class());
             for (const auto& canvas : canvases) {
-                modloader::ScopedSetter _(use_custom_map_mask, true);
+                common::ScopedSetter _(use_custom_map_mask, true);
 
                 canvas->fields.m_inited = false;
                 AreaMapCanvas::Init(canvas);
@@ -246,15 +246,15 @@ namespace {
         }
     }
 
-    [[maybe_unused]] auto on_finished_loading_save = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, [](auto, auto) {
+    [[maybe_unused]] auto on_finished_loading_save = core::api::game::event_bus().on<core::api::game::events::FinishedLoadingSave>([](auto) {
         load_areamap_ui_for_minimap_if_needed();
     });
 
-    [[maybe_unused]] auto on_new_save = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+    [[maybe_unused]] auto on_new_save = core::api::game::event_bus().on<core::api::game::events::AfterNewGameInitialized>([](auto) {
         load_areamap_ui_for_minimap_if_needed();
     });
 
-    [[maybe_unused]] auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+    [[maybe_unused]] auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
         if (core::settings::enable_minimap()) {
             if (!minimap_go.has_value()) {
                 load_areamap_ui_for_minimap_if_needed();

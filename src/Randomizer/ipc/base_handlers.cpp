@@ -1,20 +1,18 @@
-#include <Randomizer/input/rando_bindings.h>
-#include <Randomizer/randomizer.h>
-
 #include <Core/api/game/debug_menu.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/api/uber_states/uber_state_handlers.h>
 #include <Core/core.h>
 #include <Core/ipc/ipc.h>
+#include <Core/settings.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/input/rando_bindings.h>
+#include <Randomizer/randomizer.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
 
-#include "Core/settings.h"
 
 using namespace modloader;
 
@@ -174,27 +172,27 @@ namespace randomizer::ipc {
         }
 
         [[maybe_unused]]
-        auto on_value_store_loaded = core::api::game::event_bus().register_handler(GameEvent::UberStateValueStoreLoaded, EventTiming::After, [](auto, auto) {
+        auto on_value_store_loaded = core::api::game::event_bus().on<core::api::game::events::UberStateValueStoreLoaded>([](auto) {
             core::ipc::send_message(core::ipc::make_request("notify_on_load"));
         });
 
         [[maybe_unused]]
-        auto on_gained_focus = core::api::game::event_bus().register_handler(GameEvent::GainedFocus, EventTiming::After, [](auto, auto) {
+        auto on_gained_focus = core::api::game::event_bus().on<core::api::game::events::GainedFocus>([](auto) {
             core::ipc::send_message(core::ipc::make_request("notify_on_gain_focus"));
         });
 
         [[maybe_unused]]
-        auto on_lost_focus = core::api::game::event_bus().register_handler(GameEvent::LostFocus, EventTiming::After, [](auto, auto) {
+        auto on_lost_focus = core::api::game::event_bus().on<core::api::game::events::LostFocus>([](auto) {
             core::ipc::send_message(core::ipc::make_request("notify_on_lost_focus"));
         });
 
         [[maybe_unused]]
-        auto on_shutdown = core::api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, [](auto, auto) {
+        auto on_shutdown = core::api::game::event_bus().on<core::api::game::events::Shutdown>([](auto) {
             core::ipc::send_message(core::ipc::make_request("notify_on_shutdown"));
         });
 
         [[maybe_unused]]
-        auto on_uber_state_changed = core::api::uber_states::on_any_uber_state_changed().register_handler([](auto state_id) {
+        auto on_uber_state_changed = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>([](const auto& state_id, auto) {
             if (!subscribed_uber_states.contains(state_id)) {
                 return;
             }
@@ -207,7 +205,7 @@ namespace randomizer::ipc {
         });
 
         [[maybe_unused]]
-        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
             core::ipc::register_request_handler("server_reconnect_current_multiverse", server_reconnect_current_multiverse);
             core::ipc::register_request_handler("reread_seed_source", reread_seed_source);
             core::ipc::register_request_handler("reload_settings", reload_settings);
@@ -228,12 +226,12 @@ namespace randomizer::ipc {
         });
 
         [[maybe_unused]]
-        auto on_checkpoint_created = core::api::game::event_bus().register_handler(GameEvent::CreateCheckpoint, EventTiming::After, [](auto, auto) {
+        auto on_checkpoint_created = core::api::game::event_bus().on<core::api::game::events::CreatedCheckpoint>([](auto) {
             core::ipc::send_message(core::ipc::make_request("notify_checkpoint_created"));
         });
 
         [[maybe_unused]]
-        auto on_seed_reloaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
+        auto on_seed_reloaded = event_bus().on<randomizer::events::SeedLoaded>([](auto) {
             core::ipc::send_message(core::ipc::make_request("notify_on_reload"));
         });
 
@@ -245,12 +243,12 @@ namespace randomizer::ipc {
         }
 
         [[maybe_unused]]
-        auto on_action_pressed = input::input_bus().register_handler(input::InputValue::Pressed, [](auto action, auto) {
+        auto on_action_pressed = input::event_bus().on<input::events::ActionPressed>([](const auto& action, auto) {
             on_action(action, true);
         });
 
         [[maybe_unused]]
-        auto on_action_released = input::input_bus().register_handler(input::InputValue::Released, [](auto action, auto) {
+        auto on_action_released = input::event_bus().on<input::events::ActionReleased>([](const auto& action, auto) {
             on_action(action, false);
         });
     } // namespace

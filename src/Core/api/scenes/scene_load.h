@@ -12,19 +12,18 @@
 #include <unordered_map>
 
 namespace core::api::scenes {
-    struct CORE_DLLEXPORT SceneLoadEventMetadata {
-        std::string scene_name;
-        app::SceneState__Enum state;
-        app::SceneManagerScene* scene;
-    };
+    namespace events {
+        struct SceneStateChanged {
+            app::SceneState__Enum state;
+            app::SceneManagerScene* scene;
+        };
 
-    using scene_loading_callback = void (*)(SceneLoadEventMetadata* metadata);
+        using bus_t = common::DiscriminatingEventBus<std::string, SceneStateChanged>;
+    }
 
     CORE_DLLEXPORT app::ScenesManager* get_scenes_manager();
 
-    CORE_DLLEXPORT common::EventBus<SceneLoadEventMetadata*>& event_bus();
-    CORE_DLLEXPORT common::EventBus<SceneLoadEventMetadata*, std::string>& single_event_bus();
-
+    CORE_DLLEXPORT events::bus_t& event_bus();
     CORE_DLLEXPORT app::RuntimeSceneMetaData* get_runtime_scene_metadata(std::string_view scene);
 
     CORE_DLLEXPORT bool is_in_game();
@@ -38,7 +37,7 @@ namespace core::api::scenes {
     CORE_DLLEXPORT void enable_scene(std::string_view scene, bool async = false);
 
     CORE_DLLEXPORT void force_enable_scene(std::string_view scene);
-    CORE_DLLEXPORT void force_load_scene(std::string_view scene, scene_loading_callback callback, bool keep_preloaded = false, bool async = true, bool load_dependant = true, bool queue_included = true);
+    CORE_DLLEXPORT void force_load_scene(std::string_view scene, bool keep_preloaded = false, bool async = true, bool load_dependant = true, bool queue_included = true);
     CORE_DLLEXPORT void unload_all_scenes();
     CORE_DLLEXPORT void allow_unload_scene(std::string_view scene_name);
     CORE_DLLEXPORT void allow_unload_all_scenes();

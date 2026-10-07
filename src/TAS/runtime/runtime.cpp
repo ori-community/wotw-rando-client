@@ -63,9 +63,10 @@ namespace tas::runtime {
         }
 
         namespace loading_state_detection {
-            std::atomic<AsyncLoadingState> last_notified_loading_state = AsyncLoadingState::NotLoading;
+            std::atomic last_notified_loading_state = AsyncLoadingState::NotLoading;
 
-            auto on_async_update_handle = core::events::async_update_bus().register_handler([](float delta) {
+            [[maybe_unused]]
+            auto on_async_update_handle = core::events::async_update_bus().on<core::events::AsyncUpdate>([](auto) {
                 auto current_state = core::api::game::in_game_timer::get_last_async_loading_state();
 
                 if (last_notified_loading_state != current_state) {
@@ -163,12 +164,12 @@ namespace tas::runtime {
             }
         } // namespace cli_handlers
 
-        auto on_before_unity_loop_handle = core::api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::Before, [](auto, auto) {
+        [[maybe_unused]]
+        auto on_before_unity_loop_handle = core::api::game::event_bus().on<core::api::game::events::BeforeUnityUpdateLoop>([](auto) {
             if (state.framestepping_enabled) {
                 while (!framestep_requested && state.framestepping_enabled) {
-                    core::api::game::event_bus().trigger_event(GameEvent::TASPausedUpdate, EventTiming::Before);
                     std::this_thread::sleep_for(std::chrono::milliseconds(1));
-                    core::api::game::event_bus().trigger_event(GameEvent::TASPausedUpdate, EventTiming::After);
+                    core::api::game::event_bus().emit(core::api::game::events::TASPausedUpdate());
                 }
 
                 framestep_requested = false;
@@ -183,20 +184,23 @@ namespace tas::runtime {
             }
         });
 
-        auto on_after_unity_loop_handle = core::api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
+        [[maybe_unused]]
+        auto on_after_unity_loop_handle = core::api::game::event_bus().on<core::api::game::events::AfterUnityUpdateLoop>([](auto) {
             notify_state_changed();
         });
 
-        auto on_after_current_timeline = state.current_timeline.event_bus().register_handler(EventTiming::After, [](auto event, auto) {
-            switch (event) {
-                case timeline::TimelineEvent::Rewind:
-                case timeline::TimelineEvent::Seek: {
-                    core::api::game::save_controller()->fields.m_lastSavedFrameIndex = -1;
-                }
-            }
+        [[maybe_unused]]
+        auto on_timeline_seeked = state.current_timeline.event_bus().on<timeline::events::Seeked>([](auto) {
+            core::api::game::save_controller()->fields.m_lastSavedFrameIndex = -1;
         });
 
-        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        [[maybe_unused]]
+        auto on_timeline_rewound = state.current_timeline.event_bus().on<timeline::events::Rewound>([](auto) {
+            core::api::game::save_controller()->fields.m_lastSavedFrameIndex = -1;
+        });
+
+        [[maybe_unused]]
+        auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
             core::ipc::register_request_handler("tas.load_timeline_from_file", &ipc_handlers::load_timeline_from_file);
             core::ipc::register_request_handler("tas.set_framestepping_enabled", &ipc_handlers::set_framestepping_enabled);
             core::ipc::register_request_handler("tas.framestep", &ipc_handlers::framestep);

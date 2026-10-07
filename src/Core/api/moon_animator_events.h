@@ -5,14 +5,13 @@
 #include <Modloader/app/structs/MoonAnimation.h>
 
 namespace core::api::moon_animator {
-    struct MoonAnimationEvent {
-        enum class Type {
-            Finished,
+    namespace events {
+        struct AnimationFinished {
+            app::MoonAnimation* animation;
         };
 
-        Type type;
-        app::MoonAnimation* animation;
-    };
+        using bus_t = common::EventBus<AnimationFinished>;
+    }
 
-    CORE_DLLEXPORT common::EventBus<const MoonAnimationEvent&>& animation_event_bus();
+    CORE_DLLEXPORT events::bus_t& event_bus();
 }

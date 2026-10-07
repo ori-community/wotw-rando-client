@@ -48,7 +48,7 @@ namespace {
         app::Vector3 hit_direction,
         app::Vector3 damage_position
     ) {
-        modloader::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, true);
+        common::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, true);
         next::MeleeComboMoveSword::TryToDealDamage(this_ptr, collider, hit_direction, damage_position);
     }
 
@@ -62,22 +62,22 @@ namespace {
         app::Vector3 hit_direction,
         app::Vector3 damage_position
     ) {
-        modloader::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, true);
+        common::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, true);
         next::MeleeComboMoveHammerSimple::TryToDealDamage(this_ptr, collider, top_hit, hit_direction, damage_position);
     }
 
     IL2CPP_INTERCEPT(bool, MeleeComboMove, HaveBeenHit, app::MeleeComboMove* this_ptr, app::Collider* collider) {
-        modloader::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, false);
+        common::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, false);
         return next::MeleeComboMove::HaveBeenHit(this_ptr, collider);
     }
 
     IL2CPP_INTERCEPT(bool, MeleeComboMoveHammerBase, CanDealDamage, app::MeleeComboMoveHammerBase* this_ptr, app::IAttackable* attackable) {
-        modloader::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, false);
+        common::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, false);
         return next::MeleeComboMoveHammerBase::CanDealDamage(this_ptr, attackable);
     }
 
     IL2CPP_INTERCEPT(bool, MeleeComboMoveSword, CanDealDamage, app::MeleeComboMoveSword* this_ptr, app::IAttackable* attackable) {
-        modloader::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, false);
+        common::ScopedSetter _(search_for_iattackable_in_attached_rigid_body_once, false);
         return next::MeleeComboMoveSword::CanDealDamage(this_ptr, attackable);
     }
 

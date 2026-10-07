@@ -16,35 +16,35 @@ namespace randomizer::uber_states {
         auto& find_ku_quest_state = core::uber_states::state<"questUberStateGroup", "findKuQuest">();
 
         [[maybe_unused]]
-        auto cleanse_wellspring_intercept = before_uber_state_changed().register_handler(
+        auto cleanse_wellspring_intercept = event_bus().on<events::BeforeUberStateChange>(
             cleanse_wellspring_state,
-            [](auto params, auto) {
+            [](const auto& event) {
                 if (disable_reverts() || !core::api::game::in_game()) {
                     return;
                 }
 
-                if (params->new_value < cleanse_wellspring_state.get()) {
-                    params->prevent_change = true;
+                if (event.new_value < cleanse_wellspring_state.get()) {
+                    event.prevent_change = true;
                 }
             }
         );
 
         [[maybe_unused]]
-        auto find_ku_quest_intercept = before_uber_state_changed().register_handler(
+        auto find_ku_quest_intercept = event_bus().on<events::BeforeUberStateChange>(
             find_ku_quest_state,
-            [](auto params, auto) {
+            [](const auto& event) {
                 if (disable_reverts() || !core::api::game::in_game()) {
                     return;
                 }
 
-                if (params->new_value < 4) {
-                    params->prevent_change = true;
+                if (event.new_value < 4) {
+                    event.prevent_change = true;
                 }
             }
         );
 
         [[maybe_unused]]
-        auto on_before_new_game = core::api::game::event_bus().register_handler(GameEvent::NewGame, EventTiming::Before, [](auto, auto) {
+        auto on_before_new_game = core::api::game::event_bus().on<core::api::game::events::BeforeNewGame>([](auto) {
             disable_reverts() = true;
         });
     } // namespace

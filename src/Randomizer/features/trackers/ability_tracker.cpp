@@ -265,7 +265,7 @@ namespace {
     //
     // bool ignore_end_grenade = false;
     // IL2CPP_INTERCEPT_WITH_ORDER(100, void, SeinGrenadeAttack, CancelAiming, app::SeinGrenadeAttack* this_ptr) {
-    //     ScopedSetter _(ignore_end_grenade, true);
+    //     common::ScopedSetter _(ignore_end_grenade, true);
     //     next::SeinGrenadeAttack::CancelAiming(this_ptr);
     // }
     //

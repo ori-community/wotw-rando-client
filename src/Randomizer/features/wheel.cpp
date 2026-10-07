@@ -137,7 +137,7 @@ namespace randomizer::features::wheel {
             bool pause,
             bool skip_suspension
         ) {
-            ScopedSetter _(is_about_to_show_a_menu_screen, true);
+            common::ScopedSetter _(is_about_to_show_a_menu_screen, true);
             next::MenuScreenManager::ShowMenuScreenInternal(this_ptr, screen, play_open_sound, pause, skip_suspension);
         }
 
@@ -253,12 +253,12 @@ namespace randomizer::features::wheel {
         }
 
         [[maybe_unused]]
-        auto on_randomizer_wheel_pressed = randomizer::input::single_input_bus().register_handler(Action::OpenRandomizerWheel, input::InputValue::Pressed, [](auto, auto) {
+        auto on_randomizer_wheel_pressed = randomizer::input::event_bus().on<input::events::ActionPressed>(Action::OpenRandomizerWheel, [](auto) {
             handle_custom_wheel(true);
         });
 
         [[maybe_unused]]
-        auto on_randomizer_wheel_released = randomizer::input::single_input_bus().register_handler(Action::OpenRandomizerWheel, input::InputValue::Released, [](auto, auto) {
+        auto on_randomizer_wheel_released = randomizer::input::event_bus().on<input::events::ActionReleased>(Action::OpenRandomizerWheel, [](auto) {
             handle_custom_wheel(false);
         });
 
@@ -730,7 +730,7 @@ namespace randomizer::features::wheel {
     }
 
     void force_hide_wheel() {
-        ScopedSetter _(is_force_hiding_wheel, true);
+        common::ScopedSetter _(is_force_hiding_wheel, true);
 
         custom_wheel_input = false;
         const auto menu_screen_manager = types::UI::get_class()->static_fields->m_sMenu;

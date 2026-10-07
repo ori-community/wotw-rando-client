@@ -217,10 +217,8 @@ namespace randomizer::timing {
         }
 
         [[maybe_unused]]
-        auto on_before_new_game = core::api::game::event_bus().register_handler(
-            GameEvent::NewGame,
-            EventTiming::Before,
-            [](GameEvent event, EventTiming timing) {
+        auto on_before_new_game = core::api::game::event_bus().on<core::api::game::events::BeforeNewGame>(
+            [](auto) {
                 queue_input_unlocked_callback([] {
                     loaded_any_save_file = true;
                 });
@@ -228,10 +226,8 @@ namespace randomizer::timing {
         );
 
         [[maybe_unused]]
-        auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(
-            GameEvent::NewGameInitialized,
-            EventTiming::Before,
-            [](GameEvent event, EventTiming timing) {
+        auto on_before_new_game_initialized = core::api::game::event_bus().on<core::api::game::events::BeforeNewGameInitialized>(
+            [](auto) {
                 queue_input_unlocked_callback([] {
                     reset_stats();
                     report_current_player_position();
@@ -240,25 +236,21 @@ namespace randomizer::timing {
         );
 
         [[maybe_unused]]
-        auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+        auto on_after_new_game_initialized = core::api::game::event_bus().on<core::api::game::events::AfterNewGameInitialized>([](auto) {
             record_all_game_stats();
         });
 
         [[maybe_unused]]
-        auto on_finished_loading = core::api::game::event_bus().register_handler(
-            GameEvent::FinishedLoadingSave,
-            EventTiming::Before,
-            [](GameEvent event, EventTiming timing) {
+        auto on_finished_loading = core::api::game::event_bus().on<core::api::game::events::BeforeFinishLoadingSave>(
+            [](auto) {
                 loaded_any_save_file = true;
                 report_current_player_position();
             }
         );
 
         [[maybe_unused]]
-        auto on_before_create_checkpoint = core::api::game::event_bus().register_handler(
-            GameEvent::CreateCheckpoint,
-            EventTiming::Before,
-            [](GameEvent, EventTiming) {
+        auto on_before_create_checkpoint = core::api::game::event_bus().on<core::api::game::events::BeforeCreateCheckpoint>(
+            [](auto) {
                 if (disable_position_recording_guards > 0 || !timer_should_run()) {
                     return;
                 }
@@ -268,10 +260,8 @@ namespace randomizer::timing {
         );
 
         [[maybe_unused]]
-        auto on_after_create_checkpoint = core::api::game::event_bus().register_handler(
-            GameEvent::CreateCheckpoint,
-            EventTiming::After,
-            [](GameEvent, EventTiming) {
+        auto on_after_create_checkpoint = core::api::game::event_bus().on<core::api::game::events::CreatedCheckpoint>(
+            [](auto) {
                 if (!timer_should_run()) {
                     return;
                 }
@@ -283,10 +273,8 @@ namespace randomizer::timing {
         std::optional<app::Vector2> death_position_before_respawn = std::nullopt;
 
         [[maybe_unused]]
-        auto on_respawn = core::api::game::event_bus().register_handler(
-            GameEvent::Respawn,
-            EventTiming::Before,
-            [](GameEvent event, EventTiming timing) {
+        auto on_respawn = core::api::game::event_bus().on<core::api::game::events::BeforeRespawn>(
+            [](auto) {
                 if (!timer_should_run()) {
                     return;
                 }
@@ -316,19 +304,16 @@ namespace randomizer::timing {
         );
 
         [[maybe_unused]]
-        auto on_death = core::api::death_listener::player_death_event_bus().register_handler(
-            EventTiming::Before,
-            [](auto, auto) {
-                if (!timer_should_run()) {
-                    return;
-                }
-
-                death_position_before_respawn = modloader::math::to_vec2(core::api::game::player::get_position());
+        auto on_death = core::api::death_listener::death_event_bus().on<core::api::death_listener::events::BeforePlayerDeath>([](auto) {
+            if (!timer_should_run()) {
+                return;
             }
-        );
+
+            death_position_before_respawn = modloader::math::to_vec2(core::api::game::player::get_position());
+        });
 
         [[maybe_unused]]
-        auto on_spoiler_filter_enabled_changed = core::api::uber_states::on_uber_state_changed().register_handler(
+        auto on_spoiler_filter_enabled_changed = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(
             spoiler_filter_enabled_state,
             [](auto) {
                 if (spoiler_filter_enabled_state.get()) {
@@ -391,10 +376,8 @@ namespace randomizer::timing {
         }
 
         [[maybe_unused]]
-        auto on_fixed_update = core::api::game::event_bus().register_handler(
-            GameEvent::FixedUpdate,
-            EventTiming::After,
-            [](auto, auto) {
+        auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>(
+            [](auto) {
                 if (GameStateMachine::get_IsGame()) {
                     // Only set these values when in game because the main menu sets some wonky states
                     const auto previous_game_finished = game_finished;
@@ -433,17 +416,17 @@ namespace randomizer::timing {
         );
 
         [[maybe_unused]]
-        auto on_in_game_timer_time_step = core::api::game::in_game_timer::time_step_event_bus().register_handler([](auto step) {
+        auto on_in_game_timer_time_step = core::api::game::in_game_timer::time_step_event_bus().on<core::api::game::in_game_timer::events::TimeStep>([](const auto& event) {
             if (!timer_should_run()) {
                 return;
             }
 
-            switch (step.type) {
+            switch (event.type) {
                 case core::api::game::in_game_timer::TimeStepType::InGameTime:
-                    save_stats->report_in_game_time_spent(current_game_area, step.duration);
+                    save_stats->report_in_game_time_spent(current_game_area, event.duration);
                     break;
                 case core::api::game::in_game_timer::TimeStepType::AsyncLoadingTime:
-                    save_stats->report_async_loading_time_spent(step.duration, core::api::game::in_game_timer::get_last_async_loading_state());
+                    save_stats->report_async_loading_time_spent(event.duration, core::api::game::in_game_timer::get_last_async_loading_state());
                     break;
                 default:;
             }
@@ -478,14 +461,13 @@ namespace randomizer::timing {
         }
 
         [[maybe_unused]]
-        auto on_ready = modloader::event_bus().register_handler(
-            ModloaderEvent::GameReady,
+        auto on_ready = modloader::event_bus().on<modloader::events::GameReady>(
             [](auto) {
                 reset_stats();
 
                 for (auto& [game_stat, configuration]: GAME_STAT_CONFIGURATIONS) {
                     game_stat_event_handler_droppables.push_back(
-                        core::api::uber_states::on_uber_state_changed().register_handler(
+                        core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(
                             configuration.state,
                             [game_stat, &configuration](auto) {
                                 if (configuration.should_record != nullptr && !configuration.should_record()) {
@@ -714,7 +696,7 @@ namespace randomizer::timing {
         }
 
         [[maybe_unused]]
-        auto on_load = core::api::game::event_bus().register_handler(GameEvent::UberStateValueStoreLoaded, EventTiming::After, [](auto, auto) {
+        auto on_load = core::api::game::event_bus().on<core::api::game::events::UberStateValueStoreLoaded>([](auto) {
             check_tracked_custom_timeline_entries();
         });
     }

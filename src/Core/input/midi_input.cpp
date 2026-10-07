@@ -72,7 +72,7 @@ namespace core::input::midi_input {
         }
     }
 
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         pressed_states.fill(false);
 
         observer_config.input_added = &on_input_added;

@@ -55,13 +55,13 @@ namespace randomizer::game::shops::tuley {
     }
 
     [[maybe_unused]]
-    auto on_hub_setups_loaded = core::api::scenes::single_event_bus().register_handler("wellspringGladesHubSetups", [](auto metadata, auto) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
+    auto on_hub_setups_loaded = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("wellspringGladesHubSetups", [](const auto& event) {
+        if (event.state != app::SceneState__Enum::Loaded) {
             return;
         }
 
         const auto offer_ability_upgrade_dialog_go = il2cpp::unity::find_child(
-            metadata->scene->fields.SceneRoot,
+            event.scene->fields.SceneRoot,
             std::vector<std::string>{
                 "interactives",
                 "gardenerSetup",

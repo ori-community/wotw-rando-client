@@ -11,7 +11,7 @@ namespace core::input::mouse {
     app::Vector2 world_position_cache;
     auto world_position_cache_dirty = true;
 
-    [[maybe_unused]] auto on_before_unity_update = api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::Before, [](auto, auto) {
+    [[maybe_unused]] auto on_before_unity_update = api::game::event_bus().on<core::api::game::events::BeforeUnityUpdateLoop>([](auto) {
         world_position_cache_dirty = true;
     });
 

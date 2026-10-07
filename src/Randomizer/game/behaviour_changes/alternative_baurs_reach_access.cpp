@@ -33,41 +33,42 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::SeinAbilityRestrictZone>> restrict_zone_ref;
     core::reactivity::ReactiveEffect::ptr_t restrict_zone_effect;
 
-    void on_scene_load(const core::api::scenes::SceneLoadEventMetadata* metadata, const std::string&) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
-            return;
-        }
+    [[maybe_unused]]
+    auto on_scene_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
+        "baurSetupScene",
+        [](const auto& event) {
+            if (event.state != app::SceneState__Enum::Loaded) {
+                return;
+            }
 
-        const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+            const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
 
-        const auto ability_restrict_zone_go = il2cpp::unity::find_child(
-            scene_root_go, std::vector<std::string>{"interactives", "baurSetup", "attackRestrictZone"}
-        );
-
-        if (il2cpp::unity::is_valid(ability_restrict_zone_go)) {
-            restrict_zone_ref = il2cpp::WeakGCRef(
-                il2cpp::unity::get_component<app::SeinAbilityRestrictZone>(ability_restrict_zone_go, types::SeinAbilityRestrictZone::get_class())
+            const auto ability_restrict_zone_go = il2cpp::unity::find_child(
+                scene_root_go, std::vector<std::string>{"interactives", "baurSetup", "attackRestrictZone"}
             );
 
-            restrict_zone_effect = core::reactivity::watch_effect([] {
-                if (
-                    const auto restrict_zone = restrict_zone_ref.and_then([](auto& ref) { return *ref; });
-                    restrict_zone.has_value()
-                ) {
-                    auto mask = static_cast<int>((*restrict_zone)->fields.RestrictMask);
-                    // Flash is not restricted by the Attack mask so it does not need to be handled
-                    if (should_open(app::AbilityType__Enum::Blaze)) {
-                        mask = mask & ~static_cast<int>(app::SeinAbilityRestrictZoneMask__Enum::Attack);
-                    }
-                    (*restrict_zone)->fields.RestrictMask = static_cast<app::SeinAbilityRestrictZoneMask__Enum>(mask);
-                } else {
-                    restrict_zone_ref = std::nullopt;
-                    restrict_zone_effect = nullptr;
-                }
-            });
-        }
-    }
+            if (il2cpp::unity::is_valid(ability_restrict_zone_go)) {
+                restrict_zone_ref = il2cpp::WeakGCRef(
+                    il2cpp::unity::get_component<app::SeinAbilityRestrictZone>(ability_restrict_zone_go, types::SeinAbilityRestrictZone::get_class())
+                );
 
-    [[maybe_unused]]
-    auto on_scene_load_handle = core::api::scenes::single_event_bus().register_handler("baurSetupScene", &on_scene_load);
+                restrict_zone_effect = core::reactivity::watch_effect([] {
+                    if (
+                        const auto restrict_zone = restrict_zone_ref.and_then([](auto& ref) { return *ref; });
+                        restrict_zone.has_value()
+                    ) {
+                        auto mask = static_cast<int>((*restrict_zone)->fields.RestrictMask);
+                        // Flash is not restricted by the Attack mask so it does not need to be handled
+                        if (should_open(app::AbilityType__Enum::Blaze)) {
+                            mask = mask & ~static_cast<int>(app::SeinAbilityRestrictZoneMask__Enum::Attack);
+                        }
+                        (*restrict_zone)->fields.RestrictMask = static_cast<app::SeinAbilityRestrictZoneMask__Enum>(mask);
+                    } else {
+                        restrict_zone_ref = std::nullopt;
+                        restrict_zone_effect = nullptr;
+                    }
+                });
+            }
+        }
+    );
 } // namespace

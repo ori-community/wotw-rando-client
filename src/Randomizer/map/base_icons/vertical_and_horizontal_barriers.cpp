@@ -29,7 +29,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         icons = {
             // UpperPools.RightBubbleSpamRoomDoor
             std::make_shared<MapIcon>(MapIcon::Type::VerticalDoor, "Barrier", app::Vector2{-1631.08f, -3999.65f}, wall_visibility_effect(core::uber_states::state<5377, 6398>()), MapIcon::ScaleMode::Linear),

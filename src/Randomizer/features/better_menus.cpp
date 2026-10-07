@@ -29,7 +29,7 @@ namespace core::api {
          * We skip that by advancing the coroutine enumerator twice.
          */
         IL2CPP_INTERCEPT(bool, MenuScreenManager__PostFadeMenuOpen_d__100, MoveNext, app::MenuScreenManager_PostFadeMenuOpen_d_100 * this_ptr) {
-            ScopedSetter setter(skip_fade_to_black, true);
+            common::ScopedSetter setter(skip_fade_to_black, true);
             next::MenuScreenManager__PostFadeMenuOpen_d__100::MoveNext(this_ptr);
             return next::MenuScreenManager__PostFadeMenuOpen_d__100::MoveNext(this_ptr);
         }

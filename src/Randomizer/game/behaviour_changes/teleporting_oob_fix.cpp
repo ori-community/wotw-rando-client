@@ -36,36 +36,35 @@ namespace {
         }
     }
 
-    auto _ = core::api::moon_animator::animation_event_bus().register_handler([](auto event) {
+    [[maybe_unused]]
+    auto _ = core::api::moon_animator::event_bus().on<core::api::moon_animator::events::AnimationFinished>([](const auto& event) {
         if (use_custom_animation_handling) {
-            if (event.type == core::api::moon_animator::MoonAnimationEvent::Type::Finished) {
-                const auto save_pedestal_controller_instance = types::SavePedestalController::get_class()->static_fields->Instance;
+            const auto save_pedestal_controller_instance = types::SavePedestalController::get_class()->static_fields->Instance;
 
-                if (!il2cpp::unity::is_valid(save_pedestal_controller_instance)) {
-                    return;
+            if (!il2cpp::unity::is_valid(save_pedestal_controller_instance)) {
+                return;
+            }
+
+            if (
+                event.animation == save_pedestal_controller_instance->fields.TeleportingStart ||
+                event.animation == save_pedestal_controller_instance->fields.TeleportingStartAir
+            ) {
+                if (save_pedestal_controller_instance->fields.m_isTeleporting) {
+                    const auto animation = save_pedestal_controller_instance->fields.m_startedTeleportOnGround
+                        ? save_pedestal_controller_instance->fields.TeleportingLoop
+                        : save_pedestal_controller_instance->fields.TeleportingLoopAir;
+
+                    SeinPlayAnimationController::PlayAnimation_2(core::api::game::player::sein()->fields.Controller->fields.m_playAnimationController, animation);
+                    SoundSource::Play_2(save_pedestal_controller_instance->fields.TeleportingTwirlAnimationSound);
+
+                    StatisticsManager::Increment(
+                        types::StatisticsManager::get_class()->static_fields->Instance,
+                        app::StatisticsManager_StatType__Enum::FastTravelCount,
+                        1.f
+                    );
                 }
-
-                if (
-                    event.animation == save_pedestal_controller_instance->fields.TeleportingStart ||
-                    event.animation == save_pedestal_controller_instance->fields.TeleportingStartAir
-                ) {
-                    if (save_pedestal_controller_instance->fields.m_isTeleporting) {
-                        const auto animation = save_pedestal_controller_instance->fields.m_startedTeleportOnGround
-                            ? save_pedestal_controller_instance->fields.TeleportingLoop
-                            : save_pedestal_controller_instance->fields.TeleportingLoopAir;
-
-                        SeinPlayAnimationController::PlayAnimation_2(core::api::game::player::sein()->fields.Controller->fields.m_playAnimationController, animation);
-                        SoundSource::Play_2(save_pedestal_controller_instance->fields.TeleportingTwirlAnimationSound);
-
-                        StatisticsManager::Increment(
-                            types::StatisticsManager::get_class()->static_fields->Instance,
-                            app::StatisticsManager_StatType__Enum::FastTravelCount,
-                            1.f
-                        );
-                    }
-                } else if (event.animation == save_pedestal_controller_instance->fields.TeleportingFinish) {
-                    save_pedestal_controller_instance->fields.m_raycastGroundCheck = false;
-                }
+            } else if (event.animation == save_pedestal_controller_instance->fields.TeleportingFinish) {
+                save_pedestal_controller_instance->fields.m_raycastGroundCheck = false;
             }
         }
     });

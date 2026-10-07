@@ -126,8 +126,8 @@ namespace core::ipc {
             }
         }
 
-        auto start_ipc_threads = event_bus().register_handler(
-            ModloaderEvent::InjectionComplete,
+        [[maybe_unused]]
+        auto start_ipc_threads = event_bus().on<modloader::events::InjectionComplete>(
             [](auto) {
                 shutdown_ipc_thread = false;
 
@@ -142,7 +142,7 @@ namespace core::ipc {
 
         std::unordered_map<std::string, request_handler> handlers;
 
-        void update_pipe(GameEvent game_event, EventTiming timing) {
+        void update_pipe() {
             std::vector<nlohmann::json> local_messages;
 
             // Copy messages into a local buffer so we can release the incoming_messages_mutex as early as possible
@@ -190,7 +190,14 @@ namespace core::ipc {
         return response;
     }
 
-    void on_shutdown(GameEvent game_event, EventTiming timing) {
+    [[maybe_unused]]
+    auto fixed_update = api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) { update_pipe(); });
+
+    [[maybe_unused]]
+    auto on_tas_paused_update = api::game::event_bus().on<core::api::game::events::TASPausedUpdate>([](auto) { update_pipe(); });
+
+    [[maybe_unused]]
+    auto shutdown = api::game::event_bus().on<api::game::events::Shutdown>([](auto) {
         shutdown_ipc_thread = true;
 
         zmq_thread->join();
@@ -207,9 +214,5 @@ namespace core::ipc {
             context->close();
             context = nullptr;
         }
-    }
-
-    auto fixed_update = api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &update_pipe);
-    auto tas_paused_update = api::game::event_bus().register_handler(GameEvent::TASPausedUpdate, EventTiming::After, &update_pipe);
-    auto shutdown = api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, &on_shutdown);
+    });
 } // namespace core::ipc

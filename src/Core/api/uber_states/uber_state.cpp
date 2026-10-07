@@ -38,19 +38,9 @@
 namespace core::api::uber_states {
     using namespace app::classes;
 
-    common::EventBus<BeforeUberStateChangedParameters*, UntypedUberId>& before_uber_state_changed() {
-        static common::EventBus<BeforeUberStateChangedParameters*, UntypedUberId> event_bus;
-        return event_bus;
-    }
-
-    common::EventBus<void, UntypedUberId>& on_uber_state_changed() {
-        static common::EventBus<void, UntypedUberId> event_bus;
-        return event_bus;
-    }
-
-    common::EventBus<UntypedUberId>& on_any_uber_state_changed() {
-        static common::EventBus<UntypedUberId> event_bus;
-        return event_bus;
+    events::bus_t& event_bus() {
+        static events::bus_t bus;
+        return bus;
     }
 
     void apply_uber_state(app::IUberState* native_ptr) {
@@ -59,16 +49,15 @@ namespace core::api::uber_states {
 
     namespace {
         template <const UberStateType ID_TYPE>
-        BeforeUberStateChangedParameters before_uber_state_set(const UberId<ID_TYPE>& id, typename UberId<ID_TYPE>::value_t new_value) {
-            BeforeUberStateChangedParameters parameters(static_cast<double>(new_value));
-            before_uber_state_changed().trigger_event(UntypedUberId(id), &parameters);
-            return parameters;
+        bool before_uber_state_set(const UberId<ID_TYPE>& id, typename UberId<ID_TYPE>::value_t new_value) {
+            auto prevent_change = false;
+            event_bus().emit(UntypedUberId(id), events::BeforeUberStateChange(static_cast<double>(new_value), prevent_change));
+            return prevent_change;
         }
 
         template <const UberStateType ID_TYPE>
         void on_uber_state_set(const UberId<ID_TYPE>& id) {
-            on_any_uber_state_changed().trigger_event(UntypedUberId(id));
-            on_uber_state_changed().trigger_event(UntypedUberId(id));
+            event_bus().emit(UntypedUberId(id), events::UberStateChanged());
             reactivity::notify_changed(reactivity::UberStateDependency(id));
         }
 
@@ -94,7 +83,7 @@ namespace core::api::uber_states {
                 return true;
             }
 
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (before_uber_state_set(id, value)) {
                 return true;
             }
 
@@ -111,7 +100,7 @@ namespace core::api::uber_states {
                 return true;
             }
 
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (before_uber_state_set(id, value)) {
                 return true;
             }
 
@@ -119,7 +108,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::SerializedBooleanUberState, set_Value, app::SerializedBooleanUberState* this_ptr, bool value) {
-            modloader::ScopedSetter _(ignore_uber_state_extension, true);
+            common::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::SerializedBooleanUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -133,7 +122,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::SerializedByteUberState, set_Value, app::SerializedByteUberState* this_ptr, uint8_t value) {
-            modloader::ScopedSetter _(ignore_uber_state_extension, true);
+            common::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::SerializedByteUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -147,7 +136,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::SerializedFloatUberState, set_Value, app::SerializedFloatUberState* this_ptr, float value) {
-            modloader::ScopedSetter _(ignore_uber_state_extension, true);
+            common::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::SerializedFloatUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -161,7 +150,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::SerializedIntUberState, set_Value, app::SerializedIntUberState* this_ptr, int value) {
-            modloader::ScopedSetter _(ignore_uber_state_extension, true);
+            common::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::SerializedIntUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -175,7 +164,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::BooleanUberState, set_Value, app::BooleanUberState* this_ptr, bool value) {
-            modloader::ScopedSetter _(ignore_uber_state_extension, true);
+            common::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::BooleanUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -189,7 +178,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::ByteUberState, set_Value, app::ByteUberState* this_ptr, uint8_t value) {
-            modloader::ScopedSetter _(ignore_uber_state_extension, true);
+            common::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::ByteUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -203,7 +192,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::FloatUberState, set_Value, app::FloatUberState* this_ptr, float value) {
-            modloader::ScopedSetter _(ignore_uber_state_extension, true);
+            common::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::FloatUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -217,7 +206,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::IntUberState, set_Value, app::IntUberState* this_ptr, int value) {
-            modloader::ScopedSetter _(ignore_uber_state_extension, true);
+            common::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::IntUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._.m_id->fields.m_id
@@ -235,7 +224,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, Moon::uberSerializationWisp::SavePedestalUberState, set_IsTeleporterActive, app::SavePedestalUberState* this_ptr, bool value) {
-            modloader::ScopedSetter _(ignore_uber_state_extension, true);
+            common::ScopedSetter _(ignore_uber_state_extension, true);
             const auto id = UberId<UberStateType::SavePedestalUberState>(
                 this_ptr->fields.Group->fields._.m_id->fields.m_id,
                 this_ptr->fields._._.m_id->fields.m_id
@@ -249,7 +238,7 @@ namespace core::api::uber_states {
         }
 
         IL2CPP_INTERCEPT_WITH_ORDER(10, void, GameMapSavePedestal, set_IsTeleporterActive, app::GameMapSavePedestal* this_ptr, bool value) {
-            modloader::ScopedSetter _(ignore_uber_state_extension, true);
+            common::ScopedSetter _(ignore_uber_state_extension, true);
             Moon::uberSerializationWisp::SavePedestalUberState::set_IsTeleporterActive(this_ptr->fields.SeralizedState, value);
             SavePedestalController::OnTeleporterActivationStateChanged();
         }
@@ -269,7 +258,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (before_uber_state_set(id, value)) {
                 return;
             }
             next::Moon::ISerializedUberStateExtension::SetCurrentState_2(state, value);
@@ -291,7 +280,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (before_uber_state_set(id, value)) {
                 return;
             }
             next::Moon::ISerializedUberStateExtension::SetCurrentState_3(state, value);
@@ -313,7 +302,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (before_uber_state_set(id, value)) {
                 return;
             }
             next::Moon::ISerializedUberStateExtension::SetCurrentState_4(state, value);
@@ -335,7 +324,7 @@ namespace core::api::uber_states {
                 return;
             }
 
-            if (before_uber_state_set(id, value).prevent_change) {
+            if (before_uber_state_set(id, value)) {
                 return;
             }
             next::Moon::ISerializedUberStateExtension::SetCurrentState_5(state, value);

@@ -156,9 +156,9 @@ namespace randomizer::trials {
                         trial_text_boxes.erase(location.value());
                     }
                 };
-                box.update_event_droppable = game_seed().environment().event_bus().register_handler(
-                    seed::SeedExecutionEnvironment::Event::TrialHintsChanged, [&box](auto) { box.update_fn(); }
-                );
+                box.update_event_droppable = game_seed().environment().event_bus().on<seed::SeedExecutionEnvironment::events::TrialHintsChanged>([&box](auto) {
+                    box.update_fn();
+                });
                 box.update_fn();
             }
         }

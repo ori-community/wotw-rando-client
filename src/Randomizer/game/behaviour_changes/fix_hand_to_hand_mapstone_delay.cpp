@@ -5,16 +5,18 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
+
 using namespace modloader;
 using namespace app::classes;
 
 namespace {
-    void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata, const std::string&) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
+    [[maybe_unused]]
+    auto on_scene_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("desertRuinsGetWisp", [](const auto& event) {
+        if (event.state != app::SceneState__Enum::Loaded) {
             return;
         }
 
-        const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+        const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
 
         const auto timeline_go = il2cpp::unity::find_child(
             scene_root_go,
@@ -33,8 +35,5 @@ namespace {
             // Lock Input
             Moon::Timeline::TimelineConstraint::SetTimeOffset(timeline->fields.m_entityRecords->fields._items->vector[0]->fields.EndConstraint, 2.f);
         }
-    }
-
-    [[maybe_unused]]
-    auto on_scene_load_handle = core::api::scenes::single_event_bus().register_handler("desertRuinsGetWisp", &on_scene_load);
+    });
 } // namespace

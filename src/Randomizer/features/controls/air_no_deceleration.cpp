@@ -1,13 +1,15 @@
+#include <Common/ext.h>
+#include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Modloader/app/methods/CharacterAirNoDeceleration.h>
 #include <Modloader/app/methods/CharacterPlatformMovement.h>
-#include <Modloader/app/methods/PlatformMovement.h>
-#include <Modloader/interception_macros.h>
-#include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/methods/Game/UI.h>
+#include <Modloader/app/methods/PlatformMovement.h>
+#include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/types/UI.h>
+#include <Modloader/interception_macros.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
-#include <Core/api/game/player.h>
+
 
 extern void handle_launch_no_deceleration(app::CharacterAirNoDeceleration* this_ptr);
 

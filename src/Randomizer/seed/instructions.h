@@ -158,8 +158,10 @@ namespace randomizer::seed {
     };
 
     struct SeedExecutionEnvironment final : public core::save_meta::CborSaveMetaSerializable {
-        enum class Event {
-            TrialHintsChanged,
+        struct events {
+            struct TrialHintsChanged {};
+
+            using bus_t = common::EventBus<TrialHintsChanged>;
         };
 
         struct ItemSpoilerData {
@@ -372,7 +374,7 @@ namespace randomizer::seed {
         Seed& m_seed;
         std::vector<SeedTimer> m_timers;
         std::optional<app::Vector2> m_queued_message_pickup_position_in_current_scope = std::nullopt;
-        common::MultiEventBus<Event> m_event_bus;
+        events::bus_t m_event_bus;
         bool m_trial_hints_dirty = false;
 
         /**

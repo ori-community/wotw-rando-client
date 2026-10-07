@@ -113,7 +113,7 @@ namespace core::reactivity {
     }
 
     builder::FinalizeOnlyBuilder builder::AfterEffectBuilder::after(const std::function<void()>& func) const {
-        modloader::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
+        common::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
             .is_in_setup = true,
             .effect = m_effect,
         }));
@@ -124,7 +124,7 @@ namespace core::reactivity {
     }
 
     builder::AfterEffectBuilder builder::EffectBuilder::effect(const std::function<void()>& func, const std::source_location& location) const {
-        modloader::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
+        common::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
             .is_in_setup = true,
             .effect = m_effect,
         }));
@@ -239,7 +239,7 @@ namespace core::reactivity {
     }
 
     builder::EffectBuilder builder::BeforeEffectBuilder::before(const std::function<void()>& func) const {
-        modloader::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
+        common::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
             .is_in_setup = true,
             .effect = m_effect,
         }));
@@ -299,7 +299,7 @@ namespace core::reactivity {
 
                 processed_effects.push_back(effect);
 
-                modloader::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
+                common::ScopedSetter _(current_effect_context, std::make_optional(EffectContext{
                     .is_in_setup = false,
                     .effect = effect_ptr,
                 }));
@@ -338,7 +338,7 @@ namespace core::reactivity {
     }
 
     void run_trigger_on_load_effects() {
-        modloader::ScopedSetter _(is_running_trigger_on_load_effects, true);
+        common::ScopedSetter _(is_running_trigger_on_load_effects, true);
 
         if (!dependency_tracker().trigger_on_load_effects.empty()) {
             run_effects(std::ranges::to<std::vector>(dependency_tracker().trigger_on_load_effects | std::ranges::views::values));
@@ -453,18 +453,18 @@ namespace core::reactivity {
         }
 
         [[maybe_unused]]
-        auto on_load = api::game::event_bus().register_handler(GameEvent::UberStateValueStoreLoaded, EventTiming::After, [](auto, auto) {
+        auto on_load = api::game::event_bus().on<core::api::game::events::UberStateValueStoreLoaded>([](auto) {
             run_trigger_on_load_effects();
         });
 
         [[maybe_unused]]
-        auto on_new_game_initialized = api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+        auto on_new_game_initialized = api::game::event_bus().on<core::api::game::events::AfterNewGameInitialized>([](auto) {
             run_trigger_on_load_effects();
         });
 
         #ifdef ENABLE_PROFILER
         [[maybe_unused]]
-        auto on_after_unity_update_loop = api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
+        auto on_after_unity_update_loop = api::game::event_bus().on<api::game::events::AfterUnityUpdateLoop>([](auto) {
             TracyPlot(
                 "Effect Trigger Count",
                 static_cast<int64_t>(dependency_tracker().effects_by_dependency.size())

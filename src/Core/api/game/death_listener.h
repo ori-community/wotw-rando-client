@@ -14,6 +14,27 @@ namespace core::api::death_listener {
         app::Damage* damage;
     };
 
-    CORE_DLLEXPORT common::TimedEventBus<Death>& enemy_death_event_bus();
-    CORE_DLLEXPORT common::TimedEventBus<Death>& player_death_event_bus();
+    namespace events {
+        struct BeforePlayerDeath {
+            const Death& death;
+        };
+        struct AfterPlayerDeath {
+            const Death& death;
+        };
+        struct BeforeEnemyDeath {
+            const Death& death;
+        };
+        struct AfterEnemyDeath {
+            const Death& death;
+        };
+
+        using bus_t = common::EventBus<
+            BeforePlayerDeath,
+            AfterPlayerDeath,
+            BeforeEnemyDeath,
+            AfterEnemyDeath
+        >;
+    }
+
+    CORE_DLLEXPORT events::bus_t& death_event_bus();
 } // namespace core::api::death_listener

@@ -162,13 +162,13 @@ namespace randomizer::game::shops::twillen {
         }
 
         IL2CPP_INTERCEPT(void, SpiritShardsShopScreen, UpdateContextCanvasShards, app::SpiritShardsShopScreen* this_ptr) {
-            modloader::ScopedSetter setter(overwrite_shard, is_in_shop(ShopType::Twillen));
+            common::ScopedSetter setter(overwrite_shard, is_in_shop(ShopType::Twillen));
             selected_shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
             next::SpiritShardsShopScreen::UpdateContextCanvasShards(this_ptr);
         }
 
         IL2CPP_INTERCEPT(void, SpiritShardsShopScreen, CompletePurchase, app::SpiritShardsShopScreen* this_ptr) {
-            ScopedSetter _(is_completing_purchase, true);
+            common::ScopedSetter _(is_completing_purchase, true);
 
             auto* const shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
             auto sound = SpiritShardsShopScreen::get_PurchaseCompleteSound(this_ptr);
@@ -254,7 +254,7 @@ namespace randomizer::game::shops::twillen {
 
         IL2CPP_INTERCEPT(void, SpiritShardUIShardDetails, ShowEmptyDetails, app::SpiritShardUIShardDetails* this_ptr) {
             if (overwrite_shard && selected_shard != nullptr) {
-                modloader::ScopedSetter setter(locked_shard_overwrite, true);
+                common::ScopedSetter setter(locked_shard_overwrite, true);
                 this_ptr->fields.m_item = selected_shard;
                 SpiritShardUIShardDetails::UpdateDetails(this_ptr);
                 this_ptr->fields.m_item = nullptr;

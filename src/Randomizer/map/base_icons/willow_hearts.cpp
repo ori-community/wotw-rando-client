@@ -20,7 +20,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         icons = {
             // WillowsEnd.BoulderHeart
             std::make_shared<MapIcon>(MapIcon::Type::CreepHeart, "Willow Heart", app::Vector2{573.64f, -3882.84f}, heart_visibility_effect(core::uber_states::state<16155, 41488>()), MapIcon::ScaleMode::Linear),

@@ -21,7 +21,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_modloader_injection_complete = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
+    auto on_modloader_injection_complete = modloader::event_bus().on<modloader::events::InjectionComplete>([](auto) {
         core::api::graphics::textures::register_source("Opher", [](const std::string& id) -> std::optional<app::Texture*> {
             return texture_cache.get_texture(std::stoi(id));
         });

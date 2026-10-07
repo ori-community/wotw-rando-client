@@ -1,4 +1,3 @@
-#include <Core/api/game/debug_menu.h>
 #include <Core/api/game/game.h>
 #include <Core/constants.h>
 #include <Core/core.h>
@@ -119,14 +118,14 @@ using namespace app::classes;
 namespace randomizer::seed {
     namespace {
         [[maybe_unused]]
-        auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        auto on_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
             game_seed().prevent_grants([]() { return game_seed().environment().should_prevent_grant(); });
         });
 
         bool did_reset_because_not_in_game = false;
 
         [[maybe_unused]]
-        auto on_update = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [](auto, auto) {
+        auto on_update = core::api::game::event_bus().on<core::api::game::events::Update>([](auto) {
             if (!core::api::game::in_game()) {
                 if (!did_reset_because_not_in_game) {
                     game_seed().environment().reset_serialized_values();
@@ -267,18 +266,18 @@ namespace randomizer::seed {
     } // namespace
 
     SeedExecutionEnvironment::SeedExecutionEnvironment(Seed& seed) : m_seed(seed) {
-        m_event_bus_handles.push_back(core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpointPrepareSeedExecutionEnvironment, EventTiming::After, [this](auto, auto) {
+        m_event_bus_handles.push_back(core::api::game::event_bus().on<core::api::game::events::RestoreCheckpointPrepareSeedExecutionEnvironment>([this](auto) {
             restore_serialized_data_to_runtime();
         }));
 
-        m_event_bus_handles.push_back(core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [this](auto, auto) {
+        m_event_bus_handles.push_back(core::api::game::event_bus().on<core::api::game::events::Update>([this](auto) {
             if (this->m_trial_hints_dirty) {
                 this->m_trial_hints_dirty = false;
-                this->m_event_bus.trigger_event(Event::TrialHintsChanged);
+                this->m_event_bus.emit(events::TrialHintsChanged());
             }
         }));
 
-        m_event_bus_handles.push_back(core::api::game::debug_menu::event_bus().register_handler(core::api::game::debug_menu::DebugEvent::RenderDebugVisuals, [this](auto) {
+        m_event_bus_handles.push_back(core::api::game::event_bus().on<core::api::game::events::RenderDebugVisuals>([this](auto) {
             render_debug_visuals();
         }));
     }
@@ -425,7 +424,7 @@ namespace randomizer::seed {
     }
 
     void SeedExecutionEnvironment::execute_without_grants(const std::function<void()>& fn) {
-        modloader::ScopedSetter _(m_prevent_grant, true);
+        common::ScopedSetter _(m_prevent_grant, true);
         fn();
     }
 

@@ -175,7 +175,7 @@ namespace randomizer::features::wheel {
                             box.position().set(0.05f, 0.95f, 0);
                             box.show_background().set(false);
                             box.show(false, false);
-                            handle = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [](auto, auto) {
+                            handle = core::api::game::event_bus().on<core::api::game::events::Update>([](auto) {
                                 const auto [x, y, z] = core::api::game::player::get_position();
                                 box.text().set(std::format("{:.3f}, {:.3f}", x, y));
                             });

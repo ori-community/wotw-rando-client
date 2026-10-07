@@ -74,7 +74,7 @@ namespace {
             return;
         }
 
-        modloader::ScopedSetter _(is_pushing_lever, true);
+        common::ScopedSetter _(is_pushing_lever, true);
         active_lever_ref = il2cpp::WeakGCRef(lever);
         next_fn(lever);
     }
@@ -153,7 +153,7 @@ namespace {
         const auto active_lever_timeline = active_lever_timeline_ref.and_then([](auto& ref) { return *ref; });
 
         if (active_lever_timeline.has_value()) {
-            modloader::ScopedSetter _(is_stopping_timeline, true);
+            common::ScopedSetter _(is_stopping_timeline, true);
             Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(*active_lever_timeline));
         }
 
@@ -201,7 +201,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         custom_cutscene_skips::register_cutscene_skip(custom_cutscene_skips::CustomCutsceneSkip{
             .is_available = &skip_available,
             .invoke = &skip_invoke,

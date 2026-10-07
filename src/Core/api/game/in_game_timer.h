@@ -10,11 +10,15 @@ namespace core::api::game::in_game_timer {
         AsyncLoadingTime,
     };
 
-    struct TimeStep {
-        TimeStepType type;
-        float duration;
-    };
+    namespace events {
+        struct TimeStep {
+            TimeStepType type;
+            float duration;
+        };
 
-    CORE_DLLEXPORT common::EventBus<TimeStep>& time_step_event_bus();
+        using bus_t = common::EventBus<TimeStep>;
+    }
+
+    CORE_DLLEXPORT events::bus_t& time_step_event_bus();
     CORE_DLLEXPORT AsyncLoadingState get_last_async_loading_state();
 }

@@ -231,13 +231,11 @@ namespace randomizer::input {
                 info.is_pressed = pressed;
 
                 if (info.is_just_pressed) {
-                    single_input_bus().trigger_event(action, InputValue::Pressed);
-                    input_bus().trigger_event(InputValue::Pressed, action);
+                    event_bus().emit(action, events::ActionPressed());
                 }
 
                 if (is_just_released) {
-                    single_input_bus().trigger_event(action, InputValue::Released);
-                    input_bus().trigger_event(InputValue::Released, action);
+                    event_bus().emit(action, events::ActionReleased());
                 }
             }
 
@@ -255,7 +253,12 @@ namespace randomizer::input {
         if (binding.is_pressed != value) {
             binding.is_pressed = value;
             binding.is_just_pressed = value;
-            single_input_bus().trigger_event(action, value ? InputValue::Pressed : InputValue::Released);
+
+            if (value) {
+                event_bus().emit(action, events::ActionPressed());
+            } else {
+                event_bus().emit(action, events::ActionReleased());
+            }
         }
     }
 
@@ -311,8 +314,8 @@ namespace randomizer::input {
         return key;
     }
 
-    SingleInputEventBus<Action>& single_input_bus() {
-        static SingleInputEventBus<Action> bus;
+    events::bus_t& event_bus() {
+        static events::bus_t bus;
         return bus;
     }
 
@@ -324,21 +327,13 @@ namespace randomizer::input {
         }
     }
 
-    InputEventBus<Action>& input_bus() {
-        static InputEventBus<Action> bus;
-        return bus;
-    }
-
-    void on_after_refresh_controls(GameEvent game_event, EventTiming timing) {
+    [[maybe_unused]]
+    auto on_after_refresh_controls_droppable = core::api::game::event_bus().on<core::api::game::events::RefreshedInputControls>([](auto) {
         read_keyboard_or_controller_bindings(fs::get_randomizer_user_data_path("keyboard_bindings.json"), on_keyboard_binding_read);
         read_midi_bindings(fs::get_randomizer_user_data_path("midi_bindings.json"), on_midi_binding_read);
-    }
+    });
 
-    [[maybe_unused]]
-    auto on_after_refresh_controls_droppable =
-        core::api::game::event_bus().register_handler(GameEvent::RefreshInputControls, EventTiming::After, &on_after_refresh_controls);
-
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         #ifdef ENABLE_MIDI_IN
         win::console::register_command(
             {"midi", "enable_input"},

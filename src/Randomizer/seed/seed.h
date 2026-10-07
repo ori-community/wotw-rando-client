@@ -170,7 +170,7 @@ namespace randomizer::seed {
         bool m_is_reading_seed = false;
         bool m_force_grant_outside_game = false;
         unsigned int m_command_stack_size = 0;
-        memory::SeedMemory m_memory;
+        memory::SeedMemory m_memory{};
     };
 
 

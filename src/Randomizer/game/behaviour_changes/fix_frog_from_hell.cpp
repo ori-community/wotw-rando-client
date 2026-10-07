@@ -29,12 +29,12 @@ namespace {
     bool is_restoring_checkpoint = false;
 
     [[maybe_unused]]
-    auto on_before_restoring_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::Before, [](auto, auto) {
+    auto on_before_restoring_checkpoint = core::api::game::event_bus().on<core::api::game::events::BeforeRestoreCheckpoint>([](auto) {
         is_restoring_checkpoint = true;
     });
 
     [[maybe_unused]]
-    auto on_after_restoring_checkpoint = core::api::game::event_bus().register_handler(GameEvent::RestoreCheckpoint, EventTiming::After, [](auto, auto) {
+    auto on_after_restoring_checkpoint = core::api::game::event_bus().on<core::api::game::events::RestoredCheckpoint>([](auto) {
         is_restoring_checkpoint = false;
     });
 

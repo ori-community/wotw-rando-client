@@ -2,8 +2,8 @@
 #include <Core/property/reactivity.h>
 #include <Core/uber_states/core_uber_states.h>
 #include <Modloader/il2cpp_helpers.h>
-#include <Modloader/modloader.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 namespace {
     using namespace app::classes;
@@ -16,12 +16,12 @@ namespace {
     core::reactivity::ReactiveEffect::ptr_t effect = nullptr;
 
     [[maybe_unused]]
-    auto on_scene_loaded_handler = core::api::scenes::single_event_bus().register_handler("petrifiedForestTandemWindChaseA", [](auto metadata, auto) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
+    auto on_scene_loaded_handler = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("petrifiedForestTandemWindChaseA", [](const auto& event) {
+        if (event.state != app::SceneState__Enum::Loaded) {
             return;
         }
 
-        const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+        const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
 
         const auto original_ability_restrict_go = il2cpp::unity::find_child(
             scene_root_go,

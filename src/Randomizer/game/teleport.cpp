@@ -63,7 +63,7 @@ namespace randomizer::game::teleportation {
 
     namespace {
         [[maybe_unused]]
-        auto on_injection_complete = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
+        auto on_injection_complete = modloader::event_bus().on<modloader::events::InjectionComplete>([](auto) {
             // This removes the hardcoded distance check when teleporting, so that teleporting is possible
             // regardless of how close the player is to the target position
             constexpr auto NOP_LENGTH = 6;

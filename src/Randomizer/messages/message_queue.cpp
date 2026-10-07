@@ -18,7 +18,7 @@ namespace randomizer::messages {
     bool game_ready = false;
 
     [[maybe_unused]]
-    auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         game_ready = true;
     });
 
@@ -63,7 +63,7 @@ namespace randomizer::messages {
 
     MessageQueue::MessageQueue(const app::Vector2& m_top_anchor) :
         m_top_anchor(m_top_anchor) {
-        m_on_update_droppable = api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [this](auto, auto) {
+        m_on_update_droppable = api::game::event_bus().on<core::api::game::events::Update>([this](auto) {
             if (!game_ready) {
                 return;
             }

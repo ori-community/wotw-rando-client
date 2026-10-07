@@ -19,27 +19,6 @@ namespace {
     ObjectReference<app::MoonTimeline> kwolok_boss_farewell_timeline;
     auto& pools_wisp_state = core::uber_states::state<"lagoonStateGroup", "bossReward">();
 
-    void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
-            return;
-        }
-
-        if (metadata->scene_name == "kwolokBossGetWisp") {
-            auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
-
-            auto timeline_go = il2cpp::unity::find_child(
-                scene_root_go,
-                std::vector<std::string>{
-                    "kwolokBossSetup",
-                    "kwolokDeathTimeline" }
-            );
-
-            if (il2cpp::unity::is_valid(timeline_go)) {
-                kwolok_boss_farewell_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, types::MoonTimeline::get_class()));
-            }
-        }
-    }
-
     /**
      * This function replicates the behavior of
      * kwolokBossSetup/getPickupOnCondition.
@@ -68,10 +47,29 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
+    auto on_scene_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
+        "kwolokBossGetWisp",
+        [](const auto& event) {
+            if (event.state != app::SceneState__Enum::Loaded) {
+                return;
+            }
+
+            const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
+            const auto timeline_go = il2cpp::unity::find_child(
+                scene_root_go,
+                std::vector<std::string>{
+                    "kwolokBossSetup",
+                    "kwolokDeathTimeline" }
+            );
+
+            if (il2cpp::unity::is_valid(timeline_go)) {
+                kwolok_boss_farewell_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, types::MoonTimeline::get_class()));
+            }
+        }
+    );
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         auto cutscene_skip = custom_cutscene_skips::CustomCutsceneSkip{
             .is_available = &skip_available,
             .invoke = &skip_invoke,

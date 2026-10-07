@@ -1,7 +1,6 @@
 #include <Common/event_bus.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/utils/misc.h>
-#include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
 #include <Modloader/app/types/ChangeStateOnCondition.h>
 #include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/il2cpp_helpers.h>
@@ -20,13 +19,15 @@ namespace {
 
     auto& disable_cutscenes_state = randomizer::uber_states::state<"randoConfig", "disableWillowHeartCutscenes">();
 
-    void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
-        if (metadata->state != app::SceneState__Enum::Enabled) {
-            return;
-        }
+    [[maybe_unused]]
+    auto on_scene_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
+        "willowsEndSetups",
+        [](const auto& event) {
+            if (event.state != app::SceneState__Enum::Enabled) {
+                return;
+            }
 
-        if (metadata->scene_name == "willowsEndSetups") {
-            auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+            auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
 
             vine_timeline_refs.clear();
 
@@ -146,8 +147,5 @@ namespace {
                 }
             });
         }
-    }
-
-    [[maybe_unused]]
-    auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
+    );
 } // namespace

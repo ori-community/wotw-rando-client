@@ -1,8 +1,7 @@
-#include <Core/api/game/game.h>
-#include <Modloader/il2cpp_helpers.h>
-
 #include <Core/api/scenes/scene_load.h>
 #include <Modloader/app/types/ReadyForAnimationTrigger.h>
+#include <Modloader/il2cpp_helpers.h>
+
 
 namespace {
     /**
@@ -19,14 +18,14 @@ namespace {
     using namespace app::classes;
 
     [[maybe_unused]]
-    auto on_scene_loaded_handler = core::api::scenes::single_event_bus().register_handler(
+    auto on_scene_loaded_handler = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
         "swampSaveRoomA",
-        [](const core::api::scenes::SceneLoadEventMetadata* metadata, const std::string&) {
-            if (metadata->state != app::SceneState__Enum::Loaded) {
+        [](const auto& event) {
+            if (event.state != app::SceneState__Enum::Loaded) {
                 return;
             }
 
-            const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+            const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
 
             const auto spell_pickup_trigger_go = il2cpp::unity::find_child(
                 scene_root_go,

@@ -20,7 +20,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         icons = {
             // EastHollow.GladesApproachOrePurpleWall
             std::make_shared<MapIcon>(MapIcon::Type::PurpleWall, "Breakable Wall", app::Vector2{-105.57f, -4188.93f}, wall_visibility_effect(core::uber_states::state<937, 54236>()), MapIcon::ScaleMode::Linear),

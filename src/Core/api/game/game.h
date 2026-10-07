@@ -1,13 +1,77 @@
 #pragma once
 
 #include <Common/event_bus.h>
-#include <Core/enums/game_event.h>
 #include <Core/macros.h>
-
 #include <Modloader/app/structs/GameController.h>
 #include <Modloader/app/structs/GameStateMachine_State__Enum.h>
+#include <optional>
+
 
 namespace core::api::game {
+    namespace events {
+        struct Update {};
+        struct FixedUpdate {};
+        struct BeforeUnityUpdateLoop {};
+        struct AfterUnityUpdateLoop {};
+        struct GUI {};
+        struct TASPausedUpdate {};
+        struct GainedFocus {};
+        struct LostFocus {};
+        struct Shutdown {};
+        struct BeforeNewGame {};
+        struct AfterNewGame {};
+        struct BeforeNewGameInitialized {};
+        struct AfterNewGameInitialized {};
+        struct CreatedSave {};
+        struct CreatedBackup {};
+        struct BeforeCreateCheckpoint {};
+        struct CreatedCheckpoint {};
+        struct RestoreCheckpointPrepareSeedExecutionEnvironment {};
+        struct BeforeRestoreCheckpoint {};
+        struct RestoredCheckpoint {};
+        struct BeforeFinishLoadingSave {};
+        struct FinishedLoadingSave {};
+        struct BeforeRespawn {};
+        struct Respawned {};
+        struct UberStateValueStoreLoaded {};
+        struct OpenedAreaMap {};
+        struct ClosedAreaMap {};
+        struct RefreshedInputControls {};
+        struct RenderDebugVisuals {};
+
+        using bus_t = common::EventBus<
+            Update,
+            FixedUpdate,
+            BeforeUnityUpdateLoop,
+            AfterUnityUpdateLoop,
+            GUI,
+            TASPausedUpdate,
+            GainedFocus,
+            LostFocus,
+            Shutdown,
+            BeforeNewGame,
+            AfterNewGame,
+            BeforeNewGameInitialized,
+            AfterNewGameInitialized,
+            CreatedSave,
+            CreatedBackup,
+            BeforeCreateCheckpoint,
+            CreatedCheckpoint,
+            RestoreCheckpointPrepareSeedExecutionEnvironment,
+            BeforeRestoreCheckpoint,
+            RestoredCheckpoint,
+            BeforeFinishLoadingSave,
+            FinishedLoadingSave,
+            BeforeRespawn,
+            Respawned,
+            UberStateValueStoreLoaded,
+            OpenedAreaMap,
+            ClosedAreaMap,
+            RefreshedInputControls,
+            RenderDebugVisuals
+        >;
+    }
+
     enum class GameObjectContainer {
         Main,
         Miscellaneous,
@@ -44,7 +108,7 @@ namespace core::api::game {
                 : health(0.f), energy(0.f) {}
     };
 
-    CORE_DLLEXPORT common::TimedMultiEventBus<GameEvent>& event_bus();
+    CORE_DLLEXPORT events::bus_t& event_bus();
 
     CORE_DLLEXPORT float delta_time();
     CORE_DLLEXPORT float fixed_delta_time();

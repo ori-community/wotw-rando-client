@@ -1,30 +1,27 @@
-#include <Randomizer/online/network.h>
-
 #include <Common/ext.h>
 #include <Core/api/game/game.h>
 #include <Core/events/task.h>
-#include <Modloader/modloader.h>
 #include <Modloader/fs.h>
-
+#include <Modloader/modloader.h>
+#include <Randomizer/online/network.h>
+#include <Randomizer/randomizer.h>
+#include <fstream>
 #include <ixwebsocket/IXNetSystem.h>
 #include <ixwebsocket/IXWebSocket.h>
 
-#include <Randomizer/randomizer.h>
-#include <fstream>
 
 namespace randomizer::online {
     namespace {
-        auto on_injected = modloader::event_bus().register_handler(
-            ModloaderEvent::InjectionComplete,
+        [[maybe_unused]]
+        auto on_injected = modloader::event_bus().on<modloader::events::InjectionComplete>(
             [](auto) {
                 ix::initNetSystem();
             }
         );
 
-        auto on_after_shutdown = core::api::game::event_bus().register_handler(
-            GameEvent::Shutdown,
-            EventTiming::After,
-            [](auto, auto) {
+        [[maybe_unused]]
+        auto on_after_shutdown = core::api::game::event_bus().on<core::api::game::events::Shutdown>(
+            [](auto) {
                 ix::uninitNetSystem();
             }
         );
@@ -80,7 +77,7 @@ namespace randomizer::online {
         m_websocket.stop();
         m_udp_socket.close();
         modloader::info("network_client", "Network client disconnected.");
-        core::events::schedule_task_for_next_update([&] { m_event_bus.trigger_event(State::Closed); });
+        core::events::schedule_task_for_next_update([&] { m_event_bus.emit(events::StateChanged(State::Closed)); });
     }
 
     void NetworkClient::websocket_connect(const std::string& url) {
@@ -102,7 +99,7 @@ namespace randomizer::online {
                 }
 
                 if (packet.id() == Network::Packet_PacketID_AuthenticatedMessage) {
-                    core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Connected); });
+                    core::events::schedule_task_for_next_update([&]{ m_event_bus.emit(events::StateChanged(State::Connected)); });
                     Network::AuthenticatedMessage auth;
                     auth.ParseFromString(packet.packet());
                     m_udp_id = auth.udpid();
@@ -121,7 +118,7 @@ namespace randomizer::online {
                 auth.set_jwt(get_jwt());
                 auth.set_client_version(randomizer::randomizer_version().to_string());
                 websocket_send(Network::Packet_PacketID_AuthenticateMessage, auth);
-                core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Authenticating); });
+                core::events::schedule_task_for_next_update([&]{ m_event_bus.emit(events::StateChanged(State::Authenticating)); });
                 modloader::info("network", "WebSocket connected.");
                 break;
             }
@@ -134,14 +131,14 @@ namespace randomizer::online {
 
                 if (m_reconnect_websocket) {
                     // If we are in here we did not expect this disconnect, underlying socket will auto reconnect.
-                    core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Reconnecting); });
+                    core::events::schedule_task_for_next_update([&]{ m_event_bus.emit(events::StateChanged(State::Reconnecting)); });
                     core::events::schedule_task(3.f, [this] {
                         if (m_reconnect_websocket && !websocket_connected()) {
                             websocket_connect(m_websocket.getUrl());
                         }
                     });
                 } else {
-                    core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Closed); });
+                    core::events::schedule_task_for_next_update([&]{ m_event_bus.emit(events::StateChanged(State::Closed)); });
                 }
                 break;
             }
@@ -155,7 +152,7 @@ namespace randomizer::online {
                     }
                 );
 
-                core::events::schedule_task_for_next_update([&]{ m_event_bus.trigger_event(State::Reconnecting); });
+                core::events::schedule_task_for_next_update([&]{ m_event_bus.emit(events::StateChanged(State::Reconnecting)); });
                 modloader::error("network", std::format("WebSocket Error: {}", msg->errorInfo.reason));
                 break;
             case ix::WebSocketMessageType::Ping:

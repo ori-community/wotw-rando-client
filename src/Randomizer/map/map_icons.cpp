@@ -40,11 +40,6 @@
 namespace randomizer::map::icons {
     using namespace app::classes;
 
-    enum class Event {
-        IconPositionUpdateRequested,  // Emitted when the vanilla map wants to update icon positions
-        IconLabelUpdateRequested,  // Emitted when the vanilla map wants to update icon labels
-    };
-
     struct IconScale {
         /** Scale for icons that use adaptive scaling (become bigger when zoomed out) */
         float adaptive;
@@ -67,13 +62,26 @@ namespace randomizer::map::icons {
         }
     };
 
-    common::EventBus<void, Event> icons_event_bus;
-    common::EventBus<IconScale> icons_scale_event_bus;
+    namespace events {
+        struct IconPositionUpdateRequested {};  // Emitted when the vanilla map wants to update icon positions
+        struct IconLabelUpdateRequested {};  // Emitted when the vanilla map wants to update icon labels
+        struct IconScaleChanged {
+            IconScale scale;
+        };
+
+        using bus_t = common::EventBus<
+            IconPositionUpdateRequested,
+            IconLabelUpdateRequested,
+            IconScaleChanged
+        >;
+    }
+
+    events::bus_t event_bus;
     std::unordered_map<MapIcon::id_t, MapIcon::weak_ptr_t> map_icons_that_can_be_teleported_to;
     core::Property<bool> show_transparent_out_of_logic_icons{true};
 
     [[maybe_unused]]
-    auto on_settings_loaded = core::settings::event_bus().register_handler(core::settings::SettingsEvent::Load, EventTiming::After, [](auto, auto) {
+    auto on_settings_loaded = core::settings::event_bus().on<core::settings::events::SettingsLoaded>([](auto) {
         show_transparent_out_of_logic_icons.set(core::settings::show_transparent_out_of_logic_icons());
     });
 
@@ -561,21 +569,21 @@ namespace randomizer::map::icons {
                             })
                             .finalize();
 
-                        m_handles.position_update_requested_event = icons_event_bus.register_handler(Event::IconPositionUpdateRequested, [&](auto) {
+                        m_handles.position_update_requested_event = event_bus.on<events::IconPositionUpdateRequested>([&](auto) {
                             try_update_map_position();
                         });
 
-                        m_handles.label_update_requested_event = icons_event_bus.register_handler(Event::IconLabelUpdateRequested, [&](auto) {
+                        m_handles.label_update_requested_event = event_bus.on<events::IconLabelUpdateRequested>([&](auto) {
                             try_update_label();
                         });
 
-                        m_handles.area_map_opened_event = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::Before, [&](auto, auto) {
+                        m_handles.area_map_opened_event = core::api::game::event_bus().on<core::api::game::events::OpenedAreaMap>([this](auto) {
                             try_create_game_object_if_not_exists();
                             try_update_label(true);
                         });
 
-                        m_handles.icon_scale_update_requested_event = icons_scale_event_bus.register_handler([&](const IconScale& scale) {
-                            try_set_scale(scale);
+                        m_handles.icon_scale_update_requested_event = event_bus.on<events::IconScaleChanged>([&](const auto& event) {
+                            try_set_scale(event.scale);
                         });
 
                         const auto modulation = color_modulation.get();
@@ -843,12 +851,12 @@ namespace randomizer::map::icons {
         }
 
         IL2CPP_INTERCEPT(void, IconPlacementScaler, UpdateIconPositions, app::IconPlacementScaler* this_ptr, bool force_update) {
-            icons_event_bus.trigger_event(Event::IconPositionUpdateRequested);
-            icons_scale_event_bus.trigger_event(get_desired_icon_scale());
+            event_bus.emit(events::IconPositionUpdateRequested());
+            event_bus.emit(events::IconScaleChanged(get_desired_icon_scale()));
         }
 
         IL2CPP_INTERCEPT(void, AreaMapIconManager, UpdateLabelState, app::AreaMapIconManager* this_ptr) {
-            icons_event_bus.trigger_event(Event::IconLabelUpdateRequested);
+            event_bus.emit(events::IconLabelUpdateRequested());
         }
 
         IL2CPP_INTERCEPT(bool, AreaMapIcon, ShouldShowAttentionMarker, app::AreaMapIcon* this_ptr, app::GameWorldAreaID__Enum area_id) { return false; }

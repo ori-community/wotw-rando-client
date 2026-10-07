@@ -42,7 +42,7 @@ namespace core::input::sdl {
         }
 
         [[maybe_unused]]
-        auto on_shutdown = modloader::event_bus().register_handler(ModloaderEvent::Shutdown, [](auto) {
+        auto on_shutdown = modloader::event_bus().on<modloader::events::Shutdown>([](auto) {
             if (enable_native_controller_support) {
                 SDL_Quit();
             }

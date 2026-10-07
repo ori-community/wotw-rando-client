@@ -98,7 +98,7 @@ namespace randomizer::map::filter {
     }
 
     [[maybe_unused]]
-    auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         filter_changed_effect = core::reactivity::watch_effect()
             .effect([] {
                 if (!is_filter_available(current_map_filter().get())) {
@@ -133,7 +133,7 @@ namespace randomizer::map::filter {
     }
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         map_filter_updated_effect = core::reactivity::watch_effect()
             .effect(current_map_filter())
             .after([] {
@@ -144,19 +144,19 @@ namespace randomizer::map::filter {
     });
 
     [[maybe_unused]]
-    auto on_before_finished_loading_save = core::api::game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::Before, [](auto, auto) {
+    auto on_before_finished_loading_save = core::api::game::event_bus().on<core::api::game::events::BeforeFinishLoadingSave>([](auto) {
         map_filter_label_and_quests_ui_dirty = true;
         try_update_map_filter_label_and_quests_ui_if_dirty();
     });
 
     [[maybe_unused]]
-    auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
+    auto on_before_new_game_initialized = core::api::game::event_bus().on<core::api::game::events::BeforeNewGameInitialized>([](auto) {
         map_filter_label_and_quests_ui_dirty = true;
         try_update_map_filter_label_and_quests_ui_if_dirty();
     });
 
     [[maybe_unused]]
-    auto on_area_map_opened = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::Before, [](auto, auto) {
+    auto on_area_map_opened = core::api::game::event_bus().on<core::api::game::events::OpenedAreaMap>([](auto) {
         try_update_map_filter_label_and_quests_ui_if_dirty();
     });
 

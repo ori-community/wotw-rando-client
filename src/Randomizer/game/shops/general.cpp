@@ -69,7 +69,7 @@ namespace {
     float stop_overwrite_time = 4.0f;
 
     [[maybe_unused]]
-    auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+    auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
         if (stop_shop_overwrite) {
             stop_overwrite_time -= TimeUtility::get_fixedDeltaTime();
             if (stop_overwrite_time < 0.0f) {
@@ -94,7 +94,7 @@ namespace {
     bool locked_shop_overwrite = false;
     IL2CPP_INTERCEPT(void, ShopkeeperUIDetails, ShowEmptyDetails, app::ShopkeeperUIDetails * this_ptr) {
         if (should_shop_overwrite && selected_item != nullptr) {
-            modloader::ScopedSetter set(locked_shop_overwrite, true);
+            common::ScopedSetter set(locked_shop_overwrite, true);
             ShopkeeperUIDetails::UpdateDetails(this_ptr);
         } else {
             next::ShopkeeperUIDetails::ShowEmptyDetails(this_ptr);

@@ -11,7 +11,7 @@ namespace {
     auto& built_spirit_well_condition = core::uber_states::state<"hubUberStateGroup", "hasCompletedBuilderProjectSpiritWell">();
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         randomizer::conditions::register_condition_intercept(
             randomizer::conditions::ConditionType::VisibleOnWorldMap,
             "swampIntroTop/artSetups/interactives/savePedestalSetup/savePedestalParent/savePedestal",

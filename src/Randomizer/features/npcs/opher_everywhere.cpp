@@ -11,12 +11,12 @@ namespace {
     auto& use_spawn_opher_state = randomizer::uber_states::state<"randoConfig", "useSpawnOpherEverywhereRandoState">();
 
     [[maybe_unused]]
-    auto uber_state_notify = core::api::uber_states::on_uber_state_changed().register_handlers(
-        std::vector<std::tuple<core::api::uber_states::UntypedUberId>> {
-            spawn_opher_state.get_uber_id(),
-            use_spawn_opher_state.get_uber_id(),
+    auto uber_state_notify = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(
+        {
+            spawn_opher_state,
+            use_spawn_opher_state,
         },
-        [](auto) {
+        [](auto, auto) {
             randomizer::conditions::apply_all_states();
         }
     );

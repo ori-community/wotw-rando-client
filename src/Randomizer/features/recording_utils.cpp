@@ -358,7 +358,7 @@ namespace {
         position_ori_and_unload();
     }
 
-    auto before_unity_update = core::api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::Before, [](GameEvent event, EventTiming timing) {
+    auto before_unity_update = core::api::game::event_bus().on<core::api::game::events::BeforeUnityUpdateLoop>([](auto) {
         if (orishot_state != OrishotState::None) {
             // if (orishot_state == OrishotState::VisitScenes || orishot_state == OrishotState::RunScenes || orishot_state == OrishotState::UnsuspendForOneFrameAndContinueScreenshotting) {
             //     GameController::ResumeGameplay(types::GameController::get_class()->static_fields->Instance);
@@ -368,7 +368,7 @@ namespace {
         }
     });
 
-    auto after_unity_update = core::api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](GameEvent event, EventTiming timing) {
+    auto after_unity_update = core::api::game::event_bus().on<core::api::game::events::AfterUnityUpdateLoop>([](auto) {
         if (orishot_state != OrishotState::None) {
             auto delta = next::UnityEngine::Time::get_deltaTime();
 
@@ -611,7 +611,7 @@ namespace {
     }
     */
 
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         auto camera = UnityEngine::Camera::get_main();
         default_background_color = UnityEngine::Camera::get_backgroundColor(camera);
 

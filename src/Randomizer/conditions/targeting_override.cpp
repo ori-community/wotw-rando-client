@@ -70,7 +70,7 @@ namespace randomizer::conditions {
             return next::EntityTargetting::OnUpdate(this_ptr, dt);
         }
 
-        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
             register_targetable("waterMillPool__clone0/interactives/wheelASetup/shootableTentacleCreepA/creep", app::AbilityType__Enum::TurretSpell, true);
             register_targetable("waterMillPool__clone0/interactives/wheelASetup/shootableTentacleCreepB/creep", app::AbilityType__Enum::TurretSpell, true);
             register_targetable("waterMillAExit/interactives/fastWheelsSetup/shootableTentacleCreepC/creep", app::AbilityType__Enum::TurretSpell, true);

@@ -24,7 +24,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_modloader_injection_complete = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
+    auto on_modloader_injection_complete = modloader::event_bus().on<modloader::events::InjectionComplete>([](auto) {
         core::api::graphics::textures::register_source("Shard", [](const std::string& id) -> std::optional<app::Texture*> {
             const auto id_enum = static_cast<app::SpiritShardType__Enum>(std::stoi(id));
             return texture_cache.get_texture(id_enum);

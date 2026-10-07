@@ -34,7 +34,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_modloader_injection_complete = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
+    auto on_modloader_injection_complete = modloader::event_bus().on<modloader::events::InjectionComplete>([](auto) {
         core::api::graphics::textures::register_source("File", [](const std::string& id) -> std::optional<app::Texture*> {
             const auto confined_asset_path = modloader::fs::get_confined_asset_path(id);
 

@@ -11,15 +11,20 @@
 namespace tas::runtime::timeline {
     using namespace entries;
 
-    enum class TimelineEvent {
-        Rewind,
-        Seek,
-    };
+    namespace events {
+        struct Rewound {};
+        struct Seeked {};
+
+        using bus_t = common::EventBus<
+            Rewound,
+            Seeked
+        >;
+    }
 
     class Timeline {
     private:
         TimelineState state;
-        common::TimedEventBus<TimelineEvent> _event_bus;
+        events::bus_t _event_bus;
 
         unsigned long current_frame = 0;
         unsigned int fps = 60;
@@ -46,6 +51,6 @@ namespace tas::runtime::timeline {
         void rewind();
         void advance();
         void seek(unsigned long frame);
-        common::TimedEventBus<TimelineEvent>& event_bus();
+        events::bus_t& event_bus();
     };
 } // namespace tas::runtime::timeline

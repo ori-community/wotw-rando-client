@@ -67,7 +67,7 @@ namespace {
         }
     }
 
-    auto on_fixed_update_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
+    auto on_fixed_update_handle = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>(&on_fixed_update);
     auto on_update_handle = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, &on_update);
 }
 

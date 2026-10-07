@@ -1,14 +1,12 @@
 #include <Core/api/game/game.h>
-#include <Modloader/app/methods/PetrifiedOwlBossEntity.h>
-#include <Modloader/app/methods/TimeUtility.h>
-#include <Modloader/il2cpp_helpers.h>
-#include <Randomizer/constants.h>
-
 #include <Core/api/graphics/sprite.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/settings.h>
+#include <Modloader/app/methods/PetrifiedOwlBossEntity.h>
+#include <Modloader/app/methods/TimeUtility.h>
+#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/modloader.h>
+
 
 using namespace app::classes;
 
@@ -43,63 +41,7 @@ namespace {
         }
     }
 
-    void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
-            return;
-        }
-
-        if (metadata->scene_name == "willowPowlBackground") {
-            auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
-
-            auto head_c1_skn_go = il2cpp::unity::find_child(
-                scene_root_go,
-                std::vector<std::string>{
-                    "petrifiedOwlBossSetup",
-                    "petrifiedOwlBossEntity",
-                    "petrifiedOwlEntity",
-                    "petrifiedOwlRig",
-                    "Skeleton_GRP",
-                    "root_JNT",
-                    "spineC1_mainJoint1_JNT",
-                    "spineC1_mainJoint2_JNT",
-                    "spineC1_mainJoint3_JNT",
-                    "spineC1_mainJoint4_JNT",
-                    "spineC1_mainJoint5_JNT",
-                    "neckC1_base1_JNT",
-                    "headC1_base1_JNT",
-                    "headC1_base1_SKN" }
-            );
-
-            shrek = std::make_unique<core::api::graphics::Sprite>();
-
-            shrek->set_parent(head_c1_skn_go);
-            shrek->local_position(app::Vector3{ 0.f, 3.f, -1.f });
-            shrek->layer(Layer::Art);
-            shrek->enabled(true);
-
-            auto model_grp_go = il2cpp::unity::find_child(
-                scene_root_go,
-                std::vector<std::string>{
-                    "petrifiedOwlBossSetup",
-                    "petrifiedOwlBossEntity",
-                    "petrifiedOwlEntity",
-                    "petrifiedOwlRig",
-                    "model_GRP" }
-            );
-
-            il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "EyeL_MDL"));
-            il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "EyeR_MDL"));
-            il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "Head_MDL"));
-            il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "HornL_Broken_MDL"));
-            il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "HornR_Broken_MDL"));
-            il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "Mask_Broken_01_MDL"));
-            il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "Mask_Broken_02_MDL"));
-
-            set_state(0);
-        }
-    }
-
-    void on_update(GameEvent game_event, EventTiming timing) {
+    void on_update() {
         if (time_to_reset_state > 0.f) {
             time_to_reset_state -= TimeUtility::get_deltaTime();
 
@@ -109,6 +51,67 @@ namespace {
         }
     }
 
-    auto scene_load_handle = core::settings::shriek_is_shrek() ? core::api::scenes::event_bus().register_handler(&on_scene_load) : nullptr;
-    auto on_update_handle = core::settings::shriek_is_shrek() ? core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, &on_update) : nullptr;
+    [[maybe_unused]]
+    auto scene_load_handle = core::settings::shriek_is_shrek()
+        ? core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
+            "willowPowlBackground",
+            [](const auto& event) {
+                if (event.state != app::SceneState__Enum::Loaded) {
+                    return;
+                }
+
+                const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
+                const auto head_c1_skn_go = il2cpp::unity::find_child(
+                    scene_root_go,
+                    std::vector<std::string>{
+                        "petrifiedOwlBossSetup",
+                        "petrifiedOwlBossEntity",
+                        "petrifiedOwlEntity",
+                        "petrifiedOwlRig",
+                        "Skeleton_GRP",
+                        "root_JNT",
+                        "spineC1_mainJoint1_JNT",
+                        "spineC1_mainJoint2_JNT",
+                        "spineC1_mainJoint3_JNT",
+                        "spineC1_mainJoint4_JNT",
+                        "spineC1_mainJoint5_JNT",
+                        "neckC1_base1_JNT",
+                        "headC1_base1_JNT",
+                        "headC1_base1_SKN" }
+                );
+
+                shrek = std::make_unique<core::api::graphics::Sprite>();
+
+                shrek->set_parent(head_c1_skn_go);
+                shrek->local_position(app::Vector3{ 0.f, 3.f, -1.f });
+                shrek->layer(Layer::Art);
+                shrek->enabled(true);
+
+                const auto model_grp_go = il2cpp::unity::find_child(
+                    scene_root_go,
+                    std::vector<std::string>{
+                        "petrifiedOwlBossSetup",
+                        "petrifiedOwlBossEntity",
+                        "petrifiedOwlEntity",
+                        "petrifiedOwlRig",
+                        "model_GRP" }
+                );
+
+                il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "EyeL_MDL"));
+                il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "EyeR_MDL"));
+                il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "Head_MDL"));
+                il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "HornL_Broken_MDL"));
+                il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "HornR_Broken_MDL"));
+                il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "Mask_Broken_01_MDL"));
+                il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "Mask_Broken_02_MDL"));
+
+                set_state(0);
+            }
+        )
+        : nullptr;
+
+    [[maybe_unused]]
+    auto on_update_handle = core::settings::shriek_is_shrek()
+        ? core::api::game::event_bus().on<core::api::game::events::Update>([](auto) { on_update(); })
+        : nullptr;
 } // namespace

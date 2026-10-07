@@ -1,7 +1,6 @@
 #include <Common/event_bus.h>
 #include <Common/ext.h>
 #include <Core/api/game/game.h>
-#include <Core/enums/game_event.h>
 #include <Modloader/app/methods/InteractiveMessageBox.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/NPCMessageBox.h>
@@ -32,7 +31,8 @@ namespace {
         return false;
     }
 
-    auto on_before_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, [](auto, auto) {
+    [[maybe_unused]]
+    auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
         auto input_cmd = types::Input_Cmd::get_class();
         auto skip_pressed = input_cmd->static_fields->DialogueAdvance->fields.IsPressed;
 

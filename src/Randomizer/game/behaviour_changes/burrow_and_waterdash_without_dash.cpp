@@ -24,7 +24,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(bool, SeinLogicCycle, get_AllowDashNew, app::SeinLogicCycle * this_ptr) {
-        modloader::ScopedSetter _(override_has_ability, true);
+        common::ScopedSetter _(override_has_ability, true);
         return next::SeinLogicCycle::get_AllowDashNew(this_ptr);
     }
 

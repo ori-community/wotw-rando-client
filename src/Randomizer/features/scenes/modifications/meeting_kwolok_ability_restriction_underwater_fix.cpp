@@ -15,12 +15,12 @@ namespace {
     auto& fix_enabled_state = randomizer::uber_states::state<"randoConfig", "fixMeetingKwolokUnderwaterAbilityRestriction">();
 
     [[maybe_unused]]
-    auto on_scene_loaded_handler = core::api::scenes::single_event_bus().register_handler("kwoloksCavernThroneRoom", [](auto metadata, auto) {
-        if (metadata->state != app::SceneState__Enum::Loaded) {
+    auto on_scene_loaded_handler = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("kwoloksCavernThroneRoom", [](const auto& event) {
+        if (event.state != app::SceneState__Enum::Loaded) {
             return;
         }
 
-        const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+        const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
 
         restriction_emerge_trigger_ref = il2cpp::WeakGCRef(
             il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"kwolokSetup", "emergeTrigger", "restrictAbility"})

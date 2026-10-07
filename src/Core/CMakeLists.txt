@@ -123,7 +123,6 @@ set(
         "enums/controller_angle.h"
         "enums/controller_axis.h"
         "enums/game_areas.h"
-        "enums/game_event.h"
         "enums/layer.h"
         "enums/audio.h"
         "enums/async_loading_state.h"

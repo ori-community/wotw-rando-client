@@ -42,7 +42,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_settings_loaded = core::settings::event_bus().register_handler(core::settings::SettingsEvent::Load, EventTiming::After, [](auto, auto) {
+    auto on_settings_loaded = core::settings::event_bus().on<core::settings::events::SettingsLoaded>([](auto) {
         if (initialized) {
             update_enable_world_map();
         }

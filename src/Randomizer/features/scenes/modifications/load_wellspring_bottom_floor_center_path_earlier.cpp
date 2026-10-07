@@ -13,7 +13,7 @@ namespace {
      * to not suck.
      */
 
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         // Extend water_mill_a_exit
         {
             auto metadata = ScenesManager::GetSceneInformation(core::api::scenes::get_scenes_manager(), il2cpp::string_new("waterMillAExit"));

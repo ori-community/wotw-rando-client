@@ -45,7 +45,7 @@ namespace core::api::audio {
         std::string artificial_host_name_template("randomizer_artificial_host_");
         int artificial_host_id = 1;
 
-        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
             modloader::info("sound", std::format("WWise version '{}.{}'", AkSoundEngine::GetMajorMinorVersion(), AkSoundEngine::GetSubminorBuildVersion()));
             modloader::info("sound", std::format("WWise soundbank version '{}'", AkSoundEngine::get_AK_SOUNDBANK_VERSION()));
 

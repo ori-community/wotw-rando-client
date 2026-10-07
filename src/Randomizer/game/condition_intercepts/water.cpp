@@ -24,7 +24,7 @@ namespace {
 
     [[maybe_unused]] core::reactivity::ReactiveEffect::ptr_t water_effect;
 
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         water_effect = core::reactivity::watch_effect().effect({clean_water_state}).after([] {
             randomizer::conditions::apply_all_states();
         }).trigger_on_load().finalize();

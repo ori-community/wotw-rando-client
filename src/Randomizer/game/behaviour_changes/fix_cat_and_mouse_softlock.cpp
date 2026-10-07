@@ -6,8 +6,8 @@
 #include <Core/uber_states/core_uber_states.h>
 #include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/modloader.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 using namespace modloader;
 using namespace app::classes;
@@ -57,16 +57,17 @@ namespace {
         il2cpp::unity::set_active(*crackling_sticks_trigger_go, active);
     }
 
-    void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata, const std::string&) {
-        if (metadata->state == app::SceneState__Enum::Unloading) {
+    [[maybe_unused]]
+    auto on_scene_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("petrifiedOwlFeedingGroundsRevised", [](const auto& event) {
+        if (event.state == app::SceneState__Enum::Unloading) {
             effect = nullptr;
         }
 
-        if (metadata->state != app::SceneState__Enum::Loaded) {
+        if (event.state != app::SceneState__Enum::Loaded) {
             return;
         }
 
-        const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+        const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
 
         const auto checkpoint_go = il2cpp::unity::find_child(
             scene_root_go,
@@ -149,8 +150,5 @@ namespace {
             })
             .trigger_on_load()
             .finalize();
-    }
-
-    [[maybe_unused]]
-    auto on_scene_load_handle = core::api::scenes::single_event_bus().register_handler("petrifiedOwlFeedingGroundsRevised", &on_scene_load);
+    });
 } // namespace

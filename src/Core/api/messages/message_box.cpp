@@ -46,7 +46,7 @@ namespace core::api::messages {
         std::unordered_map<int, MessageBox*> message_boxes;
 
         [[maybe_unused]]
-        auto on_after_unity_update = game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
+        auto on_after_unity_update = game::event_bus().on<game::events::AfterUnityUpdateLoop>([](auto) {
             sounds_played_this_frame = 0;
         });
 
@@ -325,9 +325,9 @@ namespace core::api::messages {
             })
             .finalize();
 
-        m_on_fixed_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [this](auto, auto) { on_fixed_update(); });
-        m_on_after_unity_update_handle = game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [this](auto, auto) { on_after_unity_update(); });
-        m_on_refresh_input_controls_handle = game::event_bus().register_handler(GameEvent::RefreshInputControls, EventTiming::After, [this](auto, auto) { m_renderers_dirty = true; });
+        m_on_fixed_update_handle = game::event_bus().on<game::events::FixedUpdate>([this](auto) { on_fixed_update(); });
+        m_on_after_unity_update_handle = game::event_bus().on<game::events::AfterUnityUpdateLoop>([this](auto) { on_after_unity_update(); });
+        m_on_refresh_input_controls_handle = game::event_bus().on<game::events::RefreshedInputControls>([this](auto) { m_renderers_dirty = true; });
 
         // Move back the background glow a little bit so it doesn't go out of the near-plane
         const auto glow_transform = Transform::GetChild(background_transform(), 0);

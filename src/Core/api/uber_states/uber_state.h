@@ -18,9 +18,29 @@ namespace core::api::uber_states {
             new_value(new_value) {}
     };
 
-    CORE_DLLEXPORT common::EventBus<BeforeUberStateChangedParameters*, UntypedUberId>& before_uber_state_changed();
-    CORE_DLLEXPORT common::EventBus<void, UntypedUberId>& on_uber_state_changed();
-    CORE_DLLEXPORT common::EventBus<UntypedUberId>& on_any_uber_state_changed();
+    namespace events {
+        struct BeforeUberStateChange {
+            const double new_value;
+
+            /** True if this uber state change should be prevented (i.e. no change happens) */
+            bool& prevent_change;
+
+            explicit BeforeUberStateChange(const double new_value, bool& prevent_change) :
+                new_value(new_value),
+                prevent_change(prevent_change) {}
+        };
+
+        struct UberStateChanged {};
+
+        using bus_t = common::DiscriminatingEventBus<
+            UntypedUberId,
+            BeforeUberStateChange,
+            UberStateChanged
+        >;
+    }
+
+    CORE_DLLEXPORT events::bus_t& event_bus();
+
     CORE_DLLEXPORT void apply_uber_state(app::IUberState* native_ptr);
 
     template<const UberStateType ID_TYPE>
@@ -228,7 +248,7 @@ namespace core::api::uber_states {
             if (modloader::are_uber_states_initialized()) {
                 initialize_native_ptr();
             } else {
-                m_initialize_droppable = modloader::event_bus().register_handler(ModloaderEvent::InitializeUberStates, [this](auto) {
+                m_initialize_droppable = modloader::event_bus().on<modloader::events::InitializeUberStates>([this](auto) {
                     initialize_native_ptr();
                     m_initialize_droppable = nullptr;
                 });
@@ -365,7 +385,7 @@ namespace core::api::uber_states {
             if (modloader::are_uber_states_initialized()) {
                 initialize_native_ptr();
             } else {
-                m_initialize_droppable = modloader::event_bus().register_handler(ModloaderEvent::InitializeUberStates, [this](auto) {
+                m_initialize_droppable = modloader::event_bus().on<modloader::events::InitializeUberStates>([this](auto) {
                     initialize_native_ptr();
                     m_initialize_droppable = nullptr;
                 });
@@ -717,7 +737,7 @@ namespace core::api::uber_states {
             if (modloader::are_uber_states_initialized()) {
                 initialize_native_ptr();
             } else {
-                m_initialize_droppable = modloader::event_bus().register_handler(ModloaderEvent::InitializeUberStates, [this](auto) {
+                m_initialize_droppable = modloader::event_bus().on<modloader::events::InitializeUberStates>([this](auto) {
                     initialize_native_ptr();
                     m_initialize_droppable = nullptr;
                 });

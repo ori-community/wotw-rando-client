@@ -35,7 +35,7 @@ namespace {
         modloader::debug("game", "Map revealed");
     }
 
-    auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+    auto on_after_new_game_initialized = core::api::game::event_bus().on<core::api::game::events::AfterNewGameInitialized>([](auto) {
         reveal_entire_map();
     });
 }

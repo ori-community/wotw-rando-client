@@ -12,12 +12,12 @@ namespace {
     bool prevent_switch_to_shard_menu = false;
 
     IL2CPP_INTERCEPT(void, SeinPickupProcessor, OnCollectSpiritShardPickup, app::SeinPickupProcessor * this_ptr, app::SpiritShardPickup* spiritShardPickup) {
-        ScopedSetter setter(collecting_spirit_shard, true);
+        common::ScopedSetter setter(collecting_spirit_shard, true);
         next::SeinPickupProcessor::OnCollectSpiritShardPickup(this_ptr, spiritShardPickup);
     }
 
     IL2CPP_INTERCEPT(void, SeinPickupProcessor, OnCollectedShardSlotUpgrade, app::SeinPickupProcessor * this_ptr, app::ShardSlotUpgradePickup* shardSlotPickup) {
-        ScopedSetter setter(collecting_spirit_shard, true);
+        common::ScopedSetter setter(collecting_spirit_shard, true);
         next::SeinPickupProcessor::OnCollectedShardSlotUpgrade(this_ptr, shardSlotPickup);
     }
 
@@ -42,7 +42,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, SpiritShardPickup, OnCollectorCandidateTouch, app::SpiritShardPickup * this_ptr, app::GameObject* collector) {
-        ScopedSetter setter(prevent_switch_to_shard_menu, true);
+        common::ScopedSetter setter(prevent_switch_to_shard_menu, true);
         next::SpiritShardPickup::OnCollectorCandidateTouch(this_ptr, collector);
     }
 

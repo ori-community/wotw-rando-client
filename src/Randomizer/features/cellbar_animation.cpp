@@ -97,7 +97,7 @@ namespace randomizer::ui {
         }
 
         [[maybe_unused]]
-        auto on_settings_loaded = core::settings::event_bus().register_handler(core::settings::SettingsEvent::Load, EventTiming::After, [](auto, auto) {
+        auto on_settings_loaded = core::settings::event_bus().on<core::settings::events::SettingsLoaded>([](auto) {
             disable_health_and_energy_bar_animations = core::settings::disable_health_and_energy_bar_animations();
         });
     } // namespace

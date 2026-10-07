@@ -24,8 +24,8 @@ namespace {
     auto& tuley_last_tree_planted = randomizer::uber_states::state<"gladesProjects", "lastTreePlanted">();
 
     [[maybe_unused]]
-    auto uber_state_notify = core::api::uber_states::on_uber_state_changed().register_handlers(
-        std::vector<std::tuple<core::api::uber_states::UntypedUberId>> {
+    auto uber_state_notify = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(
+       {
             grom_spirit_well_built,
             grom_houses_a_built,
             grom_houses_b_built,
@@ -40,7 +40,7 @@ namespace {
             tuley_spring_plants_planted,
             tuley_last_tree_planted,
         },
-        [](auto id) {
+        [](auto id, auto) {
             core::api::uber_states::UntypedUberState(42178, id.member).apply();
         }
     );
@@ -70,7 +70,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         create_project_intercept(grom_spirit_well_built, "wellspringGladesHubSetups/interactives/builderProjects/spiritWellSetup");
         create_project_intercept(grom_houses_a_built, "wellspringGladesHubSetups/interactives/builderProjects/mokiHutsSetup");
         create_project_intercept(grom_houses_b_built, "wellspringGladesHubSetups/interactives/builderProjects/mokiHutsBSetup");

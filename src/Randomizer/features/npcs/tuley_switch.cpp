@@ -16,12 +16,12 @@ namespace {
     auto& use_spawn_tuley_state = randomizer::uber_states::state<"randoConfig", "useSpawnTuleyRandoState">();
 
     [[maybe_unused]]
-    auto uber_state_notify = core::api::uber_states::on_uber_state_changed().register_handlers(
-        std::vector<std::tuple<core::api::uber_states::UntypedUberId>> {
-            spawn_tuley_state.get_uber_id(),
-            use_spawn_tuley_state.get_uber_id(),
+    auto uber_state_notify = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(
+        {
+            spawn_tuley_state,
+            use_spawn_tuley_state,
         },
-        [](auto) {
+        [](auto, auto) {
             randomizer::conditions::apply_all_states();
         }
     );
@@ -35,7 +35,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         randomizer::conditions::register_new_setup_state_controller_intercept(
             { "wellspringGladesHubSetups/interactives/gardenerSetup" },
             { TULEY_GONE, TULEY_EXISTS },

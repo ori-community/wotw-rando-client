@@ -141,7 +141,7 @@ namespace core::api::game::player {
                 return;
             }
 
-            ScopedSetter setter(prevent_default_pickup_handlers, false);
+            common::ScopedSetter setter(prevent_default_pickup_handlers, false);
             if (value >= 0.0f) {
                 SeinHealthController::GainHealth(sein->fields.Mortality->fields.Health, value, 4, false);
             } else if (get_health() + value < 0.0f) {
@@ -157,7 +157,7 @@ namespace core::api::game::player {
                 return;
             }
 
-            ScopedSetter setter(prevent_default_pickup_handlers, false);
+            common::ScopedSetter setter(prevent_default_pickup_handlers, false);
             if (value < 0.0f) {
                 CapsuleCrushDetector::KillOri(sein->fields.Mortality->fields.CrushDetector);
             } else {
@@ -171,7 +171,7 @@ namespace core::api::game::player {
                 return;
             }
 
-            ScopedSetter setter(prevent_default_pickup_handlers, false);
+            common::ScopedSetter setter(prevent_default_pickup_handlers, false);
             if (value >= 0.0f) {
                 SeinEnergy::Gain(sein->fields.Energy, value);
             } else {
@@ -185,7 +185,7 @@ namespace core::api::game::player {
                 return;
             }
 
-            ScopedSetter setter(prevent_default_pickup_handlers, false);
+            common::ScopedSetter setter(prevent_default_pickup_handlers, false);
             SeinEnergy::set_Current(sein->fields.Energy, value);
         }
 
@@ -200,7 +200,7 @@ namespace core::api::game::player {
                 return;
             }
 
-            ScopedSetter setter(prevent_default_pickup_handlers, false);
+            common::ScopedSetter setter(prevent_default_pickup_handlers, false);
             SeinHealthController::set_BaseMaxHealth(sein->fields.Mortality->fields.Health, value);
         }
 
@@ -215,7 +215,7 @@ namespace core::api::game::player {
                 return;
             }
 
-            ScopedSetter setter(prevent_default_pickup_handlers, false);
+            common::ScopedSetter setter(prevent_default_pickup_handlers, false);
             SeinEnergy::set_BaseMaxEnergy(sein->fields.Energy, value);
         }
 
@@ -561,7 +561,7 @@ namespace core::api::game::player {
     void refill_health() {
         const auto sein = player::sein();
         if (sein != nullptr) {
-            ScopedSetter setter(prevent_default_pickup_handlers, false);
+            common::ScopedSetter setter(prevent_default_pickup_handlers, false);
             SeinHealthController::RestoreAllHealth(sein->fields.Mortality->fields.Health, 4);
         }
     }
@@ -569,7 +569,7 @@ namespace core::api::game::player {
     void refill_energy() {
         const auto sein = player::sein();
         if (sein != nullptr) {
-            ScopedSetter setter(prevent_default_pickup_handlers, false);
+            common::ScopedSetter setter(prevent_default_pickup_handlers, false);
             SeinEnergy::RestoreAllEnergy(sein->fields.Energy);
         }
     }

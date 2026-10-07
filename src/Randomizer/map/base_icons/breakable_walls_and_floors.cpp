@@ -20,7 +20,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         icons = {
             // EastHollow.AboveBashFloor
             std::make_shared<MapIcon>(MapIcon::Type::StompableFloor, "Breakable Floor", app::Vector2{-1.94f, -4233.09f}, wall_visibility_effect(core::uber_states::state<937, 40225>()), MapIcon::ScaleMode::Linear),

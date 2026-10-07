@@ -20,7 +20,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         icons = {
             // LowerReach.MeltIceEXWall
             std::make_shared<MapIcon>(MapIcon::Type::IceWall, "Ice", app::Vector2{-332.48f, -4033.75f}, wall_visibility_effect(core::uber_states::state<28895, 17510>()), MapIcon::ScaleMode::Linear),

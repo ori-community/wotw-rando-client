@@ -20,7 +20,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         icons = {
             // UpperPools.RightKwolokOneWayWall
             std::make_shared<MapIcon>(MapIcon::Type::OneWayWallRight, "Breakable Wall", app::Vector2{-1589.13f, -4141.08f}, wall_visibility_effect(core::uber_states::state<5377, 3831>()), MapIcon::ScaleMode::Linear),

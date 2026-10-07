@@ -21,9 +21,10 @@ namespace randomizer::online {
             return false;
         }
 
-        const auto should_sync_event_bus_results = m_should_sync_event_bus.trigger_event(state_id);
+        auto prevent_sync = false;
+        m_event_bus.emit(events::BeforeSyncUberState(state_id, prevent_sync));
 
-        if (std::ranges::find(should_sync_event_bus_results, false) != should_sync_event_bus_results.end()) {
+        if (prevent_sync) {
             return false;
         }
 

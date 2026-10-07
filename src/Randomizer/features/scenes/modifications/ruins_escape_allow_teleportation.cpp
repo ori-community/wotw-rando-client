@@ -1,16 +1,15 @@
 #include <Core/api/game/game.h>
-#include <Core/api/graphics/sprite.h>
 #include <Core/api/graphics/textures.h>
-#include <Modloader/il2cpp_helpers.h>
-
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/property/reactivity.h>
 #include <Modloader/app/methods/CageStructureTool.h>
 #include <Modloader/app/methods/TeleportRestrictZone.h>
 #include <Modloader/app/types/TeleportRestrictZone.h>
+#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/windows_api/console.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 namespace {
     using namespace app::classes;
@@ -21,14 +20,14 @@ namespace {
     auto& fix_enabled_state = randomizer::uber_states::state<"randoConfig", "allowTeleportingAtRuinsMapstone">();
 
     [[maybe_unused]]
-    auto on_scene_loaded_handler = core::api::scenes::single_event_bus().register_handler(
+    auto on_scene_loaded_handler = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
         "desertRuinsBGChase",
-        [](const core::api::scenes::SceneLoadEventMetadata* metadata, const std::string&) {
-            if (metadata->state != app::SceneState__Enum::Loaded) {
+        [](const auto& event) {
+            if (event.state != app::SceneState__Enum::Loaded) {
                 return;
             }
 
-            const auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+            const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
 
             const auto teleport_restrict_zone_go = il2cpp::unity::find_child(
                 scene_root_go,

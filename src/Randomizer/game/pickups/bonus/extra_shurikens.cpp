@@ -52,7 +52,7 @@ namespace {
     auto destroy_spell_after_explosion = false;
     auto projectile_is_exploding = false;
     IL2CPP_INTERCEPT(void, ChakramProjectile, ExplodeProjectile, app::ChakramProjectile * this_ptr) {
-        modloader::ScopedSetter _(projectile_is_exploding, true);
+        common::ScopedSetter _(projectile_is_exploding, true);
         destroy_spell_after_explosion = false;
 
         next::ChakramProjectile::ExplodeProjectile(this_ptr);

@@ -5,11 +5,13 @@
 #include <string>
 
 namespace core::settings {
-    enum class SettingsEvent {
-        Load,
-    };
+    namespace events {
+        struct SettingsLoaded {};
 
-    CORE_DLLEXPORT common::TimedEventBus<void, SettingsEvent>& event_bus();
+        using bus_t = common::EventBus<SettingsLoaded>;
+    }
+
+    CORE_DLLEXPORT events::bus_t& event_bus();
     CORE_DLLEXPORT void reload();
     CORE_DLLEXPORT bool developer_mode();
     CORE_DLLEXPORT bool lock_cursor();

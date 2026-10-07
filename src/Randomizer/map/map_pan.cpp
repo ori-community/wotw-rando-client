@@ -25,7 +25,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT_WITH_ORDER(-10, void, AreaMapNavigation, HandleMapScrolling, app::AreaMapNavigation* this_ptr) {
-        modloader::ScopedSetter _(is_handling_map_scrolling, true);
+        common::ScopedSetter _(is_handling_map_scrolling, true);
         next::AreaMapNavigation::HandleMapScrolling(this_ptr);
     }
 
@@ -45,7 +45,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+    auto on_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
         // To force update last_non_void_player_map_position
         core::api::game::player::get_map_position();
     });

@@ -6,20 +6,16 @@
 namespace core::api::moon_animator {
     using namespace app::classes;
 
-    common::EventBus<const MoonAnimationEvent&> animation_event_bus_instance;
-
     // MoonAnimator_ActiveAnimation_OnRemovedFromAnimator
     IL2CPP_INTERCEPT(void, Moon::MoonAnimator_ActiveAnimation, OnRemovedFromAnimator, app::MoonAnimator_ActiveAnimation * this_ptr) {
         next::Moon::MoonAnimator_ActiveAnimation::OnRemovedFromAnimator(this_ptr);
 
         // MoonAnimation is the only thing implementing IAnimation, so this is safe
-        animation_event_bus_instance.trigger_event(MoonAnimationEvent{
-            MoonAnimationEvent::Type::Finished,
-            reinterpret_cast<app::MoonAnimation*>(this_ptr->fields.m_animation),
-        });
+        event_bus().emit(events::AnimationFinished(reinterpret_cast<app::MoonAnimation*>(this_ptr->fields.m_animation)));
     }
 
-    common::EventBus<const MoonAnimationEvent&>& animation_event_bus() {
-        return animation_event_bus_instance;
+    events::bus_t& event_bus() {
+        static events::bus_t event_bus;
+        return event_bus;
     }
 } // namespace core::api::moon_animator

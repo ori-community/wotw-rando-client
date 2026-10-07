@@ -104,7 +104,7 @@ namespace ghosts {
             };
 
             if (currently_processing_frame_ghost->preventing_tpose) {
-                modloader::ScopedSetter setter(disable_generic_puppet_animation_handlers, true);
+                common::ScopedSetter setter(disable_generic_puppet_animation_handlers, true);
                 GenericPuppet::EndAnimationById(this_ptr, 6, -1);
                 currently_processing_frame_ghost->preventing_tpose = false;
             }
@@ -125,7 +125,7 @@ namespace ghosts {
             currently_processing_frame_ghost->active_animations[puppet_id].erase(resource_id);
 
             if (this_ptr->fields.m_activeAnimations->fields._size == 0) {
-                modloader::ScopedSetter setter(disable_generic_puppet_animation_handlers, true);
+                common::ScopedSetter setter(disable_generic_puppet_animation_handlers, true);
                 GenericPuppet::StartAnimationById(this_ptr, 6, -1, 0);
                 currently_processing_frame_ghost->preventing_tpose = true;
             }
@@ -133,7 +133,7 @@ namespace ghosts {
     }
 
     bool RandoGhost::initialize() {
-        modloader::ScopedSetter setter(intercept_ghost_player_on_enable, true);
+        common::ScopedSetter setter(intercept_ghost_player_on_enable, true);
 
         auto ghost_manager = types::GhostManager::get_class()->static_fields->instance;
 
@@ -210,7 +210,7 @@ namespace ghosts {
     }
 
     void RandoGhost::play_frame_data(const std::vector<std::byte>& frame_data) {
-        modloader::ScopedSetter setter(currently_processing_frame_ghost, this);
+        common::ScopedSetter setter(currently_processing_frame_ghost, this);
 
         if (frame_data.empty()) {
             return;
@@ -421,7 +421,7 @@ namespace ghosts {
         if (ghost_recorder != nullptr && ghost_recorder->fields.m_binaryWriter == binary_writer) {
             if (core::api::game::game_controller()->fields._IsSuspended_k__BackingField) {
                 // Simulate 0 speed when game is paused
-                modloader::ScopedSetter _(core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed, {0, 0, 0});
+                common::ScopedSetter _(core::api::game::player::sein()->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed, {0, 0, 0});
 
                 // Force update position
                 previous->fields.Position = {0, 0, 0};
@@ -551,7 +551,7 @@ namespace ghosts {
         return frame;
     }
 
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         GhostManager::GetOrCreateRecorder();
     });
 } // namespace ghosts

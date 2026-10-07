@@ -1137,7 +1137,8 @@ namespace randomizer::area_segment_states {
     auto& water_lowered_state = core::uber_states::state<"lumaPoolsStateGroup", "waterLowered">();
     auto& luma_tp_state = core::uber_states::state<"lagoonStateGroup", 58183>();
 
-    auto on_pools_water_drained_changed = core::api::uber_states::on_uber_state_changed().register_handler(
+    [[maybe_unused]]
+    auto on_pools_water_drained_changed = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(
         water_lowered_state,
         [](auto) {
             // On lowering the Pools water, check whether the Pools TP map tile is active and if so, give the Pools TP

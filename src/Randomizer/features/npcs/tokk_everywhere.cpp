@@ -5,7 +5,7 @@
 #include <Modloader/windows_api/console.h>
 
 namespace {
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         // Upper Marsh
         // 1808259966 Present
         // 1558151251 Gone

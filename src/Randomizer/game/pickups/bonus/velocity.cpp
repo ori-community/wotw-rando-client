@@ -66,7 +66,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, SeinBashAttack, UpdateCharacterState, app::SeinBashAttack * this_ptr) {
-        modloader::ScopedSetter setter(should_override_animation_curve_speed_for_bash, true);
+        common::ScopedSetter setter(should_override_animation_curve_speed_for_bash, true);
         next::SeinBashAttack::UpdateCharacterState(this_ptr);
     }
 

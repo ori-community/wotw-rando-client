@@ -18,7 +18,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         randomizer::game_seed().prevent_grants(&is_running_race);
 
         // Disable the Burrow tree while running spirit trials
@@ -37,7 +37,7 @@ namespace {
     IL2CPP_INTERCEPT(void, RaceHandler, SetRaceInProgressState, app::RaceHandler * this_ptr, bool in_progress) {
         if (in_progress) {
             // Make Reach trial keystones give you actual keystones
-            in_trial_uber_state_changed_handle = core::api::uber_states::on_any_uber_state_changed().register_handler([](auto state_id) {
+            in_trial_uber_state_changed_handle = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>([](const auto& state_id, auto) {
                 if (state_id.group == 28895) {  // Baur's Reach
                     if (is_in<29898, 18358, 37444, 10823>(state_id.member) && core::api::uber_states::UntypedUberState(state_id).get<bool>()) {  // The 4 trial keystones
                        core::api::game::player::keystones().add(1);
@@ -49,8 +49,8 @@ namespace {
             randomizer::multiplayer_universe().uber_state_handler().start_queueing_changes();
 
             // Prevent outgoing changes
-            in_trial_should_sync_handle = randomizer::multiplayer_universe().uber_state_handler().should_sync_event_bus().register_handler([](auto state_id) {
-                return state_id.group == 44964;  // Trials group; only sync trials
+            in_trial_should_sync_handle = randomizer::multiplayer_universe().uber_state_handler().event_bus().on<randomizer::online::UberStateHandler::events::BeforeSyncUberState>([](const auto& event) {
+                event.prevent_sync = event.uber_id.group != 44964;  // Trials group; only sync trials
             });
         } else {
             in_trial_uber_state_changed_handle = nullptr;

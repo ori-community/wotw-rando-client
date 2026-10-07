@@ -231,30 +231,28 @@ namespace core::save_meta {
         }
 
         IL2CPP_INTERCEPT(void, Moon::UberStateValueStore, ctor_2, app::UberStateValueStore * this_ptr, app::Byte__Array* data) {
-            before_uber_value_store_loaded_event_bus().trigger_event(data);
             next::Moon::UberStateValueStore::ctor_2(this_ptr, read_save_meta_from_byte_array_with_current_parameters(data).vanilla_data);
         }
 
         IL2CPP_INTERCEPT(void, Moon::UberStateValueStore, ctor_3, app::UberStateValueStore * this_ptr, app::Byte__Array* data, int actual_size) {
-            before_uber_value_store_loaded_event_bus().trigger_event(data);
             auto result = read_save_meta_from_byte_array_with_current_parameters(data);
             next::Moon::UberStateValueStore::ctor_3(this_ptr, result.vanilla_data, result.vanilla_data_size);
         }
 
         IL2CPP_INTERCEPT(void, SaveGameController, LoadUberState_1, app::SaveGameController * this_ptr, app::String* file_name) {
-            ScopedSetter setter1(is_loading_save_file, true);
+            common::ScopedSetter setter1(is_loading_save_file, true);
 
             auto backup_slot = SaveSlotsManager::get_BackupIndex();
-            ScopedSetter setter2(is_loading_backup, backup_slot != -1);
+            common::ScopedSetter setter2(is_loading_backup, backup_slot != -1);
 
             next::SaveGameController::LoadUberState_1(this_ptr, file_name);
         }
 
         IL2CPP_INTERCEPT(void, SaveGameController, LoadUberState_2, app::SaveGameController * this_ptr, app::Byte__Array* data) {
-            ScopedSetter setter1(is_loading_save_file, true);
+            common::ScopedSetter setter1(is_loading_save_file, true);
 
             auto backup_slot = SaveSlotsManager::get_BackupIndex();
-            ScopedSetter setter2(is_loading_backup, backup_slot != -1);
+            common::ScopedSetter setter2(is_loading_backup, backup_slot != -1);
 
             next::SaveGameController::LoadUberState_2(this_ptr, data);
         }
@@ -265,7 +263,7 @@ namespace core::save_meta {
 
             if (backup_slot != -1) {
                 // We're loading a backup...
-                ScopedSetter setter(is_loading_backup, true);
+                common::ScopedSetter setter(is_loading_backup, true);
 
                 // Load the backup...
                 auto return_value = next::SaveGameController::PerformLoad(this_ptr);
@@ -306,24 +304,17 @@ namespace core::save_meta {
         }
 
         IL2CPP_INTERCEPT(void, DeathUberStateManager, OnDeath) {
-            ScopedSetter setter(is_dying, true);
+            common::ScopedSetter setter(is_dying, true);
             next::DeathUberStateManager::OnDeath();
         }
 
         [[maybe_unused]]
-        auto on_new_game_handle = api::game::event_bus().register_handler(
-            GameEvent::NewGame,
-            EventTiming::Before,
-            [](auto, auto) {
+        auto on_new_game_handle = api::game::event_bus().on<api::game::events::BeforeNewGame>(
+            [](auto) {
                 current_save_guid = MoodGuid();
             }
         );
     } // namespace
-
-    common::EventBus<app::Byte__Array*>& before_uber_value_store_loaded_event_bus() {
-        static common::EventBus<app::Byte__Array*> bus;
-        return bus;
-    }
 
     std::unordered_set<SaveMetaSlot> read_save_meta_slots_from_byte_array(
         app::Byte__Array* data,

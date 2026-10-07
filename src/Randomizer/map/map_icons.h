@@ -1,11 +1,13 @@
 #pragma once
 
+#include <Common/ext.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/property.h>
 #include <Modloader/app/types/Renderer.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Randomizer/map/map_filter.h>
 #include <optional>
+
 
 namespace randomizer::map::icons {
     struct IconScale;

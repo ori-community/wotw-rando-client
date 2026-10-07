@@ -1,32 +1,29 @@
-#include <Core/settings.h>
-
 #include <Common/settings.h>
-#include <Modloader/modloader.h>
+#include <Core/settings.h>
 #include <Modloader/fs.h>
-#include <nlohmann/json.hpp>
+#include <Modloader/modloader.h>
+
 
 namespace core::settings {
     common::settings::Settings& get_settings() {
         static std::unique_ptr<common::settings::Settings> settings;
 
         if (settings == nullptr) {
-            event_bus().trigger_event(SettingsEvent::Load, EventTiming::Before);
             settings = std::make_unique<common::settings::Settings>(modloader::fs::get_randomizer_user_data_path("settings.json"));
-            event_bus().trigger_event(SettingsEvent::Load, EventTiming::After);
+            event_bus().emit(events::SettingsLoaded());
         }
 
         return *settings;
     }
 
-    common::TimedEventBus<void, SettingsEvent>& event_bus() {
-        static common::TimedEventBus<void, SettingsEvent> value;
-        return value;
+    events::bus_t& event_bus() {
+        static events::bus_t bus;
+        return bus;
     }
 
     void reload() {
-        event_bus().trigger_event(SettingsEvent::Load, EventTiming::Before);
         get_settings().reload();
-        event_bus().trigger_event(SettingsEvent::Load, EventTiming::After);
+        event_bus().emit(events::SettingsLoaded());
     }
 
     bool developer_mode() {

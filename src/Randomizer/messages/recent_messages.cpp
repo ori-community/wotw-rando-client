@@ -23,7 +23,7 @@ namespace randomizer::messages {
         if (modloader::is_game_ready()) {
             initialize_game_objects();
         } else {
-            m_on_game_ready_droppable = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [this](auto) {
+            m_on_game_ready_droppable = modloader::event_bus().on<modloader::events::GameReady>([this](auto) {
                 initialize_game_objects();
             });
         }
@@ -72,7 +72,7 @@ namespace randomizer::messages {
             m_message_boxes.push_back(std::move(message_box));
         }
 
-        m_on_update_droppable = core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [this](auto, auto) {
+        m_on_update_droppable = core::api::game::event_bus().on<core::api::game::events::Update>([this](auto) {
             on_update();
         });
     }

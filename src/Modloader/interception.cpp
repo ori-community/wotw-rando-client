@@ -1,14 +1,13 @@
-#include <Modloader/modloader.h>
-#include <ranges>
-
 #include <Modloader/interception.h>
+#include <Modloader/modloader.h>
 #include <Modloader/windows_api/detours.h>
 #include <Modloader/windows_api/memory.h>
-
+#include <ranges>
 #include <unordered_map>
+#include <unordered_set>
+
 
 using namespace modloader::win;
-
 
 namespace modloader::interception {
     // These two are functions to guarantee initialization order.

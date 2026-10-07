@@ -20,7 +20,7 @@ namespace {
     }
 
     [[maybe_unused]]
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         icons = {
             // WoodsMain.YellowWallEXYellowWall
             std::make_shared<MapIcon>(MapIcon::Type::YellowWall, "Yellow Wall", app::Vector2{1066.15f, -4098.06f}, wall_visibility_effect(core::uber_states::state<58674, 29622>()), MapIcon::ScaleMode::Linear),

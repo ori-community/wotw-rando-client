@@ -18,7 +18,7 @@ namespace {
 
         // In Patch 2 they only use DamageWeight.Default, we emulate that
         // here for the function that applies the kickback force
-        modloader::ScopedSetter _(damage->fields.m_damageWeight, app::DamageWeight__Enum::Default);
+        common::ScopedSetter _(damage->fields.m_damageWeight, app::DamageWeight__Enum::Default);
         next::SeinDamageReciever::HandleGroundAnimationAndKickback(this_ptr, damage, kickback_enabled, hurt_timeremaining, active_animation, puppet);
     }
 }

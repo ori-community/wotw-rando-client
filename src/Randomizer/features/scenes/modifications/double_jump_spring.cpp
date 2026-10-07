@@ -6,7 +6,7 @@
 #include <optional>
 
 namespace {
-    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+    auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         core::api::scenes::add_item(
             "double_jump_tree_spring",
             { -566.93634f, -4545.384766f, 0.f },

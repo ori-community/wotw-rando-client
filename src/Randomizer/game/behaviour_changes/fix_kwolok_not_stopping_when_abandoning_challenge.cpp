@@ -3,10 +3,9 @@
 #include <Core/uber_states/core_uber_states.h>
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
 #include <Modloader/app/methods/PerformBackOutAction__AbandonChallange_d__8.h>
-#include <Modloader/app/types/SeinAbilityRestrictZone.h>
-#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+
 
 using namespace app::classes;
 
@@ -14,7 +13,7 @@ namespace {
     auto is_abandoning_challenge = false;
 
     IL2CPP_INTERCEPT(bool, PerformBackOutAction__AbandonChallange_d__8, MoveNext, app::PerformBackOutAction_AbandonChallange_d_8* this_ptr) {
-        modloader::ScopedSetter _(is_abandoning_challenge, true);
+        common::ScopedSetter _(is_abandoning_challenge, true);
         return next::PerformBackOutAction__AbandonChallange_d__8::MoveNext(this_ptr);
     }
 
@@ -24,14 +23,14 @@ namespace {
             return;
         }
 
-        auto handle = core::api::uber_states::before_uber_state_changed().register_handler(
+        auto handle = core::api::uber_states::event_bus().on<core::api::uber_states::events::BeforeUberStateChange>(
             core::uber_states::state<"lagoonStateGroup", "kwolokBossState">(),
-            [](auto params, auto) {
+            [](const auto& event) {
                 // When pressing "Abandon Challenge" and the last checkpoint is far away from the Kwolok
                 // escape, the timeline game object gets disabled which causes the OnStop action to
                 // set the fight state to 3 again.
-                if (params->new_value == 3) {
-                    params->prevent_change = true;
+                if (event.new_value == 3) {
+                    event.prevent_change = true;
                 }
             }
         );

@@ -328,17 +328,20 @@ namespace randomizer::league {
             }
         }
 
-        [[maybe_unused]] auto on_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](GameEvent event, EventTiming timing) {
-            if (is_showing_league_summary_screen) {
-                const auto menu_select_input = types::Input_Cmd::get_class()->static_fields->MenuSelect;
+        [[maybe_unused]]
+        auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
+            if (!is_showing_league_summary_screen) {
+                return;
+            }
 
-                if (!il2cpp::unity::is_valid(menu_select_input)) {
-                    return;
-                }
+            const auto menu_select_input = types::Input_Cmd::get_class()->static_fields->MenuSelect;
 
-                if (submission_status != SubmissionStatus::Uploading && Core::Input_InputButtonProcessor::get_OnPressed(menu_select_input)) {
-                    leave_league_summary_screen();
-                }
+            if (!il2cpp::unity::is_valid(menu_select_input)) {
+                return;
+            }
+
+            if (submission_status != SubmissionStatus::Uploading && Core::Input_InputButtonProcessor::get_OnPressed(menu_select_input)) {
+                leave_league_summary_screen();
             }
         });
     }

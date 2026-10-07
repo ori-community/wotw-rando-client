@@ -17,7 +17,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, ControlList, AssignKey, app::ControlList * this_ptr, app::ControlItem* control, int32_t index, app::KeyCode__Enum pressed_key) {
-        modloader::ScopedSetter _(is_assigning_key, true);
+        common::ScopedSetter _(is_assigning_key, true);
         next::ControlList::AssignKey(this_ptr, control, index, pressed_key);
     }
 }

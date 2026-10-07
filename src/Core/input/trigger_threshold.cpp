@@ -11,7 +11,7 @@ namespace {
     auto threshold = 0.08f;
 
     [[maybe_unused]]
-    auto on_settings_loaded = core::settings::event_bus().register_handler(core::settings::SettingsEvent::Load, EventTiming::After, [](auto, auto) {
+    auto on_settings_loaded = core::settings::event_bus().on<core::settings::events::SettingsLoaded>([](auto) {
         threshold = core::settings::controller_trigger_threshold();
     });
 
@@ -21,11 +21,11 @@ namespace {
             case app::XboxControllerInput_Button__Enum::RightTrigger: {
                 const auto controller = J2i::Net::XInputWrapper::XboxController::RetrieveController(0);
 
-                modloader::ScopedSetter left(
+                common::ScopedSetter left(
                     controller->fields.gamepadStateCurrent.Gamepad.bLeftTrigger,
                     static_cast<uint8_t>(std::abs(controller->fields.gamepadStateCurrent.Gamepad.bLeftTrigger / 255.0) >= threshold ? 255 : 0)
                 );
-                modloader::ScopedSetter right(
+                common::ScopedSetter right(
                     controller->fields.gamepadStateCurrent.Gamepad.bRightTrigger,
                     static_cast<uint8_t>(std::abs(controller->fields.gamepadStateCurrent.Gamepad.bRightTrigger / 255.0) >= threshold ? 255 : 0)
                 );
