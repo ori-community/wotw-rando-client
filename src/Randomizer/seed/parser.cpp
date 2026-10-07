@@ -96,7 +96,7 @@ namespace randomizer::seed {
                 }
             }
 
-            for (const auto& command_entry: json.at("command_lookup")) {
+            for (const auto& command_entry: json.at("commandLookup")) {
                 auto& command = output->data.commands.emplace_back();
                 for (const auto& instruction_entry: command_entry) {
                     current_item = instruction_entry.is_string() ? instruction_entry.get<std::string>() : instruction_entry.begin().key();

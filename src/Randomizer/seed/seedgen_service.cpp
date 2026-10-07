@@ -341,8 +341,8 @@ namespace randomizer::seedgen_interface {
             });
         }
 
-        body["seedgen_info"] = *m_seedgen_info_json_string;
-        body["uber_states"] = states_array;
+        body["seedgenInfo"] = *m_seedgen_info_json_string;
+        body["uberStates"] = states_array;
 
         m_client.queue_request(HttpClient::Request {
             .method = HttpClient::Method::POST,
@@ -357,8 +357,8 @@ namespace randomizer::seedgen_interface {
                     }
 
                     callback(ReachCheck{
-                        .map_icons_hash = response["map_icons_hash"].get<hash_t>(),
-                        .relevant_uber_states_hash = response["relevant_uber_states_hash"].get<hash_t>(),
+                        .map_icons_hash = response["mapIconsHash"].get<hash_t>(),
+                        .relevant_uber_states_hash = response["relevantUberStatesHash"].get<hash_t>(),
                         .reachable_map_icon_set_indices = reachable_indices,
                     });
                     return;
