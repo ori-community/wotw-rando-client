@@ -1,10 +1,11 @@
 #pragma once
-#include <Core/macros.h>
-#include <Modloader/app/methods/Moon/UberStateCollection.h>
-#include <Modloader/modloader.h>
-#include <type_traits>
 #include <Core/api/uber_states/uber_state_prelude.h>
 #include <Core/api/uber_states/uber_state_virtual.h>
+#include <Core/macros.h>
+#include <Modloader/app/methods/Moon/UberStateCollection.h>
+#include <Modloader/app/structs/IGenericUberState.h>
+#include <Modloader/modloader.h>
+#include <type_traits>
 
 
 namespace core::api::uber_states {
@@ -393,6 +394,7 @@ namespace core::api::uber_states {
         using native_t = app::IUberState;
 
         static UntypedUberState from_native_ptr(native_t* native_ptr);
+        static UntypedUberState from_native_ptr(app::IGenericUberState* native_ptr);
 
         explicit constexpr UntypedUberState(const UntypedUberId& id) : m_id(id) {
             initialize_native_ptr_when_uber_states_initialized();

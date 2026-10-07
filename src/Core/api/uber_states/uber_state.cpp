@@ -649,6 +649,10 @@ namespace core::api::uber_states {
         return UntypedUberState(UntypedUberId(group_id->fields.m_id, member_id->fields.m_id), native_ptr);
     }
 
+    UntypedUberState UntypedUberState::from_native_ptr(app::IGenericUberState* native_ptr) {
+        return from_native_ptr(reinterpret_cast<native_t*>(native_ptr));
+    }
+
     std::optional<UberStateType> UntypedUberState::get_type() {
         if (!m_type_cache.has_value()) {
             if (is_virtual_uber_state(m_id.group, m_id.member)) {
