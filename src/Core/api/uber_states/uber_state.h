@@ -8,16 +8,6 @@
 
 
 namespace core::api::uber_states {
-    struct BeforeUberStateChangedParameters {
-        const double new_value;
-
-        /** True if this uber state change should be prevented (i.e. no change happens) */
-        bool prevent_change = false;
-
-        explicit BeforeUberStateChangedParameters(const double new_value) :
-            new_value(new_value) {}
-    };
-
     namespace events {
         struct BeforeUberStateChange {
             const double new_value;
