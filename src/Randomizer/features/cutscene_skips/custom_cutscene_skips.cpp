@@ -67,7 +67,7 @@ namespace custom_cutscene_skips {
             // get_SkippingAvailable only handles a Prologue case, which does not exist in the Randomizer.
         }
 
-        IL2CPP_INTERCEPT(void, SkipCutsceneController, SkipCutscene, app::SkipCutsceneController * this_ptr) {
+        IL2CPP_INTERCEPT(void, SkipCutsceneController, SkipCutscene, app::SkipCutsceneController* this_ptr) {
             AK::Wwise::State::SetValue(Game::UI::get_Menu()->fields.Sounds->fields.NoUIDisplayedState);
             Game::UI::get_Menu()->fields.LockClosingMenu = false;
             Moon::Wwise::SoundListener::ResetTracking();
@@ -109,6 +109,14 @@ namespace custom_cutscene_skips {
                         }
                     }
                 }
+            }
+
+            // This call is necessary because some cutscenes "rely" on black screen cleanup to
+            // be executed cleanly (NO ONE can convince me that this is on purpose...).
+            // TODO: Figure out why e.g. the Reach Escape End cutscene skip even works in Vanilla.
+            //       I've stopped investigating after 2 hours now.
+            if (!core::api::faderb::is_game_visible()) {
+                FaderB::DoBlackScreenCleanup(core::api::faderb::get());
             }
 
             if (!is_executing_automatic_cutscene_skip) {
@@ -174,19 +182,6 @@ namespace custom_cutscene_skips {
             if (skip_metadata_of_last_get_skipping_available_call.transform([](auto& meta) -> bool { return meta.fade_on_automatic_skip; }).value_or(true)) {
                 const auto execute_skip_and_fade_to_game_visible = [=] {
                     execute_automatic_skip();
-
-                    // This call is necessary because some cutscenes "rely" on black screen cleanup to
-                    // be executed cleanly (NO ONE can convince me that this is on purpose...).
-                    // Cutscenes in the vanilla game require opening the menu, which does a black screen
-                    // cleanup. We removed that from the game to make the menus snappier.
-                    // For example, without this, the Reach Escape end cutscene just keeps playing for a bit
-                    // in the background even after skipping the cutscene. The timeline entity responsible
-                    // for playing that cutscene increments a global timestamp every frame, and the game disallows
-                    // opening the map if that timestamp is less than 0.1 seconds ago. Certified jank.
-                    // With this call, the cutscene gets unloaded immediately when skipping it, hence
-                    // allowing to open the map immediately (well, 0.1s after skipping at least...)
-                    FaderB::DoBlackScreenCleanup(core::api::faderb::get());
-
                     is_fading_for_automatic_cutscene_skip = false;
 
                     core::events::schedule_task(delay_fade_to_game_for_seconds, [] {
