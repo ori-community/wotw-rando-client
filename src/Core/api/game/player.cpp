@@ -584,7 +584,7 @@ namespace core::api::game::player {
         return sein ? SeinEnergy::get_MaxEnergy(sein->fields.Energy) : 0;
     }
 
-    bool is_alive() {
+    bool is_alive_according_to_moon() {
         const auto sein = player::sein();
 
         if (sein == nullptr) {
@@ -592,6 +592,16 @@ namespace core::api::game::player {
         }
 
         return SeinCharacter::get_IsAlive(sein);
+    }
+
+    bool is_actually_alive() {
+        const auto sein = player::sein();
+
+        if (sein == nullptr) {
+            return false;
+        }
+
+        return !sein->fields.Mortality->fields.DamageReciever->fields.m_died;
     }
 
     const Property<float>& health() { return health_property; }

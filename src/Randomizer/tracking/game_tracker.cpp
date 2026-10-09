@@ -124,7 +124,7 @@ namespace randomizer::timing {
         {GameStat::PickupsCollectedShop, {uber_states::state<"randoStats", "pickupsCollectedShop">()}},
         {GameStat::PickupsTotalShop, {uber_states::state<"randoStats", "pickupsTotalShop">()}},
         {GameStat::CurrentArea, {uber_states::state<"player", "currentArea">(), [] {
-            return core::api::game::player::is_alive();
+            return core::api::game::player::is_actually_alive();
         }}},
     };
 

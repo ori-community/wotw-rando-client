@@ -49,7 +49,8 @@ namespace core::api::game::player {
     CORE_DLLEXPORT int get_max_health();
     CORE_DLLEXPORT float get_max_energy();
 
-    CORE_DLLEXPORT bool is_alive();
+    CORE_DLLEXPORT bool is_alive_according_to_moon();
+    CORE_DLLEXPORT bool is_actually_alive();
 
     // TODO: Make these reactive.
     CORE_DLLEXPORT const Property<float>& health();

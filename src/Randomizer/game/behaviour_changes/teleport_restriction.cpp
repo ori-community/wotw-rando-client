@@ -128,7 +128,7 @@ namespace {
 
         // This check is an addition of the randomizer. In vanilla, you can teleport while being dead
         // but this messes up a bunch of systems so it's not allowed here.
-        if (core::api::game::player::health().get() <= 0.f) {
+        if (core::api::game::player::is_actually_alive()) {
             return app::SavePedestalController_CanTeleportResult__Enum::Denied_PerformingCinematic;
         }
 

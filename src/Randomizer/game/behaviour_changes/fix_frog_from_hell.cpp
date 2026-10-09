@@ -39,7 +39,7 @@ namespace {
     });
 
     IL2CPP_INTERCEPT(void, KwolokBossEscapeBehaviour, OnEscapeTimelineEnded, app::KwolokBossEscapeBehaviour* this_ptr) {
-        if (!core::api::game::player::is_alive() || is_restoring_checkpoint) {
+        if (!core::api::game::player::is_actually_alive() || is_restoring_checkpoint) {
             return;
         }
 
