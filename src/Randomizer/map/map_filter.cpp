@@ -9,6 +9,8 @@
 #include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/map/map_filter.h>
+
+#include <Core/api/scenes/scene_load.h>
 #include <Randomizer/randomizer.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <frozen/unordered_map.h>
@@ -101,7 +103,7 @@ namespace randomizer::map::filter {
     auto on_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
         filter_changed_effect = core::reactivity::watch_effect()
             .effect([] {
-                if (!is_filter_available(current_map_filter().get())) {
+                if (core::api::scenes::is_in_game() && !is_filter_available(current_map_filter().get())) {
                     core::reactivity::run_after_effects([] {
                         cycle_filter();
                     });
