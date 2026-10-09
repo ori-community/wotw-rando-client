@@ -1,3 +1,4 @@
+#include <Core/api/game/game.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/enums/uber_state.h>
@@ -15,8 +16,32 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::GameObject>> bone_bridge_go_ref;
 
     common::Droppable::ptr_t uber_state_bus_handle;
+    common::Droppable::ptr_t on_respawn_handle;
 
     auto& bone_bridge_broken_state = core::uber_states::state<"swampStateGroup", "boneBridgeBroken">();
+
+    void apply_bone_bridge() {
+        if (
+            const auto [destruction_timeline, bone_bridge_go] = std::make_tuple(
+                destruction_timeline_ref.and_then([](auto& ref) { return *ref; }),
+                bone_bridge_go_ref.and_then([](auto& ref) { return *ref; })
+            );
+            destruction_timeline.has_value() &&
+            bone_bridge_go.has_value()
+        ) {
+            if (bone_bridge_broken_state.get()) {
+                Moon::Timeline::TimelineEntity::StartPlayback_1(reinterpret_cast<app::TimelineEntity*>(*destruction_timeline));
+            } else {
+                il2cpp::unity::set_active(*bone_bridge_go, false);
+                il2cpp::unity::set_active(*bone_bridge_go, true);
+            }
+        } else {
+            bone_bridge_go_ref = std::nullopt;
+            destruction_timeline_ref = std::nullopt;
+            uber_state_bus_handle = nullptr;
+            on_respawn_handle = nullptr;
+        }
+    }
 
     [[maybe_unused]]
     auto on_scene_loaded_handler = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(
@@ -55,27 +80,13 @@ namespace {
             uber_state_bus_handle = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(
                 bone_bridge_broken_state,
                 [](auto) {
-                    if (
-                        const auto [destruction_timeline, bone_bridge_go] = std::make_tuple(
-                            destruction_timeline_ref.and_then([](auto& ref) { return *ref; }),
-                            bone_bridge_go_ref.and_then([](auto& ref) { return *ref; })
-                        );
-                        destruction_timeline.has_value() &&
-                        bone_bridge_go.has_value()
-                    ) {
-                        if (bone_bridge_broken_state.get()) {
-                            Moon::Timeline::TimelineEntity::StartPlayback_1(reinterpret_cast<app::TimelineEntity*>(*destruction_timeline));
-                        } else {
-                            il2cpp::unity::set_active(*bone_bridge_go, false);
-                            il2cpp::unity::set_active(*bone_bridge_go, true);
-                        }
-                    } else {
-                        bone_bridge_go_ref = std::nullopt;
-                        destruction_timeline_ref = std::nullopt;
-                        uber_state_bus_handle = nullptr;
-                    }
+                    apply_bone_bridge();
                 }
             );
+
+            on_respawn_handle = core::api::game::event_bus().on<core::api::game::events::Respawned>([](auto) {
+                apply_bone_bridge();
+            });
         }
     );
 } // namespace
