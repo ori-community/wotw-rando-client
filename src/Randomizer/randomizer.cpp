@@ -20,6 +20,8 @@
 #include <fstream>
 #include <utility>
 
+#include "map/reveal_map.h"
+
 
 namespace randomizer {
     using namespace app::classes;
@@ -104,6 +106,7 @@ namespace randomizer {
             pause_timer = false;
 
             map::filter::current_map_filter().set(map::filter::MapFilter::InLogic);
+            map::reveal_entire_map();
             core::api::game::save(true);
             uber_states::disable_reverts() = false;
 

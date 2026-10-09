@@ -276,6 +276,7 @@ set(
         "map/map_filter.h"
         "map/map_icons.h"
         "map/player_icon.h"
+        "map/reveal_map.h"
         "messages/credits_controller.h"
         "messages/message_queue.h"
         "messages/recent_messages.h"

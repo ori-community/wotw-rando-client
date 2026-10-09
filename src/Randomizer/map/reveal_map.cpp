@@ -1,12 +1,13 @@
 #include <Core/api/game/game.h>
-#include <Core/api/uber_states/uber_state.h>
 #include <Modloader/app/methods/GameWorld.h>
 #include <Modloader/app/methods/RuntimeGameWorldArea.h>
 #include <Modloader/app/types/GameWorld.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/map/reveal_map.h>
 #include <Randomizer/randomizer.h>
 
-namespace {
+
+namespace randomizer::map {
     using namespace app::classes;
 
     void reveal_entire_map() {
@@ -34,8 +35,4 @@ namespace {
 
         modloader::debug("game", "Map revealed");
     }
-
-    auto on_after_new_game_initialized = core::api::game::event_bus().on<core::api::game::events::AfterNewGameInitialized>([](auto) {
-        reveal_entire_map();
-    });
 }
