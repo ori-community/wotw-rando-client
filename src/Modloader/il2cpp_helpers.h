@@ -350,6 +350,8 @@ namespace il2cpp {
 
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(void* obj, std::vector<std::string_view> const& path);
 
+        IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(void* obj, std::initializer_list<std::string_view> const& path);
+
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> find_children(void* obj, std::string_view name);
 
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> find_children(void* obj, std::vector<std::string_view> const& path);

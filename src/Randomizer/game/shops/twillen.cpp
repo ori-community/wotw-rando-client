@@ -1,21 +1,23 @@
-#include <Randomizer/game/shops/shop.h>
-#include <Randomizer/game/shops/twillen.h>
-
 #include <Core/api/game/player.h>
 #include <Core/api/graphics/textures.h>
+#include <Core/api/system/message_provider.h>
 #include <Core/api/uber_states/uber_state.h>
-
+#include <Core/utils/misc.h>
+#include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateShards_Shard.h>
 #include <Modloader/app/methods/PlayerSpiritShards.h>
+#include <Modloader/app/methods/SpellUIExperience.h>
 #include <Modloader/app/methods/SpellUIShardEquipStatus.h>
 #include <Modloader/app/methods/SpiritShardDescription.h>
+#include <Modloader/app/methods/MenuScreen.h>
 #include <Modloader/app/methods/SpiritShardShopUIItem.h>
 #include <Modloader/app/methods/SpiritShardUIItem.h>
 #include <Modloader/app/methods/SpiritShardUIShardBackdrop.h>
 #include <Modloader/app/methods/SpiritShardUIShardDetails.h>
 #include <Modloader/app/methods/SpiritShardsShopScreen.h>
 #include <Modloader/app/methods/SpiritShardsShopScreen___c.h>
+#include <Modloader/app/methods/System/String.h>
 #include <Modloader/app/methods/UberShaderAPI.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Boxed.h>
@@ -23,15 +25,17 @@
 #include <Modloader/app/types/Renderer.h>
 #include <Modloader/app/types/SpellUIExperience.h>
 #include <Modloader/app/types/SpiritShardSettings.h>
+#include <Modloader/app/types/TextBox.h>
 #include <Modloader/app/types/UI.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
-
-#include <Core/api/system/message_provider.h>
-#include <Modloader/app/methods/SpellUIExperience.h>
+#include <Randomizer/game/shops/shop.h>
+#include <Randomizer/game/shops/twillen.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
+#include <frozen/unordered_map.h>
 #include <set>
+
 
 namespace randomizer::game::shops::twillen {
     std::optional<ShopSlot::is_purchased_state_id_t> get_state_id_optional_for_spirit_shard_type(app::SpiritShardType__Enum spirit_shard_type) {
@@ -76,6 +80,23 @@ namespace randomizer::game::shops::twillen {
         return slot.value().get();
     }
 
+    ShopCollection::twillen_shop_t::slot_t& get_slot(const app::PlayerUberStateShards_Shard* upgradable_shard_item) {
+        return get_slot(upgradable_shard_item->fields.m_type);
+    }
+
+    ShopkeeperItemRuntimeAttributes get_slot_attributes(ShopCollection::twillen_shop_t::slot_t& slot) {
+        const auto cost = slot.cost.get();
+        return {
+            .visibility = slot.visibility(),
+            .is_affordable = core::api::game::player::spirit_light().get() >= cost,
+            .is_owned = is_owned(slot),
+            .cost = cost,
+            .name_message_provider = core::api::system::create_message_provider(slot.name),
+            .description_message_provider = core::api::system::create_message_provider(slot.description),
+            .shop_type = ShopType::Twillen,
+        };
+    }
+
     std::optional<std::reference_wrapper<ShopCollection::twillen_shop_t::slot_t>> get_slot_optional(app::SpiritShardType__Enum spirit_shard_type) {
         const auto state_id = get_state_id_optional_for_spirit_shard_type(spirit_shard_type);
 
@@ -92,50 +113,7 @@ namespace randomizer::game::shops::twillen {
         using namespace app::classes::UnityEngine;
         using namespace randomizer::game::shops;
 
-        auto is_completing_purchase = false;
-
-        const std::set<app::SpiritShardType__Enum> TWILLEN_SHARDS{
-            app::SpiritShardType__Enum::GlassCannon,
-            app::SpiritShardType__Enum::TripleJump,
-            app::SpiritShardType__Enum::AntiAir,
-            app::SpiritShardType__Enum::Swap,
-            app::SpiritShardType__Enum::SpiritLightLuck,
-            app::SpiritShardType__Enum::Vitality,
-            app::SpiritShardType__Enum::Energy,
-            app::SpiritShardType__Enum::CombatLuck
-        };
-
-        IL2CPP_INTERCEPT(bool, PlayerSpiritShards, HasShard, app::PlayerSpiritShards* this_ptr, app::SpiritShardType__Enum shard_type) {
-            if (!is_completing_purchase && is_in_shop(ShopType::Twillen) && TWILLEN_SHARDS.contains(shard_type)) {
-                return is_owned(get_slot(shard_type));
-            }
-
-            return next::PlayerSpiritShards::HasShard(this_ptr, shard_type);
-        }
-
-        IL2CPP_INTERCEPT(void, SpiritShardUIShardBackdrop, SetUpgradeCount, app::SpiritShardUIShardBackdrop* this_ptr, int actual, int total) {
-            if (is_in_shop(ShopType::Twillen)) {
-                actual = 0;
-                total = 0;
-            }
-
-            next::SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr, actual, total);
-        }
-
-        IL2CPP_INTERCEPT(bool, Moon::uberSerializationWisp::PlayerUberStateShards_Shard, get_VisibleInShop, app::PlayerUberStateShards_Shard* this_ptr) {
-            auto const& slot = get_slot_optional(this_ptr->fields.m_type);
-            return !slot.has_value() || slot->get().visibility() == SlotVisibility::Visible;
-        }
-
-        IL2CPP_INTERCEPT(bool, Moon::uberSerializationWisp::PlayerUberStateShards_Shard, get_PurchasableInShop, app::PlayerUberStateShards_Shard* this_ptr) {
-            auto const& slot = get_slot_optional(this_ptr->fields.m_type);
-            return !slot.has_value() || slot->get().visibility() == SlotVisibility::Visible;
-        }
-
-        bool overwrite_shard = false;
-        app::PlayerUberStateShards_Shard* selected_shard;
-
-        const std::unordered_map<app::SpiritShardType__Enum, int> TWILLEN_SHOP_ORDER = {
+        constexpr frozen::unordered_map<app::SpiritShardType__Enum, int, 8> TWILLEN_SHOP_ORDER = {
             {app::SpiritShardType__Enum::Energy,          0},
             {app::SpiritShardType__Enum::Vitality,        1},
             {app::SpiritShardType__Enum::AntiAir,         2},
@@ -161,53 +139,122 @@ namespace randomizer::game::shops::twillen {
             return TWILLEN_SHOP_ORDER.at(shard_a->fields.m_type) - TWILLEN_SHOP_ORDER.at(shard_b->fields.m_type);
         }
 
-        IL2CPP_INTERCEPT(void, SpiritShardsShopScreen, UpdateContextCanvasShards, app::SpiritShardsShopScreen* this_ptr) {
-            common::ScopedSetter setter(overwrite_shard, is_in_shop(ShopType::Twillen));
-            selected_shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
-            next::SpiritShardsShopScreen::UpdateContextCanvasShards(this_ptr);
+        IL2CPP_INTERCEPT(void, SpiritShardShopUIItem, Update, app::SpiritShardShopUIItem* this_ptr) {
+            // NOOP
+        }
+
+        IL2CPP_INTERCEPT(void, SpiritShardShopUIItem, UpdateShard, app::SpiritShardShopUIItem* this_ptr, app::PlayerUberStateShards_Shard* shard) {
+            // NOOP
+        }
+
+        IL2CPP_INTERCEPT(void, SpiritShardShopUIItem, SetItemContext, app::SpiritShardShopUIItem* this_ptr, app::Object* context, app::Object* grid_context) {
+            const auto shard = reinterpret_cast<app::PlayerUberStateShards_Shard*>(context);
+
+            if (shard == nullptr) {
+                return;
+            }
+
+            this_ptr->fields.m_spiritShard = shard;
+
+            auto& slot = get_slot(shard);
+            const auto attributes = get_slot_attributes(slot);
+
+            // Vanilla is missing a Lock icon, so we copy it from the disabled spiritShardUIItem game object
+            auto randomizer_lock_icon = il2cpp::unity::find_child(this_ptr, "RandoLocked");
+            if (randomizer_lock_icon == nullptr) {
+                randomizer_lock_icon = il2cpp::unity::instantiate_object(il2cpp::unity::find_child(this_ptr, {"spiritShardUIItem", "locked"}));
+                il2cpp::unity::set_object_name(randomizer_lock_icon, "RandoLocked");
+                il2cpp::unity::set_parent(randomizer_lock_icon, this_ptr, true);
+            }
+
+            // LockedGO is actually used for the Hidden state
+            il2cpp::unity::set_active(this_ptr->fields.SpiritLightGO, false);
+            il2cpp::unity::set_active(this_ptr->fields.AlreadyOwnedGO, false);
+            il2cpp::unity::set_active(this_ptr->fields.CostGO, false);
+            il2cpp::unity::set_active(this_ptr->fields.PurchasableGO, false);
+            il2cpp::unity::set_active(this_ptr->fields.NotPurchasableGO, false);
+            il2cpp::unity::set_active(this_ptr->fields.Shard->fields.Background, false);
+            il2cpp::unity::set_active(this_ptr->fields.Shard->fields.UnknownGO, false);
+            il2cpp::unity::set_active(randomizer_lock_icon, false);
+
+            const auto can_purchase = attributes.can_purchase();
+            const auto background = this_ptr->fields.Shard->fields.Background;
+            const auto icon_go = this_ptr->fields.Shard->fields.IconGO;
+
+            utils::set_color(il2cpp::unity::get_game_object(background), can_purchase ? this_ptr->fields.PurchasableColor : this_ptr->fields.UnpurchaseableColor);
+            utils::set_color(icon_go, can_purchase ? this_ptr->fields.PurchasableColor : this_ptr->fields.UnpurchaseableColor);
+
+            if (attributes.visibility == SlotVisibility::Hidden) {
+                il2cpp::unity::set_active(this_ptr->fields.Shard->fields.UnknownGO, true);
+                return;
+            }
+
+            il2cpp::unity::set_active(this_ptr->fields.Shard->fields.IconGO, true);
+            il2cpp::unity::set_active(this_ptr->fields.Shard->fields.NotUpgradableGO, true);
+            il2cpp::unity::set_active(this_ptr->fields.Shard->fields.Background, true);
+
+            const auto icon_renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.IconGO, types::Renderer::get_class());
+            slot.icon()->apply_to(icon_renderer);
+
+            if (attributes.is_owned) {
+                il2cpp::unity::set_active(this_ptr->fields.AlreadyOwnedGO, true);
+            } else {
+                il2cpp::unity::set_active(this_ptr->fields.CostGO, true);
+                il2cpp::unity::set_active(this_ptr->fields.SpiritLightGO, true);
+                const auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, types::TextBox::get_class());
+                CatlikeCoding::TextBox::TextBox::SetText_2(
+                    text_box,
+                    il2cpp::string_new(std::to_string(attributes.cost))
+                );
+                CatlikeCoding::TextBox::TextBox::RefreshText(text_box);
+            }
+
+            if (attributes.visibility == SlotVisibility::Locked) {
+                il2cpp::unity::set_active(randomizer_lock_icon, true);
+            }
+
+            if (attributes.is_affordable) {
+                il2cpp::unity::set_active(this_ptr->fields.PurchasableGO, true);
+            } else {
+                il2cpp::unity::set_active(this_ptr->fields.NotPurchasableGO, true);
+            }
+        }
+
+        IL2CPP_INTERCEPT(bool, SpiritShardsShopScreen, CanPurchase, app::SpiritShardsShopScreen* this_ptr) {
+            const auto shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
+            const auto attributes = get_slot_attributes(get_slot(shard));
+            return attributes.can_purchase();
         }
 
         IL2CPP_INTERCEPT(void, SpiritShardsShopScreen, CompletePurchase, app::SpiritShardsShopScreen* this_ptr) {
-            common::ScopedSetter _(is_completing_purchase, true);
+            const auto shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
+            auto& slot = get_slot(shard);
 
-            auto* const shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
-            auto sound = SpiritShardsShopScreen::get_PurchaseCompleteSound(this_ptr);
-            il2cpp::invoke(this_ptr, "PlaySoundEvent", sound);
-            il2cpp::invoke(core::api::game::player::sein()->fields.PlayerSpiritShards->fields.OnInventoryUpdated, "Invoke", shard);
+            const auto sound = SpiritShardsShopScreen::get_PurchaseCompleteSound(this_ptr);
+            MenuScreen::PlaySoundEvent(reinterpret_cast<app::MenuScreen*>(this_ptr), sound);
 
-            auto ui_experience = il2cpp::unity::get_component_in_children<app::SpellUIExperience>(
+            const auto ui_experience = il2cpp::unity::get_component_in_children<app::SpellUIExperience>(
                 il2cpp::unity::get_game_object(types::UI::get_class()->static_fields->SeinUI), types::SpellUIExperience::get_class()
             );
+            SpellUIExperience::Spend(ui_experience, slot.cost.get());
 
-            if (il2cpp::unity::is_valid(ui_experience)) {
-                SpellUIExperience::Spend(ui_experience, get_slot(shard->fields.m_type).cost.get());
-            }
-
-            buy_item(get_slot(shard->fields.m_type));
-            Moon::uberSerializationWisp::PlayerUberStateShards_Shard::RunSetDirtyCallback(shard);
-            UpdateContextCanvasShards(this_ptr);
+            buy_item(slot);
+            SpiritShardsShopScreen::UpdateContextCanvasShards(this_ptr);
         }
 
-        bool locked_shard_overwrite = false;
+        auto is_updating_shop_screen = false;
         IL2CPP_INTERCEPT(void, SpiritShardUIShardDetails, UpdateDetails, app::SpiritShardUIShardDetails* this_ptr) {
-            auto* const item = overwrite_shard ? selected_shard : this_ptr->fields.m_item;
-            auto type = item->fields.m_type;
-            auto slot = overwrite_shard ? std::make_optional(std::reference_wrapper(get_slot(this_ptr->fields.m_item->fields.m_type))) : std::nullopt;
-            auto* const settings = types::SpiritShardSettings::get_class()->static_fields->Instance;
-            auto* const description = il2cpp::invoke<app::SpiritShardDescription>(settings->fields.Descriptions, "GetValue", &type);
-            if ((!item->fields.m_gained && this_ptr->fields.RequireOwned) || locked_shard_overwrite) {
-                type = app::SpiritShardType__Enum::None;
+            if (!is_updating_shop_screen) {
+                next::SpiritShardUIShardDetails::UpdateDetails(this_ptr);
+                return;
             }
 
-            auto* const renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
-            if (overwrite_shard) {
-                const auto& icon = slot->get().icon();
-                if (icon != nullptr) {
-                    icon->apply_to(renderer);
-                }
-            } else {
-                auto texture = core::api::graphics::textures::TextureIdentifier::shard(type).load();
-                texture->apply_to(renderer);
+            auto& slot = get_slot(this_ptr->fields.m_item->fields.m_type);
+            auto* const icon_renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
+
+            const auto& icon = slot.icon();
+            if (icon != nullptr) {
+                icon->apply_to(icon_renderer);
             }
 
             auto* const name_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
@@ -218,19 +265,8 @@ namespace randomizer::game::shops::twillen {
 
             description_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Top;
             description_box->fields.TextBox->fields.maxHeight = 8.f;
-
-            if (overwrite_shard) {
-                name_box->fields.MessageProvider = core::api::system::create_message_provider(slot->get().name);
-                description_box->fields.MessageProvider = core::api::system::create_message_provider(slot->get().description);
-            } else if (type == app::SpiritShardType__Enum::None) {
-                name_box->fields.MessageProvider = this_ptr->fields.LockedName;
-                description_box->fields.MessageProvider = this_ptr->fields.LockedDescription;
-            } else {
-                name_box->fields.MessageProvider = description->fields.Name;
-                auto* const property_levels = description->fields.UpgradablePropertyLevels;
-                auto* const property_level = property_levels->fields._items->vector[item->fields.m_level];
-                description_box->fields.MessageProvider = property_level->fields.Description;
-            }
+            name_box->fields.MessageProvider = core::api::system::create_message_provider(slot.name);
+            description_box->fields.MessageProvider = core::api::system::create_message_provider(slot.description);
 
             MessageBox::RefreshText_1(name_box);
 
@@ -244,105 +280,29 @@ namespace randomizer::game::shops::twillen {
             MessageBox::RefreshText_1(description_box);
             SpiritShardUIShardDetails::UpdateUpgradeDetails(this_ptr);
 
-            auto active = false;
-            il2cpp::invoke(this_ptr->fields.LevelNextGO, "SetActive", &active);
-            il2cpp::invoke(this_ptr->fields.LevelNextDescriptionGO, "SetActive", &active);
-            if (this_ptr->fields.ShowEquipStatus) {
-                SpellUIShardEquipStatus::SetEquipment(this_ptr->fields.m_equipStatus, app::EquipmentType__Enum::None);
+            il2cpp::unity::set_active(this_ptr->fields.LevelNextGO, false);
+            il2cpp::unity::set_active(this_ptr->fields.LevelNextDescriptionGO, false);
+            SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr->fields.Background, 0, 0);
+        }
+
+        IL2CPP_INTERCEPT(void, SpiritShardsShopScreen, OnNewItemHighlighted, app::SpiritShardsShopScreen* this_ptr, bool first_after_populating) {
+            const auto selected_shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
+
+            if (this_ptr->fields.m_shardDetailsCanvas->fields.m_item != selected_shard) {
+                this_ptr->fields.m_shardDetailsCanvas->fields.m_item = selected_shard;
+                common::ScopedSetter _(is_updating_shop_screen, true);
+                SpiritShardUIShardDetails::UpdateDetails(this_ptr->fields.m_shardDetailsCanvas);
             }
         }
 
-        IL2CPP_INTERCEPT(void, SpiritShardUIShardDetails, ShowEmptyDetails, app::SpiritShardUIShardDetails* this_ptr) {
-            if (overwrite_shard && selected_shard != nullptr) {
-                common::ScopedSetter setter(locked_shard_overwrite, true);
-                this_ptr->fields.m_item = selected_shard;
-                SpiritShardUIShardDetails::UpdateDetails(this_ptr);
-                this_ptr->fields.m_item = nullptr;
-            } else {
-                next::SpiritShardUIShardDetails::ShowEmptyDetails(this_ptr);
+        IL2CPP_INTERCEPT(void, SpiritShardsShopScreen, UpdateContextCanvasShards, app::SpiritShardsShopScreen* this_ptr) {
+            const auto selected_shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
+
+            if (this_ptr->fields.m_shardDetailsCanvas->fields.m_item != selected_shard) {
+                this_ptr->fields.m_shardDetailsCanvas->fields.m_item = selected_shard;
+                common::ScopedSetter _(is_updating_shop_screen, true);
+                SpiritShardUIShardDetails::UpdateDetails(this_ptr->fields.m_shardDetailsCanvas);
             }
-        }
-
-        IL2CPP_INTERCEPT(void, SpiritShardsShopScreen, Show, app::SpiritShardsShopScreen* this_ptr) {
-            // csharp_bridge::update_shop_data();
-            auto sein = core::api::game::player::sein();
-            if (sein != nullptr && sein->fields.PlayerSpiritShards != nullptr) {
-                auto settings = types::SpiritShardSettings::get_class()->static_fields->Instance;
-                for (auto shard: il2cpp::ListIterator(sein->fields.PlayerSpiritShards->fields.InventoryItemsAvailableToBuy)) {
-                    const auto desc = il2cpp::invoke<app::SpiritShardDescription>(settings->fields.Descriptions, "GetValue", &shard);
-                    // We overwrite get_BuyCost on SpiritShardDescription to use InitialBuyCost as the shard index into our shop.
-                    desc->fields.InitialBuyCost = static_cast<int>(shard);
-                }
-            }
-
-            next::SpiritShardsShopScreen::Show(this_ptr);
-        }
-
-        IL2CPP_INTERCEPT(void, SpiritShardUIItem, UpdateShardIcon, app::SpiritShardUIItem* this_ptr) {
-            if (is_in_shop(ShopType::Twillen)) {
-                if (this_ptr->fields.m_spiritShard != nullptr) {
-                    auto& slot = get_slot(this_ptr->fields.m_spiritShard->fields.m_type);
-                    const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
-                    const auto is_visible = slot.visibility() == SlotVisibility::Visible;
-                    const auto is_locked = slot.visibility() == SlotVisibility::Locked;
-                    GameObject::SetActive(this_ptr->fields.IconGO, is_visible);
-                    GameObject::SetActive(this_ptr->fields.LockedGO, is_locked);
-
-                    const auto icon = slot.icon();
-                    if (icon != nullptr) {
-                        icon->apply_to(renderer);
-                    }
-
-                    return;
-                }
-            }
-
-            next::SpiritShardUIItem::UpdateShardIcon(this_ptr);
-        }
-
-        IL2CPP_INTERCEPT(int, SpiritShardDescription, get_BuyCost, app::SpiritShardDescription* this_ptr) {
-            return get_slot(static_cast<app::SpiritShardType__Enum>(this_ptr->fields.InitialBuyCost)).cost.get();
-        }
-
-        IL2CPP_INTERCEPT(void, SpiritShardShopUIItem, UpdateShard, app::SpiritShardShopUIItem* this_ptr, app::PlayerUberStateShards_Shard* shard) {
-            auto owned = true;
-            auto visible = false;
-            if (shard != nullptr) {
-                auto& slot = get_slot(this_ptr->fields.Shard->fields.m_spiritShard->fields.m_type);
-                SpiritShardUIItem::UpdateShardIcon(this_ptr->fields.Shard);
-                owned = is_owned(slot);
-                visible = Moon::uberSerializationWisp::PlayerUberStateShards_Shard::get_VisibleInShop(shard);
-                const auto cost = slot.cost.get();
-                const auto purchasable = slot.visibility() == SlotVisibility::Visible;
-
-                const auto affordable = core::api::game::player::spirit_light().get() >= cost;
-                const auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.IconGO, types::Renderer::get_class());
-                const auto background_renderer = il2cpp::unity::get_component<app::Renderer>(
-                    this_ptr->fields.Shard->fields.Background, types::Renderer::get_class()
-                );
-                if (purchasable && affordable && !owned) {
-                    UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.PurchasableColor);
-                    UberShaderAPI::SetColor_1(background_renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.PurchasableColor);
-                } else {
-                    UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.UnpurchaseableColor);
-                    UberShaderAPI::SetColor_1(background_renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.UnpurchaseableColor);
-                }
-
-                app::MessageDescriptor descriptor = {0};
-                descriptor.Message = il2cpp::string_new(std::to_string(cost));
-                const auto empty = il2cpp::string_new("");
-                MessageBox::SetMessage(
-                    il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.CostGO, types::MessageBox::get_class()), descriptor, empty, empty
-                );
-
-                const auto enabled = purchasable && !owned && affordable;
-                GameObject::SetActive(this_ptr->fields.PurchasableGO, visible && enabled);
-                GameObject::SetActive(this_ptr->fields.NotPurchasableGO, visible && !enabled);
-            }
-
-            GameObject::SetActive(this_ptr->fields.CostGO, visible && !owned);
-            GameObject::SetActive(this_ptr->fields.SpiritLightGO, visible && !owned);
-            GameObject::SetActive(this_ptr->fields.AlreadyOwnedGO, owned);
         }
     } // namespace
 } // namespace randomizer::game::shops::twillen

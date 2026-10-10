@@ -1,14 +1,14 @@
 #pragma once
 
 #include <Common/ext.h>
+#include <Core/api/graphics/textures.h>
 #include <Core/api/uber_states/uber_state.h>
+#include <Core/property.h>
+#include <Core/save_meta/save_meta.h>
+#include <Modloader/modloader.h>
 #include <utility>
 #include <variant>
-#include <Core/property.h>
 
-#include "Core/api/graphics/textures.h"
-#include "Core/save_meta/save_meta.h"
-#include "Modloader/modloader.h"
 
 namespace randomizer::game::shops {
     enum class ShopType {

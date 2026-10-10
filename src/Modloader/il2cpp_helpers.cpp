@@ -329,6 +329,18 @@ namespace il2cpp {
             return static_cast<app::GameObject*>(obj);
         }
 
+        app::GameObject* find_child(void* obj, std::initializer_list<std::string_view> const& path) {
+            for (auto const& name: path) {
+                if (obj == nullptr) {
+                    break;
+                }
+
+                obj = find_child(obj, name);
+            }
+
+            return static_cast<app::GameObject*>(obj);
+        }
+
         std::vector<app::GameObject*> find_children(void* obj, std::string_view name) {
             std::vector<app::GameObject*> children;
             const auto transform = get_transform(obj);

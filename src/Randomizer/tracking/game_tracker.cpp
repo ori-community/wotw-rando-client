@@ -13,6 +13,8 @@
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/SeinDoorHandler.h>
+#include <Modloader/app/methods/SpellUIExperience.h>
+#include <Modloader/app/methods/SpellUISeeds.h>
 #include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/il2cpp_math.h>
 #include <Modloader/interception_macros.h>
@@ -624,6 +626,24 @@ namespace randomizer::timing {
         IL2CPP_INTERCEPT(void, GameController, RestartGame, app::GameController* this_ptr, bool select_saveslot) {
             GameStateMachine::SetToStartScreen(GameStateMachine::get_Instance());
             next::GameController::RestartGame(this_ptr, select_saveslot);
+        }
+
+        auto& ore_spent_state = uber_states::state<"randoStats", "oreSpent">();
+        IL2CPP_INTERCEPT(bool, SpellUISeeds, Spend, app::SpellUISeeds* this_ptr, int amount) {
+            const auto worked = next::SpellUISeeds::Spend(this_ptr, amount);
+            if (worked) {
+                ore_spent_state.set(amount + ore_spent_state.get());
+            }
+            return worked;
+        }
+
+        auto& spirit_light_spent_state = randomizer::uber_states::state<"randoStats", "spiritLightSpent">();
+        IL2CPP_INTERCEPT(bool, SpellUIExperience, Spend, app::SpellUIExperience * this_ptr, int amount) {
+            const auto worked = next::SpellUIExperience::Spend(this_ptr, amount);
+            if (worked) {
+                spirit_light_spent_state.set(amount + spirit_light_spent_state.get());
+            }
+            return worked;
         }
     } // namespace
 

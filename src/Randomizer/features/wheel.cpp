@@ -61,7 +61,7 @@ namespace randomizer::features::wheel {
 
             core::Property<std::string> name;
             core::Property<std::string> description;
-            std::optional<std::shared_ptr<core::api::graphics::textures::Texture>> texture = std::nullopt;
+            std::optional<core::api::graphics::textures::Texture::ptr_t> texture = std::nullopt;
             app::Color color = {1.0f, 1.0f, 1.0f, 1.0f};
             wheel_action_fn action = nullptr;
             std::array<wheel_callback, 4> callbacks = {nullptr, nullptr, nullptr, nullptr};

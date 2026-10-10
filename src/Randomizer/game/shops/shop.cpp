@@ -37,7 +37,7 @@ namespace randomizer::game::shops {
         return *is_locked ? SlotVisibility::Locked : SlotVisibility::Visible;
     }
 
-    std::shared_ptr<core::api::graphics::textures::Texture> ShopUIShopSlot::icon() {
+    core::api::graphics::textures::Texture::ptr_t ShopUIShopSlot::icon() {
         if (!m_icon_cache.has_value()) {
             m_icon_cache = icon_texture_identifier.get().load();
         }

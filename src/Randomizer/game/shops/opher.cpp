@@ -1,6 +1,5 @@
-#include <Randomizer/game/shops/opher.h>
-#include <Randomizer/game/shops/shop.h>
 #include <Core/api/game/player.h>
+#include <Core/api/system/message_provider.h>
 #include <Modloader/app/methods/DesiredUberStateComposite.h>
 #include <Modloader/app/methods/Moon/SerializedByteUberState.h>
 #include <Modloader/app/methods/SpellUIExperience.h>
@@ -12,6 +11,8 @@
 #include <Modloader/app/types/WeaponmasterItem.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Randomizer/game/shops/opher.h>
+#include <Randomizer/game/shops/shop.h>
 
 
 namespace randomizer::game::shops::opher {
@@ -58,28 +59,27 @@ namespace randomizer::game::shops::opher {
         return slot.value().get();
     }
 
+    ShopCollection::opher_shop_t::slot_t& get_slot(const app::WeaponmasterItem* weaponmaster_item) {
+        return get_slot(weaponmaster_item->fields.Upgrade->fields.AcquiredAbilityType, weaponmaster_item->fields.Upgrade->fields.RequiredAbility);
+    }
+
+    ShopkeeperItemRuntimeAttributes get_slot_attributes(ShopCollection::opher_shop_t::slot_t& slot) {
+        const auto cost = slot.cost.get();
+        return {
+            .visibility = slot.visibility(),
+            .is_affordable = core::api::game::player::spirit_light().get() >= cost,
+            .is_owned = is_owned(slot),
+            .cost = cost,
+            .name_message_provider = core::api::system::create_message_provider(slot.name),
+            .description_message_provider = core::api::system::create_message_provider(slot.description),
+            .shop_type = ShopType::Opher,
+        };
+    }
+
     namespace {
         using namespace modloader;
         using namespace app::classes;
         using namespace randomizer::game::shops;
-
-        IL2CPP_INTERCEPT(bool, WeaponmasterItem, get_IsOwned, app::WeaponmasterItem* item) {
-            if (is_in_shop(ShopType::Opher)) {
-                return is_owned(get_slot(item->fields.Upgrade->fields.AcquiredAbilityType, item->fields.Upgrade->fields.RequiredAbility));
-            }
-
-            return next::WeaponmasterItem::get_IsOwned(item);
-        }
-
-        IL2CPP_INTERCEPT(int, WeaponmasterItem, GetCostForLevel, app::WeaponmasterItem* item, int level) {
-            if (is_in_shop(ShopType::Opher)) {
-                const auto& slot = get_slot(item->fields.Upgrade->fields.AcquiredAbilityType, item->fields.Upgrade->fields.RequiredAbility);
-
-                return slot.cost.get();
-            }
-
-            return next::WeaponmasterItem::GetCostForLevel(item, level);
-        }
 
         IL2CPP_INTERCEPT(void, WeaponmasterItem, DoPurchase, app::WeaponmasterItem* this_ptr, app::PurchaseContext* context) {
             auto level = Moon::SerializedByteUberState::get_Value(this_ptr->fields.Upgrade->fields.UpgradeLevel);
@@ -105,39 +105,8 @@ namespace randomizer::game::shops::opher {
             buy_item(slot);
         }
 
-        IL2CPP_INTERCEPT(bool, UpgradableShardItem, get_IsVisible, app::UpgradableShardItem* z) {
-            // TODO: Is this needed?
-            return true;
-        }
-
-        IL2CPP_INTERCEPT_WITH_ORDER(10, bool, WeaponmasterItem, get_IsVisible, app::WeaponmasterItem* this_ptr) {
-            if (il2cpp::is_assignable(this_ptr, types::WeaponmasterItem::get_class()) && this_ptr->fields.Upgrade != nullptr) {
-                auto& slot = get_slot(this_ptr->fields.Upgrade->fields.AcquiredAbilityType, this_ptr->fields.Upgrade->fields.RequiredAbility);
-
-                return slot.visibility() == SlotVisibility::Visible;
-            }
-
-            return next::WeaponmasterItem::get_IsVisible(this_ptr);
-        }
-
-        IL2CPP_INTERCEPT(bool, WeaponmasterItem, get_IsLocked, app::WeaponmasterItem* this_ptr) {
-            if (il2cpp::is_assignable(this_ptr, types::WeaponmasterItem::get_class()) && this_ptr->fields.Upgrade != nullptr) {
-                auto& slot = get_slot(this_ptr->fields.Upgrade->fields.AcquiredAbilityType, this_ptr->fields.Upgrade->fields.RequiredAbility);
-
-                return slot.visibility() == SlotVisibility::Locked;
-            }
-
-            return false; // get_IsLocked(this_ptr);
-        }
-
         // Hide the "Uses Energy" label in the shop screen as it's easily replaceable with a colored description.
         IL2CPP_INTERCEPT(bool, WeaponmasterItem, get_UsesEnergy, app::WeaponmasterItem* this_ptr) { return false; }
-
-        IL2CPP_INTERCEPT(bool, WeaponmasterItem, get_IsAffordable, app::WeaponmasterItem* this_ptr) {
-            auto& slot = get_slot(this_ptr->fields.Upgrade->fields.AcquiredAbilityType, this_ptr->fields.Upgrade->fields.RequiredAbility);
-
-            return core::api::game::player::spirit_light().get() >= slot.cost.get();
-        }
 
         IL2CPP_INTERCEPT(
             bool,
@@ -149,13 +118,15 @@ namespace randomizer::game::shops::opher {
             app::ShopKeeperHints* hints
         ) {
             app::MessageProvider* selected_hint;
-            if (!WeaponmasterItem::get_IsVisible(this_ptr)) {
+            const auto attributes = get_slot_attributes(get_slot(this_ptr));
+
+            if (attributes.visibility == SlotVisibility::Hidden) {
                 selected_hint = hints->fields.ShardNotDiscovered;
-            } else if (WeaponmasterItem::get_IsLocked(this_ptr)) {
-                selected_hint = hints->fields.ShardNotDiscovered;
-            } else if (WeaponmasterItem::get_IsOwned(this_ptr)) {
+            } else if (attributes.visibility == SlotVisibility::Locked) {
+                selected_hint = hints->fields.IsLocked;
+            } else if (attributes.is_owned) {
                 selected_hint = hints->fields.AlreadyOwned;
-            } else if (!WeaponmasterItem::get_IsAffordable(this_ptr)) {
+            } else if (!attributes.is_affordable) {
                 selected_hint = hints->fields.NotEnoughSpiritLight;
             } else {
                 return true;
