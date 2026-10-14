@@ -1,25 +1,28 @@
-#include <Modloader/interception_macros.h>
-#include <Modloader/app/methods/UnityEngine/Object.h>
-#include <Modloader/app/methods/Moon/DamageReceiver.h>
-#include <Modloader/app/methods/PetrifiedOwlBossEntity.h>
-#include <Modloader/app/methods/Moon/Entity.h>
+#include <Core/api/game/player.h>
 #include <Modloader/app/methods/Damage.h>
+#include <Modloader/app/methods/HornBugBossEntity.h>
+#include <Modloader/app/methods/Moon/DamageReceiver.h>
+#include <Modloader/app/methods/Moon/Entity.h>
+#include <Modloader/app/methods/PetrifiedOwlBossEntity.h>
 #include <Modloader/app/methods/UberGCManager.h>
+#include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/types/Damage.h>
 #include <Modloader/app/types/Entity.h>
+#include <Modloader/app/types/HornbugBossEntity.h>
 #include <Modloader/app/types/Object_1.h>
-#include <Randomizer/features/damage.h>
+#include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/features/damage.h>
 #include <unordered_set>
 
 
 namespace randomizer::damage {
     using namespace app::classes;
 
-    bool force_deal_damage = false;
-    std::unordered_set<int32_t> forced_damage_ids;
-
     namespace {
+        auto force_deal_damage = false;
+        std::unordered_set<int32_t> forced_damage_ids;
+
         [[maybe_unused]]
         auto on_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
             // TODO: If we ever need more static MethodInfo* pointers to be initialized, make something prettier
@@ -46,6 +49,30 @@ namespace randomizer::damage {
             }
 
             return next::Moon::DamageReceiver::get_Active(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(void, HornBugBossEntity, ResolveDamage, app::HornBugBossEntity* this_ptr, app::DamageResult* damage_result) {
+            if (damage_result->Damage->fields.m_damageType == app::DamageType__Enum::DebugDamage) {
+                Moon::Entity::ResolveDamage(reinterpret_cast<app::Entity*>(this_ptr), damage_result);
+            } else {
+                next::HornBugBossEntity::ResolveDamage(this_ptr, damage_result);
+            }
+        }
+
+        IL2CPP_INTERCEPT(bool, Moon::DamageReceiver, IsDamageFilteredByAngle, app::DamageReceiver* this_ptr, app::Damage* damage) {
+            if (damage->fields.m_damageType == app::DamageType__Enum::DebugDamage) {
+                return false;
+            }
+
+            return next::Moon::DamageReceiver::IsDamageFilteredByAngle(this_ptr, damage);
+        }
+
+        IL2CPP_INTERCEPT(bool, Moon::DamageReceiver, IsDamageFilteredByReceiver, app::DamageReceiver* this_ptr, app::Damage* damage) {
+            if (damage->fields.m_damageType == app::DamageType__Enum::DebugDamage) {
+                return false;
+            }
+
+            return next::Moon::DamageReceiver::IsDamageFilteredByReceiver(this_ptr, damage);
         }
     } // namespace
 
@@ -78,6 +105,7 @@ namespace randomizer::damage {
                 continue;
             }
 
+            auto path = il2cpp::unity::get_path(entity);
             entities.insert(entity);
 
             for (auto damage_receiver: il2cpp::ArrayIterator(entity->fields.m_vitals->fields.DamageReceivers)) {
@@ -109,7 +137,11 @@ namespace randomizer::damage {
                     forced_damage_ids.insert(damage->fields.ID);
                 }
 
-                Moon::DamageReceiver::OnRecieveDamage(entity->fields.m_vitals->fields.DamageReceivers->vector[0], damage);
+                if (il2cpp::is_assignable(entity, types::HornBugBossEntity::get_class())) {
+                    Moon::DamageReceiver::OnRecieveDamage(entity->fields.m_vitals->fields.DamageReceivers->vector[4], damage);
+                } else {
+                    Moon::DamageReceiver::OnRecieveDamage(entity->fields.m_vitals->fields.DamageReceivers->vector[0], damage);
+                }
                 break;
             }
         }
