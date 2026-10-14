@@ -21,7 +21,7 @@ namespace core::api::uber_states {
         using setter_fn_t = std::optional<std::function<void(double value)>>;
 
         enum class ChangeDetectionMode {
-            /** Requires manually invoking notify_used with a UberStateDependency */
+            /** Requires manually invoking notify_changed with a UberStateDependency or calling check_for_changes */
             Manual,
             /** Polls the getter function at the start of every Update tick */
             Poll,
