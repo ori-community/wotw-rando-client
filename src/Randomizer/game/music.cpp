@@ -51,7 +51,7 @@ namespace {
      * This emulates the sounds of the Howl fight. It's needed because we nuke the original
      * behavior below.
      */
-    IL2CPP_INTERCEPT(void, NightCrawlerFightController, FinishFight, app::NightCrawlerFightController * this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(10, void, NightCrawlerFightController, FinishFight, app::NightCrawlerFightController * this_ptr) {
         next::NightCrawlerFightController::FinishFight(this_ptr);
 
         core::api::audio::set_state(SoundStateGroupID::nightCrawlerDefeated_uber, SoundStateID::nightCrawlerDefeated);

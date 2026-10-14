@@ -178,6 +178,7 @@ DEFINE_NAMED_STATE(706, "bell6", SerializedByteUberState, 2)
 DEFINE_NAMED_STATE(707, "bell7", SerializedByteUberState, 1)
 DEFINE_NAMED_STATE(708, "bell8", SerializedByteUberState, 0)
 DEFINE_NAMED_STATE(709, "bell9", SerializedByteUberState, 0)
+DEFINE_NAMED_VIRTUAL_STATE(800, "howlFightActive", ReadOnlyVirtualBooleanUberState)
 DEFINE_NAMED_STATE(2000, "cleanWater", SerializedBooleanUberState, false)
 
 #undef GROUP_ID

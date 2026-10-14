@@ -11,6 +11,8 @@
 #include <Randomizer/uber_states/random_value_generator.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
 
+#include <Randomizer/features/howl_fight_state.h>
+
 
 namespace randomizer::uber_states {
     #undef DEFINE_NAMED_STATE
@@ -159,6 +161,7 @@ namespace randomizer::uber_states {
             );
 
             uber_states::random_value_generator::register_virtual_uber_states();
+            howl_fight_state::register_virtual_uber_states();
 
             register_virtual_uber_state(
                 group_id<"settings">(),

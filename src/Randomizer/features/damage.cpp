@@ -71,13 +71,9 @@ namespace randomizer::damage {
             return next::Moon::DamageReceiver::IsDamageFilteredByReceiver(this_ptr, damage);
         }
 
-        IL2CPP_INTERCEPT(void, NightCrawlerFightController, Awake, app::NightCrawlerFightController* this_ptr) {
+        IL2CPP_INTERCEPT_WITH_ORDER(0, void, NightCrawlerFightController, Awake, app::NightCrawlerFightController* this_ptr) {
             night_crawler_fight_controller_ref = il2cpp::WeakGCRef(this_ptr);
             next::NightCrawlerFightController::Awake(this_ptr);
-        }
-
-        IL2CPP_INTERCEPT(void, NightCrawlerFightController, DamageReceived, app::NightCrawlerFightController* this_ptr, app::Damage* damage) {
-            next::NightCrawlerFightController::DamageReceived(this_ptr, damage);
         }
     } // namespace
 
