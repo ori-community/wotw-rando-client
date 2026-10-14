@@ -1,7 +1,8 @@
 #pragma once
+#include <Core/events/task.h>
+#include <Randomizer/features/damage.h>
 #include <Randomizer/seed/instruction_utils.h>
 #include <Randomizer/seed/seed.h>
-#include <Randomizer/features/damage.h>
 
 
 INSTRUCTION(DealEnemyDamage)

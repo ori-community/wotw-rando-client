@@ -82,6 +82,7 @@ namespace randomizer::damage {
 
         const auto nightcrawler_fight_controller = night_crawler_fight_controller_ref.and_then([](auto& ref) { return *ref; });
         auto all_damage_receivers = reinterpret_cast<app::DamageReceiver__Array*>(UnityEngine::Resources::FindObjectsOfTypeAll_1(il2cpp::get_runtime_type(types::DamageReceiver::get_class())));
+        auto all_entities = reinterpret_cast<app::Entity__Array*>(UnityEngine::Resources::FindObjectsOfTypeAll_1(il2cpp::get_runtime_type(types::Entity::get_class())));
         std::unordered_set<app::Entity*> entities;
 
         for (auto& found_damage_receiver: il2cpp::ArrayIterator(all_damage_receivers)) {
@@ -118,51 +119,61 @@ namespace randomizer::damage {
                 types::Entity::get_class()
             );
 
-            if (!il2cpp::unity::get_active_in_hierarchy(entity)) {
-                continue;
-            }
-
-            if (entities.contains(entity)) {
+            if (!il2cpp::unity::get_active_in_hierarchy(entity) || entity->fields.m_vitals == nullptr) {
                 continue;
             }
 
             entities.insert(entity);
+        }
 
-            for (auto damage_receiver: il2cpp::ArrayIterator(entity->fields.m_vitals->fields.DamageReceivers)) {
-                if (!Moon::DamageReceiver::get_Active(damage_receiver)) {
-                    continue;
+        for (auto& entity : il2cpp::ArrayIterator(all_entities)) {
+            if (!il2cpp::unity::get_active_in_hierarchy(entity) || entity->fields.m_vitals == nullptr) {
+                continue;
+            }
+
+            entities.insert(entity);
+        }
+
+        const auto deal_damage_to = [force](app::DamageReceiver* damage_receiver, float amount, const app::Vector3 position) {
+            const auto damage = types::Damage::create();
+
+            Damage::ctor(
+                damage,
+                amount,
+                app::Vector2{0, 0},
+                position,
+                app::DamageType__Enum::DebugDamage,
+                app::AbilityType__Enum::None,
+                nullptr,
+                -1,
+                nullptr,
+                app::SpiritShardType__Enum::None,
+                false,
+                app::DamageWeight__Enum::Medium,
+                0.0,
+                true
+            );
+
+            if (force) {
+                forced_damage_ids.insert(damage->fields.ID);
+            }
+
+            Moon::DamageReceiver::OnRecieveDamage(damage_receiver, damage);
+        };
+
+        for (const auto& entity : entities) {
+            if (il2cpp::is_assignable(entity, types::HornBugBossEntity::get_class())) {
+                deal_damage_to(entity->fields.m_vitals->fields.DamageReceivers->vector[4], amount, app::Vector3{0, 0, 0});
+            } else {
+                for (auto& damage_receiver: il2cpp::ArrayIterator(entity->fields.m_vitals->fields.DamageReceivers)) {
+                    if (!Moon::DamageReceiver::get_Active(damage_receiver)) {
+                        continue;
+                    }
+
+                    const auto position = Moon::Entity::get_NavigationAgentPosition(entity);
+                    deal_damage_to(damage_receiver, amount, position);
+                    break;
                 }
-
-                const auto position = Moon::Entity::get_NavigationAgentPosition(entity);
-                const auto damage = types::Damage::create();
-
-                Damage::ctor(
-                    damage,
-                    amount,
-                    app::Vector2{0, 0},
-                    position,
-                    app::DamageType__Enum::DebugDamage,
-                    app::AbilityType__Enum::None,
-                    nullptr,
-                    -1,
-                    nullptr,
-                    app::SpiritShardType__Enum::None,
-                    false,
-                    app::DamageWeight__Enum::Medium,
-                    0.0,
-                    true
-                );
-
-                if (force) {
-                    forced_damage_ids.insert(damage->fields.ID);
-                }
-
-                if (il2cpp::is_assignable(entity, types::HornBugBossEntity::get_class())) {
-                    Moon::DamageReceiver::OnRecieveDamage(entity->fields.m_vitals->fields.DamageReceivers->vector[4], damage);
-                } else {
-                    Moon::DamageReceiver::OnRecieveDamage(entity->fields.m_vitals->fields.DamageReceivers->vector[0], damage);
-                }
-                break;
             }
         }
     }
