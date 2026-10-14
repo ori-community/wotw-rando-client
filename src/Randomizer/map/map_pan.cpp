@@ -14,7 +14,7 @@ namespace {
     using namespace app::classes;
 
     auto is_handling_map_scrolling = false;
-    app::Vector3 last_non_void_player_map_position{};
+    app::Vector3 last_non_void_player_map_position{0.f, -4100.f};
 
     IL2CPP_INTERCEPT_WITH_ORDER(0, float, UnityEngine::AnimationCurve, Evaluate, app::AnimationCurve* this_ptr, float time) {
         if (is_handling_map_scrolling) {
