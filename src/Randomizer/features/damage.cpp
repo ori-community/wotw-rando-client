@@ -3,13 +3,16 @@
 #include <Modloader/app/methods/HornBugBossEntity.h>
 #include <Modloader/app/methods/Moon/DamageReceiver.h>
 #include <Modloader/app/methods/Moon/Entity.h>
+#include <Modloader/app/methods/NightCrawlerFightController.h>
 #include <Modloader/app/methods/PetrifiedOwlBossEntity.h>
 #include <Modloader/app/methods/UberGCManager.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
+#include <Modloader/app/methods/UnityEngine/Resources.h>
 #include <Modloader/app/types/Damage.h>
 #include <Modloader/app/types/Entity.h>
-#include <Modloader/app/types/HornbugBossEntity.h>
+#include <Modloader/app/types/HornBugBossEntity.h>
 #include <Modloader/app/types/Object_1.h>
+#include <Modloader/app/types/DamageReceiver.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/features/damage.h>
@@ -22,6 +25,7 @@ namespace randomizer::damage {
     namespace {
         auto force_deal_damage = false;
         std::unordered_set<int32_t> forced_damage_ids;
+        std::optional<il2cpp::WeakGCRef<app::NightCrawlerFightController>> night_crawler_fight_controller_ref;
 
         [[maybe_unused]]
         auto on_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
@@ -74,6 +78,15 @@ namespace randomizer::damage {
 
             return next::Moon::DamageReceiver::IsDamageFilteredByReceiver(this_ptr, damage);
         }
+
+        IL2CPP_INTERCEPT(void, NightCrawlerFightController, Awake, app::NightCrawlerFightController* this_ptr) {
+            night_crawler_fight_controller_ref = il2cpp::WeakGCRef(this_ptr);
+            next::NightCrawlerFightController::Awake(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(void, NightCrawlerFightController, DamageReceived, app::NightCrawlerFightController* this_ptr, app::Damage* damage) {
+            next::NightCrawlerFightController::DamageReceived(this_ptr, damage);
+        }
     } // namespace
 
     void damage_all_enemies(float amount, bool force) {
@@ -88,10 +101,39 @@ namespace randomizer::damage {
             init(0x4E67);
         }
 
-        auto all_damage_receivers = UnityEngine::Object::FindObjectsOfType_DamageReceiver();
+        const auto nightcrawler_fight_controller = night_crawler_fight_controller_ref.and_then([](auto& ref) { return *ref; });
+        auto all_damage_receivers = reinterpret_cast<app::DamageReceiver__Array*>(UnityEngine::Resources::FindObjectsOfTypeAll_1(il2cpp::get_runtime_type(types::DamageReceiver::get_class())));
         std::unordered_set<app::Entity*> entities;
 
         for (auto& found_damage_receiver: il2cpp::ArrayIterator(all_damage_receivers)) {
+            if (nightcrawler_fight_controller.has_value() && (*nightcrawler_fight_controller)->fields.DamageReceiver == found_damage_receiver) {
+                const auto damage = types::Damage::create();
+
+                Damage::ctor(
+                    damage,
+                    amount,
+                    app::Vector2{0, 0},
+                    app::Vector3{0, 0, 0},
+                    app::DamageType__Enum::DebugDamage,
+                    app::AbilityType__Enum::None,
+                    nullptr,
+                    -1,
+                    nullptr,
+                    app::SpiritShardType__Enum::None,
+                    false,
+                    app::DamageWeight__Enum::Medium,
+                    0.0,
+                    true
+                );
+
+                if (force) {
+                    forced_damage_ids.insert(damage->fields.ID);
+                }
+
+                Moon::DamageReceiver::OnRecieveDamage(found_damage_receiver, damage);
+                continue;
+            }
+
             const auto entity = il2cpp::unity::get_component<app::Entity>(
                 il2cpp::unity::get_game_object(found_damage_receiver),
                 types::Entity::get_class()
@@ -105,7 +147,6 @@ namespace randomizer::damage {
                 continue;
             }
 
-            auto path = il2cpp::unity::get_path(entity);
             entities.insert(entity);
 
             for (auto damage_receiver: il2cpp::ArrayIterator(entity->fields.m_vitals->fields.DamageReceivers)) {
