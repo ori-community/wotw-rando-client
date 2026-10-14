@@ -341,6 +341,26 @@ namespace randomizer::uber_states {
             debug_validate_virtual_uber_state(group_id, member_id);
         }
 
+        template<>
+        void debug_validate_uber_state<core::api::uber_states::UberStateType::ReadOnlyVirtualBooleanUberState>(const int group_id, const int member_id) {
+            debug_validate_virtual_uber_state(group_id, member_id);
+        }
+
+        template<>
+        void debug_validate_uber_state<core::api::uber_states::UberStateType::ReadOnlyVirtualByteUberState>(const int group_id, const int member_id) {
+            debug_validate_virtual_uber_state(group_id, member_id);
+        }
+
+        template<>
+        void debug_validate_uber_state<core::api::uber_states::UberStateType::ReadOnlyVirtualIntUberState>(const int group_id, const int member_id) {
+            debug_validate_virtual_uber_state(group_id, member_id);
+        }
+
+        template<>
+        void debug_validate_uber_state<core::api::uber_states::UberStateType::ReadOnlyVirtualFloatUberState>(const int group_id, const int member_id) {
+            debug_validate_virtual_uber_state(group_id, member_id);
+        }
+
         IL2CPP_INTERCEPT(void, Moon::UberStateCollection, PrepareRuntimeDataType, app::UberStateCollection* this_ptr) {
             app::UberStateGroup* group = nullptr;
             const auto register_state = [&](app::IUberState* state) {
