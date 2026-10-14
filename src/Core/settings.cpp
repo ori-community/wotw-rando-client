@@ -9,7 +9,7 @@ namespace core::settings {
         static std::unique_ptr<common::settings::Settings> settings;
 
         if (settings == nullptr) {
-            settings = std::make_unique<common::settings::Settings>(modloader::fs::get_randomizer_user_data_path("settings.json"));
+            settings = std::make_unique<common::settings::Settings>(modloader::get_user_data_path("settings.json"));
             event_bus().emit(events::SettingsLoaded());
         }
 

@@ -263,7 +263,7 @@ int main() {
         std::cout << "Derived user data directory from environment to '" << user_data_path.string() << "'" << std::endl;
     }
 
-    common::settings::Settings settings(user_data_path / "randomizer" / "settings.json");
+    common::settings::Settings settings(user_data_path / "settings.json");
     auto use_win_store = settings.get_string("GameLaunchMethod", "standalone") == "microsoft-store";
     auto inject_delay = settings.get_int("InjectorInterceptDelay", 0);
 

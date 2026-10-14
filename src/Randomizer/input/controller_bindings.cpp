@@ -125,7 +125,7 @@ namespace randomizer::input {
             bindings.clear();
 
             // If we fail to read the bindings we want to use default game bindings.
-            auto bindings_read = read_keyboard_or_controller_bindings(fs::get_randomizer_user_data_path("controller_bindings.json"), on_binding_read);
+            auto bindings_read = read_keyboard_or_controller_bindings(fs::get_client_user_data_path("controller_bindings.json"), on_binding_read);
 
             auto* player_input_rebinding_klass = types::PlayerInputRebinding::get_class();
             if (!bindings_read || !player_input_rebinding_klass->static_fields->USE_NEW_BINDINGS_TEST) {

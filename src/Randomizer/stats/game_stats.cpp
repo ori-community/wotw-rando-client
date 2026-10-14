@@ -22,7 +22,7 @@ namespace randomizer::timing {
 
     namespace {
         std::filesystem::path get_events_stream_files_directory() {
-            return modloader::fs::get_randomizer_user_data_path(EVENT_STREAMS_DIRECTORY);
+            return modloader::fs::get_client_user_data_path(EVENT_STREAMS_DIRECTORY);
         }
 
         std::filesystem::path get_events_stream_file_path_for_guid(const core::MoodGuid& guid) {

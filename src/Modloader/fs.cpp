@@ -24,8 +24,8 @@ namespace modloader::fs {
         return canonical_asset_path;
     }
 
-    std::filesystem::path get_randomizer_user_data_path(const std::filesystem::path& relative_path) {
-        return modloader::get_user_data_path() / "randomizer" / relative_path;
+    std::filesystem::path get_client_user_data_path(const std::filesystem::path& relative_path) {
+        return modloader::get_user_data_path() / "client" / relative_path;
     }
 
     std::filesystem::path get_logs_user_data_path(const std::filesystem::path& relative_path) {

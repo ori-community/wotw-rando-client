@@ -329,8 +329,8 @@ namespace randomizer::input {
 
     [[maybe_unused]]
     auto on_after_refresh_controls_droppable = core::api::game::event_bus().on<core::api::game::events::RefreshedInputControls>([](auto) {
-        read_keyboard_or_controller_bindings(fs::get_randomizer_user_data_path("keyboard_bindings.json"), on_keyboard_binding_read);
-        read_midi_bindings(fs::get_randomizer_user_data_path("midi_bindings.json"), on_midi_binding_read);
+        read_keyboard_or_controller_bindings(fs::get_client_user_data_path("keyboard_bindings.json"), on_keyboard_binding_read);
+        read_midi_bindings(fs::get_client_user_data_path("midi_bindings.json"), on_midi_binding_read);
     });
 
     auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
@@ -393,7 +393,7 @@ namespace randomizer::input {
                     }
 
                     nlohmann::json j;
-                    const auto midi_bindings_path = fs::get_randomizer_user_data_path("midi_bindings.json");
+                    const auto midi_bindings_path = fs::get_client_user_data_path("midi_bindings.json");
                     load_json_file(midi_bindings_path, j);
 
                     if (!j.contains(action_name)) {

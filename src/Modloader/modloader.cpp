@@ -119,7 +119,7 @@ namespace modloader {
         console_logging_handler = register_logging_handler(std::make_shared<ConsoleLoggingHandler>(LogLevel::Debug));
         trace(LogLevel::Info, "initialize", "Loading settings.");
 
-        common::settings::Settings settings(get_user_data_path("randomizer/settings.json"));
+        common::settings::Settings settings(get_user_data_path("settings.json"));
         if (settings.get_boolean("DeveloperMode", false)) {
             win::console::console_initialize();
         }

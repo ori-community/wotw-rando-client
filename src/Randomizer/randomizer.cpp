@@ -174,7 +174,7 @@ namespace randomizer {
     }
 
     void load_new_game_source() {
-        std::ifstream seed_source_file(modloader::fs::get_randomizer_user_data_path(".newgameseedsource"), std::ios::binary);
+        std::ifstream seed_source_file(modloader::fs::get_client_user_data_path(".newgameseedsource"), std::ios::binary);
 
         if (seed_source_file.is_open()) {
             std::string source_str;

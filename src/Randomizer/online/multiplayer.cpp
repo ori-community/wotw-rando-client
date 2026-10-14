@@ -564,7 +564,7 @@ namespace randomizer::online {
 
 #ifdef DEBUG
         // With DEBUG enabled, save the received seed for introspection
-        const auto output_path = modloader::fs::get_randomizer_user_data_path("debug_server_seed.wotwr");
+        const auto output_path = modloader::fs::get_client_user_data_path("debug_server_seed.wotwr");
         modloader::debug("multiplayer", std::format("Saved server seed to {}", output_path.string()));
         std::ofstream output_stream(output_path, std::ios::binary | std::ios::out | std::ios::trunc);
         output_stream.write(reinterpret_cast<const char*>(bytes.data()), bytes.size());

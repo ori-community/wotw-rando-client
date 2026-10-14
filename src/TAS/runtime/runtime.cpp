@@ -105,7 +105,7 @@ namespace tas::runtime {
             void load_timeline_from_file(const nlohmann::json& j) {
                 nlohmann::json tas_config;
 
-                if (load_from_json_file(state.current_timeline, j.value("path", "randomizer/tas.json"), tas_config)) {
+                if (load_from_json_file(state.current_timeline, j.value("path", "client/tas.json"), tas_config)) {
                     // This re-initializes the DeltaTimeManager, which is overridden above to use the timeline FPS
                     usedStandaloneScripts::DeltaTimeManagers::DeltaTimeManager::set_Enabled(types::DeltaTimeManager::get_class()->static_fields->Instance, true);
 
