@@ -29,6 +29,7 @@
 #include <Modloader/modloader.h>
 
 #include <Core/api/game/ui.h>
+#include <Core/api/messages/text_style.h>
 #include <Core/api/system/message_provider.h>
 #include <Modloader/app/types/WeaponmasterScreen.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
@@ -76,8 +77,8 @@ namespace {
             .is_affordable = core::api::game::player::spirit_light().get() >= cost,
             .is_owned = is_owned(slot),
             .cost = cost,
-            .name_message_provider = core::api::system::create_message_provider(slot.name),
-            .description_message_provider = core::api::system::create_message_provider(slot.description),
+            .name_message = slot.name.get(),
+            .description_message = slot.description.get(),
             .shop_type = ShopType::Lupo,
         };
     }
@@ -250,8 +251,10 @@ namespace {
         description_message_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Top;
         description_message_box->fields.TextBox->fields.maxHeight = 8.f;
 
-        name_message_box->fields.MessageProvider = attributes.name_message_provider;
-        description_message_box->fields.MessageProvider = attributes.description_message_provider;
+        text_style::create_styles(name_message_box->fields.TextBox, attributes.name_message);
+        name_message_box->fields.MessageProvider = core::api::system::create_message_provider(attributes.name_message);
+        text_style::create_styles(description_message_box->fields.TextBox, attributes.name_message);
+        description_message_box->fields.MessageProvider = core::api::system::create_message_provider(attributes.description_message);
 
         MessageBox::RefreshText_1(name_message_box);
 

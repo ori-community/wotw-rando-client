@@ -71,8 +71,8 @@ namespace randomizer::game::shops::grom {
             .is_affordable = core::api::game::player::ore().get() >= cost,
             .is_owned = slot.is_purchased_state.get(),
             .cost = cost,
-            .name_message_provider = core::api::system::create_message_provider(slot.name),
-            .description_message_provider = core::api::system::create_message_provider(slot.description),
+            .name_message = slot.name.get(),
+            .description_message = slot.description.get(),
             .shop_type = ShopType::Grom,
         };
     }

@@ -1,5 +1,4 @@
 #pragma once
-#include <Modloader/app/structs/MessageProvider.h>
 #include <Randomizer/game/shops/shop.h>
 
 
@@ -9,8 +8,8 @@ namespace randomizer::game::shops {
         bool is_affordable;
         bool is_owned;
         int cost;
-        app::MessageProvider* name_message_provider;
-        app::MessageProvider* description_message_provider;
+        std::string name_message;
+        std::string description_message;
         ShopType shop_type;
 
         bool can_purchase() const {

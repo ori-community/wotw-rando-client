@@ -1,30 +1,21 @@
 #include <Core/api/game/player.h>
 #include <Core/api/graphics/textures.h>
+#include <Core/api/messages/text_style.h>
 #include <Core/api/system/message_provider.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/utils/misc.h>
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
-#include <Modloader/app/methods/MessageBox.h>
-#include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateShards_Shard.h>
-#include <Modloader/app/methods/PlayerSpiritShards.h>
-#include <Modloader/app/methods/SpellUIExperience.h>
-#include <Modloader/app/methods/SpellUIShardEquipStatus.h>
-#include <Modloader/app/methods/SpiritShardDescription.h>
 #include <Modloader/app/methods/MenuScreen.h>
+#include <Modloader/app/methods/MessageBox.h>
+#include <Modloader/app/methods/SpellUIExperience.h>
 #include <Modloader/app/methods/SpiritShardShopUIItem.h>
-#include <Modloader/app/methods/SpiritShardUIItem.h>
 #include <Modloader/app/methods/SpiritShardUIShardBackdrop.h>
 #include <Modloader/app/methods/SpiritShardUIShardDetails.h>
 #include <Modloader/app/methods/SpiritShardsShopScreen.h>
 #include <Modloader/app/methods/SpiritShardsShopScreen___c.h>
-#include <Modloader/app/methods/System/String.h>
-#include <Modloader/app/methods/UberShaderAPI.h>
-#include <Modloader/app/methods/UnityEngine/GameObject.h>
-#include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Boxed.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/Renderer.h>
 #include <Modloader/app/types/SpellUIExperience.h>
-#include <Modloader/app/types/SpiritShardSettings.h>
 #include <Modloader/app/types/TextBox.h>
 #include <Modloader/app/types/UI.h>
 #include <Modloader/il2cpp_helpers.h>
@@ -34,7 +25,6 @@
 #include <Randomizer/game/shops/twillen.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <frozen/unordered_map.h>
-#include <set>
 
 
 namespace randomizer::game::shops::twillen {
@@ -91,8 +81,8 @@ namespace randomizer::game::shops::twillen {
             .is_affordable = core::api::game::player::spirit_light().get() >= cost,
             .is_owned = is_owned(slot),
             .cost = cost,
-            .name_message_provider = core::api::system::create_message_provider(slot.name),
-            .description_message_provider = core::api::system::create_message_provider(slot.description),
+            .name_message = slot.name.get(),
+            .description_message = slot.description.get(),
             .shop_type = ShopType::Twillen,
         };
     }
@@ -265,8 +255,13 @@ namespace randomizer::game::shops::twillen {
 
             description_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Top;
             description_box->fields.TextBox->fields.maxHeight = 8.f;
-            name_box->fields.MessageProvider = core::api::system::create_message_provider(slot.name);
-            description_box->fields.MessageProvider = core::api::system::create_message_provider(slot.description);
+
+            const auto name = slot.name.get();
+            const auto description = slot.description.get();
+            text_style::create_styles(name_box->fields.TextBox, name);
+            name_box->fields.MessageProvider = core::api::system::create_message_provider(name);
+            text_style::create_styles(description_box->fields.TextBox, description);
+            description_box->fields.MessageProvider = core::api::system::create_message_provider(description);
 
             MessageBox::RefreshText_1(name_box);
 

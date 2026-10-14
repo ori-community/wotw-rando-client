@@ -1,10 +1,7 @@
-#include "shared_grom_opher_tuley.h"
-
-
 #include <Core/api/game/game.h>
+#include <Core/api/messages/text_style.h>
 #include <Core/api/system/message_provider.h>
 #include <Modloader/app/methods/BuilderItem.h>
-#include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/GardenerItem.h>
@@ -13,13 +10,7 @@
 #include <Modloader/app/methods/ShopkeeperUIDetails.h>
 #include <Modloader/app/methods/ShopkeeperUIItem.h>
 #include <Modloader/app/methods/ShopkeeperUISubItem.h>
-#include <Modloader/app/methods/SpellUIShardEquipStatus.h>
-#include <Modloader/app/methods/SpiritShardUIShardBackdrop.h>
-#include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
-#include <Modloader/app/methods/UnityEngine/Renderer.h>
-#include <Modloader/app/structs/Boolean__Boxed.h>
-#include <Modloader/app/structs/Int32__Boxed.h>
 #include <Modloader/app/types/BuilderItem.h>
 #include <Modloader/app/types/CleverMenuItem.h>
 #include <Modloader/app/types/GardenerItem.h>
@@ -31,18 +22,16 @@
 #include <Modloader/app/types/UpgradableShardItem.h>
 #include <Modloader/app/types/WeaponmasterItem.h>
 #include <Modloader/app/types/WeaponmasterScreen.h>
-#include <Modloader/app/types/CleverMenuItem.h>
-#include <Modloader/app/types/Renderer.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/game/shops/grom.h>
 #include <Randomizer/game/shops/opher.h>
+#include <Randomizer/game/shops/shared_grom_opher_tuley.h>
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/game/shops/tuley.h>
 #include <Randomizer/randomizer.h>
 
-#include "twillen.h"
 
 namespace randomizer::game::shops {
     using namespace modloader;
@@ -273,8 +262,10 @@ namespace randomizer::game::shops {
             description_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Top;
             description_box->fields.TextBox->fields.maxHeight = 8.f;
 
-            name_box->fields.MessageProvider = attributes.name_message_provider;
-            description_box->fields.MessageProvider = attributes.description_message_provider;
+            text_style::create_styles(name_box->fields.TextBox, attributes.name_message);
+            name_box->fields.MessageProvider = core::api::system::create_message_provider(attributes.name_message);
+            text_style::create_styles(description_box->fields.TextBox, attributes.name_message);
+            description_box->fields.MessageProvider = core::api::system::create_message_provider(attributes.description_message);
 
             MessageBox::RefreshText_1(name_box);
 

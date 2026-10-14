@@ -70,8 +70,8 @@ namespace randomizer::game::shops::opher {
             .is_affordable = core::api::game::player::spirit_light().get() >= cost,
             .is_owned = is_owned(slot),
             .cost = cost,
-            .name_message_provider = core::api::system::create_message_provider(slot.name),
-            .description_message_provider = core::api::system::create_message_provider(slot.description),
+            .name_message = slot.name.get(),
+            .description_message = slot.description.get(),
             .shop_type = ShopType::Opher,
         };
     }
