@@ -6,12 +6,10 @@
 #include <Modloader/app/methods/NightCrawlerFightController.h>
 #include <Modloader/app/methods/PetrifiedOwlBossEntity.h>
 #include <Modloader/app/methods/UberGCManager.h>
-#include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/methods/UnityEngine/Resources.h>
 #include <Modloader/app/types/Damage.h>
 #include <Modloader/app/types/Entity.h>
 #include <Modloader/app/types/HornBugBossEntity.h>
-#include <Modloader/app/types/Object_1.h>
 #include <Modloader/app/types/DamageReceiver.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
@@ -26,12 +24,6 @@ namespace randomizer::damage {
         auto force_deal_damage = false;
         std::unordered_set<int32_t> forced_damage_ids;
         std::optional<il2cpp::WeakGCRef<app::NightCrawlerFightController>> night_crawler_fight_controller_ref;
-
-        [[maybe_unused]]
-        auto on_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
-            // TODO: If we ever need more static MethodInfo* pointers to be initialized, make something prettier
-            il2cpp::initialize_method_info(reinterpret_cast<Il2CppClass*>(types::Object_1::get_class()), 100665730, UnityEngine::Object::FindObjectsOfType_6_MethodInfo);
-        });
 
         IL2CPP_INTERCEPT_WITH_ORDER(0, void, UberGCManager, RunGC, bool is_debug) {
             next::UberGCManager::RunGC(is_debug);
@@ -91,15 +83,6 @@ namespace randomizer::damage {
 
     void damage_all_enemies(float amount, bool force) {
         common::ScopedSetter _(force_deal_damage, force);
-
-        // This mimics the initialization routine in DebugControls::Update.
-        // Without this, FindObjectsOfType_DamageReceiver does not work if debug controls were never enabled
-        auto required_types_initialized = reinterpret_cast<bool*>(modloader::win::memory::resolve_rva(0x47A0A3C));
-        if (!*required_types_initialized) {
-            *required_types_initialized = true;
-            void(*init)(int) = reinterpret_cast<void(*)(int)>(modloader::win::memory::resolve_rva(0x2560));
-            init(0x4E67);
-        }
 
         const auto nightcrawler_fight_controller = night_crawler_fight_controller_ref.and_then([](auto& ref) { return *ref; });
         auto all_damage_receivers = reinterpret_cast<app::DamageReceiver__Array*>(UnityEngine::Resources::FindObjectsOfTypeAll_1(il2cpp::get_runtime_type(types::DamageReceiver::get_class())));
