@@ -48,7 +48,7 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(app::GameObject*, InstantiateUtility, InstantiateImmediate_4, app::GameObject* original, app::Vector3 position, app::Quaternion rotation, app::Object_1* owner, bool record) {
+    IL2CPP_INTERCEPT_WITH_ORDER(10, app::GameObject*, InstantiateUtility, InstantiateImmediate_4, app::GameObject* original, app::Vector3 position, app::Quaternion rotation, app::Object_1* owner, bool record) {
         const auto instance = next::InstantiateUtility::InstantiateImmediate_4(original, position, rotation, owner, record);
 
         if (is_spawning_wind_fx) {
