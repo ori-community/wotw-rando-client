@@ -57,7 +57,12 @@ namespace core::api::messages {
             const auto scenes_manager = scenes::get_scenes_manager();
             const auto current_scene = ScenesManager::get_CurrentSceneManagerScene(scenes_manager);
 
-            if (current_scene != nullptr && current_scene->fields.SceneRoot != nullptr && current_scene->fields.SceneRoot->fields.m_sceneSettings != nullptr) {
+            if (
+                current_scene != nullptr &&
+                current_scene->fields.SceneRoot != nullptr &&
+                current_scene->fields.SceneRoot->fields.m_sceneSettings != nullptr &&
+                current_scene->fields.SceneRoot->fields.m_sceneSettings->fields.LayeredRenderSettings != nullptr
+            ) {
                 const auto current_layer_params = current_scene->fields.SceneRoot->fields.m_sceneSettings->fields.LayeredRenderSettings->fields.m_useOverride
                     ? current_scene->fields.SceneRoot->fields.m_sceneSettings->fields.LayeredRenderSettings->fields.m_currentOverride.Layers
                     : current_scene->fields.SceneRoot->fields.m_sceneSettings->fields.LayeredRenderSettings->fields.m_layers;
