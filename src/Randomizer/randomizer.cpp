@@ -65,7 +65,7 @@ namespace randomizer {
 
         [[maybe_unused]]
         auto on_respawn = core::api::game::event_bus().on<core::api::game::events::Respawned>([](auto) {
-            message_queue().clear();
+            message_queue().clear_since_last_checkpoint();
         });
 
         [[maybe_unused]]

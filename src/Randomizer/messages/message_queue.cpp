@@ -61,6 +61,12 @@ namespace randomizer::messages {
         m_queue.clear();
     }
 
+    void MessageQueue::clear_since_last_checkpoint() {
+        std::erase_if(m_queue, [](QueuedMessage::ptr_t& queued_item) {
+            return !queued_item->m_saved;
+        });
+    }
+
     MessageQueue::MessageQueue(const app::Vector2& m_top_anchor) :
         m_top_anchor(m_top_anchor) {
         m_on_update_droppable = api::game::event_bus().on<core::api::game::events::Update>([this](auto) {
@@ -69,6 +75,12 @@ namespace randomizer::messages {
             }
 
             on_update();
+        });
+
+        m_checkpoint_created_droppable = api::game::event_bus().on<core::api::game::events::CreatedCheckpoint>([this](auto) {
+            for (auto& queued_message: m_queue) {
+                queued_message->m_saved = true;
+            }
         });
     }
 

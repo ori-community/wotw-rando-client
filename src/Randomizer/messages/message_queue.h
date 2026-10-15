@@ -60,6 +60,9 @@ namespace randomizer::messages {
         /** Whether the message box is visible or not */
         bool m_visible = false;
 
+        /** Whether a checkpoint was created since this message was queued or not */
+        bool m_saved = false;
+
         /** A world position at which the message initially spawns */
         std::optional<app::Vector2> m_origin_world_position = std::nullopt;
 
@@ -79,12 +82,16 @@ namespace randomizer::messages {
         /** Clears the entire queue, hiding any visible messages */
         void clear();
 
+        /** Clears all messages from the queue that have been enqueued since the last checkpoint */
+        void clear_since_last_checkpoint();
+
         explicit MessageQueue(const app::Vector2& m_top_anchor);
 
     private:
         std::vector<QueuedMessage::ptr_t> m_queue;
 
         common::Droppable::ptr_t m_on_update_droppable;
+        common::Droppable::ptr_t m_checkpoint_created_droppable;
         void on_update();
         void set_message_box_fade_out_based_on_queue_size(api::messages::MessageBox& message_box) const;
 
