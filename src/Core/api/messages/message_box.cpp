@@ -18,6 +18,7 @@
 #include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/methods/UnityEngine/Renderer.h>
 #include <Modloader/app/methods/UberShaderAPI.h>
+#include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/types/DisableRendererWhenOutOfFrustrum.h>
 #include <Modloader/app/types/DestroyOnRestoreCheckpoint.h>
 #include <Modloader/app/types/UberShaderRuntimeRenderOrder.h>
@@ -41,13 +42,27 @@ namespace core::api::messages {
     namespace {
         constexpr int MAX_SOUNDS_PER_FRAME = 4;
 
-        int sounds_played_this_frame = 0;
-        int next_message_id = 0;
+        auto sounds_played_this_frame = 0;
+        auto next_message_id = 0;
         std::unordered_map<int, MessageBox*> message_boxes;
+        auto main_layer_min_depth = -3.f;
 
         [[maybe_unused]]
         auto on_after_unity_update = game::event_bus().on<game::events::AfterUnityUpdateLoop>([](auto) {
             sounds_played_this_frame = 0;
+        });
+
+        [[maybe_unused]]
+        auto on_fixed_update = game::event_bus().on<game::events::FixedUpdate>([](auto) {
+            const auto scenes_manager = scenes::get_scenes_manager();
+            const auto current_scene = ScenesManager::get_CurrentSceneManagerScene(scenes_manager);
+
+            if (current_scene != nullptr && current_scene->fields.SceneRoot != nullptr) {
+                const auto current_layer_params = current_scene->fields.SceneRoot->fields.m_sceneSettings->fields.LayeredRenderSettings->fields.m_useOverride
+                    ? current_scene->fields.SceneRoot->fields.m_sceneSettings->fields.LayeredRenderSettings->fields.m_currentOverride.Layers
+                    : current_scene->fields.SceneRoot->fields.m_sceneSettings->fields.LayeredRenderSettings->fields.m_layers;
+                main_layer_min_depth = current_layer_params->vector[3]->fields.WorldZ;
+            }
         });
 
         // app::Rect compute_textbox_rect(app::TextBox* text_box) {
@@ -535,7 +550,7 @@ namespace core::api::messages {
             Renderer::set_sortingOrder(renderer, ++next_sort_order);
 
             const auto depth_flip_screen = UberShaderAPI::GetVector(renderer, app::UberShaderProperty_Vector__Enum::DepthFlipScreen);
-            UberShaderAPI::SetVector_1(renderer, app::UberShaderProperty_Vector__Enum::DepthFlipScreen, {-2, depth_flip_screen.y, depth_flip_screen.z, depth_flip_screen.w});
+            UberShaderAPI::SetVector_1(renderer, app::UberShaderProperty_Vector__Enum::DepthFlipScreen, {main_layer_min_depth, depth_flip_screen.y, depth_flip_screen.z, depth_flip_screen.w});
         }
     }
 
