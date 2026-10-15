@@ -5,6 +5,7 @@
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/utils/misc.h>
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
+#include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/MenuScreen.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/SpellUIExperience.h>
@@ -13,11 +14,14 @@
 #include <Modloader/app/methods/SpiritShardUIShardDetails.h>
 #include <Modloader/app/methods/SpiritShardsShopScreen.h>
 #include <Modloader/app/methods/SpiritShardsShopScreen___c.h>
+#include <Modloader/app/types/CleverMenuItem.h>
+#include <Modloader/app/types/LegacyTransparencyAnimator.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/Renderer.h>
 #include <Modloader/app/types/SpellUIExperience.h>
 #include <Modloader/app/types/TextBox.h>
 #include <Modloader/app/types/UI.h>
+#include <Modloader/app/types/SpiritShardShopUIItem.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
@@ -135,6 +139,7 @@ namespace randomizer::game::shops::twillen {
 
         IL2CPP_INTERCEPT(void, SpiritShardShopUIItem, UpdateShard, app::SpiritShardShopUIItem* this_ptr, app::PlayerUberStateShards_Shard* shard) {
             // NOOP
+            auto x = 0;
         }
 
         IL2CPP_INTERCEPT(void, SpiritShardShopUIItem, SetItemContext, app::SpiritShardShopUIItem* this_ptr, app::Object* context, app::Object* grid_context) {
@@ -152,7 +157,7 @@ namespace randomizer::game::shops::twillen {
             // Vanilla is missing a Lock icon, so we copy it from the disabled spiritShardUIItem game object
             auto randomizer_lock_icon = il2cpp::unity::find_child(this_ptr, "RandoLocked");
             if (randomizer_lock_icon == nullptr) {
-                randomizer_lock_icon = il2cpp::unity::instantiate_object(il2cpp::unity::find_child(this_ptr, {"spiritShardUIItem", "locked"}));
+                randomizer_lock_icon = il2cpp::unity::instantiate_object(il2cpp::unity::find_child(this_ptr->fields.Shard, {"locked"}));
                 il2cpp::unity::set_object_name(randomizer_lock_icon, "RandoLocked");
                 il2cpp::unity::set_parent(randomizer_lock_icon, this_ptr, true);
             }
@@ -165,22 +170,35 @@ namespace randomizer::game::shops::twillen {
             il2cpp::unity::set_active(this_ptr->fields.NotPurchasableGO, false);
             il2cpp::unity::set_active(this_ptr->fields.Shard->fields.Background, false);
             il2cpp::unity::set_active(this_ptr->fields.Shard->fields.UnknownGO, false);
+            il2cpp::unity::set_active(this_ptr->fields.Shard->fields.UpgradableGO, false);
+            il2cpp::unity::set_active(this_ptr->fields.Shard->fields.NotUpgradableGO, false);
             il2cpp::unity::set_active(randomizer_lock_icon, false);
 
             const auto can_purchase = attributes.can_purchase();
             const auto background = this_ptr->fields.Shard->fields.Background;
             const auto icon_go = this_ptr->fields.Shard->fields.IconGO;
 
-            utils::set_color(il2cpp::unity::get_game_object(background), can_purchase ? this_ptr->fields.PurchasableColor : this_ptr->fields.UnpurchaseableColor);
-            utils::set_color(icon_go, can_purchase ? this_ptr->fields.PurchasableColor : this_ptr->fields.UnpurchaseableColor);
+            const auto transparency_animator = il2cpp::unity::get_component<app::LegacyTransparencyAnimator>(
+                il2cpp::unity::get_game_object(this_ptr->fields.Shard), types::LegacyTransparencyAnimator::get_class()
+            );
+            il2cpp::unity::destroy_object(transparency_animator);
+
+            const auto clever_menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(
+                il2cpp::unity::get_game_object(this_ptr->fields.Shard), types::CleverMenuItem::get_class()
+            );
+            CleverMenuItem::set_IsDisabled(clever_menu_item, !can_purchase);
 
             if (attributes.visibility == SlotVisibility::Hidden) {
                 il2cpp::unity::set_active(this_ptr->fields.Shard->fields.UnknownGO, true);
                 return;
             }
 
+            auto tint_color = can_purchase ? this_ptr->fields.PurchasableColor : this_ptr->fields.UnpurchaseableColor;
+            tint_color.a = can_purchase ? 1.f : 0.5f;
+            utils::set_color(il2cpp::unity::get_game_object(background), tint_color);
+            utils::set_color(icon_go, tint_color);
+
             il2cpp::unity::set_active(this_ptr->fields.Shard->fields.IconGO, true);
-            il2cpp::unity::set_active(this_ptr->fields.Shard->fields.NotUpgradableGO, true);
             il2cpp::unity::set_active(this_ptr->fields.Shard->fields.Background, true);
 
             const auto icon_renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.IconGO, types::Renderer::get_class());
@@ -203,9 +221,11 @@ namespace randomizer::game::shops::twillen {
                 il2cpp::unity::set_active(randomizer_lock_icon, true);
             }
 
-            if (attributes.is_affordable) {
+            if (can_purchase) {
+                il2cpp::unity::set_active(this_ptr->fields.Shard->fields.UpgradableGO, true);
                 il2cpp::unity::set_active(this_ptr->fields.PurchasableGO, true);
             } else {
+                il2cpp::unity::set_active(this_ptr->fields.Shard->fields.NotUpgradableGO, true);
                 il2cpp::unity::set_active(this_ptr->fields.NotPurchasableGO, true);
             }
         }
@@ -229,7 +249,11 @@ namespace randomizer::game::shops::twillen {
             SpellUIExperience::Spend(ui_experience, slot.cost.get());
 
             buy_item(slot);
-            SpiritShardsShopScreen::UpdateContextCanvasShards(this_ptr);
+
+            const auto ui_items = il2cpp::unity::get_components_in_children<app::SpiritShardShopUIItem>(this_ptr, types::SpiritShardShopUIItem::get_class());
+            for (auto& ui_item: ui_items) {
+                SpiritShardShopUIItem::SetItemContext(ui_item, reinterpret_cast<app::Object*>(ui_item->fields.m_spiritShard), nullptr);
+            }
         }
 
         auto is_updating_shop_screen = false;

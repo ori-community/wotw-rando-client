@@ -1,9 +1,6 @@
-#include <Randomizer/game/shops/shop.h>
-
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/property.h>
-
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/MapmakerItem.h>
@@ -27,14 +24,15 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
+#include <Randomizer/game/shops/shop.h>
 
 #include <Core/api/game/ui.h>
 #include <Core/api/messages/text_style.h>
 #include <Core/api/system/message_provider.h>
 #include <Modloader/app/types/WeaponmasterScreen.h>
+#include <Randomizer/game/shops/shared_grom_opher_tuley.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
 
-#include "shared_grom_opher_tuley.h"
 
 namespace {
     using namespace modloader;

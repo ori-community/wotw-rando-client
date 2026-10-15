@@ -22,6 +22,7 @@
 #include <Modloader/app/types/UpgradableShardItem.h>
 #include <Modloader/app/types/WeaponmasterItem.h>
 #include <Modloader/app/types/WeaponmasterScreen.h>
+#include <Modloader/app/types/ShopkeeperUIItem.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
@@ -307,6 +308,11 @@ namespace randomizer::game::shops {
             if (this_ptr->fields.m_detailsCanvas->fields.m_item != selected_item) {
                 this_ptr->fields.m_detailsCanvas->fields.m_item = selected_item;
                 ShopkeeperUIDetails::UpdateDetails(this_ptr->fields.m_detailsCanvas);
+            }
+
+            const auto ui_items = il2cpp::unity::get_components_in_children<app::ShopkeeperUIItem>(this_ptr, types::ShopkeeperUIItem::get_class());
+            for (auto& ui_item: ui_items) {
+                ShopkeeperUIItem::SetItemContext(ui_item, reinterpret_cast<app::Object*>(ui_item->fields.m_upgradeItem), nullptr);
             }
         }
     } // namespace
