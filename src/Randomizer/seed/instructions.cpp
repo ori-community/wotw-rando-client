@@ -101,6 +101,7 @@
 #include <Randomizer/seed/instructions/store_boolean.h>
 #include <Randomizer/seed/instructions/store_float.h>
 #include <Randomizer/seed/instructions/store_integer.h>
+#include <Randomizer/seed/instructions/string_contains.h>
 #include <Randomizer/seed/instructions/string_length.h>
 #include <Randomizer/seed/instructions/switch_wheel.h>
 #include <Randomizer/seed/instructions/trigger_keybind.h>
@@ -254,6 +255,7 @@ namespace randomizer::seed {
             register_instruction<StoreBoolean>(factories);
             register_instruction<StoreFloat>(factories);
             register_instruction<StoreInteger>(factories);
+            register_instruction<StringContains>(factories);
             register_instruction<StringLength>(factories);
             register_instruction<SwitchWheel>(factories);
             register_instruction<TriggerKeybind>(factories);
