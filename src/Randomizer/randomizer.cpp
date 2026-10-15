@@ -8,8 +8,9 @@
 #include <Core/settings.h>
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/SaveSlotsManager.h>
-#include <Modloader/modloader.h>
 #include <Modloader/fs.h>
+#include <Modloader/il2cpp_math.h>
+#include <Modloader/modloader.h>
 #include <Randomizer/features/wheel.h>
 #include <Randomizer/game/pickups/quests.h>
 #include <Randomizer/game/shops/shop.h>
@@ -95,6 +96,13 @@ namespace randomizer {
             game_seed().environment().reset_serialized_values();
             game_seed().environment().reset_volatile_values();
             recent_messages_view().clear_messages();
+
+            core::api::game::player::set_position(
+                modloader::math::to_vec3(game_seed().parser_output().transform([](auto output) {
+                    return output.get().meta.spawn;
+                }).value_or(seed::SeedMetaData().spawn)),
+                false
+            );
 
             game_seed().trigger(seed::SeedClientEvent::Reload, true);
             game_seed().trigger(seed::SeedClientEvent::Spawn, true);

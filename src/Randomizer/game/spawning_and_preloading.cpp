@@ -401,7 +401,7 @@ namespace randomizer::game {
             }
         });
         [[maybe_unused]]
-        auto _5 = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
+        auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {
             on_should_block_starting_new_game_changed = randomizer::multiplayer_universe().event_bus().on<online::MultiplayerUniverse::events::ShouldBlockStartingNewGameChanged>([](auto) {
                 core::events::schedule_task_for_next_update([]() {
                     main_menu_seed_info::update_difficulty_menu_items();
