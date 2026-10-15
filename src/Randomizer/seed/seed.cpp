@@ -160,7 +160,7 @@ namespace randomizer::seed {
                 ZoneScopedN("Instruction");
 
 #ifdef ENABLE_PROFILER
-                const auto command_text = command->to_string(*this, m_memory, m_stack);
+                const auto command_text = command->to_string(*this, m_memory);
                 ZoneText(command_text.c_str(), command_text.size());
 #endif
 
