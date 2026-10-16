@@ -709,6 +709,10 @@ namespace randomizer::timing {
                         persistent_entry_id,
                         SaveFileGameStats::TimelineEntryEvent::Type::Custom
                     );
+
+                    if (persistent_entry_id_it == game_tracker_persistent_meta_data->active_custom_timeline_entries.end()) {
+                        break;
+                    }
                 }
 
                 ++persistent_entry_id_it;
