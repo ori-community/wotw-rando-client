@@ -208,23 +208,23 @@ namespace randomizer::input {
                                 break;
                             }
                         }
-
-                        #ifdef ENABLE_MIDI_IN
-                        if (midi_input_enabled) {
-                            for (auto const& input : info.midi_bindings) {
-                                const auto midi_pressed = is_midi_pressed(input);
-
-                                set_action(action, midi_pressed);
-
-                                if (midi_pressed) {
-                                    pressed = true;
-                                    break;
-                                }
-                            }
-                        }
-                        #endif
                     }
                 }
+
+                #ifdef ENABLE_MIDI_IN
+                if (midi_input_enabled && (info.simulator.enabled || !pressed)) {
+                    for (auto const& input : info.midi_bindings) {
+                        const auto midi_pressed = is_midi_pressed(input);
+
+                        set_action(action, midi_pressed);
+
+                        if (midi_pressed) {
+                            pressed = true;
+                            break;
+                        }
+                    }
+                }
+                #endif
 
                 auto is_just_released = !pressed && info.is_pressed;
                 info.is_just_pressed = pressed && !info.is_pressed;
@@ -364,7 +364,7 @@ namespace randomizer::input {
         );
 
         win::console::register_command(
-            {"midi", "register_action"},
+            {"midi", "r"},
             [](auto, auto params) {
                 if (params.size() != 1) {
                     win::console::console_send("Error: Exactly one argument required. Please provide the action name.");
