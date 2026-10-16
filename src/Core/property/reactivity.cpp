@@ -25,8 +25,8 @@ namespace core::reactivity {
         unsigned int next_property_id = 0;
         std::vector<TrackingContext> active_tracking_contexts;
         std::multiset<size_t> reactivity_blockers;
-        std::unordered_map<dependency_t, std::unordered_map<ReactiveEffect::id_t, std::weak_ptr<ReactiveEffect>>> effects_by_dependency;
-        std::unordered_map<ReactiveEffect::id_t, std::weak_ptr<ReactiveEffect>> trigger_on_load_effects;
+        std::unordered_map<dependency_t, std::map<ReactiveEffect::id_t, std::weak_ptr<ReactiveEffect>>> effects_by_dependency;
+        std::map<ReactiveEffect::id_t, std::weak_ptr<ReactiveEffect>> trigger_on_load_effects;
     };
 
     struct EffectContext {
