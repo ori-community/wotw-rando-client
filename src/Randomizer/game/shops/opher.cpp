@@ -82,6 +82,7 @@ namespace randomizer::game::shops::opher {
         using namespace randomizer::game::shops;
 
         IL2CPP_INTERCEPT(void, WeaponmasterItem, DoPurchase, app::WeaponmasterItem* this_ptr, app::PurchaseContext* context) {
+            auto& slot = get_slot(this_ptr->fields.Upgrade->fields.AcquiredAbilityType, this_ptr->fields.Upgrade->fields.RequiredAbility);
             auto level = Moon::SerializedByteUberState::get_Value(this_ptr->fields.Upgrade->fields.UpgradeLevel);
             if (level == 0) {
                 DesiredUberStateComposite::WriteDesiredStates(this_ptr->fields.Upgrade->fields.ChangeStateOnPurchase);
@@ -90,7 +91,7 @@ namespace randomizer::game::shops::opher {
             auto ui_experience = il2cpp::unity::get_component_in_children<app::SpellUIExperience>(
                 il2cpp::unity::get_game_object(types::UI::get_class()->static_fields->SeinUI), types::SpellUIExperience::get_class()
             );
-            SpellUIExperience::Spend(ui_experience, WeaponmasterItem::GetCostForLevel(this_ptr, level));
+            SpellUIExperience::Spend(ui_experience, slot.cost.get());
 
             // TODO: Make uber states for context->ForceHideScreenOnPurchase to be able to hide the screen after purchase via headers
             // The commented code below is vanilla behavior and not suitable for rando.
@@ -101,7 +102,6 @@ namespace randomizer::game::shops::opher {
             //     context->Result = app::PurchaseResult__Enum::UsedUpDiscount;
             // }
 
-            auto& slot = get_slot(this_ptr->fields.Upgrade->fields.AcquiredAbilityType, this_ptr->fields.Upgrade->fields.RequiredAbility);
             buy_item(slot);
         }
 
