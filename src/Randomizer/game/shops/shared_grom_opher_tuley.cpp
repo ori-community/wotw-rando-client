@@ -296,24 +296,17 @@ namespace randomizer::game::shops {
         IL2CPP_INTERCEPT(void, ShopkeeperScreen, OnNewItemHighlighted, app::ShopkeeperScreen* this_ptr, bool first_after_populating) {
             const auto selected_item = ShopkeeperScreen::get_SelectedUpgradeItem(this_ptr);
 
-            if (this_ptr->fields.m_detailsCanvas->fields.m_item != selected_item) {
-                this_ptr->fields.m_detailsCanvas->fields.m_item = selected_item;
-                ShopkeeperUIDetails::UpdateDetails(this_ptr->fields.m_detailsCanvas);
-            }
+            this_ptr->fields.m_detailsCanvas->fields.m_item = selected_item;
+            ShopkeeperUIDetails::UpdateDetails(this_ptr->fields.m_detailsCanvas);
         }
 
         IL2CPP_INTERCEPT(void, ShopkeeperScreen, UpdateContextCanvasShards, app::ShopkeeperScreen* this_ptr) {
             const auto selected_item = ShopkeeperScreen::get_SelectedUpgradeItem(this_ptr);
 
-            if (this_ptr->fields.m_detailsCanvas->fields.m_item != selected_item) {
-                this_ptr->fields.m_detailsCanvas->fields.m_item = selected_item;
-                ShopkeeperUIDetails::UpdateDetails(this_ptr->fields.m_detailsCanvas);
-            }
+            this_ptr->fields.m_detailsCanvas->fields.m_item = selected_item;
+            ShopkeeperUIDetails::UpdateDetails(this_ptr->fields.m_detailsCanvas);
 
-            const auto ui_items = il2cpp::unity::get_components_in_children<app::ShopkeeperUIItem>(this_ptr, types::ShopkeeperUIItem::get_class());
-            for (auto& ui_item: ui_items) {
-                ShopkeeperUIItem::SetItemContext(ui_item, reinterpret_cast<app::Object*>(ui_item->fields.m_upgradeItem), nullptr);
-            }
+            next::ShopkeeperScreen::UpdateContextCanvasShards(this_ptr);
         }
     } // namespace
 } // namespace randomizer::game::shops

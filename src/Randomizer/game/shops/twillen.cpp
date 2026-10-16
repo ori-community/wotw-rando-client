@@ -258,6 +258,10 @@ namespace randomizer::game::shops::twillen {
 
         auto is_updating_shop_screen = false;
         IL2CPP_INTERCEPT(void, SpiritShardUIShardDetails, UpdateDetails, app::SpiritShardUIShardDetails* this_ptr) {
+            if (this_ptr->fields.m_item == nullptr) {
+                return;
+            }
+
             if (!is_updating_shop_screen) {
                 next::SpiritShardUIShardDetails::UpdateDetails(this_ptr);
                 return;
@@ -307,21 +311,17 @@ namespace randomizer::game::shops::twillen {
         IL2CPP_INTERCEPT(void, SpiritShardsShopScreen, OnNewItemHighlighted, app::SpiritShardsShopScreen* this_ptr, bool first_after_populating) {
             const auto selected_shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
 
-            if (this_ptr->fields.m_shardDetailsCanvas->fields.m_item != selected_shard) {
-                this_ptr->fields.m_shardDetailsCanvas->fields.m_item = selected_shard;
-                common::ScopedSetter _(is_updating_shop_screen, true);
-                SpiritShardUIShardDetails::UpdateDetails(this_ptr->fields.m_shardDetailsCanvas);
-            }
+            this_ptr->fields.m_shardDetailsCanvas->fields.m_item = selected_shard;
+            common::ScopedSetter _(is_updating_shop_screen, true);
+            SpiritShardUIShardDetails::UpdateDetails(this_ptr->fields.m_shardDetailsCanvas);
         }
 
         IL2CPP_INTERCEPT(void, SpiritShardsShopScreen, UpdateContextCanvasShards, app::SpiritShardsShopScreen* this_ptr) {
             const auto selected_shard = SpiritShardsShopScreen::get_SelectedSpiritShard(this_ptr);
 
-            if (this_ptr->fields.m_shardDetailsCanvas->fields.m_item != selected_shard) {
-                this_ptr->fields.m_shardDetailsCanvas->fields.m_item = selected_shard;
-                common::ScopedSetter _(is_updating_shop_screen, true);
-                SpiritShardUIShardDetails::UpdateDetails(this_ptr->fields.m_shardDetailsCanvas);
-            }
+            this_ptr->fields.m_shardDetailsCanvas->fields.m_item = selected_shard;
+            common::ScopedSetter _(is_updating_shop_screen, true);
+            SpiritShardUIShardDetails::UpdateDetails(this_ptr->fields.m_shardDetailsCanvas);
         }
     } // namespace
 } // namespace randomizer::game::shops::twillen

@@ -271,4 +271,20 @@ namespace {
         GameObject::SetActive(this_ptr->fields.TooExpensiveGO, false);
         GameObject::SetActive(this_ptr->fields.OwnedGO, !can_purchase);
     }
+
+    IL2CPP_INTERCEPT(void, MapmakerScreen, OnNewItemHighlighted, app::MapmakerScreen* this_ptr, bool first_after_populating) {
+        const auto selected_item = MapmakerScreen::get_SelectedUpgradeItem(this_ptr);
+
+        this_ptr->fields.m_upgradeDetailsCanvas->fields.m_item = selected_item;
+        MapmakerUIDetails::UpdateDetails(this_ptr->fields.m_upgradeDetailsCanvas);
+    }
+
+    IL2CPP_INTERCEPT(void, MapmakerScreen, UpdateContextCanvasShards, app::MapmakerScreen* this_ptr) {
+        const auto selected_item = MapmakerScreen::get_SelectedUpgradeItem(this_ptr);
+
+        this_ptr->fields.m_upgradeDetailsCanvas->fields.m_item = selected_item;
+        MapmakerUIDetails::UpdateDetails(this_ptr->fields.m_upgradeDetailsCanvas);
+
+        next::MapmakerScreen::UpdateContextCanvasShards(this_ptr);
+    }
 } // namespace
