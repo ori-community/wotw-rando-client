@@ -4,7 +4,6 @@
 #include <Core/api/screen_position.h>
 #include <Core/api/system/message_provider.h>
 #include <Core/utils/position_converter.h>
-
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/UnityEngine/AnimationCurve.h>
 #include <Modloader/app/methods/MessageBox.h>
@@ -18,7 +17,7 @@
 #include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/methods/UnityEngine/Renderer.h>
 #include <Modloader/app/methods/UberShaderAPI.h>
-#include <Modloader/app/methods/ScenesManager.h>
+#include <Modloader/app/methods/Moon/Rendering/RuntimeSliceRenderSettings.h>
 #include <Modloader/app/types/DisableRendererWhenOutOfFrustrum.h>
 #include <Modloader/app/types/DestroyOnRestoreCheckpoint.h>
 #include <Modloader/app/types/UberShaderRuntimeRenderOrder.h>
@@ -52,23 +51,24 @@ namespace core::api::messages {
             sounds_played_this_frame = 0;
         });
 
-        [[maybe_unused]]
-        auto on_fixed_update = game::event_bus().on<game::events::FixedUpdate>([](auto) {
-            const auto scenes_manager = scenes::get_scenes_manager();
-            const auto current_scene = ScenesManager::get_CurrentSceneManagerScene(scenes_manager);
+        IL2CPP_INTERCEPT(
+            void,
+            Moon::Rendering::RuntimeSliceRenderSettings,
+            Update,
+            app::RuntimeSliceRenderSettings* this_ptr,
+            app::SliceRenderSettings** out_s_r_s,
+            app::LayeredRenderSettings** out_l_r_s,
+            app::MotionBlurController** out_m_b,
+            app::MoonRenderPipelineAsset* srp_asset
+        ) {
+            next::Moon::Rendering::RuntimeSliceRenderSettings::Update(this_ptr, out_s_r_s, out_l_r_s, out_m_b, srp_asset);
 
-            if (
-                current_scene != nullptr &&
-                current_scene->fields.SceneRoot != nullptr &&
-                current_scene->fields.SceneRoot->fields.m_sceneSettings != nullptr &&
-                current_scene->fields.SceneRoot->fields.m_sceneSettings->fields.LayeredRenderSettings != nullptr
-            ) {
-                const auto current_layer_params = current_scene->fields.SceneRoot->fields.m_sceneSettings->fields.LayeredRenderSettings->fields.m_useOverride
-                    ? current_scene->fields.SceneRoot->fields.m_sceneSettings->fields.LayeredRenderSettings->fields.m_currentOverride.Layers
-                    : current_scene->fields.SceneRoot->fields.m_sceneSettings->fields.LayeredRenderSettings->fields.m_layers;
-                main_layer_min_depth = current_layer_params->vector[3]->fields.WorldZ;
-            }
-        });
+            const auto current_layer_params = (*out_l_r_s)->fields.m_useOverride
+                ? (*out_l_r_s)->fields.m_currentOverride.Layers
+                : (*out_l_r_s)->fields.m_layers;
+
+            main_layer_min_depth = current_layer_params->vector[3]->fields.WorldZ;
+        }
 
         // app::Rect compute_textbox_rect(app::TextBox* text_box) {
         //     const auto [anchor_x, anchor_y] = TextBoxExtended::ComputeAnchor(text_box);
@@ -624,13 +624,15 @@ namespace core::api::messages {
         MessageBoxVisibility::set_IsSuspended(m_message_box->fields.Visibility, false);
     }
 
-    IL2CPP_INTERCEPT(void, ScaleToTextBox, UpdateSize, app::ScaleToTextBox * this_ptr) {
-        next::ScaleToTextBox::UpdateSize(this_ptr);
+    namespace {
+        IL2CPP_INTERCEPT(void, ScaleToTextBox, UpdateSize, app::ScaleToTextBox * this_ptr) {
+            next::ScaleToTextBox::UpdateSize(this_ptr);
 
-        if (this_ptr->fields.Background != nullptr) {
-            auto position = il2cpp::unity::get_local_position(this_ptr->fields.Background);
-            position.z = 0.f;
-            il2cpp::unity::set_local_position(this_ptr->fields.Background, position);
+            if (this_ptr->fields.Background != nullptr) {
+                auto position = il2cpp::unity::get_local_position(this_ptr->fields.Background);
+                position.z = 0.f;
+                il2cpp::unity::set_local_position(this_ptr->fields.Background, position);
+            }
         }
     }
 } // namespace core::api::messages
