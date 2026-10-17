@@ -154,7 +154,7 @@ namespace randomizer::timing {
         {uber_states::state<"skills", "flap">(), {"Flap", map::icons::MapIcon::Type::SkillFlap}},
         {uber_states::state<"skills", "gladesAncestralLight">(), {"Glades Ancestral Light", map::icons::MapIcon::Type::SkillAncestralLightA}},
         {uber_states::state<"skills", "marshAncestralLight">(), {"Marsh Ancestral Light", map::icons::MapIcon::Type::SkillAncestralLightB}},
-        {uber_states::state<"randoState", "cleanWater">(), {"Clean Water", map::icons::MapIcon::Type::Watermill}},
+        {uber_states::state<"randoState", "cleanWater">(), {"Clean Water", map::icons::MapIcon::Type::SilentTeeth}},
     };
 
     void queue_timer_state_report() {

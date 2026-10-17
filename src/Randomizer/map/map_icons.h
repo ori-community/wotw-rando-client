@@ -142,7 +142,7 @@ namespace randomizer::map::icons {
             SkillFlap = 143,
             SkillAncestralLightA = 144,
             SkillAncestralLightB = 145,
-            Watermill = 146,
+            SilentTeeth = 146,
         };
 
         enum class ScaleMode {

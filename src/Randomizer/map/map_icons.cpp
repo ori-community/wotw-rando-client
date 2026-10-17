@@ -436,7 +436,7 @@ namespace randomizer::map::icons {
         {MapIcon::Type::SkillFlap, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "118"))},
         {MapIcon::Type::SkillAncestralLightA, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "120"))},
         {MapIcon::Type::SkillAncestralLightB, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("Spell", "121"))},
-        {MapIcon::Type::Watermill, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "icons/game/watermill.png"))},
+        {MapIcon::Type::SilentTeeth, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "icons/game/silent_teeth.png"))},
     };
 
     MapIcon::id_t next_icon_id = 0;
