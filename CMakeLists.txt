@@ -47,6 +47,10 @@ if (NOT WOTWR_INSTALL_DIR)
     set(WOTWR_INSTALL_DIR C:/moon/randomizer/client)
 endif ()
 
+if (NOT WOTW_INSTALL_DIR)
+    set(WOTW_INSTALL_DIR "C:/Program Files (x86)/Steam/steamapps/common/Ori and the Will of the Wisps")
+endif ()
+
 set(WOTWR_SRC_DIR ${CMAKE_ROOT_DIRECTORY}/src)
 
 message(STATUS "Install directory: ${WOTWR_INSTALL_DIR}")

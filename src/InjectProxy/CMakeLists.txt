@@ -70,3 +70,12 @@ install(
         DESTINATION "${WOTWR_INSTALL_DIR}"
         OPTIONAL
 )
+
+if (EXISTS "${WOTW_INSTALL_DIR}")
+    install(
+            TARGETS ${PROJECT_NAME}
+            RUNTIME DESTINATION "${WOTW_INSTALL_DIR}"
+    )
+else ()
+    message("WOTW_INSTALL_DIR ('${WOTW_INSTALL_DIR}') doesn't exist. Set it to your game path to automatically link winhttp.dll on build")
+endif ()
