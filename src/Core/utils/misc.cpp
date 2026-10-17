@@ -15,25 +15,9 @@ namespace utils {
     constexpr float COLOR_DIVIDER = 3.0f;
 
     void set_color(app::GameObject* go, const app::Color& color, app::UberShaderProperty_Color__Enum shader_property, bool skip_first) {
-        auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(go, types::Renderer::get_class());
-        for (auto renderer : renderers) {
-            auto prev_color = UberShaderAPI::GetColor_1(renderer, shader_property);
-            app::Color actual_color = color;
-            if (prev_color.a > 0.5f) {
-                if (prev_color.a < 0.9f) {
-                    actual_color.r /= COLOR_DIVIDER;
-                    actual_color.g /= COLOR_DIVIDER;
-                    actual_color.b /= COLOR_DIVIDER;
-                } else if (skip_first) {
-                    actual_color.r = 1.0f;
-                    actual_color.g = 1.0f;
-                    actual_color.b = 1.0f;
-                    skip_first = false;
-                }
-
-                actual_color.a = prev_color.a;
-                UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, actual_color);
-            }
+        const auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(go, types::Renderer::get_class(), true);
+        for (const auto& renderer : renderers) {
+            UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, color);
         }
     }
 

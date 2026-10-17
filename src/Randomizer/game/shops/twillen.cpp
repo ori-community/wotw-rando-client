@@ -6,6 +6,7 @@
 #include <Core/utils/misc.h>
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/CleverMenuItem.h>
+#include <Modloader/app/methods/LegacyTransparencyAnimator.h>
 #include <Modloader/app/methods/MenuScreen.h>
 #include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/methods/SpellUIExperience.h>
@@ -178,15 +179,18 @@ namespace randomizer::game::shops::twillen {
             const auto background = this_ptr->fields.Shard->fields.Background;
             const auto icon_go = this_ptr->fields.Shard->fields.IconGO;
 
-            const auto transparency_animator = il2cpp::unity::get_component<app::LegacyTransparencyAnimator>(
+            const auto transparency_animators = il2cpp::unity::get_components_in_children<app::LegacyTransparencyAnimator>(
                 il2cpp::unity::get_game_object(this_ptr->fields.Shard), types::LegacyTransparencyAnimator::get_class()
             );
-            il2cpp::unity::destroy_object(transparency_animator);
+            for (auto& transparency_animator: transparency_animators) {
+                LegacyTransparencyAnimator::RestoreToOriginalState(transparency_animator);
+                il2cpp::unity::destroy_object(transparency_animator);
+            }
 
-            const auto clever_menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(
-                il2cpp::unity::get_game_object(this_ptr->fields.Shard), types::CleverMenuItem::get_class()
-            );
-            CleverMenuItem::set_IsDisabled(clever_menu_item, !can_purchase);
+            // const auto clever_menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(
+            //     il2cpp::unity::get_game_object(this_ptr->fields.Shard), types::CleverMenuItem::get_class()
+            // );
+            // CleverMenuItem::set_IsDisabled(clever_menu_item, !can_purchase);
 
             if (attributes.visibility == SlotVisibility::Hidden) {
                 il2cpp::unity::set_active(this_ptr->fields.Shard->fields.UnknownGO, true);
