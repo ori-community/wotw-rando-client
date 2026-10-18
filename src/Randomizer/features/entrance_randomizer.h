@@ -13,9 +13,6 @@ namespace randomizer::entrances {
         /** Name used for map icons */
         std::string display_name;
 
-        /** Name used in the uber state menu */
-        std::string uber_state_name;
-
         /** Scenes that need to be loaded for this entrance to be functional. The first one needs to contain the actual LegacyDoor component */
         std::vector<std::string> scene_names;
 

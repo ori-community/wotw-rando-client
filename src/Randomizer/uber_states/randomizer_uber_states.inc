@@ -547,8 +547,8 @@ DEFINE_NAMED_STATE(27, "ruinsOutside", SerializedIntUberState, 28)
 DEFINE_NAMED_STATE(28, "ruinsInside", SerializedIntUberState, 27)
 DEFINE_NAMED_STATE(29, "willowBottomOutside", SerializedIntUberState, 30)
 DEFINE_NAMED_STATE(30, "willowBottomInside", SerializedIntUberState, 29)
-DEFINE_NAMED_STATE(31, "willowTopInside", SerializedIntUberState, 32)
-DEFINE_NAMED_STATE(32, "willowTopOutside", SerializedIntUberState, 31)
+DEFINE_NAMED_STATE(31, "willowTopOutside", SerializedIntUberState, 32)
+DEFINE_NAMED_STATE(32, "willowTopInside", SerializedIntUberState, 31)
 
 #undef GROUP_ID
 #undef GROUP_NAME
