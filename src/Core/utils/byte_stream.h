@@ -10,7 +10,7 @@
 namespace core::utils {
     template<typename BUFFER_T>
     void assert_buffer_size(const BUFFER_T& buffer, const std::size_t position, const std::size_t length) {
-        if (buffer.size() <= position + length) {
+        if (buffer.size() < position + length) {
             throw std::overflow_error("Cannot read outside buffer");
         }
     }
