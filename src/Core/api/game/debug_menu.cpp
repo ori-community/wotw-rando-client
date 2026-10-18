@@ -200,6 +200,11 @@ namespace core::api::game::debug_menu {
             }
         });
 
+        [[maybe_unused]]
+        auto on_value_store_loaded = core::api::game::event_bus().on<events::UberStateValueStoreLoaded>([](auto) {
+            uber_state_menu_input_states.clear();
+        });
+
         IL2CPP_INTERCEPT(app::String*, UnityEngine::GUILayout, TextField, app::String * text, app::GUILayoutOption__Array* options) {
             if (!is_rendering_uber_state_wrapper) {
                 return next::UnityEngine::GUILayout::TextField(text, options);
