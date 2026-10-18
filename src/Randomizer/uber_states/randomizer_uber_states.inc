@@ -221,7 +221,6 @@ DEFINE_NAMED_STATE(102, "knockKnockWellspring", SerializedBooleanUberState, fals
 DEFINE_NAMED_STATE(103, "allowSpawningEnemiesNearby", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(200, "showSmallEntrances", SerializedBooleanUberState, false)
 DEFINE_NAMED_VIRTUAL_STATE(300, "enableDebugRenderer", VirtualBooleanUberState)
-DEFINE_NAMED_STATE(301, "forceNoAirDecelerationFlag", SerializedIntUberState, 0)
 DEFINE_NAMED_STATE(420, "baurSneezeWithBlaze", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(421, "baurSneezeWithFlash", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(500, "spiritWellPlayCutscene", SerializedBooleanUberState, false)

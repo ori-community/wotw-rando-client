@@ -16,8 +16,6 @@ extern void handle_launch_no_deceleration(app::CharacterAirNoDeceleration* this_
 using namespace app::classes;
 
 namespace {
-    auto& air_no_deceleration_state = randomizer::uber_states::state<"randoConfig", "forceNoAirDecelerationFlag">();
-
     constexpr auto NO_AIR_DECELERATION_DURATION = 0.2f;
     constexpr auto NO_AIR_DECELERATION_RESET_DURATION = 0.2f;
     auto aim_timer = 0.0f;
@@ -73,10 +71,6 @@ namespace {
                 }
 
                 this_ptr->fields.m_noDeceleration = false;
-            }
-
-            if (air_no_deceleration_state.get()) {
-                this_ptr->fields.m_noDeceleration = true;
             }
         }
     }
