@@ -125,12 +125,6 @@ namespace randomizer::game::shops::tuley {
         }
 
         IL2CPP_INTERCEPT(void, GardenerItem, DoPurchase, app::GardenerItem* this_ptr, app::PurchaseContext* context) {
-            if (get_cutscene_state(this_ptr->fields.Project).get()) {
-                // The normal method calls a DelayedAction.Action to play the cutscene
-                next::GardenerItem::DoPurchase(this_ptr, context);
-                return;
-            }
-
             // TODO[TuleyCapitalism]:
             // const auto cost = GardenerItem::GetCostForLevel(this_ptr, 1);
             // auto ui_experience = il2cpp::unity::get_component_in_children<app::SpellUIExperience>(
@@ -140,6 +134,11 @@ namespace randomizer::game::shops::tuley {
 
             auto& slot = get_slot(this_ptr);
             buy_item(slot);
+
+            if (get_cutscene_state(this_ptr->fields.Project).get()) {
+                // The normal method calls a DelayedAction.Action to play the cutscene
+                next::GardenerItem::DoPurchase(this_ptr, context);
+            }
         }
 
         IL2CPP_INTERCEPT(

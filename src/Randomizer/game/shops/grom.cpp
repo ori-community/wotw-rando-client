@@ -9,7 +9,10 @@
 #include <Modloader/app/methods/ShopkeeperScreen.h>
 #include <Modloader/app/methods/SpellUISeeds.h>
 #include <Modloader/app/methods/UISoundSettingsAsset.h>
-#include <Modloader/app/types/BuilderItem.h>
+#include <Modloader/app/methods/DelayedAction.h>
+#include <Modloader/app/methods/MenuScreenManager.h>
+#include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
+#include <Modloader/app/types/UI.h>
 #include <Modloader/app/types/ChangeStateOnCondition.h>
 #include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/app/types/SpellUISeeds.h>
@@ -148,18 +151,33 @@ namespace randomizer::game::shops::grom {
             }
         }
 
-        IL2CPP_INTERCEPT(void, BuilderItem, DoPurchase, app::BuilderItem* this_ptr, app::PurchaseContext* context) {
-            if (get_cutscene_state(this_ptr->fields.Project).get()) {
-                // The normal method calls a DelayedAction.Action to play the cutscene
-                next::BuilderItem::DoPurchase(this_ptr, context);
-                return;
-            }
+        [[maybe_unused]]
+        auto on_injection_complete = modloader::event_bus().on<modloader::events::InjectionComplete>([](auto) {
+            // This removes the vanilla spending logic from BuilderItem_DoPurchase.
+            // We need the rest of the function though to play the cutscenes.
+            constexpr auto NOP_LENGTH = 1;
+            modloader::win::memory::modify_memory(
+                modloader::win::memory::resolve_rva(0x818cc0),
+                NOP_LENGTH,
+                [](auto memory) {
+                    std::fill(memory, memory + NOP_LENGTH, static_cast<uint8_t>(modloader::win::memory::Instruction::NOP));
+                }
+            );
+        });
 
+        IL2CPP_INTERCEPT(void, DelayedAction, PerformDelayed, app::DelayedAction* this_ptr, app::DelayedAction_Action* action) {
+            next::DelayedAction::PerformDelayed(this_ptr, action);
+        }
+
+        IL2CPP_INTERCEPT(void, BuilderItem, DoPurchase, app::BuilderItem* this_ptr, app::PurchaseContext* context) {
             auto& slot = get_slot(this_ptr);
-            const auto cost = BuilderItem::GetCostForLevel(this_ptr, 1);
             const auto seed_ui = core::api::game::ui::get()->static_fields->SeinUI->fields.SeedsUI;
-            SpellUISeeds::Spend(il2cpp::unity::get_component_in_children<app::SpellUISeeds>(seed_ui, types::SpellUISeeds::get_class()), cost);
+            SpellUISeeds::Spend(il2cpp::unity::get_component_in_children<app::SpellUISeeds>(seed_ui, types::SpellUISeeds::get_class()), slot.cost.get());
             buy_item(slot);
+
+            if (get_cutscene_state(this_ptr->fields.Project).get()) {
+                next::BuilderItem::DoPurchase(this_ptr, context);
+            }
         }
 
         IL2CPP_INTERCEPT(
