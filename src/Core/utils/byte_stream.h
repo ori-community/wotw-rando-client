@@ -5,8 +5,21 @@
 #include <string>
 #include <vector>
 #include <ranges>
+#include <stdexcept>
 
 namespace core::utils {
+    template<typename BUFFER_T>
+    void assert_buffer_size(const BUFFER_T& buffer, const std::size_t position, const std::size_t length) {
+        if (buffer.size() <= position + length) {
+            throw std::overflow_error("Cannot read outside buffer");
+        }
+    }
+
+    template<typename T, typename BUFFER_T>
+    void assert_buffer_size(const BUFFER_T& buffer, const std::size_t position) {
+        assert_buffer_size(buffer, position, sizeof(T));
+    }
+
     template<bool is_const = false>
     struct ByteStreamImpl {
         using buffer_type = std::conditional_t<
@@ -45,6 +58,7 @@ namespace core::utils {
         }
 
         std::ranges::subrange<typename buffer_type::const_iterator> peek(const size_t length) {
+            assert_buffer_size(buffer, this->position, length);
             return { this->buffer.cbegin() + this->position, this->buffer.cbegin() + this->position + length };
         }
 
@@ -53,6 +67,7 @@ namespace core::utils {
         }
 
         buffer_type copy(const size_t length) {
+            assert_buffer_size(buffer, this->position, length);
             return { this->buffer.cbegin() + this->position, this->buffer.cbegin() + this->position + length };
         }
 
@@ -76,17 +91,21 @@ namespace core::utils {
 
         template <typename T = std::byte>
         const T& peek() const {
+            assert_buffer_size<T>(buffer, this->position);
             return *reinterpret_cast<const T*>(&this->buffer[this->position]);
         }
 
         [[nodiscard]]
         std::string_view peek_string(const size_t length) const {
+            assert_buffer_size(buffer, this->position, length);
             return {reinterpret_cast<const char*>(&this->buffer[this->position]), length};
         }
 
         [[nodiscard]]
         std::string_view peek_with_length() const {
-            return {reinterpret_cast<const char*>(&this->buffer[this->position + sizeof(uint64_t)]), peek<uint64_t>()};
+            const auto length = peek<uint64_t>();
+            assert_buffer_size(buffer, this->position, length + sizeof(uint64_t));
+            return {reinterpret_cast<const char*>(&this->buffer[this->position + sizeof(uint64_t)]), length};
         }
 
         template <typename T = std::byte>
@@ -118,6 +137,7 @@ namespace core::utils {
         }
 
         void read(std::byte* source_buffer, const size_t length) {
+            assert_buffer_size(buffer, this->position, length);
             memcpy(source_buffer, this->buffer.data() + this->position, length);
             skip(length);
         }

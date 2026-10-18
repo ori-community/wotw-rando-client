@@ -230,11 +230,16 @@ namespace core::save_meta {
             return read_save_meta_from_byte_array(data, false);
         }
 
-        IL2CPP_INTERCEPT(void, Moon::UberStateValueStore, ctor_2, app::UberStateValueStore * this_ptr, app::Byte__Array* data) {
-            next::Moon::UberStateValueStore::ctor_2(this_ptr, read_save_meta_from_byte_array_with_current_parameters(data).vanilla_data);
+        IL2CPP_INTERCEPT(void, Moon::UberStateValueStore, ctor_2, app::UberStateValueStore* this_ptr, app::Byte__Array* data) {
+            try {
+                next::Moon::UberStateValueStore::ctor_2(this_ptr, read_save_meta_from_byte_array_with_current_parameters(data).vanilla_data);
+            } catch (std::exception& e) {
+                modloader::error("save_meta", std::format("Failed to parse save file: {}", e.what()));
+                next::Moon::UberStateValueStore::ctor_2(this_ptr, data);
+            }
         }
 
-        IL2CPP_INTERCEPT(void, Moon::UberStateValueStore, ctor_3, app::UberStateValueStore * this_ptr, app::Byte__Array* data, int actual_size) {
+        IL2CPP_INTERCEPT(void, Moon::UberStateValueStore, ctor_3, app::UberStateValueStore* this_ptr, app::Byte__Array* data, int actual_size) {
             auto result = read_save_meta_from_byte_array_with_current_parameters(data);
             next::Moon::UberStateValueStore::ctor_3(this_ptr, result.vanilla_data, result.vanilla_data_size);
         }

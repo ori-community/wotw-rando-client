@@ -582,28 +582,32 @@ namespace randomizer::main_menu_seed_info {
 
                 auto seed_meta_data = std::make_shared<seed::SaveSlotSeedMetaData>();
                 auto seed_archive_data = std::make_shared<seed::SeedArchiveSaveMetaData>(false);
-
-                const auto read_slots = core::save_meta::read_save_meta_slots_from_byte_array(
-                    core::api::save_files::get_byte_array(index),
-                    {
-                        {SaveMetaSlot::SeedMetaData, seed_meta_data},
-                        {SaveMetaSlot::SeedArchiveData, seed_archive_data},
-                    }
-                );
-
                 std::optional<seed::server_connection_t> server_connection = std::nullopt;
 
-                if (read_slots.contains(SaveMetaSlot::SeedMetaData) && read_slots.contains(SaveMetaSlot::SeedArchiveData)) {
-                    const auto meta = randomizer::seed::parse_meta_data(seed_archive_data->seed_archive);
-                    current_seed_meta_data_result = variant_cast(meta);
-                    current_seed_source = seed_meta_data->get_source();
+                try {
+                    const auto read_slots = core::save_meta::read_save_meta_slots_from_byte_array(
+                        core::api::save_files::get_byte_array(index),
+                        {
+                            {SaveMetaSlot::SeedMetaData, seed_meta_data},
+                            {SaveMetaSlot::SeedArchiveData, seed_archive_data},
+                        }
+                    );
 
-                    if (std::holds_alternative<seed::SeedMetaData>(meta)) {
-                        server_connection = current_seed_source->get_server_connection();
+                    if (read_slots.contains(SaveMetaSlot::SeedMetaData) && read_slots.contains(SaveMetaSlot::SeedArchiveData)) {
+                        const auto meta = randomizer::seed::parse_meta_data(seed_archive_data->seed_archive);
+                        current_seed_meta_data_result = variant_cast(meta);
+                        current_seed_source = seed_meta_data->get_source();
+
+                        if (std::holds_alternative<seed::SeedMetaData>(meta)) {
+                            server_connection = current_seed_source->get_server_connection();
+                        }
+                    } else {
+                        current_seed_source = nullptr;
+                        current_seed_meta_data_result = "Error reading save metadata.\nThis might be a vanilla save.";
                     }
-                } else {
+                } catch (std::exception& e) {
                     current_seed_source = nullptr;
-                    current_seed_meta_data_result = "Error reading save metadata.\nThis might be a vanilla save.";
+                    current_seed_meta_data_result = std::format("Error reading save metadata: {}", e.what());
                 }
 
                 poll_current_seed_source_until_not_loading = false;
