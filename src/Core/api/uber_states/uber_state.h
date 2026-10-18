@@ -304,8 +304,12 @@ namespace core::api::uber_states {
             apply_uber_state(reinterpret_cast<app::IUberState*>(get_native_ptr()));
         }
 
-        const id_t& operator()() const {
+        constexpr operator id_t() const { // NOLINT(*-explicit-constructor)
             return get_uber_id();
+        }
+
+        constexpr operator UntypedUberId() const { // NOLINT(*-explicit-constructor)
+            return UntypedUberId(get_uber_id());
         }
 
         void initialize_native_ptr() {
