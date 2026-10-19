@@ -33,7 +33,7 @@ namespace {
 
         MessageBox::RefreshText_1(this_ptr->fields.LeftStickMessageBox);
         if (focus_objective_button_pressed) {
-            randomizer::map::filter::show_interactables().set(randomizer::map::filter::show_interactables().get());
+            randomizer::map::filter::show_interactables().set(!randomizer::map::filter::show_interactables().get());
         }
     }
 }
