@@ -112,14 +112,14 @@ namespace randomizer::game::shops::tuley {
             purchase_failed_timeline = il2cpp::unity::get_component<app::MoonTimeline>(purchase_failed_timeline_go, types::MoonTimeline::get_class());
         });
 
-        core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState> get_cutscene_state(const app::NpcProjectItem* project) {
+        core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState> get_cutscene_disabled_state(const app::NpcProjectItem* project) {
             switch (const auto project_id = project->fields.UberState->fields._.m_id->fields.m_id) {
-                case 47651: return uber_states::state<"randoConfig", "lightcatchersPlayCutscene">();
-                case 16254: return uber_states::state<"randoConfig", "selaFlowersPlayCutscene">();
-                case 33011: return uber_states::state<"randoConfig", "blueMoonPlayCutscene">();
-                case 64583: return uber_states::state<"randoConfig", "stickyGrassPlayCutscene">();
-                case 38393: return uber_states::state<"randoConfig", "springPlantsPlayCutscene">();
-                case 40006: return uber_states::state<"randoConfig", "lastTreePlayCutscene">();
+                case 47651: return uber_states::state<"modifications", "disableLightcatchersCutscene">();
+                case 16254: return uber_states::state<"modifications", "disableSelaFlowersCutscene">();
+                case 33011: return uber_states::state<"modifications", "disableBlueMoonCutscene">();
+                case 64583: return uber_states::state<"modifications", "disableStickyGrassCutscene">();
+                case 38393: return uber_states::state<"modifications", "disableSpringPlantsCutscene">();
+                case 40006: return uber_states::state<"modifications", "disableLastTreeCutscene">();
                 default: throw std::runtime_error(std::format("No cutscene state exists for Glades project {}", project_id));
             }
         }
@@ -135,7 +135,7 @@ namespace randomizer::game::shops::tuley {
             auto& slot = get_slot(this_ptr);
             buy_item(slot);
 
-            if (get_cutscene_state(this_ptr->fields.Project).get()) {
+            if (!get_cutscene_disabled_state(this_ptr->fields.Project).get()) {
                 // The normal method calls a DelayedAction.Action to play the cutscene
                 next::GardenerItem::DoPurchase(this_ptr, context);
             }
@@ -176,10 +176,10 @@ namespace randomizer::game::shops::tuley {
         IL2CPP_INTERCEPT(void, GardenerScreen, CompletePurchase, app::GardenerScreen* this_ptr) {
             const auto shopkeeper_screen = reinterpret_cast<app::ShopkeeperScreen*>(this_ptr);
             const auto item = reinterpret_cast<app::GardenerItem*>(ShopkeeperScreen::get_SelectedUpgradeItem(shopkeeper_screen));
-            const auto should_play_cutscene = get_cutscene_state(item->fields.Project).get();
-            shopkeeper_screen->fields.HideScreenAfterPurchase = should_play_cutscene;
+            const auto is_cutscene_disabled = get_cutscene_disabled_state(item->fields.Project).get();
+            shopkeeper_screen->fields.HideScreenAfterPurchase = !is_cutscene_disabled;
             next::GardenerScreen::CompletePurchase(this_ptr);
-            if (!should_play_cutscene) {
+            if (is_cutscene_disabled) {
                 core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedByteUberState>(item->fields.Project->fields.UberState).set(3);
                 ShopkeeperScreen::UpdateContextCanvasShards(reinterpret_cast<app::ShopkeeperScreen*>(this_ptr));
             }

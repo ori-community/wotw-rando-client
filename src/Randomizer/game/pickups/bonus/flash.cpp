@@ -9,8 +9,8 @@
 using namespace app::classes;
 
 namespace {
-    auto& flash_damage_multiplier = randomizer::uber_states::state<"randoUpgrades", "flashDamageMultiplier">();
-    auto& flash_tick_interval = randomizer::uber_states::state<"randoUpgrades", "flashTickInterval">();
+    auto& flash_damage_multiplier = randomizer::uber_states::state<"bonusUpgrades", "flashDamageMultiplier">();
+    auto& flash_tick_interval = randomizer::uber_states::state<"bonusUpgrades", "flashDamageIntervalDurationMultiplier">();
 
     IL2CPP_INTERCEPT(void, SeinGlowSpell, DealDamageInRadius, app::SeinGlowSpell * this_ptr, float amount, float radius, float force) {
         this_ptr->fields.Balancing->fields.DamageOverTimeTickRate = flash_tick_interval.get();

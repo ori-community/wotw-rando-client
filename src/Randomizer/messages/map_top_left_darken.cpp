@@ -13,7 +13,7 @@ using namespace app::classes;
 namespace {
     std::unique_ptr<core::api::graphics::Sprite> map_side_background;
     core::reactivity::ReactiveEffect::ptr_t visibility_effect;
-    auto& map_side_background_state = randomizer::uber_states::state<"randoState", "darkenTopLeftCornerOfMap">();
+    auto& map_side_background_state = randomizer::uber_states::state<"map", "darkenTopLeftCorner">();
 
     [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {

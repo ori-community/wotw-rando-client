@@ -10,7 +10,7 @@ using namespace modloader;
 using namespace modloader::win::console;
 
 namespace {
-    auto& stomp_into_water_state = randomizer::uber_states::state<"randoConfig", "stompIntoWater">();
+    auto& stomp_into_water_state = randomizer::uber_states::state<"modifications", "stompIntoWater">();
 
     IL2CPP_INTERCEPT(void, MeleeComboMoveHammerStomp, OnHitWater, app::MeleeComboMoveHammerStomp * this_ptr) {
         auto should_extend_stomp =

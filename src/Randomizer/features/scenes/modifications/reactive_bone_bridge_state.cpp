@@ -1,7 +1,6 @@
 #include <Core/api/game/game.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/uber_state.h>
 #include <Core/uber_states/core_uber_states.h>
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
 #include <Modloader/app/types/MoonTimeline.h>

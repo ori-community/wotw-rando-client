@@ -13,7 +13,7 @@ using namespace app::classes;
 namespace {
     constexpr auto DEFAULT_SWIM_SPEED = 6.f;
 
-    auto& swim_speed_state = randomizer::uber_states::state<"randoUpgrades", "swimSpeedMultiplier">();
+    auto& swim_speed_state = randomizer::uber_states::state<"bonusUpgrades", "swimSpeedMultiplier">();
 
     IL2CPP_INTERCEPT(void, SeinSwimming, UpdateSwimMovingUnderwaterState, app::SeinSwimming * this_ptr) {
         this_ptr->fields.SwimSpeed = DEFAULT_SWIM_SPEED * swim_speed_state.get();

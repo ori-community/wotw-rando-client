@@ -361,7 +361,7 @@ namespace randomizer::entrances {
                     }
 
                     core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState> visited_uber_state(
-                        uber_states::group_id<"knownEntranceConnections">(),
+                        uber_states::group_id<"entrancesKnown">(),
                         ENTRANCE_NAME_TO_ENTRANCE_ID.at(it->first)
                     );
                     visited_uber_state.set(true);

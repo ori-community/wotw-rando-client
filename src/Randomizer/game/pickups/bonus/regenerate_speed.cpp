@@ -7,7 +7,7 @@
 using namespace app::classes;
 
 namespace {
-    auto& regenerate_speed_state = randomizer::uber_states::state<"randoUpgrades", "regenerateSpeedMultiplier">();
+    auto& regenerate_speed_state = randomizer::uber_states::state<"bonusUpgrades", "regenerateSpeedMultiplier">();
 
     bool initialized = false;
     float default_delay_before_charging = 0.5f;

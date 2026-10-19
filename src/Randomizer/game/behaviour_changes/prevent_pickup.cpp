@@ -5,7 +5,7 @@
 #include <Randomizer/uber_states/randomizer_uber_states.h>
 
 namespace {
-    auto& prevent_pickup_state = randomizer::uber_states::state<"randoConfig", "preventPickup">();
+    auto& prevent_pickup_state = randomizer::uber_states::state<"modifications", "disablePickupCollision">();
 
     IL2CPP_INTERCEPT(void, PickupBase, Collected, app::PickupBase * this_ptr) {
         if (prevent_pickup_state.get()) {

@@ -11,23 +11,14 @@ using namespace app::classes;
 
 
 namespace {
-    auto& extra_shurikens = randomizer::uber_states::state<"randoUpgrades", "extraShurikens">();
-    auto& shuriken_multishot_count = randomizer::uber_states::state<"randoUpgrades", "shurikenMultishotCount">();
-    auto& shuriken_multishot_spread = randomizer::uber_states::state<"randoUpgrades", "shurikenMultishotSpread">();
-    auto& shuriken_damage_multiplier = randomizer::uber_states::state<"randoUpgrades", "shurikenDamageMultiplier">();
-    auto& shuriken_bashable = randomizer::uber_states::state<"randoUpgrades", "shurikenBashable">();
-
-    auto initialized = false;
-    auto default_max_chakrams = 1;
+    auto& max_shurikens = randomizer::uber_states::state<"bonusUpgrades", "maxShurikens">();
+    auto& shuriken_multishot_count = randomizer::uber_states::state<"bonusUpgrades", "splinterShurikenCount">();
+    auto& shuriken_multishot_spread = randomizer::uber_states::state<"bonusUpgrades", "splinterShurikenAngle">();
+    auto& shuriken_damage_multiplier = randomizer::uber_states::state<"bonusUpgrades", "shurikenDamageMultiplier">();
+    auto& shuriken_bashable = randomizer::uber_states::state<"bonusUpgrades", "shurikenBashable">();
 
     IL2CPP_INTERCEPT(void, SeinChakramSpell, EnterMove, app::SeinChakramSpell* this_ptr) {
-        if (!initialized) {
-            default_max_chakrams = this_ptr->fields.MaxChakrams;
-            initialized = true;
-        }
-
-        this_ptr->fields.MaxChakrams = default_max_chakrams + extra_shurikens.get();
-
+        this_ptr->fields.MaxChakrams = max_shurikens.get();
         return next::SeinChakramSpell::EnterMove(this_ptr);
     }
 

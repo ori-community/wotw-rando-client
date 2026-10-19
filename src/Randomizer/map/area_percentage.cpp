@@ -28,14 +28,14 @@ namespace {
             return;
         }
 
-        const auto total_pickups_in_this_area = core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedIntUberState>(randomizer::uber_states::group_id<"randoStats">(), 1100 + static_cast<int>(game_area)).get();
+        const auto total_pickups_in_this_area = core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedIntUberState>(randomizer::uber_states::group_id<"stats">(), 1100 + static_cast<int>(game_area)).get();
 
         if (total_pickups_in_this_area == 0) {
             this_ptr->fields.m_completionAmount = 1.f;
             return;
         }
 
-        const auto collected_pickups_in_this_area = core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedIntUberState>(randomizer::uber_states::group_id<"randoStats">(), 1000 + static_cast<int>(game_area)).get();
+        const auto collected_pickups_in_this_area = core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedIntUberState>(randomizer::uber_states::group_id<"stats">(), 1000 + static_cast<int>(game_area)).get();
         this_ptr->fields.m_completionAmount = static_cast<float>(collected_pickups_in_this_area) / static_cast<float>(total_pickups_in_this_area);
     }
 
@@ -49,8 +49,8 @@ namespace {
                 continue;
             }
 
-            completion_uber_state_ids.emplace_back(randomizer::uber_states::group_id<"randoStats">(), 1000 + static_cast<int>(game_area));
-            completion_uber_state_ids.emplace_back(randomizer::uber_states::group_id<"randoStats">(), 1100 + static_cast<int>(game_area));
+            completion_uber_state_ids.emplace_back(randomizer::uber_states::group_id<"stats">(), 1000 + static_cast<int>(game_area));
+            completion_uber_state_ids.emplace_back(randomizer::uber_states::group_id<"stats">(), 1100 + static_cast<int>(game_area));
         }
 
         on_completion_state_changed_effect = core::reactivity::watch_effect()

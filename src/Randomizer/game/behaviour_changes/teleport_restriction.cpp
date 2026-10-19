@@ -21,8 +21,8 @@
 namespace {
     using namespace app::classes;
 
-    auto& allow_tp_underwater_state = randomizer::uber_states::state<"randoConfig", "allowTeleportingUnderwater">();
-    auto& allow_tp_in_combat_shrines_state = randomizer::uber_states::state<"randoConfig", "allowTeleportingDuringCombatShrineFights">();
+    auto& allow_tp_underwater_state = randomizer::uber_states::state<"modifications", "fastTravelUnderwater">();
+    auto& allow_tp_in_combat_shrines_state = randomizer::uber_states::state<"modifications", "fastTravelDuringCombatShrine">();
 
     IL2CPP_INTERCEPT_WITH_ORDER(20, bool, GameController, get_InputLocked, app::GameController* this_ptr) {
         const auto save_pedestal_controller_instance = types::SavePedestalController::get_class()->static_fields->Instance;

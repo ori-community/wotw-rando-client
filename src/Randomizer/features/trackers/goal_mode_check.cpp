@@ -143,7 +143,7 @@ namespace {
 
             // Reactive effect
             shriek_barrier_effect = core::reactivity::watch_effect().effect([] {
-                static auto& shriek_barrier_state = randomizer::uber_states::state<"randoState", "shriekBarrier">();
+                static auto& shriek_barrier_state = randomizer::uber_states::state<"modifications", "enableShriekBarrier">();
                 shriek_barrier_active = shriek_barrier_state.get();
 
                 const auto shriek_barrier_killbox = shriek_barrier_killbox_ref.and_then([](auto& ref) { return *ref; });

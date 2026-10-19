@@ -10,7 +10,7 @@
 using namespace app::classes;
 
 namespace {
-    auto& sword_speed_state = randomizer::uber_states::state<"randoUpgrades", "swordSpeedMultiplier">();
+    auto& sword_speed_state = randomizer::uber_states::state<"bonusUpgrades", "swordSpeedMultiplier">();
 
     float initial_charge_time = -1.f;
     IL2CPP_INTERCEPT(void, Moon::MeleeComboMoveSwordCharge, EnterMove, app::MeleeComboMoveSwordCharge * this_ptr) {

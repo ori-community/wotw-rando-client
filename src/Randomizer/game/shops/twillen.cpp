@@ -272,15 +272,15 @@ namespace randomizer::game::shops::twillen {
             }
 
             auto& slot = get_slot(this_ptr->fields.m_item->fields.m_type);
-            auto* const icon_renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
+            const auto icon_renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
 
             const auto& icon = slot.icon();
             if (icon != nullptr) {
                 icon->apply_to(icon_renderer);
             }
 
-            auto* const name_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
-            auto* const description_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
+            const auto name_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
+            const auto description_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
 
             name_box->fields.TextBox->fields.verticalAnchor = app::VerticalAnchorMode__Enum::Top;
             name_box->fields.TextBox->fields.maxHeight = 8.f;

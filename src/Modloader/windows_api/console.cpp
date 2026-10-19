@@ -123,7 +123,7 @@ namespace modloader::win::console {
             StringValue,
         };
 
-        auto* const command = find_command(path);
+        const auto command = find_command(path);
         if (command != nullptr) {
             std::string_view unparsed = message;
             unparsed = end == std::string_view::npos ? "" : unparsed.substr(end);
@@ -295,7 +295,7 @@ namespace modloader::win::console {
             auto entry = commands.back();
             commands.erase(commands.end() - 1);
 
-            auto* const command = std::get<2>(entry);
+            const auto command = std::get<2>(entry);
             std::string info;
             for (auto i = 0; i < std::get<0>(entry); ++i) {
                 info += "\t";

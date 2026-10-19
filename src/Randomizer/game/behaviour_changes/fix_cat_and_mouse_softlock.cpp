@@ -14,7 +14,7 @@ using namespace app::classes;
 
 namespace {
     auto& feeding_grounds_state = core::uber_states::state<"_petrifiedForestGroup", "petrifiedOwlState">();
-    auto& fix_cat_and_mouse_softlock_state = randomizer::uber_states::state<"randoConfig", "fixCatAndMouseSoftlock">();
+    auto& fix_cat_and_mouse_softlock_state = randomizer::uber_states::state<"modifications", "fixCatAndMouseSoftlock">();
 
     std::optional<il2cpp::WeakGCRef<app::GameObject>> weeping_ridge_stone_go_ref;
     std::optional<il2cpp::WeakGCRef<app::GameObject>> woods_stone_go_ref;

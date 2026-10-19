@@ -12,7 +12,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::GameObject>> restriction_kwolok_setup_ref;
     core::reactivity::ReactiveEffect::ptr_t effect;
 
-    auto& fix_enabled_state = randomizer::uber_states::state<"randoConfig", "fixMeetingKwolokUnderwaterAbilityRestriction">();
+    auto& fix_enabled_state = randomizer::uber_states::state<"modifications", "disableMeetKwolokUnderwaterSlowZone">();
 
     [[maybe_unused]]
     auto on_scene_loaded_handler = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("kwoloksCavernThroneRoom", [](const auto& event) {

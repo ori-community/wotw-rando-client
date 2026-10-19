@@ -190,13 +190,13 @@ namespace randomizer::game::shops {
 
         switch (type) {
             case ShopType::Lupo: {
-                const auto* const mapmaker_screen_class = types::MapmakerScreen::get_class();
-                auto* const mapmaker_screen = mapmaker_screen_class->static_fields->Instance;
+                const auto mapmaker_screen_class = types::MapmakerScreen::get_class();
+                const auto mapmaker_screen = mapmaker_screen_class->static_fields->Instance;
                 return mapmaker_screen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(mapmaker_screen));
             }
             case ShopType::Grom: {
-                const auto* const builder_screen_class = types::BuilderScreen::get_class();
-                auto* const builder_screen = builder_screen_class->static_fields->_Instance_k__BackingField;
+                const auto builder_screen_class = types::BuilderScreen::get_class();
+                const auto builder_screen = builder_screen_class->static_fields->_Instance_k__BackingField;
                 return builder_screen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(builder_screen));
             }
             case ShopType::Opher: {
@@ -204,13 +204,13 @@ namespace randomizer::game::shops {
                 return weaponmaster_screen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(weaponmaster_screen));
             }
             case ShopType::Twillen: {
-                const auto* const shop_screen = types::SpiritShardsShopScreen::get_class();
+                const auto shop_screen = types::SpiritShardsShopScreen::get_class();
                 const auto spirit_shards_shop_screen = shop_screen->static_fields->Instance;
                 return spirit_shards_shop_screen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(spirit_shards_shop_screen));
             }
             case ShopType::Tuley: {
-                const auto* const gardener_screen_class = types::GardenerScreen::get_class();
-                auto* const gardener_screen = gardener_screen_class->static_fields->_Instance_k__BackingField;
+                const auto gardener_screen_class = types::GardenerScreen::get_class();
+                const auto gardener_screen = gardener_screen_class->static_fields->_Instance_k__BackingField;
                 return gardener_screen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(gardener_screen));
             }
             default:

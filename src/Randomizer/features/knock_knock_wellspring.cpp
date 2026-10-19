@@ -8,7 +8,7 @@
 
 
 namespace {
-    auto& knock_knock_wellspring_enabled_state = randomizer::uber_states::state<"randoConfig", "knockKnockWellspring">();
+    auto& knock_knock_wellspring_enabled_state = randomizer::uber_states::state<"modifications", "knockKnockWellspring">();
     auto& wellspring_teleporter_state = core::uber_states::state<"wellspringGroupDescriptor", 18181>();  // savePedestalUberState
 
     [[maybe_unused]]

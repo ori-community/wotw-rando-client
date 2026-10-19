@@ -7,8 +7,8 @@
 
 
 namespace {
-    auto& spawn_opher_state = randomizer::uber_states::state<"randoState", "spawnOpherEverywhere">();
-    auto& use_spawn_opher_state = randomizer::uber_states::state<"randoConfig", "useSpawnOpherEverywhereRandoState">();
+    auto& spawn_opher_state = randomizer::uber_states::state<"modifications", "spawnOpherEverywhere">();
+    auto& use_spawn_opher_state = randomizer::uber_states::state<"modifications", "spawnOpherEverywhereStateActive">();
 
     [[maybe_unused]]
     auto uber_state_notify = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(

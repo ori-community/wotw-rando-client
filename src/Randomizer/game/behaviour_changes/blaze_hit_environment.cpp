@@ -28,18 +28,18 @@ namespace {
 
         // Damage
         const auto damage_id = Damage::GetNewDamageID();
-        auto* const camera = types::UI_Cameras::get_class()->static_fields->Current;
+        const auto camera = types::UI_Cameras::get_class()->static_fields->Current;
         auto* colliders = UnityEngine::Physics::OverlapSphere_1(source_pos, range < 0 ? 150 : range, 0xfffffff, app::QueryTriggerInteraction__Enum::Collide);
         for (auto collider: il2cpp::ArrayIterator(colliders)) {
-            auto* const go = il2cpp::unity::get_game_object(collider);
-            auto* const transform = il2cpp::unity::get_transform(go);
+            const auto go = il2cpp::unity::get_game_object(collider);
+            const auto transform = il2cpp::unity::get_transform(go);
             const auto pos = UnityEngine::Transform::get_position(transform);
             if (range < 0 && !GameplayCamera::IsOnScreen(camera, pos)) {
                 continue;
             }
 
             const auto direction = modloader::math::direction(source_pos, pos);
-            auto* const damage = types::Damage::create();
+            const auto damage = types::Damage::create();
             Damage::ctor(
                 damage,
                 initial_damage,

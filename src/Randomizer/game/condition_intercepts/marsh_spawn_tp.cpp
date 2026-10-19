@@ -7,7 +7,7 @@
 
 
 namespace {
-    auto& built_spirit_well = randomizer::uber_states::state<"gladesProjects", "spiritWellBuilt">();
+    auto& built_spirit_well = randomizer::uber_states::state<"gladesProjects", "repairTheSpiritWell">();
     auto& built_spirit_well_condition = core::uber_states::state<"hubUberStateGroup", "hasCompletedBuilderProjectSpiritWell">();
 
     [[maybe_unused]]

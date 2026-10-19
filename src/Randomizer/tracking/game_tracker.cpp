@@ -29,7 +29,7 @@ using namespace app::classes;
 
 namespace randomizer::timing {
     auto& game_finished_state = core::uber_states::state<"gameStateGroup", "gameFinished">();
-    auto& spoiler_filter_enabled_state = uber_states::state<"randoState", "enableSpoilerFilter">();
+    auto& spoiler_filter_enabled_state = uber_states::state<"map", "spoilerFilterAvailable">();
 
     namespace {
         // Number of active guards to prevent position recording. If > 0, player
@@ -84,48 +84,48 @@ namespace randomizer::timing {
     } // namespace
 
     static std::unordered_map<GameStat, GameStatConfiguration> GAME_STAT_CONFIGURATIONS{
-        {GameStat::PickupsCollected, {uber_states::state<"randoStats", "pickupsCollected">()}},
-        {GameStat::PickupsTotal, {uber_states::state<"randoStats", "pickupsTotal">()}},
+        {GameStat::PickupsCollected, {uber_states::state<"stats", "pickupsCollected">()}},
+        {GameStat::PickupsTotal, {uber_states::state<"stats", "pickupsTotal">()}},
         {GameStat::Keystones, {uber_states::state<"player", "keystones">()}},
-        {GameStat::KeystonesCollected, {uber_states::state<"randoStats", "keystonesCollected">()}},
+        {GameStat::KeystonesCollected, {uber_states::state<"stats", "keystonesCollected">()}},
         {GameStat::SpiritLight, {uber_states::state<"player", "spiritLight">()}},
-        {GameStat::SpiritLightCollected, {uber_states::state<"randoStats", "spiritLightCollected">()}},
-        {GameStat::SpiritLightSpent, {uber_states::state<"randoStats", "spiritLightSpent">()}},
+        {GameStat::SpiritLightCollected, {uber_states::state<"stats", "spiritLightCollected">()}},
+        {GameStat::SpiritLightSpent, {uber_states::state<"stats", "spiritLightSpent">()}},
         {GameStat::GorlekOre, {uber_states::state<"player", "gorlekOre">()}},
-        {GameStat::GorlekOreCollected, {uber_states::state<"randoStats", "oreCollected">()}},
-        {GameStat::GorlekOreSpent, {uber_states::state<"randoStats", "oreSpent">()}},
+        {GameStat::GorlekOreCollected, {uber_states::state<"stats", "oreCollected">()}},
+        {GameStat::GorlekOreSpent, {uber_states::state<"stats", "oreSpent">()}},
         {GameStat::ShardSlots, {uber_states::state<"player", "shardSlots">()}},
         {GameStat::Health, {uber_states::state<"player", "health">()}},
         {GameStat::MaxHealth, {uber_states::state<"player", "baseMaxHealth">()}},
         {GameStat::Energy, {uber_states::state<"player", "energy">()}},
         {GameStat::MaxEnergy, {uber_states::state<"player", "maxEnergy">()}},
-        {GameStat::PickupsCollectedMarsh, {uber_states::state<"randoStats", "pickupsCollectedMarsh">()}},
-        {GameStat::PickupsTotalMarsh, {uber_states::state<"randoStats", "pickupsTotalMarsh">()}},
-        {GameStat::PickupsCollectedHollow, {uber_states::state<"randoStats", "pickupsCollectedHollow">()}},
-        {GameStat::PickupsTotalHollow, {uber_states::state<"randoStats", "pickupsTotalHollow">()}},
-        {GameStat::PickupsCollectedGlades, {uber_states::state<"randoStats", "pickupsCollectedGlades">()}},
-        {GameStat::PickupsTotalGlades, {uber_states::state<"randoStats", "pickupsTotalGlades">()}},
-        {GameStat::PickupsCollectedWellspring, {uber_states::state<"randoStats", "pickupsCollectedWellspring">()}},
-        {GameStat::PickupsTotalWellspring, {uber_states::state<"randoStats", "pickupsTotalWellspring">()}},
-        {GameStat::PickupsCollectedWoods, {uber_states::state<"randoStats", "pickupsCollectedWoods">()}},
-        {GameStat::PickupsTotalWoods, {uber_states::state<"randoStats", "pickupsTotalWoods">()}},
-        {GameStat::PickupsCollectedReach, {uber_states::state<"randoStats", "pickupsCollectedReach">()}},
-        {GameStat::PickupsTotalReach, {uber_states::state<"randoStats", "pickupsTotalReach">()}},
-        {GameStat::PickupsCollectedDepths, {uber_states::state<"randoStats", "pickupsCollectedDepths">()}},
-        {GameStat::PickupsTotalDepths, {uber_states::state<"randoStats", "pickupsTotalDepths">()}},
-        {GameStat::PickupsCollectedPools, {uber_states::state<"randoStats", "pickupsCollectedPools">()}},
-        {GameStat::PickupsTotalPools, {uber_states::state<"randoStats", "pickupsTotalPools">()}},
-        {GameStat::PickupsCollectedWastes, {uber_states::state<"randoStats", "pickupsCollectedWastes">()}},
-        {GameStat::PickupsTotalWastes, {uber_states::state<"randoStats", "pickupsTotalWastes">()}},
-        {GameStat::PickupsCollectedRuins, {uber_states::state<"randoStats", "pickupsCollectedRuins">()}},
-        {GameStat::PickupsTotalRuins, {uber_states::state<"randoStats", "pickupsTotalRuins">()}},
-        {GameStat::PickupsCollectedWillow, {uber_states::state<"randoStats", "pickupsCollectedWillow">()}},
-        {GameStat::PickupsTotalWillow, {uber_states::state<"randoStats", "pickupsTotalWillow">()}},
-        {GameStat::PickupsCollectedBurrows, {uber_states::state<"randoStats", "pickupsCollectedBurrows">()}},
-        {GameStat::PickupsTotalBurrows, {uber_states::state<"randoStats", "pickupsTotalBurrows">()}},
-        {GameStat::PickupsCollectedShop, {uber_states::state<"randoStats", "pickupsCollectedShop">()}},
-        {GameStat::PickupsTotalShop, {uber_states::state<"randoStats", "pickupsTotalShop">()}},
-        {GameStat::CurrentArea, {uber_states::state<"player", "currentArea">(), [] {
+        {GameStat::PickupsCollectedMarsh, {uber_states::state<"stats", "pickupsCollectedMarsh">()}},
+        {GameStat::PickupsTotalMarsh, {uber_states::state<"stats", "pickupsTotalMarsh">()}},
+        {GameStat::PickupsCollectedHollow, {uber_states::state<"stats", "pickupsCollectedHollow">()}},
+        {GameStat::PickupsTotalHollow, {uber_states::state<"stats", "pickupsTotalHollow">()}},
+        {GameStat::PickupsCollectedGlades, {uber_states::state<"stats", "pickupsCollectedGlades">()}},
+        {GameStat::PickupsTotalGlades, {uber_states::state<"stats", "pickupsTotalGlades">()}},
+        {GameStat::PickupsCollectedWellspring, {uber_states::state<"stats", "pickupsCollectedWellspring">()}},
+        {GameStat::PickupsTotalWellspring, {uber_states::state<"stats", "pickupsTotalWellspring">()}},
+        {GameStat::PickupsCollectedWoods, {uber_states::state<"stats", "pickupsCollectedWoods">()}},
+        {GameStat::PickupsTotalWoods, {uber_states::state<"stats", "pickupsTotalWoods">()}},
+        {GameStat::PickupsCollectedReach, {uber_states::state<"stats", "pickupsCollectedReach">()}},
+        {GameStat::PickupsTotalReach, {uber_states::state<"stats", "pickupsTotalReach">()}},
+        {GameStat::PickupsCollectedDepths, {uber_states::state<"stats", "pickupsCollectedDepths">()}},
+        {GameStat::PickupsTotalDepths, {uber_states::state<"stats", "pickupsTotalDepths">()}},
+        {GameStat::PickupsCollectedPools, {uber_states::state<"stats", "pickupsCollectedPools">()}},
+        {GameStat::PickupsTotalPools, {uber_states::state<"stats", "pickupsTotalPools">()}},
+        {GameStat::PickupsCollectedWastes, {uber_states::state<"stats", "pickupsCollectedWastes">()}},
+        {GameStat::PickupsTotalWastes, {uber_states::state<"stats", "pickupsTotalWastes">()}},
+        {GameStat::PickupsCollectedRuins, {uber_states::state<"stats", "pickupsCollectedRuins">()}},
+        {GameStat::PickupsTotalRuins, {uber_states::state<"stats", "pickupsTotalRuins">()}},
+        {GameStat::PickupsCollectedWillow, {uber_states::state<"stats", "pickupsCollectedWillow">()}},
+        {GameStat::PickupsTotalWillow, {uber_states::state<"stats", "pickupsTotalWillow">()}},
+        {GameStat::PickupsCollectedBurrows, {uber_states::state<"stats", "pickupsCollectedBurrows">()}},
+        {GameStat::PickupsTotalBurrows, {uber_states::state<"stats", "pickupsTotalBurrows">()}},
+        {GameStat::PickupsCollectedShop, {uber_states::state<"stats", "pickupsCollectedShop">()}},
+        {GameStat::PickupsTotalShop, {uber_states::state<"stats", "pickupsTotalShop">()}},
+        {GameStat::CurrentArea, {uber_states::state<"player", "area">(), [] {
             return core::api::game::player::is_actually_alive();
         }}},
     };
@@ -154,7 +154,7 @@ namespace randomizer::timing {
         {uber_states::state<"skills", "flap">(), {"Flap", map::icons::MapIcon::Type::SkillFlap}},
         {uber_states::state<"skills", "gladesAncestralLight">(), {"Glades Ancestral Light", map::icons::MapIcon::Type::SkillAncestralLightA}},
         {uber_states::state<"skills", "marshAncestralLight">(), {"Marsh Ancestral Light", map::icons::MapIcon::Type::SkillAncestralLightB}},
-        {uber_states::state<"randoState", "cleanWater">(), {"Clean Water", map::icons::MapIcon::Type::SilentTeeth}},
+        {uber_states::state<"worldEvents", "cleanWater">(), {"Clean Water", map::icons::MapIcon::Type::SilentTeeth}},
     };
 
     void queue_timer_state_report() {
@@ -628,7 +628,7 @@ namespace randomizer::timing {
             next::GameController::RestartGame(this_ptr, select_saveslot);
         }
 
-        auto& ore_spent_state = uber_states::state<"randoStats", "oreSpent">();
+        auto& ore_spent_state = uber_states::state<"stats", "oreSpent">();
         IL2CPP_INTERCEPT(bool, SpellUISeeds, Spend, app::SpellUISeeds* this_ptr, int amount) {
             const auto worked = next::SpellUISeeds::Spend(this_ptr, amount);
             if (worked) {
@@ -637,7 +637,7 @@ namespace randomizer::timing {
             return worked;
         }
 
-        auto& spirit_light_spent_state = randomizer::uber_states::state<"randoStats", "spiritLightSpent">();
+        auto& spirit_light_spent_state = randomizer::uber_states::state<"stats", "spiritLightSpent">();
         IL2CPP_INTERCEPT(bool, SpellUIExperience, Spend, app::SpellUIExperience * this_ptr, int amount) {
             const auto worked = next::SpellUIExperience::Spend(this_ptr, amount);
             if (worked) {

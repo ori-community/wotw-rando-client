@@ -7,7 +7,7 @@
 namespace {
     using namespace app::classes;
 
-    auto& prevent_pause_floats_state = randomizer::uber_states::state<"randoConfig", "preventPauseFloats">();
+    auto& prevent_pause_floats_state = randomizer::uber_states::state<"modifications", "fixPauseFloat">();
 
     IL2CPP_INTERCEPT(void, PauseGameAction, ResumeGame, app::PauseGameAction* this_ptr) {
         if (prevent_pause_floats_state.get()) {

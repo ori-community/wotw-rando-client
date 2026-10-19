@@ -13,7 +13,7 @@ using namespace modloader;
 using namespace app::classes;
 
 namespace {
-    auto& hammer_speed_state = randomizer::uber_states::state<"randoUpgrades", "hammerSpeedMultiplier">();
+    auto& hammer_speed_state = randomizer::uber_states::state<"bonusUpgrades", "hammerSpeedMultiplier">();
 
     void set_timeline_time_scale_if_not_null(app::MoonTimeline* timeline, const float& time_scale) {
         if (timeline != nullptr)

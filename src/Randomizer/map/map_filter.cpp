@@ -38,7 +38,7 @@ namespace randomizer::map::filter {
     bool is_filter_available(const MapFilter filter) {
         switch (filter) {
             case MapFilter::InLogic:
-                return uber_states::state<"randoConfig", "inLogicFilterEnabled">().get();
+                return uber_states::state<"map", "inLogicFilterAvailable">().get();
             case MapFilter::Collectibles:
                 return true;
             case MapFilter::Quests:
@@ -46,7 +46,7 @@ namespace randomizer::map::filter {
             case MapFilter::Players:
                 return multiplayer_universe().player_count() > 1;
             case MapFilter::Spoiler:
-                return uber_states::state<"randoState", "enableSpoilerFilter">().get();
+                return uber_states::state<"map", "spoilerFilterAvailable">().get();
         }
 
         return true;

@@ -8,8 +8,8 @@
 namespace {
     using namespace app::classes;
 
-    auto& use_east_woods_trunk_slow_walk_zone_enabled_state = randomizer::uber_states::state<"randoConfig", "useEastWoodsTrunkSlowWalkZoneEnabledState">();
-    auto& east_woods_trunk_slow_walk_zone_enabled_state = randomizer::uber_states::state<"randoState", "eastWoodsTrunkSlowWalkZoneEnabledState">();
+    auto& use_east_woods_trunk_slow_walk_zone_enabled_state = randomizer::uber_states::state<"modifications", "disableEastWoodsTrunkSlowZoneStateActive">();
+    auto& east_woods_trunk_slow_walk_zone_disabled_state = randomizer::uber_states::state<"modifications", "disableEastWoodsTrunkSlowZone">();
     auto& original_state = core::uber_states::state<"_petrifiedForestGroup", "creebBulb">();
 
     std::optional<il2cpp::WeakGCRef<app::GameObject>> ability_restrict_go_ref = std::nullopt;
@@ -50,7 +50,7 @@ namespace {
                 }
 
                 if (use_east_woods_trunk_slow_walk_zone_enabled_state.get()) {
-                    il2cpp::unity::set_active(*ability_restrict_go, east_woods_trunk_slow_walk_zone_enabled_state.get());
+                    il2cpp::unity::set_active(*ability_restrict_go, !east_woods_trunk_slow_walk_zone_disabled_state.get());
                 } else {
                     il2cpp::unity::set_active(*ability_restrict_go, !original_state.get());
                 }

@@ -338,8 +338,8 @@ namespace randomizer::timing {
         }
 
         IL2CPP_INTERCEPT(float, GameWorld, get_CompletionAmount, app::GameWorld* this_ptr) {
-            static auto& collected_pickups_state = uber_states::state<"randoStats", "pickupsCollected">();
-            static auto& total_pickups_state = uber_states::state<"randoStats", "pickupsTotal">();
+            static auto& collected_pickups_state = uber_states::state<"stats", "pickupsCollected">();
+            static auto& total_pickups_state = uber_states::state<"stats", "pickupsTotal">();
 
             const auto total_pickups = total_pickups_state.get();
 

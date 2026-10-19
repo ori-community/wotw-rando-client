@@ -5,7 +5,7 @@
 
 
 namespace {
-    auto& spear_speed_state = randomizer::uber_states::state<"randoUpgrades", "spearSpeedMultiplier">();
+    auto& spear_speed_state = randomizer::uber_states::state<"bonusUpgrades", "spearSpeedMultiplier">();
 
     auto initialized = false;
     auto charge_duration = 1.0f;

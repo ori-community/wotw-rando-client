@@ -8,12 +8,9 @@
 using namespace app::classes;
 
 namespace {
-    auto& extra_sentries = randomizer::uber_states::state<"randoUpgrades", "extraSentries">();
-    auto& sentry_shots = randomizer::uber_states::state<"randoUpgrades", "sentryShots">();
-    auto& sentry_fire_rate = randomizer::uber_states::state<"randoUpgrades", "sentryFireRateSpeed">();
-
-    bool initialized = false;
-    int default_sentry_limit = 3;
+    auto& max_sentries = randomizer::uber_states::state<"bonusUpgrades", "maxSentries">();
+    auto& sentry_shots = randomizer::uber_states::state<"bonusUpgrades", "sentryShotsPerBurst">();
+    auto& sentry_fire_rate = randomizer::uber_states::state<"bonusUpgrades", "sentryFireRateMultiplier">();
 
     constexpr float DEFAULT_FIRE_RATE = 0.15f;
 
@@ -27,12 +24,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(void, SeinTurretSpell, SpawnSpiritTurret, app::SeinTurretSpell * this_ptr) {
-        if (!initialized) {
-            default_sentry_limit = this_ptr->fields.BalancingData->fields.MaxTurretsAtOnce;
-            initialized = true;
-        }
-
-        this_ptr->fields.BalancingData->fields.MaxTurretsAtOnce = default_sentry_limit + extra_sentries.get();
+        this_ptr->fields.BalancingData->fields.MaxTurretsAtOnce = max_sentries.get();
         this_ptr->fields.BalancingData->fields.ShotsInBurst = sentry_shots.get();
         this_ptr->fields.BalancingData->fields.UpgradedSpeedMultiplier = sentry_fire_rate.get();
 

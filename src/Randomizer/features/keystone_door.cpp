@@ -35,8 +35,8 @@ namespace {
 
     IL2CPP_INTERCEPT(bool, MoonCustomDoorWithSlots, get_CanPlayerTriggerAutomatically, app::MoonCustomDoorWithSlots * this_ptr) { return false; }
 
-    auto& use_allow_opening_eyestone_door_state = randomizer::uber_states::state<"randoConfig", "useAllowOpeningEyestoneDoorState">();
-    auto& allow_opening_eyestone_door = randomizer::uber_states::state<"randoState", "allowOpeningEyestoneDoor">();
+    auto& use_allow_opening_eyestone_door_state = randomizer::uber_states::state<"modifications", "canOpenEyestoneDoorStateActive">();
+    auto& allow_opening_eyestone_door = randomizer::uber_states::state<"modifications", "canOpenEyestoneDoor">();
 
     [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {

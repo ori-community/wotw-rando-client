@@ -1,5 +1,4 @@
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/uber_state.h>
 #include <Core/property/reactivity.h>
 #include <Randomizer/conditions/new_setup_state_override.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
@@ -14,7 +13,7 @@ using namespace modloader::win;
 
 namespace {
     bool water_damage_override = false;
-    auto&& clean_water_state = randomizer::uber_states::state<"randoState", "cleanWater">();
+    auto&& clean_water_state = randomizer::uber_states::state<"worldEvents", "cleanWater">();
 
     IL2CPP_INTERCEPT(bool, Sein::World::Events, get_WaterPurified) { return !water_damage_override && clean_water_state.get(); }
 

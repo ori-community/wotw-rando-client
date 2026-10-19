@@ -17,7 +17,7 @@ namespace randomizer::howl_fight_state {
         }
 
         void check_for_state_changes() {
-            core::api::uber_states::get_virtual_uber_state(uber_states::group_id<"randoState">(), 800).check_for_changes();
+            core::api::uber_states::get_virtual_uber_state(uber_states::group_id<"bosses">(), 800).check_for_changes();
         }
 
         IL2CPP_INTERCEPT(void, NightCrawlerFightController, StartFight, app::NightCrawlerFightController* this_ptr) {
@@ -38,7 +38,7 @@ namespace randomizer::howl_fight_state {
 
     void register_virtual_uber_states() {
         core::api::uber_states::register_virtual_uber_state(
-            uber_states::group_id<"randoState">(),
+            uber_states::group_id<"bosses">(),
             800,
             core::api::uber_states::VirtualUberState::ValueType::Boolean,
             "howlFightActive",

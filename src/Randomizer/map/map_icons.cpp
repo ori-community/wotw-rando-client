@@ -959,7 +959,7 @@ namespace randomizer::map::icons {
             const std::function<bool()>& show_question_mark_fn,
             const std::string& label_text
         ) {
-            static auto& show_small_entrances_state = uber_states::state<"randoConfig", "showSmallEntrances">();
+            static auto& show_small_entrances_state = uber_states::state<"modifications", "showSmallEntrances">();
 
             const auto door_icon = std::make_shared<MapIcon>(
                 size == EntranceIconSize::Small ? MapIcon::Type::DoorSmall : MapIcon::Type::Door,
@@ -1010,7 +1010,7 @@ namespace randomizer::map::icons {
             return create_entrance_icon(
                 size,
                 world_position,
-                core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState>(uber_states::group_id<"knownEntranceConnections">(), entrance_id),
+                core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState>(uber_states::group_id<"entrancesKnown">(), entrance_id),
                 entrances::get_entrance_info(entrances::get_entrance_name_from_entrance_id(entrance_id)).display_name
             );
         }

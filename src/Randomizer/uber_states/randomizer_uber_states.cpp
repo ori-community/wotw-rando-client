@@ -85,10 +85,10 @@ namespace randomizer::uber_states {
 
         void register_virtual_uber_states() {
             core::api::uber_states::register_virtual_uber_state(
-                group_id<"randoConfig">(),
-                300,
+                group_id<"debugRenderer">(),
+                1,
                 core::api::uber_states::VirtualUberState::ValueType::Boolean,
-                "enableDebugRenderer",
+                "enable",
                 [] { return Moon::VisualDebug::DebugRenderer::get_Enabled(); },
                 [](double value) {
                     const auto is_enabled = value > 0.5;
@@ -119,13 +119,13 @@ namespace randomizer::uber_states {
             register_virtual_uber_state_from_property(group_id<"player">(), 20, VirtualUberState::ValueType::Float, "baseMaxEnergy", max_energy(), VirtualUberState::ChangeDetectionMode::Poll);
             register_virtual_uber_state(group_id<"player">(), 21, VirtualUberState::ValueType::Float, "maxEnergy", [] { return get_max_energy(); }, std::nullopt, VirtualUberState::ChangeDetectionMode::Poll);
             register_virtual_uber_state_from_property(group_id<"player">(), 22, VirtualUberState::ValueType::Float, "energy", energy(), VirtualUberState::ChangeDetectionMode::Poll);
-            register_virtual_uber_state(group_id<"player">(), 50, VirtualUberState::ValueType::Integer, "currentArea", [] { return static_cast<int>(get_current_area()); }, std::nullopt, VirtualUberState::ChangeDetectionMode::Poll);
-            register_read_only_virtual_uber_state_from_property(group_id<"player">(), 51, VirtualUberState::ValueType::Integer, "currentMapArea", properties::player_current_map_area(), VirtualUberState::ChangeDetectionMode::ReactiveEffect);
+            register_virtual_uber_state(group_id<"player">(), 50, VirtualUberState::ValueType::Integer, "area", [] { return static_cast<int>(get_current_area()); }, std::nullopt, VirtualUberState::ChangeDetectionMode::Poll);
+            register_read_only_virtual_uber_state_from_property(group_id<"map">(), 1, VirtualUberState::ValueType::Integer, "focusedArea", properties::player_current_map_area(), VirtualUberState::ChangeDetectionMode::ReactiveEffect);
             register_virtual_uber_state(
-                group_id<"player">(),
-                52,
+                group_id<"map">(),
+                2,
                 VirtualUberState::ValueType::Integer,
-                "currentMapFilter",
+                "filter",
                 [] { return static_cast<int>(map::filter::current_map_filter().get()); },
                 [](double value) { return map::filter::current_map_filter().set(static_cast<map::filter::MapFilter>(value)); },
                 VirtualUberState::ChangeDetectionMode::ReactiveEffect
@@ -167,7 +167,7 @@ namespace randomizer::uber_states {
                 group_id<"settings">(),
                 0,
                 VirtualUberState::ValueType::Boolean,
-                "randomSpiritLight",
+                "randomCurrencyNames",
                 []() -> double { return core::settings::funny_money(); },
                 std::nullopt,
                 VirtualUberState::ChangeDetectionMode::Poll
@@ -283,8 +283,8 @@ namespace randomizer::uber_states {
             }
 
             register_virtual_uber_state(
-                group_id<"input">(),
-                1,
+                group_id<"player">(),
+                200,
                 VirtualUberState::ValueType::Float,
                 "mouseWorldPositionX",
                 []() -> double { return core::input::mouse::get_world_position().x; },
@@ -293,8 +293,8 @@ namespace randomizer::uber_states {
             );
 
             register_virtual_uber_state(
-                group_id<"input">(),
-                2,
+                group_id<"player">(),
+                201,
                 VirtualUberState::ValueType::Float,
                 "mouseWorldPositionY",
                 []() -> double { return core::input::mouse::get_world_position().y; },
@@ -303,8 +303,8 @@ namespace randomizer::uber_states {
             );
 
             register_read_only_virtual_uber_state_from_property(
-                group_id<"input">(),
-                3,
+                group_id<"player">(),
+                300,
                 VirtualUberState::ValueType::Boolean,
                 "wheelOpen",
                 features::wheel::is_wheel_visible(),

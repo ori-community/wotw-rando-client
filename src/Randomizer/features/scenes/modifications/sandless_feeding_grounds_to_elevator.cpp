@@ -14,7 +14,7 @@ namespace {
 
     core::reactivity::ReactiveEffect::ptr_t effect;
 
-    auto& modification_enabled_state = randomizer::uber_states::state<"randoConfig", "removeFeedingGroundsToElevatorSand">();
+    auto& modification_enabled_state = randomizer::uber_states::state<"modifications", "disableWeepingRidgeEntranceSand">();
 
     [[maybe_unused]]
     auto on_scene_loaded_handler = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(

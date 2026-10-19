@@ -13,7 +13,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::PlayerInsideZoneChecker>> player_inside_zone_checker_ref;
     core::reactivity::ReactiveEffect::ptr_t effect;
 
-    auto& fix_enabled_state = randomizer::uber_states::state<"randoConfig", "fixKwolokBossEscapeUnderwaterSpiritLightSoftlock">();
+    auto& fix_enabled_state = randomizer::uber_states::state<"modifications", "fixBelowPoolsEscapeStartSoftlock">();
 
     [[maybe_unused]]
     auto on_scene_loaded_handler = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(

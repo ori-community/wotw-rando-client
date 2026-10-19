@@ -75,42 +75,56 @@ DEFINE_NAMED_STATE(40, "finesse", SerializedBooleanUberState, false)
 
 #undef GROUP_ID
 #undef GROUP_NAME
+#define GROUP_ID 3
+#define GROUP_NAME "map"
+REGISTER_GROUP
+DEFINE_NAMED_VIRTUAL_STATE(1, "focusedArea", ReadOnlyVirtualIntUberState)
+DEFINE_NAMED_VIRTUAL_STATE(2, "filter", VirtualIntUberState)
+DEFINE_NAMED_STATE(12, "inLogicFilterAvailable", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(100, "spoilerFilterAvailable", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(600, "darkenTopLeftCorner", SerializedBooleanUberState, false)
+
+#undef GROUP_ID
+#undef GROUP_NAME
 #define GROUP_ID 4
-#define GROUP_NAME "randoUpgrades"
+#define GROUP_NAME "bonusUpgrades"
 REGISTER_GROUP
 DEFINE_NAMED_STATE(0, "hammerSpeedMultiplier", SerializedFloatUberState, 1.0)
 DEFINE_NAMED_STATE(1, "swordSpeedMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(2, "blazeCostMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(3, "spearCostMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(4, "shurikenCostMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(5, "sentryCostMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(6, "bowCostMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(7, "regenerateCostMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(8, "flashCostMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(9, "grenadeCostMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(10, "bowRapidFireIntervalDurationMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(11, "spearSpeedMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(35, "extraDoubleJumps", SerializedByteUberState, 0)
-DEFINE_NAMED_STATE(36, "extraDashes", SerializedByteUberState, 0)
-DEFINE_NAMED_STATE(37, "extraSentries", SerializedByteUberState, 0)
-DEFINE_NAMED_STATE(38, "extraShurikens", SerializedByteUberState, 0)
-DEFINE_NAMED_STATE(39, "extraLaunches", SerializedByteUberState, 0)
-DEFINE_NAMED_STATE(40, "extraGrenades", SerializedByteUberState, 0)
+DEFINE_NAMED_STATE(2, "blazeCost", SerializedFloatUberState, 1.0)
+DEFINE_NAMED_STATE(3, "chargeBlazeCost", SerializedFloatUberState, 2.0)
+DEFINE_NAMED_STATE(4, "spearCost", SerializedFloatUberState, 2.0)
+DEFINE_NAMED_STATE(5, "shurikenCost", SerializedFloatUberState, 0.5)
+DEFINE_NAMED_STATE(6, "sentryCost", SerializedFloatUberState, 1.0)
+DEFINE_NAMED_STATE(7, "bowCost", SerializedFloatUberState, 0.25)
+DEFINE_NAMED_STATE(8, "chargedBowCost", SerializedFloatUberState, 1.0)
+DEFINE_NAMED_STATE(9, "regenerateCost", SerializedFloatUberState, 1.0)
+DEFINE_NAMED_STATE(10, "flashCostInitial", SerializedFloatUberState, 0.4)
+DEFINE_NAMED_STATE(11, "flashCostPerSecond", SerializedFloatUberState, 0.1)
+DEFINE_NAMED_STATE(12, "grenadeCost", SerializedFloatUberState, 1.0)
+DEFINE_NAMED_STATE(13, "quickshotIntervalDurationMultiplier", SerializedFloatUberState, 1.0)
+DEFINE_NAMED_STATE(14, "spearSpeedMultiplier", SerializedFloatUberState, 1.0)
+DEFINE_NAMED_STATE(35, "maxDoubleJumps", SerializedByteUberState, 1)
+DEFINE_NAMED_STATE(36, "maxAirDashes", SerializedByteUberState, 1)
+DEFINE_NAMED_STATE(37, "maxSentries", SerializedByteUberState, 3)
+DEFINE_NAMED_STATE(38, "maxShurikens", SerializedByteUberState, 1)
+DEFINE_NAMED_STATE(39, "maxLaunches", SerializedByteUberState, 1)
+DEFINE_NAMED_STATE(40, "maxGrenades", SerializedByteUberState, 1)
 DEFINE_NAMED_STATE(41, "grenadesExplodeOnCollision", SerializedBooleanUberState, true)
 DEFINE_NAMED_STATE(42, "unchargedGrenadesBashable", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(43, "chargedAirGrenades", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(43, "grenadesChargeWhileAirborne", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(44, "grenadeChargeDurationMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(45, "grenadeMultishotCount", SerializedByteUberState, 0)
-DEFINE_NAMED_STATE(46, "sentryShots", SerializedByteUberState, 3)
-DEFINE_NAMED_STATE(47, "sentryFireRateSpeed", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(48, "shurikenMultishotCount", SerializedByteUberState, 0)
-DEFINE_NAMED_STATE(49, "shurikenMultishotSpread", SerializedFloatUberState, 35.0)
-DEFINE_NAMED_STATE(70, "bowAsFireSource", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(71, "blazeAsFireSource", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(72, "swordAsFireSource", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(73, "hammerAsFireSource", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(74, "spearAsFireSource", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(75, "shurikenAsFireSource", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(45, "splinterGrenadeCount", SerializedByteUberState, 0)
+DEFINE_NAMED_STATE(46, "sentryShotsPerBurst", SerializedByteUberState, 3)
+DEFINE_NAMED_STATE(47, "sentryFireRateMultiplier", SerializedFloatUberState, 1.0)
+DEFINE_NAMED_STATE(48, "splinterShurikenCount", SerializedByteUberState, 0)
+DEFINE_NAMED_STATE(49, "splinterShurikenAngle", SerializedFloatUberState, 35.0)
+DEFINE_NAMED_STATE(70, "meltingBow", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(71, "meltingBlaze", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(72, "meltingSword", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(73, "meltingHammer", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(74, "meltingSpear", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(75, "meltingShuriken", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(80, "launchSpeedMultiplier", SerializedFloatUberState, 1.0)
 DEFINE_NAMED_STATE(81, "dashDistanceMultiplier", SerializedFloatUberState, 1.0)
 DEFINE_NAMED_STATE(82, "bashSpeedMultiplier", SerializedFloatUberState, 1.0)
@@ -119,13 +133,13 @@ DEFINE_NAMED_STATE(84, "burrowDashSpeedMultiplier", SerializedFloatUberState, 1.
 DEFINE_NAMED_STATE(85, "swimSpeedMultiplier", SerializedFloatUberState, 1.0)
 DEFINE_NAMED_STATE(86, "waterDashSpeedMultiplier", SerializedFloatUberState, 1.0)
 DEFINE_NAMED_STATE(87, "jumpHeightMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(88, "wallJumpHeightMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(89, "doubleJumpHeightMultiplier", SerializedFloatUberState, 1.0)
+DEFINE_NAMED_STATE(88, "wallJumpSpeedMultiplier", SerializedFloatUberState, 1.0)
+DEFINE_NAMED_STATE(89, "doubleJumpSpeedMultiplier", SerializedFloatUberState, 1.0)
 DEFINE_NAMED_STATE(90, "grappleSpeedMultiplier", SerializedFloatUberState, 1.0)
 DEFINE_NAMED_STATE(91, "regenerateSpeedMultiplier", SerializedFloatUberState, 1.0)
 DEFINE_NAMED_STATE(92, "shurikenDamageMultiplier", SerializedFloatUberState, 1.0)
 DEFINE_NAMED_STATE(93, "flashDamageMultiplier", SerializedFloatUberState, 1.0)
-DEFINE_NAMED_STATE(94, "flashTickInterval", SerializedFloatUberState, 1.0)
+DEFINE_NAMED_STATE(94, "flashDamageIntervalDurationMultiplier", SerializedFloatUberState, 1.0)
 DEFINE_NAMED_STATE(95, "shurikenBashable", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(96, "flapDamage", SerializedFloatUberState, 0.0)
 DEFINE_NAMED_STATE(97, "splinterLongerRange", SerializedBooleanUberState, false)
@@ -147,28 +161,74 @@ DEFINE_NAMED_VIRTUAL_STATE(21, "maxEnergy", ReadOnlyVirtualFloatUberState)
 DEFINE_NAMED_VIRTUAL_STATE(22, "energy", VirtualFloatUberState)
 DEFINE_NAMED_VIRTUAL_STATE(40, "positionX", VirtualFloatUberState)
 DEFINE_NAMED_VIRTUAL_STATE(41, "positionY", VirtualFloatUberState)
-DEFINE_NAMED_VIRTUAL_STATE(50, "currentArea", ReadOnlyVirtualIntUberState)
-DEFINE_NAMED_VIRTUAL_STATE(51, "currentMapArea", ReadOnlyVirtualIntUberState)
-DEFINE_NAMED_VIRTUAL_STATE(52, "currentMapFilter", VirtualIntUberState)
+DEFINE_NAMED_VIRTUAL_STATE(50, "area", ReadOnlyVirtualIntUberState)
 DEFINE_NAMED_VIRTUAL_STATE(100, "isTeleporting", ReadOnlyVirtualBooleanUberState)
+DEFINE_NAMED_VIRTUAL_STATE(200, "mouseWorldPositionX", VirtualFloatUberState)
+DEFINE_NAMED_VIRTUAL_STATE(201, "mouseWorldPositionY", VirtualFloatUberState)
+DEFINE_NAMED_VIRTUAL_STATE(300, "wheelOpen", VirtualBooleanUberState)
 DEFINE_NAMED_STATE(1000, "inputLocked", SerializedBooleanUberState, false)
 
 #undef GROUP_ID
 #undef GROUP_NAME
 #define GROUP_ID 6
-#define GROUP_NAME "randoState"
+#define GROUP_NAME "modifications"
 REGISTER_GROUP
-DEFINE_NAMED_STATE(0, "shriekBarrier", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(36, "eastWoodsTrunkSlowWalkZoneEnabledState", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(100, "enableSpoilerFilter", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(0, "enableShriekBarrier", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(1, "disableTeleporterMapActivation", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(8, "disablePickupCollision", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(9, "stompThroughPortals", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(10, "stompIntoWater", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(11, "disableKuInHollow", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(13, "fixMeetKwolokUnderwaterOOB", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(14, "fixTeleporterChainOOB", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(15, "fixBelowPoolsEscapeStartSoftlock", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(16, "fixShopAnywhere", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(17, "patch2Knockback", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(18, "fastTravelUnderwater", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(19, "fastTravelDuringCombatShrine", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(20, "disableWillowHeartCutscenes", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(21, "fastTravelAtMapstone", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(22, "showShriekHealthDuringEscape", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(23, "fixCatAndMouseSoftlock", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(37, "fixPauseFloat", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(38, "fixMoraTriggerSkip", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(40, "disableEastWoodsTrunkSlowZone", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(41, "disableEastWoodsTrunkSlowZoneStateActive", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(50, "disableMeetKwolokUnderwaterSlowZone", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(100, "disableShriekEscapeSand", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(101, "disableWeepingRidgeEntranceSand", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(102, "knockKnockWellspring", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(103, "disableDespawningNearbyEnemies", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(200, "showSmallEntrances", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(300, "spawnTuley", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(301, "spawnOpherEverywhere", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(302, "spawnTwillenEverywhere", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(401, "rainLiftedInMarsh", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(402, "regenTreeDrained", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(301, "spawnTuleyStateActive", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(310, "spawnOpherEverywhere", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(311, "spawnOpherEverywhereStateActive", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(320, "spawnTwillenEverywhere", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(321, "spawnTwillenEverywhereStateActive", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(400, "stormLiftedInMarsh", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(401, "stormLiftedInMarshStateActive", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(410, "regenerateTreeDrained", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(411, "regenerateTreeDrainedStateActive", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(420, "baurSneezeWithBlaze", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(421, "baurSneezeWithFlash", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(500, "canOpenMokiFatherHut", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(501, "allowOpeningEyestoneDoor", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(600, "darkenTopLeftCornerOfMap", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(501, "canOpenMokiFatherHutStateActive", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(510, "canOpenEyestoneDoor", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(511, "canOpenEyestoneDoorStateActive", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(600, "disableRepairTheSpiritWellCutscene", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(601, "disableRoofsOverHeadsCutscene", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(602, "disableOnwardsAndUpwardsCutscene", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(603, "disableDwellingRepairsCutscene", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(604, "disableThornySituationCutscene", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(605, "disableClearTheCaveEntranceCutscene", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(606, "disableTheGorlekTouchCutscene", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(610, "disableLightcatchersCutscene", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(611, "disableSelaFlowersCutscene", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(612, "disableBlueMoonCutscene", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(613, "disableStickyGrassCutscene", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(614, "disableSpringPlantsCutscene", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(615, "disableLastTreeCutscene", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(701, "bell1", SerializedByteUberState, 1)
 DEFINE_NAMED_STATE(702, "bell2", SerializedByteUberState, 2)
 DEFINE_NAMED_STATE(703, "bell3", SerializedByteUberState, 3)
@@ -178,64 +238,6 @@ DEFINE_NAMED_STATE(706, "bell6", SerializedByteUberState, 2)
 DEFINE_NAMED_STATE(707, "bell7", SerializedByteUberState, 1)
 DEFINE_NAMED_STATE(708, "bell8", SerializedByteUberState, 0)
 DEFINE_NAMED_STATE(709, "bell9", SerializedByteUberState, 0)
-DEFINE_NAMED_VIRTUAL_STATE(800, "howlFightActive", ReadOnlyVirtualBooleanUberState)
-DEFINE_NAMED_STATE(2000, "cleanWater", SerializedBooleanUberState, false)
-
-#undef GROUP_ID
-#undef GROUP_NAME
-#define GROUP_ID 7
-#define GROUP_NAME "randoConfig"
-REGISTER_GROUP
-DEFINE_NAMED_STATE(1, "preventMapReactivateTps", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(6, "useAllowOpeningEyestoneDoorState", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(8, "preventPickup", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(9, "stompThroughPortals", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(10, "stompIntoWater", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(11, "goodHollow", SerializedBooleanUberState, true)
-DEFINE_NAMED_STATE(12, "inLogicFilterEnabled", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(13, "fixMeetingKwolokUnderwaterTrigger", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(14, "fixTeleporterChainOutOfBounds", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(15, "fixKwolokBossEscapeUnderwaterSpiritLightSoftlock", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(16, "fixShopAnywhere", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(17, "patch2Kickback", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(18, "allowTeleportingUnderwater", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(19, "allowTeleportingDuringCombatShrineFights", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(20, "disableWillowHeartCutscenes", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(21, "allowTeleportingAtRuinsMapstone", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(22, "keepShriekHealthBarDuringEscape", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(23, "fixCatAndMouseSoftlock", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(30, "useSpawnTuleyRandoState", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(31, "useSpawnOpherEverywhereRandoState", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(32, "useSpawnTwillenEverywhereRandoState", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(33, "useCanOpenMokiFatherHutRandoState", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(34, "useRainLiftedInMarshRandoState", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(35, "useRegenTreeDrainedRandoState", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(36, "useEastWoodsTrunkSlowWalkZoneEnabledState", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(37, "preventPauseFloats", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(38, "fixMoraArenaTrigger", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(39, "drawPositionTriggersInDebugRenderer", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(40, "fixMeetingKwolokUnderwaterAbilityRestriction", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(100, "removeShriekEscapeSand", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(101, "removeFeedingGroundsToElevatorSand", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(102, "knockKnockWellspring", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(103, "allowSpawningEnemiesNearby", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(200, "showSmallEntrances", SerializedBooleanUberState, false)
-DEFINE_NAMED_VIRTUAL_STATE(300, "enableDebugRenderer", VirtualBooleanUberState)
-DEFINE_NAMED_STATE(420, "baurSneezeWithBlaze", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(421, "baurSneezeWithFlash", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(500, "spiritWellPlayCutscene", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(501, "housesAPlayCutscene", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(502, "housesBPlayCutscene", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(503, "housesCPlayCutscene", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(504, "removeThornsPlayCutscene", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(505, "openCavePlayCutscene", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(506, "beautifyPlayCutscene", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(510, "lightcatchersPlayCutscene", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(511, "selaFlowersPlayCutscene", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(512, "blueMoonPlayCutscene", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(513, "stickyGrassPlayCutscene", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(514, "springPlantsPlayCutscene", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(515, "lastTreePlayCutscene", SerializedBooleanUberState, false)
 
 #undef GROUP_ID
 #undef GROUP_NAME
@@ -261,7 +263,7 @@ REGISTER_STATES_AT_RUNTIME
 #undef GROUP_ID
 #undef GROUP_NAME
 #define GROUP_ID 11
-#define GROUP_NAME "bingoState"
+#define GROUP_NAME "bingo"
 REGISTER_GROUP
 DEFINE_NAMED_STATE(0, "squares", SerializedIntUberState, 0)
 DEFINE_NAMED_STATE(1, "lines", SerializedIntUberState, 0)
@@ -276,8 +278,15 @@ REGISTER_STATES_AT_RUNTIME
 
 #undef GROUP_ID
 #undef GROUP_NAME
+#define GROUP_ID 13
+#define GROUP_NAME "bosses"
+REGISTER_GROUP
+DEFINE_NAMED_VIRTUAL_STATE(800, "howlFightActive", ReadOnlyVirtualBooleanUberState)
+
+#undef GROUP_ID
+#undef GROUP_NAME
 #define GROUP_ID 14
-#define GROUP_NAME "randoStats"
+#define GROUP_NAME "stats"
 REGISTER_GROUP
 DEFINE_NAMED_STATE(0, "pickupsCollected", SerializedIntUberState, 0)
 DEFINE_NAMED_STATE(1, "pickupsTotal", SerializedIntUberState, 0)
@@ -343,6 +352,13 @@ DEFINE_NAMED_STATE(57987, "ecMapIcons", SerializedBooleanUberState, false)
 
 #undef GROUP_ID
 #undef GROUP_NAME
+#define GROUP_ID 16
+#define GROUP_NAME "worldEvents"
+REGISTER_GROUP
+DEFINE_NAMED_STATE(2000, "cleanWater", SerializedBooleanUberState, false)
+
+#undef GROUP_ID
+#undef GROUP_NAME
 #define GROUP_ID 17
 #define GROUP_NAME "gromShop"
 REGISTER_GROUP
@@ -353,6 +369,14 @@ DEFINE_NAMED_STATE(18751, "thornySituation", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(23607, "roofsOverHeads", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(40448, "onwardsAndUpwards", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(51230, "dwellingRepairs", SerializedBooleanUberState, false)
+
+#undef GROUP_ID
+#undef GROUP_NAME
+#define GROUP_ID 18
+#define GROUP_NAME "debugRenderer"
+REGISTER_GROUP
+DEFINE_NAMED_VIRTUAL_STATE(1, "enabled", VirtualBooleanUberState)
+DEFINE_NAMED_STATE(2, "positionTriggers", SerializedBooleanUberState, false)
 
 #undef GROUP_ID
 #undef GROUP_NAME
@@ -382,18 +406,18 @@ DEFINE_NAMED_STATE(64583, "stickyGrass", SerializedBooleanUberState, false)
 #define GROUP_ID 21
 #define GROUP_NAME "gladesProjects"
 REGISTER_GROUP
-DEFINE_NAMED_STATE(15068, "beautifyBuilt", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(15068, "theGorlekTouch", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(16254, "selaFlowersPlanted", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(16586, "openCaveBuilt", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(16825, "spiritWellBuilt", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(18751, "removeThornsBuilt", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(23607, "housesBBuilt", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(16586, "clearTheCaveEntrance", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(16825, "repairTheSpiritWell", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(18751, "thornySituation", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(23607, "roofsOverHeads", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(33011, "blueMoonPlanted", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(38393, "springPlantsPlanted", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(40006, "lastTreePlanted", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(40448, "housesCBuilt", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(40448, "onwardsAndUpwards", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(47651, "lightcatchersPlanted", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(51230, "housesABuilt", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(51230, "dwellingRepairs", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(64583, "stickyGrassPlanted", SerializedBooleanUberState, false)
 
 #undef GROUP_ID
@@ -406,17 +430,17 @@ REGISTER_STATES_AT_RUNTIME
 #undef GROUP_ID
 #undef GROUP_NAME
 #define GROUP_ID 23
-#define GROUP_NAME "itemTracker"
+#define GROUP_NAME "tracker"
 REGISTER_GROUP
-DEFINE_NAMED_STATE(1, "launchFragmentsCount", SerializedIntUberState, 0)
+DEFINE_NAMED_STATE(1, "launchFragmentsCollected", SerializedIntUberState, 0)
 DEFINE_NAMED_STATE(2, "launchFragmentsRequired", SerializedIntUberState, 0)
-DEFINE_NAMED_STATE(100, "treesCount", SerializedIntUberState, 0)
+DEFINE_NAMED_STATE(100, "treesCollected", SerializedIntUberState, 0)
 DEFINE_NAMED_STATE(101, "treesRequired", SerializedIntUberState, 0)
-DEFINE_NAMED_STATE(102, "wispsCount", SerializedIntUberState, 0)
+DEFINE_NAMED_STATE(102, "wispsCollected", SerializedIntUberState, 0)
 DEFINE_NAMED_STATE(103, "wispsRequired", SerializedIntUberState, 0)
-DEFINE_NAMED_STATE(104, "questsCount", SerializedIntUberState, 0)
+DEFINE_NAMED_STATE(104, "questsFinished", SerializedIntUberState, 0)
 DEFINE_NAMED_STATE(105, "questsRequired", SerializedIntUberState, 0)
-DEFINE_NAMED_STATE(106, "relicsCount", SerializedIntUberState, 0)
+DEFINE_NAMED_STATE(106, "relicsCollected", SerializedIntUberState, 0)
 DEFINE_NAMED_STATE(107, "relicsRequired", SerializedIntUberState, 0)
 DEFINE_NAMED_STATE(200, "showVisitedEntranceCount", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(500, "currentAreaHasUncollectedRelic", SerializedBooleanUberState, false)
@@ -553,7 +577,7 @@ DEFINE_NAMED_STATE(32, "willowTopInside", SerializedIntUberState, 31)
 #undef GROUP_ID
 #undef GROUP_NAME
 #define GROUP_ID 28
-#define GROUP_NAME "knownEntranceConnections"
+#define GROUP_NAME "entrancesKnown"
 REGISTER_GROUP
 DEFINE_NAMED_STATE(1, "lupoShopOutside", SerializedBooleanUberState, true)
 DEFINE_NAMED_STATE(2, "lupoShopInside", SerializedBooleanUberState, true)
@@ -593,24 +617,15 @@ DEFINE_NAMED_STATE(32, "willowTopInside", SerializedBooleanUberState, true)
 #define GROUP_ID 29
 #define GROUP_NAME "settings"
 REGISTER_GROUP
-DEFINE_NAMED_VIRTUAL_STATE(0, "randomSpiritLight", VirtualBooleanUberState)
-
-#undef GROUP_ID
-#undef GROUP_NAME
-#define GROUP_ID 30
-#define GROUP_NAME "input"
-REGISTER_GROUP
-DEFINE_NAMED_VIRTUAL_STATE(1, "mouseWorldPositionX", VirtualFloatUberState)
-DEFINE_NAMED_VIRTUAL_STATE(2, "mouseWorldPositionY", VirtualFloatUberState)
-DEFINE_NAMED_VIRTUAL_STATE(3, "wheelOpen", VirtualBooleanUberState)
+DEFINE_NAMED_VIRTUAL_STATE(0, "randomCurrencyNames", VirtualBooleanUberState)
 
 #undef GROUP_ID
 #undef GROUP_NAME
 #define GROUP_ID 31
-#define GROUP_NAME "randomValueGenerator"
+#define GROUP_NAME "rng"
 REGISTER_GROUP
 DEFINE_NAMED_STATE(0, "seed", SerializedIntUberState, 0)
-DEFINE_NAMED_STATE(1, "useSeed", SerializedBooleanUberState, false)
-DEFINE_NAMED_VIRTUAL_STATE(10, "randomInt", ReadOnlyVirtualIntUberState)
+DEFINE_NAMED_STATE(1, "seedStateActive", SerializedBooleanUberState, false)
+DEFINE_NAMED_VIRTUAL_STATE(10, "randomInteger", ReadOnlyVirtualIntUberState)
 DEFINE_NAMED_VIRTUAL_STATE(11, "randomFloat", ReadOnlyVirtualFloatUberState)
 DEFINE_NAMED_VIRTUAL_STATE(12, "randomBoolean", ReadOnlyVirtualBooleanUberState)

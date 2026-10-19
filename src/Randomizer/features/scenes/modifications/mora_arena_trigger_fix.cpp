@@ -12,7 +12,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::ReadyForAnimationTrigger>> animation_trigger_ref;
     core::reactivity::ReactiveEffect::ptr_t effect;
 
-    auto& fix_enabled_state = randomizer::uber_states::state<"randoConfig", "fixMoraArenaTrigger">();
+    auto& fix_enabled_state = randomizer::uber_states::state<"modifications", "fixMoraTriggerSkip">();
 
     [[maybe_unused]]
     auto on_scene_loaded_handler = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("matkasChamberBossPlaceholder__clone1", [](const auto& event) {

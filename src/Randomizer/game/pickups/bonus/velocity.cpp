@@ -16,16 +16,16 @@
 
 
 namespace {
-    auto& launch_speed = randomizer::uber_states::state<"randoUpgrades", "launchSpeedMultiplier">();
-    auto& dash_distance = randomizer::uber_states::state<"randoUpgrades", "dashDistanceMultiplier">();
-    auto& bash_speed = randomizer::uber_states::state<"randoUpgrades", "bashSpeedMultiplier">();
-    auto& burrow_speed = randomizer::uber_states::state<"randoUpgrades", "burrowSpeedMultiplier">();
-    auto& burrow_dash_speed = randomizer::uber_states::state<"randoUpgrades", "burrowDashSpeedMultiplier">();
-    auto& grapple_speed = randomizer::uber_states::state<"randoUpgrades", "grappleSpeedMultiplier">();
-    auto& swim_dash_speed = randomizer::uber_states::state<"randoUpgrades", "waterDashSpeedMultiplier">();
-    auto& jump_height = randomizer::uber_states::state<"randoUpgrades", "jumpHeightMultiplier">();
-    auto& wall_jump = randomizer::uber_states::state<"randoUpgrades", "wallJumpHeightMultiplier">();
-    auto& double_jump = randomizer::uber_states::state<"randoUpgrades", "doubleJumpHeightMultiplier">();
+    auto& launch_speed = randomizer::uber_states::state<"bonusUpgrades", "launchSpeedMultiplier">();
+    auto& dash_distance = randomizer::uber_states::state<"bonusUpgrades", "dashDistanceMultiplier">();
+    auto& bash_speed = randomizer::uber_states::state<"bonusUpgrades", "bashSpeedMultiplier">();
+    auto& burrow_speed = randomizer::uber_states::state<"bonusUpgrades", "burrowSpeedMultiplier">();
+    auto& burrow_dash_speed = randomizer::uber_states::state<"bonusUpgrades", "burrowDashSpeedMultiplier">();
+    auto& grapple_speed = randomizer::uber_states::state<"bonusUpgrades", "grappleSpeedMultiplier">();
+    auto& swim_dash_speed = randomizer::uber_states::state<"bonusUpgrades", "waterDashSpeedMultiplier">();
+    auto& jump_height = randomizer::uber_states::state<"bonusUpgrades", "jumpHeightMultiplier">();
+    auto& wall_jump = randomizer::uber_states::state<"bonusUpgrades", "wallJumpSpeedMultiplier">();
+    auto& double_jump = randomizer::uber_states::state<"bonusUpgrades", "doubleJumpSpeedMultiplier">();
 
 
     float initial_jump_speed;

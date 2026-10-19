@@ -18,7 +18,7 @@
 namespace randomizer::features::wheel {
     namespace {
         auto& game_finished_state = core::uber_states::state<"gameStateGroup", "gameFinished">();
-        auto& enable_spoiler_filter_state = uber_states::state<"randoState", "enableSpoilerFilter">();
+        auto& enable_spoiler_filter_state = uber_states::state<"map", "spoilerFilterAvailable">();
 
         void initialize_item(int wheel, WheelItemPosition position, const std::string& name, const std::string& desc, const core::api::graphics::textures::TextureIdentifier& texture_identifier, const wheel_callback& callback) {
             set_wheel_item_name(wheel, position, name);

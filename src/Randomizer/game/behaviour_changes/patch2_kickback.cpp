@@ -8,7 +8,7 @@
 namespace {
     using namespace app::classes;
 
-    auto& patch2_kickback_enabled_state = randomizer::uber_states::state<"randoConfig", "patch2Kickback">();
+    auto& patch2_kickback_enabled_state = randomizer::uber_states::state<"modifications", "patch2Knockback">();
 
     IL2CPP_INTERCEPT(void, SeinDamageReciever, HandleGroundAnimationAndKickback, app::SeinDamageReciever * this_ptr, app::Damage* damage, bool kickback_enabled, float* hurt_timeremaining, app::ActiveAnimationHandle* active_animation, app::SeinDamageReceiverPuppet* puppet) {
         if (!patch2_kickback_enabled_state.get()) {

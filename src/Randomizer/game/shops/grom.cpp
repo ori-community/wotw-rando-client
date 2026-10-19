@@ -138,15 +138,15 @@ namespace randomizer::game::shops::grom {
             purchase_failed_timeline = il2cpp::unity::get_component<app::MoonTimeline>(purchase_failed_timeline_go, types::MoonTimeline::get_class());
         });
 
-        core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState> get_cutscene_state(const app::NpcProjectItem* project) {
+        core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedBooleanUberState> get_cutscene_disabled_state(const app::NpcProjectItem* project) {
             switch (const auto project_id = project->fields.UberState->fields._.m_id->fields.m_id) {
-                case 16825: return uber_states::state<"randoConfig", "spiritWellPlayCutscene">();
-                case 51230: return uber_states::state<"randoConfig", "housesAPlayCutscene">();
-                case 23607: return uber_states::state<"randoConfig", "housesBPlayCutscene">();
-                case 40448: return uber_states::state<"randoConfig", "housesCPlayCutscene">();
-                case 18751: return uber_states::state<"randoConfig", "removeThornsPlayCutscene">();
-                case 16586: return uber_states::state<"randoConfig", "openCavePlayCutscene">();
-                case 15068: return uber_states::state<"randoConfig", "beautifyPlayCutscene">();
+                case 16825: return uber_states::state<"modifications", "disableRepairTheSpiritWellCutscene">();
+                case 51230: return uber_states::state<"modifications", "disableRoofsOverHeadsCutscene">();
+                case 23607: return uber_states::state<"modifications", "disableOnwardsAndUpwardsCutscene">();
+                case 40448: return uber_states::state<"modifications", "disableDwellingRepairsCutscene">();
+                case 18751: return uber_states::state<"modifications", "disableThornySituationCutscene">();
+                case 16586: return uber_states::state<"modifications", "disableClearTheCaveEntranceCutscene">();
+                case 15068: return uber_states::state<"modifications", "disableTheGorlekTouchCutscene">();
                 default: throw std::runtime_error(std::format("No cutscene state exists for Glades project {}", project_id));
             }
         }
@@ -175,7 +175,7 @@ namespace randomizer::game::shops::grom {
             SpellUISeeds::Spend(il2cpp::unity::get_component_in_children<app::SpellUISeeds>(seed_ui, types::SpellUISeeds::get_class()), slot.cost.get());
             buy_item(slot);
 
-            if (get_cutscene_state(this_ptr->fields.Project).get()) {
+            if (!get_cutscene_disabled_state(this_ptr->fields.Project).get()) {
                 next::BuilderItem::DoPurchase(this_ptr, context);
             }
         }
@@ -215,10 +215,10 @@ namespace randomizer::game::shops::grom {
         IL2CPP_INTERCEPT(void, BuilderScreen, CompletePurchase, app::BuilderScreen* this_ptr) {
             const auto shopkeeper_screen = reinterpret_cast<app::ShopkeeperScreen*>(this_ptr);
             const auto item = reinterpret_cast<app::BuilderItem*>(ShopkeeperScreen::get_SelectedUpgradeItem(shopkeeper_screen));
-            const auto should_play_cutscene = get_cutscene_state(item->fields.Project).get();
-            shopkeeper_screen->fields.HideScreenAfterPurchase = should_play_cutscene;
+            const auto is_cutscene_disabled = get_cutscene_disabled_state(item->fields.Project).get();
+            shopkeeper_screen->fields.HideScreenAfterPurchase = !is_cutscene_disabled;
             next::BuilderScreen::CompletePurchase(this_ptr);
-            if (!should_play_cutscene) {
+            if (is_cutscene_disabled) {
                 core::api::uber_states::UberState<core::api::uber_states::UberStateType::SerializedByteUberState>(item->fields.Project->fields.UberState).set(3);
                 ShopkeeperScreen::UpdateContextCanvasShards(reinterpret_cast<app::ShopkeeperScreen*>(this_ptr));
             }

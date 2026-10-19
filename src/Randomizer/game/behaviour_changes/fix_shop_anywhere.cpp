@@ -7,7 +7,7 @@
 namespace {
     auto is_in_menu_screen_manager_show_menu_screen = false;
 
-    auto& fix_enabled_state = randomizer::uber_states::state<"randoConfig", "fixShopAnywhere">();
+    auto& fix_enabled_state = randomizer::uber_states::state<"modifications", "fixShopAnywhere">();
 
     IL2CPP_INTERCEPT_WITH_ORDER(-10, void, MenuScreenManager, ShowMenuScreen, app::MenuScreenManager* this_ptr, app::MenuScreenManager_Screens__Enum screen, bool immediate, bool play_sound, bool pause) {
         common::ScopedSetter _(is_in_menu_screen_manager_show_menu_screen, true);

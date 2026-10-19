@@ -13,8 +13,8 @@ namespace {
     /// teddy before opening the door in Woods, which is possible when
     /// changing door connections.
 
-    auto& use_can_open_hut_rando_state = randomizer::uber_states::state<"randoConfig", "useCanOpenMokiFatherHutRandoState">();
-    auto& can_open_hut_state = randomizer::uber_states::state<"randoState", "canOpenMokiFatherHut">();
+    auto& use_can_open_hut_rando_state = randomizer::uber_states::state<"modifications", "canOpenMokiFatherHutStateActive">();
+    auto& can_open_hut_state = randomizer::uber_states::state<"modifications", "canOpenMokiFatherHut">();
 
     [[maybe_unused]]
     auto on_game_ready = modloader::event_bus().on<modloader::events::GameReady>([](auto) {

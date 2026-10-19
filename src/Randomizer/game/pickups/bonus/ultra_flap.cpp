@@ -16,7 +16,7 @@
 namespace {
     using namespace app::classes;
 
-    auto& flap_damage_state = randomizer::uber_states::state<"randoUpgrades", "flapDamage">();
+    auto& flap_damage_state = randomizer::uber_states::state<"bonusUpgrades", "flapDamage">();
     auto is_performing_wind_knockback = false;
     auto is_spawning_wind_fx = false;
     auto flap_damage_amount_cache = 0.f;

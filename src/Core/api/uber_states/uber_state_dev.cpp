@@ -1,21 +1,20 @@
-#include <Core/api/uber_states/uber_state.h>
-#include <Core/dev/object_visualizer.h>
-
 #include <Common/ext.h>
+#include <Core/api/uber_states/uber_state.h>
+#include <Core/api/uber_states/uber_state_virtual.h>
+#include <Core/dev/object_visualizer.h>
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/Moon/UberStateController.h>
 #include <Modloader/app/types/UberStateCollection.h>
 #include <Modloader/app/types/UberStateController.h>
+#include <Modloader/app/types/PlayerUberStateDescriptor.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/modloader.h>
 #include <Modloader/windows_api/clipboard.h>
 #include <Modloader/windows_api/console.h>
-
 #include <algorithm>
 #include <fstream>
 #include <nlohmann/json.hpp>
 
-#include "uber_state_virtual.h"
 
 using namespace modloader;
 using namespace modloader::win;
@@ -223,6 +222,11 @@ namespace {
         };
 
         for (const auto state: il2cpp::ListIterator(collection)) {
+            if (il2cpp::is_assignable(state, types::PlayerUberStateDescriptor::get_class())) {
+                // We don't support Object uber state types
+                continue;
+            }
+
             auto uber_state = core::api::uber_states::UntypedUberState::from_native_ptr(reinterpret_cast<app::IUberState*>(state));
             collect_uber_state(uber_state);
         }

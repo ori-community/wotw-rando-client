@@ -16,7 +16,7 @@ namespace {
 
     core::reactivity::ReactiveEffect::ptr_t effect;
 
-    auto& modification_enabled_state = randomizer::uber_states::state<"randoConfig", "removeShriekEscapeSand">();
+    auto& modification_enabled_state = randomizer::uber_states::state<"modifications", "disableShriekEscapeSand">();
 
     void setup_effect() {
         effect = core::reactivity::watch_effect([] {

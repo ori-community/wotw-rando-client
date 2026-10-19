@@ -2,7 +2,6 @@
 
 #include <Common/event_bus.h>
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/uber_state.h>
 #include <Core/macros.h>
 
 #include <Modloader/app/structs/AbilityType__Enum.h>

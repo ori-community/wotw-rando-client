@@ -83,7 +83,7 @@ namespace {
     int load_step = 0;
     OrishotState orishot_state = OrishotState::None;
 
-    auto& prevent_pickup_state = randomizer::uber_states::state<"randoConfig", "preventPickup">();
+    auto& prevent_pickup_state = randomizer::uber_states::state<"modifications", "disablePickupCollision">();
 
     IL2CPP_INTERCEPT(void, UberPostProcess, ApplySettings_2, app::UberPostProcess * this_ptr, app::CameraSettings* settingsAsset) {
         next::UberPostProcess::ApplySettings_2(this_ptr, settingsAsset);

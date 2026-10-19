@@ -17,7 +17,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::ChangeStateOnCondition>> vine_h_change_state_on_condition_ref;
     core::reactivity::ReactiveEffect::ptr_t effect;
 
-    auto& disable_cutscenes_state = randomizer::uber_states::state<"randoConfig", "disableWillowHeartCutscenes">();
+    auto& disable_cutscenes_state = randomizer::uber_states::state<"modifications", "disableWillowHeartCutscenes">();
 
     [[maybe_unused]]
     auto on_scene_load_handle = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>(

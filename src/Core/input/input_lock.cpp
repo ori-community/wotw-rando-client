@@ -2,8 +2,6 @@
 #include <Core/input/input_lock.h>
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/modloader.h>
-#include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <unordered_set>
 
 using namespace app::classes;

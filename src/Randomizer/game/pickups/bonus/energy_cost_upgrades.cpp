@@ -10,244 +10,196 @@
 using namespace modloader;
 
 namespace {
-    std::unordered_map<app::AbilityType__Enum, std::vector<float>> initial_costs;
+    auto& blaze_cost = randomizer::uber_states::state<"bonusUpgrades", "blazeCost">();
+    auto& charge_blaze_cost = randomizer::uber_states::state<"bonusUpgrades", "chargeBlazeCost">();
+    auto& spear_cost = randomizer::uber_states::state<"bonusUpgrades", "spearCost">();
+    auto& shuriken_cost = randomizer::uber_states::state<"bonusUpgrades", "shurikenCost">();
+    auto& sentry_cost = randomizer::uber_states::state<"bonusUpgrades", "sentryCost">();
+    auto& bow_cost = randomizer::uber_states::state<"bonusUpgrades", "bowCost">();
+    auto& charged_bow_cost = randomizer::uber_states::state<"bonusUpgrades", "chargedBowCost">();
+    auto& regeneration_cost = randomizer::uber_states::state<"bonusUpgrades", "regenerateCost">();
+    auto& flash_initial_cost = randomizer::uber_states::state<"bonusUpgrades", "flashCostInitial">();
+    auto& flash_per_second_cost = randomizer::uber_states::state<"bonusUpgrades", "flashCostPerSecond">();
+    auto& grenade_cost = randomizer::uber_states::state<"bonusUpgrades", "grenadeCost">();
+    auto& blaze_skill = randomizer::uber_states::state<"skills", "blaze">();
+    auto& spear_skill = randomizer::uber_states::state<"skills", "spear">();
+    auto& shuriken_skill = randomizer::uber_states::state<"skills", "spear">();
+    auto& sentry_skill = randomizer::uber_states::state<"skills", "spear">();
+    auto& bow_skill = randomizer::uber_states::state<"skills", "spear">();
+    auto& regenerate_skill = randomizer::uber_states::state<"skills", "spear">();
+    auto& flash_skill = randomizer::uber_states::state<"skills", "spear">();
+    auto& grenade_skill = randomizer::uber_states::state<"skills", "spear">();
 
-    auto& blaze_cost = randomizer::uber_states::state<"randoUpgrades", "blazeCostMultiplier">();
-    auto& spear_cost = randomizer::uber_states::state<"randoUpgrades", "spearCostMultiplier">();
-    auto& shuriken_cost = randomizer::uber_states::state<"randoUpgrades", "shurikenCostMultiplier">();
-    auto& sentry_cost = randomizer::uber_states::state<"randoUpgrades", "sentryCostMultiplier">();
-    auto& bow_cost = randomizer::uber_states::state<"randoUpgrades", "bowCostMultiplier">();
-    auto& regeneration_cost = randomizer::uber_states::state<"randoUpgrades", "regenerateCostMultiplier">();
-    auto& flash_cost = randomizer::uber_states::state<"randoUpgrades", "flashCostMultiplier">();
-    auto& grenade_cost = randomizer::uber_states::state<"randoUpgrades", "grenadeCostMultiplier">();
-    auto& blaze = randomizer::uber_states::state<"skills", "blaze">();
-    auto& spear = randomizer::uber_states::state<"skills", "spear">();
-    auto& shuriken = randomizer::uber_states::state<"skills", "spear">();
-    auto& sentry = randomizer::uber_states::state<"skills", "spear">();
-    auto& bow = randomizer::uber_states::state<"skills", "spear">();
-    auto& regenerate = randomizer::uber_states::state<"skills", "spear">();
-    auto& flash = randomizer::uber_states::state<"skills", "spear">();
-    auto& grenade = randomizer::uber_states::state<"skills", "spear">();
 
-
-    void update_blaze(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum::Blaze];
-        auto* sein = core::api::game::player::sein();
+    void update_blaze() {
+        const auto sein = core::api::game::player::sein();
         if (sein == nullptr) {
             return;
         }
 
-        auto* const blaze = sein->fields.Spells->fields.BlazeSpellWrapper;
+        const auto blaze = sein->fields.Spells->fields.BlazeSpellWrapper;
         if (!blaze->fields.HasState) {
             return;
         }
 
-        auto* const balance = blaze->fields.State->fields.Balancing;
-        if (cost.empty()) {
-            cost.push_back(balance->fields.BlazeSettingsLevel1->fields.BlazeCost);
-            cost.push_back(balance->fields.BlazeSettingsLevel1->fields.FullBlazeCost);
-            cost.push_back(balance->fields.BlazeSettingsLevel2->fields.BlazeCost);
-            cost.push_back(balance->fields.BlazeSettingsLevel2->fields.FullBlazeCost);
-            cost.push_back(balance->fields.BlazeSettingsLevel3->fields.BlazeCost);
-            cost.push_back(balance->fields.BlazeSettingsLevel3->fields.FullBlazeCost);
-        }
-
-        balance->fields.BlazeSettingsLevel1->fields.BlazeCost = cost[0] * modifier;
-        balance->fields.BlazeSettingsLevel1->fields.FullBlazeCost = cost[1] * modifier;
-        balance->fields.BlazeSettingsLevel2->fields.BlazeCost = cost[2] * modifier;
-        balance->fields.BlazeSettingsLevel2->fields.FullBlazeCost = cost[3] * modifier;
-        balance->fields.BlazeSettingsLevel3->fields.BlazeCost = cost[4] * modifier;
-        balance->fields.BlazeSettingsLevel3->fields.FullBlazeCost = cost[5] * modifier;
+        const auto balance = blaze->fields.State->fields.Balancing;
+        balance->fields.BlazeSettingsLevel1->fields.BlazeCost = blaze_cost.get();
+        balance->fields.BlazeSettingsLevel1->fields.FullBlazeCost = charge_blaze_cost.get();
     }
 
-    void update_sentry(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum::TurretSpell];
-        auto* sein = core::api::game::player::sein();
+    void update_sentry() {
+        const auto sein = core::api::game::player::sein();
         if (sein == nullptr) {
             return;
         }
 
-        auto* const sentry = sein->fields.Spells->fields.TurretSpell;
+        const auto sentry = sein->fields.Spells->fields.TurretSpell;
         if (sentry == nullptr) {
             return;
         }
 
-        if (cost.empty()) {
-            cost.push_back(sentry->fields.BalancingData->fields.EnergyCost);
-        }
-
-        sentry->fields.BalancingData->fields.EnergyCost = cost[0] * modifier;
+        sentry->fields.BalancingData->fields.EnergyCost = sentry_cost.get();
     }
 
-    void update_spear(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum::SpiritSpearSpell];
-        auto* sein = core::api::game::player::sein();
+    void update_spear() {
+        const auto sein = core::api::game::player::sein();
         if (sein == nullptr) {
             return;
         }
 
-        auto* const spear = sein->fields.Spells->fields.SpiritSpearSpellWrapper;
+        const auto spear = sein->fields.Spells->fields.SpiritSpearSpellWrapper;
         if (!spear->fields.HasState) {
             return;
         }
 
-        if (cost.empty()) {
-            cost.push_back(spear->fields.State->fields.Balancing->fields.EnergyCost);
-        }
-
-        spear->fields.State->fields.Balancing->fields.EnergyCost = cost[0] * modifier;
-        // Is this even used?
-        spear->fields.State->fields.EnergyCost = cost[0] * modifier;
+        spear->fields.State->fields.Balancing->fields.EnergyCost = spear_cost.get();
     }
 
-    void update_shuriken(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum::ChakramSpell];
-        auto* sein = core::api::game::player::sein();
+    void update_shuriken() {
+        const auto sein = core::api::game::player::sein();
         if (sein == nullptr) {
             return;
         }
 
-        auto* const shuriken = sein->fields.Spells->fields.ChakramSpellWrapper;
+        const auto shuriken = sein->fields.Spells->fields.ChakramSpellWrapper;
         if (!shuriken->fields.HasState) {
             return;
         }
 
-        if (cost.empty()) {
-            cost.push_back(shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel1->fields.EnergyCost);
-            cost.push_back(shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel2->fields.EnergyCost);
-        }
-
-        shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel1->fields.EnergyCost = cost[0] * modifier;
-        shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel2->fields.EnergyCost = cost[1] * modifier;
+        const auto cost = shuriken_cost.get();
+        shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel1->fields.EnergyCost = cost;
+        shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel2->fields.EnergyCost = cost;
     }
 
-    void update_bow(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum::Bow];
-        auto* sein = core::api::game::player::sein();
+    void update_bow() {
+        const auto sein = core::api::game::player::sein();
         if (sein == nullptr) {
             return;
         }
 
-        auto* const bow = sein->fields.Abilities->fields.BowWrapper;
+        const auto bow = sein->fields.Abilities->fields.BowWrapper;
         if (!bow->fields.HasState) {
             return;
         }
 
-        if (cost.empty()) {
-            cost.push_back(bow->fields.State->fields.Balancing->fields.ArrowEnergyCost);
-            cost.push_back(bow->fields.State->fields.Balancing->fields.ChargeShotEnergyCost);
-        }
-
-        bow->fields.State->fields.Balancing->fields.ArrowEnergyCost = cost[0] * modifier;
-        bow->fields.State->fields.Balancing->fields.ChargeShotEnergyCost = cost[1] * modifier;
+        bow->fields.State->fields.Balancing->fields.ArrowEnergyCost = bow_cost.get();
+        bow->fields.State->fields.Balancing->fields.ChargeShotEnergyCost = charged_bow_cost.get();
     }
 
-    void update_regeneration(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum::MeditateSpell];
-        auto* sein = core::api::game::player::sein();
+    void update_regenerate() {
+        const auto sein = core::api::game::player::sein();
         if (sein == nullptr) {
             return;
         }
 
-        auto* const meditate = sein->fields.Spells->fields.MeditateSpellWrapper;
+        const auto meditate = sein->fields.Spells->fields.MeditateSpellWrapper;
         if (!meditate->fields.HasState) {
             return;
         }
 
-        if (cost.empty()) {
-            cost.push_back(meditate->fields.State->fields.Balancing->fields.m_energyPerHeal);
-            cost.push_back(meditate->fields.State->fields.Balancing->fields.EnergyPerFullHeal);
-        }
-
-        meditate->fields.State->fields.Balancing->fields.m_energyPerHeal = cost[0] * modifier;
-        meditate->fields.State->fields.Balancing->fields.EnergyPerFullHeal = cost[1] * modifier;
+        const auto cost = regeneration_cost.get();
+        meditate->fields.State->fields.Balancing->fields.m_energyPerHeal = cost;
+        meditate->fields.State->fields.Balancing->fields.EnergyPerFullHeal = cost;
     }
 
-    void update_flash(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum::GlowSpell];
-        auto* sein = core::api::game::player::sein();
+    void update_flash() {
+        const auto sein = core::api::game::player::sein();
         if (sein == nullptr) {
             return;
         }
 
-        auto* const flash = sein->fields.Spells->fields.GlowWrapper;
+        const auto flash = sein->fields.Spells->fields.GlowWrapper;
         if (!flash->fields.HasState) {
             return;
         }
 
-        if (cost.empty()) {
-            cost.push_back(flash->fields.State->fields.Balancing->fields.QuickGlowEnergyDrainPerSecond);
-            cost.push_back(flash->fields.State->fields.Balancing->fields.QuickGlowEnergyCost);
-            cost.push_back(flash->fields.State->fields.Balancing->fields.FullGlowEnergyCost);
-        }
-
-        flash->fields.State->fields.Balancing->fields.QuickGlowEnergyDrainPerSecond = cost[0] * modifier;
-        flash->fields.State->fields.Balancing->fields.QuickGlowEnergyCost = cost[1] * modifier;
-        flash->fields.State->fields.Balancing->fields.FullGlowEnergyCost = cost[2] * modifier;
+        flash->fields.State->fields.Balancing->fields.QuickGlowEnergyCost = flash_initial_cost.get();
+        flash->fields.State->fields.Balancing->fields.QuickGlowEnergyDrainPerSecond = flash_per_second_cost.get();
     }
 
-    void update_grenade(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum::Grenade];
-        auto* sein = core::api::game::player::sein();
-        if (sein != nullptr) {
-            auto* const grenade = sein->fields.Abilities->fields.GrenadeWrapper;
-            if (grenade->fields.HasState) {
-                if (cost.empty()) {
-                    cost.push_back(grenade->fields.State->fields.Balancing->fields.EnergyCost);
-                }
-
-                grenade->fields.State->fields.Balancing->fields.EnergyCost = cost[0] * modifier;
-            }
+    void update_grenade() {
+        const auto sein = core::api::game::player::sein();
+        if (sein == nullptr) {
+            return;
         }
+
+        const auto grenade = sein->fields.Abilities->fields.GrenadeWrapper;
+        if (!grenade->fields.HasState) {
+            return;
+        }
+
+        grenade->fields.State->fields.Balancing->fields.EnergyCost = grenade_cost.get();
     }
 
     std::vector<core::reactivity::ReactiveEffect::ptr_t> effects;
-    auto _ = event_bus().on<modloader::events::GameReady>([](auto) {
+
+    [[maybe_unused]]
+    auto on_game_ready = event_bus().on<modloader::events::GameReady>([](auto) {
         core::reactivity::watch_effect()
-                .effect({blaze, blaze_cost})
-                .after([&] { update_blaze(blaze_cost.get()); })
+                .effect({blaze_skill, blaze_cost, charge_blaze_cost})
+                .after([&] { update_blaze(); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect({spear, spear_cost})
-                .after([&] { update_spear(spear_cost.get()); })
+                .effect({spear_skill, spear_cost})
+                .after([&] { update_spear(); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect({shuriken, shuriken_cost})
-                .after([&] { update_shuriken(shuriken_cost.get()); })
+                .effect({shuriken_skill, shuriken_cost})
+                .after([&] { update_shuriken(); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect({sentry, sentry_cost})
-                .after([&] { update_sentry(sentry_cost.get()); })
+                .effect({sentry_skill, sentry_cost})
+                .after([&] { update_sentry(); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect({bow, bow_cost})
-                .after([&] { update_bow(bow_cost.get()); })
+                .effect({bow_skill, bow_cost, charged_bow_cost})
+                .after([&] { update_bow(); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect({regenerate, regeneration_cost})
-                .after([&] { update_regeneration(regeneration_cost.get()); })
+                .effect({regenerate_skill, regeneration_cost})
+                .after([&] { update_regenerate(); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect({flash, flash_cost})
-                .after([&] { update_flash(flash_cost.get()); })
+                .effect({flash_skill, flash_initial_cost, flash_per_second_cost})
+                .after([&] { update_flash(); })
                 .trigger_on_load()
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect({grenade, grenade_cost})
-                .after([&] { update_grenade(grenade_cost.get()); })
+                .effect({grenade_skill, grenade_cost})
+                .after([&] { update_grenade(); })
                 .trigger_on_load()
                 .finalize(effects);
     });

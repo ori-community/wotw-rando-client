@@ -5,7 +5,7 @@
 
 
 namespace {
-    auto& ku_is_alive_state = randomizer::uber_states::state<"randoConfig", "goodHollow">();
+    auto& ku_is_alive_state = randomizer::uber_states::state<"modifications", "disableKuInHollow">();
 
     [[maybe_unused]]
     auto on_ku_is_alive_changed = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(ku_is_alive_state, [](auto) {

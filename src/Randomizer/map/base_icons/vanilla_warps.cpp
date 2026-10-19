@@ -16,7 +16,7 @@ namespace {
         icons = {
             utils::create_warp_icon({-799, -4310}, [] {
                 static auto& teleporter_active = core::uber_states::state<"swampStateGroup", "savePedestalSwampIntroTop">();
-                static auto& teleporter_built = randomizer::uber_states::state<"gladesProjects", "spiritWellBuilt">();
+                static auto& teleporter_built = randomizer::uber_states::state<"gladesProjects", "repairTheSpiritWell">();
 
                 if (!teleporter_built.get()) {
                     return utils::WarpIconState::Invisible;
@@ -30,7 +30,7 @@ namespace {
             utils::create_warp_icon({-150, -4238}, core::uber_states::state<"kwolokGroupDescriptor", 26601>(), "Kwolok's Hollow"),
             utils::create_warp_icon({-307, -4153}, [] {
                 static auto& teleporter_active = core::uber_states::state<"hubUberStateGroup", "savePedestal">();
-                static auto& teleporter_built = randomizer::uber_states::state<"gladesProjects", "spiritWellBuilt">();
+                static auto& teleporter_built = randomizer::uber_states::state<"gladesProjects", "repairTheSpiritWell">();
 
                 if (teleporter_built.get() && teleporter_active.get()) {
                     return utils::WarpIconState::Active;

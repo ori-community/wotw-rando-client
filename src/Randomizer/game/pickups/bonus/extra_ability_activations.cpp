@@ -8,12 +8,12 @@
 
 
 namespace {
-    auto& extra_jumps = randomizer::uber_states::state<"randoUpgrades", "extraDoubleJumps">();
-    auto& extra_dashes = randomizer::uber_states::state<"randoUpgrades", "extraDashes">();
-    auto& extra_launches = randomizer::uber_states::state<"randoUpgrades", "extraLaunches">();
+    auto& max_double_jumps = randomizer::uber_states::state<"bonusUpgrades", "maxDoubleJumps">();
+    auto& max_air_dashes = randomizer::uber_states::state<"bonusUpgrades", "maxAirDashes">();
+    auto& max_launches = randomizer::uber_states::state<"bonusUpgrades", "maxLaunches">();
 
     IL2CPP_INTERCEPT(int32_t, SeinDoubleJump, get_ExtraJumpsAvailable) {
-        return extra_jumps.get() + next::SeinDoubleJump::get_ExtraJumpsAvailable();
+        return next::SeinDoubleJump::get_ExtraJumpsAvailable() - 1 + max_double_jumps.get();
     }
 
     auto dashes_used = 0;
@@ -21,17 +21,19 @@ namespace {
 
     IL2CPP_INTERCEPT(void, SeinDashNew, TryPerformDash_2, app::SeinDashNew * this_ptr, int32_t direction, bool is_forward) {
         next::SeinDashNew::TryPerformDash_2(this_ptr, direction, is_forward);
-        if (this_ptr->fields.m_isDashing && !this_ptr->fields.m_allowDash)
+        if (this_ptr->fields.m_isDashing && !this_ptr->fields.m_allowDash) {
             ++dashes_used;
+        }
     }
 
     IL2CPP_INTERCEPT(void, SeinDashNew, UpdateAllowDashFlag, app::SeinDashNew * this_ptr) {
         this_ptr->fields.m_allowDash = false;
         next::SeinDashNew::UpdateAllowDashFlag(this_ptr);
-        if (this_ptr->fields.m_allowDash)
+        if (this_ptr->fields.m_allowDash) {
             dashes_used = 0;
-        else
-            this_ptr->fields.m_allowDash = dashes_used <= extra_dashes.get();
+        } else {
+            this_ptr->fields.m_allowDash = dashes_used < max_air_dashes.get();
+        }
     }
 
     IL2CPP_INTERCEPT(void, SeinDashNew, OnResetAirLimits, app::SeinDashNew * this_ptr) {
@@ -60,7 +62,8 @@ namespace {
         if (this_ptr->fields._WasGroundedSinceLastExecution_k__BackingField) {
             launches_used = 0;
         }
-        return next::SeinChargeJump::get_CanCharge(this_ptr) || launches_used <= extra_launches.get();
+
+        return next::SeinChargeJump::get_CanCharge(this_ptr) || launches_used < max_launches.get();
     }
 
     IL2CPP_INTERCEPT(void, SeinChargeJump, OnEnterJumping, app::SeinChargeJump * this_ptr) {

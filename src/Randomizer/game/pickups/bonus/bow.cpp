@@ -8,8 +8,8 @@
 namespace {
     using namespace app::classes;
 
-    auto& rapid_fire_upgrade_state = randomizer::uber_states::state<"randoUpgrades", "bowRapidFireIntervalDurationMultiplier">();
-    auto& splinter_long_range_state = randomizer::uber_states::state<"randoUpgrades", "splinterLongerRange">();
+    auto& rapid_fire_upgrade_state = randomizer::uber_states::state<"bonusUpgrades", "quickshotIntervalDurationMultiplier">();
+    auto& splinter_long_range_state = randomizer::uber_states::state<"bonusUpgrades", "splinterLongerRange">();
 
     float rapid_fire_cooldown;
 

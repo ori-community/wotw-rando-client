@@ -1,5 +1,4 @@
 #include <Core/api/uber_states/uber_state.h>
-#include <Core/enums/uber_state.h>
 #include <Core/property/reactivity.h>
 #include <Modloader/app/methods/EntityPlaceholder.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
@@ -19,7 +18,7 @@ namespace {
         EntityPlaceholderDefaults(const il2cpp::WeakGCRef<app::EntityPlaceholder>& placeholder_ref, bool respawn_on_screen, float min_distance_from_player);
     };
 
-    auto& allow_spawning_enemies_nearby_state = randomizer::uber_states::state<"randoConfig", "allowSpawningEnemiesNearby">();
+    auto& allow_spawning_enemies_nearby_state = randomizer::uber_states::state<"modifications", "disableDespawningNearbyEnemies">();
     std::unordered_map<int, EntityPlaceholderDefaults> active_entity_placeholders;
 
     void apply_entity_placeholder_settings(const int id, const EntityPlaceholderDefaults& defaults) {

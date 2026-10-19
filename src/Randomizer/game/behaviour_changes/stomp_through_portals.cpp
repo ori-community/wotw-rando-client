@@ -27,7 +27,7 @@ namespace {
         state = HammerInterrupted;
     }
 
-    auto& stomp_through_portals_state = randomizer::uber_states::state<"randoConfig", "stompThroughPortals">();
+    auto& stomp_through_portals_state = randomizer::uber_states::state<"modifications", "stompThroughPortals">();
 
     IL2CPP_INTERCEPT(void, SeinController, OnGoThroughPortal, app::SeinController * this_ptr) {
         next::SeinController::OnGoThroughPortal(this_ptr);

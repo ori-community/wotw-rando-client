@@ -596,7 +596,7 @@ namespace randomizer::seed {
     }
 
     void SeedExecutionEnvironment::render_debug_visuals() {
-        static auto& draw_position_triggers_in_debug_renderer_state = uber_states::state<"randoConfig", "drawPositionTriggersInDebugRenderer">();
+        static auto& draw_position_triggers_in_debug_renderer_state = uber_states::state<"debugRenderer", "positionTriggers">();
 
         if (!draw_position_triggers_in_debug_renderer_state.get()) {
             return;

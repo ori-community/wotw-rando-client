@@ -14,9 +14,9 @@ namespace {
     bool should_open(const app::AbilityType__Enum ability_type) {
         switch (ability_type) {
             case app::AbilityType__Enum::Blaze:
-                return randomizer::uber_states::state<"randoConfig", "baurSneezeWithBlaze">().get();
+                return randomizer::uber_states::state<"modifications", "baurSneezeWithBlaze">().get();
             case app::AbilityType__Enum::GlowSpell:
-                return randomizer::uber_states::state<"randoConfig", "baurSneezeWithFlash">().get();
+                return randomizer::uber_states::state<"modifications", "baurSneezeWithFlash">().get();
             default:
                 return false;
         }

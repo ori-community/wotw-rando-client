@@ -28,10 +28,10 @@ using namespace app::classes;
 namespace {
     bool force_day_time = false;
 
-    auto& rain_lifted_in_marsh_state = randomizer::uber_states::state<"randoState", "rainLiftedInMarsh">();
-    auto& regen_tree_drained_state = randomizer::uber_states::state<"randoState", "regenTreeDrained">();
-    auto& use_rain_lifted_in_marsh_rando_state = randomizer::uber_states::state<"randoConfig", "useRainLiftedInMarshRandoState">();
-    auto& use_regen_tree_drained_rando_state = randomizer::uber_states::state<"randoConfig", "useRegenTreeDrainedRandoState">();
+    auto& rain_lifted_in_marsh_state = randomizer::uber_states::state<"modifications", "stormLiftedInMarsh">();
+    auto& regen_tree_drained_state = randomizer::uber_states::state<"modifications", "regenerateTreeDrained">();
+    auto& use_rain_lifted_in_marsh_rando_state = randomizer::uber_states::state<"modifications", "stormLiftedInMarshStateActive">();
+    auto& use_regen_tree_drained_rando_state = randomizer::uber_states::state<"modifications", "regenerateTreeDrainedStateActive">();
 
     bool is_day() {
         if (force_day_time) {

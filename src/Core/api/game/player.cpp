@@ -526,7 +526,7 @@ namespace core::api::game::player {
 
         if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
             // We need to do this on the next frame to allow state to update without causing flickering.
-            auto* const camera = cameras->static_fields->Current;
+            const auto camera = cameras->static_fields->Current;
             auto bounds = GameplayCamera::get_CameraBoundingBox(camera);
             return bounds.m_Center;
         }

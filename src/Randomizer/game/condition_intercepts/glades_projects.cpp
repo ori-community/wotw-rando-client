@@ -9,13 +9,13 @@
 #include <Randomizer/uber_states/randomizer_uber_states.h>
 
 namespace {
-    auto& grom_spirit_well_built = randomizer::uber_states::state<"gladesProjects", "spiritWellBuilt">();
-    auto& grom_houses_a_built = randomizer::uber_states::state<"gladesProjects", "housesABuilt">();
-    auto& grom_houses_b_built = randomizer::uber_states::state<"gladesProjects", "housesBBuilt">();
-    auto& grom_houses_c_built = randomizer::uber_states::state<"gladesProjects", "housesCBuilt">();
-    auto& grom_remove_thorns_built = randomizer::uber_states::state<"gladesProjects", "removeThornsBuilt">();
-    auto& grom_open_cave_built = randomizer::uber_states::state<"gladesProjects", "openCaveBuilt">();
-    auto& grom_beautify_built = randomizer::uber_states::state<"gladesProjects", "beautifyBuilt">();
+    auto& grom_spirit_well_built = randomizer::uber_states::state<"gladesProjects", "repairTheSpiritWell">();
+    auto& grom_houses_a_built = randomizer::uber_states::state<"gladesProjects", "dwellingRepairs">();
+    auto& grom_houses_b_built = randomizer::uber_states::state<"gladesProjects", "roofsOverHeads">();
+    auto& grom_houses_c_built = randomizer::uber_states::state<"gladesProjects", "onwardsAndUpwards">();
+    auto& grom_remove_thorns_built = randomizer::uber_states::state<"gladesProjects", "thornySituation">();
+    auto& grom_open_cave_built = randomizer::uber_states::state<"gladesProjects", "clearTheCaveEntrance">();
+    auto& grom_beautify_built = randomizer::uber_states::state<"gladesProjects", "theGorlekTouch">();
     auto& tuley_lightcatchers_planted = randomizer::uber_states::state<"gladesProjects", "lightcatchersPlanted">();
     auto& tuley_sela_flowers_planed = randomizer::uber_states::state<"gladesProjects", "selaFlowersPlanted">();
     auto& tuley_blue_moon_planted = randomizer::uber_states::state<"gladesProjects", "blueMoonPlanted">();

@@ -41,31 +41,31 @@ namespace {
 
         switch (index) {
             case 0:
-                value = randomizer::uber_states::state<"randoState", "bell1">().get();
+                value = randomizer::uber_states::state<"modifications", "bell1">().get();
                 break;
             case 1:
-                value = randomizer::uber_states::state<"randoState", "bell2">().get();
+                value = randomizer::uber_states::state<"modifications", "bell2">().get();
                 break;
             case 2:
-                value = randomizer::uber_states::state<"randoState", "bell3">().get();
+                value = randomizer::uber_states::state<"modifications", "bell3">().get();
                 break;
             case 3:
-                value = randomizer::uber_states::state<"randoState", "bell4">().get();
+                value = randomizer::uber_states::state<"modifications", "bell4">().get();
                 break;
             case 4:
-                value = randomizer::uber_states::state<"randoState", "bell5">().get();
+                value = randomizer::uber_states::state<"modifications", "bell5">().get();
                 break;
             case 5:
-                value = randomizer::uber_states::state<"randoState", "bell6">().get();
+                value = randomizer::uber_states::state<"modifications", "bell6">().get();
                 break;
             case 6:
-                value = randomizer::uber_states::state<"randoState", "bell7">().get();
+                value = randomizer::uber_states::state<"modifications", "bell7">().get();
                 break;
             case 7:
-                value = randomizer::uber_states::state<"randoState", "bell8">().get();
+                value = randomizer::uber_states::state<"modifications", "bell8">().get();
                 break;
             case 8:
-                value = randomizer::uber_states::state<"randoState", "bell9">().get();
+                value = randomizer::uber_states::state<"modifications", "bell9">().get();
                 break;
             default:
                 return std::nullopt;

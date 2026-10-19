@@ -12,8 +12,8 @@ namespace {
     constexpr int32_t TULEY_EXISTS = -456942105;
     constexpr int32_t TULEY_GONE = 682604868;
 
-    auto& spawn_tuley_state = randomizer::uber_states::state<"randoState", "spawnTuley">();
-    auto& use_spawn_tuley_state = randomizer::uber_states::state<"randoConfig", "useSpawnTuleyRandoState">();
+    auto& spawn_tuley_state = randomizer::uber_states::state<"modifications", "spawnTuley">();
+    auto& use_spawn_tuley_state = randomizer::uber_states::state<"modifications", "spawnTuleyStateActive">();
 
     [[maybe_unused]]
     auto uber_state_notify = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(

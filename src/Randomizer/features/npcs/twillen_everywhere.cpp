@@ -10,8 +10,8 @@ namespace {
     constexpr int32_t TWILLEN_EXISTS = -294171295;
     constexpr int32_t TWILLEN_GONE = -598610927;
 
-    auto& spawn_twillen_state = randomizer::uber_states::state<"randoState", "spawnTwillenEverywhere">();
-    auto& use_spawn_twillen_state = randomizer::uber_states::state<"randoConfig", "useSpawnTwillenEverywhereRandoState">();
+    auto& spawn_twillen_state = randomizer::uber_states::state<"modifications", "spawnTwillenEverywhere">();
+    auto& use_spawn_twillen_state = randomizer::uber_states::state<"modifications", "spawnTwillenEverywhereStateActive">();
 
     [[maybe_unused]]
     auto uber_state_notify = core::api::uber_states::event_bus().on<core::api::uber_states::events::UberStateChanged>(

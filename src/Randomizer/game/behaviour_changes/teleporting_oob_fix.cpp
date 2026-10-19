@@ -14,7 +14,7 @@
 namespace {
     using namespace app::classes;
 
-    auto& fix_enabled_state = randomizer::uber_states::state<"randoConfig", "fixTeleporterChainOutOfBounds">();
+    auto& fix_enabled_state = randomizer::uber_states::state<"modifications", "fixTeleporterChainOOB">();
     auto use_custom_animation_handling = false;
 
     IL2CPP_INTERCEPT_WITH_ORDER(0, void, SavePedestalController, BeginTeleportation, app::Vector2 teleport_target_world_position) {

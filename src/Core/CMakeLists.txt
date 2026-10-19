@@ -130,8 +130,6 @@ set(
         "enums/save_meta_slot_persistence.h"
         "enums/shard_type.h"
         "enums/timeline_entries.h"
-        "enums/uber_state.h"
-        "enums/world_events.h"
         "events/action.h"
         "events/async_update.h"
         "id_registry.h"
