@@ -250,8 +250,8 @@ namespace core::api::uber_states {
             }
 
             const auto id = UberId<UberStateType::SerializedBooleanUberState>(
-                il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_GroupID, types::IUberState::get_class()).fields.m_id,
-                il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class()).fields.m_id
+                il2cpp::call_virtual<app::UberID*>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_GroupID, types::IUberState::get_class())->fields.m_id,
+                il2cpp::call_virtual<app::UberID*>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class())->fields.m_id
             );
 
             if (get_uber_state_value(id, reinterpret_cast<app::SerializedBooleanUberState*>(state)) == value) {
@@ -272,8 +272,8 @@ namespace core::api::uber_states {
             }
 
             const auto id = UberId<UberStateType::SerializedFloatUberState>(
-                il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_GroupID, types::IUberState::get_class()).fields.m_id,
-                il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class()).fields.m_id
+                il2cpp::call_virtual<app::UberID*>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_GroupID, types::IUberState::get_class())->fields.m_id,
+                il2cpp::call_virtual<app::UberID*>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class())->fields.m_id
             );
 
             if (get_uber_state_value(id, reinterpret_cast<app::SerializedFloatUberState*>(state)) == value) {
@@ -294,8 +294,8 @@ namespace core::api::uber_states {
             }
 
             const auto id = UberId<UberStateType::SerializedIntUberState>(
-                il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_GroupID, types::IUberState::get_class()).fields.m_id,
-                il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class()).fields.m_id
+                il2cpp::call_virtual<app::UberID*>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_GroupID, types::IUberState::get_class())->fields.m_id,
+                il2cpp::call_virtual<app::UberID*>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class())->fields.m_id
             );
 
             if (get_uber_state_value(id, reinterpret_cast<app::SerializedIntUberState*>(state)) == value) {
@@ -316,8 +316,8 @@ namespace core::api::uber_states {
             }
 
             const auto id = UberId<UberStateType::SerializedByteUberState>(
-                il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_GroupID, types::IUberState::get_class()).fields.m_id,
-                il2cpp::call_virtual<app::UberID>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class()).fields.m_id
+                il2cpp::call_virtual<app::UberID*>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_GroupID, types::IUberState::get_class())->fields.m_id,
+                il2cpp::call_virtual<app::UberID*>(state, &reinterpret_cast<app::IUberState*>(state)->klass->vtable.get_StateID, types::IUberState::get_class())->fields.m_id
             );
 
             if (get_uber_state_value(id, reinterpret_cast<app::SerializedByteUberState*>(state)) == value) {
