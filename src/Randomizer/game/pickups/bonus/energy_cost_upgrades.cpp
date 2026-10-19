@@ -16,7 +16,7 @@ namespace {
     auto& shuriken_cost = randomizer::uber_states::state<"bonusUpgrades", "shurikenCost">();
     auto& sentry_cost = randomizer::uber_states::state<"bonusUpgrades", "sentryCost">();
     auto& bow_cost = randomizer::uber_states::state<"bonusUpgrades", "bowCost">();
-    auto& charged_bow_cost = randomizer::uber_states::state<"bonusUpgrades", "chargedBowCost">();
+    auto& charge_bow_cost = randomizer::uber_states::state<"bonusUpgrades", "chargeBowCost">();
     auto& regeneration_cost = randomizer::uber_states::state<"bonusUpgrades", "regenerateCost">();
     auto& flash_initial_cost = randomizer::uber_states::state<"bonusUpgrades", "flashCostInitial">();
     auto& flash_per_second_cost = randomizer::uber_states::state<"bonusUpgrades", "flashCostPerSecond">();
@@ -103,7 +103,7 @@ namespace {
         }
 
         bow->fields.State->fields.Balancing->fields.ArrowEnergyCost = bow_cost.get();
-        bow->fields.State->fields.Balancing->fields.ChargeShotEnergyCost = charged_bow_cost.get();
+        bow->fields.State->fields.Balancing->fields.ChargeShotEnergyCost = charge_bow_cost.get();
     }
 
     void update_regenerate() {
@@ -180,7 +180,7 @@ namespace {
                 .finalize(effects);
 
         core::reactivity::watch_effect()
-                .effect({bow_skill, bow_cost, charged_bow_cost})
+                .effect({bow_skill, bow_cost, charge_bow_cost})
                 .after([&] { update_bow(); })
                 .trigger_on_load()
                 .finalize(effects);
