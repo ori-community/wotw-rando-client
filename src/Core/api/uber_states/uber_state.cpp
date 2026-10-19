@@ -656,18 +656,27 @@ namespace core::api::uber_states {
     std::optional<UberStateType> UntypedUberState::get_type() {
         if (!m_type_cache.has_value()) {
             if (is_virtual_uber_state(m_id.group, m_id.member)) {
-                switch (get_virtual_uber_state(m_id.group, m_id.member).m_value_type) {
+                auto& virtual_uber_state = get_virtual_uber_state(m_id.group, m_id.member);
+                switch (virtual_uber_state.m_value_type) {
                     case VirtualUberState::ValueType::Boolean:
-                        m_type_cache = UberStateType::VirtualBooleanUberState;
+                        m_type_cache = virtual_uber_state.is_readonly()
+                            ? UberStateType::ReadOnlyVirtualBooleanUberState
+                            : UberStateType::VirtualBooleanUberState;
                         break;
                     case VirtualUberState::ValueType::Byte:
-                        m_type_cache = UberStateType::VirtualByteUberState;
+                        m_type_cache = virtual_uber_state.is_readonly()
+                            ? UberStateType::ReadOnlyVirtualByteUberState
+                            : UberStateType::VirtualByteUberState;
                         break;
                     case VirtualUberState::ValueType::Integer:
-                        m_type_cache = UberStateType::VirtualIntUberState;
+                        m_type_cache = virtual_uber_state.is_readonly()
+                            ? UberStateType::ReadOnlyVirtualIntUberState
+                            : UberStateType::VirtualIntUberState;
                         break;
                     case VirtualUberState::ValueType::Float:
-                        m_type_cache = UberStateType::VirtualFloatUberState;
+                        m_type_cache = virtual_uber_state.is_readonly()
+                            ? UberStateType::ReadOnlyVirtualFloatUberState
+                            : UberStateType::VirtualFloatUberState;
                         break;
                 }
             } else {

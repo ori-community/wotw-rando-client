@@ -216,7 +216,6 @@ namespace {
                     {"name", uber_state.get_name()},
                     {"type", uber_state.get_type()},
                     {"value", uber_state.get<double>()},
-                    {"readonly", uber_state.is_read_only()},
                 }
             );
         };
