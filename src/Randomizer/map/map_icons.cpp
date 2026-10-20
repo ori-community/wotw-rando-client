@@ -409,7 +409,7 @@ namespace randomizer::map::icons {
         {MapIcon::Type::DoorUnknown, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/door_unknown.png"), 1.4f)},
         {MapIcon::Type::DoorSmall, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/door.png"), 0.85f)},
         {MapIcon::Type::DoorSmallUnknown, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/door_unknown.png"), 0.85f)},
-        {MapIcon::Type::Wisp, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "icons/wheel/wisps_progress.png"), 1.f)},
+        {MapIcon::Type::Wisp, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "icons/wheel/wisp_progress.png"), 1.f)},
         {MapIcon::Type::Ori, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/ori.png"), 1.f)},
         {MapIcon::Type::OriMonochrome, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/ori_monochrome.png"), 1.f)},
         {MapIcon::Type::OriPlayer, CustomIconRecipe(core::api::graphics::textures::ConstTextureIdentifier("File", "map_icons/ori.png"), 1.1f, -0.05f)},
