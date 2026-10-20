@@ -5,7 +5,6 @@
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/utils/misc.h>
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
-#include <Modloader/app/methods/CleverMenuItem.h>
 #include <Modloader/app/methods/LegacyTransparencyAnimator.h>
 #include <Modloader/app/methods/MenuScreen.h>
 #include <Modloader/app/methods/MessageBox.h>
@@ -15,7 +14,6 @@
 #include <Modloader/app/methods/SpiritShardUIShardDetails.h>
 #include <Modloader/app/methods/SpiritShardsShopScreen.h>
 #include <Modloader/app/methods/SpiritShardsShopScreen___c.h>
-#include <Modloader/app/types/CleverMenuItem.h>
 #include <Modloader/app/types/LegacyTransparencyAnimator.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/Renderer.h>
@@ -28,6 +26,8 @@
 #include <Modloader/modloader.h>
 #include <Randomizer/game/shops/shop.h>
 #include <Randomizer/game/shops/twillen.h>
+
+#include <Core/events/task.h>
 #include <Randomizer/uber_states/randomizer_uber_states.h>
 #include <frozen/unordered_map.h>
 
@@ -140,7 +140,6 @@ namespace randomizer::game::shops::twillen {
 
         IL2CPP_INTERCEPT(void, SpiritShardShopUIItem, UpdateShard, app::SpiritShardShopUIItem* this_ptr, app::PlayerUberStateShards_Shard* shard) {
             // NOOP
-            auto x = 0;
         }
 
         IL2CPP_INTERCEPT(void, SpiritShardShopUIItem, SetItemContext, app::SpiritShardShopUIItem* this_ptr, app::Object* context, app::Object* grid_context) {
@@ -179,12 +178,20 @@ namespace randomizer::game::shops::twillen {
             const auto background = this_ptr->fields.Shard->fields.Background;
             const auto icon_go = this_ptr->fields.Shard->fields.IconGO;
 
-            const auto transparency_animators = il2cpp::unity::get_components_in_children<app::LegacyTransparencyAnimator>(
+            const auto child_transparency_animators = il2cpp::unity::get_components_in_children<app::LegacyTransparencyAnimator>(
                 il2cpp::unity::get_game_object(this_ptr->fields.Shard), types::LegacyTransparencyAnimator::get_class()
             );
-            for (auto& transparency_animator: transparency_animators) {
-                LegacyTransparencyAnimator::RestoreToOriginalState(transparency_animator);
-                il2cpp::unity::destroy_object(transparency_animator);
+            const auto parent_transparency_animator = il2cpp::unity::get_component<app::LegacyTransparencyAnimator>(
+                il2cpp::unity::get_game_object(this_ptr), types::LegacyTransparencyAnimator::get_class()
+            );
+
+            if (parent_transparency_animator->fields.m_childTransparencyAnimators->fields._size > 0) {
+                il2cpp::invoke(parent_transparency_animator->fields.m_childTransparencyAnimators, "Clear");
+            }
+
+            for (auto& child_transparency_animator: child_transparency_animators) {
+                LegacyTransparencyAnimator::RestoreToOriginalState(child_transparency_animator);
+                il2cpp::unity::destroy_object(child_transparency_animator);
             }
 
             // const auto clever_menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(
@@ -199,11 +206,12 @@ namespace randomizer::game::shops::twillen {
 
             auto tint_color = can_purchase ? this_ptr->fields.PurchasableColor : this_ptr->fields.UnpurchaseableColor;
             tint_color.a = can_purchase ? 1.f : 0.5f;
-            utils::set_color(il2cpp::unity::get_game_object(background), tint_color);
-            utils::set_color(icon_go, tint_color);
 
             il2cpp::unity::set_active(this_ptr->fields.Shard->fields.IconGO, true);
             il2cpp::unity::set_active(this_ptr->fields.Shard->fields.Background, true);
+
+            utils::set_color(il2cpp::unity::get_game_object(background), tint_color);
+            utils::set_color(icon_go, tint_color);
 
             const auto icon_renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.IconGO, types::Renderer::get_class());
             slot.icon()->apply_to(icon_renderer);
