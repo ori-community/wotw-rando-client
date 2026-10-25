@@ -33,8 +33,8 @@ namespace {
             utils::create_entrance_icon(utils::EntranceIconSize::Normal, {2199.5, -3823.1}, 28),
             utils::create_entrance_icon(utils::EntranceIconSize::Normal, {1062.8, -3645.1}, 29),
             utils::create_entrance_icon(utils::EntranceIconSize::Normal, {493.7, -3945.6}, 30),
-            utils::create_entrance_icon(utils::EntranceIconSize::Normal, {515.5, -3740.5}, 31),
-            utils::create_entrance_icon(utils::EntranceIconSize::Normal, {580.0, -3604.9}, 32),
+            utils::create_entrance_icon(utils::EntranceIconSize::Normal, {580.0, -3604.9}, 31),
+            utils::create_entrance_icon(utils::EntranceIconSize::Normal, {515.5, -3740.5}, 32),
         };
     });
 }
