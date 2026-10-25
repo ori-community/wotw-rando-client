@@ -254,13 +254,19 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::GameObject>> stones_anchor_ref;
     std::unordered_map<Bell, std::vector<InstantiatingCachingIterator<StonePrefab>::Instance>> stone_instance_refs;
     core::reactivity::ReactiveEffect::ptr_t stone_update_effect;
+    auto scene_is_setup = false;
 
     [[maybe_unused]]
     auto on_scene_loaded = core::api::scenes::event_bus().on<core::api::scenes::events::SceneStateChanged>("howlsOriginEntrance", [](const auto& event) {
-        if (event.state != app::SceneState__Enum::Enabled) {
+        if (event.state == app::SceneState__Enum::Loaded) {
+            scene_is_setup = false;
+        }
+
+        if (scene_is_setup || event.state != app::SceneState__Enum::Enabled) {
             return;
         }
 
+        scene_is_setup = true;
         const auto scene_root_go = il2cpp::unity::get_game_object(event.scene->fields.SceneRoot);
         const auto stones_parent_parent_go = il2cpp::unity::find_child(
             scene_root_go,
@@ -303,6 +309,7 @@ namespace {
                 "vignetteMaskC",
             }
         );
+
         il2cpp::unity::set_parent(fog_vignette_mask_gos[1], stone_go);
 
         stone_prefabs_by_bell[Bell::Center].emplace_back(
