@@ -716,7 +716,10 @@ namespace randomizer::map::icons {
         if (always_show_label.get() || GameMapUI::get_ShowIconLabels(game_map_ui)) {
             if (!visibility_only) {
                 area_map_icon->fields.m_labelBox->fields.TextBox->fields.color = label_color.get();
-                AreaMapIcon::SetMessageProvider(area_map_icon, core::api::system::create_message_provider(label_text));
+
+                const auto label_text_string = label_text.get();
+                text_style::create_styles(area_map_icon->fields.m_labelBox->fields.TextBox, label_text_string);
+                AreaMapIcon::SetMessageProvider(area_map_icon, core::api::system::create_message_provider(label_text_string));
             }
 
             il2cpp::unity::set_active(area_map_icon->fields.Label, true);
