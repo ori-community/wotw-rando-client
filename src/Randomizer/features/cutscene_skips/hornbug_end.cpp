@@ -1,10 +1,11 @@
 #include <Common/event_bus.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/utils/misc.h>
-#include <Modloader/app/methods/CharacterSpriteMirror.h>
 #include <Modloader/app/methods/Moon/Timeline/MoonTimeline.h>
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
+#include <Modloader/app/methods/Moon/Timeline/EventTriggerAnimator.h>
 #include <Modloader/app/types/TimelineEntity.h>
+#include <Modloader/app/types/EventTriggerAnimator.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/features/cutscene_skips/custom_cutscene_skips.h>
@@ -15,6 +16,7 @@ using namespace app::classes;
 
 namespace {
     std::optional<il2cpp::WeakGCRef<app::MoonTimeline>> outro_timeline_ref;
+    std::optional<il2cpp::WeakGCRef<app::EventTriggerAnimator>> rope_drop_animator_ref;
     bool is_stopping_timeline = false;
 
     bool skip_available() {
@@ -26,6 +28,7 @@ namespace {
         common::ScopedSetter _(is_stopping_timeline, true);
         Moon::Timeline::MoonTimeline::set_CurrentTime(***outro_timeline_ref, Moon::Timeline::MoonTimeline::get_Duration(***outro_timeline_ref));
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(***outro_timeline_ref));
+        Moon::Timeline::EventTriggerAnimator::OnStartPlayback(***rope_drop_animator_ref, nullptr);
     }
 
     [[maybe_unused]]
@@ -46,6 +49,9 @@ namespace {
 
         if (il2cpp::unity::is_valid(timeline_go)) {
             outro_timeline_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, types::TimelineEntity::get_class()));
+
+            const auto rope_drop_animator_go = il2cpp::unity::find_child(timeline_go, "ropeDrop");
+            rope_drop_animator_ref = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::EventTriggerAnimator>(rope_drop_animator_go, types::EventTriggerAnimator::get_class()));
         }
     });
 
