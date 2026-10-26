@@ -41,6 +41,7 @@ namespace randomizer::timing {
     };
 
     bool timer_should_run();
+    bool is_game_finished();
     void override_in_game_time(float in_game_time);
     float get_in_game_time();
     void force_set_game_finished(bool value);

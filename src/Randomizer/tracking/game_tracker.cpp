@@ -166,6 +166,10 @@ namespace randomizer::timing {
         return loaded_any_save_file && !game_finished && !timer_should_pause();
     }
 
+    bool is_game_finished() {
+        return game_finished;
+    }
+
     namespace {
         void report_timer_state_to_ipc(float in_game_time, float async_loading_time, bool timer_should_run) {
             auto request = core::ipc::make_request("notify_timer_state_changed");
