@@ -3,20 +3,16 @@
 #include <Core/dev/object_visualizer.h>
 #include <Core/events/action.h>
 #include <Core/events/task.h>
-#include <Modloader/app/methods/AK/Wwise/State.h>
-#include <Modloader/app/methods/AkSoundEngine.h>
 #include <Modloader/app/methods/DesiredUberStateBool.h>
-#include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/NightCrawlerFightController.h>
-#include <Modloader/app/methods/TimeUtility.h>
+#include <Modloader/app/methods/WotwUberStateToWwiseData_AbilityRequirementCondition.h>
 #include <Modloader/app/methods/WotwUberStateWwiseStateManager.h>
 #include <Modloader/app/types/DesiredUberStateBool.h>
 #include <Modloader/app/types/State.h>
 #include <Modloader/app/types/WotwUberStateToWwiseData_AbilityRequirementCondition.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/windows_api/console.h>
-#include <format>
-#include <fstream>
+#include <Randomizer/uber_states/randomizer_uber_states.h>
+
 
 using namespace app::classes;
 
@@ -61,17 +57,17 @@ namespace {
         });
     }
 
+    template<typename SERIALIZED_BOOLEAN_UBER_STATE_T> requires core::api::uber_states::UberStateOfType<core::api::uber_states::UberStateType::SerializedBooleanUberState, SERIALIZED_BOOLEAN_UBER_STATE_T>
     void link_music_from_ability_to_state(
         const app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry* entry,
         const bool desired_value,
-        const int uber_state_group,
-        const int uber_state_state
+        SERIALIZED_BOOLEAN_UBER_STATE_T& uber_state
     ) {
         entry->fields.WotwUberStateConditions->fields.PlayerAbilityRequirements = types::WotwUberStateToWwiseData_AbilityRequirementCondition::create_array(0);
         auto condition = types::DesiredUberStateBool::create();
         DesiredUberStateBool::ctor(condition);
         condition->fields.DesiredValue = desired_value;
-        condition->fields._.Descriptor = reinterpret_cast<app::SerializedBooleanUberState*>(core::api::uber_states::UntypedUberState(uber_state_group, uber_state_state).get_native_ptr());
+        condition->fields._.Descriptor = uber_state.get_native_ptr();
         entry->fields._.UberStateConditions->fields.BoolRequirements = types::DesiredUberStateBool::create_array({condition});
     }
 
@@ -92,26 +88,25 @@ namespace {
         // howls defeated true
         entries[19]->fields._.WwiseStatesToSet = types::State::create_array(0);
 
-        // Links the "Now use the light we want to see" with getting sword tree rather than the ability
-        link_music_from_ability_to_state(entries[30], false, 6, 401);
-        link_music_from_ability_to_state(entries[31], true, 6, 401);
+        // Links the "Now use the light we want to see" with lifting the storm rather than the ability
+        link_music_from_ability_to_state(entries[30], false, randomizer::uber_states::state<"modifications", "stormLiftedInMarsh">());
+        link_music_from_ability_to_state(entries[31], true, randomizer::uber_states::state<"modifications", "stormLiftedInMarsh">());
 
-        // Links the afterBow bowroom music with bow tree rather than the ability
-        link_music_from_ability_to_state(entries[36], false, 0, 97);
-        link_music_from_ability_to_state(entries[37], true, 0, 97);
+        // Links the after-bow bowroom music with bow tree rather than the ability
+        link_music_from_ability_to_state(entries[36], false, randomizer::uber_states::state<"trees", "bow">());
+        link_music_from_ability_to_state(entries[37], true, randomizer::uber_states::state<"trees", "bow">());
 
         // Links the burrowing music with burrow tree rather than the ability
-        link_music_from_ability_to_state(entries[78], false, 0, 101);
-        link_music_from_ability_to_state(entries[79], true, 0, 101);
+        link_music_from_ability_to_state(entries[78], false, randomizer::uber_states::state<"trees", "burrow">());
+        link_music_from_ability_to_state(entries[79], true, randomizer::uber_states::state<"trees", "burrow">());
 
         // Links the dashing and bashing music with dash tree rather than the ability
-        link_music_from_ability_to_state(entries[32], false, 0, 102);
-        link_music_from_ability_to_state(entries[33], true, 0, 102);
+        link_music_from_ability_to_state(entries[32], false, randomizer::uber_states::state<"trees", "dash">());
+        link_music_from_ability_to_state(entries[33], true, randomizer::uber_states::state<"trees", "dash">());
 
         // Links the in wonderment of winter music with grenade tree rather than the ability
-        link_music_from_ability_to_state(entries[76], false, 0, 51);
-        link_music_from_ability_to_state(entries[77], true, 0, 51);
-
+        link_music_from_ability_to_state(entries[76], false, randomizer::uber_states::state<"trees", "grenade">());
+        link_music_from_ability_to_state(entries[77], true, randomizer::uber_states::state<"trees", "grenade">());
 
         next::WotwUberStateWwiseStateManager::PopulateAffectedStates(this_ptr);
     }

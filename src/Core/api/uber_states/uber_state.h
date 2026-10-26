@@ -746,10 +746,16 @@ namespace core::api::uber_states {
         common::Droppable::ptr_t m_initialize_droppable = nullptr;
     };
 
-    template<typename T, typename UBER_STATE_TYPE>
-    concept ReadableUberState = requires(UBER_STATE_TYPE u)
+    template<typename T, typename UBER_STATE_VALUE_TYPE>
+    concept ReadableUberState = requires(UBER_STATE_VALUE_TYPE u)
     {
         { u.get() } -> std::same_as<T>;
+    };
+
+    template<const UberStateType T, typename UBER_STATE_ID_TYPE>
+    concept UberStateOfType = requires(UBER_STATE_ID_TYPE u)
+    {
+        { decltype(u)::id_t::TYPE == T };
     };
 }
 
