@@ -245,6 +245,9 @@ namespace randomizer::map::icons {
         /** Reactive effects for this map icon */
         Handles m_handles;
 
+        /** Cache of the last set label text, or nullopt if the text hasn't been set yet */
+        std::optional<std::string> m_current_label_text = std::nullopt;
+
         /** Add the game object to the map if it doesn't have a parent currently but exists */
         bool try_add_icon_to_map_if_missing() const;
 
@@ -267,7 +270,7 @@ namespace randomizer::map::icons {
         void try_set_scale(const IconScale& scale) const;
 
         /** Shows/Hides the icon label if the game object exists. If visible, also updates the label text */
-        void try_update_label(bool visibility_only = false) const;
+        void try_update_label(bool visibility_only = false);
 
         /** Sets the icon opacity if the game object exists */
         void try_set_color_modulation_and_opacity(float r, float g, float b, float opacity) const;

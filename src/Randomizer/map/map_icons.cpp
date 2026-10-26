@@ -698,7 +698,7 @@ namespace randomizer::map::icons {
         il2cpp::unity::set_local_scale(*game_object, app::Vector3{scale_factor, scale_factor, 1.f});
     }
 
-    void MapIcon::try_update_label(bool visibility_only) const {
+    void MapIcon::try_update_label(bool visibility_only) {
         const auto game_map_ui = types::GameMapUI::get_class()->static_fields->Instance;
 
         if (game_map_ui == nullptr || !m_game_object_ref.has_value()) {
@@ -718,8 +718,11 @@ namespace randomizer::map::icons {
                 area_map_icon->fields.m_labelBox->fields.TextBox->fields.color = label_color.get();
 
                 const auto label_text_string = label_text.get();
-                text_style::create_styles(area_map_icon->fields.m_labelBox->fields.TextBox, label_text_string);
-                AreaMapIcon::SetMessageProvider(area_map_icon, core::api::system::create_message_provider(label_text_string));
+                if (m_current_label_text != label_text_string) {
+                    text_style::create_styles(area_map_icon->fields.m_labelBox->fields.TextBox, label_text_string);
+                    AreaMapIcon::SetMessageProvider(area_map_icon, core::api::system::create_message_provider(label_text_string));
+                    m_current_label_text = label_text_string;
+                }
             }
 
             il2cpp::unity::set_active(area_map_icon->fields.Label, true);

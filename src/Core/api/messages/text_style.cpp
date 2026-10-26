@@ -396,18 +396,29 @@ namespace text_style {
         return style;
     }
 
-    void create_styles(app::TextBox* box, std::string_view text) {
-        std::unordered_set<std::string> existing_style_names;
+    static std::unordered_map<app::TextStyle__Array*, std::unordered_set<std::string>> existing_styles_cache;
 
-        auto style_array = box->fields.styleCollection->fields.styles;
+    std::unordered_set<std::string>& get_existing_styles_cache(app::TextStyle__Array* style_array) {
+        const auto it = existing_styles_cache.find(style_array);
+        if (it != existing_styles_cache.end()) {
+            return it->second;
+        }
+
+        std::unordered_set<std::string> existing_style_names;
         for (const auto& style: il2cpp::ArrayIterator(style_array)) {
             auto name = il2cpp::convert_csstring_fast_unsafe(style->fields.name);
             existing_style_names.emplace(name);
         }
+        return existing_styles_cache.emplace(style_array, existing_style_names).first->second;
+    }
+
+    void create_styles(const app::TextBox* box, const std::string_view text) {
+        auto style_array = box->fields.styleCollection->fields.styles;
+        auto existing_style_names = get_existing_styles_cache(style_array);
 
         std::vector<app::TextStyle*> new_styles;
         std::string value;
-        for (int i = 0; i < text.size();) {
+        for (auto i = 0; i < text.size();) {
             if (text[i] != '<') {
                 ++i;
                 continue;
