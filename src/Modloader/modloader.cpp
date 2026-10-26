@@ -2,6 +2,7 @@
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/UnityEngine/Application.h>
 #include <Modloader/app/methods/UnityEngine/Cursor.h>
+#include <Modloader/app/methods/Moon/UberStateCollection.h>
 #include <Modloader/constants.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
@@ -194,14 +195,18 @@ namespace modloader {
             trace(LogLevel::Info, "initialize", std::format("Initializing Application {} ({})[{}].", product, version, unity_version));
             trace(LogLevel::Info, "initialize", "Calling initialization callbacks.");
 
-            uber_states_initialized = true;
-            event_bus().emit(events::InitializeUberStates());
-
             event_bus().emit(events::GameReady());
             game_ready = true;
         }
 
         next::GameController::FixedUpdate(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT_WITH_ORDER(-1000, void, Moon::UberStateCollection, PrepareRuntimeDataType, app::UberStateCollection* this_ptr) {
+        next::Moon::UberStateCollection::PrepareRuntimeDataType(this_ptr);
+
+        uber_states_initialized = true;
+        event_bus().emit(events::InitializeUberStates());
     }
 } // namespace modloader
 
