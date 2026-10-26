@@ -213,6 +213,10 @@ namespace custom_cutscene_skips {
 
     [[maybe_unused]]
     auto on_fixed_update = core::api::game::event_bus().on<core::api::game::events::FixedUpdate>([](auto) {
+        if (core::api::game::is_paused()) {
+            return;
+        }
+
         execute_automatic_cutscene_skip_if_enabled();
     });
 

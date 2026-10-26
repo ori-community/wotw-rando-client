@@ -194,7 +194,7 @@ namespace core::api::game {
     }
 
     bool is_paused() {
-        auto instance = ui::get();
+        const auto instance = ui::get();
         return !il2cpp::unity::is_valid(instance) ||
             !il2cpp::unity::is_valid(instance->static_fields->m_sMenu) ||
             instance->static_fields->m_sMenu->fields.m_isPaused;
