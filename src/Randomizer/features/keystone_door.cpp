@@ -102,7 +102,7 @@ namespace {
                 );
                 moon_custom_door_with_slots->fields._.Radius = 50.f;
 
-                // Skip eyestone animation sinece it doesn't make sense in this context and makes
+                // Skip eyestone animation since it doesn't make sense in this context and makes
                 // opening the door from the right look weird for a second
                 moon_custom_door_with_slots->fields._.OpenDoorTimeline = il2cpp::unity::get_component<app::MoonTimeline>(
                     open_door_timeline_go, types::MoonTimeline::get_class()
@@ -118,6 +118,15 @@ namespace {
             // Destroy this entity to make the door behave similar to normal keystone doors, where you can keep moving
             if (il2cpp::unity::is_valid(lock_input_go)) {
                 il2cpp::unity::destroy_object(lock_input_go);
+            }
+
+            const auto ability_restriction_zone_go = il2cpp::unity::find_child(
+               event.scene->fields.SceneRoot, std::vector<std::string>{"artSetups", "frogHeadSetup", "doorWithTwoSlots", "doorWithTwoSlots", "restrictZone"}
+            );
+
+            // Remove ability restriction zone in front of the frog statue
+            if (il2cpp::unity::is_valid(ability_restriction_zone_go)) {
+                il2cpp::unity::destroy_object(ability_restriction_zone_go);
             }
         }
     );
