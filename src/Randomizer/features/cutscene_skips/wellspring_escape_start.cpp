@@ -6,7 +6,9 @@
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
 #include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
+#include <Modloader/app/structs/ShowFixedTimeTextEntity.h>
 #include <Modloader/app/types/MoonTimeline.h>
+#include <Modloader/app/types/ShowFixedTimeTextEntity.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/modloader.h>
 #include <Randomizer/features/cutscene_skips/custom_cutscene_skips.h>
@@ -20,7 +22,7 @@ namespace {
         Idle,
         ModifyTimelines,
         TeleportOri,
-        MoveHitboxBack,
+        MoveHitboxBackAndClearMessages,
     };
 
     ObjectReference<app::MoonTimeline> wellspring_escape_start_timeline;
@@ -118,11 +120,22 @@ namespace {
                 break;
             case TeleportOri:
                 core::api::game::player::set_position(-1257.495f, -3640.575f);
-                next_frame_action = MoveHitboxBack;
+                next_frame_action = MoveHitboxBackAndClearMessages;
                 break;
-            case MoveHitboxBack:
+            case MoveHitboxBackAndClearMessages:
                 UnityEngine::Transform::set_position(kill_hitbox_transform.ptr, kill_hitbox_original_position);
                 next_frame_action = Idle;
+
+                const auto text_entities = il2cpp::unity::get_components_in_children<app::ShowFixedTimeTextEntity>(
+                    wellspring_escape_start_timeline.ptr,
+                    types::ShowFixedTimeTextEntity::get_class(),
+                    true
+                );
+                for (const auto& text_entity: text_entities) {
+                    if (il2cpp::unity::is_valid(text_entity->fields.m_message)) {
+                        il2cpp::unity::destroy_object(text_entity->fields.m_message);
+                    }
+                }
                 break;
         }
     });
