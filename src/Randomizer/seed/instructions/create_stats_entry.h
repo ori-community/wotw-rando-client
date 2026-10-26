@@ -13,6 +13,10 @@ INSTRUCTION(CreateStatsEntry)
     void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         static uint64_t next_id = 0;
 
+        if (!timing::timer_should_run()) {
+            return;
+        }
+
         const auto id = ++next_id;
         timing::get_save_file_game_stats().add_timeline_entry(
             id,
