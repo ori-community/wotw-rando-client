@@ -42,7 +42,7 @@ namespace {
         {{ 554, -3605 }, core::uber_states::state<"willowsEndGroup", 50867>() },
     };
 
-    auto& prevent_map_reactivate_tps_state = randomizer::uber_states::state<"modifications", "disableTeleporterMapActivation">();
+    auto& prevent_map_reactivate_tps_state = randomizer::uber_states::state<"map", "disableTeleporterMapActivation">();
     IL2CPP_INTERCEPT(bool, SavePedestalController, IsTeleporterActiveAtMapPosition, app::Vector2 position) {
         common::ScopedSetter setter(overwrite_is_visited, prevent_map_reactivate_tps_state.get());
         const auto return_value = next::SavePedestalController::IsTeleporterActiveAtMapPosition(position);

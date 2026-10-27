@@ -80,8 +80,10 @@ DEFINE_NAMED_STATE(40, "finesse", SerializedBooleanUberState, false)
 REGISTER_GROUP
 DEFINE_NAMED_VIRTUAL_STATE(1, "focusedArea", ReadOnlyVirtualIntUberState)
 DEFINE_NAMED_VIRTUAL_STATE(2, "filter", VirtualIntUberState)
-DEFINE_NAMED_STATE(12, "inLogicFilterAvailable", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(100, "spoilerFilterAvailable", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(10, "inLogicFilterAvailable", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(11, "spoilerFilterAvailable", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(20, "showSmallEntrances", SerializedBooleanUberState, false)
+DEFINE_NAMED_STATE(100, "disableTeleporterMapActivation", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(600, "darkenTopLeftCorner", SerializedBooleanUberState, false)
 
 #undef GROUP_ID
@@ -174,7 +176,6 @@ DEFINE_NAMED_STATE(1000, "inputLocked", SerializedBooleanUberState, false)
 #define GROUP_NAME "modifications"
 REGISTER_GROUP
 DEFINE_NAMED_STATE(0, "enableShriekBarrier", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(1, "disableTeleporterMapActivation", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(8, "disablePickupCollision", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(9, "stompThroughPortals", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(10, "stompIntoWater", SerializedBooleanUberState, false)
@@ -199,7 +200,6 @@ DEFINE_NAMED_STATE(100, "disableShriekEscapeSand", SerializedBooleanUberState, f
 DEFINE_NAMED_STATE(101, "disableWeepingRidgeEntranceSand", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(102, "knockKnockWellspring", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(103, "disableDespawningNearbyEnemies", SerializedBooleanUberState, false)
-DEFINE_NAMED_STATE(200, "showSmallEntrances", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(300, "spawnTuley", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(301, "spawnTuleyStateActive", SerializedBooleanUberState, false)
 DEFINE_NAMED_STATE(310, "spawnOpherEverywhere", SerializedBooleanUberState, false)

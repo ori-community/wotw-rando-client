@@ -965,7 +965,7 @@ namespace randomizer::map::icons {
             const std::function<bool()>& show_question_mark_fn,
             const std::string& label_text
         ) {
-            static auto& show_small_entrances_state = uber_states::state<"modifications", "showSmallEntrances">();
+            static auto& show_small_entrances_state = uber_states::state<"map", "showSmallEntrances">();
 
             const auto door_icon = std::make_shared<MapIcon>(
                 size == EntranceIconSize::Small ? MapIcon::Type::DoorSmall : MapIcon::Type::Door,
