@@ -531,6 +531,9 @@ namespace randomizer::main_menu_seed_info {
                     if (std::holds_alternative<seed::Seed::SeedMetaData>(meta)) {
                         server_connection = current_seed_source->get_server_connection();
                     }
+                } else if (read_slots.contains(SaveMetaSlot::IncompatibleVersionMarker)) {
+                    current_seed_source = nullptr;
+                    current_seed_meta_data_result = "This save was created on a newer version\nof the randomizer and cannot be loaded.";
                 } else {
                     current_seed_source = nullptr;
                     current_seed_meta_data_result = "Error reading save metadata.\nThis might be a vanilla save.";

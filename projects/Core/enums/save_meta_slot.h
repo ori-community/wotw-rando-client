@@ -10,4 +10,5 @@ enum class SaveMetaSlot {
     SaveFileGameStats,
     SeedMetaData,
     ArchipelagoData,
+    IncompatibleVersionMarker,  // Fake slot to read when v5+ was detected
 };

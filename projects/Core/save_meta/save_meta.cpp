@@ -340,7 +340,13 @@ namespace core::save_meta {
 
         if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
             stream.skip<int>();
-            stream.skip<int>(); // VERSION unused for now
+
+            const auto version = stream.read<int>();
+            if (version != SAVE_META_FILE_VERSION) {
+                warn("save_meta", std::format("Tried to read save file with incompatible version {}", version));
+                successfully_read_slots.insert(SaveMetaSlot::IncompatibleVersionMarker);
+                return successfully_read_slots;
+            }
 
             auto guid = stream.read<MoodGuid>();
             auto slot_count = stream.read<int>();
