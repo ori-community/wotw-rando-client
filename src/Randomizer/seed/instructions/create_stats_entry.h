@@ -13,7 +13,7 @@ INSTRUCTION(CreateStatsEntry)
     void execute(Seed& seed, memory::SeedMemory& memory, SeedExecutionEnvironment& environment) override {
         static uint64_t next_id = 0;
 
-        if (!timing::is_game_finished()) {
+        if (timing::is_game_finished()) {
             return;
         }
 
