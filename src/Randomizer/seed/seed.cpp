@@ -80,7 +80,9 @@ namespace randomizer::seed {
                                 return;
                             }
 
-                            execute_command(condition.command_id);
+                            core::reactivity::run_after_effects([&] {
+                                execute_command(condition.command_id);
+                            });
                         }).finalize();
                     },
                 };
