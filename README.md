@@ -38,6 +38,7 @@ git config --system core.longpaths true
 2. Enable vcpkg
 3. Add `-DVCPKG_OVERLAY_TRIPLETS=$CMakeProjectDir$/vcpkg-triplets -DVCPKG_TARGET_TRIPLET=x64-windows-mixed` as CMake argument in the CMake IDE settings
 4. Switch to the `clang-cl` compilers in the Toolchain IDE settings.
+5. (Optional) Set the `CMAKE_INSTALL_MODE` CMake environment variable to `ABS_SYMLINK` to use symlinks for installed files
 
 
 #### Setup in Visual Studio Code
@@ -62,7 +63,20 @@ git config --system core.longpaths true
 ### Set up debugging
 
 Debugging only works when launching the randomizer using the winhttp.dll proxy file (which is recommended in general for development).
+
+
+#### Option 1: Automatically link the Inject Proxy
+
+Set the `WOTW_INSTALL_DIR` CMake variable to the path containing the game executable, e.g. `-DWOTW_INSTALL_DIR="C:/Program Files (x86)/Steam/steamapps/common/Ori and the Will of the Wisps"`.
+
+
+#### Option 2: Manually link the Inject Proxy
+
 After building the project, symlink the built winhttp.dll next to the game. For that, open a terminal with elevated privileges next to the game executable (oriwotw.exe) and run `mklink winhttp.dll C:\moon\randomizer\client\winhttp.dll`.
+
+
+#### Launch options
+
 Now you can load the randomizer by launching the game executable with `-i C:\moon\randomizer` as command line argument. If you don't supply any argument, the winhttp.dll proxy will do nothing. Here, `C:\moon\randomizer` is the default value of the `WOTWR_INSTALL_DIR` CMake variable. If you override `WOTWR_INSTALL_DIR` (see below), use that path instead.
 If you are using CLion, you can create a Run Configuration with the aforementioned settings to get a seamless debugging experience.
 
