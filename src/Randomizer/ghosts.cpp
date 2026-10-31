@@ -294,7 +294,7 @@ namespace ghosts {
         UnityEngine::Material::SetColor_1(trail_material, il2cpp::string_new("_Color"), color_trail);
         UnityEngine::Material::SetColor_1(trail_material, il2cpp::string_new("_EmissivityColor"), color_trail);
 
-        utils::set_color(this->ghost_player->fields.m_oriRig, color, app::UberShaderProperty_Color__Enum::MainColor);
+        utils::set_color(this->ghost_player->fields.m_oriRig, color, app::UberShaderProperty_Color__Enum::MainColor, true);
     }
 
     void RandoGhost::destroy() {

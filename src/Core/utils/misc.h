@@ -26,7 +26,7 @@ namespace utils {
         }
     };
 
-    CORE_DLLEXPORT void set_color(app::GameObject* go, const app::Color& color, app::UberShaderProperty_Color__Enum shader_property = app::UberShaderProperty_Color__Enum::MainColor, bool skip_first = false);
+    CORE_DLLEXPORT void set_color(app::GameObject* go, const app::Color& color, app::UberShaderProperty_Color__Enum shader_property = app::UberShaderProperty_Color__Enum::MainColor, bool keep_alpha = false);
     CORE_DLLEXPORT app::MoonGuid* moon_guid(int a, int b, int c, int d);
 
     CORE_DLLEXPORT app::UberShaderColor* uber_shader_color(app::Color& color);

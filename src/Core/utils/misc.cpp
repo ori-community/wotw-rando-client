@@ -14,10 +14,20 @@ using namespace app::classes;
 namespace utils {
     constexpr float COLOR_DIVIDER = 3.0f;
 
-    void set_color(app::GameObject* go, const app::Color& color, app::UberShaderProperty_Color__Enum shader_property, bool skip_first) {
+    void set_color(app::GameObject* go, const app::Color& color, app::UberShaderProperty_Color__Enum shader_property, bool keep_alpha) {
         const auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(go, types::Renderer::get_class(), true);
-        for (const auto& renderer : renderers) {
-            UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, color);
+        for (const auto& renderer: renderers) {
+            if (keep_alpha) {
+                auto original_alpha = UberShaderAPI::GetColor_1(renderer, shader_property).a;
+                UberShaderAPI::SetColor_1(renderer, shader_property, {
+                    color.r,
+                    color.g,
+                    color.b,
+                    original_alpha,
+                });
+            } else {
+                UberShaderAPI::SetColor_1(renderer, shader_property, color);
+            }
         }
     }
 
@@ -54,7 +64,5 @@ namespace utils {
         }
     }
 
-    float deg2rad(float degrees) {
-        return degrees * (core::PI / 180.f);
-    }
+    float deg2rad(float degrees) { return degrees * (core::PI / 180.f); }
 } // namespace utils
