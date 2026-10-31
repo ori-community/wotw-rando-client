@@ -11,6 +11,8 @@
 #include <Modloader/app/methods/GameMapUI.h>
 #include <Modloader/app/methods/IconPlacementScaler.h>
 #include <Modloader/app/methods/MenuScreenManager.h>
+#include <Modloader/app/methods/MessageBox.h>
+#include <Modloader/app/methods/MessageParserUtility.h>
 #include <Modloader/app/methods/QuestIconsUI.h>
 #include <Modloader/app/methods/RuntimeWorldMapIcon.h>
 #include <Modloader/app/methods/SavePedestal.h>
@@ -720,7 +722,8 @@ namespace randomizer::map::icons {
                 const auto label_text_string = label_text.get();
                 if (m_current_label_text != label_text_string) {
                     text_style::create_styles(area_map_icon->fields.m_labelBox->fields.TextBox, label_text_string);
-                    AreaMapIcon::SetMessageProvider(area_map_icon, core::api::system::create_message_provider(label_text_string));
+                    area_map_icon->fields.m_labelBox->fields.MessageProvider = core::api::system::create_message_provider(label_text_string);
+                    MessageBox::RefreshText_1(area_map_icon->fields.m_labelBox);
                     m_current_label_text = label_text_string;
                 }
             }
