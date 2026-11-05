@@ -113,9 +113,9 @@ namespace randomizer::uber_states {
             register_virtual_uber_state_from_property(group_id<"player">(), 1, VirtualUberState::ValueType::Integer, "gorlekOre", ore(), VirtualUberState::ChangeDetectionMode::Poll);
             register_virtual_uber_state_from_property(group_id<"player">(), 2, VirtualUberState::ValueType::Integer, "keystones", keystones(), VirtualUberState::ChangeDetectionMode::Poll);
             register_virtual_uber_state_from_property(group_id<"player">(), 3, VirtualUberState::ValueType::Integer, "shardSlots", shard_slots(), VirtualUberState::ChangeDetectionMode::Poll);
-            register_virtual_uber_state_from_property(group_id<"player">(), 10, VirtualUberState::ValueType::Integer, "baseMaxHealth", max_health(), VirtualUberState::ChangeDetectionMode::Poll);
-            register_virtual_uber_state(group_id<"player">(), 11, VirtualUberState::ValueType::Integer, "maxHealth", [] { return get_max_health(); }, std::nullopt, VirtualUberState::ChangeDetectionMode::Poll);
-            register_virtual_uber_state_from_property(group_id<"player">(), 12, VirtualUberState::ValueType::Float, "health", health(), VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state_from_property(group_id<"player">(), 10, VirtualUberState::ValueType::Integer, "baseMaxLife", max_health(), VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state(group_id<"player">(), 11, VirtualUberState::ValueType::Integer, "maxLife", [] { return get_max_health(); }, std::nullopt, VirtualUberState::ChangeDetectionMode::Poll);
+            register_virtual_uber_state_from_property(group_id<"player">(), 12, VirtualUberState::ValueType::Float, "life", health(), VirtualUberState::ChangeDetectionMode::Poll);
             register_virtual_uber_state_from_property(group_id<"player">(), 20, VirtualUberState::ValueType::Float, "baseMaxEnergy", max_energy(), VirtualUberState::ChangeDetectionMode::Poll);
             register_virtual_uber_state(group_id<"player">(), 21, VirtualUberState::ValueType::Float, "maxEnergy", [] { return get_max_energy(); }, std::nullopt, VirtualUberState::ChangeDetectionMode::Poll);
             register_virtual_uber_state_from_property(group_id<"player">(), 22, VirtualUberState::ValueType::Float, "energy", energy(), VirtualUberState::ChangeDetectionMode::Poll);
@@ -201,7 +201,7 @@ namespace randomizer::uber_states {
                 std::make_tuple(app::AbilityType__Enum::DamageUpgradeB, "marshAncestralLight"),
                 std::make_tuple(app::AbilityType__Enum::SpiritFlame, "spiritFlame"),
                 std::make_tuple(app::AbilityType__Enum::UltraDefense, "resilience"),
-                std::make_tuple(app::AbilityType__Enum::HealthEfficiency, "healthEfficiency"),
+                std::make_tuple(app::AbilityType__Enum::HealthEfficiency, "lifeEfficiency"),
                 std::make_tuple(app::AbilityType__Enum::EnergyEfficiency, "energyEfficiency"),
                 std::make_tuple(app::AbilityType__Enum::BowCharge, "bowCharge"),
                 std::make_tuple(app::AbilityType__Enum::SpiritMagnet, "spiritMagnet"),
