@@ -23,9 +23,15 @@ namespace randomizer::seed {
             return ParserError::WrongVersion;
         }
 
-        auto preload = archive->get_preload();
+        const auto maybe_preload = archive->get_preload();
 
         try {
+            if (!maybe_preload.has_value()) {
+                throw std::exception("Seed didn't contain a preload manifest");
+            }
+
+            const auto preload = *maybe_preload;
+
             preload.at("spawn").get_to(data.spawn);
 
             if (preload.contains("tags")) {
@@ -51,10 +57,17 @@ namespace randomizer::seed {
     }
 
     bool parse(const std::shared_ptr<SeedArchive>& archive, const std::shared_ptr<SeedParseOutput>& output) {
-        auto json = archive->get_assembly();
         std::string current_item;
 
         try {
+            const auto maybe_assembly = archive->get_assembly();
+
+            if (!maybe_assembly.has_value()) {
+                throw std::exception("Seed didn't contain assembly");
+            }
+
+            const auto assembly = *maybe_assembly;
+
             const auto meta_data_result = parse_meta_data(archive);
 
             if (std::holds_alternative<ParserError>(meta_data_result)) {
@@ -63,7 +76,7 @@ namespace randomizer::seed {
 
             output->meta = std::get<SeedMetaData>(meta_data_result);
 
-            for (const auto& event: json.at("events")) {
+            for (const auto& event: assembly.at("events")) {
                 const auto& trigger = event.at(0);
 
                 if (trigger.contains("Condition")) {
@@ -96,7 +109,7 @@ namespace randomizer::seed {
                 }
             }
 
-            for (const auto& command_entry: json.at("commandLookup")) {
+            for (const auto& command_entry: assembly.at("commandLookup")) {
                 auto& command = output->data.commands.emplace_back();
                 for (const auto& instruction_entry: command_entry) {
                     current_item = instruction_entry.is_string() ? instruction_entry.get<std::string>() : instruction_entry.begin().key();

@@ -11,9 +11,9 @@ namespace randomizer::seed {
     explicit SeedArchive(const std::vector<std::byte>& data);
     ~SeedArchive();
 
-    nlohmann::json get_assembly() const;
-    nlohmann::json get_seedgen_info() const;
-    nlohmann::json get_preload() const;
+    std::optional<nlohmann::json> get_assembly() const;
+    std::optional<nlohmann::json> get_seedgen_info() const;
+    std::optional<nlohmann::json> get_preload() const;
     std::string get_format_version() const;
 
     const std::vector<std::byte>& get_archive_data() const;
@@ -22,7 +22,7 @@ namespace randomizer::seed {
 
 private:
     std::optional<std::string> read_text_file_from_archive(const std::string& file_name) const;
-    nlohmann::json read_json_file_from_archive(const std::string& file_name) const;
+    std::optional<nlohmann::json> read_json_file_from_archive(const std::string& file_name) const;
 
     std::vector<std::byte> m_archive_data;
     libzippp::ZipArchive* m_archive;

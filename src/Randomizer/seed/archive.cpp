@@ -38,25 +38,25 @@ namespace randomizer::seed {
         return entry.readAsText();
     }
 
-    nlohmann::json SeedArchive::read_json_file_from_archive(const std::string& file_name) const {
+    std::optional<nlohmann::json> SeedArchive::read_json_file_from_archive(const std::string& file_name) const {
         const auto text = read_text_file_from_archive(file_name);
 
         if (!text.has_value()) {
-            return nlohmann::json(nullptr);
+            return std::nullopt;
         }
 
         return nlohmann::json::parse(*text);
     }
 
-    nlohmann::json SeedArchive::get_assembly() const {
+    std::optional<nlohmann::json> SeedArchive::get_assembly() const {
         return read_json_file_from_archive("assembly.json");
     }
 
-    nlohmann::json SeedArchive::get_seedgen_info() const {
+    std::optional<nlohmann::json> SeedArchive::get_seedgen_info() const {
         return read_json_file_from_archive("seedgen_info.json");
     }
 
-    nlohmann::json SeedArchive::get_preload() const {
+    std::optional<nlohmann::json> SeedArchive::get_preload() const {
         return read_json_file_from_archive("preload.json");
     }
 
