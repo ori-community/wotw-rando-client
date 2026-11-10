@@ -30,13 +30,13 @@ namespace {
         );
 
         effect = core::reactivity::watch_effect([] {
-            if (!restriction_emerge_trigger_ref.has_value() || !restriction_kwolok_setup_ref.has_value()) {
+            const auto restriction_emerge_trigger_go = il2cpp::deref_weak_gc_ref(restriction_emerge_trigger_ref);
+            const auto restriction_kwolok_setup_go = il2cpp::deref_weak_gc_ref(restriction_kwolok_setup_ref);
+
+            if (!restriction_emerge_trigger_go.has_value() || !restriction_kwolok_setup_go.has_value()) {
                 effect = nullptr;
                 return;
             }
-
-            const auto restriction_emerge_trigger_go = **restriction_emerge_trigger_ref;
-            const auto restriction_kwolok_setup_go = **restriction_kwolok_setup_ref;
 
             if (fix_enabled_state.get()) {
                 il2cpp::unity::set_local_position(*restriction_emerge_trigger_go, {-2.9, 20.0, 0});
