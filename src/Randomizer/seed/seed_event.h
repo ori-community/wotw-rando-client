@@ -11,10 +11,9 @@ namespace randomizer::seed {
         Binding4,
         Binding5,
         ShowProgress,
-        Reload,
         Tick,
         Spawn,
-        Respawn,
+        SaveLoaded,
     };
 
     NLOHMANN_JSON_SERIALIZE_ENUM(
@@ -27,10 +26,9 @@ namespace randomizer::seed {
             {SeedClientEvent::Binding4,                   "Binding4"                  },
             {SeedClientEvent::Binding5,                   "Binding5"                  },
             {SeedClientEvent::ShowProgress,               "ProgressMessage"           },
-            {SeedClientEvent::Reload,                     "Reload"                    },
-            {SeedClientEvent::Respawn,                    "Respawn"                   },
             {SeedClientEvent::Tick,                       "Tick"                      },
             {SeedClientEvent::Spawn,                      "Spawn"                     },
-    }
+            {SeedClientEvent::SaveLoaded,                 "SaveLoaded"                },
+        }
     );
 } // namespace randomizer::seed

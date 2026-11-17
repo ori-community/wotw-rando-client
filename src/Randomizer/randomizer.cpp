@@ -75,7 +75,6 @@ namespace randomizer {
             multiplayer_universe_instance.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
             features::wheel::initialize_default_wheel();
-            randomizer_seed.trigger(seed::SeedClientEvent::Reload, true);
         });
 
         [[maybe_unused]]
@@ -104,7 +103,7 @@ namespace randomizer {
                 false
             );
 
-            game_seed().trigger(seed::SeedClientEvent::Reload, true);
+            game_seed().trigger(seed::SeedClientEvent::SaveLoaded, true);
             game_seed().trigger(seed::SeedClientEvent::Spawn, true);
         });
 
@@ -142,7 +141,7 @@ namespace randomizer {
 
         [[maybe_unused]]
         auto on_restore_checkpoint = core::api::game::event_bus().on<core::api::game::events::RestoredCheckpoint>([](auto) {
-            randomizer_seed.trigger(seed::SeedClientEvent::Respawn);
+            randomizer_seed.trigger(seed::SeedClientEvent::SaveLoaded);
         });
 
         [[maybe_unused]]
