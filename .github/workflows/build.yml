@@ -23,6 +23,8 @@ jobs:
       VCPKG_BINARY_SOURCES: "clear;nuget,https://nuget.pkg.github.com/ori-community/index.json,readwrite"
 
     steps:
+      - name: Upgrade LLVM
+        run: choco install llvm --upgrade --no-progress
       - name: Enable Git support for long file paths
         run: git config --system core.longpaths true
       - name: Run sccache-cache
