@@ -199,13 +199,13 @@ namespace randomizer {
         }
     }
 
-    semver::version randomizer_version() {
+    semver::version<> randomizer_version() {
         semver::version version = semver::from_string("0.0.0");
         const std::ifstream version_file(modloader::get_install_data_path("versions/randomizer_version"));
         if (version_file.is_open()) {
             std::stringstream version_buffer;
             version_buffer << version_file.rdbuf();
-            const auto parsed = semver::from_string_noexcept(trim_copy(version_buffer.str()));
+            const auto parsed = semver::try_parse(trim_copy(version_buffer.str()));
 
             if (parsed.has_value()) {
                 version = parsed.value();

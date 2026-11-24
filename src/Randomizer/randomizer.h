@@ -46,7 +46,7 @@ namespace randomizer {
     void server_disconnect();
     void load_new_game_source();
 
-    semver::version randomizer_version();
+    semver::version<> randomizer_version();
 
     events::bus_t& event_bus();
     seed::Seed& game_seed();

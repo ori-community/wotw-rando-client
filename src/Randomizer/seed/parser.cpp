@@ -8,17 +8,22 @@
 
 namespace randomizer::seed {
     namespace {
-        bool is_seed_version_supported(const semver::version version) {
-            return semver::range::satisfies(version, ">=0.0.0 <=1.0.0");
+        bool is_seed_version_supported(const semver::version<>& version) {
+            return semver::try_parse_range(">=0.0.0 <=1.0.0").value().contains(version);
         }
     }
 
     std::variant<SeedMetaData, ParserError> parse_meta_data(const std::shared_ptr<SeedArchive>& archive) {
         SeedMetaData data;
 
-        auto version_string = archive->get_format_version();
+        const auto version_string = archive->get_format_version();
+        const auto parsed_version = semver::try_parse(version_string);
 
-        data.version = semver::version(version_string);
+        if (!parsed_version.has_value()) {
+            return ParserError::WrongVersion;
+        }
+
+        data.version = *parsed_version;
         if (!is_seed_version_supported(data.version)) {
             return ParserError::WrongVersion;
         }

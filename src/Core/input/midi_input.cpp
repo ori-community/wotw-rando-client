@@ -63,7 +63,11 @@ namespace core::input::midi_input {
     }
 
     void on_input_removed(const libremidi::input_port& port) {
-        if (port == current_port) {
+        if (!current_port.has_value()) {
+            return;
+        }
+
+        if (port.port == current_port->port) {
             if (midi.has_value()) {
                 midi->close_port();
                 midi = std::nullopt;

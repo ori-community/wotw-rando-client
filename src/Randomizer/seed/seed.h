@@ -103,7 +103,7 @@ namespace randomizer::seed {
     };
 
     struct SeedMetaData {
-        semver::version version = semver::version(0, 0, 0);
+        semver::version<> version = semver::version(0, 0, 0);
         std::vector<std::string> tags;
         app::Vector2 spawn = {-798.797058f, -4310.119141f};
         std::optional<std::string> slug;
