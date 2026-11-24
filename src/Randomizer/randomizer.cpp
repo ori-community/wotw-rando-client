@@ -233,7 +233,7 @@ namespace randomizer {
             case seed::SourceStatus::Ready:
                 seed_archive_save_data->seed_archive = *seed_archive;
                 randomizer_seed.read(seed_archive_save_data->seed_archive, seed::parse, true);
-                game_seed().trigger(seed::SeedClientEvent::SaveLoaded, true);
+                game_seed().trigger(seed::SeedClientEvent::SeedChanged, true);
                 break;
             case seed::SourceStatus::Loading:
                 message_queue().enqueue({
