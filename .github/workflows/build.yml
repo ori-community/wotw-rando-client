@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Upgrade LLVM
-        run: choco install llvm --upgrade --no-progress
+        run: choco upgrade llvm --no-progress
       - name: Enable Git support for long file paths
         run: git config --system core.longpaths true
       - name: Run sccache-cache
