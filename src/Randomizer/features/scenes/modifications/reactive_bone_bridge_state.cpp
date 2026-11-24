@@ -15,7 +15,7 @@ namespace {
     std::optional<il2cpp::WeakGCRef<app::GameObject>> bone_bridge_go_ref;
 
     common::Droppable::ptr_t uber_state_bus_handle;
-    common::Droppable::ptr_t on_respawn_handle;
+    common::Droppable::ptr_t on_restored_checkpoint_handle;
 
     auto& bone_bridge_broken_state = core::uber_states::state<"swampStateGroup", "boneBridgeBroken">();
 
@@ -38,7 +38,7 @@ namespace {
             bone_bridge_go_ref = std::nullopt;
             destruction_timeline_ref = std::nullopt;
             uber_state_bus_handle = nullptr;
-            on_respawn_handle = nullptr;
+            on_restored_checkpoint_handle = nullptr;
         }
     }
 
@@ -83,7 +83,7 @@ namespace {
                 }
             );
 
-            on_respawn_handle = core::api::game::event_bus().on<core::api::game::events::Respawned>([](auto) {
+            on_restored_checkpoint_handle = core::api::game::event_bus().on<core::api::game::events::RestoredCheckpoint>([](auto) {
                 apply_bone_bridge();
             });
         }

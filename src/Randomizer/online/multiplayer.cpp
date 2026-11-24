@@ -33,9 +33,6 @@ namespace randomizer::online {
         m_bus_handles.emplace_back(core::api::game::event_bus().on<core::api::game::events::AfterNewGameInitialized>([this](auto) {
             request_full_sync();
         }));
-        m_bus_handles.emplace_back(core::api::game::event_bus().on<core::api::game::events::Respawned>([this](auto) {
-            request_full_sync();
-        }));
         m_bus_handles.emplace_back(core::api::game::event_bus().on<core::api::game::events::RestoredCheckpoint>([this](auto) {
             request_full_sync();
         }));

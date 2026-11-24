@@ -15,12 +15,15 @@ namespace {
         return next::InstantiateUtility::InstantiateImmediate_4(original, position, rotation, owner, record);
     }
 
-    IL2CPP_INTERCEPT(void, SeinDamageReciever, OnRestoreCheckpoint, app::SeinDamageReciever * this_ptr) {
+    IL2CPP_INTERCEPT_WITH_ORDER(10, void, SeinDamageReciever, OnRestoreCheckpoint, app::SeinDamageReciever* this_ptr) {
         // This is set to false inside OnRestoreCheckpoint again but makes sure,
         // SeinHealthController::OnRespawn and SeinEnergy::OnRespawn are called
         // to properly initialize health and energy values after QtM or voiding
         this_ptr->fields.m_died = true;
-        common::ScopedSetter _(prevent_instantiating_respawn_effect, true);
+
+        // Prevent the respawn effect (sound & animation) from playing
+        common::ScopedSetter _(prevent_instantiating_respawn_effect, !this_ptr->fields.m_died);
+
         next::SeinDamageReciever::OnRestoreCheckpoint(this_ptr);
     }
 }

@@ -31,8 +31,8 @@ namespace core::api::game {
         struct RestoredCheckpoint {};
         struct BeforeFinishLoadingSave {};
         struct FinishedLoadingSave {};
-        struct BeforeRespawn {};
-        struct Respawned {};
+        struct BeforeRespawnAfterDeath {};
+        struct RespawnedAfterDeath {};
         struct UberStateValueStoreLoaded {};
         struct OpenedAreaMap {};
         struct ClosedAreaMap {};
@@ -62,8 +62,8 @@ namespace core::api::game {
             RestoredCheckpoint,
             BeforeFinishLoadingSave,
             FinishedLoadingSave,
-            BeforeRespawn,
-            Respawned,
+            BeforeRespawnAfterDeath,
+            RespawnedAfterDeath,
             UberStateValueStoreLoaded,
             OpenedAreaMap,
             ClosedAreaMap,

@@ -65,7 +65,7 @@ namespace randomizer {
         });
 
         [[maybe_unused]]
-        auto on_respawn = core::api::game::event_bus().on<core::api::game::events::Respawned>([](auto) {
+        auto on_restored_checkoint = core::api::game::event_bus().on<core::api::game::events::RestoredCheckpoint>([](auto) {
             message_queue().clear_since_last_checkpoint();
         });
 
@@ -142,6 +142,11 @@ namespace randomizer {
         [[maybe_unused]]
         auto on_restore_checkpoint = core::api::game::event_bus().on<core::api::game::events::RestoredCheckpoint>([](auto) {
             randomizer_seed.trigger(seed::SeedClientEvent::SaveLoaded);
+        });
+
+        [[maybe_unused]]
+        auto on_respawned = core::api::game::event_bus().on<core::api::game::events::RespawnedAfterDeath>([](auto) {
+            randomizer_seed.trigger(seed::SeedClientEvent::RespawnAfterDeath);
         });
 
         [[maybe_unused]]
@@ -228,6 +233,7 @@ namespace randomizer {
             case seed::SourceStatus::Ready:
                 seed_archive_save_data->seed_archive = *seed_archive;
                 randomizer_seed.read(seed_archive_save_data->seed_archive, seed::parse, true);
+                game_seed().trigger(seed::SeedClientEvent::SaveLoaded, true);
                 break;
             case seed::SourceStatus::Loading:
                 message_queue().enqueue({

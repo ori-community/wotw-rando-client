@@ -35,7 +35,7 @@ namespace randomizer::input {
 
         [[maybe_unused]]
         auto on_progress_hint_before = event_bus().on<events::ActionPressed>(Action::ShowProgressWithHints, [](auto) {
-            game_seed().trigger(seed::SeedClientEvent::ShowProgress);
+            game_seed().trigger(seed::SeedClientEvent::ProgressMessage);
         });
 
         [[maybe_unused]]

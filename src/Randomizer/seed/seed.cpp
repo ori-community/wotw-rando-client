@@ -193,6 +193,14 @@ namespace randomizer::seed {
         for (const auto& command: m_parse_output->data.events[event]) {
             execute_command(command);
         }
+
+        if (
+            event == SeedClientEvent::Spawn ||
+            event == SeedClientEvent::SaveLoaded ||
+            event == SeedClientEvent::SeedChanged
+        ) {
+            trigger(SeedClientEvent::Initialize, force_outside_game);
+        }
     }
 
     bool Seed::should_grant() const {

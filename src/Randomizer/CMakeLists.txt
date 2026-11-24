@@ -409,6 +409,7 @@ set(
         "seed/parser.h"
         "seed/seedgen_service.h"
         "seed/seed.h"
+        "seed/seed_client_event.h"
         "seed/seed_source.h"
         "stats/game_stats.h"
         "tracking/game_tracker.h"

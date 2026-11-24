@@ -5,7 +5,7 @@
 #include <Modloader/app/structs/GameController_GameDifficultyModes__Enum.h>
 #include <Randomizer/seed/archive.h>
 #include <Randomizer/seed/instructions.h>
-#include <Randomizer/seed/seed_event.h>
+#include <Randomizer/seed/seed_client_event.h>
 #include <Randomizer/seed/seed_source.h>
 #include <nlohmann/json.hpp>
 #include <semver.hpp>

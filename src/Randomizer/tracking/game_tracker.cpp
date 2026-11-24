@@ -279,7 +279,7 @@ namespace randomizer::timing {
         std::optional<app::Vector2> death_position_before_respawn = std::nullopt;
 
         [[maybe_unused]]
-        auto on_respawn = core::api::game::event_bus().on<core::api::game::events::BeforeRespawn>(
+        auto on_respawned_after_death = core::api::game::event_bus().on<core::api::game::events::RespawnedAfterDeath>(
             [](auto) {
                 if (!timer_should_run()) {
                     return;
